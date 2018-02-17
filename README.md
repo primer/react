@@ -1,2 +1,2 @@
-# react-primer
+# Primer react
 Exploring react components.
