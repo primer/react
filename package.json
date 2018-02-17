@@ -1,0 +1,26 @@
+{
+  "name": "primer-react",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Primer react components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/primer-react.git"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "library",
+    "design-system"
+  ],
+  "author": "GitHub, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/primer/primer-react/issues"
+  },
+  "homepage": "https://github.com/primer/primer-react#readme"
+}
