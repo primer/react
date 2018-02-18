@@ -22,6 +22,7 @@ const theme = {
     red: ['#ffeef0', '#ffdce0', '#fdaeb7', '#f97583', '#ea4a5a', '#d73a49', '#cb2431', '#b31d28', '#9e1c23', '#86181d'],
     purple: ['#f5f0ff', '#e6dcfd', '#d1bcf9', '#b392f0', '#8a63d2', '#6f42c1', '#5a32a3', '#4c2889', '#3a1d6e', '#29134e'],
     blackfade15: `rgba(27, 31 ,35, 0.15)`,
+    blackfade20: `rgba(27, 31 ,35, 0.20)`,
     whitefade15: `rgba(255, 255 ,255, 0.15)`
   },
   radii: [ 0, 3, 6 ],
