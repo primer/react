@@ -18,6 +18,12 @@
     "design-system"
   ],
   "author": "GitHub, Inc.",
+  "contributors": [
+    {
+      "name": "Diana Mounter",
+      "email": "diana.mounter@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/primer/primer-react/issues"
@@ -30,5 +36,8 @@
     "react": "^16.2.0",
     "styled-components": "^3.1.6",
     "styled-system": "^2.0.2"
+  },
+  "scripts": {
+    "start": "x0 dev src/Index.js -op 8888"
   }
 }
