@@ -6,6 +6,7 @@ import {
 } from '@compositor/kit'
 import Page from './Page'
 import Box from './Box'
+import ExampleBox from './ExampleBox'
 import Flex from './Flex'
 import Heading from './Heading'
 import Link from './Link'
@@ -65,18 +66,20 @@ const Index = props => (
         </ButtonSecondary>
       </Example>
       <Example name='Flash'>
-        <Flash>
-          Flash message
-        </Flash>
-        <Flash yellow>
-          Flash yellow
-        </Flash>
-        <Flash red>
-          Flash red
-        </Flash>
-        <Flash green>
-          Flash green
-        </Flash>
+        <ExampleBox>
+          <Flash>
+            Flash message
+          </Flash>
+          <Flash yellow>
+            Flash yellow
+          </Flash>
+          <Flash red>
+            Flash red
+          </Flash>
+          <Flash green>
+            Flash green
+          </Flash>
+        </ExampleBox>
       </Example>
       <Example name='Typography'>
         <Text fontSize={7}>
