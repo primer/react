@@ -12,6 +12,7 @@ import Link from './Link'
 import Button from './Button'
 import theme from './theme'
 import Text from './Text'
+import ButtonPrimary from './ButtonPrimary'
 
 const Index = props => (
 
@@ -34,6 +35,23 @@ const Index = props => (
       </Example>
       <Example name='Button'>
         <Button> Button </Button>
+      </Example>
+      <Example name='ButtonPrimary'>
+        <Box mb={4} mr={4}>
+          <ButtonPrimary>
+            button primary
+          </ButtonPrimary>
+        </Box>
+        <Box mb={4} mr={4}>
+          <ButtonPrimary large className='py-2'>
+            large py-2
+          </ButtonPrimary>
+        </Box>
+        <Box mb={4} mr={4}>
+          <ButtonPrimary small>
+            small
+          </ButtonPrimary>
+        </Box>
       </Example>
       <Example name='Typography'>
         <Text fontSize={7}>
