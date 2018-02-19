@@ -14,6 +14,7 @@ import theme from './theme'
 import Text from './Text'
 import ButtonPrimary from './ButtonPrimary'
 import ButtonSecondary from './ButtonSecondary'
+import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
 
 const Index = props => (
@@ -47,6 +48,11 @@ const Index = props => (
         <ButtonSecondary>
           button secondary
         </ButtonSecondary>
+      </Example>
+      <Example name='ButtonDanger'>
+        <ButtonDanger>
+          button danger
+        </ButtonDanger>
       </Example>
       <Example name='Button small'>
         <ButtonSecondary small>
