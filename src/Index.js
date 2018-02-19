@@ -13,6 +13,7 @@ import Button from './Button'
 import theme from './theme'
 import Text from './Text'
 import ButtonPrimary from './ButtonPrimary'
+import ButtonSecondary from './ButtonSecondary'
 import Flash from './Flash'
 
 const Index = props => (
@@ -38,21 +39,24 @@ const Index = props => (
         <Button> Button </Button>
       </Example>
       <Example name='ButtonPrimary'>
-        <Box mb={4} mr={4}>
-          <ButtonPrimary>
-            button primary
-          </ButtonPrimary>
-        </Box>
-        <Box mb={4} mr={4}>
-          <ButtonPrimary large className='py-2'>
-            large py-2
-          </ButtonPrimary>
-        </Box>
-        <Box mb={4} mr={4}>
-          <ButtonPrimary small>
-            small
-          </ButtonPrimary>
-        </Box>
+        <ButtonPrimary>
+          button primary
+        </ButtonPrimary>
+      </Example>
+      <Example name='ButtonSecondary'>
+        <ButtonSecondary>
+          button secondary
+        </ButtonSecondary>
+      </Example>
+      <Example name='Button small'>
+        <ButtonSecondary small>
+          button small
+        </ButtonSecondary>
+      </Example>
+      <Example name='Button large'>
+        <ButtonSecondary large>
+          button large
+        </ButtonSecondary>
       </Example>
       <Example name='Flash'>
         <Flash>
