@@ -8,7 +8,7 @@ const ButtonPrimary = props => (
         props.className,
         'btn btn-primary', {
           'btn-sm': props.small,
-          'btn-lg': props.large,
+          'btn-large': props.large,
         }
       )}
     />
