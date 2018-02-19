@@ -71,7 +71,7 @@ const Index = props => (
           button large
         </ButtonSecondary>
       </Example>
-      <Example name='Flash'>
+      <Example name='Flash themes'>
         <ExampleBox>
           <Flash>
             Flash message
@@ -87,7 +87,7 @@ const Index = props => (
           </Flash>
         </ExampleBox>
       </Example>
-      <Example name='Typography'>
+      <Example name='Font Sizes'>
         <Text fontSize={7}>
         fontSize 7
         </Text>
