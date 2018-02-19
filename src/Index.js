@@ -37,6 +37,12 @@ const Index = props => (
       <Example name='Box'>
         <Box p={3} bg='gray.1'> Box </Box>
       </Example>
+      <Example name='Box maxWidths'>
+        <Box p={3} bg='gray.1' maxWidth='small'> Box small </Box>
+        <Box p={3} bg='gray.2' maxWidth='medium'> Box medium </Box>
+        <Box p={3} bg='gray.1' maxWidth='large'> Box large </Box>
+        <Box p={3} bg='gray.2' maxWidth='xlarge'> Box xlarge </Box>
+      </Example>
       <Example name='Button'>
         <Button> Button </Button>
       </Example>

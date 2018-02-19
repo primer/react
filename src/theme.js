@@ -6,6 +6,12 @@ const theme = {
     '1012px',
     '1280px'
   ],
+  maxWidths: {
+    small: '544px',
+    medium: '768px',
+    large: '1012px',
+    xlarge: '1280px'
+  },
   fonts: [
     '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
   ],
