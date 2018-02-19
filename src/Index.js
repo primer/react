@@ -74,7 +74,7 @@ const Index = props => (
       <Example name='Flash themes'>
         <ExampleBox>
           <Flash>
-            Flash message
+            Flash
           </Flash>
           <Flash yellow>
             Flash yellow
@@ -86,6 +86,11 @@ const Index = props => (
             Flash green
           </Flash>
         </ExampleBox>
+      </Example>
+      <Example name='Flash full'>
+        <Flash full>
+          Flash full
+        </Flash>
       </Example>
       <Example name='Font Sizes'>
         <Text fontSize={7}>
