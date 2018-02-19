@@ -13,6 +13,7 @@ import Button from './Button'
 import theme from './theme'
 import Text from './Text'
 import ButtonPrimary from './ButtonPrimary'
+import Flash from './Flash'
 
 const Index = props => (
 
@@ -52,6 +53,20 @@ const Index = props => (
             small
           </ButtonPrimary>
         </Box>
+      </Example>
+      <Example name='Flash'>
+        <Flash>
+          Flash message
+        </Flash>
+        <Flash yellow>
+          Flash yellow
+        </Flash>
+        <Flash red>
+          Flash red
+        </Flash>
+        <Flash green>
+          Flash green
+        </Flash>
       </Example>
       <Example name='Typography'>
         <Text fontSize={7}>
