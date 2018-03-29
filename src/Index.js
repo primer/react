@@ -43,25 +43,25 @@ const Index = props => (
           <Box p={3} bg='gray.2' maxWidth='xlarge'> Box xlarge </Box>
         </Example>
         <Example name='Button'>
-          {ButtonTemplate(Button, 'button')}
+          {buttonTemplate(Button, 'button')}
         </Example>
         <Example name='ButtonPrimary'>
-          {ButtonTemplate(ButtonPrimary, 'primary button')}
+          {buttonTemplate(ButtonPrimary, 'primary button')}
         </Example>
         <Example name='ButtonSecondary'>
-          {ButtonTemplate(ButtonSecondary, 'secondary button')}
+          {buttonTemplate(ButtonSecondary, 'secondary button')}
         </Example>
         <Example name='ButtonDanger'>
-          {ButtonTemplate(ButtonDanger, 'danger')}
+          {buttonTemplate(ButtonDanger, 'danger')}
         </Example>
         <Example name='Button small'>
-          {ButtonTemplate(props => <Button size='small' {...props}>{props.children}</Button>, 'small')}
+          {buttonTemplate(props => <Button size='small' {...props}>{props.children}</Button>, 'small')}
         </Example>
         <Example name='Button large'>
-          {ButtonTemplate(props => <Button size='large' {...props}>{props.children}</Button>, 'large')}
+          {buttonTemplate(props => <Button size='large' {...props}>{props.children}</Button>, 'large')}
         </Example>
         <Example name='Link button'>
-          {ButtonTemplate(Button.a, 'link', false)}
+          {buttonTemplate(Button.a, 'link', false)}
         </Example>
         <Example name='Flash themes'>
           <ExampleBox>
@@ -128,7 +128,7 @@ const Index = props => (
   </Page>
 )
 
-const ButtonTemplate = (ButtonClass, label, disabled=true) => (
+const buttonTemplate = (ButtonClass, label, disabled=true) => (
   <React.Fragment>
     <Box mb={2}><ButtonClass>{label}</ButtonClass></Box>
     <Box mb={2}><ButtonClass className='hover'>{label} :hover</ButtonClass></Box>
