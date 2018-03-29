@@ -43,32 +43,25 @@ const Index = props => (
           <Box p={3} bg='gray.2' maxWidth='xlarge'> Box xlarge </Box>
         </Example>
         <Example name='Button'>
-          <Button> Button </Button>
+          {ButtonTemplate(Button, 'button')}
         </Example>
         <Example name='ButtonPrimary'>
-          <ButtonPrimary>
-            button primary
-          </ButtonPrimary>
+          {ButtonTemplate(ButtonPrimary, 'primary button')}
         </Example>
         <Example name='ButtonSecondary'>
-          <ButtonSecondary>
-            button secondary
-          </ButtonSecondary>
+          {ButtonTemplate(ButtonSecondary, 'secondary button')}
         </Example>
         <Example name='ButtonDanger'>
-          <ButtonDanger>
-            button danger
-          </ButtonDanger>
+          {ButtonTemplate(ButtonDanger, 'danger')}
         </Example>
         <Example name='Button small'>
-          <ButtonSecondary small>
-            button small
-          </ButtonSecondary>
+          {ButtonTemplate(props => <Button size='small' {...props}>{props.children}</Button>, 'small')}
         </Example>
         <Example name='Button large'>
-          <ButtonSecondary large>
-            button large
-          </ButtonSecondary>
+          {ButtonTemplate(props => <Button size='large' {...props}>{props.children}</Button>, 'large')}
+        </Example>
+        <Example name='Link button'>
+          {ButtonTemplate(Button.a, 'link', false)}
         </Example>
         <Example name='Flash themes'>
           <ExampleBox>
@@ -92,30 +85,14 @@ const Index = props => (
           </Flash>
         </Example>
         <Example name='Font Sizes'>
-          <Text fontSize={7}>
-          fontSize 7
-          </Text>
-          <Text fontSize={6}>
-          fontSize 6
-          </Text>
-          <Text fontSize={5}>
-            fontSize 5
-          </Text>
-          <Text fontSize={4}>
-            fontSize 4
-          </Text>
-          <Text fontSize={3}>
-          fontSize 3
-          </Text>
-          <Text fontSize={2}>
-          fontSize 2
-          </Text>
-          <Text fontSize={1}>
-          fontSize 1
-          </Text>
-          <Text fontSize={0}>
-          fontSize 0
-          </Text>
+          <Text fontSize={7}>fontSize 7</Text>
+          <Text fontSize={6}>fontSize 6</Text>
+          <Text fontSize={5}>fontSize 5</Text>
+          <Text fontSize={4}>fontSize 4</Text>
+          <Text fontSize={3}>fontSize 3</Text>
+          <Text fontSize={2}>fontSize 2</Text>
+          <Text fontSize={1}>fontSize 1</Text>
+          <Text fontSize={0}>fontSize 0</Text>
         </Example>
         <Example name='Text'>
           <Text>
@@ -138,100 +115,41 @@ const Index = props => (
           </Text>
         </Example>
         <Example name='Colors'>
-          <Flex>
-            {theme.colors.gray.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`gray.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                gray {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          <Flex>
-            {theme.colors.blue.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`blue.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                blue {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          <Flex>
-            {theme.colors.green.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`green.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                green {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          <Flex>
-            {theme.colors.purple.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`purple.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                purple {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          <Flex>
-            {theme.colors.yellow.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`yellow.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                yellow {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          <Flex>
-            {theme.colors.orange.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`orange.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                orange {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          <Flex>
-            {theme.colors.red.map((val, i) => (
-              <div key={val}>
-                <Box mt={3} p={6} m={1} bg={`red.${i}`} />
-                <Heading.h3 fontSize={2} px={1}>
-                red {i}
-                </Heading.h3>
-                <Text px={1}>
-                  {val}
-                </Text>
-              </div>
-            ))}
-          </Flex>
+          <Flex>{colorSwatches('gray')}</Flex>
+          <Flex>{colorSwatches('blue')}</Flex>
+          <Flex>{colorSwatches('green')}</Flex>
+          <Flex>{colorSwatches('purple')}</Flex>
+          <Flex>{colorSwatches('yellow')}</Flex>
+          <Flex>{colorSwatches('orange')}</Flex>
+          <Flex>{colorSwatches('red')}</Flex>
         </Example>
       </Library>
     </KitProvider>
   </Page>
 )
+
+const ButtonTemplate = (ButtonClass, label, disabled=true) => (
+  <React.Fragment>
+    <Box mb={2}><ButtonClass>{label}</ButtonClass></Box>
+    <Box mb={2}><ButtonClass className='hover'>{label} :hover</ButtonClass></Box>
+    <Box mb={2}><ButtonClass className='focus'>{label} :focus</ButtonClass></Box>
+    <Box mb={2}><ButtonClass className='selected'>{label} :active</ButtonClass></Box>
+    {disabled ? <Box><ButtonClass disabled>{label} :disabled</ButtonClass></Box> : ''}
+  </React.Fragment>
+)
+
+const colorSwatches = (name) => (
+  theme.colors[name].map((val, i) => (
+    <div key={val}>
+      <Box mt={3} p={6} m={1} bg={`${name}.${i}`} />
+      <Heading.h3 fontSize={2} px={1}>
+        {name} {i}
+      </Heading.h3>
+      <Text px={1}>
+        {val}
+      </Text>
+    </div>
+  ))
+)
+
 export default Index
