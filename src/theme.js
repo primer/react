@@ -1,5 +1,7 @@
+import {css} from 'styled-components'
+import {color, rgba} from './utils'
 
-const theme = {
+export default {
   breakpoints: [
     '544px',
     '768px',
@@ -27,9 +29,11 @@ const theme = {
     orange: ['#fff8f2', '#ffebda', '#ffd1ac', '#ffab70', '#fb8532', '#f66a0a', '#e36209', '#d15704', '#c24e00', '#a04100'],
     red: ['#ffeef0', '#ffdce0', '#fdaeb7', '#f97583', '#ea4a5a', '#d73a49', '#cb2431', '#b31d28', '#9e1c23', '#86181d'],
     purple: ['#f5f0ff', '#e6dcfd', '#d1bcf9', '#b392f0', '#8a63d2', '#6f42c1', '#5a32a3', '#4c2889', '#3a1d6e', '#29134e'],
-    blackfade15: `rgba(27, 31 ,35, 0.15)`,
-    blackfade20: `rgba(27, 31 ,35, 0.20)`,
-    whitefade15: `rgba(255, 255 ,255, 0.15)`
+    blackfade15: () => css`${rgba(color('black'), 0.15)}`,
+    blackfade20: () => css`${rgba(color('black'), 0.20)}`,
+    blackfade50: () => css`${rgba(color('black'), 0.50)}`,
+    bluefade30: () => css`${rgba(color('blue.3'), 0.3)}`,
+    whitefade15: () => css`${rgba(color('white'), 0.15)}`
   },
   radii: [ 0, 3, 6 ],
   space: [
@@ -51,7 +55,9 @@ const theme = {
     32,
     40,
     48
-  ]
+  ],
+  button: {
+    focusShadow: () => css`0 0 0 0.2em ${color('bluefade30')}`,
+    activeShadow: () => css`inset 0 0.15em 0.3em ${color('blackfade15')}`,
+  },
 }
-
-export default theme
