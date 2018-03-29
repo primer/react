@@ -1,17 +1,14 @@
 import React from 'react'
-import classnames from 'classnames'
+import styled from 'styled-components'
+import {color} from './utils'
+import Button, {inverse} from './Button'
 
-const ButtonDanger = props => (
-    <button
-      {...props}
-      className={classnames(
-        props.className,
-        'btn btn-danger', {
-          'btn-sm': props.small,
-          'btn-large': props.large,
-        }
-      )}
-    />
-)
+const ButtonDanger = styled(Button)`
+  ${inverse(
+    color('red.6'),
+    color('gray.0'),
+    color('gray.1') /* TODO: darken 2% */
+  )}
+`
 
 export default ButtonDanger
