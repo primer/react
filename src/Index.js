@@ -17,9 +17,9 @@ import ButtonPrimary from './ButtonPrimary'
 import ButtonSecondary from './ButtonSecondary'
 import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
+import Dropdown from './Dropdown'
 
 const Index = props => (
-
   <Page>
   <KitProvider>
     <Library>
@@ -231,8 +231,41 @@ const Index = props => (
           ))}
         </Flex>
       </Example>
+      <Example name='Dropdown'>
+        <Box mt={4}>
+          <DropdownExample>
+            <Dropdown.Button>Basic example</Dropdown.Button>
+            <Dropdown.Item>One</Dropdown.Item>
+            <Dropdown.Item>Two</Dropdown.Item>
+            <Dropdown.Item>Three</Dropdown.Item>
+          </DropdownExample>
+          <DropdownExample>
+            <Dropdown.Button className='btn-link no-underline text-gray p-2'>Custom button</Dropdown.Button>
+            <Dropdown.Item>One</Dropdown.Item>
+            <Dropdown.Item>Two</Dropdown.Item>
+            <Dropdown.Item>Three</Dropdown.Item>
+          </DropdownExample>
+          {['ne', 'se', /*'nw',*/ 'sw'].map(direction => (
+            <DropdownExample direction={direction}>
+              <Dropdown.Button>Direction: {direction}</Dropdown.Button>
+              <Dropdown.Item>One</Dropdown.Item>
+              <Dropdown.Item>Two</Dropdown.Item>
+              <Dropdown.Item>Three</Dropdown.Item>
+            </DropdownExample>
+          ))}
+        </Box>
+      </Example>
     </Library>
   </KitProvider>
   </Page>
 )
+
+const DropdownExample = ({direction, children, ...rest}) => (
+  <Box mb={2} maxWidth={300} textAlign={direction === 'sw' ? 'right' : null}>
+    <Dropdown direction={direction} {...rest}>
+      {children}
+    </Dropdown>
+  </Box>
+)
+
 export default Index
