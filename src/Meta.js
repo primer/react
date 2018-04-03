@@ -19,7 +19,6 @@ const Meta = () => (
     <link rel='stylesheet' href='https://unpkg.com/primer-product/build/build.css' />
     <link rel='stylesheet' href='https://unpkg.com/primer-marketing/build/build.css' />
     <link rel='stylesheet' href='https://github.com/site/assets/styleguide.css' />
-    <Script src='https://github.com/site/assets/styleguide.js'/>
     <link rel='icon' href='assets/favicon.png' />
     <link rel='apple-touch-icon' href='assets/apple-touch-icon.png' />
     <meta name='og:title' content='Primer React' />
