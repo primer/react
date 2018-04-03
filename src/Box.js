@@ -4,7 +4,8 @@ import {
   width,
   maxWidth,
   flex,
-  color
+  color,
+  textAlign
 } from 'styled-system'
 
 const Box = styled.div`
@@ -13,6 +14,7 @@ const Box = styled.div`
   ${maxWidth}
   ${flex}
   ${color}
+  ${textAlign}
 `
 
 export default Box
