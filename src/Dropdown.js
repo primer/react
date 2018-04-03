@@ -1,25 +1,37 @@
 import React from 'react'
-import {splice} from './lib/utils'
 
-const Dropdown = ({children, direction='se', ...rest}) => {
-  const items = React.Children.toArray(children)
-  const buttons = splice(items, child => child.type === DropdownButton)
-  return (
-    <div className='dropdown js-menu-container js-select-menu' {...rest}>
-      {buttons}
-      <div className='dropdown-menu-content js-menu-content'>
+export default class Dropdown extends React.Component {
+  constructor({open=false, direction, ...props}) {
+    super(props)
+    this.state = {open, direction}
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle() {
+    return this.setState({open: !this.state.open})
+  }
+
+  render() {
+    const {className='', children, ...rest} = this.props
+    const items = React.Children.toArray(children)
+    // FIXME: just take the first child?
+    const summary = items.splice(0, 1)
+    const {open, direction='se'} = this.state
+    return (
+      <details className={`details-reset position-relative ${className}`} open={open} {...rest}>
+        <summary onClick={this.toggle}>{summary}</summary>
         <ul className={`dropdown-menu text-left ${direction ? 'dropdown-menu-' + direction : ''}`}>
           {items}
         </ul>
-      </div>
-    </div>
-  )
+      </details>
+    )
+  }
 }
 
 function DropdownButton({className='', children, ...rest}) {
   const klass = className.includes('btn-link') ? className : `btn ${className}`
   return (
-    <button className={`${klass} dropdown-toggle js-menu-target`}
+    <button className={`${klass} dropdown-toggle`}
       {...rest}>
       {children}{' '}<div className='dropdown-caret'/>
     </button>
@@ -38,6 +50,3 @@ function DropdownItem({children, ...rest}) {
 
 Dropdown.Item = DropdownItem
 Dropdown.Button = DropdownButton
-
-export default Dropdown
-export {DropdownButton, DropdownItem}
