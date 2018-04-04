@@ -17,9 +17,9 @@ import ButtonPrimary from './ButtonPrimary'
 import ButtonSecondary from './ButtonSecondary'
 import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
+import DetailsDialog from './DetailsDialog'
 
 const Index = props => (
-
   <Page>
   <KitProvider>
     <Library>
@@ -231,8 +231,26 @@ const Index = props => (
           ))}
         </Flex>
       </Example>
+
+      <Example name='details-dialog'>
+        <details className='details-reset'>
+          <summary className='btn btn-primary'>
+            Open the dialog
+          </summary>
+          <DetailsDialog title='Box title'>
+            <p>
+              The quick brown fox jumps over the lazy dog and feels as if he were in the seventh heaven of typography together with Hermann Zapf, the most famous artist of the...
+            </p>
+            <button type='button' className='btn btn-block mt-2'
+              autofocus data-close-dialog>
+              Okidoki
+            </button>
+          </DetailsDialog>
+        </details>
+      </Example>
     </Library>
   </KitProvider>
   </Page>
 )
+
 export default Index
