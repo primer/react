@@ -15,7 +15,7 @@ export default class App extends Component {
     return (
       <div ref={ref => (this.root = ref)}>
         <p className='mb-2'>
-          <CopyButton for='text-1' buttonType='primary'>
+          <CopyButton for='text-1' className='btn btn-primary'>
             Copy this:
           </CopyButton>
           <tt id='text-1' className='ml-2'>some text</tt>

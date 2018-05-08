@@ -10,9 +10,11 @@
   <body class="p-4">
     <h1 class="mb-4">React + Custom Elements (1)</h1>
 
-    <div class="my-4 text-gray">
-      <h2 class="mb-2">Goal: Test a React component that wraps a custom element and imports
-        its definition to its own JS bundle</h2>
+    <h2 class="mb-2">The Goal</h2>
+
+    <section class="mb-4 text-gray border-left pl-3">
+      <h3 class="mb-2">Test a React component that wraps a custom element and imports
+        its definition to its own JS bundle</h3>
 
       <blockquote>We want to share components between dotcom and other web applications so
       that they are consistent in implementation and for users. It's likely that
@@ -21,14 +23,32 @@
       to use custom elements open-sourced by GitHub within a React component
       library, and use React to encapsulate the styles along with it, so it's
       worth testing this in practice.</blockquote>
-    </div>
+    </section>
 
     <main id="app" class="Box p-4 my-4"></main>
     <script src="index.js"></script>
 
-    <div class="my-4">
+    <section class="my-4" id="notes">
       <h2 class="mb-2">Notes</h2>
-      <ul class="px-4">
+
+      <p>
+          This approach wraps <a
+            href="https://github.com/github/clipboard-copy-element">&lt;clipboard-copy&gt;</a>
+          as a React component that imports the custom element declaration in
+          the bundle.
+      </p>
+
+      <h3>Pros</h3>
+      <ul class="px-4 mb-2">
+        <li>There's a 1:1 relationship between the React component and the Web Component, down to the dependency version.</li>
+        <li>The component API can be modified later to account for changes in the custom element implementation.</li>
+      </ul>
+
+      <h3>Cons</h3>
+      <p>Are there any?</p>
+
+      <h3>Etc.</h3>
+      <ul class="px-4 mb-2">
         <li>The <a
             href="https://github.com/github/babel-plugin-transform-custom-element-classes">transform-custom-element-classes</a>
           babel plugin is required to bundle custom element definitions.</li>
@@ -37,6 +57,10 @@
           with <code>classname</code> attributes instead of <code>class</code>;
           I've placed the fix for this in <a
         href="dangerfile.js">dangerfile.js</a>.</li>
+        <li>Eventually, we will need to account for <a
+            href="https://github.com/reactjs/rfcs/pull/15">this RFC</a>, and
+          any corresponding changes in React 17 related to custom
+          elements.</li>
       </ul>
     </div>
   </body>
