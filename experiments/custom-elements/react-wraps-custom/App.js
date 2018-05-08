@@ -6,8 +6,8 @@ export default class App extends Component {
   componentDidMount() {
     const {root} = this
     fixClassnameAttrs(root)
-    root.addEventListener('copy', function(event) {
-      console.warn('copied:', event)
+    root.addEventListener('copy', event => {
+      console.warn('copy:', event)
     })
   }
 
@@ -21,7 +21,7 @@ export default class App extends Component {
           <tt id='text-1' className='ml-2'>some text</tt>
         </p>
         <p>Then you can paste it here:</p>
-        <textarea></textarea>
+        <input type='text'/>
       </div>
     )
   }
