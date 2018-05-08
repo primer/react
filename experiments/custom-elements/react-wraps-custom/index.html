@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>React + Custom Elements (1)</title>
+    <link rel="stylesheet" href="https://unpkg.com/primer-base/build/build.css">
+    <link rel="stylesheet" href="https://unpkg.com/primer-box/build/build.css">
+    <link rel="stylesheet" href="https://unpkg.com/primer-buttons/build/build.css">
+    <link rel="stylesheet" href="https://unpkg.com/primer-utilities/build/build.css">
+  </head>
+  <body class="p-4">
+    <h1>A React component that wraps a custom element and imports its
+      definition to its own bundle</h1>
+
+    <p>We want to share components between dotcom and other web applications so
+    that they are consistent in implementation and for users. It's likely that
+    we will continue to use custom elements on dotcom for the foreseeable
+    future, and use React for other github applications. It make sense for us
+    to use custom elements open-sourced by GitHub within a React component
+    library, and use React to encapsulate the styles along with it, so it's
+    worth testing this in practice.</p>
+
+    <main id="app" class="p-4 bg-gray-light"></main>
+    <script src="index.js"></script>
+  </body>
+</html>
