@@ -3,7 +3,6 @@ import React from 'react'
 const primerPackages = [
   'primer-box',
   'primer-breadcrumb',
-  'primer-buttons',
   'primer-forms',
   'primer-layout',
   'primer-marketing',

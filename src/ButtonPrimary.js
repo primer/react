@@ -1,17 +1,14 @@
 import React from 'react'
-import classnames from 'classnames'
+import styled from 'styled-components'
+import Button, {solid} from './Button'
+import {color} from './utils'
 
-const ButtonPrimary = props => (
-    <button
-      {...props}
-      className={classnames(
-        props.className,
-        'btn btn-primary', {
-          'btn-sm': props.small,
-          'btn-large': props.large,
-        }
-      )}
-    />
-)
+const ButtonPrimary = styled(Button)`
+  ${solid(
+    color('white'),
+    color('green.4'),
+    color('green.5')
+  )}
+`
 
 export default ButtonPrimary
