@@ -1,13 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "start": "parcel serve index.html",
+    "dev": "parcel serve index.html -p ${PORT:-1234}",
     "build": "NODE_ENV=production parcel build index.html",
+    "prestart": "npm run build",
+    "start": "http-server dist",
     "test": "npm run build"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "clipboard-copy-element": "^0.4.0",
+    "http-server": "^0.11.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
@@ -15,6 +18,7 @@
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "parcel": "^1.8.1",
     "parcel-plugin-markdown": "^0.2.1"
   }
