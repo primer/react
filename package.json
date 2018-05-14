@@ -42,7 +42,8 @@
     "classnames": "^2.2.5",
     "react": "^16.2.0",
     "styled-components": "^3.1.6",
-    "styled-system": "^2.0.2"
+    "styled-system": "^2.0.2",
+    "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
     "jest": "^22.4.3",
