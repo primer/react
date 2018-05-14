@@ -9,7 +9,7 @@ import Box from './Box'
 import ExampleBox from './ExampleBox'
 import UtilityBox from './UtilityBox'
 import Flex from './Flex'
-import Heading, {H3} from './Heading'
+import Heading from './Heading'
 import Link from './Link'
 import Button from './Button'
 import theme from './theme'
@@ -22,9 +22,9 @@ import Flash from './Flash'
 const Swatch = ({name, index, color, ...rest}) => (
   <div {...rest} key={index}>
     <Box mt={3} p={6} m={1} bg={`${name}.${index}`} />
-    <H3 fontSize={2} px={1}>
+    <Heading.h3 fontSize={2} px={1}>
       {name}.{index}
-    </H3>
+    </Heading.h3>
     <Text px={1}>
       {color}
     </Text>
@@ -37,9 +37,13 @@ const Index = props => (
       <Library>
         <Library.Nav />
         <Example name='Heading'>
-          <Heading>
-            Heading
-          </Heading>
+          <Heading mb={2}>Heading</Heading>
+          <Heading.h1 fontSize={6} mb={2}>Heading (h1@6)</Heading.h1>
+          <Heading.h2 fontSize={5} mb={2}>Heading (h2@5)</Heading.h2>
+          <Heading.h3 fontSize={4} mb={2}>Heading (h3@4)</Heading.h3>
+          <Heading.h4 fontSize={3} mb={2}>Heading (h4@3)</Heading.h4>
+          <Heading.h5 fontSize={2} mb={2}>Heading (h5@2)</Heading.h5>
+          <Heading.h6 fontSize={1} mb={2}>Heading (h6@1)</Heading.h6>
         </Example>
         <Example name='Link'>
           <Link href="https://github.com">
