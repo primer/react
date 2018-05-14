@@ -8,7 +8,14 @@ const stateColorMap = Object.freeze({
   merged: 'purple',
 })
 
-const State = ({small, is, bg, className, ...rest}) => {
+export default function StateLabel(props) {
+  const {
+    small,
+    is,
+    bg,
+    className,
+    ...rest
+  } = props
   const color = bg || stateColorMap[is]
   return (
     <div {...rest} className={classnames(
@@ -21,5 +28,4 @@ const State = ({small, is, bg, className, ...rest}) => {
   )
 }
 
-export default State
 export {stateColorMap}
