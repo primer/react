@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "x0 dev src/Index.js -op 8888",
-    "build": "x0 build src/Index.js --out-dir docs"
+    "build": "x0 build src/Index.js --out-dir docs",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -42,8 +43,8 @@
     "styled-system": "^2.0.2",
     "system-classnames": "^1.0.0-3"
   },
-  "x0": {
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react"
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "react-test-renderer": "^16.3.2"
   }
 }
