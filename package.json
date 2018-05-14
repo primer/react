@@ -9,6 +9,10 @@
     "build": "x0 build src/Index.js --out-dir docs",
     "test": "jest"
   },
+  "x0": {
+    "cssLibrary": "styled-components",
+    "basename": "/primer-react"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/primer/primer-react.git"
