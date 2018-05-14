@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const Counter = ({className, bg, ...props}) => (
+const CounterLabel = ({className, bg, ...props}) => (
     <span
       {...props}
       className={classnames(
@@ -12,4 +12,4 @@ const Counter = ({className, bg, ...props}) => (
     />
 )
 
-export default Counter
+export default CounterLabel
