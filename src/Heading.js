@@ -9,11 +9,19 @@ Heading.defaultProps = {
   m: 0,
 }
 
-Heading.h1 = Heading.withComponent('h1')
-Heading.h2 = Heading.withComponent('h2')
-Heading.h3 = Heading.withComponent('h3')
-Heading.h4 = Heading.withComponent('h4')
-Heading.h5 = Heading.withComponent('h5')
-Heading.h6 = Heading.withComponent('h6')
+const H1 = Heading.withComponent('h1')
+const H2 = Heading.withComponent('h2')
+const H3 = Heading.withComponent('h3')
+const H4 = Heading.withComponent('h4')
+const H5 = Heading.withComponent('h5')
+const H6 = Heading.withComponent('h6')
 
 export default Heading
+export {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6
+}
