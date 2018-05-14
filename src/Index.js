@@ -10,6 +10,8 @@ import ExampleBox from './ExampleBox'
 import UtilityBox from './UtilityBox'
 import Flex from './Flex'
 import Heading from './Heading'
+import Label from './Label'
+import LabelOutline from './LabelOutline'
 import Link from './Link'
 import Button from './Button'
 import theme from './theme'
@@ -28,6 +30,25 @@ const Index = props => (
           <Heading>
             Heading
           </Heading>
+        </Example>
+        <Example name='Label'>
+          <Label gray>
+            Label
+          </Label>
+          <Label orange>
+            Label
+          </Label>
+          <Label graydarker>
+            Label
+          </Label>
+        </Example>
+        <Example name='Label outline'>
+          <LabelOutline>
+            Label outline
+          </LabelOutline>
+          <LabelOutline green>
+            Label outline green
+          </LabelOutline>
         </Example>
         <Example name='Link'>
           <Link href="https://github.com">
