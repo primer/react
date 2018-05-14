@@ -1,15 +1,13 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const Counter = props => (
+const Counter = ({className, bg, ...props}) => (
     <span
       {...props}
       className={classnames(
-        props.className,
-        'Counter', {
-          'Counter--gray': props.gray,
-          'Counter--gray': props.graylight,
-        }
+        className,
+        'Counter',
+        bg ? `Counter--${bg}` : null,
       )}
     />
 )
