@@ -21,15 +21,7 @@ const stateOcticonMap = {
 const getOcticon = state => {
   const name = stateOcticonMap[state]
   return name
-    ? (
-        /* return a fragment including the trailing space */
-        <Fragment>
-          <span className={`octicon octicon-${name}`}>
-            <Octicon name={name}/>
-          </span>
-          {' '}
-        </Fragment>
-      )
+    ? <Octicon name={name} className={`octicon octicon-${name} mr-1`}/>
     : null
 }
 
@@ -38,26 +30,24 @@ export default function StateLabel(props) {
     state,
     bg,
     small,
-    icon,
-    className,
     children,
-    ...rest
   } = props
 
+  let {icon} = props
+  if (icon !== false) {
+    icon = icon || getOcticon(state)
+  }
+
   const color = bg || stateColorMap[state]
-  const octicon = (!state || icon === false)
-    ? null
-    : icon || getOcticon(state)
 
   return (
-    <span {...rest} className={classnames(
-      className,
+    <span className={classnames(
       'State', {
         'State--small': small
       },
       color ? `State--${color}` : null
     )}>
-      {octicon}
+      {icon ? <span className='mr-1'>{icon}</span> : null}
       {children}
     </span>
   )
