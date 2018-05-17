@@ -308,11 +308,7 @@ const Index = props => (
                 <StateLabel small bg='purple'>Purple</StateLabel>
               </span>
               <span className='mr-2'>
-                <StateLabel small bg='green'>
-                  <span className='octicon'>
-                    <Octicon name='git-branch'/>
-                  </span>
-                  {' '}
+                <StateLabel small bg='green' icon={<Octicon name='git-branch'/>}>
                   Custom Octicon
                 </StateLabel>
               </span>
