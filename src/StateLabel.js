@@ -19,10 +19,11 @@ const stateOcticonMap = {
 }
 
 const getOcticon = state => {
-  const name = stateOcticonMap[state]
-  return name
-    ? <Octicon name={name} className={`octicon octicon-${name} mr-1`}/>
-    : null
+  if (!state) {
+    return null
+  }
+  const name = stateOcticonMap[state] || state
+  return <Octicon name={name} className={`octicon octicon-${name} mr-1`}/>
 }
 
 export default function StateLabel(props) {
@@ -39,7 +40,6 @@ export default function StateLabel(props) {
   }
 
   const color = bg || stateColorMap[state]
-
   return (
     <span className={classnames(
       'State', {
