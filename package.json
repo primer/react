@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "description": "Primer react components",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "x0 dev src/Index.js -op 8888",
-    "build": "x0 build src/Index.js --out-dir docs"
+    "start": "x0 dev examples/Index.js -op 8888",
+    "build": "x0 build examples/Index.js --out-dir docs"
   },
   "repository": {
     "type": "git",
