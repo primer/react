@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Provider as KitProvider,
   Library,
   Example
 } from '@compositor/kit'
@@ -21,9 +20,8 @@ import Flash from './Flash'
 
 const Index = props => (
   <Page>
-    <KitProvider>
-      <Library>
-        <Library.Nav />
+      <Library title='Primer-react'>
+
         <Example name='Heading'>
           <Heading>
             Heading
@@ -237,7 +235,6 @@ const Index = props => (
           </Flex>
         </Example>
       </Library>
-    </KitProvider>
   </Page>
 )
 export default Index
