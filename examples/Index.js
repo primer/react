@@ -1,7 +1,8 @@
 import React from 'react'
 import {
   Library,
-  Example
+  Example,
+  Detail
 } from '@compositor/kit'
 import {
   Page,
@@ -74,6 +75,18 @@ const Index = props => (
         <ButtonSecondary large>
           button large
         </ButtonSecondary>
+        <Detail>
+          <Box my={2}>
+            <ButtonPrimary large>
+              button large
+            </ButtonPrimary>
+          </Box>
+          <Box>
+            <ButtonDanger large>
+              button large
+            </ButtonDanger>
+          </Box>
+        </Detail>
       </Example>
       <Example name='Flash themes'>
         <ExampleBox>
@@ -143,97 +156,109 @@ const Index = props => (
         </Text>
       </Example>
       <Example name='Colors'>
-        <Flex>
-          {theme.colors.gray.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`gray.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              gray {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
+        <Flex pb={4}>
+          <Box bg='blue.5' p={6} m={1} />
+          <Box bg='green.5' p={6} m={1} />
+          <Box bg='purple.5' p={6} m={1} />
+          <Box bg='yellow.5' p={6} m={1} />
+          <Box bg='orange.5' p={6} m={1} />
+          <Box bg='red.5' p={6} m={1} />
+          <Box bg='black' p={6} m={1} />
+          <Box bg='white' p={6} m={1} />
         </Flex>
-        <Flex>
-          {theme.colors.blue.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`blue.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              blue {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
-        </Flex>
-        <Flex>
-          {theme.colors.green.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`green.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              green {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
-        </Flex>
-        <Flex>
-          {theme.colors.purple.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`purple.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              purple {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
-        </Flex>
-        <Flex>
-          {theme.colors.yellow.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`yellow.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              yellow {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
-        </Flex>
-        <Flex>
-          {theme.colors.orange.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`orange.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              orange {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
-        </Flex>
-        <Flex>
-          {theme.colors.red.map((val, i) => (
-            <div key={val}>
-              <Box mt={3} p={6} m={1} bg={`red.${i}`} />
-              <Heading.h3 fontSize={2} px={1}>
-              red {i}
-              </Heading.h3>
-              <Text px={1}>
-                {val}
-              </Text>
-            </div>
-          ))}
-        </Flex>
+        <Detail>
+          <Flex>
+            {theme.colors.gray.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`gray.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                gray {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+          <Flex>
+            {theme.colors.blue.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`blue.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                blue {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+          <Flex>
+            {theme.colors.green.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`green.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                green {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+          <Flex>
+            {theme.colors.purple.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`purple.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                purple {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+          <Flex>
+            {theme.colors.yellow.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`yellow.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                yellow {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+          <Flex>
+            {theme.colors.orange.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`orange.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                orange {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+          <Flex>
+            {theme.colors.red.map((val, i) => (
+              <div key={val}>
+                <Box mt={3} p={6} m={1} bg={`red.${i}`} />
+                <Heading.h3 fontSize={2} px={1}>
+                red {i}
+                </Heading.h3>
+                <Text px={1}>
+                  {val}
+                </Text>
+              </div>
+            ))}
+          </Flex>
+        </Detail>
       </Example>
     </Library>
   </Page>
