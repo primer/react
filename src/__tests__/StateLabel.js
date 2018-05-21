@@ -26,3 +26,10 @@ it('StateLabel renders states as specific colors', () => {
   expect(render(<StateLabel state='merged'/>)).toMatchSnapshot()
   expect(render(<StateLabel state='closed'/>)).toMatchSnapshot()
 })
+
+it('StateLabel does not pass on arbitrary attributes', () => {
+  const defaultOutput = render(<StateLabel/>)
+  expect(render(<StateLabel className='foo'/>)).toEqual(defaultOutput)
+  expect(render(<StateLabel data-foo='bar'/>)).toEqual(defaultOutput)
+  expect(render(<StateLabel hidden/>)).toEqual(defaultOutput)
+})
