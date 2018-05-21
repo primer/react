@@ -18,7 +18,9 @@
   "author": "GitHub, Inc.",
   "contributors": [
     "Diana Mounter <diana.mounter@gmail.com>",
-    "Shawn Allen <shawn.allen@github.com>"
+    "Shawn Allen <shawn.allen@github.com>",
+    "Emily Plummer <emplums@github.com>",
+    "Jon Rohan <jonrohan@github.com>"
   ],
   "license": "MIT",
   "main": "index.js",
