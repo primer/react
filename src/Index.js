@@ -20,7 +20,7 @@ import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
 import CounterLabel from './CounterLabel'
 
-const Index = props => (
+const Index = () => (
   <Page>
     <KitProvider>
       <Library>
