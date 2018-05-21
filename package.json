@@ -18,6 +18,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src test",
     "start": "x0 dev src/Index.js -op 8888",
     "build": "x0 build src/Index.js --out-dir docs",
     "test": "jest"
