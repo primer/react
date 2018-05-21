@@ -12,6 +12,7 @@ import Flex from './Flex'
 import Heading from './Heading'
 import Link from './Link'
 import Button from './Button'
+import ButtonLink from './ButtonLink'
 import theme from './theme'
 import Text from './Text'
 import Flash from './Flash'
@@ -80,6 +81,9 @@ const Index = props => (
         </Example>
         <Example name='Button - styled as link'>
           <Button linkStyle> Button </Button>
+        </Example>
+        <Example name='ButtonLink'>
+          <ButtonLink href="https://www.goatslive.com/">This is an {"<a>"} styled as a button</ButtonLink>
         </Example>
         <Example name='Flash themes'>
           <ExampleBox>
