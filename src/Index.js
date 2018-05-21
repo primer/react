@@ -18,12 +18,24 @@ import ButtonPrimary from './ButtonPrimary'
 import ButtonSecondary from './ButtonSecondary'
 import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
+import CounterLabel from './CounterLabel'
 
 const Index = props => (
   <Page>
     <KitProvider>
       <Library>
         <Library.Nav />
+        <Example name="CounterLabel">
+          <CounterLabel>
+            12
+          </CounterLabel>
+          <CounterLabel theme={'gray'}>
+            13
+          </CounterLabel>
+          <CounterLabel theme={'gray-light'}>
+            13
+          </CounterLabel>
+        </Example>
         <Example name='Heading'>
           <Heading>
             Heading
