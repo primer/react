@@ -1,7 +1,6 @@
 {
   "extends": [
     "plugin:react/recommended",
-    "plugin:jest/recommended",
     "plugin:github/es6"
   ],
   "rules": {
