@@ -5,7 +5,7 @@ const CounterLabel = ({ theme, children}) => (
     <span
       className={classnames(
         'Counter',
-        theme ? `Counter--${theme}` : null,
+        theme ? `Counter--${theme}` : null
       )}
     >
       {children}
