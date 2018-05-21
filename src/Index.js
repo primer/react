@@ -20,12 +20,24 @@ import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
 import Octicon from '@github/octicons-react'
 import StateLabel from './StateLabel'
+import CounterLabel from './CounterLabel'
 
 const Index = props => (
   <Page>
     <KitProvider>
       <Library>
         <Library.Nav />
+        <Example name="CounterLabel">
+          <CounterLabel>
+            12
+          </CounterLabel>
+          <CounterLabel theme={'gray'}>
+            13
+          </CounterLabel>
+          <CounterLabel theme={'gray-light'}>
+            13
+          </CounterLabel>
+        </Example>
         <Example name='Heading'>
           <Heading>
             Heading
