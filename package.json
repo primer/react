@@ -3,15 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "description": "Primer react components",
-  "main": "index.js",
-  "scripts": {
-    "start": "x0 dev src/Index.js -op 8888",
-    "build": "x0 build src/Index.js --out-dir docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/primer/primer-react.git"
-  },
+  "repository": "primer/primer-react",
   "keywords": [
     "react",
     "components",
@@ -20,16 +12,20 @@
   ],
   "author": "GitHub, Inc.",
   "contributors": [
-    {
-      "name": "Diana Mounter",
-      "email": "diana.mounter@gmail.com"
-    }
+    "Diana Mounter <diana.mounter@gmail.com>",
+    "Shawn Allen <shawn.allen@github.com>"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/primer/primer-react/issues"
+  "main": "index.js",
+  "scripts": {
+    "start": "x0 dev src/Index.js -op 8888",
+    "build": "x0 build src/Index.js --out-dir docs",
+    "test": "jest"
   },
-  "homepage": "https://github.com/primer/primer-react#readme",
+  "x0": {
+    "cssLibrary": "styled-components",
+    "basename": "/primer-react"
+  },
   "dependencies": {
     "@compositor/kit": "^1.0.0-1",
     "@compositor/x0": "^3.2.0",
@@ -43,8 +39,8 @@
     "styled-system": "^2.0.2",
     "system-classnames": "^1.0.0-3"
   },
-  "x0": {
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react"
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "react-test-renderer": "^16.3.2"
   }
 }
