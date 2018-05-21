@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import classnames from 'classnames'
 import Octicon from '@github/octicons-react'
 
@@ -7,7 +7,7 @@ const stateColorMap = {
   opened: 'green',
   reopened: 'green',
   closed: 'red',
-  merged: 'purple',
+  merged: 'purple'
 }
 
 const stateOcticonMap = {
@@ -23,16 +23,11 @@ function getOcticon(state) {
     return null
   }
   const name = stateOcticonMap[state] || state
-  return <Octicon name={name}/>
+  return <Octicon name={name} />
 }
 
 export default function StateLabel(props) {
-  const {
-    state,
-    bg,
-    small,
-    children,
-  } = props
+  const {state, bg, small, children} = props
 
   let {icon} = props
   if (icon !== false) {
@@ -41,13 +36,16 @@ export default function StateLabel(props) {
 
   const color = bg || stateColorMap[state]
   return (
-    <span className={classnames(
-      'State', {
-        'State--small': small
-      },
-      color ? `State--${color}` : null
-    )}>
-      {icon ? <span className='mr-1'>{icon}</span> : null}
+    <span
+      className={classnames(
+        'State',
+        {
+          'State--small': small
+        },
+        color ? `State--${color}` : null
+      )}
+    >
+      {icon ? <span className="mr-1">{icon}</span> : null}
       {children}
     </span>
   )
