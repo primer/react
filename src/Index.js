@@ -59,28 +59,28 @@ const Index = props => (
           </UtilityBox>
         </Example>
         <Example name='Button'>
-          <Button> Button </Button>
+          <Button onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - small'>
-          <Button size="small"> Button </Button>
+          <Button size="small" onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - large'>
-          <Button size="large"> Button </Button>
+          <Button size="large" onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - danger'>
-          <Button type="danger"> Button </Button>
+          <Button type="danger" onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - primary'>
-          <Button type="primary"> Button </Button>
+          <Button type="primary" onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - outline'>
-          <Button type="outline"> Button </Button>
+          <Button type="outline" onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - full width'>
-          <Button block> Button </Button>
+          <Button block onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='Button - styled as link'>
-          <Button linkStyle> Button </Button>
+          <Button linkStyle onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
         <Example name='ButtonLink'>
           <ButtonLink href="https://www.goatslive.com/">This is an {"<a>"} styled as a button</ButtonLink>
