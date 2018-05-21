@@ -18,12 +18,12 @@ const stateOcticonMap = {
   merged: 'git-merge'
 }
 
-const getOcticon = state => {
+function getOcticon(state) {
   if (!state) {
     return null
   }
   const name = stateOcticonMap[state] || state
-  return <Octicon name={name} className={`octicon octicon-${name} mr-1`}/>
+  return <Octicon name={name}/>
 }
 
 export default function StateLabel(props) {
@@ -51,10 +51,4 @@ export default function StateLabel(props) {
       {children}
     </span>
   )
-}
-
-export {
-  stateColorMap,
-  stateOcticonMap,
-  getOcticon
 }
