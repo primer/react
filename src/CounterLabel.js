@@ -1,11 +1,11 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const CounterLabel = ({ bg, children}) => (
+const CounterLabel = ({ theme, children}) => (
     <span
       className={classnames(
         'Counter',
-        bg ? `Counter--${bg}` : null,
+        theme ? `Counter--${theme}` : null,
       )}
     >
       {children}

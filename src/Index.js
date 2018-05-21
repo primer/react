@@ -29,10 +29,10 @@ const Index = props => (
           <CounterLabel>
             12
           </CounterLabel>
-          <CounterLabel bg={'gray'}>
+          <CounterLabel theme={'gray'}>
             13
           </CounterLabel>
-          <CounterLabel bg={'gray-light'}>
+          <CounterLabel theme={'gray-light'}>
             13
           </CounterLabel>
         </Example>
