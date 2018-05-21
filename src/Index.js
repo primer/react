@@ -14,9 +14,6 @@ import Link from './Link'
 import Button from './Button'
 import theme from './theme'
 import Text from './Text'
-import ButtonPrimary from './ButtonPrimary'
-import ButtonSecondary from './ButtonSecondary'
-import ButtonDanger from './ButtonDanger'
 import Flash from './Flash'
 import CounterLabel from './CounterLabel'
 
@@ -63,30 +60,26 @@ const Index = props => (
         <Example name='Button'>
           <Button> Button </Button>
         </Example>
-        <Example name='ButtonPrimary'>
-          <ButtonPrimary>
-            button primary
-          </ButtonPrimary>
+        <Example name='Button - small'>
+          <Button size="small"> Button </Button>
         </Example>
-        <Example name='ButtonSecondary'>
-          <ButtonSecondary>
-            button secondary
-          </ButtonSecondary>
+        <Example name='Button - large'>
+          <Button size="large"> Button </Button>
         </Example>
-        <Example name='ButtonDanger'>
-          <ButtonDanger>
-            button danger
-          </ButtonDanger>
+        <Example name='Button - danger'>
+          <Button type="danger"> Button </Button>
         </Example>
-        <Example name='Button small'>
-          <ButtonSecondary small>
-            button small
-          </ButtonSecondary>
+        <Example name='Button - primary'>
+          <Button type="primary"> Button </Button>
         </Example>
-        <Example name='Button large'>
-          <ButtonSecondary large>
-            button large
-          </ButtonSecondary>
+        <Example name='Button - outline'>
+          <Button type="outline"> Button </Button>
+        </Example>
+        <Example name='Button - full width'>
+          <Button block> Button </Button>
+        </Example>
+        <Example name='Button - styled as link'>
+          <Button linkStyle> Button </Button>
         </Example>
         <Example name='Flash themes'>
           <ExampleBox>
