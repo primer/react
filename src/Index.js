@@ -43,10 +43,10 @@ const Index = props => (
           <CounterLabel>
             12
           </CounterLabel>
-          <CounterLabel theme={'gray'}>
+          <CounterLabel theme='gray'>
             13
           </CounterLabel>
-          <CounterLabel theme={'gray-light'}>
+          <CounterLabel theme='gray-light'>
             13
           </CounterLabel>
         </Example>
