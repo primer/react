@@ -1,19 +1,16 @@
-import createMapper from 'styled-classnames'
+import React from 'react'
+import map from 'system-classnames/primer'
 import classnames from 'classnames'
-
-const map = createMapper({
-  breakpoints: [null, 'sm', 'md', 'lg', 'xl'],
-  props: [
-    'm', 'mt', 'mr', 'mb', 'ml', 'mx', 'my',
-    'p', 'pt', 'pr', 'pb', 'pl', 'px', 'py',
-    'text', 'bg', 'border', 'rounded', 'h', 'f'
-  ],
-  getter: ({breakpoint, prop, value}) => breakpoint
-    ? [prop, breakpoint, value].join('-')
-    : [prop, value].join('-')
-})
 
 const propsAndClassnames = (props, classes) => classnames(map(props), classes)
 
+const classedFactory = (Component, classes) => {
+  return ({className, ...props}) => {
+    return (
+      <Component className={propsAndClassnames(props, classes)} {...props} />
+    )
+  }
+}
+
 export default propsAndClassnames
-export {map}
+export {map, classedFactory}
