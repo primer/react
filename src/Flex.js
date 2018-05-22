@@ -1,17 +1,10 @@
-import Box from './Box'
-import {
-  alignItems,
-  justifyContent,
-  flexWrap,
-  flexDirection,
-} from 'styled-system'
+import React from 'react'
+import classnames from './system-classnames'
 
-const Flex = Box.extend`
-  display: flex;
-  ${alignItems}
-  ${justifyContent}
-  ${flexWrap}
-  ${flexDirection}
-`
+const Flex = ({children, ...props}) => (
+  <div className={classnames(props, 'd-flex')}>
+    {children}
+  </div>
+)
 
 export default Flex

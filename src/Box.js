@@ -1,18 +1,8 @@
-import styled from 'styled-components'
-import {
-  space,
-  width,
-  maxWidth,
-  flex,
-  color
-} from 'styled-system'
+import React from 'react'
+import classnames from './system-classnames'
 
-const Box = styled.div`
-  ${space}
-  ${width}
-  ${maxWidth}
-  ${flex}
-  ${color}
-`
+const Box = ({children, ...props}) => (
+  <div className={classnames(props)}>{children}</div>
+)
 
 export default Box
