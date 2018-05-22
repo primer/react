@@ -1,8 +1,6 @@
 import React from 'react'
-import classnames from './system-classnames'
+import {classedFactory} from './system-classnames'
 
-const Box = ({children, ...props}) => (
-  <div className={classnames(props)}>{children}</div>
-)
+const Box = classedFactory('div')
 
 export default Box

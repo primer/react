@@ -7,7 +7,6 @@ import {
 import Page from './Page'
 import Box from './Box'
 import ExampleBox from './ExampleBox'
-import UtilityBox from './UtilityBox'
 import Flex from './Flex'
 import Heading from './Heading'
 import Link from './Link'
@@ -65,18 +64,7 @@ const Index = props => (
           </Link>
         </Example>
         <Example name='Box'>
-          <Box p={3} bg='gray.1'> Box </Box>
-        </Example>
-        <Example name='Box maxWidths'>
-          <Box p={3} bg='gray.1' maxWidth='small'> Box small </Box>
-          <Box p={3} bg='gray.2' maxWidth='medium'> Box medium </Box>
-          <Box p={3} bg='gray.1' maxWidth='large'> Box large </Box>
-          <Box p={3} bg='gray.2' maxWidth='xlarge'> Box xlarge </Box>
-        </Example>
-        <Example name='UtilityBox'>
-          <UtilityBox bg='green-light' my={4} p={4}>
-            UtilityBox with Primer utilities as props
-          </UtilityBox>
+          <Box p={3} bg='gray'>Box</Box>
         </Example>
         <Example name='Button'>
           <Button> Button </Button>

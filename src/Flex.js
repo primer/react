@@ -1,10 +1,6 @@
 import React from 'react'
-import classnames from './system-classnames'
+import {classedFactory} from './system-classnames'
 
-const Flex = ({children, ...props}) => (
-  <div className={classnames(props, 'd-flex')}>
-    {children}
-  </div>
-)
+const Flex = classedFactory('div', 'd-flex')
 
 export default Flex
