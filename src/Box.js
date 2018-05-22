@@ -1,6 +1,6 @@
 import React from 'react'
-import {classedFactory} from './system-classnames'
+import mapWithClassnames from './system-classnames'
 
-const Box = classedFactory('div')
+const Box = props => <div {...mapWithClassnames(props)} />
 
 export default Box

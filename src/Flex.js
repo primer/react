@@ -1,6 +1,6 @@
 import React from 'react'
-import {classedFactory} from './system-classnames'
+import mapWithClassnames from './system-classnames'
 
-const Flex = classedFactory('div', 'd-flex')
+const Box = props => <div {...mapWithClassnames(props, 'd-flex')} />
 
 export default Flex
