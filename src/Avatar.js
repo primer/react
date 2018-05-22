@@ -1,11 +1,13 @@
 import React from 'react'
 import classnames from 'classnames'
 
+const IMAGE_BASE_URL = 'https://avatars.githubusercontent.com/'
+
 const Avatar = props => {
   const {
     username,
     size = 20,
-    baseURL = 'https://avatars.githubusercontent.com/',
+    baseURL = IMAGE_BASE_URL,
     alt,
     child,
     ...rest
@@ -19,7 +21,7 @@ const Avatar = props => {
       className={classnames(
         'avatar',
         {
-          'avatar-small': size <= 48,
+          'avatar-small': size <= 24,
           'avatar-child': child,
         }
       )}
@@ -32,3 +34,4 @@ const Avatar = props => {
 }
 
 export default Avatar
+export {IMAGE_BASE_URL}
