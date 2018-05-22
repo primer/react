@@ -9,4 +9,6 @@ it('Avatar does its thing', () => {
     .toEqual(render(<img className='avatar avatar-small' src={`${IMAGE_BASE_URL}primer?v=3&s=40`} width={20} height={20} alt='primer' />))
   expect(render(<Avatar username='primer' size={40} />))
     .toEqual(render(<img className='avatar' src={`${IMAGE_BASE_URL}primer?v=3&s=80`} width={40} height={40} alt='primer' />))
+  expect(render(<Avatar username='primer' baseURL='/' />))
+    .toEqual(render(<img className='avatar avatar-small' src={`/primer?v=3&s=40`} width={20} height={20} alt='primer' />))
 })
