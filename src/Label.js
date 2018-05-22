@@ -3,9 +3,7 @@ import classnames from 'classnames'
 
 const Label = props => (
     <span
-      {...props}
       className={classnames(
-        props.className,
         'Label', {
           'Label--gray': props.gray,
           'Label--orange': props.orange,
