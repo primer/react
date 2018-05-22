@@ -4,7 +4,8 @@ import classnames from 'classnames'
 const LabelOutline = props => (
     <span
       className={classnames(
-        'Label Label--outline', {
+        'Label',
+        'Label--outline', {
           'Label--outline-green': props.green
         }
       )}
