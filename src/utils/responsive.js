@@ -1,3 +1,4 @@
+// FIXME these should come from primer-primitives, no?
 const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
 
 function defaultValidate(value) {
