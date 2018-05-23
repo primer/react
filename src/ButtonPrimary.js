@@ -1,12 +1,13 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const Button = ({ size, disabled, block, linkStyle, onClick, children }) => (
+const ButtonPrimary = ({ size, disabled, block, linkStyle, onClick, children }) => (
     <button
       disabled={disabled}
       onClick={onClick}
       type="button"
       className={classnames(
+        'btn-primary',
         {
           'btn': !linkStyle,
           'btn-link': linkStyle,
@@ -20,4 +21,4 @@ const Button = ({ size, disabled, block, linkStyle, onClick, children }) => (
     </button>
 )
 
-export default Button
+export default ButtonPrimary
