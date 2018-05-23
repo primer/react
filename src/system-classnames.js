@@ -10,13 +10,4 @@ const mapWithClassnames = (props, classes) => {
   return Object.assign(mapped, {className: otherClasses})
 }
 
-const classedFactory = (Component, classes) => {
-  return ({className, ...props}) => {
-    return (
-      <Component {...mapWithClassnames(props, classes)} />
-    )
-  }
-}
-
 export default mapWithClassnames
-export {classedFactory}
