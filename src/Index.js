@@ -12,6 +12,9 @@ import Flex from './Flex'
 import Heading from './Heading'
 import Link from './Link'
 import Button from './Button'
+import ButtonDanger from './ButtonDanger'
+import ButtonPrimary from './ButtonPrimary'
+import ButtonOutline from './ButtonOutline'
 import ButtonLink from './ButtonLink'
 import theme from './theme'
 import Text from './Text'
@@ -67,14 +70,14 @@ const Index = props => (
         <Example name='Button - large'>
           <Button size="large" onClick={() => window.alert('Clicked!')}> Button </Button>
         </Example>
-        <Example name='Button - danger'>
-          <Button type="danger" onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Example name='ButtonDanger'>
+          <ButtonDanger onClick={() => window.alert('Clicked!')}> Button </ButtonDanger>
         </Example>
-        <Example name='Button - primary'>
-          <Button type="primary" onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Example name='ButtonPrimary'>
+          <ButtonPrimary onClick={() => window.alert('Clicked!')}> Button </ButtonPrimary>
         </Example>
-        <Example name='Button - outline'>
-          <Button type="outline" onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Example name='ButtonOutline'>
+          <ButtonOutline onClick={() => window.alert('Clicked!')}> Button </ButtonOutline>
         </Example>
         <Example name='Button - full width'>
           <Button block onClick={() => window.alert('Clicked!')}> Button </Button>

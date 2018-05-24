@@ -7,7 +7,7 @@ const ButtonDanger = ({ size, disabled, block, linkStyle, onClick, children }) =
       onClick={onClick}
       type="button"
       className={classnames(
-        'btn-danger'
+        'btn-danger',
         {
           'btn': !linkStyle,
           'btn-link': linkStyle,
