@@ -1,4 +1,3 @@
-import React from 'react'
 import map from 'system-classnames/primer'
 import classnames from 'classnames'
 
