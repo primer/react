@@ -17,6 +17,7 @@ export { default as ButtonPrimary } from './ButtonPrimary'
 export { default as ButtonSecondary } from './ButtonSecondary'
 
 export { default as Heading } from './Heading'
+export { default as Label } from './Label'
 export { default as Link } from './Link'
 export { default as Text } from './Text'
 
