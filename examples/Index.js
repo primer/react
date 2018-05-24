@@ -41,12 +41,14 @@ const Index = props => (
     <Library title='Primer-react'>
       <Example name='Heading'>
         <Heading mb={2}>Heading</Heading>
-        <Heading.h1 fontSize={6} mb={2}>Heading (h1@6)</Heading.h1>
-        <Heading.h2 fontSize={5} mb={2}>Heading (h2@5)</Heading.h2>
-        <Heading.h3 fontSize={4} mb={2}>Heading (h3@4)</Heading.h3>
-        <Heading.h4 fontSize={3} mb={2}>Heading (h4@3)</Heading.h4>
-        <Heading.h5 fontSize={2} mb={2}>Heading (h5@2)</Heading.h5>
-        <Heading.h6 fontSize={1} mb={2}>Heading (h6@1)</Heading.h6>
+        <Detail>
+          <Heading.h1 fontSize={6} mb={2}>Heading (h1@6)</Heading.h1>
+          <Heading.h2 fontSize={5} mb={2}>Heading (h2@5)</Heading.h2>
+          <Heading.h3 fontSize={4} mb={2}>Heading (h3@4)</Heading.h3>
+          <Heading.h4 fontSize={3} mb={2}>Heading (h4@3)</Heading.h4>
+          <Heading.h5 fontSize={2} mb={2}>Heading (h5@2)</Heading.h5>
+          <Heading.h6 fontSize={1} mb={2}>Heading (h6@1)</Heading.h6>
+        </Detail>
       </Example>
       <Example name='Link'>
         <Link href="https://github.com">
@@ -207,81 +209,92 @@ const Index = props => (
           </Detail>
       </Example>
       <Example name='StateLabel'>
-        <Box mb={4}>
-          <Heading.h2 mb={1}>By state (Octicons built in)</Heading.h2>
-          <Box mb={2}>
-            <StateLabel>Unknown</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel state='open'>Opened</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel state='closed'>Closed</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel state='merged'>Merged</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel state='reopened'>Reopened</StateLabel>
-          </Box>
+        <Box mb={2}>
+          <StateLabel state='open'>Open</StateLabel>
+        </Box>
+        <Box mb={2}>
+          <StateLabel state='closed'>Closed</StateLabel>
         </Box>
         <Box mb={4}>
-          <Heading.h2 mb={1}>By color</Heading.h2>
-          <Box mb={2}>
-            <StateLabel bg='invalid'>Invalid</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel bg='green'>Green</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel bg='red'>Red</StateLabel>
-          </Box>
-          <Box mb={2}>
-            <StateLabel bg='purple'>Purple</StateLabel>
-          </Box>
+          <StateLabel state='merged'>Merged</StateLabel>
         </Box>
-        <Box mb={4}>
-          <Heading.h2 mb={2}>Small, by state</Heading.h2>
-          <Box mb={2}>
-            <span className='mr-2'>
-              <StateLabel small>Unknown</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small state='open'>Opened</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small state='closed'>Closed</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small state='merged'>Merged</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small state='reopened'>Reopened</StateLabel>
-            </span>
+        <Detail>
+          <Box mb={4}>
+            <Heading.h2 mb={1}>By state (Octicons built in)</Heading.h2>
+            <Box mb={2}>
+              <StateLabel>Unknown</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel state='open'>Open</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel state='closed'>Closed</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel state='merged'>Merged</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel state='reopened'>Reopened</StateLabel>
+            </Box>
           </Box>
-        </Box>
-        <Box mb={4}>
-          <Heading.h2 mb={1}>Small, by color</Heading.h2>
-          <Box mb={2}>
-            <span className='mr-2'>
-              <StateLabel small bg='invalid'>Invalid</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small bg='green'>Green</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small bg='red'>Red</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small bg='purple'>Purple</StateLabel>
-            </span>
-            <span className='mr-2'>
-              <StateLabel small bg='green' icon={<Octicon name='git-branch'/>}>
-                Custom Octicon
-              </StateLabel>
-            </span>
+          <Box mb={4}>
+            <Heading.h2 mb={1}>By color</Heading.h2>
+            <Box mb={2}>
+              <StateLabel bg='invalid'>Invalid</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel bg='green'>Green</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel bg='red'>Red</StateLabel>
+            </Box>
+            <Box mb={2}>
+              <StateLabel bg='purple'>Purple</StateLabel>
+            </Box>
           </Box>
-        </Box>
+          <Box mb={4}>
+            <Heading.h2 mb={2}>Small, by state</Heading.h2>
+            <Box mb={2}>
+              <span className='mr-2'>
+                <StateLabel small>Unknown</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small state='open'>Open</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small state='closed'>Closed</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small state='merged'>Merged</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small state='reopened'>Reopened</StateLabel>
+              </span>
+            </Box>
+          </Box>
+          <Box mb={4}>
+            <Heading.h2 mb={1}>Small, by color</Heading.h2>
+            <Box mb={2}>
+              <span className='mr-2'>
+                <StateLabel small bg='invalid'>Invalid</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small bg='green'>Green</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small bg='red'>Red</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small bg='purple'>Purple</StateLabel>
+              </span>
+              <span className='mr-2'>
+                <StateLabel small bg='green' icon={<Octicon name='git-branch'/>}>
+                  Custom Octicon
+                </StateLabel>
+              </span>
+            </Box>
+          </Box>
+        </Detail>
       </Example>
     </Library>
   </Page>
