@@ -19,7 +19,6 @@ import {
   Text,
   Flash,
   StateLabel,
-  UtilityBox,
   theme
 } from '../src'
 import Octicon from '@github/octicons-react'
@@ -63,11 +62,6 @@ const Index = props => (
         <Box p={3} bg='gray.2' maxWidth='medium'> Box medium </Box>
         <Box p={3} bg='gray.1' maxWidth='large'> Box large </Box>
         <Box p={3} bg='gray.2' maxWidth='xlarge'> Box xlarge </Box>
-      </Example>
-      <Example name='UtilityBox'>
-        <UtilityBox bg='green-light' my={4} p={4}>
-          UtilityBox with Primer utilities as props
-        </UtilityBox>
       </Example>
       <Example name='Button'>
         <Button> Button </Button>
