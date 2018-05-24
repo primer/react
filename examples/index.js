@@ -14,6 +14,7 @@ import {
   ButtonSecondary,
   CounterLabel,
   Heading,
+  Label,
   Link,
   Text,
   Flash,
@@ -47,6 +48,18 @@ const Index = props => (
           <Heading.h5 fontSize={2} mb={2}>Heading (h5@2)</Heading.h5>
           <Heading.h6 fontSize={1} mb={2}>Heading (h6@1)</Heading.h6>
         </Detail>
+      </Example>
+      <Example name='Label'>
+        <ExampleBox>
+          <Label>Default label</Label>
+          <Label scheme='gray-darker'>Darker gray label</Label>
+          <Label scheme='orange'>Orange label</Label>
+          <Label scheme='green'>Green label</Label>
+        </ExampleBox>
+        <ExampleBox>
+          <Label outline>Default outline label</Label>
+          <Label outline scheme='green'>Green outline label</Label>
+        </ExampleBox>
       </Example>
       <Example name='Link'>
         <Link href="https://github.com">
