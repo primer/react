@@ -8,7 +8,6 @@ export { default as ExampleBox } from './ExampleBox'
 
 // Layout
 export { default as Box } from './Box'
-export { default as Flex } from './Flex'
 
 // Components
 export { default as Button } from './Button'
