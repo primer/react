@@ -20,5 +20,7 @@ export { default as Heading } from './Heading'
 export { default as Link } from './Link'
 export { default as Text } from './Text'
 
+export { CounterLabel as CounterLabel } from './CounterLabel'
 export { default as Flash } from './Flash'
+export { StateLabel as StateLabel } from './StateLabel'
 export { default as UtilityBox } from './UtilityBox'
