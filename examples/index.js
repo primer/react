@@ -23,7 +23,7 @@ import {
 import Octicon from '@github/octicons-react'
 
 const Swatch = ({name, index, color, ...rest}) => (
-  <div {...rest} key={index}>
+  <div {...rest}>
     <Box mt={3} p={6} m={1} bg={`${name}.${index}`} />
     <Heading.h3 fontSize={2} px={1}>
       {name}.{index}
@@ -195,7 +195,7 @@ const Index = props => (
           {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
             <div className='d-flex' key={i}>
               {theme.colors[hue].map((color, j) => (
-                <Swatch name={hue} index={j} color={color}/>
+                <Swatch name={hue} index={j} key={j} color={color}/>
               ))}
             </div>
           ))}
