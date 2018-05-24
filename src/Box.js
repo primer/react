@@ -1,6 +1,6 @@
 import React from 'react'
-import mapWithClassnames from './system-classnames'
+import map from './system-classnames'
 
-const Box = props => <div {...mapWithClassnames(props)} />
+const Box = props => <div {...map(props)} />
 
 export default Box
