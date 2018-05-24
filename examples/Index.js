@@ -8,7 +8,6 @@ import {
   Page,
   ExampleBox,
   Box,
-  Flex,
   Button,
   ButtonDanger,
   ButtonPrimary,
@@ -182,7 +181,7 @@ const Index = props => (
         </Text>
       </Example>
       <Example name='Colors'>
-        <Flex pb={4}>
+        <div className='p-4 d-flex'>
           <Box bg='blue.5' p={6} m={1} />
           <Box bg='green.5' p={6} m={1} />
           <Box bg='purple.5' p={6} m={1} />
@@ -191,16 +190,16 @@ const Index = props => (
           <Box bg='red.5' p={6} m={1} />
           <Box bg='black' p={6} m={1} />
           <Box bg='white' p={6} m={1} />
-        </Flex>
-          <Detail>
-            {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
-              <Flex key={i}>
-                {theme.colors[hue].map((color, j) => (
-                  <Swatch name={hue} index={j} color={color}/>
-                ))}
-              </Flex>
-            ))}
-          </Detail>
+        </div>
+        <Detail>
+          {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
+            <div className='d-flex' key={i}>
+              {theme.colors[hue].map((color, j) => (
+                <Swatch name={hue} index={j} color={color}/>
+              ))}
+            </div>
+          ))}
+        </Detail>
       </Example>
       <Example name='StateLabel'>
         <Box mb={2}>
