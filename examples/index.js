@@ -25,7 +25,7 @@ import Octicon from '@github/octicons-react'
 
 const Swatch = ({name, index, color, ...rest}) => (
   <div {...rest}>
-    <Box mt={3} p={6} m={1} bg={`${name}.${index}`} />
+    <div className='m-1 mt-3 p-6' style={{background: theme.colors[name][index]}} />
     <Heading.h3 fontSize={2} px={1}>
       {name}.{index}
     </Heading.h3>
