@@ -17,14 +17,14 @@ const colorScheme = (scheme, outline) => {
 }
 
 const Label = props => {
-  const { outline, scheme } = props
+  const { outline, scheme, children } = props
   return <span
     className={classnames(
       'Label',
       outline ? 'Label--outline' : '',
       colorScheme(scheme, outline)
     )}>
-    {props.children}
+    { children }
   </span>
 }
 
