@@ -1,7 +1,7 @@
 {
   "name": "primer-react",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.1-beta",
   "description": "Primer react components",
   "main": "src/Index.js",
   "scripts": {
