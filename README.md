@@ -1,12 +1,12 @@
 # Primer react
 
-[Primer](https://primer.github.io/) React components built with [styled-components](https://www.styled-components.com/) 💅 and [styled-system](http://jxnblk.com/styled-system/) 💙.
+[Primer](https://primer.github.io/) React components
 
 ## Status
 
 ⚠️ This project is WIP and not ready for production use yet!
 
-Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides. Eventually we'll remove CSS from Primer in favor of CSS-in-JS (using styled-components) to ensure styles are encapsulated.
+Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides.
 
 ## Getting started
 
@@ -29,4 +29,3 @@ Build with:
 - Keep system constrained by only including props needed per component.
 - Favor extending or wrapping components for more complex operations.
 - Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
-

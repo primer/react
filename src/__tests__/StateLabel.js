@@ -4,12 +4,12 @@ import renderer from 'react-test-renderer'
 
 const render = component => renderer.create(component).toJSON()
 
-it('StateLabel renders bg', () => {
-  expect(render(<StateLabel bg='green'/>))
+it('StateLabel renders scheme', () => {
+  expect(render(<StateLabel scheme='green'/>))
     .toEqual(render(<span className='State State--green'/>))
-  expect(render(<StateLabel bg='red'/>))
+  expect(render(<StateLabel scheme='red'/>))
     .toEqual(render(<span className='State State--red'/>))
-  expect(render(<StateLabel bg='purple'/>))
+  expect(render(<StateLabel scheme='purple'/>))
     .toEqual(render(<span className='State State--purple'/>))
 })
 
