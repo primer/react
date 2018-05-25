@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@compositor/kit": "^1.0.26",
-    "@compositor/x0": "^3.2.1",
+    "@compositor/x0": "^4.0.3",
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
