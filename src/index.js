@@ -4,7 +4,6 @@ export { default as theme } from './theme'
 export { default as CSS } from './CSS'
 export { default as Meta } from './Meta'
 export { default as Page } from './Page'
-export { default as ExampleBox } from './ExampleBox'
 
 // Layout
 export { default as Box } from './Box'

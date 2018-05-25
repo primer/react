@@ -6,7 +6,6 @@ import {
 } from '@compositor/kit'
 import {
   Page,
-  ExampleBox,
   Box,
   Button,
   ButtonDanger,
@@ -48,16 +47,16 @@ const Index = props => (
         </Detail>
       </Example>
       <Example name='Label'>
-        <ExampleBox>
+        <Box mb={3}>
           <Label>Default label</Label>
           <Label scheme='gray-darker'>Darker gray label</Label>
           <Label scheme='orange'>Orange label</Label>
           <Label scheme='green'>Green label</Label>
-        </ExampleBox>
-        <ExampleBox>
+        </Box>
+        <Box mb={3}>
           <Label outline>Default outline label</Label>
           <Label outline scheme='green'>Green outline label</Label>
-        </ExampleBox>
+        </Box>
       </Example>
       <Example name='Link'>
         <Link href='https://github.com'>
@@ -106,7 +105,7 @@ const Index = props => (
         </CounterLabel>
       </Example>
       <Example name='Flash themes'>
-        <ExampleBox>
+        <Box mb={3}>
           <Flash>
             Flash
           </Flash>
@@ -119,7 +118,7 @@ const Index = props => (
           <Flash green>
             Flash green
           </Flash>
-        </ExampleBox>
+        </Box>
       </Example>
       <Example name='Flash full'>
         <Flash full>
