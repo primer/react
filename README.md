@@ -1,6 +1,6 @@
 # Primer react
 
-[Primer](https://primer.github.io/) React components built with [styled-components](https://www.styled-components.com/) 💅 and [styled-system](http://jxnblk.com/styled-system/) 💙.
+[Primer](https://primer.github.io/) React components
 
 ## Status
 
@@ -29,4 +29,3 @@ Build with:
 - Keep system constrained by only including props needed per component.
 - Favor extending or wrapping components for more complex operations.
 - Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
-

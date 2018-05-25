@@ -133,16 +133,16 @@ const Index = props => (
       </Example>
       <Example name='Font Sizes'>
         {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
-          <Text key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
+          <Text tag='div' key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
         ))}
       </Example>
       <Example name='Text'>
-        <Text>Text</Text>
-        <Text fontWeight='bold'>Text bold</Text>
-        <Text color='green'>Text green</Text>
-        <Text lineHeight='condensed'>Text lineHeight "condensed"</Text>
-        <Text fontSize={4}>Text fontSize 4</Text>
-        <Text p={4}>Text padding 4</Text>
+        <Text tag='div'>Text</Text>
+        <Text tag='div' fontWeight='bold'>Text bold</Text>
+        <Text tag='div' color='green'>Text green</Text>
+        <Text tag='div' lineHeight='condensed'>Text lineHeight "condensed"</Text>
+        <Text tag='div' fontSize={4}>Text fontSize 4</Text>
+        <Text tag='div' p={4}>Text padding 4</Text>
       </Example>
       <Example name='Colors'>
         <div className='d-flex'>
