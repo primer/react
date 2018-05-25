@@ -8,11 +8,12 @@ Heading.defaultProps = {
   m: 0
 }
 
+const {defaultProps} = Heading
 Heading.h1 = Heading // .withComponent('h1') is redundant
-Heading.h2 = Heading.withComponent('h2')
-Heading.h3 = Heading.withComponent('h3')
-Heading.h4 = Heading.withComponent('h4')
-Heading.h5 = Heading.withComponent('h5')
-Heading.h6 = Heading.withComponent('h6')
+Heading.h2 = Heading.withComponent('h2', {defaultProps})
+Heading.h3 = Heading.withComponent('h3', {defaultProps})
+Heading.h4 = Heading.withComponent('h4', {defaultProps})
+Heading.h5 = Heading.withComponent('h5', {defaultProps})
+Heading.h6 = Heading.withComponent('h6', {defaultProps})
 
 export default Heading
