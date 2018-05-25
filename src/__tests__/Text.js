@@ -1,8 +1,6 @@
 import React from 'react'
 import Text from '../Text'
-import renderer from 'react-test-renderer'
-
-const render = component => renderer.create(component).toJSON()
+import {render} from '../utils/testing'
 
 it('Text renders margin', () => {
   expect(render(<Text m={1} />))
