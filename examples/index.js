@@ -11,7 +11,8 @@ import {
   Button,
   ButtonDanger,
   ButtonPrimary,
-  ButtonSecondary,
+  ButtonOutline,
+  ButtonLink,
   CounterLabel,
   Heading,
   Label,
@@ -62,7 +63,7 @@ const Index = props => (
         </ExampleBox>
       </Example>
       <Example name='Link'>
-        <Link href="https://github.com">
+        <Link href='https://github.com'>
           Link
         </Link>
       </Example>
@@ -72,44 +73,31 @@ const Index = props => (
       <Example name='Button'>
         <Button> Button </Button>
       </Example>
-      <Example name='ButtonPrimary'>
-        <ButtonPrimary>
-          button primary
-        </ButtonPrimary>
+      <Example name='Button - small'>
+        <Button size='small'> Button </Button>
       </Example>
-      <Example name='ButtonSecondary'>
-        <ButtonSecondary>
-          button secondary
-        </ButtonSecondary>
+      <Example name='Button - large'>
+        <Button size='large'> Button </Button>
       </Example>
       <Example name='ButtonDanger'>
-        <ButtonDanger>
-          button danger
-        </ButtonDanger>
+        <ButtonDanger> Button </ButtonDanger>
       </Example>
-      <Example name='Button small'>
-        <ButtonSecondary small>
-          button small
-        </ButtonSecondary>
+      <Example name='ButtonPrimary'>
+        <ButtonPrimary> Button </ButtonPrimary>
       </Example>
-      <Example name='Button large'>
-        <ButtonSecondary large>
-          button large
-        </ButtonSecondary>
-        <Detail>
-          <Box my={2}>
-            <ButtonPrimary large>
-              button large
-            </ButtonPrimary>
-          </Box>
-          <Box>
-            <ButtonDanger large>
-              button large
-            </ButtonDanger>
-          </Box>
-        </Detail>
+      <Example name='ButtonOutline'>
+        <ButtonOutline> Button </ButtonOutline>
       </Example>
-      <Example name="CounterLabel">
+      <Example name='Button - full width'>
+        <Button block> Button </Button>
+      </Example>
+      <Example name='Button - styled as link'>
+        <Button linkStyle> Button </Button>
+      </Example>
+      <Example name='ButtonLink'>
+        <ButtonLink href='https://www.goatslive.com/'>This is an {'<a>'} styled as a button</ButtonLink>
+      </Example>
+      <Example name='CounterLabel'>
         <CounterLabel>
           12
         </CounterLabel>

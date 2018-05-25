@@ -1,17 +1,24 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const ButtonPrimary = props => (
+const ButtonPrimary = ({ size, disabled, block, linkStyle, onClick, children }) => (
     <button
-      {...props}
+      disabled={disabled}
+      onClick={onClick}
+      type="button"
       className={classnames(
-        props.className,
-        'btn btn-primary', {
-          'btn-sm': props.small,
-          'btn-large': props.large,
+        'btn-primary',
+        {
+          'btn': !linkStyle,
+          'btn-link': linkStyle,
+          'btn-sm': size === 'small',
+          'btn-large': size === 'large',
+          'btn-block': block,
         }
       )}
-    />
+    >
+      {children}
+    </button>
 )
 
 export default ButtonPrimary

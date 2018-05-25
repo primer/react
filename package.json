@@ -20,10 +20,6 @@
     "design-system"
   ],
   "author": "GitHub, Inc.",
-  "contributors": [
-    "Diana Mounter <diana.mounter@gmail.com>",
-    "Shawn Allen <shawn.allen@github.com>"
-  ],
   "license": "MIT",
   "x0": {
     "cssLibrary": "styled-components",
