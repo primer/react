@@ -240,16 +240,16 @@ const Index = props => (
           <Box mb={4}>
             <Heading.h2 mb={1}>By color</Heading.h2>
             <Box mb={2}>
-              <StateLabel bg='invalid'>Invalid</StateLabel>
+              <StateLabel scheme='invalid'>Invalid</StateLabel>
             </Box>
             <Box mb={2}>
-              <StateLabel bg='green'>Green</StateLabel>
+              <StateLabel scheme='green'>Green</StateLabel>
             </Box>
             <Box mb={2}>
-              <StateLabel bg='red'>Red</StateLabel>
+              <StateLabel scheme='red'>Red</StateLabel>
             </Box>
             <Box mb={2}>
-              <StateLabel bg='purple'>Purple</StateLabel>
+              <StateLabel scheme='purple'>Purple</StateLabel>
             </Box>
           </Box>
           <Box mb={4}>
@@ -276,19 +276,19 @@ const Index = props => (
             <Heading.h2 mb={1}>Small, by color</Heading.h2>
             <Box mb={2}>
               <span className='mr-2'>
-                <StateLabel small bg='invalid'>Invalid</StateLabel>
+                <StateLabel small scheme='invalid'>Invalid</StateLabel>
               </span>
               <span className='mr-2'>
-                <StateLabel small bg='green'>Green</StateLabel>
+                <StateLabel small scheme='green'>Green</StateLabel>
               </span>
               <span className='mr-2'>
-                <StateLabel small bg='red'>Red</StateLabel>
+                <StateLabel small scheme='red'>Red</StateLabel>
               </span>
               <span className='mr-2'>
-                <StateLabel small bg='purple'>Purple</StateLabel>
+                <StateLabel small scheme='purple'>Purple</StateLabel>
               </span>
               <span className='mr-2'>
-                <StateLabel small bg='green' icon={<Octicon name='git-branch'/>}>
+                <StateLabel small scheme='green' icon={<Octicon name='git-branch'/>}>
                   Custom Octicon
                 </StateLabel>
               </span>
