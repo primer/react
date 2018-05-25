@@ -21,3 +21,10 @@ it('Box renders padding', () => {
   expect(render(<Box p={[null, 1, null, 3]} />))
     .toEqual(render(<div className='p-sm-1 p-lg-3' />))
 })
+
+it('Box renders borders', () => {
+  expect(render(<Box border />))
+    .toEqual(render(<div className='border' />))
+  expect(render(<Box border={['left', 'green']} />))
+    .toEqual(render(<div className='border-left border-green' />))
+})

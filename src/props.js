@@ -49,3 +49,9 @@ export function valueMapper(valueMap, fn, fallback) {
       ? call(fn, value)
       : call(fallback, value)
 }
+
+export function expander(fn) {
+  return value => Array.isArray(value)
+    ? value.map(fn)
+    : fn(value)
+}

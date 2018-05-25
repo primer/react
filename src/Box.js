@@ -1,13 +1,13 @@
 import React from 'react'
 import chameleon from './chameleon'
-import map, {classifier, valueMapper} from './props'
+import map, {classifier, expander, valueMapper} from './props'
 
 const classifyBoxProps = classifier({
   bg: value => `bg-${value}`,
-  border: valueMapper({
+  border: expander(valueMapper({
     true: 'border',
     false: 'border-0',
-  }, null, value => `border-${value}`),
+  }, null, value => `border-${value}`)),
   fg: value => `text-${value}`
 })
 
