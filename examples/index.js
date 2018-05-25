@@ -128,7 +128,7 @@ const Index = props => (
       </Example>
       <Example name='Font Sizes'>
         {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
-          <Text.div key={i} fontSize={fontSize}>fontSize {fontSize}</Text.div>
+          <Text key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
         ))}
       </Example>
       <Example name='Text'>
@@ -254,4 +254,5 @@ const Index = props => (
     </Library>
   </Page>
 )
+
 export default Index
