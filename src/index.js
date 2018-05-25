@@ -8,7 +8,6 @@ export { default as ExampleBox } from './ExampleBox'
 
 // Layout
 export { default as Box } from './Box'
-export { default as Flex } from './Flex'
 
 // Components
 export { default as Button } from './Button'
@@ -24,4 +23,3 @@ export { default as Text } from './Text'
 export { default as CounterLabel } from './CounterLabel'
 export { default as Flash } from './Flash'
 export { default as StateLabel } from './StateLabel'
-export { default as UtilityBox } from './UtilityBox'

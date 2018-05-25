@@ -8,7 +8,6 @@ import {
   Page,
   ExampleBox,
   Box,
-  Flex,
   Button,
   ButtonDanger,
   ButtonPrimary,
@@ -20,14 +19,13 @@ import {
   Text,
   Flash,
   StateLabel,
-  UtilityBox,
   theme
 } from '../src'
 import Octicon from '@github/octicons-react'
 
 const Swatch = ({name, index, color, ...rest}) => (
-  <div {...rest} key={index}>
-    <Box mt={3} p={6} m={1} bg={`${name}.${index}`} />
+  <div {...rest}>
+    <div className='m-1 mt-3 p-6' style={{background: theme.colors[name][index]}} />
     <Heading.h3 fontSize={2} px={1}>
       {name}.{index}
     </Heading.h3>
@@ -70,17 +68,6 @@ const Index = props => (
       </Example>
       <Example name='Box'>
         <Box p={3} bg='gray.1'> Box </Box>
-      </Example>
-      <Example name='Box maxWidths'>
-        <Box p={3} bg='gray.1' maxWidth='small'> Box small </Box>
-        <Box p={3} bg='gray.2' maxWidth='medium'> Box medium </Box>
-        <Box p={3} bg='gray.1' maxWidth='large'> Box large </Box>
-        <Box p={3} bg='gray.2' maxWidth='xlarge'> Box xlarge </Box>
-      </Example>
-      <Example name='UtilityBox'>
-        <UtilityBox bg='green-light' my={4} p={4}>
-          UtilityBox with Primer utilities as props
-        </UtilityBox>
       </Example>
       <Example name='Button'>
         <Button> Button </Button>
@@ -201,7 +188,7 @@ const Index = props => (
         </Text>
       </Example>
       <Example name='Colors'>
-        <Flex pb={4}>
+        <div className='p-4 d-flex'>
           <Box bg='blue.5' p={6} m={1} />
           <Box bg='green.5' p={6} m={1} />
           <Box bg='purple.5' p={6} m={1} />
@@ -210,16 +197,16 @@ const Index = props => (
           <Box bg='red.5' p={6} m={1} />
           <Box bg='black' p={6} m={1} />
           <Box bg='white' p={6} m={1} />
-        </Flex>
-          <Detail>
-            {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
-              <Flex key={i}>
-                {theme.colors[hue].map((color, j) => (
-                  <Swatch name={hue} index={j} color={color}/>
-                ))}
-              </Flex>
-            ))}
-          </Detail>
+        </div>
+        <Detail>
+          {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
+            <div className='d-flex' key={i}>
+              {theme.colors[hue].map((color, j) => (
+                <Swatch name={hue} index={j} key={j} color={color}/>
+              ))}
+            </div>
+          ))}
+        </Detail>
       </Example>
       <Example name='StateLabel'>
         <Box mb={2}>
