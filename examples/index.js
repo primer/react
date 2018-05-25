@@ -109,12 +109,18 @@ const Index = props => (
           <Flash>
             Flash
           </Flash>
+        </Box>
+        <Box mb={3}>
           <Flash yellow>
             Flash yellow
           </Flash>
+          </Box>
+        <Box mb={3}>
           <Flash red>
             Flash red
           </Flash>
+          </Box>
+        <Box mb={3}>
           <Flash green>
             Flash green
           </Flash>
