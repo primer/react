@@ -65,7 +65,7 @@ const Index = props => (
         </ExampleBox>
       </Example>
       <Example name='Link'>
-        <Link href="https://github.com">
+        <Link href='https://github.com'>
           Link
         </Link>
       </Example>
@@ -84,33 +84,33 @@ const Index = props => (
         </UtilityBox>
       </Example>
       <Example name='Button'>
-        <Button onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Button> Button </Button>
       </Example>
       <Example name='Button - small'>
-        <Button size="small" onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Button size='small'> Button </Button>
       </Example>
       <Example name='Button - large'>
-        <Button size="large" onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Button size='large'> Button </Button>
       </Example>
       <Example name='ButtonDanger'>
-        <ButtonDanger onClick={() => window.alert('Clicked!')}> Button </ButtonDanger>
+        <ButtonDanger> Button </ButtonDanger>
       </Example>
       <Example name='ButtonPrimary'>
-        <ButtonPrimary onClick={() => window.alert('Clicked!')}> Button </ButtonPrimary>
+        <ButtonPrimary> Button </ButtonPrimary>
       </Example>
       <Example name='ButtonOutline'>
-        <ButtonOutline onClick={() => window.alert('Clicked!')}> Button </ButtonOutline>
+        <ButtonOutline> Button </ButtonOutline>
       </Example>
       <Example name='Button - full width'>
-        <Button block onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Button block> Button </Button>
       </Example>
       <Example name='Button - styled as link'>
-        <Button linkStyle onClick={() => window.alert('Clicked!')}> Button </Button>
+        <Button linkStyle> Button </Button>
       </Example>
       <Example name='ButtonLink'>
-        <ButtonLink href="https://www.goatslive.com/">This is an {"<a>"} styled as a button</ButtonLink>
+        <ButtonLink href='https://www.goatslive.com/'>This is an {'<a>'} styled as a button</ButtonLink>
       </Example>
-      <Example name="CounterLabel">
+      <Example name='CounterLabel'>
         <CounterLabel>
           12
         </CounterLabel>
