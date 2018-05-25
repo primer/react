@@ -6,7 +6,7 @@
 
 ⚠️ This project is WIP and not ready for production use yet!
 
-Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides. Eventually we'll remove CSS from Primer in favor of CSS-in-JS (using styled-components) to ensure styles are encapsulated.
+Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides.
 
 ## Getting started
 
