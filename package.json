@@ -1,9 +1,18 @@
 {
   "name": "primer-react",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.1-beta",
   "description": "Primer react components",
-  "repository": "primer/primer-react",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "x0 dev examples -op 8888",
+    "build": "x0 build examples --out-dir docs",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/primer-react.git"
+  },
   "keywords": [
     "react",
     "components",
@@ -16,19 +25,13 @@
     "Shawn Allen <shawn.allen@github.com>"
   ],
   "license": "MIT",
-  "main": "index.js",
-  "scripts": {
-    "start": "x0 dev src/Index.js -op 8888",
-    "build": "x0 build src/Index.js --out-dir docs",
-    "test": "jest"
-  },
   "x0": {
     "cssLibrary": "styled-components",
     "basename": "/primer-react"
   },
   "dependencies": {
-    "@compositor/kit": "^1.0.0-1",
-    "@compositor/x0": "^3.2.0",
+    "@compositor/kit": "^1.0.26",
+    "@compositor/x0": "^3.2.1",
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
