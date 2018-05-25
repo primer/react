@@ -1,7 +1,7 @@
 import React from 'react'
 import Text from './Text'
 
-const Heading = Text.withComponent('h1')
+const Heading = Text.withComponent('h1', true)
 
 Heading.defaultProps = {
   fontSize: 5,

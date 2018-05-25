@@ -14,6 +14,5 @@ const classifyBoxProps = classifier({
 const boxProps = props => classifyBoxProps(map(props))
 
 const Box = chameleon('div', boxProps)
-Box.span = Box.withComponent('span', false)
 
 export default Box

@@ -20,6 +20,5 @@ const classifyTextProps = classifier({
 const textProps = props => classifyTextProps(map(props))
 
 const Text = chameleon('span', textProps, true)
-Text.div = Text.withComponent('div', false)
 
 export default Text
