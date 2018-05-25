@@ -13,11 +13,13 @@ const Page = props => (
       <Meta />
       <CSS />
     </head>
-    <ThemeProvider theme={theme}>
-      <Box color='bodytext'>
-        {props.children}
-      </Box>
-    </ThemeProvider>
+    <body>
+      <ThemeProvider theme={theme}>
+        <Box color='bodytext'>
+          {props.children}
+        </Box>
+      </ThemeProvider>
+    </body>
   </React.Fragment>
 )
 
