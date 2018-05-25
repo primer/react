@@ -128,7 +128,7 @@ const Index = props => (
       </Example>
       <Example name='Font Sizes'>
         {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
-          <Text key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
+          <Text tag='div' key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
         ))}
       </Example>
       <Example name='Text'>
