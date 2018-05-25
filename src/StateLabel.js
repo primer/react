@@ -29,7 +29,7 @@ function getOcticon(state) {
 export default function StateLabel(props) {
   const {
     state,
-    bg,
+    scheme,
     small,
     children,
   } = props
@@ -39,7 +39,7 @@ export default function StateLabel(props) {
     icon = icon || getOcticon(state)
   }
 
-  const color = bg || stateColorMap[state]
+  const color = scheme || stateColorMap[state]
   return (
     <span className={classnames(
       'State', {
