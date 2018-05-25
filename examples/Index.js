@@ -12,7 +12,8 @@ import {
   Button,
   ButtonDanger,
   ButtonPrimary,
-  ButtonSecondary,
+  ButtonOutline,
+  ButtonLink,
   CounterLabel,
   Heading,
   Label,
@@ -83,44 +84,31 @@ const Index = props => (
         </UtilityBox>
       </Example>
       <Example name='Button'>
-        <Button> Button </Button>
+        <Button onClick={() => window.alert('Clicked!')}> Button </Button>
       </Example>
-      <Example name='ButtonPrimary'>
-        <ButtonPrimary>
-          button primary
-        </ButtonPrimary>
+      <Example name='Button - small'>
+        <Button size="small" onClick={() => window.alert('Clicked!')}> Button </Button>
       </Example>
-      <Example name='ButtonSecondary'>
-        <ButtonSecondary>
-          button secondary
-        </ButtonSecondary>
+      <Example name='Button - large'>
+        <Button size="large" onClick={() => window.alert('Clicked!')}> Button </Button>
       </Example>
       <Example name='ButtonDanger'>
-        <ButtonDanger>
-          button danger
-        </ButtonDanger>
+        <ButtonDanger onClick={() => window.alert('Clicked!')}> Button </ButtonDanger>
       </Example>
-      <Example name='Button small'>
-        <ButtonSecondary small>
-          button small
-        </ButtonSecondary>
+      <Example name='ButtonPrimary'>
+        <ButtonPrimary onClick={() => window.alert('Clicked!')}> Button </ButtonPrimary>
       </Example>
-      <Example name='Button large'>
-        <ButtonSecondary large>
-          button large
-        </ButtonSecondary>
-        <Detail>
-          <Box my={2}>
-            <ButtonPrimary large>
-              button large
-            </ButtonPrimary>
-          </Box>
-          <Box>
-            <ButtonDanger large>
-              button large
-            </ButtonDanger>
-          </Box>
-        </Detail>
+      <Example name='ButtonOutline'>
+        <ButtonOutline onClick={() => window.alert('Clicked!')}> Button </ButtonOutline>
+      </Example>
+      <Example name='Button - full width'>
+        <Button block onClick={() => window.alert('Clicked!')}> Button </Button>
+      </Example>
+      <Example name='Button - styled as link'>
+        <Button linkStyle onClick={() => window.alert('Clicked!')}> Button </Button>
+      </Example>
+      <Example name='ButtonLink'>
+        <ButtonLink href="https://www.goatslive.com/">This is an {"<a>"} styled as a button</ButtonLink>
       </Example>
       <Example name="CounterLabel">
         <CounterLabel>
