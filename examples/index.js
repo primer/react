@@ -42,12 +42,9 @@ const Index = props => (
       <Example name='Heading'>
         <Heading mb={2}>Heading</Heading>
         <Detail>
-          <Heading.h1 fontSize={6} mb={2}>Heading (h1@6)</Heading.h1>
-          <Heading.h2 fontSize={5} mb={2}>Heading (h2@5)</Heading.h2>
-          <Heading.h3 fontSize={4} mb={2}>Heading (h3@4)</Heading.h3>
-          <Heading.h4 fontSize={3} mb={2}>Heading (h4@3)</Heading.h4>
-          <Heading.h5 fontSize={2} mb={2}>Heading (h5@2)</Heading.h5>
-          <Heading.h6 fontSize={1} mb={2}>Heading (h6@1)</Heading.h6>
+          {[0, 1, 2, 3, 4, 5, /* 6, 7, */ '00-light', '0-light', '1-light', '2-light', '3-light'].map((fontSize, i) => (
+            <Heading key={i} fontSize={fontSize} mb={2}>With fontSize={fontSize}</Heading>
+          ))}
         </Detail>
       </Example>
       <Example name='Label'>
@@ -130,61 +127,31 @@ const Index = props => (
         </Flash>
       </Example>
       <Example name='Font Sizes'>
-        <Text fontSize={7}>
-        fontSize 7
-        </Text>
-        <Text fontSize={6}>
-        fontSize 6
-        </Text>
-        <Text fontSize={5}>
-          fontSize 5
-        </Text>
-        <Text fontSize={4}>
-          fontSize 4
-        </Text>
-        <Text fontSize={3}>
-        fontSize 3
-        </Text>
-        <Text fontSize={2}>
-        fontSize 2
-        </Text>
-        <Text fontSize={1}>
-        fontSize 1
-        </Text>
-        <Text fontSize={0}>
-        fontSize 0
-        </Text>
+        {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
+          <Text.div key={i} fontSize={fontSize}>fontSize {fontSize}</Text.div>
+        ))}
       </Example>
       <Example name='Text'>
-        <Text>
-          Text
-        </Text>
-        <Text fontWeight='bold'>
-          Text bold
-        </Text>
-        <Text color='green.5'>
-          Text green
-        </Text>
-        <Text lineHeight={1.25}>
-          Text lineHeight 1.25
-        </Text>
-        <Text fontSize={4}>
-          Text fontSize 4
-        </Text>
-        <Text p={4}>
-          Text padding 4
-        </Text>
+        <Text>Text</Text>
+        <Text fontWeight='bold'>Text bold</Text>
+        <Text color='green'>Text green</Text>
+        <Text lineHeight='condensed'>Text lineHeight "condensed"</Text>
+        <Text fontSize={4}>Text fontSize 4</Text>
+        <Text p={4}>Text padding 4</Text>
       </Example>
       <Example name='Colors'>
-        <div className='p-4 d-flex'>
-          <Box bg='blue.5' p={6} m={1} />
-          <Box bg='green.5' p={6} m={1} />
-          <Box bg='purple.5' p={6} m={1} />
-          <Box bg='yellow.5' p={6} m={1} />
-          <Box bg='orange.5' p={6} m={1} />
-          <Box bg='red.5' p={6} m={1} />
-          <Box bg='black' p={6} m={1} />
-          <Box bg='white' p={6} m={1} />
+        <div className='d-flex'>
+          <Box bg='blue' p={4} m={1} />
+          <Box bg='green' p={4} m={1} />
+          <Box bg='purple' p={4} m={1} />
+          <Box bg='yellow' p={4} m={1} />
+          <Box bg='red' p={4} m={1} />
+          <Box bg='white' p={4} m={1} border />
+          <Box bg='gray' p={4} m={1} />
+          <Box bg='gray-light' p={4} m={1} />
+          <Box bg='blue-light' p={4} m={1} />
+          <Box bg='purple-light' p={4} m={1} />
+          <Box bg='red-light' p={4} m={1} />
         </div>
         <Detail>
           {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
