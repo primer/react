@@ -5,7 +5,7 @@ export default function chameleon(defaultTag, mapProps, castable) {
   if (castable) {
     Component.withComponent = (tag, recastable, members) => {
       const Casted = chameleon(tag, mapProps, recastable)
-      if (members) Object.assign(casted, members)
+      if (members) Object.assign(Casted, members)
       return Casted
     }
   }
