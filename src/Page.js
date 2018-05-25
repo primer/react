@@ -1,4 +1,3 @@
-import Box from './Box'
 import CSS from './CSS'
 import Meta from './Meta'
 import React from 'react'
@@ -13,11 +12,13 @@ const Page = ({children}) => (
       <Meta />
       <CSS />
     </head>
-    <ThemeProvider theme={theme}>
-      <div className='text-dark-gray'>
-        {children}
-      </div>
-    </ThemeProvider>
+    <body>
+      <ThemeProvider theme={theme}>
+        <div className='text-dark-gray'>
+          {children}
+        </div>
+      </ThemeProvider>
+    </body>
   </React.Fragment>
 )
 
