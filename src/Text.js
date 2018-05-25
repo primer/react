@@ -1,20 +1,25 @@
-import styled from 'styled-components'
-import {
-  space,
-  color,
-  fontSize,
-  fontWeight,
-  lineHeight,
-} from 'styled-system'
+import React from 'react'
+import chameleon from './chameleon'
+import map, {classifier, valueMapper} from './props'
 
-const Text = styled.div`
-  ${space}
-  ${color}
-  ${fontSize}
-  ${fontWeight}
-  ${lineHeight}
-`
+const classifyTextProps = classifier({
+  color: value => `text-${value}`,
+  fontSize: valueMapper({
+    0: '6',
+    1: '5',
+    2: '4',
+    3: '3',
+    4: '2',
+    5: '1',
+    6: '0',
+  }, value => `f${value}`, true),
+  fontWeight: value => `font-weight-${value}`,
+  lineHeight: value => `lh-${value}`,
+})
 
-Text.p = Text.withComponent('p')
+const textProps = props => classifyTextProps(map(props))
+
+const Text = chameleon('span', textProps, true)
+Text.div = Text.withComponent('div', false)
 
 export default Text
