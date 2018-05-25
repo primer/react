@@ -8,17 +8,23 @@
 
 Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides.
 
-## Getting started
+## Installation
 
-`npm install`
+Install primer-react in your project with:
 
-Run app with:
+`npm install primer-react`
 
-`npm run start`
+## Local Development
 
-Build with:
+Run `primer-react` locally when working on adding or updating components with.
 
-`npm run build`
+Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
+
+Install dependencies: `npm install`
+
+Run app with: `npm run start`
+
+Build docs before publishing: `npm run build`
 
 
 ## Principles
