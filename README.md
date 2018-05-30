@@ -16,7 +16,7 @@ Install primer-react in your project with:
 
 ## Local Development
 
-Run `primer-react` locally when working on adding or updating components with.
+Run `primer-react` locally when adding or updating components.
 
 Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
 
