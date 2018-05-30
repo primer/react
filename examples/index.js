@@ -13,6 +13,7 @@ import {
   ButtonOutline,
   ButtonLink,
   CounterLabel,
+  Details,
   Heading,
   Label,
   Link,
@@ -103,6 +104,25 @@ const Index = props => (
         <CounterLabel theme={'gray-light'}>
           13
         </CounterLabel>
+      </Example>
+      <Example name='Details'>
+        <Box mb={4}>
+          <Heading.h2>With static children</Heading.h2>
+          <Details>
+            <summary className='btn'>Click me</summary>
+            <p>This should show and hide</p>
+          </Details>
+        </Box>
+        <Box my={4}>
+          <Heading.h2>With render prop</Heading.h2>
+          <Details>{({open, toggle}) => (
+            <React.Fragment>
+              <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
+              <p>This should show and hide</p>
+            </React.Fragment>
+          )}
+          </Details>
+        </Box>
       </Example>
       <Example name='Flash themes'>
         <Box mb={3}>
