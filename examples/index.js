@@ -19,6 +19,7 @@ import {
   Text,
   Flash,
   StateLabel,
+  Tooltip,
   theme
 } from '../src'
 import Octicon from '@github/octicons-react'
@@ -166,6 +167,31 @@ const Index = props => (
               ))}
             </div>
           ))}
+        </Detail>
+      </Example>
+      <Example name='Tooltip'>
+        <Box border p={3}>
+          <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
+        </Box>
+        <Detail>
+          <Heading.h3>Directions</Heading.h3>
+          {['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw'].map((d, i) => (
+            <Box border p={3}>
+              <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
+            </Box>
+          ))}
+          <Heading.h3>Alignment</Heading.h3>
+          <Box border p={3}>
+            <Tooltip text='Hello, Tooltip!' direction='ne' align='left'>Tooltip align left</Tooltip>
+          </Box>
+          <Heading.h3>Word wrap</Heading.h3>
+          <Box border p={3}>
+            <Tooltip text='Hello, Tooltip! This tooltip has a sentence that will wrap to a newline.' wrap  direction='ne' align='left'>Word wrapping tooltip</Tooltip>
+          </Box>
+          <Heading.h3>No Delay</Heading.h3>
+          <Box border p={3}>
+            <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
+          </Box>
         </Detail>
       </Example>
       <Example name='StateLabel'>
