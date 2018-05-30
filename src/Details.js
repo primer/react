@@ -14,7 +14,10 @@ export default class Details extends React.PureComponent {
     this.toggle = this.toggle.bind(this)
   }
 
-  toggle() {
+  toggle(event) {
+    if (event) {
+      event.preventDefault()
+    }
     this.setState({open: !this.state.open})
   }
 
