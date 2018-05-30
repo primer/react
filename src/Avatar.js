@@ -3,35 +3,45 @@ import classnames from 'classnames'
 
 const IMAGE_BASE_URL = 'https://avatars.githubusercontent.com/'
 
+function getImageURL(username, params) {
+  const query = params ? `?${new URLSearchParams(params)}` : ''
+  return `${IMAGE_BASE_URL}${username}${query}`
+}
+
 const Avatar = props => {
   const {
-    username,
+    username = 'github',
     size = 20,
-    baseURL = IMAGE_BASE_URL,
-    alt,
-    child,
+    isChild,
     ...rest
   } = props
-  const query = new URLSearchParams({
+
+  const params = {
     v: 3, // XXX is this necessary?
     s: size * 2
-  })
+  }
+
+  const {
+    alt = username,
+    src = getImageURL(username, params)
+  } = rest
+
   return (
     <img
       className={classnames(
         'avatar',
         {
           'avatar-small': size <= 24,
-          'avatar-child': child,
+          'avatar-child': isChild,
         }
       )}
-      src={`${baseURL}${username || 'github'}?${query}`}
+      src={src}
+      alt={alt}
       width={size}
       height={size}
-      alt={alt || username}
     />
   )
 }
 
 export default Avatar
-export {IMAGE_BASE_URL}
+export {IMAGE_BASE_URL, getImageURL}
