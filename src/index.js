@@ -21,6 +21,7 @@ export { default as Heading } from './Heading'
 export { default as Label } from './Label'
 export { default as Link } from './Link'
 export { default as Text } from './Text'
+export { default as Tooltip } from './Tooltip'
 
 export { default as CounterLabel } from './CounterLabel'
 export { default as Flash } from './Flash'
