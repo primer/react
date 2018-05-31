@@ -9,6 +9,8 @@ export { default as Page } from './Page'
 export { default as Box } from './Box'
 
 // Components
+export { default as Avatar } from './Avatar'
+
 export { default as Button } from './Button'
 export { default as ButtonDanger } from './ButtonDanger'
 export { default as ButtonPrimary } from './ButtonPrimary'

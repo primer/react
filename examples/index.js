@@ -5,7 +5,7 @@ import {
   Detail
 } from '@compositor/kit'
 import {
-  Page,
+  Avatar,
   Box,
   Button,
   ButtonDanger,
@@ -14,12 +14,13 @@ import {
   ButtonLink,
   BranchName,
   CounterLabel,
+  Flash,
   Heading,
   Label,
   Link,
-  Text,
-  Flash,
+  Page,
   StateLabel,
+  Text,
   Tooltip,
   theme
 } from '../src'
@@ -37,6 +38,14 @@ const Swatch = ({name, index, color, ...rest}) => (
   </div>
 )
 
+const GitHubAvatar = ({username, size = 20, ...rest}) => (
+  <Avatar
+    src={`https://avatars.githubusercontent.com/${username}?v=3&s=${size * 2}`}
+    size={size}
+    {...rest}
+  />
+)
+
 const Index = props => (
   <Page>
     <Library title='Primer-react'>
@@ -47,6 +56,19 @@ const Index = props => (
             <Heading key={i} fontSize={fontSize} mb={2}>With fontSize={fontSize}</Heading>
           ))}
         </Detail>
+      </Example>
+      <Example name='Avatar'>
+        <Box mb={2}>
+          <GitHubAvatar username='primer' size={128} />
+        </Box>
+        <Box mb={2}>
+          <GitHubAvatar username='github' size={64} />
+        </Box>
+        <Box mb={2}>
+          <GitHubAvatar username='reactjs' size={32} />
+          {' '}
+          <GitHubAvatar username='npm' />
+        </Box>
       </Example>
       <Example name='Label'>
         <Box mb={3}>
