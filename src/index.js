@@ -17,6 +17,7 @@ export { default as ButtonLink } from './ButtonLink'
 
 export { default as Heading } from './Heading'
 export { default as Label } from './Label'
+export { default as BranchName } from './BranchName'
 export { default as Link } from './Link'
 export { default as Text } from './Text'
 

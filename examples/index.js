@@ -12,6 +12,7 @@ import {
   ButtonPrimary,
   ButtonOutline,
   ButtonLink,
+  BranchName,
   CounterLabel,
   Heading,
   Label,
@@ -65,6 +66,15 @@ const Index = props => (
       </Example>
       <Example name='Box'>
         <Box p={3} bg='gray.1'> Box </Box>
+      </Example>
+      <Example name='BranchName'>
+        <BranchName>a_new_feature_branch</BranchName>
+        <Detail>
+          <Heading.h3>Linked BranchName</Heading.h3>
+          <BranchName href="/">a_new_feature_branch</BranchName>
+          <Heading.h3>BranchName with Octicon</Heading.h3>
+          <BranchName><Octicon name='git-branch' /> a_new_feature_branch</BranchName>
+        </Detail>
       </Example>
       <Example name='Button'>
         <Button> Button </Button>
