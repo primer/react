@@ -1,10 +1,11 @@
 import React from 'react'
 import classnames from 'classnames'
+import URLSearchParams from 'url-search-params'
 
 const IMAGE_BASE_URL = 'https://avatars.githubusercontent.com/'
 
 function getImageURL(username, params) {
-  const query = params ? `?${new URLSearchParams(params)}` : ''
+  const query = params ? '?' + new URLSearchParams(params) : ''
   return `${IMAGE_BASE_URL}${username}${query}`
 }
 
