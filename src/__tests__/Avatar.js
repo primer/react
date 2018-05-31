@@ -1,8 +1,6 @@
 import React from 'react'
 import Avatar from '../Avatar'
-import renderer from 'react-test-renderer'
-
-const render = component => renderer.create(component).toJSON()
+import {render} from '../utils/testing'
 
 describe('Avatar', () => {
   it('renders small by default', () => {
