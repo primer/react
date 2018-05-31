@@ -1,8 +1,6 @@
 import React from 'react'
 import StateLabel from '../StateLabel'
-import renderer from 'react-test-renderer'
-
-const render = component => renderer.create(component).toJSON()
+import {render} from '../utils/testing'
 
 it('StateLabel renders scheme', () => {
   expect(render(<StateLabel scheme='green'/>))

@@ -1,6 +1,6 @@
 {
   "name": "primer-react",
-  "version": "0.0.1-beta",
+  "version": "0.2.0-beta",
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
