@@ -5,7 +5,7 @@ import {
   Detail
 } from '@compositor/kit'
 import {
-  Page,
+  Avatar,
   Box,
   Button,
   ButtonDanger,
@@ -13,12 +13,13 @@ import {
   ButtonOutline,
   ButtonLink,
   CounterLabel,
+  Flash,
   Heading,
   Label,
   Link,
-  Text,
-  Flash,
+  Page,
   StateLabel,
+  Text,
   theme
 } from '../src'
 import Octicon from '@github/octicons-react'
@@ -45,6 +46,20 @@ const Index = props => (
             <Heading key={i} fontSize={fontSize} mb={2}>With fontSize={fontSize}</Heading>
           ))}
         </Detail>
+      </Example>
+      <Example name='Avatar'>
+        <Box mb={2}>
+          <Avatar username='primer' size={128} />
+        </Box>
+        <Box mb={2}>
+          <Avatar username='github' size={64} />
+        </Box>
+        <Box mb={2}>
+          <div className='avatar-parent-child float-left'>
+            <Avatar username='github' size={48} />
+            <Avatar username='primer' size={20} isChild />
+          </div>
+        </Box>
       </Example>
       <Example name='Label'>
         <Box mb={3}>
