@@ -28,7 +28,8 @@
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "classnames": "^2.2.5",
     "react": "^16.2.0",
-    "system-classnames": "^1.0.0-3"
+    "system-classnames": "^1.0.0-3",
+    "url-search-params": "^0.10.0"
   },
   "devDependencies": {
     "@compositor/kit": "^1.0.26",
