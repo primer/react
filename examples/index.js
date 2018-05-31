@@ -20,6 +20,7 @@ import {
   Text,
   Flash,
   StateLabel,
+  Tooltip,
   theme
 } from '../src'
 import Octicon from '@github/octicons-react'
@@ -27,9 +28,9 @@ import Octicon from '@github/octicons-react'
 const Swatch = ({name, index, color, ...rest}) => (
   <div {...rest}>
     <div className='m-1 mt-3 p-6' style={{background: theme.colors[name][index]}} />
-    <Heading.h3 fontSize={2} px={1}>
+    <Heading tag='h3' fontSize={2} px={1}>
       {name}.{index}
-    </Heading.h3>
+    </Heading>
     <Text px={1}>
       {color}
     </Text>
@@ -40,7 +41,7 @@ const Index = props => (
   <Page>
     <Library title='Primer-react'>
       <Example name='Heading'>
-        <Heading mb={2}>Heading</Heading>
+        <Heading mb={2}>Default Heading</Heading>
         <Detail>
           {[0, 1, 2, 3, 4, 5, /* 6, 7, */ '00-light', '0-light', '1-light', '2-light', '3-light'].map((fontSize, i) => (
             <Heading key={i} fontSize={fontSize} mb={2}>With fontSize={fontSize}</Heading>
@@ -178,6 +179,31 @@ const Index = props => (
           ))}
         </Detail>
       </Example>
+      <Example name='Tooltip'>
+        <Box border p={3}>
+          <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
+        </Box>
+        <Detail>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Directions</Heading>
+          {Tooltip.directions.map((d, i) => (
+            <Box border p={3}>
+              <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
+            </Box>
+          ))}
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Alignment</Heading>
+          <Box border p={3}>
+            <Tooltip text='Hello, Tooltip!' direction='ne' align='left'>Tooltip align left</Tooltip>
+          </Box>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Word wrap</Heading>
+          <Box border p={3}>
+            <Tooltip text='Hello, Tooltip! This tooltip has a sentence that will wrap to a newline.' wrap  direction='ne' align='left'>Word wrapping tooltip</Tooltip>
+          </Box>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>No Delay</Heading>
+          <Box border p={3}>
+            <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
+          </Box>
+        </Detail>
+      </Example>
       <Example name='StateLabel'>
         <Box mb={2}>
           <StateLabel state='open'>Open</StateLabel>
@@ -190,7 +216,7 @@ const Index = props => (
         </Box>
         <Detail>
           <Box mb={4}>
-            <Heading.h2 mb={1}>By state (Octicons built in)</Heading.h2>
+            <Heading tag='h2' mb={1}>By state (Octicons built in)</Heading>
             <Box mb={2}>
               <StateLabel>Unknown</StateLabel>
             </Box>
@@ -208,7 +234,7 @@ const Index = props => (
             </Box>
           </Box>
           <Box mb={4}>
-            <Heading.h2 mb={1}>By color</Heading.h2>
+            <Heading tag='h2' mb={1}>By color</Heading>
             <Box mb={2}>
               <StateLabel scheme='invalid'>Invalid</StateLabel>
             </Box>
@@ -223,7 +249,7 @@ const Index = props => (
             </Box>
           </Box>
           <Box mb={4}>
-            <Heading.h2 mb={2}>Small, by state</Heading.h2>
+            <Heading tag='h2' mb={2}>Small, by state</Heading>
             <Box mb={2}>
               <span className='mr-2'>
                 <StateLabel small>Unknown</StateLabel>
@@ -243,7 +269,7 @@ const Index = props => (
             </Box>
           </Box>
           <Box mb={4}>
-            <Heading.h2 mb={1}>Small, by color</Heading.h2>
+            <Heading tag='h2' mb={1}>Small, by color</Heading>
             <Box mb={2}>
               <span className='mr-2'>
                 <StateLabel small scheme='invalid'>Invalid</StateLabel>

@@ -1,8 +1,6 @@
 import React from 'react'
 import Box from '../Box'
-import renderer from 'react-test-renderer'
-
-const render = component => renderer.create(component).toJSON()
+import {render} from '../utils/testing'
 
 it('Box renders margin', () => {
   expect(render(<Box m={1} />))
