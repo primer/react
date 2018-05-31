@@ -27,9 +27,9 @@ import Octicon from '@github/octicons-react'
 const Swatch = ({name, index, color, ...rest}) => (
   <div {...rest}>
     <div className='m-1 mt-3 p-6' style={{background: theme.colors[name][index]}} />
-    <Heading.h3 fontSize={2} px={1}>
+    <Heading tag='h3' fontSize={2} px={1}>
       {name}.{index}
-    </Heading.h3>
+    </Heading>
     <Text px={1}>
       {color}
     </Text>
@@ -40,7 +40,7 @@ const Index = props => (
   <Page>
     <Library title='Primer-react'>
       <Example name='Heading'>
-        <Heading mb={2}>Heading</Heading>
+        <Heading mb={2}>Default Heading</Heading>
         <Detail>
           {[0, 1, 2, 3, 4, 5, /* 6, 7, */ '00-light', '0-light', '1-light', '2-light', '3-light'].map((fontSize, i) => (
             <Heading key={i} fontSize={fontSize} mb={2}>With fontSize={fontSize}</Heading>
@@ -206,7 +206,7 @@ const Index = props => (
         </Box>
         <Detail>
           <Box mb={4}>
-            <Heading.h2 mb={1}>By state (Octicons built in)</Heading.h2>
+            <Heading tag='h2' mb={1}>By state (Octicons built in)</Heading>
             <Box mb={2}>
               <StateLabel>Unknown</StateLabel>
             </Box>
@@ -224,7 +224,7 @@ const Index = props => (
             </Box>
           </Box>
           <Box mb={4}>
-            <Heading.h2 mb={1}>By color</Heading.h2>
+            <Heading tag='h2' mb={1}>By color</Heading>
             <Box mb={2}>
               <StateLabel scheme='invalid'>Invalid</StateLabel>
             </Box>
@@ -239,7 +239,7 @@ const Index = props => (
             </Box>
           </Box>
           <Box mb={4}>
-            <Heading.h2 mb={2}>Small, by state</Heading.h2>
+            <Heading tag='h2' mb={2}>Small, by state</Heading>
             <Box mb={2}>
               <span className='mr-2'>
                 <StateLabel small>Unknown</StateLabel>
@@ -259,7 +259,7 @@ const Index = props => (
             </Box>
           </Box>
           <Box mb={4}>
-            <Heading.h2 mb={1}>Small, by color</Heading.h2>
+            <Heading tag='h2' mb={1}>Small, by color</Heading>
             <Box mb={2}>
               <span className='mr-2'>
                 <StateLabel small scheme='invalid'>Invalid</StateLabel>
