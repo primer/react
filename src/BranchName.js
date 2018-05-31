@@ -1,8 +1,13 @@
 import React from 'react'
 
-const BranchName = ({ children, href }) => {
+const BranchName = ({ children, href, tag }) => {
 
-  const Tag = href ? 'a' : 'span'
+  const Tag = tag === 'a' ? 'a' : 'span'
+
+  // We don't want someone to use href on a non tag
+  if (tag != 'a') {
+    href = null
+  }
 
   return <Tag
     href={href}

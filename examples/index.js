@@ -71,9 +71,9 @@ const Index = props => (
       <Example name='BranchName'>
         <BranchName>a_new_feature_branch</BranchName>
         <Detail>
-          <Heading.h3>Linked BranchName</Heading.h3>
-          <BranchName href="/">a_new_feature_branch</BranchName>
-          <Heading.h3>BranchName with Octicon</Heading.h3>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Linked BranchName</Heading>
+          <BranchName tag='a' href='/'>a_new_feature_branch</BranchName>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>BranchName with Octicon</Heading>
           <BranchName><Octicon name='git-branch' /> a_new_feature_branch</BranchName>
         </Detail>
       </Example>
