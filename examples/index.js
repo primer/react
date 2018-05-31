@@ -175,7 +175,7 @@ const Index = props => (
         </Box>
         <Detail>
           <Heading.h3>Directions</Heading.h3>
-          {['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw'].map((d, i) => (
+          {Tooltip.directions.map((d, i) => (
             <Box border p={3}>
               <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
             </Box>

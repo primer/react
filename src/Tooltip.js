@@ -1,13 +1,15 @@
 import React from 'react'
 import classnames from 'classnames'
 
+const alignmentDirections = ['ne', 'se', 'nw', 'sw']
+
 const Tooltip = ({ children, direction, text, noDelay, align, wrap }) => (
   <span
     aria-label={text}
     className={classnames(
       'tooltipped',
       `tooltipped-${direction || 'n'}`,
-      align && ['ne', 'se', 'nw', 'sw'].includes(direction)  ? `tooltipped-align-${align}-2` : '',
+      align && alignmentDirections.includes(direction)  ? `tooltipped-align-${align}-2` : '',
       {
         'tooltipped-no-delay': noDelay,
         'tooltipped-multiline': wrap
@@ -16,5 +18,7 @@ const Tooltip = ({ children, direction, text, noDelay, align, wrap }) => (
     { children }
   </span>
 )
+
+Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
 export default Tooltip
