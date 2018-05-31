@@ -36,6 +36,14 @@ const Swatch = ({name, index, color, ...rest}) => (
   </div>
 )
 
+const GitHubAvatar = ({username, size = 20, ...rest}) => (
+  <Avatar
+    src={`https://avatars.githubusercontent.com/${username}?v=3&s=${size * 2}`}
+    size={size}
+    {...rest}
+  />
+)
+
 const Index = props => (
   <Page>
     <Library title='Primer-react'>
@@ -49,16 +57,15 @@ const Index = props => (
       </Example>
       <Example name='Avatar'>
         <Box mb={2}>
-          <Avatar username='primer' size={128} />
+          <GitHubAvatar username='primer' size={128} />
         </Box>
         <Box mb={2}>
-          <Avatar username='github' size={64} />
+          <GitHubAvatar username='github' size={64} />
         </Box>
         <Box mb={2}>
-          <div className='avatar-parent-child float-left'>
-            <Avatar username='github' size={48} />
-            <Avatar username='primer' size={20} isChild />
-          </div>
+          <GitHubAvatar username='reactjs' size={32} />
+          {' '}
+          <GitHubAvatar username='npm' />
         </Box>
       </Example>
       <Example name='Label'>
