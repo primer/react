@@ -1,18 +1,18 @@
-import styled from 'styled-components'
-import {
-  space,
-  width,
-  maxWidth,
-  flex,
-  color
-} from 'styled-system'
+import React from 'react'
+import chameleon from './chameleon'
+import map, {classifier, expander, valueMapper} from './props'
 
-const Box = styled.div`
-  ${space}
-  ${width}
-  ${maxWidth}
-  ${flex}
-  ${color}
-`
+const classifyBoxProps = classifier({
+  bg: value => `bg-${value}`,
+  border: expander(valueMapper({
+    true: 'border',
+    false: 'border-0',
+  }, null, value => `border-${value}`)),
+  fg: value => `text-${value}`
+})
+
+const boxProps = props => classifyBoxProps(map(props))
+
+const Box = chameleon('div', boxProps)
 
 export default Box

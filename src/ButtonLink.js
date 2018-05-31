@@ -1,18 +1,18 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const ButtonDanger = ({ size, disabled, block, linkStyle, onClick, children }) => (
+const ButtonLink = ({ size, type, block, href, children }) => (
     <button
-      disabled={disabled}
-      onClick={onClick}
-      type="button"
+      href={href}
+      role="button"
       className={classnames(
-        'btn-danger',
+        'btn',
         {
-          'btn': !linkStyle,
-          'btn-link': linkStyle,
           'btn-sm': size === 'small',
           'btn-large': size === 'large',
+          'btn-primary': type === 'primary',
+          'btn-danger': type === 'danger',
+          'btn-outline': type === 'outline',
           'btn-block': block,
         }
       )}
@@ -21,4 +21,4 @@ const ButtonDanger = ({ size, disabled, block, linkStyle, onClick, children }) =
     </button>
 )
 
-export default ButtonDanger
+export default ButtonLink
