@@ -37,4 +37,8 @@ const Button = props => {
   )
 }
 
+Button.withProps = overrides => {
+  return props => <Button {...props} {...overrides} />
+}
+
 export default Button
