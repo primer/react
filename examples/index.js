@@ -109,7 +109,7 @@ const Index = props => (
         <Box mb={4}>
           <Heading tag='h2'>With static children</Heading>
           <Details>
-            <summary className='btn'>Click me</summary>
+            <Button tag='summary'>Click me</Button>
             <p>This should show and hide</p>
           </Details>
         </Box>
@@ -117,7 +117,7 @@ const Index = props => (
           <Heading tag='h2'>With render prop</Heading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
-              <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
+              <ButtonLink tag='summary' onClick={toggle}>{open ? 'Hide' : 'Show'}</ButtonLink>
               <p>This should show and hide</p>
             </React.Fragment>
           )}
