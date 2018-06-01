@@ -5,21 +5,24 @@ import {
   Detail
 } from '@compositor/kit'
 import {
-  Page,
+  Avatar,
   Box,
   Button,
   ButtonDanger,
   ButtonPrimary,
   ButtonOutline,
   ButtonLink,
+  BranchName,
   CounterLabel,
   Details,
+  Flash,
   Heading,
   Label,
   Link,
-  Text,
-  Flash,
+  Page,
   StateLabel,
+  Text,
+  Tooltip,
   theme
 } from '../src'
 import Octicon from '@github/octicons-react'
@@ -36,6 +39,14 @@ const Swatch = ({name, index, color, ...rest}) => (
   </div>
 )
 
+const GitHubAvatar = ({username, size = 20, ...rest}) => (
+  <Avatar
+    src={`https://avatars.githubusercontent.com/${username}?v=3&s=${size * 2}`}
+    size={size}
+    {...rest}
+  />
+)
+
 const Index = props => (
   <Page>
     <Library title='Primer-react'>
@@ -46,6 +57,19 @@ const Index = props => (
             <Heading key={i} fontSize={fontSize} mb={2}>With fontSize={fontSize}</Heading>
           ))}
         </Detail>
+      </Example>
+      <Example name='Avatar'>
+        <Box mb={2}>
+          <GitHubAvatar username='primer' size={128} />
+        </Box>
+        <Box mb={2}>
+          <GitHubAvatar username='github' size={64} />
+        </Box>
+        <Box mb={2}>
+          <GitHubAvatar username='reactjs' size={32} />
+          {' '}
+          <GitHubAvatar username='npm' />
+        </Box>
       </Example>
       <Example name='Label'>
         <Box mb={3}>
@@ -66,6 +90,15 @@ const Index = props => (
       </Example>
       <Example name='Box'>
         <Box p={3} bg='gray.1'> Box </Box>
+      </Example>
+      <Example name='BranchName'>
+        <BranchName>a_new_feature_branch</BranchName>
+        <Detail>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Linked BranchName</Heading>
+          <BranchName tag='a' href='/'>a_new_feature_branch</BranchName>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>BranchName with Octicon</Heading>
+          <BranchName><Octicon name='git-branch' /> a_new_feature_branch</BranchName>
+        </Detail>
       </Example>
       <Example name='Button'>
         <Button> Button </Button>
@@ -186,6 +219,31 @@ const Index = props => (
               ))}
             </div>
           ))}
+        </Detail>
+      </Example>
+      <Example name='Tooltip'>
+        <Box border p={3}>
+          <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
+        </Box>
+        <Detail>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Directions</Heading>
+          {Tooltip.directions.map((d, i) => (
+            <Box border p={3}>
+              <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
+            </Box>
+          ))}
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Alignment</Heading>
+          <Box border p={3}>
+            <Tooltip text='Hello, Tooltip!' direction='ne' align='left'>Tooltip align left</Tooltip>
+          </Box>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Word wrap</Heading>
+          <Box border p={3}>
+            <Tooltip text='Hello, Tooltip! This tooltip has a sentence that will wrap to a newline.' wrap  direction='ne' align='left'>Word wrapping tooltip</Tooltip>
+          </Box>
+          <Heading tag='h3' fontSize={3} mb={2} mt={3}>No Delay</Heading>
+          <Box border p={3}>
+            <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
+          </Box>
         </Detail>
       </Example>
       <Example name='StateLabel'>
