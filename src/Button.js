@@ -1,7 +1,8 @@
 import React from 'react'
+import chameleon from './chameleon'
 import classnames from 'classnames'
 
-const Button = props => {
+export const getButtonProps = props => {
   const {
     block,
     children,
@@ -9,36 +10,30 @@ const Button = props => {
     linkStyle,
     onClick,
     scheme,
-    size
+    size,
+    type = 'button',
+    ...rest
   } = props
-
-  const className = classnames(
-    {
-      'btn': !linkStyle,
-      'btn-link': linkStyle
-    },
-    scheme && `btn-${scheme}`,
-    {
-      'btn-sm': size === 'small',
-      'btn-large': size === 'large',
-      'btn-block': block,
-    }
-  )
-
-  return (
-    <button
-      type="button"
-      disabled={disabled}
-      onClick={disabled ? undefined : onClick}
-      className={className}
-    >
-      {children}
-    </button>
-  )
+  return {
+    children,
+    className: classnames(
+      {
+        'btn': !linkStyle,
+        'btn-link': linkStyle
+      },
+      scheme && `btn-${scheme}`,
+      {
+        'btn-sm': size === 'small',
+        'btn-large': size === 'large',
+        'btn-block': block,
+      }
+    ),
+    disabled,
+    onClick: disabled ? undefined : onClick,
+    type
+  }
 }
 
-Button.withProps = overrides => {
-  return props => <Button {...props} {...overrides} />
-}
+const Button = chameleon('button', getButtonProps, true)
 
 export default Button
