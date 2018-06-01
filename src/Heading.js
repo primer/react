@@ -1,7 +1,8 @@
 import React from 'react'
-import Text from './Text'
+import chameleon from './chameleon'
+import {mapTextProps} from './Text'
 
-const Heading = Text.withComponent('h1', true)
+const Heading = chameleon('h1', mapTextProps)
 
 Heading.defaultProps = {
   fontSize: 5,

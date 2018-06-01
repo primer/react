@@ -7,7 +7,7 @@ function getRenderer(children) {
     : () => children
 }
 
-export default class Details extends React.PureComponent {
+class Details extends React.Component {
   constructor(props) {
     super(props)
     this.state = {open: Boolean(props.open)}
@@ -39,3 +39,5 @@ Details.propTypes = {
   open: PropTypes.bool,
   render: PropTypes.func
 }
+
+export default Details

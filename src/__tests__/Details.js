@@ -1,6 +1,6 @@
 import React from 'react'
 import Details from '../Details'
-import {render} from '../utils/testing'
+import {render, renderClasses} from '../utils/testing'
 
 describe('Details', () => {
   it('Renders a <details> element with reset class', () => {
