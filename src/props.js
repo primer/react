@@ -1,3 +1,4 @@
+import React from 'react'
 import classnames from 'classnames'
 import createMapper from 'system-classnames'
 
@@ -54,4 +55,8 @@ export function expander(fn) {
   return value => Array.isArray(value)
     ? value.map(fn)
     : fn(value)
+}
+
+export function componentWithProps(Component, overrides) {
+  return props => <Component {...props} {...overrides} />
 }
