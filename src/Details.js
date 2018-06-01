@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from './Button'
 import PropTypes from 'prop-types'
 
 function getRenderer(children) {
@@ -8,7 +7,7 @@ function getRenderer(children) {
     : () => children
 }
 
-export default class Details extends React.PureComponent {
+class Details extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {open: Boolean(props.open)}
@@ -41,6 +40,4 @@ Details.propTypes = {
   render: PropTypes.func
 }
 
-export const SummaryButton = props => (
-  <Button {...props} tag='summary' type={null} />
-)
+export default Details
