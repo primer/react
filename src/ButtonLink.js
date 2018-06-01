@@ -1,5 +1,6 @@
+import React from 'react'
 import Button from './Button'
 
-const ButtonLink = Button.withProps({linkStyle: true})
+const ButtonLink = props => <Button {...props} linkStyle />
 
 export default ButtonLink
