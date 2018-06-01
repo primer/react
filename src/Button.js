@@ -2,7 +2,7 @@ import React from 'react'
 import chameleon from './chameleon'
 import classnames from 'classnames'
 
-export const getButtonProps = props => {
+const mapButtonProps = props => {
   const {
     block,
     children,
@@ -34,6 +34,7 @@ export const getButtonProps = props => {
   }
 }
 
-const Button = chameleon('button', getButtonProps, true)
+const Button = chameleon('button', mapButtonProps)
 
 export default Button
+export {mapButtonProps}
