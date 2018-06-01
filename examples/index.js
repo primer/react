@@ -1,8 +1,8 @@
 import React from 'react'
 import {
-  Library,
+  Detail,
   Example,
-  Detail
+  Library
 } from '@compositor/kit'
 import {
   Avatar,
