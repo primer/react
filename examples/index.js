@@ -32,7 +32,7 @@ import GitHubAvatar from './GitHubAvatar'
 
 const Index = props => (
   <Page>
-    <Library title='Primer-react'>
+    <Library title={<Text fontSize={3} fontWeight='normal'>primer-react</Text>}>
       <Example name='Avatar'>
         <Box mb={2}>
           <GitHubAvatar username='primer' size={128} />
