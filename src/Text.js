@@ -13,7 +13,7 @@ const classifyTextProps = classifier({
     5: '1',
     6: '0',
   }, value => `f${value}`, true),
-  fontWeight: value => `font-weight-${value}`,
+  fontWeight: value => `text-${value}`,
   lineHeight: value => `lh-${value}`,
 })
 
