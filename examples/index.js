@@ -21,6 +21,7 @@ import {
   Link,
   Page,
   StateLabel,
+  SummaryButton,
   Text,
   Tooltip,
   theme
@@ -156,7 +157,7 @@ const Index = props => (
         <Box mb={4}>
           <Heading tag='h2'>With static children</Heading>
           <Details>
-            <Button tag='summary'>Click me</Button>
+            <SummaryButton>Click me</SummaryButton>
             <p>This should show and hide</p>
           </Details>
         </Box>
@@ -164,7 +165,7 @@ const Index = props => (
           <Heading tag='h2'>With render prop</Heading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
-              <ButtonLink tag='summary' onClick={toggle}>{open ? 'Hide' : 'Show'}</ButtonLink>
+              <SummaryButton linkStyle onClick={toggle}>{open ? 'Hide' : 'Show'}</SummaryButton>
               <p>This should show and hide</p>
             </React.Fragment>
           )}
