@@ -7,7 +7,7 @@ function getRenderer(children) {
     : () => children
 }
 
-class Details extends React.PureComponent {
+class Details extends React.Component {
   constructor(props) {
     super(props)
     this.state = {open: Boolean(props.open)}
