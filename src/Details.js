@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button'
 import PropTypes from 'prop-types'
 
 function getRenderer(children) {
@@ -39,3 +40,7 @@ Details.propTypes = {
   open: PropTypes.bool,
   render: PropTypes.func
 }
+
+export const SummaryButton = props => (
+  <Button {...props} tag='summary' type={null} />
+)
