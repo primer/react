@@ -47,7 +47,39 @@ const Index = props => (
         </Box>
       </Example>
       <Example name='Box'>
-        <Box p={3} bg='gray.1'> Box </Box>
+        <table>
+          {[
+            // 'black',
+            'white',
+            'gray-dark',
+            'gray',
+            'gray-light',
+            'blue',
+            'blue-light',
+            'green',
+            'green-light',
+            'red',
+            'red-light',
+            'yellow',
+            'yellow-light',
+            'purple',
+            'purple-light',
+            // 'shade-gradient'
+          ].map((bg, i, style) => (
+            <tr key={i}>
+              <td>
+                <Text>{`bg='${bg}'`}</Text>
+              </td>
+              {['white', 'gray', 'black'].map((fg, j) => (
+                <td>
+                  <Box p={3} mb={2} bg={bg}>
+                    <Text color={fg}>{fg}</Text>
+                  </Box>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </table>
       </Example>
       <Example name='BranchName'>
         <BranchName>a_new_feature_branch</BranchName>
