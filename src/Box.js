@@ -11,8 +11,9 @@ const classifyBoxProps = classifier({
   fg: value => `text-${value}`
 })
 
-const boxProps = props => classifyBoxProps(map(props))
+const mapBoxProps = props => classifyBoxProps(map(props))
 
-const Box = chameleon('div', boxProps)
+const Box = chameleon('div', mapBoxProps)
 
 export default Box
+export {mapBoxProps}
