@@ -1,11 +1,15 @@
 import React from 'react'
-import {componentWithProps} from './props'
 
-export default function chameleon(defaultTag, mapProps, castable) {
-  const Component = ({tag: Tag = defaultTag, ...props}) => <Tag {...mapProps(props)} />
-  if (castable) {
-    Component.withComponent = (tag, recastable) => chameleon(tag, mapProps, recastable)
-  }
-  Component.withProps = props => componentWithProps(Component, props)
-  return Component
+export const asIs = props => props
+
+export default function chameleon(defaultTag, mapProps = asIs) {
+  /**
+   * This sets Tag locally to `props.tag` (via destructuring) or
+   * `defaultTag` if it's not set. The function returns an instance
+   * of Tag with the rest of the props mapped by the `mapProps`
+   * function.
+   */
+  return ({tag: Tag = defaultTag, ...props}) => (
+    <Tag {...mapProps(props)} />
+  )
 }
