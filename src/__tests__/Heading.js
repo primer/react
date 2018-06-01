@@ -45,10 +45,3 @@ it('Heading renders fontSize with f* classes using inverse scale', () => {
   expect(render(<Heading fontSize={6} />))
     .toEqual(render(<h1 className='m-0 f0' />))
 })
-
-it('Heading.withComponent() returns a tagged component', () => {
-  const Span = Heading.withComponent('span')
-  Span.defaultProps = Heading.defaultProps
-  expect(render(<Span p={1} />))
-    .toEqual(render(<span className='p-1 m-0 f1' />))
-})
