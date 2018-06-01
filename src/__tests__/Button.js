@@ -70,14 +70,6 @@ describe('Button', () => {
     expect(render(<Button disabled onClick={noop} />).props.onClick)
       .toEqual(undefined)
   })
-
-  describe('Button.withProps()', () => {
-    it('creates a class that always sets the provided props', () => {
-      const XButton = Button.withProps({scheme: 'x'})
-      expect(render(<XButton />))
-        .toEqual(render(<button className='btn btn-x' type='button' />))
-    })
-  })
 })
 
 describe('ButtonDanger', () => {
