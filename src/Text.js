@@ -17,8 +17,9 @@ const classifyTextProps = classifier({
   lineHeight: value => `lh-${value}`,
 })
 
-const textProps = props => classifyTextProps(map(props))
+const mapTextProps = props => classifyTextProps(map(props))
 
-const Text = chameleon('span', textProps, true)
+const Text = chameleon('span', mapTextProps)
 
 export default Text
+export {mapTextProps}
