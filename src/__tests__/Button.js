@@ -2,17 +2,7 @@ import React from 'react'
 import Button from '../Button'
 import ButtonDanger from '../ButtonDanger'
 import ButtonLink from '../ButtonLink'
-import renderer from 'react-test-renderer'
-
-const render = component => {
-  const node = renderer.create(component).toJSON()
-  for (const [key, val] of Object.entries(node.props)) {
-    if (val === undefined) {
-      delete node.props[key]
-    }
-  }
-  return node
-}
+import {render} from '../utils/testing'
 
 function noop() {}
 
