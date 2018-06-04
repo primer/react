@@ -1,24 +1,6 @@
 import React from 'react'
-import classnames from 'classnames'
+import Button from './Button'
 
-const ButtonOutline = ({ size, disabled, block, linkStyle, onClick, children }) => (
-    <button
-      disabled={disabled}
-      onClick={onClick}
-      type="button"
-      className={classnames(
-        'btn-outline',
-        {
-          'btn': !linkStyle,
-          'btn-link': linkStyle,
-          'btn-sm': size === 'small',
-          'btn-large': size === 'large',
-          'btn-block': block,
-        }
-      )}
-    >
-      {children}
-    </button>
-)
+const ButtonOutline = props => <Button {...props} outline />
 
 export default ButtonOutline
