@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../Button'
 import ButtonDanger from '../ButtonDanger'
 import ButtonLink from '../ButtonLink'
+import ButtonOutline from '../ButtonOutline'
 import {render} from '../utils/testing'
 
 function noop() {}
@@ -78,5 +79,12 @@ describe('ButtonLink', () => {
   it('renders a <button> by default', () => {
     expect(render(<ButtonLink />))
       .toEqual(render(<button className='btn-link' type='button' />))
+  })
+})
+
+describe('ButtonOutline', () => {
+  it('renders a <button> by default', () => {
+    expect(render(<ButtonOutline />))
+      .toEqual(render(<button className='btn btn-outline' type='button' />))
   })
 })
