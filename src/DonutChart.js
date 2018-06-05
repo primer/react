@@ -12,6 +12,8 @@ const fillForState = {
   'success': colors.green[5]
 }
 
+const DEFAULT_FILL = colors.gray[5]
+
 function mapData(data) {
   return Object.keys(data)
     .map((key, i) => (
@@ -42,7 +44,7 @@ const DonutChart = props => {
   const arcs = React.Children.map(children, (child, i) => {
     const {
       state,
-      fill = fillForState[state]
+      fill = fillForState[state] || DEFAULT_FILL
     } = child.props
     return React.cloneElement(child, {
       d: arc(arcData[i]),
