@@ -35,12 +35,13 @@ const DonutChart = props => {
   const pie = Pie()
     .value(child => child.props.value)
 
-  const arcData = pie(children)
+  const childList = React.Children.map(children, d => d)
+  const arcData = childList.length ? pie(childList) : []
   const arc = Arc()
     .innerRadius(innerRadius)
     .outerRadius(radius)
 
-  const arcs = React.Children.map(children, (child, i) => {
+  const arcs = childList.map((child, i) => {
     const {
       state,
       fill = fillForState[state] || DEFAULT_FILL
@@ -65,8 +66,16 @@ const DonutSlice = ({children, d, fill}) => {
   return <path d={d} fill={fill}>{children}</path>
 }
 
+// see: <https://github.com/facebook/react/issues/2979>
+const DonutPropType = PropTypes.shape({
+  type: PropTypes.oneOf([DonutSlice])
+})
+
 DonutChart.propTypes = {
-  children: PropTypes.arrayOf(DonutSlice),
+  children: PropTypes.oneOfType([
+    DonutPropType,
+    PropTypes.arrayOf(DonutPropType)
+  ]),
   data: PropTypes.objectOf(PropTypes.number),
   size: PropTypes.number
 }
