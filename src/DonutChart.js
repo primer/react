@@ -7,12 +7,13 @@ const {colors} = theme
 
 const fillForState = {
   'error': colors.red[5],
-  'pending': colors.yellow[5],
+  'queued': colors.yellow[7],
+  'pending': colors.yellow[7],
   'failure': colors.red[5],
   'success': colors.green[5]
 }
 
-const DEFAULT_FILL = colors.gray[5]
+const DEFAULT_FILL = colors.gray[4]
 
 function mapData(data) {
   return Object.keys(data)
