@@ -1,5 +1,6 @@
 import React from 'react'
-import DonutChart, {DonutSlice} from '../DonutChart'
+import DonutChart from '../DonutChart'
+import DonutSlice from '../DonutSlice'
 import theme from '../theme'
 import {render} from '../utils/testing'
 
