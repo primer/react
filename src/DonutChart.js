@@ -67,7 +67,9 @@ const DonutSlice = ({children, d, fill}) => {
 }
 
 DonutChart.propTypes = {
-  children: PropTypes.arrayOf(DonutSlice)
+  children: PropTypes.arrayOf(DonutSlice),
+  data: PropTypes.objectOf(PropTypes.number),
+  size: PropTypes.number
 }
 
 DonutSlice.propTypes = {
