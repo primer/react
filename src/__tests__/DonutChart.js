@@ -8,8 +8,8 @@ describe('DonutChart', () => {
     const donut = render(<DonutChart data={{error: 1}} />)
 
     expect(donut.type).toEqual('svg')
-    expect(donut.props.width).toEqual(40)
-    expect(donut.props.height).toEqual(40)
+    expect(donut.props.width).toEqual(30)
+    expect(donut.props.height).toEqual(30)
     expect(donut.children.length).toEqual(1)
 
     const [g] = donut.children

@@ -25,13 +25,11 @@ const DonutChart = props => {
   const {
     data,
     children = mapData(data),
-    size = 40,
+    size = 30,
   } = props
 
   const radius = size / 2
-  const {
-    innerRadius = radius / 2
-  } = props
+  const innerRadius = radius - 6
 
   const pie = Pie()
     .value(child => child.props.value)
