@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const ButtonOutline = ({ size, disabled, block, linkStyle, onClick, item, children }) => (
+const ButtonOutline = ({ size, disabled, block, linkStyle, onClick, children }) => (
     <button
       disabled={disabled}
       onClick={onClick}
@@ -14,7 +14,6 @@ const ButtonOutline = ({ size, disabled, block, linkStyle, onClick, item, childr
           'btn-sm': size === 'small',
           'btn-large': size === 'large',
           'btn-block': block,
-          'BtnGroup-item': item
         }
       )}
     >
