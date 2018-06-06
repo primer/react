@@ -2,14 +2,20 @@ import React from 'react'
 import classnames from 'classnames'
 
 function Button({is: Tag = 'button', children, size, block, linkStyle,  grouped, scheme, ...props}) {
-  const className = [linkStyle ? 'btn-link' : 'btn']
-  if (scheme) className.push(`btn-${scheme}`)
-  if (grouped) className.push('BtnGroup-item')
-  if (size === "small") className.push('btn-sm')
-  if (size === "large") className.push('btn-large')
-  if (block) className.push('block')
+  const classes = classnames(
+    {
+      'btn': !linkStyle,
+      'btn-link': linkStyle,
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+      'btn-block': block,
+      'BtnGroup-item': grouped,
+    }
+    scheme ? `btn-${scheme}`
+  );
+
   return (
-    <Tag {...props} className={className.join(' ')}>{children}
+    <Tag {...props} className={classes}>{children}
     </Tag>
   )
 }
