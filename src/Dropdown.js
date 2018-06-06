@@ -3,12 +3,12 @@ import classnames from 'classnames'
 import Details from './Details'
 import Button from './Button'
 
-const Dropdown = ({children}) => (
+const Dropdown = ({ title, scheme, children}) => (
   <div className='BtnGroup'>
     <Details className='details-reset BtnGroup-form d-flex'>
       {({open, toggle}) => (
         <React.Fragment>
-          <Button is='summary' scheme='primary' grouped onClick={toggle}>{open ? '▲' : '▼'}</Button>
+          <Button is='summary' scheme={scheme} grouped onClick={toggle}>{title}{open ? '▲' : '▼'}</Button>
           <div className='border box-shadow position-absolute px-3 py-2'>
             {children}
           </div>

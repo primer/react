@@ -190,8 +190,28 @@ const Index = props => (
       </Example>
       <Example name="Dropdown">
         <Box my={4}>
+          <Heading tag="h2">Dropdown Primary</Heading>
+          <Dropdown scheme={"primary"}>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </Dropdown>
+        </Box>
+        <Box my={4}>
           <Heading tag="h2">Dropdown</Heading>
           <Dropdown>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </Dropdown>
+        </Box>
+        <Box my={4}>
+          <Heading tag="h2">Dropdown with title</Heading>
+          <Dropdown title="Options">
             <ul>
               <li>Item 1</li>
               <li>Item 2</li>
