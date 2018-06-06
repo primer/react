@@ -31,7 +31,7 @@ Text.propTypes = {
     PropTypes.number,
     PropTypes.string
   ]),
-  fontWeight: PropTypes.oneOf(['normal', 'bold', 'semibold']),
+  fontWeight: PropTypes.oneOf(['normal', 'bold']),
   lineHeight: PropTypes.oneOf(['normal', 'condensed', 'condensed-ultra']),
   mono: PropTypes.bool
 }
