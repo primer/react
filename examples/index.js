@@ -15,6 +15,7 @@ import {
   BranchName,
   CounterLabel,
   Details,
+  Dropdown,
   Flash,
   Heading,
   Label,
@@ -169,6 +170,19 @@ const Index = props => (
             </React.Fragment>
           )}
           </Details>
+        </Box>
+      </Example>
+      <Example name='ButtonDropdown'>
+        <Box mb={4}>
+          <Heading tag='h2'>Dropdown</Heading>
+          <ButtonPrimary item>Merge Changes</ButtonPrimary>
+          <Dropdown>
+            <ul>
+              <li>Approve</li>
+              <li>Request Changes</li>
+              <li>Commennt</li>
+            </ul>
+          </Dropdown>
         </Box>
       </Example>
       <Example name='Flash'>

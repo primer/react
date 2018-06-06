@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 function getRenderer(children) {
   return typeof children === 'function'
@@ -25,10 +26,11 @@ export default class Details extends React.PureComponent {
     const {
       children,
       render = getRenderer(children),
+      btnStyle
     } = this.props
     const {open} = this.state
     return (
-      <details open={open} className='details-reset'>
+      <details open={open} className={classnames('details-reset', {'btn btn-primary BtnGroup-item': btnStyle})}>
         {render({open, toggle: this.toggle})}
       </details>
     )
@@ -37,5 +39,6 @@ export default class Details extends React.PureComponent {
 
 Details.propTypes = {
   open: PropTypes.bool,
+  btnStyl: PropTypes.bool,
   render: PropTypes.func
 }

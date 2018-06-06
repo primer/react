@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const ButtonPrimary = ({ size, disabled, block, linkStyle, onClick, children }) => (
+const ButtonPrimary = ({ size, disabled, block, linkStyle, onClick, item,  children }) => (
     <button
       disabled={disabled}
       onClick={onClick}
@@ -14,6 +14,7 @@ const ButtonPrimary = ({ size, disabled, block, linkStyle, onClick, children }) 
           'btn-sm': size === 'small',
           'btn-large': size === 'large',
           'btn-block': block,
+          'BtnGroup-item': item
         }
       )}
     >
