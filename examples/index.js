@@ -15,6 +15,7 @@ import {
   BranchName,
   CounterLabel,
   Details,
+  Dropdown,
   Flash,
   Heading,
   Label,
@@ -185,6 +186,18 @@ const Index = props => (
               )}
             </Details>
           </div>
+        </Box>
+      </Example>
+      <Example name="Dropdown">
+        <Box my={4}>
+          <Heading tag="h2">Dropdown</Heading>
+          <Dropdown>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </Dropdown>
         </Box>
       </Example>
       <Example name='Flash'>
