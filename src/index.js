@@ -20,6 +20,9 @@ export { default as ButtonLink } from './ButtonLink'
 
 export { default as Details } from './Details'
 
+export { default as DonutChart} from './DonutChart'
+export { default as DonutSlice} from './DonutSlice'
+
 export { default as Heading } from './Heading'
 export { default as Label } from './Label'
 export { default as BranchName } from './BranchName'
