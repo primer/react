@@ -9,34 +9,39 @@ const oppositeEdge = {
   left: 'Right'
 }
 
-function getPosition({edge, align}) {
-  return {
-    top: '100%',
-    left: '50%'
-  }
+const perpendicularEdge = {
+  top: 'Left',
+  right: 'Top',
+  bottom: 'Left',
+  left: 'Top'
 }
 
-function getOffset({edge, align, size}) {
+function getPosition({edge, align}) {
+  const opposite = oppositeEdge[edge].toLowerCase()
+  const perp = perpendicularEdge[edge].toLowerCase()
   return {
-    marginLeft: -size,
+    [opposite]: '100%',
+    [perp]: '50%'
   }
 }
 
 export default function Caret(props) {
   const {
-    align = 'center',
-    borderColor = 'black',
-    borderWidth = 1,
-    edge = 'bottom',
-    fill = 'white',
-    position = 'absolute',
-    size = 8
+    align,
+    borderColor,
+    borderWidth,
+    edge,
+    fill,
+    position,
+    size
   } = props
-  
+
   const borderStyle = 'solid'
   const opposite = oppositeEdge[edge]
+  const perp = perpendicularEdge[edge]
 
   const style = {
+    pointerEvents: 'none',
     position,
     ...getPosition({edge, align})
   }
@@ -44,10 +49,8 @@ export default function Caret(props) {
   const common = {
     borderStyle,
     borderWidth,
-    height: 0,
-    width: 0,
     position: 'absolute',
-    pointerEvents: 'none'
+    [opposite.toLowerCase()]: '100%',
   }
 
   const after = {
@@ -55,7 +58,7 @@ export default function Caret(props) {
     borderColor: 'transparent',
     borderWidth: size,
     [`border${opposite}Color`]: fill,
-    ...getOffset({edge, align, size})
+    [`margin${perp}`]: -size
   }
 
   const before = {
@@ -63,7 +66,7 @@ export default function Caret(props) {
     borderColor: 'transparent',
     [`border${opposite}Color`]: borderColor,
     borderWidth: borderWidth + size,
-    ...getOffset({edge, align, size: size + borderWidth})
+    [`margin${perp}`]: -(size + borderWidth)
   }
 
   return (
