@@ -13,6 +13,7 @@ import {
   ButtonOutline,
   ButtonLink,
   BranchName,
+  Caret,
   CounterLabel,
   Details,
   DonutChart,
@@ -119,6 +120,12 @@ const Index = props => (
         </Box>
         <Box mb={2}>
           <ButtonLink href='https://www.goatslive.com/'>This is an {'<a>'} styled as a button</ButtonLink>
+        </Box>
+      </Example>
+      <Example name='Caret'>
+        <Box border>
+          Yoooooo
+          <Caret />
         </Box>
       </Example>
       <Example name='Colors'>
