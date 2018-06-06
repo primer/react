@@ -17,7 +17,30 @@ const classifyBlockProps = classifier({
   }, null, value => `box-shadow-${value}`)
 })
 
-const mapBlockProps = props => classifyBlockProps(map(props))
+const stylize = props => {
+  const {
+    width,
+    minWidth,
+    maxWidth,
+    height,
+    minHeight,
+    maxHeight,
+    ...rest
+  } = props
+  return {
+    style: {
+      width,
+      minWidth,
+      maxWidth,
+      height,
+      minHeight,
+      maxHeight
+    },
+    ...rest
+  }
+}
+
+const mapBlockProps = props => classifyBlockProps(map(stylize(props)))
 
 const Block = chameleon('div', mapBlockProps)
 
