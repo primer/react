@@ -171,22 +171,6 @@ const Index = props => (
           )}
           </Details>
         </Box>
-        <Box my={4}>
-          <Heading tag='h2'>As merge box</Heading>
-          <div className='BtnGroup'>
-            <Button type='button' scheme='primary' grouped>Merge this</Button>
-            <Details className='details-reset BtnGroup-form d-flex'>
-              {({open, toggle}) => (
-                <React.Fragment>
-                  <Button is='summary' scheme='primary' grouped onClick={toggle}>{open ? '▲' : '▼'}</Button>
-                  <div className='border box-shadow position-absolute px-3 py-2'>
-                    yo yo yo
-                  </div>
-                </React.Fragment>
-              )}
-            </Details>
-          </div>
-        </Box>
       </Example>
       <Example name="Dropdown">
         <Box my={4}>

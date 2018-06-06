@@ -8,7 +8,7 @@ const Dropdown = ({ title, scheme, children}) => (
     <Details className='details-reset BtnGroup-form d-flex'>
       {({open, toggle}) => (
         <React.Fragment>
-          <Button is='summary' scheme={scheme} grouped onClick={toggle}>{title} ▼</Button>
+          <Button tag='summary' scheme={scheme} grouped onClick={toggle}>{title} ▼</Button>
           <div className='border box-shadow position-absolute px-3 py-2'>
             {children}
           </div>

@@ -1,25 +1,33 @@
 import React from 'react'
 import classnames from 'classnames'
+import map, { classifier } from './props'
 
-function Button({is: Tag = 'button', children, size, block, linkStyle,  grouped, scheme, ...props}) {
-  const classes = classnames(
-    {
-      'btn': !linkStyle,
-      'btn-link': linkStyle,
-      'btn-small': size === 'small',
-      'btn-large': size === 'large',
-      'btn-block': block,
-      'BtnGroup-item': grouped,
-    }
-    scheme ? `btn-${scheme}`
-  );
+function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, ...props}) {
+  const classifyButtonProps = classifier({
+    block: 'block',
+    scheme: value => `btn-${scheme}`,
+    size: value => `btn-size`,
+    grouped: 'BtnGroup-item'
+  });
+
+  const mapButtonProps = ({ linkStyle, ...rest }) => {
+    const props = { className: linkStyle ? 'btn-link' : 'btn', ...rest}
+    return classifyButtonProps(props);
+  }
 
   return (
-    <Tag {...props} className={classes}>{children}
+    <Tag {...props} className={mapButtonProps(props)}>{children}
     </Tag>
   )
 }
 
-// TODO: set up prop types to only allow
-// "is" prop to be a button, link, or summary
+Button.propTypes = {
+  block: PropTypes.bool,
+  grouped: PropTypes.bool,
+  scheme: PropTypes.string,
+  size: PropTypes.oneOf(['sm', 'large']),
+  tag: PropTypes.oneOf(['button', 'a', 'summary'])
+  linkStyle: PropTypes.bool,
+}
+
 export default Button
