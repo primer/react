@@ -24,7 +24,9 @@ const textProps = props => classifyTextProps(map(props))
 const Text = chameleon('span', textProps, true)
 
 Text.propTypes = {
+  // TODO: constrain with PropTypes.oneOf()
   color: PropTypes.string,
+  // TODO constrain with PropTypes.oneOf()
   fontSize: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
