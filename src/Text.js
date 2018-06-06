@@ -15,6 +15,7 @@ const classifyTextProps = classifier({
   }, value => `f${value}`, true),
   fontWeight: value => `text-${value}`,
   lineHeight: value => `lh-${value}`,
+  mono: 'text-mono'
 })
 
 const textProps = props => classifyTextProps(map(props))
