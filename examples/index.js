@@ -15,7 +15,6 @@ import {
   BranchName,
   CounterLabel,
   Details,
-  Dropdown,
   Flash,
   Heading,
   Label,
@@ -171,10 +170,8 @@ const Index = props => (
           )}
           </Details>
         </Box>
-      </Example>
-      <Example name='Dropdown'>
         <Box my={4}>
-          <Heading tag='h2'>With render prop</Heading>
+          <Heading tag='h2'>As merge box</Heading>
           <div className='BtnGroup'>
             <Button type='button' scheme='primary' grouped>Merge this</Button>
             <Details className='details-reset BtnGroup-form d-flex'>
