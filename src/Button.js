@@ -1,23 +1,14 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const Button = ({ size, disabled, block, linkStyle, onClick, children }) => (
-    <button
-      disabled={disabled}
-      onClick={onClick}
-      type="button"
-      className={classnames(
-        {
-          'btn': !linkStyle,
-          'btn-link': linkStyle,
-          'btn-sm': size === 'small',
-          'btn-large': size === 'large',
-          'btn-block': block,
-        }
-      )}
-    >
-      {children}
-    </button>
-)
+function Button({is: Tag = 'button', children, grouped, scheme, ...props}) {
+  const className = ['btn']
+  if (scheme) className.push(`btn-${scheme}`)
+  if (grouped) className.push('BtnGroup-item')
+  return (
+    <Tag {...props} className={className.join(' ')}>{children}
+    </Tag>
+  )
+}
 
 export default Button

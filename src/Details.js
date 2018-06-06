@@ -1,32 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Toggle from './Toggle'
 
-function getRenderer(children) {
-  return typeof children === 'function'
-    ? children
-    : () => children
-}
+class Details extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {open: this.props.open}
+    this.toggle = this.toggle.bind(this)
+  }
 
-export default class Details extends React.PureComponent {
+  toggle(event) {
+    event.preventDefault()
+    this.setState({open: !this.state.open})
+  }
 
   render() {
-    const {
-      children,
-      render = getRenderer(children),
-    } = this.props
+    const {className, children, ...props} = this.props
+    const {open} = this.state
+    const renderProps = {open, toggle: this.toggle}
     return (
-      <Toggle>{({open, toggle}) => (
-        <details open={open}>
-          {render(children, {open, toggle})}
-        </details>
-      )}</Toggle>
+      <details {...props} className={className || 'details-reset my-2'} open={open}>
+        {typeof children === 'function' ? children(renderProps) : children}
+      </details>
     )
   }
 }
 
-Details.propTypes = {
-  open: PropTypes.bool,
-  render: PropTypes.func
-}
+export default Details

@@ -172,17 +172,22 @@ const Index = props => (
           </Details>
         </Box>
       </Example>
-      <Example name='ButtonDropdown'>
-        <Box mb={4}>
-          <Heading tag='h2'>Dropdown</Heading>
-          <ButtonPrimary item>Merge Changes</ButtonPrimary>
-          <Dropdown>
-            <ul>
-              <li>Approve</li>
-              <li>Request Changes</li>
-              <li>Commennt</li>
-            </ul>
-          </Dropdown>
+      <Example name='Dropdown'>
+        <Box my={4}>
+          <Heading tag='h2'>With render prop</Heading>
+          <div className='BtnGroup'>
+            <Button type='button' scheme='primary' grouped>Merge this</Button>
+            <Details className='details-reset BtnGroup-form d-flex'>
+              {({open, toggle}) => (
+                <React.Fragment>
+                  <Button is='summary' scheme='primary' grouped onClick={toggle}>{open ? '▲' : '▼'}</Button>
+                  <div className='border box-shadow position-absolute px-3 py-2'>
+                    yo yo yo
+                  </div>
+                </React.Fragment>
+              )}
+            </Details>
+          </div>
         </Box>
       </Example>
       <Example name='Flash'>
