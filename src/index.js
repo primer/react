@@ -6,6 +6,7 @@ export { default as Meta } from './Meta'
 export { default as Page } from './Page'
 
 // Layout
+export { default as Block } from './Block'
 export { default as Box } from './Box'
 
 // Components
