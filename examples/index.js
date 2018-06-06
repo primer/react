@@ -124,10 +124,14 @@ const Index = props => (
         </Block>
       </Example>
       <Example name='Caret'>
-        <Box border>
-          Yoooooo
-          <Caret />
-        </Box>
+        <Block p={4}>
+          {['top', 'right', 'bottom', 'left'].map((edge, i) => (
+            <Box p={2} mb={4} position='relative' maxWidth={200} key={i}>
+              edge={edge}
+              <Caret edge={edge} />
+            </Box>
+          ))}
+        </Block>
       </Example>
       <Example name='Colors'>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
