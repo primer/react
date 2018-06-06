@@ -93,7 +93,7 @@ const Index = props => (
       </Example>
       <Example name='Buttons'>
         <Box mb={2}>
-          <Button onClick={() => window.alert('hi')}> Button </Button>
+          <Button> Button </Button>
         </Box>
         <Box mb={2}>
           <Button size='small'> Button small </Button>
