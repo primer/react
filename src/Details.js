@@ -39,6 +39,6 @@ export default class Details extends React.PureComponent {
 
 Details.propTypes = {
   open: PropTypes.bool,
-  btnStyl: PropTypes.bool,
+  btnStyle: PropTypes.bool,
   render: PropTypes.func
 }
