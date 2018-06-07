@@ -9,7 +9,7 @@ const Dropdown = ({ title, scheme, children}) => (
       {({open, toggle}) => (
         <React.Fragment>
           <Button tag='summary' scheme={scheme} grouped onClick={toggle}>{title} ▼</Button>
-          <div className='border box-shadow position-absolute px-3 py-2 bg-white' style={{zIndex: 1}}>
+          <div className='border box-shadow position-absolute px-3 py-2 bg-white' style={{zIndex: 99999}}>
             {children}
           </div>
         </React.Fragment>
