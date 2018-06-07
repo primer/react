@@ -79,7 +79,7 @@ const Index = props => (
               </td>
               {['white', 'gray', 'black'].map((fg, j) => (
                 <td key={j}>
-                  <Block p={3} mb={2} bg={bg}>
+                  <Block p={3} mb={2} bg={bg} border={bg === 'white'}>
                     <Text color={fg}>{fg}</Text>
                   </Block>
                 </td>
