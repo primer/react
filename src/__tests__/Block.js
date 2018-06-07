@@ -32,4 +32,22 @@ describe('Block', () => {
     expect(renderClasses(<Block border={['left', 'green']} />))
       .toEqual(['border-left', 'border-green'])
   })
+
+  it('renders position', () => {
+    expect(renderClasses(<Block position='absolute' />))
+      .toEqual(['position-absolute'])
+    expect(renderClasses(<Block position='relative' />))
+      .toEqual(['position-relative'])
+  })
+
+  it('renders shadow', () => {
+    expect(renderClasses(<Block shadow />))
+      .toEqual(['box-shadow'])
+    expect(renderClasses(<Block shadow='medium' />))
+      .toEqual(['box-shadow-medium'])
+    expect(renderClasses(<Block shadow='large' />))
+      .toEqual(['box-shadow-large'])
+    expect(renderClasses(<Block shadow='extra-large' />))
+      .toEqual(['box-shadow-extra-large'])
+  })
 })

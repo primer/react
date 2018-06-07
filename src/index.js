@@ -18,6 +18,8 @@ export { default as ButtonPrimary } from './ButtonPrimary'
 export { default as ButtonOutline } from './ButtonOutline'
 export { default as ButtonLink } from './ButtonLink'
 
+export { default as Caret } from './Caret'
+
 export { default as Details } from './Details'
 export { default as Dropdown } from './Dropdown'
 
