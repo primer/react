@@ -37,16 +37,16 @@ const TextInput = ({
 )
 
 TextInput.propTypes = {
-  id: PropTypes.string,
-  value: PropTypes.string,
-  name: PropTypes.string,
   autocomplete: PropTypes.string,
   autofocus: PropTypes.bool,
-  required: PropTypes.bool,
-  disabled: PropTypes.bool,
   block: PropTypes.bool,
+  disabled: PropTypes.bool,
+  id: PropTypes.string,
+  name: PropTypes.string,
   placeholder: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'large'])
+  required: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'large']),
+  value: PropTypes.string
 }
 
 export default TextInput
