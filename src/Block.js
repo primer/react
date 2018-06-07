@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import chameleon from './chameleon'
-import map, {classifier, expander, oneOrMoreOf, valueMapper} from './props'
+import map, {classifier, expander, oneOrMoreOf, stylizer, valueMapper} from './props'
 
 const classifyBlockProps = classifier({
   bg: value => `bg-${value}`,
@@ -17,28 +17,12 @@ const classifyBlockProps = classifier({
   }, null, value => `box-shadow-${value}`)
 })
 
-const stylize = props => {
-  const {
-    width,
-    minWidth,
-    maxWidth,
-    height,
-    minHeight,
-    maxHeight,
-    ...rest
-  } = props
-  return {
-    style: {
-      width,
-      minWidth,
-      maxWidth,
-      height,
-      minHeight,
-      maxHeight
-    },
-    ...rest
-  }
-}
+const styleProps = [
+  'width', 'minWidth', 'maxWidth',
+  'height', 'minHeight', 'maxHeight'
+]
+
+const stylize = stylizer(styleProps)
 
 const mapBlockProps = props => classifyBlockProps(map(stylize(props)))
 
@@ -56,5 +40,7 @@ Block.propTypes = {
   shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
   ...map.propTypes
 }
+
+styleProps.forEach(prop => Block.propTypes[prop] = PropTypes.number)
 
 export default Block
