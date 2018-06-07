@@ -84,6 +84,10 @@ const Index = props => (
           ))}
         </table>
       </Example>
+      <Example name='Box'>
+        <Box m={2}>This is a box.</Box>
+        <Box p={2} m={2}>This is a box with padding.</Box>
+      </Example>
       <Example name='BranchName'>
         <BranchName>a_new_feature_branch</BranchName>
         <Detail>
