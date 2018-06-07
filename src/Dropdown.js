@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import Details from './Details'
 import Button from './Button'
+import Caret from './Caret'
 
 const Dropdown = ({ title, scheme, children}) => (
   <div className='BtnGroup'>
@@ -9,7 +10,8 @@ const Dropdown = ({ title, scheme, children}) => (
       {({open, toggle}) => (
         <React.Fragment>
           <Button tag='summary' scheme={scheme} grouped onClick={toggle}>{title} ▼</Button>
-          <div className='border box-shadow position-absolute px-3 py-2 bg-white' style={{zIndex: 99999}}>
+          <div className='border box-shadow position-absolute px-3 py-2 bg-white mt-1 rounded-1 list-style-none' style={{zIndex: 99999}}>
+            <div className="position-absolute ml-0 mt-n2"><Caret edge={'top'} align={'start'} /></div>
             {children}
           </div>
         </React.Fragment>
