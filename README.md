@@ -26,6 +26,19 @@ Run app with: `npm run start`
 
 Build docs before publishing: `npm run build`
 
+### Testing
+
+We test our components with [Jest](https://facebook.github.io/jest/) and
+[react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run
+the tests locally with `npm test` (or `npm t`). To run the tests as you work,
+run Jest in watch mode with:
+
+```
+npm t -- --watch
+```
+
+See [`src/__tests__/example.js`](src/__tests/example.js) for an
+example of how we're testing our components.
 
 ## Principles
 
