@@ -25,7 +25,35 @@ function getPosition({edge, align}) {
   }
 }
 
-export default function Caret(props) {
+export default function Caret({css, ...rest}) {
+  return css
+    ? <CaretCSS {...rest} />
+    : <CaretSVG {...rest} />
+}
+
+Caret.defaultProps = {
+  align: 'center',
+  borderColor: theme.colors.gray[2],
+  borderWidth: 1,
+  edge: 'bottom',
+  fill: theme.colors.white,
+  position: 'absolute',
+  size: 8,
+  css: false
+}
+
+Caret.propTypes = {
+  align: PropTypes.oneOf(['start', 'center', 'end']),
+  borderColor: PropTypes.string,
+  borderWidth: PropTypes.number,
+  edge: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
+  fill: PropTypes.string,
+  position: PropTypes.oneOf(['absolute', 'relative']),
+  size: PropTypes.number,
+  css: PropTypes.bool
+}
+
+function CaretCSS(props) {
   const {
     align,
     borderColor,
@@ -36,7 +64,6 @@ export default function Caret(props) {
     size
   } = props
 
-  const borderStyle = 'solid'
   const opposite = oppositeEdge[edge]
   const perp = perpendicularEdge[edge]
 
@@ -47,7 +74,7 @@ export default function Caret(props) {
   }
 
   const common = {
-    borderStyle,
+    borderStyle: 'solid',
     borderWidth,
     position: 'absolute',
     [opposite.toLowerCase()]: '100%',
@@ -77,22 +104,53 @@ export default function Caret(props) {
   )
 }
 
-Caret.defaultProps = {
-  align: 'center',
-  borderColor: theme.colors.gray[3],
-  borderWidth: 1,
-  edge: 'bottom',
-  fill: theme.colors.white,
-  position: 'absolute',
-  size: 8,
-}
+function CaretSVG(props) {
+  const {
+    align,
+    borderColor,
+    borderWidth,
+    edge,
+    fill,
+    position,
+    size
+  } = props
 
-Caret.propTypes = {
-  align: PropTypes.oneOf(['start', 'center', 'end']),
-  borderColor: PropTypes.string,
-  borderWidth: PropTypes.number,
-  edge: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-  fill: PropTypes.string,
-  position: PropTypes.oneOf(['absolute', 'relative']),
-  size: PropTypes.number
+  const perp = perpendicularEdge[edge]
+
+  const style = {
+    pointerEvents: 'none',
+    position,
+    ...getPosition({edge, align}),
+    [`margin${perp}`]: -size
+  }
+
+  // note: these arrays represent points in the form [x, y]
+  const a = [-size, 0]
+  const b = [0, size]
+  const c = [size, 0]
+
+  // spaces are optional in path `d` attribute, and points are
+  // represented in the form `x,y` -- which is what the arrays above
+  // become when stringified!
+  const triangle = `M${a}L${b}L${c}L${a}Z`
+  const line = `M${a}L${b}L${c}`
+
+  const transform = {
+    top: `translate(${[size, size * 2]}) rotate(180)`,
+    right: `translate(${[0, size]}) rotate(-90)`,
+    bottom: `translate(${[size, 0]})`,
+    left: `translate(${[size * 2, size]}) rotate(90)`
+  }[edge]
+
+  return (
+    <svg width={size * 2} height={size * 2} style={style}>
+      <g transform={transform}>
+        <path d={triangle} fill={fill} />
+        <path d={line}
+          fill='none'
+          stroke={borderColor}
+          stroke-width={borderWidth} />
+      </g>
+    </svg>
+  )
 }
