@@ -33,7 +33,7 @@ const TextInput = ({
 )
 
 TextInput.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   autocomplete: PropTypes.string,
   autofocus: PropTypes.bool,
   required: PropTypes.bool,

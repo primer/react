@@ -257,13 +257,13 @@ const Index = props => (
       </Example>
       <Example name='Form elements'>
         <Heading mb={2}>Input</Heading>
-        <TextInput />
+        <TextInput name='zipcode'/>
         <Heading mb={2}>Input Sizes</Heading>
         <Box>
-          <TextInput size='small' placeholder='Small input'/>
+          <TextInput name='zipcode' size='small' placeholder='Small input'/>
         </Box>
         <Box>
-          <TextInput size='large' placeholder='Large input'/>
+          <TextInput name='zipcode' size='large' placeholder='Large input'/>
         </Box>
         <Heading mb={2}>Block input</Heading>
         <TextInput block placeholder='Full width block input'/>

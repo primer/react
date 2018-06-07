@@ -4,22 +4,22 @@ import {render} from '../utils/testing'
 
 describe('TextInput', () => {
   it('renders', () => {
-    expect(render(<TextInput />))
-      .toEqual(render(<input type='text' className='form-control' autocomplete='off' />))
+    expect(render(<TextInput name='zipcode' />))
+      .toEqual(render(<input name='zipcode' type='text' className='form-control' autocomplete='off' />))
   })
 
   it('renders small', () => {
-    expect(render(<TextInput size='small' />))
-      .toEqual(render(<input type='text' className='form-control input-sm' autocomplete='off' />))
+    expect(render(<TextInput name='zipcode' size='small' />))
+      .toEqual(render(<input name='zipcode' type='text' className='form-control input-sm' autocomplete='off' />))
   })
 
   it('renders large', () => {
-    expect(render(<TextInput size='large' />))
-      .toEqual(render(<input type='text' className='form-control input-lg' autocomplete='off' />))
+    expect(render(<TextInput name='zipcode' size='large' />))
+      .toEqual(render(<input name='zipcode' type='text' className='form-control input-lg' autocomplete='off' />))
   })
 
   it('renders block', () => {
-    expect(render(<TextInput block />))
-      .toEqual(render(<input type='text' className='form-control input-block' autocomplete='off' />))
+    expect(render(<TextInput name='zipcode' block />))
+      .toEqual(render(<input name='zipcode' type='text' className='form-control input-block' autocomplete='off' />))
   })
 })
