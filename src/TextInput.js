@@ -14,6 +14,7 @@ const TextInput = ({
   }) => (
   <input
     type='text'
+    id={id}
     name={name}
     className={classnames(
       'form-control',
@@ -33,7 +34,8 @@ const TextInput = ({
 )
 
 TextInput.propTypes = {
-  name: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  name: PropTypes.string,
   autocomplete: PropTypes.string,
   autofocus: PropTypes.bool,
   required: PropTypes.bool,
