@@ -5,7 +5,7 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-export default class Details extends React.PureComponent {
+export default class Details extends React.Component {
   constructor(props) {
     super(props)
     this.state = {open: Boolean(props.open)}

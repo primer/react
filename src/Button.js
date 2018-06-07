@@ -1,7 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import map, { classifier } from './props'
 
 function Button({
   tag: Tag = 'button',
