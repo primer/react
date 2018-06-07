@@ -15,6 +15,7 @@ import {
   ButtonLink,
   BranchName,
   Caret,
+  CaretBox,
   CounterLabel,
   Details,
   DonutChart,
@@ -138,6 +139,11 @@ const Index = props => (
             </Box>
           ))}
         </Block>
+      </Example>
+      <Example name='CaretBox'>
+        <CaretBox m={4} p={2} shadow>A CaretBox</CaretBox>
+        <CaretBox m={4} p={2} caret='left' bg='gray-light' border={[true, 'red']}>gray-light CaretBox with red border</CaretBox>
+        <CaretBox m={4} p={2} caret='top' bg='green-light' border={[true, 'green']}>green CaretBox</CaretBox>
       </Example>
       <Example name='Colors'>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
