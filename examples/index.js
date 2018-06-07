@@ -115,7 +115,7 @@ const Index = props => (
           <Button> Button </Button>
         </Block>
         <Block mb={2}>
-          <Button size='small'> Button small </Button>
+          <Button size='sm'> Button small </Button>
         </Block>
         <Block mb={2}>
           <Button size='large'> Button large </Button>
