@@ -283,10 +283,10 @@ const Index = props => (
           <Link muted href='https://github.com'>Link muted</Link>
         </Block>
         <Block mb={1}>
-          <Link scheme='gray' href='https://github.com'>Link scheme='gray'</Link>
+          <Link gray href='https://github.com'>Link gray</Link>
         </Block>
         <Block mb={1}>
-          <Link scheme='gray-dark' href='https://github.com'>Link scheme='gray-dark'</Link>
+          <Link graydark href='https://github.com'>Link graydark</Link>
         </Block>
       </Example>
       <Example name='StateLabel'>
