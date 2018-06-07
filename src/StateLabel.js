@@ -52,7 +52,7 @@ export default function StateLabel(props) {
   }
 
   const color = scheme || stateColorMap[state]
-  let styles
+  let styles = ''
   if (color === 'yellow') {
     styles = { backgroundColor: colors.yellow[7]}
   }
