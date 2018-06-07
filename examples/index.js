@@ -22,7 +22,6 @@ import {
   Heading,
   Label,
   Link,
-  Page,
   StateLabel,
   Text,
   Tooltip,
@@ -30,12 +29,13 @@ import {
 } from '../src'
 import Octicon from '@github/octicons-react'
 
+import Page from './Page'
 import Swatch from './Swatch'
 import GitHubAvatar from './GitHubAvatar'
 
 const Index = props => (
   <Page>
-    <Library title={<Text fontSize={3}>primer-react</Text>}>
+    <Library title='primer-react'>
       <Example name='Avatar'>
         <Block mb={2}>
           <GitHubAvatar username='primer' size={128} />
@@ -157,14 +157,14 @@ const Index = props => (
       </Example>
       <Example name='Details'>
         <Block mb={4}>
-          <Heading tag='h2'>With static children</Heading>
+          <Heading tag='h3' fontSize={3}>With static children</Heading>
           <Details>
             <summary className='btn'>Click me</summary>
             <p>This should show and hide</p>
           </Details>
         </Block>
         <Block my={4}>
-          <Heading tag='h2'>With render prop</Heading>
+          <Heading tag='h3' fontSize={3}>With render prop</Heading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
               <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
