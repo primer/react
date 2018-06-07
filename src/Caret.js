@@ -151,7 +151,7 @@ function CaretSVG(props) {
         <path d={line}
           fill='none'
           stroke={borderColor}
-          stroke-width={borderWidth} />
+          strokeWidth={borderWidth} />
       </g>
     </svg>
   )
