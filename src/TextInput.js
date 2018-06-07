@@ -7,15 +7,17 @@ const TextInput = ({
     autofocus,
     block,
     disabled,
+    id,
     name,
     placeholder,
     required,
     size,
+    value
   }) => (
   <input
-    type='text'
-    id={id}
-    name={name}
+    aria-label={placeholder}
+    autocomplete={autocomplete}
+    autofocus={autofocus}
     className={classnames(
       'form-control',
       {
@@ -24,17 +26,19 @@ const TextInput = ({
         'input-lg': size === 'large'
       }
     )}
-    autocomplete={autocomplete}
-    placeholder={placeholder}
-    aria-label={placeholder}
-    autofocus={autofocus}
-    required={required}
     disabled={disabled}
+    id={id}
+    name={name}
+    placeholder={placeholder}
+    required={required}
+    type='text'
+    value={value}
   />
 )
 
 TextInput.propTypes = {
   id: PropTypes.string,
+  value: PropTypes.string,
   name: PropTypes.string,
   autocomplete: PropTypes.string,
   autofocus: PropTypes.bool,
