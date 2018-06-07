@@ -6,6 +6,7 @@ import {
 } from '@compositor/kit'
 import {
   Avatar,
+  Block,
   Box,
   Button,
   ButtonDanger,
@@ -36,19 +37,19 @@ const Index = props => (
   <Page>
     <Library title={<Text fontSize={3}>primer-react</Text>}>
       <Example name='Avatar'>
-        <Box mb={2}>
+        <Block mb={2}>
           <GitHubAvatar username='primer' size={128} />
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <GitHubAvatar username='github' size={64} />
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <GitHubAvatar username='reactjs' size={32} />
           {' '}
           <GitHubAvatar username='npm' />
-        </Box>
+        </Block>
       </Example>
-      <Example name='Box'>
+      <Example name='Block'>
         <table>
           {[
             // 'black',
@@ -74,9 +75,9 @@ const Index = props => (
               </td>
               {['white', 'gray', 'black'].map((fg, j) => (
                 <td>
-                  <Box p={3} mb={2} bg={bg}>
+                  <Block p={3} mb={2} bg={bg}>
                     <Text color={fg}>{fg}</Text>
-                  </Box>
+                  </Block>
                 </td>
               ))}
             </tr>
@@ -93,33 +94,33 @@ const Index = props => (
         </Detail>
       </Example>
       <Example name='Buttons'>
-        <Box mb={2}>
+        <Block mb={2}>
           <Button> Button </Button>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <Button size='small'> Button small </Button>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <Button size='large'> Button large </Button>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <ButtonDanger> ButtonDanger </ButtonDanger>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <ButtonPrimary> ButtonPrimary </ButtonPrimary>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <ButtonOutline> ButtonOutline </ButtonOutline>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <Button block> Button block </Button>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <Button linkStyle> Button linkStyle </Button>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <ButtonLink href='https://www.goatslive.com/'>This is an {'<a>'} styled as a button</ButtonLink>
-        </Box>
+        </Block>
       </Example>
       <Example name='Colors'>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
@@ -130,17 +131,17 @@ const Index = props => (
           </div>
         ))}
         <div className='d-flex'>
-          <Box bg='blue' p={4} m={1} />
-          <Box bg='green' p={4} m={1} />
-          <Box bg='purple' p={4} m={1} />
-          <Box bg='yellow' p={4} m={1} />
-          <Box bg='red' p={4} m={1} />
-          <Box bg='white' p={4} m={1} border />
-          <Box bg='gray' p={4} m={1} />
-          <Box bg='gray-light' p={4} m={1} />
-          <Box bg='blue-light' p={4} m={1} />
-          <Box bg='purple-light' p={4} m={1} />
-          <Box bg='red-light' p={4} m={1} />
+          <Block bg='blue' p={4} m={1} />
+          <Block bg='green' p={4} m={1} />
+          <Block bg='purple' p={4} m={1} />
+          <Block bg='yellow' p={4} m={1} />
+          <Block bg='red' p={4} m={1} />
+          <Block bg='white' p={4} m={1} border />
+          <Block bg='gray' p={4} m={1} />
+          <Block bg='gray-light' p={4} m={1} />
+          <Block bg='blue-light' p={4} m={1} />
+          <Block bg='purple-light' p={4} m={1} />
+          <Block bg='red-light' p={4} m={1} />
         </div>
       </Example>
       <Example name='CounterLabel'>
@@ -155,14 +156,14 @@ const Index = props => (
         </CounterLabel>
       </Example>
       <Example name='Details'>
-        <Box mb={4}>
+        <Block mb={4}>
           <Heading tag='h2'>With static children</Heading>
           <Details>
             <summary className='btn'>Click me</summary>
             <p>This should show and hide</p>
           </Details>
-        </Box>
-        <Box my={4}>
+        </Block>
+        <Block my={4}>
           <Heading tag='h2'>With render prop</Heading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
@@ -171,7 +172,7 @@ const Index = props => (
             </React.Fragment>
           )}
           </Details>
-        </Box>
+        </Block>
       </Example>
       <Example name='DonutChart'>
         <Box mb={2}>
@@ -233,21 +234,21 @@ const Index = props => (
         </Box>
       </Example>
       <Example name='Flash'>
-        <Box mb={3}>
+        <Block mb={3}>
           <Flash> Flash </Flash>
-        </Box>
-        <Box mb={3}>
+        </Block>
+        <Block mb={3}>
           <Flash yellow> Flash yellow </Flash>
-        </Box>
-        <Box mb={3}>
+        </Block>
+        <Block mb={3}>
           <Flash red> Flash red </Flash>
-        </Box>
-        <Box mb={3}>
+        </Block>
+        <Block mb={3}>
           <Flash green> Flash green </Flash>
-        </Box>
-        <Box mb={3}>
+        </Block>
+        <Block mb={3}>
           <Flash full> Flash full </Flash>
-        </Box>
+        </Block>
       </Example>
       <Example name='Font sizes'>
         {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
@@ -263,16 +264,16 @@ const Index = props => (
         </Detail>
       </Example>
       <Example name='Label'>
-        <Box mb={3}>
+        <Block mb={3}>
           <Label>Default label</Label>
           <Label scheme='gray-darker'>Darker gray label</Label>
           <Label scheme='orange'>Orange label</Label>
           <Label scheme='green'>Green label</Label>
-        </Box>
-        <Box mb={3}>
+        </Block>
+        <Block mb={3}>
           <Label outline>Default outline label</Label>
           <Label outline scheme='green'>Green outline label</Label>
-        </Box>
+        </Block>
       </Example>
       <Example name='Link'>
         <Link href='https://github.com'>
@@ -280,52 +281,52 @@ const Index = props => (
         </Link>
       </Example>
       <Example name='StateLabel'>
-        <Box mb={2}>
+        <Block mb={2}>
           <StateLabel state='open'>Open</StateLabel>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <StateLabel state='closed'>Closed</StateLabel>
-        </Box>
-        <Box mb={4}>
+        </Block>
+        <Block mb={4}>
           <StateLabel state='merged'>Merged</StateLabel>
-        </Box>
+        </Block>
         <Detail>
-          <Box mb={4}>
+          <Block mb={4}>
             <Heading tag='h2' mb={1}>By state (Octicons built in)</Heading>
-            <Box mb={2}>
+            <Block mb={2}>
               <StateLabel>Unknown</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel state='open'>Open</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel state='closed'>Closed</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel state='merged'>Merged</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel state='reopened'>Reopened</StateLabel>
-            </Box>
-          </Box>
-          <Box mb={4}>
+            </Block>
+          </Block>
+          <Block mb={4}>
             <Heading tag='h2' mb={1}>By color</Heading>
-            <Box mb={2}>
+            <Block mb={2}>
               <StateLabel scheme='invalid'>Invalid</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel scheme='green'>Green</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel scheme='red'>Red</StateLabel>
-            </Box>
-            <Box mb={2}>
+            </Block>
+            <Block mb={2}>
               <StateLabel scheme='purple'>Purple</StateLabel>
-            </Box>
-          </Box>
-          <Box mb={4}>
+            </Block>
+          </Block>
+          <Block mb={4}>
             <Heading tag='h2' mb={2}>Small, by state</Heading>
-            <Box mb={2}>
+            <Block mb={2}>
               <span className='mr-2'>
                 <StateLabel small>Unknown</StateLabel>
               </span>
@@ -341,11 +342,11 @@ const Index = props => (
               <span className='mr-2'>
                 <StateLabel small state='reopened'>Reopened</StateLabel>
               </span>
-            </Box>
-          </Box>
-          <Box mb={4}>
+            </Block>
+          </Block>
+          <Block mb={4}>
             <Heading tag='h2' mb={1}>Small, by color</Heading>
-            <Box mb={2}>
+            <Block mb={2}>
               <span className='mr-2'>
                 <StateLabel small scheme='invalid'>Invalid</StateLabel>
               </span>
@@ -363,8 +364,8 @@ const Index = props => (
                   Custom Octicon
                 </StateLabel>
               </span>
-            </Box>
-          </Box>
+            </Block>
+          </Block>
         </Detail>
       </Example>
       <Example name='Text'>
@@ -376,26 +377,26 @@ const Index = props => (
         <Text tag='div' p={4}>Text padding 4</Text>
       </Example>
       <Example name='Tooltip'>
-        <Box border p={3}>
+        <Box p={3}>
           <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
         </Box>
         <Detail>
           <Heading tag='h3' fontSize={3} mb={2} mt={3}>Directions</Heading>
           {Tooltip.directions.map((d, i) => (
-            <Box border p={3}>
+            <Box p={3}>
               <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
             </Box>
           ))}
           <Heading tag='h3' fontSize={3} mb={2} mt={3}>Alignment</Heading>
-          <Box border p={3}>
+          <Box p={3}>
             <Tooltip text='Hello, Tooltip!' direction='ne' align='left'>Tooltip align left</Tooltip>
           </Box>
           <Heading tag='h3' fontSize={3} mb={2} mt={3}>Word wrap</Heading>
-          <Box border p={3}>
+          <Box p={3}>
             <Tooltip text='Hello, Tooltip! This tooltip has a sentence that will wrap to a newline.' wrap  direction='ne' align='left'>Word wrapping tooltip</Tooltip>
           </Box>
           <Heading tag='h3' fontSize={3} mb={2} mt={3}>No Delay</Heading>
-          <Box border p={3}>
+          <Box p={3}>
             <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
           </Box>
         </Detail>
