@@ -40,7 +40,7 @@ export default function CaretBox(props) {
 
 CaretBox.propTypes = {
   ...Box.propTypes,
-  caret: Caret.propTypes.edge
+  caret: Caret.propTypes.location
 }
 
 CaretBox.defaultProps = {
