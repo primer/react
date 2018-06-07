@@ -4,15 +4,16 @@ import theme from './theme'
 
 const {colors} = theme
 
+const defaultFill = colors.gray[4]
+
 const fillForState = {
   'error': colors.red[5],
   'queued': colors.yellow[7],
   'pending': colors.yellow[7],
   'failure': colors.red[5],
-  'success': colors.green[5]
+  'success': colors.green[5],
+  'unknown': defaultFill
 }
-
-const defaultFill = colors.gray[4]
 
 const DonutSlice = props => {
   const {
@@ -24,10 +25,12 @@ const DonutSlice = props => {
   return <path d={d} fill={fill}>{children}</path>
 }
 
+DonutSlice.states = Object.keys(fillForState)
+
 DonutSlice.propTypes = {
   d: PropTypes.string,
   fill: PropTypes.string,
-  state: PropTypes.oneOf(Object.keys(fillForState)),
+  state: PropTypes.oneOf(DonutSlice.states),
   value: PropTypes.number
 }
 
