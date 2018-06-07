@@ -92,6 +92,11 @@ const Index = props => (
       <Example name='Box'>
         <Box m={2}>This is a box.</Box>
         <Box p={2} m={2}>This is a box with padding.</Box>
+        <Box shadow p={2} m={2}>This is a box with shadow.</Box>
+        <Box shadow='medium' p={2} m={2}>This is a box with a medium shadow.</Box>
+        <Box shadow='large' p={2} m={2}>This is a box with a large shadow.</Box>
+        <Box shadow='extra-large' p={2} m={2}>This is a box with an extra-large shadow.</Box>
+        <Box border={[true, 'green']} p={2} m={2}>This is a box with a green border.</Box>
       </Example>
       <Example name='BranchName'>
         <BranchName>a_new_feature_branch</BranchName>
