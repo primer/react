@@ -56,37 +56,39 @@ const Index = props => (
       </Example>
       <Example name='Block'>
         <table>
-          {[
-            // 'black',
-            'white',
-            'gray-dark',
-            'gray',
-            'gray-light',
-            'blue',
-            'blue-light',
-            'green',
-            'green-light',
-            'red',
-            'red-light',
-            'yellow',
-            'yellow-light',
-            'purple',
-            'purple-light',
-            // 'shade-gradient'
-          ].map((bg, i, style) => (
-            <tr key={i}>
-              <td>
-                <Text mono nowrap>{`bg='${bg}'`}</Text>
-              </td>
-              {['white', 'gray', 'black'].map((fg, j) => (
-                <td key={j}>
-                  <Block p={3} mb={2} bg={bg} border={bg === 'white'}>
-                    <Text color={fg}>{fg}</Text>
-                  </Block>
+          <tbody>
+            {[
+              // 'black',
+              'white',
+              'gray-dark',
+              'gray',
+              'gray-light',
+              'blue',
+              'blue-light',
+              'green',
+              'green-light',
+              'red',
+              'red-light',
+              'yellow',
+              'yellow-light',
+              'purple',
+              'purple-light',
+              // 'shade-gradient'
+            ].map((bg, i, style) => (
+              <tr key={i}>
+                <td>
+                  <Text mono nowrap>{`bg='${bg}'`}</Text>
                 </td>
-              ))}
-            </tr>
-          ))}
+                {['white', 'gray', 'black'].map((fg, j) => (
+                  <td key={j}>
+                    <Block p={3} mb={2} bg={bg} border={bg === 'white'}>
+                      <Text color={fg}>{fg}</Text>
+                    </Block>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
         </table>
       </Example>
       <Example name='Box'>
@@ -422,7 +424,7 @@ const Index = props => (
         <Detail>
           <ExampleHeading mt={3}>Directions</ExampleHeading>
           {Tooltip.directions.map((d, i) => (
-            <Box p={3}>
+            <Box p={3} key={i}>
               <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
             </Box>
           ))}
