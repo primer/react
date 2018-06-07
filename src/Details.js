@@ -19,7 +19,7 @@ class Details extends React.PureComponent {
     const {open} = this.state
     const renderProps = {open, toggle: this.toggle}
     return (
-      <details {...props} className={className || 'details-reset my-2'} open={open}>
+      <details {...props} className={className || 'details-reset'} open={open}>
         {typeof children === 'function' ? children(renderProps) : children}
       </details>
     )
