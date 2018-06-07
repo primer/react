@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import Octicon from '@github/octicons-react'
 import theme from './theme'
 
-const { colors } = theme;
+const { colors } = theme
 
 const stateColorMap = {
   open: 'green',
