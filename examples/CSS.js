@@ -1,19 +1,21 @@
 import React from 'react'
+import {theme} from '../src'
 
-const CSS = ({ css }) =>
-  <style
-    dangerouslySetInnerHTML={{
-      __html: css
-    }}
-  />
+const CSS = ({css}) => (
+  <style dangerouslySetInnerHTML={{__html: css}} />
+)
+
+const fonts = theme.fonts
+  .map(name => name.indexOf(' ') > -1 ? `"${name}"` : name)
+  .join(', ')
 
 CSS.defaultProps = {
   css: `
-    * { box-sizing: border-box }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      line-height: 1.5;
+      font-family: ${fonts};
+      line-height: ${theme.lineHeight};
     }
   `
 }
