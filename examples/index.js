@@ -175,7 +175,7 @@ const Index = props => (
         </Block>
       </Example>
       <Example name='DonutChart'>
-        <Box mb={2}>
+        <Block mb={2}>
           <Heading tag='h2' fontSize={3} mb={1}>With <Text mono>data</Text> prop</Heading>
           <DonutChart data={{error: 2, pending: 3, success: 5}} />
           {' '}
@@ -188,8 +188,8 @@ const Index = props => (
           <DonutChart data={{pending: 1, queued: 1}} />
           {' '}
           <DonutChart data={{unknown: 1}} />
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <Heading tag='h2' fontSize={3} mb={1}>With <Text mono>DonutSlice</Text> children</Heading>
           <DonutChart>
             <DonutSlice value={1} state='pending' />
@@ -221,8 +221,8 @@ const Index = props => (
           <DonutChart>
             <DonutSlice value={1} state='queued' />
           </DonutChart>
-        </Box>
-        <Box mb={2}>
+        </Block>
+        <Block mb={2}>
           <Heading tag='h2' fontSize={3} mb={1}>With custom <Text mono>fill</Text> colors</Heading>
           <DonutChart>
             <DonutSlice value={1} fill={theme.colors.purple[0]} />
@@ -231,7 +231,7 @@ const Index = props => (
             <DonutSlice value={1} fill={theme.colors.purple[3]} />
             <DonutSlice value={1} fill={theme.colors.purple[4]} />
           </DonutChart>
-        </Box>
+        </Block>
       </Example>
       <Example name='Flash'>
         <Block mb={3}>
