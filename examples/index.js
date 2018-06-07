@@ -260,10 +260,10 @@ const Index = props => (
         <Input />
         <Heading mb={2}>Input Sizes</Heading>
         <Box>
-          <Input small placeholder='Small input'/>
+          <Input size='small' placeholder='Small input'/>
         </Box>
         <Box>
-          <Input large placeholder='Large input'/>
+          <Input size='large' placeholder='Large input'/>
         </Box>
         <Heading mb={2}>Block input</Heading>
         <Input block placeholder='Full width block input'/>

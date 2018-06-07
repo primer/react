@@ -7,11 +7,10 @@ const Input = ({
     autofocus,
     block,
     disabled,
-    large,
     name,
     placeholder,
     required,
-    small,
+    size,
   }) => (
   <input
     type='text'
@@ -20,8 +19,8 @@ const Input = ({
       'form-control',
       {
         'input-block': block,
-        'input-sm': small,
-        'input-lg': large
+        'input-sm': size === 'small',
+        'input-lg': size === 'large'
       }
     )}
     autocomplete={autocomplete}
@@ -40,8 +39,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   block: PropTypes.bool,
   placeholder: PropTypes.string,
-  small: PropTypes.bool,
-  large: PropTypes.bool
+  size: PropTypes.oneOf(['small', 'large'])
 }
 
 export default Input

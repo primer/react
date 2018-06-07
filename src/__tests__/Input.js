@@ -9,12 +9,12 @@ describe('Input', () => {
   })
 
   it('renders small', () => {
-    expect(render(<Input small />))
+    expect(render(<Input size='small' />))
       .toEqual(render(<input type='text' className='form-control input-sm' autocomplete='off' />))
   })
 
   it('renders large', () => {
-    expect(render(<Input large />))
+    expect(render(<Input size='large' />))
       .toEqual(render(<input type='text' className='form-control input-lg' autocomplete='off' />))
   })
 
