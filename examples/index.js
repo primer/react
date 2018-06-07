@@ -71,7 +71,7 @@ const Index = props => (
           ].map((bg, i, style) => (
             <tr key={i}>
               <td>
-                <Text>{`bg='${bg}'`}</Text>
+                <Text mono nowrap>{`bg='${bg}'`}</Text>
               </td>
               {['white', 'gray', 'black'].map((fg, j) => (
                 <td key={j}>
