@@ -133,7 +133,7 @@ const Index = props => (
           ))}
           {['top', 'right', 'bottom', 'left'].map((edge, i) => (
             <Box shadow='medium' p={2} mb={4} position='relative' maxWidth={400} key={i}>
-              <Text mono>edge={edge} over shadow='medium'</Text>
+              <Text mono>edge='{edge}' in shadow='medium'</Text>
               <Caret edge={edge} />
             </Box>
           ))}
