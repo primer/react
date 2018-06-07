@@ -21,7 +21,7 @@ describe('Details', () => {
   })
 
   it('Renders with a render prop', () => {
-    expect(render(<Details render={() => 'hi'} />))
+    expect(render(<Details render={() => 'hi'}/>))
       .toEqual(render(<details open={false} className='details-reset'>hi</details>))
   })
 
