@@ -1,6 +1,6 @@
 {
   "name": "primer-react",
-  "version": "0.0.2-beta",
+  "version": "0.0.3-beta",
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
@@ -27,6 +27,7 @@
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "classnames": "^2.2.5",
+    "d3-shape": "^1.2.0",
     "react": "^16.2.0",
     "system-classnames": "^1.0.0-3"
   },
