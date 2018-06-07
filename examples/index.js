@@ -19,7 +19,7 @@ import {
   DonutSlice,
   Flash,
   Heading,
-  Input,
+  TextInput,
   Label,
   Link,
   Page,
@@ -257,16 +257,16 @@ const Index = props => (
       </Example>
       <Example name='Form elements'>
         <Heading mb={2}>Input</Heading>
-        <Input />
+        <TextInput />
         <Heading mb={2}>Input Sizes</Heading>
         <Box>
-          <Input size='small' placeholder='Small input'/>
+          <TextInput size='small' placeholder='Small input'/>
         </Box>
         <Box>
-          <Input size='large' placeholder='Large input'/>
+          <TextInput size='large' placeholder='Large input'/>
         </Box>
         <Heading mb={2}>Block input</Heading>
-        <Input block placeholder='Full width block input'/>
+        <TextInput block placeholder='Full width block input'/>
       </Example>
       <Example name='Heading'>
         <Heading mb={2}>Default Heading</Heading>

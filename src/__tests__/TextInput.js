@@ -1,25 +1,25 @@
 import React from 'react'
-import Input from '../Input'
+import TextInput from '../TextInput'
 import {render} from '../utils/testing'
 
-describe('Input', () => {
+describe('TextInput', () => {
   it('renders', () => {
-    expect(render(<Input />))
+    expect(render(<TextInput />))
       .toEqual(render(<input type='text' className='form-control' autocomplete='off' />))
   })
 
   it('renders small', () => {
-    expect(render(<Input size='small' />))
+    expect(render(<TextInput size='small' />))
       .toEqual(render(<input type='text' className='form-control input-sm' autocomplete='off' />))
   })
 
   it('renders large', () => {
-    expect(render(<Input size='large' />))
+    expect(render(<TextInput size='large' />))
       .toEqual(render(<input type='text' className='form-control input-lg' autocomplete='off' />))
   })
 
   it('renders block', () => {
-    expect(render(<Input block />))
+    expect(render(<TextInput block />))
       .toEqual(render(<input type='text' className='form-control input-block' autocomplete='off' />))
   })
 })

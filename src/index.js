@@ -22,7 +22,7 @@ export { default as Details } from './Details'
 export { default as DonutChart} from './DonutChart'
 export { default as DonutSlice} from './DonutSlice'
 
-export { default as Input} from './Input'
+export { default as TextInput} from './TextInput'
 
 export { default as Heading } from './Heading'
 export { default as Label } from './Label'
