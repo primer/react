@@ -126,16 +126,10 @@ const Index = props => (
       </Example>
       <Example name='Caret'>
         <Block p={4}>
-          {['top', 'right', 'bottom', 'left'].map((edge, i) => (
-            <Box p={2} mb={4} position='relative' maxWidth={400} key={i}>
-              <Text mono>edge='{edge}'</Text>
-              <Caret edge={edge} />
-            </Box>
-          ))}
-          {['top', 'right', 'bottom', 'left'].map((edge, i) => (
-            <Box shadow='medium' p={2} mb={4} position='relative' maxWidth={400} key={i}>
-              <Text mono>edge='{edge}' in shadow='medium'</Text>
-              <Caret edge={edge} />
+          {Caret.locations.map((loc, i) => (
+            <Box p={2} mb={4} position='relative' maxWidth={300} minHeight={96} shadow key={i}>
+              <Text fontSize={1} mono>location='{loc}'</Text>
+              <Caret location={loc} />
             </Box>
           ))}
         </Block>
