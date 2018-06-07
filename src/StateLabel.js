@@ -46,7 +46,7 @@ export default function StateLabel(props) {
     children,
   } = props
 
-  let {icon} = props
+  let { icon } = props
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
@@ -54,7 +54,7 @@ export default function StateLabel(props) {
   const color = scheme || stateColorMap[state]
   let styles = ''
   if (color === 'yellow') {
-    styles = { backgroundColor: colors.yellow[7]}
+    styles = {backgroundColor: colors.yellow[7]}
   }
   const iconComponent = getIconComponent(icon, children)
   return (

@@ -420,18 +420,6 @@ const Index = props => (
                 </StateLabel>
               </span>
             </Block>
-            <Block>
-              <Heading tag="h2" mb={1}>Merge Box Status</Heading>
-              <span className='mr-2'>
-                <StateLabel scheme="green" small icon={<Octicon name='git-merge'/>}/>
-              </span>
-              <span className='mr-2'>
-                <StateLabel scheme="purple" small icon={<Octicon name='git-merge'/>}/>
-              </span>
-              <span className='mr-2'>
-                <StateLabel scheme="invalid" small icon={<Octicon name='git-merge'/>}/>
-              </span>
-            </Block>
           </Block>
         </Detail>
       </Example>
