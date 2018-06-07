@@ -33,6 +33,10 @@ import Page from './Page'
 import Swatch from './Swatch'
 import GitHubAvatar from './GitHubAvatar'
 
+const ExampleHeading = props => (
+  <Heading tag='h3' fontSize={3} mb={2} {...props} />
+)
+
 const Index = props => (
   <Page>
     <Library title='primer-react'>
@@ -91,9 +95,9 @@ const Index = props => (
       <Example name='BranchName'>
         <BranchName>a_new_feature_branch</BranchName>
         <Detail>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Linked BranchName</Heading>
+          <ExampleHeading mt={3}>Linked BranchName</ExampleHeading>
           <BranchName tag='a' href='/'>a_new_feature_branch</BranchName>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>BranchName with Octicon</Heading>
+          <ExampleHeading mt={3}>BranchName with Octicon</ExampleHeading>
           <BranchName><Octicon name='git-branch' /> a_new_feature_branch</BranchName>
         </Detail>
       </Example>
@@ -161,14 +165,14 @@ const Index = props => (
       </Example>
       <Example name='Details'>
         <Block mb={4}>
-          <Heading tag='h3' fontSize={3}>With static children</Heading>
+          <ExampleHeading>With static children</ExampleHeading>
           <Details>
             <summary className='btn'>Click me</summary>
             <p>This should show and hide</p>
           </Details>
         </Block>
         <Block my={4}>
-          <Heading tag='h3' fontSize={3}>With render prop</Heading>
+          <ExampleHeading>With render prop</ExampleHeading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
               <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
@@ -180,7 +184,7 @@ const Index = props => (
       </Example>
       <Example name='DonutChart'>
         <Block mb={2}>
-          <Heading tag='h2' fontSize={3} mb={1}>With <Text mono>data</Text> prop</Heading>
+          <ExampleHeading>With <Text mono>data</Text> prop</ExampleHeading>
           <DonutChart data={{error: 2, pending: 3, success: 5}} />
           {' '}
           <DonutChart data={{error: 1, pending: 4, success: 2}} />
@@ -194,7 +198,7 @@ const Index = props => (
           <DonutChart data={{unknown: 1}} />
         </Block>
         <Block mb={2}>
-          <Heading tag='h2' fontSize={3} mb={1}>With <Text mono>DonutSlice</Text> children</Heading>
+          <ExampleHeading>With <Text mono>DonutSlice</Text> children</ExampleHeading>
           <DonutChart>
             <DonutSlice value={1} state='pending' />
             <DonutSlice value={1} state='success' />
@@ -227,7 +231,7 @@ const Index = props => (
           </DonutChart>
         </Block>
         <Block mb={2}>
-          <Heading tag='h2' fontSize={3} mb={1}>With custom <Text mono>fill</Text> colors</Heading>
+          <ExampleHeading>With custom <Text mono>fill</Text> colors</ExampleHeading>
           <DonutChart>
             <DonutSlice value={1} fill={theme.colors.purple[0]} />
             <DonutSlice value={1} fill={theme.colors.purple[1]} />
@@ -305,7 +309,7 @@ const Index = props => (
         </Block>
         <Detail>
           <Block mb={4}>
-            <Heading tag='h2' mb={1}>By state (Octicons built in)</Heading>
+            <ExampleHeading>By state (Octicons built in)</ExampleHeading>
             <Block mb={2}>
               <StateLabel>Unknown</StateLabel>
             </Block>
@@ -323,7 +327,7 @@ const Index = props => (
             </Block>
           </Block>
           <Block mb={4}>
-            <Heading tag='h2' mb={1}>By color</Heading>
+            <ExampleHeading>By color</ExampleHeading>
             <Block mb={2}>
               <StateLabel scheme='invalid'>Invalid</StateLabel>
             </Block>
@@ -338,7 +342,7 @@ const Index = props => (
             </Block>
           </Block>
           <Block mb={4}>
-            <Heading tag='h2' mb={2}>Small, by state</Heading>
+            <ExampleHeading>Small, by state</ExampleHeading>
             <Block mb={2}>
               <span className='mr-2'>
                 <StateLabel small>Unknown</StateLabel>
@@ -358,7 +362,7 @@ const Index = props => (
             </Block>
           </Block>
           <Block mb={4}>
-            <Heading tag='h2' mb={1}>Small, by color</Heading>
+            <ExampleHeading>Small, by color</ExampleHeading>
             <Block mb={2}>
               <span className='mr-2'>
                 <StateLabel small scheme='invalid'>Invalid</StateLabel>
@@ -394,21 +398,21 @@ const Index = props => (
           <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
         </Box>
         <Detail>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Directions</Heading>
+          <ExampleHeading mt={3}>Directions</ExampleHeading>
           {Tooltip.directions.map((d, i) => (
             <Box p={3}>
               <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
             </Box>
           ))}
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Alignment</Heading>
+          <ExampleHeading mt={3}>Alignment</ExampleHeading>
           <Box p={3}>
             <Tooltip text='Hello, Tooltip!' direction='ne' align='left'>Tooltip align left</Tooltip>
           </Box>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Word wrap</Heading>
+          <ExampleHeading mt={3}>Word wrap</ExampleHeading>
           <Box p={3}>
             <Tooltip text='Hello, Tooltip! This tooltip has a sentence that will wrap to a newline.' wrap  direction='ne' align='left'>Word wrapping tooltip</Tooltip>
           </Box>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>No Delay</Heading>
+          <ExampleHeading mt={3}>No Delay</ExampleHeading>
           <Box p={3}>
             <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
           </Box>
