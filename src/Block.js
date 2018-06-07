@@ -7,13 +7,40 @@ const classifyBlockProps = classifier({
   bg: value => `bg-${value}`,
   border: expander(valueMapper({
     true: 'border',
-    false: 'border-0',
+    false: 'border-0'
   }, null, value => `border-${value}`)),
   fg: value => `text-${value}`,
-  round: value => `rounded-${value}`
+  position: value => `position-${value}`,
+  round: value => `rounded-${value}`,
+  shadow: valueMapper({
+    true: 'box-shadow'
+  }, null, value => `box-shadow-${value}`)
 })
 
-const mapBlockProps = props => classifyBlockProps(map(props))
+const stylize = props => {
+  const {
+    width,
+    minWidth,
+    maxWidth,
+    height,
+    minHeight,
+    maxHeight,
+    ...rest
+  } = props
+  return {
+    style: {
+      width,
+      minWidth,
+      maxWidth,
+      height,
+      minHeight,
+      maxHeight
+    },
+    ...rest
+  }
+}
+
+const mapBlockProps = props => classifyBlockProps(map(stylize(props)))
 
 const Block = chameleon('div', mapBlockProps)
 
@@ -24,7 +51,9 @@ Block.propTypes = {
     PropTypes.bool
   ])),
   fg: PropTypes.string,
+  position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   round: PropTypes.number,
+  shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
   ...map.propTypes
 }
 
