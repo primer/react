@@ -26,6 +26,15 @@ function getOcticon(state) {
   return <Octicon name={name}/>
 }
 
+const getIconComponent = (icon, children) => {
+  if (icon && children) {
+    return <span className='mr-1'>{icon}</span>
+  } else if (icon) {
+    return <span className='d-flex m-1'>{icon}</span>
+  }
+  return null;
+}
+
 export default function StateLabel(props) {
   const {
     state,
@@ -40,6 +49,7 @@ export default function StateLabel(props) {
   }
 
   const color = scheme || stateColorMap[state]
+  const iconComponent = getIconComponent(icon, children);
   return (
     <span className={classnames(
       'State', {
@@ -47,7 +57,7 @@ export default function StateLabel(props) {
       },
       color ? `State--${color}` : null
     )}>
-      {icon ? <span className='mr-1'>{icon}</span> : null}
+      {iconComponent}
       {children}
     </span>
   )
