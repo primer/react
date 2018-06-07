@@ -24,6 +24,7 @@ import {
   Heading,
   Label,
   Link,
+  MergeStatus,
   Page,
   StateLabel,
   Text,
@@ -430,12 +431,14 @@ const Index = props => (
               <span className='mr-2'>
                 <StateLabel scheme="invalid" small icon={<Octicon name='git-merge'/>}/>
               </span>
-              <span className='mr-2'>
-                <StateLabel scheme="yellow" small icon={<Octicon name='git-merge'/>}/>
-              </span>
             </Block>
           </Block>
         </Detail>
+      </Example>
+      <Example name="MergeStatus">
+        <span className='mr-2'>
+          <MergeStatus state="pending"/>
+        </span>
       </Example>
       <Example name='Text'>
         <Text tag='div'>Text</Text>

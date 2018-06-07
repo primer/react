@@ -1,6 +1,9 @@
 import React, {Fragment} from 'react'
 import classnames from 'classnames'
 import Octicon from '@github/octicons-react'
+import theme from './theme'
+
+const { colors } = theme;
 
 const stateColorMap = {
   open: 'green',
@@ -32,7 +35,7 @@ const getIconComponent = (icon, children) => {
   } else if (icon) {
     return <span className='d-flex m-1'>{icon}</span>
   }
-  return null;
+  return null
 }
 
 export default function StateLabel(props) {
@@ -49,14 +52,18 @@ export default function StateLabel(props) {
   }
 
   const color = scheme || stateColorMap[state]
-  const iconComponent = getIconComponent(icon, children);
+  let styles
+  if (color === 'yellow') {
+    styles = { backgroundColor: colors.yellow[7]}
+  }
+  const iconComponent = getIconComponent(icon, children)
   return (
     <span className={classnames(
       'State', {
         'State--small': small
       },
-      color ? `State--${color}` : null
-    )}>
+      color && color !== 'yellow' ? `State--${color}` : null,
+    )} style={styles}>
       {iconComponent}
       {children}
     </span>
