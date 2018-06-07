@@ -28,7 +28,7 @@ function Button({
   );
 
   return (
-    <Tag {...props} type="button" onClick={disabled ? undefined : onClick} className={classes}>
+    <Tag {...props} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
       {children}
     </Tag>
   )
