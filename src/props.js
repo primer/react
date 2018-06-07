@@ -77,3 +77,17 @@ export function expander(fn) {
     ? value.map(fn)
     : fn(value)
 }
+
+export function stylizer(propsToPass) {
+  return props => {
+    const copy = {...props}
+    copy.style = propsToPass.reduce((acc, prop) => {
+      if (prop in props) {
+        acc[prop] = props[prop]
+        delete copy[prop]
+      }
+      return acc
+    }, props.style || {})
+    return copy
+  }
+}
