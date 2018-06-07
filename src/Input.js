@@ -6,6 +6,7 @@ const Input = ({
     autocomplete,
     autofocus,
     block,
+    disabled,
     large,
     name,
     placeholder,
@@ -23,18 +24,20 @@ const Input = ({
         'input-lg': large
       }
     )}
-    autocomplete={autocomplete ? 'on' : 'off'}
+    autocomplete={autocomplete}
     placeholder={placeholder}
     autofocus={autofocus}
     required={required}
+    disabled={disabled}
   />
 )
 
 Input.propTypes = {
   name: PropTypes.string,
-  autocomplete: PropTypes.bool,
+  autocomplete: PropTypes.string,
   autofocus: PropTypes.bool,
   required: PropTypes.bool,
+  disabled: PropTypes.bool,
   block: PropTypes.bool,
   placeholder: PropTypes.string,
   small: PropTypes.bool,
