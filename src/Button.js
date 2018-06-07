@@ -3,24 +3,22 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import map, { classifier } from './props'
 
-function Button(props) {
-  const classifyButtonProps = classifier({
-    block: 'block',
-    scheme: value => `btn-${value}`,
-    size: value => `btn-${value}`,
-    grouped: 'BtnGroup-item'
-  });
-
-  const mapButtonProps = ({ linkStyle, ...rest }) => {
-    const newProps = { className: linkStyle ? 'btn-link' : 'btn', ...rest}
-    return classifyButtonProps(newProps);
-  }
-
-  const Tag = props.tag || 'button';
+function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, ...props}) {
+  const classes = classnames(
+    {
+      'btn': !linkStyle,
+      'btn-link': linkStyle,
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+      'btn-block': block,
+      'BtnGroup-item': grouped,
+    },
+    scheme ? `btn-${scheme}` : null
+  );
 
   return (
-    <Tag {...props} className={mapButtonProps(props).className}>
-      {props.children}
+    <Tag {...props} className={classes}>
+      {children}
     </Tag>
   )
 }
