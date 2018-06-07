@@ -1,15 +1,23 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const Button = ({ size, disabled, block, linkStyle, onClick, children }) => (
+const Button = ({
+  block,
+  children,
+  disabled,
+  linkStyle,
+  onClick,
+  scheme,
+  size
+}) => (
     <button
       disabled={disabled}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       type="button"
       className={classnames(
+        linkStyle ? 'btn-link' : 'btn',
+        scheme ? `btn-${scheme}` : null,
         {
-          'btn': !linkStyle,
-          'btn-link': linkStyle,
           'btn-sm': size === 'small',
           'btn-large': size === 'large',
           'btn-block': block,
