@@ -26,6 +26,8 @@ function getPosition({edge, align}) {
 }
 
 export default function Caret({css, ...rest}) {
+  // TODO: should the svg switch even be configurable,
+  // or do we use feature detection here?
   return css
     ? <CaretCSS {...rest} />
     : <CaretSVG {...rest} />
