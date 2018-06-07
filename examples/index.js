@@ -19,6 +19,7 @@ import {
   Details,
   DonutChart,
   DonutSlice,
+  Dropdown,
   Flash,
   Heading,
   Label,
@@ -181,7 +182,7 @@ const Index = props => (
           </Details>
         </Block>
         <Block my={4}>
-          <Heading tag='h2'>With render prop</Heading>
+          <Heading tag='h2'>With children as a function</Heading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
               <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
@@ -189,6 +190,42 @@ const Index = props => (
             </React.Fragment>
           )}
           </Details>
+        </Block>
+        <Block my={4}>
+          <Heading tag='h2'>With render prop</Heading>
+          <Details render={() => 'hi'}/>
+        </Block>
+      </Example>
+      <Example name="Dropdown">
+        <Block my={4}>
+          <Heading tag="h2">Dropdown Primary</Heading>
+          <Dropdown scheme={"primary"}>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </Dropdown>
+        </Block>
+        <Block my={4}>
+          <Heading tag="h2">Dropdown</Heading>
+          <Dropdown>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </Dropdown>
+        </Block>
+        <Block my={4}>
+          <Heading tag="h2">Dropdown with title</Heading>
+          <Dropdown title="Options">
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </Dropdown>
         </Block>
       </Example>
       <Example name='DonutChart'>

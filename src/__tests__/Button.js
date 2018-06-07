@@ -46,7 +46,7 @@ describe('Button', () => {
   })
 
   it('respects the "size" prop', () => {
-    expect(render(<Button size='small' />).props.className)
+    expect(render(<Button size='sm' />).props.className)
       .toEqual('btn btn-sm')
     expect(render(<Button size='large' />).props.className)
       .toEqual('btn btn-large')
