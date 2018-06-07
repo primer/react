@@ -162,7 +162,7 @@ const Index = props => (
           </Details>
         </Box>
         <Box my={4}>
-          <Heading tag='h2'>With render prop</Heading>
+          <Heading tag='h2'>With children as a function</Heading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
               <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
@@ -170,6 +170,10 @@ const Index = props => (
             </React.Fragment>
           )}
           </Details>
+        </Box>
+        <Box my={4}>
+          <Heading tag='h2'>With render prop</Heading>
+          <Details render={() => 'hi'}/>
         </Box>
       </Example>
       <Example name="Dropdown">
