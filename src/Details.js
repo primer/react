@@ -29,7 +29,7 @@ export default class Details extends React.Component {
     const { open } = this.state
 
     return (
-      <details {...props} className={className || 'details-reset'} open={open}>
+      <details {...props} className={classnames('details-reset', className)} open={open}>
         {render({open, toggle: this.toggle})}
       </details>
     )
