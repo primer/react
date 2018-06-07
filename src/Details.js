@@ -6,15 +6,17 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-class Details extends React.PureComponent {
+export default class Details extends React.PureComponent {
   constructor(props) {
     super(props)
-    this.state = { open: this.props.open || false }
+    this.state = {open: Boolean(props.open)}
     this.toggle = this.toggle.bind(this)
   }
 
   toggle(event) {
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
     this.setState({ open: !this.state.open })
   }
 
@@ -35,4 +37,7 @@ class Details extends React.PureComponent {
   }
 }
 
-export default Details
+Details.propTypes = {
+  open: PropTypes.bool,
+  render: PropTypes.func
+}
