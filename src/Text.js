@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import chameleon from './chameleon'
 import map, {classifier, valueMapper} from './props'
 
@@ -15,10 +16,25 @@ const classifyTextProps = classifier({
   }, value => `f${value}`, true),
   fontWeight: value => `text-${value}`,
   lineHeight: value => `lh-${value}`,
+  mono: 'text-mono',
+  nowrap: 'no-wrap'
 })
 
 const textProps = props => classifyTextProps(map(props))
 
 const Text = chameleon('span', textProps, true)
+
+Text.propTypes = {
+  // TODO: constrain with PropTypes.oneOf()
+  color: PropTypes.string,
+  // TODO constrain with PropTypes.oneOf()
+  fontSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  fontWeight: PropTypes.oneOf(['normal', 'bold']),
+  lineHeight: PropTypes.oneOf(['normal', 'condensed', 'condensed-ultra']),
+  mono: PropTypes.bool
+}
 
 export default Text

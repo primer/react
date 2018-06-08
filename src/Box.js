@@ -1,18 +1,15 @@
 import React from 'react'
 import chameleon from './chameleon'
-import map, {classifier, expander, valueMapper} from './props'
+import Block from './Block'
 
-const classifyBoxProps = classifier({
-  bg: value => `bg-${value}`,
-  border: expander(valueMapper({
-    true: 'border',
-    false: 'border-0',
-  }, null, value => `border-${value}`)),
-  fg: value => `text-${value}`
-})
+const Box = props => <Block {...props} />
 
-const boxProps = props => classifyBoxProps(map(props))
+Box.defaultProps = {
+  bg: 'white',
+  border: true,
+  round: 1
+}
 
-const Box = chameleon('div', boxProps)
+Box.propTypes = Block.propTypes
 
 export default Box

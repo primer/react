@@ -1,6 +1,6 @@
 {
   "name": "primer-react",
-  "version": "0.0.2-beta",
+  "version": "0.0.3-beta",
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
@@ -21,23 +21,25 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "x0": {
+    "title": "primer-react",
     "cssLibrary": "styled-components",
     "basename": "/primer-react"
   },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "classnames": "^2.2.5",
+    "d3-shape": "^1.2.0",
     "react": "^16.2.0",
     "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
     "@compositor/kit": "^1.0.26",
-    "@compositor/x0": "^4.0.3",
+    "@compositor/x0": "5.0.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",
     "react-test-renderer": "^16.3.2",
-    "styled-components": "^3.1.6",
+    "styled-components": "3.3.2",
     "styled-system": "^2.0.2"
   }
 }

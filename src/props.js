@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import createMapper from 'system-classnames'
 
@@ -5,7 +6,23 @@ const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
 
 const call = (f, v) => (typeof f === 'function') ? f(v) : f || v
 
-const map = createMapper({
+export const oneOrMoreOf = type => PropTypes.oneOfType([
+  type,
+  PropTypes.arrayOf(type)
+])
+
+export const oneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
+
+export const createMapperWithPropTypes = config => {
+  const mapper = createMapper(config)
+  mapper.propTypes = config.props.reduce((propTypes, prop) => {
+    propTypes[prop] = oneOrMoreNumbers
+    return propTypes
+  }, {})
+  return mapper
+}
+
+const map = createMapperWithPropTypes({
   breakpoints,
   props: [
     'm', 'mt', 'mr', 'mb', 'ml', 'mx', 'my',
@@ -17,6 +34,10 @@ const map = createMapper({
 })
 
 export default map
+
+function unique(values) {
+  return values.filter((v, i) => values.indexOf(v) === i)
+}
 
 export function classifier(propsToMap) {
   return ({className: baseClassName, ...props}) => {
@@ -37,7 +58,8 @@ export function classifier(propsToMap) {
         mapped[key] = props[key]
       }
     }
-    const className = classnames(baseClassName, ...classes).trim()
+    const classNames = classnames(baseClassName, ...classes).trim().split(' ')
+    const className = unique(classNames).join(' ')
     return className ? Object.assign(mapped, {className}) : mapped
   }
 }
@@ -54,4 +76,18 @@ export function expander(fn) {
   return value => Array.isArray(value)
     ? value.map(fn)
     : fn(value)
+}
+
+export function stylizer(propsToPass) {
+  return props => {
+    const copy = {...props}
+    copy.style = propsToPass.reduce((acc, prop) => {
+      if (prop in props) {
+        acc[prop] = props[prop]
+        delete copy[prop]
+      }
+      return acc
+    }, props.style || {})
+    return copy
+  }
 }
