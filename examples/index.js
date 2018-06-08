@@ -35,6 +35,7 @@ import Octicon from '@github/octicons-react'
 
 import Page from './Page'
 import Swatch from './Swatch'
+import MergeBox from './MergeBox'
 import GitHubAvatar from './GitHubAvatar'
 
 const ExampleHeading = props => (
@@ -464,6 +465,11 @@ const Index = props => (
       <Example name='MergeStatus'>
         <span className='mr-2'>
           <MergeStatus state='pending'/>
+        </span>
+      </Example>
+      <Example name='MergeBox'>
+        <span className='mr-2'>
+          <MergeBox state='pending'/>
         </span>
       </Example>
       <Example name='Text'>
