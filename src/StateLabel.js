@@ -52,9 +52,9 @@ export default function StateLabel(props) {
   }
 
   const color = scheme || stateColorMap[state]
-  let styles = {}
+  const styleProps = {}
   if (color === 'yellow') {
-    styles = {backgroundColor: colors.yellow[7]}
+    styleProps.style = {backgroundColor: colors.yellow[7]}
   }
   const iconComponent = getIconComponent(icon, children)
   return (
@@ -63,7 +63,7 @@ export default function StateLabel(props) {
         'State--small': small
       },
       color && color !== 'yellow' ? `State--${color}` : null,
-    )} style={styles}>
+    )} {...styleProps}>
       {iconComponent}
       {children}
     </span>
