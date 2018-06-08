@@ -22,6 +22,7 @@ import {
   Dropdown,
   Flash,
   Heading,
+  TextInput,
   Label,
   Link,
   Page,
@@ -308,6 +309,19 @@ const Index = props => (
         {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
           <Text tag='div' key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
         ))}
+      </Example>
+      <Example name='Form elements'>
+        <Heading mb={2}>Input</Heading>
+        <TextInput name='zipcode'/>
+        <Heading mb={2}>Input Sizes</Heading>
+        <Box>
+          <TextInput name='zipcode' size='small' placeholder='Small input'/>
+        </Box>
+        <Box>
+          <TextInput name='zipcode' size='large' placeholder='Large input'/>
+        </Box>
+        <Heading mb={2}>Block input</Heading>
+        <TextInput block placeholder='Full width block input'/>
       </Example>
       <Example name='Heading'>
         <Heading mb={2}>Default Heading</Heading>

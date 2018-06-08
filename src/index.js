@@ -26,6 +26,8 @@ export { default as Dropdown } from './Dropdown'
 export { default as DonutChart} from './DonutChart'
 export { default as DonutSlice} from './DonutSlice'
 
+export { default as TextInput} from './TextInput'
+
 export { default as Heading } from './Heading'
 export { default as Label } from './Label'
 export { default as BranchName } from './BranchName'
