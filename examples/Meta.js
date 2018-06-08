@@ -1,18 +1,16 @@
 import React from 'react'
 
 const primerPackages = [
-  'primer-box',
-  'primer-breadcrumb',
+  // 'primer-box',
+  // 'primer-breadcrumb',
   'primer-buttons',
   'primer-forms',
   'primer-layout',
-  'primer-marketing',
-  'primer-navigation',
+  // 'primer-marketing',
+  // 'primer-navigation',
   'primer-product',
-  // 'primer-support',
   // 'primer-table',
   'primer-tooltips',
-  'primer-truncate',
   'primer-utilities',
 ]
 
