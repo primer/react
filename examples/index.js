@@ -197,10 +197,10 @@ const Index = props => (
           <Details render={() => 'hi'}/>
         </Block>
       </Example>
-      <Example name="Dropdown">
+      <Example name='Dropdown'>
         <Block my={4}>
-          <Heading tag="h2">Dropdown Primary</Heading>
-          <Dropdown scheme={"primary"}>
+          <Heading tag='h2'>Dropdown Primary</Heading>
+          <Dropdown scheme={'primary'}>
             <ul>
               <li>Item 1</li>
               <li>Item 2</li>
@@ -209,7 +209,7 @@ const Index = props => (
           </Dropdown>
         </Block>
         <Block my={4}>
-          <Heading tag="h2">Dropdown</Heading>
+          <Heading tag='h2'>Dropdown</Heading>
           <Dropdown>
             <ul>
               <li>Item 1</li>
@@ -219,8 +219,8 @@ const Index = props => (
           </Dropdown>
         </Block>
         <Block my={4}>
-          <Heading tag="h2">Dropdown with title</Heading>
-          <Dropdown title="Options">
+          <Heading tag='h2'>Dropdown with title</Heading>
+          <Dropdown title='Options'>
             <ul>
               <li>Item 1</li>
               <li>Item 2</li>
@@ -423,16 +423,16 @@ const Index = props => (
           </Block>
         </Detail>
       </Example>
-      <Example name="MergeStatus">
+      <Example name='MergeStatus'>
         <span className='mr-2'>
-          <MergeStatus state="pending"/>
+          <MergeStatus state='pending'/>
         </span>
       </Example>
       <Example name='Text'>
         <Text tag='div'>Text</Text>
         <Text tag='div' fontWeight='bold'>Text bold</Text>
         <Text tag='div' color='green'>Text green</Text>
-        <Text tag='div' lineHeight='condensed'>Text lineHeight "condensed"</Text>
+        <Text tag='div' lineHeight='condensed'>Text lineHeight 'condensed'</Text>
         <Text tag='div' fontSize={4}>Text fontSize 4</Text>
         <Text tag='div' p={4}>Text padding 4</Text>
       </Example>
