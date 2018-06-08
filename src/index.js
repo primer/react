@@ -1,10 +1,5 @@
 export { default as theme } from './theme'
 
-// Base for library
-export { default as CSS } from './CSS'
-export { default as Meta } from './Meta'
-export { default as Page } from './Page'
-
 // Layout
 export { default as Block } from './Block'
 export { default as Box } from './Box'
@@ -25,6 +20,8 @@ export { default as Dropdown } from './Dropdown'
 
 export { default as DonutChart} from './DonutChart'
 export { default as DonutSlice} from './DonutSlice'
+
+export { default as TextInput} from './TextInput'
 
 export { default as Heading } from './Heading'
 export { default as Label } from './Label'

@@ -22,10 +22,10 @@ import {
   Dropdown,
   Flash,
   Heading,
+  TextInput,
   Label,
   Link,
   MergeStatus,
-  Page,
   StateLabel,
   Text,
   Tooltip,
@@ -33,12 +33,17 @@ import {
 } from '../src'
 import Octicon from '@github/octicons-react'
 
+import Page from './Page'
 import Swatch from './Swatch'
 import GitHubAvatar from './GitHubAvatar'
 
+const ExampleHeading = props => (
+  <Heading tag='h3' fontSize={3} mb={2} {...props} />
+)
+
 const Index = props => (
   <Page>
-    <Library title={<Text fontSize={3}>primer-react</Text>}>
+    <Library title='primer-react'>
       <Example name='Avatar'>
         <Block mb={2}>
           <GitHubAvatar username='primer' size={128} />
@@ -54,45 +59,56 @@ const Index = props => (
       </Example>
       <Example name='Block'>
         <table>
-          {[
-            // 'black',
-            'white',
-            'gray-dark',
-            'gray',
-            'gray-light',
-            'blue',
-            'blue-light',
-            'green',
-            'green-light',
-            'red',
-            'red-light',
-            'yellow',
-            'yellow-light',
-            'purple',
-            'purple-light',
-            // 'shade-gradient'
-          ].map((bg, i, style) => (
-            <tr key={i}>
-              <td>
-                <Text>{`bg='${bg}'`}</Text>
-              </td>
-              {['white', 'gray', 'black'].map((fg, j) => (
+          <tbody>
+            {[
+              // 'black',
+              'white',
+              'gray-dark',
+              'gray',
+              'gray-light',
+              'blue',
+              'blue-light',
+              'green',
+              'green-light',
+              'red',
+              'red-light',
+              'yellow',
+              'yellow-light',
+              'purple',
+              'purple-light',
+              // 'shade-gradient'
+            ].map((bg, i, style) => (
+              <tr key={i}>
                 <td>
-                  <Block p={3} mb={2} bg={bg}>
-                    <Text color={fg}>{fg}</Text>
-                  </Block>
+                  <Text mono nowrap>{`bg='${bg}'`}</Text>
                 </td>
-              ))}
-            </tr>
-          ))}
+                {['white', 'gray', 'black'].map((fg, j) => (
+                  <td key={j}>
+                    <Block p={3} mb={2} bg={bg} border={bg === 'white'}>
+                      <Text color={fg}>{fg}</Text>
+                    </Block>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
         </table>
+      </Example>
+      <Example name='Box'>
+        <Box m={2}>This is a box.</Box>
+        <Box p={2} m={2}>This is a box with padding.</Box>
+        <Box shadow p={2} m={2}>This is a box with shadow.</Box>
+        <Box shadow='medium' p={2} m={2}>This is a box with a medium shadow.</Box>
+        <Box shadow='large' p={2} m={2}>This is a box with a large shadow.</Box>
+        <Box shadow='extra-large' p={2} m={2}>This is a box with an extra-large shadow.</Box>
+        <Box border={[true, 'green']} p={2} m={2}>This is a box with a green border.</Box>
       </Example>
       <Example name='BranchName'>
         <BranchName>a_new_feature_branch</BranchName>
         <Detail>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Linked BranchName</Heading>
+          <ExampleHeading mt={3}>Linked BranchName</ExampleHeading>
           <BranchName tag='a' href='/'>a_new_feature_branch</BranchName>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>BranchName with Octicon</Heading>
+          <ExampleHeading mt={3}>BranchName with Octicon</ExampleHeading>
           <BranchName><Octicon name='git-branch' /> a_new_feature_branch</BranchName>
         </Detail>
       </Example>
@@ -101,7 +117,7 @@ const Index = props => (
           <Button> Button </Button>
         </Block>
         <Block mb={2}>
-          <Button size='small'> Button small </Button>
+          <Button size='sm'> Button small </Button>
         </Block>
         <Block mb={2}>
           <Button size='large'> Button large </Button>
@@ -176,14 +192,14 @@ const Index = props => (
       </Example>
       <Example name='Details'>
         <Block mb={4}>
-          <Heading tag='h2'>With static children</Heading>
+          <ExampleHeading>With static children</ExampleHeading>
           <Details>
             <summary className='btn'>Click me</summary>
             <p>This should show and hide</p>
           </Details>
         </Block>
         <Block my={4}>
-          <Heading tag='h2'>With children as a function</Heading>
+          <ExampleHeading>With children as a function</ExampleHeading>
           <Details>{({open, toggle}) => (
             <React.Fragment>
               <summary className='btn' onClick={toggle}>{open ? 'Hide' : 'Show'}</summary>
@@ -230,8 +246,8 @@ const Index = props => (
         </Block>
       </Example>
       <Example name='DonutChart'>
-        <Box mb={2}>
-          <Heading tag='h2' fontSize={3} mb={1}>With <Text mono>data</Text> prop</Heading>
+        <Block mb={2}>
+          <ExampleHeading>With <Text mono>data</Text> prop</ExampleHeading>
           <DonutChart data={{error: 2, pending: 3, success: 5}} />
           {' '}
           <DonutChart data={{error: 1, pending: 4, success: 2}} />
@@ -243,9 +259,9 @@ const Index = props => (
           <DonutChart data={{pending: 1, queued: 1}} />
           {' '}
           <DonutChart data={{unknown: 1}} />
-        </Box>
-        <Box mb={2}>
-          <Heading tag='h2' fontSize={3} mb={1}>With <Text mono>DonutSlice</Text> children</Heading>
+        </Block>
+        <Block mb={2}>
+          <ExampleHeading>With <Text mono>DonutSlice</Text> children</ExampleHeading>
           <DonutChart>
             <DonutSlice value={1} state='pending' />
             <DonutSlice value={1} state='success' />
@@ -276,9 +292,9 @@ const Index = props => (
           <DonutChart>
             <DonutSlice value={1} state='queued' />
           </DonutChart>
-        </Box>
-        <Box mb={2}>
-          <Heading tag='h2' fontSize={3} mb={1}>With custom <Text mono>fill</Text> colors</Heading>
+        </Block>
+        <Block mb={2}>
+          <ExampleHeading>With custom <Text mono>fill</Text> colors</ExampleHeading>
           <DonutChart>
             <DonutSlice value={1} fill={theme.colors.purple[0]} />
             <DonutSlice value={1} fill={theme.colors.purple[1]} />
@@ -286,7 +302,7 @@ const Index = props => (
             <DonutSlice value={1} fill={theme.colors.purple[3]} />
             <DonutSlice value={1} fill={theme.colors.purple[4]} />
           </DonutChart>
-        </Box>
+        </Block>
       </Example>
       <Example name='Flash'>
         <Block mb={3}>
@@ -310,6 +326,19 @@ const Index = props => (
           <Text tag='div' key={i} fontSize={fontSize}>fontSize {fontSize}</Text>
         ))}
       </Example>
+      <Example name='Form elements'>
+        <Heading mb={2}>Input</Heading>
+        <TextInput name='zipcode'/>
+        <Heading mb={2}>Input Sizes</Heading>
+        <Box>
+          <TextInput name='zipcode' size='small' placeholder='Small input'/>
+        </Box>
+        <Box>
+          <TextInput name='zipcode' size='large' placeholder='Large input'/>
+        </Box>
+        <Heading mb={2}>Block input</Heading>
+        <TextInput block placeholder='Full width block input'/>
+      </Example>
       <Example name='Heading'>
         <Heading mb={2}>Default Heading</Heading>
         <Detail>
@@ -331,9 +360,18 @@ const Index = props => (
         </Block>
       </Example>
       <Example name='Link'>
-        <Link href='https://github.com'>
-          Link
-        </Link>
+        <Block mb={1}>
+          <Link href='https://github.com'>Link</Link>
+        </Block>
+        <Block mb={1}>
+          <Link muted href='https://github.com'>Link muted</Link>
+        </Block>
+        <Block mb={1}>
+          <Link gray href='https://github.com'>Link gray</Link>
+        </Block>
+        <Block mb={1}>
+          <Link graydark href='https://github.com'>Link graydark</Link>
+        </Block>
       </Example>
       <Example name='StateLabel'>
         <Block mb={2}>
@@ -347,7 +385,7 @@ const Index = props => (
         </Block>
         <Detail>
           <Block mb={4}>
-            <Heading tag='h2' mb={1}>By state (Octicons built in)</Heading>
+            <ExampleHeading>By state (Octicons built in)</ExampleHeading>
             <Block mb={2}>
               <StateLabel>Unknown</StateLabel>
             </Block>
@@ -365,7 +403,7 @@ const Index = props => (
             </Block>
           </Block>
           <Block mb={4}>
-            <Heading tag='h2' mb={1}>By color</Heading>
+            <ExampleHeading>By color</ExampleHeading>
             <Block mb={2}>
               <StateLabel scheme='invalid'>Invalid</StateLabel>
             </Block>
@@ -380,7 +418,7 @@ const Index = props => (
             </Block>
           </Block>
           <Block mb={4}>
-            <Heading tag='h2' mb={2}>Small, by state</Heading>
+            <ExampleHeading>Small, by state</ExampleHeading>
             <Block mb={2}>
               <span className='mr-2'>
                 <StateLabel small>Unknown</StateLabel>
@@ -400,7 +438,7 @@ const Index = props => (
             </Block>
           </Block>
           <Block mb={4}>
-            <Heading tag='h2' mb={1}>Small, by color</Heading>
+            <ExampleHeading>Small, by color</ExampleHeading>
             <Block mb={2}>
               <span className='mr-2'>
                 <StateLabel small scheme='invalid'>Invalid</StateLabel>
@@ -441,21 +479,21 @@ const Index = props => (
           <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
         </Box>
         <Detail>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Directions</Heading>
+          <ExampleHeading mt={3}>Directions</ExampleHeading>
           {Tooltip.directions.map((d, i) => (
-            <Box p={3}>
+            <Box p={3} key={i}>
               <Tooltip text='Hello, Tooltip!' direction={d}>Tooltip direction={d}</Tooltip>
             </Box>
           ))}
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Alignment</Heading>
+          <ExampleHeading mt={3}>Alignment</ExampleHeading>
           <Box p={3}>
             <Tooltip text='Hello, Tooltip!' direction='ne' align='left'>Tooltip align left</Tooltip>
           </Box>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>Word wrap</Heading>
+          <ExampleHeading mt={3}>Word wrap</ExampleHeading>
           <Box p={3}>
             <Tooltip text='Hello, Tooltip! This tooltip has a sentence that will wrap to a newline.' wrap  direction='ne' align='left'>Word wrapping tooltip</Tooltip>
           </Box>
-          <Heading tag='h3' fontSize={3} mb={2} mt={3}>No Delay</Heading>
+          <ExampleHeading mt={3}>No Delay</ExampleHeading>
           <Box p={3}>
             <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
           </Box>
