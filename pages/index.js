@@ -4,6 +4,10 @@ import {
   Example,
   Library
 } from '@compositor/kit'
+
+import {default as ColorsExample} from './colors'
+import {default as AvatarExample} from './avatars'
+
 import {
   Avatar,
   Block,
@@ -33,9 +37,6 @@ import {
 } from '../src'
 import Octicon from '@github/octicons-react'
 
-import Swatch from '../src/Swatch'
-import GitHubAvatar from '../src/GitHubAvatar'
-
 const ExampleHeading = props => (
   <Heading tag='h3' fontSize={3} mb={2} {...props} />
 )
@@ -43,19 +44,7 @@ const ExampleHeading = props => (
 export default function Index() {
   return (
     <Library title='primer-react'>
-      <Example name='Avatar'>
-        <Block mb={2}>
-          <GitHubAvatar username='primer' size={128} />
-        </Block>
-        <Block mb={2}>
-          <GitHubAvatar username='github' size={64} />
-        </Block>
-        <Block mb={2}>
-          <GitHubAvatar username='reactjs' size={32} />
-          {' '}
-          <GitHubAvatar username='npm' />
-        </Block>
-      </Example>
+      <Example name='Avatars'><AvatarExample /></Example>
       <Example name='Block'>
         <table>
           <tbody>
@@ -156,28 +145,7 @@ export default function Index() {
           ))}
         </Block>
       </Example>
-      <Example name='Colors'>
-        {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
-          <div className='d-flex' key={i}>
-            {theme.colors[hue].map((color, j) => (
-              <Swatch name={hue} index={j} key={j} color={color}/>
-            ))}
-          </div>
-        ))}
-        <div className='d-flex'>
-          <Block bg='blue' p={4} m={1} />
-          <Block bg='green' p={4} m={1} />
-          <Block bg='purple' p={4} m={1} />
-          <Block bg='yellow' p={4} m={1} />
-          <Block bg='red' p={4} m={1} />
-          <Block bg='white' p={4} m={1} border />
-          <Block bg='gray' p={4} m={1} />
-          <Block bg='gray-light' p={4} m={1} />
-          <Block bg='blue-light' p={4} m={1} />
-          <Block bg='purple-light' p={4} m={1} />
-          <Block bg='red-light' p={4} m={1} />
-        </div>
-      </Example>
+      <Example title='Colors'><ColorsExample /></Example>
       <Example name='CounterLabel'>
         <CounterLabel>12</CounterLabel>
         {' '}

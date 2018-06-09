@@ -33,7 +33,7 @@ export default class extends Document {
               font-family: ${fonts};
               line-height: ${theme.lineHeight};
             }
-          `}} />
+          `}} key='primer-base' />
         </Head>
         <body>
           <Main />
