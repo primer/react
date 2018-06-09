@@ -33,16 +33,15 @@ import {
 } from '../src'
 import Octicon from '@github/octicons-react'
 
-import Page from './Page'
-import Swatch from './Swatch'
-import GitHubAvatar from './GitHubAvatar'
+import Swatch from '../src/Swatch'
+import GitHubAvatar from '../src/GitHubAvatar'
 
 const ExampleHeading = props => (
   <Heading tag='h3' fontSize={3} mb={2} {...props} />
 )
 
-const Index = props => (
-  <Page>
+export default function Index() {
+  return (
     <Library title='primer-react'>
       <Example name='Avatar'>
         <Block mb={2}>
@@ -180,15 +179,11 @@ const Index = props => (
         </div>
       </Example>
       <Example name='CounterLabel'>
-        <CounterLabel>
-          12
-        </CounterLabel>
-        <CounterLabel theme={'gray'}>
-          13
-        </CounterLabel>
-        <CounterLabel theme={'gray-light'}>
-          13
-        </CounterLabel>
+        <CounterLabel>12</CounterLabel>
+        {' '}
+        <CounterLabel theme='gray'>13</CounterLabel>
+        {' '}
+        <CounterLabel theme='gray-light'>13</CounterLabel>
       </Example>
       <Example name='Details'>
         <Block mb={4}>
@@ -330,12 +325,12 @@ const Index = props => (
         <Heading mb={2}>Input</Heading>
         <TextInput name='zipcode'/>
         <Heading mb={2}>Input Sizes</Heading>
-        <Box>
+        <Block mb={2}>
           <TextInput name='zipcode' size='small' placeholder='Small input'/>
-        </Box>
-        <Box>
+        </Block>
+        <Block mb={2}>
           <TextInput name='zipcode' size='large' placeholder='Large input'/>
-        </Box>
+        </Block>
         <Heading mb={2}>Block input</Heading>
         <TextInput block placeholder='Full width block input'/>
       </Example>
@@ -500,7 +495,5 @@ const Index = props => (
         </Detail>
       </Example>
     </Library>
-  </Page>
-)
-
-export default Index
+  )
+}
