@@ -1,3 +1,4 @@
+import React from 'react'
 import {Block, BranchName} from '../src'
 import {Detail} from '@compositor/kit'
 import {ExampleHeading} from '../lib'

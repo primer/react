@@ -1,3 +1,4 @@
+import React from 'react'
 import {Block, Text, theme} from '../src'
 import {ExampleHeading} from '../lib'
 
