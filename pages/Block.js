@@ -1,3 +1,4 @@
+import React from 'react'
 import {Block, Box, Text, theme} from '../src'
 
 export default () => (

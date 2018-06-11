@@ -1,9 +1,9 @@
 import {Example} from '@compositor/kit'
 import {Avatar, Block} from '../src'
-import GitHubAvatar from '../src/GitHubAvatar'
+import {GitHubAvatar} from './_helpers'
 
 export default () => (
-  <Example name='Avatar'>
+  <Block>
     <Block mb={2}>
       <GitHubAvatar username='primer' size={128} />
     </Block>
@@ -15,5 +15,5 @@ export default () => (
       {' '}
       <GitHubAvatar username='npm' />
     </Block>
-  </Example>
+  </Block>
 )
