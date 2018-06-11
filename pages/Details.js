@@ -22,7 +22,7 @@ export default () => (
       </Details>
     </Block>
     <Block my={4}>
-      <Heading tag='h2'>With render prop</Heading>
+      <ExampleHeading>With render prop</ExampleHeading>
       <Details render={() => 'hi'}/>
     </Block>
   </Block>
