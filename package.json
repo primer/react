@@ -4,8 +4,10 @@
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
-    "start": "x0 dev examples -op 8888",
-    "build": "x0 build examples --out-dir docs",
+    "start": "next",
+    "build": "NODE_ENV=production time next build",
+    "preexport": "time npm run build",
+    "export": "time next export -o docs",
     "test": "jest"
   },
   "repository": {
@@ -20,11 +22,6 @@
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
-  "x0": {
-    "title": "primer-react",
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react"
-  },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "classnames": "^2.2.5",
@@ -34,10 +31,11 @@
   },
   "devDependencies": {
     "@compositor/kit": "^1.0.26",
-    "@compositor/x0": "5.0.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",
+    "next": "^6.0.3",
+    "react-dom": "^16.4.0",
     "react-test-renderer": "^16.3.2",
     "styled-components": "3.3.2",
     "styled-system": "^2.0.2"
