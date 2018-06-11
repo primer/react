@@ -1,4 +1,3 @@
-
 const theme = {
   breakpoints: [
     '544px',
@@ -54,4 +53,4 @@ const theme = {
   ]
 }
 
-export default theme
+module.exports = theme
