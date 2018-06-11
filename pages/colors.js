@@ -1,5 +1,4 @@
 import {Block, Text, theme} from '../src'
-import {Example} from '@compositor/kit'
 import {ExampleHeading} from '../lib'
 
 function Swatch({name, index, color, ...rest}) {
@@ -17,7 +16,7 @@ function Swatch({name, index, color, ...rest}) {
 }
 
 export default () => (
-  <Example name='Colors'>
+  <Block>
     {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
       <div className='d-flex' key={i}>
         {theme.colors[hue].map((color, j) => (
@@ -38,5 +37,5 @@ export default () => (
       <Block bg='purple-light' p={4} m={1} />
       <Block bg='red-light' p={4} m={1} />
     </div>
-  </Example>
+  </Block>
 )
