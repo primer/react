@@ -8,7 +8,7 @@ export default () => (
     <Box p={3}>
       <Tooltip text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
     </Box>
-    <Detail>
+    {/* <Detail> */}
       <ExampleHeading mt={3}>Directions</ExampleHeading>
       {Tooltip.directions.map((d, i) => (
         <Box p={3} key={i}>
@@ -27,6 +27,6 @@ export default () => (
       <Box p={3}>
         <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
       </Box>
-    </Detail>
+    {/* </Detail> */}
   </Block>
 )

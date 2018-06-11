@@ -15,7 +15,7 @@ export default () => (
     <Block mb={4}>
       <StateLabel state='merged'>Merged</StateLabel>
     </Block>
-    <Detail>
+    {/* <Detail> */}
       <Block mb={4}>
         <ExampleHeading>By state (Octicons built in)</ExampleHeading>
         <Block mb={2}>
@@ -91,6 +91,6 @@ export default () => (
           </span>
         </Block>
       </Block>
-    </Detail>
+    {/* </Detail> */}
   </Block>
 )
