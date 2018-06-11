@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "start": "next",
-    "build": "next export -o docs",
+    "build": "time next build",
+    "preexport": "time npm run build",
+    "export": "time next export -o docs",
     "test": "jest"
   },
   "repository": {
@@ -20,11 +22,6 @@
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
-  "x0": {
-    "title": "primer-react",
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react"
-  },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
     "classnames": "^2.2.5",
