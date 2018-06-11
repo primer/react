@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "next",
-    "build": "time next build",
+    "build": "NODE_ENV=production time next build",
     "preexport": "time npm run build",
     "export": "time next export -o docs",
     "test": "jest"
