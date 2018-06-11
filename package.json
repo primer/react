@@ -4,11 +4,15 @@
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
-    "start": "next",
-    "build": "NODE_ENV=production time next build",
-    "preexport": "time npm run build",
-    "export": "time next export -o docs",
+    "start": "x0 dev pages -op 8888",
+    "build": "x0 build pages",
     "test": "jest"
+  },
+  "x0": {
+    "title": "primer-react",
+    "basename": "/primer-react",
+    "template": "lib/template.js",
+    "outDir": "docs"
   },
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
   },
   "devDependencies": {
     "@compositor/kit": "^1.0.26",
+    "@compositor/x0": "^5.0.5",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",
@@ -38,6 +43,7 @@
     "react-dom": "^16.4.0",
     "react-test-renderer": "^16.3.2",
     "styled-components": "3.3.2",
-    "styled-system": "^2.0.2"
+    "styled-system": "^2.0.2",
+    "webpack": "^4.12.0"
   }
 }

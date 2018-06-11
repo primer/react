@@ -1,3 +1,4 @@
+import React from 'react'
 import {Example} from '@compositor/kit'
 import {Avatar, Block} from '../src'
 import {GitHubAvatar} from '../lib'

@@ -25,7 +25,7 @@ import {default as TooltipExample} from './Tooltip'
 
 export default function Index() {
   return (
-    <Library title='primer-react'>
+    <Library title='primer-react' basename='/primer-react'>
       <Example name='Avatar'><AvatarExample /></Example>
       <Example name='Block'><BlockExample /></Example>
       <Example name='Box'><BoxExample /></Example>
