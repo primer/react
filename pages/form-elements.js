@@ -1,6 +1,6 @@
 import React from 'react'
 import {Block, TextInput} from '../src'
-import {ExampleHeading} from './_helpers'
+import {ExampleHeading} from '../lib'
 
 export default () => (
   <Block>

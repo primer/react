@@ -1,6 +1,6 @@
 import {Example} from '@compositor/kit'
 import {Avatar, Block} from '../src'
-import {GitHubAvatar} from './_helpers'
+import {GitHubAvatar} from '../lib'
 
 export default () => (
   <Block>

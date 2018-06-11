@@ -4,7 +4,7 @@ import {Example, Library} from '@compositor/kit'
 import {default as AvatarExample} from './Avatar'
 import {default as BlockExample} from './Block'
 import {default as BoxExample} from './Box'
-import {default as BranchNameExample} from './BranchName'
+// import {default as BranchNameExample} from './BranchName'
 import {default as ButtonExample} from './Button'
 import {default as CaretExample} from './Caret'
 import {default as ColorsExample} from './colors'
@@ -29,7 +29,7 @@ export default function Index() {
       <Example name='Avatar'><AvatarExample /></Example>
       <Example name='Block'><BlockExample /></Example>
       <Example name='Box'><BoxExample /></Example>
-      <Example name='BranchName'><BranchNameExample /></Example>
+      // <Example name='BranchName'><BranchNameExample /></Example>
       <Example name='Buttons'><ButtonExample /></Example>
       <Example name='Caret'><CaretExample /></Example>
       <Example name='Colors'><ColorsExample /></Example>

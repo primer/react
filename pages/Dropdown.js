@@ -1,6 +1,6 @@
 import React from 'react'
 import {Block, Dropdown, Heading} from '../src'
-import {ExampleHeading} from './_helpers'
+import {ExampleHeading} from '../lib'
 
 export default () => (
   <Block p={4}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Block, Box, Tooltip} from '../src'
 import {Detail} from '@compositor/kit'
-import {ExampleHeading} from './_helpers'
+import {ExampleHeading} from '../lib'
 
 export default () => (
   <Block>

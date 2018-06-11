@@ -1,6 +1,6 @@
 import React from 'react'
 import {Block, StateLabel} from '../src'
-import {ExampleHeading} from './_helpers'
+import {ExampleHeading} from '../lib'
 import {Detail} from '@compositor/kit'
 import Octicon from '@github/octicons-react'
 

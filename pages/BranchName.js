@@ -1,6 +1,6 @@
 import {Block, BranchName} from '../src'
 import {Detail} from '@compositor/kit'
-import {ExampleHeading} from './_helpers'
+import {ExampleHeading} from '../lib'
 import Octicon from '@github/octicons-react'
 
 export default () => (

@@ -1,6 +1,20 @@
+import {Block, Text, theme} from '../src'
 import {Example} from '@compositor/kit'
-import {Block, theme} from '../src'
-import Swatch from '../src/Swatch'
+import {ExampleHeading} from '../lib'
+
+function Swatch({name, index, color, ...rest}) {
+  return (
+    <div {...rest}>
+      <div className='m-1 mt-3 p-6' style={{background: color}} />
+      <ExampleHeading px={1}>
+        {name}.{index}
+      </ExampleHeading>
+      <Text px={1}>
+        {color}
+      </Text>
+    </div>
+  )
+}
 
 export default () => (
   <Example name='Colors'>
