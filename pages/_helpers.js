@@ -1,4 +1,8 @@
-import {Avatar, Heading} from '../src'
+import React from 'react'
+import {Avatar, Heading, Text} from '../src'
+
+// Next.js needs this?
+export default () => {}
 
 export function GitHubAvatar({username, size = 20, ...rest}) {
   return (
@@ -16,3 +20,16 @@ export function ExampleHeading(props) {
   )
 }
 
+export function Swatch({name, index, color, ...rest}) {
+  return (
+    <div {...rest}>
+      <div className='m-1 mt-3 p-6' style={{background: color}} />
+      <Heading tag='h3' fontSize={2} px={1}>
+        {name}.{index}
+      </Heading>
+      <Text px={1}>
+        {color}
+      </Text>
+    </div>
+  )
+}
