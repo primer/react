@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import classnames from 'classnames'
+import Octicon from '@github/octicons-react'
 import MergeStatus from '../src/MergeStatus'
 import Caret from '../src/Caret'
 import Box from '../src/Box'
@@ -18,9 +19,12 @@ export default function MergeBox({ state }) {
       <span style={{flexGrow: 0}}><MergeStatus state={state}/></span>
       <Box ml={3} border={[true, 'green']}>
         <Caret edge='left'/>
-        <Block py={2} px={4} border='bottom'>
-          <Text tag='p' m={1} fontSize={2} fontWeight='bold'>This branch has no conflicts with the base branch</Text>
-          <Text tag='p' m={1} mt={0} fontSize={0}>Merging can be performed automatically</Text>
+        <Block py={2} px={4} border='bottom' style={{display: 'flex'}}>
+          <Block m={1}><Octicon name='check' size={32} /></Block>
+          <Block display='inline'>
+            <Text tag='p' m={1} fontSize={2} fontWeight='bold'>This branch has no conflicts with the base branch</Text>
+            <Text tag='p' m={1} mt={0} fontSize={0}>Merging can be performed automatically</Text>
+          </Block>
         </Block>
         <Block py={2} px={4} bg='gray-light'>
           <Block py={1} pr={1} >
