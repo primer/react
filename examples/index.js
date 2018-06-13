@@ -15,6 +15,7 @@ import {
   ButtonLink,
   BranchName,
   Caret,
+  CircleOcticon,
   CounterLabel,
   Details,
   DonutChart,
@@ -158,6 +159,11 @@ const Index = props => (
             </Box>
           ))}
         </Block>
+      </Example>
+      <Example name='CircleOcticon'>
+        <div className='d-flex'>
+          <CircleOcticon name='check' size='32' bg='green' color='white'/>
+        </div>
       </Example>
       <Example name='Colors'>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
