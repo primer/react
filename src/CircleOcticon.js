@@ -11,7 +11,7 @@ const CircleOcticon = ({name, size, bg, color}) => {
     color ? `text-${color}` : null,
   ]
   return (
-    <div style={{width: `${size}px`, height: `${size}px`}}className={classnames(wrapperClasses)}>
+    <div style={{width: `${size}px`, height: `${size}px`}} className={classnames(wrapperClasses)}>
       <Octicon name={name} size={size}/>
     </div>
   )
