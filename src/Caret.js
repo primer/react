@@ -16,7 +16,7 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
-const offsetSpacing = theme.space[3]
+const offsetSpacing = theme.space[2]
 
 function getEdgeAlign(location) {
   const [edge, align] = location.split('-')
@@ -26,9 +26,11 @@ function getEdgeAlign(location) {
 function getPosition(edge, align) {
   const opposite = oppositeEdge[edge].toLowerCase()
   const perp = perpendicularEdge[edge].toLowerCase()
+  const offsetProp = align || perp
+  const offsetValue = align ? offsetSpacing : '50%'
   return {
     [opposite]: '100%',
-    [align || perp]: align ? offsetSpacing : '50%'
+    [offsetProp]: offsetValue
   }
 }
 
@@ -131,7 +133,9 @@ function CaretSVG(props) {
     pointerEvents: 'none',
     position: 'absolute',
     ...getPosition(edge, align),
-    [`margin${perp}`]: -size
+    // if align is set (top|right|bottom|left),
+    // then we don't need an offset margin
+    [`margin${perp}`]: align ? null : -size
   }
 
   // note: these arrays represent points in the form [x, y]
