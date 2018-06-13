@@ -15,7 +15,7 @@ export default function CaretBox(props) {
   const {
     bg,
     border,
-    caret: edge,
+    caret: location,
     children,
     ...boxProps
   } = props
@@ -25,7 +25,7 @@ export default function CaretBox(props) {
     : border
 
   const caretProps = {
-    edge,
+    location,
     borderColor: borderValuesByName[borderColorName],
     fill: bgValuesByName[bg]
   }
