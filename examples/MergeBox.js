@@ -10,30 +10,24 @@ import Block from '../src/Block'
 import Dropdown from '../src/Dropdown'
 import Button from '../src/Button'
 
+// TODO: Map state to Box color, MergeStatus color
+
 export default function MergeBox({ state }) {
   return (
     <div className='d-flex'>
       <span style={{flexGrow: 0}}><MergeStatus state={state}/></span>
-      <Box ml={3}>
+      <Box ml={3} border={[true, 'green']}>
         <Caret edge='left'/>
         <Block py={2} px={4} border='bottom'>
-          <Text fontSize={2} fontWeight='bold' color='red'>Review Required</Text>
-          <Block pt={1}>
-            <Text fontSize={0}>At least 1 approving review is required by reviewers with write access </Text>
-            <Link href="#">Learn More.</Link>
-          </Block>
-        </Block>
-        <Block py={2} px={4} border='bottom'>
-          <Text fontSize={2} fontWeight='bold' color='red'>Merging is blocked</Text>
-          <Block pt={1}>
-            <Text fontSize={0}>Merging can be performed automatically with 1 approving review.</Text>
+          <Text fontSize={2} fontWeight='bold'>This branch has no conflicts with the base branch</Text>
+          <Block pt={0}>
+            <Text fontSize={0}>Merging can be performed automatically</Text>
           </Block>
         </Block>
         <Block py={2} px={4} bg='gray-light'>
-          <Block><Text fontSize={0} color='red'>As an administrator, you may still merge this pull request</Text></Block>
           <Block py={1} pr={1} >
-            <Button grouped scheme='danger'>Merge Pull Request</Button>
-            <Dropdown scheme='danger'/>
+            <Button grouped scheme='primary'>Merge Pull Request</Button>
+            <Dropdown scheme='primary'/>
           </Block>
         </Block>
       </Box>

@@ -469,7 +469,7 @@ const Index = props => (
       </Example>
       <Example name='MergeBox'>
         <span className='mr-2'>
-          <MergeBox state='pending'/>
+          <MergeBox state='ready'/>
         </span>
       </Example>
       <Example name='Text'>
