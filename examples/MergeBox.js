@@ -19,10 +19,8 @@ export default function MergeBox({ state }) {
       <Box ml={3} border={[true, 'green']}>
         <Caret edge='left'/>
         <Block py={2} px={4} border='bottom'>
-          <Text fontSize={2} fontWeight='bold'>This branch has no conflicts with the base branch</Text>
-          <Block pt={0}>
-            <Text fontSize={0}>Merging can be performed automatically</Text>
-          </Block>
+          <Text tag='p' m={1} fontSize={2} fontWeight='bold'>This branch has no conflicts with the base branch</Text>
+          <Text tag='p' m={1} mt={0} fontSize={0}>Merging can be performed automatically</Text>
         </Block>
         <Block py={2} px={4} bg='gray-light'>
           <Block py={1} pr={1} >
