@@ -35,6 +35,10 @@ const map = createMapperWithPropTypes({
 
 export default map
 
+function unique(values) {
+  return values.filter((v, i) => values.indexOf(v) === i)
+}
+
 export function classifier(propsToMap) {
   return ({className: baseClassName, ...props}) => {
     const mapped = {}
@@ -54,7 +58,8 @@ export function classifier(propsToMap) {
         mapped[key] = props[key]
       }
     }
-    const className = classnames(baseClassName, ...classes).trim()
+    const classNames = classnames(baseClassName, ...classes).trim().split(' ')
+    const className = unique(classNames).join(' ')
     return className ? Object.assign(mapped, {className}) : mapped
   }
 }
@@ -71,4 +76,18 @@ export function expander(fn) {
   return value => Array.isArray(value)
     ? value.map(fn)
     : fn(value)
+}
+
+export function stylizer(propsToPass) {
+  return props => {
+    const copy = {...props}
+    copy.style = propsToPass.reduce((acc, prop) => {
+      if (prop in props) {
+        acc[prop] = props[prop]
+        delete copy[prop]
+      }
+      return acc
+    }, props.style || {})
+    return copy
+  }
 }
