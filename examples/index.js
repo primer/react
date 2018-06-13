@@ -138,6 +138,9 @@ const Index = props => (
         <CaretBox m={4} p={2} shadow>A CaretBox</CaretBox>
         <CaretBox m={4} p={2} caret='left' bg='gray-light' border={[true, 'red']}>gray-light CaretBox with red border</CaretBox>
         <CaretBox m={4} p={2} caret='top' bg='green-light' border={[true, 'green']}>green CaretBox</CaretBox>
+        {Caret.locations.map((loc, i) => (
+          <CaretBox m={4} p={2} caret={loc} key={i} minHeight={100} border={[true, 'purple']}>location='{loc}'</CaretBox>
+        ))}
       </Example>
       <Example name='Colors'>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
