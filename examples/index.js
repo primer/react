@@ -153,12 +153,17 @@ const Index = props => (
         </Block>
       </Example>
       <Example name='CaretBox'>
-        <CaretBox m={4} p={2} shadow>A CaretBox</CaretBox>
-        <CaretBox m={4} p={2} caret='left' bg='gray-light' border={[true, 'red']}>gray-light CaretBox with red border</CaretBox>
-        <CaretBox m={4} p={2} caret='top' bg='green-light' border={[true, 'green']}>green CaretBox</CaretBox>
-        {Caret.locations.map((loc, i) => (
-          <CaretBox m={4} p={2} caret={loc} key={i} minHeight={100} border={[true, 'purple']}>location='{loc}'</CaretBox>
-        ))}
+        <Block p={2}>
+          <CaretBox my={4} p={2} caret='left' shadow>CaretBox with shadow</CaretBox>
+          <CaretBox my={4} p={2} caret='bottom' bg='gray-light' border={[true, 'red']}>gray-light CaretBox with red border</CaretBox>
+          <CaretBox my={4} p={2} bg='green-light' border={[true, 'green']}>green CaretBox</CaretBox>
+          <Detail>
+            <ExampleHeading mt={2}>Location, Location, Location</ExampleHeading>
+            {Caret.locations.map((loc, i) => (
+              <CaretBox my={4} p={2} caret={loc} key={i} minHeight={100} border={[true, 'purple']}>location='{loc}'</CaretBox>
+            ))}
+          </Detail>
+        </Block>
       </Example>
       <Example name='Colors'>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
