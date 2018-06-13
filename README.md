@@ -37,7 +37,7 @@ run Jest in watch mode with:
 npm t -- --watch
 ```
 
-See [`src/__tests__/example.js`](src/__tests/example.js) for an
+See [`src/__tests__/example.js`](src/__tests__/example.js) for an
 example of how we're testing our components.
 
 ## Principles
