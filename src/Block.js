@@ -9,6 +9,7 @@ const classifyBlockProps = classifier({
     true: 'border',
     false: 'border-0'
   }, null, value => `border-${value}`)),
+  display: value => `d-${value}`,
   fg: value => `text-${value}`,
   position: value => `position-${value}`,
   round: value => `rounded-${value}`,
@@ -38,6 +39,7 @@ Block.propTypes = {
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   round: PropTypes.number,
   shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
+  display: PropTypes.oneOf(['inline', 'inline-block']),
   ...map.propTypes
 }
 
