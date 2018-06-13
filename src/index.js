@@ -30,7 +30,7 @@ export { default as Link } from './Link'
 export { default as MergeStatus } from './MergeStatus'
 export { default as Text } from './Text'
 export { default as Tooltip } from './Tooltip'
-
+export { default as MergeButton } from './MergeButton'
 export { default as CounterLabel } from './CounterLabel'
 export { default as Flash } from './Flash'
 export { default as StateLabel } from './StateLabel'

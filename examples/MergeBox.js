@@ -7,8 +7,8 @@ import Text from '../src/Text'
 import Link from '../src/Link'
 import Heading from '../src/Heading'
 import Block from '../src/Block'
-import Dropdown from '../src/Dropdown'
-import Button from '../src/Button'
+import MergeButton from '../src/MergeButton'
+
 
 // TODO: Map state to Box color, MergeStatus color
 
@@ -26,8 +26,7 @@ export default function MergeBox({ state }) {
         </Block>
         <Block py={2} px={4} bg='gray-light'>
           <Block py={1} pr={1} >
-            <Button grouped scheme='primary'>Merge Pull Request</Button>
-            <Dropdown scheme='primary'/>
+            <MergeButton scheme='primary' />
           </Block>
         </Block>
       </Box>

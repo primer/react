@@ -25,6 +25,7 @@ import {
   TextInput,
   Label,
   Link,
+  MergeButton,
   MergeStatus,
   StateLabel,
   Text,
@@ -470,6 +471,11 @@ const Index = props => (
       <Example name='MergeBox'>
         <span className='mr-2'>
           <MergeBox state='ready'/>
+        </span>
+      </Example>
+      <Example name='MergeButton'>
+        <span className='mr-2'>
+          <MergeButton scheme='primary'/>
         </span>
       </Example>
       <Example name='Text'>
