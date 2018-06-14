@@ -25,7 +25,7 @@ export default function MergeBox({ state, repoUrl, branchName }) {
           </Block>
         </Block>
         <Block py={3} px={4} bg='gray-light' style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
-          <MergeButton scheme='primary' />
+          <MergeButton scheme='primary' numCommits={21} />
           <Text ml={2}>You can also </Text>
           <Link nounderline href={`x-github-client://openRepo/${repoUrl}?branch=${branchName}`}>open this in Github Desktop</Link>
           <Text> or view </Text>
