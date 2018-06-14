@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import Octicon from '@github/octicons-react'
 import StateLabel from './StateLabel'
 

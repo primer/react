@@ -1,5 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import Details from './Details'
 import Button from './Button'
 import CaretBox from './CaretBox'

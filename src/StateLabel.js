@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import Octicon from '@github/octicons-react'
 import theme from './theme'
 
@@ -64,7 +65,7 @@ const StateLabel = ({ state, scheme, small, icon, children }) => {
 
 StateLabel.propTypes = {
   state: PropTypes.oneOf(['open', 'opened', 'reopened', 'closed', 'merged']),
-  scheme: PropTypes.oneOf(['open', 'opened', 'reopened', 'closed', 'merged']),
+  scheme: PropTypes.string,
   small: PropTypes.bool,
   icon: PropTypes.node,
 }
