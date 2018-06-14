@@ -12,6 +12,6 @@ const stateColorMap = {
 
 export default function MergeStatus({ state }) {
   return (
-    <StateLabel scheme={stateColorMap[state]} small icon={<Octicon name='git-merge'/>} />
+    <StateLabel scheme={stateColorMap[state]} icon={<Octicon medium name='git-merge'/>} />
   )
 }
