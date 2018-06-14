@@ -1,10 +1,10 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import Details from './Details'
-import Button from './Button'
-import CaretBox from './CaretBox'
-import Text from './Text'
+import Details from '../src/Details'
+import Button from '../src/Button'
+import CaretBox from '../src/CaretBox'
+import Text from '../src/Text'
 
 const arrowStyles = {
   content: '',

@@ -6,7 +6,7 @@ import MergeStatus from '../src/MergeStatus'
 import CaretBox from '../src/CaretBox'
 import Text from '../src/Text'
 import Block from '../src/Block'
-import MergeButton from './src/MergeButton'
+import MergeButton from './MergeButton'
 import Link from '../src/Link'
 import ButtonLink from '../src/ButtonLink'
 

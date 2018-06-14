@@ -27,7 +27,6 @@ import {
   TextInput,
   Label,
   Link,
-  MergeButton,
   MergeStatus,
   StateLabel,
   Text,
@@ -39,6 +38,7 @@ import Octicon from '@github/octicons-react'
 import Page from './Page'
 import Swatch from './Swatch'
 import MergeBox from './MergeBox'
+import MergeButton from  './MergeButton'
 import GitHubAvatar from './GitHubAvatar'
 
 const ExampleHeading = props => (
@@ -478,9 +478,18 @@ const Index = props => (
         </Detail>
       </Example>
       <Example name='MergeStatus'>
-        <span className='mr-2'>
+        <Block m={2}>
           <MergeStatus state='pending'/>
-        </span>
+        </Block>
+        <Block m={2}>
+          <MergeStatus state='invalid'/>
+        </Block>
+        <Block m={2}>
+          <MergeStatus state='merged'/>
+        </Block>
+        <Block m={2}>
+          <MergeStatus state='ready'/>
+        </Block>
       </Example>
       <Example name='MergeBox'>
         <span className='mr-2'>
