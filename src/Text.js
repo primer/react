@@ -35,7 +35,7 @@ Text.propTypes = {
   fontWeight: PropTypes.oneOf(['normal', 'bold']),
   lineHeight: PropTypes.oneOf(['normal', 'condensed', 'condensed-ultra']),
   mono: PropTypes.bool,
-  Tag: PropTypes.string
+  tag: PropTypes.string
 }
 
 export default Text
