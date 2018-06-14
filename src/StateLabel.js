@@ -38,15 +38,7 @@ const getIconComponent = (icon, children) => {
   return null
 }
 
-export default function StateLabel(props) {
-  const {
-    state,
-    scheme,
-    small,
-    children,
-  } = props
-
-  let { icon } = props
+const StateLabel = ({ state, scheme, small, icon, children }) => {
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
@@ -69,3 +61,12 @@ export default function StateLabel(props) {
     </span>
   )
 }
+
+StateLabel.propTypes = {
+  state: PropTypes.oneOf(['open', 'opened', 'reopened', 'closed', 'merged']),
+  scheme: PropTypes.oneOf(['open', 'opened', 'reopened', 'closed', 'merged']),
+  small: PropTypes.bool,
+  icon: PropTypes.node,
+}
+
+export default StateLabel

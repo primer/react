@@ -10,8 +10,11 @@ const stateColorMap = {
   pending: 'yellow'
 }
 
-export default function MergeStatus({ state }) {
-  return (
-    <StateLabel scheme={stateColorMap[state]} icon={<Octicon medium name='git-merge'/>} />
-  )
+const MergeStatus = ({ state }) => <StateLabel scheme={stateColorMap[state]} icon={<Octicon medium name='git-merge'/>} />
+
+
+MergeStatus.propTypes = {
+  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending'])
 }
+
+export default MergeStatus

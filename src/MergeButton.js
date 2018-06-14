@@ -55,4 +55,10 @@ const MergeButton = ({ scheme, onClick, numCommits, children}) => (
   </div>
 )
 
+MergeButton.propTypes = {
+  scheme: PropTypes.string,
+  onClick: PropTypes.func,
+  numCommits: PropTypes.number,
+}
+
 export default MergeButton
