@@ -29,7 +29,7 @@ const MergeButton = ({ primary, onClick, numCommits, children}) => {
 
   return(
     <div className='BtnGroup'>
-      <Button {...buttonSchemeProps} grouped onClick={onClick}>
+      <Button {...buttonSchemeProps} grouped onClick={onClick} style={{ borderRight: 0}}>
         Merge Pull Request
       </Button>
       <Details className='details-reset d-flex float-right'>
