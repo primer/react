@@ -15,6 +15,7 @@ import {
   ButtonLink,
   BranchName,
   Caret,
+  CaretBox,
   CounterLabel,
   Details,
   DonutChart,
@@ -143,18 +144,25 @@ const Index = props => (
       </Example>
       <Example name='Caret'>
         <Block p={4}>
-          {['top', 'right', 'bottom', 'left'].map((edge, i) => (
-            <Box p={2} mb={4} position='relative' maxWidth={400} key={i}>
-              <Text mono>edge='{edge}'</Text>
-              <Caret edge={edge} />
+          {Caret.locations.map((loc, i) => (
+            <Box p={2} mb={4} position='relative' maxWidth={300} minHeight={96} shadow key={i}>
+              <Text fontSize={1} mono>location='{loc}'</Text>
+              <Caret location={loc} />
             </Box>
           ))}
-          {['top', 'right', 'bottom', 'left'].map((edge, i) => (
-            <Box shadow='medium' p={2} mb={4} position='relative' maxWidth={400} key={i}>
-              <Text mono>edge='{edge}' in shadow='medium'</Text>
-              <Caret edge={edge} />
-            </Box>
-          ))}
+        </Block>
+      </Example>
+      <Example name='CaretBox'>
+        <Block p={2}>
+          <CaretBox my={4} p={2} caret='left' shadow>CaretBox with shadow</CaretBox>
+          <CaretBox my={4} p={2} caret='bottom' bg='gray-light' border={[true, 'red']}>gray-light CaretBox with red border</CaretBox>
+          <CaretBox my={4} p={2} bg='green-light' border={[true, 'green']}>green CaretBox</CaretBox>
+          <Detail>
+            <ExampleHeading mt={2}>Location, Location, Location</ExampleHeading>
+            {Caret.locations.map((loc, i) => (
+              <CaretBox my={4} p={2} caret={loc} key={i} minHeight={100} border={[true, 'purple']}>location='{loc}'</CaretBox>
+            ))}
+          </Detail>
         </Block>
       </Example>
       <Example name='Colors'>

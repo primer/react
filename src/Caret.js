@@ -16,12 +16,21 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
-function getPosition({edge, align}) {
+const offsetSpacing = theme.space[2]
+
+function getEdgeAlign(location) {
+  const [edge, align] = location.split('-')
+  return [edge, align]
+}
+
+function getPosition(edge, align) {
   const opposite = oppositeEdge[edge].toLowerCase()
   const perp = perpendicularEdge[edge].toLowerCase()
+  const offsetProp = align || perp
+  const offsetValue = align ? offsetSpacing : '50%'
   return {
     [opposite]: '100%',
-    [perp]: '50%'
+    [offsetProp]: offsetValue
   }
 }
 
@@ -33,46 +42,48 @@ export default function Caret({css, ...rest}) {
     : <CaretSVG {...rest} />
 }
 
+Caret.locations = [
+  'top', 'top-left', 'top-right',
+  'right', 'right-top', 'right-bottom',
+  'bottom', 'bottom-left', 'bottom-right',
+  'left', 'left-top', 'left-bottom'
+]
+
 Caret.defaultProps = {
-  align: 'center',
   borderColor: theme.colors.gray[2],
   borderWidth: 1,
-  edge: 'bottom',
   fill: theme.colors.white,
-  position: 'absolute',
-  size: 8,
+  location: 'bottom',
+  size: theme.space[2],
   css: false
 }
 
 Caret.propTypes = {
-  align: PropTypes.oneOf(['start', 'center', 'end']),
   borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
-  edge: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
+  location: PropTypes.oneOf(Caret.locations),
   fill: PropTypes.string,
-  position: PropTypes.oneOf(['absolute', 'relative']),
   size: PropTypes.number,
   css: PropTypes.bool
 }
 
 function CaretCSS(props) {
   const {
-    align,
     borderColor,
     borderWidth,
-    edge,
     fill,
-    position,
+    location,
     size
   } = props
 
+  const [edge, align] = getEdgeAlign(location)
   const opposite = oppositeEdge[edge]
   const perp = perpendicularEdge[edge]
 
   const style = {
     pointerEvents: 'none',
-    position,
-    ...getPosition({edge, align})
+    position: 'absolute',
+    ...getPosition(edge, align)
   }
 
   const common = {
@@ -108,22 +119,23 @@ function CaretCSS(props) {
 
 function CaretSVG(props) {
   const {
-    align,
     borderColor,
     borderWidth,
-    edge,
     fill,
-    position,
+    location,
     size
   } = props
 
+  const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
 
   const style = {
     pointerEvents: 'none',
-    position,
-    ...getPosition({edge, align}),
-    [`margin${perp}`]: -size
+    position: 'absolute',
+    ...getPosition(edge, align),
+    // if align is set (top|right|bottom|left),
+    // then we don't need an offset margin
+    [`margin${perp}`]: align ? null : -size
   }
 
   // note: these arrays represent points in the form [x, y]
