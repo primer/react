@@ -7,10 +7,10 @@ import Link from '../src/Link'
 import ButtonLink from '../src/ButtonLink'
 import MergeButton from './MergeButton'
 
-const MergeActions = ({ numCommits, repoUrl, branchName }) => {
+const MergeActions = ({ numCommits, repoUrl, branchName, state }) => {
   return (
     <Block py={3} px={4} bg='gray-light' style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
-      <MergeButton scheme='primary' numCommits={numCommits} />
+      <MergeButton primary={state === 'ready'} numCommits={numCommits} />
       <Text ml={2}>You can also </Text>
       <Link nounderline href={`x-github-client://openRepo/${repoUrl}?branch=${branchName}`}>open this in Github Desktop</Link>
       <Text> or view </Text>
