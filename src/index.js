@@ -15,6 +15,7 @@ export { default as ButtonLink } from './ButtonLink'
 
 export { default as Caret } from './Caret'
 export { default as CaretBox } from './CaretBox'
+export { default as CircleOcticon } from './CircleOcticon'
 
 export { default as Details } from './Details'
 export { default as Dropdown } from './Dropdown'
@@ -31,7 +32,6 @@ export { default as Link } from './Link'
 export { default as MergeStatus } from './MergeStatus'
 export { default as Text } from './Text'
 export { default as Tooltip } from './Tooltip'
-
 export { default as CounterLabel } from './CounterLabel'
 export { default as Flash } from './Flash'
 export { default as StateLabel } from './StateLabel'

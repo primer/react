@@ -16,6 +16,7 @@ import {
   BranchName,
   Caret,
   CaretBox,
+  CircleOcticon,
   CounterLabel,
   Details,
   DonutChart,
@@ -36,6 +37,8 @@ import Octicon from '@github/octicons-react'
 
 import Page from './Page'
 import Swatch from './Swatch'
+import MergeBox from './MergeBox'
+import MergeButton from  './MergeButton'
 import GitHubAvatar from './GitHubAvatar'
 
 const ExampleHeading = props => (
@@ -151,6 +154,11 @@ const Index = props => (
             </Box>
           ))}
         </Block>
+      </Example>
+      <Example name='CircleOcticon'>
+        <div className='d-flex'>
+          <CircleOcticon name='check' size='32' bg='green' color='white'/>
+        </div>
       </Example>
       <Example name='CaretBox'>
         <Block p={2}>
@@ -470,8 +478,27 @@ const Index = props => (
         </Detail>
       </Example>
       <Example name='MergeStatus'>
-        <span className='mr-2'>
+        <Block m={2}>
           <MergeStatus state='pending'/>
+        </Block>
+        <Block m={2}>
+          <MergeStatus state='invalid'/>
+        </Block>
+        <Block m={2}>
+          <MergeStatus state='merged'/>
+        </Block>
+        <Block m={2}>
+          <MergeStatus state='ready'/>
+        </Block>
+      </Example>
+      <Example name='MergeBox'>
+        <span className='mr-2'>
+          <MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
+        </span>
+      </Example>
+      <Example name='MergeButton'>
+        <span className='mr-2'>
+          <MergeButton scheme='primary'/>
         </span>
       </Example>
       <Example name='Text'>

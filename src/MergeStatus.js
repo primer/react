@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react'
-import classnames from 'classnames'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Octicon from '@github/octicons-react'
 import StateLabel from './StateLabel'
 
@@ -10,8 +10,10 @@ const stateColorMap = {
   pending: 'yellow'
 }
 
-export default function MergeStatus({ state }) {
-  return (
-    <StateLabel scheme={stateColorMap[state]} small icon={<Octicon name='git-merge'/>} />
-  )
+const MergeStatus = ({ state }) => <StateLabel scheme={stateColorMap[state]} icon={<Octicon medium name='git-merge'/>} />
+
+MergeStatus.propTypes = {
+  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired
 }
+
+export default MergeStatus
