@@ -493,7 +493,7 @@ const Index = props => (
       </Example>
       <Example name='MergeBox'>
         <span className='mr-2'>
-          <MergeBox state='ready' repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
+          <MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
         </span>
       </Example>
       <Example name='MergeButton'>

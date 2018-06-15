@@ -1,5 +1,4 @@
-import React, {Fragment} from 'react'
-import classnames from 'classnames'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Octicon from '@github/octicons-react'
 import StateLabel from './StateLabel'
@@ -15,7 +14,7 @@ const MergeStatus = ({ state }) => <StateLabel scheme={stateColorMap[state]} ico
 
 
 MergeStatus.propTypes = {
-  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending'])
+  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired
 }
 
 export default MergeStatus
