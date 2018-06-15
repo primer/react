@@ -4,6 +4,7 @@ import Details from '../src/Details'
 import Button from '../src/Button'
 import CaretBox from '../src/CaretBox'
 import Text from '../src/Text'
+import Block from '../src/Block'
 
 const arrowStyles = {
   content: '',
@@ -31,7 +32,7 @@ const MergeButton = ({ scheme, onClick, numCommits, children}) => (
           <Button tag='summary' scheme={scheme} onClick={toggle} style={borderStyles}>
             <div className='d-inline-block v-align-middle' style={arrowStyles}/>
           </Button>
-          <div className='position-absolute mt-1' style={{zIndex: 99999}}>
+          <Block position='absolute' mt={1} style={{zIndex: 99999}}>
             <CaretBox caret='top-left'>
               <ul className='list-style-none p-0 m-0'>
                 <li className='border-bottom p-2'>
@@ -48,7 +49,7 @@ const MergeButton = ({ scheme, onClick, numCommits, children}) => (
                 </li>
               </ul>
             </CaretBox>
-          </div>
+          </Block>
         </React.Fragment>
       )}
     </Details>

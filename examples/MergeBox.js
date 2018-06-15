@@ -6,7 +6,7 @@ import MergeButton from './MergeButton'
 import MergeDetail from './MergeDetail'
 import MergeActions from './MergeActions'
 
-export default function MergeBox({ state, repoUrl, branchName, numCommits }) {
+const MergeBox = ({ state, repoUrl, branchName, numCommits }) => {
   return (
     <div className='d-flex flex-items-start'>
       <MergeStatus state={state}/>
@@ -24,3 +24,5 @@ MergeBox.propTypes = {
   branchName: PropTypes.string.isRequired,
   numCommits: PropTypes.number.isRequired
 }
+
+export default MergeBox

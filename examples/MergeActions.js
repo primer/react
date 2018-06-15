@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import CircleOcticon from '../src/CircleOcticon'
 import Text from '../src/Text'
 import Block from '../src/Block'
