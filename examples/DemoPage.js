@@ -12,10 +12,10 @@ import MergeButton from  './demos/MergeButton'
 
 const DemoPage = () => {
   return (
-    <Library title='Demo Library'>
+    <Library basename='/docs/demos' title='Demo Library'>
       <Example name='MergeBox'>
         <span className='mr-2'>
-          <LiveEditor code={`<MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>`} scope={{MergeBox}}/>
+          <LiveEditor code={`<MergeBox state='pending' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>`} scope={{MergeBox}}/>
         </span>
       </Example>
       <Example name='MergeButton'>
