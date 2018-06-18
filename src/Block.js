@@ -74,6 +74,7 @@ Block.propTypes = {
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   round: PropTypes.number,
   shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
+  display: PropTypes.oneOf(['inline', 'inline-block']),
   ...map.propTypes
 }
 
