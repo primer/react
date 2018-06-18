@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Details from '../src/Details'
-import Button from '../src/Button'
-import CaretBox from '../src/CaretBox'
-import Text from '../src/Text'
-import Block from '../src/Block'
+import Details from '../../src/Details'
+import Button from '../../src/Button'
+import CaretBox from '../../src/CaretBox'
+import Text from '../../src/Text'
+import Block from '../../src/Block'
 
 const MergeButton = ({ primary, onClick, numCommits, children}) => {
   const arrowStyles = {
