@@ -30,6 +30,7 @@
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "react": "^16.2.0",
+    "react-live": "^1.10.1",
     "react-router-dom": "^4.3.1",
     "system-classnames": "^1.0.0-3"
   },
