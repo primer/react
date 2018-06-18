@@ -162,24 +162,24 @@ const ComponentPage = () => {
         </Example>
         <Example name='CaretBox'>
           <Block p={2}>
-            <ExampleHeading mt={2}>CaretBox</ExampleHeading>
-            <PropsForm>
-              <CaretBox my={4} p={2} minHeight={100} border={[true, 'purple']}>CaretBox</CaretBox>
-              <PropsForm.Select name='caret'>
-                {Caret.locations.map((loc, i) => (
-                  <option>{loc}</option>))}
-              </PropsForm.Select>
-              <PropsForm.Select name='border'>
-                {Object.keys(theme.colors.border).map(borderColor => (
-                  <option>{borderColor}</option>
-                ))}
-              </PropsForm.Select>
-              <PropsForm.Select name='bg'>
-                {Object.keys(theme.colors.bg).map(bgColor => (
-                  <option>{bgColor}</option>
-                ))}
-              </PropsForm.Select>
-            </PropsForm>
+              <ExampleHeading mt={2}>CaretBox</ExampleHeading>
+              <PropsForm>
+                <CaretBox my={4} p={2} minHeight={100} border={[true, 'purple']}>CaretBox</CaretBox>
+                <PropsForm.Select name='caret'>
+                  {Caret.locations.map((loc, i) => (
+                    <option>{loc}</option>))}
+                </PropsForm.Select>
+                <PropsForm.Select name='border'>
+                  {Object.keys(theme.colors.border).map(borderColor => (
+                    <option>{borderColor}</option>
+                  ))}
+                </PropsForm.Select>
+                <PropsForm.Select name='bg'>
+                  {Object.keys(theme.colors.bg).map(bgColor => (
+                    <option>{bgColor}</option>
+                  ))}
+                </PropsForm.Select>
+              </PropsForm>
           </Block>
         </Example>
         <Example name='Colors'>
