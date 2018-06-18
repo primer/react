@@ -9,7 +9,7 @@ import MergeButton from  './demos/MergeButton'
 
 const DemoPage = () => {
   return (
-    <Library>
+    <Library title='Demo Library'>
       <Example name='MergeBox'>
         <span className='mr-2'>
           <MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
