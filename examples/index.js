@@ -37,8 +37,8 @@ import Octicon from '@github/octicons-react'
 
 import Page from './Page'
 import Swatch from './Swatch'
-import MergeBox from './MergeBox'
-import MergeButton from  './MergeButton'
+import MergeBox from './demos/MergeBox'
+import MergeButton from  './demos/MergeButton'
 import GitHubAvatar from './GitHubAvatar'
 
 const ExampleHeading = props => (
@@ -47,6 +47,18 @@ const ExampleHeading = props => (
 
 const Index = props => (
   <Page>
+    <Library title="Demos">
+      <Example name='MergeBox'>
+        <span className='mr-2'>
+          <MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
+        </span>
+      </Example>
+      <Example name='MergeButton'>
+        <span className='mr-2'>
+          <MergeButton scheme='primary'/>
+        </span>
+      </Example>
+    </Library>
     <Library title='primer-react'>
       <Example name='Avatar'>
         <Block mb={2}>
@@ -491,16 +503,6 @@ const Index = props => (
           <MergeStatus state='ready'/>
         </Block>
       </Example>
-      <Example name='MergeBox'>
-        <span className='mr-2'>
-          <MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
-        </span>
-      </Example>
-      <Example name='MergeButton'>
-        <span className='mr-2'>
-          <MergeButton scheme='primary'/>
-        </span>
-      </Example>
       <Example name='Text'>
         <Text tag='div'>Text</Text>
         <Text tag='div' fontWeight='bold'>Text bold</Text>
@@ -533,6 +535,13 @@ const Index = props => (
             <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
           </Box>
         </Detail>
+      </Example>
+    </Library>
+    <Library title="Demos">
+      <Example name='MergeBox'>
+        <span className='mr-2'>
+          <MergeBox state='ready' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>
+        </span>
       </Example>
     </Library>
   </Page>
