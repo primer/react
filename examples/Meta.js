@@ -7,7 +7,7 @@ const primerPackages = [
   'primer-forms',
   'primer-layout',
   // 'primer-marketing',
-  // 'primer-navigation',
+  'primer-navigation',
   'primer-product',
   // 'primer-table',
   'primer-tooltips',
