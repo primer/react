@@ -1,5 +1,12 @@
 import React from 'react'
 import {
+  Detail,
+  Example,
+  Library,
+  PropsForm
+} from '@compositor/kit'
+import Octicon from '@github/octicons-react'
+import {
   Avatar,
   Block,
   Box,
@@ -28,12 +35,6 @@ import {
   Tooltip,
   theme
 } from '../src'
-import {
-  Detail,
-  Example,
-  Library
-} from '@compositor/kit'
-import Octicon from '@github/octicons-react'
 import Swatch from './Swatch'
 import Page from './Page'
 import GitHubAvatar from './GitHubAvatar'
@@ -161,15 +162,24 @@ const ComponentPage = () => {
         </Example>
         <Example name='CaretBox'>
           <Block p={2}>
-            <CaretBox my={4} p={2} caret='left' shadow>CaretBox with shadow</CaretBox>
-            <CaretBox my={4} p={2} caret='bottom' bg='gray-light' border={[true, 'red']}>gray-light CaretBox with red border</CaretBox>
-            <CaretBox my={4} p={2} bg='green-light' border={[true, 'green']}>green CaretBox</CaretBox>
-            <Detail>
-              <ExampleHeading mt={2}>Location, Location, Location</ExampleHeading>
-              {Caret.locations.map((loc, i) => (
-                <CaretBox my={4} p={2} caret={loc} key={i} minHeight={100} border={[true, 'purple']}>location='{loc}'</CaretBox>
-              ))}
-            </Detail>
+            <ExampleHeading mt={2}>CaretBox</ExampleHeading>
+            <PropsForm>
+              <CaretBox my={4} p={2} minHeight={100} border={[true, 'purple']}>CaretBox</CaretBox>
+              <PropsForm.Select name='caret'>
+                {Caret.locations.map((loc, i) => (
+                  <option>{loc}</option>))}
+              </PropsForm.Select>
+              <PropsForm.Select name='border'>
+                {Object.keys(theme.colors.border).map(borderColor => (
+                  <option>{borderColor}</option>
+                ))}
+              </PropsForm.Select>
+              <PropsForm.Select name='bg'>
+                {Object.keys(theme.colors.bg).map(bgColor => (
+                  <option>{bgColor}</option>
+                ))}
+              </PropsForm.Select>
+            </PropsForm>
           </Block>
         </Example>
         <Example name='Colors'>

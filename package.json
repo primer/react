@@ -39,6 +39,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",
+    "react-prop-table": "^0.1.1",
     "react-test-renderer": "^16.3.2",
     "styled-components": "3.3.2",
     "styled-system": "^2.0.2"
