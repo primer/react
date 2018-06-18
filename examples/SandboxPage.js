@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  LiveProvider,
-  LiveEditor,
-  LiveError,
-  LivePreview
-} from 'react-live'
+import { LiveEditor } from '@compositor/kit'
 import Page from './Page'
 import {
   Avatar,
@@ -74,11 +69,7 @@ const code = `
 
 const SandboxPage = () => (
   <Page>
-    <LiveProvider code={code} scope={scope}>
-      <LiveEditor />
-      <LiveError />
-      <LivePreview />
-    </LiveProvider>
+    <LiveEditor code={code} scope={scope}/>
   </Page>
 )
 
