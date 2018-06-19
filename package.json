@@ -23,7 +23,7 @@
   "x0": {
     "title": "primer-react",
     "cssLibrary": "styled-components",
-    "basename": "/docs"
+    "basename": "/"
   },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
