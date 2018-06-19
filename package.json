@@ -23,7 +23,7 @@
   "x0": {
     "title": "primer-react",
     "cssLibrary": "styled-components",
-    "basename": "/"
+    "basename": "/docs"
   },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
@@ -34,8 +34,8 @@
     "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
-    "@compositor/kit": "^1.0.26",
-    "@compositor/x0": "5.0.0",
+    "@compositor/kit": "1.0.43",
+    "@compositor/x0": "5.0.8",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",

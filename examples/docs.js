@@ -5,7 +5,7 @@ import {
   Route,
   NavLink
 } from 'react-router-dom'
-import { Heading } from '../src'
+
 import Page from './Page'
 import DemoPage from './DemoPage'
 import ComponentPage from './ComponentPage'
@@ -22,7 +22,6 @@ const Index = props => (
             <NavLink to='/docs/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
           </div>
         </nav>
-        <Heading>primer-react Documentation</Heading>
         <Route path='/docs/demos' component={DemoPage} />
         <Route path='/docs/primer-react' component={ComponentPage} />
         <Route path='/docs/sandbox' component={SandboxPage} />
