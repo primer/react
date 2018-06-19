@@ -3,7 +3,7 @@ import Box from '../Box'
 import {render, renderClasses} from '../utils/testing'
 
 describe('Box', () => {
-  const defaultClasses = ['bg-white', 'border', 'rounded-1']
+  const defaultClasses = ['border', 'bg-white', 'rounded-1']
   it('renders default classes', () => {
     expect(renderClasses(<Box />)).toEqual(defaultClasses)
   })

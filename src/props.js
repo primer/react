@@ -39,45 +39,6 @@ function unique(values) {
   return values.filter((v, i) => values.indexOf(v) === i)
 }
 
-export function classifier(propsToMap) {
-  return ({className: baseClassName, ...props}) => {
-    const mapped = {}
-    let classes = []
-    for (let [key, value] of Object.entries(props)) {
-      if (key in propsToMap) {
-        const mapper = propsToMap[key]
-        if (typeof mapper === 'function') {
-          value = mapper(value)
-        } else if (mapper) {
-          value = mapper
-        } else {
-          continue
-        }
-        classes = classes.concat(value)
-      } else {
-        mapped[key] = props[key]
-      }
-    }
-    const classNames = classnames(baseClassName, ...classes).trim().split(' ')
-    const className = unique(classNames).join(' ')
-    return className ? Object.assign(mapped, {className}) : mapped
-  }
-}
-
-export function valueMapper(valueMap, fn, fallback) {
-  return value => (value in valueMap)
-    ? call(fn, valueMap[value])
-    : (fallback === true)
-      ? call(fn, value)
-      : call(fallback, value)
-}
-
-export function expander(fn) {
-  return value => Array.isArray(value)
-    ? value.map(fn)
-    : fn(value)
-}
-
 export function stylizer(propsToPass) {
   return props => {
     const copy = {...props}
