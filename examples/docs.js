@@ -15,13 +15,13 @@ const Index = props => (
   <Page>
     <Router>
       <div>
-        <div className='tabnav'>
-          <nav className='tabnav-tabs'>
-            <NavLink to='/docs/primer-react' className='tabnav-tab' activeClassName='selected'>primer-react</NavLink>
-            <NavLink to='/docs/demos' className='tabnav-tab' activeClassName='selected'>Demos</NavLink>
-            <NavLink to='/docs/sandbox' className='tabnav-tab' activeClassName='selected'>Sandbox</NavLink>
-          </nav>
-        </div>
+        <nav className='UnderlineNav'>
+          <div className='UnderlineNav-body'>
+            <NavLink to='/docs/primer-react' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
+            <NavLink to='/docs/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
+            <NavLink to='/docs/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
+          </div>
+        </nav>
         <Route path='/docs/demos' component={DemoPage} />
         <Route path='/docs/primer-react' component={ComponentPage} />
         <Route path='/docs/sandbox' component={SandboxPage} />

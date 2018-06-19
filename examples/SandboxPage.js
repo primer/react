@@ -62,7 +62,7 @@ const scope = {
 }
 
 const code = `
-  <Block>
+  <Block p={4}>
     <Heading>Hello World!</Heading>
     <Text>To get started with the Sandbox, start adding some primer-react components</Text>
   </Block>`
