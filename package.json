@@ -25,18 +25,48 @@
     "cssLibrary": "styled-components",
     "basename": "/primer-react",
     "meta": [
-      { "name": "og:title", "content": "Primer React" },
-      { "name": "description", "content": "Primer components built with React.js." }
+      {
+        "name": "og:title",
+        "content": "Primer React"
+      },
+      {
+        "name": "description",
+        "content": "Primer components built with React.js."
+      }
     ],
     "links": [
-      { "rel": "stylesheet", "href": "https://unpkg.com/primer-buttons/build/build.css" },
-      { "rel": "stylesheet", "href": "https://unpkg.com/primer-forms/build/build.css" },
-      { "rel": "stylesheet", "href": "https://unpkg.com/primer-layout/build/build.css" },
-      { "rel": "stylesheet", "href": "https://unpkg.com/primer-product/build/build.css" },
-      { "rel": "stylesheet", "href": "https://unpkg.com/primer-tooltips/build/build.css" },
-      { "rel": "stylesheet", "href": "https://unpkg.com/primer-utilities/build/build.css" },
-      { "rel": "icon", "href": "assets/favicon.png" },
-      { "rel": "apple-touch-icon", "href": "assets/apple-touch-icon.png" }
+      {
+        "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-buttons/build/build.css"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-forms/build/build.css"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-layout/build/build.css"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-product/build/build.css"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-tooltips/build/build.css"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-utilities/build/build.css"
+      },
+      {
+        "rel": "icon",
+        "href": "assets/favicon.png"
+      },
+      {
+        "rel": "apple-touch-icon",
+        "href": "assets/apple-touch-icon.png"
+      }
     ]
   },
   "dependencies": {
@@ -47,7 +77,7 @@
     "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
-    "@compositor/kit": "^1.0.26",
+    "@compositor/kit": "^1.0.43",
     "@compositor/x0": "^5.0.8",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
