@@ -23,7 +23,7 @@
   "x0": {
     "title": "primer-react",
     "cssLibrary": "styled-components",
-    "basename": "/",
+    "basename": "/primer-react",
     "meta": [
       {
         "name": "og:title",
