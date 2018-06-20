@@ -1,6 +1,5 @@
 import React from 'react'
 import { LiveEditor } from '@compositor/kit'
-import Page from './Page'
 import {
   Avatar,
   Block,
@@ -67,10 +66,6 @@ const code = `
     <Text>To get started with the Sandbox, start adding some primer-react components</Text>
   </Block>`
 
-const SandboxPage = () => (
-  <Page>
-    <LiveEditor code={code} scope={scope}/>
-  </Page>
-)
+const SandboxPage = () => <LiveEditor code={code} scope={scope}/>
 
 export default SandboxPage

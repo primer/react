@@ -6,28 +6,25 @@ import {
   NavLink
 } from 'react-router-dom'
 
-import Page from './Page'
 import DemoPage from './DemoPage'
 import ComponentPage from './ComponentPage'
 import SandboxPage from './SandboxPage'
 
 const Index = props => (
-  <Page>
-    <Router>
-      <div>
-        <nav className='UnderlineNav'>
-          <div className='UnderlineNav-body'>
-            <NavLink to='/docs/primer-react' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
-            <NavLink to='/docs/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
-            <NavLink to='/docs/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
-          </div>
-        </nav>
-        <Route path='/docs/demos' component={DemoPage} />
-        <Route path='/docs/primer-react' component={ComponentPage} />
-        <Route path='/docs/sandbox' component={SandboxPage} />
-      </div>
-    </Router>
-  </Page>
+  <Router>
+    <div>
+      <nav className='UnderlineNav'>
+        <div className='UnderlineNav-body'>
+          <NavLink to='/docs/primer-react' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
+          <NavLink to='/docs/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
+          <NavLink to='/docs/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
+        </div>
+      </nav>
+      <Route path='/docs/demos' component={DemoPage} />
+      <Route path='/docs/primer-react' component={ComponentPage} />
+      <Route path='/docs/sandbox' component={SandboxPage} />
+    </div>
+  </Router>
 )
 
 export default Index

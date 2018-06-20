@@ -49,6 +49,10 @@
       },
       {
         "rel": "stylesheet",
+        "href": "https://unpkg.com/primer-navigation/build/build.css"
+      },
+      {
+        "rel": "stylesheet",
         "href": "https://unpkg.com/primer-product/build/build.css"
       },
       {

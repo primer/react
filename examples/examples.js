@@ -34,11 +34,7 @@ import {
   Tooltip,
   theme
 } from '../src'
-<<<<<<< HEAD:examples/examples.js
-=======
-import Octicon from '@github/octicons-react'
 
->>>>>>> brocs/fixes:examples/index.js
 import Swatch from './Swatch'
 import GitHubAvatar from './GitHubAvatar'
 
@@ -46,17 +42,11 @@ const ExampleHeading = props => (
   <Heading tag='h3' fontSize={3} mb={2} {...props} />
 )
 
-<<<<<<< HEAD:examples/examples.js
 const examples = [
   {
     name: 'Avatar',
     element: (
       <div>
-=======
-const Index = props => (
-    <Library title='primer-react'>
-      <Example name='Avatar'>
->>>>>>> brocs/fixes:examples/index.js
         <Block mb={2}>
           <GitHubAvatar username='primer' size={128} />
         </Block>
@@ -642,15 +632,9 @@ const Index = props => (
             <Tooltip noDelay text='Hello, Tooltip!'>Text with a tooltip</Tooltip>
           </Box>
         </Detail>
-<<<<<<< HEAD:examples/examples.js
       </div>
     )
   }
 ]
-=======
-      </Example>
-    </Library>
-)
->>>>>>> brocs/fixes:examples/index.js
 
 export default examples
