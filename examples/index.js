@@ -35,7 +35,6 @@ import {
 } from '../src'
 import Octicon from '@github/octicons-react'
 
-import Page from './Page'
 import Swatch from './Swatch'
 import MergeBox from './MergeBox'
 import MergeButton from  './MergeButton'
@@ -46,7 +45,6 @@ const ExampleHeading = props => (
 )
 
 const Index = props => (
-  <Page>
     <Library title='primer-react'>
       <Example name='Avatar'>
         <Block mb={2}>
@@ -535,7 +533,6 @@ const Index = props => (
         </Detail>
       </Example>
     </Library>
-  </Page>
 )
 
 export default Index
