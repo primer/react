@@ -14,14 +14,14 @@ const Index = props => (
   <div>
     <nav className='UnderlineNav'>
       <div className='UnderlineNav-body'>
-        <NavLink to='/primer-react/primer-react' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
-        <NavLink to='/primer-react/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
-        <NavLink to='/primer-react/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
+        <NavLink to='/components' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
+        <NavLink to='/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
+        <NavLink to='/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
       </div>
     </nav>
-    <Route path='/primer-react/demos' component={DemoPage} />
-    <Route path='/primer-react/primer-react' component={ComponentPage} />
-    <Route path='/primer-react/sandbox' component={Sandbox} />
+    <Route path='/demos' component={DemoPage} />
+    <Route path='/components' component={ComponentPage} />
+    <Route path='/sandbox' component={Sandbox} />
   </div>
 )
 
