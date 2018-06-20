@@ -30,7 +30,7 @@ const examples = [
 const DemoPage = () => {
   return (
     <Library
-      basename='/demos'
+      basename='/docs/demos'
       title='Demo Library'
       examples={examples}
       renderSideNav={({
