@@ -7,7 +7,7 @@ import examples from './examples'
 const ComponentPage = () => {
   return (
     <Library
-      basename='/docs/primer-react'
+      basename='/primer-react/components'
       title='Primer-react Library'
       examples={examples}
       renderSideNav={({

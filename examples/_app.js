@@ -1,6 +1,6 @@
 import CSS from './CSS'
 import React from 'react'
-import Index from './docs'
+import Index from './index'
 
 // Generic page wrapper component
 const Page = ({ render }) => (
