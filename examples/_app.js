@@ -7,8 +7,7 @@ const Page = ({ render }) => (
   <React.Fragment>
     <CSS />
     <div className='text-dark-gray'>
-    <Index/>
-      {render()}
+      <Index />
     </div>
   </React.Fragment>
 )

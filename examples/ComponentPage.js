@@ -1,7 +1,7 @@
 import React from 'react'
 import { Library } from '@compositor/kit'
 import { NavLink } from 'react-router-dom'
-import Navigation from './Navigation'
+import SideNav from './SideNav'
 import examples from './examples'
 
 const ComponentPage = () => {
@@ -14,7 +14,7 @@ const ComponentPage = () => {
       title,
       examples,
     }) => (
-      <Navigation title={title} examples={examples}/>
+      <SideNav title={title} examples={examples}/>
     )}/>
   )
 }

@@ -3,26 +3,26 @@ import classnames from 'classnames'
 import {
   BrowserRouter as Router,
   Route,
-  NavLink
+  Link
 } from 'react-router-dom'
 
 import DemoPage from './DemoPage'
 import ComponentPage from './ComponentPage'
-import SandboxPage from './SandboxPage'
+import Sandbox from './Sandbox'
 
 const Index = props => (
   <Router>
     <div>
       <nav className='UnderlineNav'>
         <div className='UnderlineNav-body'>
-          <NavLink to='/docs/primer-react' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
-          <NavLink to='/docs/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
-          <NavLink to='/docs/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
+          <Link to='/docs/primer-react' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</Link>
+          <Link to='/docs/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</Link>
+          <Link to='/docs/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</Link>
         </div>
       </nav>
       <Route path='/docs/demos' component={DemoPage} />
       <Route path='/docs/primer-react' component={ComponentPage} />
-      <Route path='/docs/sandbox' component={SandboxPage} />
+      <Route path='/docs/sandbox' component={Sandbox} />
     </div>
   </Router>
 )

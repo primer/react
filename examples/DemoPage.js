@@ -4,7 +4,7 @@ import {
   Library,
   LiveEditor
 } from '@compositor/kit'
-import Navigation from './Navigation'
+import SideNav from './SideNav'
 import MergeBox from './demos/MergeBox'
 import MergeButton from  './demos/MergeButton'
 
@@ -37,7 +37,7 @@ const DemoPage = () => {
       title,
       examples,
     }) => (
-      <Navigation title={title} examples={examples}/>
+      <SideNav title={title} examples={examples}/>
     )}/>
   )
 }
