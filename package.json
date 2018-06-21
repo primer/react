@@ -23,55 +23,7 @@
   "x0": {
     "title": "primer-react",
     "cssLibrary": "styled-components",
-    "basename": "/",
-    "meta": [
-      {
-        "name": "og:title",
-        "content": "Primer React"
-      },
-      {
-        "name": "description",
-        "content": "Primer components built with React.js."
-      }
-    ],
-    "links": [
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-buttons/build/build.css"
-      },
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-forms/build/build.css"
-      },
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-layout/build/build.css"
-      },
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-navigation/build/build.css"
-      },
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-product/build/build.css"
-      },
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-tooltips/build/build.css"
-      },
-      {
-        "rel": "stylesheet",
-        "href": "https://unpkg.com/primer-utilities/build/build.css"
-      },
-      {
-        "rel": "icon",
-        "href": "assets/favicon.png"
-      },
-      {
-        "rel": "apple-touch-icon",
-        "href": "assets/apple-touch-icon.png"
-      }
-    ]
+    "basename": "/"
   },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
