@@ -1,7 +1,7 @@
 import React from 'react'
 import { Library } from '@compositor/kit'
-import SideNav from './SideNav'
-import * as examples from './component-examples'
+import SideNav from '../SideNav'
+import * as examples from '../component-examples'
 
 const ComponentPage = () => {
   return (
