@@ -1,6 +1,6 @@
 import React from 'react'
 import { Block, theme } from '../../src'
-import Swatch from '../Swatch'
+import Swatch from '../doc-components/Swatch'
 
 const ColorsExample =
   {

@@ -6,7 +6,7 @@ import {
   Block,
   Link,
   ButtonLink
-} from '../src'
+} from '../../src'
 import MergeButton from './MergeButton'
 
 const MergeActions = ({ numCommits, repoUrl, branchName, state }) => {

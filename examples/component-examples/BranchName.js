@@ -2,7 +2,7 @@ import React from 'react'
 import { Detail } from '@compositor/kit'
 import Octicon from '@github/octicons-react'
 import { BranchName } from '../../src'
-import ExampleHeading from '../ExampleHeading'
+import ExampleHeading from '../doc-components/ExampleHeading'
 
 const BranchNameExample =
   {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Block, Tooltip } from '../../src'
-import ExampleHeading from '../ExampleHeading'
+import ExampleHeading from '../doc-components/ExampleHeading'
 
 const TooltipExample =
   {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Block } from '../src'
+import { Block } from '../../src'
 
 const SideNav = ({ title, examples }) => (
   <Block>
