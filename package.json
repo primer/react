@@ -22,8 +22,7 @@
   "license": "MIT",
   "x0": {
     "title": "primer-react",
-    "cssLibrary": "styled-components",
-    "basename": "/"
+    "cssLibrary": "styled-components"
   },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
