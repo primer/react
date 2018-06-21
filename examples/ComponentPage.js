@@ -2,14 +2,14 @@ import React from 'react'
 import { Library } from '@compositor/kit'
 import { NavLink } from 'react-router-dom'
 import SideNav from './SideNav'
-import examples from './examples'
+import * as examples from './component-examples'
 
 const ComponentPage = () => {
   return (
     <Library
       basename='/docs/primer-react'
       title='Primer-react Library'
-      examples={examples}
+      examples={Object.values(examples)}
       renderSideNav={({
       title,
       examples,
