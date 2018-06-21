@@ -1,7 +1,6 @@
 {
   "extends": [
-    "plugin:react/recommended",
-    "plugin:github/es6"
+    "plugin:github/react"
   ],
   "rules": {
     "react/prop-types": "warn"
