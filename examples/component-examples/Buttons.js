@@ -1,5 +1,12 @@
 import React from 'react'
-import { Block, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline } from '../../src'
+import {
+  Block,
+  Button,
+  ButtonLink,
+  ButtonDanger,
+  ButtonPrimary,
+  ButtonOutline
+} from '../../src'
 
 const ButtonExample =
 {

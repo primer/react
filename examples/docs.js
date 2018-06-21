@@ -1,11 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink
-} from 'react-router-dom'
-
+import { Route, NavLink } from 'react-router-dom'
 import DemoPage from './pages/DemoPage'
 import ComponentPage from './pages/ComponentPage'
 import Sandbox from './pages/Sandbox'

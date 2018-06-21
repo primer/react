@@ -1,6 +1,5 @@
 import React from 'react'
 import { Library } from '@compositor/kit'
-import { NavLink } from 'react-router-dom'
 import SideNav from '../SideNav'
 import * as examples from '../component-examples'
 

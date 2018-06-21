@@ -1,64 +1,6 @@
 import React from 'react'
 import { LiveEditor } from '@compositor/kit'
-import {
-  Avatar,
-  Block,
-  Box,
-  Button,
-  ButtonDanger,
-  ButtonPrimary,
-  ButtonOutline,
-  ButtonLink,
-  BranchName,
-  Caret,
-  CaretBox,
-  CircleOcticon,
-  CounterLabel,
-  Details,
-  DonutChart,
-  DonutSlice,
-  Dropdown,
-  Flash,
-  Heading,
-  TextInput,
-  Label,
-  Link,
-  MergeStatus,
-  StateLabel,
-  Text,
-  Tooltip,
-  theme
-} from '../../src'
-
-const scope = {
-  Avatar,
-  Block,
-  Box,
-  Button,
-  ButtonDanger,
-  ButtonPrimary,
-  ButtonOutline,
-  ButtonLink,
-  BranchName,
-  Caret,
-  CaretBox,
-  CircleOcticon,
-  CounterLabel,
-  Details,
-  DonutChart,
-  DonutSlice,
-  Dropdown,
-  Flash,
-  Heading,
-  TextInput,
-  Label,
-  Link,
-  MergeStatus,
-  StateLabel,
-  Text,
-  Tooltip,
-  theme
-}
+import * as components from '../../src'
 
 const code = `
   <Block p={4}>
@@ -66,6 +8,6 @@ const code = `
     <Text>To get started with the Sandbox, start adding some primer-react components</Text>
   </Block>`
 
-const Sandbox = () => <LiveEditor code={code} scope={scope}/>
+const Sandbox = () => <LiveEditor code={code} scope={components}/>
 
 export default Sandbox

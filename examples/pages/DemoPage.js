@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  Example,
-  Library,
-  LiveEditor
-} from '@compositor/kit'
+import { Library, LiveEditor } from '@compositor/kit'
 import SideNav from '../SideNav'
 import MergeBox from '../demos/MergeBox'
 import MergeButton from  '../demos/MergeButton'
