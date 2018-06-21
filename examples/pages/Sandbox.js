@@ -28,7 +28,7 @@ import {
   Text,
   Tooltip,
   theme
-} from '../src'
+} from '../../src'
 
 const scope = {
   Avatar,

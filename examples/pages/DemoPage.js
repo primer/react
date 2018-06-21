@@ -4,9 +4,9 @@ import {
   Library,
   LiveEditor
 } from '@compositor/kit'
-import SideNav from './SideNav'
-import MergeBox from './demos/MergeBox'
-import MergeButton from  './demos/MergeButton'
+import SideNav from '../SideNav'
+import MergeBox from '../demos/MergeBox'
+import MergeButton from  '../demos/MergeButton'
 
 const examples = [
   {

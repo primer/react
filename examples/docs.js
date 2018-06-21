@@ -6,9 +6,9 @@ import {
   NavLink
 } from 'react-router-dom'
 
-import DemoPage from './DemoPage'
-import ComponentPage from './ComponentPage'
-import Sandbox from './Sandbox'
+import DemoPage from './pages/DemoPage'
+import ComponentPage from './pages/ComponentPage'
+import Sandbox from './pages/Sandbox'
 
 const Index = props => (
   <div>
