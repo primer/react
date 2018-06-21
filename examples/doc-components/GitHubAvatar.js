@@ -1,5 +1,5 @@
 import React from 'react'
-import {Avatar} from '../src'
+import {Avatar} from '../../src'
 
 export default function GitHubAvatar({username, size = 20, ...rest}) {
   return (

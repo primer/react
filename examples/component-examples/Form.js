@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextInput, Box, } from '../../src'
-import ExampleHeading from '../ExampleHeading'
+import ExampleHeading from '../doc-components/ExampleHeading'
 
 const FormExample =
   {

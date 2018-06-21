@@ -1,4 +1,4 @@
-import CSS from './CSS'
+import CSS from './doc-components/CSS'
 import React from 'react'
 import Index from './docs'
 
@@ -8,7 +8,7 @@ const Page = ({ render }) => (
     <head>
       <title>primer-react</title>
       <meta name='viewport' content='width=device-width,initial-scale=1' />
-      <meta name='generator' content='Compositor X0' />	\
+      <meta name='generator' content='Compositor X0' />
       <link rel='stylesheet' href='https://unpkg.com/primer-buttons/build/build.css' />
       <link rel='stylesheet' href='https://unpkg.com/primer-forms/build/build.css' />
       <link rel='stylesheet' href='https://unpkg.com/primer-layout/build/build.css' />

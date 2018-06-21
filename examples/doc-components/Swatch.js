@@ -1,5 +1,5 @@
 import React from 'react'
-import {Heading, Text} from '../src/'
+import {Heading, Text} from '../../src'
 
 export default function Swatch({name, index, color, ...rest}) {
   return (

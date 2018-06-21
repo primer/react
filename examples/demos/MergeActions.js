@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CircleOcticon from '../../src/CircleOcticon'
-import Text from '../../src/Text'
-import Block from '../../src/Block'
-import Link from '../../src/Link'
-import ButtonLink from '../../src/ButtonLink'
+import { CircleOcticon, Text, Block, Link, ButtonLink } from '../../src'
 import MergeButton from './MergeButton'
 
 const MergeActions = ({ numCommits, repoUrl, branchName, state }) => {

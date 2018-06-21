@@ -1,7 +1,7 @@
 import React from 'react'
 import Octicon from '@github/octicons-react'
 import { Block, StateLabel } from '../../src'
-import ExampleHeading from '../ExampleHeading'
+import ExampleHeading from '../doc-components/ExampleHeading'
 
 const StateLabelExample =
   {

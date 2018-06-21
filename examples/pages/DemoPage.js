@@ -1,6 +1,6 @@
 import React from 'react'
 import { Library, LiveEditor } from '@compositor/kit'
-import SideNav from '../SideNav'
+import SideNav from '../doc-components/SideNav'
 import MergeBox from '../demos/MergeBox'
 import MergeButton from  '../demos/MergeButton'
 

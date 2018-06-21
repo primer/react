@@ -1,6 +1,6 @@
 import React from 'react'
 import { Block, DonutChart, Text, DonutSlice, theme } from '../../src'
-import ExampleHeading from '../ExampleHeading'
+import ExampleHeading from '../doc-components/ExampleHeading'
 
 const DonutChartExample =
   {
