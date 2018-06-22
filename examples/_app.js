@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import CSS from './doc-components/CSS'
+import Index from 'index.js'
 
 const Page = ({ render }) => (
   <React.Fragment>
@@ -13,7 +14,7 @@ const Page = ({ render }) => (
           <NavLink to='/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
         </div>
       </nav>
-      {render()}
+      <Index />
     </div>
   </React.Fragment>
 )
