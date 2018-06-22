@@ -1,15 +1,14 @@
 import React from 'react'
 import { Library } from '@compositor/kit'
 import SideNav from './doc-components/SideNav'
-//import * as examples from './component-examples'
-import AvatarExample from './Avatar.js'
+import * as examples from './component-examples'
 
 const ComponentPage = () => {
   return (
     <Library
       basename='/primer-react/components'
       title='Primer-react Library'
-      examples={[AvatarExample]}
+      examples={Object.values(examples)}
       renderSideNav={({
       title,
       examples,
