@@ -1,6 +1,6 @@
 {
   "name": "primer-react",
-  "version": "0.0.4-beta",
+  "version": "0.0.5-beta",
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
@@ -33,11 +33,12 @@
     "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
-    "@compositor/kit": "^1.0.26",
-    "@compositor/x0": "5.0.4",
+    "@compositor/kit": "^1.0.43",
+    "@compositor/x0": "^5.0.8",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",
+    "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
     "styled-components": "3.3.2",
     "styled-system": "^2.0.2"

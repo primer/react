@@ -1,30 +1,51 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import chameleon from './chameleon'
-import map, {classifier, valueMapper} from './props'
+import classnames from 'classnames'
+import map from './props'
 
-const classifyTextProps = classifier({
-  color: value => `text-${value}`,
-  fontSize: valueMapper({
-    0: '6',
-    1: '5',
-    2: '4',
-    3: '3',
-    4: '2',
-    5: '1',
-    6: '0',
-  }, value => `f${value}`, true),
-  fontWeight: value => `text-${value}`,
-  lineHeight: value => `lh-${value}`,
-  mono: 'text-mono',
-  nowrap: 'no-wrap'
-})
+const fontSizeMap = {
+  0: 6,
+  1: 5,
+  2: 4,
+  3: 3,
+  4: 2,
+  5: 1,
+  6: 0
+}
 
-const textProps = props => classifyTextProps(map(props))
+const Text = props => {
+  const {
+    tag: Tag = 'span',
+    children,
+    className,
+    color,
+    fontSize,
+    fontWeight,
+    lineHeight,
+    mono,
+    nowrap
+  } = map(props)
 
-const Text = chameleon('span', textProps, true)
+  const fontSizeClass = (fontSize in fontSizeMap)
+    ? `f${fontSizeMap[fontSize]}`
+    : (typeof fontSize === 'string') ? `f${fontSize}` : null
+
+  return (
+    <Tag className={classnames(
+      className,
+      color && `text-${color}`,
+      fontSizeClass,
+      lineHeight && `lh-${lineHeight}`,
+      mono && 'text-mono',
+      nowrap && 'no-wrap',
+    )}>
+      {children}
+    </Tag>
+  )
+}
 
 Text.propTypes = {
+  tag: PropTypes.string,
   // TODO: constrain with PropTypes.oneOf()
   color: PropTypes.string,
   // TODO constrain with PropTypes.oneOf()
