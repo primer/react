@@ -2,7 +2,15 @@ import React from 'react'
 
 const Index = () => {
   return (
-    <h1>Hello world</h1>
+    <html>
+    <head>
+      <meta charset="UTF-8"/>
+      <title>primer-react</title>
+    </head>
+    <body>
+      <h1>hello world</h1>
+    </body>
+    </html>
   )
 }
 
