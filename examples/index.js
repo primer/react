@@ -1,8 +1,9 @@
 import React from 'react'
+import ComponentPage from './components'
 
 const Index = () => {
   return (
-      <h1>Hello!</h1>
+      <ComponentPage/>
   )
 }
 
