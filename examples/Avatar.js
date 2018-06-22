@@ -1,6 +1,6 @@
 import React from 'react'
-import { Block } from '../../src'
-import GitHubAvatar from '../doc-components/GitHubAvatar'
+import { Block } from '../src'
+import GitHubAvatar from './doc-components/GitHubAvatar'
 
 const AvatarExample =
   {
