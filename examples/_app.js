@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CSS from './doc-components/CSS'
 
 const Page = ({ render }) => (
@@ -24,9 +24,9 @@ const Page = ({ render }) => (
     <div className='text-dark-gray'>
       <nav className='UnderlineNav'>
         <div className='UnderlineNav-body'>
-          <Link to='/components' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</Link>
-          <Link to='/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</Link>
-          <Link to='/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</Link>
+          <NavLink to='/components' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</NavLink>
+          <NavLink to='/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</NavLink>
+          <NavLink to='/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</NavLink>
         </div>
       </nav>
       {render()}
