@@ -29,7 +29,6 @@ const Page = ({ render }) => (
           <Link to='/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</Link>
         </div>
       </nav>
-      {render()}
     </div>
   </React.Fragment>
 )
