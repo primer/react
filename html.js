@@ -10,6 +10,7 @@ module.exports = ({
   static: staticBuild
 }) =>
 `<!DOCTYPE html>
+  <html>
   <head>
     <title>primer-react</title>
     <meta name='viewport' content='width=device-width,initial-scale=1' />
@@ -26,6 +27,9 @@ module.exports = ({
     <meta name='og:title' content='Primer React' />
     <meta name='description' content='Primer components built with React.js.' />
   </head>
+  <body>
   <div id=root>${html}</div>
+  </body>
+  </html>
   ${staticBuild ? '' : scripts}
   `
