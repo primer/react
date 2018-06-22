@@ -1,8 +1,8 @@
 import React from 'react'
 import { Library, LiveEditor } from '@compositor/kit'
-import SideNav from '../doc-components/SideNav'
-import MergeBox from '../demos/MergeBox'
-import MergeButton from  '../demos/MergeButton'
+import SideNav from './doc-components/SideNav'
+import MergeBox from './demos/MergeBox'
+import MergeButton from  './demos/MergeButton'
 
 const examples = [
   {
@@ -26,7 +26,7 @@ const examples = [
 const DemoPage = () => {
   return (
     <Library
-      basename='/docs/demos'
+      basename='/demos'
       title='Demo Library'
       examples={examples}
       renderSideNav={({

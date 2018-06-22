@@ -1,6 +1,6 @@
 import React from 'react'
 import { LiveEditor } from '@compositor/kit'
-import * as components from '../../src'
+import * as components from '../src'
 
 const code = `
   <Block p={4}>

@@ -1,8 +1,7 @@
-import CSS from './doc-components/CSS'
 import React from 'react'
-import Index from './docs'
+import { Link } from 'react-router-dom'
+import CSS from './doc-components/CSS'
 
-// Generic page wrapper component
 const Page = ({ render }) => (
   <React.Fragment>
     <head>
@@ -23,7 +22,14 @@ const Page = ({ render }) => (
     </head>
     <CSS />
     <div className='text-dark-gray'>
-      <Index />
+      <nav className='UnderlineNav'>
+        <div className='UnderlineNav-body'>
+          <Link to='/components' className='UnderlineNav-item no-underline' activeClassName='selected'>primer-react</Link>
+          <Link to='/demos' className='UnderlineNav-item no-underline' activeClassName='selected'>Demos</Link>
+          <Link to='/sandbox' className='UnderlineNav-item no-underline' activeClassName='selected'>Sandbox</Link>
+        </div>
+      </nav>
+      {render()}
     </div>
   </React.Fragment>
 )
