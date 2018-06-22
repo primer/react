@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import CSS from './doc-components/CSS'
+import Index from './index'
 
 const Page = ({ render }) => (
   <React.Fragment>

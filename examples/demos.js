@@ -26,7 +26,7 @@ const examples = [
 const DemoPage = () => {
   return (
     <Library
-      basename='/primer-react/demos'
+      basename='/demos'
       title='Demo Library'
       examples={examples}
       renderSideNav={({
