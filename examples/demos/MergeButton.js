@@ -1,12 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Details,
-  Button,
-  CaretBox,
-  Text,
-  Block
-} from '../../src'
+import { Details, Button, CaretBox, Text, Block } from '../../src'
 
 const MergeButton = ({ primary, onClick, numCommits, children}) => {
   const arrowStyles = {
