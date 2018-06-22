@@ -30,7 +30,6 @@
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "react": "^16.2.0",
-    "react-router-dom": "^4.3.1",
     "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
@@ -39,6 +38,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "jest": "^22.4.3",
+    "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
     "styled-components": "3.3.2",
     "styled-system": "^2.0.2"

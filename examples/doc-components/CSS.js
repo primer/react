@@ -1,5 +1,5 @@
 import React from 'react'
-import {theme} from '../src'
+import {theme} from '../../src'
 
 const CSS = ({css}) => (
   <style dangerouslySetInnerHTML={{__html: css}} />
