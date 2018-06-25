@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme from './theme'
-
-const {colors} = theme
+import {colors} from './theme'
 
 const defaultFill = colors.gray[4]
 
@@ -16,9 +14,9 @@ const fillForState = {
 }
 
 const DonutSlice = props => {
-  const {children, d, state, fill = fillForState[state] || defaultFill} = props
+  const {children, d, state, fill = fillForState[state] || defaultFill, value} = props
   return (
-    <path d={d} fill={fill}>
+    <path d={d} fill={fill} data-value={value}>
       {children}
     </path>
   )
