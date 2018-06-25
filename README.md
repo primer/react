@@ -1,24 +1,24 @@
 # Primer react
 
-[Primer](https://primer.github.io/) React components built with [styled-components](https://www.styled-components.com/) 💅 and [styled-system](http://jxnblk.com/styled-system/) 💙.
+[Primer](https://primer.github.io/) React components
 
 ## Status
 
 ⚠️ This project is WIP and not ready for production use yet!
 
-Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides. Eventually we'll remove CSS from Primer in favor of CSS-in-JS (using styled-components) to ensure styles are encapsulated.
+Currently we link to the latest built Primer CSS so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides.
 
-## Getting started
+## Installation
 
-`npm install`
+Install primer-react in your project with:
 
-Run app with:
+`npm install primer-react`
 
-`npm run start`
+## Local Development
 
-Build with:
+Run `primer-react` locally when adding or updating components.
 
-`npm run build`
+Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
 
 To run `primer-react` locally when adding or updating components:
 

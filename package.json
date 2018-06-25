@@ -1,9 +1,18 @@
 {
   "name": "primer-react",
-  "private": true,
-  "version": "0.0.1",
+  "version": "0.0.6-beta",
   "description": "Primer react components",
-  "repository": "primer/primer-react",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint src",
+    "start": "x0 dev examples -op 8888",
+    "build": "x0 build examples --out-dir docs",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/primer-react.git"
+  },
   "keywords": [
     "react",
     "components",
@@ -11,42 +20,32 @@
     "design-system"
   ],
   "author": "GitHub, Inc.",
-  "contributors": [
-    "Diana Mounter <diana.mounter@gmail.com>",
-    "Shawn Allen <shawn.allen@github.com>"
-  ],
   "license": "MIT",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint src",
-    "start": "x0 dev src/Index.js -op 8888",
-    "build": "x0 build src/Index.js --out-dir docs",
-    "test": "jest"
-  },
   "x0": {
+    "title": "primer-react",
     "cssLibrary": "styled-components",
     "basename": "/primer-react"
   },
   "dependencies": {
-    "@compositor/kit": "^1.0.0-1",
-    "@compositor/x0": "^3.2.0",
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "chroma-js": "^1.3.6",
     "classnames": "^2.2.5",
+    "d3-shape": "^1.2.0",
     "react": "^16.2.0",
-    "styled-components": "^3.1.6",
-    "styled-system": "^2.0.2",
     "system-classnames": "^1.0.0-3"
   },
   "devDependencies": {
+    "@compositor/kit": "^1.0.43",
+    "@compositor/x0": "^5.0.8",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "eslint": "4.19.1",
     "eslint-plugin-github": "1.0.0",
     "eslint-plugin-jest": "21.15.1",
     "eslint-plugin-react": "7.8.2",
     "jest": "^22.4.3",
+    "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
-    "styled-components": "3.3.3"
+    "styled-components": "3.3.3",
+    "styled-system": "^2.0.2"
   }
 }

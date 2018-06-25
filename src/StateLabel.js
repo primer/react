@@ -1,6 +1,10 @@
 import React from 'react'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import Octicon from '@github/octicons-react'
+import theme from './theme'
+
+const { colors } = theme
 
 const stateColorMap = {
   open: 'green',
@@ -26,27 +30,44 @@ function getOcticon(state) {
   return <Octicon name={name} />
 }
 
-export default function StateLabel(props) {
-  const {state, bg, small, children} = props
+const getIconComponent = (icon, children) => {
+  if (icon && children) {
+    return <span className='mr-1'>{icon}</span>
+  } else if (icon) {
+    return <span className='d-flex m-1'>{icon}</span>
+  }
+  return null
+}
 
-  let {icon} = props
+const StateLabel = ({ state, scheme, small, icon, children }) => {
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
 
-  const color = bg || stateColorMap[state]
+  const color = scheme || stateColorMap[state]
+  const styleProps = {}
+  if (color === 'yellow') {
+    styleProps.style = {backgroundColor: colors.yellow[7]}
+  }
+  const iconComponent = getIconComponent(icon, children)
   return (
-    <span
-      className={classnames(
-        'State',
-        {
-          'State--small': small
-        },
-        color ? `State--${color}` : null
-      )}
-    >
-      {icon ? <span className="mr-1">{icon}</span> : null}
+    <span className={classnames(
+      'State', {
+        'State--small': small
+      },
+      color && color !== 'yellow' ? `State--${color}` : null,
+    )} {...styleProps}>
+      {iconComponent}
       {children}
     </span>
   )
 }
+
+StateLabel.propTypes = {
+  state: PropTypes.oneOf(['open', 'opened', 'reopened', 'closed', 'merged']),
+  scheme: PropTypes.string,
+  small: PropTypes.bool,
+  icon: PropTypes.node,
+}
+
+export default StateLabel

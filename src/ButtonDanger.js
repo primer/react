@@ -1,17 +1,6 @@
 import React from 'react'
-import classnames from 'classnames'
+import Button from './Button'
 
-const ButtonDanger = props => (
-    <button
-      {...props}
-      className={classnames(
-        props.className,
-        'btn btn-danger', {
-          'btn-sm': props.small,
-          'btn-large': props.large,
-        }
-      )}
-    />
-)
+const ButtonDanger = props => <Button {...props} scheme='danger' />
 
 export default ButtonDanger

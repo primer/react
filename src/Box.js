@@ -1,18 +1,14 @@
-import styled from 'styled-components'
-import {
-  space,
-  width,
-  maxWidth,
-  flex,
-  color
-} from 'styled-system'
+import React from 'react'
+import Block from './Block'
 
-const Box = styled.div`
-  ${space}
-  ${width}
-  ${maxWidth}
-  ${flex}
-  ${color}
-`
+const Box = props => <Block {...props} />
+
+Box.defaultProps = {
+  bg: 'white',
+  border: true,
+  round: 1
+}
+
+Box.propTypes = Block.propTypes
 
 export default Box

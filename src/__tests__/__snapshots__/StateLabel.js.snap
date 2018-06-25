@@ -5,7 +5,7 @@ exports[`StateLabel renders states as specific colors 1`] = `
   className="State State--green"
 >
   <span
-    className="mr-1"
+    className="d-flex m-1"
   >
     <svg
       aria-hidden="true"
@@ -38,7 +38,7 @@ exports[`StateLabel renders states as specific colors 2`] = `
   className="State State--green"
 >
   <span
-    className="mr-1"
+    className="d-flex m-1"
   >
     <svg
       aria-hidden="true"
@@ -71,7 +71,7 @@ exports[`StateLabel renders states as specific colors 3`] = `
   className="State State--purple"
 >
   <span
-    className="mr-1"
+    className="d-flex m-1"
   >
     <svg
       aria-hidden="true"
@@ -104,7 +104,7 @@ exports[`StateLabel renders states as specific colors 4`] = `
   className="State State--red"
 >
   <span
-    className="mr-1"
+    className="d-flex m-1"
   >
     <svg
       aria-hidden="true"
