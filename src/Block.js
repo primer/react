@@ -7,8 +7,6 @@ const styleProps = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'max
 
 const stylize = stylizer(styleProps)
 
-const exclusiveBorderValues = new Set(['top', 'right', 'bottom', 'left', 0])
-
 function unique(values) {
   return values.filter((v, i) => values.indexOf(v) === i)
 }
@@ -49,14 +47,16 @@ const Block = props => {
 Block.propTypes = {
   bg: PropTypes.string,
   border: oneOrMoreOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number])),
+  display: PropTypes.oneOf(['inline', 'inline-block']),
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   round: PropTypes.number,
   shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
-  display: PropTypes.oneOf(['inline', 'inline-block']),
   ...map.propTypes
 }
 
-styleProps.forEach(prop => (Block.propTypes[prop] = PropTypes.number))
+for (const prop of styleProps) {
+  Block.propTypes[prop] = PropTypes.number
+}
 
 export default Block
