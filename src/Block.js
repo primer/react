@@ -3,20 +3,11 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import map, {oneOrMoreOf, stylizer} from './props'
 
-const styleProps = [
-  'width', 'minWidth', 'maxWidth',
-  'height', 'minHeight', 'maxHeight'
-]
+const styleProps = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight']
 
 const stylize = stylizer(styleProps)
 
-const exclusiveBorderValues = new Set([
-  'top',
-  'right',
-  'bottom',
-  'left',
-  0
-])
+const exclusiveBorderValues = new Set(['top', 'right', 'bottom', 'left', 0])
 
 function unique(values) {
   return values.filter((v, i) => values.indexOf(v) === i)
@@ -33,31 +24,23 @@ function getBorderClass(value) {
 }
 
 const Block = props => {
-  const {
-    tag: Tag = 'div',
-    children,
-    className,
-    bg,
-    border,
-    fg,
-    position,
-    round,
-    shadow,
-    ...rest
-  } = map(props)
+  const {tag: Tag = 'div', children, className, bg, border, fg, position, round, shadow, ...rest} = map(props)
 
   const {style} = stylize(rest)
 
   return (
-    <Tag className={classnames(
-      className,
-      getBorderClass(border),
-      bg && `bg-${bg}`,
-      fg && `text-${fg}`,
-      position && `position-${position}`,
-      (typeof round === 'number') && `rounded-${round}`,
-      shadow && ((shadow === true) ? 'box-shadow' : `box-shadow-${shadow}`)
-    )} style={style}>
+    <Tag
+      className={classnames(
+        className,
+        getBorderClass(border),
+        bg && `bg-${bg}`,
+        fg && `text-${fg}`,
+        position && `position-${position}`,
+        typeof round === 'number' && `rounded-${round}`,
+        shadow && (shadow === true ? 'box-shadow' : `box-shadow-${shadow}`)
+      )}
+      style={style}
+    >
       {children}
     </Tag>
   )
@@ -65,11 +48,7 @@ const Block = props => {
 
 Block.propTypes = {
   bg: PropTypes.string,
-  border: oneOrMoreOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-    PropTypes.number
-  ])),
+  border: oneOrMoreOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number])),
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   round: PropTypes.number,
@@ -78,6 +57,6 @@ Block.propTypes = {
   ...map.propTypes
 }
 
-styleProps.forEach(prop => Block.propTypes[prop] = PropTypes.number)
+styleProps.forEach(prop => (Block.propTypes[prop] = PropTypes.number))
 
 export default Block

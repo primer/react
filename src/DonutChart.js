@@ -4,24 +4,16 @@ import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 
 function mapData(data) {
-  return Object.keys(data)
-    .map((key, i) => (
-      <DonutSlice key={key} state={key} value={data[key]} />
-    ))
+  return Object.keys(data).map((key, i) => <DonutSlice key={key} state={key} value={data[key]} />)
 }
 
 const DonutChart = props => {
-  const {
-    data,
-    children = mapData(data),
-    size = 30,
-  } = props
+  const {data, children = mapData(data), size = 30} = props
 
   const radius = size / 2
   const innerRadius = radius - 6
 
-  const pie = Pie()
-    .value(child => child.props.value)
+  const pie = Pie().value(child => child.props.value)
 
   // coerce the children into an array
   const childList = React.Children.map(children, d => d)
@@ -36,9 +28,7 @@ const DonutChart = props => {
 
   return (
     <svg width={size} height={size}>
-      <g transform={`translate(${radius},${radius})`}>
-        {slices}
-      </g>
+      <g transform={`translate(${radius},${radius})`}>{slices}</g>
     </svg>
   )
 }
@@ -49,10 +39,7 @@ const DonutPropType = PropTypes.shape({
 })
 
 DonutChart.propTypes = {
-  children: PropTypes.oneOfType([
-    DonutPropType,
-    PropTypes.arrayOf(DonutPropType)
-  ]),
+  children: PropTypes.oneOfType([DonutPropType, PropTypes.arrayOf(DonutPropType)]),
   data: PropTypes.objectOf(PropTypes.number),
   size: PropTypes.number
 }

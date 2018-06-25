@@ -2,32 +2,21 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
-function Button({
-  tag: Tag = 'button',
-  children,
-  size,
-  block,
-  linkStyle,
-  grouped,
-  scheme,
-  onClick,
-  disabled,
-  ...props
-}) {
+function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...props}) {
   const classes = classnames(
     {
-      'btn': !linkStyle,
+      btn: !linkStyle,
       'btn-link': linkStyle,
       'btn-sm': size === 'sm',
       'btn-large': size === 'large',
       'btn-block': block,
-      'BtnGroup-item': grouped,
+      'BtnGroup-item': grouped
     },
     scheme ? `btn-${scheme}` : null
-  );
+  )
 
   return (
-    <Tag {...props} type='button' disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
+    <Tag {...props} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
       {children}
     </Tag>
   )
