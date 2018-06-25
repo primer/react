@@ -28,6 +28,15 @@ module.exports = ({
     <meta name='description' content='Primer components built with React.js.' />
   </head>
   <body>
+  <script>
+    (function(){
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
   <div id=root>${html}</div>
   </body>
   </html>
