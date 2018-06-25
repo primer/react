@@ -24,9 +24,10 @@ const examples = [
 ]
 
 const DemoPage = () => {
+  const basename = process.env.NODE_ENV === 'development' ? '/demos' : '/primer-react/demo'
   return (
     <Library
-      basename='/primer-react/demos'
+      basename={basename}
       title='Demo Library'
       examples={examples}
       renderSideNav={({
