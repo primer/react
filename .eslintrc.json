@@ -4,6 +4,7 @@
     "plugin:github/react"
   ],
   "rules": {
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "react/sort-prop-types": "warn"
   }
 }
