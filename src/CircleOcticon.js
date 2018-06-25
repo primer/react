@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Octicon from '@github/octicons-react'
-import Block from './Block'
 
 const CircleOcticon = ({name, size, bg, color}) => {
   const wrapperClasses = [

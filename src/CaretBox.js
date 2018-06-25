@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Box from './Box'
 import Caret from './Caret'
 import {colors} from './theme'

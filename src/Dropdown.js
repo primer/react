@@ -1,5 +1,4 @@
 import React from 'react'
-import classnames from 'classnames'
 import Details from './Details'
 import Button from './Button'
 import Caret from './Caret'
