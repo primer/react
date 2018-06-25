@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme from './theme'
+import theme, {colors} from './theme'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -56,9 +56,9 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  borderColor: theme.colors.gray[2],
+  borderColor: colors.gray[2],
   borderWidth: 1,
-  fill: theme.colors.white,
+  fill: colors.white,
   location: 'bottom',
   size: theme.space[2],
   css: false
