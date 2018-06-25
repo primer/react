@@ -4,6 +4,7 @@
     "plugin:github/react"
   ],
   "rules": {
+    "jsx-a11y/no-autofocus": "warn",
     "react/prop-types": "warn",
     "react/sort-prop-types": "warn"
   }
