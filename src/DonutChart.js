@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 
 function mapData(data) {
-  return Object.keys(data).map((key, i) => <DonutSlice key={key} state={key} value={data[key]} />)
+  return Object.keys(data).map(key => <DonutSlice key={key} state={key} value={data[key]} />)
 }
 
 const DonutChart = props => {
@@ -16,14 +16,14 @@ const DonutChart = props => {
   const pie = Pie().value(child => child.props.value)
 
   // coerce the children into an array
-  const childList = React.Children.map(children, d => d)
+  const childList = React.Children.toArray(children)
   const arcData = pie(childList)
   const arc = Arc()
     .innerRadius(innerRadius)
     .outerRadius(radius)
 
   const slices = childList.map((child, i) => {
-    return <DonutSlice {...child.props} d={arc(arcData[i])} key={i} />
+    return <DonutSlice {...child.props} d={arc(arcData[i])} key={child.props.key} />
   })
 
   return (
