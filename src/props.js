@@ -1,15 +1,9 @@
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import createMapper from 'system-classnames'
 
 const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
 
-const call = (f, v) => (typeof f === 'function') ? f(v) : f || v
-
-export const oneOrMoreOf = type => PropTypes.oneOfType([
-  type,
-  PropTypes.arrayOf(type)
-])
+export const oneOrMoreOf = type => PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
 
 export const oneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
 
@@ -24,20 +18,11 @@ export const createMapperWithPropTypes = config => {
 
 const map = createMapperWithPropTypes({
   breakpoints,
-  props: [
-    'm', 'mt', 'mr', 'mb', 'ml', 'mx', 'my',
-    'p', 'pt', 'pr', 'pb', 'pl', 'px', 'py'
-  ],
-  getter: ({breakpoint, prop, value}) => breakpoint
-    ? [prop, breakpoint, value].join('-')
-    : [prop, value].join('-')
+  props: ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my', 'p', 'pt', 'pr', 'pb', 'pl', 'px', 'py'],
+  getter: ({breakpoint, prop, value}) => (breakpoint ? [prop, breakpoint, value].join('-') : [prop, value].join('-'))
 })
 
 export default map
-
-function unique(values) {
-  return values.filter((v, i) => values.indexOf(v) === i)
-}
 
 export function stylizer(propsToPass) {
   return props => {
