@@ -16,9 +16,7 @@ const arrowStyles = {
 const Dropdown = ({title, scheme, children}) => (
   <div className="BtnGroup">
     <Details className="details-reset BtnGroup-form d-flex">
-      {(
-        {open, toggle} // eslint-disable-line no-unused-vars
-      ) => (
+      {({toggle}) => (
         <React.Fragment>
           <Button tag="summary" scheme={scheme} grouped onClick={toggle}>
             {title} <div className="d-inline-block v-align-middle" style={arrowStyles} />
