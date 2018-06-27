@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import createMapper from 'system-classnames'
 
-const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
+export const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
 
 export const oneOrMoreOf = type => PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
 
