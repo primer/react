@@ -4,6 +4,7 @@
   "description": "Primer react components",
   "main": "src/index.js",
   "scripts": {
+    "lint": "eslint src",
     "start": "x0 dev examples -op 8888",
     "build": "x0 build examples --out-dir docs",
     "test": "jest"
@@ -37,10 +38,15 @@
     "@compositor/x0": "^5.0.8",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "eslint": "4.19.1",
+    "eslint-plugin-github": "1.0.0",
+    "eslint-plugin-jest": "21.15.1",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.8.2",
     "jest": "^22.4.3",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
-    "styled-components": "3.3.2",
+    "styled-components": "3.3.3",
     "styled-system": "^2.0.2"
   }
 }
