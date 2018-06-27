@@ -1,7 +1,8 @@
 {
   "extends": [
     "plugin:github/es6",
-    "plugin:github/react"
+    "plugin:github/react",
+    "plugin:jsx-a11y/recommended"
   ],
   "rules": {
     "jsx-a11y/no-autofocus": "warn",
