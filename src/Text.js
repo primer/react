@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import map from './props'
+import {mapWhitespaceProps} from './props'
 
 const fontSizeMap = {
   0: 6,
@@ -15,7 +15,7 @@ const fontSizeMap = {
 
 const Text = props => {
   const {tag: Tag = 'span', children, color, fontSize, fontWeight, lineHeight, mono, nowrap, ...rest} = props
-  const {className} = map(rest)
+  const {className} = mapWhitespaceProps(rest)
 
   const fontSizeClass =
     fontSize in fontSizeMap ? `f${fontSizeMap[fontSize]}` : typeof fontSize === 'string' ? `f${fontSize}` : null
@@ -46,7 +46,8 @@ Text.propTypes = {
   lineHeight: PropTypes.oneOf(['normal', 'condensed', 'condensed-ultra']),
   mono: PropTypes.bool,
   nowrap: PropTypes.bool,
-  tag: PropTypes.string
+  tag: PropTypes.string,
+  ...mapWhitespaceProps.propTypes
 }
 
 export default Text
