@@ -1,9 +1,4 @@
-import {
-  createMapperWithPropTypes,
-  breakpoints,
-  mapWhitespaceProps,
-  stylizer
-} from '../props'
+import {createMapperWithPropTypes, breakpoints, mapWhitespaceProps, stylizer} from '../props'
 
 describe('props helpers', () => {
   describe('breakpoints array', () => {
@@ -59,7 +54,6 @@ describe('stylizer()', () => {
   })
 
   it('preserves existing styles', () => {
-    expect(stylize({color: 'red', style: {background: 'black'}}))
-      .toEqual({style: {background: 'black', color: 'red'}})
+    expect(stylize({color: 'red', style: {background: 'black'}})).toEqual({style: {background: 'black', color: 'red'}})
   })
 })

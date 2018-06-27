@@ -22,7 +22,9 @@ function getBorderClass(value) {
 }
 
 const Block = props => {
-  const {tag: Tag = 'div', children, className, bg, border, fg, position, round, shadow, ...rest} = mapWhitespaceProps(props)
+  const {tag: Tag = 'div', children, className, bg, border, fg, position, round, shadow, ...rest} = mapWhitespaceProps(
+    props
+  )
 
   const {style} = stylize(rest)
 
