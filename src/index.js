@@ -22,6 +22,7 @@ export { default as Dropdown } from './Dropdown'
 
 export { default as DonutChart} from './DonutChart'
 export { default as DonutSlice} from './DonutSlice'
+export { default as FlexContainer } from './FlexContainer'
 
 export { default as TextInput} from './TextInput'
 
