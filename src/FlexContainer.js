@@ -2,13 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { generateResponsiveClasses } from './props'
+import Block from './Block'
 
-const FlexContainer = ({ children ,inline, wrap, direction, flexAuto, justifyContent, alignItems, alignContent, alignSelf, breakpoint }) => {
+const FlexContainer = ({
+  children,
+  inline,
+  wrap,
+  direction,
+  justifyContent,
+  alignItems,
+  alignContent,
+  ...rest
+}) => {
   let classes = classnames(
     {
       'd-flex': !inline,
       'd-inline-flex': inline,
-      'flex-auto': flexAuto,
 
     },
     wrap ? `flex-${wrap}` : null,
@@ -16,11 +25,10 @@ const FlexContainer = ({ children ,inline, wrap, direction, flexAuto, justifyCon
     justifyContent ? `flex-justify-${justifyContent}` : null,
     alignItems ? `flex-items-${alignItems}` : null,
     alignContent ? `flex-content-${alignContent}` : null,
-    alignSelf ? `flex-self-${alignSelf}` : null,
   );
 
   return (
-    <div className={classes}>{children}</div>
+    <Block {...rest} className={classes}>{children}</Block>
   )
 }
 
@@ -31,9 +39,5 @@ FlexContainer.propTypes = {
   justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
   alignItems: PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch']),
   alignContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch']),
-  flexAuto: PropTypes.bool,
-  alignSelf: PropTypes.oneOf(['auto', 'start', 'end', 'center', 'baseline', 'stretch']),
-  breakpoint: PropTypes.oneOf(['sm', 'md', 'lg', 'xl'])
-
 }
 export default FlexContainer
