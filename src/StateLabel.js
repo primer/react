@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import Octicon from '@github/octicons-react'
+import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@github/octicons-react'
 import {colors} from './theme'
 
 const stateColorMap = {
@@ -13,19 +13,18 @@ const stateColorMap = {
 }
 
 const stateOcticonMap = {
-  open: 'issue-opened',
-  opened: 'issue-opened',
-  reopened: 'issue-reopened',
-  closed: 'issue-closed',
-  merged: 'git-merge'
+  open: IssueOpened,
+  opened: IssueOpened,
+  reopened: IssueReopened,
+  closed: IssueClosed,
+  merged: GitMerge
 }
 
 function getOcticon(state) {
   if (!state) {
     return null
   }
-  const name = stateOcticonMap[state] || state
-  return <Octicon name={name} />
+  return <Octicon icon={stateOcticonMap[state]} />
 }
 
 const getIconComponent = (icon, children) => {
@@ -66,10 +65,10 @@ const StateLabel = ({state, scheme, small, icon, children}) => {
 }
 
 StateLabel.propTypes = {
-  state: PropTypes.oneOf(['open', 'opened', 'reopened', 'closed', 'merged']),
+  state: PropTypes.oneOf(Object.keys(stateOcticonMap)),
   scheme: PropTypes.string,
   small: PropTypes.bool,
-  icon: PropTypes.node
+  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.bool])
 }
 
 export default StateLabel
