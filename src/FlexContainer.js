@@ -20,7 +20,7 @@ const FlexContainer = ({ children ,inline, wrap, direction, flexAuto, justifyCon
   );
 
   return (
-    <div classNames={classes}>{children}</div>
+    <div className={classes}>{children}</div>
   )
 }
 
