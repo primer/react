@@ -13,7 +13,7 @@ const FlexContainer = ({
   alignContent,
   ...rest
 }) => {
-  let classes = classnames(
+  const classes = classnames(
     {
       'd-flex': !inline,
       'd-inline-flex': inline,
