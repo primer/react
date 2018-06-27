@@ -26,8 +26,13 @@
     "basename": "/primer-react",
     "template": "./html.js"
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@github/octicons-react)"
+    ]
+  },
   "dependencies": {
-    "@github/octicons-react": "1.2.0-alpha.0a0d8862",
+    "@github/octicons-react": "7.4.0-alpha.4baea4bb",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "react": "^16.2.0",
