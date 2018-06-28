@@ -1,5 +1,5 @@
 import React from 'react'
-import Octicon from '@github/octicons-react'
+import Octicon, {GitBranch} from '@github/octicons-react'
 import { Block, StateLabel } from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
@@ -86,7 +86,7 @@ const StateLabelExample =
               <StateLabel small scheme='purple'>Purple</StateLabel>
             </span>
             <span className='mr-2'>
-              <StateLabel small scheme='green' icon={<Octicon name='git-branch'/>}>
+              <StateLabel small scheme='green' icon={<Octicon icon={GitBranch} />}>
                 Custom Octicon
               </StateLabel>
             </span>

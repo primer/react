@@ -4,6 +4,9 @@ node_js:
   - 8
 
 script:
-  - npm run lint
-  - npm test
-  - npm run build
+  - npm -s run lint
+  - npm -s test
+  - npm -s run build
+
+ notifications:
+    slack: github:4OisIoqZYyMlWcw3hFtZgbmh
