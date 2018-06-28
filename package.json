@@ -32,7 +32,7 @@
     ]
   },
   "dependencies": {
-    "@github/octicons-react": "7.4.0-alpha.4baea4bb",
+    "@github/octicons-react": "7.4.0-alpha.6839c7e0",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "react": "^16.2.0",
