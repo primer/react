@@ -8,7 +8,8 @@ exports[`StateLabel renders states as specific colors 1`] = `
     className="d-flex m-1"
   >
     <svg
-      ariaLabel={undefined}
+      aria-hidden="true"
+      aria-label={undefined}
       className="octicon"
       height={16}
       role="img"
@@ -16,6 +17,7 @@ exports[`StateLabel renders states as specific colors 1`] = `
         Object {
           "display": "inline-block",
           "fill": "currentColor",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -39,7 +41,8 @@ exports[`StateLabel renders states as specific colors 2`] = `
     className="d-flex m-1"
   >
     <svg
-      ariaLabel={undefined}
+      aria-hidden="true"
+      aria-label={undefined}
       className="octicon"
       height={16}
       role="img"
@@ -47,6 +50,7 @@ exports[`StateLabel renders states as specific colors 2`] = `
         Object {
           "display": "inline-block",
           "fill": "currentColor",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -70,7 +74,8 @@ exports[`StateLabel renders states as specific colors 3`] = `
     className="d-flex m-1"
   >
     <svg
-      ariaLabel={undefined}
+      aria-hidden="true"
+      aria-label={undefined}
       className="octicon"
       height={16}
       role="img"
@@ -78,6 +83,7 @@ exports[`StateLabel renders states as specific colors 3`] = `
         Object {
           "display": "inline-block",
           "fill": "currentColor",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -101,7 +107,8 @@ exports[`StateLabel renders states as specific colors 4`] = `
     className="d-flex m-1"
   >
     <svg
-      ariaLabel={undefined}
+      aria-hidden="true"
+      aria-label={undefined}
       className="octicon"
       height={16}
       role="img"
@@ -109,6 +116,7 @@ exports[`StateLabel renders states as specific colors 4`] = `
         Object {
           "display": "inline-block",
           "fill": "currentColor",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
