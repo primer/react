@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Block, CircleOcticon, Text} from '../../src'
 import {Check} from '@github/octicons-react'
+import {Block, CircleOcticon, Text} from '../../src'
 
 const stateColorMap = {
   ready: 'green',

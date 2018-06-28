@@ -1,8 +1,8 @@
 import React from 'react'
-import ExampleHeading from '../doc-components/ExampleHeading'
 import Octicon, {GitBranch} from '@github/octicons-react'
-import {BranchName} from '../../src'
 import {Detail} from '@compositor/kit'
+import ExampleHeading from '../doc-components/ExampleHeading'
+import {BranchName} from '../../src'
 
 const BranchNameExample = {
   name: 'BranchName',
