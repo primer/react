@@ -7,11 +7,12 @@ export default {
     babel({
       babelrc: false,
       exclude: 'node_modules/**',
+      plugins: [
+        'transform-object-rest-spread'
+      ],
       presets: [
         // because rollup warns us if we don't?
         'es2015-rollup',
-        // for object rest/spread
-        'stage-0',
         // transpile most of the things,
         // but _not_ import and export statements
         ['env', {modules: false}],
