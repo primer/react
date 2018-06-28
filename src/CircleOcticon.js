@@ -18,6 +18,9 @@ const CircleOcticon = ({size, bg, color, ...rest}) => {
 
 CircleOcticon.propTypes = {
   ...Octicon.propTypes,
+  // FIXME: we should be able to infer the size from the
+  // rendered Octicon so that we can support
+  // size={'small|medium|large'}
   size: PropTypes.number
 }
 
