@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c rollup.config.js",
-    "docs": "x0 build examples --out-dir docs",
+    "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src",
     "preversion": "npm -s run build",
     "start": "x0 dev examples -op 8888",
