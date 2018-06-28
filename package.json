@@ -22,9 +22,9 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "x0": {
-    "title": "primer-react",
     "cssLibrary": "styled-components",
-    "basename": "/primer-react"
+    "basename": "/primer-react",
+    "template": "./html.js"
   },
   "dependencies": {
     "@github/octicons-react": "1.2.0-alpha.0a0d8862",
