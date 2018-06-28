@@ -8,7 +8,7 @@ const colorScheme = (scheme, outline) => {
     }
   } else {
     return {
-      'Label--gray': (scheme == null || scheme === 'gray'),
+      'Label--gray': scheme == null || scheme === 'gray',
       'Label--gray-darker': scheme === 'gray-darker',
       'Label--orange': scheme === 'orange',
       'bg-green': scheme === 'green'
@@ -17,15 +17,12 @@ const colorScheme = (scheme, outline) => {
 }
 
 const Label = props => {
-  const { outline, scheme, children } = props
-  return <span
-    className={classnames(
-      'Label',
-      outline ? 'Label--outline' : '',
-      colorScheme(scheme, outline)
-    )}>
-    { children }
-  </span>
+  const {outline, scheme, children} = props
+  return (
+    <span className={classnames('Label', outline ? 'Label--outline' : '', colorScheme(scheme, outline))}>
+      {children}
+    </span>
+  )
 }
 
 export default Label
