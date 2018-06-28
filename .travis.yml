@@ -7,3 +7,6 @@ script:
   - npm -s run lint
   - npm -s test
   - npm -s run build
+
+ notifications:
+    slack: github:4OisIoqZYyMlWcw3hFtZgbmh
