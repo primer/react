@@ -8,5 +8,5 @@ script:
   - npm -s test
   - npm -s run build
 
- notifications:
-    slack: 'github:4OisIoqZYyMlWcw3hFtZgbmh'
+notifications:
+    slack: github:4OisIoqZYyMlWcw3hFtZgbmh
