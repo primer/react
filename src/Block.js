@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import map, {oneOrMoreOf, stylizer} from './props'
+import {mapWhitespaceProps, oneOrMoreOf, stylizer} from './props'
 
 const styleProps = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight']
 
@@ -22,7 +22,9 @@ function getBorderClass(value) {
 }
 
 const Block = props => {
-  const {tag: Tag = 'div', children, className, bg, border, fg, position, round, shadow, ...rest} = map(props)
+  const {tag: Tag = 'div', children, className, bg, border, fg, position, round, shadow, ...rest} = mapWhitespaceProps(
+    props
+  )
 
   const {style} = stylize(rest)
 
@@ -52,7 +54,7 @@ Block.propTypes = {
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   round: PropTypes.number,
   shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
-  ...map.propTypes
+  ...mapWhitespaceProps.propTypes
 }
 
 for (const prop of styleProps) {
