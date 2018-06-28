@@ -9,4 +9,4 @@ script:
   - npm -s run build
 
  notifications:
-    slack: github:4OisIoqZYyMlWcw3hFtZgbmh
+    slack: 'github:4OisIoqZYyMlWcw3hFtZgbmh'
