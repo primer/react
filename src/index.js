@@ -1,8 +1,8 @@
-export { default as theme } from './theme'
+export {default as theme} from './theme'
 
 // Layout
-export { default as Block } from './Block'
-export { default as Box } from './Box'
+export {default as Block} from './Block'
+export {default as Box} from './Box'
 
 // Components
 export { default as Avatar } from './Avatar'

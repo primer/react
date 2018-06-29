@@ -25,6 +25,8 @@ export function render(component) {
  * ```
  */
 export function renderClasses(component) {
-  const {props: {className}} = render(component)
+  const {
+    props: {className}
+  } = render(component)
   return className ? className.trim().split(' ') : []
 }

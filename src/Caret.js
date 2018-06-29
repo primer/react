@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme from './theme'
+import theme, {colors} from './theme'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -37,22 +37,28 @@ function getPosition(edge, align) {
 export default function Caret({css, ...rest}) {
   // TODO: should the svg switch even be configurable,
   // or do we use feature detection here?
-  return css
-    ? <CaretCSS {...rest} />
-    : <CaretSVG {...rest} />
+  return css ? <CaretCSS {...rest} /> : <CaretSVG {...rest} />
 }
 
 Caret.locations = [
-  'top', 'top-left', 'top-right',
-  'right', 'right-top', 'right-bottom',
-  'bottom', 'bottom-left', 'bottom-right',
-  'left', 'left-top', 'left-bottom'
+  'top',
+  'top-left',
+  'top-right',
+  'right',
+  'right-top',
+  'right-bottom',
+  'bottom',
+  'bottom-left',
+  'bottom-right',
+  'left',
+  'left-top',
+  'left-bottom'
 ]
 
 Caret.defaultProps = {
-  borderColor: theme.colors.gray[2],
+  borderColor: colors.gray[2],
   borderWidth: 1,
-  fill: theme.colors.white,
+  fill: colors.white,
   location: 'bottom',
   size: theme.space[2],
   css: false
@@ -68,13 +74,7 @@ Caret.propTypes = {
 }
 
 function CaretCSS(props) {
-  const {
-    borderColor,
-    borderWidth,
-    fill,
-    location,
-    size
-  } = props
+  const {borderColor, borderWidth, fill, location, size} = props
 
   const [edge, align] = getEdgeAlign(location)
   const opposite = oppositeEdge[edge]
@@ -90,7 +90,7 @@ function CaretCSS(props) {
     borderStyle: 'solid',
     borderWidth,
     position: 'absolute',
-    [opposite.toLowerCase()]: '100%',
+    [opposite.toLowerCase()]: '100%'
   }
 
   const after = {
@@ -118,13 +118,7 @@ function CaretCSS(props) {
 }
 
 function CaretSVG(props) {
-  const {
-    borderColor,
-    borderWidth,
-    fill,
-    location,
-    size
-  } = props
+  const {borderColor, borderWidth, fill, location, size} = props
 
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
@@ -160,10 +154,7 @@ function CaretSVG(props) {
     <svg width={size * 2} height={size * 2} style={style}>
       <g transform={transform}>
         <path d={triangle} fill={fill} />
-        <path d={line}
-          fill='none'
-          stroke={borderColor}
-          strokeWidth={borderWidth} />
+        <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
       </g>
     </svg>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon from '@github/octicons-react'
+import Octicon, {GitMerge} from '@github/octicons-react'
 import StateLabel from './StateLabel'
 
 const stateColorMap = {
@@ -10,7 +10,9 @@ const stateColorMap = {
   pending: 'yellow'
 }
 
-const MergeStatus = ({ state }) => <StateLabel scheme={stateColorMap[state]} icon={<Octicon medium name='git-merge'/>} />
+const octicon = <Octicon icon={GitMerge} size="medium" />
+
+const MergeStatus = ({state}) => <StateLabel scheme={stateColorMap[state]} icon={octicon} />
 
 MergeStatus.propTypes = {
   state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired

@@ -2,36 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const TextInput = ({
-    autocomplete,
-    autofocus,
-    block,
-    disabled,
-    id,
-    name,
-    placeholder,
-    required,
-    size,
-    value
-  }) => (
+const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value}) => (
   <input
     aria-label={placeholder}
-    autocomplete={autocomplete}
-    autofocus={autofocus}
-    className={classnames(
-      'form-control',
-      {
-        'input-block': block,
-        'input-sm': size === 'small',
-        'input-lg': size === 'large'
-      }
-    )}
+    autoComplete={autocomplete}
+    autoFocus={autofocus}
+    className={classnames('form-control', {
+      'input-block': block,
+      'input-sm': size === 'small',
+      'input-lg': size === 'large'
+    })}
     disabled={disabled}
     id={id}
     name={name}
     placeholder={placeholder}
     required={required}
-    type='text'
+    type="text"
     value={value}
   />
 )
