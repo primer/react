@@ -3,7 +3,7 @@ import FlexContainer from '../FlexContainer'
 import {renderClasses} from '../utils/testing'
 
 it('FlexContainer renders wrap classes', () => {
-  expect(renderClasses(<FlexContainer wrap={'nowrap'} />)).toEqual(['d-flex', 'flex-nowrap'])
+  expect(renderClasses(<FlexContainer wrap="nowrap" />)).toEqual(['d-flex', 'flex-nowrap'])
 })
 
 it('FlexContainer renders direction classes', () => {
