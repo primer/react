@@ -4,10 +4,10 @@ node_js:
   - 8
 
 script:
-  - npm -s run lint
-  - npm -s test
-  - npm -s run build
-  - npm -s run build:docs
+  - npm run lint
+  - npm test
+  - npm run build
+  - npm run build:docs
 
 notifications:
     slack: github:4OisIoqZYyMlWcw3hFtZgbmh
