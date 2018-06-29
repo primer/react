@@ -66,6 +66,18 @@ const FlexExample = {
             <Block p={3} bg='yellow'>Item 3</Block>
           </FlexItem>
         </FlexContainer>
+        <ExampleHeading mt={2}>FlexContainer + FlexItems using tag prop set to  "p"</ExampleHeading>
+        <FlexContainer wrap='nowrap' width={300} height={300} border={true}>
+          <FlexItem tag="p">
+            <Block p={3} bg='blue'>Item 1</Block>
+          </FlexItem>
+          <FlexItem tag="p">
+            <Block p={3} bg='green'>Item 2</Block>
+          </FlexItem>
+          <FlexItem tag="p">
+            <Block p={3} bg='yellow'>Item 3</Block>
+          </FlexItem>
+        </FlexContainer>
     </Block>
   )
 }
