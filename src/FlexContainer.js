@@ -9,11 +9,11 @@ const FlexContainer = ({children, inline, wrap, direction, justifyContent, align
       'd-flex': !inline,
       'd-inline-flex': inline
     },
-    wrap ? `flex-${wrap}` : null,
-    direction ? `flex-${direction}` : null,
-    justifyContent ? `flex-justify-${justifyContent}` : null,
-    alignItems ? `flex-items-${alignItems}` : null,
-    alignContent ? `flex-content-${alignContent}` : null
+    wrap && `flex-${wrap}`,
+    direction && `flex-${direction}`,
+    justifyContent && `flex-justify-${justifyContent}`,
+    alignItems && `flex-items-${alignItems}`,
+    alignContent && `flex-content-${alignContent}`
   )
 
   return (
