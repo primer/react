@@ -20,11 +20,43 @@ Run `primer-react` locally when adding or updating components.
 
 Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
 
-Install dependencies: `npm install`
+To run `primer-react` locally when adding or updating components:
 
-Run app with: `npm run start`
+1. Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
+1. Install dependencies: `npm install`
+1. Run the dev app with: `npm start`
 
-Build docs before publishing: `npm run build`
+Remember to build docs before publishing with: `npm run build`
+
+### Code Style
+
+We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js)
+from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github)
+to lint our JavaScript. To check your work before pushing, run:
+
+```
+npm run lint
+```
+
+Or, you can use [npx] to run eslint on one or more specific files:
+
+
+```sh
+# lint the component and the tests in src/__tests__
+npx eslint src/**/MyComponent.js
+```
+
+**Protip:** The [eslint `--fix` flag](https://eslint.org/docs/user-guide/command-line-interface#--fix)
+can automatically fix most linting errors, such as those involving whitespace
+or incorrect ordering of object keys and imports. You can fix those issues
+across the entire project with:
+
+```sh
+npm run lint -- --fix
+```
+
+**Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will
+suppress warnings so that you can focus on fixing errors.
 
 ### Testing
 
@@ -48,3 +80,6 @@ example of how we're testing our components.
 - Keep system constrained by only including props needed per component.
 - Favor extending or wrapping components for more complex operations.
 - Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
+
+
+[npx]: https://www.npmjs.com/package/npx

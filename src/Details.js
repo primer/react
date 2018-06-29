@@ -17,17 +17,12 @@ export default class Details extends React.Component {
     if (event) {
       event.preventDefault()
     }
-    this.setState({ open: !this.state.open })
+    this.setState({open: !this.state.open})
   }
 
   render() {
-    const {
-      className,
-      children,
-      render = getRenderer(children),
-      ...props
-    } = this.props
-    const { open } = this.state
+    const {className, children, render = getRenderer(children), ...props} = this.props
+    const {open} = this.state
 
     return (
       <details {...props} className={classnames('details-reset', className)} open={open}>
