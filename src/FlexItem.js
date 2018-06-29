@@ -11,6 +11,6 @@ const FlexItem = ({tag: Tag = 'div', children, flexAuto, alignSelf}) => {
 FlexItem.propTypes = {
   flexAuto: PropTypes.bool,
   alignSelf: PropTypes.oneOf(['auto', 'start', 'end', 'center', 'baseline', 'stretch']),
-  tag: PropTypes.string,
+  tag: PropTypes.string
 }
 export default FlexItem
