@@ -1,6 +1,8 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 
+const formats = ['esm', 'umd'] // 'cjs' ?
+
 export default {
   input: 'src/index.js',
   plugins: [
@@ -8,22 +10,19 @@ export default {
       babelrc: false,
       exclude: 'node_modules/**',
       plugins: [
-        'transform-object-rest-spread'
+        'external-helpers'
       ],
       presets: [
-        // because rollup warns us if we don't?
-        'es2015-rollup',
-        // transpile most of the things,
-        // but _not_ import and export statements
         ['env', {modules: false}],
-        // <Foo/> => React.createElement(Foo), et al
+        'stage-0',
         'react'
       ]
     }),
     commonjs()
   ],
-  output: {
-    file: 'dist/index.js',
-    format: 'esm'
-  }
+  output: formats.map(format => ({
+    file: `dist/index.${format}.js`,
+    format,
+    name: 'PrimerReact'
+  }))
 }
