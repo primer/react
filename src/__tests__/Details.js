@@ -1,6 +1,6 @@
 import React from 'react'
 import Details from '../Details'
-import {render} from '../utils/testing'
+import {mount, render} from '../utils/testing'
 
 describe('Details', () => {
   it('Renders a <details> element with reset class', () => {
@@ -72,9 +72,31 @@ describe('Details', () => {
     )
   })
 
-  /*
   it('Can be toggled', () => {
-    // how do we test stateful components???
+    const wrapper = mount(
+      <Details open={false}>{
+        ({open, toggle}) => (
+          <summary onClick={toggle}>{open ? 'close' : 'open'}</summary>
+        )
+      }</Details>
+    )
+
+    const dom = wrapper.getDOMNode()
+    const summary = wrapper.find('summary')
+
+    expect(dom.hasAttribute('open')).toEqual(false)
+    expect(summary.text()).toEqual('open')
+
+    summary.simulate('click')
+
+    expect(dom.hasAttribute('open')).toEqual(true)
+    expect(summary.text()).toEqual('close')
+
+    summary.simulate('click')
+
+    expect(dom.hasAttribute('open')).toEqual(false)
+    expect(summary.text()).toEqual('open')
+
+    wrapper.unmount()
   })
-  */
 })
