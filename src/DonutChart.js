@@ -24,7 +24,7 @@ const DonutChart = props => {
     .outerRadius(radius)
 
   const slices = childList.map((child, i) => {
-    return <DonutSlice {...child.props} d={arc(arcData[i])} key={child.props.key} />
+    return React.cloneElement(child, {d: arc(arcData[i])})
   })
 
   return (
