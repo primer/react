@@ -2,6 +2,8 @@ import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
+enzyme.configure({adapter: new Adapter()})
+
 /**
  * Render the component (a React.createElement() or JSX expression)
  * into its intermediate object representation with 'type',
@@ -33,11 +35,6 @@ export function renderClasses(component) {
   return className ? className.trim().split(' ') : []
 }
 
-let enzymeConfigured = false
 export function mount(component) {
-  if (!enzymeConfigured) {
-    enzymeConfigured = true
-    enzyme.configure({adapter: new Adapter()})
-  }
   return enzyme.mount(component)
 }
