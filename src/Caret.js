@@ -34,90 +34,7 @@ function getPosition(edge, align) {
   }
 }
 
-export default function Caret({css, ...rest}) {
-  // TODO: should the svg switch even be configurable,
-  // or do we use feature detection here?
-  return css ? <CaretCSS {...rest} /> : <CaretSVG {...rest} />
-}
-
-Caret.locations = [
-  'top',
-  'top-left',
-  'top-right',
-  'right',
-  'right-top',
-  'right-bottom',
-  'bottom',
-  'bottom-left',
-  'bottom-right',
-  'left',
-  'left-top',
-  'left-bottom'
-]
-
-Caret.defaultProps = {
-  borderColor: colors.gray[2],
-  borderWidth: 1,
-  fill: colors.white,
-  location: 'bottom',
-  size: theme.space[2],
-  css: false
-}
-
-Caret.propTypes = {
-  borderColor: PropTypes.string,
-  borderWidth: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations),
-  fill: PropTypes.string,
-  size: PropTypes.number,
-  css: PropTypes.bool
-}
-
-function CaretCSS(props) {
-  const {borderColor, borderWidth, fill, location, size} = props
-
-  const [edge, align] = getEdgeAlign(location)
-  const opposite = oppositeEdge[edge]
-  const perp = perpendicularEdge[edge]
-
-  const style = {
-    pointerEvents: 'none',
-    position: 'absolute',
-    ...getPosition(edge, align)
-  }
-
-  const common = {
-    borderStyle: 'solid',
-    borderWidth,
-    position: 'absolute',
-    [opposite.toLowerCase()]: '100%'
-  }
-
-  const after = {
-    ...common,
-    borderColor: 'transparent',
-    borderWidth: size,
-    [`border${opposite}Color`]: fill,
-    [`margin${perp}`]: -size
-  }
-
-  const before = {
-    ...common,
-    borderColor: 'transparent',
-    [`border${opposite}Color`]: borderColor,
-    borderWidth: borderWidth + size,
-    [`margin${perp}`]: -(size + borderWidth)
-  }
-
-  return (
-    <div style={style}>
-      <div style={before} />
-      <div style={after} />
-    </div>
-  )
-}
-
-function CaretSVG(props) {
+export default function Caret(props) {
   const {borderColor, borderWidth, fill, location, size} = props
 
   const [edge, align] = getEdgeAlign(location)
@@ -158,4 +75,37 @@ function CaretSVG(props) {
       </g>
     </svg>
   )
+}
+
+Caret.locations = [
+  'top',
+  'top-left',
+  'top-right',
+  'right',
+  'right-top',
+  'right-bottom',
+  'bottom',
+  'bottom-left',
+  'bottom-right',
+  'left',
+  'left-top',
+  'left-bottom'
+]
+
+Caret.defaultProps = {
+  borderColor: colors.gray[2],
+  borderWidth: 1,
+  fill: colors.white,
+  location: 'bottom',
+  size: theme.space[2],
+  css: false
+}
+
+Caret.propTypes = {
+  borderColor: PropTypes.string,
+  borderWidth: PropTypes.number,
+  location: PropTypes.oneOf(Caret.locations),
+  fill: PropTypes.string,
+  size: PropTypes.number,
+  css: PropTypes.bool
 }
