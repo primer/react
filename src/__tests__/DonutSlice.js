@@ -1,7 +1,7 @@
 import React from 'react'
 import DonutSlice from '../DonutSlice'
 import {colors} from '../theme'
-import {render, silenceConsoleError} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('DonutSlice', () => {
   it('renders known states as colors', () => {

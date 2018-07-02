@@ -74,11 +74,9 @@ describe('Details', () => {
 
   it('Can be toggled', () => {
     const wrapper = mount(
-      <Details open={false}>{
-        ({open, toggle}) => (
-          <summary onClick={toggle}>{open ? 'close' : 'open'}</summary>
-        )
-      }</Details>
+      <Details open={false}>
+        {({open, toggle}) => <summary onClick={toggle}>{open ? 'close' : 'open'}</summary>}
+      </Details>
     )
 
     /**
