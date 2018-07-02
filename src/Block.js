@@ -81,7 +81,7 @@ Block.propTypes = {
   borderColor: PropTypes.oneOf(borderColors),
   borderRadius: PropTypes.oneOf([0, 1, 2]),
   children: PropTypes.element,
-  display: PropTypes.oneOf(['inline', 'inline-block']),
+  display: PropTypes.oneOf(['inline', 'inline-block', 'none']),
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
