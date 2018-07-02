@@ -1,28 +1,47 @@
 import React from 'react'
 import StateLabel from '../StateLabel'
+import Octicon, {IssueOpened} from '@github/octicons-react'
 import {render} from '../utils/testing'
 
-it('StateLabel renders scheme', () => {
-  expect(render(<StateLabel scheme="green" />)).toEqual(render(<span className="State State--green" />))
-  expect(render(<StateLabel scheme="red" />)).toEqual(render(<span className="State State--red" />))
-  expect(render(<StateLabel scheme="purple" />)).toEqual(render(<span className="State State--purple" />))
-})
+describe('StateLabel', () => {
+  it('respects the scheme prop', () => {
+    expect(render(<StateLabel scheme="green" />)).toEqual(render(<span className="State State--green" />))
+    expect(render(<StateLabel scheme="red" />)).toEqual(render(<span className="State State--red" />))
+    expect(render(<StateLabel scheme="purple" />)).toEqual(render(<span className="State State--purple" />))
+  })
 
-it('StateLabel renders small', () => {
-  expect(render(<StateLabel small />)).toEqual(render(<span className="State State--small" />))
-  expect(render(<StateLabel small={false} />)).toEqual(render(<span className="State" />))
-})
+  it('respects the small flag', () => {
+    expect(render(<StateLabel small />)).toEqual(render(<span className="State State--small" />))
+    expect(render(<StateLabel small={false} />)).toEqual(render(<span className="State" />))
+  })
 
-it('StateLabel renders states as specific colors', () => {
-  expect(render(<StateLabel state="open" />)).toMatchSnapshot()
-  expect(render(<StateLabel state="reopened" />)).toMatchSnapshot()
-  expect(render(<StateLabel state="merged" />)).toMatchSnapshot()
-  expect(render(<StateLabel state="closed" />)).toMatchSnapshot()
-})
+  it('renders states as specific colors', () => {
+    expect(render(<StateLabel state="open" />)).toMatchSnapshot()
+    expect(render(<StateLabel state="reopened" />)).toMatchSnapshot()
+    expect(render(<StateLabel state="merged" />)).toMatchSnapshot()
+    expect(render(<StateLabel state="closed" />)).toMatchSnapshot()
+  })
 
-it('StateLabel does not pass on arbitrary attributes', () => {
-  const defaultOutput = render(<StateLabel />)
-  expect(render(<StateLabel className="foo" />)).toEqual(defaultOutput)
-  expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
-  expect(render(<StateLabel hidden />)).toEqual(defaultOutput)
+  it('does not pass on arbitrary attributes', () => {
+    const defaultOutput = render(<StateLabel />)
+    expect(render(<StateLabel className="foo" />)).toEqual(defaultOutput)
+    expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
+    expect(render(<StateLabel hidden />)).toEqual(defaultOutput)
+  })
+
+  it('respects icon={false}', () => {
+    expect(render(<StateLabel state="open" icon={false} />)).toEqual(render(<span className="State State--green" />))
+  })
+
+  it('wraps the icon in .mr-1 if there are children', () => {
+    expect(render(<StateLabel state="open">test</StateLabel>)).toEqual(
+      render(
+        <span className="State State--green">
+          <span className="mr-1">
+            <Octicon icon={IssueOpened} />
+          </span>test
+        </span>
+      )
+    )
+  })
 })
