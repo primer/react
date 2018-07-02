@@ -36,6 +36,7 @@ export function renderClasses(component) {
 let enzymeConfigured = false
 export function mount(component) {
   if (!enzymeConfigured) {
+    enzymeConfigured = true
     enzyme.configure({adapter: new Adapter()})
   }
   return enzyme.mount(component)
