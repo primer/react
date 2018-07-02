@@ -81,6 +81,13 @@ describe('Details', () => {
       }</Details>
     )
 
+    /**
+     * XXX note: when using the react element wrapper, the
+     * selector '[open]' doesn't properly resolve the presence
+     * of the 'open' HTML attribute. To get around this, we have
+     * to test the underlying DOM node's actual 'open'
+     * attribute.
+     */
     const dom = wrapper.getDOMNode()
     const summary = wrapper.find('summary')
 
