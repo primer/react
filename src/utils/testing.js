@@ -1,4 +1,6 @@
 import renderer from 'react-test-renderer'
+import enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 /**
  * Render the component (a React.createElement() or JSX expression)
@@ -29,4 +31,12 @@ export function renderClasses(component) {
     props: {className}
   } = render(component)
   return className ? className.trim().split(' ') : []
+}
+
+let enzymeConfigured = false
+export function mount(component) {
+  if (!enzymeConfigured) {
+    enzyme.configure({adapter: new Adapter()})
+  }
+  return enzyme.mount(component)
 }
