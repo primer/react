@@ -35,6 +35,7 @@
     "template": "./html.js"
   },
   "jest": {
+    "collectCoverage": true,
     "transformIgnorePatterns": [
       "node_modules/(?!@github/octicons-react)"
     ]
