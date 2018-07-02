@@ -16,17 +16,13 @@ Install primer-react in your project with:
 
 ## Local Development
 
-Run `primer-react` locally when adding or updating components.
-
-Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
-
 To run `primer-react` locally when adding or updating components:
 
-1. Clone this repo: `$ git clone https://github.com/primer/primer-react.git`
+1. Clone this repo: `git clone https://github.com/primer/primer-react`
 1. Install dependencies: `npm install`
-1. Run the dev app with: `npm start`
+1. Run the dev app: `npm start`
 
-Remember to build docs before publishing with: `npm run build`
+Remember to build the documentation before publishing with `npm run build:docs`
 
 ### Code Style
 
@@ -71,6 +67,11 @@ npm t -- --watch
 
 See [`src/__tests__/example.js`](src/__tests__/example.js) for an
 example of how we're testing our components.
+
+#### Code coverage
+
+A code coverage report is included in the `npm test` output, and
+test coverage data is generated in the `coverage/` directory.
 
 ## Principles
 
