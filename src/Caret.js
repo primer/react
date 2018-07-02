@@ -97,8 +97,7 @@ Caret.defaultProps = {
   borderWidth: 1,
   fill: colors.white,
   location: 'bottom',
-  size: theme.space[2],
-  css: false
+  size: theme.space[2]
 }
 
 Caret.propTypes = {
@@ -106,6 +105,5 @@ Caret.propTypes = {
   borderWidth: PropTypes.number,
   location: PropTypes.oneOf(Caret.locations),
   fill: PropTypes.string,
-  size: PropTypes.number,
-  css: PropTypes.bool
+  size: PropTypes.number
 }

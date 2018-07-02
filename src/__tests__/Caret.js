@@ -1,6 +1,5 @@
 import React from 'react'
 import Caret from '../Caret'
-import {shallow} from 'enzyme'
 import {render} from '../utils/testing'
 
 describe('Caret', () => {
