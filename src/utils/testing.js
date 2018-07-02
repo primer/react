@@ -30,3 +30,22 @@ export function renderClasses(component) {
   } = render(component)
   return className ? className.trim().split(' ') : []
 }
+
+/**
+ * console.error() is ugly af in jest; mock it with a noop,
+ * and return the mock so that you can restore it:
+ *
+ * ```js
+ * const mock = silenceConsoleError(jest)
+ * // do stuff that calls console.error()
+ * mock.mockRestore() // restore console.error()
+ * ```
+ *
+ * Note: we need to pass `jest` as a reference here because
+ * jest's mocking functions are bound to a module at runtime, and
+ * need to be called as methods rather than pure functions
+ * exported from the jest-mock module.
+ */
+export function silenceConsoleError(jest) {
+  return jest.spyOn(console, 'error').mockImplementation(jest.fn())
+}
