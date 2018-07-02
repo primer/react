@@ -35,6 +35,7 @@ const DonutChart = props => {
 }
 
 DonutChart.propTypes = {
+  // require elements, not mixed content: <DonutSlice>, <title>, etc.
   children: oneOrMoreOf(PropTypes.element),
   data: PropTypes.objectOf(PropTypes.number),
   size: PropTypes.number
