@@ -36,6 +36,10 @@
   },
   "jest": {
     "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/utils/testing.js"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!@github/octicons-react)"
     ]
