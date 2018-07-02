@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import Details from '../Details'
 import {mount, render} from '../utils/testing'
