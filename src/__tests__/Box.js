@@ -36,7 +36,7 @@ describe('Box', () => {
 
   it('renders borders', () => {
     expect(renderClasses(<Box border />)).toEqual(['border', 'bg-white', 'rounded-1'])
-    expect(renderClasses(<Box border={['left', 'green']} />)).toEqual([
+    expect(renderClasses(<Box border="left" borderColor="green" />)).toEqual([
       'border-left',
       'border-green',
       'bg-white',
