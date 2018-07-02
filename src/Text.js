@@ -18,7 +18,11 @@ const Text = props => {
   const {className} = mapWhitespaceProps(rest)
 
   const fontSizeClass =
-    fontSize in fontSizeMap ? `f${fontSizeMap[fontSize]}` : (typeof fontSize === 'number' || fontSize) ? `f${fontSize}` : null
+    fontSize in fontSizeMap
+      ? `f${fontSizeMap[fontSize]}`
+      : typeof fontSize === 'number' || fontSize
+        ? `f${fontSize}`
+        : null
 
   return (
     <Tag
