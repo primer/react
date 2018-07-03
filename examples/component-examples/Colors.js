@@ -6,9 +6,9 @@ const ColorsExample = {
   name: 'Colors',
   element: (
     <div>
-      {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map((hue, i) => (
-        <div className="d-flex" key={i}>
-          {theme.colors[hue].map((color, j) => <Swatch name={hue} index={j} key={j} color={color} />)}
+      {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map(hue => (
+        <div className="d-flex" key={hue}>
+          {theme.colors[hue].map((color, j) => <Swatch name={hue} index={j} key={color} color={color} />)}
         </div>
       ))}
       <div className="d-flex">
