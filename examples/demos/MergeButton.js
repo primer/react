@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Details, Button, CaretBox, Text, Block} from '../../src'
+import {Block, Button, CaretBox, Details, Text} from '../../src'
 
-const MergeButton = ({primary, onClick, numCommits, children}) => {
+const MergeButton = ({primary, onClick, numCommits}) => {
   const arrowStyles = {
     content: '',
     border: '4px solid',
@@ -29,7 +29,7 @@ const MergeButton = ({primary, onClick, numCommits, children}) => {
         Merge Pull Request
       </Button>
       <Details className="details-reset d-flex float-right">
-        {({open, toggle}) => (
+        {({toggle}) => (
           <React.Fragment>
             <Button tag="summary" {...buttonSchemeProps} onClick={toggle} style={borderStyles}>
               <div className="d-inline-block v-align-middle" style={arrowStyles} />

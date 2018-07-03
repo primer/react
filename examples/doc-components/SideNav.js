@@ -9,7 +9,12 @@ const SideNav = ({title, examples}) => (
         {title}
       </NavLink>
       {examples.map(example => (
-        <NavLink className="menu-item no-underline link-gray-dark" activeClassName="selected" to={`/${example.name}`}>
+        <NavLink
+          className="menu-item no-underline link-gray-dark"
+          activeClassName="selected"
+          to={`/${example.name}`}
+          key={example.name}
+        >
           {example.name}
         </NavLink>
       ))}

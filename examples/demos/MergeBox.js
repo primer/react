@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {MergeStatus, CaretBox} from '../../src'
-import MergeButton from './MergeButton'
 import MergeDetail from './MergeDetail'
 import MergeActions from './MergeActions'
 

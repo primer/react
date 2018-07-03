@@ -11,8 +11,8 @@ const TooltipExample = {
       </Box>
       <Block p={2}>
         <ExampleHeading mt={3}>Directions</ExampleHeading>
-        {Tooltip.directions.map((d, i) => (
-          <Box p={3} key={i}>
+        {Tooltip.directions.map(d => (
+          <Box p={3} key={d}>
             <Tooltip text="Hello, Tooltip!" direction={d}>
               Tooltip direction={d}
             </Tooltip>

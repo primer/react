@@ -1,6 +1,6 @@
 import React from 'react'
 import {PropsForm} from '@compositor/kit'
-import {FlexContainer, FlexItem, Block, Text, theme} from '../../src'
+import {Block, FlexContainer, FlexItem} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const propObj = {
@@ -46,7 +46,9 @@ const FlexExample = {
           </Block>
         </FlexContainer>
         {Object.keys(propObj).map(key => (
-          <PropsForm.Select name={key}>{propObj[key].map((value, i) => <option>{value}</option>)}</PropsForm.Select>
+          <PropsForm.Select key={key} name={key}>
+            {propObj[key].map(value => <option key={value}>{value}</option>)}
+          </PropsForm.Select>
         ))}
       </PropsForm>
       <ExampleHeading mt={2}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>

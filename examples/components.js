@@ -1,3 +1,4 @@
+/* eslint-disable import/no-namespace */
 import React from 'react'
 import {Library} from '@compositor/kit'
 import SideNav from './doc-components/SideNav'

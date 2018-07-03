@@ -1,3 +1,4 @@
+/* eslint-disable import/no-namespace */
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import * as components from '../src'
