@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
-import default as CSSStyles from './doc-components/CSS'
+import {default as CSSStyles} from './doc-components/CSS'
 
 const Page = ({render}) => (
   <React.Fragment>
@@ -23,5 +24,9 @@ const Page = ({render}) => (
     </div>
   </React.Fragment>
 )
+
+Page.propTypes = {
+  render: PropTypes.func
+}
 
 export default Page
