@@ -66,21 +66,21 @@ colors.border = {
 }
 
 colors.bg = {
-  'blue-light': blue[0],
-  blue: blue[5],
-  'gray-dark': gray[9],
+  white: colors.white,
   'gray-light': gray[0],
   gray: gray[1],
-  green: green[5],
-  'green-light': green[1],
-  orange: orange[7],
+  'gray-dark': gray[9],
   purple: purple[5],
-  'purple-light': purple[0],
-  red: red[5],
-  'red-light': red[1],
-  white: colors.white,
+  blue: blue[5],
+  green: green[5],
   yellow: yellow[5],
-  'yellow-light': yellow[2]
+  orange: orange[7],
+  red: red[5],
+  'purple-light': purple[0],
+  'blue-light': blue[0],
+  'green-light': green[1],
+  'yellow-light': yellow[2],
+  'red-light': red[1]
 }
 
 const theme = {

@@ -1,44 +1,35 @@
 import React from 'react'
-import { Text, Block } from  '../../src'
+import {colors} from  '../../src/theme'
+import {Block, Text} from  '../../src'
+
+const backgroundColors = Object.keys(colors.bg)
+  .filter(color => color !== 'orange')
+
+const textColors = ['white', 'gray', 'black']
 
 const BlockExample = {
   name: 'Block',
   element: (
-    <table>
-      <tbody>
-        {[
-          // 'black',
-          'white',
-          'gray-dark',
-          'gray',
-          'gray-light',
-          'blue',
-          'blue-light',
-          'green',
-          'green-light',
-          'red',
-          'red-light',
-          'yellow',
-          'yellow-light',
-          'purple',
-          'purple-light',
-          // 'shade-gradient'
-        ].map((bg, i, style) => (
-          <tr key={i}>
-            <td>
-              <Text mono nowrap>{`bg='${bg}'`}</Text>
-            </td>
-            {['white', 'gray', 'black'].map((fg, j) => (
-              <td key={j}>
-                <Block p={3} mb={2} bg={bg} border={bg === 'white'}>
-                  <Text color={fg}>{fg}</Text>
-                </Block>
+    <Block p={4}>
+      <table>
+        <tbody>
+          {backgroundColors.map((bg, i) => (
+            <tr key={i}>
+              <td>
+                <Text mono nowrap>{`bg='${bg}'`}</Text>
               </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+              {textColors.map((fg, j) => (
+                <td key={j}>
+                  <Block p={3} mb={2} bg={bg} border={bg === 'white'}>
+                    <Text color={fg}>{fg}</Text>
+                  </Block>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Block>
   )
 }
 
