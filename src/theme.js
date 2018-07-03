@@ -47,7 +47,7 @@ const colors = {
   whitefade15: 'rgba(255, 255 ,255, 0.15)'
 }
 
-const {blue, gray, green, orange, purple, red, yellow} = colors
+const {blue, gray, green, purple, red, yellow} = colors
 
 colors.border = {
   'black-fade': colors.blackfade15,
