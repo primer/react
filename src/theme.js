@@ -74,7 +74,7 @@ colors.bg = {
   blue: blue[5],
   green: green[5],
   yellow: yellow[5],
-  orange: orange[7],
+  // orange: orange[7],
   red: red[5],
   'purple-light': purple[0],
   'blue-light': blue[0],
