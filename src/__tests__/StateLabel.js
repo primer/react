@@ -1,6 +1,6 @@
 import React from 'react'
-import StateLabel from '../StateLabel'
 import Octicon, {IssueOpened} from '@github/octicons-react'
+import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
 
 describe('StateLabel', () => {
