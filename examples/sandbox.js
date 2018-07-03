@@ -1,5 +1,5 @@
 import React from 'react'
-import { LiveEditor } from '@compositor/kit'
+import {LiveEditor} from '@compositor/kit'
 import * as components from '../src'
 
 const code = `
@@ -8,6 +8,6 @@ const code = `
     <Text>To get started with the Sandbox, start adding some primer-react components</Text>
   </Block>`
 
-const Sandbox = () => <LiveEditor code={code} scope={components}/>
+const Sandbox = () => <LiveEditor code={code} scope={components} />
 
 export default Sandbox

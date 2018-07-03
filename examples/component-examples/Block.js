@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Block } from  '../../src'
+import {Text, Block} from '../../src'
 
 const BlockExample = {
   name: 'Block',
@@ -21,7 +21,7 @@ const BlockExample = {
           'yellow',
           'yellow-light',
           'purple',
-          'purple-light',
+          'purple-light'
           // 'shade-gradient'
         ].map((bg, i, style) => (
           <tr key={i}>
