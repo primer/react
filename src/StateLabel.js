@@ -1,7 +1,7 @@
 import React from 'react'
-import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@github/octicons-react'
+import classnames from 'classnames'
 import {colors} from './theme'
 
 const stateColorMap = {
@@ -65,10 +65,11 @@ const StateLabel = ({state, scheme, small, icon, children}) => {
 }
 
 StateLabel.propTypes = {
-  state: PropTypes.oneOf(Object.keys(stateOcticonMap)),
+  children: PropTypes.node,
+  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
   scheme: PropTypes.string,
   small: PropTypes.bool,
-  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.bool])
+  state: PropTypes.oneOf(Object.keys(stateOcticonMap))
 }
 
 export default StateLabel
