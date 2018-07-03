@@ -6,7 +6,7 @@ const Box = props => <Block {...props} />
 Box.defaultProps = {
   bg: 'white',
   border: true,
-  round: 1
+  borderRadius: 1
 }
 
 Box.propTypes = Block.propTypes

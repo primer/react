@@ -1,30 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {colors} from './theme'
 import {mapWhitespaceProps, oneOrMoreOf, stylizer} from './props'
 
-const styleProps = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight']
+const borderColors = Object.keys(colors.border)
 
+const styleProps = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight']
 const stylize = stylizer(styleProps)
 
 function unique(values) {
   return values.filter((v, i) => values.indexOf(v) === i)
 }
 
-function getBorderClass(value) {
+function getBorderClass(value, colorValue) {
   if (Array.isArray(value)) {
     return unique(value.map(getBorderClass))
   } else if (typeof value === 'boolean') {
     return value ? 'border' : 'border-0'
   } else if (value) {
     return `border-${value}`
+  } else if (colorValue) {
+    return 'border'
   }
 }
 
 const Block = props => {
-  const {tag: Tag = 'div', children, className, bg, border, fg, position, round, shadow, ...rest} = mapWhitespaceProps(
-    props
-  )
+  const {
+    tag: Tag = 'div',
+    children,
+    className,
+    bg,
+    border,
+    borderColor,
+    borderRadius,
+    display,
+    fg,
+    position,
+    shadow,
+    ...rest
+  } = mapWhitespaceProps(props)
 
   const {style} = stylize(rest)
 
@@ -32,11 +47,13 @@ const Block = props => {
     <Tag
       className={classnames(
         className,
-        getBorderClass(border),
+        getBorderClass(border, borderColor),
+        borderColor && `border-${borderColor}`,
+        display && `d-${display}`,
         bg && `bg-${bg}`,
         fg && `text-${fg}`,
+        typeof borderRadius === 'number' && `rounded-${borderRadius}`,
         position && `position-${position}`,
-        typeof round === 'number' && `rounded-${round}`,
         shadow && (shadow === 'small' ? 'box-shadow' : `box-shadow-${shadow}`)
       )}
       style={style}
@@ -48,11 +65,13 @@ const Block = props => {
 
 Block.propTypes = {
   bg: PropTypes.string,
-  border: oneOrMoreOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number])),
+  border: PropTypes.oneOfType([PropTypes.bool, oneOrMoreOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left']))]),
+  borderColor: PropTypes.oneOf(borderColors),
+  borderRadius: PropTypes.oneOf([0, 1, 2]),
+  children: PropTypes.node,
   display: PropTypes.oneOf(['inline', 'inline-block']),
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
-  round: PropTypes.number,
   shadow: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large']),
   ...mapWhitespaceProps.propTypes
 }
