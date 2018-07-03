@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {theme} from '../../src'
 
 /* eslint-disable-next-line react/no-danger */
@@ -15,6 +16,10 @@ CSS.defaultProps = {
       line-height: ${theme.lineHeight};
     }
   `
+}
+
+CSS.propTypes = {
+  css: PropTypes.string
 }
 
 export default CSS

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
 import {Block} from '../../src'
 
@@ -21,5 +22,14 @@ const SideNav = ({title, examples}) => (
     </nav>
   </Block>
 )
+
+SideNav.propTypes = {
+  examples: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string
+    })
+  ),
+  title: PropTypes.node
+}
 
 export default SideNav
