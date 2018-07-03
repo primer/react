@@ -1,24 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {colors} from './theme'
 import {mapWhitespaceProps, oneOrMoreOf, stylizer} from './props'
 
-const borderColors = [
-  'black-fade',
-  'blue',
-  'blue-light',
-  'gray-dark',
-  'gray-light',
-  'green',
-  'green-light',
-  'purple',
-  'red',
-  'red-light',
-  'yellow'
-]
+const borderColors = Object.keys(colors.border)
 
 const styleProps = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight']
-
 const stylize = stylizer(styleProps)
 
 function unique(values) {
@@ -80,7 +68,7 @@ Block.propTypes = {
   border: PropTypes.oneOfType([PropTypes.bool, oneOrMoreOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left']))]),
   borderColor: PropTypes.oneOf(borderColors),
   borderRadius: PropTypes.oneOf([0, 1, 2]),
-  children: PropTypes.element,
+  children: PropTypes.node,
   display: PropTypes.oneOf(['inline', 'inline-block', 'none']),
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
