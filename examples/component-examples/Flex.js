@@ -18,9 +18,10 @@ const FlexExample = {
         <ExampleHeading mt={2}>FlexContainer</ExampleHeading>
         <PropsForm>
           <FlexContainer
-            wrap='wrap'
+            flex={['inline-flex','flex','inline-flex','flex']}
+            wrap={['wrap','nowrap','nowrap','nowrap']}
             direction='row'
-            justifyContent='start'
+            justifyContent={['start','end','start','start']}
             alignItems='start'
             alignContent='start'
             flexAuto={true}
