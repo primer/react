@@ -34,9 +34,19 @@ describe('Block', () => {
     expect(renderClasses(<Block p={[null, 1, null, 3]} />)).toEqual(['p-sm-1', 'p-lg-3', ...defaultClasses])
   })
 
-  it('renders borders', () => {
-    expect(renderClasses(<Block border />)).toEqual(['border'])
-    expect(renderClasses(<Block border={['left', 'green']} />)).toEqual(['border-left', 'border-green'])
+  describe('borders', () => {
+    it('handles border prop as true', () => {
+      expect(renderClasses(<Block border />)).toEqual(['border'])
+    })
+    it('handles a single border edge', () => {
+      expect(renderClasses(<Block border="left" borderColor="green" />)).toEqual(['border-left', 'border-green'])
+    })
+    it('handles multiple border edges', () => {
+      expect(renderClasses(<Block border={['top', 'left']} />)).toEqual(['border-top', 'border-left'])
+    })
+    it('handles just a border color', () => {
+      expect(renderClasses(<Block borderColor="red" />)).toEqual(['border', 'border-red'])
+    })
   })
 
   it('renders position', () => {
