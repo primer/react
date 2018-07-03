@@ -5,8 +5,8 @@ const FontSizesExample = {
   name: 'Font sizes',
   element: (
     <div>
-      {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map((fontSize, i) => (
-        <Text tag="div" key={i} fontSize={fontSize}>
+      {[/* 7, 6, */ 5, 4, 3, 2, 1, 0].map(fontSize => (
+        <Text tag="div" key={fontSize} fontSize={fontSize}>
           fontSize {fontSize}
         </Text>
       ))}
