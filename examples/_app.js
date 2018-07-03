@@ -1,10 +1,10 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import CSS from './doc-components/CSS'
+import default as CSSStyles from './doc-components/CSS'
 
 const Page = ({render}) => (
   <React.Fragment>
-    <CSS />
+    <CSSStyles />
     <div className="text-dark-gray">
       <nav className="UnderlineNav">
         <div className="UnderlineNav-body">

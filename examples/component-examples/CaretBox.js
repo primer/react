@@ -12,12 +12,12 @@ const CaretBoxExample = {
         <CaretBox my={4} p={2} minHeight={100} border={[true, 'purple']}>
           CaretBox
         </CaretBox>
-        <PropsForm.Select name="caret">{Caret.locations.map((loc, i) => <option>{loc}</option>)}</PropsForm.Select>
+        <PropsForm.Select name="caret">{Caret.locations.map(loc => <option key={loc}>{loc}</option>)}</PropsForm.Select>
         <PropsForm.Select name="border">
-          {Object.keys(theme.colors.border).map(borderColor => <option>{`[true, borderColor]`}</option>)}
+          {Object.keys(theme.colors.border).map(borderColor => <option key={borderColor}>{borderColor}</option>)}
         </PropsForm.Select>
         <PropsForm.Select name="bg">
-          {Object.keys(theme.colors.bg).map(bgColor => <option>{bgColor}</option>)}
+          {Object.keys(theme.colors.bg).map(bgColor => <option key={bgColor}>{bgColor}</option>)}
         </PropsForm.Select>
       </PropsForm>
     </Block>

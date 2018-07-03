@@ -23,7 +23,7 @@ const BlockExample = {
           'purple',
           'purple-light'
           // 'shade-gradient'
-        ].map((bg, i, style) => (
+        ].map((bg, i) => (
           <tr key={i}>
             <td>
               <Text mono nowrap>{`bg='${bg}'`}</Text>

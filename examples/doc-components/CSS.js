@@ -1,6 +1,7 @@
 import React from 'react'
 import {theme} from '../../src'
 
+/* eslint-disable-next-line react/no-danger */
 const CSS = ({css}) => <style dangerouslySetInnerHTML={{__html: css}} />
 
 const fonts = theme.fonts.map(name => (name.indexOf(' ') > -1 ? `"${name}"` : name)).join(', ')
