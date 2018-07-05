@@ -1,7 +1,7 @@
 import React from 'react'
-import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@github/octicons-react'
+import classnames from 'classnames'
 import {colors} from './theme'
 
 const stateColorMap = {
