@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import {theme} from '../../src'
 
 /* eslint-disable-next-line react/no-danger */
-const CSS = ({css}) => <style dangerouslySetInnerHTML={{__html: css}} />
+const Styles = ({css}) => <style dangerouslySetInnerHTML={{__html: css}} />
 
 const fonts = theme.fonts.map(name => (name.indexOf(' ') > -1 ? `"${name}"` : name)).join(', ')
 
-CSS.defaultProps = {
+Styles.defaultProps = {
   css: `
     * { box-sizing: border-box; }
     body {
@@ -18,8 +18,8 @@ CSS.defaultProps = {
   `
 }
 
-CSS.propTypes = {
+Styles.propTypes = {
   css: PropTypes.string
 }
 
-export default CSS
+export default Styles
