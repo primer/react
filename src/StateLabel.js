@@ -27,7 +27,7 @@ function getOcticon(state) {
   return <Octicon icon={stateOcticonMap[state]} />
 }
 
-const getIconComponent = (icon, children) => {
+function getIconComponent(icon, children) {
   if (icon && children) {
     return <span className="mr-1">{icon}</span>
   } else if (icon) {
@@ -65,10 +65,11 @@ const StateLabel = ({state, scheme, small, icon, children}) => {
 }
 
 StateLabel.propTypes = {
-  state: PropTypes.oneOf(Object.keys(stateOcticonMap)),
+  children: PropTypes.node,
+  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
   scheme: PropTypes.string,
   small: PropTypes.bool,
-  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.bool])
+  state: PropTypes.oneOf(Object.keys(stateOcticonMap))
 }
 
 export default StateLabel

@@ -36,6 +36,13 @@
   },
   "jest": {
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/utils/testing.js"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!@github/octicons-react)"
     ]
@@ -54,6 +61,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "6.24.1",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.1",
     "eslint-plugin-github": "1.0.0",
     "eslint-plugin-jest": "21.15.1",
