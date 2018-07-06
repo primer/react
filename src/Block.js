@@ -54,7 +54,7 @@ const Block = props => {
         fg && `text-${fg}`,
         typeof borderRadius === 'number' && `rounded-${borderRadius}`,
         position && `position-${position}`,
-        shadow && (shadow === true ? 'box-shadow' : `box-shadow-${shadow}`)
+        shadow && (shadow === 'small' ? 'box-shadow' : `box-shadow-${shadow}`)
       )}
       style={style}
     >
@@ -72,7 +72,7 @@ Block.propTypes = {
   display: PropTypes.oneOf(['inline', 'inline-block', 'none']),
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
-  shadow: PropTypes.oneOf([true, 'medium', 'large', 'extra-large']),
+  shadow: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large']),
   ...mapWhitespaceProps.propTypes
 }
 

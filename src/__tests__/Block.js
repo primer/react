@@ -71,8 +71,8 @@ describe('Block', () => {
     expect(renderClasses(<Block fg="red" />)).toEqual(['text-red'])
   })
 
-  it('respects shadow', () => {
-    expect(renderClasses(<Block shadow />)).toEqual(['box-shadow'])
+  it('renders shadow', () => {
+    expect(renderClasses(<Block shadow="small" />)).toEqual(['box-shadow'])
     expect(renderClasses(<Block shadow="medium" />)).toEqual(['box-shadow-medium'])
     expect(renderClasses(<Block shadow="large" />)).toEqual(['box-shadow-large'])
     expect(renderClasses(<Block shadow="extra-large" />)).toEqual(['box-shadow-extra-large'])
