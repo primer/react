@@ -33,6 +33,8 @@ export default class Details extends React.Component {
 }
 
 Details.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  className: PropTypes.string,
   open: PropTypes.bool,
   render: PropTypes.func
 }

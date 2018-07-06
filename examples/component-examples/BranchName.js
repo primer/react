@@ -11,9 +11,13 @@ const BranchNameExample = {
       <BranchName>a_new_feature_branch</BranchName>
       <Detail>
         <ExampleHeading mt={3}>Linked BranchName</ExampleHeading>
-        <BranchName tag='a' href='/'>a_new_feature_branch</BranchName>
+        <BranchName tag="a" href="/">
+          a_new_feature_branch
+        </BranchName>
         <ExampleHeading mt={3}>BranchName with Octicon</ExampleHeading>
-        <BranchName><Octicon icon={GitBranch} /> a_new_feature_branch</BranchName>
+        <BranchName>
+          <Octicon icon={GitBranch} /> a_new_feature_branch
+        </BranchName>
       </Detail>
     </div>
   )
