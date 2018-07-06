@@ -1,7 +1,8 @@
 import React from 'react'
-import DonutSlice from './DonutSlice'
 import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
+import DonutSlice from './DonutSlice'
+import {oneOrMoreOf} from './props'
 
 function mapData(data) {
   return Object.keys(data).map(key => <DonutSlice key={key} state={key} value={data[key]} />)
@@ -23,7 +24,7 @@ const DonutChart = props => {
     .outerRadius(radius)
 
   const slices = childList.map((child, i) => {
-    return <DonutSlice {...child.props} d={arc(arcData[i])} key={child.props.key} />
+    return React.cloneElement(child, {d: arc(arcData[i])})
   })
 
   return (
@@ -33,13 +34,9 @@ const DonutChart = props => {
   )
 }
 
-// see: <https://github.com/facebook/react/issues/2979>
-const DonutPropType = PropTypes.shape({
-  type: PropTypes.oneOf([DonutSlice])
-})
-
 DonutChart.propTypes = {
-  children: PropTypes.oneOfType([DonutPropType, PropTypes.arrayOf(DonutPropType)]),
+  // require elements, not mixed content: <DonutSlice>, <title>, etc.
+  children: oneOrMoreOf(PropTypes.element),
   data: PropTypes.objectOf(PropTypes.number),
   size: PropTypes.number
 }

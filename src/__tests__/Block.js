@@ -34,18 +34,45 @@ describe('Block', () => {
     expect(renderClasses(<Block p={[null, 1, null, 3]} />)).toEqual(['p-sm-1', 'p-lg-3', ...defaultClasses])
   })
 
-  it('renders borders', () => {
-    expect(renderClasses(<Block border />)).toEqual(['border'])
-    expect(renderClasses(<Block border={['left', 'green']} />)).toEqual(['border-left', 'border-green'])
+  describe('borders', () => {
+    it('handles border prop as true', () => {
+      expect(renderClasses(<Block border />)).toEqual(['border'])
+    })
+    it('handles border prop as false', () => {
+      expect(renderClasses(<Block border={false} />)).toEqual(['border-0'])
+    })
+    it('handles a single border edge', () => {
+      expect(renderClasses(<Block border="left" borderColor="green" />)).toEqual(['border-left', 'border-green'])
+    })
+    it('handles multiple border edges', () => {
+      expect(renderClasses(<Block border={['top', 'left']} />)).toEqual(['border-top', 'border-left'])
+    })
+    it('handles just a border color', () => {
+      expect(renderClasses(<Block borderColor="red" />)).toEqual(['border', 'border-red'])
+    })
   })
 
-  it('renders position', () => {
+  it('respects display', () => {
+    expect(renderClasses(<Block display="inline" />)).toEqual(['d-inline'])
+    expect(renderClasses(<Block display="inline-block" />)).toEqual(['d-inline-block'])
+    expect(renderClasses(<Block display="none" />)).toEqual(['d-none'])
+  })
+
+  it('respects position', () => {
     expect(renderClasses(<Block position="absolute" />)).toEqual(['position-absolute'])
     expect(renderClasses(<Block position="relative" />)).toEqual(['position-relative'])
   })
 
+  it('respects bg', () => {
+    expect(renderClasses(<Block bg="yellow" />)).toEqual(['bg-yellow'])
+  })
+
+  it('respects fg', () => {
+    expect(renderClasses(<Block fg="red" />)).toEqual(['text-red'])
+  })
+
   it('renders shadow', () => {
-    expect(renderClasses(<Block shadow />)).toEqual(['box-shadow'])
+    expect(renderClasses(<Block shadow="small" />)).toEqual(['box-shadow'])
     expect(renderClasses(<Block shadow="medium" />)).toEqual(['box-shadow-medium'])
     expect(renderClasses(<Block shadow="large" />)).toEqual(['box-shadow-large'])
     expect(renderClasses(<Block shadow="extra-large" />)).toEqual(['box-shadow-extra-large'])

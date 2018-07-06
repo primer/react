@@ -1,0 +1,373 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Caret renders cardinal directions 1`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "bottom": "100%",
+      "left": "50%",
+      "marginLeft": -8,
+      "pointerEvents": "none",
+      "position": "absolute",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(8,16) rotate(180)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 2`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "left": "100%",
+      "marginTop": -8,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "top": "50%",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(0,8) rotate(-90)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 3`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "left": "50%",
+      "marginLeft": -8,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "top": "100%",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(8,0)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 4`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "marginTop": -8,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "right": "100%",
+      "top": "50%",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(16,8) rotate(90)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 5`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "bottom": "100%",
+      "left": 8,
+      "marginLeft": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(8,16) rotate(180)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 6`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "bottom": "100%",
+      "marginLeft": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "right": 8,
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(8,16) rotate(180)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 7`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "left": 8,
+      "marginLeft": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "top": "100%",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(8,0)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 8`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "marginLeft": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "right": 8,
+      "top": "100%",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(8,0)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 9`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "marginTop": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "right": "100%",
+      "top": 8,
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(16,8) rotate(90)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 10`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "bottom": 8,
+      "marginTop": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "right": "100%",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(16,8) rotate(90)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 11`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "left": "100%",
+      "marginTop": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "top": 8,
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(0,8) rotate(-90)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
+
+exports[`Caret renders cardinal directions 12`] = `
+<svg
+  height={16}
+  style={
+    Object {
+      "bottom": 8,
+      "left": "100%",
+      "marginTop": null,
+      "pointerEvents": "none",
+      "position": "absolute",
+    }
+  }
+  width={16}
+>
+  <g
+    transform="translate(0,8) rotate(-90)"
+  >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#fff"
+    />
+    <path
+      d="M-8,0L0,8L8,0"
+      fill="none"
+      stroke="#e1e4e8"
+      strokeWidth={1}
+    />
+  </g>
+</svg>
+`;
