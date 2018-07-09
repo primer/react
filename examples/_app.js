@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
 import Styles from './doc-components/Styles'
 import Octicon, {Package} from '@github/octicons-react'
-import {Block, Link, Text, UnderlineNav, UnderlineNavItem} from '../src'
+import {Link, Text, UnderlineNav, UnderlineNavItem} from '../src'
 import {name, repository, version} from '../package.json'
 
 const pkg = `${name}@${version}`
@@ -14,12 +14,14 @@ export default function Page({render}) {
     <React.Fragment>
       <Styles />
       <div className="text-dark-gray">
-        <UnderlineNav actions={(
-          <Text color="gray-light" mono px={4}>
-            <Octicon icon={Package} className="mr-2" />
-            <Link href={releaseURL}>{pkg}</Link>
-          </Text>
-        )}>
+        <UnderlineNav
+          actions={
+            <Text color="gray-light" mono px={4}>
+              <Octicon icon={Package} className="mr-2" />
+              <Link href={releaseURL}>{pkg}</Link>
+            </Text>
+          }
+        >
           <UnderlineNavItem tag={NavLink} to="/components">
             Components
           </UnderlineNavItem>
