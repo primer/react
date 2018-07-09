@@ -18,10 +18,7 @@
     "src",
     "examples"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/primer/primer-react.git"
-  },
+  "repository": "primer/primer-react",
   "keywords": [
     "react",
     "components",
