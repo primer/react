@@ -8,7 +8,7 @@
     "build": "NODE_ENV=production rollup -c",
     "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src examples",
-    "prepublishOnly": "npm -s run build",
+    "prepublishOnly": "npm run build",
     "start": "x0 dev examples -op 8888",
     "test": "jest"
   },
