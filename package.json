@@ -1,14 +1,15 @@
 {
   "name": "primer-react",
-  "version": "0.0.7-beta",
+  "version": "0.0.8-beta",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
     "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src examples",
-    "preversion": "npm -s run build",
+    "prepublishOnly": "npm run build",
     "start": "x0 dev examples -op 8888",
     "test": "jest"
   },
@@ -42,9 +43,6 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/src/utils/testing.js"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!@github/octicons-react)"
     ]
   },
   "dependencies": {
