@@ -8,8 +8,7 @@ describe('Caret', () => {
   })
 
   it('renders the given tag prop', () => {
-    const Type = jest.fn()
-    render(<UnderlineNavItem tag={Type} />)
-    expect(Type.mock.calls.length).toBe(1)
+    const Type = props => <div />
+    expect(render(<UnderlineNavItem tag={Type} />)).toEqual(render(<div />))
   })
 })
