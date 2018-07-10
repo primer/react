@@ -3,11 +3,19 @@ import Caret from '../Caret'
 import {render} from '../utils/testing'
 
 describe('Caret', () => {
-  it('outputs <svg> by default', () => {
+  it('renders <svg>', () => {
     expect(render(<Caret />).type).toEqual('svg')
   })
 
-  it('outputs a <div> if the "css" prop is present', () => {
-    expect(render(<Caret css />).type).toEqual('div')
+  it('renders cardinal directions', () => {
+    for (const location of ['top', 'right', 'bottom', 'left']) {
+      expect(render(<Caret location={location} />)).toMatchSnapshot()
+    }
+    for (const location of ['top-left', 'top-right', 'bottom-left', 'bottom-right']) {
+      expect(render(<Caret location={location} />)).toMatchSnapshot()
+    }
+    for (const location of ['left-top', 'left-bottom', 'right-top', 'right-bottom']) {
+      expect(render(<Caret location={location} />)).toMatchSnapshot()
+    }
   })
 })
