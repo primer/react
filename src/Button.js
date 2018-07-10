@@ -7,9 +7,7 @@ const schemeMap = {
 }
 
 function getButtonClass({linkStyle, scheme}) {
-  return linkStyle
-    ? 'btn-link'
-    : scheme ? schemeMap[scheme] || `btn btn-${scheme}` : 'btn'
+  return linkStyle ? 'btn-link' : scheme ? schemeMap[scheme] || `btn btn-${scheme}` : 'btn'
 }
 
 export default function Button({
@@ -19,7 +17,6 @@ export default function Button({
   grouped,
   label,
   linkStyle,
-  octicon,
   onClick,
   scheme,
   size,
