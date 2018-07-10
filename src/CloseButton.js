@@ -3,12 +3,10 @@ import PropTypes from 'prop-types'
 import Button from './Button'
 import Octicon, {X} from '@github/octicons-react'
 
-const closeIcon = <Octicon icon={X} />
-
 export default function CloseButton(props) {
   return (
     <Button {...props} scheme="octicon">
-      {closeIcon}
+      <Octicon icon={X} />
     </Button>
   )
 }
