@@ -16,6 +16,10 @@ const CircleOcticon = ({size, bg, color, ...rest}) => {
   )
 }
 
+CircleOcticon.defaultProps = {
+  size: 32
+}
+
 CircleOcticon.propTypes = {
   ...Octicon.propTypes,
   // FIXME: we should be able to infer the size from the
