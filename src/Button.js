@@ -2,21 +2,36 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
-function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...props}) {
+export default function Button({
+  block,
+  children,
+  disabled,
+  grouped,
+  label,
+  linkStyle,
+  onClick,
+  scheme,
+  size,
+  tag: Tag = 'button',
+  ...props
+}) {
   const classes = classnames(
-    {
-      btn: !linkStyle,
-      'btn-link': linkStyle,
-      'btn-sm': size === 'sm',
-      'btn-large': size === 'large',
-      'btn-block': block,
-      'BtnGroup-item': grouped
-    },
-    scheme ? `btn-${scheme}` : null
+    linkStyle ? 'btn-link' : 'btn',
+    size && `btn-${size}`,
+    block && 'btn-block',
+    grouped && 'BtnGroup-item',
+    scheme && `btn-${scheme}`
   )
 
   return (
-    <Tag {...props} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
+    <Tag
+      {...props}
+      aria-label={label}
+      className={classes}
+      disabled={disabled}
+      onClick={disabled ? undefined : onClick}
+      type="button"
+    >
       {children}
     </Tag>
   )
@@ -24,13 +39,12 @@ function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped,
 
 Button.propTypes = {
   block: PropTypes.bool,
+  disabled: PropTypes.bool,
   grouped: PropTypes.bool,
+  label: PropTypes.string,
+  linkStyle: PropTypes.bool,
+  onClick: PropTypes.func,
   scheme: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'large']),
-  tag: PropTypes.oneOf(['button', 'a', 'summary']),
-  linkStyle: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  tag: PropTypes.oneOf(['button', 'a', 'summary'])
 }
-
-export default Button
