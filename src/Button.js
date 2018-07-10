@@ -2,6 +2,16 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
+const schemeMap = {
+  octicon: 'Box-btn-octicon'
+}
+
+function getButtonClass({linkStyle, scheme}) {
+  return linkStyle
+    ? 'btn-link'
+    : scheme ? schemeMap[scheme] || `btn btn-${scheme}` : 'btn'
+}
+
 export default function Button({
   block,
   children,
@@ -9,6 +19,7 @@ export default function Button({
   grouped,
   label,
   linkStyle,
+  octicon,
   onClick,
   scheme,
   size,
@@ -16,11 +27,10 @@ export default function Button({
   ...props
 }) {
   const classes = classnames(
-    linkStyle ? 'btn-link' : 'btn',
+    getButtonClass({linkStyle, scheme}),
     size && `btn-${size}`,
     block && 'btn-block',
-    grouped && 'BtnGroup-item',
-    scheme && `btn-${scheme}`
+    grouped && 'BtnGroup-item'
   )
 
   return (
