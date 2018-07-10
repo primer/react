@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
 const schemeMap = {
-  octicon: 'Box-btn-octicon'
+  octicon: 'btn-link text-inherit'
 }
 
 function getButtonClass({linkStyle, scheme}) {
