@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 export default function Link({children, className, muted, scheme, nounderline, ...rest}) {
+  const colorClass = scheme
+    ? `link-${scheme}`
+    : muted ? 'muted-link' : 'text-blue'
   return (
     <a
       className={classnames(
         className,
-        'text-blue',
-        muted && 'muted-link',
-        scheme && `link-${scheme}`,
+        colorClass,
         nounderline && 'no-underline'
       )}
       {...rest}
