@@ -22,6 +22,8 @@ CircleOcticon.defaultProps = {
 
 CircleOcticon.propTypes = {
   ...Octicon.propTypes,
+  bg: PropTypes.string,
+  color: PropTypes.string,
   // FIXME: we should be able to infer the size from the
   // rendered Octicon so that we can support
   // size={'small|medium|large'}
