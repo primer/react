@@ -1,10 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const BranchName = ({children, href, tag}) => {
-  const Tag = tag === 'a' ? 'a' : 'span'
-
+export default function BranchName({children, href, tag: Tag}) {
   // We don't want someone to use href on a non tag
-  if (tag !== 'a') {
+  if (Tag !== 'a') {
     href = null
   }
 
@@ -15,4 +14,12 @@ const BranchName = ({children, href, tag}) => {
   )
 }
 
-export default BranchName
+BranchName.defaultProps = {
+  tag: 'a'
+}
+
+BranchName.propTypes = {
+  children: PropTypes.node,
+  href: PropTypes.string,
+  tag: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+}
