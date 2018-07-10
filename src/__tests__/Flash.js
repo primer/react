@@ -1,6 +1,6 @@
 import React from 'react'
 import Flash from '../Flash'
-import {mount, render} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Flash', () => {
   it('renders a <div> with "Flash" class', () => {

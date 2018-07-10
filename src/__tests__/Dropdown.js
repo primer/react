@@ -1,6 +1,6 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
-import {mount, render} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Dropdown', () => {
   it('renders a <div> with "BtnGroup" class', () => {
