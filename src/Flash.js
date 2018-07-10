@@ -1,17 +1,24 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-export default function Flash({children, className, full, yellow, red, green}) {
+const schemeMap = {
+  green: 'success',
+  red: 'error',
+  yellow: 'warn'
+}
+
+export default function Flash({children, className, full, scheme}) {
   return (
-    <div
-      className={classnames(className, 'flash', {
-        'flash-full': full,
-        'flash-warn': yellow,
-        'flash-error': red,
-        'flash-success': green
-      })}
-    >
+    <div className={classnames(className, 'flash', full && 'flash-full', scheme && `flash-${schemeMap[scheme]}`)}>
       {children}
     </div>
   )
+}
+
+Flash.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  full: PropTypes.bool,
+  scheme: PropTypes.oneOf(Object.keys(schemeMap))
 }
