@@ -3,18 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 export default function Link({children, className, muted, scheme, nounderline, ...rest}) {
-  const colorClass = scheme
-    ? `link-${scheme}`
-    : muted ? 'muted-link' : 'text-blue'
+  const colorClass = scheme ? `link-${scheme}` : muted ? 'muted-link' : 'text-blue'
   return (
-    <a
-      className={classnames(
-        className,
-        colorClass,
-        nounderline && 'no-underline'
-      )}
-      {...rest}
-    >
+    <a className={classnames(className, colorClass, nounderline && 'no-underline')} {...rest}>
       {children}
     </a>
   )
