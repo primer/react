@@ -1,18 +1,29 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const Link = ({children, className, muted, gray, graydark, nounderline, ...rest}) => (
-  <a
-    className={classnames(className, 'text-blue', {
-      'muted-link': muted,
-      'link-gray': gray,
-      'link-gray-dark': graydark,
-      'no-underline': nounderline
-    })}
-    {...rest}
-  >
-    {children}
-  </a>
-)
+export default function Link({children, className, muted, scheme, nounderline, ...rest}) {
+  return (
+    <a
+      className={classnames(
+        className,
+        'text-blue',
+        muted && 'muted-link',
+        scheme && `link-${scheme}`,
+        nounderline && 'no-underline'
+      )}
+      {...rest}
+    >
+      {children}
+    </a>
+  )
+}
 
-export default Link
+Link.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  href: PropTypes.string,
+  muted: PropTypes.bool,
+  nounderline: PropTypes.bool,
+  scheme: PropTypes.oneOf(['gray', 'gray-dark'])
+}
