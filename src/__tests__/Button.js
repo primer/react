@@ -43,7 +43,7 @@ describe('Button', () => {
   it('respects the "scheme" prop', () => {
     expect(renderClasses(<Button scheme="danger" />)).toEqual(['btn', 'btn-danger'])
     expect(renderClasses(<Button scheme="primary" />)).toEqual(['btn', 'btn-primary'])
-    expect(renderClasses(<Button scheme="octicon" />)).toEqual(['Box-btn-octicon'])
+    expect(renderClasses(<Button scheme="octicon" />)).toEqual(['btn-link', 'text-inherit'])
     // non-truthy values should not result in any new classes
     const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(renderClasses(<Button scheme={null} />)).toEqual(['btn'])
