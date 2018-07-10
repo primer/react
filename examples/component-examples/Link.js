@@ -14,7 +14,7 @@ const LinkExample = {
         </Link>
       </Block>
       <Block mb={1}>
-        <Link scheome="gray" href="https://github.com">
+        <Link scheme="gray" href="https://github.com">
           Link gray
         </Link>
       </Block>
