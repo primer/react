@@ -1,6 +1,6 @@
 import React from 'react'
 import UnderlineNavItem from '../UnderlineNavItem'
-import {render, renderClasses} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Caret', () => {
   it('renders an <a> by default', () => {
