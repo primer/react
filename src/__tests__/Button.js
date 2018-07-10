@@ -3,7 +3,7 @@ import Button from '../Button'
 import ButtonDanger from '../ButtonDanger'
 import ButtonLink from '../ButtonLink'
 import ButtonOutline from '../ButtonOutline'
-import {render} from '../utils/testing'
+import {render, renderClasses} from '../utils/testing'
 
 function noop() {}
 
@@ -29,7 +29,7 @@ describe('Button', () => {
   })
 
   it('respects the "block" prop', () => {
-    expect(render(<Button block />).props.className).toEqual('btn btn-block')
+    expect(renderClasses(<Button block />)).toEqual(['btn', 'btn-block'])
   })
 
   it('respects the "disabled" prop', () => {
@@ -37,20 +37,23 @@ describe('Button', () => {
   })
 
   it('respects the "linkStyle" prop', () => {
-    expect(render(<Button linkStyle />).props.className).toEqual('btn-link')
+    expect(renderClasses(<Button linkStyle />)).toEqual(['btn-link'])
   })
 
   it('respects the "scheme" prop', () => {
-    expect(render(<Button scheme="danger" />).props.className).toEqual('btn btn-danger')
-    expect(render(<Button scheme="primary" />).props.className).toEqual('btn btn-primary')
+    expect(renderClasses(<Button scheme="danger" />)).toEqual(['btn', 'btn-danger'])
+    expect(renderClasses(<Button scheme="primary" />)).toEqual(['btn', 'btn-primary'])
+    expect(renderClasses(<Button scheme="octicon" />)).toEqual(['Box-btn-octicon'])
     // non-truthy values should not result in any new classes
-    expect(render(<Button scheme={null} />).props.className).toEqual('btn')
-    expect(render(<Button scheme={false} />).props.className).toEqual('btn')
+    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
+    expect(renderClasses(<Button scheme={null} />)).toEqual(['btn'])
+    expect(renderClasses(<Button scheme={false} />)).toEqual(['btn'])
+    hush.mockRestore()
   })
 
   it('respects the "size" prop', () => {
-    expect(render(<Button size="sm" />).props.className).toEqual('btn btn-sm')
-    expect(render(<Button size="large" />).props.className).toEqual('btn btn-large')
+    expect(renderClasses(<Button size="sm" />)).toEqual(['btn', 'btn-sm'])
+    expect(renderClasses(<Button size="large" />)).toEqual(['btn', 'btn-large'])
   })
 
   it('preserves "onClick" prop', () => {
