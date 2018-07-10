@@ -3,7 +3,7 @@ import Button from '../Button'
 import ButtonDanger from '../ButtonDanger'
 import ButtonLink from '../ButtonLink'
 import ButtonOutline from '../ButtonOutline'
-import {render, silenceConsoleError} from '../utils/testing'
+import {render} from '../utils/testing'
 
 function noop() {}
 
@@ -45,7 +45,7 @@ describe('Button', () => {
     expect(render(<Button scheme="primary" />).props.className).toEqual('btn btn-primary')
     // non-truthy values should not result in any new classes
     expect(render(<Button scheme={null} />).props.className).toEqual('btn')
-    const hush = silenceConsoleError(jest)
+    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(render(<Button scheme={false} />).props.className).toEqual('btn')
     hush.mockRestore()
   })

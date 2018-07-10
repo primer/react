@@ -1,6 +1,6 @@
 import React from 'react'
 import Text from '../Text'
-import {render, silenceConsoleError} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Text', () => {
   it('renders margin', () => {
@@ -50,8 +50,8 @@ describe('Text', () => {
 
   it('respects other values for fontSize', () => {
     expect(render(<Text fontSize="00" />)).toEqual(render(<span className="f00" />))
-    const mock = silenceConsoleError(jest)
+    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(render(<Text fontSize={false} />)).toEqual(render(<span className="" />))
-    mock.mockRestore()
+    hush.mockRestore()
   })
 })
