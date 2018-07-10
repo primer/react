@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Octicon from '@github/octicons-react'
+import {colors} from './theme'
 
-const CircleOcticon = ({size, bg, color, ...rest}) => {
+export default function CircleOcticon({size, bg, color, ...rest}) {
   const className = classnames(
     'circle d-flex flex-items-center flex-justify-center',
     bg && `bg-${bg}`,
@@ -22,12 +23,10 @@ CircleOcticon.defaultProps = {
 
 CircleOcticon.propTypes = {
   ...Octicon.propTypes,
-  bg: PropTypes.string,
-  color: PropTypes.string,
+  bg: PropTypes.oneOf(Object.keys(colors.bg)),
+  color: PropTypes.oneOf(Object.keys(colors)),
   // FIXME: we should be able to infer the size from the
   // rendered Octicon so that we can support
   // size={'small|medium|large'}
   size: PropTypes.number
 }
-
-export default CircleOcticon
