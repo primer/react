@@ -8,7 +8,9 @@ describe('Caret', () => {
   })
 
   it('renders the given tag prop', () => {
-    const Type = props => <div />
-    expect(render(<UnderlineNavItem tag={Type} />)).toEqual(render(<div />))
+    const Type = props => <b {...props} />
+    expect(render(<UnderlineNavItem tag={Type} />)).toEqual(
+      render(<b className="UnderlineNav-item no-underline px-3" activeClassName="selected" />)
+    )
   })
 })
