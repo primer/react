@@ -1,8 +1,5 @@
 import React from 'react'
-import Button from '../Button'
-import ButtonDanger from '../ButtonDanger'
-import ButtonLink from '../ButtonLink'
-import ButtonOutline from '../ButtonOutline'
+import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
 import {render} from '../utils/testing'
 
 function noop() {}
@@ -59,6 +56,12 @@ describe('Button', () => {
 
   it('ignores onClick if disabled', () => {
     expect(render(<Button disabled onClick={noop} />).props.onClick).toEqual(undefined)
+  })
+})
+
+describe('ButtonPrimary', () => {
+  it('renders a <button>', () => {
+    expect(render(<ButtonPrimary />)).toEqual(render(<button className="btn btn-primary" type="button" />))
   })
 })
 
