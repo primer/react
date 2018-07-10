@@ -6,8 +6,8 @@ import Octicon from '@github/octicons-react'
 const CircleOcticon = ({size, bg, color, ...rest}) => {
   const className = classnames(
     'circle d-flex flex-items-center flex-justify-center',
-    bg ? `bg-${bg}` : null,
-    color ? `text-${color}` : null
+    bg && `bg-${bg}`,
+    color && `text-${color}`
   )
   return (
     <div style={{width: `${size}px`, height: `${size}px`}} className={className}>
