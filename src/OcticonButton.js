@@ -13,7 +13,11 @@ export default function OcticonButton({disabled, icon, label, onClick, size, ...
     onClick
   }
   const octiconProps = {icon, size}
-  return <button {...buttonProps}><Octicon {...octiconProps} /></button>
+  return (
+    <button {...buttonProps}>
+      <Octicon {...octiconProps} />
+    </button>
+  )
 }
 
 OcticonButton.defaultProps = {

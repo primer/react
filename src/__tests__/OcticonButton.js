@@ -19,7 +19,13 @@ describe('OcticonButton', () => {
   const defaultButtonProps = {'aria-label': '', className: 'btn-link text-inherit'}
 
   it('renders a button with an Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} />)).toEqual(render(<button {...defaultButtonProps}><Octicon icon={Circle} /></button>))
+    expect(render(<OcticonButton icon={Circle} />)).toEqual(
+      render(
+        <button {...defaultButtonProps}>
+          <Octicon icon={Circle} />
+        </button>
+      )
+    )
   })
 
   it('respects the "disabled" prop', () => {
@@ -31,11 +37,17 @@ describe('OcticonButton', () => {
   })
 
   it('passes the onClick handler to the <button>', () => {
-    function click() { }
+    function click() {}
     expect(render(<OcticonButton icon={Circle} onClick={click} />).props.onClick).toEqual(click)
   })
 
   it('passes the "size" prop to the Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} size={128} />)).toEqual(render(<button {...defaultButtonProps}><Octicon icon={Circle} size={128} /></button>))
+    expect(render(<OcticonButton icon={Circle} size={128} />)).toEqual(
+      render(
+        <button {...defaultButtonProps}>
+          <Octicon icon={Circle} size={128} />
+        </button>
+      )
+    )
   })
 })
