@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const CircleBadge = ({alt = "", size = 'medium', src, bg, children}) => {
+const CircleBadge = ({tag: Tag = 'div' alt = '', size = 'medium', src, bg, children, ...rest}) => {
   const generateContent = () => {
     if (src) {
       return <img className="CircleBadge-icon" alt={alt} src={src} />
@@ -12,9 +12,9 @@ const CircleBadge = ({alt = "", size = 'medium', src, bg, children}) => {
   }
   const classes = classnames('CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
   return (
-    <div className={classes}>
+    <Tag className={classes} {...rest}>
       {generateContent()}
-    </div>
+    </Tag>
   )
 }
 
