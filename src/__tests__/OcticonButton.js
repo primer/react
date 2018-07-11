@@ -7,8 +7,19 @@ const Circle = ({r = 8}) => <circle cx={r} cy={r} r={r} />
 Circle.size = [16, 16]
 
 describe('OcticonButton', () => {
+  /**
+   * these are the props we always expect to see on the <button>;
+   * you can test additional values by comparing the rendered
+   * result with:
+   *
+   * ```js
+   * <button {..defaultButtonProps} disabled>...
+   * ```
+   */
+  const defaultButtonProps = {'aria-label': '', className: 'btn-link text-inherit'}
+
   it('renders a button with an Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} />)).toEqual(render(<button aria-label=""><Octicon icon={Circle} /></button>))
+    expect(render(<OcticonButton icon={Circle} />)).toEqual(render(<button {...defaultButtonProps}><Octicon icon={Circle} /></button>))
   })
 
   it('respects the "disabled" prop', () => {
@@ -25,6 +36,6 @@ describe('OcticonButton', () => {
   })
 
   it('passes the "size" prop to the Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} size={128} />)).toEqual(render(<button aria-label=""><Octicon icon={Circle} size={128} /></button>))
+    expect(render(<OcticonButton icon={Circle} size={128} />)).toEqual(render(<button {...defaultButtonProps}><Octicon icon={Circle} size={128} /></button>))
   })
 })
