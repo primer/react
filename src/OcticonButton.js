@@ -1,9 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import Octicon from '@github/octicons-react'
+import {mapWhitespaceProps} from './props'
 
-export default function OcticonButton({disabled, icon, label, onClick, size}) {
-  const buttonProps = {'aria-label': label, disabled, onClick}
+export default function OcticonButton({disabled, icon, label, onClick, size, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
+  const buttonProps = {
+    'aria-label': label,
+    className: classnames('btn-link text-inherit', className),
+    disabled,
+    onClick
+  }
   const octiconProps = {icon, size}
   return <button {...buttonProps}><Octicon {...octiconProps} /></button>
 }
