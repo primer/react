@@ -1,10 +1,12 @@
 import React from 'react'
-import {Block, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline} from '../../src'
+import ExampleHeading from '../doc-components/ExampleHeading'
+import {Block, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline, OcticonButton, Text} from '../../src'
+import {Hubot, Pencil, X} from '@github/octicons-react'
 
 const ButtonExample = {
   name: 'Buttons',
   element: (
-    <div>
+    <Block p={4}>
       <Block mb={2}>
         <Button> Button </Button>
       </Block>
@@ -32,7 +34,17 @@ const ButtonExample = {
       <Block mb={2}>
         <ButtonLink href="https://www.goatslive.com/">This is an {'<a>'} styled as a button</ButtonLink>
       </Block>
-    </div>
+      <Block mb={2}>
+        <ExampleHeading>Octicon Buttons</ExampleHeading>
+        <OcticonButton icon={Pencil} label="Edit" onClick={() => alert('edit')} mr={3} />
+        <Text color="red">
+          <OcticonButton icon={X} label="Close" onClick={() => alert('close')} mr={3} />
+        </Text>
+        <Block>
+          <OcticonButton icon={Hubot} size="large" label="ROBOT" onClick={() => alert('beep boop')} />
+        </Block>
+      </Block>
+    </Block>
   )
 }
 
