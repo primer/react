@@ -5,9 +5,9 @@ import classnames from 'classnames'
 const CircleBadge = ({tag: Tag = 'div', alt = '', size = 'medium', src, bg, children, ...rest}) => {
   const generateContent = () => {
     if (src) {
-      return <img className='CircleBadge-icon' alt={alt} src={src} />
+      return <img className="CircleBadge-icon" alt={alt} src={src} />
     } else if (children) {
-      return <div className='CircleBadge-icon'>{children}</div>
+      return <div className="CircleBadge-icon">{children}</div>
     } else return null
   }
   const classes = classnames('CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
