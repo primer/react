@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const CircleBadge = ({alt, size = 'medium', src, bg, children}) => {
+const CircleBadge = ({alt = "", size = 'medium', src, bg, children}) => {
   const generateContent = () => {
     if (src) {
       return <img className="CircleBadge-icon" alt={alt} src={src} />
