@@ -22,9 +22,9 @@ export default function Page({render}) {
             </Text>
           }
         >
-          <NavLink to="/components">Components</NavLink>
-          <NavLink to="/demos">Demos</NavLink>
-          <NavLink to="/sandbox">Sandbox</NavLink>
+          <NavLink to="/components" className="px-3">Components</NavLink>
+          <NavLink to="/demos" className="px-3">Demos</NavLink>
+          <NavLink to="/sandbox" className="px-3">Sandbox</NavLink>
         </UnderlineNav>
         {render()}
       </div>
