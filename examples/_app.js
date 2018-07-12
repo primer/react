@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
 import Styles from './doc-components/Styles'
 import Octicon, {Package} from '@github/octicons-react'
-import {Link, Text, UnderlineNav, UnderlineNavLink} from '../src'
+import {Link, Text, UnderlineNav} from '../src'
 import {name, repository, version} from '../package.json'
 
 const pkg = `${name}@${version}`
@@ -22,15 +22,9 @@ export default function Page({render}) {
             </Text>
           }
         >
-          <UnderlineNavLink tag={NavLink} to="/components">
-            Components
-          </UnderlineNavLink>
-          <UnderlineNavLink tag={NavLink} to="/demos">
-            Demos
-          </UnderlineNavLink>
-          <UnderlineNavLink tag={NavLink} to="/sandbox">
-            Sandbox
-          </UnderlineNavLink>
+          <NavLink to="/components">Components</NavLink>
+          <NavLink to="/demos">Demos</NavLink>
+          <NavLink to="/sandbox">Sandbox</NavLink>
         </UnderlineNav>
         {render()}
       </div>
