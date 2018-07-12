@@ -10,8 +10,6 @@ describe('Caret', () => {
 
   it('renders the given tag prop', () => {
     const Type = props => <b {...props} />
-    expect(render(<UnderlineNavLink tag={Type} />)).toEqual(
-      render(<b className={ITEM_CLASS} />)
-    )
+    expect(render(<UnderlineNavLink tag={Type} />)).toEqual(render(<b className={ITEM_CLASS} />))
   })
 })
