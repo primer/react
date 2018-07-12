@@ -70,4 +70,9 @@ describe('Caret', () => {
       'data-active-class': SELECTED_CLASS
     })
   })
+
+  it('does not add duplicate ITEM_CLASS classes', () => {
+    const wrapper = mount(<UnderlineNav><span className={ITEM_CLASS} /></UnderlineNav>)
+    expect(wrapper.find('span').props().className).toEqual(ITEM_CLASS)
+  })
 })
