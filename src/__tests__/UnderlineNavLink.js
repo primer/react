@@ -1,4 +1,5 @@
 import React from 'react'
+import {ITEM_CLASS} from '../UnderlineNav'
 import UnderlineNavLink from '../UnderlineNavLink'
 import {render} from '../utils/testing'
 
@@ -10,7 +11,7 @@ describe('Caret', () => {
   it('renders the given tag prop', () => {
     const Type = props => <b {...props} />
     expect(render(<UnderlineNavLink tag={Type} />)).toEqual(
-      render(<b className="UnderlineNav-item no-underline px-3" activeClassName="selected" />)
+      render(<b className={ITEM_CLASS} />)
     )
   })
 })
