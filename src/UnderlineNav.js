@@ -2,19 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
+export const ITEM_CLASS = 'UnderlineNav-item no-underline'
+export const SELECTED_CLASS = 'selected'
+
 export default function UnderlineNav(props) {
   const {actions, align, children, full, label} = props
+
+  const mappedChildren = React.Children.map(children, child => {
+    const {className} = child.props
+    const newProps = {}
+    // add the ITEM_CLASS to all children without one
+    if (!className || className.indexOf(ITEM_CLASS) === -1) {
+      newProps.className = classnames(ITEM_CLASS, className)
+    }
+    // if this is a react-router NavLink (duck typing!),
+    // set activeClassName={SELECTED_CLASS}
+    if (child.type.name === 'NavLink') {
+      newProps.activeClassName = SELECTED_CLASS
+    }
+    return Object.keys(newProps).length ? React.cloneElement(child, newProps) : child
+  })
 
   return (
     <nav
       className={classnames('UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')}
       aria-label={label}
     >
-      <div className="UnderlineNav-body">{children}</div>
+      <div className="UnderlineNav-body">{mappedChildren}</div>
       {actions && <div className="UnderlineNav-actions">{actions}</div>}
     </nav>
   )
 }
+
+// make it possible to destructure these from UnderlineNav:
+// const {ITEM_CLASS} = UnderlineNav
+Object.assign(UnderlineNav, {ITEM_CLASS, SELECTED_CLASS})
 
 UnderlineNav.propTypes = {
   actions: PropTypes.node,
