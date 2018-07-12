@@ -1,5 +1,6 @@
 import React from 'react'
-import UnderlineNav from '../UnderlineNav'
+import PropTypes from 'prop-types'
+import UnderlineNav, {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
 import {mount, render, renderClasses} from '../utils/testing'
 
 const rendersClass = (node, klass) => renderClasses(node).includes(klass)
@@ -30,8 +31,7 @@ describe('Caret', () => {
     const wrapper = mount(<UnderlineNav>{children}</UnderlineNav>)
     const body = wrapper.find('.UnderlineNav-body')
     expect(body.exists()).toEqual(true)
-    // FIXME this seems a bit brittle -- what if we added a class?
-    expect(body.html()).toEqual('<div class="UnderlineNav-body"><b>yo</b></div>')
+    expect(body.childAt(0).type()).toEqual('b')
   })
 
   it('respects the "actions" prop', () => {
@@ -40,5 +40,34 @@ describe('Caret', () => {
     const actions = wrapper.find('.UnderlineNav-actions')
     expect(actions.exists()).toEqual(true)
     expect(actions.text()).toEqual('hi!')
+  })
+
+  it('adds the ITEM_CLASS to all children', () => {
+    const wrapper = mount(
+      <UnderlineNav>
+        <a href="#foo">hi</a>
+      </UnderlineNav>
+    )
+    expect(wrapper.find('a').props().className).toEqual(ITEM_CLASS)
+  })
+
+  it('adds activeClassName={SELECTED_CLASS} to anything that looks like a react-router NavLink', () => {
+    function NavLink({activeClassName, ...rest}) {
+      return <button data-active-class={activeClassName} {...rest} />
+    }
+
+    NavLink.propTypes = {
+      activeClassName: PropTypes.string
+    }
+
+    const wrapper = mount(
+      <UnderlineNav>
+        <NavLink />
+      </UnderlineNav>
+    )
+    expect(wrapper.find('button').props()).toEqual({
+      className: ITEM_CLASS,
+      'data-active-class': SELECTED_CLASS
+    })
   })
 })
