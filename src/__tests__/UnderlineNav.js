@@ -51,6 +51,28 @@ describe('Caret', () => {
     expect(wrapper.find('a').props().className).toEqual(ITEM_CLASS)
   })
 
+  it('adds the SELECTED_CLASS to all children with selected={true}', () => {
+    const wrapper = mount(
+      <UnderlineNav>
+        <a href="#foo" selected>
+          hi
+        </a>
+      </UnderlineNav>
+    )
+    expect(wrapper.find('a').props().className).toEqual(`${ITEM_CLASS} ${SELECTED_CLASS}`)
+  })
+
+  it('does not duplicate the SELECTED_CLASS on elements that have it', () => {
+    const wrapper = mount(
+      <UnderlineNav>
+        <a href="#foo" className="selected" selected>
+          hi
+        </a>
+      </UnderlineNav>
+    )
+    expect(wrapper.find('a').props().className).toEqual(`${ITEM_CLASS} ${SELECTED_CLASS}`)
+  })
+
   it('adds activeClassName={SELECTED_CLASS} to anything that looks like a react-router NavLink', () => {
     function NavLink({activeClassName, ...rest}) {
       return <button data-active-class={activeClassName} {...rest} />
