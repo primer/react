@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import UnderlineNav, {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
+import UnderlineNavLink from '../UnderlineNavLink'
 import {mount, render, renderClasses} from '../utils/testing'
 
 const rendersClass = (node, klass) => renderClasses(node).includes(klass)
@@ -100,5 +101,23 @@ describe('Caret', () => {
       </UnderlineNav>
     )
     expect(wrapper.find('span').props().className).toEqual(ITEM_CLASS)
+  })
+
+  it('lets <UnderlineNavLink> do its thing', () => {
+    expect(
+      render(
+        <UnderlineNav>
+          <UnderlineNavLink href="#foo">Foo</UnderlineNavLink>
+        </UnderlineNav>
+      )
+    ).toEqual(
+      render(
+        <UnderlineNav>
+          <a href="#foo" className={ITEM_CLASS}>
+            Foo
+          </a>
+        </UnderlineNav>
+      )
+    )
   })
 })
