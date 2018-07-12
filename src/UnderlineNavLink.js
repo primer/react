@@ -5,12 +5,12 @@ import {ITEM_CLASS, SELECTED_CLASS} from './UnderlineNav'
 import {mapWhitespaceProps} from './props'
 
 export default function UnderlineNavLink(props) {
-  const {children, className: defaultClassName, selected, tag: Tag, ...rest} = mapWhitespaceProps(props)
-
-  const className = classnames(defaultClassName, ITEM_CLASS, selected && SELECTED_CLASS)
+  const {children, selected, tag: Tag, ...rest} = props
+  const {className} = mapWhitespaceProps(rest)
+  const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   return (
-    <Tag className={className} {...rest}>
+    <Tag className={classes} {...rest}>
       {children}
     </Tag>
   )
