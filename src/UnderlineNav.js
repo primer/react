@@ -12,13 +12,13 @@ export default function UnderlineNav(props) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
 
   const mappedChildren = React.Children.map(children, child => {
-    const {className, selected} = child.props
+    const {className = '', selected} = child.props
     const newProps = {className}
     // add the ITEM_CLASS to all children without one
-    if (!className || className.indexOf(ITEM_CLASS) === -1) {
+    if (!className || !className.includes(ITEM_CLASS)) {
       newProps.className = classnames(ITEM_CLASS, className)
     }
-    if (selected === true) {
+    if (selected === true && !className.includes(SELECTED_CLASS)) {
       newProps.className = classnames(newProps.className, SELECTED_CLASS)
     }
     // if this is a react-router NavLink (duck typing!),
