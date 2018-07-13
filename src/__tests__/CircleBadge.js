@@ -13,7 +13,13 @@ describe('CircleBadge', () => {
     expect(rendersClass(<CircleBadge />, 'CircleBadge--medium')).toEqual(true)
   })
   it('respects tag prop', () => {
-    expect(render(<CircleBadge tag="a">{imgInput}</CircleBadge>)).toEqual(
+    expect(
+      render(
+        <CircleBadge tag="a" href="https://github.com">
+          {imgInput}
+        </CircleBadge>
+      )
+    ).toEqual(
       render(
         <a className="CircleBadge CircleBadge--medium" href="https://github.com">
           {imgOutput}
