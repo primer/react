@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon, {GitMerge} from '@github/octicons-react'
+import Octicon, {GitMerge} from '@githubprimer/octicons-react'
 import StateLabel from './StateLabel'
 
 const stateColorMap = {
