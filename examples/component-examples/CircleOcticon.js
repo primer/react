@@ -1,5 +1,5 @@
 import React from 'react'
-import {Check} from '@github/octicons-react'
+import {Check} from '@githubprimer/octicons-react'
 import {CircleOcticon} from '../../src'
 
 const CircleOcticonExample = {

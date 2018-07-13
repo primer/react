@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@github/octicons-react'
+import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@githubprimer/octicons-react'
 import classnames from 'classnames'
 import {colors} from './theme'
 
