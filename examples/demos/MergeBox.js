@@ -24,10 +24,10 @@ const MergeBox = ({state, repoUrl, branchName, numCommits}) => {
 }
 
 MergeBox.propTypes = {
-  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired,
-  repoUrl: PropTypes.string.isRequired,
   branchName: PropTypes.string.isRequired,
-  numCommits: PropTypes.number.isRequired
+  numCommits: PropTypes.number.isRequired,
+  repoUrl: PropTypes.string.isRequired,
+  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired
 }
 
 export default MergeBox

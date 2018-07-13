@@ -11,17 +11,15 @@
     "lint": "eslint src examples",
     "prepublishOnly": "npm run build",
     "start": "x0 dev examples -op 8888",
-    "test": "jest"
+    "test": "jest",
+    "watch": "jest --watch --no-coverage"
   },
   "files": [
     "dist",
     "src",
     "examples"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/primer/primer-react.git"
-  },
+  "repository": "primer/primer-react",
   "keywords": [
     "react",
     "components",
