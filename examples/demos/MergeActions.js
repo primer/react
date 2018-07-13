@@ -18,9 +18,10 @@ const MergeActions = ({numCommits, repoUrl, branchName, state}) => {
 }
 
 MergeActions.propTypes = {
+  branchName: PropTypes.string.isRequired,
   numCommits: PropTypes.number.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  branchName: PropTypes.string.isRequired
+  state: PropTypes.string.isRequired
 }
 
 export default MergeActions

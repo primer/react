@@ -9,13 +9,13 @@ const FlashExample = {
         <Flash> Flash </Flash>
       </Block>
       <Block mb={3}>
-        <Flash yellow> Flash yellow </Flash>
+        <Flash scheme="yellow"> Flash yellow </Flash>
       </Block>
       <Block mb={3}>
-        <Flash red> Flash red </Flash>
+        <Flash scheme="red"> Flash red </Flash>
       </Block>
       <Block mb={3}>
-        <Flash green> Flash green </Flash>
+        <Flash scheme="green"> Flash green </Flash>
       </Block>
       <Block mb={3}>
         <Flash full> Flash full </Flash>

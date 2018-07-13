@@ -24,13 +24,14 @@ function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped,
 
 Button.propTypes = {
   block: PropTypes.bool,
+  children: PropTypes.node,
+  disabled: PropTypes.bool,
   grouped: PropTypes.bool,
+  linkStyle: PropTypes.bool,
+  onClick: PropTypes.func,
   scheme: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'large']),
-  tag: PropTypes.oneOf(['button', 'a', 'summary']),
-  linkStyle: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  tag: PropTypes.oneOf(['button', 'a', 'summary'])
 }
 
 export default Button
