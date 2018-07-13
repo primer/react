@@ -1,5 +1,5 @@
 import React from 'react'
-import Octicon from '@github/octicons-react'
+import Octicon from '@githubprimer/octicons-react'
 import OcticonButton from '../OcticonButton'
 import {render} from '../utils/testing'
 

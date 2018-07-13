@@ -17,6 +17,7 @@ export {default as OcticonButton} from './OcticonButton'
 export {default as Caret} from './Caret'
 export {default as CaretBox} from './CaretBox'
 export {default as CircleOcticon} from './CircleOcticon'
+export {default as CircleBadge} from './CircleBadge'
 
 export {default as Details} from './Details'
 export {default as Dropdown} from './Dropdown'

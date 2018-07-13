@@ -1,7 +1,7 @@
 import React from 'react'
 import CircleOcticon from '../CircleOcticon'
 import {render, renderClasses} from '../utils/testing'
-import {Check} from '@github/octicons-react'
+import {Check} from '@githubprimer/octicons-react'
 
 describe('CircleOcticon', () => {
   it('renders a <div> with width and height', () => {

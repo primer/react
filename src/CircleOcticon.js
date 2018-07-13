@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Octicon from '@github/octicons-react'
+import Octicon from '@githubprimer/octicons-react'
 import {colors} from './theme'
 
 export default function CircleOcticon({size, bg, color, ...rest}) {

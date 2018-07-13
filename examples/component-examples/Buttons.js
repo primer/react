@@ -1,7 +1,7 @@
 import React from 'react'
 import ExampleHeading from '../doc-components/ExampleHeading'
 import {Block, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline, OcticonButton, Text} from '../../src'
-import {Hubot, Pencil, X} from '@github/octicons-react'
+import {Hubot, Pencil, X} from '@githubprimer/octicons-react'
 
 const ButtonExample = {
   name: 'Buttons',

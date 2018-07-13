@@ -1,5 +1,5 @@
 import React from 'react'
-import Octicon, {IssueOpened} from '@github/octicons-react'
+import Octicon, {IssueOpened} from '@githubprimer/octicons-react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
 
