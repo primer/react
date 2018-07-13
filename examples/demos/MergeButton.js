@@ -72,9 +72,9 @@ const MergeButton = ({primary, onClick, numCommits}) => {
 }
 
 MergeButton.propTypes = {
-  primary: PropTypes.bool,
+  numCommits: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
-  numCommits: PropTypes.number.isRequired
+  primary: PropTypes.bool
 }
 
 export default MergeButton

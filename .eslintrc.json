@@ -5,8 +5,6 @@
     "plugin:jsx-a11y/recommended"
   ],
   "rules": {
-    "jsx-a11y/no-autofocus": "warn",
-    "react/prop-types": "warn",
-    "react/sort-prop-types": "warn"
+    "jsx-a11y/no-autofocus": "warn"
   }
 }

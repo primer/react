@@ -1,8 +1,5 @@
 import React from 'react'
-import Button from '../Button'
-import ButtonDanger from '../ButtonDanger'
-import ButtonLink from '../ButtonLink'
-import ButtonOutline from '../ButtonOutline'
+import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
 import {render} from '../utils/testing'
 
 function noop() {}
@@ -45,7 +42,9 @@ describe('Button', () => {
     expect(render(<Button scheme="primary" />).props.className).toEqual('btn btn-primary')
     // non-truthy values should not result in any new classes
     expect(render(<Button scheme={null} />).props.className).toEqual('btn')
+    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(render(<Button scheme={false} />).props.className).toEqual('btn')
+    hush.mockRestore()
   })
 
   it('respects the "size" prop', () => {
@@ -59,6 +58,12 @@ describe('Button', () => {
 
   it('ignores onClick if disabled', () => {
     expect(render(<Button disabled onClick={noop} />).props.onClick).toEqual(undefined)
+  })
+})
+
+describe('ButtonPrimary', () => {
+  it('renders a <button>', () => {
+    expect(render(<ButtonPrimary />)).toEqual(render(<button className="btn btn-primary" type="button" />))
   })
 })
 

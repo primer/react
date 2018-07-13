@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 const colorScheme = (scheme, outline) => {
@@ -16,13 +17,15 @@ const colorScheme = (scheme, outline) => {
   }
 }
 
-const Label = props => {
+export default function Label(props) {
   const {outline, scheme, children} = props
   return (
-    <span className={classnames('Label', outline ? 'Label--outline' : '', colorScheme(scheme, outline))}>
-      {children}
-    </span>
+    <span className={classnames('Label', outline && 'Label--outline', colorScheme(scheme, outline))}>{children}</span>
   )
 }
 
-export default Label
+Label.propTypes = {
+  children: PropTypes.node,
+  outline: PropTypes.bool,
+  scheme: PropTypes.oneOf(['gray', 'gray-darker', 'green', 'orange'])
+}

@@ -103,7 +103,7 @@ Caret.defaultProps = {
 Caret.propTypes = {
   borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations),
   fill: PropTypes.string,
+  location: PropTypes.oneOf(Caret.locations),
   size: PropTypes.number
 }
