@@ -50,6 +50,8 @@ describe('Text', () => {
 
   it('respects other values for fontSize', () => {
     expect(render(<Text fontSize="00" />)).toEqual(render(<span className="f00" />))
+    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(render(<Text fontSize={false} />)).toEqual(render(<span className="" />))
+    hush.mockRestore()
   })
 })

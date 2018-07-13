@@ -45,7 +45,9 @@ describe('Button', () => {
     expect(render(<Button scheme="primary" />).props.className).toEqual('btn btn-primary')
     // non-truthy values should not result in any new classes
     expect(render(<Button scheme={null} />).props.className).toEqual('btn')
+    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(render(<Button scheme={false} />).props.className).toEqual('btn')
+    hush.mockRestore()
   })
 
   it('respects the "size" prop', () => {
