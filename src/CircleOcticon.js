@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Octicon from '@github/octicons-react'
+import Octicon from '@githubprimer/octicons-react'
 
 const CircleOcticon = ({size, bg, color, ...rest}) => {
   const className = classnames(

@@ -1,6 +1,6 @@
 {
   "name": "primer-react",
-  "version": "0.0.8-beta",
+  "version": "0.0.9-beta",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -46,7 +46,7 @@
     ]
   },
   "dependencies": {
-    "@github/octicons-react": "7.4.0-alpha.92883216",
+    "@githubprimer/octicons-react": "8.0.0",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "react": "^16.2.0",

@@ -1,5 +1,5 @@
 import React from 'react'
-import Octicon, {GitBranch} from '@github/octicons-react'
+import Octicon, {GitBranch} from '@githubprimer/octicons-react'
 import {Detail} from '@compositor/kit'
 import ExampleHeading from '../doc-components/ExampleHeading'
 import {BranchName} from '../../src'
