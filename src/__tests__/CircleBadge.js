@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import CircleBadge from '../CircleBadge'
-import {render, renderClasses, mount} from '../utils/testing'
-
-const rendersClass = (node, klass) => renderClasses(node).includes(klass)
+import {render, renderClasses, rendersClass, mount} from '../utils/testing'
 
 const imgOutput = <img className="CircleBadge-icon" alt="" src="primer.jpg" />
 const imgInput = <img alt="" src="primer.jpg" />
@@ -60,5 +58,12 @@ describe('CircleBadge', () => {
         .first()
         .hasClass('primer')
     ).toEqual(true)
+  })
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<CircleBadge m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<CircleBadge p={4} />, 'p-4')).toEqual(true)
   })
 })

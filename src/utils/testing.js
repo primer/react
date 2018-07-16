@@ -35,6 +35,10 @@ export function renderClasses(component) {
   return className ? className.trim().split(' ') : []
 }
 
+export function rendersClass(node, klass) {
+  return renderClasses(node).includes(klass)
+}
+
 export function mount(component) {
   return enzyme.mount(component)
 }
