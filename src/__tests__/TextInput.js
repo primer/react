@@ -28,9 +28,9 @@ describe('TextInput', () => {
   })
 
   it('should call onChange prop with input value', () => {
-    const onChangeMock = jest.fn();
-    const component = mount(<TextInput onChange={onChangeMock} value="test" />);
-    component.find('input').simulate('change');
-    expect(onChangeMock).toHaveBeenCalled();
-  });
+    const onChangeMock = jest.fn()
+    const component = mount(<TextInput onChange={onChangeMock} value="test" />)
+    component.find('input').simulate('change')
+    expect(onChangeMock).toHaveBeenCalled()
+  })
 })
