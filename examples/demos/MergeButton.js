@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Block, Button, CaretBox, Details, Text} from '../../src'
 
-const MergeButton = ({primary, onClick, numCommits}) => {
+const MergeButton = ({numCommits, onClick, primary}) => {
   const arrowStyles = {
     content: '',
     border: '4px solid',
@@ -22,6 +22,8 @@ const MergeButton = ({primary, onClick, numCommits}) => {
   if (primary) {
     buttonSchemeProps.scheme = 'primary'
   }
+
+  const commits = (numCommits === 1) ? '1 commit' : `${numCommits} commits`
 
   return (
     <div className="BtnGroup">
@@ -50,7 +52,7 @@ const MergeButton = ({primary, onClick, numCommits}) => {
                       Squash and merge
                     </Text>
                     <Text tag="p" m={0} fontSize={0}>
-                      The {numCommits} from this branch will be combined into one commit in the base branch.
+                      The {commits} from this branch will be combined into one commit in the base branch.
                     </Text>
                   </li>
                   <li className="py-2 pl-4 pr-2">
@@ -58,7 +60,7 @@ const MergeButton = ({primary, onClick, numCommits}) => {
                       Rebase and merge
                     </Text>
                     <Text tag="p" fontSize={0} m={0}>
-                      The {numCommits} from this branch will be rebased and added to the base branch
+                      The {commits} from this branch will be rebased and added to the base branch
                     </Text>
                   </li>
                 </ul>
@@ -69,6 +71,10 @@ const MergeButton = ({primary, onClick, numCommits}) => {
       </Details>
     </div>
   )
+}
+
+MergeButton.defaultProps = {
+  numCommits: 0
 }
 
 MergeButton.propTypes = {

@@ -11,13 +11,17 @@ const stateColorMap = {
   pending: 'yellow'
 }
 
-const MergeBox = ({state, repoUrl, branchName, numCommits}) => {
+function getDesktopURL(repoUrl, branchName) {
+  return `x-github-client://openRepo/${repoUrl}?branch=${branchName}`
+}
+
+const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
   return (
     <div className="d-flex flex-items-start">
       <MergeStatus state={state} />
-      <CaretBox ml={3} border={[true, stateColorMap[state]]} caret="left-top">
+      <CaretBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
         <MergeDetail state={state} />
-        <MergeActions state={state} numCommits={numCommits} repoUrl={repoUrl} branchName={branchName} />
+        <MergeActions state={state} numCommits={numCommits} desktopUrl={getDesktopURL(repoUrl, branchName)} onClick={onMerge} />
       </CaretBox>
     </div>
   )
@@ -26,6 +30,7 @@ const MergeBox = ({state, repoUrl, branchName, numCommits}) => {
 MergeBox.propTypes = {
   branchName: PropTypes.string.isRequired,
   numCommits: PropTypes.number.isRequired,
+  onMerge: PropTypes.func.isRequired,
   repoUrl: PropTypes.string.isRequired,
   state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired
 }

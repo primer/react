@@ -10,7 +10,7 @@ const examples = [
     element: (
       <span className="mr-2">
         <LiveEditor
-          code={`<MergeBox state='pending' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>`}
+          code={`<MergeBox state='pending' numCommits={21} repoUrl='https://github.com/primer/primer-react' branchName='master' onMerge={() => alert('merge!')} />`}
           scope={{MergeBox}}
         />
       </span>
@@ -20,7 +20,7 @@ const examples = [
     name: 'MergeButton',
     element: (
       <span className="mr-2">
-        <LiveEditor code={`<MergeButton scheme='primary'/>`} scope={{MergeButton}} />
+        <LiveEditor code={`<MergeButton primary numCommits={2} onClick={() => alert('merge!')} />`} scope={{MergeButton}} />
       </span>
     )
   }
