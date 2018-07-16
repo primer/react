@@ -1,6 +1,6 @@
 import React from 'react'
 import {PropsForm} from '@compositor/kit'
-import {Block, Caret, CaretBox, theme} from '../../src'
+import {Caret, CaretBox, theme} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const CaretBoxExample = {

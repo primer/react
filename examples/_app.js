@@ -32,9 +32,7 @@ export default function Page({render}) {
             Sandbox
           </NavLink>
         </UnderlineNav>
-        <Block p={3}>
-          {render()}
-        </Block>
+        <Block p={3}>{render()}</Block>
       </div>
     </React.Fragment>
   )

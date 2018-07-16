@@ -1,5 +1,5 @@
 import React from 'react'
-import {Block, Caret, Text, Box} from '../../src'
+import {Caret, Text, Box} from '../../src'
 
 const CaretExample = {
   name: 'Caret',
