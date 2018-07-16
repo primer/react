@@ -15,7 +15,7 @@ const FlexExample = {
   name: 'Flex',
   element: (
     <div>
-      <ExampleHeading mt={2}>FlexContainer</ExampleHeading>
+      <ExampleHeading>FlexContainer</ExampleHeading>
       <PropsForm>
         <FlexContainer
           wrap="wrap"
@@ -51,7 +51,7 @@ const FlexExample = {
           </PropsForm.Select>
         ))}
       </PropsForm>
-      <ExampleHeading mt={2}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
+      <ExampleHeading mt={3}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
       <FlexContainer wrap="nowrap" width={300} height={300} border>
         <FlexItem flexAuto>
           <Block p={3} bg="blue">
