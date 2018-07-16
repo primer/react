@@ -4,6 +4,10 @@ import Adapter from 'enzyme-adapter-react-16'
 
 enzyme.configure({adapter: new Adapter()})
 
+export function mount(component) {
+  return enzyme.mount(component)
+}
+
 /**
  * Render the component (a React.createElement() or JSX expression)
  * into its intermediate object representation with 'type',
@@ -35,6 +39,6 @@ export function renderClasses(component) {
   return className ? className.trim().split(' ') : []
 }
 
-export function mount(component) {
-  return enzyme.mount(component)
+export function rendersClass(node, klass) {
+  return renderClasses(node).includes(klass)
 }
