@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import UnderlineNavLink from './UnderlineNavLink'
 import {mapWhitespaceProps} from './props'
 
 export const ITEM_CLASS = 'UnderlineNav-item no-underline'
@@ -13,7 +12,7 @@ export default function UnderlineNav(props) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
 
   const mappedChildren = React.Children.map(children, child => {
-    if (child.type === UnderlineNavLink) {
+    if (child.type.displayName === 'UnderlineNavLink') {
       return child
     }
 
