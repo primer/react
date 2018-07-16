@@ -2,7 +2,7 @@ import React from 'react'
 import DonutChart from '../DonutChart'
 import DonutSlice from '../DonutSlice'
 import {colors} from '../theme'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('DonutChart', () => {
   it('renders the data prop', () => {
@@ -44,5 +44,13 @@ describe('DonutChart', () => {
       </DonutChart>
     )
     expect(donut.type).toEqual('svg')
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<DonutChart m={4}><DonutSlice state="failure" value={1} /></DonutChart>, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<DonutChart p={4}><DonutSlice state="failure" value={1} /></DonutChart>, 'p-4')).toEqual(true)
   })
 })
