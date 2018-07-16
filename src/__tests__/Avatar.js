@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Avatar from '../Avatar'
-import {render} from '../utils/testing'
+import {render, renderClasses} from '../utils/testing'
 
 describe('Avatar', () => {
   it('renders small by default', () => {
@@ -22,5 +22,13 @@ describe('Avatar', () => {
     expect(render(<Avatar src="primer.png" />)).toEqual(
       render(<img className="avatar avatar-small" src="primer.png" width={20} height={20} />)
     )
+  })
+
+  it('respects margin utility prop', () => {
+    expect(renderClasses(<Avatar m={1} />)).toEqual(['avatar', 'avatar-small', 'm-1'])
+  })
+
+  it('respects padding utility prop', () => {
+    expect(renderClasses(<Avatar p={1} />)).toEqual(['avatar', 'avatar-small', 'p-1'])
   })
 })

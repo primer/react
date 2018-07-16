@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from  './props'
 
 const Avatar = props => {
-  const {alt, isChild, size = 20, src} = props
+  const {alt, isChild, size = 20, src, className} = mapWhitespaceProps(props)
 
-  const className = classnames('avatar', {
+  const classes = classnames('avatar', {
     'avatar-small': size <= 24,
     'avatar-child': isChild
-  })
+  }, className)
 
-  return <img className={className} alt={alt} src={src} width={size} height={size} />
+  return <img className={classes} alt={alt} src={src} width={size} height={size} />
 }
 
 Avatar.propTypes = {
