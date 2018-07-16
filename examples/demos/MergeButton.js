@@ -23,7 +23,7 @@ const MergeButton = ({numCommits, onClick, primary}) => {
     buttonSchemeProps.scheme = 'primary'
   }
 
-  const commits = (numCommits === 1) ? '1 commit' : `${numCommits} commits`
+  const commits = numCommits === 1 ? '1 commit' : `${numCommits} commits`
 
   return (
     <div className="BtnGroup">

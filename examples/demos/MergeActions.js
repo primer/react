@@ -18,9 +18,9 @@ const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
 }
 
 MergeActions.propTypes = {
+  desktopUrl: PropTypes.string.isRequired,
   numCommits: MergeButton.propTypes.numCommits,
   onClick: PropTypes.func.isRequired,
-  desktopUrl: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired
 }
 

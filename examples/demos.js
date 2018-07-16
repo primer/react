@@ -20,7 +20,10 @@ const examples = [
     name: 'MergeButton',
     element: (
       <span className="mr-2">
-        <LiveEditor code={`<MergeButton primary numCommits={2} onClick={() => alert('merge!')} />`} scope={{MergeButton}} />
+        <LiveEditor
+          code={`<MergeButton primary numCommits={2} onClick={() => alert('merge!')} />`}
+          scope={{MergeButton}}
+        />
       </span>
     )
   }

@@ -21,7 +21,12 @@ const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
       <MergeStatus state={state} />
       <CaretBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
         <MergeDetail state={state} />
-        <MergeActions state={state} numCommits={numCommits} desktopUrl={getDesktopURL(repoUrl, branchName)} onClick={onMerge} />
+        <MergeActions
+          state={state}
+          numCommits={numCommits}
+          desktopUrl={getDesktopURL(repoUrl, branchName)}
+          onClick={onMerge}
+        />
       </CaretBox>
     </div>
   )
