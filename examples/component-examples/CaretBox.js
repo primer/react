@@ -9,11 +9,11 @@ const CaretBoxExample = {
     <Block p={2}>
       <ExampleHeading mt={2}>CaretBox</ExampleHeading>
       <PropsForm>
-        <CaretBox my={4} p={2} minHeight={100} border={[true, 'purple']}>
+        <CaretBox my={4} p={2} minHeight={100} borderColor="purple">
           CaretBox
         </CaretBox>
         <PropsForm.Select name="caret">{Caret.locations.map(loc => <option key={loc}>{loc}</option>)}</PropsForm.Select>
-        <PropsForm.Select name="border">
+        <PropsForm.Select name="borderColor">
           {Object.keys(theme.colors.border).map(borderColor => <option key={borderColor}>{borderColor}</option>)}
         </PropsForm.Select>
         <PropsForm.Select name="bg">
