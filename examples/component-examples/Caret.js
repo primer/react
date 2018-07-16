@@ -4,7 +4,7 @@ import {Block, Caret, Text, Box} from '../../src'
 const CaretExample = {
   name: 'Caret',
   element: (
-    <Block p={4}>
+    <div>
       {Caret.locations.map(loc => (
         <Box p={2} mb={4} position="relative" maxWidth={300} minHeight={96} shadow="small" key={loc}>
           <Text fontSize={1} mono>
@@ -13,7 +13,7 @@ const CaretExample = {
           <Caret location={loc} />
         </Box>
       ))}
-    </Block>
+    </div>
   )
 }
 

@@ -6,7 +6,7 @@ import ExampleHeading from '../doc-components/ExampleHeading'
 const CaretBoxExample = {
   name: 'CaretBox',
   element: (
-    <Block p={2}>
+    <div>
       <ExampleHeading mt={2}>CaretBox</ExampleHeading>
       <PropsForm>
         <CaretBox my={4} p={2} minHeight={100} borderColor="purple">
@@ -20,7 +20,7 @@ const CaretBoxExample = {
           {Object.keys(theme.colors.bg).map(bgColor => <option key={bgColor}>{bgColor}</option>)}
         </PropsForm.Select>
       </PropsForm>
-    </Block>
+    </div>
   )
 }
 

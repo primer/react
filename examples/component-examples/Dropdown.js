@@ -6,7 +6,7 @@ const DropdownExample = {
   name: 'Dropdown',
   element: (
     <div>
-      <Block my={4}>
+      <Block mb={4}>
         <ExampleHeading>Dropdown Primary</ExampleHeading>
         <Dropdown scheme={'primary'}>
           <ul>

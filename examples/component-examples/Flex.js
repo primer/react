@@ -14,7 +14,7 @@ const propObj = {
 const FlexExample = {
   name: 'Flex',
   element: (
-    <Block p={2}>
+    <div>
       <ExampleHeading mt={2}>FlexContainer</ExampleHeading>
       <PropsForm>
         <FlexContainer
@@ -105,7 +105,7 @@ const FlexExample = {
           </Block>
         </FlexItem>
       </FlexContainer>
-    </Block>
+    </div>
   )
 }
 
