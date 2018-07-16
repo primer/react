@@ -16,21 +16,24 @@ export default function UnderlineNav(props) {
       return child
     }
 
-    const {className = '', selected} = child.props
+    let {className = '', selected} = child.props
     const newProps = {}
+
     // add the ITEM_CLASS to all children without one
     if (!className || !className.includes(ITEM_CLASS)) {
-      newProps.className = classnames(ITEM_CLASS, className)
+      className = classnames(ITEM_CLASS, className)
     }
+
     if (selected === true && !className.includes(SELECTED_CLASS)) {
-      newProps.className = classnames(newProps.className || className, SELECTED_CLASS)
+      className = classnames(className, SELECTED_CLASS)
     }
+
     // if this is a react-router NavLink (duck typing!),
     // set activeClassName={SELECTED_CLASS}
     if (child.type.name === 'NavLink') {
       newProps.activeClassName = SELECTED_CLASS
     }
-    return React.cloneElement(child, newProps)
+    return React.cloneElement(child, {className, ...newProps})
   })
 
   return (
