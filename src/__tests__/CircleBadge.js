@@ -63,8 +63,6 @@ describe('CircleBadge', () => {
         <img className="primer" alt="" src="primer.jpg" />
       </CircleBadge>
     )
-    expect(
-      comp.find('img').hasClass('primer')
-    ).toEqual(true)
+    expect(comp.find('img').hasClass('primer')).toEqual(true)
   })
 })
