@@ -1,6 +1,6 @@
 import React from 'react'
 import TextInput from '../TextInput'
-import {render} from '../utils/testing'
+import {render, mount} from '../utils/testing'
 
 describe('TextInput', () => {
   it('renders', () => {
@@ -26,4 +26,11 @@ describe('TextInput', () => {
       render(<input name="zipcode" type="text" className="form-control input-block" />)
     )
   })
+
+  it('should call onChange prop with input value', () => {
+    const onChangeMock = jest.fn();
+    const component = mount(<TextInput onChange={onChangeMock} value="test" />);
+    component.find('input').simulate('change');
+    expect(onChangeMock).toHaveBeenCalled();
+  });
 })

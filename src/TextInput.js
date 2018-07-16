@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value}) => (
+const TextInput = ({autocomplete, onChange, autofocus, block, disabled, id, name, placeholder, required, size, value}) => (
   <input
     aria-label={placeholder}
     autoComplete={autocomplete}
@@ -19,6 +19,7 @@ const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placehol
     required={required}
     type="text"
     value={value}
+    onChange={onChange}
   />
 )
 
@@ -32,7 +33,8 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'large']),
-  value: PropTypes.string
+  value: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 export default TextInput
