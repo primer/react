@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from  './props'
 
-const CircleBadge = ({tag: Tag = 'div', size = 'medium', bg, children, ...rest}) => {
+const CircleBadge = (props) => {
+  const {tag: Tag = 'div', size = 'medium', className, bg, children, ...rest} = mapWhitespaceProps(props)
   const generateContent = () =>
     React.Children.map(children, child => {
       const {className = '', ...rest} = child.props
@@ -12,7 +14,7 @@ const CircleBadge = ({tag: Tag = 'div', size = 'medium', bg, children, ...rest})
       }
       return React.cloneElement(child, newProps)
     })
-  const classes = classnames('CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
+  const classes = classnames(className, 'CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
   return (
     <Tag className={classes} {...rest}>
       {generateContent()}
