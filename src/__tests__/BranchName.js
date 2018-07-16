@@ -1,6 +1,6 @@
 import React from 'react'
 import BranchName from '../BranchName'
-import {render, renderClasses} from '../utils/testing'
+import {render, renderClasses, rendersClass} from '../utils/testing'
 
 describe('BranchName', () => {
   it('renders an <a> by default', () => {
@@ -20,10 +20,10 @@ describe('BranchName', () => {
   })
 
   it('respects margin utility prop', () => {
-    expect(renderClasses(<BranchName m={1} />)).toEqual(['branch-name', 'm-1'])
+    expect(rendersClass(<BranchName m={1} />, 'm-1')).toEqual(true)
   })
 
   it('respects padding utility prop', () => {
-    expect(renderClasses(<BranchName p={1} />)).toEqual(['branch-name', 'p-1'])
+    expect(rendersClass(<BranchName p={1} />, 'p-1')).toEqual(true)
   })
 })
