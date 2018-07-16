@@ -16,7 +16,7 @@ export default function UnderlineNav(props) {
       return child
     }
 
-    let {className = '', selected} = child.props
+    let {className = ''} = child.props
     const newProps = {}
 
     // add the ITEM_CLASS to all children without one
@@ -24,7 +24,7 @@ export default function UnderlineNav(props) {
       className = classnames(ITEM_CLASS, className)
     }
 
-    if (selected === true && !className.includes(SELECTED_CLASS)) {
+    if (child.props.selected === true && !className.includes(SELECTED_CLASS)) {
       className = classnames(className, SELECTED_CLASS)
     }
 
