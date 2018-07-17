@@ -1,6 +1,6 @@
 import React from 'react'
 import Tooltip from '../Tooltip'
-import {render, renderClasses} from '../utils/testing'
+import {render, renderClasses, rendersClass} from '../utils/testing'
 
 describe('Tooltip', () => {
   it('renders a <span> with the "tooltipped" class', () => {
@@ -31,5 +31,13 @@ describe('Tooltip', () => {
 
   it('respects the "wrap" prop', () => {
     expect(renderClasses(<Tooltip wrap />).includes('tooltipped-multiline')).toBe(true)
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<Tooltip m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<Tooltip p={4} />, 'p-4')).toEqual(true)
   })
 })
