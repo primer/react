@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import Details from './Details'
 import Button from './Button'
 import Caret from './Caret'
+import {mapWhitespaceProps} from './props'
 
 const arrowStyles = {
   content: '',
@@ -14,9 +16,10 @@ const arrowStyles = {
   height: '0'
 }
 
-export default function Dropdown({title, scheme, children}) {
+export default function Dropdown(props) {
+  const {title, scheme, children, className} = mapWhitespaceProps(props)
   return (
-    <div className="BtnGroup">
+    <div className={classnames(className, 'BtnGroup')}>
       <Details className="details-reset BtnGroup-form d-flex">
         {({toggle}) => (
           <React.Fragment>
