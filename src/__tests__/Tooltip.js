@@ -1,6 +1,6 @@
 import React from 'react'
 import Tooltip from '../Tooltip'
-import {render, renderClasses} from '../utils/testing'
+import {render, renderClasses, rendersClass} from '../utils/testing'
 
 describe('Tooltip', () => {
   it('renders a <span> with the "tooltipped" class', () => {
@@ -9,20 +9,18 @@ describe('Tooltip', () => {
   })
 
   it('respects the "align" prop', () => {
-    expect(renderClasses(<Tooltip align="ne" />).includes('tooltipped-align-ne-2')).toBe(true)
-    expect(renderClasses(<Tooltip align="se" />).includes('tooltipped-align-se-2')).toBe(true)
-    expect(renderClasses(<Tooltip align="nw" />).includes('tooltipped-align-nw-2')).toBe(true)
-    expect(renderClasses(<Tooltip align="sw" />).includes('tooltipped-align-sw-2')).toBe(true)
+    expect(rendersClass(<Tooltip align="left" />, 'tooltipped-align-left-2')).toBe(true)
+    expect(rendersClass(<Tooltip align="right" />, 'tooltipped-align-right-2')).toBe(true)
   })
 
   it('respects the "direction" prop', () => {
     for (const direction of Tooltip.directions) {
-      expect(renderClasses(<Tooltip direction={direction} />).includes(`tooltipped-${direction}`)).toBe(true)
+      expect(rendersClass(<Tooltip direction={direction} />, `tooltipped-${direction}`)).toBe(true)
     }
   })
 
   it('respects the "noDelay" prop', () => {
-    expect(renderClasses(<Tooltip noDelay />).includes(`tooltipped-no-delay`)).toBe(true)
+    expect(rendersClass(<Tooltip noDelay />, 'tooltipped-no-delay')).toBe(true)
   })
 
   it('respects the "text" prop', () => {
@@ -30,6 +28,6 @@ describe('Tooltip', () => {
   })
 
   it('respects the "wrap" prop', () => {
-    expect(renderClasses(<Tooltip wrap />).includes('tooltipped-multiline')).toBe(true)
+    expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
   })
 })

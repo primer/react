@@ -9,7 +9,7 @@ const textColors = ['white', 'gray', 'black']
 const BlockExample = {
   name: 'Block',
   element: (
-    <Block p={4}>
+    <div>
       <table>
         <thead>
           <tr>
@@ -56,7 +56,7 @@ const BlockExample = {
           ))}
         </tbody>
       </table>
-    </Block>
+    </div>
   )
 }
 
