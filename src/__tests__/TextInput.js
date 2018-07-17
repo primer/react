@@ -1,6 +1,6 @@
 import React from 'react'
 import TextInput from '../TextInput'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('TextInput', () => {
   it('renders', () => {
@@ -26,4 +26,13 @@ describe('TextInput', () => {
       render(<input name="zipcode" type="text" className="form-control input-block" />)
     )
   })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<TextInput m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<TextInput p={4} />, 'p-4')).toEqual(true)
+  })
+
 })
