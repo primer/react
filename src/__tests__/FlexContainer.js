@@ -1,6 +1,6 @@
 import React from 'react'
 import FlexContainer from '../FlexContainer'
-import {renderClasses, rendersClass} from '../utils/testing'
+import {renderClasses} from '../utils/testing'
 
 
 describe('FlexContainer', () => {
@@ -26,13 +26,5 @@ describe('FlexContainer', () => {
 
   it('FlexContainer renders inline classes', () => {
     expect(renderClasses(<FlexContainer inline />)).toEqual(['d-inline-flex'])
-  })
-
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<FlexContainer m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<FlexContainer p={4} />, 'p-4')).toEqual(true)
   })
 })
