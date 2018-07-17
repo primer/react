@@ -1,26 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from './props'
 
-const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value}) => (
-  <input
-    aria-label={placeholder}
-    autoComplete={autocomplete}
-    autoFocus={autofocus}
-    className={classnames('form-control', {
-      'input-block': block,
-      'input-sm': size === 'small',
-      'input-lg': size === 'large'
-    })}
-    disabled={disabled}
-    id={id}
-    name={name}
-    placeholder={placeholder}
-    required={required}
-    type="text"
-    value={value}
-  />
-)
+const TextInput = (props) => {
+  const {autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value, className} = mapWhitespaceProps(props)
+  return (
+    <input
+      aria-label={placeholder}
+      autoComplete={autocomplete}
+      autoFocus={autofocus}
+      className={classnames(className, 'form-control', {
+        'input-block': block,
+        'input-sm': size === 'small',
+        'input-lg': size === 'large'
+      })}
+      disabled={disabled}
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      type="text"
+      value={value}
+    />
+  )
+}
 
 TextInput.propTypes = {
   autocomplete: PropTypes.string,
