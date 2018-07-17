@@ -101,7 +101,7 @@ describe('Caret', () => {
     expect(wrapper.find('span').props().className).toEqual(ITEM_CLASS)
   })
 
-  it('lets <UnderlineNavLink> do its thing', () => {
+  it('renders <UnderlineNavLink> as children', () => {
     expect(
       render(
         <UnderlineNav>
@@ -117,5 +117,13 @@ describe('Caret', () => {
         </UnderlineNav>
       )
     )
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<UnderlineNav m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<UnderlineNav p={4} />, 'p-4')).toEqual(true)
   })
 })
