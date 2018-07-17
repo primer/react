@@ -25,6 +25,8 @@ const DonutSlice = props => {
 DonutSlice.states = Object.keys(fillForState)
 
 DonutSlice.propTypes = {
+  // <title> is really the only thing that should be acceptable here
+  children: PropTypes.shape({type: 'title'}),
   d: PropTypes.string,
   fill: PropTypes.string,
   state: PropTypes.oneOf(DonutSlice.states),

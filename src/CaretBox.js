@@ -3,26 +3,19 @@ import Box from './Box'
 import Caret from './Caret'
 import {colors} from './theme'
 
-const borderValuesByName = {
-  ...colors.border,
-  true: colors.gray[2] // default
-}
-
 const bgValuesByName = colors.bg
 
 export default function CaretBox(props) {
-  const {bg, border, caret: location, children, ...boxProps} = props
-
-  const borderColorName = Array.isArray(border) ? border.filter(value => value in borderValuesByName).pop() : border
+  const {bg, borderColor, caret: location, children, ...boxProps} = props
 
   const caretProps = {
     location,
-    borderColor: borderValuesByName[borderColorName],
+    borderColor,
     fill: bgValuesByName[bg]
   }
 
   return (
-    <Box {...boxProps} bg={bg} border={border}>
+    <Box {...boxProps} bg={bg} borderColor={borderColor}>
       {children}
       <Caret {...caretProps} />
     </Box>

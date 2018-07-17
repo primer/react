@@ -20,9 +20,13 @@ const FlexContainer = props => {
 FlexContainer.propTypes = {
   flex: PropTypes.oneOf(['flex', 'inline-flex']),
   wrap: PropTypes.oneOf(['wrap', 'nowrap']),
-  direction: PropTypes.oneOf(['row', 'row-reverse', 'column']),
-  justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
+  alignContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch']),
   alignItems: PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch']),
-  alignContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch'])
+  children: PropTypes.node,
+  direction: PropTypes.oneOf(['row', 'row-reverse', 'column']),
+  inline: PropTypes.bool,
+  justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
+  wrap: PropTypes.oneOf(['wrap', 'nowrap'])
 }
+
 export default FlexContainer

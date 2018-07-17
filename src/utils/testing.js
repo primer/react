@@ -1,4 +1,8 @@
 import renderer from 'react-test-renderer'
+import enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+enzyme.configure({adapter: new Adapter()})
 
 /**
  * Render the component (a React.createElement() or JSX expression)
@@ -29,4 +33,8 @@ export function renderClasses(component) {
     props: {className}
   } = render(component)
   return className ? className.trim().split(' ') : []
+}
+
+export function mount(component) {
+  return enzyme.mount(component)
 }

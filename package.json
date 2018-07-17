@@ -1,26 +1,25 @@
 {
   "name": "primer-react",
-  "version": "0.0.6-beta",
+  "version": "0.0.10-beta",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
     "build:docs": "x0 build examples --out-dir docs",
-    "lint": "eslint src",
-    "preversion": "npm -s run build",
+    "lint": "eslint src examples",
+    "prepublishOnly": "npm run build",
     "start": "x0 dev examples -op 8888",
-    "test": "jest"
+    "test": "jest",
+    "watch": "jest --watch --no-coverage"
   },
   "files": [
     "dist",
     "src",
     "examples"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/primer/primer-react.git"
-  },
+  "repository": "primer/primer-react",
   "keywords": [
     "react",
     "components",
@@ -35,12 +34,17 @@
     "template": "./html.js"
   },
   "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!@github/octicons-react)"
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/utils/testing.js"
     ]
   },
   "dependencies": {
-    "@github/octicons-react": "7.4.0-alpha.92883216",
+    "@githubprimer/octicons-react": "8.0.0",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "react": "^16.2.0",
@@ -53,6 +57,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "6.24.1",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.1",
     "eslint-plugin-github": "1.0.0",
     "eslint-plugin-jest": "21.15.1",
