@@ -8,8 +8,7 @@ export const ITEM_CLASS = 'UnderlineNav-item no-underline'
 export const SELECTED_CLASS = 'selected'
 
 export default function UnderlineNav(props) {
-  const {actions, align, children, full, label, ...rest} = props
-  const {className} = mapWhitespaceProps(rest)
+  const {actions, align, children, full, label, className} = mapWhitespaceProps(props)
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
 
   const mappedChildren = React.Children.map(children, child => {
