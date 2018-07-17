@@ -24,7 +24,6 @@ describe('StateLabel', () => {
 
   it('does not pass on arbitrary attributes', () => {
     const defaultOutput = render(<StateLabel />)
-    expect(render(<StateLabel className="foo" />)).toEqual(defaultOutput)
     expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
     expect(render(<StateLabel hidden />)).toEqual(defaultOutput)
   })
