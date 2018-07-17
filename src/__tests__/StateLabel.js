@@ -1,7 +1,7 @@
 import React from 'react'
 import Octicon, {IssueOpened} from '@githubprimer/octicons-react'
 import StateLabel from '../StateLabel'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('StateLabel', () => {
   it('respects the scheme prop', () => {
@@ -30,6 +30,14 @@ describe('StateLabel', () => {
 
   it('respects icon={false}', () => {
     expect(render(<StateLabel state="open" icon={false} />)).toEqual(render(<span className="State State--green" />))
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<StateLabel state="open" m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<StateLabel state="open" p={4} />, 'p-4')).toEqual(true)
   })
 
   it('wraps the icon in .mr-1 if there are children', () => {
