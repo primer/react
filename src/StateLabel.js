@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@githubprimer/octicons-react'
 import classnames from 'classnames'
 import {colors} from './theme'
+import {mapWhitespaceProps} from './props'
 
 const stateColorMap = {
   open: 'green',
@@ -36,7 +37,9 @@ function getIconComponent(icon, children) {
   return null
 }
 
-const StateLabel = ({state, scheme, small, icon, children}) => {
+const StateLabel = (props) => {
+  const {state, scheme, small, children, className} = mapWhitespaceProps(props)
+  let {icon} = props;
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
@@ -50,6 +53,7 @@ const StateLabel = ({state, scheme, small, icon, children}) => {
   return (
     <span
       className={classnames(
+        className,
         'State',
         {
           'State--small': small
