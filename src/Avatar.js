@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {mapWhitespaceProps} from  './props'
 
-const Avatar = props => {
-  const {alt, isChild, size = 20, src, className} = mapWhitespaceProps(props)
+const Avatar = ({alt, isChild, size = 20, src, ...rest}) => {
+  const {className}  = mapWhitespaceProps(rest)
 
   const classes = classnames('avatar', {
     'avatar-small': size <= 24,
