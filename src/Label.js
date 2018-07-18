@@ -18,8 +18,8 @@ const colorScheme = (scheme, outline) => {
   }
 }
 
-export default function Label(props) {
-  const {outline, scheme, children, className} = mapWhitespaceProps(props)
+export default function Label({outline, scheme, children, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <span className={classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))}>{children}</span>
   )
