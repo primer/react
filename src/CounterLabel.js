@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from  './props'
+import {mapWhitespaceProps} from './props'
 
 export default function CounterLabel({theme, children, ...rest}) {
   const {className} = mapWhitespaceProps(rest)

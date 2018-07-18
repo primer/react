@@ -9,7 +9,8 @@ function mapData(data) {
 }
 
 const DonutChart = props => {
-  const {data, children = mapData(data), size = 30, className} = mapWhitespaceProps(props)
+  const {data, children = mapData(data), size = 30, ...rest} = props
+  const {className} = mapWhitespaceProps(rest)
 
   const radius = size / 2
   const innerRadius = radius - 6

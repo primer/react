@@ -22,7 +22,9 @@ describe('Link', () => {
   })
 
   it('passes href down to link element', () => {
-    expect(render(<Link href="https://github.com"/>)).toEqual(render(<a className="text-blue" href="https://github.com"/>))
+    expect(render(<Link href="https://github.com" />)).toEqual(
+      render(<a className="text-blue" href="https://github.com" />)
+    )
   })
 
   it('respects margin utility prop', () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from  './props'
+import {mapWhitespaceProps} from './props'
 
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children

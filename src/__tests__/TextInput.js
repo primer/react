@@ -34,5 +34,4 @@ describe('TextInput', () => {
   it('respects padding utility prop', () => {
     expect(rendersClass(<TextInput p={4} />, 'p-4')).toEqual(true)
   })
-
 })

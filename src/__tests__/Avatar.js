@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Avatar from '../Avatar'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('Avatar', () => {
   it('renders small by default', () => {

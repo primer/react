@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import UnderlineNav, {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
 import UnderlineNavLink from '../UnderlineNavLink'
-import {mount, render, renderClasses, rendersClass} from '../utils/testing'
+import {mount, render, rendersClass} from '../utils/testing'
 
 describe('Caret', () => {
   it('renders a <nav>', () => {

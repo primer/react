@@ -2,7 +2,6 @@ import React from 'react'
 import FlexContainer from '../FlexContainer'
 import {renderClasses} from '../utils/testing'
 
-
 describe('FlexContainer', () => {
   it('FlexContainer renders wrap classes', () => {
     expect(renderClasses(<FlexContainer wrap="nowrap" />)).toEqual(['d-flex', 'flex-nowrap'])

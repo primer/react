@@ -47,10 +47,24 @@ describe('DonutChart', () => {
   })
 
   it('respects margin utility prop', () => {
-    expect(rendersClass(<DonutChart m={4}><DonutSlice state="failure" value={1} /></DonutChart>, 'm-4')).toEqual(true)
+    expect(
+      rendersClass(
+        <DonutChart m={4}>
+          <DonutSlice state="failure" value={1} />
+        </DonutChart>,
+        'm-4'
+      )
+    ).toEqual(true)
   })
 
   it('respects padding utility prop', () => {
-    expect(rendersClass(<DonutChart p={4}><DonutSlice state="failure" value={1} /></DonutChart>, 'p-4')).toEqual(true)
+    expect(
+      rendersClass(
+        <DonutChart p={4}>
+          <DonutSlice state="failure" value={1} />
+        </DonutChart>,
+        'p-4'
+      )
+    ).toEqual(true)
   })
 })

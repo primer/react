@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 function noop() {}
 

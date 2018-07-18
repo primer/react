@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import CircleBadge from '../CircleBadge'
-import {render, renderClasses, rendersClass, mount} from '../utils/testing'
+import {render, rendersClass, mount} from '../utils/testing'
 
 const imgOutput = <img className="CircleBadge-icon" alt="" src="primer.jpg" />
 const imgInput = <img alt="" src="primer.jpg" />

@@ -3,18 +3,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {mapWhitespaceProps} from './props'
 
-function Button({
-  tag: Tag = 'button',
-  children,
-  size,
-  block,
-  linkStyle,
-  grouped,
-  scheme,
-  onClick,
-  disabled,
-  ...rest
-}) {
+function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...rest}) {
   const {className} = mapWhitespaceProps(rest)
   const classes = classnames(
     className,

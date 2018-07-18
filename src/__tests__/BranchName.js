@@ -1,6 +1,6 @@
 import React from 'react'
 import BranchName from '../BranchName'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('BranchName', () => {
   it('renders an <a> by default', () => {
