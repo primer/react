@@ -5,8 +5,8 @@ import {mapWhitespaceProps} from './props'
 
 const alignmentDirections = ['ne', 'se', 'nw', 'sw']
 
-export default function Tooltip(props) {
-  const {children, direction, text, noDelay, align, wrap, className} = mapWhitespaceProps(props)
+export default function Tooltip({children, direction, text, noDelay, align, wrap, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <span
       aria-label={text}
