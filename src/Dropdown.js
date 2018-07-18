@@ -16,8 +16,8 @@ const arrowStyles = {
   height: '0'
 }
 
-export default function Dropdown(props) {
-  const {title, scheme, children, className} = mapWhitespaceProps(props)
+export default function Dropdown({title, scheme, children, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <div className={classnames(className, 'BtnGroup')}>
       <Details className="details-reset BtnGroup-form d-flex">
