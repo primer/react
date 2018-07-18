@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {mapWhitespaceProps} from './props'
 
-export default function BranchName(props) {
-  let {children, href, tag: Tag, className} = mapWhitespaceProps(props)
+export default function BranchName({children, href, tag: Tag, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   // We don't want someone to use href on a non tag
   if (Tag !== 'a') {
     href = null
