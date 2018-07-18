@@ -9,8 +9,8 @@ const schemeMap = {
   yellow: 'warn'
 }
 
-export default function Flash(props) {
-  const {children, className, full, scheme} = mapWhitespaceProps(props)
+export default function Flash({children, full, scheme, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <div className={classnames(className, 'flash', full && 'flash-full', scheme && `flash-${schemeMap[scheme]}`)}>
       {children}
