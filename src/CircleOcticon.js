@@ -5,8 +5,8 @@ import Octicon from '@githubprimer/octicons-react'
 import {mapWhitespaceProps} from './props'
 import {colors} from './theme'
 
-export default function CircleOcticon(props) {
-  const {size, bg, color, className, ...rest} = mapWhitespaceProps(props)
+export default function CircleOcticon({size, bg, color, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   const classes = classnames(
     className,
     'circle d-flex flex-items-center flex-justify-center',
