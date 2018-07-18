@@ -13,8 +13,8 @@ const fontSizeMap = {
   6: 0
 }
 
-const Text = props => {
-  const {tag: Tag = 'span', children, color, fontSize, fontWeight, lineHeight, mono, nowrap, className} = mapWhitespaceProps(props)
+const Text = ({tag: Tag = 'span', children, color, fontSize, fontWeight, lineHeight, mono, nowrap, ...rest}) => {
+  const {className} = mapWhitespaceProps(rest)
 
   const fontSizeClass =
     fontSize in fontSizeMap
