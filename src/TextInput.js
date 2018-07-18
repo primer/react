@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {mapWhitespaceProps} from './props'
 
-const TextInput = (props) => {
-  const {autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value, className} = mapWhitespaceProps(props)
+const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value, ...rest}) => {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <input
       aria-label={placeholder}
