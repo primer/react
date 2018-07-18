@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {mapWhitespaceProps} from './props'
 
-export default function Link(props) {
-  const {children, className, muted, scheme, nounderline, ...rest} = mapWhitespaceProps(props)
+export default function Link({children, muted, scheme, nounderline, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   const colorClass = scheme ? `link-${scheme}` : muted ? 'muted-link' : 'text-blue'
   return (
     <a className={classnames(className, colorClass, nounderline && 'no-underline')} {...rest}>
