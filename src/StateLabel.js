@@ -37,9 +37,8 @@ function getIconComponent(icon, children) {
   return null
 }
 
-const StateLabel = (props) => {
-  const {state, scheme, small, children, className} = mapWhitespaceProps(props)
-  let {icon} = props;
+const StateLabel = ({state, scheme, icon, small, children, ...rest}) => {
+  const {className} = mapWhitespaceProps(rest)
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
