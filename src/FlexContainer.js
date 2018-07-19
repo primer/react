@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Block from './Block'
-import {mapFlexProps} from './props'
+import {mapAllProps} from './props'
 
 const FlexContainer = props => {
 
-  const {className, children, ...rest} = mapFlexProps(
+  const {className, children, ...rest} = mapAllProps(
     props
   )
 
@@ -18,7 +18,7 @@ const FlexContainer = props => {
 }
 
 FlexContainer.propTypes = {
-  flex: PropTypes.oneOf(['flex', 'inline-flex']),
+  display: PropTypes.oneOf(['flex', 'inline-flex']),
   wrap: PropTypes.oneOf(['wrap', 'nowrap']),
   alignContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch']),
   alignItems: PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch']),
@@ -27,6 +27,10 @@ FlexContainer.propTypes = {
   inline: PropTypes.bool,
   justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
   wrap: PropTypes.oneOf(['wrap', 'nowrap'])
+}
+
+FlexContainer.defaultProps = {
+  display: 'flex'
 }
 
 export default FlexContainer

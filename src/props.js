@@ -10,22 +10,25 @@ export const oneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
 const flexPropNames = {
   justifyContent: 'justify',
   alignItems: 'items',
-  alignContent: 'content',
-  flex: 'd'
+  alignContent: 'content'
 }
 
 const classPattern = (breakpoint, prop, value, type) => {
   let result = ''
-  if(type == 'flex') {
-    result = ['flex', breakpoint, flexPropNames[prop], value].join('-')
-  } else {
-    result = [prop, breakpoint, value].join('-')
+  switch (type) {
+    case 'flex':
+      result = ['flex', breakpoint, flexPropNames[prop], value].join('-')
+      break;
+    case 'display':
+      result = ['d', breakpoint, value].join('-')
+      break;
+    default:
+      result = [prop, breakpoint, value].join('-')
   }
   return result.replace(/\-\-+/g, '-')
 }
 
 export const createMapperWithPropTypes = (props, type) => {
-  console.log(props)
   const mapper = createMapper({
     breakpoints,
     props,
@@ -40,10 +43,14 @@ export const createMapperWithPropTypes = (props, type) => {
 
 export const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
 export const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
-export const flexProps = ['flex', 'wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent']
+export const flexProps = ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent']
 
 export const mapWhitespaceProps = createMapperWithPropTypes(marginProps.concat(paddingProps))
 export const mapFlexProps = createMapperWithPropTypes(flexProps, 'flex')
+export const mapDisplayProps = createMapperWithPropTypes(['display'], 'display')
+export const mapAllProps = props => {
+  return mapWhitespaceProps(mapDisplayProps(mapFlexProps(props)))
+}
 
 export function stylizer(propsToPass) {
   return props => {
