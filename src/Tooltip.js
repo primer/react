@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {mapWhitespaceProps} from './props'
 
-const alignmentDirections = ['ne', 'se', 'nw', 'sw']
-
 export default function Tooltip({children, direction, text, noDelay, align, wrap, ...rest}) {
   const {className} = mapWhitespaceProps(rest)
   return (
@@ -24,6 +22,8 @@ export default function Tooltip({children, direction, text, noDelay, align, wrap
   )
 }
 
+Tooltip.alignments = ['left', 'right']
+
 Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
 Tooltip.defaultProps = {
@@ -31,7 +31,7 @@ Tooltip.defaultProps = {
 }
 
 Tooltip.propTypes = {
-  align: PropTypes.oneOf(alignmentDirections),
+  align: PropTypes.oneOf(Tooltip.alignments),
   children: PropTypes.node,
   direction: PropTypes.oneOf(Tooltip.directions),
   noDelay: PropTypes.bool,
