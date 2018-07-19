@@ -3,25 +3,39 @@ import {Library, LiveEditor} from '@compositor/kit'
 import SideNav from './doc-components/SideNav'
 import MergeBox from './demos/MergeBox'
 import MergeButton from './demos/MergeButton'
+import {Block} from '../src'
 
 const examples = [
   {
     name: 'MergeBox',
     element: (
-      <span className="mr-2">
+      <Block p={4}>
         <LiveEditor
-          code={`<MergeBox state='pending' numCommits={21} repoUrl={'https://github.com/primer/primer-react'} branchName={'master'}/>`}
+          code={`<MergeBox
+  state='pending'
+  numCommits={21}
+  repoUrl='https://github.com/primer/primer-react'
+  branchName='master'
+  onMerge={() => alert('merge!')}
+/>`}
           scope={{MergeBox}}
         />
-      </span>
+      </Block>
     )
   },
   {
     name: 'MergeButton',
     element: (
-      <span className="mr-2">
-        <LiveEditor code={`<MergeButton scheme='primary'/>`} scope={{MergeButton}} />
-      </span>
+      <Block p={4}>
+        <LiveEditor
+          code={`<MergeButton
+  primary
+  numCommits={2}
+  onClick={() => alert('merge!')}
+/>`}
+          scope={{MergeButton}}
+        />
+      </Block>
     )
   }
 ]
