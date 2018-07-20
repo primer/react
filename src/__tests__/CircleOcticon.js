@@ -31,4 +31,12 @@ describe('CircleOcticon', () => {
   it('has a default size', () => {
     expect(render(<CircleOcticon icon={Check} />).props.style).toEqual({width: '32px', height: '32px'})
   })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<CircleOcticon icon={Check} m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<CircleOcticon icon={Check} p={4} />, 'p-4')).toEqual(true)
+  })
 })

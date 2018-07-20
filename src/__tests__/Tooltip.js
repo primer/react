@@ -30,4 +30,12 @@ describe('Tooltip', () => {
   it('respects the "wrap" prop', () => {
     expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
   })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<Tooltip m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<Tooltip p={4} />, 'p-4')).toEqual(true)
+  })
 })

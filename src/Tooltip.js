@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from './props'
 
-export default function Tooltip({children, direction, text, noDelay, align, wrap}) {
+export default function Tooltip({children, direction, text, noDelay, align, wrap, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <span
       aria-label={text}
       className={classnames(
+        className,
         'tooltipped',
         `tooltipped-${direction}`,
         align && `tooltipped-align-${align}-2`,

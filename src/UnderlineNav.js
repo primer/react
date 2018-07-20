@@ -6,8 +6,7 @@ import {mapWhitespaceProps} from './props'
 export const ITEM_CLASS = 'UnderlineNav-item no-underline'
 export const SELECTED_CLASS = 'selected'
 
-export default function UnderlineNav(props) {
-  const {actions, align, children, full, label, ...rest} = props
+export default function UnderlineNav({actions, align, children, full, label, ...rest}) {
   const {className} = mapWhitespaceProps(rest)
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
 

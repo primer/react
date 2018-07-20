@@ -48,6 +48,12 @@ describe('Text', () => {
     expect(render(<Text fontSize={6} />)).toEqual(render(<span className="f0" />))
   })
 
+  it('does not pass on arbitrary attributes', () => {
+    const defaultOutput = render(<Text />)
+    expect(render(<Text bugs="bar" />)).toEqual(defaultOutput)
+    expect(render(<Text hidden />)).toEqual(defaultOutput)
+  })
+
   it('respects other values for fontSize', () => {
     expect(render(<Text fontSize="00" />)).toEqual(render(<span className="f00" />))
     const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())

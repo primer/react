@@ -1,7 +1,7 @@
 import React from 'react'
 import Octicon from '@githubprimer/octicons-react'
 import OcticonButton from '../OcticonButton'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 const Circle = ({r = 8}) => <circle cx={r} cy={r} r={r} />
 Circle.size = [16, 16]
@@ -39,6 +39,14 @@ describe('OcticonButton', () => {
   it('passes the onClick handler to the <button>', () => {
     function click() {}
     expect(render(<OcticonButton icon={Circle} onClick={click} />).props.onClick).toEqual(click)
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<OcticonButton icon={Circle} m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<OcticonButton icon={Circle} p={4} />, 'p-4')).toEqual(true)
   })
 
   it('passes the "size" prop to the Octicon', () => {
