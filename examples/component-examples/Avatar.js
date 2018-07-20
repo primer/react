@@ -1,19 +1,22 @@
 import React from 'react'
-import {Block} from '../../src'
-import GitHubAvatar from '../doc-components/GitHubAvatar'
+import {LiveEditor} from '@compositor/kit'
+import {Block, Avatar} from '../../src'
 
 const AvatarExample = {
   name: 'Avatar',
   element: (
     <div>
       <Block mb={2}>
-        <GitHubAvatar username="primer" size={128} />
+        <LiveEditor code={`<Avatar src="https://avatars.githubusercontent.com/primer?v=3&s=128" size={128} username="primer" />`} scope={{Avatar}} />
       </Block>
       <Block mb={2}>
-        <GitHubAvatar username="github" size={64} />
+        <LiveEditor code={`<Avatar src="https://avatars.githubusercontent.com/primer?v=3&s=128" size={128} username="primer" />`} scope={{Avatar}} />
       </Block>
       <Block mb={2}>
-        <GitHubAvatar username="reactjs" size={32} /> <GitHubAvatar username="npm" />
+        <LiveEditor code={`<Avatar src="https://avatars.githubusercontent.com/reactjs?v=3&s=32" size={32} username="reactjs" />`} scope={{Avatar}}/>
+      </Block>
+      <Block>
+        <LiveEditor code={`<Avatar src="https://avatars.githubusercontent.com/npm?v=3&s=64" username="npm" />`} scope={{Avatar}}/>
       </Block>
     </div>
   )
