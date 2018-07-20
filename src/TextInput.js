@@ -2,11 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placeholder, required, size, value}) => (
+const TextInput = ({autocomplete, onChange, block, disabled, id, name, placeholder, required, size, value}) => (
   <input
     aria-label={placeholder}
     autoComplete={autocomplete}
-    autoFocus={autofocus}
     className={classnames('form-control', {
       'input-block': block,
       'input-sm': size === 'small',
@@ -19,16 +18,17 @@ const TextInput = ({autocomplete, autofocus, block, disabled, id, name, placehol
     required={required}
     type="text"
     value={value}
+    onChange={onChange}
   />
 )
 
 TextInput.propTypes = {
   autocomplete: PropTypes.string,
-  autofocus: PropTypes.bool,
   block: PropTypes.bool,
   disabled: PropTypes.bool,
   id: PropTypes.string,
   name: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'large']),
