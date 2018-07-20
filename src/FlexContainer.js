@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Block from './Block'
-import {mapAllProps} from './props'
+import {mapAllProps, oneOrMoreOf} from './props'
 
 const FlexContainer = props => {
 
@@ -18,14 +18,14 @@ const FlexContainer = props => {
 }
 
 FlexContainer.propTypes = {
-  alignContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch']),
-  alignItems: PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch']),
+  alignContent: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch'])),
+  alignItems: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch'])),
   children: PropTypes.node,
-  direction: PropTypes.oneOf(['row', 'row-reverse', 'column']),
-  display: PropTypes.oneOf(['flex', 'inline-flex']),
+  direction: oneOrMoreOf(PropTypes.oneOf(['row', 'row-reverse', 'column'])),
+  display: oneOrMoreOf(PropTypes.oneOf(['flex', 'inline-flex'])),
   inline: PropTypes.bool,
-  justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
-  wrap: PropTypes.oneOf(['wrap', 'nowrap'])
+  justifyContent: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'between', 'around'])),
+  wrap: oneOrMoreOf(PropTypes.oneOf(['wrap', 'nowrap']))
 }
 
 FlexContainer.defaultProps = {
