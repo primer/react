@@ -18,6 +18,7 @@ const FlexExample = {
       <ExampleHeading>FlexContainer</ExampleHeading>
       <PropsForm>
         <FlexContainer
+          display="flex"
           wrap="wrap"
           direction="row"
           justifyContent="start"
