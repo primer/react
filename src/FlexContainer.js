@@ -1,14 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import Block from './Block'
 import {mapAllProps, oneOrMoreOf} from './props'
 
 const FlexContainer = props => {
-
-  const {className, children, ...rest} = mapAllProps(
-    props
-  )
+  const {className, children, ...rest} = mapAllProps(props)
 
   return (
     <Block {...rest} className={className}>

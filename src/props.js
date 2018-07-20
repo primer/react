@@ -18,14 +18,14 @@ const classPattern = (breakpoint, prop, value, type) => {
   switch (type) {
     case 'flex':
       result = ['flex', breakpoint, flexPropNames[prop], value].join('-')
-      break;
+      break
     case 'display':
       result = ['d', breakpoint, value].join('-')
-      break;
+      break
     default:
       result = [prop, breakpoint, value].join('-')
   }
-  return result.replace(/\-\-+/g, '-')
+  return result.replace(/\-\-+/g, '-') //eslint-disable-line
 }
 
 export const createMapperWithPropTypes = (props, type) => {

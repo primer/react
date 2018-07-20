@@ -27,5 +27,5 @@ it('FlexContainer renders display classes', () => {
 })
 
 it('FlexContainer renders responsive display classes', () => {
-  expect(renderClasses(<FlexContainer display={["flex","inline-flex"]} />)).toEqual(['d-flex', 'd-sm-inline-flex'])
+  expect(renderClasses(<FlexContainer display={['flex', 'inline-flex']} />)).toEqual(['d-flex', 'd-sm-inline-flex'])
 })

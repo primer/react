@@ -19,9 +19,9 @@ const FlexExample = {
       <PropsForm>
         <FlexContainer
           display={['flex', 'inline-flex']}
-          wrap={['wrap','nowrap']}
-          direction='row'
-          justifyContent={['start','end','start']}
+          wrap={['wrap', 'nowrap']}
+          direction="row"
+          justifyContent={['start', 'end', 'start']}
           alignItems={['start', 'end']}
           alignContent="start"
           flexAuto
