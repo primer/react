@@ -15,6 +15,8 @@ export default function UnderlineNavLink({children, selected, tag: Tag, ...rest}
   )
 }
 
+UnderlineNavLink.displayName = 'UnderlineNavLink'
+
 UnderlineNavLink.defaultProps = {
   tag: 'a'
 }

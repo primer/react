@@ -1,6 +1,6 @@
 import React from 'react'
 import TextInput from '../TextInput'
-import {render, rendersClass} from '../utils/testing'
+import {render, mount, rendersClass} from '../utils/testing'
 
 describe('TextInput', () => {
   it('renders', () => {
@@ -33,5 +33,12 @@ describe('TextInput', () => {
 
   it('respects padding utility prop', () => {
     expect(rendersClass(<TextInput p={4} />, 'p-4')).toEqual(true)
+  })
+
+  it('should call onChange prop with input value', () => {
+    const onChangeMock = jest.fn()
+    const component = mount(<TextInput onChange={onChangeMock} value="test" />)
+    component.find('input').simulate('change')
+    expect(onChangeMock).toHaveBeenCalled()
   })
 })

@@ -5,7 +5,7 @@ import {mapWhitespaceProps} from './props'
 
 const TextInput = ({
   autocomplete,
-  autofocus,
+  onChange,
   block,
   disabled,
   id,
@@ -21,7 +21,7 @@ const TextInput = ({
     <input
       aria-label={placeholder}
       autoComplete={autocomplete}
-      autoFocus={autofocus}
+      onChange={onChange}
       className={classnames(className, 'form-control', {
         'input-block': block,
         'input-sm': size === 'small',
@@ -40,11 +40,11 @@ const TextInput = ({
 
 TextInput.propTypes = {
   autocomplete: PropTypes.string,
-  autofocus: PropTypes.bool,
   block: PropTypes.bool,
   disabled: PropTypes.bool,
   id: PropTypes.string,
   name: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'large']),
