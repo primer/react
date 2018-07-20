@@ -1,6 +1,6 @@
 import React from 'react'
 import TextInput from '../TextInput'
-import {render} from '../utils/testing'
+import {render, mount, rendersClass} from '../utils/testing'
 
 describe('TextInput', () => {
   it('renders', () => {
@@ -25,5 +25,20 @@ describe('TextInput', () => {
     expect(render(<TextInput name="zipcode" block />)).toEqual(
       render(<input name="zipcode" type="text" className="form-control input-block" />)
     )
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<TextInput m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<TextInput p={4} />, 'p-4')).toEqual(true)
+  })
+
+  it('should call onChange prop with input value', () => {
+    const onChangeMock = jest.fn()
+    const component = mount(<TextInput onChange={onChangeMock} value="test" />)
+    component.find('input').simulate('change')
+    expect(onChangeMock).toHaveBeenCalled()
   })
 })

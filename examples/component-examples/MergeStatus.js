@@ -5,16 +5,16 @@ const MergeStatusExample = {
   name: 'MergeStatus',
   element: (
     <div>
-      <Block m={2}>
+      <Block mb={2}>
         <MergeStatus state="pending" />
       </Block>
-      <Block m={2}>
+      <Block mb={2}>
         <MergeStatus state="invalid" />
       </Block>
-      <Block m={2}>
+      <Block mb={2}>
         <MergeStatus state="merged" />
       </Block>
-      <Block m={2}>
+      <Block mb={2}>
         <MergeStatus state="ready" />
       </Block>
     </div>

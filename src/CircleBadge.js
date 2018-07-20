@@ -1,21 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from './props'
+
+const ICON_CLASS = 'CircleBadge-icon'
 
 const CircleBadge = ({tag: Tag = 'div', size = 'medium', bg, children, ...rest}) => {
-  const generateContent = () =>
-    React.Children.map(children, child => {
-      const {className = '', ...rest} = child.props
-      const newProps = {...rest}
-      if (!className || !className.includes('CircleBadge-icon')) {
-        newProps.className = classnames('CircleBadge-icon', className)
-      }
-      return React.cloneElement(child, newProps)
-    })
-  const classes = classnames('CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
+  const {className} = mapWhitespaceProps(rest)
+  const mappedChildren = React.Children.map(children, child => {
+    let {className = ''} = child.props
+    if (!className.includes(ICON_CLASS)) {
+      className = classnames(ICON_CLASS, className)
+    }
+    return React.cloneElement(child, {className})
+  })
+  const classes = classnames(className, 'CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
   return (
     <Tag className={classes} {...rest}>
-      {generateContent()}
+      {mappedChildren}
     </Tag>
   )
 }

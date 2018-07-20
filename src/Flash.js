@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from './props'
 
 const schemeMap = {
   green: 'success',
@@ -8,7 +9,8 @@ const schemeMap = {
   yellow: 'warn'
 }
 
-export default function Flash({children, className, full, scheme}) {
+export default function Flash({children, full, scheme, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   return (
     <div className={classnames(className, 'flash', full && 'flash-full', scheme && `flash-${schemeMap[scheme]}`)}>
       {children}

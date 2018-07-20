@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {mapWhitespaceProps} from './props'
 
-export default function CounterLabel({theme, children}) {
-  return <span className={classnames('Counter', theme && `Counter--${theme}`)}>{children}</span>
+export default function CounterLabel({theme, children, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
+  return <span className={classnames(className, 'Counter', theme && `Counter--${theme}`)}>{children}</span>
 }
 
 CounterLabel.propTypes = {

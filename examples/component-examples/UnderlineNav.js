@@ -7,7 +7,7 @@ import {NavLink} from 'react-router-dom'
 export default {
   name: 'UnderlineNav',
   element: (
-    <Block p={4}>
+    <div>
       <Block mb={4}>
         <ExampleHeading>
           Using <Text mono>{'<UnderlineNavLink>'}</Text>
@@ -44,6 +44,6 @@ export default {
           <NavLink to="/">Selected</NavLink>
         </UnderlineNav>
       </Block>
-    </Block>
+    </div>
   )
 }

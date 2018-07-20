@@ -1,6 +1,6 @@
 import React from 'react'
 import CircleOcticon from '../CircleOcticon'
-import {render, renderClasses} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 import {Check} from '@githubprimer/octicons-react'
 
 describe('CircleOcticon', () => {
@@ -9,7 +9,7 @@ describe('CircleOcticon', () => {
   })
 
   it('adds the "circle" class', () => {
-    expect(renderClasses(<CircleOcticon icon={Check} />).includes('circle')).toBe(true)
+    expect(rendersClass(<CircleOcticon icon={Check} />, 'circle')).toBe(true)
   })
 
   it('does not add a bg class by default', () => {
@@ -17,7 +17,7 @@ describe('CircleOcticon', () => {
   })
 
   it('adds the appropriate bg class for the "bg" prop', () => {
-    expect(renderClasses(<CircleOcticon icon={Check} bg="red" />).includes('bg-red')).toBe(true)
+    expect(rendersClass(<CircleOcticon icon={Check} bg="red" />, 'bg-red')).toBe(true)
   })
 
   it('does not add a text class by default', () => {
@@ -25,10 +25,18 @@ describe('CircleOcticon', () => {
   })
 
   it('adds the appropriate text class for the "color" prop', () => {
-    expect(renderClasses(<CircleOcticon icon={Check} color="red" />).includes('text-red')).toBe(true)
+    expect(rendersClass(<CircleOcticon icon={Check} color="red" />, 'text-red')).toBe(true)
   })
 
   it('has a default size', () => {
     expect(render(<CircleOcticon icon={Check} />).props.style).toEqual({width: '32px', height: '32px'})
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<CircleOcticon icon={Check} m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<CircleOcticon icon={Check} p={4} />, 'p-4')).toEqual(true)
   })
 })

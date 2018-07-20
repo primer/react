@@ -2,6 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import theme, {colors} from './theme'
 
+const borderColors = Object.keys(colors.border)
+
+function getBorderColor(key) {
+  return colors.border[key] || key
+}
+
 const oppositeEdge = {
   top: 'Bottom',
   right: 'Left',
@@ -71,7 +77,7 @@ export default function Caret(props) {
     <svg width={size * 2} height={size * 2} style={style}>
       <g transform={transform}>
         <path d={triangle} fill={fill} />
-        <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
+        <path d={line} fill="none" stroke={getBorderColor(borderColor)} strokeWidth={borderWidth} />
       </g>
     </svg>
   )
@@ -93,7 +99,7 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  borderColor: colors.gray[2],
+  borderColor: 'gray',
   borderWidth: 1,
   fill: colors.white,
   location: 'bottom',
@@ -101,7 +107,7 @@ Caret.defaultProps = {
 }
 
 Caret.propTypes = {
-  borderColor: PropTypes.string,
+  borderColor: PropTypes.oneOf(borderColors),
   borderWidth: PropTypes.number,
   fill: PropTypes.string,
   location: PropTypes.oneOf(Caret.locations),

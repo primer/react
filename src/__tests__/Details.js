@@ -1,11 +1,19 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import Details from '../Details'
-import {mount, render} from '../utils/testing'
+import {mount, render, rendersClass} from '../utils/testing'
 
 describe('Details', () => {
   it('Renders a <details> element with reset class', () => {
     expect(render(<Details />)).toEqual(render(<details open={false} className="details-reset" />))
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<Details m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<Details p={4} />, 'p-4')).toEqual(true)
   })
 
   it('Respects the open prop', () => {

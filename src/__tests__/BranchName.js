@@ -1,6 +1,6 @@
 import React from 'react'
 import BranchName from '../BranchName'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('BranchName', () => {
   it('renders an <a> by default', () => {
@@ -17,5 +17,13 @@ describe('BranchName', () => {
 
   it('renders href={null} if tag != "a"', () => {
     expect(render(<BranchName tag="span" href="#" />).props.href).toEqual(null)
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<BranchName m={1} />, 'm-1')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<BranchName p={1} />, 'p-1')).toEqual(true)
   })
 })

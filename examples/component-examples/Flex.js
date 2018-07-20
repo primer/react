@@ -14,8 +14,8 @@ const propObj = {
 const FlexExample = {
   name: 'Flex',
   element: (
-    <Block p={2}>
-      <ExampleHeading mt={2}>FlexContainer</ExampleHeading>
+    <div>
+      <ExampleHeading>FlexContainer</ExampleHeading>
       <PropsForm>
         <FlexContainer
           display={['flex', 'inline-flex']}
@@ -52,7 +52,7 @@ const FlexExample = {
           </PropsForm.Select>
         ))}
       </PropsForm>
-      <ExampleHeading mt={2}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
+      <ExampleHeading mt={3}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
       <FlexContainer wrap="nowrap" width={300} height={300} border>
         <FlexItem flexAuto>
           <Block p={3} bg="blue">
@@ -106,7 +106,7 @@ const FlexExample = {
           </Block>
         </FlexItem>
       </FlexContainer>
-    </Block>
+    </div>
   )
 }
 

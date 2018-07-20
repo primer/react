@@ -9,7 +9,7 @@ const BoxExample = {
       <Box p={2} m={2}>
         This is a box with padding.
       </Box>
-      <Box shadow p={2} m={2}>
+      <Box shadow="small" p={2} m={2}>
         This is a box with shadow.
       </Box>
       <Box shadow="medium" p={2} m={2}>
@@ -21,7 +21,7 @@ const BoxExample = {
       <Box shadow="extra-large" p={2} m={2}>
         This is a box with an extra-large shadow.
       </Box>
-      <Box border={[true, 'green']} p={2} m={2}>
+      <Box borderColor="green" p={2} m={2}>
         This is a box with a green border.
       </Box>
     </div>
