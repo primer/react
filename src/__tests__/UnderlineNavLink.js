@@ -2,7 +2,7 @@
 import React from 'react'
 import {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
 import UnderlineNavLink from '../UnderlineNavLink'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('Caret', () => {
   it('renders an <a> by default', () => {
@@ -16,5 +16,13 @@ describe('Caret', () => {
 
   it('respects the "selected" prop', () => {
     expect(render(<UnderlineNavLink selected />)).toEqual(render(<a className={`${ITEM_CLASS} ${SELECTED_CLASS}`} />))
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<UnderlineNavLink m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<UnderlineNavLink p={4} />, 'p-4')).toEqual(true)
   })
 })

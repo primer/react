@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 function noop() {}
 
@@ -23,6 +23,14 @@ describe('Button', () => {
         </button>
       )
     )
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<Button m={1} />, 'm-1')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<Button p={1} />, 'p-1')).toEqual(true)
   })
 
   it('respects the "block" prop', () => {

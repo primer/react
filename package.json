@@ -1,6 +1,6 @@
 {
   "name": "primer-react",
-  "version": "0.0.10-beta",
+  "version": "0.0.11-beta",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",

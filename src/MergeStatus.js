@@ -12,7 +12,7 @@ const stateColorMap = {
 
 const octicon = <Octicon icon={GitMerge} size="medium" />
 
-const MergeStatus = ({state}) => <StateLabel scheme={stateColorMap[state]} icon={octicon} />
+const MergeStatus = ({state, ...rest}) => <StateLabel {...rest} scheme={stateColorMap[state]} icon={octicon} />
 
 MergeStatus.propTypes = {
   state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired

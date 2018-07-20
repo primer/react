@@ -9,10 +9,8 @@ describe('Tooltip', () => {
   })
 
   it('respects the "align" prop', () => {
-    expect(rendersClass(<Tooltip align="ne" />, 'tooltipped-align-ne-2')).toBe(true)
-    expect(rendersClass(<Tooltip align="se" />, 'tooltipped-align-se-2')).toBe(true)
-    expect(rendersClass(<Tooltip align="nw" />, 'tooltipped-align-nw-2')).toBe(true)
-    expect(rendersClass(<Tooltip align="sw" />, 'tooltipped-align-sw-2')).toBe(true)
+    expect(rendersClass(<Tooltip align="left" />, 'tooltipped-align-left-2')).toBe(true)
+    expect(rendersClass(<Tooltip align="right" />, 'tooltipped-align-right-2')).toBe(true)
   })
 
   it('respects the "direction" prop', () => {
@@ -31,5 +29,13 @@ describe('Tooltip', () => {
 
   it('respects the "wrap" prop', () => {
     expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
+  })
+
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<Tooltip m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<Tooltip p={4} />, 'p-4')).toEqual(true)
   })
 })

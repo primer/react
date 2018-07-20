@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import {Block, ButtonLink, Link, Text} from '../../src'
 import MergeButton from './MergeButton'
 
-const MergeActions = ({numCommits, repoUrl, branchName, state}) => {
+const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
   return (
     <Block py={3} px={4} bg="gray-light" style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
-      <MergeButton primary={state === 'ready'} numCommits={numCommits} />
+      <MergeButton primary={state === 'ready'} numCommits={numCommits} onClick={onClick} />
       <Text ml={2}>You can also </Text>
-      <Link nounderline href={`x-github-client://openRepo/${repoUrl}?branch=${branchName}`}>
+      <Link nounderline href={desktopUrl}>
         open this in Github Desktop
       </Link>
       <Text> or view </Text>
@@ -18,9 +18,9 @@ const MergeActions = ({numCommits, repoUrl, branchName, state}) => {
 }
 
 MergeActions.propTypes = {
-  branchName: PropTypes.string.isRequired,
-  numCommits: PropTypes.number.isRequired,
-  repoUrl: PropTypes.string.isRequired,
+  desktopUrl: PropTypes.string.isRequired,
+  numCommits: MergeButton.propTypes.numCommits,
+  onClick: PropTypes.func.isRequired,
   state: PropTypes.string.isRequired
 }
 

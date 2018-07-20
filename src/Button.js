@@ -1,9 +1,12 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import {mapWhitespaceProps} from './props'
 
-function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...props}) {
+function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...rest}) {
+  const {className} = mapWhitespaceProps(rest)
   const classes = classnames(
+    className,
     {
       btn: !linkStyle,
       'btn-link': linkStyle,
@@ -16,7 +19,7 @@ function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped,
   )
 
   return (
-    <Tag {...props} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
+    <Tag {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
       {children}
     </Tag>
   )

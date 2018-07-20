@@ -58,7 +58,7 @@ colors.border = {
   red: red[5],
   'red-light': red[3], // FIXME desaturate($red-300, 60%)
   purple: purple[5],
-  yellow: yellow[3], // FIXME desaturate($yellow-300, 60%)
+  yellow: '#d9d0a5', // desaturate($yellow-300, 60%)
   gray: gray[2],
   'gray-light': gray[2], // FIXME lighten($gray-200, 3%)
   'gray-dark': gray[3],

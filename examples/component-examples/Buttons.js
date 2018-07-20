@@ -6,7 +6,7 @@ import {Hubot, Pencil, X} from '@githubprimer/octicons-react'
 const ButtonExample = {
   name: 'Buttons',
   element: (
-    <Block p={4}>
+    <div>
       <Block mb={2}>
         <Button> Button </Button>
       </Block>
@@ -44,7 +44,7 @@ const ButtonExample = {
           <OcticonButton icon={Hubot} size="large" label="ROBOT" onClick={() => alert('beep boop')} />
         </Block>
       </Block>
-    </Block>
+    </div>
   )
 }
 

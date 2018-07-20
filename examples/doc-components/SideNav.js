@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 import {Block} from '../../src'
 
 const SideNav = ({title, examples}) => (
-  <Block>
+  <Block mr={3}>
     <nav className="menu">
       <NavLink to={'/'} className="menu-heading no-underline link-gray-dark">
         {title}

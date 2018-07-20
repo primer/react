@@ -7,11 +7,32 @@ export const oneOrMoreOf = type => PropTypes.oneOfType([type, PropTypes.arrayOf(
 
 export const oneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
 
-export const createMapperWithPropTypes = props => {
+const flexPropNames = {
+  justifyContent: 'justify',
+  alignItems: 'items',
+  alignContent: 'content'
+}
+
+const classPattern = (breakpoint, prop, value, type) => {
+  let result = ''
+  switch (type) {
+    case 'flex':
+      result = ['flex', breakpoint, flexPropNames[prop], value].join('-')
+      break
+    case 'display':
+      result = ['d', breakpoint, value].join('-')
+      break
+    default:
+      result = [prop, breakpoint, value].join('-')
+  }
+  return result.replace(/\-\-+/g, '-') //eslint-disable-line
+}
+
+export const createMapperWithPropTypes = (props, type) => {
   const mapper = createMapper({
     breakpoints,
     props,
-    getter: ({breakpoint, prop, value}) => (breakpoint ? [prop, breakpoint, value].join('-') : [prop, value].join('-'))
+    getter: ({breakpoint, prop, value}) => classPattern(breakpoint, prop, value, type)
   })
   mapper.propTypes = props.reduce((propTypes, prop) => {
     propTypes[prop] = oneOrMoreNumbers
@@ -22,8 +43,14 @@ export const createMapperWithPropTypes = props => {
 
 export const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
 export const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
+export const flexProps = ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent']
 
 export const mapWhitespaceProps = createMapperWithPropTypes(marginProps.concat(paddingProps))
+export const mapFlexProps = createMapperWithPropTypes(flexProps, 'flex')
+export const mapDisplayProps = createMapperWithPropTypes(['display'], 'display')
+export const mapAllProps = props => {
+  return mapWhitespaceProps(mapDisplayProps(mapFlexProps(props)))
+}
 
 export function stylizer(propsToPass) {
   return props => {

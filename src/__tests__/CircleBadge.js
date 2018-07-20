@@ -63,4 +63,11 @@ describe('CircleBadge', () => {
     )
     expect(comp.find('img').hasClass('primer')).toEqual(true)
   })
+  it('respects margin utility prop', () => {
+    expect(rendersClass(<CircleBadge m={4} />, 'm-4')).toEqual(true)
+  })
+
+  it('respects padding utility prop', () => {
+    expect(rendersClass(<CircleBadge p={4} />, 'p-4')).toEqual(true)
+  })
 })
