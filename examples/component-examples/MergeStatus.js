@@ -1,4 +1,5 @@
 import React from 'react'
+import {LiveEditor} from '@compositor/kit'
 import {MergeStatus, Block} from '../../src'
 
 const MergeStatusExample = {
@@ -6,16 +7,16 @@ const MergeStatusExample = {
   element: (
     <div>
       <Block mb={2}>
-        <MergeStatus state="pending" />
+        <LiveEditor code={`<MergeStatus state="pending" />`} scope={{MergeStatus}}/>
       </Block>
       <Block mb={2}>
-        <MergeStatus state="invalid" />
+        <LiveEditor code={`<MergeStatus state="invalid" />`} scope={{MergeStatus}}/>
       </Block>
       <Block mb={2}>
-        <MergeStatus state="merged" />
+        <LiveEditor code={`<MergeStatus state="merged" />`} scope={{MergeStatus}}/>
       </Block>
       <Block mb={2}>
-        <MergeStatus state="ready" />
+        <LiveEditor code={`<MergeStatus state="ready" />`} scope={{MergeStatus}}/>
       </Block>
     </div>
   )
