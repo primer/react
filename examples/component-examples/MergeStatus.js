@@ -7,16 +7,16 @@ const MergeStatusExample = {
   element: (
     <div>
       <Block mb={2}>
-        <LiveEditor code={`<MergeStatus state="pending" />`} scope={{MergeStatus}}/>
+        <LiveEditor code={`<MergeStatus state="pending" />`} scope={{MergeStatus}} />
       </Block>
       <Block mb={2}>
-        <LiveEditor code={`<MergeStatus state="invalid" />`} scope={{MergeStatus}}/>
+        <LiveEditor code={`<MergeStatus state="invalid" />`} scope={{MergeStatus}} />
       </Block>
       <Block mb={2}>
-        <LiveEditor code={`<MergeStatus state="merged" />`} scope={{MergeStatus}}/>
+        <LiveEditor code={`<MergeStatus state="merged" />`} scope={{MergeStatus}} />
       </Block>
       <Block mb={2}>
-        <LiveEditor code={`<MergeStatus state="ready" />`} scope={{MergeStatus}}/>
+        <LiveEditor code={`<MergeStatus state="ready" />`} scope={{MergeStatus}} />
       </Block>
     </div>
   )

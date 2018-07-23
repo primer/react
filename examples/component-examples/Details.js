@@ -4,15 +4,13 @@ import {LiveEditor} from '@compositor/kit'
 import {Block, Details} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const example1 =
-`<Details>
+const example1 = `<Details>
   <summary className="btn">Click me</summary>
   <p>This should show and hide</p>
 </Details>
 `
 
-const example2 =
-`<Details>
+const example2 = `<Details>
   {({open, toggle}) => (
     <React.Fragment>
       <summary className="btn" onClick={toggle}>
@@ -30,11 +28,11 @@ const DetailsExample = {
     <div>
       <Block mb={4}>
         <ExampleHeading>With static children</ExampleHeading>
-        <LiveEditor code={example1} scope={{Details}}/>
+        <LiveEditor code={example1} scope={{Details}} />
       </Block>
       <Block my={4}>
         <ExampleHeading>With children as a function</ExampleHeading>
-        <LiveEditor code={example2} scope={{Details}}/>
+        <LiveEditor code={example2} scope={{Details}} />
       </Block>
       <Block my={4}>
         <ExampleHeading>With render prop</ExampleHeading>

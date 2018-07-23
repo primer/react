@@ -4,8 +4,7 @@ import {LiveEditor} from '@compositor/kit'
 import {Block, StateLabel} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const example1 =
-`<Block mb={2}>
+const example1 = `<Block mb={2}>
   <StateLabel state="open">Open</StateLabel>
 </Block>
 <Block mb={2}>
@@ -15,8 +14,7 @@ const example1 =
   <StateLabel state="merged">Merged</StateLabel>
 </Block>`
 
-const example2 =
-`<Block mb={2}>
+const example2 = `<Block mb={2}>
   <StateLabel>Unknown</StateLabel>
 </Block>
 <Block mb={2}>
@@ -33,8 +31,7 @@ const example2 =
 </Block>
 `
 
-const example3 =
-`<Block mb={2}>
+const example3 = `<Block mb={2}>
   <StateLabel scheme="invalid">Invalid</StateLabel>
 </Block>
 <Block mb={2}>
@@ -47,8 +44,7 @@ const example3 =
   <StateLabel scheme="purple">Purple</StateLabel>
 </Block>`
 
-const example4 =
-`<Block mb={2}>
+const example4 = `<Block mb={2}>
   <span className="mr-2">
     <StateLabel small>Unknown</StateLabel>
   </span>
@@ -74,8 +70,7 @@ const example4 =
   </span>
 </Block>`
 
-const example5 =
-`<Block mb={2}>
+const example5 = `<Block mb={2}>
   <span className="mr-2">
     <StateLabel small scheme="invalid">
       Invalid

@@ -8,14 +8,14 @@ const LabelExample = {
   element: (
     <div>
       <Block mb={3}>
-        <LiveEditor code={`<Label>Default label</Label>`} scope={{Label}}/>
-        <LiveEditor code={`<Label scheme="gray-darker">Darker gray label</Label>`} scope={{Label}}/>
-        <LiveEditor code={`<Label scheme="orange">Orange label</Label>`} scope={{Label}}/>
-        <LiveEditor code={`<Label scheme="green">Green label</Label>`} scope={{Label}}/>
+        <LiveEditor code={`<Label>Default label</Label>`} scope={{Label}} />
+        <LiveEditor code={`<Label scheme="gray-darker">Darker gray label</Label>`} scope={{Label}} />
+        <LiveEditor code={`<Label scheme="orange">Orange label</Label>`} scope={{Label}} />
+        <LiveEditor code={`<Label scheme="green">Green label</Label>`} scope={{Label}} />
       </Block>
       <Block mb={3}>
-        <LiveEditor code={`<Label outline>Default outline label</Label>`} scope={{Label}}/>
-        <LiveEditor code={`<Label outline scheme="green">Green outline label</Label>`} scope={{Label}}/>
+        <LiveEditor code={`<Label outline>Default outline label</Label>`} scope={{Label}} />
+        <LiveEditor code={`<Label outline scheme="green">Green outline label</Label>`} scope={{Label}} />
       </Block>
     </div>
   )

@@ -3,16 +3,14 @@ import {LiveEditor} from '@compositor/kit'
 import {Block, DonutChart, Text, DonutSlice, theme} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const dataPropExample =
-`<DonutChart mr={1} data={{error: 2, pending: 3, success: 5}} />
+const dataPropExample = `<DonutChart mr={1} data={{error: 2, pending: 3, success: 5}} />
 <DonutChart mr={1} data={{error: 1, pending: 4, success: 2}} />
 <DonutChart mr={1} data={{pending: 2, success: 6}} />
 <DonutChart mr={1} data={{pending: 0, success: 1}} />
 <DonutChart mr={1} data={{pending: 1, queued: 1}} />
 <DonutChart mr={1} data={{unknown: 1}} />`
 
-const donutSliceExample =
-`<DonutChart mr={1}>
+const donutSliceExample = `<DonutChart mr={1}>
   <DonutSlice value={1} state="pending" />
   <DonutSlice value={1} state="success" />
   <DonutSlice value={1} state="error" />
@@ -43,8 +41,7 @@ const donutSliceExample =
   <DonutSlice value={1} state="queued" />
 </DonutChart>`
 
-const customColorsExample =
-`<DonutChart>
+const customColorsExample = `<DonutChart>
   <DonutSlice value={1} fill={theme.colors.purple[0]} />
   <DonutSlice value={1} fill={theme.colors.purple[1]} />
   <DonutSlice value={1} fill={theme.colors.purple[2]} />

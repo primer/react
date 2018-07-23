@@ -1,10 +1,9 @@
 import React from 'react'
-import {PropsForm, LiveEditor} from '@compositor/kit'
-import {Caret, CaretBox, theme} from '../../src'
+import {LiveEditor} from '@compositor/kit'
+import {CaretBox} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const example =
-`<CaretBox my={4} p={2} minHeight={100} borderColor="purple">
+const example = `<CaretBox my={4} p={2} minHeight={100} borderColor="purple">
   CaretBox
 </CaretBox>`
 
@@ -13,7 +12,7 @@ const CaretBoxExample = {
   element: (
     <div>
       <ExampleHeading mt={2}>CaretBox</ExampleHeading>
-      <LiveEditor code={example} scope={{CaretBox}}/>
+      <LiveEditor code={example} scope={{CaretBox}} />
     </div>
   )
 }

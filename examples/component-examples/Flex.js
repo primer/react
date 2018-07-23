@@ -11,8 +11,7 @@ const propObj = {
   alignContent: ['start', 'end', 'center', 'between', 'around', 'stretch']
 }
 
-const example1 =
-`<FlexContainer wrap="nowrap" width={300} height={300} border>
+const example1 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem flexAuto>
     <Block p={3} bg="blue">
       Item 1
@@ -30,8 +29,7 @@ const example1 =
   </FlexItem>
 </FlexContainer>`
 
-const example2 =
-`<FlexContainer wrap="nowrap" width={300} height={300} border>
+const example2 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem alignSelf="center">
     <Block p={3} bg="blue">
       Item 1
@@ -49,8 +47,7 @@ const example2 =
   </FlexItem>
 </FlexContainer>`
 
-const example3 =
-`<FlexContainer wrap="nowrap" width={300} height={300} border>
+const example3 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem tag="p">
     <Block p={3} bg="blue">
       Item 1
@@ -110,7 +107,7 @@ const FlexExample = {
         ))}
       </PropsForm>
       <ExampleHeading mt={3}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
-      <LiveEditor code={example1} scope={{FlexContainer, FlexItem, Block}}/>
+      <LiveEditor code={example1} scope={{FlexContainer, FlexItem, Block}} />
       <ExampleHeading mt={2}>FlexContainer + FlexItems with first item set to alignSelf='center'</ExampleHeading>
       <LiveEditor code={example2} scope={{FlexContainer, FlexItem, Block}} />
       <ExampleHeading mt={2}>FlexContainer + FlexItems using tag prop set to "p"</ExampleHeading>
