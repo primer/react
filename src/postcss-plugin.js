@@ -5,13 +5,13 @@ module.exports = postcss.plugin('primer-generate', opts => {
   const {theme = defaultTheme} = opts || {}
 
   const breakpointNames = ['sm', 'md', 'lg', 'xl']
-  const {breakpoints, colors, fontSizes, maxWidths, radii, space} = theme
+  const {breakpoints, colors, space} = theme
   const {border, bg, ...namedColors} = colors
-  const spacers = space.reduce((map, len, i) => (map[i] = `${len}px`, map), {})
+  const spacers = space.reduce((map, len, i) => ((map[i] = `${len}px`), map), {})
 
   const shorthandProps = {m: 'margin', p: 'padding'}
 
-  return (root, result) => {
+  return root => {
     for (const [color, values] of Object.entries(namedColors)) {
       if (Array.isArray(values)) {
         generateUtility(`.color-${color}`, 'color', values[5])
@@ -34,8 +34,8 @@ module.exports = postcss.plugin('primer-generate', opts => {
       }
     }
 
-    for (const [name, rule] of Object.entries(breakRules)) {
-      root.append(rule)
+    for (const name of Object.keys(breakRules)) {
+      root.append(breakRules[name])
     }
 
     function generateUtility(selector, prop, value) {
