@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const postcss = require('postcss')
 const stylefmt = require('stylefmt')
-const generate = require('../src/postcss-plugin')
+const generate = require('../lib/postcss-plugin')
 
 postcss([generate, stylefmt])
   .process(`/* THIS IS GENERATED. DO NOT EDIT IT! */`)

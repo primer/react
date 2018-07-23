@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production rollup -c",
     "build:css": "script/build-css > docs/system.css",
     "build:docs": "x0 build examples --out-dir docs",
-    "lint": "eslint src examples",
+    "lint": "eslint src lib examples",
     "prepublishOnly": "npm run build",
     "prestart": "npm run build:css",
     "start": "x0 dev examples -op 8888",
