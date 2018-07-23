@@ -15,9 +15,6 @@ module.exports = postcss.plugin('primer-generate', opts => {
     for (const [color, values] of Object.entries(namedColors)) {
       if (Array.isArray(values)) {
         generateUtility(`.color-${color}`, 'color', values[5])
-        if (!bg.hasOwnProperty(color)) {
-          generateUtility(`.bg-${color}`, 'background-color', values[5])
-        }
       }
     }
 
