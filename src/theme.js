@@ -42,9 +42,9 @@ const colors = {
     '#3a1d6e',
     '#29134e'
   ],
-  blackfade15: 'rgba(27, 31 ,35, 0.15)',
-  blackfade20: 'rgba(27, 31 ,35, 0.20)',
-  whitefade15: 'rgba(255, 255 ,255, 0.15)'
+  blackfade15: 'rgba(27, 31, 35, 0.15)',
+  blackfade20: 'rgba(27, 31, 35, 0.20)',
+  whitefade15: 'rgba(255, 255, 255, 0.15)'
 }
 
 const {blue, gray, green, purple, red, yellow} = colors
