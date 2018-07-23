@@ -22,6 +22,7 @@ module.exports = ({
     <link rel='stylesheet' href='https://unpkg.com/primer-product/build/build.css'/>
     <link rel='stylesheet' href='https://unpkg.com/primer-tooltips/build/build.css'/>
     <link rel='stylesheet' href='https://unpkg.com/primer-utilities/build/build.css'/>
+    <link rel='stylesheet' href='${publicPath}system.css' />
     <link rel='icon' href='assets/favicon.png' />
     <link rel='apple-touch-icon' href='assets/apple-touch-icon.png' />
     <meta name='og:title' content='Primer React' />
