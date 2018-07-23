@@ -58,7 +58,10 @@ const BlockExample = {
         </tbody>
       </table>
       <Heading fontSize="3">Code Example</Heading>
-      <LiveEditor code={`<Block width="400" display="inline-block" bg="blue" p={3} fg="white">white</Block>`} scope={{Block}} />
+      <LiveEditor
+        code={`<Block width="400" display="inline-block" bg="blue" p={3} fg="white">white</Block>`}
+        scope={{Block}}
+      />
     </div>
   )
 }

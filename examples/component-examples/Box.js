@@ -22,7 +22,10 @@ const BoxExample = {
         <LiveEditor code={`<Box shadow="large" p={2}>This is a box with a large shadow.</Box>`} scope={{Box}} />
       </Block>
       <Block mb={6}>
-        <LiveEditor code={`<Box shadow="extra-large" p={2}>This is a box with an extra-large shadow.</Box>`} scope={{Box}} />
+        <LiveEditor
+          code={`<Box shadow="extra-large" p={2}>This is a box with an extra-large shadow.</Box>`}
+          scope={{Box}}
+        />
       </Block>
       <Block mb={6}>
         <LiveEditor code={`<Box borderColor="green" p={2}>This is a box with a green border.</Box>`} scope={{Box}} />

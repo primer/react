@@ -5,8 +5,7 @@ import {NavLink} from 'react-router-dom'
 import ExampleHeading from '../doc-components/ExampleHeading'
 import {Block, Text, UnderlineNav, UnderlineNavLink} from '../../src'
 
-const underlineNavLinkExample =
-`<UnderlineNav>
+const underlineNavLinkExample = `<UnderlineNav>
   <UnderlineNavLink href="#foo" selected>
     Selected
   </UnderlineNavLink>
@@ -14,8 +13,7 @@ const underlineNavLinkExample =
   <UnderlineNavLink href="#baz">Baz</UnderlineNavLink>
 </UnderlineNav>`
 
-const linkTagExample =
-`<UnderlineNav>
+const linkTagExample = `<UnderlineNav>
   <a href="#foo">Foo</a>
   <a href="#bar" selected>
     Selected
@@ -23,8 +21,7 @@ const linkTagExample =
   <a href="#baz">Baz</a>
 </UnderlineNav>`
 
-const navLinkExample =
-`<UnderlineNav>
+const navLinkExample = `<UnderlineNav>
   <NavLink to="#foo">Foo</NavLink>
   <NavLink to="#bar">Two</NavLink>
   <NavLink to="/">Selected</NavLink>
