@@ -412,6 +412,38 @@
   background-color: #ffdce0 !important;
 }
 
+.f-0 {
+  font-size: 12px !important;
+}
+
+.f-1 {
+  font-size: 14px !important;
+}
+
+.f-2 {
+  font-size: 16px !important;
+}
+
+.f-3 {
+  font-size: 20px !important;
+}
+
+.f-4 {
+  font-size: 24px !important;
+}
+
+.f-5 {
+  font-size: 32px !important;
+}
+
+.f-6 {
+  font-size: 40px !important;
+}
+
+.f-7 {
+  font-size: 48px !important;
+}
+
 .m-0 {
   margin: 0px !important;
 }
@@ -477,6 +509,38 @@
 }
 
 @media (min-width: 544px) {
+  .f-sm-0 {
+    font-size: 12px !important;
+  }
+
+  .f-sm-1 {
+    font-size: 14px !important;
+  }
+
+  .f-sm-2 {
+    font-size: 16px !important;
+  }
+
+  .f-sm-3 {
+    font-size: 20px !important;
+  }
+
+  .f-sm-4 {
+    font-size: 24px !important;
+  }
+
+  .f-sm-5 {
+    font-size: 32px !important;
+  }
+
+  .f-sm-6 {
+    font-size: 40px !important;
+  }
+
+  .f-sm-7 {
+    font-size: 48px !important;
+  }
+
   .m-sm-0 {
     margin: 0px !important;
   }
@@ -543,6 +607,38 @@
 }
 
 @media (min-width: 768px) {
+  .f-md-0 {
+    font-size: 12px !important;
+  }
+
+  .f-md-1 {
+    font-size: 14px !important;
+  }
+
+  .f-md-2 {
+    font-size: 16px !important;
+  }
+
+  .f-md-3 {
+    font-size: 20px !important;
+  }
+
+  .f-md-4 {
+    font-size: 24px !important;
+  }
+
+  .f-md-5 {
+    font-size: 32px !important;
+  }
+
+  .f-md-6 {
+    font-size: 40px !important;
+  }
+
+  .f-md-7 {
+    font-size: 48px !important;
+  }
+
   .m-md-0 {
     margin: 0px !important;
   }
@@ -609,6 +705,38 @@
 }
 
 @media (min-width: 1012px) {
+  .f-lg-0 {
+    font-size: 12px !important;
+  }
+
+  .f-lg-1 {
+    font-size: 14px !important;
+  }
+
+  .f-lg-2 {
+    font-size: 16px !important;
+  }
+
+  .f-lg-3 {
+    font-size: 20px !important;
+  }
+
+  .f-lg-4 {
+    font-size: 24px !important;
+  }
+
+  .f-lg-5 {
+    font-size: 32px !important;
+  }
+
+  .f-lg-6 {
+    font-size: 40px !important;
+  }
+
+  .f-lg-7 {
+    font-size: 48px !important;
+  }
+
   .m-lg-0 {
     margin: 0px !important;
   }
@@ -675,6 +803,38 @@
 }
 
 @media (min-width: 1280px) {
+  .f-xl-0 {
+    font-size: 12px !important;
+  }
+
+  .f-xl-1 {
+    font-size: 14px !important;
+  }
+
+  .f-xl-2 {
+    font-size: 16px !important;
+  }
+
+  .f-xl-3 {
+    font-size: 20px !important;
+  }
+
+  .f-xl-4 {
+    font-size: 24px !important;
+  }
+
+  .f-xl-5 {
+    font-size: 32px !important;
+  }
+
+  .f-xl-6 {
+    font-size: 40px !important;
+  }
+
+  .f-xl-7 {
+    font-size: 48px !important;
+  }
+
   .m-xl-0 {
     margin: 0px !important;
   }
