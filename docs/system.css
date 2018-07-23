@@ -1,0 +1,246 @@
+.color-gray { color: #6a737d !important; }
+.color-blue { color: #0366d6 !important; }
+.color-green { color: #28a745 !important; }
+.color-yellow { color: #ffd33d !important; }
+.color-orange { color: #f66a0a !important; }
+.color-red { color: #d73a49 !important; }
+.color-purple { color: #6f42c1 !important; }
+.color-bodytext { color: #24292e !important; }
+.color-black { color: #1b1f23 !important; }
+.color-white { color: #fff !important; }
+.color-gray-0 { color: #fafbfc !important; }
+.color-gray-1 { color: #f6f8fa !important; }
+.color-gray-2 { color: #e1e4e8 !important; }
+.color-gray-3 { color: #d1d5da !important; }
+.color-gray-4 { color: #959da5 !important; }
+.color-gray-5 { color: #6a737d !important; }
+.color-gray-6 { color: #586069 !important; }
+.color-gray-7 { color: #444d56 !important; }
+.color-gray-8 { color: #2f363d !important; }
+.color-gray-9 { color: #24292e !important; }
+.color-blue-0 { color: #f1f8ff !important; }
+.color-blue-1 { color: #dbedff !important; }
+.color-blue-2 { color: #c8e1ff !important; }
+.color-blue-3 { color: #79b8ff !important; }
+.color-blue-4 { color: #2188ff !important; }
+.color-blue-5 { color: #0366d6 !important; }
+.color-blue-6 { color: #005cc5 !important; }
+.color-blue-7 { color: #044289 !important; }
+.color-blue-8 { color: #032f62 !important; }
+.color-blue-9 { color: #05264c !important; }
+.color-green-0 { color: #f0fff4 !important; }
+.color-green-1 { color: #dcffe4 !important; }
+.color-green-2 { color: #bef5cb !important; }
+.color-green-3 { color: #85e89d !important; }
+.color-green-4 { color: #34d058 !important; }
+.color-green-5 { color: #28a745 !important; }
+.color-green-6 { color: #22863a !important; }
+.color-green-7 { color: #176f2c !important; }
+.color-green-8 { color: #165c26 !important; }
+.color-green-9 { color: #144620 !important; }
+.color-yellow-0 { color: #fffdef !important; }
+.color-yellow-1 { color: #fffbdd !important; }
+.color-yellow-2 { color: #fff5b1 !important; }
+.color-yellow-3 { color: #ffea7f !important; }
+.color-yellow-4 { color: #ffdf5d !important; }
+.color-yellow-5 { color: #ffd33d !important; }
+.color-yellow-6 { color: #f9c513 !important; }
+.color-yellow-7 { color: #dbab09 !important; }
+.color-yellow-8 { color: #b08800 !important; }
+.color-yellow-9 { color: #735c0f !important; }
+.color-orange-0 { color: #fff8f2 !important; }
+.color-orange-1 { color: #ffebda !important; }
+.color-orange-2 { color: #ffd1ac !important; }
+.color-orange-3 { color: #ffab70 !important; }
+.color-orange-4 { color: #fb8532 !important; }
+.color-orange-5 { color: #f66a0a !important; }
+.color-orange-6 { color: #e36209 !important; }
+.color-orange-7 { color: #d15704 !important; }
+.color-orange-8 { color: #c24e00 !important; }
+.color-orange-9 { color: #a04100 !important; }
+.color-red-0 { color: #ffeef0 !important; }
+.color-red-1 { color: #ffdce0 !important; }
+.color-red-2 { color: #fdaeb7 !important; }
+.color-red-3 { color: #f97583 !important; }
+.color-red-4 { color: #ea4a5a !important; }
+.color-red-5 { color: #d73a49 !important; }
+.color-red-6 { color: #cb2431 !important; }
+.color-red-7 { color: #b31d28 !important; }
+.color-red-8 { color: #9e1c23 !important; }
+.color-red-9 { color: #86181d !important; }
+.color-purple-0 { color: #f5f0ff !important; }
+.color-purple-1 { color: #e6dcfd !important; }
+.color-purple-2 { color: #d1bcf9 !important; }
+.color-purple-3 { color: #b392f0 !important; }
+.color-purple-4 { color: #8a63d2 !important; }
+.color-purple-5 { color: #6f42c1 !important; }
+.color-purple-6 { color: #5a32a3 !important; }
+.color-purple-7 { color: #4c2889 !important; }
+.color-purple-8 { color: #3a1d6e !important; }
+.color-purple-9 { color: #29134e !important; }
+.color-blackfade15 { color: rgba(27, 31 ,35, 0.15) !important; }
+.color-blackfade20 { color: rgba(27, 31 ,35, 0.20) !important; }
+.color-whitefade15 { color: rgba(255, 255 ,255, 0.15) !important; }
+.border-black-fade { border-color: rgba(27, 31 ,35, 0.15) !important; }
+.border-blue { border-color: #0366d6 !important; }
+.border-blue-light { border-color: #c8e1ff !important; }
+.border-green { border-color: #34d058 !important; }
+.border-green-light { border-color: #85e89d !important; }
+.border-red { border-color: #d73a49 !important; }
+.border-red-light { border-color: #f97583 !important; }
+.border-purple { border-color: #6f42c1 !important; }
+.border-yellow { border-color: #d9d0a5 !important; }
+.border-gray { border-color: #e1e4e8 !important; }
+.border-gray-light { border-color: #e1e4e8 !important; }
+.border-gray-dark { border-color: #d1d5da !important; }
+.border-gray-darker { border-color: #444d56 !important; }
+.bg-white { background-color: #fff !important; }
+.bg-gray-light { background-color: #fafbfc !important; }
+.bg-gray { background-color: #f6f8fa !important; }
+.bg-gray-dark { background-color: #24292e !important; }
+.bg-purple { background-color: #6f42c1 !important; }
+.bg-blue { background-color: #0366d6 !important; }
+.bg-green { background-color: #28a745 !important; }
+.bg-yellow { background-color: #ffd33d !important; }
+.bg-red { background-color: #d73a49 !important; }
+.bg-purple-light { background-color: #f5f0ff !important; }
+.bg-blue-light { background-color: #f1f8ff !important; }
+.bg-green-light { background-color: #dcffe4 !important; }
+.bg-yellow-light { background-color: #fff5b1 !important; }
+.bg-red-light { background-color: #ffdce0 !important; }
+.m-0 { margin: 0px !important; }
+.m-1 { margin: 4px !important; }
+.m-2 { margin: 8px !important; }
+.m-3 { margin: 16px !important; }
+.m-4 { margin: 24px !important; }
+.m-5 { margin: 32px !important; }
+.m-6 { margin: 40px !important; }
+.m-7 { margin: 48px !important; }
+.p-0 { padding: 0px !important; }
+.p-1 { padding: 4px !important; }
+.p-2 { padding: 8px !important; }
+.p-3 { padding: 16px !important; }
+.p-4 { padding: 24px !important; }
+.p-5 { padding: 32px !important; }
+.p-6 { padding: 40px !important; }
+.p-7 { padding: 48px !important; }
+@media (min-width: 544px) {
+  .m-sm-0 { margin: 0px !important; }
+  .m-sm-1 { margin: 4px !important; }
+  .m-sm-2 { margin: 8px !important; }
+  .m-sm-3 { margin: 16px !important; }
+  .m-sm-4 { margin: 24px !important; }
+  .m-sm-5 { margin: 32px !important; }
+  .m-sm-6 { margin: 40px !important; }
+  .m-sm-7 { margin: 48px !important; }
+  .p-sm-0 { padding: 0px !important; }
+  .p-sm-1 { padding: 4px !important; }
+  .p-sm-2 { padding: 8px !important; }
+  .p-sm-3 { padding: 16px !important; }
+  .p-sm-4 { padding: 24px !important; }
+  .p-sm-5 { padding: 32px !important; }
+  .p-sm-6 { padding: 40px !important; }
+  .p-sm-7 { padding: 48px !important; }
+}
+.m-0 { margin: 0px !important; }
+.m-1 { margin: 4px !important; }
+.m-2 { margin: 8px !important; }
+.m-3 { margin: 16px !important; }
+.m-4 { margin: 24px !important; }
+.m-5 { margin: 32px !important; }
+.m-6 { margin: 40px !important; }
+.m-7 { margin: 48px !important; }
+.p-0 { padding: 0px !important; }
+.p-1 { padding: 4px !important; }
+.p-2 { padding: 8px !important; }
+.p-3 { padding: 16px !important; }
+.p-4 { padding: 24px !important; }
+.p-5 { padding: 32px !important; }
+.p-6 { padding: 40px !important; }
+.p-7 { padding: 48px !important; }
+@media (min-width: 768px) {
+  .m-md-0 { margin: 0px !important; }
+  .m-md-1 { margin: 4px !important; }
+  .m-md-2 { margin: 8px !important; }
+  .m-md-3 { margin: 16px !important; }
+  .m-md-4 { margin: 24px !important; }
+  .m-md-5 { margin: 32px !important; }
+  .m-md-6 { margin: 40px !important; }
+  .m-md-7 { margin: 48px !important; }
+  .p-md-0 { padding: 0px !important; }
+  .p-md-1 { padding: 4px !important; }
+  .p-md-2 { padding: 8px !important; }
+  .p-md-3 { padding: 16px !important; }
+  .p-md-4 { padding: 24px !important; }
+  .p-md-5 { padding: 32px !important; }
+  .p-md-6 { padding: 40px !important; }
+  .p-md-7 { padding: 48px !important; }
+}
+.m-0 { margin: 0px !important; }
+.m-1 { margin: 4px !important; }
+.m-2 { margin: 8px !important; }
+.m-3 { margin: 16px !important; }
+.m-4 { margin: 24px !important; }
+.m-5 { margin: 32px !important; }
+.m-6 { margin: 40px !important; }
+.m-7 { margin: 48px !important; }
+.p-0 { padding: 0px !important; }
+.p-1 { padding: 4px !important; }
+.p-2 { padding: 8px !important; }
+.p-3 { padding: 16px !important; }
+.p-4 { padding: 24px !important; }
+.p-5 { padding: 32px !important; }
+.p-6 { padding: 40px !important; }
+.p-7 { padding: 48px !important; }
+@media (min-width: 1012px) {
+  .m-lg-0 { margin: 0px !important; }
+  .m-lg-1 { margin: 4px !important; }
+  .m-lg-2 { margin: 8px !important; }
+  .m-lg-3 { margin: 16px !important; }
+  .m-lg-4 { margin: 24px !important; }
+  .m-lg-5 { margin: 32px !important; }
+  .m-lg-6 { margin: 40px !important; }
+  .m-lg-7 { margin: 48px !important; }
+  .p-lg-0 { padding: 0px !important; }
+  .p-lg-1 { padding: 4px !important; }
+  .p-lg-2 { padding: 8px !important; }
+  .p-lg-3 { padding: 16px !important; }
+  .p-lg-4 { padding: 24px !important; }
+  .p-lg-5 { padding: 32px !important; }
+  .p-lg-6 { padding: 40px !important; }
+  .p-lg-7 { padding: 48px !important; }
+}
+.m-0 { margin: 0px !important; }
+.m-1 { margin: 4px !important; }
+.m-2 { margin: 8px !important; }
+.m-3 { margin: 16px !important; }
+.m-4 { margin: 24px !important; }
+.m-5 { margin: 32px !important; }
+.m-6 { margin: 40px !important; }
+.m-7 { margin: 48px !important; }
+.p-0 { padding: 0px !important; }
+.p-1 { padding: 4px !important; }
+.p-2 { padding: 8px !important; }
+.p-3 { padding: 16px !important; }
+.p-4 { padding: 24px !important; }
+.p-5 { padding: 32px !important; }
+.p-6 { padding: 40px !important; }
+.p-7 { padding: 48px !important; }
+@media (min-width: 1280px) {
+  .m-xl-0 { margin: 0px !important; }
+  .m-xl-1 { margin: 4px !important; }
+  .m-xl-2 { margin: 8px !important; }
+  .m-xl-3 { margin: 16px !important; }
+  .m-xl-4 { margin: 24px !important; }
+  .m-xl-5 { margin: 32px !important; }
+  .m-xl-6 { margin: 40px !important; }
+  .m-xl-7 { margin: 48px !important; }
+  .p-xl-0 { padding: 0px !important; }
+  .p-xl-1 { padding: 4px !important; }
+  .p-xl-2 { padding: 8px !important; }
+  .p-xl-3 { padding: 16px !important; }
+  .p-xl-4 { padding: 24px !important; }
+  .p-xl-5 { padding: 32px !important; }
+  .p-xl-6 { padding: 40px !important; }
+  .p-xl-7 { padding: 48px !important; }
+}
