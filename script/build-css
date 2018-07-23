@@ -1,53 +1,10 @@
 #!/usr/bin/env node
-const theme = require('../src/theme')
-const breakpointNames = ['sm', 'md', 'lg', 'xl']
-const {breakpoints, colors, fontSizes, maxWidths, radii, space} = theme
+const postcss = require('postcss')
+const stylefmt = require('stylefmt')
+const generate = require('../src/postcss-plugin')
 
-const out = process.stdout
-
-const {border, bg, ...namedColors} = colors
-for (const [color, values] of Object.entries(namedColors)) {
-  if (Array.isArray(values)) {
-    generateUtility(`.color-${color}`, 'color', values[5])
-  }
-}
-generateUtilities(namedColors, parts => `.color-${parts.join('-')}`, 'color')
-generateUtilities(border, parts => `.border-${parts.join('-')}`, 'border-color')
-generateUtilities(bg, parts => `.bg-${parts.join('-')}`, 'background-color')
-
-const spacers = space.reduce((map, length, i) => {
-  map[i] = `${length}px`
-  return map
-}, {})
-
-const shorthandProps = {m: 'margin', p: 'padding'}
-
-for (const [i, brk] of Object.entries(breakpointNames)) {
-  for (const [prefix, property] of Object.entries(shorthandProps)) {
-    generateUtilities(spacers, ([i]) => `.${prefix}-${i}`, property)
-  }
-  out.write(`@media (min-width: ${breakpoints[i]}) {\n`)
-  for (const [prefix, property] of Object.entries(shorthandProps)) {
-    generateUtilities(spacers, ([i]) => `  .${prefix}-${brk}-${i}`, property)
-  }
-  out.write(`}\n`)
-}
-
-function generateUtility(selector, property, value) {
-  out.write(`${selector} { ${property}: ${value} !important; }\n`)
-}
-
-function generateUtilities(values, makeSelector, property) {
-  const utilities = []
-  for (const [key, value] of Object.entries(values)) {
-    if (Array.isArray(value)) {
-      for (const [i, val] of Object.entries(value)) {
-        utilities.push(generateUtility(makeSelector([key, i]), property, val))
-      }
-    } else if (typeof value === 'object') {
-      utilities.push(...generateUtilities(value, k => makeSelector([key, k])))
-    } else {
-      utilities.push(generateUtility(makeSelector([key]), property, value))
-    }
-  }
-}
+postcss([generate, stylefmt])
+  .process(`/* THIS IS GENERATED. DO NOT EDIT IT! */`)
+  .then(({css}) => {
+    process.stdout.write(css)
+  })
