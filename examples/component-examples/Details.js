@@ -4,15 +4,15 @@ import {LiveEditor} from '@compositor/kit'
 import {Block, Details} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const example1 = `
-<Details>
+const example1 =
+`<Details>
   <summary className="btn">Click me</summary>
   <p>This should show and hide</p>
 </Details>
 `
 
-const example2 = `
-<Details>
+const example2 =
+`<Details>
   {({open, toggle}) => (
     <React.Fragment>
       <summary className="btn" onClick={toggle}>
