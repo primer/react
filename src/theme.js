@@ -109,5 +109,4 @@ const theme = {
   fontSizes: [12, 14, 16, 20, 24, 32, 40, 48]
 }
 
-export default theme
-export {colors}
+module.exports = theme
