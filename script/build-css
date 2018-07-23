@@ -4,7 +4,9 @@ const stylefmt = require('stylefmt')
 const generate = require('../lib/postcss-plugin')
 
 postcss([generate, stylefmt])
-  .process(`/* THIS IS GENERATED. DO NOT EDIT IT! */`)
+  .process(`/* THIS IS GENERATED. DO NOT EDIT IT! */`, {
+    from: undefined
+  })
   .then(({css}) => {
     process.stdout.write(css)
   })
