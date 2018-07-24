@@ -49,6 +49,7 @@
     "@githubprimer/octicons-react": "8.0.0",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
+    "ramda": "0.25.0",
     "react": "^16.2.0",
     "system-classnames": "^1.0.0-3"
   },
