@@ -10,15 +10,32 @@ function getRenderer(children) {
 export default class Details extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {open: Boolean(props.open)}
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.toggle = this.toggle.bind(this)
+    this.state = {open: Boolean(props.open)}
   }
+
 
   toggle(event) {
     if (event) {
       event.preventDefault()
     }
-    this.setState({open: !this.state.open})
+    if (!this.state.open) {
+      document.addEventListener('click', this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick, false);
+    }
+
+    this.setState(prevState => ({
+       open: !prevState.open,
+    }));
+  }
+
+  handleOutsideClick(e) {
+    if (this.details.contains(e.target)) {
+      return;
+    }
+    this.toggle();
   }
 
   render() {
@@ -26,7 +43,7 @@ export default class Details extends React.Component {
     const {open} = this.state
 
     return (
-      <details {...rest} className={classnames('details-reset', className)} open={open}>
+      <details ref={node => { this.details = node; }} {...rest} className={classnames('details-reset d-inline', className)} open={open}>
         {render({open, toggle: this.toggle})}
       </details>
     )
