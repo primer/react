@@ -38,12 +38,9 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/*.js"
     ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "<rootDir>/src/utils/testing.js"
-    ]
+    "setupTestFrameworkScriptFile": "<rootDir>/src/utils/test-matchers.js"
   },
   "dependencies": {
     "@githubprimer/octicons-react": "8.0.0",
