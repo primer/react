@@ -2,33 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {mapWhitespaceProps} from './props'
+import {color, fontSize} from './utils/mapping'
+import {compose} from 'ramda'
 
-const fontSizeMap = {
-  0: 6,
-  1: 5,
-  2: 4,
-  3: 3,
-  4: 2,
-  5: 1,
-  6: 0
-}
+const mapProps = compose(
+  color,
+  fontSize,
+  mapWhitespaceProps
+)
 
-const Text = ({tag: Tag = 'span', children, color, fontSize, fontWeight, lineHeight, mono, nowrap, ...rest}) => {
-  const {className} = mapWhitespaceProps(rest)
-
-  const fontSizeClass =
-    fontSize in fontSizeMap
-      ? `f${fontSizeMap[fontSize]}`
-      : typeof fontSize === 'number' || fontSize
-        ? `f${fontSize}`
-        : null
+const Text = ({tag: Tag, children, fontWeight, lineHeight, mono, nowrap, ...rest}) => {
+  const {className} = mapProps(rest)
 
   return (
     <Tag
       className={classnames(
         className,
-        color && `text-${color}`,
-        fontSizeClass,
         fontWeight && `text-${fontWeight}`,
         lineHeight && `lh-${lineHeight}`,
         mono && 'text-mono',
@@ -40,17 +29,19 @@ const Text = ({tag: Tag = 'span', children, color, fontSize, fontWeight, lineHei
   )
 }
 
+Text.defaultProps = {
+  tag: 'span'
+}
+
 Text.propTypes = {
-  // TODO: constrain with PropTypes.oneOf()
-  color: PropTypes.string,
-  // TODO constrain with PropTypes.oneOf()
-  fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  ...color.propTypes,
+  ...fontSize.propTypes,
+  ...mapWhitespaceProps.propTypes,
   fontWeight: PropTypes.oneOf(['normal', 'bold']),
   lineHeight: PropTypes.oneOf(['normal', 'condensed', 'condensed-ultra']),
   mono: PropTypes.bool,
   nowrap: PropTypes.bool,
-  tag: PropTypes.string,
-  ...mapWhitespaceProps.propTypes
+  tag: PropTypes.string
 }
 
 export default Text
