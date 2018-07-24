@@ -33,9 +33,9 @@ export default function Dropdown({title, scheme, children, ...rest}) {
             <summary className="btn" onClick={toggle}>
               {title} <div className="d-inline-block v-align-middle" style={arrowStyles} />
             </summary>
-            <ul className="dropdown-menu">
+            <div className="dropdown-menu">
               {generateMenuItems(children)}
-            </ul>
+            </div>
           </React.Fragment>
         )}
       </Details>
