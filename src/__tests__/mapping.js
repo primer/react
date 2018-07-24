@@ -1,4 +1,4 @@
-import {bg, borderColor, color, fontSize} from '../utils/mapping'
+import {bg, borderColor, color, fontSize} from '../mappers'
 
 describe('props mapping utilities', () => {
   describe('bg', () => {
