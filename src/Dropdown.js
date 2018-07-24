@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Details from './Details'
 import Button from './Button'
-import CaretBox from './CaretBox'
 import {mapWhitespaceProps} from './props'
 
 const arrowStyles = {
@@ -33,7 +32,7 @@ export default function Dropdown({title, scheme, children, ...rest}) {
             <summary className="btn" onClick={toggle}>
               {title} <div className="d-inline-block v-align-middle" style={arrowStyles} />
             </summary>
-            <div className="dropdown-menu">
+            <div className="dropdown-menu dropdown-menu-se">
               {generateMenuItems(children)}
             </div>
           </React.Fragment>
