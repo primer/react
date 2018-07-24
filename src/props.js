@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import createMapper from 'system-classnames'
 import {compose} from 'ramda'
 
@@ -10,7 +11,7 @@ export function oneOrMoreOf(type) {
 
 export const OneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
 
-export const createMapperWithPropTypes = (props, getter = classPattern, propTypes = null) => {
+export function createResponsiveMapper(props, getter = classPattern, propTypes = null) {
   const mapper = createMapper({
     breakpoints,
     props,
@@ -18,45 +19,18 @@ export const createMapperWithPropTypes = (props, getter = classPattern, propType
   })
   mapper.propTypes =
     propTypes ||
-    props.reduce((propTypes, prop) => {
-      propTypes[prop] = OneOrMoreNumbers
-      return propTypes
+    props.reduce((types, prop) => {
+      types[prop] = OneOrMoreNumbers
+      return types
     }, {})
   return mapper
 }
 
-export const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
-export const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
-export const flexProps = ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent']
-
-export const mapWhitespaceProps = createMapperWithPropTypes(marginProps.concat(paddingProps))
-
-export const mapFlexProps = createMapperWithPropTypes(flexProps, ({prop, ...data}) => {
-  data.prop =
-    {
-      alignContent: 'flex-content',
-      alignItems: 'flex-items',
-      justifyContent: 'flex-justify'
-    }[prop] || 'flex'
-  return classPattern(data)
-})
-mapFlexProps.propTypes = {
-  alignContent: PropTypes.oneOf(['start', 'end', 'center', 'around', 'stretch']),
-  alignItems: PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch']),
-  direction: PropTypes.oneOf(['column', 'row', 'row-reverse']),
-  justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
-  wrap: PropTypes.oneOf(['wrap', 'nowrap'])
+export function composeWithPropTypes(...funcs) {
+  const composed = compose(...funcs)
+  composed.propTypes = [...funcs].reduce((acc, {propTypes}) => ({...acc, ...propTypes}), {})
+  return composed
 }
-
-export const mapDisplayProps = createMapperWithPropTypes(['display'], data => {
-  return classPattern({...data, prop: 'd'})
-})
-
-export const mapAllProps = compose(
-  mapWhitespaceProps,
-  mapDisplayProps,
-  mapFlexProps
-)
 
 export function stylizer(propsToPass) {
   return props => {
@@ -72,6 +46,24 @@ export function stylizer(propsToPass) {
   }
 }
 
-function classPattern({breakpoint, prop, value}) {
+export function classPattern({breakpoint, prop, value}) {
   return breakpoint ? [prop, breakpoint, value].join('-') : [prop, value].join('-')
+}
+
+export function createClassMapper(prop, mapValue, propType) {
+  const mapper = props => {
+    if (defined(props[prop])) {
+      const {className, [prop]: value, ...rest} = props
+      const classes = mapValue(value)
+      return {className: classnames(className, classes), ...rest}
+    } else {
+      return props
+    }
+  }
+  mapper.propTypes = {[prop]: propType}
+  return mapper
+}
+
+function defined(val) {
+  return val !== null && typeof val !== 'undefined'
 }
