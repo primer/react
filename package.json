@@ -7,9 +7,11 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
+    "build:css": "script/build-css > docs/system.css",
     "build:docs": "x0 build examples --out-dir docs",
-    "lint": "eslint src examples",
+    "lint": "eslint src lib examples",
     "prepublishOnly": "npm run build",
+    "prestart": "npm run build:css",
     "start": "x0 dev examples -op 8888",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
@@ -65,12 +67,14 @@
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.8.2",
     "jest": "^22.4.3",
+    "postcss": "7.0.1",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
     "rollup": "0.62.0",
     "rollup-plugin-babel": "3.0.5",
     "rollup-plugin-commonjs": "9.1.3",
     "styled-components": "3.3.3",
-    "styled-system": "^2.0.2"
+    "styled-system": "^2.0.2",
+    "stylefmt": "6.0.2"
   }
 }

@@ -18,7 +18,11 @@ export default {
         'react'
       ]
     }),
-    commonjs()
+    commonjs({
+      namedExports: {
+        'src/theme.js': ['breakpoints', 'colors']
+      }
+    })
   ],
   output: formats.map(format => ({
     file: `dist/index.${format}.js`,
