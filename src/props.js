@@ -10,16 +10,18 @@ export function oneOrMoreOf(type) {
 
 export const OneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
 
-export const createMapperWithPropTypes = (props, getter = classPattern, type = OneOrMoreNumbers) => {
+export const createMapperWithPropTypes = (props, getter = classPattern, propTypes = null) => {
   const mapper = createMapper({
     breakpoints,
     props,
     getter
   })
-  mapper.propTypes = props.reduce((propTypes, prop) => {
-    propTypes[prop] = type
-    return propTypes
-  }, {})
+  mapper.propTypes =
+    propTypes ||
+    props.reduce((propTypes, prop) => {
+      propTypes[prop] = OneOrMoreNumbers
+      return propTypes
+    }, {})
   return mapper
 }
 
@@ -30,13 +32,21 @@ export const flexProps = ['wrap', 'direction', 'justifyContent', 'alignItems', '
 export const mapWhitespaceProps = createMapperWithPropTypes(marginProps.concat(paddingProps))
 
 export const mapFlexProps = createMapperWithPropTypes(flexProps, ({prop, ...data}) => {
-  data.prop = {
-    alignContent: 'flex-content',
-    alignItems: 'flex-items',
-    justifyContent: 'flex-justify'
-  }[prop] || 'flex'
+  data.prop =
+    {
+      alignContent: 'flex-content',
+      alignItems: 'flex-items',
+      justifyContent: 'flex-justify'
+    }[prop] || 'flex'
   return classPattern(data)
 })
+mapFlexProps.propTypes = {
+  alignContent: PropTypes.oneOf(['start', 'end', 'center', 'around', 'stretch']),
+  alignItems: PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch']),
+  direction: PropTypes.oneOf(['column', 'row', 'row-reverse']),
+  justifyContent: PropTypes.oneOf(['start', 'end', 'center', 'between', 'around']),
+  wrap: PropTypes.oneOf(['wrap', 'nowrap'])
+}
 
 export const mapDisplayProps = createMapperWithPropTypes(['display'], data => {
   return classPattern({...data, prop: 'd'})
@@ -62,21 +72,6 @@ export function stylizer(propsToPass) {
   }
 }
 
-function expander(template) {
-  return values => {
-    return template.replace(/{(\w+)}/g, (_, key) => {
-      return defined(values[key], '')
-    })
-  }
+function classPattern({breakpoint, prop, value}) {
+  return breakpoint ? [prop, breakpoint, value].join('-') : [prop, value].join('-')
 }
-
-function defined(d, fallback) {
-  return (d === null || typeof d === 'undefined') ? fallback : d
-}
-
-function classPattern({breakpoint, prop, value, type}) {
-  return breakpoint
-    ? [prop, breakpoint, value].join('-')
-    : [prop, value].join('-')
-}
-
