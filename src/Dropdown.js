@@ -16,26 +16,29 @@ const arrowStyles = {
   height: '0'
 }
 
+const generateMenuItems = (children) => {
+  return React.Children.map(children, child => {
+    return React.cloneElement(child, {
+      className: 'dropdown-menu-item'
+    })
+  })
+}
+
 export default function Dropdown({title, scheme, children, ...rest}) {
   const {className} = mapWhitespaceProps(rest)
   return (
-    <div className={classnames(className, 'BtnGroup')}>
-      <Details className="details-reset BtnGroup-form d-flex">
-        {({toggle}) => (
+      <Details>
+        {({open, toggle}) => (
           <React.Fragment>
-            <Button tag="summary" scheme={scheme} grouped onClick={toggle}>
+            <summary className="btn" onClick={toggle}>
               {title} <div className="d-inline-block v-align-middle" style={arrowStyles} />
-            </Button>
-            <CaretBox caret="top-left"
-              className="border box-shadow position-absolute px-3 py-2 bg-white mt-1 rounded-1 list-style-none"
-              style={{zIndex: 99999}}
-            >
-              {children}
-            </CaretBox>
+            </summary>
+            <ul className="dropdown-menu">
+              {generateMenuItems(children)}
+            </ul>
           </React.Fragment>
         )}
       </Details>
-    </div>
   )
 }
 
