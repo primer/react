@@ -32,8 +32,8 @@ export function composeWithPropTypes(...funcs) {
   return composed
 }
 
-export function stylizer(propsToPass) {
-  return props => {
+export function stylizer(propsToPass, propTypes) {
+  const mapper = props => {
     const copy = {...props}
     copy.style = propsToPass.reduce((acc, prop) => {
       if (prop in props) {
@@ -44,6 +44,13 @@ export function stylizer(propsToPass) {
     }, props.style || {})
     return copy
   }
+  mapper.propTypes = propTypes || {
+    ...propsToPass.reduce((types, prop) => {
+      types[prop] = PropTypes.number
+      return types
+    }, {})
+  }
+  return mapper
 }
 
 export function classPattern({breakpoint, prop, value}) {
