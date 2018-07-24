@@ -27,7 +27,7 @@ const generateMenuItems = (children) => {
 export default function Dropdown({title, scheme, children, ...rest}) {
   const {className} = mapWhitespaceProps(rest)
   return (
-      <Details>
+      <Details autoClose>
         {({open, toggle}) => (
           <React.Fragment>
             <summary className="btn" onClick={toggle}>

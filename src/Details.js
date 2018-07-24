@@ -22,11 +22,11 @@ export default class Details extends React.Component {
   }
 
   render() {
-    const {className, children, render = getRenderer(children), ...rest} = mapWhitespaceProps(this.props)
+    const {className, children, autoClose, render = getRenderer(children), ...rest} = mapWhitespaceProps(this.props)
     const {open} = this.state
 
     return (
-      <details {...rest} className={classnames('details-reset details-overlay', className)} open={open}>
+      <details {...rest} className={classnames('details-reset', className, autoClose && 'details-overlay')} open={open}>
         {render({open, toggle: this.toggle})}
       </details>
     )
@@ -37,5 +37,6 @@ Details.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
   open: PropTypes.bool,
-  render: PropTypes.func
+  render: PropTypes.func,
+  autoClose: PropTypes.bool
 }
