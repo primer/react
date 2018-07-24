@@ -6,20 +6,17 @@ const {colors, fontSizes, radii} = theme
 const {bg: bgColors, border: borderColors, ...namedColors} = colors
 const colorNames = Object.keys(namedColors).concat(getNestedKeys(namedColors))
 
-export const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
-export const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
-export const flexProps = ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent']
-export const displayValues = ['block', 'inline', 'inline-block', 'flex', 'inline-flex', 'none', 'table', 'table-cell']
-export const positionValues = ['relative', 'absolute', 'fixed']
+const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
+const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
 
 export const margin = createResponsiveMapper(marginProps)
 export const padding = createResponsiveMapper(paddingProps)
 export const spacing = composeWithPropTypes(margin, padding)
 
-export const position = createClassMapper('position', value => `position-${value}`, PropTypes.oneOf(positionValues))
+export const position = createClassMapper('position', value => `position-${value}`, PropTypes.oneOf(['relative', 'absolute', 'fixed']))
 
 export const flex = createResponsiveMapper(
-  flexProps,
+  ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent'],
   ({prop, ...data}) => {
     data.prop =
       {
@@ -44,7 +41,7 @@ export const display = createResponsiveMapper(
     return classPattern({...data, prop: 'd'})
   },
   {
-    display: oneOrMoreOf(PropTypes.oneOf(displayValues))
+    display: oneOrMoreOf(PropTypes.oneOf(['block', 'inline', 'inline-block', 'flex', 'inline-flex', 'none', 'table', 'table-cell']))
   }
 )
 
