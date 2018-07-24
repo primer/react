@@ -1,15 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
-import {color, fontSize} from './utils/mapping'
-import {compose} from 'ramda'
+import {color, fontSize, spacing} from './mappers'
+import {composeWithPropTypes} from './props'
 
-const mapProps = compose(
-  color,
-  fontSize,
-  mapWhitespaceProps
-)
+const mapProps = composeWithPropTypes(color, fontSize, spacing)
 
 const Text = ({tag: Tag, children, fontWeight, lineHeight, mono, nowrap, ...rest}) => {
   const {className} = mapProps(rest)
@@ -34,9 +29,7 @@ Text.defaultProps = {
 }
 
 Text.propTypes = {
-  ...color.propTypes,
-  ...fontSize.propTypes,
-  ...mapWhitespaceProps.propTypes,
+  ...mapProps.propTypes,
   fontWeight: PropTypes.oneOf(['normal', 'bold']),
   lineHeight: PropTypes.oneOf(['normal', 'condensed', 'condensed-ultra']),
   mono: PropTypes.bool,

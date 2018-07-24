@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {colors} from './theme'
-import {mapWhitespaceProps, oneOrMoreOf, stylizer} from './props'
+import {oneOrMoreOf, stylizer} from './props'
+import {spacing} from './mappers'
 
 const borderColors = Object.keys(colors.border)
 
@@ -39,7 +40,7 @@ const Block = props => {
     position,
     shadow,
     ...rest
-  } = mapWhitespaceProps(props)
+  } = spacing(props)
 
   const {style} = stylize(rest)
 
@@ -73,7 +74,7 @@ Block.propTypes = {
   fg: PropTypes.string,
   position: PropTypes.oneOf(['absolute', 'fixed', 'relative']),
   shadow: PropTypes.oneOf(['small', 'medium', 'large', 'extra-large']),
-  ...mapWhitespaceProps.propTypes
+  ...spacing.propTypes
 }
 
 for (const prop of styleProps) {

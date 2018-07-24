@@ -1,4 +1,5 @@
-import {createMapperWithPropTypes, breakpoints, mapWhitespaceProps, stylizer} from '../props'
+import {createResponsiveMapper, breakpoints, stylizer} from '../props'
+import {spacing} from '../mappers'
 
 describe('props helpers', () => {
   describe('breakpoints array', () => {
@@ -7,18 +8,18 @@ describe('props helpers', () => {
     })
   })
 
-  describe('mapWhitespaceProps()', () => {
+  describe('spacing()', () => {
     it('does the thing', () => {
-      expect(mapWhitespaceProps({m: 0})).toEqual({className: 'm-0'})
-      expect(mapWhitespaceProps({p: 1})).toEqual({className: 'p-1'})
-      expect(mapWhitespaceProps({pr: 2})).toEqual({className: 'pr-2'})
-      expect(mapWhitespaceProps({m: [4, null, 1]})).toEqual({className: 'm-4 m-md-1'})
-      expect(mapWhitespaceProps({p: [0, null, null, 3]})).toEqual({className: 'p-0 p-lg-3'})
+      expect(spacing({m: 0})).toEqual({className: 'm-0'})
+      expect(spacing({p: 1})).toEqual({className: 'p-1'})
+      expect(spacing({pr: 2})).toEqual({className: 'pr-2'})
+      expect(spacing({m: [4, null, 1]})).toEqual({className: 'm-4 m-md-1'})
+      expect(spacing({p: [0, null, null, 3]})).toEqual({className: 'p-0 p-lg-3'})
     })
   })
 
-  describe('createMapperWithPropTypes()', () => {
-    const mapper = createMapperWithPropTypes(['a', 'b'])
+  describe('createResponsiveMapper()', () => {
+    const mapper = createResponsiveMapper(['a', 'b'])
     it('creates a mapper from a list of props', () => {
       expect(typeof mapper).toEqual('function')
     })

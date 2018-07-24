@@ -14,7 +14,7 @@ export const positionValues = ['relative', 'absolute', 'fixed']
 
 export const margin = createResponsiveMapper(marginProps)
 export const padding = createResponsiveMapper(paddingProps)
-export const whitespace = createResponsiveMapper(marginProps.concat(paddingProps))
+export const spacing = composeWithPropTypes(margin, padding)
 
 export const position = createClassMapper('position', value => `position-${value}`, PropTypes.oneOf(positionValues))
 
@@ -74,7 +74,7 @@ export const fontSize = createResponsiveMapper(['fontSize'], values => classPatt
   fontSize: oneOrMoreOf(PropTypes.oneOf(range(0, fontSizes.length - 1)))
 })
 
-export const common = composeWithPropTypes(bg, color, display, flex, whitespace)
+export const common = composeWithPropTypes(bg, color, display, flex, spacing)
 
 function nestedKeyMapper(source, mapValue) {
   return key => {
