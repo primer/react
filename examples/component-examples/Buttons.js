@@ -1,47 +1,58 @@
 import React from 'react'
+import {Hubot, Pencil, X} from '@githubprimer/octicons-react'
+import {LiveEditor} from '@compositor/kit'
 import ExampleHeading from '../doc-components/ExampleHeading'
 import {Block, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline, OcticonButton, Text} from '../../src'
-import {Hubot, Pencil, X} from '@githubprimer/octicons-react'
 
 const ButtonExample = {
   name: 'Buttons',
   element: (
     <div>
       <Block mb={2}>
-        <Button> Button </Button>
+        <LiveEditor code={`<Button> Button </Button>`} scope={{Button}} />
       </Block>
       <Block mb={2}>
-        <Button size="sm"> Button small </Button>
+        <LiveEditor code={`<Button size="sm"> Button small </Button>`} scope={{Button}} />
       </Block>
       <Block mb={2}>
-        <Button size="large"> Button large </Button>
+        <LiveEditor code={`<Button size="large"> Button large </Button>`} scope={{Button}} />
       </Block>
       <Block mb={2}>
-        <ButtonDanger> ButtonDanger </ButtonDanger>
+        <LiveEditor code={`<ButtonDanger> ButtonDanger </ButtonDanger>`} scope={{ButtonDanger}} />
       </Block>
       <Block mb={2}>
-        <ButtonPrimary> ButtonPrimary </ButtonPrimary>
+        <LiveEditor code={`<ButtonPrimary> ButtonPrimary </ButtonPrimary>`} scope={{ButtonPrimary}} />
       </Block>
       <Block mb={2}>
-        <ButtonOutline> ButtonOutline </ButtonOutline>
+        <LiveEditor code={`<ButtonOutline> ButtonOutline </ButtonOutline>`} scope={{ButtonOutline}} />
       </Block>
       <Block mb={2}>
-        <Button block> Button block </Button>
+        <LiveEditor code={`<Button block> Button block </Button>`} scope={{Button}} />
       </Block>
       <Block mb={2}>
-        <Button linkStyle> Button linkStyle </Button>
+        <LiveEditor code={`<Button linkStyle> Button linkStyle </Button>`} scope={{Button}} />
       </Block>
       <Block mb={2}>
-        <ButtonLink href="https://www.goatslive.com/">This is an {'<a>'} styled as a button</ButtonLink>
+        <LiveEditor
+          code={`<ButtonLink href="https://www.goatslive.com/">This is an {'<a>'} styled as a button</ButtonLink>`}
+          scope={{ButtonLink}}
+        />
       </Block>
       <Block mb={2}>
         <ExampleHeading>Octicon Buttons</ExampleHeading>
-        <OcticonButton icon={Pencil} label="Edit" onClick={() => alert('edit')} mr={3} />
-        <Text color="red">
-          <OcticonButton icon={X} label="Close" onClick={() => alert('close')} mr={3} />
-        </Text>
+        <LiveEditor
+          code={`<OcticonButton icon={Pencil} label="Edit" onClick={() => alert('edit')} mr={3} />`}
+          scope={{OcticonButton, Pencil}}
+        />
+        <LiveEditor
+          code={`<Text color="red"><OcticonButton icon={X} label="Close" onClick={() => alert('close')} mr={3} /></Text>`}
+          scope={{OcticonButton, Text, X}}
+        />
         <Block>
-          <OcticonButton icon={Hubot} size="large" label="ROBOT" onClick={() => alert('beep boop')} />
+          <LiveEditor
+            code={`<OcticonButton icon={Hubot} size="large" label="ROBOT" onClick={() => alert('beep boop')} />`}
+            scope={{OcticonButton, Hubot}}
+          />
         </Block>
       </Block>
     </div>
