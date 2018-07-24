@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Block from './Block'
-import {composeWithPropTypes, oneOrMoreOf} from './props'
 import {flex} from './mappers'
 
 export default function FlexContainer(props) {
@@ -9,11 +8,7 @@ export default function FlexContainer(props) {
   if (!rest.display) {
     rest.display = inline ? 'inline-flex' : 'flex'
   }
-  return (
-    <Block {...rest}>
-      {children}
-    </Block>
-  )
+  return <Block {...rest}>{children}</Block>
 }
 
 FlexContainer.propTypes = {

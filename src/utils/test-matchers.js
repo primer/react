@@ -1,5 +1,3 @@
-import {render} from './testing'
-
 const {stringify} = JSON
 
 expect.extend({
@@ -14,9 +12,7 @@ expect.extend({
 
   toHaveClasses(node, klasses, only = false) {
     const classes = getClasses(node)
-    const pass = only
-      ? this.equals(classes.sort(), klasses.sort())
-      : klasses.every(klass => classes.includes(klass))
+    const pass = only ? this.equals(classes.sort(), klasses.sort()) : klasses.every(klass => classes.includes(klass))
     return {
       pass,
       message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`

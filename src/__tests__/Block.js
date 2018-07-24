@@ -9,25 +9,13 @@ describe('Block', () => {
 
   it('renders margin', () => {
     expect(render(<Block m={1} />)).toHaveClasses(['m-1'], true)
-    expect(render(<Block m={[0, 1, 2, 3, 4]} />)).toHaveClasses([
-      'm-0',
-      'm-sm-1',
-      'm-md-2',
-      'm-lg-3',
-      'm-xl-4'
-    ], true)
+    expect(render(<Block m={[0, 1, 2, 3, 4]} />)).toHaveClasses(['m-0', 'm-sm-1', 'm-md-2', 'm-lg-3', 'm-xl-4'], true)
     expect(render(<Block m={[null, 1, null, 3]} />)).toHaveClasses(['m-sm-1', 'm-lg-3'], true)
   })
 
   it('renders padding', () => {
     expect(render(<Block p={1} />)).toHaveClasses(['p-1'], true)
-    expect(render(<Block p={[0, 1, 2, 3, 4]} />)).toHaveClasses([
-      'p-0',
-      'p-sm-1',
-      'p-md-2',
-      'p-lg-3',
-      'p-xl-4'
-    ], true)
+    expect(render(<Block p={[0, 1, 2, 3, 4]} />)).toHaveClasses(['p-0', 'p-sm-1', 'p-md-2', 'p-lg-3', 'p-xl-4'], true)
     expect(render(<Block p={[null, 1, null, 3]} />)).toHaveClasses(['p-sm-1', 'p-lg-3'], true)
   })
 

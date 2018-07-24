@@ -13,7 +13,11 @@ export const margin = createResponsiveMapper(marginProps)
 export const padding = createResponsiveMapper(paddingProps)
 export const spacing = composeWithPropTypes(margin, padding)
 
-export const position = createClassMapper('position', value => `position-${value}`, PropTypes.oneOf(['relative', 'absolute', 'fixed']))
+export const position = createClassMapper(
+  'position',
+  value => `position-${value}`,
+  PropTypes.oneOf(['relative', 'absolute', 'fixed'])
+)
 
 export const flex = createResponsiveMapper(
   ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent'],
@@ -41,7 +45,9 @@ export const display = createResponsiveMapper(
     return classPattern({...data, prop: 'd'})
   },
   {
-    display: oneOrMoreOf(PropTypes.oneOf(['block', 'inline', 'inline-block', 'flex', 'inline-flex', 'none', 'table', 'table-cell']))
+    display: oneOrMoreOf(
+      PropTypes.oneOf(['block', 'inline', 'inline-block', 'flex', 'inline-flex', 'none', 'table', 'table-cell'])
+    )
   }
 )
 
