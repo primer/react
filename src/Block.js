@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {composeWithPropTypes, oneOrMoreOf, stylizer} from './props'
-import {bg, borderColor, borderRadius, color, display, position, spacing} from './mappers'
+import {bg, borderColor, borderRadius, color, display, fontSize, position, spacing} from './mappers'
 
 const stylize = stylizer(['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight'])
-const mapProps = composeWithPropTypes(bg, borderColor, borderRadius, color, display, position, spacing, stylize)
+const mapProps = composeWithPropTypes(bg, borderColor, borderRadius, color, display, fontSize, position, spacing, stylize)
 
 function unique(values) {
   return values.filter((v, i) => values.indexOf(v) === i)
