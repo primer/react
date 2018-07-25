@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {color, fontSize, spacing} from './mappers'
+import {bg, color, fontSize, spacing} from './mappers'
 import {composeWithPropTypes} from './props'
 
-const mapProps = composeWithPropTypes(color, fontSize, spacing)
+const mapProps = composeWithPropTypes(bg, color, fontSize, spacing)
 
 const Text = ({tag: Tag, children, fontWeight, lineHeight, mono, nowrap, ...rest}) => {
   const {className} = mapProps(rest)
