@@ -103,7 +103,7 @@ const PropsPage = () => {
   return (
     <Library
       basename={basename}
-      title="Props"
+      title="Utility Props"
       examples={examples}
       renderSideNav={({title, examples}) => <SideNav title={title} examples={examples} />}
     />

@@ -25,7 +25,7 @@ export default function Page({render}) {
             Components
           </NavLink>
           <NavLink to="/props" className="px-3">
-            Props
+            Utility Props
           </NavLink>
           <NavLink to="/demos" className="px-3">
             Demos
