@@ -6,48 +6,9 @@ const {colors, fontSizes, radii} = theme
 const {bg: bgColors, border: borderColors, ...namedColors} = colors
 const colorNames = Object.keys(namedColors).concat(getNestedKeys(namedColors))
 
-const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
-const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
-
-export const margin = createResponsiveMapper(marginProps)
-export const padding = createResponsiveMapper(paddingProps)
-export const spacing = composeWithPropTypes(margin, padding)
-
-export const position = createResponsiveMapper(['position'], ({value}) => `position-${value}`, {
+export const position = createResponsiveMapper(['position'], classPattern, {
   position: PropTypes.oneOf(['relative', 'absolute', 'fixed'])
 })
-
-export const flex = createResponsiveMapper(
-  ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent'],
-  ({prop, ...data}) => {
-    data.prop =
-      {
-        alignContent: 'flex-content',
-        alignItems: 'flex-items',
-        justifyContent: 'flex-justify'
-      }[prop] || 'flex'
-    return classPattern(data)
-  },
-  {
-    alignContent: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'around', 'stretch'])),
-    alignItems: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch'])),
-    direction: oneOrMoreOf(PropTypes.oneOf(['column', 'row', 'row-reverse'])),
-    justifyContent: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'between', 'around'])),
-    wrap: oneOrMoreOf(PropTypes.oneOf(['wrap', 'nowrap']))
-  }
-)
-
-export const display = createResponsiveMapper(
-  ['display'],
-  data => {
-    return classPattern({...data, prop: 'd'})
-  },
-  {
-    display: oneOrMoreOf(
-      PropTypes.oneOf(['block', 'inline', 'inline-block', 'flex', 'inline-flex', 'none', 'table', 'table-cell'])
-    )
-  }
-)
 
 export const bg = createClassMapper(
   'bg',
@@ -71,9 +32,47 @@ export const color = createClassMapper(
   PropTypes.oneOf(colorNames)
 )
 
+export const display = createResponsiveMapper(
+  ['display'],
+  data => {
+    return classPattern({...data, prop: 'd'})
+  },
+  {
+    display: oneOrMoreOf(
+      PropTypes.oneOf(['block', 'inline', 'inline-block', 'flex', 'inline-flex', 'none', 'table', 'table-cell'])
+    )
+  }
+)
+
+export const flex = createResponsiveMapper(
+  ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent'],
+  ({prop, ...data}) => {
+    data.prop =
+      {
+        alignContent: 'flex-content',
+        alignItems: 'flex-items',
+        justifyContent: 'flex-justify'
+      }[prop] || 'flex'
+    return classPattern(data)
+  },
+  {
+    alignContent: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'around', 'stretch'])),
+    alignItems: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'baseline', 'stretch'])),
+    direction: oneOrMoreOf(PropTypes.oneOf(['column', 'row', 'row-reverse'])),
+    justifyContent: oneOrMoreOf(PropTypes.oneOf(['start', 'end', 'center', 'between', 'around'])),
+    wrap: oneOrMoreOf(PropTypes.oneOf(['wrap', 'nowrap']))
+  }
+)
+
 export const fontSize = createResponsiveMapper(['fontSize'], values => classPattern({...values, prop: 'f'}), {
   fontSize: oneOrMoreOf(PropTypes.oneOf(range(0, fontSizes.length - 1)))
 })
+
+export const margin = createResponsiveMapper(['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my'])
+
+export const padding = createResponsiveMapper(['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py'])
+
+export const spacing = composeWithPropTypes(margin, padding)
 
 export const common = composeWithPropTypes(bg, color, display, flex, spacing)
 
