@@ -28,7 +28,7 @@ export function createResponsiveMapper(props, getter = classPattern, propTypes =
 
 export function composeWithPropTypes(...funcs) {
   const composed = compose(...funcs)
-  composed.propTypes = [...funcs].reduce((acc, {propTypes}) => ({...acc, ...propTypes}), {})
+  composed.propTypes = [...funcs].filter(f => f.propTypes).reduce((acc, {propTypes}) => ({...acc, ...propTypes}), {})
   return composed
 }
 
