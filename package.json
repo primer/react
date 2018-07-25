@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
-    "build:css": "script/build-css > docs/system.css",
+    "build:css": "script/build-css > system.css",
     "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src lib examples",
     "prepublishOnly": "npm run build",
@@ -38,7 +38,8 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/*.js"
+      "src/*.js",
+      "!src/css.js"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/src/utils/test-matchers.js"
   },
@@ -54,6 +55,7 @@
     "@compositor/kit": "^1.0.43",
     "@compositor/x0": "^5.0.8",
     "babel-plugin-external-helpers": "6.22.0",
+    "babel-plugin-preval": "3.0.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "6.24.1",

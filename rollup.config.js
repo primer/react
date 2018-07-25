@@ -10,6 +10,7 @@ export default {
       babelrc: false,
       exclude: 'node_modules/**',
       plugins: [
+        'preval',
         'external-helpers'
       ],
       presets: [
