@@ -42,3 +42,5 @@ export {default as StateLabel} from './StateLabel'
 
 export {default as UnderlineNav} from './UnderlineNav'
 export {default as UnderlineNavLink} from './UnderlineNavLink'
+
+export {default as StyleProvider} from './StyleProvider'

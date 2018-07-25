@@ -1,54 +1,39 @@
 import React from 'react'
 import Block from '../Block'
-import {renderClasses} from '../utils/testing'
+import {render, renderClasses} from '../utils/testing'
 
 describe('Block', () => {
-  const defaultClasses = []
   it('renders default classes', () => {
-    expect(renderClasses(<Block />)).toEqual(defaultClasses)
+    expect(renderClasses(<Block />)).toEqual([])
   })
 
   it('renders margin', () => {
-    expect(renderClasses(<Block m={1} />)).toEqual(['m-1', ...defaultClasses])
-    expect(renderClasses(<Block m={[0, 1, 2, 3, 4]} />)).toEqual([
-      'm-0',
-      'm-sm-1',
-      'm-md-2',
-      'm-lg-3',
-      'm-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<Block m={[null, 1, null, 3]} />)).toEqual(['m-sm-1', 'm-lg-3', ...defaultClasses])
+    expect(render(<Block m={1} />)).toHaveClasses(['m-1'], true)
+    expect(render(<Block m={[0, 1, 2, 3, 4]} />)).toHaveClasses(['m-0', 'm-sm-1', 'm-md-2', 'm-lg-3', 'm-xl-4'], true)
+    expect(render(<Block m={[null, 1, null, 3]} />)).toHaveClasses(['m-sm-1', 'm-lg-3'], true)
   })
 
   it('renders padding', () => {
-    expect(renderClasses(<Block p={1} />)).toEqual(['p-1', ...defaultClasses])
-    expect(renderClasses(<Block p={[0, 1, 2, 3, 4]} />)).toEqual([
-      'p-0',
-      'p-sm-1',
-      'p-md-2',
-      'p-lg-3',
-      'p-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<Block p={[null, 1, null, 3]} />)).toEqual(['p-sm-1', 'p-lg-3', ...defaultClasses])
+    expect(render(<Block p={1} />)).toHaveClasses(['p-1'], true)
+    expect(render(<Block p={[0, 1, 2, 3, 4]} />)).toHaveClasses(['p-0', 'p-sm-1', 'p-md-2', 'p-lg-3', 'p-xl-4'], true)
+    expect(render(<Block p={[null, 1, null, 3]} />)).toHaveClasses(['p-sm-1', 'p-lg-3'], true)
   })
 
   describe('borders', () => {
     it('handles border prop as true', () => {
-      expect(renderClasses(<Block border />)).toEqual(['border'])
+      expect(render(<Block border />)).toHaveClasses(['border'], true)
     })
     it('handles border prop as false', () => {
-      expect(renderClasses(<Block border={false} />)).toEqual(['border-0'])
+      expect(render(<Block border={false} />)).toHaveClasses(['border-0'], true)
     })
     it('handles a single border edge', () => {
-      expect(renderClasses(<Block border="left" borderColor="green" />)).toEqual(['border-left', 'border-green'])
+      expect(render(<Block border="left" borderColor="green" />)).toHaveClasses(['border-left', 'border-green'], true)
     })
     it('handles multiple border edges', () => {
-      expect(renderClasses(<Block border={['top', 'left']} />)).toEqual(['border-top', 'border-left'])
+      expect(render(<Block border={['top', 'left']} />)).toHaveClasses(['border-top', 'border-left'], true)
     })
     it('handles just a border color', () => {
-      expect(renderClasses(<Block borderColor="red" />)).toEqual(['border', 'border-red'])
+      expect(render(<Block borderColor="red" />)).toHaveClasses(['border', 'border-red'], true)
     })
   })
 
@@ -64,17 +49,17 @@ describe('Block', () => {
   })
 
   it('respects bg', () => {
-    expect(renderClasses(<Block bg="yellow" />)).toEqual(['bg-yellow'])
+    expect(render(<Block bg="yellow" />)).toHaveClass('bg-yellow')
   })
 
-  it('respects fg', () => {
-    expect(renderClasses(<Block fg="red" />)).toEqual(['text-red'])
+  it('respects color prop', () => {
+    expect(render(<Block color="red" />)).toHaveClass('color-red-5')
   })
 
   it('renders shadow', () => {
-    expect(renderClasses(<Block shadow="small" />)).toEqual(['box-shadow'])
-    expect(renderClasses(<Block shadow="medium" />)).toEqual(['box-shadow-medium'])
-    expect(renderClasses(<Block shadow="large" />)).toEqual(['box-shadow-large'])
-    expect(renderClasses(<Block shadow="extra-large" />)).toEqual(['box-shadow-extra-large'])
+    expect(render(<Block shadow="small" />)).toHaveClass('box-shadow')
+    expect(render(<Block shadow="medium" />)).toHaveClass('box-shadow-medium')
+    expect(render(<Block shadow="large" />)).toHaveClass('box-shadow-large')
+    expect(render(<Block shadow="extra-large" />)).toHaveClass('box-shadow-extra-large')
   })
 })

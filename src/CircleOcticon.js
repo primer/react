@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Octicon from '@githubprimer/octicons-react'
-import {mapWhitespaceProps} from './props'
+import {spacing} from './mappers'
 import {colors} from './theme'
 
 export default function CircleOcticon({size, bg, color, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+  const {className} = spacing(rest)
   const classes = classnames(
     className,
     'circle d-flex flex-items-center flex-justify-center',

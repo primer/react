@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {spacing} from './mappers'
 
 const ICON_CLASS = 'CircleBadge-icon'
 
 const CircleBadge = ({tag: Tag = 'div', size = 'medium', bg, children, ...rest}) => {
-  const {className} = mapWhitespaceProps(rest)
+  const {className} = spacing(rest)
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
