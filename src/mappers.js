@@ -4,6 +4,10 @@ import {definedFallback} from './utils'
 import theme from './theme'
 import {classPattern, createClassMapper, createResponsiveMapper, composeWithPropTypes, oneOrMoreOf} from './props'
 
+const {colors, fontSizes, radii} = theme
+export const colorNames = getNestedKeys(colors)
+export const ColorType = PropTypes.oneOf(colorNames)
+
 export function themeGet(key, fallback) {
   return definedFallback(get(theme, key), fallback)
 }
@@ -11,10 +15,6 @@ export function themeGet(key, fallback) {
 export function getColor(key, fallback) {
   return themeGet(`colors.${key}`, fallback || key)
 }
-
-const {colors, fontSizes, radii} = theme
-export const colorNames = Object.keys(colors).concat(getNestedKeys(colors))
-export const ColorType = PropTypes.oneOf(colorNames)
 
 export const position = createResponsiveMapper(['position'], classPattern, {
   position: PropTypes.oneOf(['relative', 'absolute', 'fixed'])
@@ -87,10 +87,11 @@ function getNestedKeys(obj) {
     const value = obj[key]
     if (Array.isArray(value)) {
       list.push(...value.map((sub, i) => [key, i].join('.')))
+    } else if (value && typeof value === 'object') {
+      // list.push(...Object.keys(value).map(sub => [key, sub].join('.')))
+    } else {
+      list.push(key)
     }
-    /* else if (value && typeof value === 'object') {
-      list.push(...Object.keys(value).map(sub => [key, sub].join('.')))
-    } */
     return list
   }, [])
 }
