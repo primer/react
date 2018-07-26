@@ -3,5 +3,8 @@
     "plugin:github/es6",
     "plugin:github/react",
     "plugin:jsx-a11y/recommended"
-  ]
+  ],
+  "rules": {
+    "no-unused-vars": ["error", {"args": "after-used"}]
+  }
 }

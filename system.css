@@ -1,0 +1,590 @@
+/* THIS IS GENERATED. DO NOT EDIT IT! */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.5;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+.bg-gray-light {
+  background-color: #fafbfc !important;
+}
+
+.bg-gray {
+  background-color: #f6f8fa !important;
+}
+
+.bg-gray-dark {
+  background-color: #24292e !important;
+}
+
+.bg-purple {
+  background-color: #6f42c1 !important;
+}
+
+.bg-blue {
+  background-color: #0366d6 !important;
+}
+
+.bg-green {
+  background-color: #28a745 !important;
+}
+
+.bg-yellow {
+  background-color: #ffd33d !important;
+}
+
+.bg-red {
+  background-color: #d73a49 !important;
+}
+
+.bg-purple-light {
+  background-color: #f5f0ff !important;
+}
+
+.bg-blue-light {
+  background-color: #f1f8ff !important;
+}
+
+.bg-green-light {
+  background-color: #dcffe4 !important;
+}
+
+.bg-yellow-light {
+  background-color: #fff5b1 !important;
+}
+
+.bg-red-light {
+  background-color: #ffdce0 !important;
+}
+
+.border-black-fade {
+  border-color: rgba(27, 31, 35, 0.15) !important;
+}
+
+.border-blue {
+  border-color: #0366d6 !important;
+}
+
+.border-blue-light {
+  border-color: #c8e1ff !important;
+}
+
+.border-green {
+  border-color: #34d058 !important;
+}
+
+.border-green-light {
+  border-color: #85e89d !important;
+}
+
+.border-red {
+  border-color: #d73a49 !important;
+}
+
+.border-red-light {
+  border-color: #f97583 !important;
+}
+
+.border-purple {
+  border-color: #6f42c1 !important;
+}
+
+.border-yellow {
+  border-color: #d9d0a5 !important;
+}
+
+.border-gray {
+  border-color: #e1e4e8 !important;
+}
+
+.border-gray-light {
+  border-color: #e1e4e8 !important;
+}
+
+.border-gray-dark {
+  border-color: #d1d5da !important;
+}
+
+.border-gray-darker {
+  border-color: #444d56 !important;
+}
+
+.color-bodytext {
+  color: #24292e !important;
+}
+
+.color-black {
+  color: #1b1f23 !important;
+}
+
+.color-white {
+  color: #fff !important;
+}
+
+.color-gray-0 {
+  color: #fafbfc !important;
+}
+
+.color-gray-1 {
+  color: #f6f8fa !important;
+}
+
+.color-gray-2 {
+  color: #e1e4e8 !important;
+}
+
+.color-gray-3 {
+  color: #d1d5da !important;
+}
+
+.color-gray-4 {
+  color: #959da5 !important;
+}
+
+.color-gray-5 {
+  color: #6a737d !important;
+}
+
+.color-gray-6 {
+  color: #586069 !important;
+}
+
+.color-gray-7 {
+  color: #444d56 !important;
+}
+
+.color-gray-8 {
+  color: #2f363d !important;
+}
+
+.color-gray-9 {
+  color: #24292e !important;
+}
+
+.color-blue-0 {
+  color: #f1f8ff !important;
+}
+
+.color-blue-1 {
+  color: #dbedff !important;
+}
+
+.color-blue-2 {
+  color: #c8e1ff !important;
+}
+
+.color-blue-3 {
+  color: #79b8ff !important;
+}
+
+.color-blue-4 {
+  color: #2188ff !important;
+}
+
+.color-blue-5 {
+  color: #0366d6 !important;
+}
+
+.color-blue-6 {
+  color: #005cc5 !important;
+}
+
+.color-blue-7 {
+  color: #044289 !important;
+}
+
+.color-blue-8 {
+  color: #032f62 !important;
+}
+
+.color-blue-9 {
+  color: #05264c !important;
+}
+
+.color-green-0 {
+  color: #f0fff4 !important;
+}
+
+.color-green-1 {
+  color: #dcffe4 !important;
+}
+
+.color-green-2 {
+  color: #bef5cb !important;
+}
+
+.color-green-3 {
+  color: #85e89d !important;
+}
+
+.color-green-4 {
+  color: #34d058 !important;
+}
+
+.color-green-5 {
+  color: #28a745 !important;
+}
+
+.color-green-6 {
+  color: #22863a !important;
+}
+
+.color-green-7 {
+  color: #176f2c !important;
+}
+
+.color-green-8 {
+  color: #165c26 !important;
+}
+
+.color-green-9 {
+  color: #144620 !important;
+}
+
+.color-yellow-0 {
+  color: #fffdef !important;
+}
+
+.color-yellow-1 {
+  color: #fffbdd !important;
+}
+
+.color-yellow-2 {
+  color: #fff5b1 !important;
+}
+
+.color-yellow-3 {
+  color: #ffea7f !important;
+}
+
+.color-yellow-4 {
+  color: #ffdf5d !important;
+}
+
+.color-yellow-5 {
+  color: #ffd33d !important;
+}
+
+.color-yellow-6 {
+  color: #f9c513 !important;
+}
+
+.color-yellow-7 {
+  color: #dbab09 !important;
+}
+
+.color-yellow-8 {
+  color: #b08800 !important;
+}
+
+.color-yellow-9 {
+  color: #735c0f !important;
+}
+
+.color-orange-0 {
+  color: #fff8f2 !important;
+}
+
+.color-orange-1 {
+  color: #ffebda !important;
+}
+
+.color-orange-2 {
+  color: #ffd1ac !important;
+}
+
+.color-orange-3 {
+  color: #ffab70 !important;
+}
+
+.color-orange-4 {
+  color: #fb8532 !important;
+}
+
+.color-orange-5 {
+  color: #f66a0a !important;
+}
+
+.color-orange-6 {
+  color: #e36209 !important;
+}
+
+.color-orange-7 {
+  color: #d15704 !important;
+}
+
+.color-orange-8 {
+  color: #c24e00 !important;
+}
+
+.color-orange-9 {
+  color: #a04100 !important;
+}
+
+.color-red-0 {
+  color: #ffeef0 !important;
+}
+
+.color-red-1 {
+  color: #ffdce0 !important;
+}
+
+.color-red-2 {
+  color: #fdaeb7 !important;
+}
+
+.color-red-3 {
+  color: #f97583 !important;
+}
+
+.color-red-4 {
+  color: #ea4a5a !important;
+}
+
+.color-red-5 {
+  color: #d73a49 !important;
+}
+
+.color-red-6 {
+  color: #cb2431 !important;
+}
+
+.color-red-7 {
+  color: #b31d28 !important;
+}
+
+.color-red-8 {
+  color: #9e1c23 !important;
+}
+
+.color-red-9 {
+  color: #86181d !important;
+}
+
+.color-purple-0 {
+  color: #f5f0ff !important;
+}
+
+.color-purple-1 {
+  color: #e6dcfd !important;
+}
+
+.color-purple-2 {
+  color: #d1bcf9 !important;
+}
+
+.color-purple-3 {
+  color: #b392f0 !important;
+}
+
+.color-purple-4 {
+  color: #8a63d2 !important;
+}
+
+.color-purple-5 {
+  color: #6f42c1 !important;
+}
+
+.color-purple-6 {
+  color: #5a32a3 !important;
+}
+
+.color-purple-7 {
+  color: #4c2889 !important;
+}
+
+.color-purple-8 {
+  color: #3a1d6e !important;
+}
+
+.color-purple-9 {
+  color: #29134e !important;
+}
+
+.color-blackfade15 {
+  color: rgba(27, 31, 35, 0.15) !important;
+}
+
+.color-blackfade20 {
+  color: rgba(27, 31, 35, 0.20) !important;
+}
+
+.color-whitefade15 {
+  color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.f-0 {
+  font-size: 12px !important;
+}
+
+.f-1 {
+  font-size: 14px !important;
+}
+
+.f-2 {
+  font-size: 16px !important;
+}
+
+.f-3 {
+  font-size: 20px !important;
+}
+
+.f-4 {
+  font-size: 24px !important;
+}
+
+.f-5 {
+  font-size: 32px !important;
+}
+
+.f-6 {
+  font-size: 40px !important;
+}
+
+.f-7 {
+  font-size: 48px !important;
+}
+
+@media (min-width: 544px) {
+  .f-sm-0 {
+    font-size: 12px !important;
+  }
+
+  .f-sm-1 {
+    font-size: 14px !important;
+  }
+
+  .f-sm-2 {
+    font-size: 16px !important;
+  }
+
+  .f-sm-3 {
+    font-size: 20px !important;
+  }
+
+  .f-sm-4 {
+    font-size: 24px !important;
+  }
+
+  .f-sm-5 {
+    font-size: 32px !important;
+  }
+
+  .f-sm-6 {
+    font-size: 40px !important;
+  }
+
+  .f-sm-7 {
+    font-size: 48px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .f-md-0 {
+    font-size: 12px !important;
+  }
+
+  .f-md-1 {
+    font-size: 14px !important;
+  }
+
+  .f-md-2 {
+    font-size: 16px !important;
+  }
+
+  .f-md-3 {
+    font-size: 20px !important;
+  }
+
+  .f-md-4 {
+    font-size: 24px !important;
+  }
+
+  .f-md-5 {
+    font-size: 32px !important;
+  }
+
+  .f-md-6 {
+    font-size: 40px !important;
+  }
+
+  .f-md-7 {
+    font-size: 48px !important;
+  }
+}
+
+@media (min-width: 1012px) {
+  .f-lg-0 {
+    font-size: 12px !important;
+  }
+
+  .f-lg-1 {
+    font-size: 14px !important;
+  }
+
+  .f-lg-2 {
+    font-size: 16px !important;
+  }
+
+  .f-lg-3 {
+    font-size: 20px !important;
+  }
+
+  .f-lg-4 {
+    font-size: 24px !important;
+  }
+
+  .f-lg-5 {
+    font-size: 32px !important;
+  }
+
+  .f-lg-6 {
+    font-size: 40px !important;
+  }
+
+  .f-lg-7 {
+    font-size: 48px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .f-xl-0 {
+    font-size: 12px !important;
+  }
+
+  .f-xl-1 {
+    font-size: 14px !important;
+  }
+
+  .f-xl-2 {
+    font-size: 16px !important;
+  }
+
+  .f-xl-3 {
+    font-size: 20px !important;
+  }
+
+  .f-xl-4 {
+    font-size: 24px !important;
+  }
+
+  .f-xl-5 {
+    font-size: 32px !important;
+  }
+
+  .f-xl-6 {
+    font-size: 40px !important;
+  }
+
+  .f-xl-7 {
+    font-size: 48px !important;
+  }
+}

@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Details from './Details'
 import Button from './Button'
 import Caret from './Caret'
-import {mapWhitespaceProps} from './props'
+import {spacing} from './mappers'
 
 const arrowStyles = {
   content: '',
@@ -17,7 +17,7 @@ const arrowStyles = {
 }
 
 export default function Dropdown({title, scheme, children, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+  const {className} = spacing(rest)
   return (
     <div className={classnames(className, 'BtnGroup')}>
       <Details className="details-reset BtnGroup-form d-flex">
