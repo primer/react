@@ -34,6 +34,8 @@ export function composeWithPropTypes(...funcs) {
   return composed
 }
 
+export const StyleType = PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+
 export function stylizer(propsToPass, propTypes) {
   const mapper = props => {
     const copy = {...props}
@@ -48,7 +50,7 @@ export function stylizer(propsToPass, propTypes) {
   }
   mapper.propTypes = propTypes || {
     ...propsToPass.reduce((types, prop) => {
-      types[prop] = PropTypes.number
+      types[prop] = StyleType
       return types
     }, {})
   }
