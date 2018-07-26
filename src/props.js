@@ -2,9 +2,10 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import createMapper from 'system-classnames'
 import {compose} from 'ramda'
-import {breakpointNames as breakpoints} from './theme'
+import {defined} from './utils'
+import theme from './theme'
 
-export {breakpoints}
+export const breakpoints = [null].concat(theme.breakpointNames)
 
 export function oneOrMoreOf(type) {
   return PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
@@ -70,8 +71,4 @@ export function createClassMapper(prop, mapValue, propType) {
   }
   mapper.propTypes = {[prop]: propType}
   return mapper
-}
-
-function defined(val) {
-  return val !== null && typeof val !== 'undefined'
 }

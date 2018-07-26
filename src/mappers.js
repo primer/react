@@ -1,10 +1,20 @@
 import PropTypes from 'prop-types'
+import {get} from 'dotmap'
+import {definedFallback} from './utils'
 import theme from './theme'
 import {classPattern, createClassMapper, createResponsiveMapper, composeWithPropTypes, oneOrMoreOf} from './props'
 
+export function themeGet(key, fallback) {
+  return definedFallback(get(theme, key), fallback)
+}
+
+export function getColor(key, fallback) {
+  return themeGet(`colors.${key}`, fallback || key)
+}
+
 const {colors, fontSizes, radii} = theme
-const {bg: bgColors, border: borderColors, ...namedColors} = colors
-const colorNames = Object.keys(namedColors).concat(getNestedKeys(namedColors))
+export const colorNames = Object.keys(colors).concat(getNestedKeys(colors))
+export const ColorType = PropTypes.oneOf(colorNames)
 
 export const position = createResponsiveMapper(['position'], classPattern, {
   position: PropTypes.oneOf(['relative', 'absolute', 'fixed'])
@@ -12,14 +22,14 @@ export const position = createResponsiveMapper(['position'], classPattern, {
 
 export const bg = createClassMapper(
   'bg',
-  nestedKeyMapper(bgColors, key => `bg-${key}`),
-  PropTypes.oneOf(Object.keys(bgColors))
+  nestedKeyMapper(colorNames, key => `bg-${key}`),
+  ColorType
 )
 
 export const borderColor = createClassMapper(
   'borderColor',
-  value => `border-${value}`,
-  PropTypes.oneOf(Object.keys(borderColors))
+  nestedKeyMapper(colorNames, key => `border-${key}`),
+  ColorType
 )
 
 export const borderRadius = createResponsiveMapper(['borderRadius'], props => classPattern({...props, prop: 'round'}), {
@@ -28,8 +38,8 @@ export const borderRadius = createResponsiveMapper(['borderRadius'], props => cl
 
 export const color = createClassMapper(
   'color',
-  nestedKeyMapper(namedColors, suffix => `color-${suffix}`),
-  PropTypes.oneOf(colorNames)
+  nestedKeyMapper(colorNames, key => `color-${key}`),
+  ColorType
 )
 
 export const display = createResponsiveMapper(
@@ -77,10 +87,7 @@ export const spacing = composeWithPropTypes(margin, padding)
 export const common = composeWithPropTypes(bg, color, display, flex, spacing)
 
 function nestedKeyMapper(source, mapValue) {
-  return key => {
-    const suffix = Array.isArray(source[key]) ? `${key}.5` : key
-    return mapValue(suffix.replace(/\./g, '-'))
-  }
+  return key => mapValue(key.replace(/\./g, '-'))
 }
 
 function getNestedKeys(obj) {
