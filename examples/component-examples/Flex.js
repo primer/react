@@ -13,17 +13,17 @@ const propObj = {
 
 const example1 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem flexAuto>
-    <Block p={3} bg="blue">
+    <Block p={3} bg="blue.4">
       Item 1
     </Block>
   </FlexItem>
   <FlexItem flexAuto>
-    <Block p={3} bg="green">
+    <Block p={3} bg="green.4">
       Item 2
     </Block>
   </FlexItem>
   <FlexItem flexAuto>
-    <Block p={3} bg="yellow">
+    <Block p={3} bg="yellow.4">
       Item 3
     </Block>
   </FlexItem>
@@ -31,17 +31,17 @@ const example1 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
 
 const example2 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem alignSelf="center">
-    <Block p={3} bg="blue">
+    <Block p={3} bg="blue.4">
       Item 1
     </Block>
   </FlexItem>
   <FlexItem>
-    <Block p={3} bg="green">
+    <Block p={3} bg="green.4">
       Item 2
     </Block>
   </FlexItem>
   <FlexItem>
-    <Block p={3} bg="yellow">
+    <Block p={3} bg="yellow.4">
       Item 3
     </Block>
   </FlexItem>
@@ -49,17 +49,17 @@ const example2 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
 
 const example3 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem tag="p">
-    <Block p={3} bg="blue">
+    <Block p={3} bg="blue.4">
       Item 1
     </Block>
   </FlexItem>
   <FlexItem tag="p">
-    <Block p={3} bg="green">
+    <Block p={3} bg="green.4">
       Item 2
     </Block>
   </FlexItem>
   <FlexItem tag="p">
-    <Block p={3} bg="yellow">
+    <Block p={3} bg="yellow.4">
       Item 3
     </Block>
   </FlexItem>
@@ -84,19 +84,19 @@ const FlexExample = {
           height={300}
           border
         >
-          <Block p={3} bg="blue">
+          <Block p={3} bg="blue.4">
             Item 1
           </Block>
-          <Block p={3} bg="green">
+          <Block p={3} bg="green.4">
             Item 2
           </Block>
-          <Block p={3} bg="yellow">
+          <Block p={3} bg="yellow.4">
             Item 3
           </Block>
-          <Block p={3} bg="red">
+          <Block p={3} bg="red.4">
             Item 4
           </Block>
-          <Block p={3} bg="purple">
+          <Block p={3} bg="purple.4">
             Item 5
           </Block>
         </FlexContainer>

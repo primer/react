@@ -3,18 +3,11 @@ import PropTypes from 'prop-types'
 import {Check} from '@githubprimer/octicons-react'
 import {Block, CircleOcticon, Text} from '../../src'
 
-const stateColorMap = {
-  ready: 'green',
-  invalid: 'invalid',
-  merged: 'purple',
-  pending: 'yellow'
-}
-
 const MergeDetail = ({state}) => {
   return (
     <div className="p-2 d-flex border-bottom">
       <Block mt={2}>
-        <CircleOcticon icon={Check} size={32} bg={stateColorMap[state]} color="white" />
+        <CircleOcticon icon={Check} size={32} bg={state} color="white" />
       </Block>
       <Block p={2} display="inline">
         <Text tag="p" p={0} m={0} fontSize={2} fontWeight="bold">
@@ -29,7 +22,7 @@ const MergeDetail = ({state}) => {
 }
 
 MergeDetail.propTypes = {
-  state: PropTypes.oneOf(Object.keys(stateColorMap)).isRequired
+  state: PropTypes.oneOf(['pending', 'invalid', 'ready', 'merged'])
 }
 
 export default MergeDetail
