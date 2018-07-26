@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {mapWhitespaceProps} from './props'
 
 export const ITEM_CLASS = 'UnderlineNav-item no-underline'
 export const SELECTED_CLASS = 'selected'
 
 export default function UnderlineNav({actions, align, children, full, label, ...rest}) {
-  const {className} = spacing(rest)
+  const {className} = mapWhitespaceProps(rest)
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
 
   const mappedChildren = React.Children.map(children, child => {

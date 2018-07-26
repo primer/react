@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {mapWhitespaceProps} from './props'
 
 const TextInput = ({
   autocomplete,
@@ -16,7 +16,7 @@ const TextInput = ({
   value,
   ...rest
 }) => {
-  const {className} = spacing(rest)
+  const {className} = mapWhitespaceProps(rest)
   return (
     <input
       aria-label={placeholder}

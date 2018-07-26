@@ -9,6 +9,6 @@ Box.defaultProps = {
   borderRadius: 1
 }
 
-Box.propTypes = {...Block.propTypes}
+Box.propTypes = Block.propTypes
 
 export default Box

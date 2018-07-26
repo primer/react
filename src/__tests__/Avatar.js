@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Avatar from '../Avatar'
-import {render} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 
 describe('Avatar', () => {
   it('renders small by default', () => {
@@ -25,10 +25,10 @@ describe('Avatar', () => {
   })
 
   it('respects margin utility prop', () => {
-    expect(render(<Avatar m={1} />)).toHaveClass('m-1')
+    expect(rendersClass(<Avatar m={1} />, 'm-1')).toEqual(true)
   })
 
   it('respects padding utility prop', () => {
-    expect(render(<Avatar p={1} />)).toHaveClass('p-1')
+    expect(rendersClass(<Avatar p={1} />, 'p-1')).toEqual(true)
   })
 })
