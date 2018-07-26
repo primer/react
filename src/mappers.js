@@ -20,11 +20,7 @@ export const position = createResponsiveMapper(['position'], classPattern, {
   position: PropTypes.oneOf(['relative', 'absolute', 'fixed'])
 })
 
-export const bg = createClassMapper(
-  'bg',
-  nestedKeyMapper(colorNames, key => `bg-${key}`),
-  ColorType
-)
+export const bg = createClassMapper('bg', nestedKeyMapper(colorNames, key => `bg-${key}`), ColorType)
 
 export const borderColor = createClassMapper(
   'borderColor',
@@ -36,11 +32,7 @@ export const borderRadius = createResponsiveMapper(['borderRadius'], props => cl
   borderRadius: oneOrMoreOf(PropTypes.oneOf(range(0, radii.length - 1)))
 })
 
-export const color = createClassMapper(
-  'color',
-  nestedKeyMapper(colorNames, key => `color-${key}`),
-  ColorType
-)
+export const color = createClassMapper('color', nestedKeyMapper(colorNames, key => `color-${key}`), ColorType)
 
 export const display = createResponsiveMapper(
   ['display'],

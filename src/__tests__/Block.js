@@ -27,7 +27,10 @@ describe('Block', () => {
       expect(render(<Block border={false} />)).toHaveClasses(['border-0'], true)
     })
     it('handles a single border edge', () => {
-      expect(render(<Block border="left" borderColor="green.5" />)).toHaveClasses(['border-left', 'border-green-5'], true)
+      expect(render(<Block border="left" borderColor="green.5" />)).toHaveClasses(
+        ['border-left', 'border-green-5'],
+        true
+      )
     })
     it('handles multiple border edges', () => {
       expect(render(<Block border={['top', 'left']} />)).toHaveClasses(['border-top', 'border-left'], true)

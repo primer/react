@@ -9,10 +9,7 @@ const mapProps = composeWithPropTypes(bg, color, spacing)
 
 export default function CircleOcticon(props) {
   const {size, className, ...rest} = mapProps(props)
-  const classes = classnames(
-    className,
-    'circle d-flex flex-items-center flex-justify-center'
-  )
+  const classes = classnames(className, 'circle d-flex flex-items-center flex-justify-center')
   return (
     <div style={{width: `${size}px`, height: `${size}px`}} className={classes}>
       <Octicon size={size} {...rest} />

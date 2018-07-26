@@ -1,4 +1,3 @@
-
 export function defined(val) {
   return val !== null && typeof val !== 'undefined'
 }
