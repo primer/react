@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 import DonutSlice from './DonutSlice'
-import {oneOrMoreOf, mapWhitespaceProps} from './props'
+import {oneOrMoreOf} from './props'
+import {spacing} from './mappers'
 
 function mapData(data) {
   return Object.keys(data).map(key => <DonutSlice key={key} state={key} value={data[key]} />)
@@ -10,7 +11,7 @@ function mapData(data) {
 
 const DonutChart = props => {
   const {data, children = mapData(data), size = 30, ...rest} = props
-  const {className} = mapWhitespaceProps(rest)
+  const {className} = spacing(rest)
 
   const radius = size / 2
   const innerRadius = radius - 6

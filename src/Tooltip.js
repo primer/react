@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {spacing} from './mappers'
 
 export default function Tooltip({children, direction, text, noDelay, align, wrap, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+  const {className} = spacing(rest)
   return (
     <span
       aria-label={text}

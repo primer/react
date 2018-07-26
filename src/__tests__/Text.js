@@ -16,7 +16,7 @@ describe('Text', () => {
   })
 
   it('respects color', () => {
-    expect(render(<Text color="green" />)).toEqual(render(<span className="text-green" />))
+    expect(render(<Text color="green" />)).toEqual(render(<span className="color-green-5" />))
   })
 
   it('respects fontWeight', () => {
@@ -39,13 +39,13 @@ describe('Text', () => {
   })
 
   it('renders fontSize with f* classes using inverse scale', () => {
-    expect(render(<Text fontSize={0} />)).toEqual(render(<span className="f6" />))
-    expect(render(<Text fontSize={1} />)).toEqual(render(<span className="f5" />))
-    expect(render(<Text fontSize={2} />)).toEqual(render(<span className="f4" />))
-    expect(render(<Text fontSize={3} />)).toEqual(render(<span className="f3" />))
-    expect(render(<Text fontSize={4} />)).toEqual(render(<span className="f2" />))
-    expect(render(<Text fontSize={5} />)).toEqual(render(<span className="f1" />))
-    expect(render(<Text fontSize={6} />)).toEqual(render(<span className="f0" />))
+    expect(render(<Text fontSize={0} />)).toEqual(render(<span className="f-0" />))
+    expect(render(<Text fontSize={1} />)).toEqual(render(<span className="f-1" />))
+    expect(render(<Text fontSize={2} />)).toEqual(render(<span className="f-2" />))
+    expect(render(<Text fontSize={3} />)).toEqual(render(<span className="f-3" />))
+    expect(render(<Text fontSize={4} />)).toEqual(render(<span className="f-4" />))
+    expect(render(<Text fontSize={5} />)).toEqual(render(<span className="f-5" />))
+    expect(render(<Text fontSize={6} />)).toEqual(render(<span className="f-6" />))
   })
 
   it('does not pass on arbitrary attributes', () => {
@@ -54,7 +54,7 @@ describe('Text', () => {
     expect(render(<Text hidden />)).toEqual(defaultOutput)
   })
 
-  it('respects other values for fontSize', () => {
+  xit('respects other values for fontSize', () => {
     expect(render(<Text fontSize="00" />)).toEqual(render(<span className="f00" />))
     const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
     expect(render(<Text fontSize={false} />)).toEqual(render(<span className="" />))
