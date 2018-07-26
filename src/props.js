@@ -2,8 +2,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import createMapper from 'system-classnames'
 import {compose} from 'ramda'
+import {breakpointNames as breakpoints} from './theme'
 
-export const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
+export {breakpoints}
 
 export function oneOrMoreOf(type) {
   return PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
