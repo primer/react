@@ -5,116 +5,617 @@
 }
 
 body {
+  color: #24292e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
+}
+
+.bg-bodytext {
+  background-color: #24292e !important;
+}
+
+.bg-black {
+  background-color: #1b1f23 !important;
 }
 
 .bg-white {
   background-color: #fff !important;
 }
 
-.bg-gray-light {
+.bg-gray-0 {
   background-color: #fafbfc !important;
 }
 
-.bg-gray {
+.bg-gray-1 {
   background-color: #f6f8fa !important;
 }
 
-.bg-gray-dark {
+.bg-gray-2 {
+  background-color: #e1e4e8 !important;
+}
+
+.bg-gray-3 {
+  background-color: #d1d5da !important;
+}
+
+.bg-gray-4 {
+  background-color: #959da5 !important;
+}
+
+.bg-gray-5 {
+  background-color: #6a737d !important;
+}
+
+.bg-gray-6 {
+  background-color: #586069 !important;
+}
+
+.bg-gray-7 {
+  background-color: #444d56 !important;
+}
+
+.bg-gray-8 {
+  background-color: #2f363d !important;
+}
+
+.bg-gray-9 {
   background-color: #24292e !important;
 }
 
-.bg-purple {
-  background-color: #6f42c1 !important;
-}
-
-.bg-blue {
-  background-color: #0366d6 !important;
-}
-
-.bg-green {
-  background-color: #28a745 !important;
-}
-
-.bg-yellow {
-  background-color: #ffd33d !important;
-}
-
-.bg-red {
-  background-color: #d73a49 !important;
-}
-
-.bg-purple-light {
-  background-color: #f5f0ff !important;
-}
-
-.bg-blue-light {
+.bg-blue-0 {
   background-color: #f1f8ff !important;
 }
 
-.bg-green-light {
+.bg-blue-1 {
+  background-color: #dbedff !important;
+}
+
+.bg-blue-2 {
+  background-color: #c8e1ff !important;
+}
+
+.bg-blue-3 {
+  background-color: #79b8ff !important;
+}
+
+.bg-blue-4 {
+  background-color: #2188ff !important;
+}
+
+.bg-blue-5 {
+  background-color: #0366d6 !important;
+}
+
+.bg-blue-6 {
+  background-color: #005cc5 !important;
+}
+
+.bg-blue-7 {
+  background-color: #044289 !important;
+}
+
+.bg-blue-8 {
+  background-color: #032f62 !important;
+}
+
+.bg-blue-9 {
+  background-color: #05264c !important;
+}
+
+.bg-green-0 {
+  background-color: #f0fff4 !important;
+}
+
+.bg-green-1 {
   background-color: #dcffe4 !important;
 }
 
-.bg-yellow-light {
+.bg-green-2 {
+  background-color: #bef5cb !important;
+}
+
+.bg-green-3 {
+  background-color: #85e89d !important;
+}
+
+.bg-green-4 {
+  background-color: #34d058 !important;
+}
+
+.bg-green-5 {
+  background-color: #28a745 !important;
+}
+
+.bg-green-6 {
+  background-color: #22863a !important;
+}
+
+.bg-green-7 {
+  background-color: #176f2c !important;
+}
+
+.bg-green-8 {
+  background-color: #165c26 !important;
+}
+
+.bg-green-9 {
+  background-color: #144620 !important;
+}
+
+.bg-yellow-0 {
+  background-color: #fffdef !important;
+}
+
+.bg-yellow-1 {
+  background-color: #fffbdd !important;
+}
+
+.bg-yellow-2 {
   background-color: #fff5b1 !important;
 }
 
-.bg-red-light {
+.bg-yellow-3 {
+  background-color: #ffea7f !important;
+}
+
+.bg-yellow-4 {
+  background-color: #ffdf5d !important;
+}
+
+.bg-yellow-5 {
+  background-color: #ffd33d !important;
+}
+
+.bg-yellow-6 {
+  background-color: #f9c513 !important;
+}
+
+.bg-yellow-7 {
+  background-color: #dbab09 !important;
+}
+
+.bg-yellow-8 {
+  background-color: #b08800 !important;
+}
+
+.bg-yellow-9 {
+  background-color: #735c0f !important;
+}
+
+.bg-orange-0 {
+  background-color: #fff8f2 !important;
+}
+
+.bg-orange-1 {
+  background-color: #ffebda !important;
+}
+
+.bg-orange-2 {
+  background-color: #ffd1ac !important;
+}
+
+.bg-orange-3 {
+  background-color: #ffab70 !important;
+}
+
+.bg-orange-4 {
+  background-color: #fb8532 !important;
+}
+
+.bg-orange-5 {
+  background-color: #f66a0a !important;
+}
+
+.bg-orange-6 {
+  background-color: #e36209 !important;
+}
+
+.bg-orange-7 {
+  background-color: #d15704 !important;
+}
+
+.bg-orange-8 {
+  background-color: #c24e00 !important;
+}
+
+.bg-orange-9 {
+  background-color: #a04100 !important;
+}
+
+.bg-red-0 {
+  background-color: #ffeef0 !important;
+}
+
+.bg-red-1 {
   background-color: #ffdce0 !important;
 }
 
-.border-black-fade {
-  border-color: rgba(27, 31, 35, 0.15) !important;
+.bg-red-2 {
+  background-color: #fdaeb7 !important;
 }
 
-.border-blue {
-  border-color: #0366d6 !important;
+.bg-red-3 {
+  background-color: #f97583 !important;
 }
 
-.border-blue-light {
-  border-color: #c8e1ff !important;
+.bg-red-4 {
+  background-color: #ea4a5a !important;
 }
 
-.border-green {
-  border-color: #34d058 !important;
+.bg-red-5 {
+  background-color: #d73a49 !important;
 }
 
-.border-green-light {
-  border-color: #85e89d !important;
+.bg-red-6 {
+  background-color: #cb2431 !important;
 }
 
-.border-red {
-  border-color: #d73a49 !important;
+.bg-red-7 {
+  background-color: #b31d28 !important;
 }
 
-.border-red-light {
-  border-color: #f97583 !important;
+.bg-red-8 {
+  background-color: #9e1c23 !important;
 }
 
-.border-purple {
-  border-color: #6f42c1 !important;
+.bg-red-9 {
+  background-color: #86181d !important;
 }
 
-.border-yellow {
-  border-color: #d9d0a5 !important;
+.bg-purple-0 {
+  background-color: #f5f0ff !important;
 }
 
-.border-gray {
+.bg-purple-1 {
+  background-color: #e6dcfd !important;
+}
+
+.bg-purple-2 {
+  background-color: #d1bcf9 !important;
+}
+
+.bg-purple-3 {
+  background-color: #b392f0 !important;
+}
+
+.bg-purple-4 {
+  background-color: #8a63d2 !important;
+}
+
+.bg-purple-5 {
+  background-color: #6f42c1 !important;
+}
+
+.bg-purple-6 {
+  background-color: #5a32a3 !important;
+}
+
+.bg-purple-7 {
+  background-color: #4c2889 !important;
+}
+
+.bg-purple-8 {
+  background-color: #3a1d6e !important;
+}
+
+.bg-purple-9 {
+  background-color: #29134e !important;
+}
+
+.bg-blackfade15 {
+  background-color: rgba(27, 31, 35, 0.15) !important;
+}
+
+.bg-blackfade20 {
+  background-color: rgba(27, 31, 35, 0.20) !important;
+}
+
+.bg-whitefade15 {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.border-bodytext {
+  border-color: #24292e !important;
+}
+
+.border-black {
+  border-color: #1b1f23 !important;
+}
+
+.border-white {
+  border-color: #fff !important;
+}
+
+.border-gray-0 {
+  border-color: #fafbfc !important;
+}
+
+.border-gray-1 {
+  border-color: #f6f8fa !important;
+}
+
+.border-gray-2 {
   border-color: #e1e4e8 !important;
 }
 
-.border-gray-light {
-  border-color: #e1e4e8 !important;
-}
-
-.border-gray-dark {
+.border-gray-3 {
   border-color: #d1d5da !important;
 }
 
-.border-gray-darker {
+.border-gray-4 {
+  border-color: #959da5 !important;
+}
+
+.border-gray-5 {
+  border-color: #6a737d !important;
+}
+
+.border-gray-6 {
+  border-color: #586069 !important;
+}
+
+.border-gray-7 {
   border-color: #444d56 !important;
+}
+
+.border-gray-8 {
+  border-color: #2f363d !important;
+}
+
+.border-gray-9 {
+  border-color: #24292e !important;
+}
+
+.border-blue-0 {
+  border-color: #f1f8ff !important;
+}
+
+.border-blue-1 {
+  border-color: #dbedff !important;
+}
+
+.border-blue-2 {
+  border-color: #c8e1ff !important;
+}
+
+.border-blue-3 {
+  border-color: #79b8ff !important;
+}
+
+.border-blue-4 {
+  border-color: #2188ff !important;
+}
+
+.border-blue-5 {
+  border-color: #0366d6 !important;
+}
+
+.border-blue-6 {
+  border-color: #005cc5 !important;
+}
+
+.border-blue-7 {
+  border-color: #044289 !important;
+}
+
+.border-blue-8 {
+  border-color: #032f62 !important;
+}
+
+.border-blue-9 {
+  border-color: #05264c !important;
+}
+
+.border-green-0 {
+  border-color: #f0fff4 !important;
+}
+
+.border-green-1 {
+  border-color: #dcffe4 !important;
+}
+
+.border-green-2 {
+  border-color: #bef5cb !important;
+}
+
+.border-green-3 {
+  border-color: #85e89d !important;
+}
+
+.border-green-4 {
+  border-color: #34d058 !important;
+}
+
+.border-green-5 {
+  border-color: #28a745 !important;
+}
+
+.border-green-6 {
+  border-color: #22863a !important;
+}
+
+.border-green-7 {
+  border-color: #176f2c !important;
+}
+
+.border-green-8 {
+  border-color: #165c26 !important;
+}
+
+.border-green-9 {
+  border-color: #144620 !important;
+}
+
+.border-yellow-0 {
+  border-color: #fffdef !important;
+}
+
+.border-yellow-1 {
+  border-color: #fffbdd !important;
+}
+
+.border-yellow-2 {
+  border-color: #fff5b1 !important;
+}
+
+.border-yellow-3 {
+  border-color: #ffea7f !important;
+}
+
+.border-yellow-4 {
+  border-color: #ffdf5d !important;
+}
+
+.border-yellow-5 {
+  border-color: #ffd33d !important;
+}
+
+.border-yellow-6 {
+  border-color: #f9c513 !important;
+}
+
+.border-yellow-7 {
+  border-color: #dbab09 !important;
+}
+
+.border-yellow-8 {
+  border-color: #b08800 !important;
+}
+
+.border-yellow-9 {
+  border-color: #735c0f !important;
+}
+
+.border-orange-0 {
+  border-color: #fff8f2 !important;
+}
+
+.border-orange-1 {
+  border-color: #ffebda !important;
+}
+
+.border-orange-2 {
+  border-color: #ffd1ac !important;
+}
+
+.border-orange-3 {
+  border-color: #ffab70 !important;
+}
+
+.border-orange-4 {
+  border-color: #fb8532 !important;
+}
+
+.border-orange-5 {
+  border-color: #f66a0a !important;
+}
+
+.border-orange-6 {
+  border-color: #e36209 !important;
+}
+
+.border-orange-7 {
+  border-color: #d15704 !important;
+}
+
+.border-orange-8 {
+  border-color: #c24e00 !important;
+}
+
+.border-orange-9 {
+  border-color: #a04100 !important;
+}
+
+.border-red-0 {
+  border-color: #ffeef0 !important;
+}
+
+.border-red-1 {
+  border-color: #ffdce0 !important;
+}
+
+.border-red-2 {
+  border-color: #fdaeb7 !important;
+}
+
+.border-red-3 {
+  border-color: #f97583 !important;
+}
+
+.border-red-4 {
+  border-color: #ea4a5a !important;
+}
+
+.border-red-5 {
+  border-color: #d73a49 !important;
+}
+
+.border-red-6 {
+  border-color: #cb2431 !important;
+}
+
+.border-red-7 {
+  border-color: #b31d28 !important;
+}
+
+.border-red-8 {
+  border-color: #9e1c23 !important;
+}
+
+.border-red-9 {
+  border-color: #86181d !important;
+}
+
+.border-purple-0 {
+  border-color: #f5f0ff !important;
+}
+
+.border-purple-1 {
+  border-color: #e6dcfd !important;
+}
+
+.border-purple-2 {
+  border-color: #d1bcf9 !important;
+}
+
+.border-purple-3 {
+  border-color: #b392f0 !important;
+}
+
+.border-purple-4 {
+  border-color: #8a63d2 !important;
+}
+
+.border-purple-5 {
+  border-color: #6f42c1 !important;
+}
+
+.border-purple-6 {
+  border-color: #5a32a3 !important;
+}
+
+.border-purple-7 {
+  border-color: #4c2889 !important;
+}
+
+.border-purple-8 {
+  border-color: #3a1d6e !important;
+}
+
+.border-purple-9 {
+  border-color: #29134e !important;
+}
+
+.border-blackfade15 {
+  border-color: rgba(27, 31, 35, 0.15) !important;
+}
+
+.border-blackfade20 {
+  border-color: rgba(27, 31, 35, 0.20) !important;
+}
+
+.border-whitefade15 {
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .color-bodytext {
