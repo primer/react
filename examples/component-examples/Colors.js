@@ -1,5 +1,5 @@
 import React from 'react'
-import {Block, FlexContainer, theme} from '../../src'
+import {Block, FlexContainer, Heading, Text, theme} from '../../src'
 
 const ColorsExample = {
   name: 'Colors',
@@ -10,12 +10,14 @@ const ColorsExample = {
           {theme.colors[hue].map((colorValue, i) => {
             const colorKey = `${hue}.${i}`
             return (
-              <Block>
+              <Block key={colorValue}>
                 <Block bg={colorKey} m={1} mt={3} p={6} />
                 <Heading tag="h3" fontSize={2} px={1}>
                   {colorKey}
                 </Heading>
-                <Text px={1} mono>{colorValue}</Text>
+                <Text px={1} mono>
+                  {colorValue}
+                </Text>
               </Block>
             )
           })}

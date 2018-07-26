@@ -1,7 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import theme from '../../src/theme'
 import {colorNames} from '../../src/mappers'
 import {Block, Text, Heading} from '../../src'
 
