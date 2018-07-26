@@ -8,7 +8,7 @@ import css from '../css'
 
 describe('css.js', () => {
   it('exports a CSS string', () => {
-    const expectedCSS = readFileSync(join(__dirname, '../../system.css'), 'utf8')
+    const expectedCSS = readFileSync(join(__dirname, '../../theme.css'), 'utf8')
     expect(css).toEqual(expectedCSS)
   })
 })
