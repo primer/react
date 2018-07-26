@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {mapWhitespaceProps} from './props'
 
 export default function BranchName({children, href, tag: Tag, ...rest}) {
-  const {className} = spacing(rest)
+  const {className} = mapWhitespaceProps(rest)
   // We don't want someone to use href on a non tag
   if (Tag !== 'a') {
     href = null

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {mapWhitespaceProps} from './props'
 
 const colorScheme = (scheme, outline) => {
   if (outline) {
@@ -19,7 +19,7 @@ const colorScheme = (scheme, outline) => {
 }
 
 export default function Label({outline, scheme, children, ...rest}) {
-  const {className} = spacing(rest)
+  const {className} = mapWhitespaceProps(rest)
   return (
     <span className={classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))}>
       {children}
