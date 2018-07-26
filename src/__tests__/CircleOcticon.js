@@ -17,7 +17,7 @@ describe('CircleOcticon', () => {
   })
 
   it('adds the appropriate bg class for the "bg" prop', () => {
-    expect(rendersClass(<CircleOcticon icon={Check} bg="red" />, 'bg-red')).toBe(true)
+    expect(rendersClass(<CircleOcticon icon={Check} bg="red.5" />, 'bg-red-5')).toBe(true)
   })
 
   it('does not add a text class by default', () => {

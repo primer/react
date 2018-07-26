@@ -52,7 +52,7 @@ describe('Block', () => {
   })
 
   it('respects bg', () => {
-    expect(render(<Block bg="yellow" />)).toHaveClass('bg-yellow')
+    expect(render(<Block bg="yellow.2" />)).toHaveClass('bg-yellow-2')
   })
 
   it('respects color prop', () => {
