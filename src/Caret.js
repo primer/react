@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {getColor, ColorType} from './mappers'
+import {getColor} from './mappers'
 import {space} from './theme'
 
 const defaultSize = space[2]
@@ -103,9 +103,9 @@ Caret.defaultProps = {
 }
 
 Caret.propTypes = {
-  borderColor: ColorType,
+  borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
-  fill: ColorType,
+  fill: PropTypes.string,
   location: PropTypes.oneOf(Caret.locations),
   size: PropTypes.number
 }
