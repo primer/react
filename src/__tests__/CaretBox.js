@@ -15,20 +15,20 @@ describe('CaretBox', () => {
   })
 
   it('passes the "borderColor" prop to both <Box> and <Caret>', () => {
-    expect(render(<CaretBox borderColor="red" />)).toEqual(
+    expect(render(<CaretBox borderColor="red.5" />)).toEqual(
       render(
-        <Box borderColor="red" position="relative">
-          <Caret borderColor="red" />
+        <Box borderColor="red.5" position="relative">
+          <Caret borderColor="red.5" />
         </Box>
       )
     )
   })
 
   it('passes the "bg" prop to both <Box> and <Caret>', () => {
-    expect(render(<CaretBox bg="red" />)).toEqual(
+    expect(render(<CaretBox bg="red.5" />)).toEqual(
       render(
-        <Box bg="red" position="relative">
-          <Caret fill={colors.bg.red} />
+        <Box bg="red.5" position="relative">
+          <Caret fill={colors.red[5]} />
         </Box>
       )
     )
