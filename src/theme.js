@@ -47,8 +47,9 @@ const colors = {
   whitefade15: 'rgba(255, 255, 255, 0.15)'
 }
 
+// status colors
 colors.ready = colors.green[5]
-colors.invalid = colors.gray[2]
+colors.invalid = colors.red[5]
 colors.merged = colors.purple[5]
 colors.pending = colors.yellow[7]
 
