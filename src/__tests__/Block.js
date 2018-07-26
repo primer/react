@@ -27,13 +27,13 @@ describe('Block', () => {
       expect(render(<Block border={false} />)).toHaveClasses(['border-0'], true)
     })
     it('handles a single border edge', () => {
-      expect(render(<Block border="left" borderColor="green" />)).toHaveClasses(['border-left', 'border-green'], true)
+      expect(render(<Block border="left" borderColor="green.5" />)).toHaveClasses(['border-left', 'border-green-5'], true)
     })
     it('handles multiple border edges', () => {
       expect(render(<Block border={['top', 'left']} />)).toHaveClasses(['border-top', 'border-left'], true)
     })
     it('handles just a border color', () => {
-      expect(render(<Block borderColor="red" />)).toHaveClasses(['border', 'border-red'], true)
+      expect(render(<Block borderColor="red.1" />)).toHaveClasses(['border', 'border-red-1'], true)
     })
   })
 
@@ -53,7 +53,7 @@ describe('Block', () => {
   })
 
   it('respects color prop', () => {
-    expect(render(<Block color="red" />)).toHaveClass('color-red-5')
+    expect(render(<Block color="red.5" />)).toHaveClass('color-red-5')
   })
 
   it('renders shadow', () => {
