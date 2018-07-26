@@ -13,6 +13,7 @@
     "prepublishOnly": "npm run build",
     "prestart": "npm run build:css",
     "start": "x0 dev examples -op 8888",
+    "pretest": "npm run build:css",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
   },
