@@ -45,7 +45,7 @@ const ButtonExample = {
           scope={{OcticonButton, Pencil}}
         />
         <LiveEditor
-          code={`<Text color="red"><OcticonButton icon={X} label="Close" onClick={() => alert('close')} mr={3} /></Text>`}
+          code={`<Text color="red.5"><OcticonButton icon={X} label="Close" onClick={() => alert('close')} mr={3} /></Text>`}
           scope={{OcticonButton, Text, X}}
         />
         <Block>

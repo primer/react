@@ -28,7 +28,7 @@ const BoxExample = {
         />
       </Block>
       <Block mb={6}>
-        <LiveEditor code={`<Box borderColor="green" p={2}>This is a box with a green border.</Box>`} scope={{Box}} />
+        <LiveEditor code={`<Box borderColor="green.5" p={2}>This is a box with a green border.</Box>`} scope={{Box}} />
       </Block>
     </div>
   )

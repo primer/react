@@ -4,13 +4,6 @@ import {MergeStatus, CaretBox} from '../../src'
 import MergeDetail from './MergeDetail'
 import MergeActions from './MergeActions'
 
-const stateColorMap = {
-  ready: 'green',
-  invalid: 'invalid',
-  merged: 'purple',
-  pending: 'yellow'
-}
-
 function getDesktopURL(repoUrl, branchName) {
   return `x-github-client://openRepo/${repoUrl}?branch=${branchName}`
 }
@@ -19,7 +12,7 @@ const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
   return (
     <div className="d-flex flex-items-start">
       <MergeStatus state={state} />
-      <CaretBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
+      <CaretBox ml={3} borderColor={state} caret="left-top">
         <MergeDetail state={state} />
         <MergeActions
           state={state}

@@ -3,9 +3,11 @@ import {LiveEditor} from '@compositor/kit'
 import {CaretBox} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const example = `<CaretBox my={4} p={2} minHeight={100} borderColor="purple">
+const example = `
+<CaretBox my={4} p={2} minHeight={100} borderColor="purple.5">
   CaretBox
-</CaretBox>`
+</CaretBox>
+`.trim()
 
 const CaretBoxExample = {
   name: 'CaretBox',
