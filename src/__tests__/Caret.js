@@ -21,8 +21,8 @@ describe('Caret', () => {
   })
 
   it('maps border colors', () => {
-    const wrapper = mount(<Caret borderColor="red" />)
-    expect(wrapper.find('path[stroke]').props().stroke).toEqual(colors.border.red)
+    const wrapper = mount(<Caret borderColor="red.5" />)
+    expect(wrapper.find('path[stroke]').props().stroke).toEqual(colors.red[5])
   })
 
   it('renders unknown borderColor as-is', () => {

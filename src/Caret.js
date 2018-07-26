@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme, {colors} from './theme'
+import {getColor, ColorType} from './mappers'
+import {space} from './theme'
 
-const borderColors = Object.keys(colors.border)
-
-function getBorderColor(key) {
-  return colors.border[key] || key
-}
+const defaultSize = space[2]
+const offsetSpacing = defaultSize
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -21,8 +19,6 @@ const perpendicularEdge = {
   bottom: 'Left',
   left: 'Top'
 }
-
-const offsetSpacing = theme.space[2]
 
 function getEdgeAlign(location) {
   const [edge, align] = location.split('-')
@@ -76,8 +72,8 @@ export default function Caret(props) {
   return (
     <svg width={size * 2} height={size * 2} style={style}>
       <g transform={transform}>
-        <path d={triangle} fill={fill} />
-        <path d={line} fill="none" stroke={getBorderColor(borderColor)} strokeWidth={borderWidth} />
+        <path d={triangle} fill={getColor(fill)} />
+        <path d={line} fill="none" stroke={getColor(borderColor)} strokeWidth={borderWidth} />
       </g>
     </svg>
   )
@@ -99,17 +95,17 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  borderColor: 'gray',
+  borderColor: 'gray.2',
   borderWidth: 1,
-  fill: colors.white,
+  fill: 'white',
   location: 'bottom',
-  size: theme.space[2]
+  size: defaultSize
 }
 
 Caret.propTypes = {
-  borderColor: PropTypes.oneOf(borderColors),
+  borderColor: ColorType,
   borderWidth: PropTypes.number,
-  fill: PropTypes.string,
+  fill: ColorType,
   location: PropTypes.oneOf(Caret.locations),
   size: PropTypes.number
 }
