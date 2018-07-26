@@ -47,11 +47,9 @@ const BlockExample = {
                 </td>
               ))}
               <td>
-                {color in theme.colors.border ? (
-                  <Block p={3} mb={2} ml={3} borderColor={color}>
-                    <Text mono>{color}</Text>
-                  </Block>
-                ) : null}
+                <Block p={3} mb={2} ml={3} borderColor={color}>
+                  <Text mono>{color}</Text>
+                </Block>
               </td>
             </tr>
           ))}
