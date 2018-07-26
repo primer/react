@@ -25,7 +25,7 @@ describe('CircleOcticon', () => {
   })
 
   it('adds the appropriate text class for the "color" prop', () => {
-    expect(rendersClass(<CircleOcticon icon={Check} color="red" />, 'text-red')).toBe(true)
+    expect(render(<CircleOcticon icon={Check} color="red.5" />)).toHaveClass('color-red-5')
   })
 
   it('has a default size', () => {
