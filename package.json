@@ -8,7 +8,7 @@
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
     "build:css": "script/build-css > theme.css",
-    "build:docs": "x0 build examples --out-dir docs",
+    "build:docs": "x0 build examples --out-dir docs |& tee build.log",
     "lint": "eslint src lib examples",
     "prepublishOnly": "npm run build",
     "prestart": "npm run build:css",
