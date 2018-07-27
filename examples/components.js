@@ -9,7 +9,7 @@ const ComponentPage = () => {
   return (
     <Library
       basename={basename}
-      title="Primer-react Library"
+      title="Components"
       examples={Object.values(examples)}
       renderSideNav={({title, examples}) => <SideNav title={title} examples={examples} />}
     />

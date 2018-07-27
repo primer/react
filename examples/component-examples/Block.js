@@ -1,7 +1,8 @@
 /* eslint-disable import/no-named-as-default-member */
 import React from 'react'
+import {LiveEditor} from '@compositor/kit'
 import theme from '../../src/theme'
-import {Block, Text} from '../../src'
+import {Block, Text, Heading} from '../../src'
 
 const colors = Object.keys(theme.colors.bg)
 const textColors = ['white', 'gray', 'black']
@@ -56,6 +57,11 @@ const BlockExample = {
           ))}
         </tbody>
       </table>
+      <Heading fontSize="3">Code Example</Heading>
+      <LiveEditor
+        code={`<Block width="400" display="inline-block" bg="blue" p={3} fg="white">white</Block>`}
+        scope={{Block}}
+      />
     </div>
   )
 }
