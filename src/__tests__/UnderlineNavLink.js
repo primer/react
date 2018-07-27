@@ -18,6 +18,16 @@ describe('Caret', () => {
     expect(render(<UnderlineNavLink selected />)).toEqual(render(<a className={`${ITEM_CLASS} ${SELECTED_CLASS}`} />))
   })
 
+  it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
+    const Mock = jest.fn(() => <div />)
+    render(<UnderlineNavLink tag={Mock} to="#" />)
+    expect(Mock.mock.calls[0][0]).toEqual({
+      to: '#',
+      className: 'UnderlineNav-item no-underline',
+      activeClassName: 'selected'
+    })
+  })
+
   it('respects margin utility prop', () => {
     expect(rendersClass(<UnderlineNavLink m={4} />, 'm-4')).toEqual(true)
   })

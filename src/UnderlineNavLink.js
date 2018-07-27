@@ -8,6 +8,10 @@ export default function UnderlineNavLink({children, selected, tag: Tag, ...rest}
   const {className} = mapWhitespaceProps(rest)
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
+  if (typeof rest.to === 'string') {
+    rest.activeClassName = SELECTED_CLASS
+  }
+
   return (
     <Tag className={classes} {...rest}>
       {children}
