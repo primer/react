@@ -20,7 +20,7 @@ describe('Caret', () => {
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
     const Mock = jest.fn(() => <div />)
-    render(<UnderlineNavLink tag={Mock} to='#' />)
+    render(<UnderlineNavLink tag={Mock} to="#" />)
     expect(Mock.mock.calls[0][0]).toEqual({
       to: '#',
       className: 'UnderlineNav-item no-underline',
