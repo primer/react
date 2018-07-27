@@ -6,32 +6,12 @@ import {mapWhitespaceProps} from './props'
 export const ITEM_CLASS = 'UnderlineNav-item no-underline'
 export const SELECTED_CLASS = 'selected'
 
-export default function UnderlineNav({actions, align, children, full, label, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+export default function UnderlineNav({actions, align, children, full, label, ...props}) {
+  const {className} = mapWhitespaceProps(props)
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
-
-  const mappedChildren = React.Children.map(children, child => {
-    if (child.type.displayName === 'UnderlineNavLink') {
-      return child
-    }
-
-    let {className = ''} = child.props
-    const newProps = {}
-
-    // add the ITEM_CLASS to all children without one
-    if (!className || !className.includes(ITEM_CLASS)) {
-      className = classnames(ITEM_CLASS, className)
-    }
-
-    if (child.props.selected === true && !className.includes(SELECTED_CLASS)) {
-      className = classnames(className, SELECTED_CLASS)
-    }
-    return React.cloneElement(child, {className, ...newProps})
-  })
-
   return (
     <nav className={classes} aria-label={label}>
-      <div className="UnderlineNav-body">{mappedChildren}</div>
+      <div className="UnderlineNav-body">{children}</div>
       {actions && <div className="UnderlineNav-actions">{actions}</div>}
     </nav>
   )
