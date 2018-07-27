@@ -3,7 +3,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {NavLink} from 'react-router-dom'
 import ExampleHeading from '../doc-components/ExampleHeading'
-import {Block, Text, UnderlineNav, UnderlineNavLink} from '../../src'
+import {Block, Link, Text, UnderlineNav, UnderlineNavLink} from '../../src'
 
 const underlineNavLinkExample = `<UnderlineNav>
   <UnderlineNavLink href="#foo" selected>
@@ -13,18 +13,10 @@ const underlineNavLinkExample = `<UnderlineNav>
   <UnderlineNavLink href="#baz">Baz</UnderlineNavLink>
 </UnderlineNav>`
 
-const linkTagExample = `<UnderlineNav>
-  <a href="#foo">Foo</a>
-  <a href="#bar" selected>
-    Selected
-  </a>
-  <a href="#baz">Baz</a>
-</UnderlineNav>`
-
 const navLinkExample = `<UnderlineNav>
-  <NavLink to="#foo">Foo</NavLink>
-  <NavLink to="#bar">Two</NavLink>
-  <NavLink to="/">Selected</NavLink>
+  <UnderlineNavLink tag={NavLink} to="#foo">Foo</UnderlineNavLink>
+  <UnderlineNavLink tag={NavLink} to="#bar">Two</UnderlineNavLink>
+  <UnderlineNavLink tag={NavLink} to="/">Selected</UnderlineNavLink>
 </UnderlineNav>`
 
 export default {
@@ -40,16 +32,13 @@ export default {
 
       <Block mb={4}>
         <ExampleHeading>
-          Using <Text mono>{'<a>'}</Text> tags
-        </ExampleHeading>
-        <LiveEditor code={linkTagExample} scope={{UnderlineNav}} />
-      </Block>
-
-      <Block mb={4}>
-        <ExampleHeading>
           Using <Text mono>{'<NavLink>'}</Text> from react-router
         </ExampleHeading>
-        <LiveEditor code={navLinkExample} scope={{UnderlineNav, NavLink}} />
+        <p>
+          To use UnderlineNav with <Link href="https://github.com/ReactTraining/react-router">react-router</Link> or <Link href="https://www.npmjs.com/package/react-router-dom">react-router-dom</Link>, pass <Text mono>{'tag={NavLink}'}</Text> and omit the <Text mono>selected</Text> prop.
+          This ensures that the NavLink gets <Text mono>activeClassName='selected'</Text>.
+        </p>
+        <LiveEditor code={navLinkExample} scope={{UnderlineNav, UnderlineNavLink, NavLink}} />
       </Block>
     </div>
   )
