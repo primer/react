@@ -26,12 +26,6 @@ export default function UnderlineNav({actions, align, children, full, label, ...
     if (child.props.selected === true && !className.includes(SELECTED_CLASS)) {
       className = classnames(className, SELECTED_CLASS)
     }
-
-    // if this is a react-router NavLink (duck typing!),
-    // set activeClassName={SELECTED_CLASS}
-    if (child.type.name === 'NavLink') {
-      newProps.activeClassName = SELECTED_CLASS
-    }
     return React.cloneElement(child, {className, ...newProps})
   })
 
