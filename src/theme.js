@@ -62,18 +62,30 @@ const theme = {
     large: '1012px',
     xlarge: '1280px'
   },
-  fonts: [
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Helvetica',
-    'Arial',
-    'sans-serif',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol'
-  ],
-  lineHeight: 1.5,
+  fonts: {
+    normal: fontStack([
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'Segoe UI',
+      'Helvetica',
+      'Arial',
+      'sans-serif',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol'
+    ]),
+    mono: fontStack([
+      'SFMono-Regular',
+      'Consolas',
+      'Liberation Mono',
+      'Menlo',
+      'Courier',
+      'monospace'
+    ])
+  },
+  lineHeights: {
+    normal: 1.5
+  },
   colors,
   borders: [
     0,
@@ -92,3 +104,7 @@ const theme = {
 
 export default theme
 export {colors}
+
+function fontStack(fonts) {
+  return fonts.map(font => font.includes(' ') ? `"${font}"` : font).join(', ')
+}
