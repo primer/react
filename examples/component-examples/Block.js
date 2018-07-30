@@ -4,7 +4,19 @@ import {LiveEditor} from '@compositor/kit'
 import theme from '../../src/theme'
 import {Block, Text, Heading} from '../../src'
 
-const colors = Object.keys(theme.colors.bg)
+const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => {
+  if (key !== 'bg' && key !== 'border') {
+    if (Array.isArray(value)) {
+      return keys.concat(
+        Object.keys(value).map(i => `${key}.${i}`)
+      )
+    } else {
+      keys.push(key)
+    }
+  }
+  return keys
+}, [])
+
 const textColors = ['white', 'gray', 'black']
 
 const BlockExample = {
@@ -41,7 +53,7 @@ const BlockExample = {
               </td>
               {textColors.map(fg => (
                 <td key={fg}>
-                  <Block p={3} mb={2} bg={color} fg={fg} border={color === 'white'}>
+                  <Block p={3} mb={2} bg={color} color={fg} border={color === 'white' ? 1 : null}>
                     <Text mono>{fg}</Text>
                   </Block>
                 </td>
@@ -59,7 +71,7 @@ const BlockExample = {
       </table>
       <Heading fontSize="3">Code Example</Heading>
       <LiveEditor
-        code={`<Block width="400" display="inline-block" bg="blue" p={3} fg="white">white</Block>`}
+        code={`<Block bg="red.0" p={3} color="red.5">Danger, Will Robinson</Block>`}
         scope={{Block}}
       />
     </div>
