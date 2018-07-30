@@ -18,7 +18,7 @@ export default function Page({render}) {
         <Block color='bodytext'>
           <UnderlineNav
             actions={
-              <Text color="gray-light" mono px={4}>
+              <Text color="gray.5" fontFamily="mono" px={4}>
                 <Octicon icon={Package} className="mr-2" />
                 <Link href={releaseURL}>{pkg}</Link>
               </Text>
