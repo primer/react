@@ -4,6 +4,8 @@ import {LiveEditor} from '@compositor/kit'
 import theme from '../../src/theme'
 import {Block, Text, Heading} from '../../src'
 
+const Mono = props => <Block fontFamily="mono" {...props} />
+
 const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => {
   if (key !== 'bg' && key !== 'border') {
     if (Array.isArray(value)) {
@@ -27,19 +29,13 @@ const BlockExample = {
         <thead>
           <tr>
             <th className="text-left">
-              <Text tag="div" pb={4} mono>
-                color
-              </Text>
+              <Block pb={4}>color</Block>
             </th>
             <th colSpan={textColors.length}>
-              <Text tag="div" pb={4} mono>
-                bg={`{color}`}
-              </Text>
+              <Mono pb={4}>bg={`{color}`}</Mono>
             </th>
             <th>
-              <Text tag="div" pb={4} mono>
-                borderColor
-              </Text>
+              <Mono pb={4}>borderColor</Mono>
             </th>
           </tr>
         </thead>
@@ -47,23 +43,19 @@ const BlockExample = {
           {colors.map(color => (
             <tr key={color}>
               <td>
-                <Text mono nowrap mr={3}>
-                  {color}
-                </Text>
+                <Mono mr={3}>{color}</Mono>
               </td>
               {textColors.map(fg => (
                 <td key={fg}>
                   <Block p={3} mb={2} bg={color} color={fg} border={color === 'white' ? 1 : null}>
-                    <Text mono>{fg}</Text>
+                    <Mono>{fg}</Mono>
                   </Block>
                 </td>
               ))}
               <td>
-                {color in theme.colors.border ? (
-                  <Block p={3} mb={2} ml={3} borderColor={color}>
-                    <Text mono>{color}</Text>
-                  </Block>
-                ) : null}
+                <Block p={3} mb={2} ml={3} borderColor={color} border={1}>
+                  <Mono>{color}</Mono>
+                </Block>
               </td>
             </tr>
           ))}
