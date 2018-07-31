@@ -4,7 +4,7 @@ import {LiveEditor} from '@compositor/kit'
 import theme from '../../src/theme'
 import {Block, Text, Heading} from '../../src'
 
-const Mono = props => <Block fontFamily="mono" {...props} />
+const Mono = props => <Text fontFamily="mono" {...props} />
 
 const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => {
   if (key !== 'bg' && key !== 'border') {
