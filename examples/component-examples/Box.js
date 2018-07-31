@@ -16,10 +16,16 @@ const BoxExample = {
         <LiveEditor code={`<Box boxShadow="small" m={4} p={2}>This is a box with shadow.</Box>`} scope={{Box}} />
       </Block>
       <Block mb={6}>
-        <LiveEditor code={`<Box boxShadow="medium" m={4} p={2}>This is a box with a medium shadow.</Box>`} scope={{Box}} />
+        <LiveEditor
+          code={`<Box boxShadow="medium" m={4} p={2}>This is a box with a medium shadow.</Box>`}
+          scope={{Box}}
+        />
       </Block>
       <Block mb={6}>
-        <LiveEditor code={`<Box boxShadow="large" m={4} p={2}>This is a box with a large shadow.</Box>`} scope={{Box}} />
+        <LiveEditor
+          code={`<Box boxShadow="large" m={4} p={2}>This is a box with a large shadow.</Box>`}
+          scope={{Box}}
+        />
       </Block>
       <Block mb={6}>
         <LiveEditor

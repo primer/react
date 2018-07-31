@@ -9,9 +9,7 @@ const Mono = props => <Text fontFamily="mono" {...props} />
 const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => {
   if (key !== 'bg' && key !== 'border') {
     if (Array.isArray(value)) {
-      return keys.concat(
-        Object.keys(value).map(i => `${key}.${i}`)
-      )
+      return keys.concat(Object.keys(value).map(i => `${key}.${i}`))
     } else {
       keys.push(key)
     }
@@ -62,10 +60,7 @@ const BlockExample = {
         </tbody>
       </table>
       <Heading fontSize="3">Code Example</Heading>
-      <LiveEditor
-        code={`<Block bg="red.0" p={3} color="red.5">Danger, Will Robinson</Block>`}
-        scope={{Block}}
-      />
+      <LiveEditor code={`<Block bg="red.0" p={3} color="red.5">Danger, Will Robinson</Block>`} scope={{Block}} />
     </div>
   )
 }

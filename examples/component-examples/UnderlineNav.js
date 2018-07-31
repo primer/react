@@ -37,8 +37,8 @@ export default {
         <p>
           To use UnderlineNav with <Link href="https://github.com/ReactTraining/react-router">react-router</Link> or{' '}
           <Link href="https://www.npmjs.com/package/react-router-dom">react-router-dom</Link>, pass{' '}
-          <Text fontFamily="mono">{'tag={NavLink}'}</Text> and omit the <Text fontFamily="mono">selected</Text> prop. This ensures that the
-          NavLink gets <Text fontFamily="mono">activeClassName='selected'</Text>.
+          <Text fontFamily="mono">{'tag={NavLink}'}</Text> and omit the <Text fontFamily="mono">selected</Text> prop.
+          This ensures that the NavLink gets <Text fontFamily="mono">activeClassName='selected'</Text>.
         </p>
         <LiveEditor code={navLinkExample} scope={{UnderlineNav, UnderlineNavLink, NavLink}} />
       </Block>

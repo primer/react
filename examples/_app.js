@@ -15,7 +15,7 @@ export default function Page({render}) {
     <React.Fragment>
       <Styles />
       <ThemeProvider theme={theme}>
-        <Block color='bodytext'>
+        <Block color="bodytext">
           <UnderlineNav
             actions={
               <Text color="gray.5" fontFamily="mono" px={4}>
