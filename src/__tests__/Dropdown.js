@@ -1,6 +1,6 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Dropdown', () => {
   it('renders a <div> with "BtnGroup" class', () => {
@@ -9,10 +9,10 @@ describe('Dropdown', () => {
     expect(rendered.props.className).toEqual('BtnGroup')
   })
   it('respects margin utility prop', () => {
-    expect(rendersClass(<Dropdown m={1} />, 'm-1')).toEqual(true)
+    expect(render(<Dropdown m={1} />)).toHaveClass('m-1')
   })
 
   it('respects padding utility prop', () => {
-    expect(rendersClass(<Dropdown p={1} />, 'p-1')).toEqual(true)
+    expect(render(<Dropdown p={1} />)).toHaveClass('p-1')
   })
 })

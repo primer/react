@@ -5,7 +5,7 @@ import MergeButton from './MergeButton'
 
 const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
   return (
-    <Block py={3} px={4} bg="gray-light" style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
+    <Block py={3} px={4} bg="gray.0" style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
       <MergeButton primary={state === 'ready'} numCommits={numCommits} onClick={onClick} />
       <Text ml={2}>You can also </Text>
       <Link nounderline href={desktopUrl}>

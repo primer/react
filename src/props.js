@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import createMapper from 'system-classnames'
 import {compose} from 'ramda'
+import {defined} from './utils'
+import theme from './theme'
 
-export const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
+export const breakpoints = [null].concat(theme.breakpointNames)
 
 export function oneOrMoreOf(type) {
   return PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
@@ -32,6 +34,8 @@ export function composeWithPropTypes(...funcs) {
   return composed
 }
 
+export const StyleType = PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+
 export function stylizer(propsToPass, propTypes) {
   const mapper = props => {
     const copy = {...props}
@@ -46,7 +50,7 @@ export function stylizer(propsToPass, propTypes) {
   }
   mapper.propTypes = propTypes || {
     ...propsToPass.reduce((types, prop) => {
-      types[prop] = PropTypes.number
+      types[prop] = StyleType
       return types
     }, {})
   }
@@ -69,8 +73,4 @@ export function createClassMapper(prop, mapValue, propType) {
   }
   mapper.propTypes = {[prop]: propType}
   return mapper
-}
-
-function defined(val) {
-  return val !== null && typeof val !== 'undefined'
 }

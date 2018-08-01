@@ -28,7 +28,7 @@ const examples = [
                   '</Block>'
                 )
               } else {
-                const props = name === 'white' ? " bg='gray-dark'" : ''
+                const props = name === 'white' ? " bg='black'" : ''
                 return list.concat(`<Text mono m={1} color='${name}'${props}>${name}</Text>`)
               }
             }, [])

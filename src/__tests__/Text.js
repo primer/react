@@ -16,7 +16,7 @@ describe('Text', () => {
   })
 
   it('respects color', () => {
-    expect(render(<Text color="green" />)).toEqual(render(<span className="color-green-5" />))
+    expect(render(<Text color="green.5" />)).toEqual(render(<span className="color-green-5" />))
   })
 
   it('respects fontWeight', () => {
@@ -52,12 +52,5 @@ describe('Text', () => {
     const defaultOutput = render(<Text />)
     expect(render(<Text bugs="bar" />)).toEqual(defaultOutput)
     expect(render(<Text hidden />)).toEqual(defaultOutput)
-  })
-
-  xit('respects other values for fontSize', () => {
-    expect(render(<Text fontSize="00" />)).toEqual(render(<span className="f00" />))
-    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
-    expect(render(<Text fontSize={false} />)).toEqual(render(<span className="" />))
-    hush.mockRestore()
   })
 })

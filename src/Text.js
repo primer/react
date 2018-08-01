@@ -6,9 +6,8 @@ import {composeWithPropTypes} from './props'
 
 const mapProps = composeWithPropTypes(bg, color, fontSize, spacing)
 
-const Text = ({tag: Tag, children, fontWeight, lineHeight, mono, nowrap, ...rest}) => {
+export default function Text({tag: Tag, children, fontWeight, lineHeight, mono, nowrap, ...rest}) {
   const {className} = mapProps(rest)
-
   return (
     <Tag
       className={classnames(
@@ -36,5 +35,3 @@ Text.propTypes = {
   nowrap: PropTypes.bool,
   tag: PropTypes.string
 }
-
-export default Text

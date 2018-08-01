@@ -2,17 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Octicon from '@githubprimer/octicons-react'
-import {spacing} from './mappers'
-import {colors} from './theme'
+import {composeWithPropTypes} from './props'
+import {bg, color, spacing} from './mappers'
 
-export default function CircleOcticon({size, bg, color, ...rest}) {
-  const {className} = spacing(rest)
-  const classes = classnames(
-    className,
-    'circle d-flex flex-items-center flex-justify-center',
-    bg && `bg-${bg}`,
-    color && `text-${color}`
-  )
+const mapProps = composeWithPropTypes(bg, color, spacing)
+
+export default function CircleOcticon(props) {
+  const {size, className, ...rest} = mapProps(props)
+  const classes = classnames(className, 'circle d-flex flex-items-center flex-justify-center')
   return (
     <div style={{width: `${size}px`, height: `${size}px`}} className={classes}>
       <Octicon size={size} {...rest} />
@@ -26,8 +23,7 @@ CircleOcticon.defaultProps = {
 
 CircleOcticon.propTypes = {
   ...Octicon.propTypes,
-  bg: PropTypes.oneOf(Object.keys(colors.bg)),
-  color: PropTypes.oneOf(Object.keys(colors)),
+  ...mapProps.propTypes,
   // FIXME: we should be able to infer the size from the
   // rendered Octicon so that we can support
   // size={'small|medium|large'}

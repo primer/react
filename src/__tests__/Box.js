@@ -21,9 +21,9 @@ describe('Box', () => {
 
   it('renders borders', () => {
     expect(render(<Box border />)).toHaveClasses(['border', 'bg-white', 'round-1'])
-    expect(render(<Box border="left" borderColor="green" />)).toHaveClasses([
+    expect(render(<Box border="left" borderColor="green.5" />)).toHaveClasses([
       'border-left',
-      'border-green',
+      'border-green-5',
       'bg-white',
       'round-1'
     ])

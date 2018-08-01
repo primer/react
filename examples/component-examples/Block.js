@@ -1,10 +1,10 @@
 /* eslint-disable import/no-named-as-default-member */
 import React from 'react'
-import theme from '../../src/theme'
-import {Block, Text} from '../../src'
+import {LiveEditor} from '@compositor/kit'
+import {colorNames} from '../../src/mappers'
+import {Block, Text, Heading} from '../../src'
 
-const colors = Object.keys(theme.colors.bg)
-const textColors = ['white', 'gray', 'black']
+const textColors = ['white', 'gray.5', 'black']
 
 const BlockExample = {
   name: 'Block',
@@ -31,7 +31,7 @@ const BlockExample = {
           </tr>
         </thead>
         <tbody>
-          {colors.map(color => (
+          {colorNames.map(color => (
             <tr key={color}>
               <td>
                 <Text mono nowrap mr={3}>
@@ -40,22 +40,25 @@ const BlockExample = {
               </td>
               {textColors.map(fg => (
                 <td key={fg}>
-                  <Block p={3} mb={2} bg={color} fg={fg} border={color === 'white'}>
+                  <Block p={3} mb={2} bg={color} color={fg} border={color === 'white'}>
                     <Text mono>{fg}</Text>
                   </Block>
                 </td>
               ))}
               <td>
-                {color in theme.colors.border ? (
-                  <Block p={3} mb={2} ml={3} borderColor={color}>
-                    <Text mono>{color}</Text>
-                  </Block>
-                ) : null}
+                <Block p={3} mb={2} ml={3} borderColor={color}>
+                  <Text mono>{color}</Text>
+                </Block>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Heading fontSize="3">Code Example</Heading>
+      <LiveEditor
+        code={`<Block width="400" display="inline-block" bg="blue.5" p={3} color="white">white</Block>`}
+        scope={{Block}}
+      />
     </div>
   )
 }

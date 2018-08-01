@@ -21,7 +21,7 @@ export default {
     }),
     commonjs({
       namedExports: {
-        'src/theme.js': ['breakpoints', 'colors']
+        'src/theme.js': []
       }
     })
   ],

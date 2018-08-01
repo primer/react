@@ -1,23 +1,16 @@
 import React from 'react'
 import Box from './Box'
 import Caret from './Caret'
-import {colors} from './theme'
-
-const bgValuesByName = colors.bg
 
 export default function CaretBox(props) {
-  const {bg, borderColor, caret: location, children, ...boxProps} = props
-
-  const caretProps = {
-    location,
-    borderColor,
-    fill: bgValuesByName[bg]
-  }
-
+  // don't destructure these so they get passed to <Box>
+  const {bg, borderColor} = props
+  // destructure these ones, though, and pass the rest to <Box>
+  const {caret: location, children, ...boxProps} = props
   return (
     <Box {...boxProps} bg={bg} borderColor={borderColor}>
       {children}
-      <Caret {...caretProps} />
+      <Caret borderColor={borderColor} fill={bg} location={location} />
     </Box>
   )
 }

@@ -47,66 +47,43 @@ const colors = {
   whitefade15: 'rgba(255, 255, 255, 0.15)'
 }
 
-const {blue, gray, green, purple, red, yellow} = colors
+// status colors
+colors.ready = colors.green[5]
+colors.invalid = colors.red[5]
+colors.merged = colors.purple[5]
+colors.pending = colors.yellow[7]
 
-colors.border = {
-  'black-fade': colors.blackfade15,
-  blue: blue[5],
-  'blue-light': blue[2],
-  green: green[4],
-  'green-light': green[3], // FIXME desaturate($green-300, 40%)
-  red: red[5],
-  'red-light': red[3], // FIXME desaturate($red-300, 60%)
-  purple: purple[5],
-  yellow: '#d9d0a5', // desaturate($yellow-300, 60%)
-  gray: gray[2],
-  'gray-light': gray[2], // FIXME lighten($gray-200, 3%)
-  'gray-dark': gray[3],
-  'gray-darker': gray[7]
-}
-
-colors.bg = {
-  white: colors.white,
-  'gray-light': gray[0],
-  gray: gray[1],
-  'gray-dark': gray[9],
-  purple: purple[5],
-  blue: blue[5],
-  green: green[5],
-  yellow: yellow[5],
-  // orange: orange[7],
-  red: red[5],
-  'purple-light': purple[0],
-  'blue-light': blue[0],
-  'green-light': green[1],
-  'yellow-light': yellow[2],
-  'red-light': red[1]
-}
-
-const theme = {
+module.exports = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
+  breakpointNames: ['sm', 'md', 'lg', 'xl'],
   maxWidths: {
     small: '544px',
     medium: '768px',
     large: '1012px',
     xlarge: '1280px'
   },
-  fonts: [
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Helvetica',
-    'Arial',
-    'sans-serif',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol'
-  ],
+  fonts: {
+    default: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Helvetica',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(', '),
+    mono: ['SFMono-Regular', 'Consolas', '"Liberation Mono"', 'Menlo', 'Courier', 'monospace'].join(', ')
+  },
   lineHeight: 1.5,
+  lineHeights: {
+    default: 1.5,
+    condensed: 1.25,
+    'ultra-condensed': 1
+  },
   colors,
   radii: [0, 3, 6],
   space: [0, 4, 8, 16, 24, 32, 40, 48],
   fontSizes: [12, 14, 16, 20, 24, 32, 40, 48]
 }
-
-module.exports = theme

@@ -1,36 +1,38 @@
 import PropTypes from 'prop-types'
+import {get} from 'dotmap'
+import {definedFallback} from './utils'
 import theme from './theme'
 import {classPattern, createClassMapper, createResponsiveMapper, composeWithPropTypes, oneOrMoreOf} from './props'
 
 const {colors, fontSizes, radii} = theme
-const {bg: bgColors, border: borderColors, ...namedColors} = colors
-const colorNames = Object.keys(namedColors).concat(getNestedKeys(namedColors))
+export const colorNames = getNestedKeys(colors)
+export const ColorType = PropTypes.oneOf(colorNames)
+
+export function themeGet(key, fallback) {
+  return definedFallback(get(theme, key), fallback)
+}
+
+export function getColor(key, fallback) {
+  return themeGet(`colors.${key}`, fallback || key)
+}
 
 export const position = createResponsiveMapper(['position'], classPattern, {
   position: PropTypes.oneOf(['relative', 'absolute', 'fixed'])
 })
 
-export const bg = createClassMapper(
-  'bg',
-  nestedKeyMapper(bgColors, key => `bg-${key}`),
-  PropTypes.oneOf(Object.keys(bgColors))
-)
+export const bg = createClassMapper('bg', nestedKeyMapper(colorNames, key => `bg-${key}`), ColorType)
 
 export const borderColor = createClassMapper(
   'borderColor',
-  value => `border-${value}`,
-  PropTypes.oneOf(Object.keys(borderColors))
+  nestedKeyMapper(colorNames, key => `border-${key}`),
+  ColorType
 )
 
 export const borderRadius = createResponsiveMapper(['borderRadius'], props => classPattern({...props, prop: 'round'}), {
   borderRadius: oneOrMoreOf(PropTypes.oneOf(range(0, radii.length - 1)))
 })
 
-export const color = createClassMapper(
-  'color',
-  nestedKeyMapper(namedColors, suffix => `color-${suffix}`),
-  PropTypes.oneOf(colorNames)
-)
+export const color = createClassMapper('color', nestedKeyMapper(colorNames, key => `color-${key}`), ColorType)
 
 export const display = createResponsiveMapper(
   ['display'],
@@ -77,10 +79,7 @@ export const spacing = composeWithPropTypes(margin, padding)
 export const common = composeWithPropTypes(bg, color, display, flex, spacing)
 
 function nestedKeyMapper(source, mapValue) {
-  return key => {
-    const suffix = Array.isArray(source[key]) ? `${key}.5` : key
-    return mapValue(suffix.replace(/\./g, '-'))
-  }
+  return key => mapValue(key.replace(/\./g, '-'))
 }
 
 function getNestedKeys(obj) {
@@ -88,10 +87,11 @@ function getNestedKeys(obj) {
     const value = obj[key]
     if (Array.isArray(value)) {
       list.push(...value.map((sub, i) => [key, i].join('.')))
+    } else if (value && typeof value === 'object') {
+      // list.push(...Object.keys(value).map(sub => [key, sub].join('.')))
+    } else {
+      list.push(key)
     }
-    /* else if (value && typeof value === 'object') {
-      list.push(...Object.keys(value).map(sub => [key, sub].join('.')))
-    } */
     return list
   }, [])
 }

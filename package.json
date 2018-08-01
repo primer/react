@@ -7,12 +7,13 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
-    "build:css": "script/build-css > system.css",
-    "build:docs": "x0 build examples --out-dir docs",
+    "build:css": "script/build-css > theme.css",
+    "build:docs": "x0 build examples --out-dir docs 2>&1 | tee build.log",
     "lint": "eslint src lib examples",
     "prepublishOnly": "npm run build",
     "prestart": "npm run build:css",
     "start": "x0 dev examples -op 8888",
+    "pretest": "npm run build:css",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
   },
@@ -47,6 +48,7 @@
     "@githubprimer/octicons-react": "8.0.0",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
+    "dotmap": "0.1.0",
     "ramda": "0.25.0",
     "react": "^16.2.0",
     "system-classnames": "^1.0.0-3"

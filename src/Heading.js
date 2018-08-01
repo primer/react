@@ -1,7 +1,9 @@
 import React from 'react'
 import Text from './Text'
 
-const Heading = props => <Text {...props} />
+export default function Heading(props) {
+  return <Text {...props} />
+}
 
 Heading.defaultProps = {
   tag: 'h1',
@@ -12,5 +14,3 @@ Heading.defaultProps = {
 Heading.propTypes = {
   ...Text.propTypes
 }
-
-export default Heading

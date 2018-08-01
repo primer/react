@@ -7,8 +7,7 @@ const octicon = `<CircleBadge size="medium">
   <Octicon icon={Zap}/>
 </CircleBadge>`
 
-const image = `<CircleBadge bg="blue" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
-`
+const image = `<CircleBadge bg="blue" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>`
 
 const sizes = `<CircleBadge bg="blue" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
 <CircleBadge bg="blue" size="medium"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
