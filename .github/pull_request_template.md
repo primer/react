@@ -1,6 +1,6 @@
 // Describe your changes
 
-Completes issue #:
+Closes #:
 
 
 #### If development process was changed:
@@ -10,8 +10,9 @@ Completes issue #:
 
 #### Merge Checklist:
 - [ ] Changed base branch to release branch
-- [ ] Updated Kit
-- [ ] Tested in Chrome
-- [ ] Tested in Firefox
-- [ ] Tested in Safari
-- [ ] Tested in Edge
+- [ ] Updated Kit (`npm run build:docs)
+- [ ] Enabled GH Pages for testing
+- [ ] Tested in Chrome [(BrowserStack)](https://www.browserstack.com/)
+- [ ] Tested in Firefox [(BrowserStack)](https://www.browserstack.com/)
+- [ ] Tested in Safari [(BrowserStack)](https://www.browserstack.com/)
+- [ ] Tested in Edge [(BrowserStack)](https://www.browserstack.com/)
