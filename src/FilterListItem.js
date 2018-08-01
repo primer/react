@@ -28,8 +28,6 @@ export default function FilterListItem({children, count, selected, tag: Tag, ...
   )
 }
 
-FilterListItem.displayName = 'FilterListItem'
-
 FilterListItem.defaultProps = {
   tag: 'a'
 }
