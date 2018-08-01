@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {space} from 'styled-system'
+import styled from 'react-emotion'
 
 const colorScheme = (scheme, outline) => {
   if (outline) {
@@ -18,17 +19,20 @@ const colorScheme = (scheme, outline) => {
   }
 }
 
-export default function Label({outline, scheme, children, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
-  return (
-    <span className={classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))}>
-      {children}
-    </span>
+const Label = styled(({className, outline, scheme, ...rest}) => {
+  const classes = classnames(
+    className,
+    'Label',
+    outline && 'Label--outline',
+    colorScheme(scheme, outline)
   )
-}
+  return <span className={classes} {...rest} />
+})(space)
 
 Label.propTypes = {
-  children: PropTypes.node,
+  ...space.propTypes,
   outline: PropTypes.bool,
   scheme: PropTypes.oneOf(['gray', 'gray-darker', 'green', 'orange'])
 }
+
+export default Label

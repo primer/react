@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label respects margin utility prop 1`] = `
+.emotion-0 {
+  margin: 32px;
+}
+
+<span
+  className="emotion-0 Label Label--gray"
+  m={4}
+/>
+`;
+
+exports[`Label respects padding utility prop 1`] = `
+.emotion-0 {
+  padding: 32px;
+}
+
+<span
+  className="emotion-0 Label Label--gray"
+  p={4}
+/>
+`;
