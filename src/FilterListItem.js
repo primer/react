@@ -5,14 +5,11 @@ import {ITEM_CLASS, SELECTED_CLASS} from './FilterList'
 import {mapWhitespaceProps} from './props'
 
 function getCountComponent(count) {
-  if (count) {
-    return (
-      <span className="count" title="results">
-        {count}
-      </span>
-    )
-  }
-  return undefined
+  return (
+    <span className="count" title="results">
+      {count}
+    </span>
+  )
 }
 
 export default function FilterListItem({children, count, selected, tag: Tag, ...rest}) {
@@ -23,11 +20,9 @@ export default function FilterListItem({children, count, selected, tag: Tag, ...
     rest.activeClassName = SELECTED_CLASS
   }
 
-  const countComponent = getCountComponent(count)
-
   return (
     <Tag className={classes} {...rest}>
-      {countComponent}
+      {count && getCountComponent(count)}
       {children}
     </Tag>
   )
