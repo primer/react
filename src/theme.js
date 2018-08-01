@@ -6,6 +6,7 @@ import {
   green,
   orange,
   purple,
+  red,
   yellow
 } from 'primer-colors'
 import {fontSizes, lineHeights} from 'primer-typography'
