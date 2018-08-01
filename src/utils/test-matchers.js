@@ -1,6 +1,7 @@
 import {render} from './testing'
 import {createMatchers, createSerializer} from 'jest-emotion'
 import * as emotion from 'emotion'
+import * as systemProps from 'styled-system'
 
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))
@@ -25,6 +26,19 @@ expect.extend({
     return {
       pass,
       message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`
+    }
+  },
+
+  toImplementSystemProps(Component, propNames) {
+    const missing = propNames.reduce((list, name) => {
+      const prop = systemProps[name]
+      return list.concat(Object.keys(prop.propTypes).filter(type => {
+        return !Component.propTypes[type]
+      }))
+    }, [])
+    return {
+      pass: missing.length === 0,
+      message: () => `Missing props: ${missing.join(', ')}`
     }
   }
 })
