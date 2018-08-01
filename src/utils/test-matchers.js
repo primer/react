@@ -1,4 +1,9 @@
 import {render} from './testing'
+import {createMatchers, createSerializer} from 'jest-emotion'
+import * as emotion from 'emotion'
+
+expect.extend(createMatchers(emotion))
+expect.addSnapshotSerializer(createSerializer(emotion))
 
 const {stringify} = JSON
 
