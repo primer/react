@@ -25,6 +25,10 @@ describe('Label', () => {
     expect(render(<Label outline scheme="green" />)).toHaveClasses(['Label', 'Label--outline', 'Label--outline-green'])
   })
 
+  it('implements space system props', () => {
+    expect(Label).toImplementSystemProps(['space'])
+  })
+
   it('respects margin utility prop', () => {
     expect(render(<Label m={4} />)).toMatchSnapshot()
   })
