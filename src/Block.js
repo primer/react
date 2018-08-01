@@ -9,11 +9,12 @@ const Block = system(
   'display',
   'size',
   'space',
-  'maxHeight',
-  'maxWidth',
-  'minHeight',
-  'minWidth',
   'width',
+  'height',
+  'maxWidth',
+  'maxHeight',
+  'minWidth',
+  'minHeight',
   'zIndex'
 )
 
