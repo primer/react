@@ -1,21 +1,6 @@
 import system from 'system-components/emotion'
+import {LAYOUT} from './system-props'
 
-const Block = system(
-  'borders',
-  'borderColor',
-  'borderRadius',
-  'boxShadow',
-  'color',
-  'display',
-  'size',
-  'space',
-  'width',
-  'height',
-  'maxWidth',
-  'maxHeight',
-  'minWidth',
-  'minHeight',
-  'zIndex'
-)
+const Block = system(...LAYOUT)
 
 export default Block
