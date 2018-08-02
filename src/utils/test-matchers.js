@@ -28,16 +28,16 @@ expect.extend({
 
   toImplementSystemProps(Component, propNames) {
     const missing = propNames.reduce((list, name) => {
-      const prop = systemProps[name]
+      const fn = systemProps[name]
       return list.concat(
-        Object.keys(prop.propTypes).filter(type => {
+        Object.keys(fn.propTypes).filter(type => {
           return !Component.propTypes[type]
         })
       )
     }, [])
     return {
       pass: missing.length === 0,
-      message: () => `Missing props: ${missing.join(', ')}`
+      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${missing.join(', ')} (from: ${Object.keys(Component.propTypes).join(', ')})`
     }
   }
 })
