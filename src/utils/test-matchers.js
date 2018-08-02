@@ -5,7 +5,7 @@ import * as systemProps from 'styled-system'
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))
 
-const {stringify} = JSON
+const stringify = d => JSON.stringify(d, null, '  ')
 
 expect.extend({
   toHaveClass(node, klass) {
@@ -27,17 +27,15 @@ expect.extend({
   },
 
   toImplementSystemProps(Component, propNames) {
-    const missing = propNames.reduce((list, name) => {
+    const propKeys = new Set(Object.keys(Component.propTypes))
+    const expectedPropKeys = propNames.reduce((list, name) => {
       const fn = systemProps[name]
-      return list.concat(
-        Object.keys(fn.propTypes).filter(type => {
-          return !Component.propTypes[type]
-        })
-      )
+      return list.concat(Object.keys(fn.propTypes))
     }, [])
+    const missing = expectedPropKeys.filter(key => !propKeys.has(key))
     return {
       pass: missing.length === 0,
-      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${missing.join(', ')} (from: ${Object.keys(Component.propTypes).join(', ')})`
+      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
     }
   }
 })
