@@ -1,17 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
-export default function BranchName({children, href, tag: Tag, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+function BranchName({children, href, tag: Tag}) {
   // We don't want someone to use href on a non tag
   if (Tag !== 'a') {
     href = null
   }
 
   return (
-    <Tag href={href} className={classnames('branch-name', className)}>
+    <Tag href={href} className="branch-name">
       {children}
     </Tag>
   )
@@ -26,3 +24,5 @@ BranchName.propTypes = {
   href: PropTypes.string,
   tag: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 }
+
+export default withSystemProps(BranchName, COMMON)
