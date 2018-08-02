@@ -20,6 +20,14 @@ const theme = {
 }
 
 describe('Text', () => {
+  it('renders a <span> by default', () => {
+    expect(render(<Text />).type).toEqual('span')
+  })
+
+  it('respects the is prop', () => {
+    expect(render(<Text is="b" />).type).toEqual('b')
+  })
+
   it('renders margin', () => {
     expect(render(<Text m={1} theme={theme} />)).toHaveStyleRule('margin', '4px')
     expect(render(<Text m={[0, 1, 2, 3, 4]} theme={theme} />)).toMatchSnapshot()
