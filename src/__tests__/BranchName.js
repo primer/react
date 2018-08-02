@@ -9,7 +9,7 @@ describe('BranchName', () => {
   })
 
   it('renders class="branch-name"', () => {
-    expect(render(<BranchName />).props.className).toEqual('branch-name')
+    expect(render(<BranchName />).props.className).toContain('branch-name')
   })
 
   it('respects the "tag" prop', () => {
