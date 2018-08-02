@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {compose} from 'ramda'
 import * as system from 'styled-system'
 
 export default from 'system-components/emotion'
@@ -25,18 +25,20 @@ export const LAYOUT = COMMON.concat(
 
 export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
 
-export const FLEX = COMMON.concat(
-  LAYOUT, // includes display
+export const FLEX_CONTAINER = LAYOUT.concat(
   'alignItems',
   'justifyContent',
   'flexWrap',
   'flexDirection',
   'flex',
   'alignContent',
-  'justifySelf',
-  'alignSelf',
   'order',
   'flexBasis'
+)
+
+export const FLEX_ITEM = LAYOUT.concat(
+  'justifySelf',
+  'alignSelf'
 )
 
 export function getSystemProps(props) {
@@ -54,18 +56,22 @@ export function getSystemProps(props) {
 
 export function composeSystemProps(props) {
   const funcs = getSystemProps(props)
-  const composed = compose(...funcs)
-  composed.propTypes = funcs.reduce((types, func) => {
-    return Object.assign(types, func.propTypes)
-  }, {})
+  const composed = props => funcs.reduce((p, fn) => fn(p), props)
+  composed.propTypes = getPropTypes(funcs)
   return composed
 }
 
+export function getPropTypes(funcs) {
+  return funcs.reduce((types, func) => {
+    return Object.assign(types, func.propTypes)
+  }, {})
+}
+
 export function withSystemProps(Component, props) {
-  const composed = composeSystemProps(props)
-  const Wrapped = styled(Component)(composed)
+  const funcs = getSystemProps(props)
+  const Wrapped = styled(Component)(...funcs)
   Wrapped.propTypes = {
-    ...composed.propTypes,
+    ...getPropTypes(funcs),
     ...Component.propTypes
   }
   return Wrapped
