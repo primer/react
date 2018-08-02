@@ -31,7 +31,7 @@ export function getSystemProps(props) {
     } else if (typeof prop === 'function') {
       return prop
     } else {
-      throw new Error(`Unknown system prop: "%{prop}"`)
+      throw new Error(`Unknown system prop: "${prop}"`)
     }
   })
 }
@@ -49,8 +49,8 @@ export function withSystemProps(Component, props) {
   const composed = composeSystemProps(props)
   const Wrapped = styled(Component)(composed)
   Wrapped.propTypes = {
-    ...Component.propTypes,
-    ...composed.propTypes
+    ...composed.propTypes,
+    ...Component.propTypes
   }
   return Wrapped
 }
