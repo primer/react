@@ -1,21 +1,21 @@
 import React from 'react'
 import Box from './Box'
 import Caret from './Caret'
-import {colors} from './theme'
+import {withSystemProps} from './system-props'
 
-const bgValuesByName = colors.bg
-
-export default function CaretBox(props) {
-  const {bg, borderColor, caret: location, children, ...boxProps} = props
+function CaretBox(props) {
+  // don't destructure these, just grab them
+  const {bg, borderColor} = props
+  const {caret: location, children, ...rest} = props
 
   const caretProps = {
     location,
     borderColor,
-    fill: bgValuesByName[bg]
+    bg
   }
 
   return (
-    <Box {...boxProps} bg={bg} borderColor={borderColor}>
+    <Box {...rest}>
       {children}
       <Caret {...caretProps} />
     </Box>
@@ -31,3 +31,5 @@ CaretBox.defaultProps = {
   ...Box.defaultProps,
   position: 'relative'
 }
+
+export default withSystemProps(CaretBox, ['color'])

@@ -1,36 +1,17 @@
 import React from 'react'
-import {Box, Caret, CaretBox} from '..'
-import {colors} from '../theme'
+import {theme, Box, Caret, CaretBox} from '..'
 import {render} from '../utils/testing'
 
 describe('CaretBox', () => {
   it('renders a <Caret> in <Box> with relative positioning', () => {
-    expect(render(<CaretBox />)).toEqual(
-      render(
-        <Box position="relative">
-          <Caret />
-        </Box>
-      )
-    )
+    expect(render(<CaretBox />)).toMatchSnapshot()
   })
 
   it('passes the "borderColor" prop to both <Box> and <Caret>', () => {
-    expect(render(<CaretBox borderColor="red" />)).toEqual(
-      render(
-        <Box borderColor="red" position="relative">
-          <Caret borderColor="red" />
-        </Box>
-      )
-    )
+    expect(render(<CaretBox borderColor="red.5" theme={theme} />)).toMatchSnapshot()
   })
 
   it('passes the "bg" prop to both <Box> and <Caret>', () => {
-    expect(render(<CaretBox bg="red" />)).toEqual(
-      render(
-        <Box bg="red" position="relative">
-          <Caret fill={colors.bg.red} />
-        </Box>
-      )
-    )
+    expect(render(<CaretBox bg="red.5" theme={theme} />)).toMatchSnapshot()
   })
 })
