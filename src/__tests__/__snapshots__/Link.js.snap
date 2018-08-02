@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link renders margin 1`] = `
+<a
+  className="emotion-0 text-blue"
+  m={1}
+/>
+`;
+
+exports[`Link renders margin 2`] = `
+<a
+  className="emotion-0 text-blue"
+  m={
+    Array [
+      0,
+      1,
+      2,
+      3,
+    ]
+  }
+/>
+`;
+
+exports[`Link renders margin 3`] = `
+<a
+  className="emotion-0 text-blue"
+  m={
+    Array [
+      1,
+      1,
+      1,
+      3,
+    ]
+  }
+/>
+`;
+
+exports[`Link renders without any props 1`] = `
+<a
+  className="emotion-0 text-blue"
+/>
+`;
