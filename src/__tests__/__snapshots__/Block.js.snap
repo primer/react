@@ -43,12 +43,6 @@ exports[`Block borders handles multiple border edges 1`] = `
 />
 `;
 
-exports[`Block renders default classes 1`] = `
-<div
-  className="emotion-0"
-/>
-`;
-
 exports[`Block renders margin 1`] = `
 .emotion-0 {
   margin: 4px;
@@ -216,6 +210,12 @@ exports[`Block renders shadow 4`] = `
   box-shadow: 0 10px 50px rgba(27,31,35,0.07);
 }
 
+<div
+  className="emotion-0"
+/>
+`;
+
+exports[`Block renders without any props 1`] = `
 <div
   className="emotion-0"
 />

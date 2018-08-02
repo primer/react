@@ -2,9 +2,15 @@ import React from 'react'
 import Block from '../Block'
 import theme from '../theme'
 import {render} from '../utils/testing'
+import {COMMON, LAYOUT} from '../system-props'
 
 describe('Block', () => {
-  it('renders default classes', () => {
+  it('implements layout system props', () => {
+    expect(Block).toImplementSystemProps(COMMON)
+    expect(Block).toImplementSystemProps(LAYOUT)
+  })
+
+  it('renders without any props', () => {
     expect(render(<Block />)).toMatchSnapshot()
   })
 
