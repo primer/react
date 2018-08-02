@@ -1,38 +1,27 @@
 import React from 'react'
 import TextInput from '../TextInput'
 import {render, mount, rendersClass} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 describe('TextInput', () => {
+  it('implements common system props', () => {
+    expect(TextInput).toImplementSystemProps(COMMON)
+  })
+
   it('renders', () => {
-    expect(render(<TextInput name="zipcode" />)).toEqual(
-      render(<input name="zipcode" type="text" className="form-control" />)
-    )
+    expect(render(<TextInput name="zipcode" />)).toMatchSnapshot()
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />)).toEqual(
-      render(<input name="zipcode" type="text" className="form-control input-sm" />)
-    )
+    expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />)).toEqual(
-      render(<input name="zipcode" type="text" className="form-control input-lg" />)
-    )
+    expect(render(<TextInput name="zipcode" size="large" />)).toMatchSnapshot()
   })
 
   it('renders block', () => {
-    expect(render(<TextInput name="zipcode" block />)).toEqual(
-      render(<input name="zipcode" type="text" className="form-control input-block" />)
-    )
-  })
-
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<TextInput m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<TextInput p={4} />, 'p-4')).toEqual(true)
+    expect(render(<TextInput name="zipcode" block />)).toMatchSnapshot()
   })
 
   it('should call onChange prop with input value', () => {
