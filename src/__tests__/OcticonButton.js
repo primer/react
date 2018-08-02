@@ -1,7 +1,8 @@
 import React from 'react'
 import Octicon from '@githubprimer/octicons-react'
 import OcticonButton from '../OcticonButton'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 const Circle = ({r = 8}) => <circle cx={r} cy={r} r={r} />
 Circle.size = [16, 16]
@@ -18,14 +19,12 @@ describe('OcticonButton', () => {
    */
   const defaultButtonProps = {'aria-label': '', className: 'btn-link text-inherit'}
 
+  it('implements common system props', () => {
+    expect(OcticonButton).toImplementSystemProps(COMMON)
+  })
+
   it('renders a button with an Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} />)).toEqual(
-      render(
-        <button {...defaultButtonProps}>
-          <Octicon icon={Circle} />
-        </button>
-      )
-    )
+    expect(render(<OcticonButton icon={Circle} />)).toMatchSnapshot()
   })
 
   it('respects the "disabled" prop', () => {
@@ -41,21 +40,7 @@ describe('OcticonButton', () => {
     expect(render(<OcticonButton icon={Circle} onClick={click} />).props.onClick).toEqual(click)
   })
 
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<OcticonButton icon={Circle} m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<OcticonButton icon={Circle} p={4} />, 'p-4')).toEqual(true)
-  })
-
   it('passes the "size" prop to the Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} size={128} />)).toEqual(
-      render(
-        <button {...defaultButtonProps}>
-          <Octicon icon={Circle} size={128} />
-        </button>
-      )
-    )
+    expect(render(<OcticonButton icon={Circle} size={128} />)).toMatchSnapshot()
   })
 })
