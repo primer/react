@@ -31,7 +31,8 @@ export const POSITION = [
 ]
 
 export function getSystemProps(props) {
-  return props.map(prop => {
+  const unique = props.filter((p, i, a) => a.indexOf(p) === i)
+  return unique.map(prop => {
     if (typeof system[prop] === 'function') {
       return system[prop]
     } else if (typeof prop === 'function') {
