@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import * as system from 'styled-system'
 
+export {default as tag} from 'clean-tag'
 export default from 'system-components/emotion'
 
 export const COMMON = ['color', 'space']
