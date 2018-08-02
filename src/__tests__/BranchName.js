@@ -1,6 +1,7 @@
 import React from 'react'
 import BranchName from '../BranchName'
 import {render, rendersClass} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 describe('BranchName', () => {
   it('renders an <a> by default', () => {
@@ -25,5 +26,8 @@ describe('BranchName', () => {
 
   xit('respects padding utility prop', () => {
     expect(rendersClass(<BranchName p={1} />, 'p-1')).toEqual(true)
+  })
+  it('implements common system props', () => {
+    expect(BranchName).toImplementSystemProps(COMMON)
   })
 })
