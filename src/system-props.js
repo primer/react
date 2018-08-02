@@ -2,6 +2,8 @@ import styled from 'react-emotion'
 import {compose} from 'ramda'
 import * as system from 'styled-system'
 
+export default from 'system-components/emotion'
+
 export const COMMON = ['color', 'space']
 
 export const TYPOGRAPHY = COMMON.concat('fontFamily', 'fontWeight', 'lineHeight')
@@ -22,6 +24,20 @@ export const LAYOUT = COMMON.concat(
 )
 
 export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
+
+export const FLEX = COMMON.concat(
+  LAYOUT, // includes display
+  'alignItems',
+  'justifyContent',
+  'flexWrap',
+  'flexDirection',
+  'flex',
+  'alignContent',
+  'justifySelf',
+  'alignSelf',
+  'order',
+  'flexBasis'
+)
 
 export function getSystemProps(props) {
   const unique = props.filter((p, i, a) => a.indexOf(p) === i)
