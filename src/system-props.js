@@ -2,6 +2,34 @@ import styled from 'react-emotion'
 import {compose} from 'ramda'
 import * as system from 'styled-system'
 
+export const COMMON = ['color', 'space']
+
+export const TYPOGRAPHY = COMMON.concat('fontFamily', 'fontWeight', 'lineHeight')
+
+export const LAYOUT = COMMON.concat(
+  'borders',
+  'borderColor',
+  'borderRadius',
+  'boxShadow',
+  'display',
+  'size',
+  'width',
+  'height',
+  'maxWidth',
+  'maxHeight',
+  'minWidth',
+  'minHeight'
+)
+
+export const POSITION = [
+  'position',
+  'zIndex',
+  'top',
+  'right',
+  'bottom',
+  'left'
+]
+
 export function getSystemProps(props) {
   return props.map(prop => {
     if (typeof system[prop] === 'function') {
