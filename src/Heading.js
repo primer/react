@@ -1,12 +1,9 @@
-import system from 'system-components/emotion'
-import {TYPOGRAPHY} from './system-props'
+import system, {TYPOGRAPHY} from './system-props'
 
-const Heading = system(...TYPOGRAPHY)
-
-Object.assign(Heading.defaultProps, {
+const Heading = system({
   is: 'h1',
   fontSize: 5,
   m: 0
-})
+}, ...TYPOGRAPHY)
 
 export default Heading
