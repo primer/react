@@ -1,16 +1,12 @@
-import React from 'react'
-import Text from './Text'
+import system from 'system-components/emotion'
+import {TYPOGRAPHY} from './system-props'
 
-const Heading = props => <Text {...props} />
+const Heading = system(...TYPOGRAPHY)
 
-Heading.defaultProps = {
-  tag: 'h1',
+Object.assign(Heading.defaultProps, {
+  is: 'h1',
   fontSize: 5,
   m: 0
-}
-
-Heading.propTypes = {
-  ...Text.propTypes
-}
+})
 
 export default Heading
