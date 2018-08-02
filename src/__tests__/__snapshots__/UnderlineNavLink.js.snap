@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Caret renders the given "is" prop 1`] = `
+<b
+  className="UnderlineNav-item no-underline emotion-0"
+/>
+`;
+
+exports[`Caret respects the "selected" prop 1`] = `
+<a
+  className="UnderlineNav-item no-underline selected emotion-0"
+/>
+`;
