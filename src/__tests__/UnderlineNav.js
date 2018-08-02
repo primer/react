@@ -1,8 +1,13 @@
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
 import {mount, render, rendersClass} from '../utils/testing'
+import {COMMON} from '../system-props'
 
-describe('Caret', () => {
+describe('UnderlineNav', () => {
+  it('implements common system props', () => {
+    expect(UnderlineNav).toImplementSystemProps(COMMON)
+  })
+
   it('renders a <nav>', () => {
     expect(render(<UnderlineNav />).type).toEqual('nav')
   })
@@ -37,13 +42,5 @@ describe('Caret', () => {
     const actions = wrapper.find('.UnderlineNav-actions')
     expect(actions.exists()).toEqual(true)
     expect(actions.text()).toEqual('hi!')
-  })
-
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<UnderlineNav m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<UnderlineNav p={4} />, 'p-4')).toEqual(true)
   })
 })
