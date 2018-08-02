@@ -1,10 +1,5 @@
-import system from 'system-components/emotion'
-import {TYPOGRAPHY} from './system-props'
+import system, {TYPOGRAPHY} from './system-props'
 
-const Text = system(...TYPOGRAPHY)
-
-Object.assign(Text.defaultProps, {
-  is: 'span'
-})
+const Text = system({is: 'span'}, ...TYPOGRAPHY)
 
 export default Text
