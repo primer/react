@@ -7,32 +7,17 @@ export const oneOrMoreOf = type => PropTypes.oneOfType([type, PropTypes.arrayOf(
 
 export const oneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
 
-const flexPropNames = {
-  justifyContent: 'justify',
-  alignItems: 'items',
-  alignContent: 'content'
+const classPattern = (breakpoint, prop, value) => {
+  return (breakpoint ? [prop, breakpoint, value] : [prop, value]).join('-')
 }
 
-const classPattern = (breakpoint, prop, value, type) => {
-  let result = ''
-  switch (type) {
-    case 'flex':
-      result = ['flex', breakpoint, flexPropNames[prop], value].join('-')
-      break
-    case 'display':
-      result = ['d', breakpoint, value].join('-')
-      break
-    default:
-      result = [prop, breakpoint, value].join('-')
-  }
-  return result.replace(/\-\-+/g, '-') //eslint-disable-line
-}
-
-export const createMapperWithPropTypes = (props, type) => {
+export const createMapperWithPropTypes = props => {
   const mapper = createMapper({
     breakpoints,
     props,
-    getter: ({breakpoint, prop, value}) => classPattern(breakpoint, prop, value, type)
+    getter: ({breakpoint, prop, value}) => {
+      return classPattern(breakpoint, prop, value)
+    }
   })
   mapper.propTypes = props.reduce((propTypes, prop) => {
     propTypes[prop] = oneOrMoreNumbers
