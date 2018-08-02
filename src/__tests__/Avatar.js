@@ -24,11 +24,11 @@ describe('Avatar', () => {
     )
   })
 
-  it('respects margin utility prop', () => {
+  xit('respects margin utility prop', () => {
     expect(rendersClass(<Avatar m={1} />, 'm-1')).toEqual(true)
   })
 
-  it('respects padding utility prop', () => {
+  xit('respects padding utility prop', () => {
     expect(rendersClass(<Avatar p={1} />, 'p-1')).toEqual(true)
   })
 })

@@ -1,22 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
-const Avatar = ({alt, isChild, size = 20, src, ...rest}) => {
-  const {className} = mapWhitespaceProps(rest)
-
+const Avatar = ({alt, isChild, size = 20, src}) => {
   const classes = classnames(
     'avatar',
     {
       'avatar-small': size <= 24,
       'avatar-child': isChild
-    },
-    className
+    }
   )
 
   return <img className={classes} alt={alt} src={src} width={size} height={size} />
 }
+
 
 Avatar.propTypes = {
   alt: PropTypes.string,
@@ -25,4 +23,4 @@ Avatar.propTypes = {
   src: PropTypes.string
 }
 
-export default Avatar
+export default withSystemProps(Avatar, COMMON)
