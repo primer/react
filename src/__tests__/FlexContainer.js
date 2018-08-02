@@ -1,31 +1,42 @@
 import React from 'react'
 import FlexContainer from '../FlexContainer'
-import {renderClasses} from '../utils/testing'
+import {FLEX} from '../system-props'
+import {render} from '../utils/testing'
 
-it('FlexContainer renders wrap classes', () => {
-  expect(renderClasses(<FlexContainer wrap="nowrap" />)).toEqual(['flex-nowrap', 'd-flex'])
-})
+describe('FlexContainer', () => {
+  it('implements flex system props', () => {
+    expect(FlexContainer).toImplementSystemProps(FLEX)
+  })
 
-it('FlexContainer renders direction classes', () => {
-  expect(renderClasses(<FlexContainer direction="row" />)).toEqual(['flex-row', 'd-flex'])
-})
+  it('gets display: flex by default', () => {
+    expect(render(<FlexContainer />)).toHaveStyleRule('display', 'flex')
+  })
 
-it('FlexContainer renders justifyContent classes', () => {
-  expect(renderClasses(<FlexContainer justifyContent="start" />)).toEqual(['flex-justify-start', 'd-flex'])
-})
+  it('respects flexWrap', () => {
+    expect(render(<FlexContainer flexWrap="nowrap" />)).toMatchSnapshot()
+  })
 
-it('FlexContainer renders alignItems classes', () => {
-  expect(renderClasses(<FlexContainer alignItems="start" />)).toEqual(['flex-items-start', 'd-flex'])
-})
+  it('respects flexDirection', () => {
+    expect(render(<FlexContainer flexDirection="row" />)).toMatchSnapshot()
+  })
 
-it('FlexContainer renders alignContent classes', () => {
-  expect(renderClasses(<FlexContainer alignContent="start" />)).toEqual(['flex-content-start', 'd-flex'])
-})
+  it('respects justifyContent', () => {
+    expect(render(<FlexContainer justifyContent="start" />)).toMatchSnapshot()
+  })
 
-it('FlexContainer renders display classes', () => {
-  expect(renderClasses(<FlexContainer display="inline-flex" />)).toEqual(['d-inline-flex'])
-})
+  it('respects alignItems', () => {
+    expect(render(<FlexContainer alignItems="start" />)).toMatchSnapshot()
+  })
 
-it('FlexContainer renders responsive display classes', () => {
-  expect(renderClasses(<FlexContainer display={['flex', 'inline-flex']} />)).toEqual(['d-flex', 'd-sm-inline-flex'])
+  it('respects alignContent', () => {
+    expect(render(<FlexContainer alignContent="start" />)).toMatchSnapshot()
+  })
+
+  it('respects display', () => {
+    expect(render(<FlexContainer display="inline-flex" />)).toHaveStyleRule('display', 'inline-flex')
+  })
+
+  it('respects responsive display', () => {
+    expect(render(<FlexContainer display={['flex', 'inline-flex']} />)).toMatchSnapshot()
+  })
 })
