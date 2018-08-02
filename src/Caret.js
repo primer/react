@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {themeGet} from 'styled-system'
-import {withSystemProps} from './system-props'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -18,14 +17,7 @@ const perpendicularEdge = {
 }
 
 export default function Caret(props) {
-  const {
-    bg: bgKey,
-    borderColor: borderColorKey,
-    borderWidth: borderWidthKey,
-    location,
-    size: sizeKey,
-    ...rest
-  } = props
+  const {bg: bgKey, borderColor: borderColorKey, borderWidth: borderWidthKey, location, size: sizeKey} = props
 
   const bg = themeGet(`colors.${bgKey}`, '#fff')(props)
   const borderColor = themeGet(`colors.${borderColorKey}`, '#000')(props)
@@ -97,8 +89,8 @@ Caret.defaultProps = {
 
 Caret.propTypes = {
   bg: PropTypes.string,
-  borderWidth: PropTypes.number,
   borderColor: PropTypes.string,
+  borderWidth: PropTypes.number,
   location: PropTypes.oneOf(Caret.locations),
   size: PropTypes.number
 }

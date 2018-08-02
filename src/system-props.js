@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import * as system from 'styled-system'
 
@@ -37,10 +36,7 @@ export const FLEX_CONTAINER = LAYOUT.concat(
   'flexBasis'
 )
 
-export const FLEX_ITEM = LAYOUT.concat(
-  'justifySelf',
-  'alignSelf'
-)
+export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
 
 export function getSystemProps(props) {
   const unique = props.filter((p, i, a) => a.indexOf(p) === i)

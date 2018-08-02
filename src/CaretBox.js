@@ -6,10 +6,9 @@ import {withSystemProps} from './system-props'
 function CaretBox(props) {
   // don't destructure these, just grab them
   const {bg, borderColor} = props
-  const {caret: location, children, ...rest} = props
-
+  const {caret, children, ...rest} = props
   const caretProps = {
-    location,
+    location: caret,
     borderColor,
     bg
   }

@@ -43,14 +43,7 @@ export const createMapperWithPropTypes = (props, type) => {
 
 export const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
 export const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
-export const flexProps = ['wrap', 'direction', 'justifyContent', 'alignItems', 'alignContent']
-
 export const mapWhitespaceProps = createMapperWithPropTypes(marginProps.concat(paddingProps))
-export const mapFlexProps = createMapperWithPropTypes(flexProps, 'flex')
-export const mapDisplayProps = createMapperWithPropTypes(['display'], 'display')
-export const mapAllProps = props => {
-  return mapWhitespaceProps(mapDisplayProps(mapFlexProps(props)))
-}
 
 export function stylizer(propsToPass) {
   return props => {
