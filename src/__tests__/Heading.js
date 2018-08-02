@@ -63,6 +63,12 @@ describe('Heading', () => {
     expect(render(<Heading nowrap theme={theme} />)).toEqual(render(<span className="no-wrap" />))
   })
 
+  it('renders fontSize', () => {
+    for (const fontSize of theme.fontSizes) {
+      expect(render(<Heading fontSize={fontSize} theme={theme} />)).toHaveStyleRule('font-size', fontSize + 'px')
+    }
+  })
+
   xit('renders fontSize with f* classes using inverse scale', () => {
     expect(render(<Heading fontSize={0} theme={theme} />)).toEqual(render(<span className="f6" />))
     expect(render(<Heading fontSize={1} theme={theme} />)).toEqual(render(<span className="f5" />))
