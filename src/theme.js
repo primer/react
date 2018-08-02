@@ -1,14 +1,4 @@
-import {
-  black,
-  white,
-  gray,
-  blue,
-  green,
-  orange,
-  purple,
-  red,
-  yellow
-} from 'primer-colors'
+import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
 import {fontSizes, lineHeights} from 'primer-typography'
 
 const colors = {

@@ -19,12 +19,7 @@ const colorScheme = (scheme, outline) => {
 }
 
 function Label({className, outline, scheme, ...rest}) {
-  const classes = classnames(
-    className,
-    'Label',
-    outline && 'Label--outline',
-    colorScheme(scheme, outline)
-  )
+  const classes = classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))
   return <span className={classes} {...rest} />
 }
 

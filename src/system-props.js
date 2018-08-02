@@ -21,14 +21,7 @@ export const LAYOUT = COMMON.concat(
   'minHeight'
 )
 
-export const POSITION = [
-  'position',
-  'zIndex',
-  'top',
-  'right',
-  'bottom',
-  'left'
-]
+export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
 
 export function getSystemProps(props) {
   const unique = props.filter((p, i, a) => a.indexOf(p) === i)
