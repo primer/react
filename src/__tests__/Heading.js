@@ -6,7 +6,7 @@ import {render} from '../utils/testing'
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
   colors: {
-    green: ['#010', '#020', '#030', '#040', '#050', '#060'],
+    green: ['#010', '#020', '#030', '#040', '#050', '#060']
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 40, 48],
   fonts: {
@@ -50,9 +50,18 @@ describe('Heading', () => {
   })
 
   it('respects lineHeight', () => {
-    expect(render(<Heading lineHeight="normal" theme={theme} />)).toHaveStyleRule('line-height', String(theme.lineHeights.normal))
-    expect(render(<Heading lineHeight="condensed" theme={theme} />)).toHaveStyleRule('line-height', String(theme.lineHeights.condensed))
-    expect(render(<Heading lineHeight="condensedUltra" theme={theme} />)).toHaveStyleRule('line-height', String(theme.lineHeights.condensedUltra))
+    expect(render(<Heading lineHeight="normal" theme={theme} />)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.normal)
+    )
+    expect(render(<Heading lineHeight="condensed" theme={theme} />)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.condensed)
+    )
+    expect(render(<Heading lineHeight="condensedUltra" theme={theme} />)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.condensedUltra)
+    )
   })
 
   it('respects fontFamily="mono"', () => {
@@ -61,6 +70,12 @@ describe('Heading', () => {
 
   xit('respects nowrap', () => {
     expect(render(<Heading nowrap theme={theme} />)).toEqual(render(<span className="no-wrap" />))
+  })
+
+  it('renders fontSize', () => {
+    for (const fontSize of theme.fontSizes) {
+      expect(render(<Heading fontSize={fontSize} theme={theme} />)).toHaveStyleRule('font-size', `${fontSize}px`)
+    }
   })
 
   xit('renders fontSize with f* classes using inverse scale', () => {
