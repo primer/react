@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterListItem adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `
+<a
+  activeClassName="selected"
+  className="filter-item emotion-0"
+  tag={[MockFunction]}
+  to="#"
+/>
+`;
+
+exports[`FilterListItem renders the given "tag" prop 1`] = `
+<a
+  className="filter-item emotion-0"
+  tag={[Function]}
+/>
+`;
+
+exports[`FilterListItem respects the "selected" prop 1`] = `
+<a
+  className="filter-item selected emotion-0"
+/>
+`;
