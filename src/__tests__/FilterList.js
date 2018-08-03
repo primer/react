@@ -1,8 +1,13 @@
 import React from 'react'
 import FilterList from '../FilterList'
 import {render, rendersClass} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 describe('FilterList', () => {
+  it('implements common system props', () => {
+    expect(FilterList).toImplementSystemProps(COMMON)
+  })
+
   it('renders a <ul>', () => {
     expect(render(<FilterList />).type).toEqual('ul')
   })
@@ -17,13 +22,5 @@ describe('FilterList', () => {
 
   it('respects the "small" prop', () => {
     expect(rendersClass(<FilterList small />, 'small')).toEqual(true)
-  })
-
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<FilterList m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<FilterList p={4} />, 'p-4')).toEqual(true)
   })
 })
