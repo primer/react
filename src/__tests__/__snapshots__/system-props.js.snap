@@ -6,7 +6,7 @@ exports[`system props withSystemProps() applies multiple theme values 1`] = `
   margin: 16px;
 }
 
-<h1
+<b
   className="emotion-0"
   fontFamily="sans"
   m={2}
@@ -18,7 +18,7 @@ exports[`system props withSystemProps() applies one theme value 1`] = `
   margin: 16px;
 }
 
-<h1
+<b
   className="emotion-0"
   m={2}
 />
