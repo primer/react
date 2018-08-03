@@ -1,5 +1,4 @@
 import React from 'react'
-import Octicon from '@githubprimer/octicons-react'
 import OcticonButton from '../OcticonButton'
 import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
@@ -8,17 +7,6 @@ const Circle = ({r = 8}) => <circle cx={r} cy={r} r={r} />
 Circle.size = [16, 16]
 
 describe('OcticonButton', () => {
-  /**
-   * these are the props we always expect to see on the <button>;
-   * you can test additional values by comparing the rendered
-   * result with:
-   *
-   * ```js
-   * <button {..defaultButtonProps} disabled>...
-   * ```
-   */
-  const defaultButtonProps = {'aria-label': '', className: 'btn-link text-inherit'}
-
   it('implements common system props', () => {
     expect(OcticonButton).toImplementSystemProps(COMMON)
   })
