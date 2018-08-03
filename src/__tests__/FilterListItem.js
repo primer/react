@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {ITEM_CLASS, SELECTED_CLASS} from '../FilterList'
 import FilterListItem from '../FilterListItem'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('FilterListItem', () => {
