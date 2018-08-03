@@ -1,17 +1,16 @@
 import React from 'react'
 import DonutSlice from '../DonutSlice'
 import theme, {colors} from '../theme'
-import {renderWithTheme} from '../utils/testing'
+import {renderWithTheme as render} from '../utils/testing'
 
-const render = node => renderWithTheme(node, theme)
 const {state} = colors
 
 describe('DonutSlice', () => {
   it('renders known states as colors', () => {
-    expect(render(<DonutSlice state="error" theme={theme} />).props.fill).toEqual(state.error)
-    expect(render(<DonutSlice state="pending" theme={theme} />).props.fill).toEqual(state.pending)
-    expect(render(<DonutSlice state="success" theme={theme} />).props.fill).toEqual(state.success)
-    expect(render(<DonutSlice state="unknown" theme={theme} />).props.fill).toEqual(state.unknown)
+    expect(render(<DonutSlice state="error" />).props.fill).toEqual(state.error)
+    expect(render(<DonutSlice state="pending" />).props.fill).toEqual(state.pending)
+    expect(render(<DonutSlice state="success" />).props.fill).toEqual(state.success)
+    expect(render(<DonutSlice state="unknown" />).props.fill).toEqual(state.unknown)
   })
 
   xit('renders unknown states with theme.colors.state.unknown', () => {

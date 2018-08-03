@@ -7,7 +7,7 @@ import {renderWithTheme as render} from '../utils/testing'
 
 describe('DonutChart', () => {
   it('renders the data prop', () => {
-    const donut = render(<DonutChart data={{error: 1}} theme={theme} />)
+    const donut = render(<DonutChart data={{error: 1}} />)
     expect(donut).toMatchSnapshot()
 
     expect(donut.type).toEqual('svg')
