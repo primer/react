@@ -4,12 +4,14 @@ import {colors} from './theme'
 import {themeGet} from 'styled-system'
 import system from './system-props'
 
-const getUnknownColor = themeGet('colors.state.unknown', colors.state.unknown)
+// FIXME: this sets default state colors to our theme,
+// but this is probably not good practice!
+const getStateColors = themeGet('colors.state', colors.state)
 
 const DonutSlice = props => {
   const {children, d, fill, state, value} = props
-  const unknownColor = getUnknownColor(props)
-  const color = fill || themeGet(`colors.state.${state}`, unknownColor)(props)
+  const stateColors = getStateColors(props)
+  const color = fill || stateColors[state || 'unknown']
   return (
     <path d={d} fill={color} data-value={value}>
       {children}
