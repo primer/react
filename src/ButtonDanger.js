@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from './Button'
+import {withSystemProps, COMMON} from './system-props'
 
 const ButtonDanger = props => <Button {...props} scheme="danger" />
 
-export default ButtonDanger
+export default withSystemProps(ButtonDanger, COMMON)
