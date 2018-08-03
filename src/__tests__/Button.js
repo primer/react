@@ -1,12 +1,17 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
 import {render, rendersClass} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 function noop() {}
 
 describe('Button', () => {
   it('renders a <button>', () => {
     expect(render(<Button />).type).toEqual('button')
+  })
+
+  it('implements common system props', () => {
+    expect(Button).toImplementSystemProps(COMMON)
   })
 
   xit('renders children', () => {
@@ -61,12 +66,20 @@ describe('ButtonPrimary', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
     expect(render(<ButtonPrimary />).props.className).toContain('btn-primary')
   })
+
+  it('implements common system props', () => {
+    expect(ButtonPrimary).toImplementSystemProps(COMMON)
+  })
 })
 
 describe('ButtonDanger', () => {
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
     expect(render(<ButtonDanger />).props.className).toContain('btn-danger')
+  })
+
+  it('implements common system props', () => {
+    expect(ButtonDanger).toImplementSystemProps(COMMON)
   })
 
   xit('renders children', () => {
@@ -91,11 +104,19 @@ describe('ButtonLink', () => {
     expect(render(<ButtonLink />).type).toEqual('button')
     expect(render(<ButtonLink />).props.className).toContain('btn-link')
   })
+
+  it('implements common system props', () => {
+    expect(ButtonLink).toImplementSystemProps(COMMON)
+  })
 })
 
 describe('ButtonOutline', () => {
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
     expect(render(<ButtonOutline />).props.className).toContain('btn-outline')
+  })
+
+  it('implements common system props', () => {
+    expect(ButtonOutline).toImplementSystemProps(COMMON)
   })
 })
