@@ -16,7 +16,6 @@ const Avatar = ({alt, isChild, size = 20, src, className}) => {
   return <img className={classes} alt={alt} src={src} width={size} height={size} />
 }
 
-
 Avatar.propTypes = {
   alt: PropTypes.string,
   isChild: PropTypes.bool,
