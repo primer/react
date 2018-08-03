@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
 export const ITEM_CLASS = 'filter-item'
 export const SELECTED_CLASS = 'selected'
 
-export default function FilterList({children, small, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+function FilterList({children, className, small}) {
   const classes = classnames(className, 'filter-list', small && 'small')
 
   const items = React.Children.map(children, child => {
@@ -28,3 +27,5 @@ FilterList.propTypes = {
   children: PropTypes.node,
   small: PropTypes.bool
 }
+
+export default withSystemProps(FilterList, COMMON)

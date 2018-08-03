@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {ITEM_CLASS, SELECTED_CLASS} from './FilterList'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
 function getCountComponent(count) {
   return (
@@ -12,8 +12,7 @@ function getCountComponent(count) {
   )
 }
 
-export default function FilterListItem({children, count, selected, tag: Tag, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+function FilterListItem({children, className, count, selected, is: Tag, ...rest}) {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -29,13 +28,15 @@ export default function FilterListItem({children, count, selected, tag: Tag, ...
 }
 
 FilterListItem.defaultProps = {
-  tag: 'a'
+  is: 'a'
 }
 
 FilterListItem.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   count: PropTypes.string,
-  selected: PropTypes.bool,
-  tag: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  selected: PropTypes.bool
 }
+
+export default withSystemProps(FilterListItem, COMMON)
