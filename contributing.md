@@ -132,7 +132,7 @@ SpaceDiv.propTypes = {
 }
 ```
 
-[clean-tag]: https://github.com/jxnblk/styled-system/blob/master/clean-tag/README.md#clean-tag
+[classnames]: https://www.npmjs.com/package/classnames
 [emotion]: https://emotion.sh/
 [emotion-theming]: https://github.com/emotion-js/emotion/tree/master/packages/emotion-theming
 [spread syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
