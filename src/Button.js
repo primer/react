@@ -3,7 +3,19 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {withSystemProps, COMMON} from './system-props'
 
-function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
+function Button({
+  tag: Tag = 'button',
+  children,
+  size,
+  block,
+  linkStyle,
+  grouped,
+  scheme,
+  onClick,
+  disabled,
+  className,
+  ...rest
+}) {
   const classes = classnames(
     className,
     {

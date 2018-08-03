@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
 import theme from '../theme'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 function noop() {}
