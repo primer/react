@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text renders margin 1`] = `
+.emotion-0 {
+  margin: 0px;
+}
+
+@media screen and (min-width:400px) {
+  .emotion-0 {
+    margin: 4px;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .emotion-0 {
+    margin: 8px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .emotion-0 {
+    margin: 16px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .emotion-0 {
+    margin: 32px;
+  }
+}
+
+<span
+  className="emotion-0"
+/>
+`;
+
+exports[`Text renders margin 2`] = `
+.emotion-0 {
+  margin: 4px;
+}
+
+@media screen and (min-width:400px) {
+  .emotion-0 {
+    margin: 4px;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .emotion-0 {
+    margin: 16px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .emotion-0 {
+    margin: 16px;
+  }
+}
+
+<span
+  className="emotion-0"
+/>
+`;
+
+exports[`Text renders padding 1`] = `
+.emotion-0 {
+  padding: 0px;
+}
+
+@media screen and (min-width:400px) {
+  .emotion-0 {
+    padding: 4px;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .emotion-0 {
+    padding: 8px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .emotion-0 {
+    padding: 16px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .emotion-0 {
+    padding: 32px;
+  }
+}
+
+<span
+  className="emotion-0"
+/>
+`;
+
+exports[`Text renders padding 2`] = `
+.emotion-0 {
+  padding: 4px;
+}
+
+@media screen and (min-width:400px) {
+  .emotion-0 {
+    padding: 4px;
+  }
+}
+
+@media screen and (min-width:640px) {
+  .emotion-0 {
+    padding: 16px;
+  }
+}
+
+@media screen and (min-width:960px) {
+  .emotion-0 {
+    padding: 16px;
+  }
+}
+
+<span
+  className="emotion-0"
+/>
+`;

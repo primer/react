@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
 import Label from '../Label'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Label', () => {
   it('renders a <span>', () => {
@@ -9,27 +9,31 @@ describe('Label', () => {
   })
 
   it('respects the "outline" prop', () => {
-    expect(renderClasses(<Label />)).toEqual(['Label', 'Label--gray'])
-    expect(renderClasses(<Label outline />)).toEqual(['Label', 'Label--outline'])
+    expect(render(<Label />)).toHaveClasses(['Label', 'Label--gray'])
+    expect(render(<Label outline />)).toHaveClasses(['Label', 'Label--outline'])
   })
 
   it('respects the "scheme" prop', () => {
-    expect(renderClasses(<Label scheme={null} />)).toEqual(['Label', 'Label--gray'])
-    expect(renderClasses(<Label scheme="gray" />)).toEqual(['Label', 'Label--gray'])
-    expect(renderClasses(<Label scheme="gray-darker" />)).toEqual(['Label', 'Label--gray-darker'])
-    expect(renderClasses(<Label scheme="orange" />)).toEqual(['Label', 'Label--orange'])
-    expect(renderClasses(<Label scheme="green" />)).toEqual(['Label', 'bg-green'])
+    expect(render(<Label scheme={null} />)).toHaveClasses(['Label', 'Label--gray'])
+    expect(render(<Label scheme="gray" />)).toHaveClasses(['Label', 'Label--gray'])
+    expect(render(<Label scheme="gray-darker" />)).toHaveClasses(['Label', 'Label--gray-darker'])
+    expect(render(<Label scheme="orange" />)).toHaveClasses(['Label', 'Label--orange'])
+    expect(render(<Label scheme="green" />)).toHaveClasses(['Label', 'bg-green'])
   })
 
   it('respects scheme="green" + outline', () => {
-    expect(renderClasses(<Label outline scheme="green" />)).toEqual(['Label', 'Label--outline', 'Label--outline-green'])
+    expect(render(<Label outline scheme="green" />)).toHaveClasses(['Label', 'Label--outline', 'Label--outline-green'])
+  })
+
+  it('implements space system props', () => {
+    expect(Label).toImplementSystemProps(['space'])
   })
 
   it('respects margin utility prop', () => {
-    expect(rendersClass(<Label m={4} />, 'm-4')).toEqual(true)
+    expect(render(<Label m={4} />)).toMatchSnapshot()
   })
 
   it('respects padding utility prop', () => {
-    expect(rendersClass(<Label p={4} />, 'p-4')).toEqual(true)
+    expect(render(<Label p={4} />)).toMatchSnapshot()
   })
 })

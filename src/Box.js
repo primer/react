@@ -5,7 +5,8 @@ const Box = props => <Block {...props} />
 
 Box.defaultProps = {
   bg: 'white',
-  border: true,
+  border: 1,
+  borderColor: 'gray.2',
   borderRadius: 1
 }
 

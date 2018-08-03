@@ -55,19 +55,19 @@ const DonutChartExample = {
     <div>
       <Block mb={2}>
         <ExampleHeading>
-          With <Text mono>data</Text> prop
+          With <Text fontFamily="mono">data</Text> prop
         </ExampleHeading>
         <LiveEditor code={dataPropExample} scope={{DonutChart}} />
       </Block>
       <Block mb={2}>
         <ExampleHeading>
-          With <Text mono>DonutSlice</Text> children
+          With <Text fontFamily="mono">DonutSlice</Text> children
         </ExampleHeading>
         <LiveEditor code={donutSliceExample} scope={{DonutChart, DonutSlice}} />
       </Block>
       <Block mb={2}>
         <ExampleHeading>
-          With custom <Text mono>fill</Text> colors
+          With custom <Text fontFamily="mono">fill</Text> colors
         </ExampleHeading>
         <LiveEditor code={customColorsExample} scope={{DonutSlice, DonutChart, theme}} />
       </Block>
