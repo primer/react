@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {space, fontFamily} from 'styled-system'
 import {render} from '../utils/testing'
-import system, {getSystemProps, composeSystemProps, withSystemProps} from '../system-props'
+import {getSystemProps, composeSystemProps, withSystemProps} from '../system-props'
 
 describe('system props', () => {
   describe('getSystemProps()', () => {
@@ -53,7 +53,7 @@ describe('system props', () => {
 
   describe('withSystemProps()', () => {
     it('merges all the propTypes', () => {
-      const Component = props => <h1 />
+      const Component = () => <b />
       const Wrapped = withSystemProps(Component, ['fontFamily'])
       expect(Wrapped.propTypes).toEqual({
         ...fontFamily.propTypes,
@@ -62,12 +62,12 @@ describe('system props', () => {
     })
 
     it('renders the underlying component', () => {
-      const Component = jest.fn(props => <h1 {...props} />)
+      const Component = jest.fn(props => <b {...props} />)
       Component.propTypes = {
         foo: PropTypes.number
       }
       const Wrapped = withSystemProps(Component, ['fontFamily'])
-      expect(render(<Wrapped />).type).toEqual('h1')
+      expect(render(<Wrapped />).type).toEqual('b')
     })
 
     const theme = {
@@ -78,22 +78,22 @@ describe('system props', () => {
     }
 
     it('applies one theme value', () => {
-      const Component = jest.fn(props => <h1 {...props} />)
+      const Component = jest.fn(props => <b {...props} />)
       const Wrapped = withSystemProps(Component, ['space'])
       const result = render(<Wrapped m={2} theme={theme} />)
-      expect(Component.mock.calls.length).toEqual(1)
+      expect(Component.mock.calls).toHaveLength(1)
       expect(result).toMatchSnapshot()
-      expect(result).toHaveStyleRule('margin', theme.space[2] + 'px')
+      expect(result).toHaveStyleRule('margin', `${theme.space[2]}px`)
     })
 
     it('applies multiple theme values', () => {
-      const Component = jest.fn(props => <h1 {...props} />)
+      const Component = jest.fn(props => <b {...props} />)
       const Wrapped = withSystemProps(Component, ['fontFamily', 'space'])
-      const result = render(<Wrapped fontFamily='sans' m={2} theme={theme} />)
-      expect(Component.mock.calls.length).toEqual(1)
+      const result = render(<Wrapped fontFamily="sans" m={2} theme={theme} />)
+      expect(Component.mock.calls).toHaveLength(1)
       expect(result).toMatchSnapshot()
       expect(result).toHaveStyleRule('font-family', theme.fonts.sans)
-      expect(result).toHaveStyleRule('margin', theme.space[2] + 'px')
+      expect(result).toHaveStyleRule('margin', `${theme.space[2]}px`)
     })
   })
 })

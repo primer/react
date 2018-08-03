@@ -5,7 +5,7 @@ import {render} from '../utils/testing'
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
   colors: {
-    green: ['#010', '#020', '#030', '#040', '#050', '#060'],
+    green: ['#010', '#020', '#030', '#040', '#050', '#060']
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 40, 48],
   fonts: {
@@ -50,9 +50,18 @@ describe('Text', () => {
   })
 
   it('respects lineHeight', () => {
-    expect(render(<Text lineHeight="normal" theme={theme} />)).toHaveStyleRule('line-height', String(theme.lineHeights.normal))
-    expect(render(<Text lineHeight="condensed" theme={theme} />)).toHaveStyleRule('line-height', String(theme.lineHeights.condensed))
-    expect(render(<Text lineHeight="condensedUltra" theme={theme} />)).toHaveStyleRule('line-height', String(theme.lineHeights.condensedUltra))
+    expect(render(<Text lineHeight="normal" theme={theme} />)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.normal)
+    )
+    expect(render(<Text lineHeight="condensed" theme={theme} />)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.condensed)
+    )
+    expect(render(<Text lineHeight="condensedUltra" theme={theme} />)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.condensedUltra)
+    )
   })
 
   it('respects fontFamily="mono"', () => {
