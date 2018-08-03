@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
+import theme from '../theme'
 import {render, rendersClass} from '../utils/testing'
 import {COMMON} from '../system-props'
 
@@ -68,7 +69,7 @@ describe('ButtonPrimary', () => {
   })
 
   it('implements common system props', () => {
-    expect(ButtonPrimary).toImplementSystemProps(COMMON)
+    expect(render(<ButtonPrimary m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })
 
@@ -79,7 +80,7 @@ describe('ButtonDanger', () => {
   })
 
   it('implements common system props', () => {
-    expect(ButtonDanger).toImplementSystemProps(COMMON)
+    expect(render(<ButtonDanger m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 
   xit('renders children', () => {
@@ -106,7 +107,7 @@ describe('ButtonLink', () => {
   })
 
   it('implements common system props', () => {
-    expect(ButtonLink).toImplementSystemProps(COMMON)
+    expect(render(<ButtonLink m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })
 
@@ -117,6 +118,6 @@ describe('ButtonOutline', () => {
   })
 
   it('implements common system props', () => {
-    expect(ButtonOutline).toImplementSystemProps(COMMON)
+    expect(render(<ButtonOutline m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })
