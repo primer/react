@@ -10,8 +10,8 @@
    components](#abstract-components) (those with only [system
    props](#system-props)).
 
-Check the [component patterns] for more information about how we structure
-different types of components.
+Check the [component patterns](#component-patterns) for more information about
+how we structure different types of components.
 
 ## Component patterns
 
