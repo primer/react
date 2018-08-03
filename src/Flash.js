@@ -9,18 +9,9 @@ const schemeMap = {
   yellow: 'warn'
 }
 
-function Flash({children, className, full, scheme, ...rest}) {
-  const classes = classnames(
-    className,
-    'flash',
-    full && 'flash-full',
-    scheme && `flash-${schemeMap[scheme]}`
-  )
-  return (
-    <div className={classes}>
-      {children}
-    </div>
-  )
+function Flash({children, className, full, scheme}) {
+  const classes = classnames(className, 'flash', full && 'flash-full', scheme && `flash-${schemeMap[scheme]}`)
+  return <div className={classes}>{children}</div>
 }
 
 Flash.propTypes = {

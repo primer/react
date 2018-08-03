@@ -1,12 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme, {colors} from './theme'
-
-const borderColors = Object.keys(colors.border)
-
-function getBorderColor(key) {
-  return colors.border[key] || key
-}
+import {themeGet} from 'styled-system'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -22,26 +16,13 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
-const offsetSpacing = theme.space[2]
-
-function getEdgeAlign(location) {
-  const [edge, align] = location.split('-')
-  return [edge, align]
-}
-
-function getPosition(edge, align) {
-  const opposite = oppositeEdge[edge].toLowerCase()
-  const perp = perpendicularEdge[edge].toLowerCase()
-  const offsetProp = align || perp
-  const offsetValue = align ? offsetSpacing : '50%'
-  return {
-    [opposite]: '100%',
-    [offsetProp]: offsetValue
-  }
-}
-
 export default function Caret(props) {
-  const {borderColor, borderWidth, fill, location, size} = props
+  const {bg: bgKey, borderColor: borderColorKey, borderWidth: borderWidthKey, location, size: sizeKey} = props
+
+  const bg = themeGet(`colors.${bgKey}`, '#fff')(props)
+  const borderColor = themeGet(`colors.${borderColorKey}`, '#000')(props)
+  const borderWidth = themeGet(`borderWidths.${borderWidthKey}`, 1)(props)
+  const size = themeGet(`space.${sizeKey}`, 8)(props)
 
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
@@ -49,7 +30,7 @@ export default function Caret(props) {
   const style = {
     pointerEvents: 'none',
     position: 'absolute',
-    ...getPosition(edge, align),
+    ...getPosition(edge, align, size),
     // if align is set (top|right|bottom|left),
     // then we don't need an offset margin
     [`margin${perp}`]: align ? null : -size
@@ -76,8 +57,8 @@ export default function Caret(props) {
   return (
     <svg width={size * 2} height={size * 2} style={style}>
       <g transform={transform}>
-        <path d={triangle} fill={fill} />
-        <path d={line} fill="none" stroke={getBorderColor(borderColor)} strokeWidth={borderWidth} />
+        <path d={triangle} fill={bg} />
+        <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
       </g>
     </svg>
   )
@@ -99,17 +80,31 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  borderColor: 'gray',
+  bg: 'white',
   borderWidth: 1,
-  fill: colors.white,
+  borderColor: 'gray.2',
   location: 'bottom',
-  size: theme.space[2]
+  size: 8
 }
 
 Caret.propTypes = {
-  borderColor: PropTypes.oneOf(borderColors),
+  bg: PropTypes.string,
+  borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
-  fill: PropTypes.string,
   location: PropTypes.oneOf(Caret.locations),
   size: PropTypes.number
+}
+
+function getEdgeAlign(location) {
+  const [edge, align] = location.split('-')
+  return [edge, align]
+}
+
+function getPosition(edge, align, spacing) {
+  const opposite = oppositeEdge[edge].toLowerCase()
+  const perp = perpendicularEdge[edge].toLowerCase()
+  return {
+    [opposite]: '100%',
+    [align || perp]: align ? spacing : '50%'
+  }
 }
