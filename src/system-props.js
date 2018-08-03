@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import * as system from 'styled-system'
 
