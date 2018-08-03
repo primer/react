@@ -1,80 +1,71 @@
 import React from 'react'
 import Block from '../Block'
-import {renderClasses} from '../utils/testing'
+import theme from '../theme'
+import {render} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 describe('Block', () => {
-  const defaultClasses = []
-  it('renders default classes', () => {
-    expect(renderClasses(<Block />)).toEqual(defaultClasses)
+  it('implements layout system props', () => {
+    expect(Block).toImplementSystemProps(COMMON)
+    // FIXME
+    // expect(Block).toImplementSystemProps(LAYOUT)
+  })
+
+  it('renders without any props', () => {
+    expect(render(<Block />)).toMatchSnapshot()
   })
 
   it('renders margin', () => {
-    expect(renderClasses(<Block m={1} />)).toEqual(['m-1', ...defaultClasses])
-    expect(renderClasses(<Block m={[0, 1, 2, 3, 4]} />)).toEqual([
-      'm-0',
-      'm-sm-1',
-      'm-md-2',
-      'm-lg-3',
-      'm-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<Block m={[null, 1, null, 3]} />)).toEqual(['m-sm-1', 'm-lg-3', ...defaultClasses])
+    expect(render(<Block m={1} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
   it('renders padding', () => {
-    expect(renderClasses(<Block p={1} />)).toEqual(['p-1', ...defaultClasses])
-    expect(renderClasses(<Block p={[0, 1, 2, 3, 4]} />)).toEqual([
-      'p-0',
-      'p-sm-1',
-      'p-md-2',
-      'p-lg-3',
-      'p-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<Block p={[null, 1, null, 3]} />)).toEqual(['p-sm-1', 'p-lg-3', ...defaultClasses])
+    expect(render(<Block p={1} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block p={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
   describe('borders', () => {
-    it('handles border prop as true', () => {
-      expect(renderClasses(<Block border />)).toEqual(['border'])
-    })
-    it('handles border prop as false', () => {
-      expect(renderClasses(<Block border={false} />)).toEqual(['border-0'])
+    it('handles border prop', () => {
+      expect(render(<Block border={1} theme={theme} />)).toMatchSnapshot()
     })
     it('handles a single border edge', () => {
-      expect(renderClasses(<Block border="left" borderColor="green" />)).toEqual(['border-left', 'border-green'])
+      expect(render(<Block borderLeft={1} borderColor="green.5" theme={theme} />)).toMatchSnapshot()
     })
     it('handles multiple border edges', () => {
-      expect(renderClasses(<Block border={['top', 'left']} />)).toEqual(['border-top', 'border-left'])
+      expect(render(<Block borderLeft={1} borderRight={1} borderColor="gray.2" theme={theme} />)).toMatchSnapshot()
     })
     it('handles just a border color', () => {
-      expect(renderClasses(<Block borderColor="red" />)).toEqual(['border', 'border-red'])
+      expect(render(<Block borderColor="red.5" theme={theme} />)).toMatchSnapshot()
     })
   })
 
   it('respects display', () => {
-    expect(renderClasses(<Block display="inline" />)).toEqual(['d-inline'])
-    expect(renderClasses(<Block display="inline-block" />)).toEqual(['d-inline-block'])
-    expect(renderClasses(<Block display="none" />)).toEqual(['d-none'])
+    expect(render(<Block display="inline" />)).toMatchSnapshot()
+    expect(render(<Block display="inline-block" />)).toMatchSnapshot()
+    expect(render(<Block display="none" />)).toMatchSnapshot()
+    expect(render(<Block display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
   })
 
   it('respects position', () => {
-    expect(renderClasses(<Block position="absolute" />)).toEqual(['position-absolute'])
-    expect(renderClasses(<Block position="relative" />)).toEqual(['position-relative'])
+    expect(render(<Block position="absolute" />)).toMatchSnapshot()
+    expect(render(<Block position="relative" />)).toMatchSnapshot()
   })
 
   it('respects bg', () => {
-    expect(renderClasses(<Block bg="yellow" />)).toEqual(['bg-yellow'])
+    expect(render(<Block bg="yellow.2" theme={theme} />)).toMatchSnapshot()
   })
 
-  it('respects fg', () => {
-    expect(renderClasses(<Block fg="red" />)).toEqual(['text-red'])
+  it('respects color', () => {
+    expect(render(<Block color="red.5" theme={theme} />)).toMatchSnapshot()
   })
 
   it('renders shadow', () => {
-    expect(renderClasses(<Block shadow="small" />)).toEqual(['box-shadow'])
-    expect(renderClasses(<Block shadow="medium" />)).toEqual(['box-shadow-medium'])
-    expect(renderClasses(<Block shadow="large" />)).toEqual(['box-shadow-large'])
-    expect(renderClasses(<Block shadow="extra-large" />)).toEqual(['box-shadow-extra-large'])
+    expect(render(<Block boxShadow="small" theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block boxShadow="medium" theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block boxShadow="large" theme={theme} />)).toMatchSnapshot()
+    expect(render(<Block boxShadow="extra-large" theme={theme} />)).toMatchSnapshot()
   })
 })

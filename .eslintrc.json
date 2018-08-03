@@ -3,5 +3,8 @@
     "plugin:github/es6",
     "plugin:github/react",
     "plugin:jsx-a11y/recommended"
-  ]
+  ],
+  "rules": {
+    "import/no-namespace": "warn"
+  }
 }
