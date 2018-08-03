@@ -42,12 +42,13 @@ export function renderClasses(component) {
   return className ? className.trim().split(' ') : []
 }
 
+/**
+ * Returns true if a node renders with a single class.
+ */
 export function rendersClass(node, klass) {
   return renderClasses(node).includes(klass)
 }
 
 export function renderWithTheme(node, theme = defaultTheme) {
-  return render(
-    <ThemeProvider theme={theme}>{node}</ThemeProvider>
-  )
+  return render(<ThemeProvider theme={theme}>{node}</ThemeProvider>)
 }

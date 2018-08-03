@@ -1,5 +1,5 @@
 import styled from 'react-emotion'
-import * as system from 'styled-system'
+import {styles as system} from 'styled-system'
 
 export {default as tag} from 'clean-tag'
 export default from 'system-components/emotion'
