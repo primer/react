@@ -1,6 +1,5 @@
 import React from 'react'
 import MergeStatus from '../MergeStatus'
-import theme from '../theme'
 import {render, renderClasses} from '../utils/testing'
 import {COMMON} from '../system-props'
 
