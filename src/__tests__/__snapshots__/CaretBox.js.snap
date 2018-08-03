@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
-.emotion-0 {
+.emotion-1 {
   background-color: red.5;
   border: 1px solid;
   border-color: gray.2;
@@ -9,11 +9,16 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
   background-color: #d73a49;
 }
 
+.emotion-0 {
+  background-color: red.5;
+}
+
 <div
-  className="emotion-0"
+  className="emotion-1"
   position="relative"
 >
   <svg
+    className="emotion-0"
     height={16}
     style={
       Object {
@@ -47,6 +52,10 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
 exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = `
 .emotion-0 {
   background-color: white;
+}
+
+.emotion-1 {
+  background-color: white;
   border: 1px solid;
   border-color: red.5;
   border-radius: 1px;
@@ -54,10 +63,11 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
 }
 
 <div
-  className="emotion-0"
+  className="emotion-1"
   position="relative"
 >
   <svg
+    className="emotion-0"
     height={16}
     style={
       Object {
@@ -91,6 +101,10 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
 exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
 .emotion-0 {
   background-color: white;
+}
+
+.emotion-1 {
+  background-color: white;
   border: 1px solid;
   border-color: gray.2;
   border-radius: 1px;
@@ -98,10 +112,11 @@ exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
 }
 
 <div
-  className="emotion-0"
+  className="emotion-1"
   position="relative"
 >
   <svg
+    className="emotion-0"
     height={16}
     style={
       Object {

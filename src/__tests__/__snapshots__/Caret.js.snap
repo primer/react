@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Caret renders cardinal directions 1`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -24,7 +29,7 @@ exports[`Caret renders cardinal directions 1`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -32,7 +37,12 @@ exports[`Caret renders cardinal directions 1`] = `
 `;
 
 exports[`Caret renders cardinal directions 2`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -55,7 +65,7 @@ exports[`Caret renders cardinal directions 2`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -63,7 +73,12 @@ exports[`Caret renders cardinal directions 2`] = `
 `;
 
 exports[`Caret renders cardinal directions 3`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -86,7 +101,7 @@ exports[`Caret renders cardinal directions 3`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -94,7 +109,12 @@ exports[`Caret renders cardinal directions 3`] = `
 `;
 
 exports[`Caret renders cardinal directions 4`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -117,7 +137,7 @@ exports[`Caret renders cardinal directions 4`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -125,7 +145,12 @@ exports[`Caret renders cardinal directions 4`] = `
 `;
 
 exports[`Caret renders cardinal directions 5`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -148,7 +173,7 @@ exports[`Caret renders cardinal directions 5`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -156,7 +181,12 @@ exports[`Caret renders cardinal directions 5`] = `
 `;
 
 exports[`Caret renders cardinal directions 6`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -179,7 +209,7 @@ exports[`Caret renders cardinal directions 6`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -187,7 +217,12 @@ exports[`Caret renders cardinal directions 6`] = `
 `;
 
 exports[`Caret renders cardinal directions 7`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -210,7 +245,7 @@ exports[`Caret renders cardinal directions 7`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -218,7 +253,12 @@ exports[`Caret renders cardinal directions 7`] = `
 `;
 
 exports[`Caret renders cardinal directions 8`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -241,7 +281,7 @@ exports[`Caret renders cardinal directions 8`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -249,7 +289,12 @@ exports[`Caret renders cardinal directions 8`] = `
 `;
 
 exports[`Caret renders cardinal directions 9`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -272,7 +317,7 @@ exports[`Caret renders cardinal directions 9`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -280,7 +325,12 @@ exports[`Caret renders cardinal directions 9`] = `
 `;
 
 exports[`Caret renders cardinal directions 10`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -303,7 +353,7 @@ exports[`Caret renders cardinal directions 10`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -311,7 +361,12 @@ exports[`Caret renders cardinal directions 10`] = `
 `;
 
 exports[`Caret renders cardinal directions 11`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -334,7 +389,7 @@ exports[`Caret renders cardinal directions 11`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>
@@ -342,7 +397,12 @@ exports[`Caret renders cardinal directions 11`] = `
 `;
 
 exports[`Caret renders cardinal directions 12`] = `
+.emotion-0 {
+  background-color: #fff;
+}
+
 <svg
+  className="emotion-0"
   height={16}
   style={
     Object {
@@ -365,7 +425,7 @@ exports[`Caret renders cardinal directions 12`] = `
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#e1e4e8"
+      stroke="#000"
       strokeWidth={1}
     />
   </g>

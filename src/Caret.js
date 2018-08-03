@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {themeGet} from 'styled-system'
+import {withSystemProps, COMMON} from './system-props'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -16,8 +17,8 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
-export default function Caret(props) {
-  const {bg: bgKey, borderColor: borderColorKey, borderWidth: borderWidthKey, location, size: sizeKey} = props
+function Caret(props) {
+  const {bg: bgKey, borderColor: borderColorKey, borderWidth: borderWidthKey, location, size: sizeKey, className} = props
 
   const bg = themeGet(`colors.${bgKey}`, '#fff')(props)
   const borderColor = themeGet(`colors.${borderColorKey}`, '#000')(props)
@@ -55,7 +56,7 @@ export default function Caret(props) {
   }[edge]
 
   return (
-    <svg width={size * 2} height={size * 2} style={style}>
+    <svg width={size * 2} className={className} height={size * 2} style={style}>
       <g transform={transform}>
         <path d={triangle} fill={bg} />
         <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
@@ -108,3 +109,5 @@ function getPosition(edge, align, spacing) {
     [align || perp]: align ? spacing : '50%'
   }
 }
+
+export default withSystemProps(Caret, COMMON)
