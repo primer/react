@@ -1,10 +1,9 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
-function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     {
@@ -37,4 +36,4 @@ Button.propTypes = {
   tag: PropTypes.oneOf(['button', 'a', 'summary'])
 }
 
-export default Button
+export default withSystemProps(Button, COMMON)
