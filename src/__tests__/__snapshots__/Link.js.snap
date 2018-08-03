@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Link passes href down to link element 1`] = `
+<a
+  className="emotion-0 text-blue"
+  href="https://github.com"
+/>
+`;
+
 exports[`Link renders margin 1`] = `
 .emotion-0 {
   margin: 4px;

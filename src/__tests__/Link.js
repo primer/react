@@ -2,12 +2,25 @@
 import React from 'react'
 import Link from '../Link'
 import theme from '../theme'
-import {render} from '../utils/testing'
+import {render, renderClasses} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('Link', () => {
-  it('implements layout system props', () => {
+  it('implements common system props', () => {
     expect(Link).toImplementSystemProps(COMMON)
+  })
+
+  it('respects the "scheme" prop', () => {
+    expect(renderClasses(<Link scheme="gray" />)).toContain('link-gray')
+    expect(renderClasses(<Link scheme="gray-dark" />)).toContain('link-gray-dark')
+  })
+
+  it('respects the "nounderline" prop', () => {
+    expect(renderClasses(<Link nounderline />)).toContain('no-underline')
+  })
+
+  it('passes href down to link element', () => {
+    expect(render(<Link href="https://github.com" />)).toMatchSnapshot()
   })
 
   it('renders without any props', () => {
