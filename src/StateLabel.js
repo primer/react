@@ -38,7 +38,6 @@ function getIconComponent(icon, children) {
 }
 
 function StateLabel({state, className, scheme, icon, small, children}) {
-
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
