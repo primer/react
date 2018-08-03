@@ -1,6 +1,6 @@
 import React from 'react'
 import TextInput from '../TextInput'
-import {render, mount, rendersClass} from '../utils/testing'
+import {render, mount} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('TextInput', () => {
