@@ -1,28 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {colors} from './theme'
+import {themeGet} from 'styled-system'
+import system from './system-props'
 
-const defaultFill = colors.gray[4]
-
-const fillForState = {
-  error: colors.red[5],
-  queued: colors.yellow[7],
-  pending: colors.yellow[7],
-  failure: colors.red[5],
-  success: colors.green[5],
-  unknown: defaultFill
-}
+const getUnknownColor = themeGet('colors.state.unknown', '#666')
 
 const DonutSlice = props => {
-  const {children, d, state, fill = fillForState[state] || defaultFill, value} = props
+  const {children, d, fill, state, value} = props
+  const unknownColor = getUnknownColor(props)
+  const color = fill || themeGet(`colors.state.${state}`, unknownColor)(props)
   return (
-    <path d={d} fill={fill} data-value={value}>
+    <path d={d} fill={color} data-value={value}>
       {children}
     </path>
   )
 }
 
-DonutSlice.states = Object.keys(fillForState)
+DonutSlice.states = ['error', 'failure', 'pending', 'queued', 'success', 'unknown']
 
 DonutSlice.propTypes = {
   // <title> is really the only thing that should be acceptable here
@@ -30,8 +24,14 @@ DonutSlice.propTypes = {
   d: PropTypes.string,
   fill: PropTypes.string,
   state: PropTypes.oneOf(DonutSlice.states),
+  /*
+  theme: PropTypes.shape({
+    colors: PropTypes.shape({
+      state: PropTypes.objectOf(PropTypes.string)
+    })
+  }),
+  */
   value: PropTypes.number
 }
 
-export default DonutSlice
-export {defaultFill, fillForState}
+export default system({is: DonutSlice})
