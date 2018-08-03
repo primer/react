@@ -37,4 +37,4 @@ DonutSlice.propTypes = {
   value: PropTypes.number
 }
 
-export default system({is: DonutSlice})
+export default DonutSlice
