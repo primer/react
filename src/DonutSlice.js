@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {colors} from './theme'
 import {themeGet} from 'styled-system'
 import system from './system-props'
 
-const getUnknownColor = themeGet('colors.state.unknown', '#666')
+const getUnknownColor = themeGet('colors.state.unknown', colors.state.unknown)
 
 const DonutSlice = props => {
   const {children, d, fill, state, value} = props
@@ -16,7 +17,7 @@ const DonutSlice = props => {
   )
 }
 
-DonutSlice.states = ['error', 'failure', 'pending', 'queued', 'success', 'unknown']
+DonutSlice.states = Object.keys(colors.state)
 
 DonutSlice.propTypes = {
   // <title> is really the only thing that should be acceptable here
