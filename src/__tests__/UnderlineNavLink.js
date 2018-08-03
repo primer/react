@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
 import React from 'react'
 import UnderlineNavLink from '../UnderlineNavLink'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Caret', () => {
   it('renders an <a> by default', () => {
