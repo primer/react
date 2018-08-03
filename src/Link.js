@@ -4,13 +4,8 @@ import classnames from 'classnames'
 import {withSystemProps, COMMON} from './system-props'
 
 function Link({children, className, muted, scheme, nounderline, ...rest}) {
-  const classes = classnames(
-    className,
-    scheme && `link-${scheme}`,
-    muted && 'muted-link',
-    !muted && 'text-blue',
-    nounderline && 'no-underline'
-  )
+  const colorClass = scheme ? `link-${scheme}` : muted ? 'muted-link' : 'text-blue'
+  const classes = classnames(className, colorClass, nounderline && 'no-underline')
   return (
     <a className={classes} {...rest}>
       {children}
