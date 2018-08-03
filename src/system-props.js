@@ -67,6 +67,11 @@ export function getPropTypes(funcs) {
 export function withSystemProps(Component, props) {
   const funcs = getSystemProps(props)
   const Wrapped = styled(Component)(...funcs)
+  // Copy over non-system keys from components
+  // eg. Tooltip.js => Tooltip.directions Tooltip.alignments
+  for (const key of Object.keys(Component)) {
+    Wrapped[key] = Component[key]
+  }
   Wrapped.propTypes = {
     ...getPropTypes(funcs),
     ...Component.propTypes
