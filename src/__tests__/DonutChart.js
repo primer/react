@@ -2,7 +2,7 @@
 import React from 'react'
 import DonutChart from '../DonutChart'
 import DonutSlice from '../DonutSlice'
-import theme, {colors} from '../theme'
+import {colors} from '../theme'
 import {renderWithTheme as render} from '../utils/testing'
 
 describe('DonutChart', () => {

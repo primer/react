@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {colors} from './theme'
 import {themeGet} from 'styled-system'
-import system from './system-props'
 
 // FIXME: this sets default state colors to our theme,
 // but this is probably not good practice!

@@ -1,6 +1,6 @@
 import React from 'react'
 import DonutSlice from '../DonutSlice'
-import theme, {colors} from '../theme'
+import {colors} from '../theme'
 import {renderWithTheme as render} from '../utils/testing'
 
 const {state} = colors
