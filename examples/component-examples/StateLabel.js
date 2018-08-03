@@ -45,57 +45,37 @@ const example3 = `<Block mb={2}>
 </Block>`
 
 const example4 = `<Block mb={2}>
-  <span className="mr-2">
-    <StateLabel small>Unknown</StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small state="open">
-      Open
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small state="closed">
-      Closed
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small state="merged">
-      Merged
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small state="reopened">
-      Reopened
-    </StateLabel>
-  </span>
+  <StateLabel mr={2} small>Unknown</StateLabel>
+  <StateLabel mr={2} small state="open">
+    Open
+  </StateLabel>
+  <StateLabel mr={2} small state="closed">
+    Closed
+  </StateLabel>
+  <StateLabel mr={2} small state="merged">
+    Merged
+  </StateLabel>
+  <StateLabel mr={2} small state="reopened">
+    Reopened
+  </StateLabel>
 </Block>`
 
 const example5 = `<Block mb={2}>
-  <span className="mr-2">
-    <StateLabel small scheme="invalid">
-      Invalid
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small scheme="green">
-      Green
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small scheme="red">
-      Red
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small scheme="purple">
-      Purple
-    </StateLabel>
-  </span>
-  <span className="mr-2">
-    <StateLabel small scheme="green" icon={<Octicon icon={GitBranch} />}>
-      Custom Octicon
-    </StateLabel>
-  </span>
+  <StateLabel mr={2} small scheme="invalid">
+    Invalid
+  </StateLabel>
+  <StateLabel mr={2} small scheme="green">
+    Green
+  </StateLabel>
+  <StateLabel mr={2} small scheme="red">
+    Red
+  </StateLabel>
+  <StateLabel mr={2} small scheme="purple">
+    Purple
+  </StateLabel>
+  <StateLabel mr={2} small scheme="green" icon={<Octicon icon={GitBranch} />}>
+    Custom Octicon
+  </StateLabel>
 </Block>`
 
 const StateLabelExample = {
