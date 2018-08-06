@@ -7,6 +7,13 @@ expect.addSnapshotSerializer(createSerializer(emotion))
 
 const stringify = d => JSON.stringify(d, null, '  ')
 
+const ALIAS_PROP_TYPES = [
+  'w',
+  'align',
+  'justify',
+  'wrap',
+]
+
 expect.extend({
   toHaveClass(node, klass) {
     const classes = getClasses(node)
@@ -32,7 +39,9 @@ expect.extend({
       const fn = systemProps[name]
       return list.concat(Object.keys(fn.propTypes))
     }, [])
-    const missing = expectedPropKeys.filter(key => !propKeys.has(key))
+    const missing = expectedPropKeys
+      .filter(key => !propKeys.has(key))
+      .filter(key => !ALIAS_PROP_TYPES.includes(key))
     return {
       pass: missing.length === 0,
       message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
