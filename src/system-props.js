@@ -48,9 +48,7 @@ export function withSystemProps(Component, props = COMMON) {
     throw new Error(`${Component.name} is already a system component; can't call withSystemProps() on it`)
   }
 
-  const component = (typeof Component === 'object')
-    ? Component
-    : {is: Component}
+  const component = typeof Component === 'object' ? Component : {is: Component}
 
   const Wrapped = system(component, ...props)
   Object.assign(Wrapped.propTypes, Component.propTypes)
