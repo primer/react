@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Box from './Box'
 import {style} from 'styled-system'
 import {withDefaultTheme} from './system-props'
 
@@ -15,6 +16,20 @@ const perpendicularEdge = {
   right: 'Top',
   bottom: 'Left',
   left: 'Top'
+}
+
+function getEdgeAlign(location) {
+  const [edge, align] = location.split('-')
+  return [edge, align]
+}
+
+function getPosition(edge, align, spacing) {
+  const opposite = oppositeEdge[edge].toLowerCase()
+  const perp = perpendicularEdge[edge].toLowerCase()
+  return {
+    [opposite]: '100%',
+    [align || perp]: align ? spacing : '50%'
+  }
 }
 
 const getBg = style({prop: 'bg', key: 'colors'})
@@ -85,33 +100,24 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: 'white',
+  bg: Box.defaultProps.bg,
+  borderColor: Box.defaultProps.borderColor,
   borderWidth: 1,
-  borderColor: 'gray.2',
   location: 'bottom',
   size: 2
 }
 
 Caret.propTypes = {
+  /* eslint-disable react/sort-prop-types  */
+  // eslint can't determine whether these props are used
+  // because they're accessed inside of styled-system.
+  /* eslint-disable react/no-unused-prop-types */
   bg: PropTypes.string,
   borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations),
-  size: PropTypes.number
+  size: PropTypes.number,
+  location: PropTypes.oneOf(Caret.locations)
+  /* eslint-enable */
 }
 
 export default withDefaultTheme(Caret)
-
-function getEdgeAlign(location) {
-  const [edge, align] = location.split('-')
-  return [edge, align]
-}
-
-function getPosition(edge, align, spacing) {
-  const opposite = oppositeEdge[edge].toLowerCase()
-  const perp = perpendicularEdge[edge].toLowerCase()
-  return {
-    [opposite]: '100%',
-    [align || perp]: align ? spacing : '50%'
-  }
-}
