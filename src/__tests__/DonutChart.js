@@ -1,9 +1,8 @@
-//
 import React from 'react'
 import DonutChart from '../DonutChart'
 import DonutSlice from '../DonutSlice'
-import {colors} from '../theme'
-import {renderWithTheme as render} from '../utils/testing'
+import theme, {colors} from '../theme'
+import {render} from '../utils/testing'
 
 describe('DonutChart', () => {
   it('renders the data prop', () => {
@@ -51,10 +50,10 @@ describe('DonutChart', () => {
   })
 
   it('respects margin utility prop', () => {
-    expect(render(<DonutChart m={4} data={{error: 1}} />)).toHaveStyleRule('margin', '24px')
+    expect(render(<DonutChart m={4} data={{error: 1}} />)).toHaveStyleRule('margin', `${theme.space[4]}.px`)
   })
 
-  xit('respects padding utility prop', () => {
-    expect(render(<DonutChart p={4} data={{error: 1}} />)).toHaveStyleRule('padding', '24px')
+  it('respects padding utility prop', () => {
+    expect(render(<DonutChart p={4} data={{error: 1}} />)).toHaveStyleRule('padding', `${theme.space[4]}.px`)
   })
 })
