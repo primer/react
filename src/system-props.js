@@ -9,31 +9,31 @@ export const COMMON = ['color', 'space']
 export const TYPOGRAPHY = COMMON.concat('fontFamily', 'fontWeight', 'lineHeight')
 
 export const LAYOUT = COMMON.concat(
-  'borders',
   'borderColor',
   'borderRadius',
+  'borders',
   'boxShadow',
   'display',
-  'size',
-  'width',
   'height',
-  'maxWidth',
   'maxHeight',
+  'maxWidth',
+  'minHeight',
   'minWidth',
-  'minHeight'
+  'size',
+  'width'
 )
 
 export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
 
 export const FLEX_CONTAINER = LAYOUT.concat(
-  'alignItems',
-  'justifyContent',
-  'flexWrap',
-  'flexDirection',
-  'flex',
   'alignContent',
-  'order',
-  'flexBasis'
+  'alignItems',
+  'flexWrap',
+  'flex',
+  'flexBasis',
+  'flexDirection',
+  'justifyContent',
+  'order'
 )
 
 export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
