@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 import DonutSlice from './DonutSlice'
 import {oneOrMoreOf} from './props'
-import system from './system-props'
+import {withSystemProps} from './system-props'
 
 const DonutChart = props => {
   const {className, data, children = mapData(data), size} = props
@@ -46,4 +46,4 @@ DonutChart.propTypes = {
   size: PropTypes.number
 }
 
-export default system({is: DonutChart}, 'space')
+export default withSystemProps(DonutChart, ['space'])
