@@ -13,7 +13,7 @@ const fillForState = {
   unknown: defaultFill
 }
 
-const DonutSlice = props => {
+function DonutSlice(props) {
   const {children, d, state, fill = fillForState[state] || defaultFill, value} = props
   return (
     <path d={d} fill={fill} data-value={value}>

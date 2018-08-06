@@ -8,7 +8,7 @@ function mapData(data) {
   return Object.keys(data).map(key => <DonutSlice key={key} state={key} value={data[key]} />)
 }
 
-const DonutChart = props => {
+function DonutChart(props) {
   const {data, children = mapData(data), size = 30, ...rest} = props
   const {className} = mapWhitespaceProps(rest)
 
