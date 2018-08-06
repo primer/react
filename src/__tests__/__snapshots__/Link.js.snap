@@ -2,8 +2,30 @@
 
 exports[`Link passes href down to link element 1`] = `
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 text-blue"
   href="https://github.com"
+  is={[Function]}
 />
 `;
 
@@ -13,7 +35,29 @@ exports[`Link renders margin 1`] = `
 }
 
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 text-blue"
+  is={[Function]}
   m={1}
 />
 `;
@@ -42,7 +86,29 @@ exports[`Link renders margin 2`] = `
 }
 
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 text-blue"
+  is={[Function]}
   m={
     Array [
       0,
@@ -78,7 +144,29 @@ exports[`Link renders margin 3`] = `
 }
 
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 text-blue"
+  is={[Function]}
   m={
     Array [
       1,
@@ -92,6 +180,28 @@ exports[`Link renders margin 3`] = `
 
 exports[`Link renders without any props 1`] = `
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 text-blue"
+  is={[Function]}
 />
 `;

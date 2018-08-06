@@ -2,8 +2,8 @@
 
 exports[`Block borders handles a single border edge 1`] = `
 .emotion-0 {
-  border-left: 1px solid;
   border-color: #28a745;
+  border-left: 1px solid;
 }
 
 <div
@@ -33,9 +33,9 @@ exports[`Block borders handles just a border color 1`] = `
 
 exports[`Block borders handles multiple border edges 1`] = `
 .emotion-0 {
+  border-color: #e1e4e8;
   border-right: 1px solid;
   border-left: 1px solid;
-  border-color: #e1e4e8;
 }
 
 <div
