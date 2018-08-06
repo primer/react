@@ -1,5 +1,5 @@
-import system, {LAYOUT} from './system-props'
+import {withSystemProps, LAYOUT} from './system-props'
 
-const Block = system(...LAYOUT)
+const Block =  withSystemProps('div', LAYOUT)
 
 export default Block
