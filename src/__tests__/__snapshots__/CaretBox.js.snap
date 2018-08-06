@@ -30,12 +30,12 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#fff"
+        fill="#d73a49"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#000"
+        stroke="#e1e4e8"
         strokeWidth={1}
       />
     </g>
@@ -78,7 +78,7 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#000"
+        stroke="#d73a49"
         strokeWidth={1}
       />
     </g>
@@ -121,7 +121,7 @@ exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#000"
+        stroke="#e1e4e8"
         strokeWidth={1}
       />
     </g>
