@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {themeGet} from 'styled-system'
-import {withSystemProps, COMMON} from './system-props'
+import Box from './Box'
+import {style} from 'styled-system'
+import {withDefaultTheme} from './system-props'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -17,14 +18,32 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
+function getEdgeAlign(location) {
+  const [edge, align] = location.split('-')
+  return [edge, align]
+}
+
+function getPosition(edge, align, spacing) {
+  const opposite = oppositeEdge[edge].toLowerCase()
+  const perp = perpendicularEdge[edge].toLowerCase()
+  return {
+    [opposite]: '100%',
+    [align || perp]: align ? spacing : '50%'
+  }
+}
+
+const getBg = style({prop: 'bg', key: 'colors'})
+const getBorderColor = style({prop: 'borderColor', key: 'colors'})
+const getBorderWidth = style({prop: 'borderWidth', key: 'borderWidths', scale: [0, 1]})
+const getSize = style({prop: 'size', key: 'space'})
+
 function Caret(props) {
-  const {bg: bgKey, borderColor: borderColorKey, borderWidth: borderWidthKey, location, size: sizeKey, className} = props
+  const {bg} = getBg(props)
+  const {borderColor} = getBorderColor(props)
+  const {borderWidth} = getBorderWidth(props)
+  const {size} = getSize(props)
 
-  const bg = themeGet(`colors.${bgKey}`, '#fff')(props)
-  const borderColor = themeGet(`colors.${borderColorKey}`, '#000')(props)
-  const borderWidth = themeGet(`borderWidths.${borderWidthKey}`, 1)(props)
-  const size = themeGet(`space.${sizeKey}`, 8)(props)
-
+  const {location} = props
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
 
@@ -56,7 +75,7 @@ function Caret(props) {
   }[edge]
 
   return (
-    <svg width={size * 2} className={className} height={size * 2} style={style}>
+    <svg width={size * 2} height={size * 2} style={style}>
       <g transform={transform}>
         <path d={triangle} fill={bg} />
         <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
@@ -81,33 +100,24 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: 'white',
+  bg: Box.defaultProps.bg,
+  borderColor: Box.defaultProps.borderColor,
   borderWidth: 1,
-  borderColor: 'gray.2',
   location: 'bottom',
-  size: 8
+  size: 2
 }
 
 Caret.propTypes = {
+  /* eslint-disable react/sort-prop-types  */
+  // eslint can't determine whether these props are used
+  // because they're accessed inside of styled-system.
+  /* eslint-disable react/no-unused-prop-types */
   bg: PropTypes.string,
   borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations),
-  size: PropTypes.number
+  size: PropTypes.number,
+  location: PropTypes.oneOf(Caret.locations)
+  /* eslint-enable */
 }
 
-function getEdgeAlign(location) {
-  const [edge, align] = location.split('-')
-  return [edge, align]
-}
-
-function getPosition(edge, align, spacing) {
-  const opposite = oppositeEdge[edge].toLowerCase()
-  const perp = perpendicularEdge[edge].toLowerCase()
-  return {
-    [opposite]: '100%',
-    [align || perp]: align ? spacing : '50%'
-  }
-}
-
-export default withSystemProps(Caret, COMMON)
+export default withDefaultTheme(Caret)

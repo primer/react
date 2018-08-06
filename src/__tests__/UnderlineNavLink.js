@@ -4,7 +4,11 @@ import {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
 import UnderlineNavLink from '../UnderlineNavLink'
 import {render, rendersClass} from '../utils/testing'
 
-describe('Caret', () => {
+describe('UnderlineNavLink', () => {
+  xit('is a system component', () => {
+    expect(UnderlineNavLink.systemComponent).toEqual(true)
+  })
+
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNavLink />).type).toEqual('a')
   })

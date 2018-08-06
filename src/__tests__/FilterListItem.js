@@ -5,6 +5,10 @@ import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('FilterListItem', () => {
+  it('is a system component', () => {
+    expect(FilterListItem.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(FilterListItem).toImplementSystemProps(COMMON)
   })
