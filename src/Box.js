@@ -1,5 +1,6 @@
 import React from 'react'
 import Block from './Block'
+import {withDefaultTheme} from './system-props'
 
 const Box = props => <Block {...props} />
 
@@ -10,6 +11,8 @@ Box.defaultProps = {
   borderRadius: 1
 }
 
-Box.propTypes = Block.propTypes
+Box.propTypes = {
+  ...Block.propTypes
+}
 
-export default Box
+export default withDefaultTheme(Box)
