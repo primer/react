@@ -3,6 +3,10 @@ import {CaretBox} from '..'
 import {render} from '../utils/testing'
 
 describe('CaretBox', () => {
+  it('is a system component', () => {
+    expect(CaretBox.systemComponent).toEqual(true)
+  })
+
   it('renders a <Caret> in <Box> with relative positioning', () => {
     expect(render(<CaretBox />)).toMatchSnapshot()
   })
