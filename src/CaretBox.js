@@ -2,13 +2,13 @@ import React from 'react'
 import Box from './Box'
 import Caret from './Caret'
 
-function CaretBox(props) {
+function CaretBox({position, ...rest}) {
   // don't destructure these, just grab them
-  const {bg, borderColor} = props
-  const {caret, children, ...rest} = props
-  const caretProps = {bg, borderColor, location: caret}
+  const {bg, border, borderColor} = rest
+  const {caret, children, ...boxProps} = rest
+  const caretProps = {bg, borderColor, borderWidth: border, location: caret}
   return (
-    <Box {...rest}>
+    <Box {...boxProps} css={{position}}>
       {children}
       <Caret {...caretProps} />
     </Box>
@@ -25,7 +25,7 @@ CaretBox.defaultProps = {
   position: 'relative'
 }
 
-// we can set this because it "inherits" all of Box's system props
+// we can set this because it "extends" Box implicitly
 CaretBox.systemComponent = true
 
 export default CaretBox
