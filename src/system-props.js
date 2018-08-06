@@ -1,75 +1,72 @@
-import styled from 'react-emotion'
-import {styles as system} from 'styled-system'
+import system from 'system-components/emotion'
+import {default as defaultTheme} from './theme'
 
-export {default as tag} from 'clean-tag'
-export default from 'system-components/emotion'
+export {system as default}
 
 export const COMMON = ['color', 'space']
 
 export const TYPOGRAPHY = COMMON.concat('fontFamily', 'fontWeight', 'lineHeight')
 
 export const LAYOUT = COMMON.concat(
-  'borders',
   'borderColor',
   'borderRadius',
+  'borders',
   'boxShadow',
   'display',
-  'size',
-  'width',
   'height',
-  'maxWidth',
   'maxHeight',
+  'maxWidth',
+  'minHeight',
   'minWidth',
-  'minHeight'
+  'size',
+  'width'
 )
 
 export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
 
 export const FLEX_CONTAINER = LAYOUT.concat(
-  'alignItems',
-  'justifyContent',
-  'flexWrap',
-  'flexDirection',
-  'flex',
   'alignContent',
-  'order',
-  'flexBasis'
+  'alignItems',
+  'flexWrap',
+  'flex',
+  'flexBasis',
+  'flexDirection',
+  'justifyContent',
+  'order'
 )
 
 export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
 
-export function getSystemProps(props) {
-  const unique = props.filter((p, i, a) => a.indexOf(p) === i)
-  return unique.map(prop => {
-    if (typeof system[prop] === 'function') {
-      return system[prop]
-    } else if (typeof prop === 'function') {
-      return prop
-    } else {
-      throw new Error(`Unknown system prop: "${prop}"`)
-    }
-  })
+export function isSystemComponent(Component) {
+  return (
+    Component.systemComponent === true || (Component.defaultProps && Array.isArray(Component.defaultProps.blacklist))
+  )
 }
 
-export function composeSystemProps(props) {
-  const funcs = getSystemProps(props)
-  const composed = props => funcs.reduce((p, fn) => fn(p), props)
-  composed.propTypes = getPropTypes(funcs)
-  return composed
-}
-
-export function getPropTypes(funcs) {
-  return funcs.reduce((types, func) => {
-    return Object.assign(types, func.propTypes)
-  }, {})
-}
-
-export function withSystemProps(Component, props) {
-  const funcs = getSystemProps(props)
-  const Wrapped = styled(Component)(...funcs)
-  Wrapped.propTypes = {
-    ...getPropTypes(funcs),
-    ...Component.propTypes
+export function withSystemProps(Component, props = COMMON) {
+  if (isSystemComponent(Component)) {
+    throw new Error(`${Component.name} is already a system component; can't call withSystemProps() on it`)
   }
-  return Wrapped
+
+  const Wrapped = system({is: Component}, ...props)
+  Object.assign(Wrapped.propTypes, Component.propTypes)
+
+  // Copy over non-system keys from components
+  // eg. Tooltip.js => Tooltip.directions Tooltip.alignments
+  for (const key of Object.keys(Component)) {
+    if (!Wrapped.hasOwnProperty(key)) {
+      Wrapped[key] = Component[key]
+    }
+  }
+
+  return withDefaultTheme(Wrapped)
+}
+
+export function withDefaultTheme(Component, theme = defaultTheme) {
+  if (Component.defaultProps) {
+    Component.defaultProps.theme = theme
+  } else {
+    Component.defaultProps = {theme}
+  }
+  return Component
 }

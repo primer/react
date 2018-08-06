@@ -6,6 +6,10 @@ import {colors} from '../theme'
 import {renderWithTheme as render} from '../utils/testing'
 
 describe('DonutChart', () => {
+  xit('is a system component', () => {
+    expect(DonutChart.systemComponent).toEqual(true)
+  })
+
   it('renders the data prop', () => {
     const donut = render(<DonutChart data={{error: 1}} />)
     expect(donut).toMatchSnapshot()

@@ -21,6 +21,10 @@ const theme = {
 }
 
 describe('Heading', () => {
+  it('is a system component', () => {
+    expect(Heading.systemComponent).toEqual(true)
+  })
+
   it('renders <h1> by default', () => {
     expect(render(<Heading />).type).toEqual('h1')
   })

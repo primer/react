@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar passes through the src prop 1`] = `
+<img
+  alt={undefined}
+  className="avatar avatar-small emotion-0"
+  height={20}
+  src="primer.png"
+  width={20}
+/>
+`;
+
+exports[`Avatar respects the size prop 1`] = `
+<img
+  alt="github"
+  className="avatar emotion-0"
+  height={40}
+  src={undefined}
+  width={40}
+/>
+`;
