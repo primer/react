@@ -1,4 +1,3 @@
-import styled from 'react-emotion'
 import system from 'system-components/emotion'
 import {default as defaultTheme} from './theme'
 
@@ -39,7 +38,9 @@ export const FLEX_CONTAINER = LAYOUT.concat(
 export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
 
 export function isSystemComponent(Component) {
-  return Component.systemComponent === true || Component.defaultProps && Array.isArray(Component.defaultProps.blacklist)
+  return (
+    Component.systemComponent === true || (Component.defaultProps && Array.isArray(Component.defaultProps.blacklist))
+  )
 }
 
 export function withSystemProps(Component, props = COMMON) {

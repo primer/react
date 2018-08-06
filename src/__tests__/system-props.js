@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {space, fontFamily} from 'styled-system'
+import {fontFamily} from 'styled-system'
 import {render} from '../utils/testing'
 import {withSystemProps} from '../system-props'
 

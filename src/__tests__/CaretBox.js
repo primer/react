@@ -1,5 +1,5 @@
 import React from 'react'
-import {theme, CaretBox} from '..'
+import {CaretBox} from '..'
 import {render} from '../utils/testing'
 
 describe('CaretBox', () => {

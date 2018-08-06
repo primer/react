@@ -2,7 +2,7 @@ import React from 'react'
 import {Check} from '@githubprimer/octicons-react'
 import theme, {colors} from '../theme'
 import CircleOcticon from '../CircleOcticon'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('CircleOcticon', () => {
   it('renders a <div> with width and height', () => {
