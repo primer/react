@@ -25,4 +25,7 @@ CaretBox.defaultProps = {
   position: 'relative'
 }
 
+// we can set this because it "inherits" all of Box's system props
+CaretBox.systemComponent = true
+
 export default CaretBox
