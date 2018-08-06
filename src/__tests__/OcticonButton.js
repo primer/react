@@ -7,6 +7,10 @@ const Circle = ({r = 8}) => <circle cx={r} cy={r} r={r} />
 Circle.size = [16, 16]
 
 describe('OcticonButton', () => {
+  it('is a system component', () => {
+    expect(OcticonButton.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(OcticonButton).toImplementSystemProps(COMMON)
   })

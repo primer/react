@@ -4,6 +4,10 @@ import {render, mount} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('TextInput', () => {
+  it('is a system component', () => {
+    expect(TextInput.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(TextInput).toImplementSystemProps(COMMON)
   })

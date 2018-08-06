@@ -21,6 +21,11 @@ describe('system props', () => {
       expect(render(<Wrapped />).type).toEqual('b')
     })
 
+    it('sets systemComponent = true', () => {
+      expect(withSystemProps('div').systemComponent).toEqual(true)
+      expect(withSystemProps({is: 'div'}).systemComponent).toEqual(true)
+    })
+
     const theme = {
       space: [0, '8px', '16px'],
       fonts: {

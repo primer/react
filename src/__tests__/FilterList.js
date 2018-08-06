@@ -4,6 +4,10 @@ import {render, rendersClass} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('FilterList', () => {
+  it('is a system component', () => {
+    expect(FilterList.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(FilterList).toImplementSystemProps(COMMON)
   })
