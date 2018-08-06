@@ -1,15 +1,12 @@
 import React from 'react'
-import Block from './Block'
+import {withSystemProps, LAYOUT} from './system-props'
 
-const Box = props => <Block {...props} />
-
-Box.defaultProps = {
+const Box = withSystemProps({
+  is: 'div',
   bg: 'white',
   border: 1,
   borderColor: 'gray.2',
   borderRadius: 1
-}
-
-Box.propTypes = Block.propTypes
+}, LAYOUT)
 
 export default Box
