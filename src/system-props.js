@@ -38,9 +38,16 @@ export const FLEX_CONTAINER = LAYOUT.concat(
 
 export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
 
-export function withSystemProps(Component, props = COMMON) {
-  const Wrapped = system({is: Component}, ...props)
+export function isSystemComponent(Component) {
+  return Component.systemComponent === true || Component.defaultProps && Array.isArray(Component.defaultProps.blacklist)
+}
 
+export function withSystemProps(Component, props = COMMON) {
+  if (isSystemComponent(Component)) {
+    throw new Error(`${Component.name} is already a system component; can't call withSystemProps() on it`)
+  }
+
+  const Wrapped = system({is: Component}, ...props)
   Object.assign(Wrapped.propTypes, Component.propTypes)
 
   // Copy over non-system keys from components
@@ -50,6 +57,7 @@ export function withSystemProps(Component, props = COMMON) {
       Wrapped[key] = Component[key]
     }
   }
+
   return withDefaultTheme(Wrapped)
 }
 
