@@ -54,10 +54,10 @@ describe('DonutChart', () => {
   })
 
   it('respects margin utility prop', () => {
-    expect(render(<DonutChart m={4} data={{error: 1}} />)).toHaveStyleRule('margin', `${theme.space[4]}.px`)
+    expect(render(<DonutChart m={4} data={{error: 1}} />)).toHaveStyleRule('margin', `${theme.space[4]}px`)
   })
 
   it('respects padding utility prop', () => {
-    expect(render(<DonutChart p={4} data={{error: 1}} />)).toHaveStyleRule('padding', `${theme.space[4]}.px`)
+    expect(render(<DonutChart p={4} data={{error: 1}} />)).toHaveStyleRule('padding', `${theme.space[4]}px`)
   })
 })
