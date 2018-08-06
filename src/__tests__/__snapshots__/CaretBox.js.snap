@@ -2,15 +2,15 @@
 
 exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
 .emotion-0 {
-  background-color: red.5;
-  border-color: gray.2;
-  border-radius: 1px;
+  position: relative;
+  background-color: #d73a49;
+  border-color: #e1e4e8;
+  border-radius: 3px;
   border: 1px solid;
 }
 
 <div
   className="emotion-0"
-  position="relative"
 >
   <svg
     height={16}
@@ -30,12 +30,12 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#fff"
+        fill="#d73a49"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#000"
+        stroke="#e1e4e8"
         strokeWidth={1}
       />
     </g>
@@ -45,15 +45,15 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
 
 exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = `
 .emotion-0 {
-  background-color: white;
-  border-color: red.5;
-  border-radius: 1px;
+  position: relative;
+  background-color: #fff;
+  border-color: #d73a49;
+  border-radius: 3px;
   border: 1px solid;
 }
 
 <div
   className="emotion-0"
-  position="relative"
 >
   <svg
     height={16}
@@ -78,7 +78,7 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#000"
+        stroke="#d73a49"
         strokeWidth={1}
       />
     </g>
@@ -88,15 +88,15 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
 
 exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
 .emotion-0 {
-  background-color: white;
-  border-color: gray.2;
-  border-radius: 1px;
+  position: relative;
+  background-color: #fff;
+  border-color: #e1e4e8;
+  border-radius: 3px;
   border: 1px solid;
 }
 
 <div
   className="emotion-0"
-  position="relative"
 >
   <svg
     height={16}
@@ -121,7 +121,7 @@ exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#000"
+        stroke="#e1e4e8"
         strokeWidth={1}
       />
     </g>
