@@ -3,6 +3,10 @@ import BranchName from '../BranchName'
 import {render, rendersClass} from '../utils/testing'
 
 describe('BranchName', () => {
+  xit('is a system component', () => {
+    expect(BranchName.systemComponent).toEqual(true)
+  })
+
   it('renders an <a> by default', () => {
     expect(render(<BranchName />).type).toEqual('a')
   })

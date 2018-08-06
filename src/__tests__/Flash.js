@@ -5,6 +5,10 @@ import {COMMON} from '../system-props'
 import {render} from '../utils/testing'
 
 describe('Flash', () => {
+  it('is a system component', () => {
+    expect(Flash.systemComponent).toEqual(true)
+  })
+
   it('implements common props', () => {
     expect(Flash).toImplementSystemProps(COMMON)
   })

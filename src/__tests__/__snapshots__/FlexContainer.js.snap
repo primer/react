@@ -90,7 +90,7 @@ exports[`FlexContainer respects responsive display 1`] = `
   display: flex;
 }
 
-@media screen and (min-width:40em) {
+@media screen and (min-width:544px) {
   .emotion-0 {
     display: -webkit-inline-box;
     display: -webkit-inline-flex;

@@ -3,6 +3,10 @@ import CounterLabel from '../CounterLabel'
 import {render, renderClasses, rendersClass} from '../utils/testing'
 
 describe('CounterLabel', () => {
+  xit('is a system component', () => {
+    expect(CounterLabel.systemComponent).toEqual(true)
+  })
+
   it('renders a <span> with the "Counter" class', () => {
     expect(render(<CounterLabel />)).toEqual(render(<span className="Counter" />))
   })
