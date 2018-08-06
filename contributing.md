@@ -34,75 +34,77 @@ const Block = withSystemProps('div', LAYOUT)
 ```
 
 ### Primer CSS components
-1. If you're just adding class names (e.g. for Primer CSS), you can pass the `className` prop to another component created with `withSystemProps()`, and it will be combined with any classes automatically:
+If you're just adding Primer CSS class names, you can pass the `className` prop to another component created with `withSystemProps()`, and it will be combined with any generated classes automatically:
 
-    ```jsx
-    import Box from './Box'
+```jsx
+import Box from './Box'
 
-    function FancyBox({flashing, ...rest}) {
-      return <Box className={flashing && 'Box--flashing'} {...rest} />
-    }
+function FancyBox({flashing, ...rest}) {
+  return <Box className={flashing && 'Box--flashing'} {...rest} />
+}
 
-    FancyBox.propTypes = {
-      flashing: PropTypes.bool,
-      // be sure to spread Box's prop-types
-      ...Box.propTypes
-    }
-    
-    FancyBox.defaultProps = {
-      ...Box.defaultProps
-    }
+FancyBox.propTypes = {
+  flashing: PropTypes.bool,
+  // be sure to spread Box's prop-types
+  ...Box.propTypes
+}
 
-    // if you don't spread defaultProps from another system component,
-    // you will need to wrap the export in withDefaultTheme()
-    export default FancyBox
-    ```
+FancyBox.defaultProps = {
+  ...Box.defaultProps
+}
 
-    Note that with this form, you can control whether users may pass additional `className` props to your component. If you want to allow this, it should be listed in `propTypes` and combined with your own classnames with the [classnames] package:
+// if you don't spread defaultProps from another system component,
+// you will need to wrap the export in withDefaultTheme()
+export default FancyBox
+```
 
-    ```jsx
-    import classnames from 'classnames'
-    import Box from './Box'
+> **⚠️ If you use this pattern, passing the component to `withSystemProps()` should throw an error because system-components has an issue (_TODO: ref_) with calling the underlying component render function twice.**
 
-    export default function FancyBox({flashing, className, ...rest}) {
-      const classes = classnames(className, flashing && 'Box--flashing')
-      return <Box className={classes} {...rest} />
-    }
+Note that with the above pattern, you can control whether users may pass additional `className` props to your component. If you want to allow this, it should be listed in `propTypes` and combined with your own classnames with the [classnames] package:
 
-    FancyBox.propTypes = {
-      className: PropTypes.string,
-      flashing: PropTypes.bool,
-      ...Box.propTypes
-    }
-    ```
+```jsx
+import classnames from 'classnames'
+import Box from './Box'
 
-1. Alternatively, you can create the component using `withSystemProps()`:
+export default function FancyBox({flashing, className, ...rest}) {
+  const classes = classnames(className, flashing && 'Box--flashing')
+  return <Box className={classes} {...rest} />
+}
 
-    ```jsx
-    import classnames from 'classnames'
-    import {withSystemProps, COMMON} from './system-props'
+FancyBox.propTypes = {
+  className: PropTypes.string,
+  flashing: PropTypes.bool,
+  ...Box.propTypes
+}
+```
 
-    const FancyBox = ({flashing, className, is: Tag, ...rest}) => {
-      return (
-      <Tag
-        className={classnames(className, flashing && 'Box--flashing')}
-        {...rest}
-      />
-      )
-    }
+Alternatively, you can create the component from scratch with `withSystemProps()` and pass it the same system props as the component you're rendering:
 
-    FancyBox.propTypes = {
-      flashing: PropTypes.bool
-    }
+```jsx
+import classnames from 'classnames'
+import {withSystemProps, LAYOUT} from './system-props'
 
-    export default withSystemProps(FancyBox, COMMON)
-    ```
+function FancyBox({flashing, className, is: Tag, ...rest}) {
+  return (
+    <Tag
+      className={classnames(className, flashing && 'Box--flashing')}
+      {...rest}
+    />
+  )
+}
 
-    In this case, you will need to deal explicitly with two props passed down from [emotion] and [system-components], respectively:
+FancyBox.propTypes = {
+  flashing: PropTypes.bool
+}
 
-    * `className`: You _must_ render this prop, otherwise **your component will
-      not be styled.**
-    * `is`: This is what allows your component to render with arbitrary elements, and even other components. If you don't respect this prop, you should `delete Component.propTypes.is` to signal that it's not available.
+export default withSystemProps(FancyBox, LAYOUT)
+```
+
+In this case, you will need to deal explicitly with two props passed down from [emotion] and [system-components], respectively:
+
+  * `className`: You _must_ render this prop, otherwise **your component will
+    not be styled.**
+  * `is`: This is what allows your component to render with arbitrary elements, and even other components. If you don't respect this prop, you should `delete Component.propTypes.is` to signal that it's not available.
 
 ## Glossary
 
