@@ -2,7 +2,11 @@ import React from 'react'
 import UnderlineNav from '../UnderlineNav'
 import {mount, render, rendersClass} from '../utils/testing'
 
-describe('Caret', () => {
+describe('UnderlineNav', () => {
+  xit('is a system component', () => {
+    expect(UnderlineNav.systemComponent).toEqual(true)
+  })
+
   it('renders a <nav>', () => {
     expect(render(<UnderlineNav />).type).toEqual('nav')
   })

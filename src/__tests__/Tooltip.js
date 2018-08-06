@@ -4,6 +4,10 @@ import {render, renderClasses, rendersClass} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('Tooltip', () => {
+  it('is a system component', () => {
+    expect(Tooltip.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(Tooltip).toImplementSystemProps(COMMON)
   })

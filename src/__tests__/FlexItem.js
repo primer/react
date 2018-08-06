@@ -5,6 +5,10 @@ import theme from '../theme'
 import {render} from '../utils/testing'
 
 describe('FlexItem', () => {
+  it('is a system component', () => {
+    expect(FlexItem.systemComponent).toEqual(true)
+  })
+
   it('implements FLEX_ITEM props', () => {
     expect(FlexItem).toImplementSystemProps(FLEX_ITEM)
   })

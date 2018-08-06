@@ -4,6 +4,10 @@ import Avatar from '../Avatar'
 import {render, renderClasses} from '../utils/testing'
 
 describe('Avatar', () => {
+  it('is a system component', () => {
+    expect(Avatar.systemComponent).toEqual(true)
+  })
+
   it('renders small by default', () => {
     expect(renderClasses(<Avatar />)).toContain('avatar-small')
   })

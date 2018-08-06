@@ -4,6 +4,10 @@ import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('StateLabel', () => {
+  it('is a system component', () => {
+    expect(StateLabel.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(StateLabel).toImplementSystemProps(COMMON)
   })

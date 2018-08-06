@@ -6,6 +6,10 @@ import {render, renderClasses} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('Link', () => {
+  it('is a system component', () => {
+    expect(Link.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(Link).toImplementSystemProps(COMMON)
   })

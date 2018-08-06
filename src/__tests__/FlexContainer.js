@@ -4,6 +4,10 @@ import {FLEX_CONTAINER} from '../system-props'
 import {render} from '../utils/testing'
 
 describe('FlexContainer', () => {
+  it('is a system component', () => {
+    expect(FlexContainer.systemComponent).toEqual(true)
+  })
+
   it('implements flex system props', () => {
     expect(FlexContainer).toImplementSystemProps(FLEX_CONTAINER)
   })

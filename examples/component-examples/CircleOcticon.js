@@ -8,7 +8,7 @@ const CircleOcticonExample = {
   element: (
     <div className="d-flex">
       <LiveEditor
-        code={`<CircleOcticon icon={Check} size={32} bg="green" color="white" />`}
+        code={`<CircleOcticon icon={Check} size={32} bg="green.5" color="white" />`}
         scope={{CircleOcticon, Check}}
       />
     </div>
