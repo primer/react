@@ -2,7 +2,7 @@
 
 exports[`StateLabel renders states as specific colors 1`] = `
 <span
-  className="State State--green"
+  className="emotion-0 State State--green"
 >
   <span
     className="d-flex m-1"
@@ -35,7 +35,7 @@ exports[`StateLabel renders states as specific colors 1`] = `
 
 exports[`StateLabel renders states as specific colors 2`] = `
 <span
-  className="State State--green"
+  className="emotion-0 State State--green"
 >
   <span
     className="d-flex m-1"
@@ -68,7 +68,7 @@ exports[`StateLabel renders states as specific colors 2`] = `
 
 exports[`StateLabel renders states as specific colors 3`] = `
 <span
-  className="State State--purple"
+  className="emotion-0 State State--purple"
 >
   <span
     className="d-flex m-1"
@@ -101,7 +101,7 @@ exports[`StateLabel renders states as specific colors 3`] = `
 
 exports[`StateLabel renders states as specific colors 4`] = `
 <span
-  className="State State--red"
+  className="emotion-0 State State--red"
 >
   <span
     className="d-flex m-1"
@@ -130,4 +130,40 @@ exports[`StateLabel renders states as specific colors 4`] = `
     </svg>
   </span>
 </span>
+`;
+
+exports[`StateLabel respects icon={false} 1`] = `
+<span
+  className="emotion-0 State State--green"
+/>
+`;
+
+exports[`StateLabel respects the scheme prop 1`] = `
+<span
+  className="emotion-0 State State--green"
+/>
+`;
+
+exports[`StateLabel respects the scheme prop 2`] = `
+<span
+  className="emotion-0 State State--red"
+/>
+`;
+
+exports[`StateLabel respects the scheme prop 3`] = `
+<span
+  className="emotion-0 State State--purple"
+/>
+`;
+
+exports[`StateLabel respects the small flag 1`] = `
+<span
+  className="emotion-0 State State--small"
+/>
+`;
+
+exports[`StateLabel respects the small flag 2`] = `
+<span
+  className="emotion-0 State"
+/>
 `;
