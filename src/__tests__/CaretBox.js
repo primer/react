@@ -8,10 +8,10 @@ describe('CaretBox', () => {
   })
 
   it('passes the "borderColor" prop to both <Box> and <Caret>', () => {
-    expect(render(<CaretBox borderColor="red.5" theme={theme} />)).toMatchSnapshot()
+    expect(render(<CaretBox borderColor="red.5" />)).toMatchSnapshot()
   })
 
   it('passes the "bg" prop to both <Box> and <Caret>', () => {
-    expect(render(<CaretBox bg="red.5" theme={theme} />)).toMatchSnapshot()
+    expect(render(<CaretBox bg="red.5" />)).toMatchSnapshot()
   })
 })
