@@ -5,6 +5,10 @@ import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('Block', () => {
+  it('is a system component', () => {
+    expect(Block.systemComponent).toEqual(true)
+  })
+
   it('implements layout system props', () => {
     expect(Block).toImplementSystemProps(COMMON)
     // FIXME

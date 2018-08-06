@@ -3,6 +3,10 @@ import Box from '../Box'
 import {renderClasses} from '../utils/testing'
 
 xdescribe('Box', () => {
+  it('is a system component', () => {
+    expect(Box.systemComponent).toEqual(true)
+  })
+
   const defaultClasses = ['border', 'bg-white', 'rounded-1']
   it('renders default classes', () => {
     expect(renderClasses(<Box />)).toEqual(defaultClasses)

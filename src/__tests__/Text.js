@@ -20,6 +20,10 @@ const theme = {
 }
 
 describe('Text', () => {
+  it('is a system component', () => {
+    expect(Text.systemComponent).toEqual(true)
+  })
+
   it('renders a <span> by default', () => {
     expect(render(<Text />).type).toEqual('span')
   })

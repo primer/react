@@ -1,25 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
-export default function Tooltip({children, direction, text, noDelay, align, wrap, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
-  return (
-    <span
-      aria-label={text}
-      className={classnames(
-        className,
-        'tooltipped',
-        `tooltipped-${direction}`,
-        align && `tooltipped-align-${align}-2`,
-        noDelay && 'tooltipped-no-delay',
-        wrap && 'tooltipped-multiline'
-      )}
-    >
-      {children}
-    </span>
+function Tooltip({direction, className, text, noDelay, align, wrap}) {
+  const classes = classnames(
+    className,
+    'tooltipped',
+    `tooltipped-${direction}`,
+    align && `tooltipped-align-${align}-2`,
+    noDelay && 'tooltipped-no-delay',
+    wrap && 'tooltipped-multiline'
   )
+  return <span aria-label={text} className={classes} />
 }
 
 Tooltip.alignments = ['left', 'right']
@@ -32,9 +25,10 @@ Tooltip.defaultProps = {
 
 Tooltip.propTypes = {
   align: PropTypes.oneOf(Tooltip.alignments),
-  children: PropTypes.node,
   direction: PropTypes.oneOf(Tooltip.directions),
   noDelay: PropTypes.bool,
   text: PropTypes.string,
   wrap: PropTypes.bool
 }
+
+export default withSystemProps(Tooltip, COMMON)

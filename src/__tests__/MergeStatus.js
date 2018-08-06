@@ -4,6 +4,10 @@ import {render, renderClasses} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('MergeStatus', () => {
+  it('is a system component', () => {
+    expect(MergeStatus.systemComponent).toEqual(true)
+  })
+
   it('implements common system props', () => {
     expect(MergeStatus).toImplementSystemProps(COMMON)
   })
