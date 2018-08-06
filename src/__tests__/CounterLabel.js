@@ -4,7 +4,7 @@ import {render, renderClasses, rendersClass} from '../utils/testing'
 
 describe('CounterLabel', () => {
   xit('is a system component', () => {
-    expect(CircleOcticon.systemComponent).toEqual(true)
+    expect(CounterLabel.systemComponent).toEqual(true)
   })
 
   it('renders a <span> with the "Counter" class', () => {
