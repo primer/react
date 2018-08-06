@@ -76,7 +76,7 @@ test coverage data is generated in the `coverage/` directory.
 ## Principles
 
 - Everything is a component.
-- Aim for total style encapsulation, don't rely on inheritance to provide default styles.
+- Aim for total style encapsulation; don't rely on inheritance to provide default styles.
 - Build small building blocks with minimal props to keep complexity low.
 - Keep system constrained by only including props needed per component.
 - Favor extending or wrapping components for more complex operations.
