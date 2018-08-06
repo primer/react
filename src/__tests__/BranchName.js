@@ -1,6 +1,7 @@
 import React from 'react'
 import BranchName from '../BranchName'
 import {render, rendersClass} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 describe('BranchName', () => {
   xit('is a system component', () => {
@@ -12,7 +13,7 @@ describe('BranchName', () => {
   })
 
   it('renders class="branch-name"', () => {
-    expect(render(<BranchName />).props.className).toEqual('branch-name')
+    expect(render(<BranchName />).props.className).toContain('branch-name')
   })
 
   it('respects the "tag" prop', () => {
@@ -23,11 +24,14 @@ describe('BranchName', () => {
     expect(render(<BranchName tag="span" href="#" />).props.href).toEqual(null)
   })
 
-  it('respects margin utility prop', () => {
+  xit('respects margin utility prop', () => {
     expect(rendersClass(<BranchName m={1} />, 'm-1')).toEqual(true)
   })
 
-  it('respects padding utility prop', () => {
+  xit('respects padding utility prop', () => {
     expect(rendersClass(<BranchName p={1} />, 'p-1')).toEqual(true)
+  })
+  it('implements common system props', () => {
+    expect(BranchName).toImplementSystemProps(COMMON)
   })
 })
