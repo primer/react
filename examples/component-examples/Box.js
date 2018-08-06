@@ -1,29 +1,41 @@
 import React from 'react'
-import {Box} from '../../src'
+import {LiveEditor} from '@compositor/kit'
+import {Box, Block} from '../../src'
 
 const BoxExample = {
   name: 'Box',
   element: (
     <div>
-      <Box m={2}>This is a box</Box>
-      <Box p={2} m={2}>
-        This is a box with padding.
-      </Box>
-      <Box shadow="small" p={2} m={2}>
-        This is a box with shadow.
-      </Box>
-      <Box shadow="medium" p={2} m={2}>
-        This is a box with a medium shadow.
-      </Box>
-      <Box shadow="large" p={2} m={2}>
-        This is a box with a large shadow.
-      </Box>
-      <Box shadow="extra-large" p={2} m={2}>
-        This is a box with an extra-large shadow.
-      </Box>
-      <Box borderColor="green" p={2} m={2}>
-        This is a box with a green border.
-      </Box>
+      <Block mb={6}>
+        <LiveEditor code={`<Box>This is a box</Box>`} scope={{Box}} />
+      </Block>
+      <Block mb={6}>
+        <LiveEditor code={`<Box p={2}>This is a box with padding.</Box>`} scope={{Box}} />
+      </Block>
+      <Block mb={6}>
+        <LiveEditor code={`<Box boxShadow="small" m={4} p={2}>This is a box with shadow.</Box>`} scope={{Box}} />
+      </Block>
+      <Block mb={6}>
+        <LiveEditor
+          code={`<Box boxShadow="medium" m={4} p={2}>This is a box with a medium shadow.</Box>`}
+          scope={{Box}}
+        />
+      </Block>
+      <Block mb={6}>
+        <LiveEditor
+          code={`<Box boxShadow="large" m={4} p={2}>This is a box with a large shadow.</Box>`}
+          scope={{Box}}
+        />
+      </Block>
+      <Block mb={6}>
+        <LiveEditor
+          code={`<Box boxShadow="extra-large" m={4} p={2}>This is a box with an extra-large shadow.</Box>`}
+          scope={{Box}}
+        />
+      </Block>
+      <Block mb={6}>
+        <LiveEditor code={`<Box borderColor="green.5" p={2}>This is a box with a green border.</Box>`} scope={{Box}} />
+      </Block>
     </div>
   )
 }

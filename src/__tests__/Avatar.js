@@ -1,34 +1,26 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Avatar from '../Avatar'
-import {render} from '../utils/testing'
+import {render, renderClasses} from '../utils/testing'
 
 describe('Avatar', () => {
+  it('is a system component', () => {
+    expect(Avatar.systemComponent).toEqual(true)
+  })
+
   it('renders small by default', () => {
-    expect(render(<Avatar />)).toEqual(render(<img className="avatar avatar-small" width={20} height={20} />))
+    expect(renderClasses(<Avatar />)).toContain('avatar-small')
   })
 
   it('respects the size prop', () => {
-    expect(render(<Avatar size={40} />)).toEqual(render(<img className="avatar" width={40} height={40} />))
+    expect(render(<Avatar size={40} alt="github" />)).toMatchSnapshot()
   })
 
   it('respects isChild', () => {
-    expect(render(<Avatar isChild />)).toEqual(
-      render(<img className="avatar avatar-small avatar-child" width={20} height={20} />)
-    )
+    expect(renderClasses(<Avatar isChild />)).toContain('avatar-child')
   })
 
   it('passes through the src prop', () => {
-    expect(render(<Avatar src="primer.png" />)).toEqual(
-      render(<img className="avatar avatar-small" src="primer.png" width={20} height={20} />)
-    )
-  })
-
-  it('respects margin utility prop', () => {
-    expect(render(<Avatar m={1} />)).toHaveClass('m-1')
-  })
-
-  it('respects padding utility prop', () => {
-    expect(render(<Avatar p={1} />)).toHaveClass('p-1')
+    expect(render(<Avatar src="primer.png" />)).toMatchSnapshot()
   })
 })

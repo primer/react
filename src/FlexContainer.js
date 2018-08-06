@@ -1,18 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Block from './Block'
-import {flex} from './mappers'
+import system, {FLEX_CONTAINER, withDefaultTheme} from './system-props'
 
-export default function FlexContainer(props) {
-  const {children, inline, ...rest} = flex(props)
-  if (!rest.display) {
-    rest.display = inline ? 'inline-flex' : 'flex'
-  }
-  return <Block {...rest}>{children}</Block>
-}
+const FlexContainer = system({is: 'div', display: 'flex'}, ...FLEX_CONTAINER)
 
-FlexContainer.propTypes = {
-  ...flex.propTypes,
-  children: PropTypes.node,
-  inline: PropTypes.bool
-}
+export default withDefaultTheme(FlexContainer)

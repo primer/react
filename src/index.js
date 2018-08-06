@@ -24,6 +24,8 @@ export {default as Dropdown} from './Dropdown'
 
 export {default as DonutChart} from './DonutChart'
 export {default as DonutSlice} from './DonutSlice'
+export {default as FilterList} from './FilterList'
+export {default as FilterListItem} from './FilterListItem'
 export {default as FlexContainer} from './FlexContainer'
 export {default as FlexItem} from './FlexItem'
 
@@ -42,5 +44,3 @@ export {default as StateLabel} from './StateLabel'
 
 export {default as UnderlineNav} from './UnderlineNav'
 export {default as UnderlineNavLink} from './UnderlineNavLink'
-
-export {default as StyleProvider} from './StyleProvider'

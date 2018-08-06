@@ -5,6 +5,10 @@ import {render, rendersClass} from '../utils/testing'
 function noop() {}
 
 describe('Button', () => {
+  xit('is a system component', () => {
+    expect(Button.systemComponent).toEqual(true)
+  })
+
   it('renders a <button>', () => {
     expect(render(<Button />)).toEqual(render(<button className="btn" type="button" />))
   })

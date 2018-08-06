@@ -1,39 +1,37 @@
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import createMapper from 'system-classnames'
-import {compose} from 'ramda'
 
 export const breakpoints = [null, 'sm', 'md', 'lg', 'xl']
 
-export function oneOrMoreOf(type) {
-  return PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
+export const oneOrMoreOf = type => PropTypes.oneOfType([type, PropTypes.arrayOf(type)])
+
+export const oneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
+
+const classPattern = (breakpoint, prop, value) => {
+  return (breakpoint ? [prop, breakpoint, value] : [prop, value]).join('-')
 }
 
-export const OneOrMoreNumbers = oneOrMoreOf(PropTypes.number)
-
-export function createResponsiveMapper(props, getter = classPattern, propTypes = null) {
+export const createMapperWithPropTypes = props => {
   const mapper = createMapper({
     breakpoints,
     props,
-    getter
+    getter: ({breakpoint, prop, value}) => {
+      return classPattern(breakpoint, prop, value)
+    }
   })
-  mapper.propTypes =
-    propTypes ||
-    props.reduce((types, prop) => {
-      types[prop] = OneOrMoreNumbers
-      return types
-    }, {})
+  mapper.propTypes = props.reduce((propTypes, prop) => {
+    propTypes[prop] = oneOrMoreNumbers
+    return propTypes
+  }, {})
   return mapper
 }
 
-export function composeWithPropTypes(...funcs) {
-  const composed = compose(...funcs)
-  composed.propTypes = [...funcs].filter(f => f.propTypes).reduce((acc, {propTypes}) => ({...acc, ...propTypes}), {})
-  return composed
-}
+export const marginProps = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my']
+export const paddingProps = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py']
+export const mapWhitespaceProps = createMapperWithPropTypes(marginProps.concat(paddingProps))
 
-export function stylizer(propsToPass, propTypes) {
-  const mapper = props => {
+export function stylizer(propsToPass) {
+  return props => {
     const copy = {...props}
     copy.style = propsToPass.reduce((acc, prop) => {
       if (prop in props) {
@@ -44,33 +42,4 @@ export function stylizer(propsToPass, propTypes) {
     }, props.style || {})
     return copy
   }
-  mapper.propTypes = propTypes || {
-    ...propsToPass.reduce((types, prop) => {
-      types[prop] = PropTypes.number
-      return types
-    }, {})
-  }
-  return mapper
-}
-
-export function classPattern({breakpoint, prop, value}) {
-  return breakpoint ? [prop, breakpoint, value].join('-') : [prop, value].join('-')
-}
-
-export function createClassMapper(prop, mapValue, propType) {
-  const mapper = props => {
-    if (defined(props[prop])) {
-      const {className, [prop]: value, ...rest} = props
-      const classes = mapValue(value)
-      return {className: classnames(className, classes), ...rest}
-    } else {
-      return props
-    }
-  }
-  mapper.propTypes = {[prop]: propType}
-  return mapper
-}
-
-function defined(val) {
-  return val !== null && typeof val !== 'undefined'
 }

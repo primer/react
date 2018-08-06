@@ -1,10 +1,10 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import {spacing} from './mappers'
+import {mapWhitespaceProps} from './props'
 
 function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...rest}) {
-  const {className} = spacing(rest)
+  const {className} = mapWhitespaceProps(rest)
   const classes = classnames(
     className,
     {

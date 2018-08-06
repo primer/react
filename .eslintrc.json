@@ -5,6 +5,6 @@
     "plugin:jsx-a11y/recommended"
   ],
   "rules": {
-    "no-unused-vars": ["error", {"args": "after-used"}]
+    "import/no-namespace": "warn"
   }
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@githubprimer/octicons-react'
 import classnames from 'classnames'
 import {colors} from './theme'
-import {spacing} from './mappers'
+import {withSystemProps, COMMON} from './system-props'
 
 const stateColorMap = {
   open: 'green',
@@ -37,8 +37,7 @@ function getIconComponent(icon, children) {
   return null
 }
 
-const StateLabel = ({state, scheme, icon, small, children, ...rest}) => {
-  const {className} = spacing(rest)
+function StateLabel({state, className, scheme, icon, small, children}) {
   if (icon !== false) {
     icon = icon || getOcticon(state)
   }
@@ -49,18 +48,17 @@ const StateLabel = ({state, scheme, icon, small, children, ...rest}) => {
     styleProps.style = {backgroundColor: colors.yellow[7]}
   }
   const iconComponent = getIconComponent(icon, children)
+  const classes = classnames(
+    className,
+    'State',
+    {
+      'State--small': small
+    },
+    color && color !== 'yellow' ? `State--${color}` : null
+  )
+
   return (
-    <span
-      className={classnames(
-        className,
-        'State',
-        {
-          'State--small': small
-        },
-        color && color !== 'yellow' ? `State--${color}` : null
-      )}
-      {...styleProps}
-    >
+    <span className={classes} {...styleProps}>
       {iconComponent}
       {children}
     </span>
@@ -75,4 +73,4 @@ StateLabel.propTypes = {
   state: PropTypes.oneOf(Object.keys(stateOcticonMap))
 }
 
-export default StateLabel
+export default withSystemProps(StateLabel, COMMON)

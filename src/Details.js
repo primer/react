@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {mapWhitespaceProps} from './props'
 
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
@@ -22,7 +22,7 @@ export default class Details extends React.Component {
   }
 
   render() {
-    const {className, children, render = getRenderer(children), ...rest} = spacing(this.props)
+    const {className, children, render = getRenderer(children), ...rest} = mapWhitespaceProps(this.props)
     const {open} = this.state
 
     return (

@@ -1,41 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {withSystemProps, COMMON} from './system-props'
 
-const TextInput = ({
-  autocomplete,
-  onChange,
-  block,
-  disabled,
-  id,
-  name,
-  placeholder,
-  required,
-  size,
-  value,
-  ...rest
-}) => {
-  const {className} = spacing(rest)
-  return (
-    <input
-      aria-label={placeholder}
-      autoComplete={autocomplete}
-      onChange={onChange}
-      className={classnames(className, 'form-control', {
-        'input-block': block,
-        'input-sm': size === 'small',
-        'input-lg': size === 'large'
-      })}
-      disabled={disabled}
-      id={id}
-      name={name}
-      placeholder={placeholder}
-      required={required}
-      type="text"
-      value={value}
-    />
-  )
+function TextInput({autocomplete, block, className, disabled, id, name, onChange, placeholder, required, size, value}) {
+  const classes = classnames(className, 'form-control', {
+    'input-block': block,
+    'input-sm': size === 'small',
+    'input-lg': size === 'large'
+  })
+  const inputProps = {
+    className: classes,
+    'aria-label': placeholder,
+    autoComplete: autocomplete,
+    onChange,
+    disabled,
+    id,
+    name,
+    placeholder,
+    required,
+    value,
+    type: 'text'
+  }
+  return <input {...inputProps} />
 }
 
 TextInput.propTypes = {
@@ -51,4 +38,4 @@ TextInput.propTypes = {
   value: PropTypes.string
 }
 
-export default TextInput
+export default withSystemProps(TextInput, COMMON)

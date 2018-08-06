@@ -4,7 +4,11 @@ import {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
 import UnderlineNavLink from '../UnderlineNavLink'
 import {render, rendersClass} from '../utils/testing'
 
-describe('Caret', () => {
+describe('UnderlineNavLink', () => {
+  xit('is a system component', () => {
+    expect(UnderlineNavLink.systemComponent).toEqual(true)
+  })
+
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNavLink />).type).toEqual('a')
   })
@@ -16,6 +20,16 @@ describe('Caret', () => {
 
   it('respects the "selected" prop', () => {
     expect(render(<UnderlineNavLink selected />)).toEqual(render(<a className={`${ITEM_CLASS} ${SELECTED_CLASS}`} />))
+  })
+
+  it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
+    const Mock = jest.fn(() => <div />)
+    render(<UnderlineNavLink tag={Mock} to="#" />)
+    expect(Mock.mock.calls[0][0]).toEqual({
+      to: '#',
+      className: 'UnderlineNav-item no-underline',
+      activeClassName: 'selected'
+    })
   })
 
   it('respects margin utility prop', () => {

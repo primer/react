@@ -7,6 +7,10 @@ const imgOutput = <img className="CircleBadge-icon" alt="" src="primer.jpg" />
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
+  xit('is a system component', () => {
+    expect(CircleBadge.systemComponent).toEqual(true)
+  })
+
   it('renders medium by default', () => {
     expect(rendersClass(<CircleBadge />, 'CircleBadge--medium')).toEqual(true)
   })

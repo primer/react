@@ -1,4 +1,13 @@
-const {stringify} = JSON
+import {createMatchers, createSerializer} from 'jest-emotion'
+import * as emotion from 'emotion'
+import * as systemProps from 'styled-system'
+
+expect.extend(createMatchers(emotion))
+expect.addSnapshotSerializer(createSerializer(emotion))
+
+const stringify = d => JSON.stringify(d, null, '  ')
+
+const ALIAS_PROP_TYPES = ['w', 'align', 'justify', 'wrap']
 
 expect.extend({
   toHaveClass(node, klass) {
@@ -16,6 +25,19 @@ expect.extend({
     return {
       pass,
       message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`
+    }
+  },
+
+  toImplementSystemProps(Component, propNames) {
+    const propKeys = new Set(Object.keys(Component.propTypes))
+    const expectedPropKeys = propNames.reduce((list, name) => {
+      const fn = systemProps[name]
+      return list.concat(Object.keys(fn.propTypes))
+    }, [])
+    const missing = expectedPropKeys.filter(key => !propKeys.has(key)).filter(key => !ALIAS_PROP_TYPES.includes(key))
+    return {
+      pass: missing.length === 0,
+      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
     }
   }
 })

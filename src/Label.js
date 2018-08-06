@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {spacing} from './mappers'
+import {withSystemProps} from './system-props'
 
 const colorScheme = (scheme, outline) => {
   if (outline) {
@@ -18,17 +18,14 @@ const colorScheme = (scheme, outline) => {
   }
 }
 
-export default function Label({outline, scheme, children, ...rest}) {
-  const {className} = spacing(rest)
-  return (
-    <span className={classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))}>
-      {children}
-    </span>
-  )
+function Label({className, outline, scheme, ...rest}) {
+  const classes = classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))
+  return <span className={classes} {...rest} />
 }
 
 Label.propTypes = {
-  children: PropTypes.node,
   outline: PropTypes.bool,
   scheme: PropTypes.oneOf(['gray', 'gray-darker', 'green', 'orange'])
 }
+
+export default withSystemProps(Label, ['space'])
