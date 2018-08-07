@@ -19,11 +19,9 @@ class Details extends React.Component {
 
   render() {
     const {className, children, render = getRenderer(children), ...rest} = this.props
-    // XXX this guards against "double renders" in system-components
-    if (rest.is) {
-      console.warn(`<Details is={${rest.is}}>`)
-      delete rest.is
-    }
+    // XXX this guards against "double renders" in system-components,
+    // and prevents prop type warnings for the HTML is attribute
+    delete rest.is
     const {open} = this.state
 
     return (
