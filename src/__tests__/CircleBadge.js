@@ -12,23 +12,15 @@ describe('CircleBadge', () => {
   })
 
   it('renders medium by default', () => {
-    expect(rendersClass(<CircleBadge />, 'CircleBadge--medium')).toEqual(true)
+    expect(render(<CircleBadge size="medium" />).props.className).toContain('CircleBadge--medium')
   })
 
   it('respects "is" prop', () => {
-    expect(
-      render(
-        <CircleBadge is="a" href="https://github.com">
-          {imgInput}
-        </CircleBadge>
-      )
-    ).toEqual(
-      render(
-        <a className="CircleBadge CircleBadge--medium" href="https://github.com">
-          {imgOutput}
-        </a>
-      )
+    const item = render(
+      <CircleBadge is="a"/>
     )
+    expect(item.type).toEqual('a')
+    expect(item).toMatchSnapshot()
   })
 
   it('applies title', () => {
