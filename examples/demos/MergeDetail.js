@@ -4,10 +4,10 @@ import {Check} from '@githubprimer/octicons-react'
 import {Block, CircleOcticon, Text} from '../../src'
 
 const stateColorMap = {
-  ready: 'green',
+  ready: 'green.5',
   invalid: 'invalid',
-  merged: 'purple',
-  pending: 'yellow'
+  merged: 'purple.5',
+  pending: 'yellow.5'
 }
 
 const MergeDetail = ({state}) => {
