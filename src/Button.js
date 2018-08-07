@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {withSystemProps, COMMON} from './system-props'
 
 function Button({
-  tag: Tag = 'button',
+  is: Tag,
   children,
   size,
   block,
@@ -36,6 +36,10 @@ function Button({
   )
 }
 
+Button.defaultProps = {
+  is: 'button'
+}
+
 Button.propTypes = {
   block: PropTypes.bool,
   children: PropTypes.node,
@@ -45,7 +49,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   scheme: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'large']),
-  tag: PropTypes.oneOf(['button', 'a', 'summary'])
+  is: PropTypes.oneOf(['button', 'a', 'summary'])
 }
 
 export default withSystemProps(Button, COMMON)
