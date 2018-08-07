@@ -15,10 +15,10 @@ describe('CircleBadge', () => {
     expect(rendersClass(<CircleBadge />, 'CircleBadge--medium')).toEqual(true)
   })
 
-  it('respects tag prop', () => {
+  it('respects "is" prop', () => {
     expect(
       render(
-        <CircleBadge tag="a" href="https://github.com">
+        <CircleBadge is="a" href="https://github.com">
           {imgInput}
         </CircleBadge>
       )
@@ -34,7 +34,7 @@ describe('CircleBadge', () => {
   it('applies title', () => {
     expect(
       render(
-        <CircleBadge tag="a" title="primer logo">
+        <CircleBadge is="a" title="primer logo">
           {imgInput}
         </CircleBadge>
       ).props['title']
@@ -66,12 +66,5 @@ describe('CircleBadge', () => {
       </CircleBadge>
     )
     expect(comp.find('img').hasClass('primer')).toEqual(true)
-  })
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<CircleBadge m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<CircleBadge p={4} />, 'p-4')).toEqual(true)
   })
 })
