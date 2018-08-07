@@ -4,9 +4,9 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
 .emotion-0 {
   position: relative;
   background-color: #d73a49;
+  border: 1px solid;
   border-color: #e1e4e8;
   border-radius: 3px;
-  border: 1px solid;
 }
 
 <div
@@ -47,9 +47,9 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
 .emotion-0 {
   position: relative;
   background-color: #fff;
+  border: 1px solid;
   border-color: #d73a49;
   border-radius: 3px;
-  border: 1px solid;
 }
 
 <div
@@ -90,9 +90,9 @@ exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
 .emotion-0 {
   position: relative;
   background-color: #fff;
+  border: 1px solid;
   border-color: #e1e4e8;
   border-radius: 3px;
-  border: 1px solid;
 }
 
 <div

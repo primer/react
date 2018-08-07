@@ -24,7 +24,7 @@ exports[`FilterListItem adds activeClassName={SELECTED_CLASS} when it gets a "to
       "py",
     ]
   }
-  className="filter-item filter-item emotion-0"
+  className="filter-item emotion-0"
   tag={[MockFunction]}
   to="#"
 />
@@ -53,7 +53,7 @@ exports[`FilterListItem renders the given "tag" prop 1`] = `
       "py",
     ]
   }
-  className="filter-item filter-item emotion-0"
+  className="filter-item emotion-0"
   tag={[Function]}
 />
 `;
@@ -81,6 +81,6 @@ exports[`FilterListItem respects the "selected" prop 1`] = `
       "py",
     ]
   }
-  className="filter-item filter-item selected emotion-0"
+  className="filter-item selected emotion-0"
 />
 `;

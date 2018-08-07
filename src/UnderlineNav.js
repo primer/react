@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
 export const ITEM_CLASS = 'UnderlineNav-item no-underline'
 export const SELECTED_CLASS = 'selected'
 
-export default function UnderlineNav({actions, align, children, full, label, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+function UnderlineNav({actions, className, align, children, full, label}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
     <nav className={classes} aria-label={label}>
@@ -28,3 +27,5 @@ UnderlineNav.propTypes = {
   full: PropTypes.bool,
   label: PropTypes.string
 }
+
+export default withSystemProps(UnderlineNav, COMMON)

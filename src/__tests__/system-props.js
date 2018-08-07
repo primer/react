@@ -50,5 +50,33 @@ describe('system props', () => {
       expect(result).toHaveStyleRule('font-family', theme.fonts.sans)
       expect(result).toHaveStyleRule('margin', theme.space[2])
     })
+
+    describe('double-renders of "is" prop', () => {
+      it('guards withSystemProps(Component)', () => {
+        const Component = ({is: Tag = 'div', ...rest}) => <Tag {...rest} />
+        const Wrapped = withSystemProps(Component, ['space'])
+        expect(render(<Wrapped />).type).toEqual('div')
+        expect(render(<Wrapped is="span" />).type).toEqual('span')
+        expect(render(<Wrapped is={Wrapped} />).type).toEqual('div')
+      })
+
+      it('guards withSystemProps({is: Component})', () => {
+        const Component = ({is: Tag = 'div', ...rest}) => <Tag {...rest} />
+        const Wrapped = withSystemProps({is: Component}, ['space'])
+        expect(render(<Wrapped />).type).toEqual('div')
+        expect(render(<Wrapped is="span" />).type).toEqual('span')
+        expect(render(<Wrapped is={Wrapped} />).type).toEqual('div')
+      })
+
+      it('guards withSystemProps(Component) with Component.defaultProps.is', () => {
+        const Component = ({is: Tag, ...rest}) => <Tag {...rest} />
+        Component.defaultProps = {is: 'b'}
+        const Wrapped = withSystemProps(Component, ['space'])
+        expect(render(<Wrapped />).type).toEqual('b')
+        expect(render(<Wrapped is="a" />).type).toEqual('a')
+        expect(render(<Wrapped is={Wrapped} />).type).toEqual('b')
+        delete Component.defaultProps
+      })
+    })
   })
 })

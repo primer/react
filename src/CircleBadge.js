@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
 const ICON_CLASS = 'CircleBadge-icon'
 
-const CircleBadge = ({tag: Tag = 'div', size = 'medium', bg, children, ...rest}) => {
-  const {className} = mapWhitespaceProps(rest)
+const CircleBadge = ({is: Tag = 'div', size = 'medium', bg, children, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
@@ -29,4 +28,4 @@ CircleBadge.propTypes = {
   src: PropTypes.string
 }
 
-export default CircleBadge
+export default withSystemProps(CircleBadge, COMMON)

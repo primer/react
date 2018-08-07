@@ -1,16 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`system props withSystemProps() applies multiple theme values 1`] = `
-.emotion-0 {
-  font-family: Helvetica,Verdana,sans-serif;
-  margin: 16px;
-}
-
+exports[`UnderlineNavLink renders the given "tag" prop 1`] = `
 <b
   blacklist={
     Array [
       "css",
-      "fontFamily",
+      "color",
+      "bg",
       "m",
       "mt",
       "mr",
@@ -27,21 +23,17 @@ exports[`system props withSystemProps() applies multiple theme values 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
-  fontFamily="sans"
-  m={2}
+  className="UnderlineNav-item no-underline emotion-0"
 />
 `;
 
-exports[`system props withSystemProps() applies one theme value 1`] = `
-.emotion-0 {
-  margin: 16px;
-}
-
-<b
+exports[`UnderlineNavLink respects the "selected" prop 1`] = `
+<a
   blacklist={
     Array [
       "css",
+      "color",
+      "bg",
       "m",
       "mt",
       "mr",
@@ -58,7 +50,6 @@ exports[`system props withSystemProps() applies one theme value 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
-  m={2}
+  className="UnderlineNav-item no-underline selected emotion-0"
 />
 `;
