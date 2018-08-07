@@ -4,6 +4,10 @@ import Details from '../Details'
 import {mount, render, rendersClass} from '../utils/testing'
 
 describe('Details', () => {
+  xit('is a system component', () => {
+    expect(Details.systemComponent).toEqual(true)
+  })
+
   it('Renders a <details> element with reset class', () => {
     expect(render(<Details />)).toEqual(render(<details open={false} className="details-reset" />))
   })

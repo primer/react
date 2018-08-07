@@ -4,6 +4,10 @@ import Label from '../Label'
 import {render} from '../utils/testing'
 
 describe('Label', () => {
+  it('is a system component', () => {
+    expect(Label.systemComponent).toEqual(true)
+  })
+
   it('renders a <span>', () => {
     expect(render(<Label />).type).toEqual('span')
   })

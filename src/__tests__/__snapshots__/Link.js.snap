@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link passes href down to link element 1`] = `
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 text-blue"
+  href="https://github.com"
+  is={[Function]}
+/>
+`;
+
+exports[`Link renders margin 1`] = `
+.emotion-0 {
+  margin: 4px;
+}
+
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 text-blue"
+  is={[Function]}
+  m={1}
+/>
+`;
+
+exports[`Link renders margin 2`] = `
+.emotion-0 {
+  margin: 0px;
+}
+
+@media screen and (min-width:544px) {
+  .emotion-0 {
+    margin: 4px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .emotion-0 {
+    margin: 8px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .emotion-0 {
+    margin: 16px;
+  }
+}
+
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 text-blue"
+  is={[Function]}
+  m={
+    Array [
+      0,
+      1,
+      2,
+      3,
+    ]
+  }
+/>
+`;
+
+exports[`Link renders margin 3`] = `
+.emotion-0 {
+  margin: 4px;
+}
+
+@media screen and (min-width:544px) {
+  .emotion-0 {
+    margin: 4px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .emotion-0 {
+    margin: 4px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .emotion-0 {
+    margin: 16px;
+  }
+}
+
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 text-blue"
+  is={[Function]}
+  m={
+    Array [
+      1,
+      1,
+      1,
+      3,
+    ]
+  }
+/>
+`;
+
+exports[`Link renders without any props 1`] = `
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 text-blue"
+  is={[Function]}
+/>
+`;
