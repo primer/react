@@ -2,6 +2,7 @@
 
 exports[`Caret renders cardinal directions 1`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -33,6 +34,7 @@ exports[`Caret renders cardinal directions 1`] = `
 
 exports[`Caret renders cardinal directions 2`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -64,6 +66,7 @@ exports[`Caret renders cardinal directions 2`] = `
 
 exports[`Caret renders cardinal directions 3`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -95,6 +98,7 @@ exports[`Caret renders cardinal directions 3`] = `
 
 exports[`Caret renders cardinal directions 4`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -126,6 +130,7 @@ exports[`Caret renders cardinal directions 4`] = `
 
 exports[`Caret renders cardinal directions 5`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -157,6 +162,7 @@ exports[`Caret renders cardinal directions 5`] = `
 
 exports[`Caret renders cardinal directions 6`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -188,6 +194,7 @@ exports[`Caret renders cardinal directions 6`] = `
 
 exports[`Caret renders cardinal directions 7`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -219,6 +226,7 @@ exports[`Caret renders cardinal directions 7`] = `
 
 exports[`Caret renders cardinal directions 8`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -250,6 +258,7 @@ exports[`Caret renders cardinal directions 8`] = `
 
 exports[`Caret renders cardinal directions 9`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -281,6 +290,7 @@ exports[`Caret renders cardinal directions 9`] = `
 
 exports[`Caret renders cardinal directions 10`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -312,6 +322,7 @@ exports[`Caret renders cardinal directions 10`] = `
 
 exports[`Caret renders cardinal directions 11`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {
@@ -343,6 +354,7 @@ exports[`Caret renders cardinal directions 11`] = `
 
 exports[`Caret renders cardinal directions 12`] = `
 <svg
+  className={undefined}
   height={16}
   style={
     Object {

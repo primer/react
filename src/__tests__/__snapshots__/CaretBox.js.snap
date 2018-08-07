@@ -13,6 +13,7 @@ exports[`CaretBox passes the "bg" prop to both <Box> and <Caret> 1`] = `
   className="emotion-0"
 >
   <svg
+    className={undefined}
     height={16}
     style={
       Object {
@@ -56,6 +57,7 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
   className="emotion-0"
 >
   <svg
+    className={undefined}
     height={16}
     style={
       Object {
@@ -99,6 +101,7 @@ exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
   className="emotion-0"
 >
   <svg
+    className={undefined}
     height={16}
     style={
       Object {
