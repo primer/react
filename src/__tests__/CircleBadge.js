@@ -3,7 +3,6 @@ import React from 'react'
 import CircleBadge from '../CircleBadge'
 import {render, rendersClass, mount} from '../utils/testing'
 
-const imgOutput = <img className="CircleBadge-icon" alt="" src="primer.jpg" />
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
@@ -16,9 +15,7 @@ describe('CircleBadge', () => {
   })
 
   it('respects "is" prop', () => {
-    const item = render(
-      <CircleBadge is="a"/>
-    )
+    const item = render(<CircleBadge is="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
   })
