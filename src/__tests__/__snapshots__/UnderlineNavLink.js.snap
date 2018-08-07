@@ -24,7 +24,6 @@ exports[`UnderlineNavLink renders the given "tag" prop 1`] = `
     ]
   }
   className="UnderlineNav-item no-underline emotion-0"
-  is={[Function]}
 />
 `;
 
@@ -52,6 +51,5 @@ exports[`UnderlineNavLink respects the "selected" prop 1`] = `
     ]
   }
   className="UnderlineNav-item no-underline selected emotion-0"
-  is={[Function]}
 />
 `;
