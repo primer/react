@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
-export default function CounterLabel({theme, children, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
-  return <span className={classnames(className, 'Counter', theme && `Counter--${theme}`)}>{children}</span>
+
+function CounterLabel({scheme, children, className, ...rest}) {
+  return <span className={classnames(className, 'Counter', scheme && `Counter--${scheme}`)}>{children}</span>
 }
 
 CounterLabel.propTypes = {
   children: PropTypes.node,
-  theme: PropTypes.oneOf(['gray', 'gray-light'])
+  scheme: PropTypes.oneOf(['gray', 'gray-light'])
 }
+
+export default withSystemProps(CounterLabel, COMMON)
