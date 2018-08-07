@@ -25,7 +25,8 @@ CircleBadge.propTypes = {
   alt: PropTypes.string,
   bg: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  src: PropTypes.string
+  src: PropTypes.string,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 }
 
 export default withSystemProps(CircleBadge, COMMON)
