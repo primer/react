@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Caret renders the given "is" prop 1`] = `
-<b
-  className="UnderlineNav-item no-underline emotion-0"
-/>
-`;
-
 exports[`Caret renders the given "tag" prop 1`] = `
 <b
   className="UnderlineNav-item no-underline emotion-0"
