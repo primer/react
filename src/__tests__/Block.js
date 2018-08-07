@@ -1,7 +1,7 @@
 import React from 'react'
 import Block from '../Block'
 import theme from '../theme'
-import {mount, render} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON, LAYOUT} from '../system-props'
 
 const {breakpoints, space} = theme

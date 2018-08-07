@@ -81,7 +81,7 @@ function getComputedStyles(classes) {
       } else if (rule.type === 4) {
         readMedia(rule)
       } else {
-        console.warn('rule.type =', rule.type)
+        // console.warn('rule.type =', rule.type)
       }
     }
   }
