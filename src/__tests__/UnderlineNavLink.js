@@ -4,7 +4,7 @@ import UnderlineNavLink from '../UnderlineNavLink'
 import {render} from '../utils/testing'
 
 describe('UnderlineNavLink', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(UnderlineNavLink.systemComponent).toEqual(true)
   })
 
@@ -26,9 +26,5 @@ describe('UnderlineNavLink', () => {
     render(<UnderlineNavLink tag={Mock} to="#" />)
     expect(Mock.mock.calls[0][0].to).toEqual('#')
     expect(Mock.mock.calls[0][0].activeClassName).toEqual('selected')
-  })
-
-  it('has the right displayName', () => {
-    expect(UnderlineNavLink.displayName).toEqual('UnderlineNavLink')
   })
 })
