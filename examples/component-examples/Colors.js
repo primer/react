@@ -12,17 +12,17 @@ const ColorsExample = {
         </div>
       ))}
       <div className="d-flex">
-        <Block bg="blue" p={4} m={1} />
-        <Block bg="green" p={4} m={1} />
-        <Block bg="purple" p={4} m={1} />
-        <Block bg="yellow" p={4} m={1} />
-        <Block bg="red" p={4} m={1} />
-        <Block bg="white" p={4} m={1} border />
-        <Block bg="gray" p={4} m={1} />
-        <Block bg="gray-light" p={4} m={1} />
-        <Block bg="blue-light" p={4} m={1} />
-        <Block bg="purple-light" p={4} m={1} />
-        <Block bg="red-light" p={4} m={1} />
+        <Block bg="blue.5" p={4} m={1}/>
+        <Block bg="green.5" p={4} m={1} />
+        <Block bg="purple.5" p={4} m={1} />
+        <Block bg="yellow.5" p={4} m={1} />
+        <Block bg="red.5" p={4} m={1} />
+        <Block bg="white" p={4} m={1} border={1} />
+        <Block bg="gray.5" p={4} m={1} />
+        <Block bg="gray.0" p={4} m={1} />
+        <Block bg="blue.0" p={4} m={1} />
+        <Block bg="purple.0" p={4} m={1} />
+        <Block bg="red.0" p={4} m={1} />
       </div>
     </div>
   )
