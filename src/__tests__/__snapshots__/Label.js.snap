@@ -26,7 +26,6 @@ exports[`Label respects margin utility prop 1`] = `
     ]
   }
   className="emotion-0 Label Label--gray"
-  is={[Function]}
   m={4}
 />
 `;
@@ -57,7 +56,6 @@ exports[`Label respects padding utility prop 1`] = `
     ]
   }
   className="emotion-0 Label Label--gray"
-  is={[Function]}
   p={4}
 />
 `;
