@@ -14,7 +14,15 @@ const colors = {
   yellow,
   blackfade15: 'rgba(27, 31, 35, 0.15)',
   blackfade20: 'rgba(27, 31, 35, 0.20)',
-  whitefade15: 'rgba(255, 255, 255, 0.15)'
+  whitefade15: 'rgba(255, 255, 255, 0.15)',
+  state: {
+    error: red[5],
+    failure: red[5],
+    pending: yellow[7],
+    queued: yellow[7],
+    success: green[5],
+    unknown: gray[4]
+  }
 }
 
 const theme = {
