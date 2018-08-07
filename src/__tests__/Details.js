@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import Details from '../Details'
-import {mount, render, rendersClass} from '../utils/testing'
+import {mount, render} from '../utils/testing'
 
 describe('Details', () => {
   it('is a system component', () => {
