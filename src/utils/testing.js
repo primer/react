@@ -1,6 +1,9 @@
+import React from 'react'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import {ThemeProvider} from 'emotion-theming'
+import {default as defaultTheme} from '../theme'
 
 enzyme.configure({adapter: new Adapter()})
 
@@ -39,6 +42,13 @@ export function renderClasses(component) {
   return className ? className.trim().split(' ') : []
 }
 
+/**
+ * Returns true if a node renders with a single class.
+ */
 export function rendersClass(node, klass) {
   return renderClasses(node).includes(klass)
+}
+
+export function renderWithTheme(node, theme = defaultTheme) {
+  return render(<ThemeProvider theme={theme}>{node}</ThemeProvider>)
 }

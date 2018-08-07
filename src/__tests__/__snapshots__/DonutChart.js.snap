@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DonutChart renders DonutSlice children 1`] = `
+<svg
+  className="emotion-0"
+  height={30}
+  width={30}
+>
+  <g
+    transform="translate(15,15)"
+  >
+    <path
+      d="M9.18485099360515e-16,-15A15,15,0,1,1,9.18485099360515e-16,15L5.51091059616309e-16,9A9,9,0,1,0,5.51091059616309e-16,-9Z"
+      data-value={1}
+      fill="#28a745"
+    />
+    <path
+      d="M9.18485099360515e-16,15A15,15,0,1,1,-2.7554552980815444e-15,-15L-1.6532731788489267e-15,-9A9,9,0,1,0,5.51091059616309e-16,9Z"
+      data-value={1}
+      fill="#d73a49"
+    />
+  </g>
+</svg>
+`;
+
+exports[`DonutChart renders a single DonutSlice child 1`] = `
+<svg
+  className="emotion-0"
+  height={30}
+  width={30}
+>
+  <g
+    transform="translate(15,15)"
+  >
+    <path
+      d="M9.18485099360515e-16,-15A15,15,0,1,1,-9.18485099360515e-16,15A15,15,0,1,1,9.18485099360515e-16,-15M-1.6532731788489267e-15,-9A9,9,0,1,0,1.6532731788489267e-15,9A9,9,0,1,0,-1.6532731788489267e-15,-9Z"
+      data-value={1}
+      fill="#28a745"
+    />
+  </g>
+</svg>
+`;
+
+exports[`DonutChart renders the data prop 1`] = `
+<svg
+  className="emotion-0"
+  height={30}
+  width={30}
+>
+  <g
+    transform="translate(15,15)"
+  >
+    <path
+      d="M9.18485099360515e-16,-15A15,15,0,1,1,-9.18485099360515e-16,15A15,15,0,1,1,9.18485099360515e-16,-15M-1.6532731788489267e-15,-9A9,9,0,1,0,1.6532731788489267e-15,9A9,9,0,1,0,-1.6532731788489267e-15,-9Z"
+      data-value={1}
+      fill="#d73a49"
+    />
+  </g>
+</svg>
+`;

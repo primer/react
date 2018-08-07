@@ -1,37 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {colors} from './theme'
+import {themeGet} from 'styled-system'
+import {withDefaultTheme} from './system-props'
 
-const defaultFill = colors.gray[4]
-
-const fillForState = {
-  error: colors.red[5],
-  queued: colors.yellow[7],
-  pending: colors.yellow[7],
-  failure: colors.red[5],
-  success: colors.green[5],
-  unknown: defaultFill
-}
+const defaultColor = '#666'
+const getStateColors = themeGet('colors.state', {})
 
 function DonutSlice(props) {
-  const {children, d, state, fill = fillForState[state] || defaultFill, value} = props
+  const {children, d, fill, state, value} = props
+  const color = fill || getStateColors(props)[state] || defaultColor
   return (
-    <path d={d} fill={fill} data-value={value}>
+    <path d={d} fill={color} data-value={value}>
       {children}
     </path>
   )
 }
-
-DonutSlice.states = Object.keys(fillForState)
 
 DonutSlice.propTypes = {
   // <title> is really the only thing that should be acceptable here
   children: PropTypes.shape({type: 'title'}),
   d: PropTypes.string,
   fill: PropTypes.string,
-  state: PropTypes.oneOf(DonutSlice.states),
+  state: PropTypes.string,
+  /* eslint-disable react/no-unused-prop-types */
+  theme: PropTypes.shape({
+    colors: PropTypes.shape({
+      state: PropTypes.objectOf(PropTypes.string)
+    })
+  }),
+  /* eslint-enable */
   value: PropTypes.number
 }
 
-export default DonutSlice
-export {defaultFill, fillForState}
+export default withDefaultTheme(DonutSlice)
