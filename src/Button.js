@@ -3,19 +3,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {withSystemProps, COMMON} from './system-props'
 
-function Button({
-  is: Tag,
-  children,
-  size,
-  block,
-  linkStyle,
-  grouped,
-  scheme,
-  onClick,
-  disabled,
-  className,
-  ...rest
-}) {
+function Button({is: Tag, children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     {
@@ -45,11 +33,11 @@ Button.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
+  is: PropTypes.oneOf(['button', 'a', 'summary']),
   linkStyle: PropTypes.bool,
   onClick: PropTypes.func,
   scheme: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'large']),
-  is: PropTypes.oneOf(['button', 'a', 'summary'])
+  size: PropTypes.oneOf(['sm', 'large'])
 }
 
 export default withSystemProps(Button, COMMON)

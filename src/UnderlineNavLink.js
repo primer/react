@@ -19,8 +19,8 @@ UnderlineNavLink.defaultProps = {
 }
 
 UnderlineNavLink.propTypes = {
-  selected: PropTypes.bool,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  selected: PropTypes.bool
 }
 
 export default withSystemProps(UnderlineNavLink, COMMON)

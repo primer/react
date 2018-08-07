@@ -12,7 +12,7 @@ const ColorsExample = {
         </div>
       ))}
       <div className="d-flex">
-        <Block bg="blue.5" p={4} m={1}/>
+        <Block bg="blue.5" p={4} m={1} />
         <Block bg="green.5" p={4} m={1} />
         <Block bg="purple.5" p={4} m={1} />
         <Block bg="yellow.5" p={4} m={1} />
