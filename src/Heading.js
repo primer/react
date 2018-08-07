@@ -1,12 +1,12 @@
-import system, {TYPOGRAPHY} from './system-props'
+import {withSystemProps, TYPOGRAPHY} from './system-props'
 
-const Heading = system(
+const Heading = withSystemProps(
   {
     is: 'h1',
     fontSize: 5,
     m: 0
   },
-  ...TYPOGRAPHY
+  TYPOGRAPHY
 )
 
 export default Heading

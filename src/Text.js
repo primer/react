@@ -1,5 +1,5 @@
-import system, {TYPOGRAPHY} from './system-props'
+import {withSystemProps, TYPOGRAPHY} from './system-props'
 
-const Text = system({is: 'span'}, ...TYPOGRAPHY)
+const Text = withSystemProps('span', TYPOGRAPHY)
 
 export default Text
