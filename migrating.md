@@ -4,9 +4,9 @@
 This release is a major version bump because it completely refactors the guts of (practically, at least) all of our components. Here's what you need to know:
 
 ### Emotion and styled-system
-The big change in this release is the introduction of [emotion] and [styled-system] under the hood to speed up our migration from Primer CSS to complete style encapsulation in React.
+The big change in this release is the introduction of [emotion] and [styled-system] under the hood to speed up our migration from Primer CSS to complete style encapsulation in React. For now, you will need to continue serving up [Primer CSS] to support components that haven't yet been migrated to the new styling system. See [the README](README.md#styling) for more information.
 
-This release also introduces early support for theming with the `<ThemeProvider>` component from [emotion-theming]. For now, you will need to continue serving up Primer CSS to support components that haven't yet been migrated to the new system. (_TODO_: reference usage docs for this?) See [theming](#theming) for more info.
+This release also introduces early support for [theming](#theming).
 
 ### Props changes
 * The `tag` prop has been renamed to `is` to match [styled-system] conventions.
@@ -19,10 +19,58 @@ This release also introduces early support for theming with the `<ThemeProvider>
     1. `<Text nowrap>` is no longer supported (yet).
 
 ### Theming
-_TODO_
+Theming is an optional way to override the values that control color, spacing, typography, and other aspects of our components.
+
+There are two ways to change the theme of primer-react components:
+
+1. You can override the theme for an entire tree of components using the `<ThemeProvider>` from [emotion-theming]:
+
+    ```jsx
+    import {Block, Button, Text, theme as primer} from 'primer-react'
+    import {ThemeProvider} from 'emotion-theming'
+
+    // a theme with custom spacing and font sizes
+    const theme = {
+      ...primer,
+      space: [0, 8, 16, 32, 64],
+      fontSizes: [10, 12, 16, 24, 48]
+    }
+    
+    // override
+    theme.colors.bodytext = '#111'
+    
+    export default () => (
+      <ThemeProvider theme={theme}>
+        <Block color='bodytext' p={4}>
+          <Text fontSize={4}>Hello, world!</Text>
+        </Block>
+      </ThemeProvider>
+    )
+    ```
+    
+    **⚠️ Note: [emotion-theming]'s `<ThemeProvider>` only allows exactly one child.**
+    
+1. You can theme individual components by passing the `theme` prop directly:
+
+    ```jsx
+    import {Text} from 'primer-react'
+    
+    const theme = {
+      colors: {
+        magenta: '#f0f'
+      }
+    }
+    
+    export default () => (
+      <Text theme={theme} color='magenta'>Hi, I'm magenta!</Text>
+    )
+    ```
+
+Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
 
 [color gradations]: https://styleguide.github.com/primer/support/color-system/#color-variables
 [emotion]: https://emotion.sh
 [emotion-theming]: https://github.com/emotion-js/emotion/tree/master/packages/emotion-theming
 [styled-system]: http://jxnblk.com/styled-system/
 [themeGet]: http://jxnblk.com/styled-system/api#themeget
+[Primer CSS]: https://github.com/primer/primer
