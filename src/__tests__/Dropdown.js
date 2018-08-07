@@ -1,6 +1,6 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Dropdown', () => {
   it('is a system component', () => {
