@@ -12,7 +12,7 @@ describe('CircleBadge', () => {
   })
 
   it('renders medium by default', () => {
-    expect(render(<CircleBadge size="medium" />).props.className).toContain('CircleBadge--medium')
+    expect(render(<CircleBadge />).props.className).toContain('CircleBadge--medium')
   })
 
   it('respects "is" prop', () => {
