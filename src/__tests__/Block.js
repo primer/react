@@ -1,10 +1,24 @@
 import React from 'react'
 import Block from '../Block'
 import theme from '../theme'
-import {render} from '../utils/testing'
+import {mount, render} from '../utils/testing'
 import {COMMON, LAYOUT} from '../system-props'
 
+const {breakpoints, space} = theme
+
 describe('Block', () => {
+  it('renders styles', () => {
+    expect(<Block m={[0, 1, 2]} />).toRenderStyles({
+      margin: '0px',
+      [`@media screen and (min-width:${breakpoints[0]})`]: {
+        margin: `${space[1]}px`
+      },
+      [`@media screen and (min-width:${breakpoints[1]})`]: {
+        margin: `${space[2]}px`
+      }
+    })
+  })
+
   it('is a system component', () => {
     expect(Block.systemComponent).toEqual(true)
   })
