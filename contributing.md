@@ -4,13 +4,11 @@
 
 ### Components
 1. We use [emotion] to style our components, and [emotion-theming] as the theme provider.
-1. We use most of the "conventional" style functions from [styled-system].
-1. We use [system-components] as the foundation for [abstract components](#abstract-components) (those with only [system props](#system-props)).
-
-Check the [component patterns](#component-patterns) for more information about how we structure different types of components.
+1. We use style functions from [styled-system] whenever possible, and styled-systems' `style()` function to create new ones.
+1. We use [system-components] to reduce the amount of boilerplate needed to implement styled-system functions.
 
 ## Component patterns
-With a couple of exceptions, all components should be created with the `withSystemProps()` function from `src/system-props.js`. This function takes a component-ish first value as its first argument, and an array of [system props](#system-props) as the second:
+With a couple of exceptions, all components should be created by the `withSystemProps()` function from `src/system-props.js`. This function takes a "component-ish" value as its first argument, and an array of [system props](#system-props) as the second:
 
 ```jsx
 import {withSystemProps, POSITION} from './system-props'
@@ -20,9 +18,27 @@ function Component(props) {
 }
 
 export default withSystemProps(Component, POSITION)
+
+// equivalent:
+export default withSystemProps({is: Component}, POSITION)
+
+// with more default props:
+export default withSystemProps(
+  {
+    is: Component,
+    m: 2
+  },
+  POSITION
+)
 ```
 
-Categories of system props are exported from `src/system-props`, including `COMMON`, `LAYOUT`, and `POSITION`.
+Categories of system props are exported from `src/system-props`:
+
+* `COMMON` includes color and spacing (margin and padding) props
+* `TYPOGRAPHY` includes `COMMON` and font family, font weight, and line-height
+* `POSITION` includes `COMMON` and positioning props
+* `FLEX_CONTAINER` includes `COMMON` and flexbox props for containers
+* `FLEX_ITEM` includes `COMMON` and flexbox props for items in a flex container
 
 ### Components with only system props
 Components with only system props should be created by passing the default tag to `withSystemProps()`:
@@ -60,7 +76,7 @@ export default FancyBox
 
 > **⚠️ If you use this pattern, passing the component to `withSystemProps()` should throw an error because system-components has an issue (_TODO: ref_) with calling the underlying component render function twice.**
 
-Note that with the above pattern, you can control whether users may pass additional `className` props to your component. If you want to allow this, it should be listed in `propTypes` and combined with your own classnames with the [classnames] package:
+With the above pattern, it's possible to control whether users may pass additional class names to your component. If you want to allow this, the `className` prop should be listed in `propTypes` and combined with your own classes using the [classnames] function:
 
 ```jsx
 import classnames from 'classnames'
@@ -78,7 +94,7 @@ FancyBox.propTypes = {
 }
 ```
 
-Alternatively, you can create the component from scratch with `withSystemProps()` and pass it the same system props as the component you're rendering:
+Alternatively, you can create the component from scratch using `withSystemProps()`, and pass it the same system props:
 
 ```jsx
 import classnames from 'classnames'
@@ -102,14 +118,13 @@ export default withSystemProps(FancyBox, LAYOUT)
 
 In this case, you will need to deal explicitly with two props passed down from [emotion] and [system-components], respectively:
 
-  * `className`: You _must_ render this prop, otherwise **your component will
-    not be styled.**
+  * `className`: You _must_ render this prop, otherwise **your component will not be styled.**
   * `is`: This is what allows your component to render with arbitrary elements, and even other components. If you don't respect this prop, you should `delete Component.propTypes.is` to signal that it's not available.
 
 ## Glossary
 
 ### System props
-System props are style functions that provide on or more props and can be passed directly the return value of [emotion]'s `styled()` function:
+System props are style functions that provide on or more props, and can be passed directly the return value of [emotion]'s `styled()` function:
 
 ```jsx
 import {styled} from 'react-emotion'
