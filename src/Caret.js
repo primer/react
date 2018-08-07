@@ -120,4 +120,4 @@ Caret.propTypes = {
   /* eslint-enable */
 }
 
-export default withSystemProps(withDefaultTheme(Caret))
+export default withDefaultTheme(Caret)
