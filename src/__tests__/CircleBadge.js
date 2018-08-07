@@ -30,10 +30,6 @@ describe('CircleBadge', () => {
     ).toEqual('primer logo')
   })
 
-  it('adds bg class', () => {
-    expect(rendersClass(<CircleBadge bg="blue" />, 'bg-blue')).toEqual(true)
-  })
-
   it('adds CircleBadge-icon class to children', () => {
     const comp = mount(<CircleBadge>{imgInput}</CircleBadge>)
     expect(comp.find('img').hasClass('CircleBadge-icon')).toEqual(true)
