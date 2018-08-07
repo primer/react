@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import {ITEM_CLASS, SELECTED_CLASS} from './UnderlineNav'
 import {withSystemProps, COMMON} from './system-props'
 
-function UnderlineNavLink({className, selected, is: Tag, ...rest}) {
+function UnderlineNavLink({className, selected, tag: Tag, ...rest}) {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -15,7 +15,7 @@ function UnderlineNavLink({className, selected, is: Tag, ...rest}) {
 }
 
 UnderlineNavLink.defaultProps = {
-  is: 'a'
+  tag: 'a'
 }
 
 UnderlineNavLink.propTypes = {
