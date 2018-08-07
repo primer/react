@@ -60,39 +60,7 @@ exports[`system props withSystemProps() applies one theme value 1`] = `
     ]
   }
   className="emotion-0"
-  is={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "blacklist": Array [
-              "css",
-              "m",
-              "mt",
-              "mr",
-              "mb",
-              "ml",
-              "mx",
-              "my",
-              "p",
-              "pt",
-              "pr",
-              "pb",
-              "pl",
-              "px",
-              "py",
-            ],
-            "className": "emotion-0",
-            "is": [MockFunction] {
-              "calls": [Circular],
-            },
-            "m": 2,
-          },
-          Object {},
-        ],
-      ],
-    }
-  }
+  is={[Function]}
   m={2}
 />
 `;
