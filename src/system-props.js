@@ -81,6 +81,7 @@ export function withSystemProps(Component, props = COMMON) {
   }
 
   const Wrapped = system(component, ...props)
+  Wrapped.displayName = Component.displayName
   Object.assign(Wrapped.propTypes, Component.propTypes)
 
   // Copy over non-system keys from components
