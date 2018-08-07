@@ -70,3 +70,10 @@ export function withDefaultTheme(Component, theme = defaultTheme) {
   }
   return Component
 }
+
+export function withoutPropTypes(Component, props) {
+  for (const prop of props) {
+    delete Component.propTypes[prop]
+  }
+  return Component
+}
