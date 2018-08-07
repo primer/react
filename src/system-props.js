@@ -78,10 +78,13 @@ export function withDefaultTheme(Component, theme = defaultTheme) {
 }
 
 function guardDoubleRender(Component) {
-  return props => {
-    if (props.is === Component) {
-      delete props.is
+  function render(props) {
+    const {is, ...rest} = props
+    if (is === Component || is === render) {
+      return <Component {...rest} />
+    } else {
+      return <Component {...props} />
     }
-    return <Component {...props} />
   }
+  return render
 }
