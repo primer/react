@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Box from './Box'
 import {style} from 'styled-system'
-import {withDefaultTheme} from './system-props'
+import {withSystemProps, COMMON} from './system-props'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -75,7 +75,7 @@ function Caret(props) {
   }[edge]
 
   return (
-    <svg width={size * 2} height={size * 2} style={style}>
+    <svg width={size * 2} height={size * 2} style={style} className={props.className}>
       <g transform={transform}>
         <path d={triangle} fill={bg} />
         <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
@@ -120,4 +120,4 @@ Caret.propTypes = {
   /* eslint-enable */
 }
 
-export default withDefaultTheme(Caret)
+export default withSystemProps(Caret, COMMON)

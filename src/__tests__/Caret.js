@@ -1,6 +1,7 @@
 import React from 'react'
 import Caret from '../Caret'
 import {render} from '../utils/testing'
+import {COMMON} from '../system-props'
 import theme from '../theme'
 
 describe('Caret', () => {
@@ -19,4 +20,9 @@ describe('Caret', () => {
       expect(render(<Caret location={location} theme={theme} />)).toMatchSnapshot()
     }
   })
+
+  it('implements common system props', () => {
+    expect(Caret).toImplementSystemProps(COMMON)
+  })
+
 })
