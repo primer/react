@@ -48,17 +48,17 @@ const example2 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
 </FlexContainer>`
 
 const example3 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
-  <FlexItem tag="p">
+  <FlexItem is="p">
     <Block p={3} bg="blue.5">
       Item 1
     </Block>
   </FlexItem>
-  <FlexItem tag="p">
+  <FlexItem is="p">
     <Block p={3} bg="green.5">
       Item 2
     </Block>
   </FlexItem>
-  <FlexItem tag="p">
+  <FlexItem is="p">
     <Block p={3} bg="yellow.5">
       Item 3
     </Block>
