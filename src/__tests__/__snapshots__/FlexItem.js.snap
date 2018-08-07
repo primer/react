@@ -26,20 +26,6 @@ exports[`FlexItem respects alignSelf 1`] = `
 />
 `;
 
-exports[`FlexItem respects as correct tag 1`] = `
-.emotion-0 {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-}
-
-<button
-  className="emotion-0"
->
-  hi
-</button>
-`;
-
 exports[`FlexItem respects flexAuto 1`] = `
 <div
   className="emotion-0"
