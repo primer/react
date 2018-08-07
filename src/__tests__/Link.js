@@ -19,6 +19,10 @@ describe('Link', () => {
     expect(renderClasses(<Link scheme="gray-dark" />)).toContain('link-gray-dark')
   })
 
+  it('respects the "muted" prop', () => {
+    expect(renderClasses(<Link muted />)).toContain('muted-link')
+  })
+
   it('respects the "nounderline" prop', () => {
     expect(renderClasses(<Link nounderline />)).toContain('no-underline')
   })
