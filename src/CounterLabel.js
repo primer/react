@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {withSystemProps, COMMON} from './system-props'
 
-
-function CounterLabel({scheme, children, className, ...rest}) {
+function CounterLabel({scheme, children, className}) {
   return <span className={classnames(className, 'Counter', scheme && `Counter--${scheme}`)}>{children}</span>
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import CounterLabel from '../CounterLabel'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('CounterLabel', () => {
