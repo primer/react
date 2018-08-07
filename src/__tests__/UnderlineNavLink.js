@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {ITEM_CLASS, SELECTED_CLASS} from '../UnderlineNav'
 import UnderlineNavLink from '../UnderlineNavLink'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('UnderlineNavLink', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(UnderlineNavLink.systemComponent).toEqual(true)
   })
 
@@ -15,32 +14,17 @@ describe('UnderlineNavLink', () => {
 
   it('renders the given "tag" prop', () => {
     const Type = props => <b {...props} />
-    expect(render(<UnderlineNavLink tag={Type} />)).toEqual(render(<b className={ITEM_CLASS} />))
+    expect(render(<UnderlineNavLink tag={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {
-    expect(render(<UnderlineNavLink selected />)).toEqual(render(<a className={`${ITEM_CLASS} ${SELECTED_CLASS}`} />))
+    expect(render(<UnderlineNavLink selected />)).toMatchSnapshot()
   })
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
     const Mock = jest.fn(() => <div />)
     render(<UnderlineNavLink tag={Mock} to="#" />)
-    expect(Mock.mock.calls[0][0]).toEqual({
-      to: '#',
-      className: 'UnderlineNav-item no-underline',
-      activeClassName: 'selected'
-    })
-  })
-
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<UnderlineNavLink m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<UnderlineNavLink p={4} />, 'p-4')).toEqual(true)
-  })
-
-  it('has the right displayName', () => {
-    expect(UnderlineNavLink.displayName).toEqual('UnderlineNavLink')
+    expect(Mock.mock.calls[0][0].to).toEqual('#')
+    expect(Mock.mock.calls[0][0].activeClassName).toEqual('selected')
   })
 })
