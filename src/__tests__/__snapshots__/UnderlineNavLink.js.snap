@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UnderlineNavLink renders the given "is" prop 1`] = `
+<b
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="UnderlineNav-item no-underline emotion-0"
+/>
+`;
+
 exports[`UnderlineNavLink renders the given "tag" prop 1`] = `
 <b
   blacklist={
