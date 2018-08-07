@@ -38,12 +38,37 @@ export const FLEX_CONTAINER = LAYOUT.concat(
 
 export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
 
+/**
+ * Defensively determine whether a component function or class is a "system
+ * component" by checking its `systemComponent` flag or whether its
+ * `defaultProps.blacklist` is an array.
+ */
 export function isSystemComponent(Component) {
   return (
     Component.systemComponent === true || (Component.defaultProps && Array.isArray(Component.defaultProps.blacklist))
   )
 }
 
+/**
+ * Create a "system component" with the named props from styled-system.
+ * The Component (first) argument can either be a React component (a function
+ * or a class) or an object representing default props. To pass a custom
+ * component with other default props, set the object's `is` key to the
+ * component:
+ *
+ * ```js
+ * const Wrapped = withSystemProps({is: Component, m: 2})
+ * ```
+ *
+ * which is the equivalent of:
+ *
+ * ```js
+ * const Wrapped = withSystemProps(Component)
+ * Wrapped.defaultProps = {
+ *   m: 2
+ * }
+ * ```
+ */
 export function withSystemProps(Component, props = COMMON) {
   if (isSystemComponent(Component)) {
     throw new Error(`${Component.name} is already a system component; can't call withSystemProps() on it`)
@@ -68,6 +93,10 @@ export function withSystemProps(Component, props = COMMON) {
   return withDefaultTheme(Wrapped)
 }
 
+/**
+ * Set the component's defaultProps.theme to our theme, and returns the
+ * component.
+ */
 export function withDefaultTheme(Component, theme = defaultTheme) {
   if (Component.defaultProps) {
     Component.defaultProps.theme = theme
@@ -77,6 +106,10 @@ export function withDefaultTheme(Component, theme = defaultTheme) {
   return Component
 }
 
+/**
+ * Remove the named keys from a component's propTypes object (if present), and
+ * return the component.
+ */
 export function withoutPropTypes(Component, props) {
   for (const prop of props) {
     delete Component.propTypes[prop]
