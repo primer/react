@@ -8,9 +8,9 @@ describe('Caret', () => {
     expect(render(<UnderlineNavLink />).type).toEqual('a')
   })
 
-  it('renders the given "is" prop', () => {
+  it('renders the given "tag" prop', () => {
     const Type = props => <b {...props} />
-    expect(render(<UnderlineNavLink is={Type} />)).toMatchSnapshot()
+    expect(render(<UnderlineNavLink tag={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {
@@ -19,7 +19,7 @@ describe('Caret', () => {
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
     const Mock = jest.fn(() => <div />)
-    render(<UnderlineNavLink is={Mock} to="#" />)
+    render(<UnderlineNavLink tag={Mock} to="#" />)
     expect(Mock.mock.calls[0][0].to).toEqual('#')
     expect(Mock.mock.calls[0][0].activeClassName).toEqual('selected')
   })
