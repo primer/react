@@ -47,11 +47,15 @@ expect.extend({
   }
 })
 
+/**
+ * This provides a layer of compatibility between the render() function from
+ * react-test-renderer and Enzyme's mount()
+ */
 function getProps(node) {
   return typeof node.props === 'function' ? node.props() : node.props
 }
 
 function getClasses(node) {
-  const {className = ''} = getProps(node)
-  return className.trim().split(/ +/)
+  const {className} = getProps(node)
+  return className ? className.trim().split(/ +/) : []
 }
