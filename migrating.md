@@ -10,13 +10,22 @@ This release also introduces early support for [theming](#theming).
 
 ### Props changes
 * The `tag` prop has been renamed to `is` to match [styled-system] conventions.
+
 * Color props will require refactoring:
-    1. The `fg` prop has been renamed to `color` across the board.
-    1. All color props (`bg`, `color`, and `borderColor`) now take object "paths" suitable for use with [styled-system's `themeGet()`][themeGet]. Specifically, because all of our [color gradations] are expressed as arrays in our theme, the `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` values should get the `.5` suffix to get the middle value. E.g. `red` becomes `red.5`.
+
+    - The `fg` prop has been renamed to `color` across the board.
+
+    - All color props (`bg`, `color`, and `borderColor`) now take object paths that represent nested values in the `colors` object of our [default theme]. Because all of our [color gradations] are expressed as arrays, the `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` values need to be updated to include the `.5` suffix so that they receive the value closest to the middle of each hue gradation (`red.5` maps to `theme.colors.red[5]`).
+    
+        In other words, `color="red"` becomes `color="red.5"`, `bg="purple"` becomes `bg="purple.5"`, and so on. Color prop values other than `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` **do not** need to change.
+    
 * Many of the key "utility" props for margin, padding, and typography (`fontSize`, `lineHeight`, et al) should continue working without any modifications.
+
 * Many of the Text component props have changed:
-    1. `<Text mono>` should now be written as `<Text fontFamily="mono">`.
-    1. `<Text nowrap>` is no longer supported (yet).
+
+    - `<Text mono>` should now be written as `<Text fontFamily="mono">`.
+
+    - `<Text nowrap>` is no longer supported (yet).
 
 ### Theming
 Theming is an optional way to override the values that control color, spacing, typography, and other aspects of our components.
@@ -69,6 +78,7 @@ There are two ways to change the theme of primer-react components:
 Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
 
 [color gradations]: https://styleguide.github.com/primer/support/color-system/#color-variables
+[default theme]: src/theme.js
 [emotion]: https://emotion.sh
 [emotion-theming]: https://github.com/emotion-js/emotion/tree/master/packages/emotion-theming
 [styled-system]: http://jxnblk.com/styled-system/
