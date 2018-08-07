@@ -1,3 +1,4 @@
+import React from 'react'
 import system from 'system-components/emotion'
 import {default as defaultTheme} from './theme'
 
@@ -49,6 +50,9 @@ export function withSystemProps(Component, props = COMMON) {
   }
 
   const component = typeof Component === 'object' ? Component : {is: Component}
+  if (typeof component.is === 'function') {
+    component.is = guardDoubleRender(component.is)
+  }
 
   const Wrapped = system(component, ...props)
   Object.assign(Wrapped.propTypes, Component.propTypes)
@@ -71,4 +75,13 @@ export function withDefaultTheme(Component, theme = defaultTheme) {
     Component.defaultProps = {theme}
   }
   return Component
+}
+
+function guardDoubleRender(Component) {
+  return props => {
+    if (props.is === Component) {
+      delete props.is
+    }
+    return <Component {...props} />
+  }
 }
