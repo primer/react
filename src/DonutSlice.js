@@ -6,7 +6,7 @@ import {withDefaultTheme} from './system-props'
 const defaultColor = '#666'
 const getStateColors = themeGet('colors.state', {})
 
-function DonutSlice(props) => {
+function DonutSlice(props) {
   const {children, d, fill, state, value} = props
   const color = fill || getStateColors(props)[state] || defaultColor
   return (
