@@ -39,4 +39,8 @@ describe('UnderlineNavLink', () => {
   it('respects padding utility prop', () => {
     expect(rendersClass(<UnderlineNavLink p={4} />, 'p-4')).toEqual(true)
   })
+
+  it('has the right displayName', () => {
+    expect(UnderlineNavLink.displayName).toEqual('UnderlineNavLink')
+  })
 })
