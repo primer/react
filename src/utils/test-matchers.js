@@ -1,12 +1,17 @@
 import {createMatchers, createSerializer} from 'jest-emotion'
 import * as emotion from 'emotion'
-import * as systemProps from 'styled-system'
+import {styles as systemProps} from 'styled-system'
 
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))
 
 const stringify = d => JSON.stringify(d, null, '  ')
 
+/**
+ * These are props that styled-system aliases for backwards compatibility.
+ * For some reason, they don't show up in our toImplementSystemProps() matcher,
+ * so we skip over them.
+ */
 const ALIAS_PROP_TYPES = ['w', 'align', 'justify', 'wrap']
 
 expect.extend({
