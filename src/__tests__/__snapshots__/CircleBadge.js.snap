@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CircleBadge respects "is" prop 1`] = `
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 CircleBadge CircleBadge--medium"
+/>
+`;
