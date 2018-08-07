@@ -9,18 +9,19 @@ export const COMMON = ['color', 'space']
 export const TYPOGRAPHY = COMMON.concat('fontFamily', 'fontWeight', 'lineHeight')
 
 export const LAYOUT = COMMON.concat(
+  'borders',
   'borderColor',
   'borderRadius',
-  'borders',
   'boxShadow',
   'display',
-  'height',
-  'maxHeight',
-  'maxWidth',
-  'minHeight',
-  'minWidth',
   'size',
-  'width'
+  'width',
+  'height',
+  'minWidth',
+  'minHeight',
+  'maxWidth',
+  'maxHeight',
+  'verticalAlign'
 )
 
 export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']

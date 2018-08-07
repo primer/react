@@ -1,23 +1,23 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
-import {render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Dropdown', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(Dropdown.systemComponent).toEqual(true)
   })
 
   it('renders a <div> with "BtnGroup" class', () => {
     const rendered = render(<Dropdown />)
     expect(rendered.type).toEqual('div')
-    expect(rendered.props.className).toEqual('BtnGroup')
+    expect(rendered.props.className).toContain('BtnGroup')
   })
 
   it('respects margin utility prop', () => {
-    expect(rendersClass(<Dropdown m={1} />, 'm-1')).toEqual(true)
+    expect(render(<Dropdown m={1} />)).toHaveStyleRule('margin', '4px')
   })
 
   it('respects padding utility prop', () => {
-    expect(rendersClass(<Dropdown p={1} />, 'p-1')).toEqual(true)
+    expect(render(<Dropdown p={1} />)).toHaveStyleRule('padding', '4px')
   })
 })
