@@ -74,6 +74,8 @@ There are two ways to change the theme of primer-react components:
       <Text theme={theme} color='magenta'>Hi, I'm magenta!</Text>
     )
     ```
+    
+    **☝️ This is an intentionally convoluted example, since you can use `<Text color='#f0f'>` out of the box.**
 
 Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
 
