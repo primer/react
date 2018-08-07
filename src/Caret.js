@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Box from './Box'
 import {style} from 'styled-system'
-import {withDefaultTheme} from './system-props'
+import {withSystemProps, COMMON} from './system-props'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -120,4 +120,4 @@ Caret.propTypes = {
   /* eslint-enable */
 }
 
-export default withDefaultTheme(Caret)
+export default withSystemProps(Caret, COMMON)
