@@ -8,7 +8,7 @@ describe('UnderlineNav', () => {
     expect(UnderlineNav).toImplementSystemProps(COMMON)
   })
 
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(UnderlineNav.systemComponent).toEqual(true)
   })
 
