@@ -1,3 +1,4 @@
+import React from 'react'
 import system from 'system-components/emotion'
 import {default as defaultTheme} from './theme'
 
@@ -48,7 +49,12 @@ export function withSystemProps(Component, props = COMMON) {
     throw new Error(`${Component.name} is already a system component; can't call withSystemProps() on it`)
   }
 
-  const Wrapped = system({is: Component}, ...props)
+  const component = typeof Component === 'object' ? Component : {is: Component}
+  if (typeof component.is === 'function') {
+    component.is = guardDoubleRender(component.is)
+  }
+
+  const Wrapped = system(component, ...props)
   Object.assign(Wrapped.propTypes, Component.propTypes)
 
   // Copy over non-system keys from components
@@ -69,4 +75,16 @@ export function withDefaultTheme(Component, theme = defaultTheme) {
     Component.defaultProps = {theme}
   }
   return Component
+}
+
+function guardDoubleRender(Component) {
+  function render(props) {
+    const {is, ...rest} = props
+    if (is === Component || is === render) {
+      return <Component {...rest} />
+    } else {
+      return <Component {...props} />
+    }
+  }
+  return render
 }

@@ -1,5 +1,11 @@
-import system, {FLEX_CONTAINER, withDefaultTheme} from './system-props'
+import {withSystemProps, FLEX_CONTAINER} from './system-props'
 
-const FlexContainer = system({is: 'div', display: 'flex'}, ...FLEX_CONTAINER)
+const FlexContainer = withSystemProps(
+  {
+    is: 'div',
+    display: 'flex'
+  },
+  FLEX_CONTAINER
+)
 
-export default withDefaultTheme(FlexContainer)
+export default FlexContainer

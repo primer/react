@@ -5,7 +5,7 @@ import DonutSlice from './DonutSlice'
 import {oneOrMoreOf} from './props'
 import {withSystemProps} from './system-props'
 
-const DonutChart = props => {
+function DonutChart(props) {
   const {className, data, children = mapData(data), size} = props
 
   const radius = size / 2

@@ -25,7 +25,6 @@ exports[`Link passes href down to link element 1`] = `
   }
   className="emotion-0 text-blue"
   href="https://github.com"
-  is={[Function]}
 />
 `;
 
@@ -57,7 +56,6 @@ exports[`Link renders margin 1`] = `
     ]
   }
   className="emotion-0 text-blue"
-  is={[Function]}
   m={1}
 />
 `;
@@ -108,7 +106,6 @@ exports[`Link renders margin 2`] = `
     ]
   }
   className="emotion-0 text-blue"
-  is={[Function]}
   m={
     Array [
       0,
@@ -166,7 +163,6 @@ exports[`Link renders margin 3`] = `
     ]
   }
   className="emotion-0 text-blue"
-  is={[Function]}
   m={
     Array [
       1,
@@ -202,6 +198,5 @@ exports[`Link renders without any props 1`] = `
     ]
   }
   className="emotion-0 text-blue"
-  is={[Function]}
 />
 `;
