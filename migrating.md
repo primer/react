@@ -138,6 +138,8 @@ The following table lists typography-related prop substitutions:
 
 
 ### `Block` props
+The `Block` component supports most of the same props, but the following ones will need to be refactored:
+
 | Prop | Value(s) | Substitute |
 | :--- | :------- | :--------- |
 | `border` | `true` | `border={1}` |
@@ -150,6 +152,7 @@ The following table lists typography-related prop substitutions:
 Note: array values in border props represent [responsive values].
 
 ### Flex props
+The `FlexContainer` and `FlexItem` components have changed significantly in this version. The following props have been renamed or deprecated:
 
 #### `FlexContainer`
 | Prop | Value(s) | Substitute |
