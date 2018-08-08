@@ -1,7 +1,7 @@
 # Migration guide
 
 ## `1.0.0-beta`
-This release is a major version bump because it completely refactors the guts of (practically, at least) all of our components. Here's what you need to know:
+This release is a major version bump because it completely refactors the guts of all our components. Here's what you need to know:
 
 ### Emotion and styled-system
 The big change in this release is the introduction of [emotion] and [styled-system] under the hood to speed up our migration from Primer CSS to complete style encapsulation in React. For now, you will need to continue serving up [Primer CSS] to support components that haven't yet been migrated to the new styling system. See [the README](README.md#styling) for more information.
