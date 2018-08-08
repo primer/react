@@ -21,6 +21,10 @@ This release also introduces early support for [theming](#theming).
 
 * [Some typography props](#typography-props) will require refactoring.
 
+* [Some `Block` props](#block-props) have changed.
+
+* [Some `FlexContainer` and `FlexItem` props](#flex-props) have changed.
+
 ### Theming
 Theming is an optional way to override the values that control color, spacing, typography, and other aspects of our components.
 
@@ -133,7 +137,7 @@ The following table lists typography-related prop substitutions:
 | `nowrap` | (boolean) | `css="white-space: nowrap"` |
 
 
-### `<Block>` props
+### `Block` props
 | Prop | Value(s) | Substitute |
 | :--- | :------- | :--------- |
 | `border` | `true` | `border={1}` |
@@ -147,14 +151,14 @@ Note: array values in border props represent [responsive values].
 
 ### Flex props
 
-#### `<FlexContainer>`
+#### `FlexContainer`
 | Prop | Value(s) | Substitute |
 | :--- | :------- | :--------- |
 | `direction` | _all_ | `flexDirection="css-value"` |
 | `wrap` | `wrap`, `nowrap` | `flexWrap="css-value"` |
 | `inline` | (boolean) | `display="inline-flex"` |
 
-#### `<FlexItem>`
+#### `FlexItem`
 | Prop | Value(s) | Substitute |
 | :--- | :------- | :--------- |
 | `flexAuto` | (boolean) | No longer supported |
