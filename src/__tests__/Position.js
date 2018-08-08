@@ -1,5 +1,6 @@
 import React from 'react'
 import {LAYOUT, POSITION} from '../system-props'
+import Box from '../Box'
 import {Absolute, Fixed, Relative, Sticky} from '../Position'
 import {render} from '../utils/testing'
 
@@ -18,6 +19,11 @@ describe('position components', () => {
     it('cannot override position', () => {
       expect(render(<Absolute position="relative" />)).toHaveStyleRule('position', 'absolute')
     })
+    it('can render other components with the is prop', () => {
+      const result = render(<Absolute is={Box} />)
+      expect(result).toHaveStyleRule('position', 'absolute')
+      expect(result).toHaveStyleRule('border', '1px solid')
+    })
   })
 
   describe('Fixed', () => {
@@ -29,6 +35,11 @@ describe('position components', () => {
     })
     it('cannot override position', () => {
       expect(render(<Fixed position="relative" />)).toHaveStyleRule('position', 'fixed')
+    })
+    it('can render other components with the is prop', () => {
+      const result = render(<Fixed is={Box} />)
+      expect(result).toHaveStyleRule('position', 'fixed')
+      expect(result).toHaveStyleRule('border', '1px solid')
     })
   })
 
@@ -42,6 +53,11 @@ describe('position components', () => {
     it('cannot override position', () => {
       expect(render(<Relative position="absolute" />)).toHaveStyleRule('position', 'relative')
     })
+    it('can render other components with the is prop', () => {
+      const result = render(<Relative is={Box} />)
+      expect(result).toHaveStyleRule('position', 'relative')
+      expect(result).toHaveStyleRule('border', '1px solid')
+    })
   })
 
   describe('Sticky', () => {
@@ -53,6 +69,11 @@ describe('position components', () => {
     })
     it('cannot override position', () => {
       expect(render(<Sticky position="absolute" />)).toHaveStyleRule('position', 'sticky')
+    })
+    it('can render other components with the is prop', () => {
+      const result = render(<Sticky is={Box} />)
+      expect(result).toHaveStyleRule('position', 'sticky')
+      expect(result).toHaveStyleRule('border', '1px solid')
     })
   })
 })
