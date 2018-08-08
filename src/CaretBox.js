@@ -1,4 +1,5 @@
 import React from 'react'
+import Box from './Box'
 import {Position} from './Position'
 import Caret from './Caret'
 
@@ -22,11 +23,7 @@ CaretBox.propTypes = {
 
 CaretBox.defaultProps = {
   ...Position.defaultProps,
-  // FIXME: spread Box.defaultProps here?
-  bg: 'white',
-  border: 1,
-  borderColor: 'gray.2',
-  borderRadius: 1,
+  ...Box.defaultProps,
   position: 'relative'
 }
 
