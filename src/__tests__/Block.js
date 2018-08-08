@@ -53,11 +53,6 @@ describe('Block', () => {
     expect(render(<Block display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
   })
 
-  it('respects position', () => {
-    expect(render(<Block position="absolute" />)).toMatchSnapshot()
-    expect(render(<Block position="relative" />)).toMatchSnapshot()
-  })
-
   it('respects bg', () => {
     expect(render(<Block bg="yellow.2" theme={theme} />)).toMatchSnapshot()
   })

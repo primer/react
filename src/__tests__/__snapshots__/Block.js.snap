@@ -292,17 +292,3 @@ exports[`Block respects display 4`] = `
   className="emotion-0"
 />
 `;
-
-exports[`Block respects position 1`] = `
-<div
-  className="emotion-0"
-  position="absolute"
-/>
-`;
-
-exports[`Block respects position 2`] = `
-<div
-  className="emotion-0"
-  position="relative"
-/>
-`;
