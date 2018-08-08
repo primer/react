@@ -1,21 +1,22 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Caret, Text, Box, Block} from '../../src'
+import {Block, Box, Caret, Relative, Text} from '../../src'
 
 const example = loc =>
-  `<Box p={2} mb={4} position="relative" maxWidth={300} minHeight={96} shadow="small" key="${loc}">
-  <Text fontSize={1} mono>
-    location='${loc}'
+  `
+<Box is={Relative} p={2} m={4} mb={3} minHeight={100} maxWidth={300}>
+  <Text fontSize={1} fontFamily="mono">
+    location="${loc}"
   </Text>
-  <Caret location="${loc}" />
-</Box>`
+  <Caret location="${loc}" borderColor="gray.2" />
+</Box>`.trim()
+
+const scope = {Box, Caret, Relative, Text}
 
 const CaretExample = {
   name: 'Caret',
   element: (
-    <Block mt={4}>
-      {Caret.locations.map(loc => <LiveEditor key={loc} code={example(loc)} scope={{Text, Caret, Box, loc}} />)}
-    </Block>
+    <Block my={5}>{Caret.locations.map(loc => <LiveEditor key={loc} code={example(loc)} scope={scope} />)}</Block>
   )
 }
 
