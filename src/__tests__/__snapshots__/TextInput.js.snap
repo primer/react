@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput renders 1`] = `
+<input
+  aria-label={undefined}
+  autoComplete={undefined}
+  className="emotion-0 form-control"
+  disabled={undefined}
+  id={undefined}
+  name="zipcode"
+  onChange={undefined}
+  placeholder={undefined}
+  required={undefined}
+  type="text"
+  value={undefined}
+/>
+`;
+
+exports[`TextInput renders block 1`] = `
+<input
+  aria-label={undefined}
+  autoComplete={undefined}
+  className="emotion-0 form-control input-block"
+  disabled={undefined}
+  id={undefined}
+  name="zipcode"
+  onChange={undefined}
+  placeholder={undefined}
+  required={undefined}
+  type="text"
+  value={undefined}
+/>
+`;
+
+exports[`TextInput renders large 1`] = `
+<input
+  aria-label={undefined}
+  autoComplete={undefined}
+  className="emotion-0 form-control input-lg"
+  disabled={undefined}
+  id={undefined}
+  name="zipcode"
+  onChange={undefined}
+  placeholder={undefined}
+  required={undefined}
+  type="text"
+  value={undefined}
+/>
+`;
+
+exports[`TextInput renders small 1`] = `
+<input
+  aria-label={undefined}
+  autoComplete={undefined}
+  className="emotion-0 form-control input-sm"
+  disabled={undefined}
+  id={undefined}
+  name="zipcode"
+  onChange={undefined}
+  placeholder={undefined}
+  required={undefined}
+  type="text"
+  value={undefined}
+/>
+`;

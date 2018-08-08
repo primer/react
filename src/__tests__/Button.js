@@ -1,15 +1,29 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
-import {render, rendersClass} from '../utils/testing'
+import theme from '../theme'
+import {render} from '../utils/testing'
+import {COMMON} from '../system-props'
 
 function noop() {}
 
 describe('Button', () => {
-  it('renders a <button>', () => {
-    expect(render(<Button />)).toEqual(render(<button className="btn" type="button" />))
+  xit('is a system component', () => {
+    expect(Button.systemComponent).toEqual(true)
   })
 
-  it('renders children', () => {
+  it('renders a <button>', () => {
+    expect(render(<Button />).type).toEqual('button')
+  })
+
+  it('respects the "is" prop', () => {
+    expect(render(<Button is="a" />).type).toEqual('a')
+  })
+
+  it('implements common system props', () => {
+    expect(Button).toImplementSystemProps(COMMON)
+  })
+
+  xit('renders children', () => {
     expect(
       render(
         <Button>
@@ -25,16 +39,8 @@ describe('Button', () => {
     )
   })
 
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<Button m={1} />, 'm-1')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<Button p={1} />, 'p-1')).toEqual(true)
-  })
-
   it('respects the "block" prop', () => {
-    expect(render(<Button block />).props.className).toEqual('btn btn-block')
+    expect(render(<Button block />).props.className).toContain('btn-block')
   })
 
   it('respects the "disabled" prop', () => {
@@ -42,22 +48,17 @@ describe('Button', () => {
   })
 
   it('respects the "linkStyle" prop', () => {
-    expect(render(<Button linkStyle />).props.className).toEqual('btn-link')
+    expect(render(<Button linkStyle />).props.className).toContain('btn-link')
   })
 
   it('respects the "scheme" prop', () => {
-    expect(render(<Button scheme="danger" />).props.className).toEqual('btn btn-danger')
-    expect(render(<Button scheme="primary" />).props.className).toEqual('btn btn-primary')
-    // non-truthy values should not result in any new classes
-    expect(render(<Button scheme={null} />).props.className).toEqual('btn')
-    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
-    expect(render(<Button scheme={false} />).props.className).toEqual('btn')
-    hush.mockRestore()
+    expect(render(<Button scheme="danger" />).props.className).toContain('btn-danger')
+    expect(render(<Button scheme="primary" />).props.className).toContain('btn-primary')
   })
 
   it('respects the "size" prop', () => {
-    expect(render(<Button size="sm" />).props.className).toEqual('btn btn-sm')
-    expect(render(<Button size="large" />).props.className).toEqual('btn btn-large')
+    expect(render(<Button size="sm" />).props.className).toContain('btn-sm')
+    expect(render(<Button size="large" />).props.className).toContain('btn-large')
   })
 
   it('preserves "onClick" prop', () => {
@@ -71,16 +72,26 @@ describe('Button', () => {
 
 describe('ButtonPrimary', () => {
   it('renders a <button>', () => {
-    expect(render(<ButtonPrimary />)).toEqual(render(<button className="btn btn-primary" type="button" />))
+    expect(render(<ButtonPrimary />).type).toEqual('button')
+    expect(render(<ButtonPrimary />).props.className).toContain('btn-primary')
+  })
+
+  it('implements common system props', () => {
+    expect(render(<ButtonPrimary m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })
 
 describe('ButtonDanger', () => {
   it('renders a <button>', () => {
-    expect(render(<ButtonDanger />)).toEqual(render(<button className="btn btn-danger" type="button" />))
+    expect(render(<ButtonDanger />).type).toEqual('button')
+    expect(render(<ButtonDanger />).props.className).toContain('btn-danger')
   })
 
-  it('renders children', () => {
+  it('implements common system props', () => {
+    expect(render(<ButtonDanger m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
+  })
+
+  xit('renders children', () => {
     expect(
       render(
         <ButtonDanger>
@@ -99,12 +110,22 @@ describe('ButtonDanger', () => {
 
 describe('ButtonLink', () => {
   it('renders a <button> by default', () => {
-    expect(render(<ButtonLink />)).toEqual(render(<button className="btn-link" type="button" />))
+    expect(render(<ButtonLink />).type).toEqual('button')
+    expect(render(<ButtonLink />).props.className).toContain('btn-link')
+  })
+
+  it('implements common system props', () => {
+    expect(render(<ButtonLink m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })
 
 describe('ButtonOutline', () => {
   it('renders a <button> by default', () => {
-    expect(render(<ButtonOutline />)).toEqual(render(<button className="btn btn-outline" type="button" />))
+    expect(render(<ButtonOutline />).type).toEqual('button')
+    expect(render(<ButtonOutline />).props.className).toContain('btn-outline')
+  })
+
+  it('implements common system props', () => {
+    expect(render(<ButtonOutline m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })

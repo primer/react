@@ -4,7 +4,7 @@ import {Detail, LiveEditor} from '@compositor/kit'
 import ExampleHeading from '../doc-components/ExampleHeading'
 import {BranchName} from '../../src'
 
-const linkedBranch = `<BranchName tag="a" href="/">
+const linkedBranch = `<BranchName is="a" href="/">
   a_new_feature_branch
 </BranchName>`
 

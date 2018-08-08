@@ -2,15 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 import DonutSlice from './DonutSlice'
-import {oneOrMoreOf, mapWhitespaceProps} from './props'
+import {withSystemProps} from './system-props'
 
-function mapData(data) {
-  return Object.keys(data).map(key => <DonutSlice key={key} state={key} value={data[key]} />)
-}
-
-const DonutChart = props => {
-  const {data, children = mapData(data), size = 30, ...rest} = props
-  const {className} = mapWhitespaceProps(rest)
+function DonutChart(props) {
+  const {className, data, children = mapData(data), size} = props
 
   const radius = size / 2
   const innerRadius = radius - 6
@@ -35,11 +30,19 @@ const DonutChart = props => {
   )
 }
 
+function mapData(data) {
+  return Object.keys(data).map(key => <DonutSlice key={key} state={key} value={data[key]} />)
+}
+
+DonutChart.defaultProps = {
+  size: 30
+}
+
 DonutChart.propTypes = {
   // require elements, not mixed content: <DonutSlice>, <title>, etc.
-  children: oneOrMoreOf(PropTypes.element),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
   data: PropTypes.objectOf(PropTypes.number),
   size: PropTypes.number
 }
 
-export default DonutChart
+export default withSystemProps(DonutChart, ['space'])

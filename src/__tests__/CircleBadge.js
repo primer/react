@@ -1,44 +1,33 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import CircleBadge from '../CircleBadge'
-import {render, rendersClass, mount} from '../utils/testing'
+import {render, mount} from '../utils/testing'
 
-const imgOutput = <img className="CircleBadge-icon" alt="" src="primer.jpg" />
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  it('renders medium by default', () => {
-    expect(rendersClass(<CircleBadge />, 'CircleBadge--medium')).toEqual(true)
+  xit('is a system component', () => {
+    expect(CircleBadge.systemComponent).toEqual(true)
   })
 
-  it('respects tag prop', () => {
-    expect(
-      render(
-        <CircleBadge tag="a" href="https://github.com">
-          {imgInput}
-        </CircleBadge>
-      )
-    ).toEqual(
-      render(
-        <a className="CircleBadge CircleBadge--medium" href="https://github.com">
-          {imgOutput}
-        </a>
-      )
-    )
+  it('renders medium by default', () => {
+    expect(render(<CircleBadge />).props.className).toContain('CircleBadge--medium')
+  })
+
+  it('respects "is" prop', () => {
+    const item = render(<CircleBadge is="a" />)
+    expect(item.type).toEqual('a')
+    expect(item).toMatchSnapshot()
   })
 
   it('applies title', () => {
     expect(
       render(
-        <CircleBadge tag="a" title="primer logo">
+        <CircleBadge is="a" title="primer logo">
           {imgInput}
         </CircleBadge>
       ).props['title']
     ).toEqual('primer logo')
-  })
-
-  it('adds bg class', () => {
-    expect(rendersClass(<CircleBadge bg="blue" />, 'bg-blue')).toEqual(true)
   })
 
   it('adds CircleBadge-icon class to children', () => {
@@ -62,12 +51,5 @@ describe('CircleBadge', () => {
       </CircleBadge>
     )
     expect(comp.find('img').hasClass('primer')).toEqual(true)
-  })
-  it('respects margin utility prop', () => {
-    expect(rendersClass(<CircleBadge m={4} />, 'm-4')).toEqual(true)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(rendersClass(<CircleBadge p={4} />, 'p-4')).toEqual(true)
   })
 })

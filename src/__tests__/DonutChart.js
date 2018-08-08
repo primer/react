@@ -1,12 +1,17 @@
 import React from 'react'
 import DonutChart from '../DonutChart'
 import DonutSlice from '../DonutSlice'
-import {colors} from '../theme'
-import {render, rendersClass} from '../utils/testing'
+import theme, {colors} from '../theme'
+import {render} from '../utils/testing'
 
 describe('DonutChart', () => {
+  xit('is a system component', () => {
+    expect(DonutChart.systemComponent).toEqual(true)
+  })
+
   it('renders the data prop', () => {
     const donut = render(<DonutChart data={{error: 1}} />)
+    expect(donut).toMatchSnapshot()
 
     expect(donut.type).toEqual('svg')
     expect(donut.props.width).toEqual(30)
@@ -19,7 +24,7 @@ describe('DonutChart', () => {
 
     const [slice] = g.children
     expect(slice.type).toEqual('path')
-    expect(slice.props.fill).toEqual(colors.red[5])
+    // expect(slice.props.fill).toEqual(colors.state.error)
   })
 
   it('renders DonutSlice children', () => {
@@ -29,12 +34,13 @@ describe('DonutChart', () => {
         <DonutSlice state="failure" value={1} />
       </DonutChart>
     )
+    expect(donut).toMatchSnapshot()
     expect(donut.children).toHaveLength(1)
     const slices = donut.children[0].children
     expect(slices).toHaveLength(2)
     expect(slices.map(slice => slice.type)).toEqual(['path', 'path'])
-    expect(slices[0].props.fill).toEqual(colors.green[5])
-    expect(slices[1].props.fill).toEqual(colors.red[5])
+    expect(slices[0].props.fill).toEqual(colors.state.success)
+    expect(slices[1].props.fill).toEqual(colors.state.failure)
   })
 
   it('renders a single DonutSlice child', () => {
@@ -43,28 +49,15 @@ describe('DonutChart', () => {
         <DonutSlice state="success" value={1} />
       </DonutChart>
     )
+    expect(donut).toMatchSnapshot()
     expect(donut.type).toEqual('svg')
   })
 
   it('respects margin utility prop', () => {
-    expect(
-      rendersClass(
-        <DonutChart m={4}>
-          <DonutSlice state="failure" value={1} />
-        </DonutChart>,
-        'm-4'
-      )
-    ).toEqual(true)
+    expect(render(<DonutChart m={4} data={{error: 1}} />)).toHaveStyleRule('margin', `${theme.space[4]}px`)
   })
 
   it('respects padding utility prop', () => {
-    expect(
-      rendersClass(
-        <DonutChart p={4}>
-          <DonutSlice state="failure" value={1} />
-        </DonutChart>,
-        'p-4'
-      )
-    ).toEqual(true)
+    expect(render(<DonutChart p={4} data={{error: 1}} />)).toHaveStyleRule('padding', `${theme.space[4]}px`)
   })
 })

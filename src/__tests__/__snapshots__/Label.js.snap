@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label respects margin utility prop 1`] = `
+.emotion-0 {
+  margin: 24px;
+}
+
+<span
+  blacklist={
+    Array [
+      "css",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 Label Label--gray"
+  m={4}
+/>
+`;
+
+exports[`Label respects padding utility prop 1`] = `
+.emotion-0 {
+  padding: 24px;
+}
+
+<span
+  blacklist={
+    Array [
+      "css",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0 Label Label--gray"
+  p={4}
+/>
+`;

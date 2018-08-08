@@ -5,10 +5,10 @@ import MergeDetail from './MergeDetail'
 import MergeActions from './MergeActions'
 
 const stateColorMap = {
-  ready: 'green',
+  ready: 'green.5',
   invalid: 'invalid',
-  merged: 'purple',
-  pending: 'yellow'
+  merged: 'purple.5',
+  pending: 'yellow.5'
 }
 
 function getDesktopURL(repoUrl, branchName) {

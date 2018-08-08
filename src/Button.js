@@ -1,10 +1,9 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import {mapWhitespaceProps} from './props'
+import {withSystemProps, COMMON} from './system-props'
 
-function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped, scheme, onClick, disabled, ...rest}) {
-  const {className} = mapWhitespaceProps(rest)
+function Button({is: Tag, children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     {
@@ -25,16 +24,20 @@ function Button({tag: Tag = 'button', children, size, block, linkStyle, grouped,
   )
 }
 
+Button.defaultProps = {
+  is: 'button'
+}
+
 Button.propTypes = {
   block: PropTypes.bool,
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
+  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   linkStyle: PropTypes.bool,
   onClick: PropTypes.func,
   scheme: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'large']),
-  tag: PropTypes.oneOf(['button', 'a', 'summary'])
+  size: PropTypes.oneOf(['sm', 'large'])
 }
 
-export default Button
+export default withSystemProps(Button, COMMON)

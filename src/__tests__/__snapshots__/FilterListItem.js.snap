@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterListItem adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `<div />`;
+
+exports[`FilterListItem renders the given "is" prop 1`] = `
+<b
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="filter-item emotion-0"
+/>
+`;
+
+exports[`FilterListItem respects the "selected" prop 1`] = `
+<a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="filter-item selected emotion-0"
+/>
+`;

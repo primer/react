@@ -14,9 +14,9 @@ const underlineNavLinkExample = `<UnderlineNav>
 </UnderlineNav>`
 
 const navLinkExample = `<UnderlineNav>
-  <UnderlineNavLink tag={NavLink} to="#foo">Foo</UnderlineNavLink>
-  <UnderlineNavLink tag={NavLink} to="#bar">Two</UnderlineNavLink>
-  <UnderlineNavLink tag={NavLink} to="/">Selected</UnderlineNavLink>
+  <UnderlineNavLink is={NavLink} to="#foo">Foo</UnderlineNavLink>
+  <UnderlineNavLink is={NavLink} to="#bar">Two</UnderlineNavLink>
+  <UnderlineNavLink is={NavLink} to="/">Selected</UnderlineNavLink>
 </UnderlineNav>`
 
 export default {
@@ -25,20 +25,20 @@ export default {
     <div>
       <Block mb={4}>
         <ExampleHeading>
-          Using <Text mono>{'<UnderlineNavLink>'}</Text>
+          Using <Text fontFamily="mono">{'<UnderlineNavLink>'}</Text>
         </ExampleHeading>
         <LiveEditor code={underlineNavLinkExample} scope={{UnderlineNav, UnderlineNavLink}} />
       </Block>
 
       <Block mb={4}>
         <ExampleHeading>
-          Using <Text mono>{'<NavLink>'}</Text> from react-router
+          Using <Text fontFamily="mono">{'<NavLink>'}</Text> from react-router
         </ExampleHeading>
         <p>
           To use UnderlineNav with <Link href="https://github.com/ReactTraining/react-router">react-router</Link> or{' '}
           <Link href="https://www.npmjs.com/package/react-router-dom">react-router-dom</Link>, pass{' '}
-          <Text mono>{'tag={NavLink}'}</Text> and omit the <Text mono>selected</Text> prop. This ensures that the
-          NavLink gets <Text mono>activeClassName='selected'</Text>.
+          <Text fontFamily="mono">{'is={NavLink}'}</Text> and omit the <Text fontFamily="mono">selected</Text> prop.
+          This ensures that the NavLink gets <Text fontFamily="mono">activeClassName='selected'</Text>.
         </p>
         <LiveEditor code={navLinkExample} scope={{UnderlineNav, UnderlineNavLink, NavLink}} />
       </Block>
