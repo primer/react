@@ -3,7 +3,7 @@ import {LiveEditor} from '@compositor/kit'
 import {Caret, Text, Box, Block} from '../../src'
 
 const example = loc =>
-  `<Box p={2} mb={4} position="relative" maxWidth={300} minHeight={96} shadow="small" key="${loc}">
+  `<Box p={2} mb={4} position="relative" maxWidth={300} minHeight={96} boxShadow="small" key="${loc}">
   <Text fontSize={1} mono>
     location='${loc}'
   </Text>
