@@ -17,7 +17,7 @@ This release also introduces early support for [theming](#theming).
 
     - Color prop (`bg`, `color`, and `borderColor`) values are now object paths that represent nested fields in the `colors` object of our [default theme]. Because all of our [color gradations] are expressed as arrays, the `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` values need to be updated to include the `.5` suffix so that they receive the value closest to the middle of each hue gradation (`red.5` maps to `theme.colors.red[5]`).
 
-        In other words, `color="red"` becomes `color="red.5"`, `bg="purple"` becomes `bg="purple.5"`, and so on. Color prop values other than `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` **do not** need to change. See [the full list of changes](#color-props) below.
+        In other words, `color="red"` becomes `color="red.5"`, `bg="purple"` becomes `bg="purple.5"`, and so on. See [the full list of changes](#color-props) below.
 
 
 * Many of the key "utility" props for margin, padding, and typography (`fontSize`, `lineHeight`, et al) should continue working without any modifications.
@@ -92,8 +92,8 @@ This table lists prop and value combinations that should be changed when migrati
 ### Color values
 The following table lists color prop values that have changed in `1.0.0-beta`:
 
-| Prop | Before | After |
-| :--- | :----- | :---- |
+| Prop | Before | After | Notes |
+| :--- | :----- | :---- | :---- |
 | `bg` | `blue-light` | `blue.0` |
 | `bg` | `blue` | `blue.5` |
 | `bg` | `gray-dark` | `gray.9` |
@@ -113,13 +113,13 @@ The following table lists color prop values that have changed in `1.0.0-beta`:
 | `borderColor` | `blue` | `blue.5` |
 | `borderColor` | `gray-dark` | `gray.3` |
 | `borderColor` | `gray-darker` | `gray.7` |
-| `borderColor` | `gray-light` | `#eaecef` |
+| `borderColor` | `gray-light` | `#eaecef` | Not yet migrated |
 | `borderColor` | `gray` | `gray.2` |
-| `borderColor` | `green-light` | `#a2cbac` |
+| `borderColor` | `green-light` | `#a2cbac` | Not yet migrated |
 | `borderColor` | `green` | `green.4` |
 | `borderColor` | `purple` | `purple.5` |
-| `borderColor` | `red-light` | `#cea0a5` |
-| `borderColor` | `yellow` | `#d9d0a5` |
+| `borderColor` | `red-light` | `#cea0a5` | Not yet migrated |
+| `borderColor` | `yellow` | `#d9d0a5` | Not yet migrated |
 | `color` | `blue` | `blue.5` |
 | `color` | `gray-dark` | `gray.9` |
 | `color` | `gray-light` | `gray.5` |
