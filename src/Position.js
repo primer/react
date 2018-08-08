@@ -3,8 +3,6 @@ import {withSystemProps, LAYOUT, POSITION} from './system-props'
 
 const Position = withSystemProps('div', LAYOUT.concat(POSITION))
 
-export default Position
-
 function withPosition(position) {
   const WithPosition = props => <Position {...props} position={position} />
   WithPosition.defaultProps = {...Position.defaultProps}
@@ -20,4 +18,4 @@ const Fixed = withPosition('fixed')
 const Relative = withPosition('relative')
 const Sticky = withPosition('sticky')
 
-export {Absolute, Fixed, Relative, Sticky}
+export {Position, Absolute, Fixed, Relative, Sticky}
