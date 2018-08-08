@@ -1,37 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FilterListItem adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `
-<a
-  activeClassName="selected"
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="filter-item emotion-0"
-  tag={[MockFunction]}
-  to="#"
-/>
-`;
+exports[`FilterListItem adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `<div />`;
 
-exports[`FilterListItem renders the given "tag" prop 1`] = `
-<a
+exports[`FilterListItem renders the given "is" prop 1`] = `
+<b
   blacklist={
     Array [
       "css",
@@ -54,7 +26,6 @@ exports[`FilterListItem renders the given "tag" prop 1`] = `
     ]
   }
   className="filter-item emotion-0"
-  tag={[Function]}
 />
 `;
 

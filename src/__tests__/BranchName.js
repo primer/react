@@ -16,12 +16,12 @@ describe('BranchName', () => {
     expect(render(<BranchName />).props.className).toContain('branch-name')
   })
 
-  it('respects the "tag" prop', () => {
-    expect(render(<BranchName tag="span" />).type).toEqual('span')
+  it('respects the "is" prop', () => {
+    expect(render(<BranchName is="span" />).type).toEqual('span')
   })
 
-  it('renders href={null} if tag != "a"', () => {
-    expect(render(<BranchName tag="span" href="#" />).props.href).toEqual(null)
+  it('renders href={null} if "is" != "a"', () => {
+    expect(render(<BranchName is="span" href="#" />).props.href).toEqual(null)
   })
 
   xit('respects margin utility prop', () => {

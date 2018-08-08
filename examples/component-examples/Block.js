@@ -17,7 +17,7 @@ const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => 
   return keys
 }, [])
 
-const textColors = ['white', 'gray', 'black']
+const textColors = ['white', 'gray.5', 'black']
 
 const BlockExample = {
   name: 'Block',

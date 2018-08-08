@@ -9,7 +9,7 @@ Object.assign(components, {NavLink})
 const code = `
 <Block p={4}>
   <Heading>Hello World!</Heading>
-  <Text tag='p'>
+  <Text is='p'>
     All of the primer-react <NavLink to='/components'>components</NavLink> are available in this sandbox!
   </Text>
   <Box my={4} p={2}>

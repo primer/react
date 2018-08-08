@@ -4,10 +4,10 @@ import {Check} from '@githubprimer/octicons-react'
 import {Block, CircleOcticon, Text} from '../../src'
 
 const stateColorMap = {
-  ready: 'green',
+  ready: 'green.5',
   invalid: 'invalid',
-  merged: 'purple',
-  pending: 'yellow'
+  merged: 'purple.5',
+  pending: 'yellow.5'
 }
 
 const MergeDetail = ({state}) => {
@@ -17,10 +17,10 @@ const MergeDetail = ({state}) => {
         <CircleOcticon icon={Check} size={32} bg={stateColorMap[state]} color="white" />
       </Block>
       <Block p={2} display="inline">
-        <Text tag="p" p={0} m={0} fontSize={2} fontWeight="bold">
+        <Text is="p" p={0} m={0} fontSize={2} fontWeight="bold">
           This branch has no conflicts with the base branch
         </Text>
-        <Text tag="p" pt={1} m={0} fontSize={0}>
+        <Text is="p" pt={1} m={0} fontSize={0}>
           Merging can be performed automatically
         </Text>
       </Block>

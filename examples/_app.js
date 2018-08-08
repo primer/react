@@ -24,13 +24,13 @@ export default function Page({render}) {
               </Text>
             }
           >
-            <UnderlineNavLink tag={NavLink} to="/components" px={3}>
+            <UnderlineNavLink is={NavLink} to="/components" px={3}>
               Components
             </UnderlineNavLink>
-            <UnderlineNavLink tag={NavLink} to="/demos" px={3}>
+            <UnderlineNavLink is={NavLink} to="/demos" px={3}>
               Demos
             </UnderlineNavLink>
-            <UnderlineNavLink tag={NavLink} to="/sandbox" px={3}>
+            <UnderlineNavLink is={NavLink} to="/sandbox" px={3}>
               Sandbox
             </UnderlineNavLink>
           </UnderlineNav>
