@@ -7,6 +7,11 @@ describe('Dropdown', () => {
     expect(Dropdown.systemComponent).toEqual(true)
   })
 
+  it('matches the snapshots', () => {
+    expect(render(<Dropdown>hi</Dropdown>)).toMatchSnapshot()
+    expect(render(<Dropdown title="hi">hello!</Dropdown>)).toMatchSnapshot()
+  })
+
   it('renders a <div> with "BtnGroup" class', () => {
     const rendered = render(<Dropdown />)
     expect(rendered.type).toEqual('div')

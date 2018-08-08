@@ -13,10 +13,12 @@ describe('DonutSlice', () => {
     expect(render(<DonutSlice state="unknown" />).props.fill).toEqual(state.unknown)
   })
 
-  xit('renders unknown states with theme.colors.state.unknown', () => {
-    const hush = jest.spyOn(console, 'error').mockImplementation(jest.fn())
+  it('renders unknown states with theme.colors.state.unknown', () => {
     expect(render(<DonutSlice state="xyz" />).props.fill).toEqual(state.unknown)
-    hush.mockRestore()
+  })
+
+  it('renders the fallback color when no state color is found in the theme', () => {
+    expect(render(<DonutSlice state="error" theme={{}} />).props.fill).toEqual('#666')
   })
 
   it('respects the fill attribute', () => {
