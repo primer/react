@@ -17,9 +17,9 @@ describe('FilterListItem', () => {
     expect(render(<FilterListItem />).type).toEqual('a')
   })
 
-  it('renders the given "tag" prop', () => {
+  it('renders the given "is" prop', () => {
     const Type = props => <b {...props} />
-    expect(render(<FilterListItem tag={Type} />)).toMatchSnapshot()
+    expect(render(<FilterListItem is={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {
@@ -28,7 +28,7 @@ describe('FilterListItem', () => {
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
     const Mock = jest.fn(() => <div />)
-    expect(render(<FilterListItem tag={Mock} to="#" />)).toMatchSnapshot()
+    expect(render(<FilterListItem is={Mock} to="#" />)).toMatchSnapshot()
   })
 
   it('respects "count" prop', () => {

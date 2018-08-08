@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import CircleBadge from '../CircleBadge'
-import {render, rendersClass, mount} from '../utils/testing'
+import {render, mount} from '../utils/testing'
 
 const imgInput = <img alt="" src="primer.jpg" />
 
@@ -28,10 +28,6 @@ describe('CircleBadge', () => {
         </CircleBadge>
       ).props['title']
     ).toEqual('primer logo')
-  })
-
-  it('adds bg class', () => {
-    expect(rendersClass(<CircleBadge bg="blue" />, 'bg-blue')).toEqual(true)
   })
 
   it('adds CircleBadge-icon class to children', () => {
