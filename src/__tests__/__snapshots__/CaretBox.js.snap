@@ -88,11 +88,11 @@ exports[`CaretBox passes the "borderColor" prop to both <Box> and <Caret> 1`] = 
 
 exports[`CaretBox renders a <Caret> in <Box> with relative positioning 1`] = `
 .emotion-0 {
-  position: relative;
   background-color: #fff;
   border: 1px solid;
   border-color: #e1e4e8;
   border-radius: 3px;
+  position: relative;
 }
 
 <div
