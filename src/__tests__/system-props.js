@@ -12,6 +12,11 @@ describe('system props', () => {
       expect(Wrapped.propTypes).toEqual(fontFamily.propTypes)
     })
 
+    it('throws on attempting to wrap system components', () => {
+      const Component = withSystemProps('div', ['fontFamily'])
+      expect(() => withSystemProps(Component, ['space'])).toThrow()
+    })
+
     it('renders the underlying component', () => {
       const Component = jest.fn(props => <b {...props} />)
       Component.propTypes = {

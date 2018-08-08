@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 import DonutSlice from './DonutSlice'
-import {oneOrMoreOf} from './props'
 import {withSystemProps} from './system-props'
 
 function DonutChart(props) {
@@ -41,7 +40,7 @@ DonutChart.defaultProps = {
 
 DonutChart.propTypes = {
   // require elements, not mixed content: <DonutSlice>, <title>, etc.
-  children: oneOrMoreOf(PropTypes.element),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
   data: PropTypes.objectOf(PropTypes.number),
   size: PropTypes.number
 }
