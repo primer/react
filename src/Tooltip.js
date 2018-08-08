@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {withSystemProps, COMMON} from './system-props'
 
-function Tooltip({direction, className, text, noDelay, align, wrap}) {
+function Tooltip({direction, children, className, text, noDelay, align, wrap}) {
   const classes = classnames(
     className,
     'tooltipped',
@@ -12,7 +12,11 @@ function Tooltip({direction, className, text, noDelay, align, wrap}) {
     noDelay && 'tooltipped-no-delay',
     wrap && 'tooltipped-multiline'
   )
-  return <span aria-label={text} className={classes} />
+  return (
+    <span aria-label={text} className={classes}>
+      {children}
+    </span>
+  )
 }
 
 Tooltip.alignments = ['left', 'right']
@@ -25,6 +29,7 @@ Tooltip.defaultProps = {
 
 Tooltip.propTypes = {
   align: PropTypes.oneOf(Tooltip.alignments),
+  children: PropTypes.node,
   direction: PropTypes.oneOf(Tooltip.directions),
   noDelay: PropTypes.bool,
   text: PropTypes.string,
