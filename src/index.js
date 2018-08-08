@@ -3,7 +3,7 @@ export {default as theme} from './theme'
 // Layout
 export {default as Block} from './Block'
 export {default as Box} from './Box'
-export * from './Position'
+export {Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
 // Components
 export {default as Avatar} from './Avatar'
