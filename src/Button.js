@@ -33,7 +33,7 @@ Button.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
-  is: PropTypes.oneOf(['button', 'a', 'summary']),
+  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   linkStyle: PropTypes.bool,
   onClick: PropTypes.func,
   scheme: PropTypes.string,
