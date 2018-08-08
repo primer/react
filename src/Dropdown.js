@@ -17,7 +17,7 @@ function Dropdown({title, scheme, children, className, ...rest}) {
       <FlexContainer is={Details} className="BtnGroup-form" css={{position: 'relative'}}>
         {({toggle}) => (
           <React.Fragment>
-            <Button tag="summary" scheme={scheme} grouped onClick={toggle}>
+            <Button is="summary" scheme={scheme} grouped onClick={toggle}>
               {title}
               <Octicon icon={TriangleDown} size={14} ml={title ? 2 : 0} />
             </Button>

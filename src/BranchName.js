@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {withSystemProps, COMMON} from './system-props'
 
-function BranchName({children, href, tag: Tag, className}) {
+function BranchName({children, href, is: Tag, className}) {
   // We don't want someone to use href on a non tag
   if (Tag !== 'a') {
     href = null
@@ -17,13 +17,13 @@ function BranchName({children, href, tag: Tag, className}) {
 }
 
 BranchName.defaultProps = {
-  tag: 'a'
+  is: 'a'
 }
 
 BranchName.propTypes = {
   children: PropTypes.node,
   href: PropTypes.string,
-  tag: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 }
 
 export default withSystemProps(BranchName, COMMON)
