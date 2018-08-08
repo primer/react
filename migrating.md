@@ -19,14 +19,7 @@ This release also introduces early support for [theming](#theming).
 
         In other words, `color="red"` becomes `color="red.5"`, `bg="purple"` becomes `bg="purple.5"`, and so on. See [the full list of changes](#color-props) below.
 
-
-* Many of the key "utility" props for margin, padding, and typography (`fontSize`, `lineHeight`, et al) should continue working without any modifications.
-
-* Many of the Text component props have changed:
-
-    - `<Text mono>` should now be written as `<Text fontFamily="mono">`.
-
-    - `<Text nowrap>` is no longer supported (yet).
+* [Some typography props](#typography-props) will require refactoring.
 
 ### Theming
 Theming is an optional way to override the values that control color, spacing, typography, and other aspects of our components.
@@ -80,16 +73,7 @@ There are two ways to change the theme of primer-react components:
 
 Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
 
-### Prop value substitutions
-This table lists prop and value combinations that should be changed when migrating to version `1.0.0-beta`:
-
-| Component(s) | Prop | Value(s) | Substitute |
-| :----------- | :--- | :------- | :--------- |
-| _all_ | `fg` | _all_ | `color` |
-| `Text`, `Heading` | `mono` | _n/a_ | `fontFamily="mono"` |
-| `Text`, `Heading` | `nowrap` | _n/a_ | no longer supported |
-
-### Color values
+### Color props
 The following table lists color prop values that have changed in `1.0.0-beta`:
 
 | Prop | Before | After | Notes |
@@ -132,6 +116,50 @@ The following table lists color prop values that have changed in `1.0.0-beta`:
 
 Remember that all `fg` props must be renamed to `color`.
 
+### Typography props
+
+* Typography props are still only available on the `Text` and `Heading` components.
+
+* The `fontSize` prop works as before, but now treats any value that doesn't represent an index of `theme.fontSizes` as a literal CSS value.
+
+* The `lineHeight` prop now accepts one of the keys from `theme.lineHeights`: `default`, `condensed`, or `condensedUltra`. Any other value will be passed along as a literal CSS value.
+
+The following table lists typography-related prop substitutions:
+
+| Prop | Value(s) | Substitute |
+| :--- | :------- | :--------- |
+| `lineHeight` | `condensed-ultra` | `lineHeight="condensedUltra"` |
+| `mono` | (boolean) | `fontFamily="mono"` |
+| `nowrap` | (boolean) | `css="white-space: nowrap"` |
+
+
+### `<Block>` props
+| Prop | Value(s) | Substitute |
+| :--- | :------- | :--------- |
+| `border` | `true` | `border={1}` |
+| `border` | `'bottom'` | `borderBottom={1}` |
+| `border` | `'left'` | `borderLeft={1}` |
+| `border` | `'right'` | `borderRight={1}` |
+| `border` | `'top'` | `borderTop={1}` |
+| `shadow` | _all_ | `boxShadow="value"` |
+
+Note: array values in border props represent [responsive values].
+
+### Flex props
+
+#### `<FlexContainer>`
+| Prop | Value(s) | Substitute |
+| :--- | :------- | :--------- |
+| `direction` | _all_ | `flexDirection="css-value"` |
+| `wrap` | `wrap`, `nowrap` | `flexWrap="css-value"` |
+| `inline` | (boolean) | `display="inline-flex"` |
+
+#### `<FlexItem>`
+| Prop | Value(s) | Substitute |
+| :--- | :------- | :--------- |
+| `flexAuto` | (boolean) | No longer supported |
+
+
 [color gradations]: https://styleguide.github.com/primer/support/color-system/#color-variables
 [default theme]: src/theme.js
 [emotion]: https://emotion.sh
@@ -139,3 +167,4 @@ Remember that all `fg` props must be renamed to `color`.
 [styled-system]: http://jxnblk.com/styled-system/
 [themeGet]: http://jxnblk.com/styled-system/api#themeget
 [Primer CSS]: https://github.com/primer/primer
+[responsive values]: http://jxnblk.com/styled-system/responsive-styles#responsive-styles
