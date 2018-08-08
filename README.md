@@ -119,5 +119,6 @@ test coverage data is generated in the `coverage/` directory.
 - Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
 
 
+[emotion]: https://emotion.sh/
 [npx]: https://www.npmjs.com/package/npx
 [Primer CSS]: https://github.com/primer/primer
