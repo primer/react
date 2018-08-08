@@ -1,0 +1,7 @@
+*.tgz
+.*
+*.config.js
+coverage/
+docs/
+script/
+src/__tests__/
