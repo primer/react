@@ -1,6 +1,6 @@
 import {withSystemProps, LAYOUT} from './system-props'
 
-const Box = withSystemProps(
+const BorderBox = withSystemProps(
   {
     is: 'div',
     bg: 'white',
@@ -11,4 +11,4 @@ const Box = withSystemProps(
   LAYOUT
 )
 
-export default Box
+export default BorderBox
