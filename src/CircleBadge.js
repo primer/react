@@ -24,6 +24,7 @@ const CircleBadge = ({is: Tag = 'div', size = 'medium', bg, children, className,
 CircleBadge.propTypes = {
   alt: PropTypes.string,
   bg: PropTypes.string,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   src: PropTypes.string
 }

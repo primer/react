@@ -6,9 +6,16 @@ export {system as default}
 
 export const COMMON = ['color', 'space']
 
-export const TYPOGRAPHY = COMMON.concat('fontFamily', 'fontWeight', 'lineHeight')
+export const TYPOGRAPHY = COMMON.concat(
+  // typography props
+  'fontFamily',
+  'fontSize',
+  'fontWeight',
+  'lineHeight'
+)
 
 export const LAYOUT = COMMON.concat(
+  // layout props
   'borders',
   'borderColor',
   'borderRadius',
@@ -24,9 +31,18 @@ export const LAYOUT = COMMON.concat(
   'verticalAlign'
 )
 
-export const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
+export const POSITION = [
+  // position props
+  'position',
+  'zIndex',
+  'top',
+  'right',
+  'bottom',
+  'left'
+]
 
 export const FLEX_CONTAINER = LAYOUT.concat(
+  // flex container props (display: flex)
   'alignContent',
   'alignItems',
   'flexWrap',
@@ -37,7 +53,11 @@ export const FLEX_CONTAINER = LAYOUT.concat(
   'order'
 )
 
-export const FLEX_ITEM = LAYOUT.concat('justifySelf', 'alignSelf')
+export const FLEX_ITEM = LAYOUT.concat(
+  // flex container child props
+  'justifySelf',
+  'alignSelf'
+)
 
 /**
  * Defensively determine whether a component function or class is a "system

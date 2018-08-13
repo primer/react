@@ -1,5 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`StateLabel renders children 1`] = `
+<span
+  className="emotion-0 State"
+>
+  hi
+</span>
+`;
+
+exports[`StateLabel renders icon with children 1`] = `
+<span
+  className="emotion-0 State State--green"
+>
+  <span
+    className="mr-1"
+  >
+    <svg
+      aria-hidden="true"
+      aria-label={undefined}
+      className="octicon"
+      height={16}
+      role="img"
+      style={
+        Object {
+          "display": "inline-block",
+          "fill": "currentColor",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
+      }
+      viewBox="0 0 14 16"
+      width={14}
+    >
+      <path
+        d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+        fillRule="evenodd"
+      />
+    </svg>
+  </span>
+  hi
+</span>
+`;
+
 exports[`StateLabel renders states as specific colors 1`] = `
 <span
   className="emotion-0 State State--green"
@@ -136,6 +178,39 @@ exports[`StateLabel respects icon={false} 1`] = `
 <span
   className="emotion-0 State State--green"
 />
+`;
+
+exports[`StateLabel respects the icon prop 1`] = `
+<span
+  className="emotion-0 State State--green"
+>
+  <span
+    className="d-flex m-1"
+  >
+    <svg
+      aria-hidden="true"
+      aria-label={undefined}
+      className="octicon"
+      height={16}
+      role="img"
+      style={
+        Object {
+          "display": "inline-block",
+          "fill": "currentColor",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
+      }
+      viewBox="0 0 12 16"
+      width={12}
+    >
+      <path
+        d="M12 5.5l-8 8-4-4L1.5 8 4 10.5 10.5 4 12 5.5z"
+        fillRule="evenodd"
+      />
+    </svg>
+  </span>
+</span>
 `;
 
 exports[`StateLabel respects the scheme prop 1`] = `

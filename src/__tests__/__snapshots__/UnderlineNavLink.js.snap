@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnderlineNavLink renders the given "tag" prop 1`] = `
+exports[`UnderlineNavLink renders the given "is" prop 1`] = `
 <b
   blacklist={
     Array [

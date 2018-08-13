@@ -33,33 +33,33 @@ const MergeButton = ({numCommits, onClick, primary}) => {
       <Details className="details-reset d-flex float-right">
         {({toggle}) => (
           <React.Fragment>
-            <Button tag="summary" {...buttonSchemeProps} onClick={toggle} style={borderStyles}>
+            <Button is="summary" {...buttonSchemeProps} onClick={toggle} style={borderStyles}>
               <div className="d-inline-block v-align-middle" style={arrowStyles} />
             </Button>
             <Block position="absolute" width={300} mt={1} style={{zIndex: 99999}}>
               <CaretBox caret="top-left">
                 <ul className="list-style-none p-0 m-0">
                   <li className="border-bottom py-2 pl-4 pr-2">
-                    <Text tag="p" m={0} fontSize={1} fontWeight="bold">
+                    <Text is="p" m={0} fontSize={1} fontWeight="bold">
                       Create a merge commit
                     </Text>
-                    <Text tag="p" m={0} fontSize={0}>
+                    <Text is="p" m={0} fontSize={0}>
                       All commits from this branch will be added to the base branch via a merge commit.
                     </Text>
                   </li>
                   <li className="border-bottom py-2 pl-4 pr-2">
-                    <Text tag="p" m={0} fontSize={1} fontWeight="bold">
+                    <Text is="p" m={0} fontSize={1} fontWeight="bold">
                       Squash and merge
                     </Text>
-                    <Text tag="p" m={0} fontSize={0}>
+                    <Text is="p" m={0} fontSize={0}>
                       The {commits} from this branch will be combined into one commit in the base branch.
                     </Text>
                   </li>
                   <li className="py-2 pl-4 pr-2">
-                    <Text tag="p" m={0} fontSize={1} fontWeight="bold">
+                    <Text is="p" m={0} fontSize={1} fontWeight="bold">
                       Rebase and merge
                     </Text>
-                    <Text tag="p" fontSize={0} m={0}>
+                    <Text is="p" fontSize={0} m={0}>
                       The {commits} from this branch will be rebased and added to the base branch
                     </Text>
                   </li>

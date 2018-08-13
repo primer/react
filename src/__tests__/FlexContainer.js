@@ -43,4 +43,12 @@ describe('FlexContainer', () => {
   it('respects responsive display', () => {
     expect(render(<FlexContainer display={['flex', 'inline-flex']} />)).toMatchSnapshot()
   })
+
+  it('respects the "is" prop', () => {
+    expect(render(<FlexContainer is="span" />).type).toEqual('span')
+  })
+
+  it('renders a div by default', () => {
+    expect(render(<FlexContainer />).type).toEqual('div')
+  })
 })

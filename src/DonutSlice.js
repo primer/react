@@ -8,7 +8,8 @@ const getStateColors = themeGet('colors.state', {})
 
 function DonutSlice(props) {
   const {children, d, fill, state, value} = props
-  const color = fill || getStateColors(props)[state] || defaultColor
+  const stateColors = getStateColors(props)
+  const color = fill || stateColors[state] || stateColors.unknown || defaultColor
   return (
     <path d={d} fill={color} data-value={value}>
       {children}

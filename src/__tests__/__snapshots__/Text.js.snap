@@ -5,19 +5,19 @@ exports[`Text renders margin 1`] = `
   margin: 0px;
 }
 
-@media screen and (min-width:400px) {
+@media screen and (min-width:544px) {
   .emotion-0 {
     margin: 4px;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:768px) {
   .emotion-0 {
     margin: 8px;
   }
 }
 
-@media screen and (min-width:960px) {
+@media screen and (min-width:1012px) {
   .emotion-0 {
     margin: 16px;
   }
@@ -25,7 +25,7 @@ exports[`Text renders margin 1`] = `
 
 @media screen and (min-width:1280px) {
   .emotion-0 {
-    margin: 32px;
+    margin: 24px;
   }
 }
 
@@ -39,19 +39,19 @@ exports[`Text renders margin 2`] = `
   margin: 4px;
 }
 
-@media screen and (min-width:400px) {
+@media screen and (min-width:544px) {
   .emotion-0 {
     margin: 4px;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:768px) {
   .emotion-0 {
     margin: 16px;
   }
 }
 
-@media screen and (min-width:960px) {
+@media screen and (min-width:1012px) {
   .emotion-0 {
     margin: 16px;
   }
@@ -67,19 +67,19 @@ exports[`Text renders padding 1`] = `
   padding: 0px;
 }
 
-@media screen and (min-width:400px) {
+@media screen and (min-width:544px) {
   .emotion-0 {
     padding: 4px;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:768px) {
   .emotion-0 {
     padding: 8px;
   }
 }
 
-@media screen and (min-width:960px) {
+@media screen and (min-width:1012px) {
   .emotion-0 {
     padding: 16px;
   }
@@ -87,7 +87,7 @@ exports[`Text renders padding 1`] = `
 
 @media screen and (min-width:1280px) {
   .emotion-0 {
-    padding: 32px;
+    padding: 24px;
   }
 }
 
@@ -101,19 +101,19 @@ exports[`Text renders padding 2`] = `
   padding: 4px;
 }
 
-@media screen and (min-width:400px) {
+@media screen and (min-width:544px) {
   .emotion-0 {
     padding: 4px;
   }
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width:768px) {
   .emotion-0 {
     padding: 16px;
   }
 }
 
-@media screen and (min-width:960px) {
+@media screen and (min-width:1012px) {
   .emotion-0 {
     padding: 16px;
   }
