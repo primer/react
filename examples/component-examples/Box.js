@@ -2,7 +2,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import theme from '../../src/theme'
-import {Block, Text, Heading} from '../../src'
+import {Box, Text, Heading} from '../../src'
 
 const Mono = props => <Text fontFamily="mono" {...props} />
 
@@ -19,15 +19,15 @@ const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => 
 
 const textColors = ['white', 'gray.5', 'black']
 
-const BlockExample = {
-  name: 'Block',
+const BoxExample = {
+  name: 'Box',
   element: (
     <div>
       <table>
         <thead>
           <tr>
             <th className="text-left">
-              <Block pb={4}>color</Block>
+              <Box pb={4}>color</Box>
             </th>
             <th colSpan={textColors.length}>
               <Mono pb={4}>bg={`{color}`}</Mono>
@@ -45,24 +45,24 @@ const BlockExample = {
               </td>
               {textColors.map(fg => (
                 <td key={fg}>
-                  <Block p={3} mb={2} bg={color} color={fg} border={color === 'white' ? 1 : null}>
+                  <Box p={3} mb={2} bg={color} color={fg} border={color === 'white' ? 1 : null}>
                     <Mono>{fg}</Mono>
-                  </Block>
+                  </Box>
                 </td>
               ))}
               <td>
-                <Block p={3} mb={2} ml={3} borderColor={color} border={1}>
+                <Box p={3} mb={2} ml={3} borderColor={color} border={1}>
                   <Mono>{color}</Mono>
-                </Block>
+                </Box>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <Heading fontSize="3">Code Example</Heading>
-      <LiveEditor code={`<Block bg="red.0" p={3} color="red.5">Danger, Will Robinson</Block>`} scope={{Block}} />
+      <LiveEditor code={`<Box bg="red.0" p={3} color="red.5">Danger, Will Robinson</Box>`} scope={{Box}} />
     </div>
   )
 }
 
-export default BlockExample
+export default BoxExample
