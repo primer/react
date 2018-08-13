@@ -1,5 +1,5 @@
 import React from 'react'
-import {Block, theme} from '../../src'
+import {Box, theme} from '../../src'
 import Swatch from '../doc-components/Swatch'
 
 const ColorsExample = {
@@ -12,17 +12,17 @@ const ColorsExample = {
         </div>
       ))}
       <div className="d-flex">
-        <Block bg="blue.5" p={4} m={1} />
-        <Block bg="green.5" p={4} m={1} />
-        <Block bg="purple.5" p={4} m={1} />
-        <Block bg="yellow.5" p={4} m={1} />
-        <Block bg="red.5" p={4} m={1} />
-        <Block bg="white" p={4} m={1} border={1} />
-        <Block bg="gray.5" p={4} m={1} />
-        <Block bg="gray.0" p={4} m={1} />
-        <Block bg="blue.0" p={4} m={1} />
-        <Block bg="purple.0" p={4} m={1} />
-        <Block bg="red.0" p={4} m={1} />
+        <Box bg="blue.5" p={4} m={1} />
+        <Box bg="green.5" p={4} m={1} />
+        <Box bg="purple.5" p={4} m={1} />
+        <Box bg="yellow.5" p={4} m={1} />
+        <Box bg="red.5" p={4} m={1} />
+        <Box bg="white" p={4} m={1} border={1} />
+        <Box bg="gray.5" p={4} m={1} />
+        <Box bg="gray.0" p={4} m={1} />
+        <Box bg="blue.0" p={4} m={1} />
+        <Box bg="purple.0" p={4} m={1} />
+        <Box bg="red.0" p={4} m={1} />
       </div>
     </div>
   )
