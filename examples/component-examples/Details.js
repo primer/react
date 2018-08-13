@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Block, Details} from '../../src'
+import {Box, Details} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const example1 = `<Details>
@@ -26,18 +26,18 @@ const DetailsExample = {
   name: 'Details',
   element: (
     <div>
-      <Block mb={4}>
+      <Box mb={4}>
         <ExampleHeading>With static children</ExampleHeading>
         <LiveEditor code={example1} scope={{Details}} />
-      </Block>
-      <Block my={4}>
+      </Box>
+      <Box my={4}>
         <ExampleHeading>With children as a function</ExampleHeading>
         <LiveEditor code={example2} scope={{Details}} />
-      </Block>
-      <Block my={4}>
+      </Box>
+      <Box my={4}>
         <ExampleHeading>With render prop</ExampleHeading>
         <LiveEditor code={`<Details render={() => 'hi'} />`} scope={{Details}} />
-      </Block>
+      </Box>
     </div>
   )
 }
