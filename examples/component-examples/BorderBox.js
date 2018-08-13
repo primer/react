@@ -13,7 +13,10 @@ const BorderBoxExample = {
         <LiveEditor code={`<BorderBox p={2}>This is a BorderBox with padding.</BorderBox>`} scope={{BorderBox}} />
       </Box>
       <Box mb={6}>
-        <LiveEditor code={`<BorderBox boxShadow="small" m={4} p={2}>This is a BorderBox with shadow.</BorderBox>`} scope={{BorderBox}} />
+        <LiveEditor
+          code={`<BorderBox boxShadow="small" m={4} p={2}>This is a BorderBox with shadow.</BorderBox>`}
+          scope={{BorderBox}}
+        />
       </Box>
       <Box mb={6}>
         <LiveEditor
@@ -34,7 +37,10 @@ const BorderBoxExample = {
         />
       </Box>
       <Box mb={6}>
-        <LiveEditor code={`<BorderBox borderColor="green.5" p={2}>This is a BorderBox with a green border.</BorderBox>`} scope={{BorderBox}} />
+        <LiveEditor
+          code={`<BorderBox borderColor="green.5" p={2}>This is a BorderBox with a green border.</BorderBox>`}
+          scope={{BorderBox}}
+        />
       </Box>
     </div>
   )
