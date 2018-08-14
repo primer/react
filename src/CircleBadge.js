@@ -13,7 +13,7 @@ const CircleBadge = ({is: Tag = 'div', size = 'medium', bg, children, className,
     }
     return React.cloneElement(child, {className})
   })
-  const classes = classnames(className, 'CircleBadge', `CircleBadge--${size}`, bg && `bg-${bg}`)
+  const classes = classnames(className, 'CircleBadge', size && `CircleBadge--${size}`, bg && `bg-${bg}`)
   return (
     <Tag className={classes} {...rest}>
       {mappedChildren}
@@ -29,4 +29,4 @@ CircleBadge.propTypes = {
   src: PropTypes.string
 }
 
-export default withSystemProps(CircleBadge, COMMON)
+export default withSystemProps(CircleBadge, [...COMMON, 'width', 'height'])
