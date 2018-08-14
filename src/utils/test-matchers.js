@@ -1,7 +1,7 @@
 import {createMatchers, createSerializer} from 'jest-emotion'
 import * as emotion from 'emotion'
 import {styles as systemProps} from 'styled-system'
-import {getClasses, getClassName, getComputedStyles, render}  from './testing'
+import {getClasses, getClassName, getComputedStyles, render} from './testing'
 
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))

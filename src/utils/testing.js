@@ -54,7 +54,7 @@ export function renderWithTheme(node, theme = defaultTheme) {
 }
 
 export function px(value) {
-  return (typeof value === 'number') ? `${value}px` : value
+  return typeof value === 'number' ? `${value}px` : value
 }
 
 export function renderStyles(node) {
