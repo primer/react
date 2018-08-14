@@ -5,7 +5,7 @@ import {withSystemProps, COMMON} from './system-props'
 
 const ICON_CLASS = 'CircleBadge-icon'
 
-const CircleBadge = ({is: Tag = 'div', size = 'medium', bg, children, className, ...rest}) => {
+const CircleBadge = ({is: Tag = 'div', size, bg, children, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
