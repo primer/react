@@ -1,7 +1,7 @@
 import {createMatchers, createSerializer} from 'jest-emotion'
 import * as emotion from 'emotion'
 import {styles as systemProps} from 'styled-system'
-import {render} from './testing'
+import {getComputedStyles, render}  from './testing'
 
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))
@@ -49,8 +49,8 @@ expect.extend({
 
   toRenderStyles(node, expected) {
     const result = render(node)
-    const classes = getClasses(result)
-    const computed = getComputedStyles(classes)
+    const {className} = getProps(result)
+    const computed = getComputedStyles(className)
     return {
       pass: this.equals(expected, computed),
       message: () => `Computed styles mismatch: expected ${stringify(expected)}, but got ${stringify(computed)}`
@@ -69,44 +69,4 @@ function getProps(node) {
 function getClasses(node) {
   const {className} = getProps(node)
   return className ? className.trim().split(/ +/) : []
-}
-
-function getComputedStyles(classes) {
-  const pattern = new RegExp(`\\.(${classes.join('|')})\\b`)
-  const computed = {}
-  for (const sheet of document.styleSheets) {
-    for (const rule of sheet.cssRules) {
-      if (rule.type === 1) {
-        readRule(rule, computed)
-      } else if (rule.type === 4) {
-        readMedia(rule)
-      } else {
-        // console.warn('rule.type =', rule.type)
-      }
-    }
-  }
-
-  return computed
-
-  function readRule(rule, dest) {
-    if (!rule.selectorText) {
-      // console.warn('no selector text:', rule)
-    } else if (rule.selectorText.match(pattern)) {
-      const {style} = rule
-      for (let i = 0; i < style.length; i++) {
-        const prop = style[i]
-        dest[prop] = style.getPropertyValue(prop)
-      }
-    } else {
-      // console.warn('no match:', rule.selectorText)
-    }
-  }
-
-  function readMedia(mediaRule) {
-    const key = `@media ${mediaRule.media[0]}`
-    const dest = computed[key] || (computed[key] = {})
-    for (const rule of mediaRule.cssRules) {
-      readRule(rule, dest)
-    }
-  }
 }
