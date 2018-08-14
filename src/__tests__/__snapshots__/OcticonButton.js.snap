@@ -4,12 +4,9 @@ exports[`OcticonButton passes the "size" prop to the Octicon 1`] = `
 <button
   aria-label=""
   className="btn-link text-inherit emotion-0"
-  disabled={undefined}
-  onClick={undefined}
 >
   <svg
     aria-hidden="true"
-    aria-label={undefined}
     className="octicon"
     height={128}
     role="img"
@@ -37,12 +34,9 @@ exports[`OcticonButton renders a button with an Octicon 1`] = `
 <button
   aria-label=""
   className="btn-link text-inherit emotion-0"
-  disabled={undefined}
-  onClick={undefined}
 >
   <svg
     aria-hidden="true"
-    aria-label={undefined}
     className="octicon"
     height={16}
     role="img"
