@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from './Box'
+import BorderBox from './BorderBox'
 import Caret from './Caret'
 
 function CaretBox({position, ...rest}) {
@@ -8,20 +8,20 @@ function CaretBox({position, ...rest}) {
   const {caret, children, ...boxProps} = rest
   const caretProps = {bg, borderColor, borderWidth: border, location: caret}
   return (
-    <Box {...boxProps} css={{position}}>
+    <BorderBox {...boxProps} css={{position}}>
       {children}
       <Caret {...caretProps} />
-    </Box>
+    </BorderBox>
   )
 }
 
 CaretBox.propTypes = {
-  ...Box.propTypes,
+  ...BorderBox.propTypes,
   caret: Caret.propTypes.location
 }
 
 CaretBox.defaultProps = {
-  ...Box.defaultProps,
+  ...BorderBox.defaultProps,
   position: 'relative'
 }
 

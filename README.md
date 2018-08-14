@@ -24,7 +24,7 @@ All of our components are exported by name from `primer-react`, so you can impor
 
 ```js
 import {
-  Block,
+  Box,
   Button,
   Heading,
   Text

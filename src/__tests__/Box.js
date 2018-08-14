@@ -1,50 +1,75 @@
 import React from 'react'
 import Box from '../Box'
-import {renderClasses} from '../utils/testing'
+import theme from '../theme'
+import {render} from '../utils/testing'
+import {COMMON} from '../system-props'
 
-xdescribe('Box', () => {
+describe('Box', () => {
   it('is a system component', () => {
     expect(Box.systemComponent).toEqual(true)
   })
 
-  const defaultClasses = ['border', 'bg-white', 'rounded-1']
-  it('renders default classes', () => {
-    expect(renderClasses(<Box />)).toEqual(defaultClasses)
+  it('implements layout system props', () => {
+    expect(Box).toImplementSystemProps(COMMON)
+    // FIXME
+    // expect(Box).toImplementSystemProps(LAYOUT)
+  })
+
+  it('renders without any props', () => {
+    expect(render(<Box />)).toMatchSnapshot()
   })
 
   it('renders margin', () => {
-    expect(renderClasses(<Box m={1} />)).toEqual(['m-1', ...defaultClasses])
-    expect(renderClasses(<Box m={[0, 1, 2, 3, 4]} />)).toEqual([
-      'm-0',
-      'm-sm-1',
-      'm-md-2',
-      'm-lg-3',
-      'm-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<Box m={[null, 1, null, 3]} />)).toEqual(['m-sm-1', 'm-lg-3', ...defaultClasses])
+    expect(render(<Box m={1} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
   it('renders padding', () => {
-    expect(renderClasses(<Box p={1} />)).toEqual(['p-1', ...defaultClasses])
-    expect(renderClasses(<Box p={[0, 1, 2, 3, 4]} />)).toEqual([
-      'p-0',
-      'p-sm-1',
-      'p-md-2',
-      'p-lg-3',
-      'p-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<Box p={[null, 1, null, 3]} />)).toEqual(['p-sm-1', 'p-lg-3', ...defaultClasses])
+    expect(render(<Box p={1} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box p={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
-  it('renders borders', () => {
-    expect(renderClasses(<Box border />)).toEqual(['border', 'bg-white', 'rounded-1'])
-    expect(renderClasses(<Box border="left" borderColor="green.5" />)).toEqual([
-      'border-left',
-      'border-green',
-      'bg-white',
-      'rounded-1'
-    ])
+  describe('borders', () => {
+    it('handles border prop', () => {
+      expect(render(<Box border={1} theme={theme} />)).toMatchSnapshot()
+    })
+    it('handles a single border edge', () => {
+      expect(render(<Box borderLeft={1} borderColor="green.5" theme={theme} />)).toMatchSnapshot()
+    })
+    it('handles multiple border edges', () => {
+      expect(render(<Box borderLeft={1} borderRight={1} borderColor="gray.2" theme={theme} />)).toMatchSnapshot()
+    })
+    it('handles just a border color', () => {
+      expect(render(<Box borderColor="red.5" theme={theme} />)).toMatchSnapshot()
+    })
+  })
+
+  it('respects display', () => {
+    expect(render(<Box display="inline" />)).toMatchSnapshot()
+    expect(render(<Box display="inline-block" />)).toMatchSnapshot()
+    expect(render(<Box display="none" />)).toMatchSnapshot()
+    expect(render(<Box display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
+  })
+
+  it('respects position', () => {
+    expect(render(<Box position="absolute" />)).toMatchSnapshot()
+    expect(render(<Box position="relative" />)).toMatchSnapshot()
+  })
+
+  it('respects bg', () => {
+    expect(render(<Box bg="yellow.2" theme={theme} />)).toMatchSnapshot()
+  })
+
+  it('respects color', () => {
+    expect(render(<Box color="red.5" theme={theme} />)).toMatchSnapshot()
+  })
+
+  it('renders shadow', () => {
+    expect(render(<Box boxShadow="small" theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box boxShadow="medium" theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box boxShadow="large" theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box boxShadow="extra-large" theme={theme} />)).toMatchSnapshot()
   })
 })
