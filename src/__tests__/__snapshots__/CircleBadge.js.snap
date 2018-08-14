@@ -21,6 +21,8 @@ exports[`CircleBadge respects "is" prop 1`] = `
       "pl",
       "px",
       "py",
+      "width",
+      "height",
     ]
   }
   className="emotion-0 CircleBadge CircleBadge--medium"
