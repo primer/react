@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
-import {Block} from '../../src'
+import {Box} from '../../src'
 
 const SideNav = ({title, examples}) => (
-  <Block mr={3}>
+  <Box mr={3}>
     <nav className="menu">
       <NavLink to={'/'} className="menu-heading no-underline link-gray-dark">
         {title}
@@ -20,7 +20,7 @@ const SideNav = ({title, examples}) => (
         </NavLink>
       ))}
     </nav>
-  </Block>
+  </Box>
 )
 
 SideNav.propTypes = {

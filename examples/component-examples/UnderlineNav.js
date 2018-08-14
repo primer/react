@@ -3,7 +3,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {NavLink} from 'react-router-dom'
 import ExampleHeading from '../doc-components/ExampleHeading'
-import {Block, Link, Text, UnderlineNav, UnderlineNavLink} from '../../src'
+import {Box, Link, Text, UnderlineNav, UnderlineNavLink} from '../../src'
 
 const underlineNavLinkExample = `<UnderlineNav>
   <UnderlineNavLink href="#foo" selected>
@@ -23,14 +23,14 @@ export default {
   name: 'UnderlineNav',
   element: (
     <div>
-      <Block mb={4}>
+      <Box mb={4}>
         <ExampleHeading>
           Using <Text fontFamily="mono">{'<UnderlineNavLink>'}</Text>
         </ExampleHeading>
         <LiveEditor code={underlineNavLinkExample} scope={{UnderlineNav, UnderlineNavLink}} />
-      </Block>
+      </Box>
 
-      <Block mb={4}>
+      <Box mb={4}>
         <ExampleHeading>
           Using <Text fontFamily="mono">{'<NavLink>'}</Text> from react-router
         </ExampleHeading>
@@ -41,7 +41,7 @@ export default {
           This ensures that the NavLink gets <Text fontFamily="mono">activeClassName='selected'</Text>.
         </p>
         <LiveEditor code={navLinkExample} scope={{UnderlineNav, UnderlineNavLink, NavLink}} />
-      </Block>
+      </Box>
     </div>
   )
 }

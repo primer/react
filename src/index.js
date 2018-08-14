@@ -1,7 +1,7 @@
 export {default as theme} from './theme'
 
 // Layout
-export {default as Block} from './Block'
+export {default as BorderBox} from './BorderBox'
 export {default as Box} from './Box'
 export {Position, Absolute, Fixed, Relative, Sticky} from './Position'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from './Box'
+import BorderBox from './BorderBox'
 import {Position} from './Position'
 import Caret from './Caret'
 
@@ -22,8 +22,7 @@ CaretBox.propTypes = {
 }
 
 CaretBox.defaultProps = {
-  ...Position.defaultProps,
-  ...Box.defaultProps,
+  ...BorderBox.defaultProps,
   position: 'relative'
 }
 
