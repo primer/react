@@ -1,20 +1,20 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {CaretBox} from '../../src'
+import {PointerBox} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
-const example = `<CaretBox m={4} p={2} minHeight={100} bg="green.1" borderColor="green.5">
-  CaretBox
-</CaretBox>`
+const example = `<PointerBox m={4} p={2} minHeight={100} bg="green.1" borderColor="green.5">
+  PointerBox
+</PointerBox>`
 
-const CaretBoxExample = {
-  name: 'CaretBox',
+const PointerBoxExample = {
+  name: 'PointerBox',
   element: (
     <div>
-      <ExampleHeading mt={2}>CaretBox</ExampleHeading>
-      <LiveEditor code={example} scope={{CaretBox}} />
+      <ExampleHeading mt={2}>PointerBox</ExampleHeading>
+      <LiveEditor code={example} scope={{PointerBox}} />
     </div>
   )
 }
 
-export default CaretBoxExample
+export default PointerBoxExample

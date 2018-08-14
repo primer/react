@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {MergeStatus, CaretBox} from '../../src'
+import {MergeStatus, PointerBox} from '../../src'
 import MergeDetail from './MergeDetail'
 import MergeActions from './MergeActions'
 
@@ -19,7 +19,7 @@ const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
   return (
     <div className="d-flex flex-items-start">
       <MergeStatus state={state} />
-      <CaretBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
+      <PointerBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
         <MergeDetail state={state} />
         <MergeActions
           state={state}
@@ -27,7 +27,7 @@ const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
           desktopUrl={getDesktopURL(repoUrl, branchName)}
           onClick={onMerge}
         />
-      </CaretBox>
+      </PointerBox>
     </div>
   )
 }
