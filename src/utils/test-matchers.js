@@ -1,7 +1,7 @@
 import {createMatchers, createSerializer} from 'jest-emotion'
 import * as emotion from 'emotion'
 import {styles as systemProps} from 'styled-system'
-import {getComputedStyles, render}  from './testing'
+import {getClasses, getClassName, getComputedStyles, render}  from './testing'
 
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))
@@ -49,7 +49,7 @@ expect.extend({
 
   toRenderStyles(node, expected) {
     const result = render(node)
-    const {className} = getProps(result)
+    const className = getClassName(result)
     const computed = getComputedStyles(className)
     return {
       pass: this.equals(expected, computed),
@@ -57,16 +57,3 @@ expect.extend({
     }
   }
 })
-
-/**
- * This provides a layer of compatibility between the render() function from
- * react-test-renderer and Enzyme's mount()
- */
-function getProps(node) {
-  return typeof node.props === 'function' ? node.props() : node.props
-}
-
-function getClasses(node) {
-  const {className} = getProps(node)
-  return className ? className.trim().split(/ +/) : []
-}

@@ -105,3 +105,20 @@ export function getComputedStyles(className) {
     }
   }
 }
+
+/**
+ * This provides a layer of compatibility between the render() function from
+ * react-test-renderer and Enzyme's mount()
+ */
+export function getProps(node) {
+  return typeof node.props === 'function' ? node.props() : node.props
+}
+
+export function getClassName(node) {
+  return getProps(node).className
+}
+
+export function getClasses(node) {
+  const className = getClassName(node)
+  return className ? className.trim().split(/ +/) : []
+}
