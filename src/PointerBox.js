@@ -1,6 +1,5 @@
 import React from 'react'
 import BorderBox from './BorderBox'
-import {Position} from './Position'
 import Caret from './Caret'
 
 function PointerBox(props) {
