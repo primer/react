@@ -2,15 +2,7 @@
 import React from 'react'
 import Avatar from '../Avatar'
 import theme from '../theme'
-import {px, render, renderClasses, renderStyles, loadCSS, unloadCSS} from '../utils/testing'
-
-const STYLE_PATH = 'primer-avatars/build/build.css'
-
-beforeAll(() => {
-  return loadCSS(STYLE_PATH)
-})
-
-afterAll(() => unloadCSS(STYLE_PATH))
+import {px, render} from '../utils/testing'
 
 describe('Avatar', () => {
   it('is a system component', () => {
