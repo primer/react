@@ -1,19 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Avatar passes through the src prop 1`] = `
+exports[`Avatar renders default props 1`] = `
 <img
   className="avatar avatar-small emotion-0"
   height={20}
-  src="primer.png"
   width={20}
 />
 `;
 
-exports[`Avatar respects the size prop 1`] = `
+exports[`Avatar respects isChild 1`] = `
 <img
-  alt="github"
-  className="avatar emotion-0"
-  height={40}
-  width={40}
+  className="avatar avatar-small avatar-child emotion-0"
+  height={20}
+  width={20}
 />
 `;
