@@ -1,9 +1,12 @@
 import React from 'react'
+import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {ThemeProvider} from 'emotion-theming'
 import {default as defaultTheme} from '../theme'
+
+const readFile = promisify(require('fs').readFile)
 
 enzyme.configure({adapter: new Adapter()})
 
@@ -122,3 +125,23 @@ export function getClasses(node) {
   const className = getClassName(node)
   return className ? className.trim().split(/ +/) : []
 }
+
+export function loadCSS(path) {
+  return readFile(require.resolve(path), 'utf8')
+    .then(css => {
+      const style = document.createElement('style')
+      style.setAttribute('data-path', path)
+      style.textContent = css
+      document.head.appendChild(style)
+      return style
+    })
+}
+
+export function unloadCSS(path) {
+  const style = document.querySelector(`style[data-path="${path}"]`)
+  if (style) {
+    style.remove()
+    return true
+  }
+}
+
