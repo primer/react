@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Block, ButtonLink, Link, Text} from '../../src'
+import {Box, ButtonLink, Link, Text} from '../../src'
 import MergeButton from './MergeButton'
 
 const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
   return (
-    <Block py={3} px={4} bg="gray.0" style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
+    <Box py={3} px={4} bg="gray.0" style={{borderBottomLeftRadius: '3px', borderBottomRightRadius: '3px'}}>
       <MergeButton primary={state === 'ready'} numCommits={numCommits} onClick={onClick} />
       <Text ml={2}>You can also </Text>
       <Link nounderline href={desktopUrl}>
@@ -13,7 +13,7 @@ const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
       </Link>
       <Text> or view </Text>
       <ButtonLink>command line instructions.</ButtonLink>
-    </Block>
+    </Box>
   )
 }
 

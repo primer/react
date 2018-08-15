@@ -1,41 +1,66 @@
+/* eslint-disable import/no-named-as-default-member */
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Box, Block} from '../../src'
+import theme from '../../src/theme'
+import {Box, Text, Heading} from '../../src'
+
+const Mono = props => <Text fontFamily="mono" {...props} />
+
+const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => {
+  if (key !== 'bg' && key !== 'border') {
+    if (Array.isArray(value)) {
+      return keys.concat(Object.keys(value).map(i => `${key}.${i}`))
+    } else {
+      keys.push(key)
+    }
+  }
+  return keys
+}, [])
+
+const textColors = ['white', 'gray.5', 'black']
 
 const BoxExample = {
   name: 'Box',
   element: (
     <div>
-      <Block mb={6}>
-        <LiveEditor code={`<Box>This is a box</Box>`} scope={{Box}} />
-      </Block>
-      <Block mb={6}>
-        <LiveEditor code={`<Box p={2}>This is a box with padding.</Box>`} scope={{Box}} />
-      </Block>
-      <Block mb={6}>
-        <LiveEditor code={`<Box boxShadow="small" m={4} p={2}>This is a box with shadow.</Box>`} scope={{Box}} />
-      </Block>
-      <Block mb={6}>
-        <LiveEditor
-          code={`<Box boxShadow="medium" m={4} p={2}>This is a box with a medium shadow.</Box>`}
-          scope={{Box}}
-        />
-      </Block>
-      <Block mb={6}>
-        <LiveEditor
-          code={`<Box boxShadow="large" m={4} p={2}>This is a box with a large shadow.</Box>`}
-          scope={{Box}}
-        />
-      </Block>
-      <Block mb={6}>
-        <LiveEditor
-          code={`<Box boxShadow="extra-large" m={4} p={2}>This is a box with an extra-large shadow.</Box>`}
-          scope={{Box}}
-        />
-      </Block>
-      <Block mb={6}>
-        <LiveEditor code={`<Box borderColor="green.5" p={2}>This is a box with a green border.</Box>`} scope={{Box}} />
-      </Block>
+      <table>
+        <thead>
+          <tr>
+            <th className="text-left">
+              <Box pb={4}>color</Box>
+            </th>
+            <th colSpan={textColors.length}>
+              <Mono pb={4}>bg={`{color}`}</Mono>
+            </th>
+            <th>
+              <Mono pb={4}>borderColor</Mono>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {colors.map(color => (
+            <tr key={color}>
+              <td>
+                <Mono mr={3}>{color}</Mono>
+              </td>
+              {textColors.map(fg => (
+                <td key={fg}>
+                  <Box p={3} mb={2} bg={color} color={fg} border={color === 'white' ? 1 : null}>
+                    <Mono>{fg}</Mono>
+                  </Box>
+                </td>
+              ))}
+              <td>
+                <Box p={3} mb={2} ml={3} borderColor={color} border={1}>
+                  <Mono>{color}</Mono>
+                </Box>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Heading fontSize="3">Code Example</Heading>
+      <LiveEditor code={`<Box bg="red.0" p={3} color="red.5">Danger, Will Robinson</Box>`} scope={{Box}} />
     </div>
   )
 }

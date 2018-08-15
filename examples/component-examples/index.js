@@ -1,5 +1,5 @@
 export {default as Avatar} from './Avatar'
-export {default as Block} from './Block'
+export {default as BorderBox} from './BorderBox'
 export {default as Box} from './Box'
 export {default as BranchName} from './BranchName'
 export {default as Buttons} from './Buttons'

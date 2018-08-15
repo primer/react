@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Octicon from './Octicon'
 import {TriangleDown} from '@githubprimer/octicons-react'
 import Button from './Button'
-import Block from './Block'
+import Box from './Box'
 import Caret from './Caret'
 import Details from './Details'
 import FlexContainer from './FlexContainer'
@@ -21,7 +21,7 @@ function Dropdown({title, scheme, children, className, ...rest}) {
               {title}
               <Octicon icon={TriangleDown} size={14} ml={title ? 2 : 0} />
             </Button>
-            <Block
+            <Box
               bg="white"
               border={1}
               borderColor="gray.2"
@@ -35,7 +35,7 @@ function Dropdown({title, scheme, children, className, ...rest}) {
             >
               {children}
               <Caret location="top-left" />
-            </Block>
+            </Box>
           </React.Fragment>
         )}
       </FlexContainer>

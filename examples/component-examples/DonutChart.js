@@ -1,6 +1,6 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Block, DonutChart, Text, DonutSlice, theme} from '../../src'
+import {Box, DonutChart, Text, DonutSlice, theme} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const dataPropExample = `<DonutChart mr={1} data={{error: 2, pending: 3, success: 5}} />
@@ -53,24 +53,24 @@ const DonutChartExample = {
   name: 'DonutChart',
   element: (
     <div>
-      <Block mb={2}>
+      <Box mb={2}>
         <ExampleHeading>
           With <Text fontFamily="mono">data</Text> prop
         </ExampleHeading>
         <LiveEditor code={dataPropExample} scope={{DonutChart}} />
-      </Block>
-      <Block mb={2}>
+      </Box>
+      <Box mb={2}>
         <ExampleHeading>
           With <Text fontFamily="mono">DonutSlice</Text> children
         </ExampleHeading>
         <LiveEditor code={donutSliceExample} scope={{DonutChart, DonutSlice}} />
-      </Block>
-      <Block mb={2}>
+      </Box>
+      <Box mb={2}>
         <ExampleHeading>
           With custom <Text fontFamily="mono">fill</Text> colors
         </ExampleHeading>
         <LiveEditor code={customColorsExample} scope={{DonutSlice, DonutChart, theme}} />
-      </Block>
+      </Box>
     </div>
   )
 }
