@@ -1,7 +1,7 @@
 import React from 'react'
 import {withSystemProps, LAYOUT, POSITION} from './system-props'
 
-const Position = withSystemProps('div', LAYOUT.concat(POSITION))
+export const Position = withSystemProps('div', LAYOUT.concat(POSITION))
 
 function withPosition(position) {
   const WithPosition = props => <Position {...props} position={position} />
@@ -13,9 +13,7 @@ function withPosition(position) {
   return WithPosition
 }
 
-const Absolute = withPosition('absolute')
-const Fixed = withPosition('fixed')
-const Relative = withPosition('relative')
-const Sticky = withPosition('sticky')
-
-export {Position, Absolute, Fixed, Relative, Sticky}
+export const Absolute = withPosition('absolute')
+export const Fixed = withPosition('fixed')
+export const Relative = withPosition('relative')
+export const Sticky = withPosition('sticky')
