@@ -1,27 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import styled from 'react-emotion'
 import {themeGet} from 'styled-system'
-import {withSystemProps, COMMON} from './system-props'
+import {withSystemProps} from './system-props'
 
 const Avatar = styled(AvatarImage)`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${themeGet('lineHeights.condensedUltra', 1)};
   vertical-align: middle;
-  ${borderRadius}
-  ${childStyles}
+  ${borderRadius};
+  ${childStyles};
 `
 
 const getBackgroundColor = themeGet('colors.white', '#fff')
 
-function AvatarImage({isChild, size, ...rest}) {
-  return <img width={size} height={size} {...rest} />
+function AvatarImage({alt, size, ...rest}) {
+  delete rest.isChild
+  return <img alt={alt} width={size} height={size} {...rest} />
 }
 
 function borderRadius({isChild, size}) {
-  const small = (isChild === true || size <= 24)
+  const small = isChild === true || size <= 24
   return {
     borderRadius: small ? '2px' : '3px'
   }
@@ -44,7 +44,7 @@ Avatar.defaultProps = {
 }
 
 Avatar.propTypes = {
-  alt: PropTypes.string,
+  alt: PropTypes.string.isRequired,
   isChild: PropTypes.bool,
   size: PropTypes.number,
   src: PropTypes.string
