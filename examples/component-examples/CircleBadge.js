@@ -8,7 +8,7 @@ const octicon = `<CircleBadge size="medium">
 </CircleBadge>`
 
 const image = `<CircleBadge bg="blue.5" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>`
-const customSize = `<CircleBadge bg="blue.5" width={48} height={48}><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>`
+const customSize = `<CircleBadge bg="blue.5" size={40}><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>`
 const sizes = `<CircleBadge bg="blue.5" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
 <CircleBadge bg="blue.5" size="medium"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
 <CircleBadge bg="blue.5" size="large"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>`
