@@ -9,24 +9,19 @@ function PointerBox(props) {
   const {caret, children, ...boxProps} = props
   const caretProps = {bg, borderColor, borderWidth: border, location: caret}
   return (
-    <Position {...boxProps}>
+    <BorderBox {...boxProps} css={{position: 'relative'}}>
       {children}
       <Caret {...caretProps} />
-    </Position>
+    </BorderBox>
   )
 }
 
 PointerBox.propTypes = {
-  ...Position.propTypes,
+  ...BorderBox.propTypes,
   caret: Caret.propTypes.location
 }
 
-PointerBox.defaultProps = {
-  ...BorderBox.defaultProps,
-  position: 'relative'
-}
-
-// we can set this because it "extends" Position implicitly
+// we can set this because it "extends" Box implicitly
 PointerBox.systemComponent = true
 
 export default PointerBox
