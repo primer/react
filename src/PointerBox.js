@@ -2,30 +2,25 @@ import React from 'react'
 import BorderBox from './BorderBox'
 import Caret from './Caret'
 
-function CaretBox({position, ...rest}) {
+function PointerBox(props) {
   // don't destructure these, just grab them
-  const {bg, border, borderColor} = rest
-  const {caret, children, ...boxProps} = rest
+  const {bg, border, borderColor} = props
+  const {caret, children, ...boxProps} = props
   const caretProps = {bg, borderColor, borderWidth: border, location: caret}
   return (
-    <BorderBox {...boxProps} css={{position}}>
+    <BorderBox {...boxProps} css={{position: 'relative'}}>
       {children}
       <Caret {...caretProps} />
     </BorderBox>
   )
 }
 
-CaretBox.propTypes = {
+PointerBox.propTypes = {
   ...BorderBox.propTypes,
   caret: Caret.propTypes.location
 }
 
-CaretBox.defaultProps = {
-  ...BorderBox.defaultProps,
-  position: 'relative'
-}
-
 // we can set this because it "extends" Box implicitly
-CaretBox.systemComponent = true
+PointerBox.systemComponent = true
 
-export default CaretBox
+export default PointerBox
