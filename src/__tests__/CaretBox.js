@@ -7,15 +7,15 @@ describe('CaretBox', () => {
     expect(CaretBox.systemComponent).toEqual(true)
   })
 
-  it('renders a <Caret> in <Box> with relative positioning', () => {
+  it('renders a <Caret> in <BorderBox> with relative positioning', () => {
     expect(render(<CaretBox />)).toMatchSnapshot()
   })
 
-  it('passes the "borderColor" prop to both <Box> and <Caret>', () => {
+  it('passes the "borderColor" prop to both <BorderBox> and <Caret>', () => {
     expect(render(<CaretBox borderColor="red.5" />)).toMatchSnapshot()
   })
 
-  it('passes the "bg" prop to both <Box> and <Caret>', () => {
+  it('passes the "bg" prop to both <BorderBox> and <Caret>', () => {
     expect(render(<CaretBox bg="red.5" />)).toMatchSnapshot()
   })
 })
