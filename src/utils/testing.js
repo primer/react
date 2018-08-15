@@ -127,14 +127,13 @@ export function getClasses(node) {
 }
 
 export function loadCSS(path) {
-  return readFile(require.resolve(path), 'utf8')
-    .then(css => {
-      const style = document.createElement('style')
-      style.setAttribute('data-path', path)
-      style.textContent = css
-      document.head.appendChild(style)
-      return style
-    })
+  return readFile(require.resolve(path), 'utf8').then(css => {
+    const style = document.createElement('style')
+    style.setAttribute('data-path', path)
+    style.textContent = css
+    document.head.appendChild(style)
+    return style
+  })
 }
 
 export function unloadCSS(path) {
@@ -144,4 +143,3 @@ export function unloadCSS(path) {
     return true
   }
 }
-
