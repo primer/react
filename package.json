@@ -42,7 +42,6 @@
     "d3-shape": "^1.2.0",
     "emotion": "9.2.6",
     "emotion-theming": "9.2.6",
-    "primer-avatars": "1.5.6",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
     "react": "^16.2.0",
