@@ -1,21 +1,21 @@
 import React from 'react'
-import {CaretBox} from '..'
+import {PointerBox} from '..'
 import {render} from '../utils/testing'
 
-describe('CaretBox', () => {
+describe('PointerBox', () => {
   it('is a system component', () => {
-    expect(CaretBox.systemComponent).toEqual(true)
+    expect(PointerBox.systemComponent).toEqual(true)
   })
 
   it('renders a <Caret> in <BorderBox> with relative positioning', () => {
-    expect(render(<CaretBox />)).toMatchSnapshot()
+    expect(render(<PointerBox />)).toMatchSnapshot()
   })
 
   it('passes the "borderColor" prop to both <BorderBox> and <Caret>', () => {
-    expect(render(<CaretBox borderColor="red.5" />)).toMatchSnapshot()
+    expect(render(<PointerBox borderColor="red.5" />)).toMatchSnapshot()
   })
 
   it('passes the "bg" prop to both <BorderBox> and <Caret>', () => {
-    expect(render(<CaretBox bg="red.5" />)).toMatchSnapshot()
+    expect(render(<PointerBox bg="red.5" />)).toMatchSnapshot()
   })
 })
