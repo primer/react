@@ -3,6 +3,7 @@ export {default as theme} from './theme'
 // Layout
 export {default as BorderBox} from './BorderBox'
 export {default as Box} from './Box'
+export {Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
 // Components
 export {default as Avatar} from './Avatar'
@@ -15,7 +16,7 @@ export {default as ButtonLink} from './ButtonLink'
 export {default as OcticonButton} from './OcticonButton'
 
 export {default as Caret} from './Caret'
-export {default as CaretBox} from './CaretBox'
+export {default as PointerBox} from './PointerBox'
 export {default as CircleOcticon} from './CircleOcticon'
 export {default as CircleBadge} from './CircleBadge'
 
