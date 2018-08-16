@@ -16,6 +16,13 @@ const stringify = d => JSON.stringify(d, null, '  ')
 const ALIAS_PROP_TYPES = ['w', 'align', 'justify', 'wrap']
 
 expect.extend({
+  toMatchKeys(obj, values) {
+    return {
+      pass: Object.keys(values).every(key => this.equals(obj[key], values[key])),
+      message: () => `Expected ${stringify(obj)} to have matching keys: ${stringify(values)}`
+    }
+  },
+
   toHaveClass(node, klass) {
     const classes = getClasses(node)
     const pass = classes.includes(klass)
