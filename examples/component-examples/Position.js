@@ -1,6 +1,6 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Box, Position, Absolute, Relative, Fixed, Sticky} from '../../src'
+import {Box, Absolute, Relative, Fixed, Sticky} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const scope = {Relative, Box, Absolute, Fixed, Sticky}
@@ -9,9 +9,9 @@ export default {
   name: 'Position',
   element: (
     <Box p={2} mb={200}>
-
       <ExampleHeading mb={2}>Relative + Absolute</ExampleHeading>
-      <LiveEditor code={`
+      <LiveEditor
+        code={`
 <Relative size={128} mx={128} my={6}>
   <Box border={1} borderColor="gray.2" size="100%">
     <Absolute left="100%" top={0} bg="red.1" p={1}>rt</Absolute>
@@ -24,25 +24,32 @@ export default {
     <Absolute right={0} bottom="100%" bg="blue.1" p={1}>tr</Absolute>
   </Box>
 </Relative>
-        `.trim()} scope={scope} />
+        `.trim()}
+        scope={scope}
+      />
 
       <ExampleHeading my={2}>Sticky</ExampleHeading>
-      <LiveEditor code={`
+      <LiveEditor
+        code={`
 <Box border={1} borderColor="green.5" height={1000}>
   <Sticky top={0} bg="green.2" p={4}>
     I'm sticky!
   </Sticky>
 </Box>
-        `.trim()} scope={scope} />
+        `.trim()}
+        scope={scope}
+      />
 
       <ExampleHeading my={2}>Fixed</ExampleHeading>
       <p>(see the bottom right of the screen)</p>
-      <LiveEditor code={`
+      <LiveEditor
+        code={`
 <Fixed bottom={0} right={0} bg="red.2" p={2}>
   I'm fixed to the bottom right.
 </Fixed>
-        `.trim()} scope={scope} />
-
+        `.trim()}
+        scope={scope}
+      />
     </Box>
   )
 }
