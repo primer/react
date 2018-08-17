@@ -1,13 +1,13 @@
 # Contribution guidelines
 
 1. [Code style](#code-style)
-1. [Testing](#testing)
+2. [Testing](#testing)
     1. [Code coverage](#code-coverage)
-1. [Tools we use](#tools-we-use)
-1. [Component patterns](#component-patterns)
+3. [Tools we use](#tools-we-use)
+4. [Component patterns](#component-patterns)
     1. [Components with only system props](#components-with-only-system-props)
     1. [Primer CSS components](#primer-css-components)
-1. [Glossary](#glossary)
+5. [Glossary](#glossary)
 
 ## Code Style
 
@@ -50,8 +50,8 @@ A code coverage report is included in the `npm test` output, and test coverage d
 ## Tools we use
 
 1. We use [emotion] to style our components, and [emotion-theming] as the theme provider.
-1. We use style functions from [styled-system] whenever possible, and styled-systems' `style()` function to create new ones.
-1. We use [system-components] to reduce the amount of boilerplate needed to implement styled-system functions.
+2. We use style functions from [styled-system] whenever possible, and styled-systems' `style()` function to create new ones.
+3. We use [system-components] to reduce the amount of boilerplate needed to implement styled-system functions.
 
 ## Component patterns
 
