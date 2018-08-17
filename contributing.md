@@ -2,11 +2,11 @@
 
 1. [Code style](#code-style)
 2. [Testing](#testing)
-    1. [Code coverage](#code-coverage)
+    * [Code coverage](#code-coverage)
 3. [Tools we use](#tools-we-use)
 4. [Component patterns](#component-patterns)
-    1. [Components with only system props](#components-with-only-system-props)
-    1. [Primer CSS components](#primer-css-components)
+    * [Components with only system props](#components-with-only-system-props)
+    * [Primer CSS components](#primer-css-components)
 5. [Glossary](#glossary)
 
 ## Code Style
