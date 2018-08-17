@@ -14,6 +14,7 @@ export default function Page({render}) {
     <React.Fragment>
       <Sticky bg="white">
         <UnderlineNav
+          pl={3}
           actions={
             <Text color="gray.5" fontFamily="mono" px={4}>
               <Octicon icon={Package} className="mr-2" />
