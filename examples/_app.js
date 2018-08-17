@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon, {Package} from '@githubprimer/octicons-react'
+import Octicon, {Package, Paintcan} from '@githubprimer/octicons-react'
 import {NavLink} from 'react-router-dom'
 import {Styles} from './doc-components'
 import {Box, Link, Sticky, Text, UnderlineNav, UnderlineNavLink} from '../src'
@@ -9,12 +9,17 @@ import {name, repository, version} from '../package.json'
 const pkg = `${name}@${version}`
 const releaseURL = `https://github.com/${repository}/releases/v${version}`
 
+function TopNavLink(props) {
+  return <UnderlineNavLink is={NavLink} px={3} {...props} />
+}
+
 export default function Page({render}) {
   return (
     <React.Fragment>
       <Sticky bg="white" zIndex={100}>
         <UnderlineNav
           pl={3}
+          mb={3}
           actions={
             <Text color="gray.5" fontFamily="mono" px={4}>
               <Octicon icon={Package} className="mr-2" />
@@ -22,15 +27,19 @@ export default function Page({render}) {
             </Text>
           }
         >
-          <UnderlineNavLink is={NavLink} to="/components" px={3}>
+          <TopNavLink to="/" exact>
+            <Octicon icon={Paintcan} size={20} />
+            <Text ml={2}>Primer</Text>
+          </TopNavLink>
+          <TopNavLink to="/components">
             Components
-          </UnderlineNavLink>
-          <UnderlineNavLink is={NavLink} to="/demos" px={3}>
+          </TopNavLink>
+          <TopNavLink to="/demos">
             Demos
-          </UnderlineNavLink>
-          <UnderlineNavLink is={NavLink} to="/sandbox" px={3}>
+          </TopNavLink>
+          <TopNavLink to="/sandbox">
             Sandbox
-          </UnderlineNavLink>
+          </TopNavLink>
         </UnderlineNav>
       </Sticky>
       <Box p={3}>{render()}</Box>
