@@ -13,7 +13,7 @@ const branchOcticon = `<BranchName>
   a_new_feature_branch
 </BranchName>`
 
-const BranchNameExample = {
+export default {
   name: 'BranchName',
   element: (
     <div>
@@ -27,5 +27,3 @@ const BranchNameExample = {
     </div>
   )
 }
-
-export default BranchNameExample

@@ -39,7 +39,7 @@ const noDelayExample = `<BorderBox p={3} my={2}>
   </Tooltip>
 </BorderBox>`
 
-const TooltipExample = {
+export default {
   name: 'Tooltip',
   element: (
     <div>
@@ -62,5 +62,3 @@ const TooltipExample = {
     </div>
   )
 }
-
-export default TooltipExample

@@ -49,7 +49,7 @@ const customColorsExample = `<DonutChart>
   <DonutSlice value={1} fill={theme.colors.purple[4]} />
 </DonutChart>`
 
-const DonutChartExample = {
+export default {
   name: 'DonutChart',
   element: (
     <div>
@@ -74,5 +74,3 @@ const DonutChartExample = {
     </div>
   )
 }
-
-export default DonutChartExample

@@ -7,7 +7,7 @@ const example = `<PointerBox m={4} p={2} minHeight={100} bg="green.1" borderColo
   PointerBox
 </PointerBox>`
 
-const PointerBoxExample = {
+export default {
   name: 'PointerBox',
   element: (
     <div>
@@ -16,5 +16,3 @@ const PointerBoxExample = {
     </div>
   )
 }
-
-export default PointerBoxExample

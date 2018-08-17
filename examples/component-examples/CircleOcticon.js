@@ -3,7 +3,7 @@ import {Check} from '@githubprimer/octicons-react'
 import {LiveEditor} from '@compositor/kit'
 import {CircleOcticon} from '../../src'
 
-const CircleOcticonExample = {
+export default {
   name: 'CircleOcticon',
   element: (
     <div className="d-flex">
@@ -14,5 +14,3 @@ const CircleOcticonExample = {
     </div>
   )
 }
-
-export default CircleOcticonExample

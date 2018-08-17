@@ -5,11 +5,16 @@ import {ExampleHeading} from '../doc-components'
 
 const propObj = {
   flexWrap: ['wrap', 'nowrap'],
-  flexDirection: ['row', 'row-reverse', 'column'],
+  // flexDirection: ['row', 'row-reverse', 'column'],
   justifyContent: ['start', 'end', 'center', 'between', 'around'],
   alignItems: ['start', 'end', 'center', 'baseline', 'stretch'],
   alignContent: ['start', 'end', 'center', 'between', 'around', 'stretch']
 }
+
+const defaultProps = Object.keys(propObj).reduce((props, key) => {
+  props[key] = propObj[key][0]
+  return props
+}, {})
 
 const scope = {Box, BorderBox, FlexContainer, FlexItem}
 
@@ -79,50 +84,41 @@ const example3 = `
 </BorderBox>
 `.trim()
 
-const FlexExample = {
+export default {
   name: 'Flex',
-  element: (() => {
-    const defaultProps = Object.keys(propObj).reduce((props, key) => {
-      props[key] = propObj[key][0]
-      return props
-    }, {})
-
-    return (
-      <div>
-        <ExampleHeading>FlexContainer</ExampleHeading>
-        <PropsForm>
-          <FlexContainer is={BorderBox} width={400} height={200} {...defaultProps}>
-            <Box p={3} bg="blue.5">
-              Item 1
-            </Box>
-            <Box p={3} bg="green.5">
-              Item 2
-            </Box>
-            <Box p={3} bg="yellow.5">
-              Item 3
-            </Box>
-            <Box p={3} bg="red.5">
-              Item 4
-            </Box>
-            <Box p={3} bg="purple.5">
-              Item 5
-            </Box>
-          </FlexContainer>
-          {Object.keys(propObj).map(key => (
-            <PropsForm.Select key={key} name={key}>
-              {propObj[key].map(value => <option key={value}>{value}</option>)}
-            </PropsForm.Select>
-          ))}
-        </PropsForm>
-        <ExampleHeading mt={3}>FlexContainer + FlexItems</ExampleHeading>
-        <LiveEditor code={example1} scope={scope} />
-        <ExampleHeading mt={2}>FlexContainer + FlexItems with first item set to alignSelf='center'</ExampleHeading>
-        <LiveEditor code={example2} scope={scope} />
-        <ExampleHeading mt={2}>FlexContainer + FlexItems using tag prop set to "p"</ExampleHeading>
-        <LiveEditor code={example3} scope={scope} />
-      </div>
-    )
-  })()
+  element: (
+    <div>
+      <ExampleHeading>FlexContainer</ExampleHeading>
+      <PropsForm>
+        <FlexContainer is={BorderBox} width={400} height={200} {...defaultProps}>
+          <Box p={3} bg="blue.5">
+            Item 1
+          </Box>
+          <Box p={3} bg="green.5">
+            Item 2
+          </Box>
+          <Box p={3} bg="yellow.5">
+            Item 3
+          </Box>
+          <Box p={3} bg="red.5">
+            Item 4
+          </Box>
+          <Box p={3} bg="purple.5">
+            Item 5
+          </Box>
+        </FlexContainer>
+        {Object.keys(propObj).map(key => (
+          <PropsForm.Select key={key} name={key}>
+            {propObj[key].map(value => <option key={value}>{value}</option>)}
+          </PropsForm.Select>
+        ))}
+      </PropsForm>
+      <ExampleHeading mt={3}>FlexContainer + FlexItems</ExampleHeading>
+      <LiveEditor code={example1} scope={scope} />
+      <ExampleHeading mt={2}>FlexContainer + FlexItems with first item set to alignSelf='center'</ExampleHeading>
+      <LiveEditor code={example2} scope={scope} />
+      <ExampleHeading mt={2}>FlexContainer + FlexItems using tag prop set to "p"</ExampleHeading>
+      <LiveEditor code={example3} scope={scope} />
+    </div>
+  )
 }
-
-export default FlexExample

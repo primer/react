@@ -78,7 +78,7 @@ const example5 = `<Box mb={2}>
   </StateLabel>
 </Box>`
 
-const StateLabelExample = {
+export default {
   name: 'StateLabel',
   element: (
     <div>
@@ -102,5 +102,3 @@ const StateLabelExample = {
     </div>
   )
 }
-
-export default StateLabelExample

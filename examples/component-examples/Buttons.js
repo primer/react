@@ -4,7 +4,7 @@ import {LiveEditor} from '@compositor/kit'
 import {ExampleHeading} from '../doc-components'
 import {Box, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline, OcticonButton, Text} from '../../src'
 
-const ButtonExample = {
+export default {
   name: 'Buttons',
   element: (
     <div>
@@ -58,5 +58,3 @@ const ButtonExample = {
     </div>
   )
 }
-
-export default ButtonExample

@@ -29,7 +29,7 @@ const dropdownTitle = `<Dropdown title="Options" minWidth="5em">
 
 const scope = {Box, Dropdown, Link}
 
-const DropdownExample = {
+export default {
   name: 'Dropdown',
   element: (
     <div>
@@ -48,5 +48,3 @@ const DropdownExample = {
     </div>
   )
 }
-
-export default DropdownExample

@@ -22,7 +22,7 @@ const example2 = `<Details>
 </Details>
 `
 
-const DetailsExample = {
+export default {
   name: 'Details',
   element: (
     <div>
@@ -41,5 +41,3 @@ const DetailsExample = {
     </div>
   )
 }
-
-export default DetailsExample
