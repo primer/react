@@ -10,10 +10,6 @@ describe('CircleBadge', () => {
     expect(CircleBadge.systemComponent).toEqual(true)
   })
 
-  it('renders medium by default', () => {
-    expect(render(<CircleBadge />).props.className).toContain('CircleBadge--medium')
-  })
-
   it('respects "is" prop', () => {
     const item = render(<CircleBadge is="a" />)
     expect(item.type).toEqual('a')

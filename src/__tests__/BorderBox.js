@@ -1,50 +1,40 @@
 import React from 'react'
+import theme, {colors} from '../theme'
 import BorderBox from '../BorderBox'
-import {renderClasses} from '../utils/testing'
+import Box from '../Box'
+import {px, render, renderStyles} from '../utils/testing'
 
-xdescribe('BorderBox', () => {
+describe('BorderBox', () => {
   it('is a system component', () => {
     expect(BorderBox.systemComponent).toEqual(true)
   })
 
-  const defaultClasses = ['border', 'bg-white', 'rounded-1']
-  it('renders default classes', () => {
-    expect(renderClasses(<BorderBox />)).toEqual(defaultClasses)
+  it('renders a Box with default props', () => {
+    expect(render(<BorderBox />)).toEqual(render(<Box {...BorderBox.defaultProps} />))
   })
 
   it('renders margin', () => {
-    expect(renderClasses(<BorderBox m={1} />)).toEqual(['m-1', ...defaultClasses])
-    expect(renderClasses(<BorderBox m={[0, 1, 2, 3, 4]} />)).toEqual([
-      'm-0',
-      'm-sm-1',
-      'm-md-2',
-      'm-lg-3',
-      'm-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<BorderBox m={[null, 1, null, 3]} />)).toEqual(['m-sm-1', 'm-lg-3', ...defaultClasses])
+    expect(render(<BorderBox m={1} />)).toHaveStyleRule('margin', px(theme.space[1]))
+    expect(renderStyles(<BorderBox m={[0, 1]} />)).toMatchKeys({
+      margin: px(theme.space[0]),
+      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
+        margin: px(theme.space[1])
+      }
+    })
   })
 
   it('renders padding', () => {
-    expect(renderClasses(<BorderBox p={1} />)).toEqual(['p-1', ...defaultClasses])
-    expect(renderClasses(<BorderBox p={[0, 1, 2, 3, 4]} />)).toEqual([
-      'p-0',
-      'p-sm-1',
-      'p-md-2',
-      'p-lg-3',
-      'p-xl-4',
-      ...defaultClasses
-    ])
-    expect(renderClasses(<BorderBox p={[null, 1, null, 3]} />)).toEqual(['p-sm-1', 'p-lg-3', ...defaultClasses])
+    expect(render(<BorderBox p={1} />)).toHaveStyleRule('padding', px(theme.space[1]))
+    expect(renderStyles(<BorderBox p={[0, 1]} />)).toMatchKeys({
+      padding: px(theme.space[0]),
+      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
+        padding: px(theme.space[1])
+      }
+    })
   })
 
   it('renders borders', () => {
-    expect(renderClasses(<BorderBox border />)).toEqual(['border', 'bg-white', 'rounded-1'])
-    expect(renderClasses(<BorderBox border="left" borderColor="green.5" />)).toEqual([
-      'border-left',
-      'border-green',
-      'bg-white',
-      'rounded-1'
-    ])
+    expect(render(<BorderBox borderColor="green.5" />)).toHaveStyleRule('border-color', colors.green[5])
+    expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')
   })
 })

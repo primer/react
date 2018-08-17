@@ -100,13 +100,11 @@ exports[`Dropdown matches the snapshots 1`] = `
         ]
       }
       className="emotion-1 btn BtnGroup-item"
-      disabled={undefined}
       onClick={[Function]}
       type="button"
     >
       <svg
         aria-hidden="true"
-        aria-label={undefined}
         className="emotion-0"
         height={14}
         role="img"
@@ -264,14 +262,12 @@ exports[`Dropdown matches the snapshots 2`] = `
         ]
       }
       className="emotion-1 btn BtnGroup-item"
-      disabled={undefined}
       onClick={[Function]}
       type="button"
     >
       hi
       <svg
         aria-hidden="true"
-        aria-label={undefined}
         className="emotion-0"
         height={14}
         role="img"
