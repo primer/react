@@ -1,10 +1,9 @@
 import React from 'react'
-import {ThemeProvider} from 'emotion-theming'
 import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
 import Styles from './doc-components/Styles'
 import Octicon, {Package} from '@githubprimer/octicons-react'
-import {Box, Link, Text, UnderlineNav, UnderlineNavLink, theme} from '../src'
+import {Box, Link, Sticky, Text, UnderlineNav, UnderlineNavLink} from '../src'
 import {name, repository, version} from '../package.json'
 
 const pkg = `${name}@${version}`
@@ -13,30 +12,28 @@ const releaseURL = `https://github.com/${repository}/releases/v${version}`
 export default function Page({render}) {
   return (
     <React.Fragment>
+      <Sticky bg="white">
+        <UnderlineNav
+          actions={
+            <Text color="gray.5" fontFamily="mono" px={4}>
+              <Octicon icon={Package} className="mr-2" />
+              <Link href={releaseURL}>{pkg}</Link>
+            </Text>
+          }
+        >
+          <UnderlineNavLink is={NavLink} to="/components" px={3}>
+            Components
+          </UnderlineNavLink>
+          <UnderlineNavLink is={NavLink} to="/demos" px={3}>
+            Demos
+          </UnderlineNavLink>
+          <UnderlineNavLink is={NavLink} to="/sandbox" px={3}>
+            Sandbox
+          </UnderlineNavLink>
+        </UnderlineNav>
+      </Sticky>
+      <Box p={3}>{render()}</Box>
       <Styles />
-      <ThemeProvider theme={theme}>
-        <Box color="bodytext">
-          <UnderlineNav
-            actions={
-              <Text color="gray.5" fontFamily="mono" px={4}>
-                <Octicon icon={Package} className="mr-2" />
-                <Link href={releaseURL}>{pkg}</Link>
-              </Text>
-            }
-          >
-            <UnderlineNavLink is={NavLink} to="/components" px={3}>
-              Components
-            </UnderlineNavLink>
-            <UnderlineNavLink is={NavLink} to="/demos" px={3}>
-              Demos
-            </UnderlineNavLink>
-            <UnderlineNavLink is={NavLink} to="/sandbox" px={3}>
-              Sandbox
-            </UnderlineNavLink>
-          </UnderlineNav>
-          <Box p={3}>{render()}</Box>
-        </Box>
-      </ThemeProvider>
     </React.Fragment>
   )
 }
