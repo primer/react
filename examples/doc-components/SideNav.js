@@ -5,20 +5,22 @@ import {Box} from '../../src'
 
 export default function SideNav({basename, title, examples, ...rest}) {
   return (
-    <Box is="nav" className="menu" {...rest}>
-      <NavLink to={basename} className="menu-heading no-underline link-gray-dark">
-        {title}
-      </NavLink>
-      {examples.map(example => (
-        <NavLink
-          className="menu-item no-underline link-gray-dark"
-          activeClassName="selected"
-          to={example.path}
-          key={example.name}
-        >
-          {example.name}
+    <Box {...rest}>
+      <nav className="menu">
+        <NavLink to={basename} className="menu-heading no-underline link-gray-dark">
+          {title}
         </NavLink>
-      ))}
+        {examples.map(example => (
+          <NavLink
+            className="menu-item no-underline link-gray-dark"
+            activeClassName="selected"
+            to={example.path}
+            key={example.name}
+          >
+            {example.name}
+          </NavLink>
+        ))}
+      </nav>
     </Box>
   )
 }
