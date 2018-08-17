@@ -19,8 +19,8 @@ const Library = withRouter(props => {
 
   return (
     <FlexContainer {...rest}>
-      <SideNav basename={basename} title={title} examples={examples} mr={4} />
-      <Box>
+      <SideNav basename={basename} title={title} examples={examples} width={1 / 8} />
+      <Box width={7 / 8} ml={4}>
         <Route
           exact
           path={basename}
