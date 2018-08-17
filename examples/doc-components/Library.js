@@ -20,9 +20,9 @@ const Library = withRouter(props => {
   delete rest.staticContext
 
   return (
-    <FlexContainer {...rest}>
-      <SideNav basename={basename} title={title} examples={examples} width={1 / 8} />
-      <Box width={7 / 8} ml={4}>
+    <FlexContainer mx={3} {...rest}>
+      <SideNav basename={basename} title={title} examples={examples} width={1 / 8} mr={4} />
+      <Box width={7 / 8}>
         <Route
           exact
           path={basename}
