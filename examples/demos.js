@@ -1,3 +1,4 @@
+/* eslint-disable import/no-namespace */
 import React from 'react'
 import {Library} from './doc-components'
 import * as examples from './demos/'

@@ -31,15 +31,9 @@ export default function Page({render}) {
             <Octicon icon={Paintcan} size={20} />
             <Text ml={2}>Primer</Text>
           </TopNavLink>
-          <TopNavLink to="/components">
-            Components
-          </TopNavLink>
-          <TopNavLink to="/demos">
-            Demos
-          </TopNavLink>
-          <TopNavLink to="/sandbox">
-            Sandbox
-          </TopNavLink>
+          <TopNavLink to="/components">Components</TopNavLink>
+          <TopNavLink to="/demos">Demos</TopNavLink>
+          <TopNavLink to="/sandbox">Sandbox</TopNavLink>
         </UnderlineNav>
       </Sticky>
       <Box p={3}>{render()}</Box>
