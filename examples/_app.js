@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon, {Package, Paintcan} from '@githubprimer/octicons-react'
+import Octicon, {Package} from '@githubprimer/octicons-react'
 import {NavLink} from 'react-router-dom'
 import {Styles} from './doc-components'
 import {Box, Link, Sticky, Text, UnderlineNav, UnderlineNavLink} from '../src'
@@ -27,10 +27,6 @@ export default function Page({render}) {
             </Text>
           }
         >
-          <TopNavLink to="/" exact>
-            <Octicon icon={Paintcan} size={20} />
-            <Text ml={2}>Primer</Text>
-          </TopNavLink>
           <TopNavLink to="/components">Components</TopNavLink>
           <TopNavLink to="/demos">Demos</TopNavLink>
           <TopNavLink to="/sandbox">Sandbox</TopNavLink>
