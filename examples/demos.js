@@ -3,13 +3,13 @@ import {Library, LiveEditor} from '@compositor/kit'
 import SideNav from './doc-components/SideNav'
 import MergeBox from './demos/MergeBox'
 import MergeButton from './demos/MergeButton'
-import {Block} from '../src'
+import {Box} from '../src'
 
 const examples = [
   {
     name: 'MergeBox',
     element: (
-      <Block p={4}>
+      <Box p={4}>
         <LiveEditor
           code={`<MergeBox
   state='pending'
@@ -20,13 +20,13 @@ const examples = [
 />`}
           scope={{MergeBox}}
         />
-      </Block>
+      </Box>
     )
   },
   {
     name: 'MergeButton',
     element: (
-      <Block p={4}>
+      <Box p={4}>
         <LiveEditor
           code={`<MergeButton
   primary
@@ -35,7 +35,7 @@ const examples = [
 />`}
           scope={{MergeButton}}
         />
-      </Block>
+      </Box>
     )
   }
 ]

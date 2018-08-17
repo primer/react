@@ -1,6 +1,6 @@
 import React from 'react'
 import {PropsForm, LiveEditor} from '@compositor/kit'
-import {Block, FlexContainer, FlexItem} from '../../src'
+import {Box, FlexContainer, FlexItem} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const propObj = {
@@ -13,55 +13,55 @@ const propObj = {
 
 const example1 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem flexAuto>
-    <Block p={3} bg="blue.5">
+    <Box p={3} bg="blue.5">
       Item 1
-    </Block>
+    </Box>
   </FlexItem>
   <FlexItem flexAuto>
-    <Block p={3} bg="green.5">
+    <Box p={3} bg="green.5">
       Item 2
-    </Block>
+    </Box>
   </FlexItem>
   <FlexItem flexAuto>
-    <Block p={3} bg="yellow.5">
+    <Box p={3} bg="yellow.5">
       Item 3
-    </Block>
+    </Box>
   </FlexItem>
 </FlexContainer>`
 
 const example2 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem alignSelf="center">
-    <Block p={3} bg="blue.5">
+    <Box p={3} bg="blue.5">
       Item 1
-    </Block>
+    </Box>
   </FlexItem>
   <FlexItem>
-    <Block p={3} bg="green.5">
+    <Box p={3} bg="green.5">
       Item 2
-    </Block>
+    </Box>
   </FlexItem>
   <FlexItem>
-    <Block p={3} bg="yellow.5">
+    <Box p={3} bg="yellow.5">
       Item 3
-    </Block>
+    </Box>
   </FlexItem>
 </FlexContainer>`
 
 const example3 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
   <FlexItem is="p">
-    <Block p={3} bg="blue.5">
+    <Box p={3} bg="blue.5">
       Item 1
-    </Block>
+    </Box>
   </FlexItem>
   <FlexItem is="p">
-    <Block p={3} bg="green.5">
+    <Box p={3} bg="green.5">
       Item 2
-    </Block>
+    </Box>
   </FlexItem>
   <FlexItem is="p">
-    <Block p={3} bg="yellow.5">
+    <Box p={3} bg="yellow.5">
       Item 3
-    </Block>
+    </Box>
   </FlexItem>
 </FlexContainer>
 `
@@ -84,21 +84,21 @@ const FlexExample = {
           height={300}
           border
         >
-          <Block p={3} bg="blue.5">
+          <Box p={3} bg="blue.5">
             Item 1
-          </Block>
-          <Block p={3} bg="green.5">
+          </Box>
+          <Box p={3} bg="green.5">
             Item 2
-          </Block>
-          <Block p={3} bg="yellow.5">
+          </Box>
+          <Box p={3} bg="yellow.5">
             Item 3
-          </Block>
-          <Block p={3} bg="red.5">
+          </Box>
+          <Box p={3} bg="red.5">
             Item 4
-          </Block>
-          <Block p={3} bg="purple.5">
+          </Box>
+          <Box p={3} bg="purple.5">
             Item 5
-          </Block>
+          </Box>
         </FlexContainer>
         {Object.keys(propObj).map(key => (
           <PropsForm.Select key={key} name={key}>
@@ -107,11 +107,11 @@ const FlexExample = {
         ))}
       </PropsForm>
       <ExampleHeading mt={3}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
-      <LiveEditor code={example1} scope={{FlexContainer, FlexItem, Block}} />
+      <LiveEditor code={example1} scope={{FlexContainer, FlexItem, Box}} />
       <ExampleHeading mt={2}>FlexContainer + FlexItems with first item set to alignSelf='center'</ExampleHeading>
-      <LiveEditor code={example2} scope={{FlexContainer, FlexItem, Block}} />
+      <LiveEditor code={example2} scope={{FlexContainer, FlexItem, Box}} />
       <ExampleHeading mt={2}>FlexContainer + FlexItems using tag prop set to "p"</ExampleHeading>
-      <LiveEditor code={example3} scope={{FlexContainer, FlexItem, Block}} />
+      <LiveEditor code={example3} scope={{FlexContainer, FlexItem, Box}} />
     </div>
   )
 }

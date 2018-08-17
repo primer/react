@@ -1,7 +1,7 @@
 import React from 'react'
 import Text from '../Text'
 import theme, {colors} from '../theme'
-import {render} from '../utils/testing'
+import {px, render, renderStyles} from '../utils/testing'
 
 describe('Text', () => {
   it('is a system component', () => {
@@ -18,18 +18,36 @@ describe('Text', () => {
 
   it('renders font-size', () => {
     for (const fontSize of theme.fontSizes) {
-      expect(render(<Text fontSize={fontSize} />)).toHaveStyleRule('font-size', `${fontSize}px`)
+      expect(render(<Text fontSize={fontSize} />)).toHaveStyleRule('font-size', px(fontSize))
     }
   })
 
+  it('renders responsive fontSize', () => {
+    expect(renderStyles(<Text fontSize={[1, 2]} />)).toEqual({
+      'font-size': px(theme.fontSizes[1]),
+      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
+        'font-size': px(theme.fontSizes[2])
+      }
+    })
+  })
+
+  it('renders responsive lineHeight', () => {
+    expect(renderStyles(<Text lineHeight={['condensed', 'default']} />)).toEqual({
+      'line-height': String(theme.lineHeights.condensed),
+      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
+        'line-height': String(theme.lineHeights.default)
+      }
+    })
+  })
+
   it('renders margin', () => {
-    expect(render(<Text m={1} />)).toHaveStyleRule('margin', '4px')
+    expect(render(<Text m={1} />)).toHaveStyleRule('margin', px(theme.space[1]))
     expect(render(<Text m={[0, 1, 2, 3, 4]} />)).toMatchSnapshot()
     expect(render(<Text m={[1, 1, 3, 3]} />)).toMatchSnapshot()
   })
 
   it('renders padding', () => {
-    expect(render(<Text p={1} />)).toHaveStyleRule('padding', '4px')
+    expect(render(<Text p={1} />)).toHaveStyleRule('padding', px(theme.space[1]))
     expect(render(<Text p={[0, 1, 2, 3, 4]} />)).toMatchSnapshot()
     expect(render(<Text p={[1, 1, 3, 3]} />)).toMatchSnapshot()
   })

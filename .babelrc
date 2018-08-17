@@ -1,10 +1,10 @@
 {
   "presets": [
     "env",
-    "stage-0",
     "react"
   ],
   "plugins": [
-    "add-react-displayname"
+    "add-react-displayname",
+    "transform-object-rest-spread"
   ]
 }

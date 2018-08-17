@@ -1,6 +1,6 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Block, Dropdown, Link} from '../../src'
+import {Box, Dropdown, Link} from '../../src'
 import ExampleHeading from '../doc-components/ExampleHeading'
 
 const dropdownPrimary = `<Dropdown scheme="primary" minWidth="5em">
@@ -27,24 +27,24 @@ const dropdownTitle = `<Dropdown title="Options" minWidth="5em">
   </ul>
 </Dropdown>`
 
-const scope = {Block, Dropdown, Link}
+const scope = {Box, Dropdown, Link}
 
 const DropdownExample = {
   name: 'Dropdown',
   element: (
     <div>
-      <Block mb={4}>
+      <Box mb={4}>
         <ExampleHeading>Dropdown Primary</ExampleHeading>
         <LiveEditor code={dropdownPrimary} scope={scope} />
-      </Block>
-      <Block my={4}>
+      </Box>
+      <Box my={4}>
         <ExampleHeading>Dropdown</ExampleHeading>
         <LiveEditor code={dropdown} scope={scope} />
-      </Block>
-      <Block my={4}>
+      </Box>
+      <Box my={4}>
         <ExampleHeading>Dropdown with title</ExampleHeading>
         <LiveEditor code={dropdownTitle} scope={scope} />
-      </Block>
+      </Box>
     </div>
   )
 }

@@ -1,15 +1,28 @@
 import {createMatchers, createSerializer} from 'jest-emotion'
 import * as emotion from 'emotion'
-import * as systemProps from 'styled-system'
+import {styles as systemProps} from 'styled-system'
+import {getClasses, getClassName, getComputedStyles, render} from './testing'
 
 expect.extend(createMatchers(emotion))
 expect.addSnapshotSerializer(createSerializer(emotion))
 
 const stringify = d => JSON.stringify(d, null, '  ')
 
+/**
+ * These are props that styled-system aliases for backwards compatibility.
+ * For some reason, they don't show up in our toImplementSystemProps() matcher,
+ * so we skip over them.
+ */
 const ALIAS_PROP_TYPES = ['w', 'align', 'justify', 'wrap']
 
 expect.extend({
+  toMatchKeys(obj, values) {
+    return {
+      pass: Object.keys(values).every(key => this.equals(obj[key], values[key])),
+      message: () => `Expected ${stringify(obj)} to have matching keys: ${stringify(values)}`
+    }
+  },
+
   toHaveClass(node, klass) {
     const classes = getClasses(node)
     const pass = classes.includes(klass)
@@ -39,14 +52,15 @@ expect.extend({
       pass: missing.length === 0,
       message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
     }
+  },
+
+  toRenderStyles(node, expected) {
+    const result = render(node)
+    const className = getClassName(result)
+    const computed = getComputedStyles(className)
+    return {
+      pass: this.equals(expected, computed),
+      message: () => `Computed styles mismatch: expected ${stringify(expected)}, but got ${stringify(computed)}`
+    }
   }
 })
-
-function getProps(node) {
-  return typeof node.props === 'function' ? node.props() : node.props
-}
-
-function getClasses(node) {
-  const {className = ''} = getProps(node)
-  return className.trim().split(/ +/)
-}
