@@ -8,26 +8,29 @@ const Library = withRouter(function({examples, title, basename, children, ...res
   delete rest.staticContext
   return (
     <FlexContainer {...rest}>
-      <SideNav
-        basename={basename}
-        title={title}
-        examples={examples}
-        mr={4}
-      />
+      <SideNav basename={basename} title={title} examples={examples} mr={4} />
       <Box>
-        <Route path={basename} exact render={() => (
-          <React.Fragment>
-            <Heading is="h1" mb={3}>{title}</Heading>
-            {children}
-          </React.Fragment>
-        )} />
+        <Route
+          path={basename}
+          exact
+          render={() => (
+            <React.Fragment>
+              <Heading is="h1" mb={3}>
+                {title}
+              </Heading>
+              {children}
+            </React.Fragment>
+          )}
+        />
         {examples.map(example => (
           <Route
             key={example.name}
             path={example.path || '/'}
             render={() => (
               <React.Fragment>
-                <Heading is="h1" mb={3}>{example.name}</Heading>
+                <Heading is="h1" mb={3}>
+                  {example.name}
+                </Heading>
                 {example.element}
               </React.Fragment>
             )}
