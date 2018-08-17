@@ -13,13 +13,15 @@ const examples = [
     element: (
       <Box p={4}>
         <LiveEditor
-          code={`<MergeBox
+          code={`
+<MergeBox
   state='pending'
   numCommits={21}
   repoUrl='https://github.com/primer/primer-react'
   branchName='master'
   onMerge={() => alert('merge!')}
-/>`}
+/>
+            `.trim()}
           scope={{MergeBox}}
         />
       </Box>
@@ -30,11 +32,13 @@ const examples = [
     element: (
       <Box p={4}>
         <LiveEditor
-          code={`<MergeButton
+          code={`
+<MergeButton
   primary
   numCommits={2}
   onClick={() => alert('merge!')}
-/>`}
+/>
+            `.trim()}
           scope={{MergeButton}}
         />
       </Box>
