@@ -1,13 +1,60 @@
 # Contribution guidelines
 
+1. [Code style](#code-style)
+1. [Testing](#testing)
+    1. [Code coverage](#code-coverage)
+1. [Tools we use](#tools-we-use)
+1. [Component patterns](#component-patterns)
+    1. [Components with only system props](#components-with-only-system-props)
+    1. [Primer CSS components](#primer-css-components)
+1. [Glossary](#glossary)
+
+## Code Style
+
+We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our JavaScript. To check your work before pushing, run:
+
+```
+npm run lint
+```
+
+Or, you can use [npx] to run eslint on one or more specific files:
+
+
+```sh
+# lint the component and the tests in src/__tests__
+npx eslint src/**/MyComponent.js
+```
+
+**Protip:** The [eslint `--fix` flag](https://eslint.org/docs/user-guide/command-line-interface#--fix) can automatically fix most linting errors, such as those involving whitespace or incorrect ordering of object keys and imports. You can fix those issues across the entire project with:
+
+```sh
+npm run lint -- --fix
+```
+
+**Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
+
+## Testing
+
+We test our components with [Jest](https://facebook.github.io/jest/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run the tests locally with `npm test` (or `npm t`). To run the tests as you work, run Jest in watch mode with:
+
+```
+npm t -- --watch
+```
+
+See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways that we test our components.
+
+### Code coverage
+
+A code coverage report is included in the `npm test` output, and test coverage data is generated in the `coverage/` directory.
+
 ## Tools we use
 
-### Components
 1. We use [emotion] to style our components, and [emotion-theming] as the theme provider.
 1. We use style functions from [styled-system] whenever possible, and styled-systems' `style()` function to create new ones.
 1. We use [system-components] to reduce the amount of boilerplate needed to implement styled-system functions.
 
 ## Component patterns
+
 With a couple of exceptions, all components should be created by the `withSystemProps()` function from `src/system-props.js`. This function takes a "component-ish" value as its first argument, and an array of [system props](#system-props) as the second:
 
 ```jsx
@@ -41,6 +88,7 @@ Categories of system props are exported from `src/system-props`:
 * `FLEX_ITEM` includes `COMMON` and flexbox props for items in a flex container
 
 ### Components with only system props
+
 Components with only system props should be created by passing the default tag to `withSystemProps()`:
 
 ```jsx
@@ -148,3 +196,4 @@ SpaceDiv.propTypes = {
 [styled-system]: https://jxnblk.com/styled-system/getting-started
 [system-components]: https://jxnblk.com/styled-system/system-components
 [table]: https://jxnblk.com/styled-system/table
+[npx]: https://www.npmjs.com/package/npx
