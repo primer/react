@@ -1,6 +1,4 @@
 import React from 'react'
-import {LiveEditor} from '@compositor/kit'
-import {Box} from '../src'
 import {Library} from './doc-components'
 import * as examples from './demos/'
 

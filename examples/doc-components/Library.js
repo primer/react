@@ -8,11 +8,13 @@ import SideNav from './SideNav'
 const Library = withRouter(props => {
   const {basename, examples: exampleMap, children, title, ...rest} = props
 
-  const examples = Object.values(exampleMap).map(({name, element, path}) => ({
-    name,
-    element,
-    path: path || join(basename, name)
-  }))
+  const examples = Object.values(exampleMap)
+    .map(({name, element, path}) => ({
+      name,
+      element,
+      path: path || join(basename, name)
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name))
 
   // this is a StaticRouter render prop; no need to pass it on
   delete rest.staticContext
