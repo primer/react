@@ -5,7 +5,7 @@ import {ExampleHeading} from '../doc-components'
 
 const propObj = {
   flexWrap: ['wrap', 'nowrap'],
-  // flexDirection: ['row', 'row-reverse', 'column'],
+  flexDirection: ['row', 'row-reverse', 'column'],
   justifyContent: ['start', 'end', 'center', 'between', 'around'],
   alignItems: ['start', 'end', 'center', 'baseline', 'stretch'],
   alignContent: ['start', 'end', 'center', 'between', 'around', 'stretch']
