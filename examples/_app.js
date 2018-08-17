@@ -12,7 +12,7 @@ const releaseURL = `https://github.com/${repository}/releases/v${version}`
 export default function Page({render}) {
   return (
     <React.Fragment>
-      <Sticky bg="white">
+      <Sticky bg="white" zIndex={100}>
         <UnderlineNav
           pl={3}
           actions={
