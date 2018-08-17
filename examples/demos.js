@@ -5,8 +5,6 @@ import {Library} from './doc-components'
 import MergeBox from './demos/MergeBox'
 import MergeButton from './demos/MergeButton'
 
-const basename = process.env.NODE_ENV === 'development' ? '/demos/' : '/primer-react/demo/'
-
 const examples = [
   {
     name: 'MergeBox',
@@ -46,11 +44,8 @@ const examples = [
   }
 ]
 
-for (const example of examples) {
-  example.path = basename + example.name
-}
-
 export default function DemoPage(props) {
+  const basename = process.env.NODE_ENV === 'development' ? '/demos/' : '/primer-react/demo/'
   return (
     <Library basename={basename} title="Demo Library" examples={examples} {...props}>
       These are more involved demos that illustrate how to combine primer-react components into more interesting and/or

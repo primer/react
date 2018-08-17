@@ -1,18 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {join} from 'path'
 import {Route, withRouter} from 'react-router-dom'
 import {Box, FlexContainer, Heading} from '../../src'
 import SideNav from './SideNav'
 
-const Library = withRouter(function({examples, title, basename, children, ...rest}) {
+const Library = withRouter(props => {
+  const {basename, examples: exampleMap, children, title, ...rest} = props
+
+  const examples = Object.values(exampleMap).map(({name, element, path}) => ({
+    name,
+    element,
+    path: path || join(basename, name)
+  }))
+
+  // this is a StaticRouter render prop; no need to pass it on
   delete rest.staticContext
+
   return (
     <FlexContainer {...rest}>
       <SideNav basename={basename} title={title} examples={examples} mr={4} />
       <Box>
         <Route
-          path={basename}
           exact
+          path={basename}
           render={() => (
             <React.Fragment>
               <Heading is="h1" mb={3}>
@@ -22,16 +33,16 @@ const Library = withRouter(function({examples, title, basename, children, ...res
             </React.Fragment>
           )}
         />
-        {examples.map(example => (
+        {examples.map(({name, element, path}) => (
           <Route
-            key={example.name}
-            path={example.path || '/'}
+            key={name}
+            path={path}
             render={() => (
               <React.Fragment>
                 <Heading is="h1" mb={3}>
-                  {example.name}
+                  {name}
                 </Heading>
-                {example.element}
+                {element}
               </React.Fragment>
             )}
           />
@@ -41,16 +52,16 @@ const Library = withRouter(function({examples, title, basename, children, ...res
   )
 })
 
+const ExampleShape = PropTypes.shape({
+  element: PropTypes.node.isRequired,
+  name: PropTypes.string.isRequired,
+  path: PropTypes.string
+})
+
 Library.propTypes = {
   basename: PropTypes.string,
   children: PropTypes.node,
-  examples: PropTypes.arrayOf(
-    PropTypes.shape({
-      element: PropTypes.element,
-      name: PropTypes.string,
-      path: PropTypes.string
-    })
-  ),
+  examples: PropTypes.oneOfType([PropTypes.objectOf(ExampleShape), PropTypes.arrayOf(ExampleShape)]),
   title: PropTypes.node
 }
 
