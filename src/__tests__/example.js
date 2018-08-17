@@ -20,7 +20,20 @@ xdescribe('SomeComponent', () => {
 
   // this is generally how you test that a prop renders one or more styles
   it('renders "x" prop into styles', () => {
+    // use the .toMatchKeys() to test a subset of the rendered styles
     expect(renderStyles(<SomeComponent scheme="green" />)).toMatchKeys({
+      'background-color': theme.colors.green[5]
+    })
+
+    // or use .toEqual() if:
+    // * your component shouldn't render any other styles; or
+    // * you know the other ("base") styles that your component should
+    //   render, and you can spread them into the result
+    const defaultStyles = {
+      color: theme.colors.bodytext
+    }
+    expect(renderStyles(<SomeComponent scheme="green" />)).toEqual({
+      ...defaultStyles,
       'background-color': theme.colors.green[5]
     })
   })
