@@ -1,17 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import styled from 'react-emotion'
 import {withSystemProps, COMMON} from './system-props'
 
 const ICON_CLASS = 'CircleBadge-icon'
 
-const sizeMapper = (size) => {
+const sizeMapper = size => {
   if (typeof size === 'number') return size
   const map = {
-    'small': 56,
-    'medium': 96,
-    'large': 128
+    small: 56,
+    medium: 96,
+    large: 128
   }
   return map[size]
 }
@@ -23,7 +22,7 @@ const sizeStyles = ({size}) => {
   }
 }
 
-const Badge = ({is: Tag = 'div', size, bg, children, className, ...rest}) => {
+const CircleBadge = ({is: Tag = 'div', children, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
@@ -40,10 +39,6 @@ const Badge = ({is: Tag = 'div', size, bg, children, className, ...rest}) => {
   )
 }
 
-const CircleBadge = styled(Badge)`
-  ${sizeStyles};
-`
-
 CircleBadge.propTypes = {
   alt: PropTypes.string,
   bg: PropTypes.string,
@@ -52,4 +47,4 @@ CircleBadge.propTypes = {
   src: PropTypes.string
 }
 
-export default withSystemProps(CircleBadge, COMMON)
+export default withSystemProps(CircleBadge, [...COMMON, sizeStyles])
