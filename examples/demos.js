@@ -1,9 +1,11 @@
 import React from 'react'
-import {Library, LiveEditor} from '@compositor/kit'
-import SideNav from './doc-components/SideNav'
+import {LiveEditor} from '@compositor/kit'
+import {Box} from '../src'
+import {Library, SideNav} from './doc-components'
 import MergeBox from './demos/MergeBox'
 import MergeButton from './demos/MergeButton'
-import {Box} from '../src'
+
+const basename = process.env.NODE_ENV === 'development' ? '/demos/' : '/primer-react/demo/'
 
 const examples = [
   {
@@ -40,16 +42,21 @@ const examples = [
   }
 ]
 
-const DemoPage = () => {
-  const basename = process.env.NODE_ENV === 'development' ? '/demos' : '/primer-react/demo'
+for (const example of examples) {
+  example.path = basename + example.name
+}
+
+export default function DemoPage(props) {
   return (
     <Library
       basename={basename}
       title="Demo Library"
       examples={examples}
-      renderSideNav={({title, examples}) => <SideNav title={title} examples={examples} />}
-    />
+      {...props}
+    >
+      These are more involved demos that illustrate how
+      to combine primer-react components into more
+      interesting and/or useful ones.
+    </Library>
   )
 }
-
-export default DemoPage
