@@ -1,7 +1,7 @@
 import React from 'react'
 import {PropsForm, LiveEditor} from '@compositor/kit'
 import {Box, FlexContainer, FlexItem} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const propObj = {
   wrap: ['wrap', 'nowrap'],

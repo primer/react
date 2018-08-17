@@ -1,7 +1,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {TextInput} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const TextInputExample = {
   name: 'TextInput',

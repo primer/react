@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, theme} from '../../src'
-import Swatch from '../doc-components/Swatch'
+import {Swatch} from '../doc-components'
 
 const ColorsExample = {
   name: 'Colors',

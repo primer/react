@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {NavLink} from 'react-router-dom'
-import Styles from './doc-components/Styles'
 import Octicon, {Package} from '@githubprimer/octicons-react'
+import {NavLink} from 'react-router-dom'
+import {Styles} from './doc-components'
 import {Box, Link, Sticky, Text, UnderlineNav, UnderlineNavLink} from '../src'
 import {name, repository, version} from '../package.json'
 

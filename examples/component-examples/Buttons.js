@@ -1,7 +1,7 @@
 import React from 'react'
 import {Hubot, Pencil, X} from '@githubprimer/octicons-react'
 import {LiveEditor} from '@compositor/kit'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 import {Box, Button, ButtonLink, ButtonDanger, ButtonPrimary, ButtonOutline, OcticonButton, Text} from '../../src'
 
 const ButtonExample = {

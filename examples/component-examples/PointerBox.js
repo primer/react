@@ -1,7 +1,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {PointerBox} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const example = `<PointerBox m={4} p={2} minHeight={100} bg="green.1" borderColor="green.5">
   PointerBox

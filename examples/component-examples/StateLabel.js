@@ -2,7 +2,7 @@ import React from 'react'
 import Octicon, {GitBranch} from '@githubprimer/octicons-react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, StateLabel} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const example1 = `<Box mb={2}>
   <StateLabel state="open">Open</StateLabel>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {BorderBox, Box, Tooltip} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const basicExample = `<BorderBox p={3}>
   <Tooltip text="Hello, Tooltip!">Text with a tooltip</Tooltip>
