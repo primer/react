@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, Link} from '../../src'
 
-const LinkExample = {
+export default {
   name: 'Link',
   element: (
     <div>
@@ -21,5 +21,3 @@ const LinkExample = {
     </div>
   )
 }
-
-export default LinkExample

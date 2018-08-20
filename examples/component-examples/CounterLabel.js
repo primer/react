@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {CounterLabel} from '../../src'
 
-const CounterLabelExample = {
+export default {
   name: 'CounterLabel',
   element: (
     <div>
@@ -12,5 +12,3 @@ const CounterLabelExample = {
     </div>
   )
 }
-
-export default CounterLabelExample

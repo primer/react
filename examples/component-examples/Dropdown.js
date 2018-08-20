@@ -1,7 +1,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, Dropdown, Link} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const dropdownPrimary = `<Dropdown scheme="primary" minWidth="5em">
   <ul className="list-style-none m-0 p-0">
@@ -29,7 +29,7 @@ const dropdownTitle = `<Dropdown title="Options" minWidth="5em">
 
 const scope = {Box, Dropdown, Link}
 
-const DropdownExample = {
+export default {
   name: 'Dropdown',
   element: (
     <div>
@@ -48,5 +48,3 @@ const DropdownExample = {
     </div>
   )
 }
-
-export default DropdownExample

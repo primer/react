@@ -26,7 +26,7 @@
   "x0": {
     "cssLibrary": "styled-components",
     "basename": "/primer-react",
-    "template": "./html.js"
+    "template": "./examples/.html.js"
   },
   "jest": {
     "collectCoverage": true,
