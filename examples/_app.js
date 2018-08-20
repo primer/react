@@ -27,9 +27,9 @@ export default function Page({render}) {
             </Text>
           }
         >
-          <TopNavLink to="/components">Components</TopNavLink>
-          <TopNavLink to="/demos">Demos</TopNavLink>
-          <TopNavLink to="/sandbox">Sandbox</TopNavLink>
+          <TopNavLink to="/components/">Components</TopNavLink>
+          <TopNavLink to="/demos/">Demos</TopNavLink>
+          <TopNavLink to="/sandbox/">Sandbox</TopNavLink>
         </UnderlineNav>
       </Sticky>
       <Box p={3}>{render()}</Box>
