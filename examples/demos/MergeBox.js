@@ -1,14 +1,12 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
-import {Box} from '../../src'
 import MergeBox from '../doc-components/MergeBox'
 
 export default {
   name: 'MergeBox',
   element: (
-    <Box p={4}>
-      <LiveEditor
-        code={`
+    <LiveEditor
+      code={`
 <MergeBox
   state='pending'
   numCommits={21}
@@ -16,9 +14,8 @@ export default {
   branchName='master'
   onMerge={() => alert('merge!')}
 />
-          `.trim()}
-        scope={{MergeBox}}
-      />
-    </Box>
+        `.trim()}
+      scope={{MergeBox}}
+    />
   )
 }
