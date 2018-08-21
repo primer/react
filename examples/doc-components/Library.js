@@ -26,33 +26,30 @@ const Library = withRouter(props => {
         <Route
           exact
           path={basename}
-          render={() => (
-            <React.Fragment>
-              <Heading is="h1" mb={3}>
-                {title}
-              </Heading>
-              {children}
-            </React.Fragment>
-          )}
+          render={() => <Content title={title}>{children}</Content>}
         />
         {examples.map(({name, element, path}) => (
           <Route
             key={name}
             path={path}
-            render={() => (
-              <React.Fragment>
-                <Heading is="h1" mb={3}>
-                  {name}
-                </Heading>
-                {element}
-              </React.Fragment>
-            )}
+            render={() => <Content title={name} children={element} />}
           />
         ))}
       </Box>
     </FlexContainer>
   )
 })
+
+function Content({title, children, ...rest}) {
+  return (
+    <Box id="content" {...rest}>
+      <Heading is="h1" mb={3}>
+        {title}
+      </Heading>
+      {children}
+    </Box>
+  )
+}
 
 const ExampleShape = PropTypes.shape({
   element: PropTypes.node.isRequired,
