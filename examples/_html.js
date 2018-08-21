@@ -7,7 +7,7 @@ module.exports = ({
   title = 'x0',
   meta = [],
   links = [],
-  static: staticBuild
+  'static': staticBuild
 }) =>
 `<!DOCTYPE html>
   <html>
@@ -29,13 +29,13 @@ module.exports = ({
   </head>
   <body>
   <script>
-    (function(){
-      var redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
-      if (redirect && redirect != location.href) {
-        history.replaceState(null, null, redirect);
+    (function() {
+      var redirect = sessionStorage.redirect
+      delete sessionStorage.redirect
+      if (redirect && redirect !== location.href) {
+        history.replaceState(null, null, redirect)
       }
-    })();
+    })()
   </script>
   <div id=root>${html}</div>
   </body>
