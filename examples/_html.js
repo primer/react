@@ -1,18 +1,8 @@
-module.exports = ({
-  html = '',
-  css = '',
-  scripts,
-  js,
-  publicPath,
-  title = 'x0',
-  meta = [],
-  links = [],
-  'static': staticBuild
-}) =>
-`<!DOCTYPE html>
+module.exports = ({html = '', scripts, title = 'primer-react', static: staticBuild}) =>
+  `<!DOCTYPE html>
   <html>
   <head>
-    <title>primer-react</title>
+    <title>${title}</title>
     <meta name='viewport' content='width=device-width,initial-scale=1' />
     <meta name='generator' content='Compositor X0' />
     <link rel='stylesheet' href='https://unpkg.com/primer-buttons/build/build.css' />
