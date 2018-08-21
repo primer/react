@@ -17,6 +17,7 @@ function TopNavLink(props) {
 export default function Page({render}) {
   return (
     <React.Fragment>
+      <Styles />
       <Sticky bg="white" zIndex={100}>
         <UnderlineNav
           pl={3}
@@ -33,7 +34,6 @@ export default function Page({render}) {
         </UnderlineNav>
       </Sticky>
       <Box p={3}>{render()}</Box>
-      <Styles />
     </React.Fragment>
   )
 }
