@@ -1,5 +1,3 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
 const css = require('../src/css')
 
 module.exports = ({html = '', scripts, title = 'primer-react', static: staticBuild}) =>
