@@ -4,6 +4,9 @@
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production rollup -c",
