@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon, {Package} from '@githubprimer/octicons-react'
+import {Package} from '@githubprimer/octicons-react'
 import {NavLink} from 'react-router-dom'
 import {Styles} from './doc-components'
+import Octicon from '../src/Octicon'
 import {Box, Link, Sticky, Text, UnderlineNav, UnderlineNavLink} from '../src'
 import {name, repository, version} from '../package.json'
 
@@ -22,7 +23,7 @@ export default function Page({render}) {
           mb={3}
           actions={
             <Text color="gray.5" fontFamily="mono" px={4}>
-              <Octicon icon={Package} className="mr-2" />
+              <Octicon icon={Package} mr={2} />
               <Link href={releaseURL}>{pkg}</Link>
             </Text>
           }
