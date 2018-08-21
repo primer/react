@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withDefaultTheme} from '../../src/system-props'
-import {default as PrimerCSS} from '../../src/css'
 
 function Styles({theme}) {
   return (
@@ -9,16 +8,13 @@ function Styles({theme}) {
     <style
       dangerouslySetInnerHTML={{
         __html: `
-      /* primer-react base */
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: ${theme.fonts.normal};
-        line-height: ${theme.lineHeights.default};
-      }
-      /* primer-react imports */
-      ${PrimerCSS}
-    `
+          * { box-sizing: border-box; }
+          body {
+            margin: 0;
+            font-family: ${theme.fonts.normal};
+            line-height: ${theme.lineHeights.default};
+          }
+        `
       }}
     />
     /* eslint-enable react/no-danger */

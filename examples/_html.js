@@ -1,3 +1,7 @@
+const React = require('react')
+const ReactDOM = require('react-dom')
+const css = require('../src/css')
+
 module.exports = ({html = '', scripts, title = 'primer-react', static: staticBuild}) =>
   `<!DOCTYPE html>
   <html>
@@ -5,9 +9,10 @@ module.exports = ({html = '', scripts, title = 'primer-react', static: staticBui
     <title>${title}</title>
     <meta name='viewport' content='width=device-width,initial-scale=1' />
     <meta name='generator' content='Compositor X0' />
-    <link rel='icon' href='/assets/favicon.png' />
     <meta name='og:title' content='Primer React' />
     <meta name='description' content='Primer components built with React.js.' />
+    <link rel='icon' href='/assets/favicon.png' />
+    <style id="primer-css">${css}</style>
   </head>
   <body>
   <script>
