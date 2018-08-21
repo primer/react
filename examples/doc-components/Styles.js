@@ -5,8 +5,10 @@ import {default as PrimerCSS} from '../../src/css'
 
 function Styles({theme}) {
   return (
-    /* eslint-disable-next-line react/no-danger */
-    <style dangerouslySetInnerHTML={{__html: `
+    /* eslint-disable react/no-danger */
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
       /* primer-react base */
       * { box-sizing: border-box; }
       body {
@@ -16,7 +18,10 @@ function Styles({theme}) {
       }
       /* primer-react imports */
       ${PrimerCSS}
-    `}} />
+    `
+      }}
+    />
+    /* eslint-enable react/no-danger */
   )
 }
 

@@ -23,17 +23,9 @@ const Library = withRouter(props => {
     <FlexContainer {...rest}>
       <SideNav basename={basename} title={title} examples={examples} width={1 / 8} mr={4} />
       <Box width={7 / 8}>
-        <Route
-          exact
-          path={basename}
-          render={() => <Content title={title}>{children}</Content>}
-        />
+        <Route exact path={basename} render={() => <Content title={title}>{children}</Content>} />
         {examples.map(({name, element, path}) => (
-          <Route
-            key={name}
-            path={path}
-            render={() => <Content title={name} children={element} />}
-          />
+          <Route key={name} path={path} render={() => <Content title={name}>{element}</Content>} />
         ))}
       </Box>
     </FlexContainer>
