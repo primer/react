@@ -17,7 +17,9 @@
     "lint": "eslint src examples",
     "start": "x0 dev examples -op ${PORT:-8888}",
     "test": "jest",
-    "watch": "jest --watch --no-coverage"
+    "watch": "jest --watch --no-coverage",
+    "predeploy": "npm run build:docs",
+    "deploy": "now"
   },
   "repository": "primer/primer-react",
   "keywords": [
@@ -45,6 +47,7 @@
     "d3-shape": "^1.2.0",
     "emotion": "9.2.6",
     "emotion-theming": "9.2.6",
+    "now": "11.3.12",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
     "react": "^16.2.0",
