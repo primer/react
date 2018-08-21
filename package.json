@@ -8,12 +8,12 @@
     "node": ">=8"
   },
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "NODE_ENV=production rollup -c",
+    "dist": "NODE_ENV=production rollup -c",
+    "predist": "rm -rf dist",
+    "prepublishOnly": "npm run dist",
     "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src examples",
-    "prepublishOnly": "npm run build",
-    "start": "x0 dev examples -op 8888",
+    "start": "x0 dev examples -op ${PORT:-8888}",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
   },
@@ -27,9 +27,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "x0": {
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react",
-    "template": "./examples/.html.js"
+    "template": "./examples/_html.js"
   },
   "jest": {
     "collectCoverage": true,

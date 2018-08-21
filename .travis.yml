@@ -6,7 +6,7 @@ node_js:
 script:
   - npm run lint
   - npm test
-  - npm run build
+  - npm run dist
   - npm run build:docs
 
 notifications:
