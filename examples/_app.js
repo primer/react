@@ -20,7 +20,6 @@ export default function Page({render}) {
       <Sticky bg="white" zIndex={100}>
         <UnderlineNav
           pl={3}
-          mb={3}
           actions={
             <Text color="gray.5" fontFamily="mono" px={4}>
               <Octicon icon={Package} mr={2} />
