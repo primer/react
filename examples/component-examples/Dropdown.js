@@ -4,27 +4,27 @@ import {Box, Dropdown, Link} from '../../src'
 import {ExampleHeading} from '../doc-components'
 
 const dropdownPrimary = `<Dropdown scheme="primary" minWidth="5em">
-  <ul className="list-style-none m-0 p-0">
+  <Box is="ul" m={0} p={0} className="list-style-none">
     <li>Item 1</li>
     <li>Item 2</li>
     <li>Item 3</li>
-  </ul>
+  </Box>
 </Dropdown>`
 
 const dropdown = `<Dropdown minWidth="5em">
-  <ul className="list-style-none m-0 p-0">
+  <Box is="ul" m={0} p={0} className="list-style-none">
     <li>Item 1</li>
     <li>Item 2</li>
     <li>Item 3</li>
-  </ul>
+  </Box>
 </Dropdown>`
 
 const dropdownTitle = `<Dropdown title="Options" minWidth="5em">
-  <ul className="list-style-none m-0 p-0">
+  <Box is="ul" m={0} p={0} className="list-style-none">
     <li>Item 1</li>
     <li>Item 2</li>
     <li>Item 3</li>
-  </ul>
+  </Box>
 </Dropdown>`
 
 const scope = {Box, Dropdown, Link}

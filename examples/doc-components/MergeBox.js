@@ -16,11 +16,12 @@ function getDesktopURL(repoUrl, branchName) {
 }
 
 const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
+  const borderColor = stateColorMap[state]
   return (
     <div className="d-flex flex-items-start">
       <MergeStatus state={state} />
-      <PointerBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
-        <MergeDetail state={state} />
+      <PointerBox ml={3} borderColor={borderColor} caret="left-top">
+        <MergeDetail state={state} borderColor={borderColor} borderBottom={1} />
         <MergeActions
           state={state}
           numCommits={numCommits}
@@ -37,7 +38,7 @@ MergeBox.propTypes = {
   numCommits: PropTypes.number.isRequired,
   onMerge: PropTypes.func.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired
+  state: PropTypes.oneOf(Object.keys(stateColorMap)).isRequired
 }
 
 export default MergeBox
