@@ -1,5 +1,3 @@
-const css = require('../src/css')
-
 module.exports = ({html = '', scripts, title = 'primer-react', static: staticBuild}) =>
   `<!DOCTYPE html>
   <html>
@@ -10,7 +8,6 @@ module.exports = ({html = '', scripts, title = 'primer-react', static: staticBui
     <link rel='icon' href='/assets/favicon.png' />
     <meta name='og:title' content='Primer React' />
     <meta name='description' content='Primer components built with React.js.' />
-    <style>/*primer-react.css*/${css}</style>
   </head>
   <body>
   <script>

@@ -1,23 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {theme} from '../../src'
+import {withDefaultTheme} from '../../src/system-props'
+import {default as PrimerCSS} from '../../src/css'
 
-/* eslint-disable-next-line react/no-danger */
-const Styles = ({css}) => <style dangerouslySetInnerHTML={{__html: css}} />
-
-Styles.defaultProps = {
-  css: `
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ${theme.fonts.normal};
-      line-height: ${theme.lineHeights.normal};
-    }
-  `
+function Styles({theme}) {
+  return (
+    /* eslint-disable-next-line react/no-danger */
+    <style dangerouslySetInnerHTML={{__html: `
+      /* primer-react base */
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ${theme.fonts.normal};
+        line-height: ${theme.lineHeights.default};
+      }
+      /* primer-react imports */
+      ${PrimerCSS}
+    `}} />
+  )
 }
 
 Styles.propTypes = {
-  css: PropTypes.string
+  theme: PropTypes.object
 }
 
-export default Styles
+export default withDefaultTheme(Styles)
