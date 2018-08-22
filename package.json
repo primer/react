@@ -20,9 +20,7 @@
     "lint": "eslint src examples",
     "start": "serve",
     "test": "jest",
-    "watch": "jest --watch --no-coverage",
-    "predeploy": "npm run build:docs",
-    "deploy": "now"
+    "watch": "jest --watch --no-coverage"
   },
   "repository": "primer/primer-react",
   "keywords": [
