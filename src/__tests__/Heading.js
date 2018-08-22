@@ -1,24 +1,7 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 import React from 'react'
-import Heading from '../Heading'
-import {render} from '../utils/testing'
-
-const theme = {
-  breakpoints: ['400px', '640px', '960px', '1280px'],
-  colors: {
-    green: ['#010', '#020', '#030', '#040', '#050', '#060']
-  },
-  fontSizes: [12, 14, 16, 20, 24, 32, 40, 48],
-  fonts: {
-    normal: 'Helvetica,sans-serif',
-    mono: 'Consolas,monospace'
-  },
-  lineHeights: {
-    normal: 1.5,
-    condensed: 1.25,
-    condensedUltra: 1
-  }
-}
+import {Heading, theme} from '..'
+import {render, renderStyles} from '../utils/testing'
 
 describe('Heading', () => {
   it('is a system component', () => {
@@ -32,16 +15,11 @@ describe('Heading', () => {
   it('respects the is prop', () => {
     expect(render(<Heading is="h6" />).type).toEqual('h6')
   })
-  it('renders margin', () => {
-    expect(render(<Heading m={1} theme={theme} />)).toHaveStyleRule('margin', '4px')
-    expect(render(<Heading m={[0, 1, 2, 3, 4]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Heading m={[1, 1, 3, 3]} theme={theme} />)).toMatchSnapshot()
-  })
-
-  it('renders padding', () => {
-    expect(render(<Heading p={1} theme={theme} />)).toHaveStyleRule('padding', '4px')
-    expect(render(<Heading p={[0, 1, 2, 3, 4]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Heading p={[1, 1, 3, 3]} theme={theme} />)).toMatchSnapshot()
+  it('renders margin & padding', () => {
+    expect(renderStyles(<Heading m={4} p={4} />)).toMatchKeys({
+      'margin': `${theme.space[4]}px`,
+      'padding': `${theme.space[4]}px`
+    })
   })
 
   it('respects color', () => {
