@@ -8,11 +8,14 @@
     "node": ">=8"
   },
   "scripts": {
-    "dist": "NODE_ENV=production rollup -c && npm run build:css",
+    "dev": "NODE_ENV=development x0 examples -op 8888",
     "predist": "rm -rf dist",
+    "dist": "NODE_ENV=production rollup -c",
+    "postdist": "npm run build:css",
     "prepublishOnly": "npm run dist",
+    "prebuild": "rm -rf docs; npm run dist",
     "build": "x0 build examples --out-dir docs",
-    "prebuild": "npm run build:css",
+    "postbuild": "cp -r dist docs",
     "build:css": "primer-module-build --outputDir dist/css src/primer-react.scss",
     "lint": "eslint src examples",
     "start": "serve",
