@@ -17,8 +17,8 @@
     "build": "x0 build examples --out-dir docs",
     "postbuild": "cp -r dist docs",
     "build:css": "primer-module-build --outputDir dist/css src/primer-react.scss",
-    "lint": "eslint src examples",
     "start": "serve",
+    "lint": "eslint src examples",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
   },
