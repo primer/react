@@ -17,10 +17,6 @@ describe('FlexItem', () => {
     expect(render(<FlexItem alignSelf="center" />)).toMatchSnapshot()
   })
 
-  xit('respects flexAuto', () => {
-    expect(render(<FlexItem flexAuto />)).toMatchSnapshot()
-  })
-
   it('renders as correct tag', () => {
     const item = render(
       <FlexItem is="button" alignSelf="center">
