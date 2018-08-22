@@ -2,7 +2,7 @@ import React from 'react'
 import Flash from '../Flash'
 import theme from '../theme'
 import {COMMON} from '../system-props'
-import {render} from '../utils/testing'
+import {render, renderStyles} from '../utils/testing'
 
 describe('Flash', () => {
   it('is a system component', () => {
@@ -31,11 +31,15 @@ describe('Flash', () => {
 
   // TODO: understand why these aren't working
 
-  xit('respects margin utility prop', () => {
-    expect(render(<Flash m={1} theme={theme} />)).toHaveStyleRule('margin', '4px')
+  it('respects margin utility prop', () => {
+    expect(renderStyles(<Flash m={4} />)).toMatchKeys({
+      'margin': `${theme.space[4]}px`
+    })
   })
 
-  xit('respects padding utility prop', () => {
-    expect(render(<Flash p={2} theme={theme} />)).toHaveStyleRule('padding', '8px')
+  it('respects padding utility prop', () => {
+    expect(renderStyles(<Flash p={4} />)).toMatchKeys({
+      'padding': `${theme.space[4]}px`
+    })
   })
 })
