@@ -2,7 +2,7 @@ import React from 'react'
 import FlexItem from '../FlexItem'
 import {FLEX_ITEM} from '../system-props'
 import theme from '../theme'
-import {render} from '../utils/testing'
+import {render, renderStyles} from '../utils/testing'
 
 describe('FlexItem', () => {
   it('is a system component', () => {
@@ -27,11 +27,15 @@ describe('FlexItem', () => {
     expect(item).toMatchSnapshot()
   })
 
-  xit('margin utility', () => {
-    expect(render(<FlexItem m={2} them={theme} />)).toMatchSnapshot()
+  it('respects margin utility prop', () => {
+    expect(renderStyles(<FlexItem m={4} />)).toMatchKeys({
+      'margin': `${theme.space[4]}px`
+    })
   })
 
-  xit('padding utility', () => {
-    expect(render(<FlexItem p={1} them={theme} />)).toMatchSnapshot()
+  it('respects padding utility prop', () => {
+    expect(renderStyles(<FlexItem p={4} />)).toMatchKeys({
+      'padding': `${theme.space[4]}px`
+    })
   })
 })
