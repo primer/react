@@ -1,6 +1,14 @@
 {
-  "type": "static",
   "static": {
-    "public": "docs"
-  }
+    "public": "docs",
+    "rewrites": [
+      {"source": "/components/*", "destination": "/index.html"},
+      {"source": "/demos/*", "destination": "/index.html"}
+    ]
+  },
+  "files": [
+    "examples",
+    "rollup.config.js",
+    "src"
+  ]
 }

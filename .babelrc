@@ -5,7 +5,6 @@
   ],
   "plugins": [
     "add-react-displayname",
-    "transform-object-rest-spread",
-    "preval"
+    "transform-object-rest-spread"
   ]
 }
