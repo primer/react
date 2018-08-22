@@ -17,3 +17,7 @@ export const Absolute = withPosition('absolute')
 export const Fixed = withPosition('fixed')
 export const Relative = withPosition('relative')
 export const Sticky = withPosition('sticky')
+Object.assign(Sticky.defaultProps, {
+  top: 0,
+  zIndex: 1
+})

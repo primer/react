@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, Flash} from '../../src'
 
-const FlashExample = {
+export default {
   name: 'Flash',
   element: (
     <div>
@@ -24,5 +24,3 @@ const FlashExample = {
     </div>
   )
 }
-
-export default FlashExample

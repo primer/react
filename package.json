@@ -4,15 +4,22 @@
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "NODE_ENV=production rollup -c",
+    "dist": "NODE_ENV=production rollup -c && npm run build:css",
+    "predist": "rm -rf dist",
+    "prepublishOnly": "npm run dist",
+    "build:css": "primer-module-build --outputDir dist/css src/primer-react.scss",
+    "prebuild:docs": "npm run build:css",
     "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src examples",
-    "prepublishOnly": "npm run build",
-    "start": "x0 dev examples -op 8888",
+    "start": "x0 dev examples -op ${PORT:-8888}",
     "test": "jest",
-    "watch": "jest --watch --no-coverage"
+    "watch": "jest --watch --no-coverage",
+    "predeploy": "npm run build:docs",
+    "deploy": "now"
   },
   "repository": "primer/primer-react",
   "keywords": [
@@ -24,9 +31,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "x0": {
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react",
-    "template": "./html.js"
+    "template": "./examples/_html.js"
   },
   "jest": {
     "collectCoverage": true,
@@ -42,6 +47,7 @@
     "d3-shape": "^1.2.0",
     "emotion": "9.2.6",
     "emotion-theming": "9.2.6",
+    "now": "11.3.12",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
     "react": "^16.2.0",
@@ -55,6 +61,7 @@
     "@compositor/x0": "^5.0.8",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-external-helpers": "6.22.0",
+    "babel-plugin-preval": "3.0.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -67,6 +74,14 @@
     "eslint-plugin-react": "7.8.2",
     "jest": "23.5.0",
     "jest-emotion": "9.2.7",
+    "primer-buttons": "2.6.0",
+    "primer-forms": "2.1.4",
+    "primer-layout": "1.4.9",
+    "primer-module-build": "1.0.5",
+    "primer-navigation": "1.5.7",
+    "primer-product": "5.6.7",
+    "primer-tooltips": "1.5.7",
+    "primer-utilities": "4.12.0",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
     "rollup": "0.62.0",

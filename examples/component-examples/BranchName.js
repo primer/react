@@ -1,7 +1,7 @@
 import React from 'react'
 import Octicon, {GitBranch} from '@githubprimer/octicons-react'
 import {Detail, LiveEditor} from '@compositor/kit'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 import {BranchName} from '../../src'
 
 const linkedBranch = `<BranchName is="a" href="/">
@@ -13,7 +13,7 @@ const branchOcticon = `<BranchName>
   a_new_feature_branch
 </BranchName>`
 
-const BranchNameExample = {
+export default {
   name: 'BranchName',
   element: (
     <div>
@@ -27,5 +27,3 @@ const BranchNameExample = {
     </div>
   )
 }
-
-export default BranchNameExample

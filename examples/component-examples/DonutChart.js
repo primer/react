@@ -1,7 +1,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, DonutChart, Text, DonutSlice, theme} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const dataPropExample = `<DonutChart mr={1} data={{error: 2, pending: 3, success: 5}} />
 <DonutChart mr={1} data={{error: 1, pending: 4, success: 2}} />
@@ -49,7 +49,7 @@ const customColorsExample = `<DonutChart>
   <DonutSlice value={1} fill={theme.colors.purple[4]} />
 </DonutChart>`
 
-const DonutChartExample = {
+export default {
   name: 'DonutChart',
   element: (
     <div>
@@ -74,5 +74,3 @@ const DonutChartExample = {
     </div>
   )
 }
-
-export default DonutChartExample

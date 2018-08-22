@@ -3,7 +3,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, Label} from '../../src'
 
-const LabelExample = {
+export default {
   name: 'Label',
   element: (
     <div>
@@ -20,5 +20,3 @@ const LabelExample = {
     </div>
   )
 }
-
-export default LabelExample

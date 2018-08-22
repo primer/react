@@ -2,7 +2,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {NavLink} from 'react-router-dom'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 import {Box, Link, Text, UnderlineNav, UnderlineNavLink} from '../../src'
 
 const underlineNavLinkExample = `<UnderlineNav>

@@ -1,0 +1,6 @@
+{
+  "type": "static",
+  "static": {
+    "public": "docs"
+  }
+}
