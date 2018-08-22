@@ -2,6 +2,6 @@
 .DS_Store
 coverage/
 dist/
-docs/TEMP/
+docs/
 node_modules
 npm-debug.log
