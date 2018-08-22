@@ -29,8 +29,6 @@ describe('Flash', () => {
     expect(render(<Flash scheme="green" />)).toHaveClasses(['flash', 'flash-success'])
   })
 
-  // TODO: understand why these aren't working
-
   it('respects margin utility prop', () => {
     expect(renderStyles(<Flash m={4} />)).toMatchKeys({
       'margin': `${theme.space[4]}px`
