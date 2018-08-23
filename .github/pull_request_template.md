@@ -1,18 +1,17 @@
-// Describe your changes
+Describe your changes here.
 
-Closes #:
+Closes # (type the issue number after # if applicable; otherwise remove this line)
 
+#### If development process was changed
+Description of changes
 
-#### If development process was changed:
-  Description of changes:
-  - [ ] Updated README?
+- [ ] Updated README
 
-
-#### Merge Checklist:
+#### Merge checklist
 - [ ] Changed base branch to release branch
-- [ ] Updated Kit (`npm run build:docs)
-- [ ] Enabled GH Pages for testing
-- [ ] Tested in Chrome [(BrowserStack)](https://www.browserstack.com/)
-- [ ] Tested in Firefox [(BrowserStack)](https://www.browserstack.com/)
-- [ ] Tested in Safari [(BrowserStack)](https://www.browserstack.com/)
-- [ ] Tested in Edge [(BrowserStack)](https://www.browserstack.com/)
+- [ ] Tested in Chrome [(BrowserStack)][BrowserStack]
+- [ ] Tested in Firefox [(BrowserStack)][BrowserStack]
+- [ ] Tested in Safari [(BrowserStack)][BrowserStack]
+- [ ] Tested in Edge [(BrowserStack)][BrowserStack]
+
+[BrowserStack]: https://www.browserstack.com/
