@@ -1,43 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {MergeStatus, PointerBox} from '../../src'
-import MergeDetail from './MergeDetail'
-import MergeActions from './MergeActions'
+import {LiveEditor} from '@compositor/kit'
+import MergeBox from '../doc-components/MergeBox'
 
-const stateColorMap = {
-  ready: 'green.5',
-  invalid: 'invalid',
-  merged: 'purple.5',
-  pending: 'yellow.5'
-}
-
-function getDesktopURL(repoUrl, branchName) {
-  return `x-github-client://openRepo/${repoUrl}?branch=${branchName}`
-}
-
-const MergeBox = ({state, repoUrl, branchName, numCommits, onMerge}) => {
-  return (
-    <div className="d-flex flex-items-start">
-      <MergeStatus state={state} />
-      <PointerBox ml={3} borderColor={stateColorMap[state]} caret="left-top">
-        <MergeDetail state={state} />
-        <MergeActions
-          state={state}
-          numCommits={numCommits}
-          desktopUrl={getDesktopURL(repoUrl, branchName)}
-          onClick={onMerge}
-        />
-      </PointerBox>
-    </div>
+export default {
+  name: 'MergeBox',
+  element: (
+    <LiveEditor
+      code={`
+<MergeBox
+  state='pending'
+  numCommits={21}
+  repoUrl='https://github.com/primer/primer-react'
+  branchName='master'
+  onMerge={() => alert('merge!')}
+/>
+        `.trim()}
+      scope={{MergeBox}}
+    />
   )
 }
-
-MergeBox.propTypes = {
-  branchName: PropTypes.string.isRequired,
-  numCommits: PropTypes.number.isRequired,
-  onMerge: PropTypes.func.isRequired,
-  repoUrl: PropTypes.string.isRequired,
-  state: PropTypes.oneOf(['ready', 'invalid', 'merged', 'pending']).isRequired
-}
-
-export default MergeBox

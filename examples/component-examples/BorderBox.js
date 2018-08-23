@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {BorderBox, Box} from '../../src'
 
-const BorderBoxExample = {
+export default {
   name: 'BorderBox',
   element: (
     <div>
@@ -45,5 +45,3 @@ const BorderBoxExample = {
     </div>
   )
 }
-
-export default BorderBoxExample

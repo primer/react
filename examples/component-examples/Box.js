@@ -19,7 +19,7 @@ const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => 
 
 const textColors = ['white', 'gray.5', 'black']
 
-const BoxExample = {
+export default {
   name: 'Box',
   element: (
     <div>
@@ -64,5 +64,3 @@ const BoxExample = {
     </div>
   )
 }
-
-export default BoxExample

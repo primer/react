@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Heading} from '../../src'
 
-const HeadingExample = {
+export default {
   name: 'Heading',
   element: (
     <div>
@@ -17,5 +17,3 @@ const HeadingExample = {
     </div>
   )
 }
-
-export default HeadingExample
