@@ -1,4 +1,4 @@
-import {Avatar} from 'primer-react'
+import {Avatar} from '../../src'
 
 
 ### Avatar

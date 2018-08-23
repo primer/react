@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Link} from 'primer-react'
+import {Button, Link} from '../src'
 
 class SideNav extends React.Component {
 

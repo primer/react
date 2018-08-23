@@ -67,31 +67,23 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 20:
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(21);
+module.exports = __webpack_require__(9);
 
 
 /***/ }),
 
-/***/ 21:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(22)
-
-
-/***/ }),
-
-/***/ 22:
+/***/ 9:
 /***/ (function(module, exports) {
 
-module.exports = require("next/error");
+throw new Error("Module build failed: Error: Plugin/Preset files are not allowed to export objects, only functions. In /Users/emplums/primer-react/node_modules/babel-preset-react/lib/index.js\n    at createDescriptor (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-descriptors.js:179:11)\n    at /Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-descriptors.js:104:12\n    at Array.map (<anonymous>)\n    at createDescriptors (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-descriptors.js:103:27)\n    at createPresetDescriptors (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-descriptors.js:95:10)\n    at /Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-descriptors.js:67:19\n    at presets (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-descriptors.js:57:25)\n    at mergeChainOpts (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-chain.js:298:68)\n    at /Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-chain.js:251:7\n    at buildRootChain (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/config-chain.js:85:20)\n    at loadPrivatePartialConfig (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/partial.js:41:53)\n    at Object.loadPartialConfig (/Users/emplums/primer-react/node_modules/@babel/core/lib/config/partial.js:66:16)\n    at Object.<anonymous> (/Users/emplums/primer-react/node_modules/babel-loader/lib/index.js:82:26)\n    at Generator.next (<anonymous>)\n    at step (/Users/emplums/primer-react/node_modules/babel-loader/lib/index.js:3:221)\n    at _next (/Users/emplums/primer-react/node_modules/babel-loader/lib/index.js:3:409)");
 
 /***/ })
 

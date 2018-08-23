@@ -1,7 +1,6 @@
 {
   "presets": [
-    "env",
-    "react"
+    "next/babel"
   ],
   "plugins": [
     "add-react-displayname",

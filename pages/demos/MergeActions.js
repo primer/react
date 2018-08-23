@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Box, ButtonLink, Link, Text} from 'primer-react'
-import MergeButton from './MergeButton'
+import {Box, ButtonLink, Link, Text} from '../../src'
 
 const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
   return (

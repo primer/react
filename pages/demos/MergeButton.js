@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Box, Button, PointerBox, Details, Text} from 'primer-react'
+import {Box, Button, PointerBox, Details, Text} from '../../src'
 
 const MergeButton = ({numCommits, onClick, primary}) => {
   const arrowStyles = {

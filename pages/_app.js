@@ -4,7 +4,7 @@ import {
   Layout,
   Pagination
 } from 'mdx-docs'
-import * as components from 'primer-react'
+import * as components from '../src'
 import SideNav from './SideNav'
 
 const routes = [
