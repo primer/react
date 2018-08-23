@@ -33,6 +33,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "x0": {
+    "title": "Primer React",
     "template": "./examples/_html.js"
   },
   "jest": {
