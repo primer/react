@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import {withSystemProps, LAYOUT, listStyle} from '../../src/system-props'
-import {Absolute, Box, Button, FlexContainer, PointerBox, Details, Text} from '../../src'
+import {Absolute, Button, FlexContainer, PointerBox, Details, Text} from '../../src'
 
 const Arrow = styled('span')({
   display: 'inline-block',
@@ -28,7 +28,7 @@ const List = withSystemProps(
 const ListItem = withSystemProps(
   {
     is: 'li',
-    ...Box.defaultProps,
+    borderColor: 'gray.2',
     m: 0,
     p: 2,
     pl: 4
