@@ -5,14 +5,12 @@
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "NODE_ENV=production rollup -c",
-    "build:docs": "x0 build examples --out-dir docs",
     "lint": "eslint src examples",
-    "prepublishOnly": "npm run build",
-    "start": "x0 dev examples -op 8888",
     "test": "jest",
-    "watch": "jest --watch --no-coverage"
+    "watch": "jest --watch --no-coverage",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": "primer/primer-react",
   "keywords": [
@@ -23,11 +21,6 @@
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
-  "x0": {
-    "cssLibrary": "styled-components",
-    "basename": "/primer-react",
-    "template": "./html.js"
-  },
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -42,9 +35,11 @@
     "d3-shape": "^1.2.0",
     "emotion": "9.2.6",
     "emotion-theming": "9.2.6",
+    "next": "6.1.1",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
-    "react": "^16.2.0",
+    "react": "16.4.2",
+    "react-dom": "16.4.2",
     "react-emotion": "9.2.6",
     "styled-system": "2.3.6",
     "system-classnames": "^1.0.0-3",
@@ -52,7 +47,6 @@
   },
   "devDependencies": {
     "@compositor/kit": "^1.0.43",
-    "@compositor/x0": "^5.0.8",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
