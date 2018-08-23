@@ -56,9 +56,7 @@ To run `primer-react` locally when adding or updating components:
 
 1. Clone this repo: `git clone https://github.com/primer/primer-react`
 1. Install dependencies: `npm install`
-1. Run the dev app: `npm start`
-
-Remember to build the documentation before publishing with `npm run build:docs`
+1. Run the dev app: `npm run dev`
 
 > 👉 See [the contributing docs](contributing.md) for more info on code style, testing, and coverage.
 
