@@ -1,4 +1,3 @@
-import Box from './Box'
 import {withSystemProps, LAYOUT} from './system-props'
 
 const BorderBox = withSystemProps(
@@ -6,7 +5,7 @@ const BorderBox = withSystemProps(
     is: 'div',
     bg: 'white',
     border: 1,
-    borderColor: Box.defaultProps.borderColor,
+    borderColor: 'gray.2',
     borderRadius: 1
   },
   LAYOUT
