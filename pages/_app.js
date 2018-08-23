@@ -5,7 +5,8 @@ import {
   Pagination
 } from 'mdx-docs'
 import * as components from '../src'
-import SideNav from './SideNav'
+import * as docComponents from  './doc-components'
+import SideNav from './doc-components/SideNav'
 
 const routes = [
   { name: 'Home', path: '/' },
@@ -31,7 +32,7 @@ export default class MyApp extends App {
     return (
       <Container>
         <Layout
-          components={components}
+          components={Object.assign(components, docComponents)}
           {...this.props}
           routes={routes}
           sidebar={(
