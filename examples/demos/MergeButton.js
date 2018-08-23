@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Box, Button, PointerBox, Details, Text} from '../../src'
+import {Absolute, Box, Button, Caret, PointerBox, Details, Text} from '../../src'
 
 const MergeButton = ({numCommits, onClick, primary}) => {
   const arrowStyles = {
@@ -36,7 +36,7 @@ const MergeButton = ({numCommits, onClick, primary}) => {
             <Button is="summary" {...buttonSchemeProps} onClick={toggle} style={borderStyles}>
               <div className="d-inline-block v-align-middle" style={arrowStyles} />
             </Button>
-            <Box position="absolute" width={300} mt={1} style={{zIndex: 99999}}>
+            <Absolute mt={1} width={300} zIndex={99999} boxShadow="small">
               <PointerBox caret="top-left">
                 <ul className="list-style-none p-0 m-0">
                   <li className="border-bottom py-2 pl-4 pr-2">
@@ -65,7 +65,7 @@ const MergeButton = ({numCommits, onClick, primary}) => {
                   </li>
                 </ul>
               </PointerBox>
-            </Box>
+            </Absolute>
           </React.Fragment>
         )}
       </Details>
