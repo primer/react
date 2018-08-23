@@ -6,17 +6,12 @@ function getCSS() {
 }
 
 module.exports = function renderDocument(props) {
-  const {
-    html = '',
-    scripts,
-    title = '',
-    basename,
-    static: staticBuild
-  } = props
+  const {html = '', scripts, title = '', basename, static: staticBuild} = props
 
-  const styles = process.env.NODE_ENV === 'production'
-    ? `<link rel='stylesheet' href='${basename}/dist/css/build.css'>`
-    : `<style type='text/css' id='primer-react-css'>${getCSS()}</style>`
+  const styles =
+    process.env.NODE_ENV === 'production'
+      ? `<link rel='stylesheet' href='${basename}/dist/css/build.css'>`
+      : `<style type='text/css' id='primer-react-css'>${getCSS()}</style>`
 
   return `
 <!DOCTYPE html>
