@@ -1,5 +1,5 @@
 import React from 'react'
-import {style} from  'styled-system'
+import {style} from 'styled-system'
 import system from 'system-components/emotion'
 import {default as defaultTheme} from './theme'
 

@@ -15,20 +15,26 @@ const Arrow = styled('span')({
   height: 0
 })
 
-const List = withSystemProps({
-  is: 'ul',
-  m: 0,
-  p: 0,
-  listStyle: 'none'
-}, [ ...LAYOUT, listStyle])
+const List = withSystemProps(
+  {
+    is: 'ul',
+    m: 0,
+    p: 0,
+    listStyle: 'none'
+  },
+  [...LAYOUT, listStyle]
+)
 
-const ListItem = withSystemProps({
-  is: 'li',
-  ...Box.defaultProps,
-  m: 0,
-  p: 2,
-  pl: 4
-}, LAYOUT)
+const ListItem = withSystemProps(
+  {
+    is: 'li',
+    ...Box.defaultProps,
+    m: 0,
+    p: 2,
+    pl: 4
+  },
+  LAYOUT
+)
 
 const MergeButton = ({numCommits, onClick, primary}) => {
   const borderStyles = {
