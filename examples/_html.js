@@ -1,6 +1,26 @@
-module.exports = ({html = '', scripts, title = 'primer-react', basename, static: staticBuild}) =>
-  `<!DOCTYPE html>
-  <html>
+const {join} = require('path')
+const {readFileSync} = require('fs')
+
+function getCSS() {
+  return readFileSync(join(__dirname, '../dist/css/build.css'), 'utf8')
+}
+
+module.exports = function renderDocument(props) {
+  const {
+    html = '',
+    scripts,
+    title = '',
+    basename,
+    static: staticBuild
+  } = props
+
+  const styles = process.env.NODE_ENV === 'production'
+    ? `<link rel='stylesheet' href='${basename}/dist/css/build.css'>`
+    : `<style type='text/css' id='primer-react-css'>${getCSS()}</style>`
+
+  return `
+<!DOCTYPE html>
+<html>
   <head>
     <title>${title}</title>
     <meta name='viewport' content='width=device-width,initial-scale=1'>
@@ -8,7 +28,7 @@ module.exports = ({html = '', scripts, title = 'primer-react', basename, static:
     <meta name='og:title' content='Primer React'>
     <meta name='description' content='Primer components built with React.js.'>
     <link rel='icon' href='https://primer.github.io/favicon.png'>
-    <link rel='stylesheet' href='${basename}/dist/css/build.css'>
+    ${styles}
   </head>
   <body>
   <script>
@@ -22,6 +42,7 @@ module.exports = ({html = '', scripts, title = 'primer-react', basename, static:
   </script>
     <div id="root">${html}</div>
   </body>
-  </html>
-  ${staticBuild ? '' : scripts}
-  `
+</html>
+${staticBuild ? '' : scripts}
+  `.trim()
+}
