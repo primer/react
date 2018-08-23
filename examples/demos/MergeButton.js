@@ -1,18 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'react-emotion'
 import {Absolute, Box, Button, Caret, PointerBox, Details, Text} from '../../src'
 
-const MergeButton = ({numCommits, onClick, primary}) => {
-  const arrowStyles = {
-    content: '',
-    border: '4px solid',
-    borderRightColor: 'transparent',
-    borderLeftColor: 'transparent',
-    borderBottomColor: 'transparent',
-    width: '0',
-    height: '0'
-  }
+const Arrow = styled('span')({
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  border: '5px solid',
+  borderRightColor: 'transparent',
+  borderLeftColor: 'transparent',
+  borderBottomColor: 'transparent',
+  width: 0,
+  height: 0
+})
 
+const MergeButton = ({numCommits, onClick, primary}) => {
   const borderStyles = {
     borderTopLeftRadius: '0',
     borderBottomLeftRadius: '0'
@@ -27,14 +29,14 @@ const MergeButton = ({numCommits, onClick, primary}) => {
 
   return (
     <div className="BtnGroup">
-      <Button {...buttonSchemeProps} grouped onClick={onClick} style={{borderRight: 0}}>
+      <Button {...buttonSchemeProps} grouped onClick={onClick} css={{borderRight: 0}}>
         Merge Pull Request
       </Button>
       <Details className="details-reset d-flex float-right">
         {({toggle}) => (
           <React.Fragment>
-            <Button is="summary" {...buttonSchemeProps} onClick={toggle} style={borderStyles}>
-              <div className="d-inline-block v-align-middle" style={arrowStyles} />
+            <Button is="summary" {...buttonSchemeProps} onClick={toggle} css={borderStyles}>
+              <Arrow />
             </Button>
             <Absolute mt={1} width={300} zIndex={99999} boxShadow="small">
               <PointerBox caret="top-left">
