@@ -9,9 +9,7 @@ Description of changes
 
 #### Merge checklist
 - [ ] Changed base branch to release branch
-- [ ] Tested in Chrome [(BrowserStack)][BrowserStack]
-- [ ] Tested in Firefox [(BrowserStack)][BrowserStack]
-- [ ] Tested in Safari [(BrowserStack)][BrowserStack]
-- [ ] Tested in Edge [(BrowserStack)][BrowserStack]
-
-[BrowserStack]: https://www.browserstack.com/
+- [ ] Tested in Chrome
+- [ ] Tested in Firefox
+- [ ] Tested in Safari
+- [ ] Tested in Edge
