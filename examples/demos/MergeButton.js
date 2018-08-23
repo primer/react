@@ -28,7 +28,7 @@ const MergeButton = ({numCommits, onClick, primary}) => {
   const commits = numCommits === 1 ? '1 commit' : `${numCommits} commits`
 
   return (
-    <div className="BtnGroup d-flex">
+    <FlexContainer className="BtnGroup">
       <Button {...buttonSchemeProps} grouped onClick={onClick} css={{borderRight: 0}}>
         Merge Pull Request
       </Button>
@@ -71,7 +71,7 @@ const MergeButton = ({numCommits, onClick, primary}) => {
           </React.Fragment>
         )}
       </Details>
-    </div>
+    </FlexContainer>
   )
 }
 
