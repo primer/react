@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {Absolute, Box, Button, Caret, PointerBox, Details, Text} from '../../src'
+import {withSystemProps, LAYOUT, listStyle} from '../../src/system-props'
+import {Absolute, Box, Button, FlexContainer, PointerBox, Details, Text} from '../../src'
 
 const Arrow = styled('span')({
   display: 'inline-block',
@@ -13,6 +14,21 @@ const Arrow = styled('span')({
   width: 0,
   height: 0
 })
+
+const List = withSystemProps({
+  is: 'ul',
+  m: 0,
+  p: 0,
+  listStyle: 'none'
+}, [ ...LAYOUT, listStyle])
+
+const ListItem = withSystemProps({
+  is: 'li',
+  ...Box.defaultProps,
+  m: 0,
+  p: 2,
+  pl: 4
+}, LAYOUT)
 
 const MergeButton = ({numCommits, onClick, primary}) => {
   const borderStyles = {
@@ -40,32 +56,32 @@ const MergeButton = ({numCommits, onClick, primary}) => {
             </Button>
             <Absolute mt={1} width={300} zIndex={99999} boxShadow="small">
               <PointerBox caret="top-left">
-                <ul className="list-style-none p-0 m-0">
-                  <li className="border-bottom py-2 pl-4 pr-2">
+                <List>
+                  <ListItem borderBottom={1}>
                     <Text is="p" m={0} fontSize={1} fontWeight="bold">
                       Create a merge commit
                     </Text>
                     <Text is="p" m={0} fontSize={0}>
                       All commits from this branch will be added to the base branch via a merge commit.
                     </Text>
-                  </li>
-                  <li className="border-bottom py-2 pl-4 pr-2">
+                  </ListItem>
+                  <ListItem borderBottom={1}>
                     <Text is="p" m={0} fontSize={1} fontWeight="bold">
                       Squash and merge
                     </Text>
                     <Text is="p" m={0} fontSize={0}>
                       The {commits} from this branch will be combined into one commit in the base branch.
                     </Text>
-                  </li>
-                  <li className="py-2 pl-4 pr-2">
+                  </ListItem>
+                  <ListItem>
                     <Text is="p" m={0} fontSize={1} fontWeight="bold">
                       Rebase and merge
                     </Text>
                     <Text is="p" fontSize={0} m={0}>
                       The {commits} from this branch will be rebased and added to the base branch
                     </Text>
-                  </li>
-                </ul>
+                  </ListItem>
+                </List>
               </PointerBox>
             </Absolute>
           </React.Fragment>
