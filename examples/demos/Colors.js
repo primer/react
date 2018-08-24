@@ -9,7 +9,9 @@ const ColorsExample = {
       <Box mb={4}>
         {['gray', 'blue', 'green', 'purple', 'yellow', 'orange'].map(hue => (
           <FlexContainer key={hue}>
-            {theme.colors[hue].map((color, j) => <Swatch name={hue} index={j} key={color} color={color} />)}
+            {theme.colors[hue].map((color, j) => (
+              <Swatch name={hue} index={j} key={color} color={color} />
+            ))}
           </FlexContainer>
         ))}
       </Box>
