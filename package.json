@@ -8,6 +8,7 @@
     "node": ">=8"
   },
   "scripts": {
+    "predev": "npm run build:css",
     "dev": "NODE_ENV=development x0 examples -op 8888",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
@@ -32,6 +33,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "x0": {
+    "title": "Primer React",
     "template": "./examples/_html.js"
   },
   "jest": {
