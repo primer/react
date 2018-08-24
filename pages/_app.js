@@ -19,6 +19,10 @@ const customTheme = {
   },
   LayoutSidebar: {
     top: '55px'
+  },
+  NavLink: {
+    padding: '8px 0px',
+    fontSize: '16px'
   }
 }
 const routes = [
