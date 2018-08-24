@@ -8,7 +8,7 @@ const stateColorMap = {
   ready: 'green.5',
   invalid: 'invalid',
   merged: 'purple.5',
-  pending: 'yellow.5'
+  pending: 'yellow.7'
 }
 
 function getDesktopURL(repoUrl, branchName) {

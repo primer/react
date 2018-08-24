@@ -1,4 +1,5 @@
 import React from 'react'
+import {style} from 'styled-system'
 import system from 'system-components/emotion'
 import {default as defaultTheme} from './theme'
 
@@ -138,6 +139,12 @@ export function withoutPropTypes(Component, props) {
   }
   return Component
 }
+
+export const listStyle = style({
+  prop: 'listStyle',
+  cssProperty: 'list-style',
+  key: 'listStyles'
+})
 
 function guardDoubleRender(Component) {
   function render(props) {
