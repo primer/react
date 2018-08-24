@@ -1,6 +1,6 @@
 import React from 'react'
 import Text from '../Text'
-import theme, {colors} from '../theme'
+import theme from '../theme'
 import {px, render, renderStyles} from '../utils/testing'
 
 describe('Text', () => {
