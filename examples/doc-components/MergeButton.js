@@ -97,7 +97,6 @@ export default function MergeButton({numCommits, onClick, primary}) {
   )
 }
 
-
 MergeButton.defaultProps = {
   numCommits: 0
 }
