@@ -18,7 +18,7 @@ const customTheme = {
     whiteSpace: 'pre-wrap'
   },
   LayoutSidebar: {
-    top: '55px'
+    top: '64px'
   },
   NavLink: {
     padding: '8px 0px',

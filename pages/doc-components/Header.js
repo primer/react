@@ -1,5 +1,5 @@
-import Octicon, {Package} from '@githubprimer/octicons-react'
-import {UnderlineNav, UnderlineNavLink, Text, Link} from '../../src'
+import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
+import {UnderlineNav, UnderlineNavLink, Text, Link, FlexContainer, Box} from '../../src'
 import {name, repository, version} from '../../package.json'
 
 const pkg = `${name}@${version}`
@@ -8,19 +8,27 @@ const releaseURL = `https://github.com/${repository}/releases/v${version}`
 const Header = () =>
   <UnderlineNav
     actions={
-      <Text color="gray.5" fontFamily="mono" px={4}>
-        <Octicon icon={Package} className="mr-2" />
-        <Link href={releaseURL}>{pkg}</Link>
-      </Text>
+      <div>
+        <UnderlineNavLink px={4} className="d-inline-block" href="/docs">
+          Docs
+        </UnderlineNavLink>
+        <UnderlineNavLink px={4} className="d-inline-block" href="/dev-mode">
+          Dev mode
+        </UnderlineNavLink>
+        <UnderlineNavLink px={4} className="d-inline-block" href="/demos">
+          Demos
+        </UnderlineNavLink>
+        <UnderlineNavLink mr={0} px={4} className="d-inline-block" href="/sandbox">
+          Sandbox
+        </UnderlineNavLink>
+      </div>
     }
     mr={1}
   >
-    <UnderlineNavLink href="/demos" px={3}>
-      Demos
-    </UnderlineNavLink>
-    <UnderlineNavLink href="/sandbox" px={3}>
-      Sandbox
-    </UnderlineNavLink>
+    <FlexContainer alignItems="center" ml={5}>
+      <Octicon size="medium" icon={MarkGithub} className="mr-2" />
+      <Text color="black" fontWeight="bold">Primer-react</Text>
+    </FlexContainer>
   </UnderlineNav>
 
 
