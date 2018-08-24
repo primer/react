@@ -1,8 +1,8 @@
 import React from 'react'
-import theme, {colors} from '../theme'
+import {colors} from '../theme'
 import BorderBox from '../BorderBox'
 import Box from '../Box'
-import {px, render, renderStyles} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('BorderBox', () => {
   it('is a system component', () => {
