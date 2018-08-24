@@ -104,6 +104,9 @@ export function withSystemProps(Component, props = COMMON) {
   Wrapped.displayName = Component.displayName
   Object.assign(Wrapped.propTypes, Component.propTypes)
 
+  // Set what system props we use on this component
+  Wrapped.systemProps = props
+
   // Copy over non-system keys from components
   // eg. Tooltip.js => Tooltip.directions Tooltip.alignments
   for (const key of Object.keys(Component)) {

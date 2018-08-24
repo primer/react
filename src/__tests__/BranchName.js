@@ -24,13 +24,6 @@ describe('BranchName', () => {
     expect(render(<BranchName is="span" href="#" />).props.href).toEqual(null)
   })
 
-  xit('respects margin utility prop', () => {
-    expect(rendersClass(<BranchName m={1} />, 'm-1')).toEqual(true)
-  })
-
-  xit('respects padding utility prop', () => {
-    expect(rendersClass(<BranchName p={1} />, 'p-1')).toEqual(true)
-  })
   it('implements common system props', () => {
     expect(BranchName).toImplementSystemProps(COMMON)
   })

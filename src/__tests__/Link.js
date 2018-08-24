@@ -34,10 +34,4 @@ describe('Link', () => {
   it('renders without any props', () => {
     expect(render(<Link />)).toMatchSnapshot()
   })
-
-  it('renders margin', () => {
-    expect(render(<Link m={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Link m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Link m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
-  })
 })

@@ -12,14 +12,6 @@ describe('Details', () => {
     expect(render(<Details />)).toHaveClass('details-reset')
   })
 
-  it('respects margin utility prop', () => {
-    expect(render(<Details m={1} />)).toHaveStyleRule('margin', '4px')
-  })
-
-  it('respects padding utility prop', () => {
-    expect(render(<Details p={1} />)).toHaveStyleRule('padding', '4px')
-  })
-
   it('Respects the open prop', () => {
     expect(mount(<Details open />).props().open).toEqual(true)
   })

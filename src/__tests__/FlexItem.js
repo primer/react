@@ -26,16 +26,4 @@ describe('FlexItem', () => {
     expect(item.type).toEqual('button')
     expect(item).toMatchSnapshot()
   })
-
-  it('respects margin utility prop', () => {
-    expect(renderStyles(<FlexItem m={4} />)).toMatchKeys({
-      'margin': `${theme.space[4]}px`
-    })
-  })
-
-  it('respects padding utility prop', () => {
-    expect(renderStyles(<FlexItem p={4} />)).toMatchKeys({
-      'padding': `${theme.space[4]}px`
-    })
-  })
 })

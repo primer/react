@@ -40,23 +40,6 @@ describe('Text', () => {
     })
   })
 
-  it('renders margin', () => {
-    expect(render(<Text m={1} />)).toHaveStyleRule('margin', px(theme.space[1]))
-    expect(render(<Text m={[0, 1, 2, 3, 4]} />)).toMatchSnapshot()
-    expect(render(<Text m={[1, 1, 3, 3]} />)).toMatchSnapshot()
-  })
-
-  it('renders padding', () => {
-    expect(render(<Text p={1} />)).toHaveStyleRule('padding', px(theme.space[1]))
-    expect(render(<Text p={[0, 1, 2, 3, 4]} />)).toMatchSnapshot()
-    expect(render(<Text p={[1, 1, 3, 3]} />)).toMatchSnapshot()
-  })
-
-  it('respects color', () => {
-    expect(render(<Text color="green.5" />)).toHaveStyleRule('color', colors.green[5])
-    expect(render(<Text color="#f0f" />)).toHaveStyleRule('color', '#f0f')
-  })
-
   it('respects fontWeight', () => {
     expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', 'bold')
     expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', 'normal')

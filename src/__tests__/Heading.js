@@ -15,16 +15,6 @@ describe('Heading', () => {
   it('respects the is prop', () => {
     expect(render(<Heading is="h6" />).type).toEqual('h6')
   })
-  it('renders margin & padding', () => {
-    expect(renderStyles(<Heading m={4} p={4} />)).toMatchKeys({
-      'margin': `${theme.space[4]}px`,
-      'padding': `${theme.space[4]}px`
-    })
-  })
-
-  it('respects color', () => {
-    expect(render(<Heading color="green.5" theme={theme} />)).toHaveStyleRule('color', theme.colors.green[5])
-  })
 
   it('respects fontWeight', () => {
     expect(render(<Heading fontWeight="bold" theme={theme} />)).toHaveStyleRule('font-weight', 'bold')

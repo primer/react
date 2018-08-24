@@ -75,20 +75,12 @@ describe('ButtonPrimary', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
     expect(render(<ButtonPrimary />).props.className).toContain('btn-primary')
   })
-
-  it('implements common system props', () => {
-    expect(render(<ButtonPrimary m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
-  })
 })
 
 describe('ButtonDanger', () => {
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
     expect(render(<ButtonDanger />).props.className).toContain('btn-danger')
-  })
-
-  it('implements common system props', () => {
-    expect(render(<ButtonDanger m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 
   xit('renders children', () => {
@@ -113,19 +105,11 @@ describe('ButtonLink', () => {
     expect(render(<ButtonLink />).type).toEqual('button')
     expect(render(<ButtonLink />).props.className).toContain('btn-link')
   })
-
-  it('implements common system props', () => {
-    expect(render(<ButtonLink m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
-  })
 })
 
 describe('ButtonOutline', () => {
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
     expect(render(<ButtonOutline />).props.className).toContain('btn-outline')
-  })
-
-  it('implements common system props', () => {
-    expect(render(<ButtonOutline m={2} theme={theme} />)).toHaveStyleRule('margin', '8px')
   })
 })

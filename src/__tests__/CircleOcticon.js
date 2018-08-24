@@ -28,12 +28,4 @@ describe('CircleOcticon', () => {
     expect(result).toHaveStyleRule('width', '32px')
     expect(result).toHaveStyleRule('height', '32px')
   })
-
-  it('respects margin utility prop', () => {
-    expect(render(<CircleOcticon icon={Check} m={4} />)).toHaveStyleRule('margin', `${theme.space[4]}px`)
-  })
-
-  it('respects padding utility prop', () => {
-    expect(render(<CircleOcticon icon={Check} p={4} />)).toHaveStyleRule('padding', `${theme.space[4]}px`)
-  })
 })
