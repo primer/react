@@ -1,7 +1,25 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 import React from 'react'
-import {Heading, theme} from '..'
+import {Heading} from '..'
 import {render, renderStyles} from '../utils/testing'
+
+
+const theme = {
+  breakpoints: ['400px', '640px', '960px', '1280px'],
+  colors: {
+    green: ['#010', '#020', '#030', '#040', '#050', '#060']
+  },
+  fontSizes: [12, 14, 16, 20, 24, 32, 40, 48],
+  fonts: {
+    normal: 'Helvetica,sans-serif',
+    mono: 'Consolas,monospace'
+  },
+  lineHeights: {
+    normal: 1.5,
+    condensed: 1.25,
+    condensedUltra: 1
+  }
+}
 
 describe('Heading', () => {
   it('is a system component', () => {
