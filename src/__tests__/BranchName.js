@@ -4,7 +4,7 @@ import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('BranchName', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(BranchName.systemComponent).toEqual(true)
   })
 
