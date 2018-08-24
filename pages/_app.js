@@ -11,6 +11,16 @@ import * as docComponents from  './doc-components'
 import SideNav from './doc-components/SideNav'
 import Header from './doc-components/Header'
 
+
+const customTheme = {
+  font: theme.fonts.normal,
+  LiveEditor: {
+    whiteSpace: 'pre-wrap'
+  },
+  LayoutSidebar: {
+    top: '55px'
+  }
+}
 const routes = [
   { name: 'Home', path: '/' },
   { name: 'Components', path: '/components/' },
@@ -33,21 +43,21 @@ export default class MyApp extends App {
     const { Component, page } = this.props
 
     return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <Layout
-            components={Object.assign(components, docComponents)}
-            {...this.props}
-            routes={routes}
-            header={(<Header />)}
-            sidebar={(
-              <SideNav />
-            )}
-            >
-            <Component {...page} />
-          </Layout>
-        </Container>
-      </ThemeProvider>
+      <Container>
+        <Layout
+          components={Object.assign(components, docComponents)}
+          {...this.props}
+          routes={routes}
+          theme={customTheme}
+          header={(<Header />)}
+          sidebar={(
+            <SideNav />
+          )}
+          layoutMain
+          >
+          <Component {...page} />
+        </Layout>
+      </Container>
     )
   }
 }
