@@ -27,13 +27,15 @@ describe('Details', () => {
     expect(
       render(
         <Details>
-          <summary>hi</summary>bye
+          <summary>hi</summary>
+          bye
         </Details>
       )
     ).toEqual(
       render(
         <details open={false} className="details-reset">
-          <summary>hi</summary>bye
+          <summary>hi</summary>
+          bye
         </details>
       )
     )

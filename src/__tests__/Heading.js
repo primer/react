@@ -3,7 +3,6 @@ import React from 'react'
 import {Heading} from '..'
 import {render, renderStyles} from '../utils/testing'
 
-
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
   colors: {

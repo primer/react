@@ -16,7 +16,7 @@ describe('UtilitySystemProps', () => {
     if (!Component.displayName || !Component.systemProps) {
       continue
     }
-    let extraProps;
+    let extraProps
     if (testProps[Component.displayName]) {
       extraProps = testProps[Component.displayName]
     }
@@ -65,7 +65,9 @@ describe('UtilitySystemProps', () => {
         for (const color of Object.keys(theme.colors)) {
           if (typeof theme.colors[color] === 'object' && color != 'state') {
             for (const i in theme.colors[color]) {
-              expect(renderStyles(<Component bg={`${color}.${i}`} color={`${color}.${i}`} {...extraProps} />)).toMatchKeys({
+              expect(
+                renderStyles(<Component bg={`${color}.${i}`} color={`${color}.${i}`} {...extraProps} />)
+              ).toMatchKeys({
                 'background-color': theme.colors[color][i],
                 color: theme.colors[color][i]
               })
