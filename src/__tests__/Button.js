@@ -1,13 +1,12 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
-import theme from '../theme'
 import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 function noop() {}
 
 describe('Button', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(Button.systemComponent).toEqual(true)
   })
 
