@@ -1,23 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {theme} from '../../src'
+import {withDefaultTheme} from '../../src/system-props'
 
-/* eslint-disable-next-line react/no-danger */
-const Styles = ({css}) => <style dangerouslySetInnerHTML={{__html: css}} />
-
-Styles.defaultProps = {
-  css: `
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ${theme.fonts.normal};
-      line-height: ${theme.lineHeights.normal};
-    }
-  `
+function Styles({theme}) {
+  return (
+    /* eslint-disable react/no-danger */
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
+          * { box-sizing: border-box; }
+          body {
+            margin: 0;
+            font-family: ${theme.fonts.normal};
+            line-height: ${theme.lineHeights.default};
+          }
+        `
+      }}
+    />
+    /* eslint-enable react/no-danger */
+  )
 }
 
 Styles.propTypes = {
-  css: PropTypes.string
+  theme: PropTypes.object
 }
 
-export default Styles
+export default withDefaultTheme(Styles)

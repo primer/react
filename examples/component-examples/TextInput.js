@@ -1,9 +1,9 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {TextInput} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
-const TextInputExample = {
+export default {
   name: 'TextInput',
   element: (
     <div>
@@ -17,4 +17,3 @@ const TextInputExample = {
     </div>
   )
 }
-export default TextInputExample

@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {MergeStatus, Box} from '../../src'
 
-const MergeStatusExample = {
+export default {
   name: 'MergeStatus',
   element: (
     <div>
@@ -21,5 +21,3 @@ const MergeStatusExample = {
     </div>
   )
 }
-
-export default MergeStatusExample

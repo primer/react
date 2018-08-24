@@ -16,7 +16,7 @@ const filterListSmallCode = `<FilterList small>
 </FilterList>
 `
 
-const FilterListExample = {
+export default {
   name: 'Filter List',
   element: (
     <div>
@@ -29,5 +29,3 @@ const FilterListExample = {
     </div>
   )
 }
-
-export default FilterListExample

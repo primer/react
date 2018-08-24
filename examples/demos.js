@@ -1,55 +1,14 @@
+/* eslint-disable import/no-namespace */
 import React from 'react'
-import {Library, LiveEditor} from '@compositor/kit'
-import SideNav from './doc-components/SideNav'
-import MergeBox from './demos/MergeBox'
-import MergeButton from './demos/MergeButton'
-import {Box} from '../src'
+import {Library} from './doc-components'
+import * as examples from './demos/'
 
-const examples = [
-  {
-    name: 'MergeBox',
-    element: (
-      <Box p={4}>
-        <LiveEditor
-          code={`<MergeBox
-  state='pending'
-  numCommits={21}
-  repoUrl='https://github.com/primer/primer-react'
-  branchName='master'
-  onMerge={() => alert('merge!')}
-/>`}
-          scope={{MergeBox}}
-        />
-      </Box>
-    )
-  },
-  {
-    name: 'MergeButton',
-    element: (
-      <Box p={4}>
-        <LiveEditor
-          code={`<MergeButton
-  primary
-  numCommits={2}
-  onClick={() => alert('merge!')}
-/>`}
-          scope={{MergeButton}}
-        />
-      </Box>
-    )
-  }
-]
-
-const DemoPage = () => {
-  const basename = process.env.NODE_ENV === 'development' ? '/demos' : '/primer-react/demo'
+export default function DemoPage(props) {
+  const basename = '/demos/'
   return (
-    <Library
-      basename={basename}
-      title="Demo Library"
-      examples={examples}
-      renderSideNav={({title, examples}) => <SideNav title={title} examples={examples} />}
-    />
+    <Library basename={basename} title="Demo Library" examples={examples} {...props}>
+      These are more involved demos that illustrate how to combine primer-react components into more interesting and/or
+      useful ones.
+    </Library>
   )
 }
-
-export default DemoPage

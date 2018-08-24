@@ -1,89 +1,96 @@
 import React from 'react'
 import {PropsForm, LiveEditor} from '@compositor/kit'
-import {Box, FlexContainer, FlexItem} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {BorderBox, Box, FlexContainer, FlexItem} from '../../src'
+import {ExampleHeading} from '../doc-components'
 
 const propObj = {
-  wrap: ['wrap', 'nowrap'],
-  direction: ['row', 'row-reverse', 'column'],
+  flexWrap: ['wrap', 'nowrap'],
+  flexDirection: ['row', 'row-reverse', 'column'],
   justifyContent: ['start', 'end', 'center', 'between', 'around'],
   alignItems: ['start', 'end', 'center', 'baseline', 'stretch'],
   alignContent: ['start', 'end', 'center', 'between', 'around', 'stretch']
 }
 
-const example1 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
-  <FlexItem flexAuto>
-    <Box p={3} bg="blue.5">
-      Item 1
-    </Box>
-  </FlexItem>
-  <FlexItem flexAuto>
-    <Box p={3} bg="green.5">
-      Item 2
-    </Box>
-  </FlexItem>
-  <FlexItem flexAuto>
-    <Box p={3} bg="yellow.5">
-      Item 3
-    </Box>
-  </FlexItem>
-</FlexContainer>`
+const defaultProps = Object.keys(propObj).reduce((props, key) => {
+  props[key] = propObj[key][0]
+  return props
+}, {})
 
-const example2 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
-  <FlexItem alignSelf="center">
-    <Box p={3} bg="blue.5">
-      Item 1
-    </Box>
-  </FlexItem>
-  <FlexItem>
-    <Box p={3} bg="green.5">
-      Item 2
-    </Box>
-  </FlexItem>
-  <FlexItem>
-    <Box p={3} bg="yellow.5">
-      Item 3
-    </Box>
-  </FlexItem>
-</FlexContainer>`
+const scope = {Box, BorderBox, FlexContainer, FlexItem}
 
-const example3 = `<FlexContainer wrap="nowrap" width={300} height={300} border>
-  <FlexItem is="p">
-    <Box p={3} bg="blue.5">
-      Item 1
-    </Box>
-  </FlexItem>
-  <FlexItem is="p">
-    <Box p={3} bg="green.5">
-      Item 2
-    </Box>
-  </FlexItem>
-  <FlexItem is="p">
-    <Box p={3} bg="yellow.5">
-      Item 3
-    </Box>
-  </FlexItem>
-</FlexContainer>
-`
-const FlexExample = {
+const example1 = `
+<BorderBox width={300} height={300} borderRadius={0}>
+  <FlexContainer flexWrap="nowrap">
+    <FlexItem>
+      <Box p={3} bg="blue.5">
+        Item 1
+      </Box>
+    </FlexItem>
+    <FlexItem>
+      <Box p={3} bg="green.5">
+        Item 2
+      </Box>
+    </FlexItem>
+    <FlexItem>
+      <Box p={3} bg="yellow.5">
+        Item 3
+      </Box>
+    </FlexItem>
+  </FlexContainer>
+</BorderBox>
+`.trim()
+
+const example2 = `
+<BorderBox width={400} height={200} borderRadius={0}>
+  <FlexContainer flexWrap="nowrap">
+    <FlexItem alignSelf="center">
+      <Box p={3} bg="blue.5">
+        Item 1
+      </Box>
+    </FlexItem>
+    <FlexItem>
+      <Box p={3} bg="green.5">
+        Item 2
+      </Box>
+    </FlexItem>
+    <FlexItem>
+      <Box p={3} bg="yellow.5">
+        Item 3
+      </Box>
+    </FlexItem>
+  </FlexContainer>
+</BorderBox>
+`.trim()
+
+const example3 = `
+<BorderBox width={400} height={200} borderRadius={0}>
+  <FlexContainer flexWrap="nowrap">
+    <FlexItem is="p">
+      <Box p={3} bg="blue.5">
+        Item 1
+      </Box>
+    </FlexItem>
+    <FlexItem is="p">
+      <Box p={3} bg="green.5">
+        Item 2
+      </Box>
+    </FlexItem>
+    <FlexItem is="p">
+      <Box p={3} bg="yellow.5">
+        Item 3
+      </Box>
+    </FlexItem>
+  </FlexContainer>
+</BorderBox>
+`.trim()
+
+export default {
   name: 'Flex',
   element: (
     <div>
       <ExampleHeading>FlexContainer</ExampleHeading>
       <PropsForm>
-        <FlexContainer
-          display="flex"
-          wrap="wrap"
-          direction="row"
-          justifyContent="start"
-          alignItems="start"
-          alignContent="start"
-          flexAuto
-          alignSelf="start"
-          width={300}
-          height={300}
-          border
-        >
+        <FlexContainer is={BorderBox} width={400} height={200} {...defaultProps}>
           <Box p={3} bg="blue.5">
             Item 1
           </Box>
@@ -108,14 +115,12 @@ const FlexExample = {
           </PropsForm.Select>
         ))}
       </PropsForm>
-      <ExampleHeading mt={3}>FlexContainer + FlexItems set to flexAuto</ExampleHeading>
-      <LiveEditor code={example1} scope={{FlexContainer, FlexItem, Box}} />
+      <ExampleHeading mt={3}>FlexContainer + FlexItems</ExampleHeading>
+      <LiveEditor code={example1} scope={scope} />
       <ExampleHeading mt={2}>FlexContainer + FlexItems with first item set to alignSelf='center'</ExampleHeading>
-      <LiveEditor code={example2} scope={{FlexContainer, FlexItem, Box}} />
+      <LiveEditor code={example2} scope={scope} />
       <ExampleHeading mt={2}>FlexContainer + FlexItems using tag prop set to "p"</ExampleHeading>
-      <LiveEditor code={example3} scope={{FlexContainer, FlexItem, Box}} />
+      <LiveEditor code={example3} scope={scope} />
     </div>
   )
 }
-
-export default FlexExample
