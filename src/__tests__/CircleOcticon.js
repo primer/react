@@ -1,6 +1,6 @@
 import React from 'react'
 import {Check} from '@githubprimer/octicons-react'
-import theme, {colors} from '../theme'
+import {colors} from '../theme'
 import CircleOcticon from '../CircleOcticon'
 import {render} from '../utils/testing'
 
