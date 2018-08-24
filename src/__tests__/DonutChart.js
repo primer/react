@@ -5,7 +5,7 @@ import theme, {colors} from '../theme'
 import {render} from '../utils/testing'
 
 describe('DonutChart', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(DonutChart.systemComponent).toEqual(true)
   })
 
