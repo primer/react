@@ -1,6 +1,6 @@
 import React from 'react'
 import {X} from '@githubprimer/octicons-react'
-import theme from '../theme'
+import theme, {colors} from '../theme'
 import * as Components from '../index.js'
 import {renderStyles} from '../utils/testing'
 
@@ -62,14 +62,14 @@ describe('UtilitySystemProps', () => {
 
     if (Component.systemProps.includes('color')) {
       it(`${Component.displayName} renders color props properly`, () => {
-        for (const color of Object.keys(theme.colors)) {
-          if (typeof theme.colors[color] === 'object' && color != 'state') {
-            for (const i in theme.colors[color]) {
+        for (const color of Object.keys(colors)) {
+          if (typeof colors[color] === 'object' && color !== 'state') {
+            for (const i in colors[color]) {
               expect(
                 renderStyles(<Component bg={`${color}.${i}`} color={`${color}.${i}`} {...extraProps} />)
               ).toMatchKeys({
-                'background-color': theme.colors[color][i],
-                color: theme.colors[color][i]
+                'background-color': colors[color][i],
+                color: colors[color][i]
               })
             }
           }
