@@ -1,8 +1,7 @@
 import React from 'react'
 import FlexItem from '../FlexItem'
 import {FLEX_ITEM} from '../system-props'
-import theme from '../theme'
-import {render, renderStyles} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('FlexItem', () => {
   it('is a system component', () => {
