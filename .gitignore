@@ -5,3 +5,14 @@ dist/
 node_modules
 npm-debug.log
 .next
+.next/static/commons/manifest.js.map
+.next/static/commons/manifest.js
+.next/server/pages-manifest.json
+.next/server/bundles/pages/_error.js.map
+.next/server/bundles/pages/_document.js.map
+.next/server/bundles/pages/_app.js.map
+.next/server/bundles/pages/_app.js
+.next/bundles/pages/_document.js.map
+.next/bundles/pages/_app.js.map
+.next/bundles/pages/_app.js
+.next/build-manifest.json
