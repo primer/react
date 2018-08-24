@@ -16,11 +16,11 @@ describe('OcticonButton', () => {
   })
 
   it('renders a button with an Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} />)).toMatchSnapshot()
+    expect(render(<OcticonButton icon={Circle} label="circle" />)).toMatchSnapshot()
   })
 
   it('respects the "disabled" prop', () => {
-    expect(render(<OcticonButton icon={Circle} disabled />).props.disabled).toBe(true)
+    expect(render(<OcticonButton icon={Circle} disabled label="circle" />).props.disabled).toBe(true)
   })
 
   it('sets "aria-label" to the "label" prop', () => {
@@ -29,10 +29,10 @@ describe('OcticonButton', () => {
 
   it('passes the onClick handler to the <button>', () => {
     function click() {}
-    expect(render(<OcticonButton icon={Circle} onClick={click} />).props.onClick).toEqual(click)
+    expect(render(<OcticonButton icon={Circle} onClick={click} label="circle" />).props.onClick).toEqual(click)
   })
 
   it('passes the "size" prop to the Octicon', () => {
-    expect(render(<OcticonButton icon={Circle} size={128} />)).toMatchSnapshot()
+    expect(render(<OcticonButton icon={Circle} size={128} label="circle" />)).toMatchSnapshot()
   })
 })
