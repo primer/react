@@ -1,17 +1,24 @@
 import React from 'react'
+import {X} from '@githubprimer/octicons-react'
 import theme from '../theme'
 import * as Components from '../index.js'
 import {renderStyles} from '../utils/testing'
 
-// TODO: These components need required props,
-// Not sure how to set default props for required ones
-const blacklist = ['OcticonButton', 'DonutChart', 'MergeStatus']
+const testProps = {
+  OcticonButton: {icon: X, label: 'button'},
+  DonutChart: {data: {pending: 1}},
+  MergeStatus: {state: 'ready'}
+}
 
 describe('UtilitySystemProps', () => {
   for (const Component of Object.values(Components)) {
     // Skip any components that don't have displayName yet
-    if (!Component.displayName || !Component.systemProps || blacklist.includes(Component.displayName)) {
+    if (!Component.displayName || !Component.systemProps) {
       continue
+    }
+    let extraProps;
+    if (testProps[Component.displayName]) {
+      extraProps = testProps[Component.displayName]
     }
 
     if (Component.systemProps.includes('space')) {
@@ -34,6 +41,7 @@ describe('UtilitySystemProps', () => {
                 pl={i}
                 px={i}
                 py={i}
+                {...extraProps}
               />
             )
           ).toMatchKeys({
@@ -57,7 +65,7 @@ describe('UtilitySystemProps', () => {
         for (const color of Object.keys(theme.colors)) {
           if (typeof theme.colors[color] === 'object' && color != 'state') {
             for (const i in theme.colors[color]) {
-              expect(renderStyles(<Component bg={`${color}.${i}`} color={`${color}.${i}`} />)).toMatchKeys({
+              expect(renderStyles(<Component bg={`${color}.${i}`} color={`${color}.${i}`} {...extraProps} />)).toMatchKeys({
                 'background-color': theme.colors[color][i],
                 color: theme.colors[color][i]
               })
