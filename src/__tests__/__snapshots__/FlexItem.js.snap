@@ -25,10 +25,3 @@ exports[`FlexItem respects alignSelf 1`] = `
   className="emotion-0"
 />
 `;
-
-exports[`FlexItem respects flexAuto 1`] = `
-<div
-  className="emotion-0"
-  flexAuto={true}
-/>
-`;

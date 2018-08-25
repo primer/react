@@ -4,7 +4,7 @@ import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('CounterLabel', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(CounterLabel.systemComponent).toEqual(true)
   })
 

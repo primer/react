@@ -30,7 +30,10 @@ export default {
               <Box pb={4}>color</Box>
             </th>
             <th colSpan={textColors.length}>
-              <Mono pb={4}>bg={`{color}`}</Mono>
+              <Mono pb={4}>
+                bg=
+                {`{color}`}
+              </Mono>
             </th>
             <th>
               <Mono pb={4}>borderColor</Mono>

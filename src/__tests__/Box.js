@@ -57,14 +57,6 @@ describe('Box', () => {
     expect(render(<Box position="relative" />)).toMatchSnapshot()
   })
 
-  it('respects bg', () => {
-    expect(render(<Box bg="yellow.2" theme={theme} />)).toMatchSnapshot()
-  })
-
-  it('respects color', () => {
-    expect(render(<Box color="red.5" theme={theme} />)).toMatchSnapshot()
-  })
-
   it('renders shadow', () => {
     expect(render(<Box boxShadow="small" theme={theme} />)).toMatchSnapshot()
     expect(render(<Box boxShadow="medium" theme={theme} />)).toMatchSnapshot()

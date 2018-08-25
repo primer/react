@@ -1,6 +1,5 @@
 import React from 'react'
 import Flash from '../Flash'
-import theme from '../theme'
 import {COMMON} from '../system-props'
 import {render} from '../utils/testing'
 
@@ -27,15 +26,5 @@ describe('Flash', () => {
     expect(render(<Flash scheme="yellow" />)).toHaveClasses(['flash', 'flash-warn'])
     expect(render(<Flash scheme="red" />)).toHaveClasses(['flash', 'flash-error'])
     expect(render(<Flash scheme="green" />)).toHaveClasses(['flash', 'flash-success'])
-  })
-
-  // TODO: understand why these aren't working
-
-  xit('respects margin utility prop', () => {
-    expect(render(<Flash m={1} theme={theme} />)).toHaveStyleRule('margin', '4px')
-  })
-
-  xit('respects padding utility prop', () => {
-    expect(render(<Flash p={2} theme={theme} />)).toHaveStyleRule('padding', '8px')
   })
 })
