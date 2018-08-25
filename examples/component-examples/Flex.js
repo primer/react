@@ -109,9 +109,7 @@ export default {
         </FlexContainer>
         {Object.keys(propObj).map(key => (
           <PropsForm.Select key={key} name={key}>
-            {propObj[key].map(value => (
-              <option key={value}>{value}</option>
-            ))}
+            {propObj[key].map(value => <option key={value}>{value}</option>)}
           </PropsForm.Select>
         ))}
       </PropsForm>
