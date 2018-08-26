@@ -1,5 +1,6 @@
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
-import {UnderlineNav, UnderlineNavLink, Text, Link, FlexContainer, Box} from '../../src'
+import Link from 'next/link'
+import {UnderlineNav, UnderlineNavLink, Text, FlexContainer, Box} from '../../src'
 import {name, repository, version} from '../../package.json'
 
 const pkg = `${name}@${version}`
@@ -9,18 +10,26 @@ const Header = () =>
   <UnderlineNav
     actions={
       <div>
-        <UnderlineNavLink px={4} className="d-inline-block" href="/docs">
-          Docs
-        </UnderlineNavLink>
-        <UnderlineNavLink px={4} className="d-inline-block" href="/dev-mode">
-          Dev mode
-        </UnderlineNavLink>
-        <UnderlineNavLink px={4} className="d-inline-block" href="/demos">
-          Demos
-        </UnderlineNavLink>
-        <UnderlineNavLink mr={0} px={4} className="d-inline-block" href="/sandbox">
-          Sandbox
-        </UnderlineNavLink>
+        <Link href="/docs">
+          <UnderlineNavLink px={4} className="d-inline-block">
+            Docs
+          </UnderlineNavLink>
+        </Link>
+        <Link href="/dev-mode">
+          <UnderlineNavLink px={4} className="d-inline-block">
+            Dev mode
+          </UnderlineNavLink>
+        </Link>
+        <Link href="/demos">
+          <UnderlineNavLink px={4} className="d-inline-block">
+            Demos
+          </UnderlineNavLink>
+        </Link>
+        <Link  href="/sandbox">
+          <UnderlineNavLink mr={0} px={4} className="d-inline-block">
+            Sandbox
+          </UnderlineNavLink>
+        </Link>
       </div>
     }
     mr={1}
