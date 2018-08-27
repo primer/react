@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Text} from '../../src'
 
-const TextExample = {
+export default {
   name: 'Text',
   element: (
     <div>
@@ -15,5 +15,3 @@ const TextExample = {
     </div>
   )
 }
-
-export default TextExample

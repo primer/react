@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, Avatar} from '../../src'
 
-const AvatarExample = {
+export default {
   name: 'Avatar',
   element: (
     <div>
@@ -33,5 +33,3 @@ const AvatarExample = {
     </div>
   )
 }
-
-export default AvatarExample

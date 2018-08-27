@@ -17,12 +17,4 @@ describe('Dropdown', () => {
     expect(rendered.type).toEqual('div')
     expect(rendered.props.className).toContain('BtnGroup')
   })
-
-  it('respects margin utility prop', () => {
-    expect(render(<Dropdown m={1} />)).toHaveStyleRule('margin', '4px')
-  })
-
-  it('respects padding utility prop', () => {
-    expect(render(<Dropdown p={1} />)).toHaveStyleRule('padding', '4px')
-  })
 })

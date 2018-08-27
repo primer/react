@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Check} from '@githubprimer/octicons-react'
-import {Box, CircleOcticon, Text} from '../../src'
+import {Box, CircleOcticon, FlexContainer, Text} from '../../src'
 
 const stateColorMap = {
   ready: 'green.5',
@@ -10,9 +10,9 @@ const stateColorMap = {
   pending: 'yellow.5'
 }
 
-const MergeDetail = ({state}) => {
+const MergeDetail = ({state, ...rest}) => {
   return (
-    <div className="p-2 d-flex border-bottom">
+    <FlexContainer p={2} {...rest}>
       <Box mt={2}>
         <CircleOcticon icon={Check} size={32} bg={stateColorMap[state]} color="white" />
       </Box>
@@ -24,11 +24,12 @@ const MergeDetail = ({state}) => {
           Merging can be performed automatically
         </Text>
       </Box>
-    </div>
+    </FlexContainer>
   )
 }
 
 MergeDetail.propTypes = {
+  ...FlexContainer.propTypes,
   state: PropTypes.oneOf(Object.keys(stateColorMap)).isRequired
 }
 

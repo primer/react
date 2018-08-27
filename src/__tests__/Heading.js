@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 import React from 'react'
-import Heading from '../Heading'
+import {Heading} from '..'
 import {render} from '../utils/testing'
 
 const theme = {
@@ -31,21 +31,6 @@ describe('Heading', () => {
 
   it('respects the is prop', () => {
     expect(render(<Heading is="h6" />).type).toEqual('h6')
-  })
-  it('renders margin', () => {
-    expect(render(<Heading m={1} theme={theme} />)).toHaveStyleRule('margin', '4px')
-    expect(render(<Heading m={[0, 1, 2, 3, 4]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Heading m={[1, 1, 3, 3]} theme={theme} />)).toMatchSnapshot()
-  })
-
-  it('renders padding', () => {
-    expect(render(<Heading p={1} theme={theme} />)).toHaveStyleRule('padding', '4px')
-    expect(render(<Heading p={[0, 1, 2, 3, 4]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Heading p={[1, 1, 3, 3]} theme={theme} />)).toMatchSnapshot()
-  })
-
-  it('respects color', () => {
-    expect(render(<Heading color="green.5" theme={theme} />)).toHaveStyleRule('color', theme.colors.green[5])
   })
 
   it('respects fontWeight', () => {

@@ -13,7 +13,7 @@ const sizes = `<CircleBadge bg="blue.5" size="small"><img src="https://avatars0.
 <CircleBadge bg="blue.5" size="medium"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
 <CircleBadge bg="blue.5" size="large"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>`
 
-const CircleBadgeExample = {
+export default {
   name: 'CircleBadge',
   element: (
     <div>
@@ -36,5 +36,3 @@ const CircleBadgeExample = {
     </div>
   )
 }
-
-export default CircleBadgeExample
