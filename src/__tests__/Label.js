@@ -32,12 +32,4 @@ describe('Label', () => {
   it('implements space system props', () => {
     expect(Label).toImplementSystemProps(['space'])
   })
-
-  it('respects margin utility prop', () => {
-    expect(render(<Label m={4} />)).toMatchSnapshot()
-  })
-
-  it('respects padding utility prop', () => {
-    expect(render(<Label p={4} />)).toMatchSnapshot()
-  })
 })

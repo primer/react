@@ -1,6 +1,6 @@
 import React from 'react'
 import Text from '../Text'
-import theme, {colors} from '../theme'
+import theme from '../theme'
 import {px, render, renderStyles} from '../utils/testing'
 
 describe('Text', () => {
@@ -38,23 +38,6 @@ describe('Text', () => {
         'line-height': String(theme.lineHeights.default)
       }
     })
-  })
-
-  it('renders margin', () => {
-    expect(render(<Text m={1} />)).toHaveStyleRule('margin', px(theme.space[1]))
-    expect(render(<Text m={[0, 1, 2, 3, 4]} />)).toMatchSnapshot()
-    expect(render(<Text m={[1, 1, 3, 3]} />)).toMatchSnapshot()
-  })
-
-  it('renders padding', () => {
-    expect(render(<Text p={1} />)).toHaveStyleRule('padding', px(theme.space[1]))
-    expect(render(<Text p={[0, 1, 2, 3, 4]} />)).toMatchSnapshot()
-    expect(render(<Text p={[1, 1, 3, 3]} />)).toMatchSnapshot()
-  })
-
-  it('respects color', () => {
-    expect(render(<Text color="green.5" />)).toHaveStyleRule('color', colors.green[5])
-    expect(render(<Text color="#f0f" />)).toHaveStyleRule('color', '#f0f')
   })
 
   it('respects fontWeight', () => {

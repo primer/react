@@ -1,0 +1,7 @@
+{
+  "files": [
+    "examples",
+    "rollup.config.js",
+    "src"
+  ]
+}

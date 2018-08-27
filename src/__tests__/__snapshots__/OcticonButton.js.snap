@@ -2,7 +2,7 @@
 
 exports[`OcticonButton passes the "size" prop to the Octicon 1`] = `
 <button
-  aria-label=""
+  aria-label="circle"
   className="btn-link text-inherit emotion-0"
 >
   <svg
@@ -32,7 +32,7 @@ exports[`OcticonButton passes the "size" prop to the Octicon 1`] = `
 
 exports[`OcticonButton renders a button with an Octicon 1`] = `
 <button
-  aria-label=""
+  aria-label="circle"
   className="btn-link text-inherit emotion-0"
 >
   <svg

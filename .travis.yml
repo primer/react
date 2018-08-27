@@ -6,8 +6,8 @@ node_js:
 script:
   - npm run lint
   - npm test
+  - npm run dist
   - npm run build
-  - npm run build:docs
 
 notifications:
     slack: github:4OisIoqZYyMlWcw3hFtZgbmh

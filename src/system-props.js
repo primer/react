@@ -1,4 +1,5 @@
 import React from 'react'
+import {style} from 'styled-system'
 import system from 'system-components/emotion'
 import {default as defaultTheme} from './theme'
 
@@ -104,6 +105,9 @@ export function withSystemProps(Component, props = COMMON) {
   Wrapped.displayName = Component.displayName
   Object.assign(Wrapped.propTypes, Component.propTypes)
 
+  // Set what system props we use on this component
+  Wrapped.systemProps = props
+
   // Copy over non-system keys from components
   // eg. Tooltip.js => Tooltip.directions Tooltip.alignments
   for (const key of Object.keys(Component)) {
@@ -138,6 +142,12 @@ export function withoutPropTypes(Component, props) {
   }
   return Component
 }
+
+export const listStyle = style({
+  prop: 'listStyle',
+  cssProperty: 'list-style',
+  key: 'listStyles'
+})
 
 function guardDoubleRender(Component) {
   function render(props) {

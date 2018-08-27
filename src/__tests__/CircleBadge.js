@@ -6,7 +6,7 @@ import {render, mount} from '../utils/testing'
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  xit('is a system component', () => {
+  it('is a system component', () => {
     expect(CircleBadge.systemComponent).toEqual(true)
   })
 

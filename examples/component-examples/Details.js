@@ -2,7 +2,7 @@
 import React from 'react'
 import {LiveEditor} from '@compositor/kit'
 import {Box, Details} from '../../src'
-import ExampleHeading from '../doc-components/ExampleHeading'
+import {ExampleHeading} from '../doc-components'
 
 const example1 = `<Details>
   <summary className="btn">Click me</summary>
@@ -22,7 +22,7 @@ const example2 = `<Details>
 </Details>
 `
 
-const DetailsExample = {
+export default {
   name: 'Details',
   element: (
     <div>
@@ -41,5 +41,3 @@ const DetailsExample = {
     </div>
   )
 }
-
-export default DetailsExample

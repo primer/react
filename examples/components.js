@@ -1,19 +1,13 @@
 /* eslint-disable import/no-namespace */
 import React from 'react'
-import {Library} from '@compositor/kit'
-import SideNav from './doc-components/SideNav'
+import {Library} from './doc-components'
 import * as examples from './component-examples'
 
-const ComponentPage = () => {
-  const basename = process.env.NODE_ENV === 'development' ? '/components' : '/primer-react/components'
+export default function Components(props) {
+  const basename = '/components/'
   return (
-    <Library
-      basename={basename}
-      title="Components"
-      examples={Object.values(examples)}
-      renderSideNav={({title, examples}) => <SideNav title={title} examples={examples} />}
-    />
+    <Library basename={basename} title="Components" examples={examples} {...props}>
+      These pages demonstrate primer-react components.
+    </Library>
   )
 }
-
-export default ComponentPage
