@@ -1,6 +1,6 @@
 {
   "files": [
-    "examples",
+    "pages",
     "rollup.config.js",
     "src"
   ]

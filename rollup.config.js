@@ -12,11 +12,7 @@ export default {
       plugins: [
         'external-helpers'
       ],
-      presets: [
-        ['env', {modules: false}],
-        'stage-0',
-        'react'
-      ]
+      presets: ['next/babel']
     }),
     commonjs()
   ],
