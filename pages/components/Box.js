@@ -4,8 +4,6 @@ import {LiveEditor} from '@compositor/kit'
 import theme from '../../src/theme'
 import {Box, Text, Heading} from '../../src'
 
-export const meta = {displayName: 'Box'}
-
 const Mono = props => <Text fontFamily="mono" {...props} />
 
 const colors = [...Object.entries(theme.colors)].reduce((keys, [key, value]) => {
@@ -66,3 +64,5 @@ export default function BoxExample() {
     </div>
   )
 }
+
+export const meta = {displayName: 'Box'}
