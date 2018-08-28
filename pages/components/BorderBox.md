@@ -1,4 +1,3 @@
-import {BorderBox} from '../../src'
 
 
 ```.jsx
