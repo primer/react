@@ -1,27 +1,27 @@
 import React from 'react'
-import Link from 'next/link'
+import {default as NextLink} from 'next/link'
 import {Text, Box} from '../../src'
 import * as docs from '../components'
 
 const SideNav = () =>
   <Box mt={4} ml={4}>
-    <Link href="/getting-started">
+    <NextLink href="/getting-started">
       <Text is="p" fontWeight='bold'>Getting Started</Text>
-    </Link>
-    <Link href="/system-props">
+    </NextLink>
+    <NextLink href="/system-props">
       <Text is="p" fontWeight='bold'>System Props</Text>
-    </Link>
-    <Link href="/primer-theme">
+    </NextLink>
+    <NextLink href="/primer-theme">
       <Text is="p" fontWeight='bold'>Primer Theme</Text>
-    </Link>
+    </NextLink>
     <Box mt={2} mb={3}>
       <Text is="p" fontWeight='bold'>Components</Text>
     </Box>
     {Object.values(docs).map(meta =>
       <Box mb={1}>
-        <Link key={meta.displayName} href={`/components/${meta.displayName}`}>
+        <NextLink key={meta.displayName} href={`/components/${meta.displayName}`}>
           <Text color="black" pl={4}>{meta.displayName}</Text>
-        </Link>
+        </NextLink>
       </Box>
     )}
   </Box>
