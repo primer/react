@@ -1,5 +1,3 @@
-import {Avatar} from '../../src'
-
 
 ### Avatar
 ```.jsx
@@ -8,6 +6,5 @@ import {Avatar} from '../../src'
 
 
 export const meta = {
-  displayName: 'Avatar',
-  slug: 'avatar'
+  displayName: 'Avatar'
 }
