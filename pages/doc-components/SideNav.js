@@ -19,7 +19,7 @@ const SideNav = () =>
     </Box>
     {Object.values(docs).map(meta =>
       <Box mb={1}>
-        <Link key={meta.slug} href={`/components/${meta.slug}`}>
+        <Link key={meta.slug} href={`/components/${meta.displayName}`}>
           <Text color="black" pl={4}>{meta.displayName}</Text>
         </Link>
       </Box>
