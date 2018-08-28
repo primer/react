@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import {Text, Box} from '../../src'
+import * as docs from '../components'
 
 const SideNav = () =>
   <Box mt={4} ml={4}>
@@ -16,11 +17,13 @@ const SideNav = () =>
     <Box mt={2} mb={3}>
       <Text is="p" fontWeight='bold'>Components</Text>
     </Box>
-    <Box mb={1}>
-      <Link href="/components/avatar">
-        <Text color="black" pl={4}>Avatar</Text>
-      </Link>
-    </Box>
+    {Object.values(docs).map(meta =>
+      <Box mb={1}>
+        <Link key={meta.slug} href={`/components/${meta.slug}`}>
+          <Text color="black" pl={4}>{meta.displayName}</Text>
+        </Link>
+      </Box>
+    )}
   </Box>
 
 export default SideNav
