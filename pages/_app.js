@@ -5,12 +5,20 @@ import {
   Layout,
   Pagination
 } from 'mdx-docs'
+import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as components from '../src'
 import {theme} from '../src'
 import * as docComponents from  './doc-components'
 import SideNav from './doc-components/SideNav'
 import Header from './doc-components/Header'
 
+const iconsObject = () => {
+  let obj = {}
+  Object.keys(iconsByName).map(key => {
+    obj[iconsByName[key].name] = iconsByName[key]
+  })
+  return obj
+}
 
 const customTheme = {
   font: theme.fonts.normal,
@@ -45,11 +53,11 @@ export default class MyApp extends App {
 
   render () {
     const { Component, page } = this.props
-
+    //console.log(Object.assign({}, components, docComponents, {'Octicon': Octicon}, iconsByName))
     return (
       <Container>
         <Layout
-          components={Object.assign(components, docComponents)}
+          components={Object.assign({}, components, docComponents, {'Octicon': Octicon}, iconsObject())}
           {...this.props}
           routes={routes}
           theme={customTheme}
