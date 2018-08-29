@@ -1,5 +1,5 @@
 const withMDX = require('@zeit/next-mdx')({
-  extension: /.mdx?$/
+  extension: /\.(md|mdx)?$/
 })
 
 module.exports = withMDX({

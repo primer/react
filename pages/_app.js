@@ -53,7 +53,6 @@ export default class MyApp extends App {
 
   render () {
     const { Component, page } = this.props
-    //console.log(Object.assign({}, components, docComponents, {'Octicon': Octicon}, iconsByName))
     return (
       <Container>
         <Layout

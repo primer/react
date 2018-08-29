@@ -2,6 +2,7 @@
   "files": [
     "pages",
     "rollup.config.js",
-    "src"
+    "src",
+    "next.config.js"
   ]
 }
