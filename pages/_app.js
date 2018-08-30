@@ -26,7 +26,7 @@ const customTheme = {
     whiteSpace: 'pre-wrap'
   },
   LayoutSidebar: {
-    top: '56px',
+    top: '64px',
     backgroundColor: theme.colors.gray[0]
   },
   NavLink: {
