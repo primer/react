@@ -21,7 +21,7 @@ const SideNav = () =>
       {Object.values(docs).map(meta =>
         <Box mb={1}>
           <NextLink key={meta.displayName} href={`/components/${meta.displayName}`}>
-            <Button linkStyle p={2} pl={4}>{meta.displayName}</Button>
+            <Button linkStyle m={2} ml={4}>{meta.displayName}</Button>
           </NextLink>
         </Box>
       )}
