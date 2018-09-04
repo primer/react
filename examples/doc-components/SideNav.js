@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
-import {Box} from '../../src'
+import {Box, Relative} from '../../src'
 
 export default function SideNav({basename, title, examples, ...rest}) {
   return (
-    <Box {...rest}>
+    <Relative p={4} {...rest}>
       <nav className="menu">
         <NavLink to={basename} className="menu-heading no-underline link-gray-dark">
           {title}
@@ -21,7 +21,7 @@ export default function SideNav({basename, title, examples, ...rest}) {
           </NavLink>
         ))}
       </nav>
-    </Box>
+    </Relative>
   )
 }
 
