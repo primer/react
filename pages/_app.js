@@ -3,6 +3,7 @@ import App, {Container} from 'next/app'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
+import {FlexContainer} from '../src'
 import * as docComponents from './doc-components'
 import SideNav from './doc-components/SideNav'
 import Header from './doc-components/Header'
@@ -30,16 +31,12 @@ export default class MyApp extends App {
     const {Component, page} = this.props
     return (
       <Container>
-        <Layout
-          components={components}
-          {...this.props}
-          routes={[]}
-          theme={customTheme}
-          header={<Header />}
-          sidebar={<SideNav />}
-          layoutMain
-        >
-          <Component {...page} />
+        <Layout components={components} routes={[]} theme={customTheme}>
+          <Header/>
+          <FlexContainer>
+            <SideNav/>
+            <Component {...page} />
+          </FlexContainer>
         </Layout>
       </Container>
     )
