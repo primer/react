@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
     return {
       ...page,
       styles,
-      primerCSSModules: ['buttons', 'forms', 'layout', 'navigation', 'product', 'tooltips', 'utilities']
+      primerCSSModules: ['buttons', 'forms', 'navigation', 'product', 'tooltips', 'utilities']
     }
   }
 
@@ -37,8 +37,8 @@ export default class MyDocument extends Document {
           <title>primer-react</title>
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="generator" content="Compositor X0" />
-          <link rel="icon" href="assets/favicon.png" />
-          <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+          <link rel="icon" href="/assets/favicon.png" />
+          <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
           <meta name="og:title" content="Primer React" />
           <meta name="description" content="Primer components built with React.js." />
           {primerCSSModules &&
