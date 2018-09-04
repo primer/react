@@ -15,13 +15,6 @@ const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
 
 const components = {...primerComponents, ...docComponents, Octicon, ...iconsObject}
 
-const routes = [
-  {name: 'Home', path: '/'},
-  {name: 'Components', path: '/components/'},
-  {name: 'Demos', path: '/demos'},
-  {name: 'Avatar', path: '/components/avatar'}
-]
-
 export default class MyApp extends App {
   static async getInitialProps({Component, ctx}) {
     let page = {}
@@ -40,7 +33,7 @@ export default class MyApp extends App {
         <Layout
           components={components}
           {...this.props}
-          routes={routes}
+          routes={[]}
           theme={customTheme}
           header={<Header />}
           sidebar={<SideNav />}
