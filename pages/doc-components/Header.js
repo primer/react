@@ -12,7 +12,7 @@ const releaseURL = `https://github.com/${repository}/releases/v${version}`
 
 const Header = () => (
   <Sticky zIndex={100}>
-    <FlexContainer mr={1} p={1} alignItems="center" justifyContent="space-between" bg="black" color="white">
+    <FlexContainer p={1} alignItems="center" justifyContent="space-between" bg="black" color="white">
       <FlexContainer ml={4} alignItems="center">
         <Octicon size="medium" icon={MarkGithub} className="mr-3" />
         <Text>Primer-react</Text>
