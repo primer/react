@@ -12,5 +12,9 @@ export default {
   NavLink: {
     padding: '8px 0px',
     fontSize: '16px'
+  },
+  LayoutContainer: {
+    padding: '0px',
+    maxWidth: '100%'
   }
 }
