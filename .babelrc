@@ -3,7 +3,6 @@
     "next/babel"
   ],
   "plugins": [
-    "add-react-displayname",
-    "transform-object-rest-spread"
+    "add-react-displayname"
   ]
 }
