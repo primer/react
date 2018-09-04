@@ -1,8 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 import React from 'react'
-import {LiveEditor} from '@compositor/kit'
-import theme from '../../src/theme'
-import {Box, Text, Heading} from '../../src'
+import {theme, Box, Text} from '../../src'
 
 const Mono = props => <Text fontFamily="mono" {...props} />
 
