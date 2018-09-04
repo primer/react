@@ -32,6 +32,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "jest": {
+    "cacheDirectory": ".test",
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/*.js"
