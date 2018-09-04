@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
           <meta name="description" content="Primer components built with React.js." />
           {primerCSSModules &&
             primerCSSModules.map(name => (
-              <link rel="stylesheet" href={`https://unpkg.com/${name}/build/build.css`} key={name} />
+              <link rel="stylesheet" href={`https://unpkg.com/primer-${name}/build/build.css`} key={name} />
             ))}
           <BaseCSS />
           {styles}
