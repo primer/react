@@ -1,8 +1,8 @@
 .*.swp
 .DS_Store
+*.log
+.next/
 coverage/
 dist/
 docs/
 node_modules
-npm-debug.log
-.next/
