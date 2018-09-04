@@ -4,11 +4,12 @@ node_js:
 
 cache:
   directories:
+    # cache jest intermediary files between builds
     - $(jq -r .jest.cacheDirectory package.json)
 
 script:
   - npm run lint
-  - travis_wait 30 npm test
+  - npm test -- --maxWorkers=4
   - npm run dist
   - npm run build
 
