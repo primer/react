@@ -1,11 +1,15 @@
 language: node_js
-
 node_js:
-  - 8
+  - 10
+
+cache:
+  directories:
+    # cache jest intermediary files between builds
+    - $(jq -r .jest.cacheDirectory package.json)
 
 script:
   - npm run lint
-  - npm test
+  - npm test -- --maxWorkers=4
   - npm run dist
   - npm run build
 
