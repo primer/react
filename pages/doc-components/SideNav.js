@@ -1,12 +1,12 @@
 import React from 'react'
 import {default as NextLink} from 'next/link'
-import {Text, Box, Button, Link, FlexContainer, Relative} from '../../src'
+import {Text, Box, Link, FlexContainer, Relative} from '../../src'
 import * as docs from '../components/docs'
 
 const SideNav = () => (
   <Relative>
     <Box width={248} bg="gray.0" display="inline-block">
-      <FlexContainer p={4} flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
+      <FlexContainer p={4} flexDirection="column" alignItems="start" borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/getting-started">
           <Link scheme="gray-dark" href="/components/docs/getting-started" m={0} mb={4}>
             Getting Started
@@ -26,7 +26,9 @@ const SideNav = () => (
       <Box pt={5} pl={5}>
         <Text fontWeight="bold" is="p" color="black" m={0} mb={3}>
           <NextLink href="/components/docs/Avatar">
-            <Link nounderline scheme="gray-dark" href="/components/docs/Avatar">Components</Link>
+            <Link nounderline scheme="gray-dark" href="/components/docs/Avatar">
+              Components
+            </Link>
           </NextLink>
         </Text>
         {Object.values(docs).map(({displayName: name}) => (
