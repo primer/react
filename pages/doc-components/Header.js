@@ -18,7 +18,7 @@ const Header = () => (
         <Text>Primer Components</Text>
       </FlexContainer>
       <div>
-        <NextLink href="/">
+        <NextLink href="/docs">
           <Button linkStyle color="white" py={3} px={4}>
             Docs
           </Button>
