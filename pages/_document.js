@@ -1,7 +1,6 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
-import {alias as aliasHostname} from '../now.json'
 import {parse} from 'url'
 
 const deployURL = process.env.NOW_URL || ''
@@ -13,7 +12,7 @@ export default class MyDocument extends Document {
     const page = renderPage(App => props => sheet.collectStyles(<App {...props} />))
     const styles = sheet.getStyleElement()
     const {hostname} = req.headers
-    const baseURL = deployHostname && (hostname !== deployHostname) ? deployURL : ''
+    const baseURL = deployHostname && hostname !== deployHostname ? deployURL : ''
     return {
       ...page,
       styles,
