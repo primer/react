@@ -2,6 +2,7 @@ import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {parse} from 'url'
+import '../src/primer-react.scss'
 
 const deployURL = process.env.NOW_URL || ''
 const deployHostname = parse(deployURL).hostname
@@ -30,7 +31,7 @@ export default class MyDocument extends Document {
           <meta charSet="utf8" />
           <link rel="icon" href={`${baseURL}/assets/favicon.png`} />
           <link rel="apple-touch-icon" href={`${baseURL}/assets/apple-touch-icon.png`} />
-          <link rel="stylesheet" href={`${baseURL}/dist/css/build.css`} />
+          <link rel="stylesheet" href={`${baseURL}/_next/static/style.css`} />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="generator" content="Compositor X0" />
           <meta name="og:title" content="Primer React" />
