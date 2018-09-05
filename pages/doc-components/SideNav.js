@@ -1,38 +1,40 @@
 import React from 'react'
 import {default as NextLink} from 'next/link'
-import {Text, Box, Button, FlexContainer, Relative} from '../../src'
-import * as docs from '../components'
+import {Text, Box, Button, Link, FlexContainer, Relative} from '../../src'
+import * as docs from '../components/docs'
 
 const SideNav = () => (
   <Relative>
-    <Box p={4} bg="gray.0" display="inline-block">
-      <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
-        <NextLink href="/getting-started">
-          <Button linkStyle color="black" m={0} mb={3}>
+    <Box width={248} bg="gray.0" display="inline-block">
+      <FlexContainer p={4} flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
+        <NextLink href="/components/docs/getting-started">
+          <Link scheme="gray-dark" href="/components/docs/getting-started" m={0} mb={4}>
             Getting Started
-          </Button>
+          </Link>
         </NextLink>
-        <NextLink href="/system-props">
-          <Button linkStyle color="black" m={0} mb={3}>
+        <NextLink href="/components/docs/system-props">
+          <Link scheme="gray-dark" href="/components/docs/system-props" m={0} mb={4}>
             System Props
-          </Button>
+          </Link>
         </NextLink>
-        <NextLink href="/primer-theme">
-          <Button linkStyle color="black" m={0}>
+        <NextLink href="/components/docs/primer-theme">
+          <Link scheme="gray-dark" href="/components/docs/primer-theme" m={0}>
             Primer Theme
-          </Button>
+          </Link>
         </NextLink>
       </FlexContainer>
       <Box pt={5} pl={5}>
         <Text fontWeight="bold" is="p" color="black" m={0} mb={3}>
-          Components
+          <NextLink href="/components/docs/Avatar">
+            <Link nounderline scheme="gray-dark" href="/components/docs/Avatar">Components</Link>
+          </NextLink>
         </Text>
         {Object.values(docs).map(({displayName: name}) => (
-          <Box mb={1} key={name}>
-            <NextLink href={`/components/${name}`}>
-              <Button linkStyle m={2} ml={4}>
+          <Box mb={4} key={name}>
+            <NextLink href={`/components/docs/${name}`}>
+              <Link href={`/components/docs/${name}`} ml={4}>
                 {name}
-              </Button>
+              </Link>
             </NextLink>
           </Box>
         ))}

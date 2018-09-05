@@ -4,6 +4,7 @@
 .next/
 .test/
 coverage/
-docs/
+pages/
 script/
 src/__tests__/
+.next/

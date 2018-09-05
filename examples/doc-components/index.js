@@ -1,5 +1,0 @@
-export {default as ExampleHeading} from './ExampleHeading'
-export {default as Library} from './Library'
-export {default as SideNav} from './SideNav'
-export {default as Styles} from './Styles'
-export {default as Swatch} from './Swatch'

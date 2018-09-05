@@ -2,16 +2,27 @@ import {theme} from '../../src'
 
 export default {
   font: theme.fonts.normal,
+  /* figure out how to use our theme values here */
   LiveEditor: {
-    whiteSpace: 'pre-wrap'
+    whiteSpace: 'pre-wrap',
+    backgroundColor: theme.colors.gray[1],
+    color: theme.colors.black,
+    fontFamily: theme.fonts.mono,
+    padding: `${theme.space[2]}px`,
+    fontSize: `${theme.fontSizes[1]}px`,
+    borderBottomLeftRadius: `${theme.radii[1]}px`,
+    borderBottomRightRadius: `${theme.radii[1]}px`
   },
-  LayoutSidebar: {
-    top: '64px',
-    backgroundColor: theme.colors.gray[0]
+  LivePreview: {
+    textAlign: 'center',
+    backgroundColor: theme.colors.gray[1],
+    padding: `${theme.space[4]}px`,
+    borderTopLeftRadius: `${theme.radii[1]}px`,
+    borderTopRightRadius: `${theme.radii[1]}px`
   },
   NavLink: {
-    padding: '8px 0px',
-    fontSize: '16px'
+    padding: `${theme.space[4]} 0px`,
+    fontSize: `${theme.fontSizes[2]}px`
   },
   LayoutContainer: {
     padding: '0px',
