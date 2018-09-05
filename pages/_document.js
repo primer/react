@@ -2,20 +2,6 @@ import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 
-/* eslint-disable react/no-danger */
-const BaseCSS = ({css}) => (
-  <style
-    dangerouslySetInnerHTML={{
-      __html: css
-    }}
-  />
-)
-/* eslint-enable */
-
-BaseCSS.defaultProps = {
-  css: '*{box-sizing:border-box}body{margin:0}'
-}
-
 export default class MyDocument extends Document {
   static getInitialProps({renderPage}) {
     const sheet = new ServerStyleSheet()
@@ -41,11 +27,11 @@ export default class MyDocument extends Document {
           <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
           <meta name="og:title" content="Primer React" />
           <meta name="description" content="Primer components built with React.js." />
+          <link rel="stylesheet" href="/dist/css/build.css" />
           {primerCSSModules &&
             primerCSSModules.map(name => (
               <link rel="stylesheet" href={`https://unpkg.com/primer-${name}/build/build.css`} key={name} />
             ))}
-          <BaseCSS />
           {styles}
         </Head>
         <body>
