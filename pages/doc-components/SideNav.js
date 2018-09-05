@@ -25,7 +25,9 @@ const SideNav = () => (
       </FlexContainer>
       <Box pt={5} pl={5}>
         <Text fontWeight="bold" is="p" color="black" m={0} mb={3}>
-          Components
+          <NextLink href="/components/docs/Avatar">
+            <Link nounderline scheme="gray-dark" href="/components/docs/Avatar">Components</Link>
+          </NextLink>
         </Text>
         {Object.values(docs).map(({displayName: name}) => (
           <Box mb={4} key={name}>
