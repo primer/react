@@ -35,7 +35,7 @@ export default class MyApp extends App {
           <Header/>
           <FlexContainer>
             <SideNav/>
-            <Box p={6}><Component {...page} /></Box>
+            <Box p={6} width='100%'><Component {...page} /></Box>
           </FlexContainer>
         </Layout>
       </Container>
