@@ -1,6 +1,7 @@
 *.tgz
 .*
 *.config.js
+.next/
 coverage/
 docs/
 script/
