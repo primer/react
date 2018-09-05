@@ -1,32 +1,41 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
+import {alias as aliasHostname} from '../now.json'
+import {parse} from 'url'
+
+const deployURL = process.env.NOW_URL || ''
+const deployHostname = parse(deployURL).hostname
 
 export default class MyDocument extends Document {
-  static getInitialProps({renderPage}) {
+  static getInitialProps({renderPage, req}) {
     const sheet = new ServerStyleSheet()
     const page = renderPage(App => props => sheet.collectStyles(<App {...props} />))
     const styles = sheet.getStyleElement()
+    const {hostname} = req.headers
+    const baseURL = deployHostname && (hostname !== deployHostname) ? deployURL : ''
     return {
       ...page,
-      styles
+      styles,
+      baseURL
     }
   }
 
   render() {
-    const {styles} = this.props
+    const {baseURL, styles} = this.props
 
     return (
       <html lang="en">
         <Head>
           <title>primer-react</title>
+          <meta charSet="utf8" />
+          <link rel="icon" href={`${baseURL}/assets/favicon.png`} />
+          <link rel="apple-touch-icon" href={`${baseURL}/assets/apple-touch-icon.png`} />
+          <link rel="stylesheet" href={`${baseURL}/dist/css/build.css`} />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="generator" content="Compositor X0" />
-          <link rel="icon" href="/assets/favicon.png" />
-          <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
           <meta name="og:title" content="Primer React" />
           <meta name="description" content="Primer components built with React.js." />
-          <link rel="stylesheet" href="/dist/css/build.css" />
           {styles}
         </Head>
         <body>
