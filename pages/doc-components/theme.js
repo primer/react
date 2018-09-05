@@ -5,27 +5,24 @@ export default {
   /* figure out how to use our theme values here */
   LiveEditor: {
     whiteSpace: 'pre-wrap',
-    backgroundColor: '#2f363d',
-    color: '#fff',
-    padding: '8px',
-    borderBottomLeftRadius: '3px',
-    borderBottomRightRadius: '3px'
-  },
-  LiveCode: {
-    border: '1px #e1e4e8 solid',
-    borderRadius: '3px'
+    backgroundColor: theme.colors.gray[1],
+    color: theme.colors.black,
+    fontFamily: theme.fonts.mono,
+    padding: `${theme.space[2]}px`,
+    fontSize: `${theme.fontSizes[1]}px`,
+    borderBottomLeftRadius: `${theme.radii[1]}px`,
+    borderBottomRightRadius: `${theme.radii[1]}px`
   },
   LivePreview: {
     textAlign: 'center',
-    padding: '24px'
-  },
-  LayoutSidebar: {
-    top: '64px',
-    backgroundColor: theme.colors.gray[0]
+    backgroundColor: theme.colors.gray[1],
+    padding: `${theme.space[4]}px`,
+    borderTopLeftRadius: `${theme.radii[1]}px`,
+    borderTopRightRadius: `${theme.radii[1]}px`
   },
   NavLink: {
-    padding: '8px 0px',
-    fontSize: '16px'
+    padding: `${theme.space[4]} 0px`,
+    fontSize: `${theme.fontSizes[2]}px`
   },
   LayoutContainer: {
     padding: '0px',
