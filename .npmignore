@@ -5,3 +5,4 @@ coverage/
 pages/
 script/
 src/__tests__/
+.next/
