@@ -15,7 +15,7 @@ const Header = () => (
     <FlexContainer p={1} alignItems="center" justifyContent="space-between" bg="black" color="white">
       <FlexContainer ml={4} alignItems="center">
         <Octicon size="medium" icon={MarkGithub} className="mr-3" />
-        <Text>Primer-react</Text>
+        <Text>Primer Components</Text>
       </FlexContainer>
       <div>
         <NextLink href="/">
