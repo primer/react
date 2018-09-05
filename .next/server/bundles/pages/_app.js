@@ -2795,16 +2795,11 @@ MergeDetail.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_docs__ = __webpack_require__("./pages/components/docs/index.js");
 var _jsxFileName = "/Users/emplums/primer-react/pages/doc-components/SideNav.js";
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 
 
 
 
 var SideNav = function SideNav() {
-  var _React$createElement;
-
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src__["Relative"], {
     __source: {
       fileName: _jsxFileName,
@@ -2818,14 +2813,17 @@ var SideNav = function SideNav() {
       fileName: _jsxFileName,
       lineNumber: 8
     }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src__["FlexContainer"], (_React$createElement = {
-    p: 4,
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src__["FlexContainer"], {
     flexDirection: "column",
-    alignItems: "start"
-  }, _defineProperty(_React$createElement, "p", 5), _defineProperty(_React$createElement, "borderBottom", 1), _defineProperty(_React$createElement, "borderColor", "gray.2"), _defineProperty(_React$createElement, "__source", {
-    fileName: _jsxFileName,
-    lineNumber: 9
-  }), _React$createElement), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
+    alignItems: "start",
+    p: 5,
+    borderBottom: 1,
+    borderColor: "gray.2",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
     href: "/components/docs/getting-started",
     __source: {
       fileName: _jsxFileName,
@@ -2907,20 +2905,20 @@ var SideNav = function SideNav() {
       key: name,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 33
+        lineNumber: 35
       }
     }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
       href: "/components/docs/".concat(name),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 34
+        lineNumber: 36
       }
     }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src__["Link"], {
       href: "/components/docs/".concat(name),
       ml: 4,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 35
+        lineNumber: 37
       }
     }, name)));
   }))));
