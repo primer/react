@@ -3,11 +3,12 @@ import App, {Container} from 'next/app'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
-import {FlexContainer, Box} from '../src'
 import * as docComponents from './doc-components'
 import SideNav from './doc-components/SideNav'
 import Header from './doc-components/Header'
 import customTheme from './doc-components/theme'
+
+const {Box, FlexContainer} = primerComponents
 
 const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
@@ -32,10 +33,12 @@ export default class MyApp extends App {
     return (
       <Container>
         <Layout components={components} routes={[]} theme={customTheme}>
-          <Header/>
+          <Header />
           <FlexContainer>
-            <SideNav/>
-            <Box p={6} width='100%'><Component {...page} /></Box>
+            <SideNav />
+            <Box maxWidth={1012} my={6} mx={'auto'} px={6} className="markdown-body">
+              <Component {...page} />
+            </Box>
           </FlexContainer>
         </Layout>
       </Container>
