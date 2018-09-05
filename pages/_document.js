@@ -2,6 +2,7 @@ import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {parse} from 'url'
+// see: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage
 import '../src/primer-react.scss'
 
 const deployURL = process.env.NOW_URL || ''
