@@ -14,8 +14,8 @@ const Header = () => (
   <Sticky zIndex={100}>
     <FlexContainer p={1} alignItems="center" justifyContent="space-between" bg="black" color="white">
       <FlexContainer ml={4} alignItems="center">
-        <Octicon size="medium" icon={MarkGithub} className="mr-3" />
-        <Text>Primer-react</Text>
+        <Octicon icon={MarkGithub} size="medium" />
+        <Text ml={3}>Primer-react</Text>
       </FlexContainer>
       <div>
         <NextLink href="/docs">
