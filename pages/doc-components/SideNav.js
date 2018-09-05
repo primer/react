@@ -6,7 +6,7 @@ import * as docs from '../components/docs'
 const SideNav = () => (
   <Relative>
     <Box width={248} bg="gray.0" display="inline-block">
-      <FlexContainer p={4} flexDirection="column" alignItems="start" borderBottom={1} borderColor="gray.2">
+      <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/getting-started">
           <Link scheme="gray-dark" href="/components/docs/getting-started" m={0} mb={4}>
             Getting Started
