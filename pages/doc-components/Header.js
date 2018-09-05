@@ -1,7 +1,7 @@
 import React from 'react'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
-import {Text, FlexContainer, Button, Sticky} from '../../src'
+import {Text, FlexContainer, Button, Link, Sticky} from '../../src'
 
 /*
 import {name, repository, version} from '../../package.json'
@@ -13,12 +13,16 @@ const releaseURL = `https://github.com/${repository}/releases/v${version}`
 const Header = () => (
   <Sticky zIndex={100}>
     <FlexContainer p={1} alignItems="center" justifyContent="space-between" bg="black" color="white">
-      <FlexContainer ml={4} alignItems="center">
-        <Octicon size="medium" icon={MarkGithub} className="mr-3" />
-        <Text>Primer Components</Text>
-      </FlexContainer>
+      <NextLink href="/components">
+        <Link className="text-white" nounderline href="/components">
+          <FlexContainer ml={4} alignItems="center" justifyContent="center">
+            <Octicon size="medium" icon={MarkGithub} className="mr-3" />
+            <Text>Primer Components</Text>
+          </FlexContainer>
+        </Link>
+      </NextLink>
       <div>
-        <NextLink href="/docs">
+        <NextLink href="/components">
           <Button linkStyle color="white" py={3} px={4}>
             Docs
           </Button>
