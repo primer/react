@@ -2,6 +2,7 @@
 .*
 *.config.js
 .next/
+.test/
 coverage/
 docs/
 script/
