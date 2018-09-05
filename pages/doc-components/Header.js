@@ -28,11 +28,6 @@ const Header = () => (
             Dev mode
           </Button>
         </NextLink>
-        <NextLink href="/demos">
-          <Button linkStyle color="white" py={3} px={4}>
-            Demos
-          </Button>
-        </NextLink>
         <NextLink href="/sandbox">
           <Button linkStyle color="white" py={3} mr={0} px={4}>
             Sandbox
