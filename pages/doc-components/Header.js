@@ -18,7 +18,7 @@ const Header = () => (
         <Text>Primer-react</Text>
       </FlexContainer>
       <div>
-        <NextLink href="/docs">
+        <NextLink href="/">
           <Button linkStyle color="white" py={3} px={4}>
             Docs
           </Button>
