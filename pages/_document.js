@@ -9,13 +9,12 @@ export default class MyDocument extends Document {
     const styles = sheet.getStyleElement()
     return {
       ...page,
-      styles,
-      primerCSSModules: ['buttons', 'forms', 'navigation', 'product', 'tooltips', 'utilities']
+      styles
     }
   }
 
   render() {
-    const {styles, primerCSSModules} = this.props
+    const {styles} = this.props
 
     return (
       <html lang="en">
@@ -28,10 +27,6 @@ export default class MyDocument extends Document {
           <meta name="og:title" content="Primer React" />
           <meta name="description" content="Primer components built with React.js." />
           <link rel="stylesheet" href="/dist/css/build.css" />
-          {primerCSSModules &&
-            primerCSSModules.map(name => (
-              <link rel="stylesheet" href={`https://unpkg.com/primer-${name}/build/build.css`} key={name} />
-            ))}
           {styles}
         </Head>
         <body>
