@@ -1,6 +1,7 @@
 .*.swp
 .DS_Store
 *.log
+.next/
 .test/
 coverage/
 dist/
