@@ -5,7 +5,7 @@ const {existsSync} = require('fs')
 const {join} = require('path')
 const {parse} = require('url')
 
-const port = parseInt(process.env.PORT, 10) || 3001
+const port = parseInt(process.env.PORT, 10) || 3000
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 const handle = app.getRequestHandler()
 
@@ -17,11 +17,16 @@ const staticDir = join(__dirname, 'static')
 app.prepare().then(() => {
   createServer((req, res) => {
     const parsed = parse(req.url, true)
-    const {host} = req.headers
-    const baseURL = deployHost && host !== deployHost ? deployURL : ''
-    // set the asset prefix to the deployed URL if the Host header differs
-    app.setAssetPrefix(baseURL)
-    handle(req, res, parsed)
+    const path = join(staticDir, parsed.pathname)
+    if (existsSync(path)) {
+      app.serveStatic(req, res, path)
+    } else {
+      const {host} = req.headers
+      const baseURL = deployHost && host !== deployHost ? deployURL : ''
+      // set the asset prefix to the deployed URL if the Host header differs
+      app.setAssetPrefix(baseURL)
+      handle(req, res, parsed)
+    }
   })
   .listen(port, err => {
     if (err) throw err
