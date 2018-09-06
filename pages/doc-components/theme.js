@@ -14,9 +14,8 @@ export default {
     borderBottomRightRadius: `${theme.radii[1]}px`
   },
   LivePreview: {
-    textAlign: 'center',
-    backgroundColor: theme.colors.gray[1],
-    padding: `${theme.space[4]}px`,
+    border: `${theme.space[1]}px solid ${theme.colors.gray[1]}`,
+    padding: `${theme.space[3]}px`,
     borderTopLeftRadius: `${theme.radii[1]}px`,
     borderTopRightRadius: `${theme.radii[1]}px`
   },
