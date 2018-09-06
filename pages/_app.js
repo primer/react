@@ -4,10 +4,8 @@ import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
-import SideNav from './doc-components/SideNav'
-import Header from './doc-components/Header'
-import customTheme from './doc-components/theme'
 
+const {SideNav, Header, customTheme} = docComponents
 const {Box, FlexContainer} = primerComponents
 
 const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
