@@ -3,9 +3,7 @@
 ## Default example
 
 ```.jsx
-<CircleBadge>
-  <Octicon icon={Zap} />
-</CircleBadge>
+<Button>Button</Button>
 ```
 
 ## System props
@@ -18,4 +16,4 @@ Button components get `COMMON` and `LAYOUT` system props. Read our [System Props
 | :- | :- | :- |
 | is | String |  |
 
-export const meta = {displayName: 'CircleBadge'}
+export const meta = {displayName: 'Button'}
