@@ -8,6 +8,9 @@ import SideNav from './doc-components/SideNav'
 import Header from './doc-components/Header'
 import customTheme from './doc-components/theme'
 
+// see: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage
+import '../src/primer-react.scss'
+
 const {Box, FlexContainer} = primerComponents
 
 const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
