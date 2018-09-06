@@ -1,9 +1,4 @@
-import {MergeStatus, PointerBox, FlexContainer} from '../../src'
-import {MergeDetail} from '../doc-components/MergeDetail'
-import MergeActions from  '../doc-components/MergeActions'
-
-
-### MergeBox
+# MergeBox
 
 ```.jsx
 <FlexContainer alignItems="start">
