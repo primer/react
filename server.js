@@ -17,12 +17,15 @@ const staticDir = join(__dirname, 'static')
 app.prepare().then(() => {
   createServer((req, res) => {
     const parsed = parse(req.url, true)
+    console.warn('GET %s', parsed.pathname)
     const path = join(staticDir, parsed.pathname)
     if (existsSync(path)) {
       app.serveStatic(req, res, path)
     } else {
       const {host} = req.headers
+      console.warn('Host: "%s" (expected: "%s")', host, deployHost)
       const baseURL = deployHost && host !== deployHost ? deployURL : ''
+      console.warn('-> baseURL: "%s"', baseURL)
       // set the asset prefix to the deployed URL if the Host header differs
       app.setAssetPrefix(baseURL)
       handle(req, res, parsed)
