@@ -5,12 +5,12 @@
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
     "prepublishOnly": "npm run dist",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
     "lint": "eslint src pages",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
