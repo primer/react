@@ -1,5 +1,4 @@
 # Position Components
----
 
 ```.jsx
 <Box p={2} mb={200}>

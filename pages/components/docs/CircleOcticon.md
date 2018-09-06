@@ -1,6 +1,5 @@
 
 # CircleOcticon
----
 
 ```.jsx
 <FlexContainer>

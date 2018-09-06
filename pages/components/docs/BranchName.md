@@ -1,6 +1,5 @@
 
 # BranchName
----
 
 ```.jsx
 <BranchName>a_new_feature_branch</BranchName>

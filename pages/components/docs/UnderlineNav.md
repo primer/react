@@ -1,5 +1,4 @@
 # UnderlineNav
----
 
 ```.jsx
 <ExampleHeading>

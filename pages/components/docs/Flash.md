@@ -1,6 +1,6 @@
 
 # Flash
----
+
 ```.jsx
 <Flash m={4}> Flash </Flash>
 <Flash m={4} scheme="yellow"> Flash yellow </Flash>

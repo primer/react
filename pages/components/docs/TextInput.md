@@ -1,5 +1,4 @@
 # TextInput
----
 
 ```.jsx
 <TextInput name="zipcode" />
