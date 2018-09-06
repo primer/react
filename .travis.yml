@@ -7,6 +7,10 @@ cache:
     # cache jest intermediary files between builds
     - $(jq -r .jest.cacheDirectory package.json)
 
+# XXX remove this after merging
+before_script:
+  - npm i fs-extra
+
 script:
   - npm run lint
   # see <https://github.com/facebook/jest/issues/3855> for more info
