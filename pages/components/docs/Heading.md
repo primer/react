@@ -1,5 +1,4 @@
 # Heading
----
 
 ```.jsx
 <Heading fontSize={1} mb={2}>With fontSize={1}</Heading>

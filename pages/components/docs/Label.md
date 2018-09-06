@@ -1,5 +1,4 @@
 # Label
----
 
 ```.jsx
 <FlexContainer flexDirection="column" alignItems="start">

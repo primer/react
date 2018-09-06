@@ -1,5 +1,4 @@
 # Text
----
 
 ```.jsx
 <Text is="div">Text</Text>

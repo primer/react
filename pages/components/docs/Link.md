@@ -1,5 +1,4 @@
 # Link
----
 
 ```.jsx
 <Link mb={1} href="https://github.com">Link</Link>

@@ -1,6 +1,5 @@
 
 # CircleBadge
----
 
 ```.jsx
 <Heading fontSize={3}>Small, medium & large</Heading>

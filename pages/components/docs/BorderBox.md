@@ -1,5 +1,4 @@
 # BorderBox
----
 
 ```.jsx
 <BorderBox>This is a BorderBox</BorderBox>

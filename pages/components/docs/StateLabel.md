@@ -1,5 +1,4 @@
 # StateLabel
----
 
 ```.jsx
 <Box mb={2}>

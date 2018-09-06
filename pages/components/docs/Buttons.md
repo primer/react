@@ -1,6 +1,5 @@
 
 # Buttons
----
 
 ```.jsx
 <FlexContainer flexDirection="column" alignItems="start" >

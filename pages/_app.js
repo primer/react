@@ -4,9 +4,6 @@ import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
-import SideNav from './doc-components/SideNav'
-import Header from './doc-components/Header'
-import customTheme from './doc-components/theme'
 
 /**
  * See: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage
@@ -20,6 +17,7 @@ import customTheme from './doc-components/theme'
  */
 import '../src/primer-react.scss'
 
+const {SideNav, Header, customTheme} = docComponents
 const {Box, FlexContainer} = primerComponents
 
 const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
