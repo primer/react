@@ -5,7 +5,6 @@
     "now.json",
     "pages",
     "rollup.config.js",
-    "server.js",
     "src"
   ]
 }
