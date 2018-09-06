@@ -2,14 +2,13 @@
 const next = require('next')
 const {createServer} = require('http')
 const {parse} = require('url')
-const nowConfig = require('./now.json')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 const handle = app.getRequestHandler()
 
-const deployURL = process.env.NOW_URL || nowConfig.alias
-const deployHost = deployURL ? parse(deployURL).host : undefined
+const deployURL = process.env.NOW_URL
+const deployHost = deployURL && parse(deployURL).host
 
 app.prepare().then(() => {
   createServer((req, res) => {
