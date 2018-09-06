@@ -1,7 +1,7 @@
 import React from 'react'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
-import {Text, FlexContainer, Button, Link, Sticky} from '../../src'
+import {Text, FlexContainer, Link, Sticky} from '../../src'
 
 const Header = () => (
   <Sticky zIndex={100}>
@@ -21,7 +21,7 @@ const Header = () => (
           </Link>
         </NextLink>
         <NextLink href="/components/dev-mode">
-          <Link className="text-white" href="/components/dev-mode"px={4}>
+          <Link className="text-white" href="/components/dev-mode" px={4}>
             Dev mode
           </Link>
         </NextLink>
