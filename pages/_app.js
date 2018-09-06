@@ -8,7 +8,16 @@ import SideNav from './doc-components/SideNav'
 import Header from './doc-components/Header'
 import customTheme from './doc-components/theme'
 
-// see: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage
+/**
+ * See: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage
+ * Apparently this needs to live in _app because _document is rendered server-side,
+ * so the code it generates isn't included in the client-side bundle.
+ *
+ * Unfortunately, the Next app's assetPrefix isn't available in this file
+ * (except via window.__NEXT_DATA__), so we can't  generate the correct base
+ * URL for it here. So the <link> lives in _document but the import has to live
+ * here, because ¯\_(ツ)_/¯
+ */
 import '../src/primer-react.scss'
 
 const {Box, FlexContainer} = primerComponents
