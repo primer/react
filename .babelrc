@@ -1,10 +1,15 @@
 {
   "presets": [
-    "env",
-    "react"
+    "next/babel"
   ],
   "plugins": [
-    "add-react-displayname",
-    "transform-object-rest-spread"
-  ]
+    "add-react-displayname"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["next/babel", {"preset-env": {"modules": "commonjs"}}]
+      ]
+    }
+  }
 }
