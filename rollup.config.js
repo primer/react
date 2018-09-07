@@ -6,18 +6,7 @@ const formats = ['esm', 'umd'] // 'cjs' ?
 export default {
   input: 'src/index.js',
   plugins: [
-    babel({
-      babelrc: false,
-      exclude: 'node_modules/**',
-      plugins: [
-        'external-helpers'
-      ],
-      presets: [
-        ['env', {modules: false}],
-        'stage-0',
-        'react'
-      ]
-    }),
+    babel({exclude: 'node_modules/**'}),
     commonjs()
   ],
   output: formats.map(format => ({

@@ -5,6 +5,6 @@
     "plugin:jsx-a11y/recommended"
   ],
   "rules": {
-    "import/no-namespace": "warn"
+    "import/no-namespace": 0
   }
 }

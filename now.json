@@ -1,14 +1,8 @@
 {
-  "static": {
-    "public": "docs",
-    "rewrites": [
-      {"source": "/components/*", "destination": "/index.html"},
-      {"source": "/demos/*", "destination": "/index.html"}
-    ]
-  },
   "files": [
-    "examples",
+    "pages",
     "rollup.config.js",
-    "src"
+    "src",
+    "next.config.js"
   ]
 }
