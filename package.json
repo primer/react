@@ -25,6 +25,12 @@
     "library",
     "design-system"
   ],
+  "files": [
+    "dist",
+    "src",
+    "!src/__tests__",
+    "!src/utils"
+  ],
   "author": "GitHub, Inc.",
   "license": "MIT",
   "jest": {
