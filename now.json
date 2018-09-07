@@ -1,8 +1,7 @@
 {
   "files": [
+    "next.config.js",
     "pages",
-    "rollup.config.js",
-    "src",
-    "next.config.js"
+    "src"
   ]
 }
