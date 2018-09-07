@@ -1,4 +1,5 @@
 {
+  "alias": "primer-react.now.sh",
   "files": [
     "next.config.js",
     "pages",
