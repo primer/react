@@ -1,0 +1,39 @@
+#!/bin/bash
+set -e
+json=$(npm pack --dry-run -s --json)
+files=$(echo "$json" | jq -r '.[0].files[].path')
+tarball=$(echo "$json" | jq -r '.[0].filename')
+
+tmpdir=$(mktemp -d /tmp/.primer-XXXX)
+mkdir -p $tmpdir
+tar -xzf $tarball --strip-components=1 -C $tmpdir
+tree $tmpdir | perl -p -e "s#$tmpdir#./$tarball#"
+
+function musthave() {
+  test -e "$tmpdir/$1" || die "$1 does not exist in packed $tarball"
+}
+
+function mustlack() {
+  test -e "$tmpdir/$1" && die "$1 exists: $(ls -1 "$tmpdir/$1")"
+}
+
+function die() {
+  >&2 echo "ERROR: $1"
+  exit 1
+}
+
+# make sure we have all the dist files
+musthave dist/index.esm.js
+musthave dist/index.umd.js
+# ..and the relevant source files
+musthave src/index.js
+musthave src/system-props.js
+musthave src/primer-react.scss
+# don't include docs source
+mustlack pages
+# don't include test-related stuff
+mustlack src/__tests__
+mustlack src/utils
+# don't include configs
+mustlack "*.config.js"
+mustlack "now.json"
