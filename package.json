@@ -30,14 +30,6 @@
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
-  "jest": {
-    "cacheDirectory": ".test",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/*.js"
-    ],
-    "setupTestFrameworkScriptFile": "<rootDir>/src/utils/test-matchers.js"
-  },
   "dependencies": {
     "@githubprimer/octicons-react": "8.0.0",
     "classnames": "^2.2.5",
