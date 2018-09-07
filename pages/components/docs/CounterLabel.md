@@ -1,7 +1,5 @@
 
 # CounterLabel
----
-
 
 ```.jsx
 <CounterLabel>12</CounterLabel>

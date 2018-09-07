@@ -1,5 +1,5 @@
 # Tooltip
----
+
 ```.jsx
 <ExampleHeading mt={3}>Basic Tooltip</ExampleHeading>
 <BorderBox p={3}>

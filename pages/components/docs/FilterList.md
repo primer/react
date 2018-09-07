@@ -1,5 +1,4 @@
 # FilterList
----
 
 ```.jsx
 <FilterList>

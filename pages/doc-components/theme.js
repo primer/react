@@ -2,7 +2,6 @@ import {theme} from '../../src'
 
 export default {
   font: theme.fonts.normal,
-  /* figure out how to use our theme values here */
   LiveEditor: {
     whiteSpace: 'pre-wrap',
     backgroundColor: theme.colors.gray[1],

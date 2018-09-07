@@ -1,5 +1,4 @@
 # MergeStatus
----
 
 ```.jsx
 <FlexContainer flexDirection="column" alignItems="start">

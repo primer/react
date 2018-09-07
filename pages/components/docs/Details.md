@@ -1,6 +1,6 @@
 
 # Details
----
+
 ```.jsx
 <ExampleHeading>With static children</ExampleHeading>
 

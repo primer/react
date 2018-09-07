@@ -1,5 +1,5 @@
 # FlexContainer and FlexItem
----
+
 ```.jsx
 <ExampleHeading mt={3}>FlexContainer + FlexItems</ExampleHeading>
 <BorderBox width={300} height={300} borderRadius={0}>
