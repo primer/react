@@ -20,11 +20,6 @@ const Header = () => (
             Docs
           </Link>
         </NextLink>
-        <NextLink href="/components/dev-mode">
-          <Link nounderline className="text-white" href="/components/dev-mode" px={4}>
-            Dev mode
-          </Link>
-        </NextLink>
         <NextLink href="/components/sandbox">
           <Link nounderline className="text-white" href="/components/sandbox" mr={0} px={4}>
             Sandbox
