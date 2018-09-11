@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
     return {
       ...page,
       styles,
-      primerCSSModules: ['buttons', 'base', 'forms', 'navigation', 'product', 'tooltips', 'utilities']
+      primerCSSModules: ['buttons', 'forms', 'navigation', 'product', 'tooltips', 'utilities']
     }
   }
 
