@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Link from '../Link'
-import {render, renderClasses} from '../utils/testing'
+import theme from '../theme'
+import {render, renderClasses, px} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('Link', () => {
@@ -14,12 +15,12 @@ describe('Link', () => {
   })
 
   it('respects the "scheme" prop', () => {
-    expect(renderClasses(<Link scheme="gray" />)).toContain('link-gray')
-    expect(renderClasses(<Link scheme="gray-dark" />)).toContain('link-gray-dark')
+    expect(render(<Link scheme="gray" />)).toHaveStyleRule('color', theme.colors.gray[6])
+    expect(render(<Link scheme="gray-dark" />)).toHaveStyleRule('color', theme.colors.gray[9])
   })
 
   it('respects the "muted" prop', () => {
-    expect(renderClasses(<Link muted />)).toContain('muted-link')
+    expect(render(<Link muted />)).toHaveStyleRule('color', theme.colors.gray[6])
   })
 
   xit('respects the "nounderline" prop', () => {
