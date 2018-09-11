@@ -22,8 +22,8 @@ describe('Link', () => {
     expect(renderClasses(<Link muted />)).toContain('muted-link')
   })
 
-  it('respects the "nounderline" prop', () => {
-    expect(renderClasses(<Link nounderline />)).toContain('no-underline')
+  xit('respects the "nounderline" prop', () => {
+    expect(render(<Link nounderline />)).toHaveStyleRule('text-decoration', 'none')
   })
 
   it('passes href down to link element', () => {
