@@ -9,8 +9,8 @@ const Header = () => (
       <NextLink href="/components">
         <Link className="text-white" nounderline href="/components">
           <FlexContainer ml={4} alignItems="center" justifyContent="center">
-            <Octicon size="medium" icon={MarkGithub} className="mr-3" />
-            <Text>Primer Components</Text>
+            <Octicon icon={MarkGithub} size="medium" />
+            <Text ml={3}>Primer Components</Text>
           </FlexContainer>
         </Link>
       </NextLink>
