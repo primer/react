@@ -1,0 +1,101 @@
+#!/usr/bin/env node
+const execa = require('execa')
+const fse = require('fs-extra')
+const globby = require('globby')
+
+const config = {
+  required: [
+    'dist/index.esm.js',
+    'dist/index.umd.js',
+    'src/index.js',
+    'src/system-props.js',
+    'src/primer-react.scss'
+  ],
+  missing: [
+    'pages',
+    'src/__tests__',
+    'src/utils',
+    '*.config.js',
+    'now.json'
+  ]
+}
+
+let dir
+
+/**
+ * Run `npm pack`:
+ *
+ * - with --ignore-scripts so that it doesn't call this script recursively!
+ * - with --json so that we can parse the output
+ */
+run('npm', ['-s', '--ignore-scripts', 'pack', '--json'])
+  .then(JSON.parse)
+  .then(([packed]) => {
+    const paths = packed.files.map(file => file.path)
+    const tarball = packed.filename
+    // make a temp directory
+    return run('mktemp', ['-d', '/tmp/.primer-XXXX'])
+      .then(tmp => {
+        dir = tmp
+        // unpack the tarball into the temp dir
+        return run('tar', ['-xzf', tarball, '--strip-components=1', '-C', dir])
+          // remove the tarball
+          .then(() => fse.remove(tarball))
+          .then(() => dir)
+      })
+  })
+  .then(dir => {
+    // cd into that directory so that we can call path-related helpers like
+    // fs.exists() and globby() without appending the path
+    process.chdir(dir)
+    log(`unpacked to: ${dir}`)
+    // return execa('tree', {stdio: 'inherit'})
+  })
+  .then(() => Promise.all([
+    mustHave(config.required),
+    mustLack(config.missing)
+  ]))
+  .catch(err => die(err.message))
+  .then(() => {
+    if (dir) {
+      log(`removing: ${dir}`)
+      fse.removeSync(dir)
+    }
+  })
+
+function run(...cmd) {
+  return execa(...cmd).then(res => res.stdout.trim())
+}
+
+function log(...args) {
+  console.log('📦', ...args)
+}
+
+function die(...args) {
+  console.error('📦❗️', ...args)
+  process.exitCode = 1
+}
+
+function mustHave(globs) {
+  return Promise.all(globs.map(fse.exists)).then(results => {
+    const missing = results.map((exists, i) => ({glob: globs[i], exists}))
+      .filter(res => !res.exists)
+    if (missing.length > 0) {
+      throw new Error(`Missing files:${list(missing.map(d => d.glob))}`)
+    }
+  })
+}
+
+function mustLack(globs) {
+  return Promise.all(globs.map(globby)).then(results => {
+    const found = results.map((matches, i) => ({glob: globs[i], matches}))
+      .filter(res => res.matches.length > 0)
+    if (found.length > 0) {
+      throw new Error(`Found files that should be missing:${list(found.map(d => d.glob))}`)
+    }
+  })
+}
+
+function list(files, glue = '\n - ') {
+  return glue + files.join(glue)
+}
