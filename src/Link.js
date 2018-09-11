@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'react-emotion'
-import {themeGet} from 'styled-system'
 import {withSystemProps, COMMON} from './system-props'
-import theme from './theme'
+import {colors} from './theme'
 
 
 const styledLink = styled(Link)`
@@ -23,9 +22,9 @@ function textDecoration({nounderline}) {
 
 function color({muted, scheme}) {
   return {
-    color: scheme === 'gray-dark' ? theme.colors.gray[9]
-           : muted || scheme === 'gray' ? theme.colors.gray[6]
-           : theme.colors.blue[5]
+    color: scheme === 'gray-dark' ? colors.gray[9]
+           : muted || scheme === 'gray' ? colors.gray[6]
+           : colors.blue[5]
   }
 }
 
