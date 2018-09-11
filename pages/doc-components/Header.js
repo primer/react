@@ -16,17 +16,17 @@ const Header = () => (
       </NextLink>
       <div>
         <NextLink href="/components">
-          <Link className="text-white" href="/components" px={4}>
+          <Link nounderline className="text-white" href="/components" px={4}>
             Docs
           </Link>
         </NextLink>
         <NextLink href="/components/dev-mode">
-          <Link className="text-white" href="/components/dev-mode" px={4}>
+          <Link nounderline className="text-white" href="/components/dev-mode" px={4}>
             Dev mode
           </Link>
         </NextLink>
         <NextLink href="/components/sandbox">
-          <Link className="text-white" href="/components/sandbox" mr={0} px={4}>
+          <Link nounderline className="text-white" href="/components/sandbox" mr={0} px={4}>
             Sandbox
           </Link>
         </NextLink>
