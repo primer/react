@@ -10,6 +10,7 @@
     "start": "next start",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
+    "prepack": "script/npm-pack-check",
     "prepublishOnly": "npm run dist",
     "lint": "eslint src pages",
     "test": "jest",
@@ -22,16 +23,14 @@
     "library",
     "design-system"
   ],
+  "files": [
+    "dist",
+    "src",
+    "!src/__tests__",
+    "!src/utils"
+  ],
   "author": "GitHub, Inc.",
   "license": "MIT",
-  "jest": {
-    "cacheDirectory": ".test",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/*.js"
-    ],
-    "setupTestFrameworkScriptFile": "<rootDir>/src/utils/test-matchers.js"
-  },
   "dependencies": {
     "@githubprimer/octicons-react": "8.0.0",
     "classnames": "^2.2.5",
@@ -64,12 +63,13 @@
     "eslint-plugin-jest": "21.15.1",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.8.2",
+    "fs-extra": "7.0.0",
+    "globby": "8.0.1",
     "jest": "23.5.0",
     "jest-emotion": "9.2.7",
     "mdx-docs": "1.0.0-8",
     "next": "6.1.1",
     "next-compose-plugins": "2.1.1",
-    "now": "11.3.12",
     "primer-buttons": "2.6.0",
     "primer-forms": "2.1.4",
     "primer-layout": "1.4.9",
