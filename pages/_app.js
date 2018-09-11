@@ -34,7 +34,7 @@ export default class MyApp extends App {
           <Header />
           <FlexContainer>
             <SideNav />
-            <Box maxWidth={1012} my={6} mx={'auto'} px={6} className="markdown-body">
+            <Box width="100%" maxWidth={1012} my={6} mx={'auto'} px={6} className="markdown-body">
               <Component {...page} />
             </Box>
           </FlexContainer>
