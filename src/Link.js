@@ -1,17 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import styled from 'react-emotion'
 import {withSystemProps, COMMON} from './system-props'
 import {colors} from './theme'
 
-
 const styledLink = styled(Link)`
   ${textDecoration};
   &:hover {
-    text-decoration: underline
-  };
-  ${color}
+    text-decoration: underline;
+  }
+  ${color};
 `
 
 function textDecoration({nounderline}) {
@@ -22,9 +20,7 @@ function textDecoration({nounderline}) {
 
 function color({muted, scheme}) {
   return {
-    color: scheme === 'gray-dark' ? colors.gray[9]
-           : muted || scheme === 'gray' ? colors.gray[6]
-           : colors.blue[5]
+    color: scheme === 'gray-dark' ? colors.gray[9] : muted || scheme === 'gray' ? colors.gray[6] : colors.blue[5]
   }
 }
 
