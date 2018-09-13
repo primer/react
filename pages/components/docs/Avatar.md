@@ -15,12 +15,12 @@ Avatar components get `color, spacing` system props. Read our [System Props](/sy
 
 ## Component props
 
-| Prop name | Type | Description |
+| Prop name | Type | Description 
 | :- | :- | :- |
-| alt | String | Passed through to alt on img tag |
-| isChild | Boolean | adds the `avatar-child` class if present |
-| size | Number | default: 20, adds the `avatar-small` class if less than 24 |
-| src | String | The source url of the avatar image |
+| alt | String | Passed through to alt on img tag
+| isChild | Boolean | adds the `avatar-child` class if present
+| size | Number | default: 20, adds the `avatar-small` class if less than 24
+| src | String | The source url of the avatar image
 
 export const meta = {
   displayName: 'Avatar'
