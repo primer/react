@@ -1,9 +1,13 @@
-# Button
+# Buttons
 
-## Default example
+## Default examples
 
 ```.jsx
 <Button>Button</Button>
+<ButtonDanger>Button Danger</ButtonDanger>
+<ButtonLink>Button Link</ButtonLink>
+<ButtonOutline>Button Outline</ButtonOutline>
+<ButtonPrimary>Button Primary</ButtonPrimary>
 ```
 
 ## System props
@@ -14,6 +18,11 @@ Button components get `COMMON` and `LAYOUT` system props. Read our [System Props
 
 | Prop name | Type | Description |
 | :- | :- | :- |
-| is | String |  |
+| is | String | sets the HTML tag for the component, defaults to `button` |
+| block | Boolean | adds `display: block` to the component |
+| disabled | Boolean | sets the `disabled` attribute on the Button |
+| grouped | Boolean | allows you to use Button in a line of Buttons without duplicate borders |
+| onClick | Function | function to be called when Button is clicked |
+| size | String | use `sm` for a small Button, or `large` for a large Button
 
 export const meta = {displayName: 'Button'}
