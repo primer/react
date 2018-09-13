@@ -6,7 +6,7 @@
 
 <ExampleHeading mt={3}>BranchName with Octicon</ExampleHeading>
 <BranchName>
-  <Octicon icon={GitBranch} />
+  <Box mr={2} display='inline-block'><Octicon icon={GitBranch} /></Box>
   a_new_feature_branch
 </BranchName>
 
