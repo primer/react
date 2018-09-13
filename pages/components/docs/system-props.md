@@ -8,8 +8,8 @@ To check which system props each component includes, check the documentation for
 ### System Prop Categories
 
 | Category       | Included Props           | styled-system docs  |
-| ------------- | -------------| -----|
+|-----|--------|--------|
 | `COMMON`| space, color | [styled-system core docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#core) |
 | `TYPOGRAPHY`| fontFamily, fontSize, fontWeight, lineHeight & all `COMMON` props | [styled-system typography docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#typography) |
-| `LAYOUT` | borders, borderColor,   borderRadius, boxShadow, display, size, width, height, minWidth, minHeight, maxWidth, maxHeight, verticalAlign & all `COMMON` props      | [styled-system layout docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#layout) [styled-system misc docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#misc) |
+| `LAYOUT` | borders, borderColor, borderRadius, boxShadow, <br/> display, size, width, height, minWidth, minHeight, <br/> maxWidth, maxHeight, verticalAlign & all `COMMON` props      | [styled-system layout docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#layout) <br/> [styled-system misc docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#misc) |
 | `POSITION` | position, zIndex, top, right, bottom, left | [styled-system position docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#position)
