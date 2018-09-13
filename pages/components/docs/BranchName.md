@@ -12,8 +12,9 @@ BranchName components get `COMMON` and `LAYOUT` system props. Read our [System P
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| is | String |  |
+| Prop name | Type | Description | Default |
+| :- | :- | :- | :- |
+| is | String | sets the HTML tag for the component | 'a'
+| href | String | a URL to link the component to | n/a
 
 export const meta = {displayName: 'BranchName'}
