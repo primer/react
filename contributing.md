@@ -7,7 +7,8 @@
 4. [Component patterns](#component-patterns)
     * [Components with only system props](#components-with-only-system-props)
     * [Primer CSS components](#primer-css-components)
-5. [Glossary](#glossary)
+5. [Deployment](#deployment)
+6. [Glossary](#glossary)
 
 ## Code Style
 
@@ -169,6 +170,26 @@ In this case, you will need to deal explicitly with two props passed down from [
   * `className`: You _must_ render this prop, otherwise **your component will not be styled.**
   * `is`: This is what allows your component to render with arbitrary elements, and even other components. If you don't respect this prop, you should `delete Component.propTypes.is` to signal that it's not available.
 
+## Deployment
+We deploy the Primer Components site using [Now]. Install the Now CLI and log in with:
+
+```sh
+npm i -g now
+now login
+```
+
+Once you're logged in, sync your local git repo with the `master` branch and run:
+
+```sh
+script/deploy
+```
+
+This will create a new deployment and alias it to its production URL, [primer-react.now.sh](https://primer-react.now.sh).
+
+### Path aliasing
+This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you deploy this one to `primer-react.now.sh`.
+
+
 ## Glossary
 
 ### System props
@@ -197,3 +218,5 @@ SpaceDiv.propTypes = {
 [system-components]: https://jxnblk.com/styled-system/system-components
 [table]: https://jxnblk.com/styled-system/table
 [npx]: https://www.npmjs.com/package/npx
+[Now]: https://zeit.co/now
+[primer.style]: https://primer.style
