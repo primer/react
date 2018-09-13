@@ -6,23 +6,6 @@ import * as docs from '../components/docs'
 const SideNav = () => (
   <Relative>
     <Box width={248} bg="gray.0" display="inline-block">
-      <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
-        <NextLink href="/components/docs/getting-started">
-          <Link nounderline scheme="gray-dark" href="/components/docs/getting-started" m={0} mb={4}>
-            Getting Started
-          </Link>
-        </NextLink>
-        <NextLink href="/components/docs/system-props">
-          <Link nounderline scheme="gray-dark" href="/components/docs/system-props" m={0} mb={4}>
-            System Props
-          </Link>
-        </NextLink>
-        <NextLink href="/components/docs/primer-theme">
-          <Link nounderline scheme="gray-dark" href="/components/docs/primer-theme" m={0}>
-            Primer Theme
-          </Link>
-        </NextLink>
-      </FlexContainer>
       <Box pt={5} pl={5}>
         <Text fontWeight="bold" is="p" color="black" m={0} mb={3}>
           <NextLink href="/components/docs/Avatar">
