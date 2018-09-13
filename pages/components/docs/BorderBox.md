@@ -12,8 +12,6 @@ BorderBox components get `COMMON` and `LAYOUT` system props. Read our [System Pr
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| is | String |  |
+BorderBox does not get any additional props other than the system props mentioned above.
 
 export const meta = { displayName: 'BorderBox'}
