@@ -14,6 +14,6 @@ Box components get the `COMMON` and `LAYOUT` categories of system props. Read ou
 
 ## Component props
 
-Box does not get any additional props besides its system props mentioned above.
+Box does not get any additional props other than its system props mentioned above.
 
 export const meta = {displayName: 'Box'}
