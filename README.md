@@ -38,7 +38,8 @@ This project uses [emotion] under the hood to generate static CSS from _some_ co
 To ensure proper styling, you'll need to include an instance of the `BaseCSS` component somewhere in your document (preferably inside the `<head>`):
 
 ```jsx
-import {BaseCSS, Heading} from 'primer-react'
+import BaseCSS from 'primer-react/css'
+import {Heading} from 'primer-react'
 
 export default () => (
   <html>
@@ -55,7 +56,7 @@ export default () => (
 If you can't use React to render your document shell server-side, you have two other options:
 
 1. Include `node_modules/primer-react/dist/css/build.css` by copying or other means.
-1. `import {BaseCSS} from 'primer-react'` and output the `BaseCSS.css` CSS string directly.
+1. `import {css} from 'primer-react/css'` and output the `css` string directly.
 
 #### Static CSS rendering
 
