@@ -1,4 +1,4 @@
-### Sandbox
+# Sandbox
 
   All of the primer-react components are available in this sandbox!
 
