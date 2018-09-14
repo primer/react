@@ -1,14 +1,13 @@
 # TextInput
 
+## Default example
+
 ```.jsx
 <TextInput name="zipcode" />
-
-<ExampleHeading>Text Input Sizes</ExampleHeading>
-<TextInput name="zipcode" size="small" placeholder="Small input" />
-<TextInput name="zipcode" size="large" placeholder="Large input" />
-
-<ExampleHeading>Text Input - Block</ExampleHeading>
-<TextInput block placeholder="Full width block input" />
 ```
+
+## System props
+
+TextInput components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 export const meta = {displayName: 'TextInput'}
