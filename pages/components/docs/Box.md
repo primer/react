@@ -14,6 +14,6 @@ Box components get `COMMON` and `LAYOUT` system props. Read our [System Props](/
 
 | Prop name | Type | Description |
 | :- | :- | :- |
-| is | String | sets the HTML tag for the component |
+| is | String | Sets the HTML tag for the component |
 
 export const meta = {displayName: 'Box'}
