@@ -1,5 +1,7 @@
 # Position Components
 
+## Default examples
+
 ```.jsx
 <Box p={2} mb={200}>
   <ExampleHeading mb={2}>Relative + Absolute</ExampleHeading>
@@ -32,5 +34,9 @@
   </Fixed>
 </Box>
 ```
+
+## System props
+
+Position components get 'POSITION', 'LAYOUT' and 'COMMON' system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 export const meta = {displayName: 'Position'}
