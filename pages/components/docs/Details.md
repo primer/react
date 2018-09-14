@@ -26,4 +26,16 @@
 <ExampleHeading>With render prop</ExampleHeading>
 <Details render={() => 'hi'} />
 ```
+
+## System props
+
+Details components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+| Prop name | Type | Description |
+| :- | :- | :- |
+| open | Boolean | Sets the open/closed state of the Details component |
+| render | Function | Optional render function as a prop, to allow you to handle toggling and open/closed state within a container component
+
 export const meta = {displayName: 'Details'}
