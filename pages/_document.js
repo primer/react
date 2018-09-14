@@ -1,6 +1,6 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
-import {BaseCSS} from '../src'
+import BaseCSS from '../css'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
 

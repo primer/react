@@ -1,10 +1,10 @@
 import React from 'react'
-import BaseCSS from '../BaseCSS'
+import BaseCSS, {css} from '../../css'
 import {render} from '../utils/testing'
 
 describe('BaseCSS', () => {
-  it('has a "css" property', () => {
-    expect(typeof BaseCSS.css).toBe('string')
+  it('has a "css" named export', () => {
+    expect(typeof css).toBe('string')
   })
 
   it('renders CSS', () => {
