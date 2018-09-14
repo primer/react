@@ -7,6 +7,6 @@
 
 ## System props
 
-Dropdown components get `TYPOGRAPHY` and 'COMMON' system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Heading components get `TYPOGRAPHY` and 'COMMON' system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 export const meta = {displayName: 'Heading'}
