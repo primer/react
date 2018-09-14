@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
+import {themeGet} from 'styled-system'
 import {withSystemProps, COMMON} from './system-props'
 import {colors} from './theme'
 
@@ -18,9 +19,14 @@ function textDecoration({nounderline}) {
   }
 }
 
-function color({muted, scheme}) {
+function color({muted, scheme, ...rest}) {
   return {
-    color: scheme === 'gray-dark' ? colors.gray[9] : muted || scheme === 'gray' ? colors.gray[6] : colors.blue[5]
+    color:
+      scheme === 'gray-dark'
+        ? themeGet('colors.gray.9', colors.gray[9])(rest)
+        : muted || scheme === 'gray'
+          ? themeGet('colors.gray.6', colors.gray[6])(rest)
+          : themeGet('colors.blue.5', colors.blue[5])(rest)
   }
 }
 

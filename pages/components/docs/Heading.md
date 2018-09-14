@@ -1,9 +1,16 @@
 # Heading
 
+## Default example
 ```.jsx
 <Heading fontSize={1} mb={2}>With fontSize={1}</Heading>
-<Heading fontSize={2} mb={2}>With fontSize={2}</Heading>
-<Heading fontSize={3} mb={2}>With fontSize={3}</Heading>
 ```
+
+## System props
+
+Heading components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+Heading does not get any additional props other than the system props mentioned above.
 
 export const meta = {displayName: 'Heading'}

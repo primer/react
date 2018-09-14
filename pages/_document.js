@@ -1,19 +1,18 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
-import {ServerStyleSheet} from 'styled-components'
+import {extractCritical} from 'emotion-server'
 
 export default class MyDocument extends Document {
   static getInitialProps({renderPage}) {
-    const sheet = new ServerStyleSheet()
-    const page = renderPage(App => props => sheet.collectStyles(<App {...props} />))
-    const styles = sheet.getStyleElement()
-    return {...page, styles}
+    const page = renderPage()
+    const {css} = extractCritical(page.html)
+    return {...page, css}
   }
 
   render() {
     const {
-      styles,
-      // this comes from the app.setAssetPrefix() call in server.js
+      css,
+      // the assetPrefix is set in next.config.js
       __NEXT_DATA__: {assetPrefix = ''}
     } = this.props
 
@@ -28,11 +27,11 @@ export default class MyDocument extends Document {
           <link rel="apple-touch-icon" href={asset('/static/assets/apple-touch-icon.png')} />
           {/* See: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage */}
           <link rel="stylesheet" href={asset('/_next/static/style.css')} />
+          {/* eslint-disable-next-line react/no-danger */}
+          <style data-emotion dangerouslySetInnerHTML={{__html: css}} />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="generator" content="Compositor X0" />
           <meta name="og:title" content="Primer React" />
           <meta name="description" content="Primer components built with React.js." />
-          {styles}
         </Head>
         <body>
           <Main />

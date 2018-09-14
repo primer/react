@@ -1,49 +1,26 @@
 # Tooltip
 
+## Default example
+
 ```.jsx
-<ExampleHeading mt={3}>Basic Tooltip</ExampleHeading>
 <BorderBox p={3}>
   <Tooltip text="Hello, Tooltip!">Text with a tooltip</Tooltip>
 </BorderBox>
-
-<ExampleHeading mt={3}>Directions</ExampleHeading>
-{Tooltip.directions.map(dir => (
-  <BorderBox p={3} my={2} key="top">
-    <Tooltip text="Hello, Tooltip!" direction="${dir}">
-      Tooltip direction="${dir}"
-    </Tooltip>
-  </BorderBox>
-))}
-
-
-<ExampleHeading mt={3}>Word wrap</ExampleHeading>
-<BorderBox p={3} my={2}>
-  <Tooltip
-    text="Hello, Tooltip! This tooltip has a sentence that will wrap to a newline."
-    wrap
-    direction="ne"
-    align="left"
-  >
-    Word wrapping tooltip
-  </Tooltip>
-</BorderBox>
-
-<ExampleHeading mt={3}>Alignment</ExampleHeading>
-{Tooltip.alignments.map(align => (
-  <BorderBox p={3} my={2} key="${align}">
-    <Tooltip text="Hello, Tooltip!" direction="ne" align="${align}">
-      Tooltip align="${align}"
-    </Tooltip>
-  </BorderBox>
-))}
-
-
-<ExampleHeading mt={3}>No Delay</ExampleHeading>
-<BorderBox p={3} my={2}>
-  <Tooltip noDelay text="Hello, Tooltip!">
-    Text with a tooltip
-  </Tooltip>
-</BorderBox>`
 ```
+
+## System props
+
+Tooltip components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+| Prop name | Type | Description |
+| :- | :- | :- |
+| align | String | Can be either `left` or `right`.|
+| direction | String | Can be one of 'n', `ne`, `e`, `se`, `s`, `sw`, `w`, `nw` | Sets where the tooltip renders in relation to the target. |
+| noDelay | Boolean | When set to `true`, tooltip appears without any delay |
+| text | String | Text used in `aria-label` (for accessibility).
+| wrap | Boolean | Use `true` to allow text within tooltip to wrap.
+
 
 export const meta = {displayName: 'Tooltip'}
