@@ -30,9 +30,8 @@ export default class MyDocument extends Document {
           <meta charSet="utf8" />
           <link rel="icon" href={asset('/static/assets/favicon.png')} />
           <link rel="apple-touch-icon" href={asset('/static/assets/apple-touch-icon.png')} />
-          <BaseCSS id="primer-base" />
-          {/* eslint-disable-next-line react/no-danger */}
-          <style data-emotion dangerouslySetInnerHTML={{__html: css}} />
+          <BaseCSS />
+          <style data-emotion>{css}</style>
           {styles}
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="og:title" content="Primer React" />
