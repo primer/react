@@ -21,9 +21,12 @@ function textDecoration({nounderline}) {
 
 function color({muted, scheme, ...rest}) {
   return {
-    color: scheme === 'gray-dark' ? themeGet('colors.gray.9', colors.gray[9])(rest)
-           : muted || scheme === 'gray' ? themeGet('colors.gray.6', colors.gray[6])(rest)
-           : themeGet('colors.blue.5', colors.blue[5])(rest)
+    color:
+      scheme === 'gray-dark'
+        ? themeGet('colors.gray.9', colors.gray[9])(rest)
+        : muted || scheme === 'gray'
+          ? themeGet('colors.gray.6', colors.gray[6])(rest)
+          : themeGet('colors.blue.5', colors.blue[5])(rest)
   }
 }
 
