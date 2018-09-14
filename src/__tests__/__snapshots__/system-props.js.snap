@@ -9,8 +9,8 @@ exports[`system props withSystemProps() applies multiple theme values 1`] = `
 <b
   blacklist={
     Array [
-      "css",
       "fontFamily",
+      "font",
       "m",
       "mt",
       "mr",
@@ -25,6 +25,7 @@ exports[`system props withSystemProps() applies multiple theme values 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
   className="emotion-0"
@@ -41,7 +42,6 @@ exports[`system props withSystemProps() applies one theme value 1`] = `
 <b
   blacklist={
     Array [
-      "css",
       "m",
       "mt",
       "mr",
@@ -56,6 +56,7 @@ exports[`system props withSystemProps() applies one theme value 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
   className="emotion-0"
