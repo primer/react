@@ -36,6 +36,6 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 | Prop name | Type | Description |
 | :- | :- | :- |
 | open | Boolean | Sets the open/closed state of the Details component |
-| render | Function | Optional render function as a prop, to allow you to handle toggling and open/closed state within a container component
+| render | Function | Optional render function, to allow you to handle toggling and open/closed state from a container component.
 
 export const meta = {displayName: 'Details'}

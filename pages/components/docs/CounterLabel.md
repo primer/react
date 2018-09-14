@@ -16,6 +16,6 @@ CounterLabel components get `COMMON` system props. Read our [System Props](/syst
 
 | Prop name | Type | Description |
 | :- | :- | :- |
-| scheme | String | Pass in 'gray' for a gray background and white text, or 'gray-light' for a lighter gray background and dark text. Omitting the scheme prop renders the default counter scheme |
+| scheme | String | Pass in 'gray' for a darker gray background and white text, or 'gray-light' for a lighter gray background and dark text. Omitting the scheme prop renders the default counter scheme |
 
 export const meta = {displayName: 'CounterLabel'}
