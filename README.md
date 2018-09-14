@@ -35,20 +35,31 @@ import {
 
 This project uses [emotion] under the hood to generate static CSS from _some_ component styles, but still relies on [Primer CSS] for some component styles that haven't yet been ported over.
 
-To ensure proper styling, you'll need to link to the most recent build of [Primer CSS] in one of the following ways:
+To ensure proper styling, you'll need to include an instance of the `BaseCSS` component somewhere in your document:
 
-1. If you're using webpack, you can install [style-loader](https://github.com/webpack-contrib/style-loader) and [css-loader](), `import 'primer/build/build.css'` in your bundle, and include the following in your webpack config's `module.rules` list:
+```jsx
+import {BaseCSS, Heading} from 'primer-react'
 
-    ```js
-    {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader']
-    }
-    ```
+export default () => (
+  <html>
+    <head>
+      <BaseCSS />
+    </head>
+    <body>
+      <Heading is="h1">Primer!</Heading>
+    </body>
+  </html>
+)
+```
 
-1. **For pre-production applications**, you can link directly to [the build on unpkg.com](https://unpkg.com/primer/build/build.css).
+If you can't use React to render your document shell server-side, you have two other options:
 
-1. Otherwise, you can `npm install --save primer` and either or link `node_modules/primer/build/build.css` to your source directory.
+1. Include `node_modules/primer-react/dist/css/build.css` by copying or other means.
+1. `import {BaseCSS: {css}} from 'primer-react'` and output the `css` string directly.
+
+#### Static CSS rendering
+
+In the above case, component styles will be rendered at runtime (typically, in your client-side JavaScript bundle), which may produce a [flash of unstyled content]. See the [Emotion docs](https://emotion.sh/docs/ssr) for instructions on rendering the CSS server-side and render them in the `<head>` to avoid the flash.
 
 ## Local Development
 
@@ -73,3 +84,4 @@ To run `primer-react` locally when adding or updating components:
 
 [emotion]: https://emotion.sh/
 [Primer CSS]: https://github.com/primer/primer
+[flash of unstyled content]: https://en.wikipedia.org/wiki/Flash_of_unstyled_content
