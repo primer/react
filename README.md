@@ -35,7 +35,7 @@ import {
 
 This project uses [emotion] under the hood to generate static CSS from _some_ component styles, but still relies on [Primer CSS] for some component styles that haven't yet been ported over.
 
-To ensure proper styling, you'll need to include an instance of the `BaseCSS` component somewhere in your document:
+To ensure proper styling, you'll need to include an instance of the `BaseCSS` component somewhere in your document (preferably inside the `<head>`):
 
 ```jsx
 import {BaseCSS, Heading} from 'primer-react'
