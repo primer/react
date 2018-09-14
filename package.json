@@ -36,6 +36,7 @@
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "emotion": "9.2.8",
+    "emotion-server": "9.2.8",
     "emotion-theming": "9.2.6",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
