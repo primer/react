@@ -1,10 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Link passes href down to link element 1`] = `
+.emotion-0 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0366d6;
+}
+
+.emotion-0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 <a
   blacklist={
     Array [
-      "css",
       "color",
       "bg",
       "m",
@@ -21,18 +31,29 @@ exports[`Link passes href down to link element 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
-  className="emotion-0 text-blue"
+  className="emotion-0"
   href="https://github.com"
 />
 `;
 
 exports[`Link renders without any props 1`] = `
+.emotion-0 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0366d6;
+}
+
+.emotion-0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 <a
   blacklist={
     Array [
-      "css",
       "color",
       "bg",
       "m",
@@ -49,8 +70,9 @@ exports[`Link renders without any props 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
-  className="emotion-0 text-blue"
+  className="emotion-0"
 />
 `;

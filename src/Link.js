@@ -1,13 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import styled from 'react-emotion'
+import {themeGet} from 'styled-system'
 import {withSystemProps, COMMON} from './system-props'
+import {colors} from './theme'
 
-function Link({children, className, muted, scheme, nounderline, ...rest}) {
-  const colorClass = scheme ? `link-${scheme}` : muted ? 'muted-link' : 'text-blue'
-  const classes = classnames(className, colorClass, nounderline && 'no-underline')
+const styledLink = styled(Link)`
+  ${textDecoration};
+  &:hover {
+    text-decoration: underline;
+  }
+  ${color};
+`
+
+function textDecoration({nounderline}) {
+  return {
+    textDecoration: nounderline ? 'none' : 'underline'
+  }
+}
+
+function color({muted, scheme, ...rest}) {
+  return {
+    color:
+      scheme === 'gray-dark'
+        ? themeGet('colors.gray.9', colors.gray[9])(rest)
+        : muted || scheme === 'gray'
+          ? themeGet('colors.gray.6', colors.gray[6])(rest)
+          : themeGet('colors.blue.5', colors.blue[5])(rest)
+  }
+}
+
+function Link({children, className, ...rest}) {
   return (
-    <a className={classes} {...rest}>
+    <a className={className} {...rest}>
       {children}
     </a>
   )
@@ -20,4 +45,4 @@ Link.propTypes = {
   scheme: PropTypes.oneOf(['gray', 'gray-dark'])
 }
 
-export default withSystemProps(Link, COMMON)
+export default withSystemProps(styledLink, COMMON)

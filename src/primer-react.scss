@@ -1,3 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+}
+
 @import "primer-buttons/index.scss";
 @import "primer-forms/index.scss";
 @import "primer-layout/index.scss";
