@@ -5,18 +5,6 @@ import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
 
-/**
- * See: https://github.com/zeit/next-plugins/tree/master/packages/next-sass#usage
- * Apparently this needs to live in _app because _document is rendered server-side,
- * so the code it generates isn't included in the client-side bundle.
- *
- * Unfortunately, the Next app's assetPrefix isn't available in this file
- * (except via window.__NEXT_DATA__), so we can't  generate the correct base
- * URL for it here. So the <link> lives in _document but the import has to live
- * here, because ¯\_(ツ)_/¯
- */
-import '../src/primer-react.scss'
-
 const {SideNav, Header, customTheme} = docComponents
 const {Box, FlexContainer} = primerComponents
 
