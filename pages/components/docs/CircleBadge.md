@@ -1,22 +1,25 @@
-
 # CircleBadge
 
+## Default example
+
 ```.jsx
-<Heading fontSize={3}>Small, medium & large</Heading>
-<CircleBadge bg="blue.5" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
-<CircleBadge bg="blue.5" size="medium"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
-<CircleBadge bg="blue.5" size="large"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
-
-<Heading fontSize={3}>With custom width & height</Heading>
-<CircleBadge bg="blue.5" size={40}><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
-
-<Heading fontSize={3}>{`With <img> as a child & bg prop`}</Heading>
-<CircleBadge bg="blue.5" size="small"><img src="https://avatars0.githubusercontent.com/t/1929972?s=280&v=4"/></CircleBadge>
-
-<Heading fontSize={3}>With Octicon as child</Heading>
-<CircleBadge size="medium">
-  <Octicon icon={Zap}/>
+<CircleBadge>
+  <Octicon icon={Zap} />
 </CircleBadge>
 ```
+
+## System props
+
+CircleBadge components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+| Prop name | Type | Description |
+| :- | :- | :- |
+| is | String | sets the HTML tag for the component, defaults to `div` |
+| alt | String | alt tag |
+| size | String or Number | Use `small`, `medium`, or `large` for default sizes, or provide a custom size |
+
+
 
 export const meta = {displayName: 'CircleBadge'}
