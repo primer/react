@@ -42,7 +42,7 @@
     "primer-typography": "1.0.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",
-    "react-emotion": "9.2.6",
+    "react-emotion": "9.2.8",
     "styled-system": "2.3.6",
     "system-classnames": "^1.0.0-3",
     "system-components": "2.2.3"
