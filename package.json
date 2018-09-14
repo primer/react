@@ -10,6 +10,7 @@
     "start": "next start",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
+    "postdist": "primer-module-build src/primer-react.scss --outputDir dist/css",
     "prepack": "script/npm-pack-check",
     "prepublishOnly": "npm run dist",
     "lint": "eslint src pages",
