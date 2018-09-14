@@ -31,7 +31,6 @@ exports[`Dropdown matches the snapshots 1`] = `
 <div
   blacklist={
     Array [
-      "css",
       "color",
       "bg",
       "m",
@@ -48,6 +47,7 @@ exports[`Dropdown matches the snapshots 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
   className="emotion-1 BtnGroup"
@@ -55,7 +55,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   <details
     blacklist={
       Array [
-        "css",
         "color",
         "bg",
         "m",
@@ -72,6 +71,7 @@ exports[`Dropdown matches the snapshots 1`] = `
         "pl",
         "px",
         "py",
+        "css",
       ]
     }
     className="details-reset BtnGroup-form emotion-3"
@@ -80,7 +80,6 @@ exports[`Dropdown matches the snapshots 1`] = `
     <summary
       blacklist={
         Array [
-          "css",
           "color",
           "bg",
           "m",
@@ -97,6 +96,7 @@ exports[`Dropdown matches the snapshots 1`] = `
           "pl",
           "px",
           "py",
+          "css",
         ]
       }
       className="emotion-1 btn BtnGroup-item"
@@ -193,7 +193,6 @@ exports[`Dropdown matches the snapshots 2`] = `
 <div
   blacklist={
     Array [
-      "css",
       "color",
       "bg",
       "m",
@@ -210,6 +209,7 @@ exports[`Dropdown matches the snapshots 2`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
   className="emotion-1 BtnGroup"
@@ -217,7 +217,6 @@ exports[`Dropdown matches the snapshots 2`] = `
   <details
     blacklist={
       Array [
-        "css",
         "color",
         "bg",
         "m",
@@ -234,6 +233,7 @@ exports[`Dropdown matches the snapshots 2`] = `
         "pl",
         "px",
         "py",
+        "css",
       ]
     }
     className="details-reset BtnGroup-form emotion-3"
@@ -242,7 +242,6 @@ exports[`Dropdown matches the snapshots 2`] = `
     <summary
       blacklist={
         Array [
-          "css",
           "color",
           "bg",
           "m",
@@ -259,6 +258,7 @@ exports[`Dropdown matches the snapshots 2`] = `
           "pl",
           "px",
           "py",
+          "css",
         ]
       }
       className="emotion-1 btn BtnGroup-item"

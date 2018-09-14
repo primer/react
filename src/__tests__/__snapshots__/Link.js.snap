@@ -4,7 +4,6 @@ exports[`Link passes href down to link element 1`] = `
 <a
   blacklist={
     Array [
-      "css",
       "color",
       "bg",
       "m",
@@ -21,6 +20,7 @@ exports[`Link passes href down to link element 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
   className="emotion-0 text-blue"
@@ -32,7 +32,6 @@ exports[`Link renders without any props 1`] = `
 <a
   blacklist={
     Array [
-      "css",
       "color",
       "bg",
       "m",
@@ -49,6 +48,7 @@ exports[`Link renders without any props 1`] = `
       "pl",
       "px",
       "py",
+      "css",
     ]
   }
   className="emotion-0 text-blue"

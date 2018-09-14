@@ -107,6 +107,7 @@ export function withSystemProps(Component, props = COMMON) {
 
   // Set what system props we use on this component
   Wrapped.systemProps = props
+  Wrapped.systemComponent = true
 
   // Copy over non-system keys from components
   // eg. Tooltip.js => Tooltip.directions Tooltip.alignments
