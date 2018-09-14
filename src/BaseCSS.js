@@ -1,6 +1,6 @@
 import preval from 'babel-plugin-preval/macro'
 
-const baseCSS = preval`
+const css = preval`
   const {join} = require('path')
   const sass = require('node-sass')
   const {css} = sass.renderSync({
@@ -13,8 +13,9 @@ const baseCSS = preval`
   module.exports = css.toString()
 `
 
-export default function BaseCSS(props) {
-  return <style>{baseCSS}</style>
+export default function BaseCSS({children, ...rest}) {
+  // FIXME: {...rest} throws errors in styled-jsx ?
+  return <style>{css}{children}</style>
 }
 
-export {baseCSS}
+export {css}
