@@ -5,7 +5,7 @@ import {withSystemProps, COMMON} from './system-props'
 
 const ICON_CLASS = 'CircleBadge-icon'
 
-const sizeMapper = size => {
+const sizeMapper = (size = 'medium') => {
   if (typeof size === 'number') return size
   const map = {
     small: 56,

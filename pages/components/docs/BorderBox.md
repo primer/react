@@ -1,12 +1,17 @@
 # BorderBox
 
+## Default example
+
 ```.jsx
 <BorderBox>This is a BorderBox</BorderBox>
-<BorderBox p={2}>This is a BorderBox with padding.</BorderBox>
-<BorderBox boxShadow="small" m={4} p={2}>This is a BorderBox with shadow.</BorderBox>
-<BorderBox boxShadow="medium" m={4} p={2}>This is a BorderBox with a medium shadow.</BorderBox>
-<BorderBox boxShadow="large" m={4} p={2}>This is a BorderBox with a large shadow.</BorderBox>
-<BorderBox boxShadow="extra-large" m={4} p={2}>This is a BorderBox with an extra-large shadow.</BorderBox>
-<BorderBox borderColor="green.5" p={2}>This is a BorderBox with a green border.</BorderBox>
 ```
+
+## System props
+
+BorderBox components get `COMMON` and `LAYOUT` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+BorderBox does not get any additional props other than the system props mentioned above.
+
 export const meta = { displayName: 'BorderBox'}
