@@ -1,3 +1,4 @@
+import React from 'react'
 import preval from 'babel-plugin-preval/macro'
 
 const css = preval`
@@ -13,9 +14,14 @@ const css = preval`
   module.exports = css.toString()
 `
 
-export default function BaseCSS({children, ...rest}) {
-  // FIXME: {...rest} throws errors in styled-jsx ?
-  return <style>{css}{children}</style>
-}
-
 export {css}
+
+export default function BaseCSS({children}) {
+  // FIXME: {...rest} throws errors in styled-jsx ?
+  return (
+    <style>
+      {css}
+      {children}
+    </style>
+  )
+}
