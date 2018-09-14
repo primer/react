@@ -32,5 +32,8 @@ FlexItem components get `FLEX_ITEM`, `COMMON`, and `LAYOUT` system props.
 
 Read our [System Props](/system-props) doc page for a full list of available props.
 
+## Component props
+
+FlexContainer and FlexItem do not get any additional props other than the system props mentioned above.
 
 export const meta = {displayName: 'Flex'}
