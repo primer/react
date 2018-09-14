@@ -26,9 +26,9 @@
 
 ## System props
 
-FlexContainer components get `FLEX_CONTAINER`, 'COMMON', and 'LAYOUT' system props.
+FlexContainer components get `FLEX_CONTAINER`, `COMMON`, and `LAYOUT` system props.
 
-FlexItem components get `FLEX_ITEM`, 'COMMON', and 'LAYOUT' system props.
+FlexItem components get `FLEX_ITEM`, `COMMON`, and `LAYOUT` system props.
 
 Read our [System Props](/system-props) doc page for a full list of available props.
 

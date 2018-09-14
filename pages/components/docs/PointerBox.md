@@ -10,6 +10,6 @@
 
 ## System props
 
-PointerBox components get 'LAYOUT' and 'COMMON' system props. Read our [System Props](/system-props) doc page for a full list of available props.
+PointerBox components get `LAYOUT` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 export const meta = {displayName: 'PointerBox'}
