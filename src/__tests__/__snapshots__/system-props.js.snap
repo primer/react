@@ -11,7 +11,6 @@ exports[`system props withSystemProps() applies multiple theme values 1`] = `
     Array [
       "css",
       "fontFamily",
-      "font",
       "m",
       "mt",
       "mr",
