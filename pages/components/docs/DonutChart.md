@@ -14,4 +14,11 @@
 
 DonutChart components get `space` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
+## Component props
+
+| Prop name | Type | Description |
+| :- | :- | :- |
+| data | Object | Use the keys `error`, `pending`, and `success` to set values used to generate slices in the chart |
+| size | Number | Used to set the width and height of the component
+
 export const meta = {displayName: 'DonutChart'}
