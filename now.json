@@ -1,5 +1,6 @@
 {
   "files": [
+    "css.js",
     "next.config.js",
     "pages",
     "src"
