@@ -55,7 +55,7 @@ export default () => (
 If you can't use React to render your document shell server-side, you have two other options:
 
 1. Include `node_modules/primer-react/dist/css/build.css` by copying or other means.
-1. `import {BaseCSS: {css}} from 'primer-react'` and output the `css` string directly.
+1. `import {BaseCSS} from 'primer-react'` and output the `BaseCSS.css` CSS string directly.
 
 #### Static CSS rendering
 
