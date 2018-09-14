@@ -14,14 +14,8 @@ const css = preval`
   module.exports = css.toString()
 `
 
-export {css}
-
-export default function BaseCSS({children}) {
-  // FIXME: {...rest} throws errors in styled-jsx ?
-  return (
-    <style>
-      {css}
-      {children}
-    </style>
-  )
+export default function BaseCSS() {
+  return <style name="primer">{css}</style>
 }
+
+BaseCSS.css = css
