@@ -1,5 +1,6 @@
 # DonutChart
 
+## Default example
 ```.jsx
 <DonutChart mr={1} data={{error: 2, pending: 3, success: 5}} />
 <DonutChart mr={1}>
@@ -11,6 +12,6 @@
 
 ## System props
 
-Details components get `space` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+DonutChart components get `space` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 export const meta = {displayName: 'DonutChart'}
