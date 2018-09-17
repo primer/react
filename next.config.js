@@ -22,8 +22,11 @@ module.exports = withPlugins([sass, mdx], {
     for (const plugin of config.plugins) {
       // duck type: is this an UglifyJS plugin?
       if (plugin.options && plugin.options.uglifyOptions) {
+        /* eslint-disable camelcase, no-console */
         console.warn('*** disabling mangling in UglifyJS plugin ***')
-        plugin.options.uglifyOptions.mangle = false
+        plugin.options.uglifyOptions.compress = {keep_fnames: true}
+        plugin.options.uglifyOptions.mangle.keep_fnames = true
+        /* eslint-enable camelcase, no-console */
       }
     }
     return config
