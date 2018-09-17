@@ -12,5 +12,20 @@ module.exports = withPlugins([sass, mdx], {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   sassLoaderOptions: {
     includePaths: ['node_modules']
+  },
+
+  webpack(config, {dev}) {
+    // we only care about disabling mangling in production
+    if (dev) {
+      return config
+    }
+    for (const plugin of config.plugins) {
+      // duck type: is this an UglifyJS plugin?
+      if (plugin.options && plugin.options.uglifyOptions) {
+        console.warn('*** disabling mangling in UglifyJS plugin ***')
+        plugin.options.uglifyOptions.mangle = false
+      }
+    }
+    return config
   }
 })
