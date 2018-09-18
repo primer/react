@@ -21,7 +21,7 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
-          <title>primer-react</title>
+          <title>Primer Components</title>
           <meta charSet="utf8" />
           <link rel="icon" href={asset('/static/assets/favicon.png')} />
           <link rel="apple-touch-icon" href={asset('/static/assets/apple-touch-icon.png')} />
