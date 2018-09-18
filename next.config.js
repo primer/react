@@ -12,5 +12,23 @@ module.exports = withPlugins([sass, mdx], {
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   sassLoaderOptions: {
     includePaths: ['node_modules']
+  },
+
+  webpack(config, {dev}) {
+    // we only care about disabling mangling in production
+    if (dev) {
+      return config
+    }
+    for (const plugin of config.plugins) {
+      // duck type: is this an UglifyJS plugin?
+      if (plugin.options && plugin.options.uglifyOptions) {
+        /* eslint-disable camelcase, no-console */
+        console.warn('*** disabling mangling in UglifyJS plugin ***')
+        plugin.options.uglifyOptions.compress = {keep_fnames: true}
+        plugin.options.uglifyOptions.mangle.keep_fnames = true
+        /* eslint-enable camelcase, no-console */
+      }
+    }
+    return config
   }
 })

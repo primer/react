@@ -48,7 +48,6 @@
     "system-components": "2.2.3"
   },
   "devDependencies": {
-    "@compositor/kit": "^1.0.43",
     "@mdx-js/loader": "0.15.0",
     "@mdx-js/mdx": "0.15.0",
     "@mdx-js/tag": "0.15.0",
