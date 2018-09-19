@@ -18,14 +18,21 @@ import * as docComponents from './doc-components'
 import '../src/primer-react.scss'
 
 const {SideNav, Header, customTheme} = docComponents
-const {Box, FlexContainer} = primerComponents
+const {Box, FlexContainer, Link} = primerComponents
 
-const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
+const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
   return map
 }, {})
 
-const components = {...primerComponents, ...docComponents, Octicon, ...iconsObject}
+const components = {
+  ...primerComponents,
+  ...docComponents,
+  ...iconComponents,
+  Octicon,
+  // render links with our component
+  a: Link
+}
 
 export default class MyApp extends App {
   static async getInitialProps({Component, ctx}) {
