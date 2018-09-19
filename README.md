@@ -35,51 +35,54 @@ import {
 
 This project uses [emotion] to generate static CSS for most component styles, but still relies on [Primer CSS] for some classname-based styles that haven't yet been ported over.
 
-To ensure proper styling of all Primer components, you'll need to include an instance of the `BaseCSS` component from `@primer/components/css` (note the `/css` at the end!) somewhere in your document's `<head>`:
+To ensure proper styling of all Primer components, you'll need to include some static CSS that's distributed with the `@primer/components` npm package in `dist/primer-components.css`. Here's how:
 
-```jsx
-import BaseCSS from '@primer/components/css'
-import {Heading} from '@primer/components'
-
-export default () => (
-  <html>
-    <head>
-      <BaseCSS />
-    </head>
-    <body>
-      <Heading is="h1">Primer!</Heading>
-    </body>
-  </html>
-)
-```
-
-If you can't use React to render your document server-side, you have some other options:
-
-1. If you're using a JavaScript bundler that supports CSS imports, such as webpack:
+1. If you're using a JavaScript bundler that supports CSS imports, you can import it in your bundles directly:
 
     ```js
     import '@primer/components/dist/css/build.css'
     ```
     
-2. Import the raw CSS as a string:
-
-    ```js
-    import {css} from '@primer/components/css'
-    // or
-    const {css} = require('@primer/components/css')
-    ```
-    
-    Then output it client-side by injecting a `<style>` element:
+    If you're using webpack, you'll need to install [style-loader](https://github.com/webpack-contrib/style-loader) and  configure webpack to use it for imports ending in '.css', e.g.
     
     ```js
-    const style = document.createElement('style')
-    style.textContent = css
-    document.head.appendChild(style)
+    {
+      module: {
+        rules: [
+          {
+            test: /\.css$/,
+            use: 'style-loader'
+          }
+        ]
+      }
+    }
+    ```
+
+1. If you run a Node server, you can read the file from disk at startup:
+
+    ```jsx
+    const {readFileSync} = require('fs')
+    const cssPath = require.resolve('@primer/components/dist/primer-components.css')
+    const css = readFileSync(cssPath, 'utf8')
     ```
     
-    Or render it in your server-side template, preferably within your document's `<head>`.
-
-3. For fully static sites, copy `node_modules/@primer/components/dist/css/build.css` (after running `npm install --save @primer/components`) to your site directory, e.g.
+    Then, inline it into the `<head>` of your HTML template(s) or render it server-side in React like so:
+    
+    ```jsx
+    // assuming the `css` variable is set as above
+    export default () => (
+      <html>
+        <head>
+          <style>{css}</style>
+        </head>
+        <body>
+          ...
+        </body>
+      </html>
+    )
+    ```
+    
+3. For fully static apps, you may need to copy `node_modules/@primer/components/dist/css/build.css` (after running `npm install --save @primer/components`) to your site directory, e.g.
 
     ```sh
     cp node_modules/@primer/components/dist/css/build.css assets/primer-components.css
@@ -88,7 +91,7 @@ If you can't use React to render your document server-side, you have some other 
     Then link to it within the `<head>` of your HTML document(s):
     
     ```html
-    <link rel="stylesheet" href="/static/primer-components.css">
+    <link rel="stylesheet" href="/assets/primer-components.css">
     ```
 
 #### Static CSS rendering
