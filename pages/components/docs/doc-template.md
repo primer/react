@@ -1,4 +1,4 @@
-
+<!--
 # [Component Name]
 
 [General description of component]
@@ -21,4 +21,4 @@
 
 export const meta = {
   displayName: [display name]
-}
+} -->
