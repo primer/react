@@ -7,7 +7,7 @@ const IndexImage = () => {
     assetPrefix = nowData.assetPrefix
   }
   const asset = path => assetPrefix + path
-  return <img alt="" src={asset('/static/assets/primer-components.png')} />
+  return <img alt="" src={asset('/static/assets/primer-components.svg')} />
 }
 
 export default IndexImage
