@@ -10,17 +10,17 @@ Currently we link to the latest build of [Primer CSS] so that we may use current
 
 ## Installation
 
-Install primer-react in your project with npm:
+Install @primer/components in your project with npm:
 
 ```
-npm install primer-react
+npm install @primer/components
 ```
 
 ## Usage
 
 **If you are upgrading from a version before `1.0.0-beta`, please read the [migration docs](migrating.md).**
 
-All of our components are exported by name from `primer-react`, so you can import them with:
+All of our components are exported by name from `@primer/components`, so you can import them with:
 
 ```js
 import {
@@ -28,7 +28,7 @@ import {
   Button,
   Heading,
   Text
-} from 'primer-react'
+} from '@primer/components'
 ```
 
 ### Styling
@@ -52,9 +52,9 @@ To ensure proper styling, you'll need to link to the most recent build of [Prime
 
 ## Local Development
 
-To run `primer-react` locally when adding or updating components:
+To run `@primer/components` locally when adding or updating components:
 
-1. Clone this repo: `git clone https://github.com/primer/primer-react`
+1. Clone this repo: `git clone https://github.com/primer/components`
 1. Install dependencies: `npm install`
 1. Run the dev app: `npm run dev`
 

@@ -1,5 +1,5 @@
 {
-  "name": "primer-react",
+  "name": "@primer/components",
   "version": "2.0.4-beta",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
@@ -16,7 +16,7 @@
     "test": "jest",
     "watch": "jest --watch --no-coverage"
   },
-  "repository": "primer/primer-react",
+  "repository": "primer/components",
   "keywords": [
     "react",
     "components",
