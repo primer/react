@@ -3,5 +3,6 @@
     "next.config.js",
     "pages",
     "src"
-  ]
+  ],
+  "name": "primer-components"
 }
