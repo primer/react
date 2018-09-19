@@ -98,7 +98,7 @@ To ensure proper styling of all Primer components, you'll need to include some s
 
 Some Primer components rendered client-side may produce a [flash of unstyled content]. You can avoid this by using one of the above techniques and following the instructions for [Emotion server-side rendering](https://emotion.sh/docs/ssr).
 
-This repo's [Next.js document component](https://github.com/primer/components/blob/master/pages/_document.js) illustrates how to combine `BaseCSS` with `emotion-server` in for fully server-rendered CSS in [Next.js](https://github.com/zeit/next.js).
+This repo's [Next.js document component](https://github.com/primer/components/blob/master/pages/_document.js) illustrates how to combine inlining the static CSS with `emotion-server` for fully server-rendered CSS in [Next.js](https://github.com/zeit/next.js).
 
 ## Local Development
 
