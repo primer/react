@@ -79,6 +79,7 @@
     "next-compose-plugins": "2.1.1",
     "node-sass": "4.9.3",
     "primer-module-build": "1.0.5",
+    "raw-loader": "0.5.1",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.3.2",
     "rollup": "0.62.0",

@@ -16,6 +16,12 @@ module.exports = withPlugins([
   },
 
   webpack(config, {dev}) {
+    // load primer-components.css as raw
+    config.module.rules.push({
+      test: /\.css$/,
+      use: 'raw-loader'
+    })
+
     // we only care about disabling mangling in production
     if (dev) {
       return config
