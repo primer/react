@@ -33,13 +33,13 @@ import {
 
 ### Styling
 
-This project uses [emotion] under the hood to generate static CSS from _some_ component styles, but still relies on [Primer CSS] for some component styles that haven't yet been ported over.
+This project uses [emotion] to generate static CSS for most component styles, but still relies on [Primer CSS] for some classname-based styles that haven't yet been ported over.
 
-To ensure proper styling, you'll need to include an instance of the `BaseCSS` component somewhere in your document (preferably inside the `<head>`):
+To ensure proper styling of all Primer components, you'll need to include an instance of the `BaseCSS` component from `@primer/components/css` (note the `/css` at the end!) somewhere in your document's `<head>`:
 
 ```jsx
-import BaseCSS from 'primer-react/css'
-import {Heading} from 'primer-react'
+import BaseCSS from '@primer/components/css'
+import {Heading} from '@primer/components'
 
 export default () => (
   <html>
@@ -53,14 +53,39 @@ export default () => (
 )
 ```
 
-If you can't use React to render your document shell server-side, you have two other options:
+If you can't use React to render your document server-side, you have some other options:
+
+1. If you're using a JavaScript bundler that supports CSS imports, such as webpack:
+
+    ```js
+    import '@primer/components/dist/css/build.css'
+    ```
+    
+2. Import the raw CSS as a string:
+
+    ```js
+    import {css} from '@primer/components/css'
+    // or
+    const {css} = require('@primer/components/css')
+    ```
+    
+    Then output it client-side by injecting a `<style>` element:
+    
+    ```js
+    const style = document.createElement('style')
+    style.textContent = css
+    document.head.appendChild(style)
+    ```
+    
+    Or render it in your server-side template, preferably within your document's `<head>`.
 
 1. Include `node_modules/primer-react/dist/css/build.css` by copying or other means.
-1. `import {css} from 'primer-react/css'` and output the `css` string directly.
 
 #### Static CSS rendering
 
-In the above case, component styles will be rendered at runtime (typically, in your client-side JavaScript bundle), which may produce a [flash of unstyled content]. See the [Emotion docs](https://emotion.sh/docs/ssr) for instructions on rendering the CSS server-side and render them in the `<head>` to avoid the flash.
+Some Primer components rendered client-side may produce a [flash of unstyled content]. You can avoid this by using one of the above techniques and following the instructions for [Emotion server-side rendering](https://emotion.sh/docs/ssr).
+
+This repo's [Next.js document component](https://github.com/primer/components/blob/master/pages/_document.js) illustrates how to combine `BaseCSS` with `emotion-server` in for fully server-rendered CSS in [Next.js](https://github.com/zeit/next.js).
 
 ## Local Development
 
