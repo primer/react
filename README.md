@@ -79,7 +79,17 @@ If you can't use React to render your document server-side, you have some other 
     
     Or render it in your server-side template, preferably within your document's `<head>`.
 
-1. Include `node_modules/primer-react/dist/css/build.css` by copying or other means.
+3. For fully static sites, copy `node_modules/@primer/components/dist/css/build.css` (after running `npm install --save @primer/components`) to your site directory, e.g.
+
+    ```sh
+    cp node_modules/@primer/components/dist/css/build.css assets/primer-components.css
+    ```
+    
+    Then link to it within the `<head>` of your HTML document(s):
+    
+    ```html
+    <link rel="stylesheet" href="/static/primer-components.css">
+    ```
 
 #### Static CSS rendering
 
