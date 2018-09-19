@@ -1,6 +1,7 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
-import BaseCSS from '../css'
+// this relies on the raw-loader rule in next.config.js's webpack()
+import baseCSS from '../dist/primer-components.css'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
 
@@ -30,8 +31,8 @@ export default class MyDocument extends Document {
           <meta charSet="utf8" />
           <link rel="icon" href={asset('/static/assets/favicon.png')} />
           <link rel="apple-touch-icon" href={asset('/static/assets/apple-touch-icon.png')} />
-          <BaseCSS />
-          <style data-emotion>{css}</style>
+          <style id="primer-components">{baseCSS}</style>
+          <style id="emotion-static">{css}</style>
           {styles}
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="og:title" content="Primer React" />
