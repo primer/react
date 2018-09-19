@@ -5,6 +5,7 @@
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "scripts": {
+    "predev": "npm run dist:css",
     "dev": "next dev",
     "prebuild": "npm run dist:css",
     "build": "next build",
