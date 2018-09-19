@@ -6,11 +6,14 @@ body {
   margin: 0;
 }
 
+table {
+  border-collapse: collapse;
+}
+
 @import "primer-buttons/index.scss";
 @import "primer-forms/index.scss";
 @import "primer-layout/index.scss";
 @import "primer-navigation/index.scss";
 @import "primer-product/index.scss";
-@import "primer-tables/index.scss";
 @import "primer-tooltips/index.scss";
 @import "primer-utilities/index.scss";
