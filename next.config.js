@@ -16,7 +16,7 @@ module.exports = withPlugins([
   },
 
   webpack(config, {dev}) {
-    // load primer-components.css as raw
+    // load primer-components.css as raw string
     config.module.rules.push({
       test: /\.css$/,
       use: 'raw-loader'
