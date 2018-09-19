@@ -61,7 +61,7 @@ With a couple of exceptions, all components should be created by the `withSystem
 ```jsx
 import {withSystemProps, POSITION} from './system-props'
 
-function Component(props) { 
+function Component(props) {
   /* implementation */
 }
 
@@ -184,10 +184,10 @@ Once you're logged in, sync your local git repo with the `master` branch and run
 script/deploy
 ```
 
-This will create a new deployment and alias it to its production URL, [primer-react.now.sh](https://primer-react.now.sh).
+This will create a new deployment and alias it to its production URL, [primer-components.now.sh](https://primer-components.now.sh).
 
 ### Path aliasing
-This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you deploy this one to `primer-react.now.sh`.
+This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you deploy this one to `primer-components.now.sh`.
 
 
 ## Glossary
