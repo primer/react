@@ -173,7 +173,7 @@ In this case, you will need to deal explicitly with two props passed down from [
 
 ## Writing documentation
 
-We use [Next.js]() and [MDX Docs]() to power our documentation site at [https://primer.style/components](https://primer.style/components/).
+We use [Next.js](https://github.com/zeit/next.js/) and [MDX Docs](https://github.com/jxnblk/mdx-docs/) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
 
 To add a new component to our documentation site:
 
