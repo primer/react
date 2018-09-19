@@ -63,8 +63,6 @@
     "@zeit/next-mdx": "1.1.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
-    "babel-plugin-macros": "2.4.0",
-    "babel-plugin-preval": "3.0.1",
     "enzyme": "3.5.1",
     "enzyme-adapter-react-16": "1.5.0",
     "eslint": "4.19.1",
