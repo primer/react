@@ -2,6 +2,7 @@
   "files": [
     "next.config.js",
     "pages",
-    "src"
+    "src",
+    "static/assets"
   ]
 }
