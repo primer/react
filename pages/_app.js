@@ -50,7 +50,7 @@ export default class MyApp extends App {
               <SideNav />
               <Box width={'100%'}>
                 <IndexHero />
-                <Box maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
                   <Component {...page} />
                 </Box>
               </Box>
@@ -65,7 +65,7 @@ export default class MyApp extends App {
           <Header />
           <FlexContainer>
             <SideNav />
-            <Box maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+            <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
               <Component {...page} />
             </Box>
           </FlexContainer>
