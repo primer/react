@@ -40,6 +40,16 @@ export default class MyApp extends App {
 
   render() {
     const {Component, page} = this.props
+    if (this.props.router.pathname === '/') {
+      return (
+        <Container>
+          <Layout routes={[]} theme={customTheme}>
+          <Header />
+            <Component {...page} />
+          </Layout>
+        </Container>
+      )
+    }
     return (
       <Container>
         <Layout components={components} routes={[]} theme={customTheme}>
