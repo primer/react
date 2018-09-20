@@ -13,9 +13,9 @@ const styledLink = styled(Link)`
   ${color};
 `
 
-function textDecoration({nounderline}) {
+function textDecoration({underline}) {
   return {
-    textDecoration: nounderline ? 'none' : 'underline'
+    textDecoration: underline ? 'underline' : 'none'
   }
 }
 
@@ -41,7 +41,7 @@ function Link({children, className, ...rest}) {
 Link.propTypes = {
   href: PropTypes.string,
   muted: PropTypes.bool,
-  nounderline: PropTypes.bool,
+  underline: PropTypes.bool,
   scheme: PropTypes.oneOf(['gray', 'gray-dark'])
 }
 
