@@ -1,8 +1,9 @@
 const withPlugins = require('next-compose-plugins')
-const sass = require('@zeit/next-sass')
-const mdx = require('@zeit/next-mdx')({extension: /\.mdx?$/})
+const mdx = require('@zeit/next-mdx')
 
-module.exports = withPlugins([sass, mdx], {
+module.exports = withPlugins([
+  mdx({extension: /\.mdx?$/})
+], {
   /*
    * Note: Prefixing assets with the fully qualified deployment URL
    * makes them available even when the site is served from a path alias, as in
@@ -15,6 +16,12 @@ module.exports = withPlugins([sass, mdx], {
   },
 
   webpack(config, {dev}) {
+    // load primer-components.css as raw string
+    config.module.rules.push({
+      test: /\.css$/,
+      use: 'raw-loader'
+    })
+
     // we only care about disabling mangling in production
     if (dev) {
       return config
