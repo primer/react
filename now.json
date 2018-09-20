@@ -1,4 +1,5 @@
 {
+  "name": "primer-components",
   "files": [
     "next.config.js",
     "pages",

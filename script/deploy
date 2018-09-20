@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-deployment="${1:-primer-react.now.sh}"
+deployment="${1:-primer-components.now.sh}"
 now
 now alias $deployment
 now scale $deployment 1
