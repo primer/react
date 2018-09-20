@@ -5,7 +5,7 @@ import {Text, FlexContainer, Link, Box, Sticky} from '../../src'
 
 const Header = () => (
   <Sticky zIndex={100}>
-    <Box py={3} bg="black" color="white">
+    <Box py={3} bg="gray.9" color="white">
       <FlexContainer className="p-responsive" alignItems="center" justifyContent="space-between">
         <NextLink href="/components">
           <Link ml={3} className="text-white" nounderline href="/components">
