@@ -26,7 +26,7 @@ module.exports = withPlugins([
     if (optimization && Array.isArray(optimization.minimizer)) {
       const terserPlugin = optimization.minimizer[0]
       /* eslint-disable camelcase, no-console */
-      console.warn('*** disabling mangling in Terser plugin ***')
+      console.warn('*** disabling function mangling in Terser plugin ***')
       terserPlugin.options.terserOptions = {
         keep_fnames: true
       }
