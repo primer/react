@@ -1,7 +1,7 @@
 import React from 'react'
 import Donut from '../Donut'
 import theme, {colors} from '../theme'
-import {render, renderWithTheme} from '../utils/testing'
+import {render} from '../utils/testing'
 
 const {state} = colors
 
