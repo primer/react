@@ -16,9 +16,9 @@ const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
 const DocLink = props => <Link nounderline {...props} />
 
 const components = {
-  ...primerComponents,
-  ...docComponents,
   ...iconComponents,
+  ...docComponents,
+  ...primerComponents,
   Octicon,
   // render links with our component
   a: DocLink
