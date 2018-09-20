@@ -6,7 +6,7 @@ import {renderStyles} from '../utils/testing'
 
 const testProps = {
   OcticonButton: {icon: X, label: 'button'},
-  DonutChart: {data: {pending: 1}},
+  Donut: {data: {pending: 1}},
   MergeStatus: {state: 'ready'}
 }
 
