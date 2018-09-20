@@ -15,26 +15,22 @@ module.exports = withPlugins([
     includePaths: ['node_modules']
   },
 
-  webpack(config, {dev}) {
+  webpack(config) {
     // load primer-components.css as raw string
     config.module.rules.push({
       test: /\.css$/,
       use: 'raw-loader'
     })
 
-    // we only care about disabling mangling in production
-    if (dev) {
-      return config
-    }
-    for (const plugin of config.plugins) {
-      // duck type: is this an UglifyJS plugin?
-      if (plugin.options && plugin.options.uglifyOptions) {
-        /* eslint-disable camelcase, no-console */
-        console.warn('*** disabling mangling in UglifyJS plugin ***')
-        plugin.options.uglifyOptions.compress = {keep_fnames: true}
-        plugin.options.uglifyOptions.mangle.keep_fnames = true
-        /* eslint-enable camelcase, no-console */
+    const {optimization} = config
+    if (optimization && Array.isArray(optimization.minimizer)) {
+      const terserPlugin = optimization.minimizer[0]
+      /* eslint-disable camelcase, no-console */
+      console.warn('*** disabling mangling in Terser plugin ***')
+      terserPlugin.options.terserOptions = {
+        keep_fnames: true
       }
+      /* eslint-enable camelcase, no-console */
     }
     return config
   }
