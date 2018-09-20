@@ -8,7 +8,7 @@
     <MergeActions
       state="ready"
       numCommits={40}
-      desktopUrl="https://github.com/primer/primer-react"
+      desktopUrl="https://github.com/primer/components"
       onClick={() => console.log('clicked')}
     />
   </PointerBox>

@@ -1,8 +1,9 @@
 {
+  "name": "primer-components",
   "files": [
     "next.config.js",
     "pages",
-    "src"
-  ],
-  "name": "primer-components"
+    "src",
+    "static/assets"
+  ]
 }
