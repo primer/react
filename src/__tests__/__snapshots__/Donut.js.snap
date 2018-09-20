@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DonutChart renders DonutSlice children 1`] = `
+exports[`Donut renders Donut.Slice children 1`] = `
 <svg
   className="emotion-0"
   height={30}
@@ -23,7 +23,7 @@ exports[`DonutChart renders DonutSlice children 1`] = `
 </svg>
 `;
 
-exports[`DonutChart renders a single DonutSlice child 1`] = `
+exports[`Donut renders a single Donut.Slice child 1`] = `
 <svg
   className="emotion-0"
   height={30}
@@ -41,7 +41,7 @@ exports[`DonutChart renders a single DonutSlice child 1`] = `
 </svg>
 `;
 
-exports[`DonutChart renders the data prop 1`] = `
+exports[`Donut renders the data prop 1`] = `
 <svg
   className="emotion-0"
   height={30}

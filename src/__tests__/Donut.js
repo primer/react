@@ -1,16 +1,17 @@
 import React from 'react'
-import DonutChart from '../DonutChart'
-import DonutSlice from '../DonutSlice'
+import Donut from '../Donut'
 import theme, {colors} from '../theme'
-import {render} from '../utils/testing'
+import {render, renderWithTheme} from '../utils/testing'
 
-describe('DonutChart', () => {
+const {state} = colors
+
+describe('Donut', () => {
   it('is a system component', () => {
-    expect(DonutChart.systemComponent).toEqual(true)
+    expect(Donut.systemComponent).toEqual(true)
   })
 
   it('renders the data prop', () => {
-    const donut = render(<DonutChart data={{error: 1}} />)
+    const donut = render(<Donut data={{error: 1}} />)
     expect(donut).toMatchSnapshot()
 
     expect(donut.type).toEqual('svg')
@@ -27,12 +28,12 @@ describe('DonutChart', () => {
     // expect(slice.props.fill).toEqual(colors.state.error)
   })
 
-  it('renders DonutSlice children', () => {
+  it('renders Donut.Slice children', () => {
     const donut = render(
-      <DonutChart>
-        <DonutSlice state="success" value={1} />
-        <DonutSlice state="failure" value={1} />
-      </DonutChart>
+      <Donut>
+        <Donut.Slice state="success" value={1} />
+        <Donut.Slice state="failure" value={1} />
+      </Donut>
     )
     expect(donut).toMatchSnapshot()
     expect(donut.children).toHaveLength(1)
@@ -43,21 +44,42 @@ describe('DonutChart', () => {
     expect(slices[1].props.fill).toEqual(colors.state.failure)
   })
 
-  it('renders a single DonutSlice child', () => {
+  it('renders a single Donut.Slice child', () => {
     const donut = render(
-      <DonutChart>
-        <DonutSlice state="success" value={1} />
-      </DonutChart>
+      <Donut>
+        <Donut.Slice state="success" value={1} />
+      </Donut>
     )
     expect(donut).toMatchSnapshot()
     expect(donut.type).toEqual('svg')
   })
 
   it('respects margin utility prop', () => {
-    expect(render(<DonutChart m={4} data={{error: 1}} />)).toHaveStyleRule('margin', `${theme.space[4]}px`)
+    expect(render(<Donut m={4} data={{error: 1}} />)).toHaveStyleRule('margin', `${theme.space[4]}px`)
   })
 
   it('respects padding utility prop', () => {
-    expect(render(<DonutChart p={4} data={{error: 1}} />)).toHaveStyleRule('padding', `${theme.space[4]}px`)
+    expect(render(<Donut p={4} data={{error: 1}} />)).toHaveStyleRule('padding', `${theme.space[4]}px`)
+  })
+
+  describe('Donut.Slice', () => {
+    it('renders known states as colors', () => {
+      expect(render(<Donut.Slice state="error" />).props.fill).toEqual(state.error)
+      expect(render(<Donut.Slice state="pending" />).props.fill).toEqual(state.pending)
+      expect(render(<Donut.Slice state="success" />).props.fill).toEqual(state.success)
+      expect(render(<Donut.Slice state="unknown" />).props.fill).toEqual(state.unknown)
+    })
+
+    it('renders unknown states with theme.colors.state.unknown', () => {
+      expect(render(<Donut.Slice state="xyz" />).props.fill).toEqual(state.unknown)
+    })
+
+    it('renders the fallback color when no state color is found in the theme', () => {
+      expect(render(<Donut.Slice state="error" theme={{}} />).props.fill).toEqual('#666')
+    })
+
+    it('respects the fill attribute', () => {
+      expect(render(<Donut.Slice fill="pink" />).props.fill).toEqual('pink')
+    })
   })
 })
