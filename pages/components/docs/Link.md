@@ -16,7 +16,7 @@ Link components get `COMMON` system props. Read our [System Props](/system-props
 | :- | :- | :- |
 | href | String | URL to be used for the Link |
 | muted | Boolean | Applies a gray text color to the Link |
-| nounderline | Boolean | Removes underline from the Link |
+| underline | Boolean | Adds underline to the Link |
 | scheme | String | Can be `gray` or `gray-dark`, sets the text color accordingly. |
 
 export const meta = {displayName: 'Link'}
