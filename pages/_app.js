@@ -6,7 +6,9 @@ import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
 
-const {publicRuntimeConfig: {pageMap}} = getConfig()
+const {
+  publicRuntimeConfig: {pageMap}
+} = getConfig()
 const {SideNav, Header, customTheme} = docComponents
 const {Box, FlexContainer, Link, Text} = primerComponents
 
@@ -42,6 +44,7 @@ export default class MyApp extends App {
     const {pathname} = this.props.router
     const filename = pageMap[pathname]
     if (!filename) {
+      // eslint-disable-next-line no-console
       console.warn(`pathname "${pathname}" doesn't exist in pageMap:`, pageMap)
     }
     const {Component, page} = this.props
@@ -58,7 +61,10 @@ export default class MyApp extends App {
                   <Text mr={2}>
                     <Octicon icon={Pencil} />
                   </Text>
-                  <DocLink muted href={`${editLinkBase}${filename}`}>Edit this page</DocLink> on GitHub
+                  <DocLink muted href={`${editLinkBase}${filename}`}>
+                    Edit this page
+                  </DocLink>{' '}
+                  on GitHub
                 </Box>
               )}
             </Box>
