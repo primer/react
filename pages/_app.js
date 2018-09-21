@@ -18,7 +18,7 @@ import * as docComponents from './doc-components'
 import '../src/primer-react.scss'
 
 const {SideNav, Header, IndexHero, customTheme} = docComponents
-const {Box, FlexContainer, Heading, Text} = primerComponents
+const {Box, FlexContainer} = primerComponents
 
 const iconsObject = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
