@@ -41,32 +41,19 @@ export default class MyApp extends App {
   render() {
     const { pathname } = this.props.router
     const {Component, page} = this.props
-    if (pathname === '/' || pathname === '/components') {
-      return (
-        <Container>
-          <Layout routes={[]} theme={customTheme}>
-          <Header />
-            <FlexContainer>
-              <SideNav />
-              <Box width={'100%'}>
-                <IndexHero />
-                <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-                  <Component {...page} />
-                </Box>
-              </Box>
-            </FlexContainer>
-          </Layout>
-        </Container>
-      )
-    }
+    const isIndex = pathname === '/' || pathname === '/components'
+
     return (
       <Container>
         <Layout components={components} routes={[]} theme={customTheme}>
           <Header />
           <FlexContainer>
             <SideNav />
-            <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-              <Component {...page} />
+            <Box width="100%">
+              {isIndex && <IndexHero />}
+              <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                <Component {...page} />
+              </Box>
             </Box>
           </FlexContainer>
         </Layout>
