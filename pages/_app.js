@@ -5,7 +5,7 @@ import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
 
-const {SideNav, Header, customTheme} = docComponents
+const {SideNav, Header, IndexHero, customTheme} = docComponents
 const {Box, FlexContainer, Link} = primerComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
@@ -36,15 +36,21 @@ export default class MyApp extends App {
   }
 
   render() {
+    const {pathname} = this.props.router
     const {Component, page} = this.props
+    const isIndex = pathname === '/' || pathname === '/components'
+
     return (
       <Container>
         <Layout components={components} routes={[]} theme={customTheme}>
           <Header />
           <FlexContainer>
             <SideNav />
-            <Box maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-              <Component {...page} />
+            <Box width="100%">
+              {isIndex && <IndexHero />}
+              <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                <Component {...page} />
+              </Box>
             </Box>
           </FlexContainer>
         </Layout>
