@@ -7,9 +7,10 @@ const config = {
   required: [
     'dist/index.esm.js',
     'dist/index.umd.js',
+    'dist/primer-components.css',
     'src/index.js',
     'src/system-props.js',
-    'src/primer-react.scss'
+    'src/primer-components.scss'
   ],
   missing: [
     'pages',
