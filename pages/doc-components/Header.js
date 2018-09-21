@@ -1,11 +1,12 @@
 import React from 'react'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
-import {Text, FlexContainer, Link, Box, Sticky} from '../../src'
+import BoxShadow from './BoxShadow'
+import {Text, FlexContainer, Link, Sticky} from '../../src'
 
 const Header = () => (
   <Sticky zIndex={100}>
-    <Box py={3} bg="black" color="white">
+    <BoxShadow py={3} bg="gray.9" color="white">
       <FlexContainer className="p-responsive" alignItems="center" justifyContent="space-between">
         <NextLink href="/components">
           <Link ml={3} className="text-white" nounderline href="/components">
@@ -28,7 +29,7 @@ const Header = () => (
           </NextLink>
         </div>
       </FlexContainer>
-    </Box>
+    </BoxShadow>
   </Sticky>
 )
 

@@ -28,12 +28,12 @@ This release also introduces early support for [theming](#theming).
 ### Theming
 Theming is an optional way to override the values that control color, spacing, typography, and other aspects of our components.
 
-There are two ways to change the theme of primer-react components:
+There are two ways to change the theme of @primer/components components:
 
 1. You can override the theme for an entire tree of components using the `<ThemeProvider>` from [emotion-theming]:
 
     ```jsx
-    import {Block, Button, Text, theme as primer} from 'primer-react'
+    import {Block, Button, Text, theme as primer} from '@primer/components'
     import {ThemeProvider} from 'emotion-theming'
 
     // a theme with custom spacing and font sizes
@@ -60,7 +60,7 @@ There are two ways to change the theme of primer-react components:
 1. You can theme individual components by passing the `theme` prop directly:
 
     ```jsx
-    import {Text} from 'primer-react'
+    import {Text} from '@primer/components'
 
     const theme = {
       colors: {

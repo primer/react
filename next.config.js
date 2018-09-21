@@ -1,8 +1,9 @@
 const withPlugins = require('next-compose-plugins')
-const sass = require('@zeit/next-sass')
-const mdx = require('@zeit/next-mdx')({extension: /\.mdx?$/})
+const mdx = require('@zeit/next-mdx')
 
-module.exports = withPlugins([sass, mdx], {
+module.exports = withPlugins([
+  mdx({extension: /\.mdx?$/})
+], {
   /*
    * Note: Prefixing assets with the fully qualified deployment URL
    * makes them available even when the site is served from a path alias, as in
@@ -14,20 +15,22 @@ module.exports = withPlugins([sass, mdx], {
     includePaths: ['node_modules']
   },
 
-  webpack(config, {dev}) {
-    // we only care about disabling mangling in production
-    if (dev) {
-      return config
-    }
-    for (const plugin of config.plugins) {
-      // duck type: is this an UglifyJS plugin?
-      if (plugin.options && plugin.options.uglifyOptions) {
-        /* eslint-disable camelcase, no-console */
-        console.warn('*** disabling mangling in UglifyJS plugin ***')
-        plugin.options.uglifyOptions.compress = {keep_fnames: true}
-        plugin.options.uglifyOptions.mangle.keep_fnames = true
-        /* eslint-enable camelcase, no-console */
+  webpack(config) {
+    // load primer-components.css as raw string
+    config.module.rules.push({
+      test: /\.css$/,
+      use: 'raw-loader'
+    })
+
+    const {optimization} = config
+    if (optimization && Array.isArray(optimization.minimizer)) {
+      const terserPlugin = optimization.minimizer[0]
+      /* eslint-disable camelcase, no-console */
+      console.warn('*** disabling function mangling in Terser plugin ***')
+      terserPlugin.options.terserOptions = {
+        keep_fnames: true
       }
+      /* eslint-enable camelcase, no-console */
     }
     return config
   }
