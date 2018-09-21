@@ -36,7 +36,7 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { pathname } = this.props.router
+    const {pathname} = this.props.router
     const {Component, page} = this.props
     const isIndex = pathname === '/' || pathname === '/components'
 
