@@ -1,5 +1,10 @@
 const withPlugins = require('next-compose-plugins')
 const mdx = require('@zeit/next-mdx')
+const {join} = require('path')
+const getPageMap = require('next-page-map')
+
+const pageExtensions = ['js', 'jsx', 'md', 'mdx']
+const pageMap = getPageMap(join(__dirname, 'pages'), pageExtensions)
 
 module.exports = withPlugins([
   mdx({extension: /\.mdx?$/})
@@ -10,9 +15,9 @@ module.exports = withPlugins([
    * <https://primer.style/components>
    */
   assetPrefix: process.env.NOW_URL,
-  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-  sassLoaderOptions: {
-    includePaths: ['node_modules']
+  pageExtensions,
+  publicRuntimeConfig: {
+    pageMap
   },
 
   webpack(config) {
