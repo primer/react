@@ -4,6 +4,7 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import baseCSS from '../dist/primer-components.css'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
+import {getAssetPath} from './doc-components'
 
 export default class MyDocument extends Document {
   static getInitialProps({renderPage}) {
@@ -15,22 +16,15 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    const {
-      css,
-      styles,
-      // the assetPrefix is set in next.config.js
-      __NEXT_DATA__: {assetPrefix = ''}
-    } = this.props
-
-    const asset = path => assetPrefix + path
+    const {css, styles} = this.props
 
     return (
       <html lang="en">
         <Head>
           <title>Primer Components</title>
           <meta charSet="utf8" />
-          <link rel="icon" href={asset('/static/assets/favicon.png')} />
-          <link rel="apple-touch-icon" href={asset('/static/assets/apple-touch-icon.png')} />
+          <link rel="icon" href={getAssetPath('favicon.png')} />
+          <link rel="apple-touch-icon" href={getAssetPath('apple-touch-icon.png')} />
           <style id="primer-components">{baseCSS}</style>
           <style id="emotion-static">{css}</style>
           {styles}
