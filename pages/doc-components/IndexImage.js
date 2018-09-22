@@ -1,13 +1,6 @@
 import React from 'react'
+import {getAssetPath} from './_utils'
 
-const IndexImage = () => {
-  let assetPrefix = ''
-  const nowData = global.__NOW_DATA__
-  if (nowData) {
-    assetPrefix = nowData.assetPrefix
-  }
-  const asset = path => assetPrefix + path
-  return <img alt="" src={asset('/static/assets/primer-components.svg')} />
+export default function IndexImage() {
+  return <img alt="" src={getAssetPath('primer-components.svg')} />
 }
-
-export default IndexImage
