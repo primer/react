@@ -1,9 +1,15 @@
 import React from 'react'
 import App, {Container} from 'next/app'
 import {Layout} from 'mdx-docs'
+import {injectGlobal} from 'emotion'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
+
+injectGlobal(preval`
+  const render = require('../lib/render-sass')
+  module.exports = render('@import "primer-utilities/index.scss";')
+`)
 
 const {SideNav, Header, IndexHero, customTheme} = docComponents
 const {Box, FlexContainer, Link} = primerComponents
