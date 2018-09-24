@@ -87,9 +87,10 @@ export function getComputedStyles(className) {
   return computed
 
   function readRule(rule, dest) {
-    if (!rule.selectorText) {
+    const cleanSelector = rule.selectorText.replace(/::-(moz|ms|webkit)-([-a-z]+)/, '')
+    if (!cleanSelector) {
       // console.warn('no selector text:', rule)
-    } else if (div.matches(rule.selectorText)) {
+    } else if (div.matches(cleanSelector)) {
       const {style} = rule
       for (let i = 0; i < style.length; i++) {
         const prop = style[i]
