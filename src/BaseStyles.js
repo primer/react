@@ -3,10 +3,9 @@ import {injectGlobal} from 'emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
 
 injectGlobal(preval`
-  const render = require('../lib/render-sass.js')
+  const {renderFile} = require('../lib/render-sass.js')
   const path = require.resolve('./primer-components.scss')
-  const source = require('fs').readFileSync(path, 'utf8')
-  module.exports = render(source)
+  module.exports = renderFile(path)
 `)
 
 const BaseStyles = withSystemProps({
