@@ -2,7 +2,7 @@ import React from 'react'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
 import BoxShadow from './BoxShadow'
-import {Text, FlexContainer, Link, Sticky} from '../../src'
+import {Text, FlexContainer, Link, Sticky, Box, ButtonOutline} from '../../src'
 
 const Header = () => (
   <Sticky zIndex={100}>
@@ -16,7 +16,7 @@ const Header = () => (
             </FlexContainer>
           </Link>
         </NextLink>
-        <div>
+        <Box display={['none', 'block']}>
           <NextLink href="/components">
             <Link nounderline className="text-white" href="/components" px={4}>
               Docs
@@ -27,7 +27,12 @@ const Header = () => (
               Sandbox
             </Link>
           </NextLink>
-        </div>
+        </Box>
+        <Box display={['block', 'none']}>
+          <ButtonOutline bg="transparent" is="a" href="#sidenav">
+            Menu
+          </ButtonOutline>
+        </Box>
       </FlexContainer>
     </BoxShadow>
   </Sticky>

@@ -5,7 +5,16 @@ import * as docs from '../components/docs'
 
 const SideNav = () => (
   <Relative>
-    <Box width={256} height="100%" bg="gray.0" display="inline-block" borderRight={1} borderColor="gray.2">
+    <Box
+      width={['100%', '100%', 256, 256]}
+      height="100%"
+      bg="gray.0"
+      display="inline-block"
+      borderTop={[1, 1, 0, 0]}
+      borderRight={1}
+      borderColor="gray.2"
+      id="sidenav"
+    >
       <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/system-props">
           <Link nounderline scheme="gray-dark" href="/components/docs/system-props" m={0} mb={4}>

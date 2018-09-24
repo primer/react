@@ -44,14 +44,14 @@ export default class MyApp extends App {
       <Container>
         <Layout components={components} routes={[]} theme={customTheme}>
           <Header />
-          <FlexContainer>
-            <SideNav />
+          <FlexContainer display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
             <Box width="100%">
               {isIndex && <IndexHero />}
               <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
                 <Component {...page} />
               </Box>
             </Box>
+            <SideNav />
           </FlexContainer>
         </Layout>
       </Container>
