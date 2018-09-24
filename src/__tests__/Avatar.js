@@ -10,12 +10,12 @@ describe('Avatar', () => {
   })
 
   it('renders default props', () => {
-    expect(render(<Avatar />)).toMatchSnapshot()
+    expect(render(<Avatar alt="" />)).toMatchSnapshot()
   })
 
   it('renders small by default', () => {
     const size = 20
-    const result = render(<Avatar />)
+    const result = render(<Avatar alt="" />)
     expect(result.props.width).toEqual(size)
     expect(result.props.height).toEqual(size)
   })
@@ -27,14 +27,14 @@ describe('Avatar', () => {
   })
 
   it('respects isChild', () => {
-    expect(render(<Avatar isChild />)).toMatchSnapshot()
+    expect(render(<Avatar isChild alt="" />)).toMatchSnapshot()
   })
 
   it('passes through the src prop', () => {
-    expect(render(<Avatar src="primer.png" />).props.src).toEqual('primer.png')
+    expect(render(<Avatar src="primer.png" alt="" />).props.src).toEqual('primer.png')
   })
 
   it('respects margin props', () => {
-    expect(render(<Avatar m={2} />)).toHaveStyleRule('margin', px(theme.space[2]))
+    expect(render(<Avatar m={2} alt="" />)).toHaveStyleRule('margin', px(theme.space[2]))
   })
 })
