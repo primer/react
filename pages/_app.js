@@ -1,7 +1,6 @@
 import React from 'react'
 import App, {Container} from 'next/app'
 import {Layout} from 'mdx-docs'
-import {injectGlobal} from 'emotion'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'

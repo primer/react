@@ -110,7 +110,6 @@ export function getComputedStyles(className) {
     if (!selector) {
       return false
     }
-    let matches
     try {
       return div.matches(selector)
     } catch (error) {

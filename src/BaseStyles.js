@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+/* global preval */
 import {injectGlobal} from 'emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
 
@@ -8,12 +8,15 @@ injectGlobal(preval`
   module.exports = renderFile(path)
 `)
 
-const BaseStyles = withSystemProps({
-  is: 'div',
-  color: 'gray.9',
-  fontFamily: 'normal',
-  lineHeight: 'default',
-  m: 0
-}, TYPOGRAPHY)
+const BaseStyles = withSystemProps(
+  {
+    is: 'div',
+    color: 'gray.9',
+    fontFamily: 'normal',
+    lineHeight: 'default',
+    m: 0
+  },
+  TYPOGRAPHY
+)
 
 export default BaseStyles
