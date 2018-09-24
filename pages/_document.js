@@ -5,8 +5,9 @@ import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
 
 const customCSS = preval`
-  const {renderSource} = require('../lib/render-sass')
-  module.exports = renderSource('@import "primer-utilities/index.scss";')
+  const {renderFile} = require('../lib/render-sass')
+  const path = require.resolve('./primer-custom.scss')
+  module.exports = renderFile(path)
 `
 
 export default class MyDocument extends Document {
