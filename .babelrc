@@ -3,6 +3,7 @@
     "next/babel"
   ],
   "plugins": [
+    "preval",
     "add-react-displayname"
   ],
   "env": {
