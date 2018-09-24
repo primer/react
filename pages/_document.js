@@ -3,17 +3,25 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
 
+const customCSS = preval`
+  const {renderSource} = require('../lib/render-sass')
+  module.exports = renderSource('@import "primer-utilities/index.scss";')
+`
+
 export default class MyDocument extends Document {
   static getInitialProps({renderPage}) {
     const sheet = new ServerStyleSheet()
     const page = renderPage(App => props => sheet.collectStyles(<App {...props} />))
-    const styles = (
-      <>
-        <style id="emotion-static">{extractCritical(page.html).css}</style>
-        {sheet.getStyleElement()}
-      </>
-    )
-    return {...page, styles}
+    return {
+      ...page,
+      styles: (
+        <>
+          <style id="primer-custom">{customCSS}</style>
+          <style id="emotion-static">{extractCritical(page.html).css}</style>
+          {sheet.getStyleElement()}
+        </>
+      )
+    }
   }
 
   render() {
