@@ -13,8 +13,7 @@ const BaseStyles = withSystemProps(
     is: 'div',
     color: 'gray.9',
     fontFamily: 'normal',
-    lineHeight: 'default',
-    m: 0
+    lineHeight: 'default'
   },
   TYPOGRAPHY
 )
