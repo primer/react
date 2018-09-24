@@ -11,17 +11,8 @@ module.exports = withPlugins([
    */
   assetPrefix: process.env.NOW_URL,
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-  sassLoaderOptions: {
-    includePaths: ['node_modules']
-  },
 
   webpack(config) {
-    // load primer-components.css as raw string
-    config.module.rules.push({
-      test: /\.css$/,
-      use: 'raw-loader'
-    })
-
     const {optimization} = config
     if (optimization && Array.isArray(optimization.minimizer)) {
       const terserPlugin = optimization.minimizer[0]
