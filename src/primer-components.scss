@@ -10,10 +10,23 @@ table {
   border-collapse: collapse;
 }
 
+@import "primer-support/index.scss";
+
+// Button
 @import "primer-buttons/index.scss";
+// TextInput
 @import "primer-forms/index.scss";
-@import "primer-layout/index.scss";
-@import "primer-navigation/index.scss";
-@import "primer-product/index.scss";
+// UnderlineNav
+@import "primer-navigation/lib/underline-nav.scss";
+// StateLabel
+@import "primer-labels/index.scss";
+// .markdown-body
+@import "primer-markdown/index.scss";
+// Flash
+@import "primer-alerts/index.scss";
+// Avatar
+@import "primer-avatars/index.scss";
+// BranchName
+@import "primer-branch-name/index.scss";
+// Tooltip
 @import "primer-tooltips/index.scss";
-@import "primer-utilities/index.scss";
