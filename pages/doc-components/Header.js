@@ -29,9 +29,19 @@ const Header = () => (
           </NextLink>
         </Box>
         <Box display={['block', 'none']}>
-          <ButtonOutline bg="transparent" is="a" href="#sidenav">
-            Menu
-          </ButtonOutline>
+          <Link nounderline href="#sidenav">
+            <Box
+              border={1}
+              py="6px"
+              px="12px"
+              borderRadius={3}
+              color="white"
+              borderColor="gray.6"
+              display="inline-block"
+            >
+              <Text fontWeight="600" fontSize={1}>Menu</Text>
+            </Box>
+          </Link>
         </Box>
       </FlexContainer>
     </BoxShadow>
