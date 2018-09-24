@@ -87,10 +87,7 @@ export function getComputedStyles(className) {
   return computed
 
   function readRule(rule, dest) {
-    const cleanSelector = rule.selectorText.replace(/::-(moz|ms|webkit)-([-a-z]+)/, '')
-    if (!cleanSelector) {
-      // console.warn('no selector text:', rule)
-    } else if (div.matches(cleanSelector)) {
+    if (matchesSafe(div, rule.selectorText)) {
       const {style} = rule
       for (let i = 0; i < style.length; i++) {
         const prop = style[i]
@@ -106,6 +103,18 @@ export function getComputedStyles(className) {
     const dest = computed[key] || (computed[key] = {})
     for (const rule of mediaRule.cssRules) {
       readRule(rule, dest)
+    }
+  }
+
+  function matchesSafe(node, selector) {
+    if (!selector) {
+      return false
+    }
+    let matches
+    try {
+      return div.matches(selector)
+    } catch (error) {
+      return false
     }
   }
 }
