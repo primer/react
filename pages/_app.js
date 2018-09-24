@@ -6,13 +6,8 @@ import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
 
-injectGlobal(preval`
-  const render = require('../lib/render-sass')
-  module.exports = render('@import "primer-utilities/index.scss";')
-`)
-
+const {BaseStyles, Box, FlexContainer, Link} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
-const {Box, FlexContainer, Link} = primerComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
@@ -47,20 +42,22 @@ export default class MyApp extends App {
     const isIndex = pathname === '/' || pathname === '/components'
 
     return (
-      <Container>
-        <Layout components={components} routes={[]} theme={customTheme}>
-          <Header />
-          <FlexContainer>
-            <SideNav />
-            <Box width="100%">
-              {isIndex && <IndexHero />}
-              <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-                <Component {...page} />
+      <BaseStyles>
+        <Container>
+          <Layout components={components} routes={[]} theme={customTheme}>
+            <Header />
+            <FlexContainer>
+              <SideNav />
+              <Box width="100%">
+                {isIndex && <IndexHero />}
+                <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                  <Component {...page} />
+                </Box>
               </Box>
-            </Box>
-          </FlexContainer>
-        </Layout>
-      </Container>
+            </FlexContainer>
+          </Layout>
+        </Container>
+      </BaseStyles>
     )
   }
 }
