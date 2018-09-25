@@ -4,7 +4,7 @@ import {withSystemProps, TYPOGRAPHY} from './system-props'
 import {colors} from './theme'
 
 const styledLink = styled('a')`
-  text-decoration: ${props => props.underline ? 'underline' : 'none'};
+  text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: underline;
     color: ${colors.blue[5]};
