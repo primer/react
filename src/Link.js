@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import {themeGet} from 'styled-system'
-import {withSystemProps, COMMON} from './system-props'
+import {withSystemProps, TYPOGRAPHY} from './system-props'
 import {colors} from './theme'
 
 const styledLink = styled(Link)`
@@ -45,4 +45,4 @@ Link.propTypes = {
   scheme: PropTypes.oneOf(['gray', 'gray-dark'])
 }
 
-export default withSystemProps(styledLink, COMMON)
+export default withSystemProps(styledLink, TYPOGRAPHY)
