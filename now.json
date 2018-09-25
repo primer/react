@@ -1,13 +1,17 @@
 {
   "name": "primer-components",
+  "type": "static",
   "engines": {
     "node": ">=10"
   },
   "files": [
+    ".dockerignore",
+    "Dockerfile",
     "next.config.js",
     "package.json",
     "package-lock.json",
     "pages",
+    "script",
     "src",
     "static"
   ]
