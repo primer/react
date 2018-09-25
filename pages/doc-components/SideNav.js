@@ -15,7 +15,6 @@ const getLink = router => {
             href={`/components/docs/${name}`}
             color={isSelected ? 'gray.9' : null}
             fontSize={1}
-            fontWeight={isSelected ? 'bold' : null}
           >
             {name}
           </Link>
