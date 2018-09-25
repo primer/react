@@ -1,6 +1,6 @@
-/* global preval */
 import {injectGlobal} from 'emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
+// eslint-disable-next-line no-unused-vars
 import preval from 'preval.macro'
 
 injectGlobal(preval`
