@@ -5,8 +5,10 @@
   },
   "files": [
     "next.config.js",
+    "package.json",
+    "package-lock.json",
     "pages",
     "src",
-    "static/assets"
+    "static"
   ]
 }
