@@ -3,7 +3,7 @@
     "next/babel"
   ],
   "plugins": [
-    "preval",
+    "macros",
     "add-react-displayname"
   ],
   "env": {

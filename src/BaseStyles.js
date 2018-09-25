@@ -1,6 +1,7 @@
 /* global preval */
 import {injectGlobal} from 'emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
+import preval from 'preval.macro'
 
 injectGlobal(preval`
   const {renderFile} = require('../lib/render-sass.js')
