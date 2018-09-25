@@ -1,5 +1,8 @@
 {
   "name": "primer-components",
+  "engines": {
+    "node": ">=10"
+  },
   "files": [
     "next.config.js",
     "pages",
