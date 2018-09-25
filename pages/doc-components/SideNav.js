@@ -10,7 +10,13 @@ const getLink = router => {
     return (
       <Box mb={3} key={name}>
         <NextLink href={`/components/docs/${name}`}>
-          <Link nounderline href={`/components/docs/${name}`} color={isSelected ? 'gray.9' : null} fontSize={5} fontWeight={isSelected ? 'bold' : null}>
+          <Link
+            nounderline
+            href={`/components/docs/${name}`}
+            color={isSelected ? 'gray.9' : null}
+            fontSize={5}
+            fontWeight={isSelected ? 'bold' : null}
+          >
             {name}
           </Link>
         </NextLink>
@@ -19,17 +25,36 @@ const getLink = router => {
   })
 }
 
+const isComponentLink = componentName => {
+  return Object.values(docs)
+    .map(n => n.displayName)
+    .includes(componentName)
+}
+
 const SideNav = ({router}) => (
   <Relative>
     <Box width={256} height="100%" bg="gray.0" display="inline-block" borderRight={1} borderColor="gray.2">
       <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/system-props">
-          <Link nounderline scheme="gray-dark" href="/components/docs/system-props" m={0} mb={4}>
+          <Link
+            nounderline
+            scheme="gray-dark"
+            href="/components/docs/system-props"
+            m={0}
+            mb={4}
+            fontWeight={router.pathname === '/components/docs/system-props' ? 'bold' : null}
+          >
             System Props
           </Link>
         </NextLink>
         <NextLink href="/components/docs/primer-theme">
-          <Link nounderline scheme="gray-dark" href="/components/docs/primer-theme" m={0}>
+          <Link
+            nounderline
+            scheme="gray-dark"
+            href="/components/docs/primer-theme"
+            m={0}
+            fontWeight={router.pathname === '/components/docs/primer-theme' ? 'bold' : null}
+          >
             Primer Theme
           </Link>
         </NextLink>
@@ -37,7 +62,12 @@ const SideNav = ({router}) => (
       <Box pt={5} pl={5}>
         <Text is="p" color="black" m={0} mb={3}>
           <NextLink href="/components/docs/Avatar">
-            <Link nounderline scheme="gray-dark" href="/components/docs/Avatar">
+            <Link
+              nounderline
+              scheme="gray-dark"
+              href="/components/docs/Avatar"
+              fontWeight={isComponentLink(router.pathname.replace('/components/docs/', '')) ? 'bold' : null}
+            >
               Components
             </Link>
           </NextLink>
