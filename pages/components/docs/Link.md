@@ -8,7 +8,7 @@
 
 ## System props
 
-Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
