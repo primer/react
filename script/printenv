@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+const reject = /(^(apple|term)|python)/i
+const entries = [...Object.entries(process.env)]
+  .filter(([key, value]) => !reject.test(key))
+  .sort(([a], [b]) => a.localeCompare(b))
+
+for (const [key, value] of entries) {
+  console.log(`${key}=${value}`)
+}
