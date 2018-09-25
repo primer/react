@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import {themeGet} from 'styled-system'
-import {withSystemProps, COMMON} from './system-props'
+import {withSystemProps, TYPOGRAPHY} from './system-props'
 import {colors} from './theme'
 
 const styledLink = styled('a')`
@@ -21,4 +21,4 @@ function textDecoration({underline}) {
 export default withSystemProps({
   is: styledLink,
   color: 'blue.4'
-}, COMMON)
+}, TYPOGRAPHY)
