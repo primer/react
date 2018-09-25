@@ -1,24 +1,25 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {themeGet} from 'styled-system'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
 import {colors} from './theme'
 
 const styledLink = styled('a')`
-  ${textDecoration};
-    &:hover {
+  text-decoration: ${props => props.underline ? 'underline' : 'none'};
+  &:hover {
     text-decoration: underline;
+    color: ${colors.blue[5]};
   }
 `
 
-function textDecoration({underline}) {
-  return {
-    textDecoration: underline ? 'underline' : 'none'
-  }
+styledLink.propTypes = {
+  href: PropTypes.string,
+  underline: PropTypes.bool
 }
 
-export default withSystemProps({
-  is: styledLink,
-  color: 'blue.4'
-}, TYPOGRAPHY)
+export default withSystemProps(
+  {
+    is: styledLink,
+    color: 'blue.5'
+  },
+  TYPOGRAPHY
+)
