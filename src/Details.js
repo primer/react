@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import styled from 'react-emotion'
 import {withSystemProps, COMMON, withoutPropTypes} from './system-props'
+
+const DetailsReset = styled('details')`
+  & > summary { list-style: none; }
+  & > summary::before { display: none; }
+  & > summary::-webkit-details-marker { display: none; }
+`
 
 class Details extends React.Component {
   constructor(props) {
@@ -10,7 +17,7 @@ class Details extends React.Component {
     this.toggle = this.toggle.bind(this)
   }
 
-  toggle(event) {
+  toggle = event => {
     if (event) {
       event.preventDefault()
     }
@@ -18,13 +25,13 @@ class Details extends React.Component {
   }
 
   render() {
-    const {className, children, render = getRenderer(children), ...rest} = this.props
+    const {children, render = getRenderer(children), ...rest} = this.props
     const {open} = this.state
 
     return (
-      <details {...rest} className={classnames('details-reset', className)} open={open}>
+      <DetailsReset {...rest} open={open}>
         {render({open, toggle: this.toggle})}
-      </details>
+      </DetailsReset>
     )
   }
 }
