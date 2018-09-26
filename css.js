@@ -1,1 +1,1 @@
-module.exports = require('./dist/css.umd')
+module.exports = require('./dist/css')
