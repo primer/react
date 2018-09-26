@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+
+injectGlobal(sass`
+  @import "primer-support/index.scss";
+  @import "primer-forms/lib/form-control.scss";
+`)
 
 function TextInput({autocomplete, block, className, disabled, id, name, onChange, placeholder, required, size, value}) {
   const classes = classnames(className, 'form-control', {
