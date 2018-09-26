@@ -6,6 +6,7 @@
   "module": "dist/index.esm.js",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run dist",
     "build": "next build",
     "start": "next start",
     "predist": "rm -rf dist",
@@ -25,6 +26,7 @@
     "design-system"
   ],
   "files": [
+    "css.js",
     "dist",
     "src",
     "!src/__tests__",
