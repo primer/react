@@ -1,7 +1,14 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+// eslint-disable-next-line no-unused
+import sass from 'sass.macro'
+
+injectGlobal(sass`
+  @import "primer-buttons/index.scss";
+`)
 
 function Button({is: Tag, children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(

@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {injectGlobal} from 'emotion'
+import sass from 'sass.macro'
 import {withSystemProps, COMMON} from './system-props'
+
+injectGlobal(sass`
+  @import "primer-support/index.scss";
+  @import "primer-navigation/lib/underline-nav.scss";
+`)
 
 export const ITEM_CLASS = 'UnderlineNav-item no-underline'
 export const SELECTED_CLASS = 'selected'

@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+// eslint-disable-next-line no-unused
+import sass from 'sass.macro'
+
+injectGlobal(sass`
+  @import "primer-tooltips/index.scss";
+`)
 
 function Tooltip({direction, children, className, text, noDelay, align, wrap}) {
   const classes = classnames(

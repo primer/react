@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+// eslint-disable-next-line no-unused
+import sass from 'sass.macro'
+
+injectGlobal(sass`
+  @import "primer-branch-name/index.scss";
+`)
 
 function BranchName({children, href, is: Tag, className}) {
   // We don't want someone to use href on a non tag
