@@ -4,10 +4,10 @@
 ## Default example
 ```.jsx
 <Dropdown scheme="primary" minWidth="5em">
-  <Box is="ul" m={0} p={0} className="list-style-none">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
+  <Box role="list">
+    <Box role="listitem">Item 1</Box>
+    <Box role="listitem">Item 2</Box>
+    <Box role="listitem">Item 3</Box>
   </Box>
 </Dropdown>
 ```
