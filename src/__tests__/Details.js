@@ -8,10 +8,6 @@ describe('Details', () => {
     expect(Details.systemComponent).toEqual(true)
   })
 
-  it('Renders a <details> element with reset class', () => {
-    expect(render(<Details />)).toHaveClass('details-reset')
-  })
-
   it('Respects the open prop', () => {
     expect(mount(<Details open />).props().open).toEqual(true)
   })
@@ -19,7 +15,7 @@ describe('Details', () => {
   xit('Renders children as-is', () => {
     expect(render(<Details>hi</Details>)).toEqual(
       render(
-        <details open={false} className="details-reset">
+        <details open={false}>
           hi
         </details>
       )
@@ -33,7 +29,7 @@ describe('Details', () => {
       )
     ).toEqual(
       render(
-        <details open={false} className="details-reset">
+        <details open={false}>
           <summary>hi</summary>
           bye
         </details>
@@ -44,7 +40,7 @@ describe('Details', () => {
   xit('Renders with a render prop', () => {
     expect(render(<Details render={() => 'hi'} />)).toEqual(
       render(
-        <details open={false} className="details-reset">
+        <details open={false}>
           hi
         </details>
       )
@@ -54,7 +50,7 @@ describe('Details', () => {
   xit('Renders with children as a function', () => {
     expect(render(<Details>{() => 'hi'}</Details>)).toEqual(
       render(
-        <details open={false} className="details-reset">
+        <details open={false}>
           hi
         </details>
       )
@@ -65,14 +61,14 @@ describe('Details', () => {
     const renderOpenAsString = ({open}) => String(open)
     expect(render(<Details>{renderOpenAsString}</Details>)).toEqual(
       render(
-        <details open={false} className="details-reset">
+        <details open={false}>
           false
         </details>
       )
     )
     expect(render(<Details open>{renderOpenAsString}</Details>)).toEqual(
       render(
-        <details open className="details-reset">
+        <details open>
           true
         </details>
       )
