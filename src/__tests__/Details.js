@@ -13,13 +13,7 @@ describe('Details', () => {
   })
 
   xit('Renders children as-is', () => {
-    expect(render(<Details>hi</Details>)).toEqual(
-      render(
-        <details open={false}>
-          hi
-        </details>
-      )
-    )
+    expect(render(<Details>hi</Details>)).toEqual(render(<details open={false}>hi</details>))
     expect(
       render(
         <Details>
@@ -38,41 +32,17 @@ describe('Details', () => {
   })
 
   xit('Renders with a render prop', () => {
-    expect(render(<Details render={() => 'hi'} />)).toEqual(
-      render(
-        <details open={false}>
-          hi
-        </details>
-      )
-    )
+    expect(render(<Details render={() => 'hi'} />)).toEqual(render(<details open={false}>hi</details>))
   })
 
   xit('Renders with children as a function', () => {
-    expect(render(<Details>{() => 'hi'}</Details>)).toEqual(
-      render(
-        <details open={false}>
-          hi
-        </details>
-      )
-    )
+    expect(render(<Details>{() => 'hi'}</Details>)).toEqual(render(<details open={false}>hi</details>))
   })
 
   xit('Passes open state to render function', () => {
     const renderOpenAsString = ({open}) => String(open)
-    expect(render(<Details>{renderOpenAsString}</Details>)).toEqual(
-      render(
-        <details open={false}>
-          false
-        </details>
-      )
-    )
-    expect(render(<Details open>{renderOpenAsString}</Details>)).toEqual(
-      render(
-        <details open>
-          true
-        </details>
-      )
-    )
+    expect(render(<Details>{renderOpenAsString}</Details>)).toEqual(render(<details open={false}>false</details>))
+    expect(render(<Details open>{renderOpenAsString}</Details>)).toEqual(render(<details open>true</details>))
   })
 
   it('Can be toggled', () => {
