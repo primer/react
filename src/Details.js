@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import styled from 'react-emotion'
 import {withSystemProps, COMMON, withoutPropTypes} from './system-props'
 
 const DetailsReset = styled('details')`
-  & > summary { list-style: none; }
-  & > summary::before { display: none; }
-  & > summary::-webkit-details-marker { display: none; }
+  & > summary {
+    list-style: none;
+  }
+  & > summary::before {
+    display: none;
+  }
+  & > summary::-webkit-details-marker {
+    display: none;
+  }
 `
 
 class Details extends React.Component {
@@ -17,7 +22,7 @@ class Details extends React.Component {
     this.toggle = this.toggle.bind(this)
   }
 
-  toggle = event => {
+  toggle(event) {
     if (event) {
       event.preventDefault()
     }
