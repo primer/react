@@ -30,7 +30,6 @@ const SideNav = ({router}) => (
     <Box width={256} height="100%" bg="gray.0" display="inline-block" borderRight={1} borderColor="gray.2">
       <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/system-props">
-
           <Link
             color="gray.9"
             href="/components/docs/system-props"

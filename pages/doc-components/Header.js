@@ -30,7 +30,7 @@ const Header = ({router}) => (
           </NextLink>
           <NextLink href="/components/sandbox">
             <Link
-              color="white" 
+              color="white"
               href="/components/sandbox"
               mr={0}
               px={4}
