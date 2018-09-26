@@ -1,15 +1,8 @@
-/* global preval */
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
-import preval from 'preval.macro'
-
-const customCSS = preval`
-  const {renderFile} = require('../lib/render-sass')
-  const path = require.resolve('./primer-custom.scss')
-  module.exports = renderFile(path)
-`
+import {utilities, markdown} from '../css'
 
 export default class MyDocument extends Document {
   static getInitialProps({renderPage}) {
@@ -19,7 +12,10 @@ export default class MyDocument extends Document {
       ...page,
       styles: (
         <>
-          <style id="primer-custom">{customCSS}</style>
+          <style id="primer-css">
+            {utilities}
+            {markdown}
+          </style>
           <style id="emotion-static">{extractCritical(page.html).css}</style>
           {sheet.getStyleElement()}
         </>

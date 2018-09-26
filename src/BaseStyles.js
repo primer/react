@@ -1,12 +1,10 @@
-/* global preval */
 import {injectGlobal} from 'emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
-import preval from 'preval.macro'
+// eslint-disable-next-line no-unused
+import sass from 'sass.macro'
 
-injectGlobal(preval`
-  const {renderFile} = require('../lib/render-sass.js')
-  const path = require.resolve('./primer-components.scss')
-  module.exports = renderFile(path)
+injectGlobal(sass`
+  @import "./primer-components.scss";
 `)
 
 const BaseStyles = withSystemProps(

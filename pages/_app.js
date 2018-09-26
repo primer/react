@@ -2,7 +2,7 @@ import React from 'react'
 import App, {Container} from 'next/app'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
-import * as primerComponents from '../src'
+import * as primerComponents from '..'
 import * as docComponents from './doc-components'
 
 const {BaseStyles, Box, FlexContainer, Link} = primerComponents
