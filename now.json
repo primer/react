@@ -6,7 +6,6 @@
   "files": [
     ".babelrc",
     "css.js",
-    "lib",
     "next.config.js",
     "package-lock.json",
     "pages",
