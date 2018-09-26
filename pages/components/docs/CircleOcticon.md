@@ -1,6 +1,8 @@
 
 # CircleOcticon
 
+The CircleOcticon is used to represent the status of a pull request in the comment timeline.
+
 ## Default example
 
 ```.jsx
@@ -13,10 +15,10 @@ CircleOcticon components get `COMMON` system props. Read our [System Props](/sys
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| icon | Octicon | Octicon component used in the component |
-| size | Number | used to set the width and height of the component |
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| icon | Octicon | | Octicon component used in the component |
+| size | Number | 32 | used to set the width and height of the component |
 
 
 export const meta = {displayName: 'CircleOcticon'}

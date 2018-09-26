@@ -1,5 +1,6 @@
 # MergeStatus
 
+The MergeStatus component represents the status of the pull request. Designed to match the height and style of Avatar.
 
 ## Default example
 ```.jsx
@@ -15,8 +16,8 @@ MergeStatus components get `COMMON` system props. Read our [System Props](/syste
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| state | String | Can be one of `ready`, `invalid`, `merged`, or `pending`. Sets the appropriate background and text color on the component. |
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| state | String | | Can be one of `ready`, `invalid`, `merged`, or `pending`. Sets the appropriate background and text color on the component. |
 
 export const meta = {displayName: 'MergeStatus'}

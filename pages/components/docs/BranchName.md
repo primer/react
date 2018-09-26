@@ -1,5 +1,7 @@
 # BranchName
 
+BranchName is a label type component with the monospace font applied and a blue background.
+
 ## Default example
 
 ```.jsx
@@ -12,9 +14,9 @@ BranchName components get `COMMON` system props. Read our [System Props](/system
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| is | String | sets the HTML tag for the component |
-| href | String | a URL to link the component to |
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| is | String | `<a>` | sets the HTML tag for the component |
+| href | String | | a URL to link the component to |
 
 export const meta = {displayName: 'BranchName'}

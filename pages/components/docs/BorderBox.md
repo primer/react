@@ -1,5 +1,7 @@
 # BorderBox
 
+BorderBox is a Box component with a gray border applied.
+
 ## Default example
 
 ```.jsx

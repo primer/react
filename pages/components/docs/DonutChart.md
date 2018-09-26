@@ -1,5 +1,7 @@
 # DonutChart
 
+The DonutChart component is used to represent build status in a pull request.
+
 ## Default example
 ```.jsx
 <DonutChart mr={1} data={{error: 2, pending: 3, success: 5}} />
@@ -16,9 +18,9 @@ DonutChart components get `space` system props. Read our [System Props](/system-
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| data | Object | Use the keys `error`, `pending`, and `success` to set values used to generate slices in the chart |
-| size | Number | Used to set the width and height of the component
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| data | Object | | Use the keys `error`, `pending`, and `success` to set values used to generate slices in the chart |
+| size | Number | 30 | Used to set the width and height of the component
 
 export const meta = {displayName: 'DonutChart'}

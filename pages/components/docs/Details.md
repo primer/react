@@ -1,6 +1,10 @@
 
 # Details
 
+Use the Details component for styling of the native `<details>` element found in html.
+
+## Default example
+
 ```.jsx
 <ExampleHeading>With static children</ExampleHeading>
 
@@ -33,9 +37,9 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| open | Boolean | Sets the open/closed state of the Details component |
-| render | Function | Optional render function, to allow you to handle toggling and open/closed state from a container component.
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| open | Boolean | | Sets the open/closed state of the Details component |
+| render | Function | | Optional render function, to allow you to handle toggling and open/closed state from a container component.
 
 export const meta = {displayName: 'Details'}
