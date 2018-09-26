@@ -29,7 +29,7 @@ const SideNav = () => (
         {Object.values(docs).map(({displayName: name}) => (
           <Box mb={3} key={name}>
             <NextLink href={`/components/docs/${name}`}>
-              <Link nounderline href={`/components/docs/${name}`} className="f5">
+              <Link href={`/components/docs/${name}`} className="f5">
                 {name}
               </Link>
             </NextLink>
