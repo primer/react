@@ -23,7 +23,7 @@ const Header = ({router}) => (
               color="white"
               href="/components"
               px={4}
-              fontWeigt={router.pathname === '/components' ? 'bold' : null}
+              fontWeight={router.pathname === '/components' ? 'bold' : null}
             >
               Docs
             </Link>
@@ -34,7 +34,7 @@ const Header = ({router}) => (
               href="/components/sandbox"
               mr={0}
               px={4}
-              fontWeigt={router.pathname === '/components/sandbox' ? 'bold' : null}
+              fontWeight={router.pathname === '/components/sandbox' ? 'bold' : null}
             >
               Sandbox
             </Link>
