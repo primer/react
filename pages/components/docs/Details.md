@@ -1,30 +1,53 @@
 
 # Details
 
-```.jsx
-<ExampleHeading>With static children</ExampleHeading>
+The Details component is an HTML `<details>` element without native browser styling that optionally uses the [render props pattern](https://reactjs.org/docs/render-props.html) to pass its state to child components.
 
+You are responsible for rendering your own `<summary>`. To style your summary element like a [Button](./Button), you can use the `is` prop:
+
+```jsx
+<Button is="summary">Summary text</Button>
+```
+
+## With static children
+```.jsx
 <Details>
-  <summary className="btn">Click me</summary>
+  <Button is="summary">Click me</Button>
   <p>This should show and hide</p>
 </Details>
+```
 
+## With children as a function
+The render function gets an object with two keys:
 
-<ExampleHeading>With children as a function</ExampleHeading>
+* `open` is a boolean reflecting the `<details>` element's `open` attribute, and can be used to conditionally show or hide content.
+* `toggle` is a function that can be assigned to event handlers to trigger toggling of the `open` state.
 
+If you use this form or the render prop (see below), **you must attach the `toggle` prop as an event listener**. If you don't the render function will not be called when the element is toggled by the native browser behavior.
+
+```.jsx
 <Details>
   {({open, toggle}) => (
-    <React.Fragment>
-      <summary className="btn" onClick={toggle}>
+    <>
+      <Button is="summary" onClick={toggle}>
         {open ? 'Hide' : 'Show'}
-      </summary>
+      </Button>
       <p>This should show and hide</p>
-    </React.Fragment>
+    </>
   )}
 </Details>
+```
 
-<ExampleHeading>With render prop</ExampleHeading>
-<Details render={() => 'hi'} />
+## With render prop
+The Details component also accepts a `render` function prop.
+
+```.jsx
+<Details render={({open, toggle}) => (
+  <>
+    <Button is="summary" onClick={toggle}>Open? {String(open)}</Button>
+    <p>This is the content.</p>
+  </>
+)} />
 ```
 
 ## System props
