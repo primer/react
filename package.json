@@ -14,7 +14,7 @@
     "postdist": "du -ha dist",
     "prepack": "script/npm-pack-check",
     "prepublishOnly": "npm run dist",
-    "lint": "eslint src lib pages",
+    "lint": "eslint src pages",
     "test": "jest",
     "watch": "jest --watch --no-coverage"
   },
