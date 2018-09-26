@@ -39,7 +39,9 @@ const Header = () => (
               borderColor="gray.6"
               display="inline-block"
             >
-              <Text fontWeight="600" fontSize={1}>Menu</Text>
+              <Text fontWeight="600" fontSize={1}>
+                Menu
+              </Text>
             </Box>
           </Link>
         </Box>
