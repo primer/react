@@ -1,8 +1,8 @@
-/* global preval */
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
+// eslint-disable-next-line no-unused-vars
 import preval from 'preval.macro'
 
 const customCSS = preval`

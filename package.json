@@ -6,6 +6,7 @@
   "module": "dist/index.esm.js",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "(script/printenv; npm ls) | tee env.log",
     "build": "next build",
     "start": "next start",
     "predist": "rm -rf dist",
