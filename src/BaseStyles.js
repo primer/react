@@ -1,4 +1,3 @@
-import React from 'react'
 import {injectGlobal} from 'emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
 // eslint-disable-next-line no-unused
@@ -21,13 +20,3 @@ const BaseStyles = withSystemProps(
 )
 
 export default BaseStyles
-
-export const UtilityCSS = preval`
-  const {renderSource} = require('../lib/render-sass')
-  module.exports = renderSource('@import "primer-utilities/index.scss";')
-`
-
-export const MarkdownCSS = preval`
-  const {renderSource} = require('../lib/render-sass')
-  module.exports = renderSource('@import "primer-markdown/index.scss";')
-`
