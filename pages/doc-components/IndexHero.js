@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Heading, Text} from '../../src'
+import {Box, Heading, Text} from '../..'
 import IndexImage from './IndexImage'
 
 const IndexHero = () => (

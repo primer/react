@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Box, ButtonLink, Link, Text} from '../../src'
+import {Box, ButtonLink, Link, Text} from '../..'
 import MergeButton from './MergeButton'
 
 const MergeActions = ({numCommits, onClick, desktopUrl, state}) => {
