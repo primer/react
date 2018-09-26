@@ -9,6 +9,18 @@ exports[`Dropdown matches the snapshots 1`] = `
   display: flex;
 }
 
+.emotion-3 > summary {
+  list-style: none;
+}
+
+.emotion-3 > summary::before {
+  display: none;
+}
+
+.emotion-3 > summary::-webkit-details-marker {
+  display: none;
+}
+
 .emotion-0 {
   margin-left: 0px;
 }
@@ -53,28 +65,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   className="emotion-1 BtnGroup"
 >
   <details
-    blacklist={
-      Array [
-        "css",
-        "color",
-        "bg",
-        "m",
-        "mt",
-        "mr",
-        "mb",
-        "ml",
-        "mx",
-        "my",
-        "p",
-        "pt",
-        "pr",
-        "pb",
-        "pl",
-        "px",
-        "py",
-      ]
-    }
-    className="details-reset BtnGroup-form emotion-3"
+    className="BtnGroup-form emotion-3"
     open={false}
   >
     <summary
@@ -171,6 +162,18 @@ exports[`Dropdown matches the snapshots 2`] = `
   display: flex;
 }
 
+.emotion-3 > summary {
+  list-style: none;
+}
+
+.emotion-3 > summary::before {
+  display: none;
+}
+
+.emotion-3 > summary::-webkit-details-marker {
+  display: none;
+}
+
 .emotion-2 {
   position: absolute;
   z-index: 99999;
@@ -215,28 +218,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   className="emotion-1 BtnGroup"
 >
   <details
-    blacklist={
-      Array [
-        "css",
-        "color",
-        "bg",
-        "m",
-        "mt",
-        "mr",
-        "mb",
-        "ml",
-        "mx",
-        "my",
-        "p",
-        "pt",
-        "pr",
-        "pb",
-        "pl",
-        "px",
-        "py",
-      ]
-    }
-    className="details-reset BtnGroup-form emotion-3"
+    className="BtnGroup-form emotion-3"
     open={false}
   >
     <summary
