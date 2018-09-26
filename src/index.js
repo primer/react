@@ -1,3 +1,13 @@
+import {injectGlobal} from 'emotion'
+// eslint-disable-next-line no-unused
+import sass from 'sass.macro'
+
+injectGlobal(sass`
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  table { border-collapse: collapse; }
+`)
+
 export {default as theme} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 
