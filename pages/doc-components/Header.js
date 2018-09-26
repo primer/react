@@ -16,7 +16,7 @@ const Header = () => (
             </FlexContainer>
           </Link>
         </NextLink>
-        <Box display={['none', 'block']}>
+        <Box display={['none', 'none', 'block']}>
           <NextLink href="/components">
             <Link nounderline className="text-white" href="/components" px={4}>
               Docs
@@ -28,7 +28,7 @@ const Header = () => (
             </Link>
           </NextLink>
         </Box>
-        <Box display={['block', 'none']}>
+        <Box display={['block', 'block', 'none']}>
           <Link nounderline href="#sidenav">
             <Box
               border={1}
