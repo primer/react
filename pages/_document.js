@@ -2,7 +2,7 @@ import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
-import {UtilityCSS, MarkdownCSS} from '../src'
+import {utilities, markdown} from '../css'
 
 export default class MyDocument extends Document {
   static getInitialProps({renderPage}) {
@@ -13,8 +13,8 @@ export default class MyDocument extends Document {
       styles: (
         <>
           <style id="primer-css">
-            {UtilityCSS}
-            {MarkdownCSS}
+            {utilities}
+            {markdown}
           </style>
           <style id="emotion-static">{extractCritical(page.html).css}</style>
           {sheet.getStyleElement()}
