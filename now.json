@@ -4,10 +4,13 @@
     "node": ">=10"
   },
   "files": [
+    ".babelrc",
+    "css.js",
+    "lib",
     "next.config.js",
-    "package.json",
     "package-lock.json",
     "pages",
+    "rollup.config.js",
     "src",
     "static"
   ]
