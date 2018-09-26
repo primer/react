@@ -1,4 +1,4 @@
-import theme from '../../../src/theme'
+import {theme} from '../../..'
 
 # Primer Theme
 

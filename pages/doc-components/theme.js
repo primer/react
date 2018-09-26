@@ -1,4 +1,4 @@
-import {theme} from '../../src'
+import {theme} from '../..'
 
 export default {
   font: theme.fonts.normal,

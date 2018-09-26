@@ -2,7 +2,7 @@ import React from 'react'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
 import BoxShadow from './BoxShadow'
-import {Text, FlexContainer, Link, Sticky} from '../../src'
+import {Text, FlexContainer, Link, Sticky} from '../..'
 
 const Header = () => (
   <Sticky zIndex={100}>

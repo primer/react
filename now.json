@@ -1,9 +1,16 @@
 {
   "name": "primer-components",
+  "engines": {
+    "node": ">=10"
+  },
   "files": [
+    ".babelrc",
+    "css.js",
     "next.config.js",
+    "package-lock.json",
     "pages",
+    "rollup.config.js",
     "src",
-    "static/assets"
+    "static"
   ]
 }

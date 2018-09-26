@@ -5,9 +5,10 @@ const globby = require('globby')
 
 const config = {
   required: [
+    'css.js',
     'dist/index.esm.js',
     'dist/index.umd.js',
-    'dist/primer-components.css',
+    'dist/css.js',
     'src/index.js',
     'src/system-props.js',
     'src/primer-components.scss'
