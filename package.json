@@ -12,7 +12,7 @@
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
     "postdist": "du -ha dist",
-    "prepack": "script/npm-pack-check",
+    "prepack": "script/npm-prepack",
     "prepublishOnly": "npm run dist",
     "lint": "eslint src pages",
     "test": "jest",
