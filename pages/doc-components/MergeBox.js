@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {MergeStatus, PointerBox} from '../../src'
+import {MergeStatus, PointerBox} from '../..'
 import MergeDetail from './MergeDetail'
 import MergeActions from './MergeActions'
 

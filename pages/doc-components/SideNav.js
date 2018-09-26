@@ -1,6 +1,6 @@
 import React from 'react'
 import {default as NextLink} from 'next/link'
-import {Text, Box, Link, FlexContainer, Relative} from '../../src'
+import {Text, Box, Link, FlexContainer, Relative} from '../..'
 import * as docs from '../components/docs'
 
 const SideNav = () => (
