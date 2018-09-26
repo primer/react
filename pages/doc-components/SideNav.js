@@ -1,7 +1,7 @@
 import React from 'react'
 import {withRouter} from 'next/router'
 import {default as NextLink} from 'next/link'
-import {Text, Box, Link, FlexContainer, Relative} from '../../src'
+import {Text, Box, Link, FlexContainer, Relative} from '../..'
 import * as docs from '../components/docs'
 
 const getLink = router => {
@@ -10,7 +10,7 @@ const getLink = router => {
     return (
       <Box mb={3} key={name}>
         <NextLink href={`/components/docs/${name}`}>
-          <Link nounderline href={`/components/docs/${name}`} color={isSelected ? 'gray.9' : null} fontSize={1}>
+          <Link href={`/components/docs/${name}`} color={isSelected ? 'gray.9' : null} fontSize={1}>
             {name}
           </Link>
         </NextLink>
@@ -30,9 +30,9 @@ const SideNav = ({router}) => (
     <Box width={256} height="100%" bg="gray.0" display="inline-block" borderRight={1} borderColor="gray.2">
       <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/system-props">
+
           <Link
-            nounderline
-            scheme="gray-dark"
+            color="gray.9"
             href="/components/docs/system-props"
             m={0}
             mb={4}
@@ -43,8 +43,7 @@ const SideNav = ({router}) => (
         </NextLink>
         <NextLink href="/components/docs/primer-theme">
           <Link
-            nounderline
-            scheme="gray-dark"
+            color="gray.9"
             href="/components/docs/primer-theme"
             m={0}
             fontWeight={router.pathname === '/components/docs/primer-theme' ? 'bold' : null}
@@ -57,8 +56,7 @@ const SideNav = ({router}) => (
         <Text is="p" color="black" m={0} mb={3}>
           <NextLink href="/components/docs/Avatar">
             <Link
-              nounderline
-              scheme="gray-dark"
+              color="gray.9"
               href="/components/docs/Avatar"
               fontWeight={isComponentLink(router.pathname.replace('/components/docs/', '')) ? 'bold' : null}
             >

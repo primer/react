@@ -1,4 +1,5 @@
 export {default as theme} from './theme'
+export {default as BaseStyles} from './BaseStyles'
 
 // Layout
 export {default as BorderBox} from './BorderBox'

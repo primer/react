@@ -10,6 +10,7 @@ exports[`Avatar renders default props 1`] = `
 }
 
 <img
+  alt=""
   blacklist={
     Array [
       "css",
@@ -50,6 +51,7 @@ exports[`Avatar respects isChild 1`] = `
 }
 
 <img
+  alt=""
   blacklist={
     Array [
       "css",
