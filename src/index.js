@@ -1,6 +1,5 @@
-import {injectGlobal} from 'emotion'
-// eslint-disable-next-line no-unused
 import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
 
 injectGlobal(sass`
   * { box-sizing: border-box; }

@@ -2,11 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Octicon, {GitMerge, IssueClosed, IssueOpened, IssueReopened} from '@githubprimer/octicons-react'
 import classnames from 'classnames'
+import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
 import {colors} from './theme'
 import {withSystemProps, COMMON} from './system-props'
-// eslint-disable-next-line no-unused
-import sass from 'sass.macro'
 
 injectGlobal(sass`
   @import "primer-support/index.scss";
