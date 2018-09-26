@@ -1,3 +1,12 @@
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
+
+injectGlobal(sass`
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  table { border-collapse: collapse; }
+`)
+
 export {default as theme} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 
