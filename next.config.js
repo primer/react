@@ -14,6 +14,11 @@ module.exports = withPlugins([
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
 
   webpack(config, {dev}) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: {loader: '@svgr/webpack'}
+    })
+
     if (dev) {
       /*
        * In development mode, we want to alias the project-root
