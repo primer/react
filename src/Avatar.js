@@ -39,6 +39,9 @@ function childStyles({isChild, ...rest}) {
   }
 }
 
+// styled() changes this
+Avatar.displayName = 'Avatar'
+
 Avatar.defaultProps = {
   size: 20
 }
