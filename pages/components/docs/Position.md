@@ -21,7 +21,7 @@
   <ExampleHeading my={2}>Sticky</ExampleHeading>
 
   <Box border={1} borderColor="green.5" height={1000}>
-    <Sticky top={0} bg="green.2" p={4}>
+    <Sticky top={0} bg="green.2" p={6}>
       I'm sticky!
     </Sticky>
   </Box>

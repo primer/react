@@ -1,19 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Avatar passes through the src prop 1`] = `
+exports[`Avatar renders default props 1`] = `
+.emotion-0 {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
 <img
-  className="avatar avatar-small emotion-0"
+  alt=""
+  blacklist={
+    Array [
+      "css",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0"
   height={20}
-  src="primer.png"
   width={20}
 />
 `;
 
-exports[`Avatar respects the size prop 1`] = `
+exports[`Avatar respects isChild 1`] = `
+.emotion-0 {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 2px;
+  position: absolute;
+  right: -15%;
+  bottom: -9%;
+  background-color: #fff;
+  box-shadow: -2px -2px 0 rgba(255,255,255,0.8);
+}
+
 <img
-  alt="github"
-  className="avatar emotion-0"
-  height={40}
-  width={40}
+  alt=""
+  blacklist={
+    Array [
+      "css",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
+  className="emotion-0"
+  height={20}
+  width={20}
 />
 `;

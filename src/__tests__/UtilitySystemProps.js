@@ -8,6 +8,8 @@ const testProps = {
   OcticonButton: {icon: X, label: 'button'},
   Donut: {data: {pending: 1}},
   MergeStatus: {state: 'ready'}
+  MergeStatus: {state: 'ready'},
+  Avatar: {alt: ''}
 }
 
 describe('UtilitySystemProps', () => {

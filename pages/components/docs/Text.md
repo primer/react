@@ -2,7 +2,11 @@
 
 ## Default example
 ```.jsx
-<Text is="div" fontWeight="bold" lineHeight="condensed">Text</Text>
+<Text fontWeight="bold">bold</Text>
+{' '}
+<Text color="red.6">red color</Text>
+{' '}
+<Text color="white" bg="gray.9" p={2}>white on black</Text>
 ```
 
 ## System props
