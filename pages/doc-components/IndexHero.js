@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, Heading, Text} from '../..'
-import IndexImage from './IndexImage'
+import IndexImage from './IndexImage.svg'
 
 const IndexHero = () => (
   <Box bg="black">
