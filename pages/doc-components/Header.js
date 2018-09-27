@@ -1,10 +1,11 @@
 import React from 'react'
+import {withRouter} from 'next/router'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
 import BoxShadow from './BoxShadow'
 import {Text, FlexContainer, Link, Sticky} from '../..'
 
-const Header = () => (
+const Header = ({router}) => (
   <Sticky zIndex={100}>
     <BoxShadow py={3} bg="gray.9" color="white">
       <FlexContainer className="p-responsive" alignItems="center" justifyContent="space-between">
@@ -18,12 +19,23 @@ const Header = () => (
         </NextLink>
         <div>
           <NextLink href="/components">
-            <Link color="white" href="/components" px={4}>
+            <Link
+              color="white"
+              href="/components"
+              px={4}
+              fontWeight={router.pathname === '/components' ? 'bold' : null}
+            >
               Docs
             </Link>
           </NextLink>
           <NextLink href="/components/sandbox">
-            <Link color="white" href="/components/sandbox" mr={0} px={4}>
+            <Link
+              color="white"
+              href="/components/sandbox"
+              mr={0}
+              px={4}
+              fontWeight={router.pathname === '/components/sandbox' ? 'bold' : null}
+            >
               Sandbox
             </Link>
           </NextLink>
@@ -33,4 +45,4 @@ const Header = () => (
   </Sticky>
 )
 
-export default Header
+export default withRouter(Header)
