@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+
+injectGlobal(sass`
+  @import "primer-tooltips/index.scss";
+`)
 
 function Tooltip({direction, children, className, text, noDelay, align, wrap}) {
   const classes = classnames(

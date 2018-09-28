@@ -10,15 +10,13 @@ The Link component styles anchor tags with default blue styling and hover text d
 
 ## System props
 
-Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | href | String | | URL to be used for the Link |
-| muted | Boolean | | Applies a gray text color to the Link |
-| nounderline | Boolean | | Removes underline from the Link |
-| scheme | String | | Can be `gray` or `gray-dark`, sets the text color accordingly. |
+| underline | Boolean | false | Adds underline to the Link |
 
 export const meta = {displayName: 'Link'}

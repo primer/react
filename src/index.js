@@ -1,4 +1,14 @@
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
+
+injectGlobal(sass`
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  table { border-collapse: collapse; }
+`)
+
 export {default as theme} from './theme'
+export {default as BaseStyles} from './BaseStyles'
 
 // Layout
 export {default as BorderBox} from './BorderBox'
@@ -36,7 +46,6 @@ export {default as Heading} from './Heading'
 export {default as Label} from './Label'
 export {default as BranchName} from './BranchName'
 export {default as Link} from './Link'
-export {default as MergeStatus} from './MergeStatus'
 export {default as Text} from './Text'
 export {default as Tooltip} from './Tooltip'
 export {default as CounterLabel} from './CounterLabel'

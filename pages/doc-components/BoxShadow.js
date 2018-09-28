@@ -1,4 +1,4 @@
-import {Box} from '../../src'
+import {Box} from '../..'
 import styled from 'react-emotion'
 
 const BoxShadow = styled(Box)`
