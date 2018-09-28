@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, Heading, Text} from '../..'
 import IndexImage from './IndexImage.svg'
+import {version} from '../../package.json'
 
 const IndexHero = () => (
   <Box bg="black">
@@ -10,7 +11,7 @@ const IndexHero = () => (
           Primer Components
         </Heading>
         <Text color="blue.2" fontSize={2} fontWeight={400} className="text-mono">
-          v2.0.4-beta
+          v{version}
         </Text>
       </Box>
       <Box mb={6}>
