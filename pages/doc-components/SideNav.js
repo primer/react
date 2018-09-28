@@ -10,7 +10,7 @@ const getLink = router => {
     return (
       <Box mb={3} key={name}>
         <NextLink href={`/components/docs/${name}`}>
-          <Link href={`/components/docs/${name}`} color={isSelected ? 'gray.9' : null} fontSize={1}>
+          <Link href={`/components/docs/${name}`} color={isSelected ? 'gray.9' : 'blue.5'} fontSize={1}>
             {name}
           </Link>
         </NextLink>
