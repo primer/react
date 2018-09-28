@@ -1,6 +1,6 @@
 # BranchName
 
-BranchName is a label type component with the monospace font applied and a blue background.
+BranchName is a label-type component rendered as an `<a>` tag by default with monospace font and blue background.
 
 ## Default example
 

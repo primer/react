@@ -1,7 +1,7 @@
 
 # Dropdown
 
-The Dropdown component is a lightweight context menus for housing navigation and actions.
+The Dropdown component is a lightweight context menu for housing navigation and actions.
 
 ## Default example
 ```.jsx

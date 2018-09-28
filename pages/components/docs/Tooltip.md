@@ -1,6 +1,6 @@
 # Tooltip
 
-The Tooltip component adds a contextual tooltip to an element with a black background.
+The Tooltip component adds a tooltip to add context to elements on the page. The Toolip has a black background by default.
 
 ## Default example
 

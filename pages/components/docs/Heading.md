@@ -1,6 +1,6 @@
 # Heading
 
-The Heading component will render an html `h1-6` tag but not have any default styling.
+The Heading component will render an html `h1-6` tag without any default styling.
 
 ## Default example
 ```.jsx

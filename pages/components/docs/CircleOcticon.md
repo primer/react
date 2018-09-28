@@ -1,7 +1,7 @@
 
 # CircleOcticon
 
-The CircleOcticon is used to represent the status of a pull request in the comment timeline.
+CircleOcticon renders any Octicon with a circle background. CircleOcticons are most commonly used to represent the status of a pull request in the comment timeline.
 
 ## Default example
 
