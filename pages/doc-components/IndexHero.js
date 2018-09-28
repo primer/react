@@ -3,7 +3,6 @@ import {Box, Heading, Text} from '../..'
 import IndexImage from './IndexImage.svg'
 import {version} from '../../package.json'
 
-
 const IndexHero = () => (
   <Box bg="black">
     <Box maxWidth={1012} py={6} mb={3} mx={'auto'} px={6}>
