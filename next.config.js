@@ -2,13 +2,16 @@ const {join} = require('path')
 const withPlugins = require('next-compose-plugins')
 const mdx = require('@zeit/next-mdx')
 
+const assetPrefix = process.env.NOW_URL
+
 module.exports = withPlugins([
   mdx({extension: /\.mdx?$/})
 ], {
+  assetPrefix,
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
 
   publicRuntimeConfig: {
-    assetPrefix: process.env.NOW_URL
+    assetPrefix
   },
 
   webpack(config, {dev}) {
