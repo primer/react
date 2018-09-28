@@ -1,5 +1,7 @@
 # Label
 
+The Label component is used to add contextual metadata to a design. Visually it styles text, adds padding, and rounded corners.
+
 ## Default example
 
 ```.jsx
@@ -14,9 +16,9 @@ Label components get `COMMON` system props. Read our [System Props](/system-prop
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| outline | Boolean | Creates an outline style label |
-| scheme | String | Can be one of `gray`, `gray-darker`, `orange` or `green` - sets the background color and text color of the Label component
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| outline | Boolean | | Creates an outline style label |
+| scheme | String | | Can be one of `gray`, `gray-darker`, `orange` or `green` - sets the background color and text color of the Label component
 
 export const meta = {displayName: 'Label'}

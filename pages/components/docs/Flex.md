@@ -1,5 +1,7 @@
 # FlexContainer and FlexItem
 
+FlexContainer and FlexItem are wrapping components that will give the content flexbox properties.
+
 ## Default example
 
 ```.jsx
