@@ -1,5 +1,7 @@
 # Position Components
 
+The Position component is a wrapper component that gives the containing component css positioning abilities.
+
 ## Default examples
 
 ```.jsx

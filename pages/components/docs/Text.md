@@ -1,5 +1,7 @@
 # Text
 
+The Text component is a wrapper component that will apply typography styles to the text inside.
+
 ## Default example
 ```.jsx
 <Text fontWeight="bold">bold</Text>

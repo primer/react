@@ -5,15 +5,18 @@ const mdx = require('@zeit/next-mdx')
 module.exports = withPlugins([
   mdx({extension: /\.mdx?$/})
 ], {
-  /*
-   * Note: Prefixing assets with the fully qualified deployment URL
-   * makes them available even when the site is served from a path alias, as in
-   * <https://primer.style/components>
-   */
-  assetPrefix: process.env.NOW_URL,
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
 
+  publicRuntimeConfig: {
+    assetPrefix: process.env.NOW_URL
+  },
+
   webpack(config, {dev}) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: {loader: '@svgr/webpack'}
+    })
+
     if (dev) {
       /*
        * In development mode, we want to alias the project-root

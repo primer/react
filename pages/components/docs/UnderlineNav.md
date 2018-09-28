@@ -1,5 +1,6 @@
 # UnderlineNav
 
+Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
 
 To use UnderlineNav with [react-router](https://github.com/ReactTraining/react-router) or
 [react-router-dom](https://www.npmjs.com/package/react-router-dom), pass

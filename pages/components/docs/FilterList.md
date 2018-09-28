@@ -1,5 +1,7 @@
 # FilterList
 
+The FilterList component is a menu with filter options that filter the main content of the page.
+
 ## Default example
 
 ```.jsx
@@ -16,8 +18,8 @@ FilterList components get `COMMON` system props. Read our [System Props](/system
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| small | Boolean | Used to create a smaller version of the standard FilterList|
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| small | Boolean | false | Used to create a smaller version of the standard FilterList|
 
 export const meta = {displayName: 'FilterList'}

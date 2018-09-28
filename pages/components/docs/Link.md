@@ -1,5 +1,7 @@
 # Link
 
+The Link component styles anchor tags with default blue styling and hover text decoration.
+
 ## Default example
 
 ```.jsx
@@ -12,9 +14,9 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 
 ## Component props
 
-| Prop name | Type | Description |
-| :- | :- | :- |
-| href | String | URL to be used for the Link |
-| underline | Boolean | Adds underline to the Link |
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| href | String | | URL to be used for the Link |
+| underline | Boolean | false | Adds underline to the Link |
 
 export const meta = {displayName: 'Link'}

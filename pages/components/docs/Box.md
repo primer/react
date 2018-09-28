@@ -10,7 +10,6 @@ The Box component serves as a wrapper component for most layout related needs.
 
 ## System props
 
-
 Box components get the `COMMON` and `LAYOUT` categories of system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
