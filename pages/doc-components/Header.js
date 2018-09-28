@@ -3,7 +3,7 @@ import {withRouter} from 'next/router'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
 import BoxShadow from './BoxShadow'
-import {Text, FlexContainer, Link, Sticky} from '../..'
+import {Text, FlexContainer, Link, Sticky, Box} from '../..'
 
 const Header = ({router}) => (
   <Sticky zIndex={100}>
@@ -17,7 +17,7 @@ const Header = ({router}) => (
             </FlexContainer>
           </Link>
         </NextLink>
-        <div>
+        <Box display={['none', 'none', 'block']}>
           <NextLink href="/components">
             <Link
               color="white"
@@ -39,7 +39,24 @@ const Header = ({router}) => (
               Sandbox
             </Link>
           </NextLink>
-        </div>
+        </Box>
+        <Box display={['block', 'block', 'none']}>
+          <Link nounderline href="#sidenav">
+            <Box
+              border={1}
+              py="6px"
+              px="12px"
+              borderRadius={3}
+              color="white"
+              borderColor="gray.6"
+              display="inline-block"
+            >
+              <Text fontWeight="600" fontSize={1}>
+                Menu
+              </Text>
+            </Box>
+          </Link>
+        </Box>
       </FlexContainer>
     </BoxShadow>
   </Sticky>
