@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+
+injectGlobal(sass`
+  @import "primer-support/index.scss";
+  @import "primer-navigation/lib/filter-list.scss";
+`)
 
 export const ITEM_CLASS = 'filter-item'
 export const SELECTED_CLASS = 'selected'

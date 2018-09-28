@@ -1,5 +1,7 @@
 # Heading
 
+The Heading component will render an html `h1-6` tag without any default styling.
+
 ## Default example
 ```.jsx
 <Heading fontSize={1} mb={2}>With fontSize={1}</Heading>
