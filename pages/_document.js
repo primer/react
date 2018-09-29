@@ -30,6 +30,15 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <!-- Global site tag (gtag.js) - Google Analytics -->
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126681523-1"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-126681523-1');
+          </script>
           <title>Primer Components</title>
           <meta charSet="utf8" />
           <link rel="icon" href={getAssetPath('favicon.png')} />
