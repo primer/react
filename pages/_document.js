@@ -31,13 +31,7 @@ export default class MyDocument extends Document {
       <html lang="en">
         <Head>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126681523-1"></script>
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-126681523-1');
-          </script>
+          <script async href={getAssetPath('analytics.js')} />
           <title>Primer Components</title>
           <meta charSet="utf8" />
           <link rel="icon" href={getAssetPath('favicon.png')} />
