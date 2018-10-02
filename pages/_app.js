@@ -4,6 +4,7 @@ import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '..'
 import * as docComponents from './doc-components'
+import Index from './index.mdx'
 
 const {BaseStyles, Box, FlexContainer, Link} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
@@ -38,7 +39,7 @@ export default class MyApp extends App {
   render() {
     const {pathname} = this.props.router
     const {Component, page} = this.props
-    const isIndex = pathname === '/' || pathname === '/components'
+    const isIndex = pathname === '/' || pathname === '/components' || pathname === '/components/'
 
     return (
       <BaseStyles>
@@ -49,7 +50,7 @@ export default class MyApp extends App {
               <Box width="100%">
                 {isIndex && <IndexHero />}
                 <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-                  <Component {...page} />
+                  {isIndex ? <Index /> : <Component {...page} />}
                 </Box>
               </Box>
               <SideNav />
