@@ -5,8 +5,7 @@ import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '..'
 import * as docComponents from './doc-components'
 
-
-const {BaseStyles, Box, FlexContainer, Link, theme} = primerComponents
+const {BaseStyles, Box, FlexContainer, Link} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {

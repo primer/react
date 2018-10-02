@@ -20,7 +20,7 @@ const styledLink = styled('a')`
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: underline;
-    ${hoverStyles}
+    ${hoverStyles};
   }
 `
 
