@@ -4,8 +4,10 @@ import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName} from '@githubprimer/octicons-react'
 import * as primerComponents from '..'
 import * as docComponents from './doc-components'
+import { ThemeProvider } from 'emotion-theming'
 
-const {BaseStyles, Box, FlexContainer, Link} = primerComponents
+
+const {BaseStyles, Box, FlexContainer, Link, theme} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
@@ -41,22 +43,24 @@ export default class MyApp extends App {
     const isIndex = pathname === '/' || pathname === '/components'
 
     return (
-      <BaseStyles>
-        <Container>
-          <Layout components={components} routes={[]} theme={customTheme}>
-            <Header />
-            <FlexContainer display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
-              <Box width="100%">
-                {isIndex && <IndexHero />}
-                <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-                  <Component {...page} />
+      <ThemeProvider theme={theme}>
+        <BaseStyles>
+          <Container>
+            <Layout components={components} routes={[]} theme={customTheme}>
+              <Header />
+              <FlexContainer display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
+                <Box width="100%">
+                  {isIndex && <IndexHero />}
+                  <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                    <Component {...page} />
+                  </Box>
                 </Box>
-              </Box>
-              <SideNav />
-            </FlexContainer>
-          </Layout>
-        </Container>
-      </BaseStyles>
+                <SideNav />
+              </FlexContainer>
+            </Layout>
+          </Container>
+        </BaseStyles>
+      </ThemeProvider>
     )
   }
 }
