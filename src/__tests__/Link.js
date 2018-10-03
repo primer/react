@@ -26,6 +26,6 @@ describe('Link', () => {
   })
 
   it('respects hoverColor prop', () => {
-    expect(render(<Link hoverColor='blue.4'/>)).toMatchSnapshot()
+    expect(render(<Link hoverColor="blue.4" />)).toMatchSnapshot()
   })
 })
