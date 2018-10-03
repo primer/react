@@ -38,3 +38,22 @@ exports[`Link renders without any props 1`] = `
   color="blue.5"
 />
 `;
+
+exports[`Link respects hoverColor prop 1`] = `
+.emotion-0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+.emotion-0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #2188ff;
+}
+
+<a
+  className="emotion-0"
+  color="blue.5"
+/>
+`;
