@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
-import theme from './theme'
+import {colors} from './theme'
 import {themeGet} from 'styled-system'
 
 const getHoverColor = (hoverColor = 'blue.5') => {
   const path = `colors.${hoverColor}`
-  const fallback = theme.colors.blue[5]
+  const fallback = colors.blue[5]
   return themeGet(path, fallback)
 }
 
