@@ -4,7 +4,7 @@ import {withSystemProps, TYPOGRAPHY} from './system-props'
 import theme from './theme'
 import {themeGet, get} from 'styled-system'
 
-const getHoverColor = (hoverColor = 'blue.4') => {
+const getHoverColor = (hoverColor = 'blue.5') => {
   const path = `colors.${hoverColor}`
   const fallback = theme.colors.blue[5]
   return themeGet(path, fallback)
