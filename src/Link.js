@@ -6,7 +6,7 @@ import {themeGet, get} from 'styled-system'
 
 const getHoverColor = (hoverColor = 'blue.4') => {
   const path = `colors.${hoverColor}`
-  const fallback = get(theme, path)
+  const fallback = theme.colors.blue[5]
   return themeGet(path, fallback)
 }
 
