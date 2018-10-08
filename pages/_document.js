@@ -37,7 +37,8 @@ export default class MyDocument extends Document {
           <link rel="icon" href={getAssetPath('favicon.png')} />
           <link rel="apple-touch-icon" href={getAssetPath('apple-touch-icon.png')} />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="og:title" content="Primer React" />
+          <meta name="og:title" content="Primer Components" />
+          <meta name="og:url" content="primer.style/components">
           <meta name="description" content="Primer components built with React.js." />
           {styles}
         </Head>
