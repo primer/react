@@ -39,7 +39,10 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="og:title" content="Primer Components" />
           <meta name="description" content="Primer components built with React.js." />
-          <meta name="og:image" content="https://user-images.githubusercontent.com/334891/45336457-b47efe00-b551-11e8-9644-398f29eceb92.png" />
+          <meta
+            name="og:image"
+            content="https://user-images.githubusercontent.com/334891/45336457-b47efe00-b551-11e8-9644-398f29eceb92.png"
+          />
           {styles}
         </Head>
         <body>
