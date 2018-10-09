@@ -1,6 +1,0 @@
-#!/bin/bash
-set -e
-deployment="${1:-primer-components.now.sh}"
-now
-now alias $deployment
-now scale $deployment sfo 1
