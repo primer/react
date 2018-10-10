@@ -24,18 +24,9 @@ describe('StateLabel', () => {
     expect(render(<StateLabel small={false} />)).toMatchSnapshot()
   })
 
-  it('renders states as specific colors', () => {
-    for (const state of ['open', 'reopened', 'merged', 'closed']) {
-      expect(render(<StateLabel state={state} />)).toMatchSnapshot()
-    }
-  })
 
   it('renders children', () => {
     expect(render(<StateLabel>hi</StateLabel>)).toMatchSnapshot()
-  })
-
-  it('renders icon with children', () => {
-    expect(render(<StateLabel state="open">hi</StateLabel>)).toMatchSnapshot()
   })
 
   it('does not pass on arbitrary attributes', () => {
@@ -45,10 +36,6 @@ describe('StateLabel', () => {
   })
 
   it('respects the icon prop', () => {
-    expect(render(<StateLabel icon={<Octicon icon={Check} />} state="open" />)).toMatchSnapshot()
-  })
-
-  it('respects icon={false}', () => {
-    expect(render(<StateLabel state="open" icon={false} />)).toMatchSnapshot()
+    expect(render(<StateLabel icon={Check} scheme="yellow" />)).toMatchSnapshot()
   })
 })
