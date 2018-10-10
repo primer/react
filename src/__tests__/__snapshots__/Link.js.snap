@@ -10,7 +10,6 @@ exports[`Link passes href down to link element 1`] = `
 .emotion-0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #0366d6;
 }
 
 <a
@@ -30,7 +29,6 @@ exports[`Link renders without any props 1`] = `
 .emotion-0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #0366d6;
 }
 
 <a
@@ -49,7 +47,7 @@ exports[`Link respects hoverColor prop 1`] = `
 .emotion-0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #0366d6;
+  color: #2188ff;
 }
 
 <a
