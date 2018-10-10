@@ -14,7 +14,7 @@ The FilterList component is a menu with filter options that filter the main cont
 
 ## System props
 
-FilterList components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+FilterList components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 

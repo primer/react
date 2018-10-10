@@ -11,7 +11,7 @@ Avatars are images used to represent users and organizations on GitHub. They typ
 
 ## System props
 
-Avatar components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Avatar components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
