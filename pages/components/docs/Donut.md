@@ -12,7 +12,7 @@ When using the `data` prop, the fill of each slice comes from the corresponding 
 
 ## System props
 
-Donut components get `space` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Donut components get `space` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
