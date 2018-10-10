@@ -46,13 +46,14 @@ export const POSITION = [
 
 export const FLEX_CONTAINER = LAYOUT.concat(
   // flex container props (display: flex)
-  'alignContent',
-  'alignItems',
-  'flexWrap',
   'flex',
   'flexBasis',
   'flexDirection',
+  'flexWrap',
+  'alignContent',
+  'alignItems',
   'justifyContent',
+  'justifyItems',
   'order'
 )
 
