@@ -29,6 +29,8 @@ export const LAYOUT = COMMON.concat(
   'minHeight',
   'maxWidth',
   'maxHeight',
+  'overflow',
+  'textAlign',
   'verticalAlign'
 )
 
