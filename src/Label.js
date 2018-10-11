@@ -30,10 +30,9 @@ const styledLabel = styled('span')`
   &:hover {
     text-decoration: none;
   }
-  ${color}
-  ${props => props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : ''};
+  ${color} ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
   ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
-  ${props => sizeMap[props.size]}
+  ${props => sizeMap[props.size]};
 `
 
 styledLabel.defaultProps = {
@@ -43,8 +42,8 @@ styledLabel.defaultProps = {
 }
 
 styledLabel.propTypes = {
-  outline: PropTypes.bool,
-  dropshadow: PropTypes.bool
+  dropshadow: PropTypes.bool,
+  outline: PropTypes.bool
 }
 
 export default withSystemProps(styledLabel, ['space'])
