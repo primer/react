@@ -4,6 +4,13 @@ import styled from 'react-emotion'
 import {withSystemProps} from './system-props'
 import theme, {colors} from './theme'
 
+const sizeMap = {
+  small: `padding 0.125em ${theme.space[2]}px; font-size: ${theme.fontSizes[0]}px;`,
+  medium: `padding: 3px ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
+  large: `padding: 4px ${theme.space[2]}px; ${theme.fontSizes[1]}px;`,
+  xl: `padding: ${theme.space[1]}px; ${theme.space[2]}px; ${theme.fontSizes[2]}px;`
+}
+
 const outlineStyles = `
   margin-top: -1px; // offsets the 1px border
   margin-bottom: -1px; // offsets the 1px border
@@ -16,8 +23,6 @@ const outlineStyles = `
 
 const styledLabel = styled('span')`
   display: inline-block;
-  padding: 3px ${theme.space[1]}px;
-  font-size: ${theme.fontSizes[0]}px;
   font-weight: 600;
   line-height: ${theme.lineHeights.condensedUltra};
   color: ${colors.white};
@@ -26,12 +31,15 @@ const styledLabel = styled('span')`
   &:hover {
     text-decoration: none;
   }
-  ${color} ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
+  ${color}
+  ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
+  ${props => sizeMap[props.size]}
 `
 
 styledLabel.defaultProps = {
   theme,
-  bg: 'gray.5'
+  bg: 'gray.5',
+  size: 'medium'
 }
 
 styledLabel.propTypes = {
