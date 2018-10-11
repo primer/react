@@ -45,7 +45,7 @@ const styledLabel = styled(StateLabel)`
 `
 
 StateLabel.propTypes = {
-  scheme: PropTypes.oneOf(['open', 'closed', 'merged']), //eslint-disable-line
+  scheme: PropTypes.oneOf(['open', 'closed', 'merged']),
   small: PropTypes.bool
 }
 

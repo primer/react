@@ -1,5 +1,4 @@
 import React from 'react'
-import {Check} from '@githubprimer/octicons-react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
 import {COMMON} from '../system-props'

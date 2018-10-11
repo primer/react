@@ -26,8 +26,7 @@ const styledLabel = styled('span')`
   &:hover {
     text-decoration: none;
   }
-  ${color}
-  ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
+  ${color} ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
 `
 
 styledLabel.defaultProps = {
