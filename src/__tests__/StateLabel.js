@@ -13,9 +13,9 @@ describe('StateLabel', () => {
   })
 
   it('respects the scheme prop', () => {
-    expect(render(<StateLabel scheme="open" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="closed" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="merged" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="issueOpened" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="issueClosed" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="pullMerged" />)).toMatchSnapshot()
   })
 
   it('respects the small flag', () => {
