@@ -36,7 +36,7 @@ const styledLabel = styled(StateLabel)`
   font-size: ${props => (props.small ? `${theme.fontSizes[0]}px` : `${theme.fontSizes[1]}px`)};
   text-align: center;
   background-color: ${props => (props.scheme ? schemeMap[props.scheme] : schemeMap.gray)};
-  border-radius: 3px;
+  border-radius: ${theme.radii[1]}px;
 `
 
 StateLabel.propTypes = {
