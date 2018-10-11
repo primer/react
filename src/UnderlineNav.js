@@ -52,5 +52,4 @@ UnderlineNavLink.propTypes = {
 
 UnderlineNav.Link = withSystemProps(UnderlineNavLink, COMMON)
 
-
 export default withSystemProps(UnderlineNav, COMMON)
