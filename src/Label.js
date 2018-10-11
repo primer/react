@@ -5,7 +5,7 @@ import {withSystemProps} from './system-props'
 import theme, {colors} from './theme'
 
 const sizeMap = {
-  small: `padding 0.125em ${theme.space[2]}px; font-size: ${theme.fontSizes[0]}px;`,
+  small: `padding 0.125em ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
   medium: `padding: 3px ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
   large: `padding: 4px ${theme.space[2]}px; ${theme.fontSizes[1]}px;`,
   xl: `padding: ${theme.space[1]}px; ${theme.space[2]}px; ${theme.fontSizes[2]}px;`
@@ -30,7 +30,8 @@ const styledLabel = styled('span')`
   &:hover {
     text-decoration: none;
   }
-  ${color} ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
+  ${color} //eslint-disable-line
+  ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
   ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
   ${props => sizeMap[props.size]};
 `
