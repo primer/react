@@ -14,9 +14,9 @@ describe('StateLabel', () => {
   })
 
   it('respects the scheme prop', () => {
-    expect(render(<StateLabel scheme="green" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="red" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="purple" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="open" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="closed" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="merged" />)).toMatchSnapshot()
   })
 
   it('respects the small flag', () => {
@@ -32,9 +32,5 @@ describe('StateLabel', () => {
     const defaultOutput = render(<StateLabel />)
     expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
     expect(render(<StateLabel hidden />)).toEqual(defaultOutput)
-  })
-
-  it('respects the icon prop', () => {
-    expect(render(<StateLabel icon={Check} scheme="yellow" />)).toMatchSnapshot()
   })
 })
