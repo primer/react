@@ -5,7 +5,7 @@ Use StateLabel components to show the status of an issue or pull request.
 ## Default example
 
 ```.jsx
-  <StateLabel icon={IssueOpened} scheme="green">Open</StateLabel>
+  <StateLabel scheme="open">Open</StateLabel>
 ```
 
 ## System props
