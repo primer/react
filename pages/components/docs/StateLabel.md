@@ -16,8 +16,7 @@ StateLabel components get `COMMON` system props. Read our [System Props](/compon
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| icon | Node | | Provide an Octicon to render in the label. Example: `icon={Check}` |
 | small | Boolean | | Used to create a smaller version of the default StateLabel |
-| scheme | String | | Can be one of `green`, `yellow`, `purple`, `gray` or `red`. Used to set background color.
+| scheme | String | | Can be one of `open`, `closed`, or `merged`.
 
 export const meta = {displayName: 'StateLabel'}
