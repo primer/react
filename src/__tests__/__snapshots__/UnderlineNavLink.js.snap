@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnderlineNavLink renders the given "is" prop 1`] = `
+exports[`UnderlineNav.Link renders the given "is" prop 1`] = `
 <b
   blacklist={
     Array [
@@ -27,7 +27,7 @@ exports[`UnderlineNavLink renders the given "is" prop 1`] = `
 />
 `;
 
-exports[`UnderlineNavLink respects the "selected" prop 1`] = `
+exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
 <a
   blacklist={
     Array [
