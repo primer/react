@@ -32,8 +32,8 @@ const styledLabel = styled('span')`
   }
   ${color} //eslint-disable-line
   ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
-  ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
   ${props => sizeMap[props.size]};
+  ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
 `
 
 styledLabel.defaultProps = {
