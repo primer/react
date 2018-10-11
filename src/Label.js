@@ -22,7 +22,7 @@ const styledLabel = styled('span')`
   line-height: ${theme.lineHeights.condensedUltra};
   color: ${colors.white};
   border-radius: 2px;
-  box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12);
+  ${props => props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : ''};
   &:hover {
     text-decoration: none;
   }
@@ -35,7 +35,8 @@ styledLabel.defaultProps = {
 }
 
 styledLabel.propTypes = {
-  outline: PropTypes.bool
+  outline: PropTypes.bool,
+  dropshadow: PropTypes.bool
 }
 
 export default withSystemProps(styledLabel, ['space'])
