@@ -6,9 +6,9 @@ The FilterList component is a menu with filter options that filter the main cont
 
 ```.jsx
 <FilterList>
-  <FilterListItem selected count='32' href='#foo'>First Filter</FilterListItem>
-  <FilterListItem count='2' href='#bar'>Second Filter</FilterListItem>
-  <FilterListItem href='#baz'>Third Filter</FilterListItem>
+  <FilterList.Item selected count='32' href='#foo'>First Filter</FilterList.Item>
+  <FilterList.Item count='2' href='#bar'>Second Filter</FilterList.Item>
+  <FilterList.Item href='#baz'>Third Filter</FilterList.Item>
 </FilterList>
 ```
 
