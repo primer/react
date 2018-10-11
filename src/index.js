@@ -35,7 +35,6 @@ export {default as Dropdown} from './Dropdown'
 
 export {default as Donut} from './Donut'
 export {default as FilterList} from './FilterList'
-export {default as FilterListItem} from './FilterListItem'
 export {default as FlexContainer} from './FlexContainer'
 export {default as FlexItem} from './FlexItem'
 
