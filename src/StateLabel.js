@@ -48,7 +48,7 @@ const styledLabel = styled(StateLabel)`
 StateLabel.propTypes = {
   icon: PropTypes.node,
   scheme: PropTypes.oneOf('open', 'closed', 'merged'), //eslint-disable-line
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 export default withSystemProps(styledLabel, COMMON)
