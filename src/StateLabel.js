@@ -32,7 +32,7 @@ const styledLabel = styled(StateLabel)`
   padding: ${props => (props.small ? `0.125em ${theme.space[1]}px` : `${theme.space[1]}px ${theme.space[2]}px`)};
   font-weight: 600;
   line-height: 20px;
-  color: #fff;
+  color: ${colors.white};
   font-size: ${props => (props.small ? `${theme.fontSizes[0]}px` : `${theme.fontSizes[1]}px`)};
   text-align: center;
   background-color: ${props => (props.scheme ? schemeMap[props.scheme] : schemeMap.gray)};
