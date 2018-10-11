@@ -1,5 +1,5 @@
 import React from 'react'
-import Octicon, {Check} from '@githubprimer/octicons-react'
+import {Check} from '@githubprimer/octicons-react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
@@ -23,7 +23,6 @@ describe('StateLabel', () => {
     expect(render(<StateLabel small />)).toMatchSnapshot()
     expect(render(<StateLabel small={false} />)).toMatchSnapshot()
   })
-
 
   it('renders children', () => {
     expect(render(<StateLabel>hi</StateLabel>)).toMatchSnapshot()

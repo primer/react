@@ -14,7 +14,8 @@ exports[`StateLabel renders children 1`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 16px text-align:center;
+  font-size: 14px;
+  text-align: center;
   background-color: #6a737d;
   border-radius: 3px;
 }
@@ -40,7 +41,8 @@ exports[`StateLabel respects the icon prop 1`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 16px text-align:center;
+  font-size: 14px;
+  text-align: center;
   background-color: #dbab09;
   border-radius: 3px;
 }
@@ -90,8 +92,9 @@ exports[`StateLabel respects the scheme prop 1`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 16px text-align:center;
-  background-color: #28a745;
+  font-size: 14px;
+  text-align: center;
+  background-color: #2cbe4e;
   border-radius: 3px;
 }
 
@@ -114,7 +117,8 @@ exports[`StateLabel respects the scheme prop 2`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 16px text-align:center;
+  font-size: 14px;
+  text-align: center;
   background-color: #cb2431;
   border-radius: 3px;
 }
@@ -138,7 +142,8 @@ exports[`StateLabel respects the scheme prop 3`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 16px text-align:center;
+  font-size: 14px;
+  text-align: center;
   background-color: #6f42c1;
   border-radius: 3px;
 }
@@ -162,7 +167,8 @@ exports[`StateLabel respects the small flag 1`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 12px text-align:center;
+  font-size: 12px;
+  text-align: center;
   background-color: #6a737d;
   border-radius: 3px;
 }
@@ -186,7 +192,8 @@ exports[`StateLabel respects the small flag 2`] = `
   font-weight: 600;
   line-height: 20px;
   color: #fff;
-  font-size: 16px text-align:center;
+  font-size: 14px;
+  text-align: center;
   background-color: #6a737d;
   border-radius: 3px;
 }

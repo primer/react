@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import theme, {colors} from './theme'
 import {withSystemProps, COMMON} from './system-props'
-import Box from  './Box'
 import Octicon from './Octicon'
 
 const schemeMap = {
@@ -15,9 +14,9 @@ const schemeMap = {
 }
 
 const getOcticon = (icon, small) =>
-  small ? <Octicon mr={1} width='1em' icon={icon} /> : <Octicon mr={1} icon={icon} />
+  small ? <Octicon mr={1} width="1em" icon={icon} /> : <Octicon mr={1} icon={icon} />
 
-function StateLabel({className, icon, scheme, small = false, children}) {
+function StateLabel({className, icon, small = false, children}) {
   return (
     <span className={className}>
       {icon && getOcticon(icon, small)}
@@ -41,8 +40,8 @@ const styledLabel = styled(StateLabel)`
 
 StateLabel.propTypes = {
   icon: PropTypes.node,
-  scheme: PropTypes.oneOf('red', 'yellow', 'purple', 'green', 'gray'),
-  small: PropTypes.bool,
+  scheme: PropTypes.oneOf('red', 'yellow', 'purple', 'green', 'gray'), //eslint-disable-line
+  small: PropTypes.bool
 }
 
 export default withSystemProps(styledLabel, COMMON)
