@@ -52,4 +52,3 @@ export {default as Flash} from './Flash'
 export {default as StateLabel} from './StateLabel'
 
 export {default as UnderlineNav} from './UnderlineNav'
-export {default as UnderlineNavLink} from './UnderlineNavLink'
