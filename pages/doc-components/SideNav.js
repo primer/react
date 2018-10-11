@@ -37,7 +37,7 @@ const SideNav = ({router}) => (
       borderColor="gray.2"
       id="sidenav"
     >
-      <FlexflexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
+      <Flex flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/system-props">
           <Link
             color="gray.9"
