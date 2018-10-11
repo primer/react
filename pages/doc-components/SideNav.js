@@ -1,7 +1,7 @@
 import React from 'react'
 import {withRouter} from 'next/router'
 import {default as NextLink} from 'next/link'
-import {Text, Box, Link, FlexContainer, Relative} from '../..'
+import {Text, Box, Link, Flex, Relative} from '../..'
 import * as docs from '../components/docs'
 
 const getLink = router => {
@@ -37,7 +37,7 @@ const SideNav = ({router}) => (
       borderColor="gray.2"
       id="sidenav"
     >
-      <FlexContainer flexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
+      <FlexflexDirection="column" alignItems="start" p={5} borderBottom={1} borderColor="gray.2">
         <NextLink href="/components/docs/system-props">
           <Link
             color="gray.9"
@@ -59,7 +59,7 @@ const SideNav = ({router}) => (
             Primer Theme
           </Link>
         </NextLink>
-      </FlexContainer>
+      </Flex>
       <Box pt={5} pl={5}>
         <Text is="p" color="black" m={0} mb={3}>
           <NextLink href="/components/docs/Avatar">
