@@ -6,7 +6,7 @@ import * as primerComponents from '..'
 import * as docComponents from './doc-components'
 import Index from './index.mdx'
 
-const {BaseStyles, Box, FlexContainer, Link} = primerComponents
+const {BaseStyles, Box, Flex, Link} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
@@ -46,7 +46,7 @@ export default class MyApp extends App {
         <Container>
           <Layout components={components} routes={[]} theme={customTheme}>
             <Header />
-            <FlexContainer display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
+            <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
               <Box width="100%">
                 {isIndex && <IndexHero />}
                 <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
@@ -54,7 +54,7 @@ export default class MyApp extends App {
                 </Box>
               </Box>
               <SideNav />
-            </FlexContainer>
+            </Flex>
           </Layout>
         </Container>
       </BaseStyles>
