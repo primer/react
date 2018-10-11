@@ -1,6 +1,6 @@
 # Flex and Flex.Item
 
-Flex and Flex.Item are wrapping components that will give the content flexbox properties.
+Flex and Flex.Item are wrapping components that will give the content flexbox properties. Flex.Item is included in the export for Flex.
 
 ## Default example
 
