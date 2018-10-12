@@ -17,6 +17,3 @@ script:
   - npm run build
   # make sure that the package includes and excludes all the right stuff
   - npm pack
-
-notifications:
-    slack: github:4OisIoqZYyMlWcw3hFtZgbmh
