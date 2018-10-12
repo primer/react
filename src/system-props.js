@@ -12,7 +12,8 @@ export const TYPOGRAPHY = COMMON.concat(
   'fontFamily',
   'fontSize',
   'fontWeight',
-  'lineHeight'
+  'lineHeight',
+  'textAlign'
 )
 
 export const LAYOUT = COMMON.concat(
@@ -30,7 +31,6 @@ export const LAYOUT = COMMON.concat(
   'maxWidth',
   'maxHeight',
   'overflow',
-  'textAlign',
   'verticalAlign'
 )
 
