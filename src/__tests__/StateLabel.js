@@ -1,5 +1,4 @@
 import React from 'react'
-import Octicon, {Check} from '@githubprimer/octicons-react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
@@ -14,9 +13,9 @@ describe('StateLabel', () => {
   })
 
   it('respects the scheme prop', () => {
-    expect(render(<StateLabel scheme="green" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="red" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="purple" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="issueOpened" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="issueClosed" />)).toMatchSnapshot()
+    expect(render(<StateLabel scheme="pullMerged" />)).toMatchSnapshot()
   })
 
   it('respects the small flag', () => {
@@ -24,31 +23,13 @@ describe('StateLabel', () => {
     expect(render(<StateLabel small={false} />)).toMatchSnapshot()
   })
 
-  it('renders states as specific colors', () => {
-    for (const state of ['open', 'reopened', 'merged', 'closed']) {
-      expect(render(<StateLabel state={state} />)).toMatchSnapshot()
-    }
-  })
-
   it('renders children', () => {
     expect(render(<StateLabel>hi</StateLabel>)).toMatchSnapshot()
-  })
-
-  it('renders icon with children', () => {
-    expect(render(<StateLabel state="open">hi</StateLabel>)).toMatchSnapshot()
   })
 
   it('does not pass on arbitrary attributes', () => {
     const defaultOutput = render(<StateLabel />)
     expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
     expect(render(<StateLabel hidden />)).toEqual(defaultOutput)
-  })
-
-  it('respects the icon prop', () => {
-    expect(render(<StateLabel icon={<Octicon icon={Check} />} state="open" />)).toMatchSnapshot()
-  })
-
-  it('respects icon={false}', () => {
-    expect(render(<StateLabel state="open" icon={false} />)).toMatchSnapshot()
   })
 })

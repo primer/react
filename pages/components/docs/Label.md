@@ -19,6 +19,7 @@ Label components get `COMMON` system props. Read our [System Props](/components/
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | outline | Boolean | | Creates an outline style label |
-| scheme | String | | Can be one of `gray`, `gray-darker`, `orange` or `green` - sets the background color and text color of the Label component
+| size | String | 'medium' | Can be one of `small`, `medium` (default), `large` or `xl` .
+| dropshadow | Boolean | | Adds a dropshadow to the label |
 
 export const meta = {displayName: 'Label'}
