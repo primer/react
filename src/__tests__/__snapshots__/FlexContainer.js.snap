@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FlexContainer respects alignContent 1`] = `
+exports[`Flex respects alignContent 1`] = `
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -16,7 +16,7 @@ exports[`FlexContainer respects alignContent 1`] = `
 />
 `;
 
-exports[`FlexContainer respects alignItems 1`] = `
+exports[`Flex respects alignItems 1`] = `
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -33,7 +33,7 @@ exports[`FlexContainer respects alignItems 1`] = `
 />
 `;
 
-exports[`FlexContainer respects flexDirection 1`] = `
+exports[`Flex respects flexDirection 1`] = `
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -49,7 +49,7 @@ exports[`FlexContainer respects flexDirection 1`] = `
 />
 `;
 
-exports[`FlexContainer respects flexWrap 1`] = `
+exports[`Flex respects flexWrap 1`] = `
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -65,7 +65,7 @@ exports[`FlexContainer respects flexWrap 1`] = `
 />
 `;
 
-exports[`FlexContainer respects justifyContent 1`] = `
+exports[`Flex respects justifyContent 1`] = `
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -82,7 +82,7 @@ exports[`FlexContainer respects justifyContent 1`] = `
 />
 `;
 
-exports[`FlexContainer respects responsive display 1`] = `
+exports[`Flex respects responsive display 1`] = `
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;

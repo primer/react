@@ -3,18 +3,18 @@ import {withRouter} from 'next/router'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
 import BoxShadow from './BoxShadow'
-import {Text, FlexContainer, Link, Sticky, Box} from '../..'
+import {Text, Flex, Link, Sticky, Box} from '../..'
 
 const Header = ({router}) => (
   <Sticky zIndex={100}>
     <BoxShadow py={3} bg="gray.9" color="white">
-      <FlexContainer className="p-responsive" alignItems="center" justifyContent="space-between">
+      <Flex className="p-responsive" alignItems="center" justifyContent="space-between">
         <NextLink href="/components">
           <Link ml={3} color="white" href="/components">
-            <FlexContainer alignItems="center" justifyContent="center">
+            <Flex alignItems="center" justifyContent="center">
               <Octicon icon={MarkGithub} size="medium" />
               <Text ml={3}>Primer Components</Text>
-            </FlexContainer>
+            </Flex>
           </Link>
         </NextLink>
         <Box display={['none', 'none', 'block']}>
@@ -57,7 +57,7 @@ const Header = ({router}) => (
             </Box>
           </Link>
         </Box>
-      </FlexContainer>
+      </Flex>
     </BoxShadow>
   </Sticky>
 )

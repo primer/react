@@ -7,14 +7,14 @@ import Button from './Button'
 import Box from './Box'
 import Caret from './Caret'
 import Details from './Details'
-import FlexContainer from './FlexContainer'
+import Flex from './Flex'
 import {withSystemProps, COMMON} from './system-props'
 
 function Dropdown({title, scheme, children, className, ...rest}) {
   const {minWidth} = rest
   return (
     <div className={classnames(className, 'BtnGroup')} {...rest}>
-      <FlexContainer is={Details} className="BtnGroup-form" css={{position: 'relative'}}>
+      <Flex is={Details} className="BtnGroup-form" css={{position: 'relative'}}>
         {({toggle}) => (
           <React.Fragment>
             <Button is="summary" scheme={scheme} grouped onClick={toggle}>
@@ -38,7 +38,7 @@ function Dropdown({title, scheme, children, className, ...rest}) {
             </Box>
           </React.Fragment>
         )}
-      </FlexContainer>
+      </Flex>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FlexItem renders as correct tag 1`] = `
+exports[`Flex.Item renders as correct tag 1`] = `
 .emotion-0 {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
@@ -14,7 +14,7 @@ exports[`FlexItem renders as correct tag 1`] = `
 </button>
 `;
 
-exports[`FlexItem respects alignSelf 1`] = `
+exports[`Flex.Item respects alignSelf 1`] = `
 .emotion-0 {
   -webkit-align-self: center;
   -ms-flex-item-align: center;

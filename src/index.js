@@ -35,9 +35,7 @@ export {default as Dropdown} from './Dropdown'
 
 export {default as Donut} from './Donut'
 export {default as FilterList} from './FilterList'
-export {default as FilterListItem} from './FilterListItem'
-export {default as FlexContainer} from './FlexContainer'
-export {default as FlexItem} from './FlexItem'
+export {default as Flex} from './Flex'
 
 export {default as TextInput} from './TextInput'
 
@@ -52,4 +50,3 @@ export {default as Flash} from './Flash'
 export {default as StateLabel} from './StateLabel'
 
 export {default as UnderlineNav} from './UnderlineNav'
-export {default as UnderlineNavLink} from './UnderlineNavLink'

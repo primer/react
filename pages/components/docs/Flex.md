@@ -1,41 +1,41 @@
-# FlexContainer and FlexItem
+# Flex and Flex.Item
 
-FlexContainer and FlexItem are wrapping components that will give the content flexbox properties.
+Flex and Flex.Item are wrapping components that will give the content flexbox properties. Flex.Item is included in the export for Flex.
 
 ## Default example
 
 ```.jsx
 <BorderBox width={300} height={300} borderRadius={0}>
-  <FlexContainer flexWrap="nowrap">
-    <FlexItem>
+  <Flex flexWrap="nowrap">
+    <Flex.Item>
       <Box p={3} bg="blue.5">
         Item 1
       </Box>
-    </FlexItem>
-    <FlexItem>
+    </Flex.Item>
+    <Flex.Item>
       <Box p={3} bg="green.5">
         Item 2
       </Box>
-    </FlexItem>
-    <FlexItem>
+    </Flex.Item>
+    <Flex.Item>
       <Box p={3} bg="yellow.5">
         Item 3
       </Box>
-    </FlexItem>
-  </FlexContainer>
+    </Flex.Item>
+  </Flex>
 </BorderBox>
 ```
 
 ## System props
 
-FlexContainer components get `FLEX_CONTAINER`, `COMMON`, and `LAYOUT` system props.
+Flex components get `FLEX_CONTAINER`, `COMMON`, and `LAYOUT` system props.
 
-FlexItem components get `FLEX_ITEM`, `COMMON`, and `LAYOUT` system props.
+Flex.Item components get `FLEX_ITEM`, `COMMON`, and `LAYOUT` system props.
 
 Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
-FlexContainer and FlexItem do not get any additional props other than the system props mentioned above.
+Flex and Flex.Item do not get any additional props other than the system props mentioned above.
 
 export const meta = {displayName: 'Flex'}

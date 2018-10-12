@@ -1,54 +1,54 @@
 import React from 'react'
-import FlexContainer from '../FlexContainer'
+import Flex from '../Flex'
 import {FLEX_CONTAINER} from '../system-props'
 import {render} from '../utils/testing'
 
-describe('FlexContainer', () => {
+describe('Flex', () => {
   it('is a system component', () => {
-    expect(FlexContainer.systemComponent).toEqual(true)
+    expect(Flex.systemComponent).toEqual(true)
   })
 
   it('implements flex system props', () => {
-    expect(FlexContainer).toImplementSystemProps(FLEX_CONTAINER)
+    expect(Flex).toImplementSystemProps(FLEX_CONTAINER)
   })
 
   it('gets display: flex by default', () => {
-    expect(render(<FlexContainer />)).toHaveStyleRule('display', 'flex')
+    expect(render(<Flex />)).toHaveStyleRule('display', 'flex')
   })
 
   it('respects flexWrap', () => {
-    expect(render(<FlexContainer flexWrap="nowrap" />)).toMatchSnapshot()
+    expect(render(<Flex flexWrap="nowrap" />)).toMatchSnapshot()
   })
 
   it('respects flexDirection', () => {
-    expect(render(<FlexContainer flexDirection="row" />)).toMatchSnapshot()
+    expect(render(<Flex flexDirection="row" />)).toMatchSnapshot()
   })
 
   it('respects justifyContent', () => {
-    expect(render(<FlexContainer justifyContent="start" />)).toMatchSnapshot()
+    expect(render(<Flex justifyContent="start" />)).toMatchSnapshot()
   })
 
   it('respects alignItems', () => {
-    expect(render(<FlexContainer alignItems="start" />)).toMatchSnapshot()
+    expect(render(<Flex alignItems="start" />)).toMatchSnapshot()
   })
 
   it('respects alignContent', () => {
-    expect(render(<FlexContainer alignContent="start" />)).toMatchSnapshot()
+    expect(render(<Flex alignContent="start" />)).toMatchSnapshot()
   })
 
   it('respects display', () => {
-    expect(render(<FlexContainer display="inline-flex" />)).toHaveStyleRule('display', 'inline-flex')
+    expect(render(<Flex display="inline-flex" />)).toHaveStyleRule('display', 'inline-flex')
   })
 
   it('respects responsive display', () => {
-    expect(render(<FlexContainer display={['flex', 'inline-flex']} />)).toMatchSnapshot()
+    expect(render(<Flex display={['flex', 'inline-flex']} />)).toMatchSnapshot()
   })
 
   it('respects the "is" prop', () => {
-    expect(render(<FlexContainer is="span" />).type).toEqual('span')
+    expect(render(<Flex is="span" />).type).toEqual('span')
   })
 
   it('renders a div by default', () => {
-    expect(render(<FlexContainer />).type).toEqual('div')
+    expect(render(<Flex />).type).toEqual('div')
   })
 })
