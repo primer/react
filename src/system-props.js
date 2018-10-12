@@ -12,7 +12,8 @@ export const TYPOGRAPHY = COMMON.concat(
   'fontFamily',
   'fontSize',
   'fontWeight',
-  'lineHeight'
+  'lineHeight',
+  'textAlign'
 )
 
 export const LAYOUT = COMMON.concat(
@@ -29,6 +30,7 @@ export const LAYOUT = COMMON.concat(
   'minHeight',
   'maxWidth',
   'maxHeight',
+  'overflow',
   'verticalAlign'
 )
 
@@ -44,13 +46,14 @@ export const POSITION = [
 
 export const FLEX_CONTAINER = LAYOUT.concat(
   // flex container props (display: flex)
-  'alignContent',
-  'alignItems',
-  'flexWrap',
   'flex',
   'flexBasis',
   'flexDirection',
+  'flexWrap',
+  'alignContent',
+  'alignItems',
   'justifyContent',
+  'justifyItems',
   'order'
 )
 
