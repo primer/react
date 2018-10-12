@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {color} from 'styled-system'
 import styled from 'react-emotion'
-import {withSystemProps} from './system-props'
+import {withSystemProps, COMMON} from './system-props'
 import theme, {colors} from './theme'
 
 const sizeMap = {
@@ -47,4 +47,4 @@ styledLabel.propTypes = {
   outline: PropTypes.bool
 }
 
-export default withSystemProps(styledLabel, ['space'])
+export default withSystemProps(styledLabel, COMMON)
