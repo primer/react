@@ -8,6 +8,8 @@ exports[`Label respects the "outline" prop 1`] = `
   color: #fff;
   border-radius: 2px;
   background-color: #6a737d;
+  padding: 3px 4px;
+  font-size: 12px;
   margin-top: -1px;
   margin-bottom: -1px;
   font-weight: 400;
@@ -15,8 +17,6 @@ exports[`Label respects the "outline" prop 1`] = `
   background-color: transparent;
   border: 1px solid rgba(27,31,35,0.15);
   box-shadow: none;
-  padding: 3px 4px;
-  font-size: 12px;
 }
 
 .emotion-0:hover {
