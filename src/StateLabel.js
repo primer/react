@@ -23,13 +23,11 @@ const octiconMap = {
   pullMerged: GitMerge
 }
 
-const getOcticon = (scheme, small) =>
-  small ? <Octicon mr={1} width="1em" icon={octiconMap[scheme]} /> : <Octicon mr={1} icon={octiconMap[scheme]} />
-
 function StateLabel({className, scheme, small = false, children}) {
+  const octiconProps = small ? {width: '1em'} : {}
   return (
     <span className={className}>
-      {scheme && getOcticon(scheme, small)}
+      {scheme && <Octicon mr={1} {...octiconProps} icon={octiconMap[scheme]} />}
       {children}
     </span>
   )
