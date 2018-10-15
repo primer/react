@@ -1,7 +1,60 @@
 # Migration guide
 
+## `4.0.0-beta`
+[The 4.0.0-beta release](https://github.com/primer/components/releases/v4.0.0-beta) renames some components:
+
+* `FlexContainer` is now named `Flex`
+* `FlexItem` is now `Flex.Item`
+* `UnderlineNavItem` is now `UnderlineNav.Item`
+* `FilterListItem` is now `FilterList.Item`
+
+There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#3-0-0-beta):
+
+```js
+npx jscodeshift -t node_modules/@primer/components/codemods/v4.js path/to/src
+```
+
+The following breaking changes must be accounted for manually:
+
+* `Label` no longer has a `scheme` prop, but now respects `size` and `dropshadow` props.
+* `StateLabel` **does** have a `scheme` prop (instead of `state`), and takes different values.
+
+## `3.0.0-beta`
+[The 3.0.0-beta release](https://github.com/primer/components/releases/v3.0.0-beta) contains the following breaking changes:
+
+* The `MergeStatus` component is gone. Use a `StateLabel` instead.
+* The `Link` component no longer accepts `scheme` or `muted` props, and has no underline by default.
+* `DonutChart` is now simply `Donut`, and `DonutSlice` is `Donut.Slice`.
+
+There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#2-0-0-beta):
+
+```js
+npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
+```
+
+## `2.0.0-beta`
+[The 2.0.0-beta release](https://github.com/primer/components/releases/v2.0.0-beta) is a major version bump because it renames several components:
+
+* `Box` is now `BorderBox`
+* `Block` is now `Box`
+* `CaretBox` is now `PointerBox`
+
+We suggest that you rename your components in the above order, since renaming `Block` to `Box` before renaming the old `Box` component to `BorderBox` will cause problems.
+
+There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#1-0-0-beta):
+
+```js
+npx jscodeshift -t node_modules/@primer/components/codemods/v2.js path/to/src
+```
+
 ## `1.0.0-beta`
-This release is a major version bump because it completely refactors the guts of all our components. Here's what you need to know:
+[This release](https://github.com/primer/components/releases/v1.0.0-beta) is a major version bump because it completely refactors the guts of all our components. Here's what you need to know:
+
+There is a [codemod](#codemods) available to upgrade from previous versions `0.x.x-beta`:
+
+```js
+npx jscodeshift -t node_modules/@primer/components/codemods/v1.js path/to/src
+```
 
 ### Emotion and styled-system
 The big change in this release is the introduction of [emotion] and [styled-system] under the hood to speed up our migration from Primer CSS to complete style encapsulation in React. For now, you will need to continue serving up [Primer CSS] to support components that haven't yet been migrated to the new styling system. See [the README](README.md#styling) for more information.
@@ -166,6 +219,11 @@ The `FlexContainer` and `FlexItem` components have changed significantly in this
 | :--- | :------- | :--------- |
 | `flexAuto` | (boolean) | No longer supported |
 
+
+## Codemods
+[Codemods](https://www.sitepoint.com/getting-started-with-codemods/) are scripted transformations that you can run on your code to relieve you of most of the grunt work involved in upgrading from one major version to the next. The codemod instructions for each major release assume that your code has already been upgraded to the **previous major release**. If this is not the case, you should run the codemods for all previous major versions first.
+
+Beware that codemods are not 100% fool-proof and may break your code, especially if you do unexpected things like alias Primer exports in strange ways (`import {Box as box}...`), or use component identifiers from other modules that conflict with Primer's. Before running a codemod, please either back up your work or commit it, then carefully inspect the diff.
 
 [color gradations]: https://styleguide.github.com/primer/support/color-system/#color-variables
 [default theme]: src/theme.js
