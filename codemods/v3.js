@@ -15,4 +15,3 @@ module.exports = (file, api) => {
 
   return prettify(ast, file)
 }
-

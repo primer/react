@@ -1,5 +1,4 @@
 module.exports = function renameImports(ast, j, importSource, importMap) {
-
   const imports = ast.find(j.ImportDeclaration, {source: {value: importSource}})
   const importsByName = {}
 
@@ -34,7 +33,8 @@ module.exports = function renameImports(ast, j, importSource, importMap) {
     })
 
     // replace all of the rewritten identifiers with member expressions
-    ast.find(j.Identifier, {name: from})
+    ast
+      .find(j.Identifier, {name: from})
       .filter(id => id.parent.node.type !== 'ImportSpecifier')
       .replaceWith(memberExpression(to, ...members))
   }
