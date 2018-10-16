@@ -4,11 +4,11 @@ workflow "Lint and test" {
 }
 
 action "lint" {
-  uses = "superb-bears/npm@master"
   args = ["run lint"]
+  uses = "actions/npm@94e6933"
 }
 
 action "test" {
-  uses = "superb-bears/npm@master"
   args = ["test"]
+  uses = "actions/npm@94e6933"
 }
