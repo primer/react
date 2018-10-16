@@ -20,13 +20,15 @@ The following breaking changes must be accounted for manually:
 * `StateLabel` **does** have a `scheme` prop (instead of `state`), and takes different values.
 
 ## `3.0.0-beta`
+**:rotating_light: As of v3, the name of the package has changed from `primer-react` to `@primer/components`.** 
+
 [The 3.0.0-beta release](https://github.com/primer/components/releases/v3.0.0-beta) contains the following breaking changes:
 
 * The `MergeStatus` component is gone. Use a `StateLabel` instead.
 * The `Link` component no longer accepts `scheme` or `muted` props, and has no underline by default.
 * `DonutChart` is now simply `Donut`, and `DonutSlice` is `Donut.Slice`.
 
-There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#2-0-0-beta):
+There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#2-0-0-beta) and updating the package name:
 
 ```js
 npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
@@ -44,7 +46,7 @@ We suggest that you rename your components in the above order, since renaming `B
 There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#1-0-0-beta):
 
 ```js
-npx jscodeshift -t node_modules/@primer/components/codemods/v2.js path/to/src
+npx jscodeshift -t node_modules/primer-react/codemods/v2.js path/to/src
 ```
 
 ## `1.0.0-beta`
@@ -53,7 +55,7 @@ npx jscodeshift -t node_modules/@primer/components/codemods/v2.js path/to/src
 There is a [codemod](#codemods) available to upgrade from previous versions `0.x.x-beta`:
 
 ```js
-npx jscodeshift -t node_modules/@primer/components/codemods/v1.js path/to/src
+npx jscodeshift -t node_modules/primer-react/codemods/v1.js path/to/src
 ```
 
 ### Emotion and styled-system
