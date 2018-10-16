@@ -1,18 +1,25 @@
-flow "Test and Deploy" {
-  resolves = ["lint", "test", "deploy"]
+workflow "Test and Deploy" {
+  resolves = ["lint", "test", "deploy", "alias"]
 }
 
-task "lint" {
+action "lint" {
   uses = "superb-bears/npm@master"
   args = ["run lint"]
 }
 
-task "test" {
+action "test" {
   uses = "superb-bears/npm@master"
   args = ["test"]
 }
 
-task "deploy" {
+action "deploy" {
+  needs = ["test"]
+  uses "superb-bears/now@master"
+  args = []
+}
+
+action "alias" {
+  needs = ["deploy"]
   uses "superb-bears/now@master"
   args = []
 }
