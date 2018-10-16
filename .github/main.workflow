@@ -1,4 +1,4 @@
-workflow "Test and Deploy" {
+workflow "Lint and test" {
   on = "push"
   resolves = ["lint", "test"]
 }
