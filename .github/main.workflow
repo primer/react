@@ -1,6 +1,9 @@
 workflow "Lint and test" {
   on = "push"
-  resolves = ["lint", "test"]
+  resolves = [
+    "test",
+    "lint",
+  ]
 }
 
 action "lint" {
