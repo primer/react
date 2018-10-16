@@ -4,11 +4,11 @@ workflow "Lint and test" {
 }
 
 action "lint" {
-  args = ["run lint"]
   uses = "actions/npm@94e6933"
+  args = "lint"
 }
 
 action "test" {
-  args = ["test"]
+  args = "test"
   uses = "actions/npm@94e6933"
 }
