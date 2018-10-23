@@ -10,7 +10,7 @@ const IndexHero = () => (
         <Heading color="blue.4" fontSize={7} pb={3}>
           Primer Components
         </Heading>
-        <Text color="blue.2" fontSize={2} fontWeight={400} className="text-mono">
+        <Text color="blue.2" fontSize={2} className="text-mono">
           v{version}
         </Text>
       </Box>
