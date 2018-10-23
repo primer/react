@@ -41,8 +41,14 @@ describe('Heading', () => {
 
   it('respects fontWeight', () => {
     expect(render(<Heading fontWeight="bold" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.bold)
-    expect(render(<Heading fontWeight="normal" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.normal)
-    expect(render(<Heading fontWeight="semibold" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.semibold)
+    expect(render(<Heading fontWeight="normal" theme={theme} />)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.normal
+    )
+    expect(render(<Heading fontWeight="semibold" theme={theme} />)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.semibold
+    )
     expect(render(<Heading fontWeight="light" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.light)
   })
 
