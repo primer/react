@@ -1,3 +1,4 @@
+import {borders, borderColor, borderRadius, boxShadow} from 'styled-system'
 import {withSystemProps, LAYOUT} from './system-props'
 
 const BorderBox = withSystemProps(
@@ -8,7 +9,7 @@ const BorderBox = withSystemProps(
     borderColor: 'gray.2',
     borderRadius: 1
   },
-  LAYOUT
+  [...LAYOUT, borders, borderColor, borderRadius, boxShadow]
 )
 
 export default BorderBox

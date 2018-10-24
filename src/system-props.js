@@ -18,10 +18,6 @@ export const TYPOGRAPHY = COMMON.concat(
 
 export const LAYOUT = COMMON.concat(
   // layout props
-  'borders',
-  'borderColor',
-  'borderRadius',
-  'boxShadow',
   'display',
   'size',
   'width',
