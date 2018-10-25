@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import {withSystemProps, TYPOGRAPHY} from './system-props'
@@ -13,7 +14,7 @@ const buttonStyles = {
   userSelect: 'none',
   backgroundColor: 'transparent',
   border: '0',
-  appearance: 'none',
+  appearance: 'none'
 }
 
 const hoverColor = style({
@@ -30,18 +31,18 @@ const styledLink = styled(Link)`
     text-decoration: underline;
     ${hoverColor};
   }
-  ${props => props.is === 'button' ? buttonStyles : ''}
+  ${props => (props.is === 'button' ? buttonStyles : '')};
 `
 
 styledLink.defaultProps = {
-  theme,
-  is: 'a'
+  is: 'a',
+  theme
 }
 
 styledLink.propTypes = {
   href: PropTypes.string,
-  underline: PropTypes.bool,
-  is: PropTypes.oneOf(['a', 'button', 'input', 'summary'])
+  is: PropTypes.oneOf(['a', 'button', 'input', 'summary']),
+  underline: PropTypes.bool
 }
 
 export default withSystemProps(
