@@ -42,7 +42,7 @@ export default class MyDocument extends Document {
           <meta name="description" content="Primer components built with React.js." />
           <meta
             name="og:image"
-            content="https://user-images.githubusercontent.com/586552/47521930-4ae95380-d862-11e8-9157-be61a891c023.jpg"
+            content="https://user-images.githubusercontent.com/586552/47523660-8e45c100-d866-11e8-9327-3972b45b4fd4.jpg"
           />
           {styles}
         </Head>
