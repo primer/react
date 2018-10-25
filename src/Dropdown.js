@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import Octicon from './Octicon'
+import StyledOcticon from './StyledOcticon'
 import {TriangleDown} from '@githubprimer/octicons-react'
 import Button from './Button'
 import BorderBox from './BorderBox'
@@ -19,7 +19,7 @@ function Dropdown({title, scheme, children, className, ...rest}) {
           <React.Fragment>
             <Button is="summary" scheme={scheme} grouped onClick={toggle}>
               {title}
-              <Octicon icon={TriangleDown} size={14} ml={title ? 2 : 0} />
+              <StyledOcticon icon={TriangleDown} size={14} ml={title ? 2 : 0} />
             </Button>
             <BorderBox
               bg="white"
