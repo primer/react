@@ -4,7 +4,7 @@ import styled from 'react-emotion'
 import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@githubprimer/octicons-react'
 import theme, {colors} from './theme'
 import {withSystemProps, COMMON} from './system-props'
-import Octicon from './Octicon'
+import StyledOcticon from './StyledOcticon'
 
 const schemeMap = {
   issueClosed: colors.red[6],
@@ -27,7 +27,7 @@ function StateLabel({className, scheme, small = false, children}) {
   const octiconProps = small ? {width: '1em'} : {}
   return (
     <span className={className}>
-      {scheme && <Octicon mr={1} {...octiconProps} icon={octiconMap[scheme]} />}
+      {scheme && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[scheme]} />}
       {children}
     </span>
   )
