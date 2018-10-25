@@ -18,6 +18,6 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 | :- | :- | :-: | :- |
 | href | String | | URL to be used for the Link |
 | underline | Boolean | false | Adds underline to the Link |
-| is | String | 'a' | Can be either 'a' or 'button'
+| is | String | 'a' | Can be 'a', 'button', 'input', or 'summary'
 
 export const meta = {displayName: 'Link'}
