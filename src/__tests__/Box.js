@@ -30,7 +30,6 @@ describe('Box', () => {
     expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
-
   it('respects display', () => {
     expect(render(<Box display="inline" />)).toMatchSnapshot()
     expect(render(<Box display="inline-block" />)).toMatchSnapshot()

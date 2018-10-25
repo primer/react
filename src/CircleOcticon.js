@@ -8,9 +8,9 @@ function CircleOcticon(props) {
   const {size} = props
   const {icon, bg, ...rest} = props
   return (
-    <BorderBox bg={bg} overflow='hidden' border='none' size={size} borderRadius='50%'>
+    <BorderBox bg={bg} overflow="hidden" border="none" size={size} borderRadius="50%">
       <Flex {...rest} alignItems="center" justifyContent="center">
-          <Octicon icon={icon} size={size} />
+        <Octicon icon={icon} size={size} />
       </Flex>
     </BorderBox>
   )
@@ -18,7 +18,7 @@ function CircleOcticon(props) {
 
 CircleOcticon.defaultProps = {
   ...Flex.defaultProps,
-  size: 32,
+  size: 32
 }
 
 CircleOcticon.propTypes = {
