@@ -6,9 +6,9 @@ import BorderBox from './BorderBox'
 
 function CircleOcticon(props) {
   const {size} = props
-  const {icon, ...rest} = props
+  const {icon, bg, ...rest} = props
   return (
-    <BorderBox overflow='hidden' border='none' size={size} borderRadius='50%'>
+    <BorderBox bg={bg} overflow='hidden' border='none' size={size} borderRadius='50%'>
       <Flex {...rest} alignItems="center" justifyContent="center">
           <Octicon icon={icon} size={size} />
       </Flex>
