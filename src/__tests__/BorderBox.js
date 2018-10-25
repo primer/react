@@ -1,7 +1,6 @@
 import React from 'react'
 import theme, {colors} from '../theme'
 import BorderBox from '../BorderBox'
-import Box from '../Box'
 import {render} from '../utils/testing'
 
 describe('BorderBox', () => {
@@ -20,6 +19,6 @@ describe('BorderBox', () => {
 
   // the test returns the box shadow value without spaces, so had to manually provide the expected string here
   it('renders box shadow', () => {
-    expect(render(<BorderBox boxShadow='small' />)).toHaveStyleRule('box-shadow', '0 1px 1px rgba(27,31,35,0.1)')
+    expect(render(<BorderBox boxShadow="small" />)).toHaveStyleRule('box-shadow', '0 1px 1px rgba(27,31,35,0.1)')
   })
 })
