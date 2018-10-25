@@ -22,9 +22,7 @@ const hoverColor = style({
   key: 'colors'
 })
 
-const Link = ({is: Tag, children, ...rest}) => {
-  return <Tag {...rest}>{children}</Tag>
-}
+const Link = ({is: Tag, ...rest}) => <Tag {...rest} />
 
 const styledLink = styled(Link)`
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
