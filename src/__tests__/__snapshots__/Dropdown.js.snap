@@ -88,6 +88,7 @@ exports[`Dropdown matches the snapshots 1`] = `
           "pl",
           "px",
           "py",
+          "width",
         ]
       }
       className="emotion-1 btn BtnGroup-item"
@@ -241,6 +242,7 @@ exports[`Dropdown matches the snapshots 2`] = `
           "pl",
           "px",
           "py",
+          "width",
         ]
       }
       className="emotion-1 btn BtnGroup-item"
