@@ -47,11 +47,9 @@ const CircleBadge = ({is: Tag = 'div', children, className, ...rest}) => {
 }
 
 CircleBadge.propTypes = {
-  alt: PropTypes.string,
   bg: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
-  src: PropTypes.string
 }
 
 export default withSystemProps(CircleBadge, [...COMMON, sizeStyles])
