@@ -22,7 +22,6 @@ export {default as Button} from './Button'
 export {default as ButtonDanger} from './ButtonDanger'
 export {default as ButtonPrimary} from './ButtonPrimary'
 export {default as ButtonOutline} from './ButtonOutline'
-export {default as ButtonLink} from './ButtonLink'
 export {default as OcticonButton} from './OcticonButton'
 
 export {default as Caret} from './Caret'

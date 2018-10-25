@@ -5,7 +5,6 @@
 ```.jsx
 <Button>Button</Button>
 <ButtonDanger>Button Danger</ButtonDanger>
-<ButtonLink>Button Link</ButtonLink>
 <ButtonOutline>Button Outline</ButtonOutline>
 <ButtonPrimary>Button Primary</ButtonPrimary>
 ```
