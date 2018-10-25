@@ -13,6 +13,32 @@ exports[`Link passes href down to link element 1`] = `
 }
 
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+      "fontFamily",
+      "fontSize",
+      "fontWeight",
+      "lineHeight",
+      "textAlign",
+    ]
+  }
   className="emotion-0"
   color="blue.5"
   href="https://github.com"
@@ -32,6 +58,32 @@ exports[`Link renders without any props 1`] = `
 }
 
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+      "fontFamily",
+      "fontSize",
+      "fontWeight",
+      "lineHeight",
+      "textAlign",
+    ]
+  }
   className="emotion-0"
   color="blue.5"
 />
@@ -51,7 +103,34 @@ exports[`Link respects hoverColor prop 1`] = `
 }
 
 <a
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+      "fontFamily",
+      "fontSize",
+      "fontWeight",
+      "lineHeight",
+      "textAlign",
+    ]
+  }
   className="emotion-0"
   color="blue.5"
+  hoverColor="blue.4"
 />
 `;

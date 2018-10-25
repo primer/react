@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, ButtonPrimary, ButtonDanger, ButtonLink, ButtonOutline} from '..'
+import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
 import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
@@ -38,16 +38,8 @@ describe('Button', () => {
     )
   })
 
-  it('respects the "block" prop', () => {
-    expect(render(<Button block />).props.className).toContain('btn-block')
-  })
-
   it('respects the "disabled" prop', () => {
     expect(render(<Button disabled />).props.disabled).toEqual(true)
-  })
-
-  it('respects the "linkStyle" prop', () => {
-    expect(render(<Button linkStyle />).props.className).toContain('btn-link')
   })
 
   it('respects the "scheme" prop', () => {
@@ -96,13 +88,6 @@ describe('ButtonDanger', () => {
         </button>
       )
     )
-  })
-})
-
-describe('ButtonLink', () => {
-  it('renders a <button> by default', () => {
-    expect(render(<ButtonLink />).type).toEqual('button')
-    expect(render(<ButtonLink />).props.className).toContain('btn-link')
   })
 })
 
