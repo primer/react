@@ -4,15 +4,26 @@ import {withSystemProps, TYPOGRAPHY} from './system-props'
 import theme from './theme'
 import {style} from 'styled-system'
 
+const buttonStyles = {
+  display: 'inline-block',
+  padding: '0',
+  fontSize: 'inherit',
+  whiteSpace: 'nowrap',
+  cursor: 'pointer',
+  userSelect: 'none',
+  backgroundColor: 'transparent',
+  border: '0',
+  appearance: 'none',
+}
+
 const hoverColor = style({
   prop: 'hoverColor',
   cssProperty: 'color',
   key: 'colors'
 })
 
-const Link = ({is: Tag, className, children, ...rest}) => {
-  className = Tag === 'button' ? `${className} btn-link` : className
-  return <Tag {...rest} className={className}>{children}</Tag>
+const Link = ({is: Tag, children, ...rest}) => {
+  return <Tag {...rest}>{children}</Tag>
 }
 
 const styledLink = styled(Link)`
@@ -21,6 +32,7 @@ const styledLink = styled(Link)`
     text-decoration: underline;
     ${hoverColor};
   }
+  ${props => props.is === 'button' ? buttonStyles : ''}
 `
 
 styledLink.defaultProps = {
