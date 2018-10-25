@@ -43,7 +43,7 @@ styledLink.defaultProps = {
 styledLink.propTypes = {
   href: PropTypes.string,
   underline: PropTypes.bool,
-  is: PropTypes.oneOf(['a', 'button'])
+  is: PropTypes.oneOf(['a', 'button', 'input', 'summary'])
 }
 
 export default withSystemProps(
