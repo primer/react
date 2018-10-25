@@ -9,7 +9,7 @@ injectGlobal(sass`
   @import "primer-buttons/index.scss";
 `)
 
-function Button({is: Tag, children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
+function Button({is: Tag, children, size, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     {
@@ -17,7 +17,6 @@ function Button({is: Tag, children, size, block, linkStyle, grouped, scheme, onC
       'btn-link': linkStyle,
       'btn-sm': size === 'sm',
       'btn-large': size === 'large',
-      'btn-block': block,
       'BtnGroup-item': grouped
     },
     scheme ? `btn-${scheme}` : null
@@ -35,7 +34,6 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
-  block: PropTypes.bool,
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
@@ -46,4 +44,4 @@ Button.propTypes = {
   size: PropTypes.oneOf(['sm', 'large'])
 }
 
-export default withSystemProps(Button, COMMON)
+export default withSystemProps(Button, [...COMMON, 'width'])
