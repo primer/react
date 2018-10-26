@@ -29,14 +29,14 @@ exports[`Dropdown matches the snapshots 1`] = `
   position: absolute;
   z-index: 99999;
   background-color: #fff;
+  border: 1px solid;
+  border-color: #e1e4e8;
+  border-radius: 3px;
   margin-top: 4px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  border: 1px solid;
-  border-color: #e1e4e8;
-  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(27,31,35,0.1);
 }
 
@@ -88,6 +88,7 @@ exports[`Dropdown matches the snapshots 1`] = `
           "pl",
           "px",
           "py",
+          "width",
         ]
       }
       className="emotion-1 btn BtnGroup-item"
@@ -178,14 +179,14 @@ exports[`Dropdown matches the snapshots 2`] = `
   position: absolute;
   z-index: 99999;
   background-color: #fff;
+  border: 1px solid;
+  border-color: #e1e4e8;
+  border-radius: 3px;
   margin-top: 4px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  border: 1px solid;
-  border-color: #e1e4e8;
-  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(27,31,35,0.1);
 }
 
@@ -241,6 +242,7 @@ exports[`Dropdown matches the snapshots 2`] = `
           "pl",
           "px",
           "py",
+          "width",
         ]
       }
       className="emotion-1 btn BtnGroup-item"

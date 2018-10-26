@@ -17,6 +17,12 @@ const theme = {
     normal: 1.5,
     condensed: 1.25,
     condensedUltra: 1
+  },
+  fontWeights: {
+    light: '300',
+    normal: '400',
+    semibold: '500',
+    bold: '600'
   }
 }
 
@@ -34,8 +40,16 @@ describe('Heading', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Heading fontWeight="bold" theme={theme} />)).toHaveStyleRule('font-weight', 'bold')
-    expect(render(<Heading fontWeight="normal" theme={theme} />)).toHaveStyleRule('font-weight', 'normal')
+    expect(render(<Heading fontWeight="bold" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.bold)
+    expect(render(<Heading fontWeight="normal" theme={theme} />)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.normal
+    )
+    expect(render(<Heading fontWeight="semibold" theme={theme} />)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.semibold
+    )
+    expect(render(<Heading fontWeight="light" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.light)
   })
 
   it('respects lineHeight', () => {
