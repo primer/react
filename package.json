@@ -38,7 +38,6 @@
     "@githubprimer/octicons-react": "8.0.0",
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",
-    "clean-tag": "2.0.0",
     "d3-shape": "^1.2.0",
     "emotion": "9.2.8",
     "primer-alerts": "1.5.9",
