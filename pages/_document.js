@@ -37,12 +37,12 @@ export default class MyDocument extends Document {
           <link rel="icon" href={getAssetPath('favicon.png')} />
           <link rel="apple-touch-icon" href={getAssetPath('apple-touch-icon.png')} />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="og:title" content="Primer Components" />
-          <meta name="og:url" content="https://primer.style/components/" />
-          <meta name="description" content="Primer components built with React.js." />
+          <meta property="og:title" content="Primer Components" />
+          <meta property="og:url" content="https://primer.style/components/" />
+          <meta property="description" content="Primer components built with React.js." />
           <meta
-            name="og:image"
-            content="https://user-images.githubusercontent.com/586552/47523660-8e45c100-d866-11e8-9327-3972b45b4fd4.jpg"
+            property="og:image"
+            content="https://user-images.githubusercontent.com/586552/47590375-121cad80-d93a-11e8-89f2-a1cf108e0548.png"
           />
           {styles}
         </Head>
