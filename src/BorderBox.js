@@ -8,7 +8,7 @@ const BorderBox = withSystemProps(
     borderColor: 'gray.2',
     borderRadius: 1
   },
-  LAYOUT
+  [...LAYOUT, 'boxShadow']
 )
 
 export default BorderBox
