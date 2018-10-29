@@ -40,7 +40,7 @@ export default class MyDocument extends Document {
           <meta property="og:title" content="Primer Components" />
           <meta property="og:type" content="website">
           <meta property="og:url" content="https://primer.style/components/" />
-          <meta property="description" content="Primer components built with React.js." />
+          <meta property="og:description" content="Primer components built with React.js." />
           <meta
             property="og:image"
             content="https://user-images.githubusercontent.com/586552/47590375-121cad80-d93a-11e8-89f2-a1cf108e0548.png"
