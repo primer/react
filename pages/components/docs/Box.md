@@ -1,6 +1,6 @@
 # Box
 
-The Box component serves as a wrapper component for most layout related needs.
+The Box component serves as a wrapper component for most layout related needs. Use Box to set values such as `display`,  `width`, `height`, and more. See the LAYOUT section of our [System Props](/components/docs/system-props) documentation for the full list of available props.
 
 ## Default example
 
