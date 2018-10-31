@@ -17,7 +17,7 @@ Button components get `COMMON` system props. Read our [System Props](/components
 
 | Prop name | Type | Description |
 | :- | :- | :- |
-| is | String | sets the HTML tag for the component, defaults to `button` |
+| is | String | `button` | sets the HTML tag for the component |
 | disabled | Boolean | sets the `disabled` attribute on the Button |
 | grouped | Boolean | allows you to use Button in a line of Buttons without duplicate borders |
 | onClick | Function | function to be called when Button is clicked |
