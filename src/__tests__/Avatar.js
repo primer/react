@@ -26,10 +26,6 @@ describe('Avatar', () => {
     expect(result.props.height).toEqual(40)
   })
 
-  it('respects isChild', () => {
-    expect(render(<Avatar isChild alt="" />)).toMatchSnapshot()
-  })
-
   it('passes through the src prop', () => {
     expect(render(<Avatar src="primer.png" alt="" />).props.src).toEqual('primer.png')
   })

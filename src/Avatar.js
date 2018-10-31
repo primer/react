@@ -10,13 +10,11 @@ const Avatar = styled(AvatarImage)`
   line-height: ${themeGet('lineHeights.condensedUltra', 1)};
   vertical-align: middle;
   ${borderRadius};
-  ${childStyles};
 `
 
 const getBackgroundColor = themeGet('colors.white', '#fff')
 
 function AvatarImage({alt, size, ...rest}) {
-  delete rest.isChild
   return <img alt={alt} width={size} height={size} {...rest} />
 }
 
@@ -27,17 +25,32 @@ function borderRadius({isChild, size}) {
   }
 }
 
-function childStyles({isChild, ...rest}) {
-  if (isChild === true) {
-    return {
-      position: 'absolute',
-      right: '-15%',
-      bottom: '-9%',
-      backgroundColor: getBackgroundColor(rest),
-      boxShadow: '-2px -2px 0 rgba(255,255,255,0.8)'
-    }
+function childStyles(props) {
+  return {
+    position: 'absolute',
+    right: '-15%',
+    bottom: '-9%',
+    backgroundColor: getBackgroundColor(props),
+    boxShadow: '-2px -2px 0 rgba(255,255,255,0.8)'
   }
 }
+
+const Parent = styled('div')`
+  display: inline-flex;
+  position: relative;
+`
+
+const Child = styled(AvatarImage)`
+  display: inline-block;
+  overflow: hidden; // Ensure page layout in Firefox should images fail to load
+  line-height: ${themeGet('lineHeights.condensedUltra', 1)};
+  vertical-align: middle;
+  ${borderRadius};
+  ${childStyles}
+`
+
+Avatar.Parent = Parent
+Avatar.Child = Child
 
 // styled() changes this
 Avatar.displayName = 'Avatar'
@@ -46,9 +59,11 @@ Avatar.defaultProps = {
   size: 20
 }
 
+Child.propTypes = Avatar.propTypes
+Child.defaultProps = Avatar.defaultProps
+
 Avatar.propTypes = {
   alt: PropTypes.string.isRequired,
-  isChild: PropTypes.bool,
   size: PropTypes.number,
   src: PropTypes.string
 }
