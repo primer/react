@@ -47,8 +47,8 @@ const styledLabel = styled(StateLabel)`
 `
 
 StateLabel.propTypes = {
-  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']),
-  small: PropTypes.bool
+  small: PropTypes.bool,
+  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged'])
 }
 
 export default withSystemProps(styledLabel, COMMON)
