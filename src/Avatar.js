@@ -46,7 +46,7 @@ const Child = styled(AvatarImage)`
   line-height: ${themeGet('lineHeights.condensedUltra', 1)};
   vertical-align: middle;
   ${borderRadius};
-  ${childStyles}
+  ${childStyles};
 `
 
 Avatar.Parent = Parent
