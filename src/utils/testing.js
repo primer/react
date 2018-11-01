@@ -1,9 +1,12 @@
 import React from 'react'
+import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {ThemeProvider} from 'emotion-theming'
 import {default as defaultTheme} from '../theme'
+
+const readFile = promisify(require('fs').readFile)
 
 enzyme.configure({adapter: new Adapter()})
 
@@ -84,9 +87,7 @@ export function getComputedStyles(className) {
   return computed
 
   function readRule(rule, dest) {
-    if (!rule.selectorText) {
-      // console.warn('no selector text:', rule)
-    } else if (div.matches(rule.selectorText)) {
+    if (matchesSafe(div, rule.selectorText)) {
       const {style} = rule
       for (let i = 0; i < style.length; i++) {
         const prop = style[i]
@@ -102,6 +103,17 @@ export function getComputedStyles(className) {
     const dest = computed[key] || (computed[key] = {})
     for (const rule of mediaRule.cssRules) {
       readRule(rule, dest)
+    }
+  }
+
+  function matchesSafe(node, selector) {
+    if (!selector) {
+      return false
+    }
+    try {
+      return div.matches(selector)
+    } catch (error) {
+      return false
     }
   }
 }
@@ -121,4 +133,22 @@ export function getClassName(node) {
 export function getClasses(node) {
   const className = getClassName(node)
   return className ? className.trim().split(/ +/) : []
+}
+
+export function loadCSS(path) {
+  return readFile(require.resolve(path), 'utf8').then(css => {
+    const style = document.createElement('style')
+    style.setAttribute('data-path', path)
+    style.textContent = css
+    document.head.appendChild(style)
+    return style
+  })
+}
+
+export function unloadCSS(path) {
+  const style = document.querySelector(`style[data-path="${path}"]`)
+  if (style) {
+    style.remove()
+    return true
+  }
 }

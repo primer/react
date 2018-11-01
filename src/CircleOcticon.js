@@ -1,26 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Octicon from '@githubprimer/octicons-react'
-import FlexContainer from './FlexContainer'
+import Flex from './Flex'
+import BorderBox from './BorderBox'
 
 function CircleOcticon(props) {
   const {size} = props
-  const {icon, ...rest} = props
+  const {icon, bg, ...rest} = props
   return (
-    <FlexContainer {...rest} size={size} alignItems="center" justifyContent="center">
-      <Octicon icon={icon} size={size} />
-    </FlexContainer>
+    <BorderBox bg={bg} overflow="hidden" border="none" size={size} borderRadius="50%">
+      <Flex {...rest} alignItems="center" justifyContent="center">
+        <Octicon icon={icon} size={size} />
+      </Flex>
+    </BorderBox>
   )
 }
 
 CircleOcticon.defaultProps = {
-  ...FlexContainer.defaultProps,
-  size: 32,
-  borderRadius: '50%'
+  ...Flex.defaultProps,
+  size: 32
 }
 
 CircleOcticon.propTypes = {
-  ...FlexContainer.propTypes,
+  ...Flex.propTypes,
   icon: Octicon.propTypes.icon,
   size: PropTypes.number
 }

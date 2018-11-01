@@ -3,14 +3,14 @@ import App, {Container} from 'next/app'
 import getConfig from 'next/config'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
-import * as primerComponents from '../src'
 import * as docComponents from './doc-components'
+import Index from './index.mdx'
+import * as primerComponents from '..'
+import {repository} from '../package.json'
 
-const {
-  publicRuntimeConfig: {pageMap}
-} = getConfig()
-const {SideNav, Header, customTheme} = docComponents
-const {Box, FlexContainer, Link, Text} = primerComponents
+const {pageMap} = getConfig().publicRuntimeConfig
+const {BaseStyles, Box, Flex, Link} = primerComponents
+const {SideNav, Header, IndexHero, customTheme} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
@@ -18,7 +18,7 @@ const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
 }, {})
 
 const DocLink = props => <Link nounderline {...props} />
-const editLinkBase = 'https://github.com/primer/components/edit/master/pages'
+const editLinkBase = `https://github.com/${repository}/edit/master/pages`
 
 const components = {
   ...iconComponents,
@@ -48,29 +48,36 @@ export default class MyApp extends App {
       console.warn(`pathname "${pathname}" doesn't exist in pageMap:`, pageMap)
     }
     const {Component, page} = this.props
+    const isIndex = pathname === '/' || pathname === '/components' || pathname === '/components/'
+
     return (
-      <Container>
-        <Layout components={components} routes={[]} theme={customTheme}>
-          <Header />
-          <FlexContainer>
-            <SideNav />
-            <Box maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-              <Component {...page} />
-              {filename && (
-                <Box color="gray.5" borderColor="gray.2" borderTop={1} my={6} pt={2}>
-                  <Text mr={2}>
-                    <Octicon icon={Pencil} />
-                  </Text>
-                  <DocLink muted href={`${editLinkBase}${filename}`}>
-                    Edit this page
-                  </DocLink>{' '}
-                  on GitHub
+      <BaseStyles>
+        <Container>
+          <Layout components={components} routes={[]} theme={customTheme}>
+            <Header />
+            <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
+              <Box width="100%">
+                {isIndex && <IndexHero />}
+                <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                  {isIndex ? <Index /> : <Component {...page} />}
+                  {filename && (
+                    <Box color="gray.5" borderColor="gray.2" borderTop={1} my={6} pt={2}>
+                      <Text mr={2}>
+                        <Octicon icon={Pencil} />
+                      </Text>
+                      <DocLink muted href={`${editLinkBase}${filename}`}>
+                        Edit this page
+                      </DocLink>{' '}
+                      on GitHub
+                    </Box>
+                  )}
                 </Box>
-              )}
-            </Box>
-          </FlexContainer>
-        </Layout>
-      </Container>
+              </Box>
+              <SideNav />
+            </Flex>
+          </Layout>
+        </Container>
+      </BaseStyles>
     )
   }
 }

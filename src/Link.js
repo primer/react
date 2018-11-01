@@ -1,48 +1,54 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {themeGet} from 'styled-system'
-import {withSystemProps, COMMON} from './system-props'
-import {colors} from './theme'
+import {withSystemProps, TYPOGRAPHY} from './system-props'
+import theme from './theme'
+import {style} from 'styled-system'
+
+const buttonStyles = {
+  display: 'inline-block',
+  padding: '0',
+  fontSize: 'inherit',
+  whiteSpace: 'nowrap',
+  cursor: 'pointer',
+  userSelect: 'none',
+  backgroundColor: 'transparent',
+  border: '0',
+  appearance: 'none'
+}
+
+const hoverColor = style({
+  prop: 'hoverColor',
+  cssProperty: 'color',
+  key: 'colors'
+})
+
+const Link = ({is: Tag, ...rest}) => <Tag {...rest} />
 
 const styledLink = styled(Link)`
-  ${textDecoration};
+  text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: underline;
+    ${hoverColor};
   }
-  ${color};
+  ${props => (props.is === 'button' ? buttonStyles : '')};
 `
 
-function textDecoration({nounderline}) {
-  return {
-    textDecoration: nounderline ? 'none' : 'underline'
-  }
+styledLink.defaultProps = {
+  is: 'a',
+  theme
 }
 
-function color({muted, scheme, ...rest}) {
-  return {
-    color:
-      scheme === 'gray-dark'
-        ? themeGet('colors.gray.9', colors.gray[9])(rest)
-        : muted || scheme === 'gray'
-          ? themeGet('colors.gray.6', colors.gray[6])(rest)
-          : themeGet('colors.blue.5', colors.blue[5])(rest)
-  }
-}
-
-function Link({children, className, ...rest}) {
-  return (
-    <a className={className} {...rest}>
-      {children}
-    </a>
-  )
-}
-
-Link.propTypes = {
+styledLink.propTypes = {
   href: PropTypes.string,
-  muted: PropTypes.bool,
-  nounderline: PropTypes.bool,
-  scheme: PropTypes.oneOf(['gray', 'gray-dark'])
+  is: PropTypes.oneOf(['a', 'button', 'input', 'summary']),
+  underline: PropTypes.bool
 }
 
-export default withSystemProps(styledLink, COMMON)
+export default withSystemProps(
+  {
+    is: styledLink,
+    color: 'blue.5'
+  },
+  TYPOGRAPHY
+)

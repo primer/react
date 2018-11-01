@@ -1,5 +1,7 @@
 # Position Components
 
+The Position component is a wrapper component that gives the containing component css positioning abilities.
+
 ## Default examples
 
 ```.jsx
@@ -21,7 +23,7 @@
   <ExampleHeading my={2}>Sticky</ExampleHeading>
 
   <Box border={1} borderColor="green.5" height={1000}>
-    <Sticky top={0} bg="green.2" p={4}>
+    <Sticky top={0} bg="green.2" p={6}>
       I'm sticky!
     </Sticky>
   </Box>
@@ -37,7 +39,7 @@
 
 ## System props
 
-Position components get `POSITION`, `LAYOUT` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Position components get `POSITION`, `LAYOUT` and `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 

@@ -1,5 +1,6 @@
 # UnderlineNav
 
+Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
 
 To use UnderlineNav with [react-router](https://github.com/ReactTraining/react-router) or
 [react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
@@ -10,20 +11,20 @@ This ensures that the NavLink gets ```activeClassName='selected'```
 
 ```.jsx
 <ExampleHeading>
-  Using <Text fontFamily="mono">{'<UnderlineNavLink>'}</Text>
+  Using <Text fontFamily="mono">{'<UnderlineNav.Link>'}</Text>
 </ExampleHeading>
 <UnderlineNav>
-  <UnderlineNavLink href="#foo" selected>
+  <UnderlineNav.Link href="#foo" selected>
     Selected
-  </UnderlineNavLink>
-  <UnderlineNavLink href="#bar">Bar</UnderlineNavLink>
-  <UnderlineNavLink href="#baz">Baz</UnderlineNavLink>
+  </UnderlineNav.Link>
+  <UnderlineNav.Link href="#bar">Bar</UnderlineNav.Link>
+  <UnderlineNav.Link href="#baz">Baz</UnderlineNav.Link>
 </UnderlineNav>
 ```
 
 ## System props
 
-UnderlineNav and UnderlineNavLink components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+UnderlineNav and UnderlineNav.Link components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 
 ## Component props
@@ -36,7 +37,7 @@ UnderlineNav and UnderlineNavLink components get `COMMON` system props. Read our
 | full | Boolean | Used to make navigation fill the width of the container. |
 | label | String | Used to set the `aria-label` on the top level `<nav>` element. |
 
-### UnderlineNavLink
+### UnderlineNav.Link
 | Prop name | Type | Description |
 | :- | :- | :- |
 | is | String | sets the HTML tag for the component|

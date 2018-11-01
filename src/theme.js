@@ -47,6 +47,11 @@ const theme = {
     ]),
     mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
   },
+  fontWeights: {
+    light: 300,
+    normal: 400,
+    bold: 600
+  },
   colors,
   borders: [0, '1px solid'],
   fontSizes,
@@ -58,7 +63,7 @@ const theme = {
     large: '0 1px 15px rgba(27, 31, 35, 0.15)',
     'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)'
   },
-  space: [0, 4, 8, 16, 24, 32, 40, 48]
+  space: [0, 4, 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128]
 }
 
 export default theme

@@ -1,5 +1,7 @@
 # BorderBox
 
+BorderBox is a Box component with a border. When no `borderColor` is present, the component defaults to a gray border.
+
 ## Default example
 
 ```.jsx
@@ -8,7 +10,7 @@
 
 ## System props
 
-BorderBox components get `COMMON` and `LAYOUT` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+BorderBox components get `COMMON` and `LAYOUT` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 

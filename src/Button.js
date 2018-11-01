@@ -1,17 +1,21 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
 
-function Button({is: Tag, children, size, block, linkStyle, grouped, scheme, onClick, disabled, className, ...rest}) {
+injectGlobal(sass`
+  @import "primer-buttons/index.scss";
+`)
+
+function Button({is: Tag, children, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
+    'btn',
     {
-      btn: !linkStyle,
-      'btn-link': linkStyle,
       'btn-sm': size === 'sm',
       'btn-large': size === 'large',
-      'btn-block': block,
       'BtnGroup-item': grouped
     },
     scheme ? `btn-${scheme}` : null
@@ -29,15 +33,13 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
-  block: PropTypes.bool,
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
   is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
-  linkStyle: PropTypes.bool,
   onClick: PropTypes.func,
   scheme: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'large'])
 }
 
-export default withSystemProps(Button, COMMON)
+export default withSystemProps(Button, [...COMMON, 'width'])

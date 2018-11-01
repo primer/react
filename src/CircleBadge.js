@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import sass from 'sass.macro'
+import {injectGlobal} from 'emotion'
 import {withSystemProps, COMMON} from './system-props'
+
+injectGlobal(sass`
+  @import "primer-support/index.scss";
+  @import "primer-avatars/lib/circle-badge.scss";
+`)
 
 const ICON_CLASS = 'CircleBadge-icon'
 
@@ -40,11 +47,9 @@ const CircleBadge = ({is: Tag = 'div', children, className, ...rest}) => {
 }
 
 CircleBadge.propTypes = {
-  alt: PropTypes.string,
   bg: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
-  src: PropTypes.string
+  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number])
 }
 
 export default withSystemProps(CircleBadge, [...COMMON, sizeStyles])

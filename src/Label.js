@@ -1,31 +1,50 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import {withSystemProps} from './system-props'
+import {color} from 'styled-system'
+import styled from 'react-emotion'
+import {withSystemProps, COMMON} from './system-props'
+import theme, {colors} from './theme'
 
-const colorScheme = (scheme, outline) => {
-  if (outline) {
-    return {
-      'Label--outline-green': scheme === 'green'
-    }
-  } else {
-    return {
-      'Label--gray': scheme == null || scheme === 'gray',
-      'Label--gray-darker': scheme === 'gray-darker',
-      'Label--orange': scheme === 'orange',
-      'bg-green': scheme === 'green'
-    }
+const sizeMap = {
+  small: `padding 0.125em ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
+  medium: `padding: 3px ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
+  large: `padding: 4px ${theme.space[2]}px; ${theme.fontSizes[1]}px;`,
+  xl: `padding: ${theme.space[1]}px; ${theme.space[2]}px; ${theme.fontSizes[2]}px;`
+}
+
+const outlineStyles = `
+  margin-top: -1px; // offsets the 1px border
+  margin-bottom: -1px; // offsets the 1px border
+  font-weight: 400;
+  color: ${colors.gray[6]};
+  background-color: transparent;
+  border: ${theme.borders[1]} ${colors.blackfade15};
+  box-shadow: none;
+`
+
+const styledLabel = styled('span')`
+  display: inline-block;
+  font-weight: 600;
+  line-height: ${theme.lineHeights.condensedUltra};
+  color: ${colors.white};
+  border-radius: 2px;
+  &:hover {
+    text-decoration: none;
   }
+  ${color};
+  ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
+  ${props => sizeMap[props.size]};
+  ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
+`
+
+styledLabel.defaultProps = {
+  theme,
+  bg: 'gray.5',
+  size: 'medium'
 }
 
-function Label({className, outline, scheme, ...rest}) {
-  const classes = classnames(className, 'Label', outline && 'Label--outline', colorScheme(scheme, outline))
-  return <span className={classes} {...rest} />
+styledLabel.propTypes = {
+  dropshadow: PropTypes.bool,
+  outline: PropTypes.bool
 }
 
-Label.propTypes = {
-  outline: PropTypes.bool,
-  scheme: PropTypes.oneOf(['gray', 'gray-darker', 'green', 'orange'])
-}
-
-export default withSystemProps(Label, ['space'])
+export default withSystemProps(styledLabel, COMMON)

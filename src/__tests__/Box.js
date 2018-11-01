@@ -30,21 +30,6 @@ describe('Box', () => {
     expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
-  describe('borders', () => {
-    it('handles border prop', () => {
-      expect(render(<Box border={1} theme={theme} />)).toMatchSnapshot()
-    })
-    it('handles a single border edge', () => {
-      expect(render(<Box borderLeft={1} borderColor="green.5" theme={theme} />)).toMatchSnapshot()
-    })
-    it('handles multiple border edges', () => {
-      expect(render(<Box borderLeft={1} borderRight={1} borderColor="gray.2" theme={theme} />)).toMatchSnapshot()
-    })
-    it('handles just a border color', () => {
-      expect(render(<Box borderColor="red.5" theme={theme} />)).toMatchSnapshot()
-    })
-  })
-
   it('respects display', () => {
     expect(render(<Box display="inline" />)).toMatchSnapshot()
     expect(render(<Box display="inline-block" />)).toMatchSnapshot()
@@ -55,12 +40,5 @@ describe('Box', () => {
   it('respects position', () => {
     expect(render(<Box position="absolute" />)).toMatchSnapshot()
     expect(render(<Box position="relative" />)).toMatchSnapshot()
-  })
-
-  it('renders shadow', () => {
-    expect(render(<Box boxShadow="small" theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box boxShadow="medium" theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box boxShadow="large" theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box boxShadow="extra-large" theme={theme} />)).toMatchSnapshot()
   })
 })
