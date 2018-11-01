@@ -12,10 +12,10 @@ describe('StateLabel', () => {
     expect(StateLabel).toImplementSystemProps(COMMON)
   })
 
-  it('respects the scheme prop', () => {
-    expect(render(<StateLabel scheme="issueOpened" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="issueClosed" />)).toMatchSnapshot()
-    expect(render(<StateLabel scheme="pullMerged" />)).toMatchSnapshot()
+  it('respects the status prop', () => {
+    expect(render(<StateLabel status="issueOpened" />)).toMatchSnapshot()
+    expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
+    expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
   })
 
   it('respects the small flag', () => {
