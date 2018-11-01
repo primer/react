@@ -15,7 +15,7 @@ Button components get `COMMON` system props. Read our [System Props](/components
 
 ## Component props
 
-| Prop name | Type | Description |
+| Prop name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | is | String | `button` | sets the HTML tag for the component |
 | disabled | Boolean |  sets the `disabled` attribute on the Button |

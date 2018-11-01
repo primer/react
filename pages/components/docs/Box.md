@@ -18,7 +18,7 @@ Box components get the `COMMON` and `LAYOUT` categories of system props. Read ou
 
 ## Component props
 
-| Prop name | Type | Description |
+| Prop name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | is | String | `div` | sets the HTML tag for the component|
 
