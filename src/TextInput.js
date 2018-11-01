@@ -10,7 +10,7 @@ injectGlobal(sass`
   @import "primer-forms/lib/form-control.scss";
 `)
 
-function TextInput({autocomplete, block, className, disabled, id, name, onChange, placeholder, required, size, value}) {
+function TextInput({autocomplete, block, className, disabled, id, name, onChange, placeholder, required, size, value, ariaLabel}) {
   const classes = classnames(className, 'form-control', {
     'input-block': block,
     'input-sm': size === 'small',
@@ -18,7 +18,7 @@ function TextInput({autocomplete, block, className, disabled, id, name, onChange
   })
   const inputProps = {
     className: classes,
-    'aria-label': placeholder,
+    'aria-label': ariaLabel || placeholder,
     autoComplete: autocomplete,
     onChange,
     disabled,

@@ -1,7 +1,6 @@
 # TextInput
 
 TextInput is a form component to add default styling to the native text input.
-
 ## Default example
 
 ```.jsx
@@ -17,6 +16,7 @@ TextInput components get `COMMON` system props. Read our [System Props](/compone
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | autocomplete | String | | Allows user to set `autocomplete` attribute on input. See [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autocomplete) for attribute documentation. |
+| ariaLabel | String | | Label that describes the input for screen reader users |
 | block | Boolean | | Adds `display: block` to element |
 | disabled | Boolean | | Sets the `disabled` attribute on the element |
 | id | String | | Sets the `id` attribute on the element |
