@@ -9,7 +9,7 @@ import * as primerComponents from '..'
 import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
-const {BaseStyles, Box, Flex, Link} = primerComponents
+const {BaseStyles, Box, Flex, Link, Text} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
