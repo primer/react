@@ -10,10 +10,10 @@ Avatars are images used to represent users and organizations on GitHub. They typ
 
 <Text is='p'>To create a Parent + Child avatar combination, wrap Avatars in AvatarPair:</Text>
 
- <Avatar.Pair my={4}>
+ <AvatarPair my={4}>
   <Avatar src="https://avatars.githubusercontent.com/primer"/>
   <Avatar src="https://avatars.githubusercontent.com/primer"/>
- </Avatar.Pair>
+ </AvatarPair>
 ```
 
 ## System props
