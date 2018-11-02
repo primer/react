@@ -3,7 +3,7 @@
 
 `Button` is used for actions, like in forms, while `Link` is used for destinations, or moving from one page to another.
 
-In special cases where you'd like to use a `<a>` styled like a Button, use `<Button is='a'>` and provide a `href`.
+In special cases where you'd like to use a `<a>` styled like a Button, use `<Button is='a'>` and provide an `href`.
 
 ## Default examples
 
