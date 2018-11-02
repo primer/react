@@ -9,7 +9,7 @@ const Avatar = styled(AvatarImage)`
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${themeGet('lineHeights.condensedUltra', 1)};
   vertical-align: middle;
-  ${borderRadius}
+  ${borderRadius};
 `
 
 function borderRadius({size}) {
@@ -17,8 +17,6 @@ function borderRadius({size}) {
     borderRadius: size <= 24 ? '2px' : '3px'
   }
 }
-
-const getBackgroundColor = themeGet('colors.white', '#fff')
 
 function AvatarImage({alt, size, ...rest}) {
   return <img alt={alt} width={size} height={size} {...rest} />

@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import styled from 'react-emotion'
 import {themeGet} from 'styled-system'
-import Avatar from  './Avatar'
+import Avatar from './Avatar'
 import {withSystemProps} from './system-props'
 
 const getBackgroundColor = themeGet('colors.white', '#fff')
@@ -11,7 +11,7 @@ const Wrapper = styled('div')`
   position: relative;
 `
 
-const childStyles = (props) => ({
+const childStyles = props => ({
   display: 'inline-block',
   overflow: 'hidden', // Ensure page layout in Firefox should images fail to load
   lineHeight: `${themeGet('lineHeights.condensedUltra', 1)}`,
