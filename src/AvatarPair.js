@@ -26,13 +26,11 @@ const childStyles = props => ({
 })
 
 const ChildAvatar = styled(Avatar)`
-  ${childStyles}
+  ${childStyles};
 `
 const AvatarPair = ({children, ...rest}) => {
   const avatars = React.Children.map(children, (child, i) => {
-    return i === 0
-      ? React.cloneElement(child, {size: 40})
-      : <ChildAvatar {...child.props} size={20}/>
+    return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar {...child.props} size={20} />
   })
   return <Wrapper {...rest}>{avatars}</Wrapper>
 }
