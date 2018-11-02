@@ -6,7 +6,14 @@ Avatars are images used to represent users and organizations on GitHub. They typ
 ## Default example
 
 ```.jsx
-<Avatar src="https://avatars.githubusercontent.com/primer" size={128} />
+<Avatar mb={4} src="https://avatars.githubusercontent.com/primer" size={128} />
+
+<Text is='p'>To create a Parent + Child avatar combination, wrap Avatars in AvatarPair:</Text>
+
+ <AvatarPair my={4}>
+  <Avatar src="https://avatars.githubusercontent.com/primer"/>
+  <Avatar src="https://avatars.githubusercontent.com/primer"/>
+ </AvatarPair>
 ```
 
 ## System props
