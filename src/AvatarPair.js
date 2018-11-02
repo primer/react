@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {themeGet} from 'styled-system'
+import {themeGet, space} from 'styled-system'
 import Avatar from './Avatar'
 import {withSystemProps} from './system-props'
 
@@ -24,11 +25,14 @@ const childStyles = props => ({
   backgroundColor: `${getBackgroundColor(props)}`
 })
 
+const ChildAvatar = styled(Avatar)`
+  ${childStyles}
+`
 const AvatarPair = ({children}) => {
   const avatars = React.Children.map(children, (child, i) => {
     return i === 0
       ? React.cloneElement(child, {size: 40})
-      : React.cloneElement(child, {size: 20, css: childStyles(child.props)})
+      : <ChildAvatar {...child.props} size={20}/>
   })
   return <Wrapper>{avatars}</Wrapper>
 }
@@ -37,6 +41,7 @@ const AvatarPair = ({children}) => {
 AvatarPair.displayName = 'AvatarPair'
 
 AvatarPair.propTypes = {
+  children: PropTypes.instanceOf(Avatar),
   ...Avatar.propTypes
 }
 
