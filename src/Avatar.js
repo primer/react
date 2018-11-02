@@ -26,11 +26,12 @@ function AvatarImage({alt, size, ...rest}) {
 Avatar.displayName = 'Avatar'
 
 Avatar.defaultProps = {
-  size: 20
+  size: 20,
+  alt: "",
 }
 
 Avatar.propTypes = {
-  alt: PropTypes.string,
+  alt: PropTypes.string.isRequired,
   size: PropTypes.number,
   src: PropTypes.string
 }
