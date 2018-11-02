@@ -27,7 +27,7 @@ Avatar.displayName = 'Avatar'
 
 Avatar.defaultProps = {
   size: 20,
-  alt: "",
+  alt: ''
 }
 
 Avatar.propTypes = {
