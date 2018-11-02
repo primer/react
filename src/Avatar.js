@@ -30,7 +30,7 @@ Avatar.defaultProps = {
 }
 
 Avatar.propTypes = {
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
   size: PropTypes.number,
   src: PropTypes.string
 }
