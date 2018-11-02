@@ -18,6 +18,7 @@ export {Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
 // Components
 export {default as Avatar} from './Avatar'
+export {default as AvatarPair} from './AvatarPair'
 export {default as BranchName} from './BranchName'
 export {default as ButtonDanger} from './ButtonDanger'
 export {default as ButtonOutline} from './ButtonOutline'

@@ -18,7 +18,7 @@ CircleBadge components get `COMMON` system props. Read our [System Props](/compo
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| is | String | | sets the HTML tag for the component, defaults to `div` |
+| is | String | `div` | sets the HTML tag for the component |
 | size | String or Number | | Use `small`, `medium`, or `large` for default sizes, or provide a custom size |
 
 
