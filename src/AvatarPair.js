@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {themeGet, space} from 'styled-system'
+import {themeGet} from 'styled-system'
 import Avatar from './Avatar'
 import {withSystemProps} from './system-props'
 
@@ -28,13 +28,13 @@ const childStyles = props => ({
 const ChildAvatar = styled(Avatar)`
   ${childStyles}
 `
-const AvatarPair = ({children}) => {
+const AvatarPair = ({children, ...rest}) => {
   const avatars = React.Children.map(children, (child, i) => {
     return i === 0
       ? React.cloneElement(child, {size: 40})
       : <ChildAvatar {...child.props} size={20}/>
   })
-  return <Wrapper>{avatars}</Wrapper>
+  return <Wrapper {...rest}>{avatars}</Wrapper>
 }
 
 // styled() changes this
@@ -45,4 +45,4 @@ AvatarPair.propTypes = {
   ...Avatar.propTypes
 }
 
-export default withSystemProps(AvatarPair, ['space'])
+export default withSystemProps(AvatarPair)
