@@ -8,7 +8,7 @@ In special cases where you'd like to use a `<a>` styled like a Button, use `<But
 ## Default examples
 
 ```.jsx
-<Button>Button</Button>
+<Button>Button</Button> 
 <ButtonDanger>Button Danger</ButtonDanger>
 <ButtonOutline>Button Outline</ButtonOutline>
 <ButtonPrimary>Button Primary</ButtonPrimary>
