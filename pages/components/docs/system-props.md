@@ -11,5 +11,7 @@ To check which system props each component includes, check the documentation for
 |-----|--------|--------|
 | `COMMON`| space, color | [styled-system core docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#core) |
 | `TYPOGRAPHY`| fontFamily, fontSize, fontWeight, lineHeight & all `COMMON` props | [styled-system typography docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#typography) |
-| `LAYOUT` | borders, borderColor, borderRadius, boxShadow, <br/> display, size, width, height, minWidth, minHeight, <br/> maxWidth, maxHeight, verticalAlign & all `COMMON` props      | [styled-system layout docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#layout) <br/> [styled-system misc docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#misc) |
+| `LAYOUT` | display, size, width, height, minWidth, minHeight, <br/> maxWidth, maxHeight, verticalAlign & all `COMMON` props      | [styled-system layout docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#layout) <br/> [styled-system misc docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#misc) |
 | `POSITION` | position, zIndex, top, right, bottom, left | [styled-system position docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#position)
+| `FLEX_CONTAINER` | flex, flexBasis, flexDirection, flexWrap, <br/> alignContent, alignItems, justifyContent, <br/> justifyItems, order & all `LAYOUT` props | [styled-system flexbox docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#flexbox) |
+| `FLEX_ITEM` | justifySelf, alignSelf & all `LAYOUT` props | [styled-system flexbox docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#flexbox) |
