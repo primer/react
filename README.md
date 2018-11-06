@@ -29,9 +29,7 @@ import {
 } from '@primer/components'
 ```
 
-### Styling
-
-This project uses [emotion] to generate static CSS for most component styles, but still relies on [Primer CSS] for some classname-based styles that haven't yet been ported over. Components that haven't yet been ported over rely on [a subset of Primer CSS](https://github.com/primer/components/blob/master/src/primer-components.scss) that's globally injected at import time.
+Primer Components come with all necessary CSS built-in, so you don't need to worry about including [Primer CSS].
 
 #### Base styles
 
