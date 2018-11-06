@@ -5,18 +5,20 @@ import {default as defaultTheme} from './theme'
 
 export {system as default}
 
+export const printProps = props => props.join(', ')
+
 export const COMMON = ['color', 'space']
 
-export const TYPOGRAPHY = COMMON.concat(
+export const TYPOGRAPHY = [
   // typography props
   'fontFamily',
   'fontSize',
   'fontWeight',
   'lineHeight',
   'textAlign'
-)
+]
 
-export const LAYOUT = COMMON.concat(
+export const LAYOUT = [
   // layout props
   'display',
   'size',
@@ -28,7 +30,7 @@ export const LAYOUT = COMMON.concat(
   'maxHeight',
   'overflow',
   'verticalAlign'
-)
+]
 
 export const POSITION = [
   // position props
@@ -40,9 +42,8 @@ export const POSITION = [
   'left'
 ]
 
-export const FLEX_CONTAINER = LAYOUT.concat(
+export const FLEX_CONTAINER = [
   // flex container props (display: flex)
-  'flex',
   'flexBasis',
   'flexDirection',
   'flexWrap',
@@ -51,13 +52,14 @@ export const FLEX_CONTAINER = LAYOUT.concat(
   'justifyContent',
   'justifyItems',
   'order'
-)
+]
 
-export const FLEX_ITEM = LAYOUT.concat(
+export const FLEX_ITEM = [
   // flex container child props
+  'flex',
   'justifySelf',
   'alignSelf'
-)
+]
 
 /**
  * Defensively determine whether a component function or class is a "system

@@ -1,4 +1,4 @@
-import {withSystemProps, TYPOGRAPHY} from './system-props'
+import {withSystemProps, TYPOGRAPHY, COMMON} from './system-props'
 
 const Heading = withSystemProps(
   {
@@ -6,7 +6,7 @@ const Heading = withSystemProps(
     fontSize: 5,
     m: 0
   },
-  TYPOGRAPHY
+  [...TYPOGRAPHY, ...COMMON]
 )
 
 export default Heading

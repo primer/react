@@ -84,10 +84,10 @@ export default withSystemProps(
 Categories of system props are exported from `src/system-props`:
 
 * `COMMON` includes color and spacing (margin and padding) props
-* `TYPOGRAPHY` includes `COMMON` and font family, font weight, and line-height
-* `POSITION` includes `COMMON` and positioning props
-* `FLEX_CONTAINER` includes `COMMON` and flexbox props for containers
-* `FLEX_ITEM` includes `COMMON` and flexbox props for items in a flex container
+* `TYPOGRAPHY` includes font family, font weight, and line-height props
+* `POSITION` includes positioning props
+* `FLEX_CONTAINER` includes flexbox props for containers
+* `FLEX_ITEM` includes flexbox props for items in a flex container
 
 ### Components with only system props
 
@@ -148,7 +148,7 @@ Alternatively, you can create the component from scratch using `withSystemProps(
 
 ```jsx
 import classnames from 'classnames'
-import {withSystemProps, LAYOUT} from './system-props'
+import {withSystemProps, LAYOUT, COMMON} from './system-props'
 
 function FancyBox({flashing, className, is: Tag, ...rest}) {
   return (
@@ -163,7 +163,7 @@ FancyBox.propTypes = {
   flashing: PropTypes.bool
 }
 
-export default withSystemProps(FancyBox, LAYOUT)
+export default withSystemProps(FancyBox, [...LAYOUT, ...COMMON])
 ```
 
 In this case, you will need to deal explicitly with two props passed down from [emotion] and [system-components], respectively:

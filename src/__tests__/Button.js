@@ -22,20 +22,8 @@ describe('Button', () => {
     expect(Button).toImplementSystemProps(COMMON)
   })
 
-  xit('renders children', () => {
-    expect(
-      render(
-        <Button>
-          foo <b>bar</b>
-        </Button>
-      )
-    ).toEqual(
-      render(
-        <button className="btn" type="button">
-          foo <b>bar</b>
-        </button>
-      )
-    )
+  it('respects width props', () => {
+    expect(render(<Button width={200} />)).toHaveStyleRule('width', '200px')
   })
 
   it('respects the "disabled" prop', () => {
