@@ -1,7 +1,7 @@
 import React from 'react'
-import {withSystemProps, LAYOUT, POSITION} from './system-props'
+import {withSystemProps, LAYOUT, COMMON, POSITION} from './system-props'
 
-export const Position = withSystemProps('div', LAYOUT.concat(POSITION))
+export const Position = withSystemProps('div', [...LAYOUT, ...COMMON, ...POSITION])
 
 function withPosition(position) {
   const WithPosition = props => <Position {...props} position={position} />

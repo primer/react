@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import {withSystemProps, TYPOGRAPHY} from './system-props'
+import {withSystemProps, TYPOGRAPHY, COMMON} from './system-props'
 import theme from './theme'
 import {style} from 'styled-system'
 
@@ -50,5 +50,5 @@ export default withSystemProps(
     is: styledLink,
     color: 'blue.5'
   },
-  TYPOGRAPHY
+  [...TYPOGRAPHY, ...COMMON]
 )
