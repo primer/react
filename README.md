@@ -2,7 +2,9 @@
 
 # Primer Components
 
-[Primer](https://primer.github.io/) React components
+<p align="center">React components for the [Primer](https://primer.github.io/) Design System</p>
+![npm](https://img.shields.io/npm/v/@primer/components.svg)
+
 
 ## Status
 
