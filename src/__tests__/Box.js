@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '../Box'
 import theme from '../theme'
 import {render} from '../utils/testing'
-import {COMMON, LAYOUT} from '../system-props'
+import {LAYOUT} from '../system-props'
 
 describe('Box', () => {
   it('is a system component', () => {
@@ -10,7 +10,6 @@ describe('Box', () => {
   })
 
   it('implements layout system props', () => {
-    expect(Box).toImplementSystemProps(COMMON)
     expect(Box).toImplementSystemProps(LAYOUT)
   })
 
