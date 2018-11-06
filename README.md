@@ -18,8 +18,6 @@ npm install @primer/components
 
 ## Usage
 
-**If you are upgrading from a version before `1.0.0-beta`, please read the [migration docs](migrating.md).**
-
 All of our components are exported by name from `@primer/components`, so you can import them with:
 
 ```js
