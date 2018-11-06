@@ -1,3 +1,6 @@
+import {printProps, COMMON, LAYOUT, TYPOGRAPHY, FLEX_CONTAINER, FLEX_ITEM, POSITION} from '../../../src/system-props.js'
+import {Text} from '../../..'
+
 # System Props
 
 
@@ -5,13 +8,15 @@ Primer Components utilize what we call "system props" to apply a standard set of
 
 To check which system props each component includes, check the documentation for that component.
 
+
+
 ### System Prop Categories
 
 | Category       | Included Props           | styled-system docs  |
 |-----|--------|--------|
-| `COMMON`| space, color | [styled-system core docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#core) |
-| `TYPOGRAPHY`| fontFamily, fontSize, fontWeight, lineHeight & all `COMMON` props | [styled-system typography docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#typography) |
-| `LAYOUT` | display, size, width, height, minWidth, minHeight, <br/> maxWidth, maxHeight, verticalAlign & all `COMMON` props      | [styled-system layout docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#layout) <br/> [styled-system core docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#core) |
-| `POSITION` | position, zIndex, top, right, bottom, left | [styled-system position docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#position)
-| `FLEX_CONTAINER` | flex, flexBasis, flexDirection, flexWrap, <br/> alignContent, alignItems, justifyContent, <br/> justifyItems, order & all `LAYOUT` props | [styled-system flexbox docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#flexbox) |
-| `FLEX_ITEM` | justifySelf, alignSelf & all `LAYOUT` props | [styled-system flexbox docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#flexbox) |
+| `COMMON`| <Text children={printProps(COMMON)} /> | [styled-system core docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#core) |
+| `TYPOGRAPHY`| <Text children={printProps(TYPOGRAPHY)} /> | [styled-system typography docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#typography) |
+| `LAYOUT` | <Text children={printProps(LAYOUT)} /> | [styled-system layout docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#layout) <br/> [styled-system misc docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#misc) |
+| `POSITION` | <Text children={printProps(POSITION)} />| [styled-system position docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#position)
+| `FLEX_CONTAINER` | <Text children={printProps(FLEX_CONTAINER)} /> | [styled-system flexbox docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#flexbox) |
+| `FLEX_ITEM` | <Text children={printProps(FLEX_ITEM)} /> | [styled-system flexbox docs](https://github.com/jxnblk/styled-system/blob/master/docs/table.md#flexbox) |
