@@ -1,4 +1,4 @@
-![components](https://user-images.githubusercontent.com/8960591/48100178-08673580-e1d7-11e8-8868-5d0f02af6680.jpg)
+![](https://user-images.githubusercontent.com/8960591/48100248-482e1d00-e1d7-11e8-81c1-303b4234dab0.jpg)
 
 # Primer Components
 
