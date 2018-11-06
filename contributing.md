@@ -84,7 +84,7 @@ export default withSystemProps(
 Categories of system props are exported from `src/system-props`:
 
 * `COMMON` includes color and spacing (margin and padding) props
-* `TYPOGRAPHY` includes font family, font weight, and line-height
+* `TYPOGRAPHY` includes font family, font weight, and line-height props
 * `POSITION` includes positioning props
 * `FLEX_CONTAINER` includes flexbox props for containers
 * `FLEX_ITEM` includes flexbox props for items in a flex container
