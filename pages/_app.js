@@ -1,5 +1,6 @@
 import React from 'react'
 import App, {Container} from 'next/app'
+import Head from 'next/head'
 import getConfig from 'next/config'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
@@ -53,6 +54,9 @@ export default class MyApp extends App {
     return (
       <BaseStyles>
         <Container>
+          <Head>
+            <title>Primer Components</title>
+          </Head>
           <Layout components={components} routes={[]} theme={customTheme}>
             <Header />
             <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
