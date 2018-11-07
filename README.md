@@ -2,9 +2,10 @@
 
 # Primer Components
 
-<p align="center">React components for the Primer Design System</p>
+React components for the Primer Design System
 
 ![npm](https://img.shields.io/npm/v/@primer/components.svg)
+[![Join us in Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/primer)
 
 
 ## Status
