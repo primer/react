@@ -2,7 +2,8 @@
 
 # Primer Components
 
-<p align="center">React components for the [Primer](https://primer.github.io/) Design System</p>
+<p align="center">React components for the Primer Design System</p>
+
 ![npm](https://img.shields.io/npm/v/@primer/components.svg)
 
 
