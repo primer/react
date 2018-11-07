@@ -32,7 +32,6 @@ export default class MyDocument extends Document {
         <Head>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126681523-1" />
           <script async href={getAssetPath('analytics.js')} />
-          <title>Primer Components</title>
           <meta charSet="utf8" />
           <link rel="icon" href={getAssetPath('favicon.png')} />
           <link rel="apple-touch-icon" href={getAssetPath('apple-touch-icon.png')} />
