@@ -14,7 +14,7 @@ React components for the Primer Design System
 
 ## Status
 
-**⚠️ This project is WIP and not ready for production use yet!**
+**⚠️ This project is a work in progress and is not ready for production use yet!**
 
 ## Documentation
 
