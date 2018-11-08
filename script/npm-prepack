@@ -5,6 +5,7 @@ const globby = require('globby')
 
 const config = {
   required: [
+    'codemods/v4.js',
     'css.js',
     'dist/index.esm.js',
     'dist/index.umd.js',
