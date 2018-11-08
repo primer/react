@@ -5,7 +5,11 @@
 React components for the Primer Design System
 
 ![npm](https://img.shields.io/npm/v/@primer/components.svg)
+![GitHub contributors](https://img.shields.io/github/contributors/primer/components.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/primer/components.svg)
+![GitHub](https://img.shields.io/github/license/primer/components.svg)
 [![Join us in Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/primer)
+
 
 
 ## Status
