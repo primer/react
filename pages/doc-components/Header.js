@@ -51,7 +51,7 @@ const Header = ({router}) => (
               borderColor="gray.6"
               display="inline-block"
             >
-              <Text fontWeight="600" fontSize={1}>
+              <Text fontWeight="bold" fontSize={1}>
                 Menu
               </Text>
             </Box>

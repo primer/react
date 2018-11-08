@@ -1,17 +1,26 @@
 const {join} = require('path')
 const withPlugins = require('next-compose-plugins')
 const mdx = require('@zeit/next-mdx')
+const getPageMap = require('next-page-map')
+
+const pageExtensions = ['js', 'jsx', 'md', 'mdx']
+const pageMap = getPageMap(join(__dirname, 'pages'), pageExtensions)
 
 const assetPrefix = process.env.NOW_URL
 
 module.exports = withPlugins([
   mdx({extension: /\.mdx?$/})
 ], {
-  assetPrefix,
-  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-
+  /*
+   * Note: Prefixing assets with the fully qualified deployment URL
+   * makes them available even when the site is served from a path alias, as in
+   * <https://primer.style/components>
+   */
+  assetPrefix: process.env.NOW_URL,
+  pageExtensions,
   publicRuntimeConfig: {
-    assetPrefix
+    assetPrefix,
+    pageMap
   },
 
   webpack(config, {dev}) {

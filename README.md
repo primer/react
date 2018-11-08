@@ -1,4 +1,4 @@
-# Primer react
+# Primer Components
 
 [Primer](https://primer.github.io/) React components
 

@@ -41,8 +41,8 @@ describe('Text', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', 'bold')
-    expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', 'normal')
+    expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', '600')
+    expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', '400')
   })
 
   it('respects lineHeight', () => {

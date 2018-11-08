@@ -32,18 +32,22 @@ export default class MyDocument extends Document {
         <Head>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126681523-1" />
           <script async href={getAssetPath('analytics.js')} />
-          <title>Primer Components</title>
           <meta charSet="utf8" />
           <link rel="icon" href={getAssetPath('favicon.png')} />
           <link rel="apple-touch-icon" href={getAssetPath('apple-touch-icon.png')} />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="og:title" content="Primer Components" />
-          <meta name="og:url" content="https://primer.style/components/" />
-          <meta name="description" content="Primer components built with React.js." />
+          <meta property="og:title" content="Primer Components" />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://primer.style/components/" />
+          <meta property="og:description" content="Primer components built with React.js." />
           <meta
-            name="og:image"
-            content="https://user-images.githubusercontent.com/586552/46702062-ca82eb80-cbef-11e8-8c0b-4a9252dc04c6.png"
+            property="og:image"
+            content="https://user-images.githubusercontent.com/586552/47590375-121cad80-d93a-11e8-89f2-a1cf108e0548.png"
           />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:site" content="@githubprimer" />
           {styles}
         </Head>
         <body>

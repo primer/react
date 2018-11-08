@@ -47,6 +47,11 @@ const theme = {
     ]),
     mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
   },
+  fontWeights: {
+    light: 300,
+    normal: 400,
+    bold: 600
+  },
   colors,
   borders: [0, '1px solid'],
   fontSizes,

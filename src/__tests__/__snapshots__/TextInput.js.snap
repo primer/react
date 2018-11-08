@@ -2,6 +2,27 @@
 
 exports[`TextInput renders 1`] = `
 <input
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 form-control"
   name="zipcode"
   type="text"
@@ -10,6 +31,27 @@ exports[`TextInput renders 1`] = `
 
 exports[`TextInput renders block 1`] = `
 <input
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 form-control input-block"
   name="zipcode"
   type="text"
@@ -18,6 +60,27 @@ exports[`TextInput renders block 1`] = `
 
 exports[`TextInput renders large 1`] = `
 <input
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 form-control input-lg"
   name="zipcode"
   type="text"
@@ -26,6 +89,27 @@ exports[`TextInput renders large 1`] = `
 
 exports[`TextInput renders small 1`] = `
 <input
+  blacklist={
+    Array [
+      "css",
+      "color",
+      "bg",
+      "m",
+      "mt",
+      "mr",
+      "mb",
+      "ml",
+      "mx",
+      "my",
+      "p",
+      "pt",
+      "pr",
+      "pb",
+      "pl",
+      "px",
+      "py",
+    ]
+  }
   className="emotion-0 form-control input-sm"
   name="zipcode"
   type="text"
