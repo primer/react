@@ -16,6 +16,10 @@ React components for the Primer Design System
 
 **⚠️ This project is WIP and not ready for production use yet!**
 
+## Documentation
+
+Our documentation site lives at [primer.style/components](https://primer.style/components). You'll be able to find the information listed in this README as well as detailed docs for each component, our theme, and system props.
+
 ## Installation
 
 Install @primer/components in your project with npm:
