@@ -1,16 +1,17 @@
-![](https://user-images.githubusercontent.com/8960591/48100248-482e1d00-e1d7-11e8-81c1-303b4234dab0.jpg)
+<p align="center">
+<img width="128px" src="https://user-images.githubusercontent.com/334891/45336457-b47efe00-b551-11e8-9644-398f29eceb92.png">
 
-# Primer Components
+<h3 align="center">Primer Components</h3>
 
-React components for the Primer Design System
+<p align="center">React components for the Primer Design System</p>
 
 ![npm](https://img.shields.io/npm/v/@primer/components.svg)
 ![GitHub contributors](https://img.shields.io/github/contributors/primer/components.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/primer/components.svg)
 ![GitHub](https://img.shields.io/github/license/primer/components.svg)
 [![Join us in Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/primer)
-
-
+  
+  ---
 
 ## Status
 
