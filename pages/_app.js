@@ -1,6 +1,5 @@
 import React from 'react'
 import App, {Container} from 'next/app'
-import Head from 'next/head'
 import getConfig from 'next/config'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
