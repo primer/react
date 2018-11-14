@@ -4,7 +4,6 @@ import getConfig from 'next/config'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
 import * as docComponents from './doc-components'
-import Index from './index.mdx'
 import * as primerComponents from '..'
 import {repository} from '../package.json'
 
@@ -48,7 +47,7 @@ export default class MyApp extends App {
       console.warn(`pathname "${pathname}" doesn't exist in pageMap:`, pageMap)
     }
     const {Component, page} = this.props
-    const isIndex = pathname === '/' || pathname === '/components' || pathname === '/components/'
+    const hasHero = ['/components', '/components/'].includes(pathname)
 
     return (
       <BaseStyles>
@@ -57,9 +56,9 @@ export default class MyApp extends App {
             <Header />
             <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
               <Box width="100%">
-                {isIndex && <IndexHero />}
+                {hasHero && <IndexHero />}
                 <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
-                  {isIndex ? <Index /> : <Component {...page} />}
+                  <Component {...page} />
                   {filename && (
                     <Box color="gray.5" borderColor="gray.2" borderTop={1} my={6} pt={2}>
                       <Text mr={2}>
