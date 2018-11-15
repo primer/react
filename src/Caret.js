@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import BorderBox from './BorderBox'
 import {style} from 'styled-system'
 import {withDefaultTheme} from './system-props'
 

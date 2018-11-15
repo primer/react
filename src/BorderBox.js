@@ -12,7 +12,7 @@ const BorderBox = withSystemProps(
 )
 
 BorderBox.propTypes = {
-  ...Box.propTypes,
+  ...Box.propTypes
 }
 
 export default BorderBox
