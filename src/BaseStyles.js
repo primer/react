@@ -1,4 +1,4 @@
-import {withSystemProps, TYPOGRAPHY} from './system-props'
+import {withSystemProps, TYPOGRAPHY, COMMON} from './system-props'
 
 const BaseStyles = withSystemProps(
   {
@@ -7,7 +7,7 @@ const BaseStyles = withSystemProps(
     fontFamily: 'normal',
     lineHeight: 'default'
   },
-  TYPOGRAPHY
+  [...TYPOGRAPHY, ...COMMON]
 )
 
 export default BaseStyles
