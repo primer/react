@@ -100,8 +100,8 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: BorderBox.defaultProps.bg,
-  borderColor: BorderBox.defaultProps.borderColor,
+  bg: 'white',
+  borderColor: 'gray.2',
   borderWidth: 1,
   location: 'bottom',
   size: 2
