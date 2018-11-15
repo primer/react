@@ -1,14 +1,14 @@
 import {withSystemProps, LAYOUT} from './system-props'
+import Box from './Box'
 
 const BorderBox = withSystemProps(
   {
-    is: 'div',
-    bg: 'white',
+    is: Box,
     border: 1,
     borderColor: 'gray.2',
     borderRadius: 1
   },
-  [...LAYOUT, 'boxShadow']
+  ['boxShadow']
 )
 
 export default BorderBox
