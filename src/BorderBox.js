@@ -11,4 +11,8 @@ const BorderBox = withSystemProps(
   ['boxShadow']
 )
 
+BorderBox.propTypes = {
+  ...Box.propTypes,
+}
+
 export default BorderBox
