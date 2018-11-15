@@ -1,4 +1,4 @@
-import {withSystemProps, LAYOUT} from './system-props'
+import {withSystemProps} from './system-props'
 import Box from './Box'
 
 const BorderBox = withSystemProps(

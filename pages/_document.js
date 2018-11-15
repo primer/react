@@ -1,5 +1,5 @@
 import React from 'react'
-import Document, {Head, Main, NextScript} from 'next/document'
+import Document, {Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
 import {extractCritical} from 'emotion-server'
 import {getAssetPath} from './doc-components'
@@ -29,7 +29,8 @@ export default class MyDocument extends Document {
 
     return (
       <html lang="en">
-        <Head>
+        <head>
+          <title>Primer Components</title>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126681523-1" />
           <script async href={getAssetPath('analytics.js')} />
           <meta charSet="utf8" />
@@ -49,7 +50,7 @@ export default class MyDocument extends Document {
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:site" content="@githubprimer" />
           {styles}
-        </Head>
+        </head>
         <body>
           <Main />
           <NextScript />

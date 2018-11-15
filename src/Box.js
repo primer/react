@@ -1,5 +1,5 @@
-import {withSystemProps, LAYOUT} from './system-props'
+import {withSystemProps, LAYOUT, COMMON} from './system-props'
 
-const Box = withSystemProps('div', LAYOUT)
+const Box = withSystemProps('div', [...LAYOUT, ...COMMON])
 
 export default Box
