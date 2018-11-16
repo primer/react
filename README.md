@@ -42,7 +42,7 @@ import {
 } from '@primer/components'
 ```
 
-Primer Components come with all necessary CSS built-in, so you don't need to worry about including [Primer CSS].
+Primer Components come with all the necessary CSS built-in, so you don't need to worry about including [Primer CSS].
 
 #### Base styles
 
