@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "6.0.1-beta",
+  "version": "7.0.0-beta",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -36,7 +36,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@githubprimer/octicons-react": "8.0.0",
+    "@githubprimer/octicons-react": "8.1.2",
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",

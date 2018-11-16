@@ -1,12 +1,24 @@
-# Primer Components
+<p align="center">
+  <img width="300px" src="https://user-images.githubusercontent.com/10384315/48589167-39d6b400-e8ef-11e8-9183-c69de4fe477f.png">
+</p>
 
-[Primer](https://primer.github.io/) React components
+<h1 align="center">Primer Components</h1>
+
+<p align="center">React components for the Primer Design System</p>
+
+![npm](https://img.shields.io/npm/v/@primer/components.svg)
+![GitHub contributors](https://img.shields.io/github/contributors/primer/components.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/primer/components.svg)
+![GitHub](https://img.shields.io/github/license/primer/components.svg)
+[![Join us in Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/primer)
 
 ## Status
 
-**⚠️ This project is WIP and not ready for production use yet!**
+**⚠️ This project is a work in progress and is not ready for production use yet!**
 
-Currently we link to the latest build of [Primer CSS] so that we may use current Primer styles to start to build components. This does not include `primer-base` so as to avoid unwanted base overrides.
+## Documentation
+
+Our documentation site lives at [primer.style/components](https://primer.style/components). You'll be able to find the information listed in this README as well as detailed docs for each component, our theme, and system props.
 
 ## Installation
 
@@ -17,8 +29,6 @@ npm install @primer/components
 ```
 
 ## Usage
-
-**If you are upgrading from a version before `1.0.0-beta`, please read the [migration docs](migrating.md).**
 
 All of our components are exported by name from `@primer/components`, so you can import them with:
 
@@ -31,9 +41,7 @@ import {
 } from '@primer/components'
 ```
 
-### Styling
-
-This project uses [emotion] to generate static CSS for most component styles, but still relies on [Primer CSS] for some classname-based styles that haven't yet been ported over. Components that haven't yet been ported over rely on [a subset of Primer CSS](https://github.com/primer/components/blob/master/src/primer-components.scss) that's globally injected at import time.
+Primer Components come with all the necessary CSS built-in, so you don't need to worry about including [Primer CSS].
 
 #### Base styles
 
