@@ -1,5 +1,6 @@
 <p align="center">
-<img width="300px" src="https://user-images.githubusercontent.com/10384315/48589167-39d6b400-e8ef-11e8-9183-c69de4fe477f.png">
+  <img width="300px" src="https://user-images.githubusercontent.com/10384315/48589167-39d6b400-e8ef-11e8-9183-c69de4fe477f.png">
+</p>
 
 <h1 align="center">Primer Components</h1>
 
@@ -10,8 +11,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/primer/components.svg)
 ![GitHub](https://img.shields.io/github/license/primer/components.svg)
 [![Join us in Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/primer)
-  
-  ---
 
 ## Status
 
