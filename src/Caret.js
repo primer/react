@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import BorderBox from './BorderBox'
 import {style} from 'styled-system'
 import {withDefaultTheme} from './system-props'
 
@@ -100,8 +99,8 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: BorderBox.defaultProps.bg,
-  borderColor: BorderBox.defaultProps.borderColor,
+  bg: 'white',
+  borderColor: 'gray.2',
   borderWidth: 1,
   location: 'bottom',
   size: 2
