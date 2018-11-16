@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
     const page = renderPage(App => props => sheet.collectStyles(<App {...props} />))
     return {
       ...page,
-      styles: (
+      styleTags: (
         <>
           <style id="primer-css">
             {utilities}
@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    const {styles} = this.props
+    const {styleTags} = this.props
 
     return (
       <html lang="en">
@@ -49,7 +49,7 @@ export default class MyDocument extends Document {
           <meta property="og:image:height" content="630" />
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:site" content="@githubprimer" />
-          {styles}
+          {styleTags}
         </head>
         <body>
           <Main />
