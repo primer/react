@@ -6,11 +6,25 @@
 
 <p align="center">React components for the Primer Design System</p>
 
-![npm](https://img.shields.io/npm/v/@primer/components.svg)
-![GitHub contributors](https://img.shields.io/github/contributors/primer/components.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/primer/components.svg)
-![GitHub](https://img.shields.io/github/license/primer/components.svg)
-[![Join us in Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/primer)
+<p align="center">
+  <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/components">
+    <img alt="" src="https://img.shields.io/npm/v/@primer/components.svg">
+  </a>
+  <a aria-label="contributors graph" href="https://github.com/primer/components/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/primer/components.svg">
+  </a>
+  <a aria-label="last commit" href="https://github.com/primer/components/commits/master">
+    <img alt="" src=
+  "https://img.shields.io/github/last-commit/primer/components.svg">
+  </a>
+  <a aria-label="join us in spectrum" href="https://spectrum.chat/?t=492cd17e-6e41-4e66-9160-2297e245b596">
+    <img alt="" src="https://withspectrum.github.io/badge/badge.svg">
+  </a>
+  <a aria-label="license" href="https://github.com/primer/components/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/primer/components.svg" alt="">
+  </a>
+</p>
+
 
 ## Status
 
