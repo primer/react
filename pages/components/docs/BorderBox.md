@@ -14,6 +14,11 @@ BorderBox components get `COMMON` and `LAYOUT` system props. Read our [System Pr
 
 ## Component props
 
-BorderBox does not get any additional props other than the system props mentioned above.
+| Prop name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| border | String | 'borders.1' (from theme) | Sets the border, use theme values or provide your own. |
+| borderColor | String | 'gray.2' (from theme) | Sets the border color, use theme values or provide your own. |
+| borderRadius | String or Number| 'radii.1' (from theme)| Sets the border radius, use theme values or provide your own. |
+| boxShadow | String | | Sets box shadow, use theme values or provide your own. |
 
 export const meta = { displayName: 'BorderBox'}
