@@ -5,8 +5,6 @@ import {default as defaultTheme} from './theme'
 
 export {system as default}
 
-export const printProps = props => props.join(', ')
-
 export const COMMON = ['color', 'space']
 
 export const TYPOGRAPHY = [
