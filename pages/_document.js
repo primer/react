@@ -17,7 +17,6 @@ export default class MyDocument extends Document {
             {utilities}
             {markdown}
           </style>
-          <style id="emotion-static">{extractCritical(page.html).css}</style>
           {sheet.getStyleElement()}
         </>
       )

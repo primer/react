@@ -1,6 +1,6 @@
 import {withSystemProps} from './system-props'
 import {borders, borderColor, fontSize, borderRadius, boxShadow} from 'styled-system'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import theme, {colors} from './theme'
 import Box from './Box'
 
