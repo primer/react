@@ -1,23 +1,18 @@
 import {withSystemProps} from './system-props'
-import {borders, borderColor, fontSize, borderRadius, boxShadow} from 'styled-system'
+import {borders, borderColor, fontSize, borderRadius, boxShadow, themeGet} from 'styled-system'
 import styled from 'styled-components'
 import theme, {colors} from './theme'
 import Box from './Box'
 
 const BorderBox = styled(Box)`
+ border: ${themeGet('borders.1'), theme.borders[1]};
+ border-color: ${themeGet('colors.gray.2', colors.gray[2])};
+ border-radius: ${themeGet('radii.1', `${theme.radii[1]}px`)}
  ${borders}
  ${borderColor}
  ${borderRadius}
  ${boxShadow}
 `
-
-// set default props in defaultProps instead of in call to withSystemProps
-BorderBox.defaultProps = {
-  border: theme.borders[1],
-  borderColor: colors.gray[2],
-  borderRadius: theme.radii[1],
-  theme // set our theme to the default if no theme is provided
-}
 
 // spread prop types here
 BorderBox.propTypes = {
