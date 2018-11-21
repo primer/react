@@ -10,10 +10,10 @@ const BorderBox = styled(Box)`
 `
 
 BorderBox.defaultProps = {
-    theme,
-    border: '1px solid',
-    borderColor: 'gray.2',
-    borderRadius: 1,
+  theme,
+  border: '1px solid',
+  borderColor: 'gray.2',
+  borderRadius: 1
 }
 
 // spread prop types here
@@ -21,7 +21,7 @@ BorderBox.propTypes = {
   ...Box.propTypes,
   ...borders.propTypes,
   ...borderColor.propTypes,
-  ...boxShadow.propTypes,
+  ...boxShadow.propTypes
 }
 
 export default BorderBox
