@@ -1,8 +1,9 @@
 import React from 'react'
 import App, {Container} from 'next/app'
+import {MDXProvider} from '@mdx-js/tag'
 import Head from 'next/head'
+import {withMDXLive} from 'mdx-live'
 import getConfig from 'next/config'
-import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
 import * as docComponents from './doc-components'
 import * as primerComponents from '..'
@@ -26,7 +27,9 @@ const components = {
   ...primerComponents,
   Octicon,
   // render links with our component
-  a: DocLink
+  a: DocLink,
+  code: withMDXLive('pre'),
+  pre: props => props.children
 }
 
 export default class MyApp extends App {
@@ -56,29 +59,29 @@ export default class MyApp extends App {
           <Head>
             <title>Primer Components</title>
           </Head>
-          <Layout components={components} routes={[]} theme={customTheme}>
-            <Header />
-            <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
-              <Box width="100%">
-                {hasHero && <IndexHero />}
-                <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+          <Header />
+          <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
+            <Box width="100%">
+              {hasHero && <IndexHero />}
+              <Box color="gray.9" maxWidth={1012} width={'100%'} my={6} mx={'auto'} px={6} className="markdown-body">
+                <MDXProvider components={components}>
                   <Component {...page} />
-                  {filename && (
-                    <Box color="gray.5" borderColor="gray.2" borderTop={1} my={6} pt={2}>
-                      <Text mr={2}>
-                        <Octicon icon={Pencil} />
-                      </Text>
-                      <DocLink muted href={`${editLinkBase}${filename}`}>
-                        Edit this page
-                      </DocLink>{' '}
-                      on GitHub
-                    </Box>
-                  )}
-                </Box>
+                </MDXProvider>
+                {filename && (
+                  <Box color="gray.5" borderColor="gray.2" borderTop={1} my={6} pt={2}>
+                    <Text mr={2}>
+                      <Octicon icon={Pencil} />
+                    </Text>
+                    <DocLink muted href={`${editLinkBase}${filename}`}>
+                      Edit this page
+                    </DocLink>{' '}
+                    on GitHub
+                  </Box>
+                )}
               </Box>
-              <SideNav />
-            </Flex>
-          </Layout>
+            </Box>
+            <SideNav />
+          </Flex>
         </Container>
       </BaseStyles>
     )

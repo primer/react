@@ -78,6 +78,7 @@
     "jest-emotion": "9.2.7",
     "jscodeshift": "0.5.1",
     "mdx-docs": "1.0.0-8",
+    "mdx-live": "2.0.0-alpha.2",
     "next": "7.0.2",
     "next-compose-plugins": "2.1.1",
     "next-page-map": "0.1.0",
