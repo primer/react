@@ -11,7 +11,7 @@ import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
 const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
-const {SideNav, Header, IndexHero, customTheme} = docComponents
+const {SideNav, Header, IndexHero} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
