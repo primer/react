@@ -10,7 +10,7 @@ import * as primerComponents from '..'
 import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
-const {BaseStyles, Box, Flex, Link, Text} = primerComponents
+const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
@@ -54,7 +54,7 @@ export default class MyApp extends App {
     const hasHero = ['/components', '/components/'].includes(pathname)
 
     return (
-      <BaseStyles>
+      <BaseStyles style={{fontFamily: theme.fonts.normal}}>
         <Container>
           <Head>
             <title>Primer Components</title>
