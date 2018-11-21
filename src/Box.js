@@ -13,6 +13,7 @@ import {
   verticalAlign
 } from 'styled-system'
 import styled from 'styled-components'
+import theme from './theme'
 
 const Box = styled.div`
  ${color}
@@ -28,6 +29,10 @@ const Box = styled.div`
  ${overflow}
  ${verticalAlign}
 `
+
+Box.defaultProps = {
+  theme
+}
 
 Box.propTypes = {
   ...color.propTypes,

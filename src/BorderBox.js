@@ -1,6 +1,7 @@
 import {borders, borderColor, borderRadius, boxShadow} from 'styled-system'
 import styled from 'styled-components'
 import Box from './Box'
+import theme from './theme'
 
 const BorderBox = styled(Box)`
  ${borders}
