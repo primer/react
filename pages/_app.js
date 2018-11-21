@@ -57,7 +57,7 @@ export default class MyApp extends App {
           <Head>
             <title>Primer Components</title>
           </Head>
-          <Layout components={components} routes={[]} theme={customTheme}>
+          <Layout components={components} routes={[]} theme={docsTheme}>
             <Header />
             <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
               <Box width="100%">
