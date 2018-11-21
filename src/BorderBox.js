@@ -5,14 +5,18 @@ import theme, {colors} from './theme'
 import Box from './Box'
 
 const BorderBox = styled(Box)`
- border: ${themeGet('borders.1'), theme.borders[1]};
- border-color: ${themeGet('colors.gray.2', colors.gray[2])};
- border-radius: ${themeGet('radii.1', `${theme.radii[1]}px`)}
  ${borders}
  ${borderColor}
  ${borderRadius}
  ${boxShadow}
 `
+
+BorderBox.defaultProps = {
+    theme,
+    border: '1px solid',
+    borderColor: 'gray.2',
+    borderRadius: 1,
+}
 
 // spread prop types here
 BorderBox.propTypes = {
@@ -20,7 +24,6 @@ BorderBox.propTypes = {
   ...borders.propTypes,
   ...borderColor.propTypes,
   ...boxShadow.propTypes,
-  theme,
 }
 
 export default BorderBox
