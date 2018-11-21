@@ -1,7 +1,5 @@
-import {withSystemProps} from './system-props'
-import {borders, borderColor, fontSize, borderRadius, boxShadow, themeGet} from 'styled-system'
+import {borders, borderColor, borderRadius, boxShadow} from 'styled-system'
 import styled from 'styled-components'
-import theme, {colors} from './theme'
 import Box from './Box'
 
 const BorderBox = styled(Box)`
