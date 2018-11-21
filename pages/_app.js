@@ -2,6 +2,7 @@ import React from 'react'
 import App, {Container} from 'next/app'
 import Head from 'next/head'
 import getConfig from 'next/config'
+import {ThemeProvider} from 'styled-components'
 import {Layout} from 'mdx-docs'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
 import * as docComponents from './doc-components'
@@ -9,9 +10,9 @@ import * as primerComponents from '..'
 import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
-const {BaseStyles, Box, Flex, Link, Text} = primerComponents
+const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
 const {SideNav, Header, IndexHero, customTheme} = docComponents
-
+const docsTheme = Object.assign({}, customTheme, theme)
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
   return map
@@ -56,7 +57,7 @@ export default class MyApp extends App {
           <Head>
             <title>Primer Components</title>
           </Head>
-          <Layout components={components} routes={[]} theme={customTheme}>
+          <Layout components={components} routes={[]} theme={docsTheme}>
             <Header />
             <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
               <Box width="100%">

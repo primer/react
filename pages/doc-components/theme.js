@@ -1,7 +1,6 @@
 import {theme} from '../..'
 
 export default {
-  font: theme.fonts.normal,
   LiveEditor: {
     whiteSpace: 'pre-wrap',
     backgroundColor: theme.colors.gray[1],

@@ -20,6 +20,7 @@ BorderBox.propTypes = {
   ...borders.propTypes,
   ...borderColor.propTypes,
   ...boxShadow.propTypes,
+  theme,
 }
 
 export default BorderBox
