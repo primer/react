@@ -1,13 +1,10 @@
-import {borders, borderColor, borderRadius, boxShadow} from 'styled-system'
 import styled from 'styled-components'
 import Box from './Box'
 import theme from './theme'
+import {BORDER} from './constants'
 
 const BorderBox = styled(Box)`
- ${borders}
- ${borderColor}
- ${borderRadius}
- ${boxShadow}
+ ${BORDER}
 `
 
 BorderBox.defaultProps = {
@@ -20,9 +17,7 @@ BorderBox.defaultProps = {
 // spread prop types here
 BorderBox.propTypes = {
   ...Box.propTypes,
-  ...borders.propTypes,
-  ...borderColor.propTypes,
-  ...boxShadow.propTypes
+  ...BORDER.propTypes,
 }
 
 export default BorderBox
