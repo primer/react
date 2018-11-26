@@ -5,10 +5,6 @@ import {render} from '../utils/testing'
 import {LAYOUT} from '../system-props'
 
 describe('Box', () => {
-  it('is a system component', () => {
-    expect(Box.systemComponent).toEqual(true)
-  })
-
   it('implements layout system props', () => {
     expect(Box).toImplementSystemProps(LAYOUT)
   })
