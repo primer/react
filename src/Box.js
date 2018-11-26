@@ -1,9 +1,10 @@
-import {LAYOUT} from './constants'
+import {LAYOUT, COMMON} from './constants'
 import styled from 'styled-components'
 import theme from './theme'
 
 const Box = styled.div`
  ${LAYOUT}
+ ${COMMON}
 `
 
 Box.defaultProps = {
@@ -12,6 +13,7 @@ Box.defaultProps = {
 
 Box.propTypes = {
   ...LAYOUT.propTypes,
+  ...COMMON.propTypes,
 }
 
 export default Box
