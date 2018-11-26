@@ -1,33 +1,9 @@
-import {
-  color,
-  space,
-  display,
-  size,
-  width,
-  height,
-  minWidth,
-  minHeight,
-  maxWidth,
-  maxHeight,
-  overflow,
-  verticalAlign
-} from 'styled-system'
+import {LAYOUT} from './constants'
 import styled from 'styled-components'
 import theme from './theme'
 
 const Box = styled.div`
- ${color}
- ${space}
- ${display}
- ${size}
- ${width}
- ${height}
- ${minWidth}
- ${minHeight}
- ${maxWidth}
- ${maxHeight}
- ${overflow}
- ${verticalAlign}
+ ${LAYOUT}
 `
 
 Box.defaultProps = {
@@ -35,18 +11,7 @@ Box.defaultProps = {
 }
 
 Box.propTypes = {
-  ...color.propTypes,
-  ...space.propTypes,
-  ...display.propTypes,
-  ...size.propTypes,
-  ...width.propTypes,
-  ...height.propTypes,
-  ...minWidth.propTypes,
-  ...minHeight.propTypes,
-  ...maxWidth.propTypes,
-  ...maxHeight.propTypes,
-  ...overflow.propTypes,
-  ...verticalAlign.propTypes
+  ...LAYOUT.propTypes,
 }
 
 export default Box
