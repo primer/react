@@ -1,13 +1,23 @@
-import {withSystemProps, FLEX_CONTAINER, COMMON, FLEX_ITEM} from './system-props'
+import styled from 'styled-components'
+import {display} from 'styled-system'
+import theme from './theme'
+import {FLEX_CONTAINER, FLEX_ITEM, COMMON} from './constants'
 
-const Flex = withSystemProps(
-  {
-    is: 'div',
-    display: 'flex'
-  },
-  [...FLEX_CONTAINER, ...COMMON]
-)
+const Flex = styled.div`
+  ${FLEX_CONTAINER}
+  ${COMMON}
+  ${display}
+`
 
-Flex.Item = withSystemProps('div', [...FLEX_ITEM, ...COMMON])
+Flex.defaultProps = {
+  display: 'flex',
+  theme
+}
+
+const FlexItem = styled.div`
+  ${FLEX_ITEM}
+  ${COMMON}
+`
+Flex.Item = FlexItem
 
 export default Flex
