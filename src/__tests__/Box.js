@@ -35,9 +35,4 @@ describe('Box', () => {
     expect(render(<Box display="none" />)).toMatchSnapshot()
     expect(render(<Box display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
   })
-
-  it('respects position', () => {
-    expect(render(<Box position="absolute" />)).toMatchSnapshot()
-    expect(render(<Box position="relative" />)).toMatchSnapshot()
-  })
 })

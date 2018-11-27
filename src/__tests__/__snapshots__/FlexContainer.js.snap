@@ -1,89 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Flex respects alignContent 1`] = `
-.emotion-0 {
+.c0 {
+  -webkit-align-content: start;
+  -ms-flex-line-pack: start;
+  align-content: start;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-content: start;
-  -ms-flex-line-pack: start;
-  align-content: start;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects alignItems 1`] = `
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c0 {
   -webkit-align-items: start;
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects flexDirection 1`] = `
-.emotion-0 {
+.c0 {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects flexWrap 1`] = `
-.emotion-0 {
+.c0 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects justifyContent 1`] = `
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c0 {
   -webkit-box-pack: start;
   -webkit-justify-content: start;
   -ms-flex-pack: start;
   justify-content: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects responsive display 1`] = `
-.emotion-0 {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -91,7 +96,7 @@ exports[`Flex respects responsive display 1`] = `
 }
 
 @media screen and (min-width:544px) {
-  .emotion-0 {
+  .c0 {
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -100,6 +105,12 @@ exports[`Flex respects responsive display 1`] = `
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display={
+    Array [
+      "flex",
+      "inline-flex",
+    ]
+  }
 />
 `;

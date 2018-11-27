@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CircleBadge respects "is" prop 1`] = `
-.emotion-0 {
-  width: 96px;
-  height: 96px;
-}
-
 <a
   blacklist={
     Array [
@@ -28,6 +23,6 @@ exports[`CircleBadge respects "is" prop 1`] = `
       "py",
     ]
   }
-  className="emotion-0 CircleBadge"
+  className="css-15xbpqr CircleBadge"
 />
 `;
