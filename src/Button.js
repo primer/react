@@ -31,8 +31,7 @@ function ButtonProto({is: Tag, children, size, grouped, scheme, onClick, disable
 }
 
 const Button = styled(ButtonProto)`
-  ${COMMON}
-  ${width}
+  ${COMMON} ${width};
 `
 
 Button.defaultProps = {

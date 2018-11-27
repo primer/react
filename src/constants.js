@@ -1,7 +1,9 @@
-import React from 'react'
 import {styles, compose} from 'styled-system'
 
-export const COMMON = compose(styles.color, styles.space)
+export const COMMON = compose(
+  styles.color,
+  styles.space
+)
 
 export const BORDER = compose(
   styles.borders,
@@ -54,5 +56,5 @@ export const FLEX_CONTAINER = compose(
 export const FLEX_ITEM = compose(
   styles.flex,
   styles.justifySelf,
-  styles.alignSelf,
+  styles.alignSelf
 )

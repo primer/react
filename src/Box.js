@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import theme from './theme'
 
 const Box = styled.div`
- ${LAYOUT}
- ${COMMON}
+  ${LAYOUT} ${COMMON};
 `
 
 Box.defaultProps = {
@@ -13,7 +12,7 @@ Box.defaultProps = {
 
 Box.propTypes = {
   ...LAYOUT.propTypes,
-  ...COMMON.propTypes,
+  ...COMMON.propTypes
 }
 
 export default Box

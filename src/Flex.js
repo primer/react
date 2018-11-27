@@ -15,8 +15,7 @@ Flex.defaultProps = {
 }
 
 const FlexItem = styled.div`
-  ${FLEX_ITEM}
-  ${COMMON}
+  ${FLEX_ITEM} ${COMMON};
 `
 Flex.Item = FlexItem
 

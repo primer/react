@@ -4,7 +4,7 @@ import theme from './theme'
 import {BORDER} from './constants'
 
 const BorderBox = styled(Box)`
- ${BORDER}
+  ${BORDER};
 `
 
 BorderBox.defaultProps = {
@@ -17,7 +17,7 @@ BorderBox.defaultProps = {
 // spread prop types here
 BorderBox.propTypes = {
   ...Box.propTypes,
-  ...BORDER.propTypes,
+  ...BORDER.propTypes
 }
 
 export default BorderBox
