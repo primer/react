@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`system props withSystemProps() applies multiple theme values 1`] = `
-.emotion-0 {
-  font-family: Helvetica,Verdana,sans-serif;
-  margin: 16px;
-}
-
 <b
   blacklist={
     Array [
@@ -27,17 +22,13 @@ exports[`system props withSystemProps() applies multiple theme values 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
+  className="css-ad649n"
   fontFamily="sans"
   m={2}
 />
 `;
 
 exports[`system props withSystemProps() applies one theme value 1`] = `
-.emotion-0 {
-  margin: 16px;
-}
-
 <b
   blacklist={
     Array [
@@ -58,7 +49,7 @@ exports[`system props withSystemProps() applies one theme value 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
+  className="css-1c5ij41"
   m={2}
 />
 `;

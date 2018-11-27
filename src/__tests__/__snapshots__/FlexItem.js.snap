@@ -15,13 +15,13 @@ exports[`Flex.Item renders as correct tag 1`] = `
 `;
 
 exports[`Flex.Item respects alignSelf 1`] = `
-.emotion-0 {
+.c0 {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;

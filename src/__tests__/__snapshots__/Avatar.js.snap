@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Avatar renders default props 1`] = `
-.emotion-0 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 2px;
-}
-
 <img
   alt=""
   blacklist={
@@ -30,7 +22,7 @@ exports[`Avatar renders default props 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
+  className="css-6rzz8m"
   height={20}
   width={20}
 />

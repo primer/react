@@ -23,7 +23,7 @@ exports[`TextInput renders 1`] = `
       "py",
     ]
   }
-  className="emotion-0 form-control"
+  className="css-0 form-control"
   name="zipcode"
   type="text"
 />
@@ -52,7 +52,7 @@ exports[`TextInput renders block 1`] = `
       "py",
     ]
   }
-  className="emotion-0 form-control input-block"
+  className="css-0 form-control input-block"
   name="zipcode"
   type="text"
 />
@@ -81,7 +81,7 @@ exports[`TextInput renders large 1`] = `
       "py",
     ]
   }
-  className="emotion-0 form-control input-lg"
+  className="css-0 form-control input-lg"
   name="zipcode"
   type="text"
 />
@@ -110,7 +110,7 @@ exports[`TextInput renders small 1`] = `
       "py",
     ]
   }
-  className="emotion-0 form-control input-sm"
+  className="css-0 form-control input-sm"
   name="zipcode"
   type="text"
 />

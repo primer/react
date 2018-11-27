@@ -1,17 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Link passes href down to link element 1`] = `
-.emotion-0 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  color: #0366d6;
-}
-
-.emotion-0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 <a
   blacklist={
     Array [
@@ -39,24 +28,13 @@ exports[`Link passes href down to link element 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
+  className="css-h52cas"
   color="blue.5"
   href="https://github.com"
 />
 `;
 
 exports[`Link renders without any props 1`] = `
-.emotion-0 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  color: #0366d6;
-}
-
-.emotion-0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 <a
   blacklist={
     Array [
@@ -84,24 +62,12 @@ exports[`Link renders without any props 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
+  className="css-h52cas"
   color="blue.5"
 />
 `;
 
 exports[`Link respects hoverColor prop 1`] = `
-.emotion-0 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  color: #0366d6;
-}
-
-.emotion-0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #2188ff;
-}
-
 <a
   blacklist={
     Array [
@@ -129,7 +95,7 @@ exports[`Link respects hoverColor prop 1`] = `
       "py",
     ]
   }
-  className="emotion-0"
+  className="css-1g2mdc3"
   color="blue.5"
   hoverColor="blue.4"
 />

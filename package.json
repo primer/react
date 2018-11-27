@@ -75,7 +75,7 @@
     "fs-extra": "7.0.0",
     "globby": "8.0.1",
     "jest": "23.5.0",
-    "jest-emotion": "9.2.7",
+    "jest-styled-components": "6.3.1",
     "jscodeshift": "0.5.1",
     "mdx-live": "2.0.0-alpha.2",
     "next": "7.0.2",

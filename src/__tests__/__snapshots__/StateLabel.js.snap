@@ -1,112 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StateLabel renders children 1`] = `
-.emotion-0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 3px;
-}
-
 <span
-  className="emotion-0"
+  className="css-1d7fat5"
 >
   hi
 </span>
 `;
 
 exports[`StateLabel respects the small flag 1`] = `
-.emotion-0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 0.125em 4px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  font-size: 12px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 3px;
-}
-
 <span
-  className="emotion-0"
+  className="css-7n4p2d"
 />
 `;
 
 exports[`StateLabel respects the small flag 2`] = `
-.emotion-0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 3px;
-}
-
 <span
-  className="emotion-0"
+  className="css-1d7fat5"
 />
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
-.emotion-1 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  background-color: #2cbe4e;
-  border-radius: 3px;
-}
-
-.emotion-0 {
-  margin-right: 4px;
-}
-
 <span
-  className="emotion-1"
+  className="css-1i84otk"
 >
   <svg
     aria-hidden="true"
-    className="emotion-0"
+    className="css-15ro776"
     height={16}
     role="img"
     style={
@@ -129,35 +49,12 @@ exports[`StateLabel respects the status prop 1`] = `
 `;
 
 exports[`StateLabel respects the status prop 2`] = `
-.emotion-0 {
-  margin-right: 4px;
-}
-
-.emotion-1 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  background-color: #cb2431;
-  border-radius: 3px;
-}
-
 <span
-  className="emotion-1"
+  className="css-1jokps5"
 >
   <svg
     aria-hidden="true"
-    className="emotion-0"
+    className="css-15ro776"
     height={16}
     role="img"
     style={
@@ -180,35 +77,12 @@ exports[`StateLabel respects the status prop 2`] = `
 `;
 
 exports[`StateLabel respects the status prop 3`] = `
-.emotion-0 {
-  margin-right: 4px;
-}
-
-.emotion-1 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  background-color: #6f42c1;
-  border-radius: 3px;
-}
-
 <span
-  className="emotion-1"
+  className="css-zxy1os"
 >
   <svg
     aria-hidden="true"
-    className="emotion-0"
+    className="css-15ro776"
     height={16}
     role="img"
     style={

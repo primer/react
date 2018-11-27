@@ -2,7 +2,7 @@
 
 exports[`Donut renders Donut.Slice children 1`] = `
 <svg
-  className="emotion-0"
+  className="css-0"
   height={30}
   width={30}
 >
@@ -25,7 +25,7 @@ exports[`Donut renders Donut.Slice children 1`] = `
 
 exports[`Donut renders a single Donut.Slice child 1`] = `
 <svg
-  className="emotion-0"
+  className="css-0"
   height={30}
   width={30}
 >
@@ -43,7 +43,7 @@ exports[`Donut renders a single Donut.Slice child 1`] = `
 
 exports[`Donut renders the data prop 1`] = `
 <svg
-  className="emotion-0"
+  className="css-0"
   height={30}
   width={30}
 >

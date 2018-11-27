@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
-.emotion-0 {
-  position: relative;
+.c1 {
   background-color: #d73a49;
-  position: relative;
+}
+
+.c0 {
   border: 1px solid;
   border-color: #e1e4e8;
   border-radius: 3px;
 }
 
 <div
-  bg="red.5"
-  className="emotion-0"
+  className="c0 c1"
 >
   <svg
     height={16}
@@ -46,16 +46,14 @@ exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
 `;
 
 exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret> 1`] = `
-.emotion-0 {
-  position: relative;
-  position: relative;
+.c0 {
   border: 1px solid;
   border-color: #d73a49;
   border-radius: 3px;
 }
 
 <div
-  className="emotion-0"
+  className="c0 "
 >
   <svg
     height={16}
@@ -89,16 +87,14 @@ exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret
 `;
 
 exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1`] = `
-.emotion-0 {
-  position: relative;
-  position: relative;
+.c0 {
   border: 1px solid;
   border-color: #e1e4e8;
   border-radius: 3px;
 }
 
 <div
-  className="emotion-0"
+  className="c0 "
 >
   <svg
     height={16}
