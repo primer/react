@@ -1,5 +1,17 @@
-import {withSystemProps, LAYOUT, COMMON} from './system-props'
+import styled from 'styled-components'
+import {LAYOUT, COMMON} from './constants'
+import theme from './theme'
 
-const Box = withSystemProps('div', [...LAYOUT, ...COMMON])
+const Box = styled.div`
+  ${LAYOUT}
+  ${COMMON}
+`
+
+Box.defaultProps = {theme}
+
+Box.propTypes = {
+  ...LAYOUT.propTypes,
+  ...COMMON.propTypes
+}
 
 export default Box
