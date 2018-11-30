@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {themeGet, space, color} from 'styled-system'
@@ -12,7 +11,7 @@ function borderRadius({size}) {
 
 const Avatar = styled.img.attrs(props => ({
   height: props.size,
-  width: props.size,
+  width: props.size
 }))`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
