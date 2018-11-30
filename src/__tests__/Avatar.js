@@ -5,10 +5,6 @@ import theme from '../theme'
 import {px, render} from '../utils/testing'
 
 describe('Avatar', () => {
-  it('is a system component', () => {
-    expect(Avatar.systemComponent).toEqual(true)
-  })
-
   it('renders default props', () => {
     expect(render(<Avatar alt="" />)).toMatchSnapshot()
   })

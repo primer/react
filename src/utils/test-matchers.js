@@ -1,5 +1,5 @@
 import 'jest-styled-components'
-import { styleSheetSerializer } from "jest-styled-components/serializer"
+import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import {styles as systemProps} from 'styled-system'
 import {getClasses, getClassName, getComputedStyles, render} from './testing'
 
