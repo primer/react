@@ -4,10 +4,6 @@ import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('BranchName', () => {
-  it('is a system component', () => {
-    expect(BranchName.systemComponent).toEqual(true)
-  })
-
   it('renders an <a> by default', () => {
     expect(render(<BranchName />).type).toEqual('a')
   })
