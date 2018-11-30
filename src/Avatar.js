@@ -10,7 +10,10 @@ function borderRadius({size}) {
   }
 }
 
-const Avatar = styled(AvatarImage)`
+const Avatar = styled.img.attrs(props => ({
+  height: props.size,
+  width: props.size,
+}))`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${themeGet('lineHeights.condensedUltra', 1)};
@@ -18,10 +21,6 @@ const Avatar = styled(AvatarImage)`
   ${borderRadius};
   ${space} ${color};
 `
-
-function AvatarImage({alt, size, theme, ...rest}) {
-  return <img alt={alt} width={size} height={size} {...rest} />
-}
 
 Avatar.defaultProps = {
   theme,
