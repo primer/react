@@ -1,13 +1,18 @@
-import {withSystemProps, TYPOGRAPHY, COMMON} from './system-props'
+import styled from 'styled-components'
+import {TYPOGRAPHY, COMMON} from './constants'
 
-const BaseStyles = withSystemProps(
-  {
-    is: 'div',
-    color: 'gray.9',
-    fontFamily: 'normal',
-    lineHeight: 'default'
-  },
-  [...TYPOGRAPHY, ...COMMON]
-)
+const BaseStyles = styled.div`
+ ${TYPOGRAPHY} ${COMMON}
+`
 
+BaseStyles.defaultProps = {
+  color: 'gray.9',
+  fontFamily: 'normal',
+  lineHeight: 'default'
+}
+
+BaseStyles.propTypes = {
+  ...TYPOGRAPHY.propTypes,
+  ...COMMON.propTypes
+}
 export default BaseStyles
