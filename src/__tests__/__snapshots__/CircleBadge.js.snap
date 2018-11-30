@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CircleBadge respects "as" prop 1`] = `
+.c0 {
+  width: 96px;
+  height: 96px;
+}
+
+<a
+  className="c0"
+/>
+`;
+
 exports[`CircleBadge respects "is" prop 1`] = `
 <a
   blacklist={

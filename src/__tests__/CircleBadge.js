@@ -6,23 +6,19 @@ import {render, mount} from '../utils/testing'
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  it('is a system component', () => {
-    expect(CircleBadge.systemComponent).toEqual(true)
-  })
-
-  it('respects "is" prop', () => {
-    const item = render(<CircleBadge is="a" />)
+  it('respects "as" prop', () => {
+    const item = render(mount(<CircleBadge as="a" />))
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
   })
 
   it('applies title', () => {
     expect(
-      render(
+      render(mount(
         <CircleBadge is="a" title="primer logo">
           {imgInput}
         </CircleBadge>
-      ).props['title']
+      )).props['title']
     ).toEqual('primer logo')
   })
 
