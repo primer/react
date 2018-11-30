@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import {themeGet} from 'styled-system'
 import Avatar from './Avatar'
 import {withSystemProps} from './system-props'
@@ -38,9 +38,10 @@ const AvatarPair = ({children, ...rest}) => {
 // styled() changes this
 AvatarPair.displayName = 'AvatarPair'
 
+AvatarPair.defaultProps = {theme}
 AvatarPair.propTypes = {
   children: PropTypes.instanceOf(Avatar),
   ...Avatar.propTypes
 }
 
-export default withSystemProps(AvatarPair)
+export default AvatarPair
