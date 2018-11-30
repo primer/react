@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {themeGet} from 'styled-system'
 import Avatar from './Avatar'
-import {withSystemProps} from './system-props'
+import theme from './theme'
 
 const getBackgroundColor = themeGet('colors.white', '#fff')
 
