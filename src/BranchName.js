@@ -1,42 +1,26 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import styled from 'styled-components'
-import sass from 'sass.macro'
-import {injectGlobal} from 'emotion'
+import {themeGet} from 'styled-system'
 import theme from './theme'
 import {COMMON} from './constants'
 
-injectGlobal(sass`
-  @import "primer-branch-name/index.scss";
-`)
-
-function proto({children, href, is: Tag, className}) {
-  // We don't want someone to use href on a non tag
-  if (Tag !== 'a') {
-    href = null
-  }
-
-  return (
-    <Tag href={href} className={classnames('branch-name', className)}>
-      {children}
-    </Tag>
-  )
-}
-
-const BranchName = styled(proto)`
-  ${COMMON}
+const BranchName = styled.a`
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: ${themeGet('fontSizes.0', theme.fontSizes[0])}px;
+  font-family: ${themeGet('fonts.mono', theme.fonts.mono)};
+  color: rgba(27, 31, 35, 0.6);
+  background-color: #eaf5ff;
+  border-radius: 3px;
+  ${COMMON};
 `
 
 BranchName.defaultProps = {
-  is: 'a',
   theme
 }
 
 BranchName.propTypes = {
-  children: PropTypes.node,
   href: PropTypes.string,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   ...COMMON.propTypes
 }
 
