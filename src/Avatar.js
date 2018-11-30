@@ -1,16 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
-import {themeGet} from 'styled-system'
-import {withSystemProps} from './system-props'
-
-const Avatar = styled(AvatarImage)`
-  display: inline-block;
-  overflow: hidden; // Ensure page layout in Firefox should images fail to load
-  line-height: ${themeGet('lineHeights.condensedUltra', 1)};
-  vertical-align: middle;
-  ${borderRadius};
-`
+import styled from 'styled-components'
+import {themeGet, space, color} from 'styled-system'
+import theme from './theme'
 
 function borderRadius({size}) {
   return {
@@ -18,14 +10,21 @@ function borderRadius({size}) {
   }
 }
 
-function AvatarImage({alt, size, ...rest}) {
+const Avatar = styled(AvatarImage)`
+  display: inline-block;
+  overflow: hidden; // Ensure page layout in Firefox should images fail to load
+  line-height: ${themeGet('lineHeights.condensedUltra', 1)};
+  vertical-align: middle;
+  ${borderRadius};
+  ${space} ${color};
+`
+
+function AvatarImage({alt, size, theme, ...rest}) {
   return <img alt={alt} width={size} height={size} {...rest} />
 }
 
-// styled() changes this
-Avatar.displayName = 'Avatar'
-
 Avatar.defaultProps = {
+  theme,
   size: 20,
   alt: ''
 }
@@ -36,4 +35,4 @@ Avatar.propTypes = {
   src: PropTypes.string
 }
 
-export default withSystemProps(Avatar, ['space'])
+export default Avatar
