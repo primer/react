@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Octicon from '@githubprimer/octicons-react'
 import Flex from './Flex'
+import theme from './theme'
 import BorderBox from './BorderBox'
 
 function CircleOcticon(props) {
@@ -16,7 +17,9 @@ function CircleOcticon(props) {
   )
 }
 
+
 CircleOcticon.defaultProps = {
+  theme,
   ...Flex.defaultProps,
   size: 32
 }
