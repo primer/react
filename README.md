@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300px" src="https://user-images.githubusercontent.com/10384315/48589167-39d6b400-e8ef-11e8-9183-c69de4fe477f.png">
+  <img width="300px" src="/static/assets/readme-components.png">
 </p>
 
 <h1 align="center">Primer Components</h1>
