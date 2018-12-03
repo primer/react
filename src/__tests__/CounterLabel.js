@@ -1,21 +1,17 @@
 import React from 'react'
 import CounterLabel from '../CounterLabel'
-import {render} from '../utils/testing'
+import {render, mount} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('CounterLabel', () => {
-  it('is a system component', () => {
-    expect(CounterLabel.systemComponent).toEqual(true)
-  })
-
   it('renders a <span> with the "Counter" class', () => {
-    expect(render(<CounterLabel />).type).toEqual('span')
-    expect(render(<CounterLabel />).props.className).toContain('Counter')
+    expect(render(mount(<CounterLabel />)).type).toEqual('span')
+    expect(render(mount(<CounterLabel />)).props.className).toContain('Counter')
   })
 
-  it('respects the "theme" prop', () => {
-    expect(render(<CounterLabel scheme="gray" />).props.className).toContain('Counter--gray')
-    expect(render(<CounterLabel scheme="gray-light" />).props.className).toContain('Counter--gray-light')
+  it('respects the "scheme" prop', () => {
+    expect(render(mount(<CounterLabel scheme="gray" />)).props.className).toContain('Counter--gray')
+    expect(render(mount(<CounterLabel scheme="gray-light" />)).props.className).toContain('Counter--gray-light')
     // FIXME: should we test invalid values like this?
     // expect(renderClasses(<CounterLabel theme="red" />)).toEqual(['Counter', 'Counter--red'])
   })
