@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
 
 injectGlobal(sass`
   @import "primer-support/index.scss";
@@ -13,7 +15,7 @@ injectGlobal(sass`
 const ITEM_CLASS = 'filter-item'
 const SELECTED_CLASS = 'selected'
 
-function FilterList({children, className, small}) {
+function FilterListProto({children, className, small}) {
   const classes = classnames(className, 'filter-list', small && 'small')
 
   const items = React.Children.map(children, child => {
@@ -31,7 +33,7 @@ function getCountComponent(count) {
   )
 }
 
-function Item({children, className, count, selected, is: Tag, ...rest}) {
+function ItemProto({children, className, count, selected, theme, is: Tag, ...rest}) {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -46,28 +48,34 @@ function Item({children, className, count, selected, is: Tag, ...rest}) {
   )
 }
 
-Item.defaultProps = {
-  is: 'a'
-}
-
-Item.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  count: PropTypes.string,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  selected: PropTypes.bool
-}
+const FilterList = styled(FilterListProto)`${COMMON}`
+FilterList.Item = styled(ItemProto)`${COMMON}`
 
 FilterList.defaultProps = {
+  theme,
   m: 0,
   p: 0
 }
 
 FilterList.propTypes = {
   children: PropTypes.node,
-  small: PropTypes.bool
+  small: PropTypes.bool,
+  ...COMMON.propTypes
 }
 
-FilterList.Item = withSystemProps(Item, COMMON)
+FilterList.Item.defaultProps = {
+  theme,
+  is: 'a',
+}
 
-export default withSystemProps(FilterList, COMMON)
+FilterList.Item.propTypes = {
+  theme,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  count: PropTypes.string,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  selected: PropTypes.bool,
+  ...COMMON.propTypes,
+}
+
+export default FilterList
