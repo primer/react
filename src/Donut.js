@@ -51,7 +51,8 @@ Donut.propTypes = {
   // require elements, not mixed content: <Slice>, <title>, etc.
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
   data: PropTypes.objectOf(PropTypes.number),
-  size: PropTypes.number
+  size: PropTypes.number,
+  ...space.propTypes
 }
 
 const Slice = props => {
