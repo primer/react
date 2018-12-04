@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
-import {withSystemProps, COMMON, withoutPropTypes} from './system-props'
+import styled from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
 
 const DetailsReset = styled('details')`
   & > summary {
@@ -15,7 +16,7 @@ const DetailsReset = styled('details')`
   }
 `
 
-class Details extends React.Component {
+class proto extends React.Component {
   constructor(props) {
     super(props)
     this.state = {open: Boolean(props.open)}
@@ -45,11 +46,17 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
+const Details = styled(proto)`
+  ${COMMON}
+`
+
 Details.propTypes = {
+  theme,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
   open: PropTypes.bool,
-  render: PropTypes.func
+  render: PropTypes.func,
+  ...COMMON.propTypes
 }
 
-export default withoutPropTypes(withSystemProps(Details, COMMON), ['is'])
+export default Details
