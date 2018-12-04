@@ -1,27 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Flex.Item renders as correct tag 1`] = `
-.emotion-0 {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-}
-
 <button
-  className="emotion-0"
+  className="css-hoe9xz"
 >
   hi
 </button>
 `;
 
 exports[`Flex.Item respects alignSelf 1`] = `
-.c0 {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-}
-
 <div
-  className="c0"
+  className="css-hoe9xz"
 />
 `;

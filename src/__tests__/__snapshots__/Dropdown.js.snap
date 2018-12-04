@@ -1,11 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches the snapshots 1`] = `
+.c1 {
+  background-color: #fff;
+  margin-top: 4px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  border: 1px solid;
+  border-color: #e1e4e8;
+  box-shadow: 0 1px 1px rgba(27,31,35,0.1);
+  border-radius: 3px;
 }
 
 <div
@@ -32,20 +41,111 @@ exports[`Dropdown matches the snapshots 1`] = `
   }
   className="css-0 BtnGroup"
 >
-  <div
-    className="BtnGroup-form c0"
-    display="flex"
-    is={[Function]}
-  />
+  <details
+    className="BtnGroup-form css-1c9pu81"
+    open={false}
+  >
+    <summary
+      blacklist={
+        Array [
+          "css",
+          "color",
+          "bg",
+          "m",
+          "mt",
+          "mr",
+          "mb",
+          "ml",
+          "mx",
+          "my",
+          "p",
+          "pt",
+          "pr",
+          "pb",
+          "pl",
+          "px",
+          "py",
+          "width",
+        ]
+      }
+      className="css-0 btn BtnGroup-item"
+      onClick={[Function]}
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        className="css-1jjwf1f"
+        height={14}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "fill": "currentColor",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 12 16"
+        width={10.5}
+      >
+        <path
+          d="M0 5l6 6 6-6H0z"
+          fillRule="evenodd"
+        />
+      </svg>
+    </summary>
+    <div
+      className="c0 c1"
+    >
+      hi
+      <svg
+        height={16}
+        style={
+          Object {
+            "bottom": "100%",
+            "left": 8,
+            "marginLeft": null,
+            "pointerEvents": "none",
+            "position": "absolute",
+          }
+        }
+        width={16}
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="#fff"
+          />
+          <path
+            d="M-8,0L0,8L8,0"
+            fill="none"
+            stroke="#e1e4e8"
+            strokeWidth={1}
+          />
+        </g>
+      </svg>
+    </div>
+  </details>
 </div>
 `;
 
 exports[`Dropdown matches the snapshots 2`] = `
+.c1 {
+  background-color: #fff;
+  margin-top: 4px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  border: 1px solid;
+  border-color: #e1e4e8;
+  box-shadow: 0 1px 1px rgba(27,31,35,0.1);
+  border-radius: 3px;
 }
 
 <div
@@ -72,10 +172,93 @@ exports[`Dropdown matches the snapshots 2`] = `
   }
   className="css-0 BtnGroup"
 >
-  <div
-    className="BtnGroup-form c0"
-    display="flex"
-    is={[Function]}
-  />
+  <details
+    className="BtnGroup-form css-1c9pu81"
+    open={false}
+  >
+    <summary
+      blacklist={
+        Array [
+          "css",
+          "color",
+          "bg",
+          "m",
+          "mt",
+          "mr",
+          "mb",
+          "ml",
+          "mx",
+          "my",
+          "p",
+          "pt",
+          "pr",
+          "pb",
+          "pl",
+          "px",
+          "py",
+          "width",
+        ]
+      }
+      className="css-0 btn BtnGroup-item"
+      onClick={[Function]}
+      type="button"
+    >
+      hi
+      <svg
+        aria-hidden="true"
+        className="css-1isemmb"
+        height={14}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "fill": "currentColor",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 12 16"
+        width={10.5}
+      >
+        <path
+          d="M0 5l6 6 6-6H0z"
+          fillRule="evenodd"
+        />
+      </svg>
+    </summary>
+    <div
+      className="c0 c1"
+    >
+      hello!
+      <svg
+        height={16}
+        style={
+          Object {
+            "bottom": "100%",
+            "left": 8,
+            "marginLeft": null,
+            "pointerEvents": "none",
+            "position": "absolute",
+          }
+        }
+        width={16}
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="#fff"
+          />
+          <path
+            d="M-8,0L0,8L8,0"
+            fill="none"
+            stroke="#e1e4e8"
+            strokeWidth={1}
+          />
+        </g>
+      </svg>
+    </div>
+  </details>
 </div>
 `;
