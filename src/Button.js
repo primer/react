@@ -12,7 +12,7 @@ injectGlobal(sass`
   @import "primer-buttons/index.scss";
 `)
 
-function proto({children, size, grouped, scheme, onClick, disabled, className, ...rest}) {
+function proto({is: Tag, children, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     'btn',
@@ -25,9 +25,9 @@ function proto({children, size, grouped, scheme, onClick, disabled, className, .
   )
 
   return (
-    <button {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
+    <Tag {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
       {children}
-    </button>
+    </Tag>
   )
 }
 
@@ -39,6 +39,7 @@ const Button = styled(proto)`
 Button.defaultProps = {theme}
 
 Button.propTypes = {
+  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
