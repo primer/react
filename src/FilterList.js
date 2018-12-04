@@ -48,8 +48,8 @@ function ItemProto({children, className, count, selected, theme, is: Tag, ...res
   )
 }
 
-const FilterList = styled(FilterListProto)`${COMMON}`
-FilterList.Item = styled(ItemProto)`${COMMON}`
+const FilterList = styled(FilterListProto)(COMMON)
+FilterList.Item = styled(ItemProto)(COMMON)
 
 FilterList.defaultProps = {
   theme,

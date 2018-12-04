@@ -46,9 +46,7 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-const Details = styled(proto)`
-  ${COMMON}
-`
+const Details = styled(proto)(COMMON)
 
 Details.propTypes = {
   theme,

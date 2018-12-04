@@ -16,9 +16,7 @@ function proto({scheme, children, className}) {
   return <span className={classnames(className, 'Counter', scheme && `Counter--${scheme}`)}>{children}</span>
 }
 
-const CounterLabel = styled(proto)`
-  ${COMMON}
-`
+const CounterLabel = styled(proto)(COMMON)
 
 CounterLabel.defaultProps = {
   theme

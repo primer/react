@@ -3,9 +3,7 @@ import Box from './Box'
 import theme from './theme'
 import {BORDER} from './constants'
 
-const BorderBox = styled(Box)`
-  ${BORDER};
-`
+const BorderBox = styled(Box)(BORDER)
 
 BorderBox.defaultProps = {
   theme,

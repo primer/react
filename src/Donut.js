@@ -38,9 +38,7 @@ function mapData(data) {
   return Object.keys(data).map(key => <Slice key={key} state={key} value={data[key]} />)
 }
 
-const Donut = styled(DonutProto)`
-  ${space}
-`
+const Donut = styled(DonutProto)(space)
 
 Donut.defaultProps = {
   size: 30,

@@ -25,9 +25,7 @@ const childStyles = props => ({
   backgroundColor: `${getBackgroundColor(props)}`
 })
 
-const ChildAvatar = styled(Avatar)`
-  ${childStyles};
-`
+const ChildAvatar = styled(Avatar)(childStyles)
 const AvatarPair = ({children, ...rest}) => {
   const avatars = React.Children.map(children, (child, i) => {
     return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar {...child.props} size={20} />
