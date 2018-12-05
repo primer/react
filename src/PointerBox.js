@@ -20,7 +20,4 @@ PointerBox.propTypes = {
   caret: Caret.propTypes.location
 }
 
-// we can set this because it "extends" Box implicitly
-PointerBox.systemComponent = true
-
 export default PointerBox
