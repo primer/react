@@ -5,7 +5,6 @@ import * as Components from '../index.js'
 import {renderStyles} from '../utils/testing'
 
 const testProps = {
-  OcticonButton: {icon: X, label: 'button'},
   Donut: {data: {pending: 1}},
   Avatar: {alt: ''}
 }
