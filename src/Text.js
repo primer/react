@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import theme from './theme'
-import {TYPOGRAPHY, COMMON, proto} from './constants'
+import {TYPOGRAPHY, COMMON, Base} from './constants'
 
-const Text = styled(proto)`
+const Text = styled(Base)`
   ${TYPOGRAPHY}
   ${COMMON}
 `

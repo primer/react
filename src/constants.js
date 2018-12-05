@@ -59,4 +59,4 @@ export const FLEX_ITEM = compose(
   styles.alignSelf
 )
 
-export const proto = ({is: Tag, theme, ...rest}) => <Tag {...rest}/>
+export const Base = ({is: Tag, theme, ...rest}) => <Tag {...rest}/>

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, LAYOUT, POSITION, proto} from './constants'
+import {COMMON, LAYOUT, POSITION, Base} from './constants'
 import theme from './theme'
 
-export const Position = styled(proto)`
+export const Position = styled(Base)`
   ${LAYOUT}
   ${COMMON}
   ${POSITION}
