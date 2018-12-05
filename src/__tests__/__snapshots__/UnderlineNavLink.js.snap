@@ -2,54 +2,12 @@
 
 exports[`UnderlineNav.Link renders the given "is" prop 1`] = `
 <b
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="UnderlineNav-item no-underline css-0"
+  className="UnderlineNav-item no-underline "
 />
 `;
 
 exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="UnderlineNav-item no-underline selected css-0"
+  className="UnderlineNav-item no-underline selected "
 />
 `;

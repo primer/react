@@ -8,12 +8,9 @@ describe('UnderlineNav', () => {
     expect(UnderlineNav).toImplementSystemProps(COMMON)
   })
 
-  it('is a system component', () => {
-    expect(UnderlineNav.systemComponent).toEqual(true)
-  })
 
   it('renders a <nav>', () => {
-    expect(render(<UnderlineNav />).type).toEqual('nav')
+    expect(render(mount(<UnderlineNav />)).type).toEqual('nav')
   })
 
   it('adds the UnderlineNav class', () => {
@@ -29,7 +26,7 @@ describe('UnderlineNav', () => {
   })
 
   it('sets aria-label to the "label" prop', () => {
-    expect(render(<UnderlineNav label="foo" />).props['aria-label']).toEqual('foo')
+    expect(render(mount(<UnderlineNav label="foo" />)).props['aria-label']).toEqual('foo')
   })
 
   it('wraps its children in an "UnderlineNav-body" div', () => {
