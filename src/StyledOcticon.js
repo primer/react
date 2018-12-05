@@ -1,6 +1,16 @@
 import Octicon from '@githubprimer/octicons-react'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
 
-const StyledOcticon = withSystemProps(Octicon, COMMON)
+const StyledOcticon = styled(Octicon)(COMMON)
+
+StyledOcticon.defaultProps = {
+  theme
+}
+
+StyledOcticon.propTypes = {
+  ...COMMON.propTypes
+}
 
 export default StyledOcticon

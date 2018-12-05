@@ -78,6 +78,10 @@ exports[`StateLabel respects the small flag 2`] = `
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -102,7 +106,7 @@ exports[`StateLabel respects the status prop 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="css-15ro776"
+    className="c1"
     height={16}
     role="img"
     style={
@@ -125,6 +129,10 @@ exports[`StateLabel respects the status prop 1`] = `
 `;
 
 exports[`StateLabel respects the status prop 2`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -149,7 +157,7 @@ exports[`StateLabel respects the status prop 2`] = `
 >
   <svg
     aria-hidden="true"
-    className="css-15ro776"
+    className="c1"
     height={16}
     role="img"
     style={
@@ -172,6 +180,10 @@ exports[`StateLabel respects the status prop 2`] = `
 `;
 
 exports[`StateLabel respects the status prop 3`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -196,7 +208,7 @@ exports[`StateLabel respects the status prop 3`] = `
 >
   <svg
     aria-hidden="true"
-    className="css-15ro776"
+    className="c1"
     height={16}
     role="img"
     style={
