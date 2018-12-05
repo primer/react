@@ -1,37 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Flex respects alignContent 1`] = `
+.c0 {
+  -webkit-align-content: start;
+  -ms-flex-line-pack: start;
+  align-content: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 <div
-  className="css-3g5ko6"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects alignItems 1`] = `
+.c0 {
+  -webkit-align-items: start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 <div
-  className="css-h38yef"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects flexDirection 1`] = `
+.c0 {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 <div
-  className="css-1xhj18k"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects flexWrap 1`] = `
+.c0 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 <div
-  className="css-4knjz3"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects justifyContent 1`] = `
+.c0 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 <div
-  className="css-8owaep"
+  className="c0"
+  display="flex"
 />
 `;
 
 exports[`Flex respects responsive display 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  }
+}
+
 <div
-  className="css-1g5df7f"
+  className="c0"
+  display={
+    Array [
+      "flex",
+      "inline-flex",
+    ]
+  }
 />
 `;
