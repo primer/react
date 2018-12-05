@@ -1,5 +1,21 @@
-import {withSystemProps, TYPOGRAPHY, COMMON} from './system-props'
+import React from 'react'
+import styled from 'styled-components'
+import theme from './theme'
+import {TYPOGRAPHY, COMMON, proto} from './constants'
 
-const Text = withSystemProps('span', [...TYPOGRAPHY, ...COMMON])
+const Text = styled(proto)`
+  ${TYPOGRAPHY}
+  ${COMMON}
+`
+
+Text.defaultProps = {
+  is: 'span',
+  theme
+}
+
+Text.propTypes ={
+  ...TYPOGRAPHY.propTypes,
+  ...COMMON.propTypes
+}
 
 export default Text

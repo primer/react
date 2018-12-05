@@ -58,3 +58,5 @@ export const FLEX_ITEM = compose(
   styles.justifySelf,
   styles.alignSelf
 )
+
+export const proto = ({is: Tag, theme, ...rest}) => <Tag {...rest}/>
