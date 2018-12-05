@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, LAYOUT, POSITION} from './constants'
+import {COMMON, LAYOUT, POSITION, proto} from './constants'
 import theme from './theme'
-
-const proto = ({is: Tag, theme, children, ...rest}) => <Tag {...rest} children={children}/>
 
 export const Position = styled(proto)`
   ${LAYOUT}

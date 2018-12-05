@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {TYPOGRAPHY, COMMON} from './constants'
+import {TYPOGRAPHY, COMMON, proto} from './constants'
 import theme from './theme'
 import {style} from 'styled-system'
 
@@ -22,8 +22,6 @@ const hoverColor = style({
   cssProperty: 'color',
   key: 'colors'
 })
-
-const proto = ({is: Tag, theme, ...rest}) => <Tag {...rest} />
 
 const Link = styled(proto)`
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
