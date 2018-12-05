@@ -1,19 +1,16 @@
 import React from 'react'
 import Tooltip from '../Tooltip'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {render, renderClasses, rendersClass, mount} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('Tooltip', () => {
-  it('is a system component', () => {
-    expect(Tooltip.systemComponent).toEqual(true)
-  })
 
   it('implements common system props', () => {
     expect(Tooltip).toImplementSystemProps(COMMON)
   })
 
   it('renders a <span> with the "tooltipped" class', () => {
-    expect(render(<Tooltip />).type).toEqual('span')
+    expect(render(mount(<Tooltip />)).type).toEqual('span')
     expect(renderClasses(<Tooltip />)).toContain('tooltipped-n')
   })
 
@@ -33,7 +30,7 @@ describe('Tooltip', () => {
   })
 
   it('respects the "text" prop', () => {
-    expect(render(<Tooltip text="hi" />).props['aria-label']).toEqual('hi')
+    expect(render(mount(<Tooltip text="hi" />)).props['aria-label']).toEqual('hi')
   })
 
   it('respects the "wrap" prop', () => {
