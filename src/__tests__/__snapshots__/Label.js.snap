@@ -1,8 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Label respects the "outline" prop 1`] = `
+.c0 {
+  display: inline-block;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  border-radius: 2px;
+  background-color: #6a737d;
+  background-color: #6a737d;
+  padding: 3px 4px;
+  font-size: 12px;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  font-weight: 400;
+  color: #586069;
+  background-color: transparent;
+  border: 1px solid rgba(27,31,35,0.15);
+  box-shadow: none;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 <span
-  className="css-1er09x2"
+  className="c0"
   size="medium"
 />
 `;

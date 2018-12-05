@@ -1,19 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
 import Label from '../Label'
-import {render} from '../utils/testing'
+import {render, mount} from '../utils/testing'
 
 describe('Label', () => {
-  it('is a system component', () => {
-    expect(Label.systemComponent).toEqual(true)
-  })
-
   it('renders a <span>', () => {
-    expect(render(<Label />).type).toEqual('span')
+    expect(render(mount(<Label />).type)).toEqual('span')
   })
 
   it('respects the "outline" prop', () => {
-    expect(render(<Label outline />)).toMatchSnapshot()
+    expect(render(mount(<Label outline />))).toMatchSnapshot()
   })
 
   it('implements space system props', () => {
