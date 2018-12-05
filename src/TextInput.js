@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
 
 injectGlobal(sass`
   @import "primer-support/index.scss";
   @import "primer-forms/lib/form-control.scss";
 `)
 
-function TextInput({autocomplete, block, className, size, ...rest}) {
+function proto({autocomplete, block, theme, className, size, ...rest}) {
   const classes = classnames(className, 'form-control', {
     'input-block': block,
     'input-sm': size === 'small',
@@ -25,6 +27,12 @@ function TextInput({autocomplete, block, className, size, ...rest}) {
   return <input {...inputProps} />
 }
 
+const TextInput = styled(proto)(COMMON)
+
+TextInput.defaultProps = {
+  theme
+}
+
 TextInput.propTypes = {
   autocomplete: PropTypes.string,
   block: PropTypes.bool,
@@ -35,7 +43,8 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'large']),
-  value: PropTypes.string
+  value: PropTypes.string,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(TextInput, COMMON)
+export default TextInput
