@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
-import {withSystemProps, TYPOGRAPHY, COMMON} from './system-props'
+import styled from 'styled-components'
+import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
 import {style} from 'styled-system'
 
@@ -23,32 +23,31 @@ const hoverColor = style({
   key: 'colors'
 })
 
-const Link = ({is: Tag, ...rest}) => <Tag {...rest} />
+const proto = ({is: Tag, theme, ...rest}) => <Tag {...rest} />
 
-const styledLink = styled(Link)`
+const Link = styled(proto)`
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: underline;
     ${hoverColor};
   }
   ${props => (props.is === 'button' ? buttonStyles : '')};
+  ${TYPOGRAPHY}
+  ${COMMON}
 `
 
-styledLink.defaultProps = {
+Link.defaultProps = {
   is: 'a',
-  theme
+  theme,
+  color: 'blue.5'
 }
 
-styledLink.propTypes = {
+Link.propTypes = {
   href: PropTypes.string,
   is: PropTypes.oneOf(['a', 'button', 'input', 'summary']),
-  underline: PropTypes.bool
+  underline: PropTypes.bool,
+  ...TYPOGRAPHY.propTypes,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(
-  {
-    is: styledLink,
-    color: 'blue.5'
-  },
-  [...TYPOGRAPHY, ...COMMON]
-)
+export default Link

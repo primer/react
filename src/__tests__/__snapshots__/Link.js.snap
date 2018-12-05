@@ -1,101 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Link passes href down to link element 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "lineHeight",
-      "textAlign",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="css-h52cas"
+  className="c0"
   color="blue.5"
   href="https://github.com"
 />
 `;
 
 exports[`Link renders without any props 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "lineHeight",
-      "textAlign",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="css-h52cas"
+  className="c0"
   color="blue.5"
 />
 `;
 
 exports[`Link respects hoverColor prop 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #2188ff;
+}
+
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "lineHeight",
-      "textAlign",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="css-1g2mdc3"
+  className="c0"
   color="blue.5"
   hoverColor="blue.4"
 />
