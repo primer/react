@@ -60,4 +60,4 @@ export const FLEX_ITEM = compose(
   styles.alignSelf
 )
 
-export const Base = ({is: Tag, theme, ...rest}) => <Tag {...rest} /> //eslint-disable-line no-unused-vars
+export const Base = ({is: Tag = 'div', theme, ...rest}) => <Tag {...rest} /> //eslint-disable-line no-unused-vars
