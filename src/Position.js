@@ -20,7 +20,7 @@ Position.propTypes = {
   ...LAYOUT.propTypes,
   ...POSITION.propTypes,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 function withPosition(position) {

@@ -17,6 +17,6 @@ BaseStyles.defaultProps = {
 BaseStyles.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 export default BaseStyles

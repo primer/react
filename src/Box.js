@@ -12,7 +12,7 @@ Box.defaultProps = {theme}
 Box.propTypes = {
   ...LAYOUT.propTypes,
   ...COMMON.propTypes,
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 export default Box

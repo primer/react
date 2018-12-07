@@ -32,7 +32,7 @@ Avatar.propTypes = {
   size: PropTypes.number,
   src: PropTypes.string,
   ...space.propTypes,
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 export default Avatar

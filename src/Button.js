@@ -11,6 +11,8 @@ import {width} from 'styled-system'
 injectGlobal(sass`
   @import "primer-buttons/index.scss";
 `)
+
+// eslint-disable-next-line no-unused-vars
 function proto({is: Tag, children, theme, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
@@ -47,7 +49,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   scheme: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'large']),
-  theme:  PropTypes.object,
+  theme: PropTypes.object,
   ...COMMON.propTypes,
   ...width.propTypes
 }

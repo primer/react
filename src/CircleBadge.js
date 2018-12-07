@@ -31,6 +31,7 @@ const sizeStyles = ({size}) => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const proto = ({children, is: Tag, theme, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
@@ -59,9 +60,9 @@ CircleBadge.defaultProps = {
 
 CircleBadge.propTypes = {
   bg: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  theme:  PropTypes.object,
+  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
+  theme: PropTypes.object,
   ...COMMON.propTypes
 }
 

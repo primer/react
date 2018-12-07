@@ -24,7 +24,7 @@ BranchName.propTypes = {
   href: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   ...COMMON.propTypes,
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 export default BranchName

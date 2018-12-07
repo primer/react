@@ -32,7 +32,7 @@ Flash.propTypes = {
   children: PropTypes.node,
   full: PropTypes.bool,
   scheme: PropTypes.oneOf(Object.keys(schemeMap)),
-  theme:  PropTypes.object,
+  theme: PropTypes.object,
   ...COMMON.propTypes
 }
 

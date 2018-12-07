@@ -18,7 +18,7 @@ Heading.propTypes = {
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 export default Heading

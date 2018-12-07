@@ -40,7 +40,7 @@ AvatarPair.defaultProps = {theme}
 AvatarPair.propTypes = {
   children: PropTypes.instanceOf(Avatar),
   ...Avatar.propTypes,
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 export default AvatarPair

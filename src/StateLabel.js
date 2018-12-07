@@ -54,7 +54,7 @@ StateLabel.defaultProps = {
 StateLabel.propTypes = {
   small: PropTypes.bool,
   status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']),
-  theme:  PropTypes.object,
+  theme: PropTypes.object,
   ...COMMON.propTypes
 }
 

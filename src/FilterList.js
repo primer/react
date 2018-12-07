@@ -75,7 +75,7 @@ FilterList.Item.propTypes = {
   count: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   selected: PropTypes.bool,
-  theme:  PropTypes.object,
+  theme: PropTypes.object,
   ...COMMON.propTypes
 }
 

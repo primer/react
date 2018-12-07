@@ -26,14 +26,14 @@ Flex.Item.defaultProps = {
 Flex.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_CONTAINER.propTypes,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 }
 
 Flex.Item.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_ITEM.propTypes,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  theme:  PropTypes.object
+  theme: PropTypes.object
 }
 
 export default Flex
