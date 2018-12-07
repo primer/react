@@ -3,10 +3,6 @@ import Dropdown from '../Dropdown'
 import {render} from '../utils/testing'
 
 describe('Dropdown', () => {
-  it('is a system component', () => {
-    expect(Dropdown.systemComponent).toEqual(true)
-  })
-
   it('matches the snapshots', () => {
     expect(render(<Dropdown>hi</Dropdown>)).toMatchSnapshot()
     expect(render(<Dropdown title="hi">hello!</Dropdown>)).toMatchSnapshot()

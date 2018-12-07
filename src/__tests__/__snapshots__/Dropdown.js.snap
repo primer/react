@@ -9,28 +9,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 }
 
 <div
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="css-0 BtnGroup"
+  className="BtnGroup"
 >
   <div
     className="BtnGroup-form c0"
@@ -260,28 +239,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 }
 
 <div
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="css-0 BtnGroup"
+  className="BtnGroup"
 >
   <div
     className="BtnGroup-form c0"

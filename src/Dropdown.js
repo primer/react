@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import styled from 'styled-components'
 import StyledOcticon from './StyledOcticon'
 import {TriangleDown} from '@githubprimer/octicons-react'
 import Button from './Button'
@@ -8,9 +9,10 @@ import BorderBox from './BorderBox'
 import Caret from './Caret'
 import Details from './Details'
 import Flex from './Flex'
-import {withSystemProps, COMMON} from './system-props'
+import {COMMON} from './constants'
+import theme from './theme'
 
-function Dropdown({title, scheme, children, className, ...rest}) {
+function proto({title, scheme, children, theme, className, ...rest}) {
   const {minWidth} = rest
   return (
     <div className={classnames(className, 'BtnGroup')} {...rest}>
@@ -43,10 +45,17 @@ function Dropdown({title, scheme, children, className, ...rest}) {
   )
 }
 
+const Dropdown = styled(proto)(COMMON)
+
+Dropdown.defaultProps = {
+  theme
+}
+
 Dropdown.propTypes = {
   children: PropTypes.node,
   scheme: Button.propTypes.scheme,
-  title: PropTypes.string
+  title: PropTypes.string,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(Dropdown, COMMON)
+export default Dropdown
