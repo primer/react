@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import Box from './Box'
 import theme from './theme'
 import {BORDER} from './constants'
@@ -13,7 +14,7 @@ BorderBox.defaultProps = {
 }
 
 BorderBox.propTypes = {
-  theme: propTypes.object,
+  theme: PropTypes.object,
   ...Box.propTypes,
   ...BORDER.propTypes
 }

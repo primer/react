@@ -60,6 +60,7 @@ CircleBadge.defaultProps = {
 CircleBadge.propTypes = {
   bg: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme:  PropTypes.object
 }
 

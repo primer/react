@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON, Base} from './constants'
 import theme from './theme'
 
@@ -16,6 +17,7 @@ Heading.defaultProps = {
 Heading.propTypes = {
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme:  PropTypes.object
 }
 

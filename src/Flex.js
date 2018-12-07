@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import {display} from 'styled-system'
 import {COMMON, FLEX_CONTAINER, FLEX_ITEM, Base} from './constants'
 import theme from './theme'
@@ -24,12 +25,14 @@ Flex.Item.defaultProps = {
 }
 Flex.propTypes = {
   ...COMMON.propTypes,
-  ...FLEX_CONTAINER.propTypes
+  ...FLEX_CONTAINER.propTypes,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 Flex.Item.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_ITEM.propTypes,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme:  PropTypes.object
 }
 

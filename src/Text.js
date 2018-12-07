@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import theme from './theme'
 import {TYPOGRAPHY, COMMON, Base} from './constants'
 
@@ -14,6 +15,7 @@ Text.defaultProps = {
 Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme:  PropTypes.object
 }
 
