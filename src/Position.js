@@ -36,7 +36,6 @@ export const Fixed = withPosition('fixed')
 export const Relative = withPosition('relative')
 export const Sticky = withPosition('sticky')
 Sticky.defaultProps = {
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme,
   top: 0,
   zIndex: 1
