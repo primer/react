@@ -12,7 +12,8 @@ injectGlobal(sass`
   @import "primer-forms/lib/form-control.scss";
 `)
 
-function proto({autocomplete, block, theme, className, size, ...rest}) { //eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+function proto({autocomplete, block, theme, className, size, ...rest}) {
   const classes = classnames(className, 'form-control', {
     'input-block': block,
     'input-sm': size === 'small',

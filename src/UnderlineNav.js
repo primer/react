@@ -25,7 +25,8 @@ function proto({actions, className, align, children, full, label}) {
   )
 }
 
-const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => { //eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {

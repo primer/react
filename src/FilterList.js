@@ -33,7 +33,8 @@ function getCountComponent(count) {
   )
 }
 
-function ItemProto({children, className, count, selected, theme, is: Tag, ...rest}) { //eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+function ItemProto({children, className, count, selected, theme, is: Tag, ...rest}) {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
