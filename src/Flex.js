@@ -15,9 +15,13 @@ Flex.Item = styled(Base)`
 
 Flex.defaultProps = {
   theme,
-  display: 'flex'
+  display: 'flex',
+  is: 'div'
 }
-Flex.Item.defaultProps = {theme}
+Flex.Item.defaultProps = {
+  theme,
+  is: 'div'
+}
 Flex.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_CONTAINER.propTypes

@@ -20,6 +20,7 @@ function CircleOcticon(props) {
 CircleOcticon.defaultProps = {
   theme,
   ...Flex.defaultProps,
+  is: 'div',
   size: 32
 }
 
