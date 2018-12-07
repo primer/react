@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {themeGet} from 'styled-system'
 import theme from './theme'
-import {COMMON} from './constants'
+import {COMMON, Base} from './constants'
 
-const BranchName = styled.a`
+const BranchName = styled(Base)`
   display: inline-block;
   padding: 2px 6px;
   font-size: ${themeGet('fontSizes.0', theme.fontSizes[0])}px;
@@ -16,7 +16,8 @@ const BranchName = styled.a`
 `
 
 BranchName.defaultProps = {
-  theme
+  theme,
+  is: 'a'
 }
 
 BranchName.propTypes = {

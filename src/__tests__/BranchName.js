@@ -8,8 +8,8 @@ describe('BranchName', () => {
     expect(render(<BranchName />).type).toEqual('a')
   })
 
-  it('respects the "as" prop', () => {
-    expect(render(<BranchName as="span" />).type).toEqual('span')
+  it('respects the "is" prop', () => {
+    expect(render(<BranchName is="span" />).type).toEqual('span')
   })
 
   it('implements common system props', () => {
