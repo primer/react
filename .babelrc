@@ -3,7 +3,6 @@
     "next/babel"
   ],
   "plugins": [
-    "babel-plugin-styled-components",
     "macros",
     "add-react-displayname"
   ],
@@ -11,9 +10,6 @@
     "test": {
       "presets": [
         ["next/babel", {"preset-env": {"modules": "commonjs"}}]
-      ],
-      "plugins": [
-        ["babel-plugin-styled-components"]
       ]
     }
   }
