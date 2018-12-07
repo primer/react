@@ -8,7 +8,7 @@ Design systems provide a vocabulary between design and engineering, the language
 * Choose language that provides mutual understanding between engineering and design over specificity.
 * Support new vocabulary with descriptions and examples.
 * Be consistent in the application of vocabulary in written and verbal communication to reinforce understandings.
-* Articulate what you're are trying to do as well as what you are not doing.
+* Articulate what you are aiming to achieve as well as what you are not doing.
 
 ### Judgment
 
@@ -24,7 +24,7 @@ There's often more than one way to do things, and there aren't always best-pract
 
 ### Innovation
 
-* Treat everything as an experiment. Make small incremental steps steps that provide proof towards goals, or disprove them.
+* Treat everything as an experiment. Make small incremental steps that provide proof towards goals, or disprove them.
 * Ship often. We learn more from tangible outcomes than something that only lives as an idea.
 * Work on reducing complexity and simplifying solutions to enable us to innovate faster.
 
@@ -36,4 +36,4 @@ There's often more than one way to do things, and there aren't always best-pract
 * Seek feedback on implementations as often as possible.
 * Everything is a component.
 * Provide flexibility, but within the boundaries of the system.
-* Assume that people will break the rules, provide safe ways for them to do so.
+* Assume that people will break the rules, and provide safe ways for them to do so.
