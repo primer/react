@@ -40,8 +40,8 @@ describe('Flex', () => {
     expect(render(<Flex display={['flex', 'inline-flex']} />)).toMatchSnapshot()
   })
 
-  it('respects the "as" prop', () => {
-    expect(render(<Flex as="span" />).type).toEqual('span')
+  it('respects the "is" prop', () => {
+    expect(render(<Flex is="span" />).type).toEqual('span')
   })
 
   it('renders a div by default', () => {

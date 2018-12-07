@@ -6,7 +6,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  position: relative;
 }
 
 <div
@@ -20,7 +19,7 @@ exports[`Dropdown matches the snapshots 1`] = `
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-htpNat",
+          "componentId": "sc-EHOje",
           "isStatic": false,
           "rules": Array [
             [Function],
@@ -221,7 +220,7 @@ exports[`Dropdown matches the snapshots 1`] = `
           "render": [Function],
         },
         "render": [Function],
-        "styledComponentId": "sc-htpNat",
+        "styledComponentId": "sc-EHOje",
         "target": [Function],
         "toString": [Function],
         "warnTooManyClasses": [Function],
@@ -239,7 +238,6 @@ exports[`Dropdown matches the snapshots 2`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  position: relative;
 }
 
 <div
@@ -253,7 +251,7 @@ exports[`Dropdown matches the snapshots 2`] = `
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-htpNat",
+          "componentId": "sc-EHOje",
           "isStatic": false,
           "rules": Array [
             [Function],
@@ -454,7 +452,7 @@ exports[`Dropdown matches the snapshots 2`] = `
           "render": [Function],
         },
         "render": [Function],
-        "styledComponentId": "sc-htpNat",
+        "styledComponentId": "sc-EHOje",
         "target": [Function],
         "toString": [Function],
         "warnTooManyClasses": [Function],

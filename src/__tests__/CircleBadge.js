@@ -6,8 +6,8 @@ import {render, mount} from '../utils/testing'
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  it('respects "as" prop', () => {
-    const item = render(<CircleBadge as="a" />)
+  it('respects "is" prop', () => {
+    const item = render(<CircleBadge is="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
   })

@@ -14,7 +14,7 @@ describe('Flex.Item', () => {
 
   it('renders as correct tag', () => {
     const item = render(
-      <Flex.Item as="button" alignSelf="center">
+      <Flex.Item is="button" alignSelf="center">
         hi
       </Flex.Item>
     )
