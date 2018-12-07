@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {themeGet, space, color} from 'styled-system'
+import {themeGet, space} from 'styled-system'
 import theme from './theme'
 
 function borderRadius({size}) {
@@ -18,7 +18,7 @@ const Avatar = styled.img.attrs(props => ({
   line-height: ${themeGet('lineHeights.condensedUltra', 1)};
   vertical-align: middle;
   ${borderRadius};
-  ${space} ${color};
+  ${space};
 `
 
 Avatar.defaultProps = {
@@ -30,7 +30,9 @@ Avatar.defaultProps = {
 Avatar.propTypes = {
   alt: PropTypes.string.isRequired,
   size: PropTypes.number,
-  src: PropTypes.string
+  src: PropTypes.string,
+  ...space.propTypes,
+  theme:  PropTypes.object
 }
 
 export default Avatar
