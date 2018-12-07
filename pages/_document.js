@@ -41,13 +41,10 @@ export default class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://primer.style/components/" />
           <meta property="og:description" content="Primer components built with React.js." />
-          <meta
-            property="og:image"
-            content={getAssetPath('primer-components-og.png')}
-          />
+          <meta property="og:image" content={getAssetPath('primer-components-og.png')} />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
-          <meta property="twitter:card" content={getAssetPath('primer-components-og.png')}/>
+          <meta property="twitter:card" content={getAssetPath('primer-components-og.png')} />
           <meta property="twitter:site" content="@githubprimer" />
           {styleTags}
         </head>
