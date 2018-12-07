@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
           <meta property="og:description" content="Primer components built with React.js." />
           <meta
             property="og:image"
-            content="https://user-images.githubusercontent.com/586552/47590375-121cad80-d93a-11e8-89f2-a1cf108e0548.png"
+            content={getAssetPath('primer-components-og.png')}
           />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
