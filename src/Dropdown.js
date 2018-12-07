@@ -12,7 +12,7 @@ import Flex from './Flex'
 import {COMMON} from './constants'
 import theme from './theme'
 
-function proto({title, scheme, children, theme, className, ...rest}) {
+function proto({title, scheme, children, theme, className, ...rest}) { //eslint-disable-line no-unused-vars
   const {minWidth} = rest
   return (
     <div className={classnames(className, 'BtnGroup')} {...rest}>

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('UnderlineNav.Link', () => {
   it('renders an <a> by default', () => {

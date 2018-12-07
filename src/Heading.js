@@ -1,13 +1,9 @@
 import styled from 'styled-components'
-import {TYPOGRAPHY, COMMON} from './constants'
+import {TYPOGRAPHY, COMMON, Base} from './constants'
 import theme from './theme'
 
-
-const Tag = ({is: Hello, children, theme, ...rest}) => <Hello children={children} {...rest} />
-
-const Heading = styled(Tag)`
-  ${TYPOGRAPHY}
-  ${COMMON}
+const Heading = styled(Base)`
+  ${TYPOGRAPHY} ${COMMON};
 `
 
 Heading.defaultProps = {

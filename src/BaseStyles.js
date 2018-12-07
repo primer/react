@@ -3,7 +3,7 @@ import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
 
 const BaseStyles = styled.div`
- ${TYPOGRAPHY} ${COMMON}
+  ${TYPOGRAPHY} ${COMMON};
 `
 
 BaseStyles.defaultProps = {

@@ -1,5 +1,4 @@
 import React from 'react'
-import {X} from '@githubprimer/octicons-react'
 import theme, {colors} from '../theme'
 import * as Components from '../index.js'
 import {renderStyles, mount} from '../utils/testing'
@@ -19,8 +18,7 @@ xdescribe('UtilitySystemProps', () => {
     if (testProps[Component.displayName]) {
       extraProps = testProps[Component.displayName]
     }
-    console.log(Component.displayName)
-    const wrapper = mount(<Component />);
+    const wrapper = mount(<Component />)
 
     if (wrapper.props().hasOwnProperty('space')) {
       it(`${Component.displayName} renders spacing props properly`, () => {

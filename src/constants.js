@@ -1,3 +1,4 @@
+import React from 'react'
 import {styles, compose} from 'styled-system'
 
 export const COMMON = compose(
@@ -59,4 +60,4 @@ export const FLEX_ITEM = compose(
   styles.alignSelf
 )
 
-export const Base = ({is: Tag, theme, ...rest}) => <Tag {...rest}/>
+export const Base = ({is: Tag, theme, ...rest}) => <Tag {...rest} /> //eslint-disable-line no-unused-vars

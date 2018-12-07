@@ -1,6 +1,6 @@
 import React from 'react'
 import FilterList from '../FilterList'
-import {render, rendersClass, renderClasses, mount} from '../utils/testing'
+import {render, rendersClass} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('FilterList', () => {

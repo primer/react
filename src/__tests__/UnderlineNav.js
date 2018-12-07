@@ -8,7 +8,6 @@ describe('UnderlineNav', () => {
     expect(UnderlineNav).toImplementSystemProps(COMMON)
   })
 
-
   it('renders a <nav>', () => {
     expect(render(<UnderlineNav />).type).toEqual('nav')
   })

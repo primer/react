@@ -1,7 +1,7 @@
 import React from 'react'
 import Flash from '../Flash'
 import {COMMON} from '../system-props'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Flash', () => {
   it('implements common props', () => {

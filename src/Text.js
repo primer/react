@@ -1,11 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
 import theme from './theme'
 import {TYPOGRAPHY, COMMON, Base} from './constants'
 
 const Text = styled(Base)`
-  ${TYPOGRAPHY}
-  ${COMMON}
+  ${TYPOGRAPHY} ${COMMON};
 `
 
 Text.defaultProps = {
@@ -13,7 +11,7 @@ Text.defaultProps = {
   theme
 }
 
-Text.propTypes ={
+Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes
 }

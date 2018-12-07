@@ -12,7 +12,7 @@ injectGlobal(sass`
   @import "primer-forms/lib/form-control.scss";
 `)
 
-function proto({autocomplete, block, theme, className, size, ...rest}) {
+function proto({autocomplete, block, theme, className, size, ...rest}) { //eslint-disable-line no-unused-vars
   const classes = classnames(className, 'form-control', {
     'input-block': block,
     'input-sm': size === 'small',
@@ -29,9 +29,7 @@ function proto({autocomplete, block, theme, className, size, ...rest}) {
 
 const TextInput = styled(proto)(COMMON)
 
-TextInput.defaultProps = {
-  theme
-}
+TextInput.defaultProps = {theme}
 
 TextInput.propTypes = {
   autocomplete: PropTypes.string,

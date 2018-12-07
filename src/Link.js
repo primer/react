@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {TYPOGRAPHY, COMMON, Base} from './constants'
@@ -30,8 +29,7 @@ const Link = styled(Base)`
     ${hoverColor};
   }
   ${props => (props.is === 'button' ? buttonStyles : '')};
-  ${TYPOGRAPHY}
-  ${COMMON}
+  ${TYPOGRAPHY} ${COMMON};
 `
 
 Link.defaultProps = {

@@ -17,7 +17,6 @@ function CircleOcticon(props) {
   )
 }
 
-
 CircleOcticon.defaultProps = {
   theme,
   ...Flex.defaultProps,

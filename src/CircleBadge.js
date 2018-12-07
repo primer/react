@@ -5,7 +5,7 @@ import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
 import styled from 'styled-components'
 import {COMMON} from './constants'
-import theme from  './theme'
+import theme from './theme'
 
 injectGlobal(sass`
   @import "primer-support/index.scss";
@@ -49,12 +49,14 @@ const proto = ({children, className, ...rest}) => {
 }
 
 const CircleBadge = styled(proto)`
-  ${COMMON}
-  ${sizeStyles}
+  ${COMMON} ${sizeStyles};
 `
 
+CircleBadge.defaultProps = {
+  theme
+}
+
 CircleBadge.propTypes = {
-  theme,
   bg: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number])
 }

@@ -31,8 +31,7 @@ const Label = styled('span')`
     text-decoration: none;
   }
   ${color};
-  ${COMMON}
-  ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
+  ${COMMON} ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
   ${props => sizeMap[props.size]};
   ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
 `
@@ -40,7 +39,7 @@ const Label = styled('span')`
 Label.defaultProps = {
   theme,
   bg: 'gray.5',
-  size: 'medium',
+  size: 'medium'
 }
 
 Label.propTypes = {

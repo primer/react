@@ -44,7 +44,7 @@ const StateLabel = styled(proto)`
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
   border-radius: ${theme.radii[1]}px;
-  ${COMMON}
+  ${COMMON};
 `
 
 StateLabel.defaultProps = {

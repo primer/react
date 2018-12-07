@@ -2,7 +2,7 @@ import React from 'react'
 import {LAYOUT, POSITION} from '../system-props'
 import BorderBox from '../BorderBox'
 import {Absolute, Fixed, Relative, Sticky} from '../Position'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('position components', () => {
   // position components don't "implement" the position prop because

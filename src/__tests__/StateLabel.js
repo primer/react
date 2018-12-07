@@ -1,6 +1,6 @@
 import React from 'react'
 import StateLabel from '../StateLabel'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('StateLabel', () => {

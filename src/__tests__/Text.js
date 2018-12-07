@@ -1,7 +1,7 @@
 import React from 'react'
 import Text from '../Text'
 import theme from '../theme'
-import {px, render, renderStyles, mount} from '../utils/testing'
+import {px, render, renderStyles} from '../utils/testing'
 
 describe('Text', () => {
   it('renders a <span> by default', () => {

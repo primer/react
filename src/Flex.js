@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {display} from 'styled-system'
-import {COMMON, FLEX_CONTAINER, FLEX_ITEM}  from './constants'
+import {COMMON, FLEX_CONTAINER, FLEX_ITEM} from './constants'
 import theme from './theme'
 
 const Flex = styled.div`
@@ -9,7 +9,9 @@ const Flex = styled.div`
   ${display}
 `
 
-Flex.Item = styled.div`${FLEX_ITEM} ${COMMON}`
+Flex.Item = styled.div`
+  ${FLEX_ITEM} ${COMMON};
+`
 
 Flex.defaultProps = {
   theme,

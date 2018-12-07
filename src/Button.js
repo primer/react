@@ -31,8 +31,7 @@ function proto({is: Tag, children, size, grouped, scheme, onClick, disabled, cla
 }
 
 const Button = styled(proto)`
-  ${COMMON}
-  ${width}
+  ${COMMON} ${width};
 `
 
 Button.defaultProps = {
@@ -41,10 +40,10 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
-  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
+  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   onClick: PropTypes.func,
   scheme: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'large']),

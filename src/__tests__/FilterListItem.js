@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
 import React from 'react'
 import FilterList from '../FilterList'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../system-props'
 
 describe('FilterList.Item', () => {

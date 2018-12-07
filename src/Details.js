@@ -48,8 +48,11 @@ function getRenderer(children) {
 
 const Details = styled(proto)(COMMON)
 
+Details.defaultProps = {
+  theme
+}
+
 Details.propTypes = {
-  theme,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
   open: PropTypes.bool,

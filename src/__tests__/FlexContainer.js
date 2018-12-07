@@ -1,7 +1,7 @@
 import React from 'react'
 import Flex from '../Flex'
 import {FLEX_CONTAINER} from '../system-props'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 
 describe('Flex', () => {
   it('implements flex system props', () => {

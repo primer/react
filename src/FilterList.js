@@ -33,7 +33,7 @@ function getCountComponent(count) {
   )
 }
 
-function ItemProto({children, className, count, selected, theme, is: Tag, ...rest}) {
+function ItemProto({children, className, count, selected, theme, is: Tag, ...rest}) { //eslint-disable-line no-unused-vars
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -65,17 +65,16 @@ FilterList.propTypes = {
 
 FilterList.Item.defaultProps = {
   theme,
-  is: 'a',
+  is: 'a'
 }
 
 FilterList.Item.propTypes = {
-  theme,
   children: PropTypes.node,
   className: PropTypes.string,
   count: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   selected: PropTypes.bool,
-  ...COMMON.propTypes,
+  ...COMMON.propTypes
 }
 
 export default FilterList
