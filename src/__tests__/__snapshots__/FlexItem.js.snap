@@ -8,6 +8,7 @@ exports[`Flex.Item renders as correct tag 1`] = `
 }
 
 <button
+  alignSelf="center"
   className="c0"
 >
   hi
@@ -22,6 +23,7 @@ exports[`Flex.Item respects alignSelf 1`] = `
 }
 
 <div
+  alignSelf="center"
   className="c0"
 />
 `;
