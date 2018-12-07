@@ -29,7 +29,8 @@ Flex.propTypes = {
 
 Flex.Item.propTypes = {
   ...COMMON.propTypes,
-  ...FLEX_ITEM.propTypes
+  ...FLEX_ITEM.propTypes,
+  theme:  PropTypes.object
 }
 
 export default Flex

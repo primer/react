@@ -13,7 +13,8 @@ Text.defaultProps = {
 
 Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  theme:  PropTypes.object
 }
 
 export default Text

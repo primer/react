@@ -12,8 +12,8 @@ BorderBox.defaultProps = {
   borderRadius: 1
 }
 
-// spread prop types here
 BorderBox.propTypes = {
+  theme: propTypes.object,
   ...Box.propTypes,
   ...BORDER.propTypes
 }

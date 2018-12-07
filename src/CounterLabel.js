@@ -25,6 +25,7 @@ CounterLabel.defaultProps = {
 CounterLabel.propTypes = {
   children: PropTypes.node,
   scheme: PropTypes.oneOf(['gray', 'gray-light']),
+  theme:  PropTypes.object,
   ...COMMON.propTypes
 }
 

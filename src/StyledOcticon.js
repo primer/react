@@ -10,7 +10,8 @@ StyledOcticon.defaultProps = {
 }
 
 StyledOcticon.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  theme:  PropTypes.object
 }
 
 export default StyledOcticon

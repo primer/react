@@ -46,6 +46,7 @@ UnderlineNav.propTypes = {
   children: PropTypes.node,
   full: PropTypes.bool,
   label: PropTypes.string,
+  theme:  PropTypes.object,
   ...COMMON.propTypes
 }
 

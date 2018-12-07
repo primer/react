@@ -31,7 +31,7 @@ const sizeStyles = ({size}) => {
   }
 }
 
-const proto = ({children, is: Tag, className, ...rest}) => {
+const proto = ({children, is: Tag, theme, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
@@ -59,7 +59,8 @@ CircleBadge.defaultProps = {
 
 CircleBadge.propTypes = {
   bg: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number])
+  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
+  theme:  PropTypes.object
 }
 
 export default CircleBadge

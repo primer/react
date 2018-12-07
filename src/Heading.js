@@ -13,4 +13,10 @@ Heading.defaultProps = {
   is: 'h1'
 }
 
+Heading.propTypes = {
+  ...COMMON.propTypes,
+  ...TYPOGRAPHY.propTypes,
+  theme:  PropTypes.object
+}
+
 export default Heading

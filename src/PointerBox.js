@@ -17,7 +17,8 @@ function PointerBox(props) {
 
 PointerBox.propTypes = {
   ...BorderBox.propTypes,
-  caret: Caret.propTypes.location
+  caret: Caret.propTypes.location,
+  theme:  PropTypes.object
 }
 
 export default PointerBox

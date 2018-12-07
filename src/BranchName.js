@@ -22,7 +22,8 @@ BranchName.defaultProps = {
 
 BranchName.propTypes = {
   href: PropTypes.string,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  theme:  PropTypes.object
 }
 
 export default BranchName

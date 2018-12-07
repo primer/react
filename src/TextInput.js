@@ -42,6 +42,7 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'large']),
+  theme:  PropTypes.object,
   value: PropTypes.string,
   ...COMMON.propTypes
 }

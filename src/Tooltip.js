@@ -44,6 +44,7 @@ Tooltip.propTypes = {
   direction: PropTypes.oneOf(Tooltip.directions),
   noDelay: PropTypes.bool,
   text: PropTypes.string,
+  theme:  PropTypes.object,
   wrap: PropTypes.bool,
   ...COMMON.propTypes
 }

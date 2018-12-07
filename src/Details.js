@@ -57,6 +57,7 @@ Details.propTypes = {
   className: PropTypes.string,
   open: PropTypes.bool,
   render: PropTypes.func,
+  theme:  PropTypes.object,
   ...COMMON.propTypes
 }
 

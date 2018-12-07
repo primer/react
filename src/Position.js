@@ -17,7 +17,8 @@ Position.defaultProps = {
 Position.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
-  ...POSITION.propTypes
+  ...POSITION.propTypes,
+  theme:  PropTypes.object
 }
 
 function withPosition(position) {

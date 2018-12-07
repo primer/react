@@ -55,6 +55,7 @@ Dropdown.defaultProps = {
 Dropdown.propTypes = {
   children: PropTypes.node,
   scheme: Button.propTypes.scheme,
+  theme:  PropTypes.object,
   title: PropTypes.string,
   ...COMMON.propTypes
 }
