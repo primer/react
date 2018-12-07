@@ -13,7 +13,7 @@ import {COMMON} from './constants'
 import theme from './theme'
 
 // eslint-disable-next-line no-unused-vars
-function proto({title, scheme, children, theme, className, ...rest}) {
+function DropdownBase({title, scheme, children, theme, className, ...rest}) {
   const {minWidth} = rest
   return (
     <div className={classnames(className, 'BtnGroup')} {...rest}>
@@ -46,7 +46,7 @@ function proto({title, scheme, children, theme, className, ...rest}) {
   )
 }
 
-const Dropdown = styled(proto)(COMMON)
+const Dropdown = styled(DropdownBase)(COMMON)
 
 Dropdown.defaultProps = {
   theme

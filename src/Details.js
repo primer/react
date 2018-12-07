@@ -16,7 +16,7 @@ const DetailsReset = styled('details')`
   }
 `
 
-class proto extends React.Component {
+class DetailsBase extends React.Component {
   constructor(props) {
     super(props)
     this.state = {open: Boolean(props.open)}
@@ -46,7 +46,7 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-const Details = styled(proto)(COMMON)
+const Details = styled(DetailsBase)(COMMON)
 
 Details.defaultProps = {
   theme

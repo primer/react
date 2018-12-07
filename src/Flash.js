@@ -17,12 +17,12 @@ const schemeMap = {
   yellow: 'warn'
 }
 
-function proto({children, className, full, scheme}) {
+function FlashBase({children, className, full, scheme}) {
   const classes = classnames(className, 'flash', full && 'flash-full', scheme && `flash-${schemeMap[scheme]}`)
   return <div className={classes}>{children}</div>
 }
 
-const Flash = styled(proto)(COMMON)
+const Flash = styled(FlashBase)(COMMON)
 
 Flash.defaultProps = {
   theme

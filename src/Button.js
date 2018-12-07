@@ -13,7 +13,7 @@ injectGlobal(sass`
 `)
 
 // eslint-disable-next-line no-unused-vars
-function proto({is: Tag, children, theme, size, grouped, scheme, onClick, disabled, className, ...rest}) {
+function ButtonBase({is: Tag, children, theme, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     'btn',
@@ -32,7 +32,7 @@ function proto({is: Tag, children, theme, size, grouped, scheme, onClick, disabl
   )
 }
 
-const Button = styled(proto)`
+const Button = styled(ButtonBase)`
   ${COMMON} ${width};
 `
 

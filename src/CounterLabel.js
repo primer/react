@@ -12,11 +12,11 @@ injectGlobal(sass`
   @import "primer-labels/lib/counters.scss";
 `)
 
-function proto({scheme, children, className}) {
+function CounterLabelBase({scheme, children, className}) {
   return <span className={classnames(className, 'Counter', scheme && `Counter--${scheme}`)}>{children}</span>
 }
 
-const CounterLabel = styled(proto)(COMMON)
+const CounterLabel = styled(CounterLabelBase)(COMMON)
 
 CounterLabel.defaultProps = {
   theme

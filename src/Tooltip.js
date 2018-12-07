@@ -11,7 +11,7 @@ injectGlobal(sass`
   @import "primer-tooltips/index.scss";
 `)
 
-function proto({direction, children, className, text, noDelay, align, wrap}) {
+function TooltipBase({direction, children, className, text, noDelay, align, wrap}) {
   const classes = classnames(
     className,
     'tooltipped',
@@ -27,7 +27,7 @@ function proto({direction, children, className, text, noDelay, align, wrap}) {
   )
 }
 
-const Tooltip = styled(proto)(COMMON)
+const Tooltip = styled(TooltipBase)(COMMON)
 
 Tooltip.alignments = ['left', 'right']
 

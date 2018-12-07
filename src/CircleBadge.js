@@ -32,7 +32,7 @@ const sizeStyles = ({size}) => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const proto = ({children, is: Tag, theme, className, ...rest}) => {
+const CircleBadgeBase = ({children, is: Tag, theme, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
@@ -49,7 +49,7 @@ const proto = ({children, is: Tag, theme, className, ...rest}) => {
   )
 }
 
-const CircleBadge = styled(proto)`
+const CircleBadge = styled(CircleBadgeBase)`
   ${COMMON} ${sizeStyles};
 `
 

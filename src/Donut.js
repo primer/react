@@ -8,7 +8,7 @@ import theme from './theme'
 const defaultColor = '#666'
 const getStateColors = themeGet('colors.state', {})
 
-function DonutProto(props) {
+function DonutBase(props) {
   const {className, data, children = mapData(data), size} = props
 
   const radius = size / 2
@@ -38,7 +38,7 @@ function mapData(data) {
   return Object.keys(data).map(key => <Slice key={key} state={key} value={data[key]} />)
 }
 
-const Donut = styled(DonutProto)(space)
+const Donut = styled(DonutBase)(space)
 
 Donut.defaultProps = {
   size: 30,

@@ -23,7 +23,7 @@ const octiconMap = {
   pullMerged: GitMerge
 }
 
-function proto({className, status, small = false, children}) {
+function StateLabelBase({className, status, small = false, children}) {
   const octiconProps = small ? {width: '1em'} : {}
   return (
     <span className={className}>
@@ -33,7 +33,7 @@ function proto({className, status, small = false, children}) {
   )
 }
 
-const StateLabel = styled(proto)`
+const StateLabel = styled(StateLabelBase)`
   display: inline-flex;
   align-items: center;
   padding: ${props => (props.small ? `0.125em ${theme.space[1]}px` : `${theme.space[1]}px ${theme.space[2]}px`)};

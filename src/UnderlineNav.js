@@ -15,7 +15,7 @@ injectGlobal(sass`
 const ITEM_CLASS = 'UnderlineNav-item no-underline'
 const SELECTED_CLASS = 'selected'
 
-function proto({actions, className, align, children, full, label}) {
+function UnderlineNavBase({actions, className, align, children, full, label}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
     <nav className={classes} aria-label={label}>
@@ -36,7 +36,7 @@ const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
   return <Tag className={classes} {...rest} />
 }
 
-const UnderlineNav = styled(proto)(COMMON)
+const UnderlineNav = styled(UnderlineNavBase)(COMMON)
 
 UnderlineNav.Link = styled(UnderlineNavLink)(COMMON)
 

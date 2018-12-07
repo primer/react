@@ -15,7 +15,7 @@ injectGlobal(sass`
 const ITEM_CLASS = 'filter-item'
 const SELECTED_CLASS = 'selected'
 
-function FilterListProto({children, className, small}) {
+function FilterListBase({children, className, small}) {
   const classes = classnames(className, 'filter-list', small && 'small')
 
   const items = React.Children.map(children, child => {
@@ -34,7 +34,7 @@ function getCountComponent(count) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function ItemProto({children, className, count, selected, theme, is: Tag, ...rest}) {
+function ItemBase({children, className, count, selected, theme, is: Tag, ...rest}) {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -49,8 +49,8 @@ function ItemProto({children, className, count, selected, theme, is: Tag, ...res
   )
 }
 
-const FilterList = styled(FilterListProto)(COMMON)
-FilterList.Item = styled(ItemProto)(COMMON)
+const FilterList = styled(FilterListBase)(COMMON)
+FilterList.Item = styled(ItemBase)(COMMON)
 
 FilterList.defaultProps = {
   theme,
