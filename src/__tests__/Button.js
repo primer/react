@@ -10,8 +10,8 @@ describe('Button', () => {
     expect(render(<Button />).type).toEqual('button')
   })
 
-  it('respects the "as" prop', () => {
-    expect(render(<Button as="a" />).type).toEqual('a')
+  it('respects the "is" prop', () => {
+    expect(render(<Button is="a" />).type).toEqual('a')
   })
 
   it('implements common system props', () => {
