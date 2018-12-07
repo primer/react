@@ -9,18 +9,18 @@ describe('FilterList', () => {
   })
 
   it('renders a <ul>', () => {
-    expect(render(mount(<FilterList />)).type).toEqual('ul')
+    expect(render(<FilterList />).type).toEqual('ul')
   })
 
   it('wraps children in <li>', () => {
-    expect(render(mount(<FilterList>Hello</FilterList>)).children.pop().type).toEqual('li')
+    expect(render(<FilterList>Hello</FilterList>).children.pop().type).toEqual('li')
   })
 
   it('adds the filter-list class', () => {
-    expect(rendersClass(mount(<FilterList />), 'filter-list')).toEqual(true)
+    expect(rendersClass(<FilterList />, 'filter-list')).toEqual(true)
   })
 
   it('respects the "small" prop', () => {
-    expect(rendersClass(mount(<FilterList small />), 'small')).toEqual(true)
+    expect(rendersClass(<FilterList small />, 'small')).toEqual(true)
   })
 })

@@ -10,25 +10,25 @@ describe('FilterList.Item', () => {
   })
 
   it('renders an <a> by default', () => {
-    expect(render(mount(<FilterList.Item />)).type).toEqual('a')
+    expect(render(<FilterList.Item />).type).toEqual('a')
   })
 
   it('renders the given "is" prop', () => {
     const Type = props => <b {...props} />
-    expect(render(mount(<FilterList.Item is={Type} />))).toMatchSnapshot()
+    expect(render(<FilterList.Item is={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {
-    expect(render(mount(<FilterList.Item selected />))).toMatchSnapshot()
+    expect(render(<FilterList.Item selected />)).toMatchSnapshot()
   })
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
     const Mock = jest.fn(() => <div />)
-    expect(render(mount(<FilterList.Item is={Mock} to="#" />))).toMatchSnapshot()
+    expect(render(<FilterList.Item is={Mock} to="#" />)).toMatchSnapshot()
   })
 
   it('respects "count" prop', () => {
-    const CountMock = render(mount(<FilterList.Item count="400" />)).children.pop()
+    const CountMock = render(<FilterList.Item count="400" />).children.pop()
     expect(CountMock.type).toEqual('span')
     expect(CountMock.props.className).toEqual('count')
   })

@@ -11,7 +11,6 @@ import {width} from 'styled-system'
 injectGlobal(sass`
   @import "primer-buttons/index.scss";
 `)
-
 function proto({is: Tag, children, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
@@ -36,7 +35,10 @@ const Button = styled(proto)`
   ${width}
 `
 
-Button.defaultProps = {theme}
+Button.defaultProps = {
+  is: 'button',
+  theme
+}
 
 Button.propTypes = {
   is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),

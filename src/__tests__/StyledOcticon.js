@@ -10,6 +10,6 @@ describe('StyledOcticon', () => {
   })
 
   it('matches the snapshot', () => {
-    expect(render(mount(<StyledOcticon icon={X} />))).toMatchSnapshot()
+    expect(render(<StyledOcticon icon={X} />)).toMatchSnapshot()
   })
 })

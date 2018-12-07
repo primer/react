@@ -15,14 +15,14 @@ describe('Link', () => {
   })
 
   it('passes href down to link element', () => {
-    expect(render(mount(<Link href="https://github.com" />))).toMatchSnapshot()
+    expect(render(<Link href="https://github.com" />)).toMatchSnapshot()
   })
 
   it('renders without any props', () => {
-    expect(render(mount(<Link />))).toMatchSnapshot()
+    expect(render(<Link />)).toMatchSnapshot()
   })
 
   it('respects hoverColor prop', () => {
-    expect(render(mount(<Link hoverColor="blue.4" />))).toMatchSnapshot()
+    expect(render(<Link hoverColor="blue.4" />)).toMatchSnapshot()
   })
 })

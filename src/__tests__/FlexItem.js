@@ -9,15 +9,15 @@ describe('Flex.Item', () => {
   })
 
   it('respects alignSelf', () => {
-    expect(render(mount(<Flex.Item alignSelf="center" />))).toMatchSnapshot()
+    expect(render(<Flex.Item alignSelf="center" />)).toMatchSnapshot()
   })
 
   it('renders as correct tag', () => {
-    const item = render(mount(
+    const item = render(
       <Flex.Item as="button" alignSelf="center">
         hi
       </Flex.Item>
-    ))
+    )
     expect(item.type).toEqual('button')
     expect(item).toMatchSnapshot()
   })

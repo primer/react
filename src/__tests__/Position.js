@@ -14,13 +14,13 @@ describe('position components', () => {
       expect(Absolute).toImplementSystemProps(positionProps)
     })
     it('sets position: absolute', () => {
-      expect(render(mount(<Absolute />))).toHaveStyleRule('position', 'absolute')
+      expect(render(<Absolute />)).toHaveStyleRule('position', 'absolute')
     })
     it('cannot override position', () => {
-      expect(render(mount(<Absolute position="relative" />))).toHaveStyleRule('position', 'absolute')
+      expect(render(<Absolute position="relative" />)).toHaveStyleRule('position', 'absolute')
     })
     it('can render other components with the is prop', () => {
-      const result = render(mount(<Absolute is={BorderBox} />))
+      const result = render(<Absolute is={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'absolute')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
@@ -31,13 +31,13 @@ describe('position components', () => {
       expect(Fixed).toImplementSystemProps(positionProps)
     })
     it('sets position: fixed', () => {
-      expect(render(mount(<Fixed />))).toHaveStyleRule('position', 'fixed')
+      expect(render(<Fixed />)).toHaveStyleRule('position', 'fixed')
     })
     it('cannot override position', () => {
-      expect(render(mount(<Fixed position="relative" />))).toHaveStyleRule('position', 'fixed')
+      expect(render(<Fixed position="relative" />)).toHaveStyleRule('position', 'fixed')
     })
     it('can render other components with the is prop', () => {
-      const result = render(mount(<Fixed is={BorderBox} />))
+      const result = render(<Fixed is={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'fixed')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
@@ -48,13 +48,13 @@ describe('position components', () => {
       expect(Relative).toImplementSystemProps(positionProps)
     })
     it('sets position: relative', () => {
-      expect(render(mount(<Relative />))).toHaveStyleRule('position', 'relative')
+      expect(render(<Relative />)).toHaveStyleRule('position', 'relative')
     })
     it('cannot override position', () => {
-      expect(render(mount(<Relative position="absolute" />))).toHaveStyleRule('position', 'relative')
+      expect(render(<Relative position="absolute" />)).toHaveStyleRule('position', 'relative')
     })
     it('can render other components with the is prop', () => {
-      const result = render(mount(<Relative is={BorderBox} />))
+      const result = render(<Relative is={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'relative')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
@@ -65,13 +65,13 @@ describe('position components', () => {
       expect(Sticky).toImplementSystemProps(positionProps)
     })
     it('sets position: sticky', () => {
-      expect(render(mount(<Sticky />))).toHaveStyleRule('position', 'sticky')
+      expect(render(<Sticky />)).toHaveStyleRule('position', 'sticky')
     })
     it('cannot override position', () => {
-      expect(render(mount(<Sticky position="absolute" />))).toHaveStyleRule('position', 'sticky')
+      expect(render(<Sticky position="absolute" />)).toHaveStyleRule('position', 'sticky')
     })
     it('can render other components with the is prop', () => {
-      const result = render(mount(<Sticky is={BorderBox} />))
+      const result = render(<Sticky is={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'sticky')
       expect(result).toHaveStyleRule('border', '1px solid')
     })

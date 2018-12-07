@@ -3,10 +3,6 @@ import {PointerBox} from '..'
 import {render} from '../utils/testing'
 
 describe('PointerBox', () => {
-  it('is a system component', () => {
-    expect(PointerBox.systemComponent).toEqual(true)
-  })
-
   it('renders a <Caret> in <BorderBox> with relative positioning', () => {
     expect(render(<PointerBox />)).toMatchSnapshot()
   })

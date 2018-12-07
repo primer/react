@@ -9,19 +9,19 @@ describe('TextInput', () => {
   })
 
   it('renders', () => {
-    expect(render(mount(<TextInput name="zipcode" />))).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" />)).toMatchSnapshot()
   })
 
   it('renders small', () => {
-    expect(render(mount(<TextInput name="zipcode" size="small" />))).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
   })
 
   it('renders large', () => {
-    expect(render(mount(<TextInput name="zipcode" size="large" />))).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" size="large" />)).toMatchSnapshot()
   })
 
   it('renders block', () => {
-    expect(render(mount(<TextInput name="zipcode" block />))).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" block />)).toMatchSnapshot()
   })
 
   it('should call onChange prop with input value', () => {

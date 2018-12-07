@@ -91,7 +91,7 @@ exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1
 }
 
 <div
-  className="c0 "
+  className="c0"
 >
   <svg
     height={16}

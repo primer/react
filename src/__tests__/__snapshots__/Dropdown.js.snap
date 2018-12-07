@@ -1,20 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches the snapshots 1`] = `
-.c1 {
-  background-color: #fff;
-  margin-top: 4px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
 .c0 {
-  border: 1px solid;
-  border-color: #e1e4e8;
-  box-shadow: 0 1px 1px rgba(27,31,35,0.1);
-  border-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
@@ -41,111 +32,231 @@ exports[`Dropdown matches the snapshots 1`] = `
   }
   className="css-0 BtnGroup"
 >
-  <details
-    className="BtnGroup-form css-1c9pu81"
-    open={false}
-  >
-    <summary
-      blacklist={
-        Array [
-          "css",
-          "color",
-          "bg",
-          "m",
-          "mt",
-          "mr",
-          "mb",
-          "ml",
-          "mx",
-          "my",
-          "p",
-          "pt",
-          "pr",
-          "pb",
-          "pl",
-          "px",
-          "py",
-          "width",
-        ]
+  <div
+    className="BtnGroup-form c0"
+    display="flex"
+    is={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-EHOje",
+          "isStatic": false,
+          "rules": Array [
+            [Function],
+          ],
+        },
+        "displayName": "Styled(proto)",
+        "foldedComponentIds": Array [],
+        "propTypes": Object {
+          "bg": [Function],
+          "children": [Function],
+          "className": [Function],
+          "color": [Function],
+          "m": [Function],
+          "mb": [Function],
+          "ml": [Function],
+          "mr": [Function],
+          "mt": [Function],
+          "mx": [Function],
+          "my": [Function],
+          "open": [Function],
+          "p": [Function],
+          "pb": [Function],
+          "pl": [Function],
+          "pr": [Function],
+          "pt": [Function],
+          "px": [Function],
+          "py": [Function],
+          "render": [Function],
+          "theme": Object {
+            "borders": Array [
+              0,
+              "1px solid",
+            ],
+            "breakpoints": Array [
+              "544px",
+              "768px",
+              "1012px",
+              "1280px",
+            ],
+            "colors": Object {
+              "black": "#1b1f23",
+              "blackfade15": "rgba(27, 31, 35, 0.15)",
+              "blackfade20": "rgba(27, 31, 35, 0.20)",
+              "blue": Array [
+                "#f1f8ff",
+                "#dbedff",
+                "#c8e1ff",
+                "#79b8ff",
+                "#2188ff",
+                "#0366d6",
+                "#005cc5",
+                "#044289",
+                "#032f62",
+                "#05264c",
+              ],
+              "bodytext": "#24292e",
+              "gray": Array [
+                "#fafbfc",
+                "#f6f8fa",
+                "#e1e4e8",
+                "#d1d5da",
+                "#959da5",
+                "#6a737d",
+                "#586069",
+                "#444d56",
+                "#2f363d",
+                "#24292e",
+              ],
+              "green": Array [
+                "#f0fff4",
+                "#dcffe4",
+                "#bef5cb",
+                "#85e89d",
+                "#34d058",
+                "#28a745",
+                "#22863a",
+                "#176f2c",
+                "#165c26",
+                "#144620",
+              ],
+              "orange": Array [
+                "#fff8f2",
+                "#ffebda",
+                "#ffd1ac",
+                "#ffab70",
+                "#fb8532",
+                "#f66a0a",
+                "#e36209",
+                "#d15704",
+                "#c24e00",
+                "#a04100",
+              ],
+              "purple": Array [
+                "#f5f0ff",
+                "#e6dcfd",
+                "#d1bcf9",
+                "#b392f0",
+                "#8a63d2",
+                "#6f42c1",
+                "#5a32a3",
+                "#4c2889",
+                "#3a1d6e",
+                "#29134e",
+              ],
+              "red": Array [
+                "#ffeef0",
+                "#ffdce0",
+                "#fdaeb7",
+                "#f97583",
+                "#ea4a5a",
+                "#d73a49",
+                "#cb2431",
+                "#b31d28",
+                "#9e1c23",
+                "#86181d",
+              ],
+              "state": Object {
+                "error": "#d73a49",
+                "failure": "#d73a49",
+                "pending": "#dbab09",
+                "queued": "#dbab09",
+                "success": "#28a745",
+                "unknown": "#959da5",
+              },
+              "white": "#fff",
+              "whitefade15": "rgba(255, 255, 255, 0.15)",
+              "yellow": Array [
+                "#fffdef",
+                "#fffbdd",
+                "#fff5b1",
+                "#ffea7f",
+                "#ffdf5d",
+                "#ffd33d",
+                "#f9c513",
+                "#dbab09",
+                "#b08800",
+                "#735c0f",
+              ],
+            },
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              40,
+              48,
+            ],
+            "fontWeights": Object {
+              "bold": 600,
+              "light": 300,
+              "normal": 400,
+            },
+            "fonts": Object {
+              "mono": "SFMono-Regular, Consolas, \\"Liberation Mono\\", Menlo, Courier, monospace",
+              "normal": "-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
+            },
+            "lineHeights": Object {
+              "condensed": 1.25,
+              "condensedUltra": 1,
+              "default": 1.5,
+            },
+            "maxWidths": Object {
+              "large": "1012px",
+              "medium": "768px",
+              "small": "544px",
+              "xlarge": "1280px",
+            },
+            "radii": Array [
+              0,
+              3,
+              6,
+            ],
+            "shadows": Object {
+              "extra-large": "0 10px 50px rgba(27, 31, 35, 0.07)",
+              "large": "0 1px 15px rgba(27, 31, 35, 0.15)",
+              "medium": "0 1px 5px rgba(27, 31, 35, 0.15)",
+              "small": "0 1px 1px rgba(27, 31, 35, 0.1)",
+            },
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              24,
+              32,
+              40,
+              48,
+              64,
+              80,
+              96,
+              112,
+              128,
+            ],
+          },
+        },
+        "render": [Function],
+        "styledComponentId": "sc-EHOje",
+        "target": [Function],
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+        Symbol(Symbol.hasInstance): [Function],
       }
-      className="css-0 btn BtnGroup-item"
-      onClick={[Function]}
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        className="css-1jjwf1f"
-        height={14}
-        role="img"
-        style={
-          Object {
-            "display": "inline-block",
-            "fill": "currentColor",
-            "userSelect": "none",
-            "verticalAlign": "text-bottom",
-          }
-        }
-        viewBox="0 0 12 16"
-        width={10.5}
-      >
-        <path
-          d="M0 5l6 6 6-6H0z"
-          fillRule="evenodd"
-        />
-      </svg>
-    </summary>
-    <div
-      className="c0 c1"
-    >
-      hi
-      <svg
-        height={16}
-        style={
-          Object {
-            "bottom": "100%",
-            "left": 8,
-            "marginLeft": null,
-            "pointerEvents": "none",
-            "position": "absolute",
-          }
-        }
-        width={16}
-      >
-        <g
-          transform="translate(8,16) rotate(180)"
-        >
-          <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="#fff"
-          />
-          <path
-            d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="#e1e4e8"
-            strokeWidth={1}
-          />
-        </g>
-      </svg>
-    </div>
-  </details>
+    }
+  />
 </div>
 `;
 
 exports[`Dropdown matches the snapshots 2`] = `
-.c1 {
-  background-color: #fff;
-  margin-top: 4px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
 .c0 {
-  border: 1px solid;
-  border-color: #e1e4e8;
-  box-shadow: 0 1px 1px rgba(27,31,35,0.1);
-  border-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
@@ -172,93 +283,221 @@ exports[`Dropdown matches the snapshots 2`] = `
   }
   className="css-0 BtnGroup"
 >
-  <details
-    className="BtnGroup-form css-1c9pu81"
-    open={false}
-  >
-    <summary
-      blacklist={
-        Array [
-          "css",
-          "color",
-          "bg",
-          "m",
-          "mt",
-          "mr",
-          "mb",
-          "ml",
-          "mx",
-          "my",
-          "p",
-          "pt",
-          "pr",
-          "pb",
-          "pl",
-          "px",
-          "py",
-          "width",
-        ]
+  <div
+    className="BtnGroup-form c0"
+    display="flex"
+    is={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-EHOje",
+          "isStatic": false,
+          "rules": Array [
+            [Function],
+          ],
+        },
+        "displayName": "Styled(proto)",
+        "foldedComponentIds": Array [],
+        "propTypes": Object {
+          "bg": [Function],
+          "children": [Function],
+          "className": [Function],
+          "color": [Function],
+          "m": [Function],
+          "mb": [Function],
+          "ml": [Function],
+          "mr": [Function],
+          "mt": [Function],
+          "mx": [Function],
+          "my": [Function],
+          "open": [Function],
+          "p": [Function],
+          "pb": [Function],
+          "pl": [Function],
+          "pr": [Function],
+          "pt": [Function],
+          "px": [Function],
+          "py": [Function],
+          "render": [Function],
+          "theme": Object {
+            "borders": Array [
+              0,
+              "1px solid",
+            ],
+            "breakpoints": Array [
+              "544px",
+              "768px",
+              "1012px",
+              "1280px",
+            ],
+            "colors": Object {
+              "black": "#1b1f23",
+              "blackfade15": "rgba(27, 31, 35, 0.15)",
+              "blackfade20": "rgba(27, 31, 35, 0.20)",
+              "blue": Array [
+                "#f1f8ff",
+                "#dbedff",
+                "#c8e1ff",
+                "#79b8ff",
+                "#2188ff",
+                "#0366d6",
+                "#005cc5",
+                "#044289",
+                "#032f62",
+                "#05264c",
+              ],
+              "bodytext": "#24292e",
+              "gray": Array [
+                "#fafbfc",
+                "#f6f8fa",
+                "#e1e4e8",
+                "#d1d5da",
+                "#959da5",
+                "#6a737d",
+                "#586069",
+                "#444d56",
+                "#2f363d",
+                "#24292e",
+              ],
+              "green": Array [
+                "#f0fff4",
+                "#dcffe4",
+                "#bef5cb",
+                "#85e89d",
+                "#34d058",
+                "#28a745",
+                "#22863a",
+                "#176f2c",
+                "#165c26",
+                "#144620",
+              ],
+              "orange": Array [
+                "#fff8f2",
+                "#ffebda",
+                "#ffd1ac",
+                "#ffab70",
+                "#fb8532",
+                "#f66a0a",
+                "#e36209",
+                "#d15704",
+                "#c24e00",
+                "#a04100",
+              ],
+              "purple": Array [
+                "#f5f0ff",
+                "#e6dcfd",
+                "#d1bcf9",
+                "#b392f0",
+                "#8a63d2",
+                "#6f42c1",
+                "#5a32a3",
+                "#4c2889",
+                "#3a1d6e",
+                "#29134e",
+              ],
+              "red": Array [
+                "#ffeef0",
+                "#ffdce0",
+                "#fdaeb7",
+                "#f97583",
+                "#ea4a5a",
+                "#d73a49",
+                "#cb2431",
+                "#b31d28",
+                "#9e1c23",
+                "#86181d",
+              ],
+              "state": Object {
+                "error": "#d73a49",
+                "failure": "#d73a49",
+                "pending": "#dbab09",
+                "queued": "#dbab09",
+                "success": "#28a745",
+                "unknown": "#959da5",
+              },
+              "white": "#fff",
+              "whitefade15": "rgba(255, 255, 255, 0.15)",
+              "yellow": Array [
+                "#fffdef",
+                "#fffbdd",
+                "#fff5b1",
+                "#ffea7f",
+                "#ffdf5d",
+                "#ffd33d",
+                "#f9c513",
+                "#dbab09",
+                "#b08800",
+                "#735c0f",
+              ],
+            },
+            "fontSizes": Array [
+              12,
+              14,
+              16,
+              20,
+              24,
+              32,
+              40,
+              48,
+            ],
+            "fontWeights": Object {
+              "bold": 600,
+              "light": 300,
+              "normal": 400,
+            },
+            "fonts": Object {
+              "mono": "SFMono-Regular, Consolas, \\"Liberation Mono\\", Menlo, Courier, monospace",
+              "normal": "-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
+            },
+            "lineHeights": Object {
+              "condensed": 1.25,
+              "condensedUltra": 1,
+              "default": 1.5,
+            },
+            "maxWidths": Object {
+              "large": "1012px",
+              "medium": "768px",
+              "small": "544px",
+              "xlarge": "1280px",
+            },
+            "radii": Array [
+              0,
+              3,
+              6,
+            ],
+            "shadows": Object {
+              "extra-large": "0 10px 50px rgba(27, 31, 35, 0.07)",
+              "large": "0 1px 15px rgba(27, 31, 35, 0.15)",
+              "medium": "0 1px 5px rgba(27, 31, 35, 0.15)",
+              "small": "0 1px 1px rgba(27, 31, 35, 0.1)",
+            },
+            "space": Array [
+              0,
+              4,
+              8,
+              16,
+              24,
+              32,
+              40,
+              48,
+              64,
+              80,
+              96,
+              112,
+              128,
+            ],
+          },
+        },
+        "render": [Function],
+        "styledComponentId": "sc-EHOje",
+        "target": [Function],
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+        Symbol(Symbol.hasInstance): [Function],
       }
-      className="css-0 btn BtnGroup-item"
-      onClick={[Function]}
-      type="button"
-    >
-      hi
-      <svg
-        aria-hidden="true"
-        className="css-1isemmb"
-        height={14}
-        role="img"
-        style={
-          Object {
-            "display": "inline-block",
-            "fill": "currentColor",
-            "userSelect": "none",
-            "verticalAlign": "text-bottom",
-          }
-        }
-        viewBox="0 0 12 16"
-        width={10.5}
-      >
-        <path
-          d="M0 5l6 6 6-6H0z"
-          fillRule="evenodd"
-        />
-      </svg>
-    </summary>
-    <div
-      className="c0 c1"
-    >
-      hello!
-      <svg
-        height={16}
-        style={
-          Object {
-            "bottom": "100%",
-            "left": 8,
-            "marginLeft": null,
-            "pointerEvents": "none",
-            "position": "absolute",
-          }
-        }
-        width={16}
-      >
-        <g
-          transform="translate(8,16) rotate(180)"
-        >
-          <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="#fff"
-          />
-          <path
-            d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="#e1e4e8"
-            strokeWidth={1}
-          />
-        </g>
-      </svg>
-    </div>
-  </details>
+    }
+  />
 </div>
 `;

@@ -7,18 +7,18 @@ const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
   it('respects "as" prop', () => {
-    const item = render(mount(<CircleBadge as="a" />))
+    const item = render(<CircleBadge as="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
   })
 
   it('applies title', () => {
     expect(
-      render(mount(
+      render(
         <CircleBadge is="a" title="primer logo">
           {imgInput}
         </CircleBadge>
-      )).props['title']
+      ).props['title']
     ).toEqual('primer logo')
   })
 

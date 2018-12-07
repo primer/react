@@ -9,18 +9,18 @@ describe('Flash', () => {
   })
 
   it('renders a <div> with "Flash" class', () => {
-    const rendered = render(mount(<Flash />))
+    const rendered = render(<Flash />)
     expect(rendered.type).toEqual('div')
     expect(rendered).toHaveClass('flash')
   })
 
   it('respects the "full" prop', () => {
-    expect(render(mount(<Flash full />))).toHaveClasses(['flash', 'flash-full'])
+    expect(render(<Flash full />)).toHaveClasses(['flash', 'flash-full'])
   })
 
   it('respects the "scheme" prop', () => {
-    expect(render(mount(<Flash scheme="yellow" />))).toHaveClasses(['flash', 'flash-warn'])
-    expect(render(mount(<Flash scheme="red" />))).toHaveClasses(['flash', 'flash-error'])
-    expect(render(mount(<Flash scheme="green" />))).toHaveClasses(['flash', 'flash-success'])
+    expect(render(<Flash scheme="yellow" />)).toHaveClasses(['flash', 'flash-warn'])
+    expect(render(<Flash scheme="red" />)).toHaveClasses(['flash', 'flash-error'])
+    expect(render(<Flash scheme="green" />)).toHaveClasses(['flash', 'flash-success'])
   })
 })

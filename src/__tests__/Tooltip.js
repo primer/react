@@ -10,7 +10,7 @@ describe('Tooltip', () => {
   })
 
   it('renders a <span> with the "tooltipped" class', () => {
-    expect(render(mount(<Tooltip />)).type).toEqual('span')
+    expect(render(<Tooltip />).type).toEqual('span')
     expect(renderClasses(<Tooltip />)).toContain('tooltipped-n')
   })
 
@@ -30,7 +30,7 @@ describe('Tooltip', () => {
   })
 
   it('respects the "text" prop', () => {
-    expect(render(mount(<Tooltip text="hi" />)).props['aria-label']).toEqual('hi')
+    expect(render(<Tooltip text="hi" />).props['aria-label']).toEqual('hi')
   })
 
   it('respects the "wrap" prop', () => {
