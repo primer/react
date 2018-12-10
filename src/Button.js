@@ -3,14 +3,16 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
-import styled from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 import {width} from 'styled-system'
 
-injectGlobal(sass`
-  @import "primer-buttons/index.scss";
-`)
+const GlobalStyles = createGlobalStyle`
+  ${sass`
+    @import "primer-buttons/index.scss";
+  `}
+`
 
 // eslint-disable-next-line no-unused-vars
 function ButtonBase({is: Tag, children, theme, size, grouped, scheme, onClick, disabled, className, ...rest}) {
@@ -26,9 +28,12 @@ function ButtonBase({is: Tag, children, theme, size, grouped, scheme, onClick, d
   )
 
   return (
-    <Tag {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
-      {children}
-    </Tag>
+    <React.Fragment>
+      <GlobalStyles />
+      <Tag {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
+        {children}
+      </Tag>
+    </React.Fragment>
   )
 }
 
