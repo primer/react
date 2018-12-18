@@ -12,7 +12,6 @@ injectGlobal(sass`
   @import "primer-forms/lib/form-control.scss";
 `)
 
-// eslint-disable-next-line no-unused-vars
 function TextInputBase({autocomplete, block, theme, className, size, ...rest}) {
   const classes = classnames(className, 'form-control', {
     'input-block': block,

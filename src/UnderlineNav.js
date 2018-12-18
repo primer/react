@@ -25,7 +25,6 @@ function UnderlineNavBase({actions, className, align, children, full, label}) {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
 const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 

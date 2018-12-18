@@ -14,7 +14,6 @@ const GlobalStyles = createGlobalStyle`
   `}
 `
 
-// eslint-disable-next-line no-unused-vars
 function ButtonBase({is: Tag, children, theme, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,

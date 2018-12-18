@@ -12,7 +12,6 @@ import Flex from './Flex'
 import {COMMON} from './constants'
 import theme from './theme'
 
-// eslint-disable-next-line no-unused-vars
 function DropdownBase({title, scheme, children, theme, className, ...rest}) {
   const {minWidth} = rest
   return (

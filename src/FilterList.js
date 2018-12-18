@@ -34,7 +34,6 @@ function getCountComponent(count) {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
 function ItemBase({children, className, count, selected, theme, is: Tag, ...rest}) {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 

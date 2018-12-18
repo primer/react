@@ -31,7 +31,6 @@ const sizeStyles = ({size}) => {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
 const CircleBadgeBase = ({children, is: Tag, theme, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
