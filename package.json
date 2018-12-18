@@ -41,6 +41,7 @@
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
     "emotion": "9.2.8",
+    "nanoid": "2.0.0",
     "primer-alerts": "1.5.9",
     "primer-avatars": "1.5.6",
     "primer-branch-name": "1.0.7",

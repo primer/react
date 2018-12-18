@@ -1,4 +1,5 @@
 import React from 'react'
+import nanoid from 'nanoid'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import sass from 'sass.macro'
@@ -42,7 +43,7 @@ function ItemBase({children, className, count, selected, theme, is: Tag, ...rest
   }
 
   return (
-    <Tag className={classes} {...rest}>
+    <Tag className={classes} key={nanoid()} {...rest}>
       {count && getCountComponent(count)}
       {children}
     </Tag>
