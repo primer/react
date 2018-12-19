@@ -42,11 +42,7 @@ expect.extend({
 
   toImplementSystemProps(Component, propNames) {
     const propKeys = new Set(Object.keys(Component.propTypes))
-    const expectedPropKeys = propNames.reduce((list, name) => {
-      const fn = typeof name === 'function' ? name : systemProps[name]
-      if (!fn) throw new Error(`"${name}" is not a system prop!!`)
-      return list.concat(Object.keys(fn.propTypes))
-    }, [])
+    const expectedPropKeys = Object.keys(propNames.propTypes)
     const missing = expectedPropKeys.filter(key => !propKeys.has(key)).filter(key => !ALIAS_PROP_TYPES.includes(key))
     return {
       pass: missing.length === 0,

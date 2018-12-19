@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
+import {borderRadius, space} from 'styled-system'
 import Avatar from '../Avatar'
 import theme from '../theme'
 import {px, render} from '../utils/testing'
@@ -7,6 +8,10 @@ import {px, render} from '../utils/testing'
 describe('Avatar', () => {
   it('renders default props', () => {
     expect(render(<Avatar alt="" />)).toMatchSnapshot()
+  })
+
+  it('implements system props', () => {
+    expect(Avatar).toImplementSystemProps(space)
   })
 
   it('renders small by default', () => {
