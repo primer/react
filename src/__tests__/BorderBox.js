@@ -2,11 +2,12 @@ import React from 'react'
 import theme, {colors} from '../theme'
 import BorderBox from '../BorderBox'
 import {render} from '../utils/testing'
-import {LAYOUT} from '../constants'
+import {LAYOUT, COMMON, FLEX_CONTAINER} from '../constants'
 
 describe('BorderBox', () => {
   it('implements layout system props', () => {
     expect(BorderBox).toImplementSystemProps(LAYOUT)
+    expect(BorderBox).toImplementSystemProps(COMMON)
   })
 
   it('renders borders', () => {

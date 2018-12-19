@@ -2,11 +2,12 @@ import React from 'react'
 import Box from '../Box'
 import theme from '../theme'
 import {render} from '../utils/testing'
-import {LAYOUT} from '../system-props'
+import {LAYOUT, COMMON} from '../constants'
 
 describe('Box', () => {
-  it('implements layout system props', () => {
+  it('implements system props', () => {
     expect(Box).toImplementSystemProps(LAYOUT)
+    expect(Box).toImplementSystemProps(COMMON)
   })
 
   it('renders without any props', () => {
