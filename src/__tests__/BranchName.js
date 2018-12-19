@@ -1,7 +1,7 @@
 import React from 'react'
 import BranchName from '../BranchName'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('BranchName', () => {
   it('renders an <a> by default', () => {

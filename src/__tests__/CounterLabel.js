@@ -1,7 +1,7 @@
 import React from 'react'
 import CounterLabel from '../CounterLabel'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('CounterLabel', () => {
   it('renders a <span> with the "Counter" class', () => {
@@ -16,7 +16,7 @@ describe('CounterLabel', () => {
     // expect(renderClasses(<CounterLabel theme="red" />)).toEqual(['Counter', 'Counter--red'])
   })
 
-  it('implements layout system props', () => {
+  it('implements system props', () => {
     expect(CounterLabel).toImplementSystemProps(COMMON)
   })
 })

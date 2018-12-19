@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
 import {render} from '../utils/testing'
+import {COMMON} from '../constants'
 
 describe('Dropdown', () => {
   it('matches the snapshots', () => {
@@ -12,5 +13,9 @@ describe('Dropdown', () => {
     const rendered = render(<Dropdown />)
     expect(rendered.type).toEqual('div')
     expect(rendered.props.className).toContain('BtnGroup')
+  })
+
+  it('implements system props', () => {
+    expect(Dropdown).toImplementSystemProps(COMMON)
   })
 })

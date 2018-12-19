@@ -2,6 +2,7 @@
 import React from 'react'
 import CircleBadge from '../CircleBadge'
 import {render, mount} from '../utils/testing'
+import {COMMON} from '../constants'
 
 const imgInput = <img alt="" src="primer.jpg" />
 
@@ -10,6 +11,10 @@ describe('CircleBadge', () => {
     const item = render(<CircleBadge is="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
+  })
+
+  it('implements system props', () => {
+    expect(CircleBadge).toImplementSystemProps(COMMON)
   })
 
   it('applies title', () => {

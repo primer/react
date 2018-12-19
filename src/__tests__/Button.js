@@ -1,7 +1,8 @@
 import React from 'react'
+import {width} from 'styled-system'
 import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 function noop() {}
 
@@ -14,8 +15,9 @@ describe('Button', () => {
     expect(render(<Button is="a" />).type).toEqual('a')
   })
 
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(Button).toImplementSystemProps(COMMON)
+    expect(Button).toImplementSystemProps(width)
   })
 
   it('respects width props', () => {
