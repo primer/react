@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {style} from 'styled-system'
-import {theme} from './theme'
+import theme from './theme'
 
 const oppositeEdge = {
   top: 'Bottom',
