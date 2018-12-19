@@ -2,10 +2,10 @@ import React from 'react'
 import {X} from '@githubprimer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('StyledOcticon', () => {
-  it('implements layout system props', () => {
+  it('implements system props', () => {
     expect(StyledOcticon).toImplementSystemProps(COMMON)
   })
 

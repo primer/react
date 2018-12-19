@@ -1,7 +1,7 @@
 import React from 'react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('StateLabel', () => {
   it('implements common system props', () => {

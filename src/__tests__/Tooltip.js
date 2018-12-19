@@ -1,10 +1,10 @@
 import React from 'react'
 import Tooltip from '../Tooltip'
 import {render, renderClasses, rendersClass} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('Tooltip', () => {
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(Tooltip).toImplementSystemProps(COMMON)
   })
 

@@ -1,17 +1,14 @@
 import React from 'react'
-import {LAYOUT, POSITION} from '../system-props'
+import {LAYOUT, POSITION} from '../constants'
 import BorderBox from '../BorderBox'
 import {Absolute, Fixed, Relative, Sticky} from '../Position'
 import {render} from '../utils/testing'
 
 describe('position components', () => {
-  // position components don't "implement" the position prop because
-  // it's not in their propTypes, since it can't be overridden
-  const positionProps = LAYOUT.concat(POSITION.filter(p => p !== 'position'))
-
   describe('Absolute', () => {
     it('implements system props', () => {
-      expect(Absolute).toImplementSystemProps(positionProps)
+      expect(Absolute).toImplementSystemProps(LAYOUT)
+      expect(Absolute).toImplementSystemProps(POSITION)
     })
     it('sets position: absolute', () => {
       expect(render(<Absolute />)).toHaveStyleRule('position', 'absolute')
@@ -28,7 +25,8 @@ describe('position components', () => {
 
   describe('Fixed', () => {
     it('implements system props', () => {
-      expect(Fixed).toImplementSystemProps(positionProps)
+      expect(Fixed).toImplementSystemProps(LAYOUT)
+      expect(Fixed).toImplementSystemProps(POSITION)
     })
     it('sets position: fixed', () => {
       expect(render(<Fixed />)).toHaveStyleRule('position', 'fixed')
@@ -45,7 +43,8 @@ describe('position components', () => {
 
   describe('Relative', () => {
     it('implements system props', () => {
-      expect(Relative).toImplementSystemProps(positionProps)
+      expect(Relative).toImplementSystemProps(LAYOUT)
+      expect(Relative).toImplementSystemProps(POSITION)
     })
     it('sets position: relative', () => {
       expect(render(<Relative />)).toHaveStyleRule('position', 'relative')
@@ -62,7 +61,8 @@ describe('position components', () => {
 
   describe('Sticky', () => {
     it('implements system props', () => {
-      expect(Sticky).toImplementSystemProps(positionProps)
+      expect(Sticky).toImplementSystemProps(LAYOUT)
+      expect(Sticky).toImplementSystemProps(POSITION)
     })
     it('sets position: sticky', () => {
       expect(render(<Sticky />)).toHaveStyleRule('position', 'sticky')

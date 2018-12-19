@@ -12,29 +12,29 @@ exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
   className="c0"
 >
   <svg
-    height={4}
+    height={16}
     style={
       Object {
         "left": "50%",
-        "marginLeft": -2,
+        "marginLeft": -8,
         "pointerEvents": "none",
         "position": "absolute",
         "top": "100%",
       }
     }
-    width={4}
+    width={16}
   >
     <g
-      transform="translate(2,0)"
+      transform="translate(8,0)"
     >
       <path
-        d="M-2,0L0,2L2,0L-2,0Z"
-        fill="red.5"
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#d73a49"
       />
       <path
-        d="M-2,0L0,2L2,0"
+        d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="gray.2"
+        stroke="#e1e4e8"
         strokeWidth={1}
       />
     </g>
@@ -53,29 +53,29 @@ exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret
   className="c0"
 >
   <svg
-    height={4}
+    height={16}
     style={
       Object {
         "left": "50%",
-        "marginLeft": -2,
+        "marginLeft": -8,
         "pointerEvents": "none",
         "position": "absolute",
         "top": "100%",
       }
     }
-    width={4}
+    width={16}
   >
     <g
-      transform="translate(2,0)"
+      transform="translate(8,0)"
     >
       <path
-        d="M-2,0L0,2L2,0L-2,0Z"
-        fill="white"
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#fff"
       />
       <path
-        d="M-2,0L0,2L2,0"
+        d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="red.5"
+        stroke="#d73a49"
         strokeWidth={1}
       />
     </g>
@@ -94,29 +94,29 @@ exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1
   className="c0"
 >
   <svg
-    height={4}
+    height={16}
     style={
       Object {
         "left": "50%",
-        "marginLeft": -2,
+        "marginLeft": -8,
         "pointerEvents": "none",
         "position": "absolute",
         "top": "100%",
       }
     }
-    width={4}
+    width={16}
   >
     <g
-      transform="translate(2,0)"
+      transform="translate(8,0)"
     >
       <path
-        d="M-2,0L0,2L2,0L-2,0Z"
-        fill="white"
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#fff"
       />
       <path
-        d="M-2,0L0,2L2,0"
+        d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="gray.2"
+        stroke="#e1e4e8"
         strokeWidth={1}
       />
     </g>

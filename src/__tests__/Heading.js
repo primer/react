@@ -2,6 +2,7 @@
 import React from 'react'
 import {Heading} from '..'
 import {render} from '../utils/testing'
+import {TYPOGRAPHY, COMMON} from '../constants'
 
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
@@ -96,5 +97,10 @@ describe('Heading', () => {
   xit('respects other values for fontSize', () => {
     expect(render(<Heading fontSize="2em" theme={theme} />)).toHaveStyleRule('font-size', '2em')
     expect(render(<Heading fontSize={100} theme={theme} />)).toHaveStyleRule('font-size', '100px')
+  })
+
+  it('implements system props', () => {
+    expect(Heading).toImplementSystemProps(TYPOGRAPHY)
+    expect(Heading).toImplementSystemProps(COMMON)
   })
 })

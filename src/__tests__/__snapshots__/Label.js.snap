@@ -8,7 +8,6 @@ exports[`Label respects the "outline" prop 1`] = `
   color: #fff;
   border-radius: 2px;
   background-color: #6a737d;
-  background-color: #6a737d;
   padding: 3px 4px;
   font-size: 12px;
   margin-top: -1px;

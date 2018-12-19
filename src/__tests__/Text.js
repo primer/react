@@ -2,10 +2,16 @@ import React from 'react'
 import Text from '../Text'
 import theme from '../theme'
 import {px, render, renderStyles} from '../utils/testing'
+import {COMMON, TYPOGRAPHY} from '../constants'
 
 describe('Text', () => {
   it('renders a <span> by default', () => {
     expect(render(<Text />).type).toEqual('span')
+  })
+
+  it('implements system props', () => {
+    expect(Text).toImplementSystemProps(COMMON)
+    expect(Text).toImplementSystemProps(TYPOGRAPHY)
   })
 
   it('respects the "is" prop', () => {

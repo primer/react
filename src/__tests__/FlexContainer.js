@@ -1,11 +1,14 @@
 import React from 'react'
+import {display} from 'styled-system'
 import Flex from '../Flex'
-import {FLEX_CONTAINER} from '../system-props'
+import {FLEX_CONTAINER, COMMON} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flex', () => {
-  it('implements flex system props', () => {
+  it('implements system props', () => {
     expect(Flex).toImplementSystemProps(FLEX_CONTAINER)
+    expect(Flex).toImplementSystemProps(COMMON)
+    expect(Flex).toImplementSystemProps(display)
   })
 
   it('gets display: flex by default', () => {

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import {color} from 'styled-system'
 import styled from 'styled-components'
 import theme, {colors} from './theme'
 import {COMMON} from './constants'
@@ -30,7 +29,6 @@ const Label = styled('span')`
   &:hover {
     text-decoration: none;
   }
-  ${color};
   ${COMMON} ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
   ${props => sizeMap[props.size]};
   ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
@@ -47,7 +45,6 @@ Label.propTypes = {
   outline: PropTypes.bool,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...color.propTypes
 }
 
 export default Label

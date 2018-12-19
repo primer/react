@@ -1,10 +1,10 @@
 import React from 'react'
 import FilterList from '../FilterList'
 import {render, rendersClass} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('FilterList', () => {
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(FilterList).toImplementSystemProps(COMMON)
   })
 

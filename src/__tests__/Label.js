@@ -2,6 +2,7 @@
 import React from 'react'
 import Label from '../Label'
 import {render} from '../utils/testing'
+import {COMMON} from '../constants'
 
 describe('Label', () => {
   it('renders a <span>', () => {
@@ -12,7 +13,7 @@ describe('Label', () => {
     expect(render(<Label outline />)).toMatchSnapshot()
   })
 
-  it('implements space system props', () => {
-    expect(Label).toImplementSystemProps(['space'])
+  it('implements system props', () => {
+    expect(Label).toImplementSystemProps(COMMON)
   })
 })

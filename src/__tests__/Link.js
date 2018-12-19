@@ -2,14 +2,11 @@
 import React from 'react'
 import Link from '../Link'
 import {render} from '../utils/testing'
-import {COMMON, TYPOGRAPHY} from '../system-props'
+import {COMMON, TYPOGRAPHY} from '../constants'
 
 describe('Link', () => {
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(Link).toImplementSystemProps(COMMON)
-  })
-
-  it('implements typography system props', () => {
     expect(Link).toImplementSystemProps(TYPOGRAPHY)
   })
 

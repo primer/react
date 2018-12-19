@@ -26,6 +26,7 @@ Flex.Item.defaultProps = {
 Flex.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_CONTAINER.propTypes,
+  ...display.propTypes,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 }
 

@@ -1,11 +1,12 @@
 import React from 'react'
 import Flex from '../Flex'
-import {FLEX_ITEM} from '../system-props'
+import {FLEX_ITEM, COMMON} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flex.Item', () => {
-  it('implements FLEX_ITEM props', () => {
+  it('implements system props', () => {
     expect(Flex.Item).toImplementSystemProps(FLEX_ITEM)
+    expect(Flex.Item).toImplementSystemProps(COMMON)
   })
 
   it('respects alignSelf', () => {

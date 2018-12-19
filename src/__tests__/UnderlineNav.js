@@ -1,10 +1,10 @@
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
 import {mount, render, rendersClass} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('UnderlineNav', () => {
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(UnderlineNav).toImplementSystemProps(COMMON)
   })
 

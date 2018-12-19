@@ -77,29 +77,29 @@ exports[`Dropdown matches the snapshots 1`] = `
     >
       hi
       <svg
-        height={4}
+        height={16}
         style={
           Object {
             "bottom": "100%",
-            "left": 2,
+            "left": 8,
             "marginLeft": null,
             "pointerEvents": "none",
             "position": "absolute",
           }
         }
-        width={4}
+        width={16}
       >
         <g
-          transform="translate(2,4) rotate(180)"
+          transform="translate(8,16) rotate(180)"
         >
           <path
-            d="M-2,0L0,2L2,0L-2,0Z"
-            fill="white"
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="#fff"
           />
           <path
-            d="M-2,0L0,2L2,0"
+            d="M-8,0L0,8L8,0"
             fill="none"
-            stroke="gray.2"
+            stroke="#e1e4e8"
             strokeWidth={1}
           />
         </g>
@@ -187,29 +187,29 @@ exports[`Dropdown matches the snapshots 2`] = `
     >
       hello!
       <svg
-        height={4}
+        height={16}
         style={
           Object {
             "bottom": "100%",
-            "left": 2,
+            "left": 8,
             "marginLeft": null,
             "pointerEvents": "none",
             "position": "absolute",
           }
         }
-        width={4}
+        width={16}
       >
         <g
-          transform="translate(2,4) rotate(180)"
+          transform="translate(8,16) rotate(180)"
         >
           <path
-            d="M-2,0L0,2L2,0L-2,0Z"
-            fill="white"
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="#fff"
           />
           <path
-            d="M-2,0L0,2L2,0"
+            d="M-8,0L0,8L8,0"
             fill="none"
-            stroke="gray.2"
+            stroke="#e1e4e8"
             strokeWidth={1}
           />
         </g>

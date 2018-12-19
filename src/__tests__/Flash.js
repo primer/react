@@ -1,10 +1,10 @@
 import React from 'react'
 import Flash from '../Flash'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flash', () => {
-  it('implements common props', () => {
+  it('implements system props', () => {
     expect(Flash).toImplementSystemProps(COMMON)
   })
 

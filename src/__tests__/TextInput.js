@@ -1,10 +1,10 @@
 import React from 'react'
 import TextInput from '../TextInput'
 import {render, mount} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('TextInput', () => {
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(TextInput).toImplementSystemProps(COMMON)
   })
 
