@@ -16,6 +16,10 @@ describe('TextInput', () => {
     expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
   })
 
+  it('has default theme', () => {
+    expect(TextInput).toSetDefaultTheme()
+  })
+
   it('renders large', () => {
     expect(render(<TextInput name="zipcode" size="large" />)).toMatchSnapshot()
   })

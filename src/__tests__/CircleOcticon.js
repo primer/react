@@ -11,6 +11,10 @@ describe('CircleOcticon', () => {
     expect(result).toHaveStyleRule('height', '10px')
   })
 
+  xit('has default theme', () => {
+    expect(CircleOcticon).toSetDefaultTheme()
+  })
+
   it('renders {borderRadius: 50%}', () => {
     expect(render(<CircleOcticon icon={Check} />)).toHaveStyleRule('border-radius', '50%')
   })

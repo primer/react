@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import BorderBox from './BorderBox'
 import Caret from './Caret'
+import theme from './theme'
 
 function PointerBox(props) {
   // don't destructure these, just grab them
@@ -14,6 +15,10 @@ function PointerBox(props) {
       <Caret {...caretProps} />
     </BorderBox>
   )
+}
+
+PointerBox.defaultProps = {
+  theme
 }
 
 PointerBox.propTypes = {

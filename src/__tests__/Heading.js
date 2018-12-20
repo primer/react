@@ -32,6 +32,10 @@ describe('Heading', () => {
     expect(render(<Heading />).type).toEqual('h1')
   })
 
+  it('has default theme', () => {
+    expect(Heading).toSetDefaultTheme()
+  })
+
   it('respects the is prop', () => {
     expect(render(<Heading is="h6" />).type).toEqual('h6')
   })

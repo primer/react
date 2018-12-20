@@ -12,4 +12,8 @@ describe('StyledOcticon', () => {
   it('matches the snapshot', () => {
     expect(render(<StyledOcticon icon={X} />)).toMatchSnapshot()
   })
+
+  xit('has default theme', () => {
+    expect(StyledOcticon).toSetDefaultTheme()
+  })
 })

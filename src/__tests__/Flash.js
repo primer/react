@@ -8,6 +8,10 @@ describe('Flash', () => {
     expect(Flash).toImplementSystemProps(COMMON)
   })
 
+  it('has default theme', () => {
+    expect(Flash).toSetDefaultTheme()
+  })
+
   it('renders a <div> with "Flash" class', () => {
     const rendered = render(<Flash />)
     expect(rendered.type).toEqual('div')

@@ -39,6 +39,10 @@ const UnderlineNav = styled(UnderlineNavBase)(COMMON)
 
 UnderlineNav.Link = styled(UnderlineNavLink)(COMMON)
 
+UnderlineNav.defaultProps = {
+  theme
+}
+
 UnderlineNav.propTypes = {
   actions: PropTypes.node,
   align: PropTypes.oneOf(['right']),

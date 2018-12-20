@@ -9,6 +9,10 @@ describe('CounterLabel', () => {
     expect(render(<CounterLabel />).props.className).toContain('Counter')
   })
 
+  it('has default theme', () => {
+    expect(CounterLabel).toSetDefaultTheme()
+  })
+
   it('respects the "scheme" prop', () => {
     expect(render(<CounterLabel scheme="gray" />).props.className).toContain('Counter--gray')
     expect(render(<CounterLabel scheme="gray-light" />).props.className).toContain('Counter--gray-light')

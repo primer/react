@@ -11,6 +11,10 @@ describe('Flex', () => {
     expect(Flex).toImplementSystemProps(display)
   })
 
+  it('has default theme', () => {
+    expect(Flex).toSetDefaultTheme()
+  })
+
   it('gets display: flex by default', () => {
     expect(render(<Flex />)).toHaveStyleRule('display', 'flex')
   })

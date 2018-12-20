@@ -8,6 +8,10 @@ describe('UnderlineNav.Link', () => {
     expect(render(<UnderlineNav.Link />).type).toEqual('a')
   })
 
+  it('has default theme', () => {
+    expect(UnderlineNav.Link).toSetDefaultTheme()
+  })
+
   it('renders the given "is" prop', () => {
     const Type = props => <b {...props} />
     expect(render(<UnderlineNav.Link is={Type} />)).toMatchSnapshot()

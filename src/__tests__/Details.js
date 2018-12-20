@@ -13,6 +13,10 @@ describe('Details', () => {
     expect(mount(<Details open />).props().open).toEqual(true)
   })
 
+  it('has default theme', () => {
+    expect(Details).toSetDefaultTheme()
+  })
+
   xit('Renders children as-is', () => {
     expect(render(<Details>hi</Details>)).toEqual(render(<details open={false}>hi</details>))
     expect(

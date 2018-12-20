@@ -13,6 +13,10 @@ describe('CircleBadge', () => {
     expect(item).toMatchSnapshot()
   })
 
+  it('has default theme', () => {
+    expect(CircleBadge).toSetDefaultTheme()
+  })
+
   it('implements system props', () => {
     expect(CircleBadge).toImplementSystemProps(COMMON)
   })

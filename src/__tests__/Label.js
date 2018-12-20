@@ -13,6 +13,10 @@ describe('Label', () => {
     expect(render(<Label outline />)).toMatchSnapshot()
   })
 
+  it('has default theme', () => {
+    expect(Label).toSetDefaultTheme()
+  })
+
   it('implements system props', () => {
     expect(Label).toImplementSystemProps(COMMON)
   })

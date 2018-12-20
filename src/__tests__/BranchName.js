@@ -8,6 +8,10 @@ describe('BranchName', () => {
     expect(render(<BranchName />).type).toEqual('a')
   })
 
+  it('has default theme', () => {
+    expect(BranchName).toSetDefaultTheme()
+  })
+
   it('respects the "is" prop', () => {
     expect(render(<BranchName is="span" />).type).toEqual('span')
   })

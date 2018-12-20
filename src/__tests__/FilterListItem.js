@@ -5,6 +5,10 @@ import {render} from '../utils/testing'
 import {COMMON} from '../constants'
 
 describe('FilterList.Item', () => {
+  it('has default theme', () => {
+    expect(FilterList.Item).toSetDefaultTheme()
+  })
+
   it('implements system props', () => {
     expect(FilterList.Item).toImplementSystemProps(COMMON)
   })

@@ -1,7 +1,8 @@
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import {styles as systemProps} from 'styled-system'
-import {getClasses, getClassName, getComputedStyles, render} from './testing'
+import theme from '../theme'
+import {getClasses, getClassName, getComputedStyles, render, mount} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
@@ -50,13 +51,12 @@ expect.extend({
     }
   },
 
-  toRenderStyles(node, expected) {
-    const result = render(node)
-    const className = getClassName(result)
-    const computed = getComputedStyles(className)
+  toSetDefaultTheme(Component) {
+    const wrapper = mount(<Component />);
+    const pass = this.equals(wrapper.prop('theme'), theme)
     return {
-      pass: this.equals(expected, computed),
-      message: () => `Computed styles mismatch: expected ${stringify(expected)}, but got ${stringify(computed)}`
+      pass,
+      message: () => 'default theme is not set'
     }
-  }
+  },
 })

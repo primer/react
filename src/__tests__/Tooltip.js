@@ -8,6 +8,10 @@ describe('Tooltip', () => {
     expect(Tooltip).toImplementSystemProps(COMMON)
   })
 
+  it('has default theme', () => {
+    expect(Tooltip).toSetDefaultTheme()
+  })
+
   it('renders a <span> with the "tooltipped" class', () => {
     expect(render(<Tooltip />).type).toEqual('span')
     expect(renderClasses(<Tooltip />)).toContain('tooltipped-n')

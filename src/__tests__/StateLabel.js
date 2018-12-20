@@ -14,6 +14,10 @@ describe('StateLabel', () => {
     expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
   })
 
+  it('has default theme', () => {
+    expect(StateLabel).toSetDefaultTheme()
+  })
+
   it('respects the small flag', () => {
     expect(render(<StateLabel small />)).toMatchSnapshot()
     expect(render(<StateLabel small={false} />)).toMatchSnapshot()

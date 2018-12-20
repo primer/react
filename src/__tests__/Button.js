@@ -11,6 +11,10 @@ describe('Button', () => {
     expect(render(<Button />).type).toEqual('button')
   })
 
+  it('has default theme', () => {
+    expect(Button).toSetDefaultTheme()
+  })
+
   it('respects the "is" prop', () => {
     expect(render(<Button is="a" />).type).toEqual('a')
   })

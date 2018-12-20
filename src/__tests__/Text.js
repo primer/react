@@ -14,6 +14,10 @@ describe('Text', () => {
     expect(Text).toImplementSystemProps(TYPOGRAPHY)
   })
 
+  it('has default theme', () => {
+    expect(Text).toSetDefaultTheme()
+  })
+
   it('respects the "is" prop', () => {
     expect(render(<Text is="b" />).type).toEqual('b')
   })

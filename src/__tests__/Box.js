@@ -14,6 +14,10 @@ describe('Box', () => {
     expect(render(<Box />)).toMatchSnapshot()
   })
 
+  it('has default theme', () => {
+    expect(Box).toSetDefaultTheme()
+  })
+
   it('renders margin', () => {
     expect(render(<Box m={1} theme={theme} />)).toMatchSnapshot()
     expect(render(<Box m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()

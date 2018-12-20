@@ -9,6 +9,10 @@ describe('Flex.Item', () => {
     expect(Flex.Item).toImplementSystemProps(COMMON)
   })
 
+  it('has default theme', () => {
+    expect(Flex.Item).toSetDefaultTheme()
+  })
+
   it('respects alignSelf', () => {
     expect(render(<Flex.Item alignSelf="center" />)).toMatchSnapshot()
   })

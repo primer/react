@@ -14,6 +14,10 @@ describe('Avatar', () => {
     expect(Avatar).toImplementSystemProps(space)
   })
 
+  it('has default theme', () => {
+    expect(Avatar).toSetDefaultTheme()
+  })
+
   it('renders small by default', () => {
     const size = 20
     const result = render(<Avatar alt="" />)

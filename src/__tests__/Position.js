@@ -10,6 +10,11 @@ describe('position components', () => {
       expect(Absolute).toImplementSystemProps(LAYOUT)
       expect(Absolute).toImplementSystemProps(POSITION)
     })
+
+    it('has default theme', () => {
+      expect(Absolute).toSetDefaultTheme()
+    })
+
     it('sets position: absolute', () => {
       expect(render(<Absolute />)).toHaveStyleRule('position', 'absolute')
     })
@@ -28,6 +33,9 @@ describe('position components', () => {
       expect(Fixed).toImplementSystemProps(LAYOUT)
       expect(Fixed).toImplementSystemProps(POSITION)
     })
+    it('has default theme', () => {
+      expect(Fixed).toSetDefaultTheme()
+    })
     it('sets position: fixed', () => {
       expect(render(<Fixed />)).toHaveStyleRule('position', 'fixed')
     })
@@ -45,6 +53,9 @@ describe('position components', () => {
     it('implements system props', () => {
       expect(Relative).toImplementSystemProps(LAYOUT)
       expect(Relative).toImplementSystemProps(POSITION)
+    })
+    it('has default theme', () => {
+      expect(Relative).toSetDefaultTheme()
     })
     it('sets position: relative', () => {
       expect(render(<Relative />)).toHaveStyleRule('position', 'relative')

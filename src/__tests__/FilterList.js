@@ -23,4 +23,8 @@ describe('FilterList', () => {
   it('respects the "small" prop', () => {
     expect(rendersClass(<FilterList small />, 'small')).toEqual(true)
   })
+
+  it('has default theme', () => {
+    expect(FilterList).toSetDefaultTheme()
+  })
 })

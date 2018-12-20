@@ -18,4 +18,8 @@ describe('Dropdown', () => {
   it('implements system props', () => {
     expect(Dropdown).toImplementSystemProps(COMMON)
   })
+
+  it('has default theme', () => {
+    expect(Dropdown).toSetDefaultTheme()
+  })
 })

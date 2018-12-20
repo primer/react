@@ -24,6 +24,10 @@ describe('Donut', () => {
     // expect(slice.props.fill).toEqual(colors.state.error)
   })
 
+  xit('has default theme', () => {
+    expect(Donut).toSetDefaultTheme()
+  })
+
   it('renders Donut.Slice children', () => {
     const donut = render(
       <Donut>
