@@ -15,7 +15,7 @@ Text.defaultProps = {
 Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   theme: PropTypes.object
 }
 
