@@ -1,8 +1,8 @@
+import React from 'react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
-import {styles as systemProps} from 'styled-system'
 import theme from '../theme'
-import {getClasses, getClassName, getComputedStyles, render, mount} from './testing'
+import {getClasses, mount} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
@@ -52,11 +52,11 @@ expect.extend({
   },
 
   toSetDefaultTheme(Component) {
-    const wrapper = mount(<Component />);
+    const wrapper = mount(<Component />)
     const pass = this.equals(wrapper.prop('theme'), theme)
     return {
       pass,
       message: () => 'default theme is not set'
     }
-  },
+  }
 })

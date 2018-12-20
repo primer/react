@@ -44,7 +44,7 @@ Label.propTypes = {
   dropshadow: PropTypes.bool,
   outline: PropTypes.bool,
   theme: PropTypes.object,
-  ...COMMON.propTypes,
+  ...COMMON.propTypes
 }
 
 export default Label
