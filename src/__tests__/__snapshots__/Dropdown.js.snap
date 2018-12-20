@@ -83,6 +83,7 @@ exports[`Dropdown matches the snapshots 1`] = `
             "bottom": "100%",
             "left": 8,
             "marginLeft": null,
+            "marginTop": "-1px",
             "pointerEvents": "none",
             "position": "absolute",
           }
@@ -193,6 +194,7 @@ exports[`Dropdown matches the snapshots 2`] = `
             "bottom": "100%",
             "left": 8,
             "marginLeft": null,
+            "marginTop": "-1px",
             "pointerEvents": "none",
             "position": "absolute",
           }
