@@ -1,4 +1,4 @@
-import {COMMON, LAYOUT, TYPOGRAPHY, FLEX_CONTAINER, FLEX_ITEM, POSITION} from '../../../src/system-props.js'
+import {COMMON, LAYOUT, TYPOGRAPHY, FLEX_CONTAINER, FLEX_ITEM, POSITION} from '../../../src/constants.js'
 import {PropsList} from '../../doc-components'
 
 # System Props
