@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@githubprimer/octicons-react'
 import theme, {colors} from './theme'
-import {withSystemProps, COMMON} from './system-props'
+import {COMMON} from './constants'
 import StyledOcticon from './StyledOcticon'
 
 const statusMap = {
@@ -23,7 +23,7 @@ const octiconMap = {
   pullMerged: GitMerge
 }
 
-function StateLabel({className, status, small = false, children}) {
+function StateLabelBase({className, status, small = false, children}) {
   const octiconProps = small ? {width: '1em'} : {}
   return (
     <span className={className}>
@@ -33,7 +33,7 @@ function StateLabel({className, status, small = false, children}) {
   )
 }
 
-const styledLabel = styled(StateLabel)`
+const StateLabel = styled(StateLabelBase)`
   display: inline-flex;
   align-items: center;
   padding: ${props => (props.small ? `0.125em ${theme.space[1]}px` : `${theme.space[1]}px ${theme.space[2]}px`)};
@@ -44,11 +44,18 @@ const styledLabel = styled(StateLabel)`
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
   border-radius: ${theme.radii[1]}px;
+  ${COMMON};
 `
+
+StateLabel.defaultProps = {
+  theme
+}
 
 StateLabel.propTypes = {
   small: PropTypes.bool,
-  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged'])
+  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']),
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(styledLabel, COMMON)
+export default StateLabel

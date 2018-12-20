@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
 
 injectGlobal(sass`
   @import "primer-alerts/index.scss";
@@ -15,15 +17,23 @@ const schemeMap = {
   yellow: 'warn'
 }
 
-function Flash({children, className, full, scheme}) {
+function FlashBase({children, className, full, scheme}) {
   const classes = classnames(className, 'flash', full && 'flash-full', scheme && `flash-${schemeMap[scheme]}`)
   return <div className={classes}>{children}</div>
+}
+
+const Flash = styled(FlashBase)(COMMON)
+
+Flash.defaultProps = {
+  theme
 }
 
 Flash.propTypes = {
   children: PropTypes.node,
   full: PropTypes.bool,
-  scheme: PropTypes.oneOf(Object.keys(schemeMap))
+  scheme: PropTypes.oneOf(Object.keys(schemeMap)),
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(Flash, COMMON)
+export default Flash

@@ -1,15 +1,15 @@
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
 import {mount, render, rendersClass} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('UnderlineNav', () => {
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(UnderlineNav).toImplementSystemProps(COMMON)
   })
 
-  it('is a system component', () => {
-    expect(UnderlineNav.systemComponent).toEqual(true)
+  it('has default theme', () => {
+    expect(UnderlineNav).toSetDefaultTheme()
   })
 
   it('renders a <nav>', () => {

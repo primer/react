@@ -2,14 +2,14 @@
 import React from 'react'
 import FilterList from '../FilterList'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('FilterList.Item', () => {
-  it('is a system component', () => {
-    expect(FilterList.Item.systemComponent).toEqual(true)
+  it('has default theme', () => {
+    expect(FilterList.Item).toSetDefaultTheme()
   })
 
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(FilterList.Item).toImplementSystemProps(COMMON)
   })
 

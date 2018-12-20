@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {style} from 'styled-system'
-import {withDefaultTheme} from './system-props'
+import theme from './theme'
 
 const oppositeEdge = {
   top: 'Bottom',
@@ -52,7 +52,8 @@ function Caret(props) {
     ...getPosition(edge, align, size),
     // if align is set (top|right|bottom|left),
     // then we don't need an offset margin
-    [`margin${perp}`]: align ? null : -size
+    [`margin${perp}`]: align ? null : -size,
+    marginTop: '-1px'
   }
 
   // note: these arrays represent points in the form [x, y]
@@ -103,7 +104,8 @@ Caret.defaultProps = {
   borderColor: 'gray.2',
   borderWidth: 1,
   location: 'bottom',
-  size: 2
+  size: 2,
+  theme
 }
 
 Caret.propTypes = {
@@ -119,4 +121,4 @@ Caret.propTypes = {
   /* eslint-enable */
 }
 
-export default withDefaultTheme(Caret)
+export default Caret

@@ -2,14 +2,18 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import sass from 'sass.macro'
-import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled, {createGlobalStyle} from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
+import {width} from 'styled-system'
 
-injectGlobal(sass`
-  @import "primer-buttons/index.scss";
-`)
+const GlobalStyles = createGlobalStyle`
+  ${sass`
+    @import "primer-buttons/index.scss";
+  `}
+`
 
-function Button({is: Tag, children, size, grouped, scheme, onClick, disabled, className, ...rest}) {
+function ButtonBase({is: Tag, children, theme, size, grouped, scheme, onClick, disabled, className, ...rest}) {
   const classes = classnames(
     className,
     'btn',
@@ -22,14 +26,22 @@ function Button({is: Tag, children, size, grouped, scheme, onClick, disabled, cl
   )
 
   return (
-    <Tag {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
-      {children}
-    </Tag>
+    <React.Fragment>
+      <GlobalStyles />
+      <Tag {...rest} type="button" disabled={disabled} onClick={disabled ? undefined : onClick} className={classes}>
+        {children}
+      </Tag>
+    </React.Fragment>
   )
 }
 
+const Button = styled(ButtonBase)`
+  ${COMMON} ${width};
+`
+
 Button.defaultProps = {
-  is: 'button'
+  is: 'button',
+  theme
 }
 
 Button.propTypes = {
@@ -39,7 +51,10 @@ Button.propTypes = {
   is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   onClick: PropTypes.func,
   scheme: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'large'])
+  size: PropTypes.oneOf(['sm', 'large']),
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...width.propTypes
 }
 
-export default withSystemProps(Button, [...COMMON, 'width'])
+export default Button

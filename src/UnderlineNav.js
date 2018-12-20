@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {injectGlobal} from 'emotion'
+import styled from 'styled-components'
 import sass from 'sass.macro'
-import {withSystemProps, COMMON} from './system-props'
+import {COMMON} from './constants'
+import theme from './theme'
 
 injectGlobal(sass`
   @import "primer-support/index.scss";
@@ -13,7 +15,7 @@ injectGlobal(sass`
 const ITEM_CLASS = 'UnderlineNav-item no-underline'
 const SELECTED_CLASS = 'selected'
 
-function UnderlineNav({actions, className, align, children, full, label}) {
+function UnderlineNavBase({actions, className, align, children, full, label}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
     <nav className={classes} aria-label={label}>
@@ -23,7 +25,7 @@ function UnderlineNav({actions, className, align, children, full, label}) {
   )
 }
 
-const UnderlineNavLink = ({className, selected, is: Tag, ...rest}) => {
+const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -33,23 +35,33 @@ const UnderlineNavLink = ({className, selected, is: Tag, ...rest}) => {
   return <Tag className={classes} {...rest} />
 }
 
+const UnderlineNav = styled(UnderlineNavBase)(COMMON)
+
+UnderlineNav.Link = styled(UnderlineNavLink)(COMMON)
+
+UnderlineNav.defaultProps = {
+  theme
+}
+
 UnderlineNav.propTypes = {
   actions: PropTypes.node,
   align: PropTypes.oneOf(['right']),
   children: PropTypes.node,
   full: PropTypes.bool,
-  label: PropTypes.string
+  label: PropTypes.string,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-UnderlineNavLink.defaultProps = {
+UnderlineNav.Link.defaultProps = {
+  theme,
   is: 'a'
 }
 
-UnderlineNavLink.propTypes = {
+UnderlineNav.Link.propTypes = {
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
+  ...COMMON.propTypes
 }
 
-UnderlineNav.Link = withSystemProps(UnderlineNavLink, COMMON)
-
-export default withSystemProps(UnderlineNav, COMMON)
+export default UnderlineNav

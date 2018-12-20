@@ -2,12 +2,9 @@
 import React from 'react'
 import Label from '../Label'
 import {render} from '../utils/testing'
+import {COMMON} from '../constants'
 
 describe('Label', () => {
-  it('is a system component', () => {
-    expect(Label.systemComponent).toEqual(true)
-  })
-
   it('renders a <span>', () => {
     expect(render(<Label />).type).toEqual('span')
   })
@@ -16,7 +13,11 @@ describe('Label', () => {
     expect(render(<Label outline />)).toMatchSnapshot()
   })
 
-  it('implements space system props', () => {
-    expect(Label).toImplementSystemProps(['space'])
+  it('has default theme', () => {
+    expect(Label).toSetDefaultTheme()
+  })
+
+  it('implements system props', () => {
+    expect(Label).toImplementSystemProps(COMMON)
   })
 })

@@ -4,12 +4,12 @@ import UnderlineNav from '../UnderlineNav'
 import {render} from '../utils/testing'
 
 describe('UnderlineNav.Link', () => {
-  it('is a system component', () => {
-    expect(UnderlineNav.Link.systemComponent).toEqual(true)
-  })
-
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNav.Link />).type).toEqual('a')
+  })
+
+  it('has default theme', () => {
+    expect(UnderlineNav.Link).toSetDefaultTheme()
   })
 
   it('renders the given "is" prop', () => {

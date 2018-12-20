@@ -1,105 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches the snapshots 1`] = `
-.emotion-3 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.emotion-3 > summary {
-  list-style: none;
-}
-
-.emotion-3 > summary::before {
-  display: none;
-}
-
-.emotion-3 > summary::-webkit-details-marker {
-  display: none;
-}
-
-.emotion-0 {
+.c2 {
   margin-left: 0px;
 }
 
-.emotion-2 {
-  position: absolute;
-  z-index: 99999;
+.c3 {
   background-color: #fff;
   margin-top: 4px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  position: absolute;
-  z-index: 99999;
   border: 1px solid;
   border-color: #e1e4e8;
-  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(27,31,35,0.1);
+  border-radius: 3px;
+}
+
+.c1 > summary {
+  list-style: none;
+}
+
+.c1 > summary::before {
+  display: none;
+}
+
+.c1 > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-1 BtnGroup"
+  className="BtnGroup"
 >
   <details
-    className="BtnGroup-form emotion-3"
+    className="BtnGroup-form c0 c1"
+    display="flex"
     open={false}
   >
     <summary
-      blacklist={
-        Array [
-          "css",
-          "color",
-          "bg",
-          "m",
-          "mt",
-          "mr",
-          "mb",
-          "ml",
-          "mx",
-          "my",
-          "p",
-          "pt",
-          "pr",
-          "pb",
-          "pl",
-          "px",
-          "py",
-          "width",
-        ]
-      }
-      className="emotion-1 btn BtnGroup-item"
+      className="btn BtnGroup-item"
       onClick={[Function]}
       type="button"
     >
       <svg
         aria-hidden="true"
-        className="emotion-0"
+        className="c2"
         height={14}
         role="img"
         style={
@@ -120,11 +73,7 @@ exports[`Dropdown matches the snapshots 1`] = `
       </svg>
     </summary>
     <div
-      bg="white"
-      className="emotion-2"
-      mt={1}
-      px={3}
-      py={2}
+      className="c3"
     >
       hi
       <svg
@@ -134,6 +83,7 @@ exports[`Dropdown matches the snapshots 1`] = `
             "bottom": "100%",
             "left": 8,
             "marginLeft": null,
+            "marginTop": "-1px",
             "pointerEvents": "none",
             "position": "absolute",
           }
@@ -161,106 +111,59 @@ exports[`Dropdown matches the snapshots 1`] = `
 `;
 
 exports[`Dropdown matches the snapshots 2`] = `
-.emotion-3 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c2 {
+  margin-left: 8px;
 }
 
-.emotion-3 > summary {
-  list-style: none;
-}
-
-.emotion-3 > summary::before {
-  display: none;
-}
-
-.emotion-3 > summary::-webkit-details-marker {
-  display: none;
-}
-
-.emotion-2 {
-  position: absolute;
-  z-index: 99999;
+.c3 {
   background-color: #fff;
   margin-top: 4px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  position: absolute;
-  z-index: 99999;
   border: 1px solid;
   border-color: #e1e4e8;
-  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(27,31,35,0.1);
+  border-radius: 3px;
 }
 
-.emotion-0 {
-  margin-left: 8px;
+.c1 > summary {
+  list-style: none;
+}
+
+.c1 > summary::before {
+  display: none;
+}
+
+.c1 > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-1 BtnGroup"
+  className="BtnGroup"
 >
   <details
-    className="BtnGroup-form emotion-3"
+    className="BtnGroup-form c0 c1"
+    display="flex"
     open={false}
   >
     <summary
-      blacklist={
-        Array [
-          "css",
-          "color",
-          "bg",
-          "m",
-          "mt",
-          "mr",
-          "mb",
-          "ml",
-          "mx",
-          "my",
-          "p",
-          "pt",
-          "pr",
-          "pb",
-          "pl",
-          "px",
-          "py",
-          "width",
-        ]
-      }
-      className="emotion-1 btn BtnGroup-item"
+      className="btn BtnGroup-item"
       onClick={[Function]}
       type="button"
     >
       hi
       <svg
         aria-hidden="true"
-        className="emotion-0"
+        className="c2"
         height={14}
         role="img"
         style={
@@ -281,11 +184,7 @@ exports[`Dropdown matches the snapshots 2`] = `
       </svg>
     </summary>
     <div
-      bg="white"
-      className="emotion-2"
-      mt={1}
-      px={3}
-      py={2}
+      className="c3"
     >
       hello!
       <svg
@@ -295,6 +194,7 @@ exports[`Dropdown matches the snapshots 2`] = `
             "bottom": "100%",
             "left": 8,
             "marginLeft": null,
+            "marginTop": "-1px",
             "pointerEvents": "none",
             "position": "absolute",
           }

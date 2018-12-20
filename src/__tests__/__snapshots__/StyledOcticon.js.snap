@@ -3,7 +3,7 @@
 exports[`StyledOcticon matches the snapshot 1`] = `
 <svg
   aria-hidden="true"
-  className="emotion-0"
+  className=""
   height={16}
   role="img"
   style={

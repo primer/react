@@ -1,15 +1,15 @@
 import React from 'react'
 import Flash from '../Flash'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flash', () => {
-  it('is a system component', () => {
-    expect(Flash.systemComponent).toEqual(true)
+  it('implements system props', () => {
+    expect(Flash).toImplementSystemProps(COMMON)
   })
 
-  it('implements common props', () => {
-    expect(Flash).toImplementSystemProps(COMMON)
+  it('has default theme', () => {
+    expect(Flash).toSetDefaultTheme()
   })
 
   it('renders a <div> with "Flash" class', () => {

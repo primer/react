@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import sass from 'sass.macro'
 import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON} from './constants'
+import theme from './theme'
 
 injectGlobal(sass`
   @import "primer-support/index.scss";
@@ -29,7 +31,7 @@ const sizeStyles = ({size}) => {
   }
 }
 
-const CircleBadge = ({is: Tag = 'div', children, className, ...rest}) => {
+const CircleBadgeBase = ({children, is: Tag, theme, className, ...rest}) => {
   const mappedChildren = React.Children.map(children, child => {
     let {className = ''} = child.props
     if (!className.includes(ICON_CLASS)) {
@@ -46,10 +48,21 @@ const CircleBadge = ({is: Tag = 'div', children, className, ...rest}) => {
   )
 }
 
+const CircleBadge = styled(CircleBadgeBase)`
+  ${COMMON} ${sizeStyles};
+`
+
+CircleBadge.defaultProps = {
+  theme,
+  is: 'div'
+}
+
 CircleBadge.propTypes = {
   bg: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number])
+  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(CircleBadge, [...COMMON, sizeStyles])
+export default CircleBadge

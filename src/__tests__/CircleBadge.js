@@ -2,18 +2,23 @@
 import React from 'react'
 import CircleBadge from '../CircleBadge'
 import {render, mount} from '../utils/testing'
+import {COMMON} from '../constants'
 
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  it('is a system component', () => {
-    expect(CircleBadge.systemComponent).toEqual(true)
-  })
-
   it('respects "is" prop', () => {
     const item = render(<CircleBadge is="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
+  })
+
+  it('has default theme', () => {
+    expect(CircleBadge).toSetDefaultTheme()
+  })
+
+  it('implements system props', () => {
+    expect(CircleBadge).toImplementSystemProps(COMMON)
   })
 
   it('applies title', () => {

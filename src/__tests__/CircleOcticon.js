@@ -5,14 +5,14 @@ import CircleOcticon from '../CircleOcticon'
 import {render} from '../utils/testing'
 
 describe('CircleOcticon', () => {
-  xit('is a system component', () => {
-    expect(CircleOcticon.systemComponent).toEqual(true)
-  })
-
   it('renders a <div> with width and height', () => {
     const result = render(<CircleOcticon icon={Check} size={10} />)
     expect(result).toHaveStyleRule('width', '10px')
     expect(result).toHaveStyleRule('height', '10px')
+  })
+
+  xit('has default theme', () => {
+    expect(CircleOcticon).toSetDefaultTheme()
   })
 
   it('renders {borderRadius: 50%}', () => {

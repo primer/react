@@ -1,10 +1,10 @@
-import {createMatchers, createSerializer} from 'jest-emotion'
-import * as emotion from 'emotion'
-import {styles as systemProps} from 'styled-system'
-import {getClasses, getClassName, getComputedStyles, render} from './testing'
+import React from 'react'
+import 'jest-styled-components'
+import {styleSheetSerializer} from 'jest-styled-components/serializer'
+import theme from '../theme'
+import {getClasses, mount} from './testing'
 
-expect.extend(createMatchers(emotion))
-expect.addSnapshotSerializer(createSerializer(emotion))
+expect.addSnapshotSerializer(styleSheetSerializer)
 
 const stringify = d => JSON.stringify(d, null, '  ')
 
@@ -43,11 +43,7 @@ expect.extend({
 
   toImplementSystemProps(Component, propNames) {
     const propKeys = new Set(Object.keys(Component.propTypes))
-    const expectedPropKeys = propNames.reduce((list, name) => {
-      const fn = typeof name === 'function' ? name : systemProps[name]
-      if (!fn) throw new Error(`"${name}" is not a system prop!!`)
-      return list.concat(Object.keys(fn.propTypes))
-    }, [])
+    const expectedPropKeys = Object.keys(propNames.propTypes)
     const missing = expectedPropKeys.filter(key => !propKeys.has(key)).filter(key => !ALIAS_PROP_TYPES.includes(key))
     return {
       pass: missing.length === 0,
@@ -55,13 +51,12 @@ expect.extend({
     }
   },
 
-  toRenderStyles(node, expected) {
-    const result = render(node)
-    const className = getClassName(result)
-    const computed = getComputedStyles(className)
+  toSetDefaultTheme(Component) {
+    const wrapper = mount(<Component />)
+    const pass = this.equals(wrapper.prop('theme'), theme)
     return {
-      pass: this.equals(expected, computed),
-      message: () => `Computed styles mismatch: expected ${stringify(expected)}, but got ${stringify(computed)}`
+      pass,
+      message: () => 'default theme is not set'
     }
   }
 })

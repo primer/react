@@ -1,14 +1,10 @@
 import React from 'react'
 import TextInput from '../TextInput'
 import {render, mount} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('TextInput', () => {
-  it('is a system component', () => {
-    expect(TextInput.systemComponent).toEqual(true)
-  })
-
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(TextInput).toImplementSystemProps(COMMON)
   })
 
@@ -18,6 +14,10 @@ describe('TextInput', () => {
 
   it('renders small', () => {
     expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
+  })
+
+  it('has default theme', () => {
+    expect(TextInput).toSetDefaultTheme()
   })
 
   it('renders large', () => {

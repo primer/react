@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import {themeGet} from 'styled-system'
 import Avatar from './Avatar'
-import {withSystemProps} from './system-props'
+import theme from './theme'
 
 const getBackgroundColor = themeGet('colors.white', '#fff')
 
@@ -25,9 +25,7 @@ const childStyles = props => ({
   backgroundColor: `${getBackgroundColor(props)}`
 })
 
-const ChildAvatar = styled(Avatar)`
-  ${childStyles};
-`
+const ChildAvatar = styled(Avatar)(childStyles)
 const AvatarPair = ({children, ...rest}) => {
   const avatars = React.Children.map(children, (child, i) => {
     return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar {...child.props} size={20} />
@@ -38,9 +36,11 @@ const AvatarPair = ({children, ...rest}) => {
 // styled() changes this
 AvatarPair.displayName = 'AvatarPair'
 
+AvatarPair.defaultProps = {theme}
 AvatarPair.propTypes = {
   children: PropTypes.instanceOf(Avatar),
-  ...Avatar.propTypes
+  ...Avatar.propTypes,
+  theme: PropTypes.object
 }
 
-export default withSystemProps(AvatarPair)
+export default AvatarPair

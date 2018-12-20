@@ -6,10 +6,6 @@ import {render} from '../utils/testing'
 const {state} = colors
 
 describe('Donut', () => {
-  it('is a system component', () => {
-    expect(Donut.systemComponent).toEqual(true)
-  })
-
   it('renders the data prop', () => {
     const donut = render(<Donut data={{error: 1}} />)
     expect(donut).toMatchSnapshot()
@@ -26,6 +22,10 @@ describe('Donut', () => {
     const [slice] = g.children
     expect(slice.type).toEqual('path')
     // expect(slice.props.fill).toEqual(colors.state.error)
+  })
+
+  xit('has default theme', () => {
+    expect(Donut).toSetDefaultTheme()
   })
 
   it('renders Donut.Slice children', () => {

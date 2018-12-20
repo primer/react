@@ -1,14 +1,10 @@
 import React from 'react'
 import FilterList from '../FilterList'
 import {render, rendersClass} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('FilterList', () => {
-  it('is a system component', () => {
-    expect(FilterList.systemComponent).toEqual(true)
-  })
-
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(FilterList).toImplementSystemProps(COMMON)
   })
 
@@ -26,5 +22,9 @@ describe('FilterList', () => {
 
   it('respects the "small" prop', () => {
     expect(rendersClass(<FilterList small />, 'small')).toEqual(true)
+  })
+
+  it('has default theme', () => {
+    expect(FilterList).toSetDefaultTheme()
   })
 })
