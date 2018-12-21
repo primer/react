@@ -63,7 +63,7 @@ Default values for system props can be set in `Component.defaultProps`.
 
 Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-system functions can be spread in the component's prop types declaration (see example below).
 
- ⚠️ Make sure to always set the default `theme` prop to our theme! This allows consumers of our components to access our theme values without a ThemeProvider.
+ ⚠️ **Make sure to always set the default `theme` prop to our theme! This allows consumers of our components to access our theme values without a ThemeProvider.**
 
 
 ```jsx
@@ -96,7 +96,6 @@ Categories of system props are exported from `src/constants.js`:
 * `POSITION` includes positioning props
 * `FLEX_CONTAINER` includes flexbox props for containers
 * `FLEX_ITEM` includes flexbox props for items in a flex container
-
 
 
 ## Writing documentation
