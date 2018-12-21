@@ -51,37 +51,45 @@ A code coverage report is included in the `npm test` output, and test coverage d
 
 ## Tools we use
 
-1. We use [emotion] to style our components, and [emotion-theming] as the theme provider.
+1. We use [styled-components] to style our components.
 2. We use style functions from [styled-system] whenever possible, and styled-systems' `style()` function to create new ones.
-3. We use [system-components] to reduce the amount of boilerplate needed to implement styled-system functions.
+
 
 ## Component patterns
 
-With a couple of exceptions, all components should be created by the `withSystemProps()` function from `src/system-props.js`. This function takes a "component-ish" value as its first argument, and an array of [system props](#system-props) as the second:
+With a couple of exceptions, all components should be created with the `styled` function from [styled-components] and should have the appropriate groups of system props attached.
+
+Default values for system props can be set in `Component.defaultProps`.
+
+Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-system functions can be spread in the component's prop types declaration (see example below).
+
+ ⚠️ Make sure to always set the default `theme` prop to our theme! This allows consumers of our components to access our theme values without a ThemeProvider.
+
 
 ```jsx
-import {withSystemProps, POSITION} from './system-props'
+import {TYPOGRAPHY, COMMON} from './constants'
+import theme from './theme'
 
-function Component(props) {
-  /* implementation */
+const Component = styled.div`
+  ${TYPOGRAPHY}
+  ${COMMON};
+`
+
+Component.defaultProps = {
+  theme, // make sure to always set the default theme!
+  m: 0,
+  fontSize: 5,
 }
 
-export default withSystemProps(Component, POSITION)
+Component.propTypes = {
+  ...COMMON.propTypes,
+  ...TYPOGRAPHY.propTypes
+}
 
-// equivalent:
-export default withSystemProps({is: Component}, POSITION)
-
-// with more default props:
-export default withSystemProps(
-  {
-    is: Component,
-    m: 2
-  },
-  POSITION
-)
+export default Component
 ```
 
-Categories of system props are exported from `src/system-props`:
+Categories of system props are exported from `src/constants.js`:
 
 * `COMMON` includes color and spacing (margin and padding) props
 * `TYPOGRAPHY` includes font family, font weight, and line-height props
@@ -89,87 +97,7 @@ Categories of system props are exported from `src/system-props`:
 * `FLEX_CONTAINER` includes flexbox props for containers
 * `FLEX_ITEM` includes flexbox props for items in a flex container
 
-### Components with only system props
 
-Components with only system props should be created by passing the default tag to `withSystemProps()`:
-
-```jsx
-import {withSystemProps, LAYOUT} from './system-props'
-
-const Block = withSystemProps('div', LAYOUT)
-```
-
-### Primer CSS components
-If you're just adding Primer CSS class names, you can pass the `className` prop to another component created with `withSystemProps()`, and it will be combined with any generated classes automatically:
-
-```jsx
-import Box from './Box'
-
-function FancyBox({flashing, ...rest}) {
-  return <Box className={flashing && 'Box--flashing'} {...rest} />
-}
-
-FancyBox.propTypes = {
-  flashing: PropTypes.bool,
-  // be sure to spread Box's prop-types
-  ...Box.propTypes
-}
-
-FancyBox.defaultProps = {
-  ...Box.defaultProps
-}
-
-// if you don't spread defaultProps from another system component,
-// you will need to wrap the export in withDefaultTheme()
-export default FancyBox
-```
-
-> **⚠️ If you use this pattern, passing the component to `withSystemProps()` should throw an error because system-components has an issue (_TODO: ref_) with calling the underlying component render function twice.**
-
-With the above pattern, it's possible to control whether users may pass additional class names to your component. If you want to allow this, the `className` prop should be listed in `propTypes` and combined with your own classes using the [classnames] function:
-
-```jsx
-import classnames from 'classnames'
-import Box from './Box'
-
-export default function FancyBox({flashing, className, ...rest}) {
-  const classes = classnames(className, flashing && 'Box--flashing')
-  return <Box className={classes} {...rest} />
-}
-
-FancyBox.propTypes = {
-  className: PropTypes.string,
-  flashing: PropTypes.bool,
-  ...Box.propTypes
-}
-```
-
-Alternatively, you can create the component from scratch using `withSystemProps()`, and pass it the same system props:
-
-```jsx
-import classnames from 'classnames'
-import {withSystemProps, LAYOUT, COMMON} from './system-props'
-
-function FancyBox({flashing, className, is: Tag, ...rest}) {
-  return (
-    <Tag
-      className={classnames(className, flashing && 'Box--flashing')}
-      {...rest}
-    />
-  )
-}
-
-FancyBox.propTypes = {
-  flashing: PropTypes.bool
-}
-
-export default withSystemProps(FancyBox, [...LAYOUT, ...COMMON])
-```
-
-In this case, you will need to deal explicitly with two props passed down from [emotion] and [system-components], respectively:
-
-  * `className`: You _must_ render this prop, otherwise **your component will not be styled.**
-  * `is`: This is what allows your component to render with arbitrary elements, and even other components. If you don't respect this prop, you should `delete Component.propTypes.is` to signal that it's not available.
 
 ## Writing documentation
 
@@ -204,12 +132,14 @@ This site is served as a subdirectory of [primer.style] using a [path alias](htt
 ## Glossary
 
 ### System props
-System props are style functions that provide on or more props, and can be passed directly the return value of [emotion]'s `styled()` function:
+System props are style functions that provide one or more props, and can be passed directly the return value of [styled-components]'s `styled()` function:
 
 ```jsx
-import {styled} from 'react-emotion'
+import {styled} from 'styled-components'
 import {space} from 'styled-system'
-const SpaceDiv = styled('div')(space)
+const SpaceDiv = styled.div`
+  ${space}
+`
 ```
 
 System props come with `propTypes` that can be mixed into your own with ES6 [spread syntax]:
@@ -222,8 +152,6 @@ SpaceDiv.propTypes = {
 ```
 
 [classnames]: https://www.npmjs.com/package/classnames
-[emotion]: https://emotion.sh/
-[emotion-theming]: https://github.com/emotion-js/emotion/tree/master/packages/emotion-theming
 [spread syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 [styled-system]: https://jxnblk.com/styled-system/getting-started
 [system-components]: https://jxnblk.com/styled-system/system-components
