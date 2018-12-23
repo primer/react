@@ -5,6 +5,14 @@ import {COMMON, Base} from './constants'
 import theme from './theme'
 import {width, themeGet} from 'styled-system'
 
+function fontSize({size = '14px'}) {
+  return {
+    fontSize:
+      size === 'sm' ? `${themeGet('fontSizes.0', theme.fontSizes[0])}px` :
+      size === 'large' ? `${themeGet('fontSizes.2', theme.fontSizes[2])}px` : size
+  }
+}
+
 
 const Button = styled(Base)`
   position: relative;
@@ -13,7 +21,6 @@ const Button = styled(Base)`
   color: rgb(36, 41, 46);
   background-color: rgb(239, 243, 246);
   background-image: linear-gradient(-180deg, rgb(250, 251, 252) 0%, rgb(239, 243, 246) 90%);
-  font-size: ${themeGet('fontSizes.1', theme.fontSizes[1])}px;
   font-weight: ${themeGet('fontWeights.bold', theme.fontWeights.bold)};
   line-height: 20px;
   white-space: nowrap;
@@ -26,8 +33,9 @@ const Button = styled(Base)`
   border: 1px solid rgba(27, 31, 35, 0.2);
   border-radius: 0.25em;
   appearance: none;
-  ${COMMON}
-  ${width}
+  ${fontSize};
+  ${COMMON};
+  ${width};
 
   &:hover {
     background-color: rgb(230, 235, 241);
