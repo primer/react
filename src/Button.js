@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {darken, desaturate, transparentize} from 'polished'
 import {COMMON, Base} from './constants'
-import theme, {colors} from './theme'
+import baseTheme, {colors} from './theme'
 import {width, themeGet} from 'styled-system'
 
 function fontSize({size = '14px'}) {
@@ -14,11 +14,11 @@ function fontSize({size = '14px'}) {
   }
 }
 
-const Button = styled(Base)((props) => {
-  const color = props.theme.colors.gray[9]
-  const bg = props.theme.colors.gray[0]
-  const bg2 = darken(0.02, props.theme.colors.gray[1])
-  const black = props.theme.colors.black
+const Button = styled(Base)(({theme}) => {
+  const color = theme.colors.gray[9]
+  const bg = theme.colors.gray[0]
+  const bg2 = darken(0.02, theme.colors.gray[1])
+  const black = theme.colors.black
 
   return `
     position: relative;
@@ -48,7 +48,7 @@ const Button = styled(Base)((props) => {
       background-color: ${theme.colors.button.hoverBg};
       background-image: linear-gradient(-180deg, ${darken(0.03, bg)} 0%, ${darken(0.03, bg2)} 90%);
       background-position: -0.5em center;
-      border-color: ${theme.colors.button.border};
+      border-color: ${theme.colors.blackfade35};
       text-decoration: none;
       background-repeat: repeat-x;
     }
@@ -56,14 +56,14 @@ const Button = styled(Base)((props) => {
     &:active {
       background-color: ${theme.colors.button.activeBg};
       background-image: none;
-      box-shadow: rgba(27, 31, 35, 0.15) 0px 0.15em 0.3em inset; //$btn-active-shadow;
+      box-shadow: ${theme.colors.blackfade15} 0px 0.15em 0.3em inset; //$btn-active-shadow;
       border-color: ${theme.colors.button.border} //convert black to rbg here
     }
 
     &:selected {
       background-color: ${theme.colors.button.activeBg};
       background-image: none;
-      box-shadow: rgba(27, 31, 35, 0.15) 0px 0.15em 0.3em inset; //$btn-active-shadow;
+      box-shadow: ${theme.colors.blackfade15} 0px 0.15em 0.3em inset; //$btn-active-shadow;
       border-color: ${theme.colors.button.border};
     }
 
@@ -71,19 +71,19 @@ const Button = styled(Base)((props) => {
       color: ${theme.colors.button.disabledColor};
       background-color: ${bg2};
       background-image: none;
-      border-color: ${theme.colors.button.disabledBorder}
+      border-color: ${theme.colors.blackfade20}
       box-shadow: none;
     }
 
     &:focus {
       outline: none;
-      box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em;
+      box-shadow: ${theme.colors.button.focusShadow} 0px 0px 0px 0.2em;
     }`
 })
 
 Button.defaultProps = {
   is: 'button',
-  theme
+  theme: baseTheme
 }
 
 Button.propTypes = {

@@ -14,6 +14,8 @@ const colors = {
   yellow,
   blackfade15: 'rgba(27, 31, 35, 0.15)',
   blackfade20: 'rgba(27, 31, 35, 0.20)',
+  blackfade35: 'rgba(27, 31, 35, 0.35)',
+  blackfade50: 'rgba(27, 31, 35, 0.5)',
   whitefade15: 'rgba(255, 255, 255, 0.15)',
   state: {
     error: red[5],
@@ -24,11 +26,12 @@ const colors = {
     unknown: gray[4]
   },
   button: {
-    disabledBorder: 'rgba(27, 31, 35, 0.2)',
     disabledColor: 'rgba(36, 41, 46, 0.4)',
+    focusShadow: 'rgba(3, 102, 214, 0.3)',
     activeBg: 'rgb(233, 236, 239)',
-    border: 'rgba(27, 31, 35, 0.35)',
-    hoverBg: 'rgb(230, 235, 241)'
+    hoverBg: 'rgb(230, 235, 241)',
+    dangerActiveBg: 'rgb(181, 32, 44)',
+    dangerFocusShadow: 'rgba(203, 36, 49, 0.4)'
   }
 }
 

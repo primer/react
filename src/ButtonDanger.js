@@ -1,30 +1,46 @@
 import React from 'react'
 import styled from 'styled-components'
+import {darken, lighten} from 'polished'
 import Button from './Button'
 
-const ButtonDanger = styled(Button)`
-  color: rgb(203, 36, 49);
-  background-color: rgb(250, 251, 252);
-  background-image: linear-gradient(-180deg, rgb(250, 251, 252) 0%, rgb(239, 243, 246) 90%);
+const ButtonDanger = styled(Button)(({theme}) => {
+  const color = theme.colors.red[6]
+  const bg = theme.colors.gray[0]
+  const bg2 = darken(0.02, theme.colors.gray[1])
+  const black = theme.colors.black
+  const light10 = lighten(.1, color)
+  return `
+    color: ${color}
+    background-color: ${bg}
+    background-image: linear-gradient(-180deg, ${bg} 0%, ${bg2} 90%);
 
-  &:hover {
-    color: rgb(255, 255, 255);
-    background-color: rgb(203, 36, 49);
-    background-image: linear-gradient(-180deg, rgb(222, 68, 80) 0%, rgb(203, 36, 49) 90%);
-    border-color: rgba(27, 31, 35, 0.5);
-  }
+    &:hover {
+      color: ${theme.colors.white};
+      background-color: ${color};
+      background-image: linear-gradient(-180deg, ${light10} 0%, ${color} 90%);
+      border-color: ${theme.colors.blackfade50};
+    }
 
-  &:focus {
-    box-shadow: rgba(203, 36, 49, 0.4) 0px 0px 0px 0.2em;
-  }
+    &:focus {
+      box-shadow: ${theme.colors.button.dangerFocusShadow} 0px 0px 0px 0.2em;
+    }
 
-  &:active {
-    color: rgb(255, 255, 255);
-    background-color: rgb(181, 32, 44);
-    background-image: none;
-    box-shadow: rgba(27, 31, 35, 0.15) 0px 0.15em 0.3em inset;
-    border-color: rgba(27, 31, 35, 0.5);
-  }
-`
+    &:active {
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.button.dangerActiveBg};
+      background-image: none;
+      box-shadow: ${theme.colors.blackfade15} 0px 0.15em 0.3em inset;
+      border-color: ${theme.colors.blackfade50};
+    }
+
+    &:selected {
+      color: ${theme.colors.white}
+      background-color: ${theme.colors.button.dangerActiveBg};
+      background-image: none;
+      box-shadow: ${theme.colors.blackfade15} 0px 0.15em 0.3em inset;
+      border-color: ${theme.colors.blackfade50};
+    }
+  `
+})
 
 export default ButtonDanger
