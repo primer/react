@@ -14,8 +14,6 @@ function fontSize({size = '14px'}) {
   }
 }
 
-
-
 const Button = styled(Base)((props) => {
   const color = props.theme.colors.gray[9]
   const bg = props.theme.colors.gray[0]
@@ -47,33 +45,33 @@ const Button = styled(Base)((props) => {
     ${width};
 
     &:hover {
-      background-color: ${darken(0.03, bg2)};
+      background-color: ${theme.colors.button.hoverBg};
       background-image: linear-gradient(-180deg, ${darken(0.03, bg)} 0%, ${darken(0.03, bg2)} 90%);
       background-position: -0.5em center;
-      border-color: rgba(27, 31, 35, 0.35);
+      border-color: ${theme.colors.button.border};
       text-decoration: none;
       background-repeat: repeat-x;
     }
 
     &:active {
-      background-color: ${darken(0.06, desaturate(0.1, bg))};
+      background-color: ${theme.colors.button.activeBg};
       background-image: none;
       box-shadow: rgba(27, 31, 35, 0.15) 0px 0.15em 0.3em inset; //$btn-active-shadow;
-      border-color: rgba(27, 31, 35, 0.35); //convert black to rbg here
+      border-color: ${theme.colors.button.border} //convert black to rbg here
     }
 
     &:selected {
-      background-color: ${darken(0.06, desaturate(0.1, bg))};
+      background-color: ${theme.colors.button.activeBg};
       background-image: none;
       box-shadow: rgba(27, 31, 35, 0.15) 0px 0.15em 0.3em inset; //$btn-active-shadow;
-      border-color: rgba(27, 31, 35, 0.35); //convert black to rbg here
+      border-color: ${theme.colors.button.border};
     }
 
     &:disabled {
-      color: rgba(${color}, 0.4);
+      color: ${theme.colors.button.disabledColor};
       background-color: ${bg2};
       background-image: none;
-      border-color: ${transparentize(0.8, black)}
+      border-color: ${theme.colors.button.disabledBorder}
       box-shadow: none;
     }
 

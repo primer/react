@@ -22,6 +22,13 @@ const colors = {
     queued: yellow[7],
     success: green[5],
     unknown: gray[4]
+  },
+  button: {
+    disabledBorder: 'rgba(27, 31, 35, 0.2)',
+    disabledColor: 'rgba(36, 41, 46, 0.4)',
+    activeBg: 'rgb(233, 236, 239)',
+    border: 'rgba(27, 31, 35, 0.35)',
+    hoverBg: 'rgb(230, 235, 241)'
   }
 }
 
