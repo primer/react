@@ -27,6 +27,8 @@ const colors = {
   },
   button: {
     disabledColor: 'rgba(36, 41, 46, 0.4)',
+    bg2: 'rgb(239, 243, 246)',
+    border: 'rgba(27, 31, 35, 0.2)',
     focusShadow: 'rgba(3, 102, 214, 0.3)',
     activeBg: 'rgb(233, 236, 239)',
     hoverBg: 'rgb(230, 235, 241)',
