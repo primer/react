@@ -33,7 +33,8 @@ const colors = {
     activeBg: 'rgb(233, 236, 239)',
     hoverBg: 'rgb(230, 235, 241)',
     dangerActiveBg: 'rgb(181, 32, 44)',
-    dangerFocusShadow: 'rgba(203, 36, 49, 0.4)'
+    dangerFocusShadow: 'rgba(203, 36, 49, 0.4)',
+    dangerBgImage: 'rgb(222, 68, 80)'
   }
 }
 

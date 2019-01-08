@@ -2,45 +2,42 @@ import React from 'react'
 import styled from 'styled-components'
 import {darken, lighten} from 'polished'
 import Button from './Button'
+import {get} from './constants'
+import baseTheme, {colors} from './theme'
+import {themeGet} from 'styled-system'
 
-const ButtonDanger = styled(Button)(({theme}) => {
-  const color = theme.colors.red[6]
-  const bg = theme.colors.gray[0]
-  const bg2 = darken(0.02, theme.colors.gray[1])
-  const black = theme.colors.black
-  const light10 = lighten(.1, color)
-  return `
-    color: ${color}
-    background-color: ${bg}
-    background-image: linear-gradient(-180deg, ${bg} 0%, ${bg2} 90%);
 
-    &:hover {
-      color: ${theme.colors.white};
-      background-color: ${color};
-      background-image: linear-gradient(-180deg, ${light10} 0%, ${color} 90%);
-      border-color: ${theme.colors.blackfade50};
-    }
+const ButtonDanger = styled(Button)`
+  color: ${get('colors.red.6')}
+  background-color: ${get('colors.gray.0')}
+  background-image: linear-gradient(-180deg, ${get('colors.gray.0')} 0%, ${get('colors.button.bg2')} 90%);
 
-    &:focus {
-      box-shadow: ${theme.colors.button.dangerFocusShadow} 0px 0px 0px 0.2em;
-    }
+  &:hover {
+    color: ${get('colors.white')};
+    background-color: ${get('colors.red.6')};
+    background-image: linear-gradient(-180deg, ${get('colors.button.dangerBgImage')} 0%, ${get('colors.red.6')} 90%);
+    border-color: ${get('colors.blackfade50')};
+  }
 
-    &:active {
-      color: ${theme.colors.white};
-      background-color: ${theme.colors.button.dangerActiveBg};
-      background-image: none;
-      box-shadow: ${theme.colors.blackfade15} 0px 0.15em 0.3em inset;
-      border-color: ${theme.colors.blackfade50};
-    }
+  &:focus {
+    box-shadow: ${get('colors.button.dangerFocusShadow')} 0px 0px 0px 0.2em;
+  }
 
-    &:selected {
-      color: ${theme.colors.white}
-      background-color: ${theme.colors.button.dangerActiveBg};
-      background-image: none;
-      box-shadow: ${theme.colors.blackfade15} 0px 0.15em 0.3em inset;
-      border-color: ${theme.colors.blackfade50};
-    }
-  `
-})
+  &:active {
+    color: ${get('colors.white')};
+    background-color: ${get('colors.button.dangerActiveBg')};
+    background-image: none;
+    box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;
+    border-color: ${get('colors.blackfade50')};
+  }
+
+  &:selected {
+    color: ${get('colors.white')}
+    background-color: ${get('colors.button.dangerActiveBg')};
+    background-image: none;
+    box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;
+    border-color: ${get('colors.blackfade50')};
+  }
+`
 
 export default ButtonDanger
