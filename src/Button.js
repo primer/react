@@ -7,11 +7,11 @@ import baseTheme, {colors} from './theme'
 import {width} from 'styled-system'
 
 
-function fontSize({size = '14px'}) {
+function fontSize({size = '14px', ...props}) {
   return {
-    fontSize:
-      size === 'sm' ? `${get('fontSizes.0')}px` :
-      size === 'large' ? `${get('fontSizes.2')}px` : size
+    fontSize: size === 'sm' ? `${get('fontSizes.0')(props)}px` :
+              size === 'large' ? `${get('fontSizes.2')(props)}px` :
+              size
   }
 }
 

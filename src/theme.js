@@ -46,6 +46,9 @@ const colors = {
     primaryActiveBg: 'rgb(39, 159, 67)',
     primaryActiveShadow: 'rgba(27, 31, 35, 0.15)',
     primaryFocusShadow: 'rgba(52, 208, 88, 0.4)'
+  },
+  counter: {
+    bg: 'rgba(27, 31, 35, 0.08)'
   }
 }
 
