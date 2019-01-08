@@ -34,7 +34,18 @@ const colors = {
     hoverBg: 'rgb(230, 235, 241)',
     dangerActiveBg: 'rgb(181, 32, 44)',
     dangerFocusShadow: 'rgba(203, 36, 49, 0.4)',
-    dangerBgImage: 'rgb(222, 68, 80)'
+    dangerHoverBgImage: 'rgb(222, 68, 80)',
+    white: 'rgb(255, 255, 255)',
+    outlineBlue: 'rgb(3, 102, 214)',
+    outlineShadow: 'rgba(3, 102, 214, 0.4)',
+    primaryBg: 'rgb(40, 167, 69)',
+    primaryBgImage: 'rgb(52, 208, 88)',
+    primaryHoverBg: 'rgb(38, 159, 66)',
+    primaryHoverBgImage: 'rgb(47, 203, 83)',
+    primaryBorder: 'rgba(27, 31, 35, 0.5)',
+    primaryActiveBg: 'rgb(39, 159, 67)',
+    primaryActiveShadow: 'rgba(27, 31, 35, 0.15)',
+    primaryFocusShadow: 'rgba(52, 208, 88, 0.4)'
   }
 }
 

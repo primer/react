@@ -15,7 +15,7 @@ const ButtonDanger = styled(Button)`
   &:hover {
     color: ${get('colors.white')};
     background-color: ${get('colors.red.6')};
-    background-image: linear-gradient(-180deg, ${get('colors.button.dangerBgImage')} 0%, ${get('colors.red.6')} 90%);
+    background-image: linear-gradient(-180deg, ${get('colors.button.dangerHoverBgImage')} 0%, ${get('colors.red.6')} 90%);
     border-color: ${get('colors.blackfade50')};
   }
 

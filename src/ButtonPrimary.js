@@ -1,24 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
+import {get} from './constants'
 
 const ButtonPrimary = styled(Button)`
-  color: rgb(255, 255, 255);
-  background-color: rgb(40, 167, 69);
-  background-image: linear-gradient(-180deg, rgb(52, 208, 88) 0%, rgb(40, 167, 69) 90%);
+  color: ${get('colors.button.white')};
+  background-color: ${get('colors.button.primaryBg')};
+  background-image: linear-gradient(-180deg, ${get('colors.button.primaryBgImage')} 0%, ${get('colors.button.primaryBg')} 90%);
 
   &:hover {
-    background-color: rgb(38, 159, 66);
-    background-image: linear-gradient(-180deg, rgb(47, 203, 83) 0%, rgb(38, 159, 66) 90%);
+    background-color: ${get('colors.button.primaryHoverBg')};
+    background-image: linear-gradient(-180deg, ${get('colors.button.primaryHoverBgImage')} 0%, ${get('colors.button.primaryHoverBg')} 90%);
     background-position: -0.5em center;
-    border-color: rgba(27, 31, 35, 0.5);
+    border-color: ${get('colors.button.primaryBorder')};
   }
 
   &:active {
-    background-color: rgb(39, 159, 67);
+    background-color: ${get('colors.button.primaryActiveBg')};
     background-image: none;
-    box-shadow: rgba(27, 31, 35, 0.15) 0px 0.15em 0.3em inset;
-    border-color: rgba(27, 31, 35, 0.5);
+    box-shadow: ${get('colors.button.primaryActiveShadow')} 0px 0.15em 0.3em inset;
+    border-color: ${get('colors.button.primaryBorder')};
   }
 
   &:focus {
