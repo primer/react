@@ -1,56 +1,58 @@
 import React from 'react'
 import nanoid from 'nanoid'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import sass from 'sass.macro'
-import {injectGlobal} from 'emotion'
 import styled from 'styled-components'
-import {COMMON} from './constants'
+import {COMMON, get} from './constants'
 import theme from './theme'
 
-injectGlobal(sass`
-  @import "primer-support/index.scss";
-  @import "primer-navigation/lib/filter-list.scss";
-`)
+const Count = ({count, ...rest}) => <span {...rest} title="results">{count}</span>
+const StyledCount = styled(Count)`
+  float: right;
+  font-weight: ${get('fontWeights.bold')};
+`
 
-const ITEM_CLASS = 'filter-item'
-const SELECTED_CLASS = 'selected'
+function ItemBase({children, count, theme, is: Tag, ...rest}) {
+  return (
+    <a key={nanoid()} {...rest}>
+      {count && <StyledCount count={count}/>}
+      {children}
+    </a>
+  )
+}
 
-function FilterListBase({children, className, small}) {
-  const classes = classnames(className, 'filter-list', small && 'small')
+const Item = styled(ItemBase)`
+  position: relative;
+  display: block;
+  padding: ${get('space.2')}px 10px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  font-size: ${get('fontSizes.1')}px;
+  color: ${props => props.selected ? get('colors.white') : get('colors.gray.6')};
+  background-color: ${props => props.selected ? get('colors.blue.5') : ''}!important;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: ${get('radii.1')}px;
+  &:hover {
+    text-decoration: none;
+    background-color: ${get('colors.filterList.hoverBg')};
+  }
+  ${COMMON};
+`
 
+const FilterListBase = ({children, theme, ...rest}) => {
   const items = React.Children.map(children, child => {
     return <li>{child}</li>
   })
 
-  return <ul className={classes}>{items}</ul>
+  return <ul {...rest}>{items}</ul>
 }
 
-function getCountComponent(count) {
-  return (
-    <span className="count" title="results">
-      {count}
-    </span>
-  )
-}
-
-function ItemBase({children, className, count, selected, theme, is: Tag, ...rest}) {
-  const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
-
-  if (typeof rest.to === 'string') {
-    rest.activeClassName = SELECTED_CLASS
-  }
-
-  return (
-    <Tag className={classes} key={nanoid()} {...rest}>
-      {count && getCountComponent(count)}
-      {children}
-    </Tag>
-  )
-}
-
-const FilterList = styled(FilterListBase)(COMMON)
-FilterList.Item = styled(ItemBase)(COMMON)
+const FilterList = styled(FilterListBase)`
+  list-style-type: none;
+  ${COMMON}
+`
 
 FilterList.defaultProps = {
   theme,
@@ -63,6 +65,8 @@ FilterList.propTypes = {
   small: PropTypes.bool,
   ...COMMON.propTypes
 }
+
+FilterList.Item = Item
 
 FilterList.Item.defaultProps = {
   theme,

@@ -49,6 +49,9 @@ const colors = {
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
+  },
+  filterList: {
+    hoverBg: '#eaecef'
   }
 }
 
