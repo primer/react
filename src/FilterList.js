@@ -5,16 +5,10 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
-const Count = ({count, ...rest}) => <span {...rest} title="results">{count}</span>
-const StyledCount = styled(Count)`
-  float: right;
-  font-weight: ${get('fontWeights.bold')};
-`
-
 function ItemBase({children, count, theme, is: Tag, ...rest}) {
   return (
     <a key={nanoid()} {...rest}>
-      {count && <StyledCount count={count}/>}
+      {count && <span title="results" className='count'>{count}</span>}
       {children}
     </a>
   )
@@ -41,6 +35,10 @@ const Item = styled(ItemBase)`
   &:active {
     color: ${get('colors.white')};
     background-color: ${get('colors.blue.5')};
+  }
+  .count {
+    float: right;
+    font-weight: ${get('fontWeights.bold')};
   }
   ${COMMON}:
 `
