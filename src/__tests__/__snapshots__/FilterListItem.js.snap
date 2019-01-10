@@ -29,6 +29,11 @@ exports[`FilterList.Item renders the given "is" prop 1`] = `
   background-color: #0366d6;
 }
 
+.c0 .count {
+  float: right;
+  font-weight: 600;
+}
+
 <a
   className="c0"
 />
@@ -61,6 +66,11 @@ exports[`FilterList.Item respects the "selected" prop 1`] = `
 .c0:active {
   color: #fff;
   background-color: #0366d6;
+}
+
+.c0 .count {
+  float: right;
+  font-weight: 600;
 }
 
 <a
