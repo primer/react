@@ -23,8 +23,8 @@ function ItemBase({children, count, theme, is: Tag, ...rest}) {
 const Item = styled(ItemBase)`
   position: relative;
   display: block;
-  padding: ${get('space.2')}px 10px;
-  margin-bottom: 5px;
+  padding: ${props => props.small ? `${get('space.1')(props)}px 10px` : `${get('space.2')(props)}px 11px`};
+  margin: ${props => props.small ? '0 0 2px' : '0 0 5px 0'};
   overflow: hidden;
   font-size: ${get('fontSizes.1')}px;
   color: ${props => props.selected ? get('colors.white') : get('colors.gray.6')};
@@ -38,7 +38,11 @@ const Item = styled(ItemBase)`
     text-decoration: none;
     background-color: ${get('colors.filterList.hoverBg')};
   }
-  ${COMMON};
+  &:active {
+    color: ${get('colors.white')};
+    background-color: ${get('colors.blue.5')};
+  }
+  ${COMMON}:
 `
 
 const FilterListBase = ({children, theme, ...rest}) => {
