@@ -20,6 +20,7 @@ const Flash = styled.div`
   border-style: solid;
   border-width: ${props => props.full ? '1px 0px' : '1px'};
   border-radius: ${props => props.full ? '0' : '3px'};
+  margin-top: ${props => props.full ? '-1px' : '0'};
 
   p:last-child {
     margin-bottom: 0;

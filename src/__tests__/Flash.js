@@ -1,6 +1,7 @@
 import React from 'react'
 import Flash from '../Flash'
 import {COMMON} from '../constants'
+import theme, {colors} from '../theme'
 import {render} from '../utils/testing'
 
 describe('Flash', () => {
@@ -12,19 +13,15 @@ describe('Flash', () => {
     expect(Flash).toSetDefaultTheme()
   })
 
-  it('renders a <div> with "Flash" class', () => {
-    const rendered = render(<Flash />)
-    expect(rendered.type).toEqual('div')
-    expect(rendered).toHaveClass('flash')
-  })
-
   it('respects the "full" prop', () => {
-    expect(render(<Flash full />)).toHaveClasses(['flash', 'flash-full'])
+    expect(render(<Flash full />)).toHaveStyleRule('margin-top', '-1px')
+    expect(render(<Flash full />)).toHaveStyleRule('border-radius', '0')
+    expect(render(<Flash full />)).toHaveStyleRule('border-width', '1px 0px')
   })
 
   it('respects the "scheme" prop', () => {
-    expect(render(<Flash scheme="yellow" />)).toHaveClasses(['flash', 'flash-warn'])
-    expect(render(<Flash scheme="red" />)).toHaveClasses(['flash', 'flash-error'])
-    expect(render(<Flash scheme="green" />)).toHaveClasses(['flash', 'flash-success'])
+    expect(render(<Flash scheme="yellow" theme={theme}/>)).toHaveStyleRule('color', colors.yellow[9])
+    expect(render(<Flash scheme="red" theme={theme} />)).toHaveStyleRule('color', colors.red[9])
+    expect(render(<Flash scheme="green" theme={theme} />)).toHaveStyleRule('color', colors.green[8])
   })
 })
