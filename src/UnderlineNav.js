@@ -1,18 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {injectGlobal} from 'emotion'
 import styled from 'styled-components'
-import sass from 'sass.macro'
-import {COMMON} from './constants'
+import {COMMON, get} from './constants'
 import theme from './theme'
 
-injectGlobal(sass`
-  @import "primer-support/index.scss";
-  @import "primer-navigation/lib/underline-nav.scss";
-`)
-
-const ITEM_CLASS = 'UnderlineNav-item no-underline'
+const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
 function UnderlineNavBase({actions, className, align, children, full, label}) {
@@ -35,9 +28,70 @@ const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
   return <Tag className={classes} {...rest} />
 }
 
-const UnderlineNav = styled(UnderlineNavBase)(COMMON)
+const UnderlineNav = styled(UnderlineNavBase)`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid ${get('colors.gray.2')};
+  &.UnderlineNav--right {
+    justify-content: flex-end;
 
-UnderlineNav.Link = styled(UnderlineNavLink)(COMMON)
+    .UnderlineNav-item {
+      margin-right: 0;
+      margin-left: ${get('space.3')}px;
+    }
+
+    .UnderlineNav-actions {
+      flex: 1 1 auto;
+    }
+  }
+  &.UnderlineNav--full {
+    display: block;
+  }
+
+  .UnderlineNav-body {
+    display: flex;
+    margin-bottom: -1px;
+  }
+
+  .UnderlineNav-actions {
+    align-self: center;
+  }
+
+  ${COMMON}
+`
+
+UnderlineNav.Link = styled(UnderlineNavLink)`
+  padding: ${get('space.3')}px ${get('space.2')}px;
+  margin-right: ${get('space.3')}px;
+  font-size: ${get('fontSizes.1')}px;
+  line-height: ${get('lineHeights.default')};
+  color: ${get('colors.gray.6')};
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+  color: ${get('colors.gray.9')};
+  text-decoration: none;
+  border-bottom-color: ${get('colors.gray.3')};
+  transition: 0.2s ease;
+
+    .UnderlineNav-octicon {
+      color: ${get('colors.gray.5')};
+    }
+  }
+
+  &.selected {
+  font-weight: ${get('fontWeights.bold')};
+  color: ${get('colors.gray.9')};
+  border-bottom-color: ${get('colors.orange.6')};
+
+    .UnderlineNav-octicon {
+      color: ${get('colors.gray.5')};
+    }
+  }
+`
 
 UnderlineNav.defaultProps = {
   theme
