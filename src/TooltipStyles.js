@@ -1,36 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import styled from 'styled-components'
-import {COMMON, get} from './constants'
-import tooltipStyles from './TooltipStyles'
-import theme from './theme'
+import {get} from './constants'
+import {css} from 'styled-components'
 
-
-function TooltipBase({direction, children, className, text, noDelay, align, wrap}) {
-  const classes = classnames(
-    className,
-    `tooltipped-${direction}`,
-    align && `tooltipped-align-${align}-2`,
-    noDelay && 'tooltipped-no-delay',
-    wrap && 'tooltipped-multiline'
-  )
-  return (
-    <span aria-label={text} className={classes}>
-      {children}
-    </span>
-  )
-}
-
-const Tooltip = styled(TooltipBase)`
+export const tooltipStyles = css`
   position: relative;
 
   &::before {
     position: absolute;
     z-index: 1000001;
     display: none;
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     color: ${get('colors.black')};
     pointer-events: none;
     content: "";
@@ -43,7 +22,7 @@ const Tooltip = styled(TooltipBase)`
     z-index: 1000000;
     display: none;
     padding: 0.5em 0.75em;
-    font: normal normal 11px/1.5 ${get('fonts.normal')};
+    font: normal normal 11px;
     -webkit-font-smoothing: subpixel-antialiased;
     color: ${get('colors.white')};
     text-align: center;
@@ -86,27 +65,27 @@ const Tooltip = styled(TooltipBase)`
     }
   }
 
-  &.tooltipped-no-delay:hover,
-  &.tooltipped-no-delay:active,
-  &.tooltipped-no-delay:focus {
+  .tooltipped-no-delay:hover,
+  .tooltipped-no-delay:active,
+  .tooltipped-no-delay:focus {
     &::before,
     &::after {
       animation-delay: 0s;
     }
   }
 
-  &.tooltipped-multiline:hover,
-  &.tooltipped-multiline:active,
-  &.tooltipped-multiline:focus {
+  .tooltipped-multiline:hover,
+  .tooltipped-multiline:active,
+  .tooltipped-multiline:focus {
     &::after {
       display: table-cell;
     }
   }
 
   // Tooltipped south
-  &.tooltipped-s,
-  &.tooltipped-se,
-  &.tooltipped-sw {
+  .tooltipped-s,
+  .tooltipped-se,
+  .tooltipped-sw {
     &::after {
       top: 100%;
       right: 50%;
@@ -122,7 +101,7 @@ const Tooltip = styled(TooltipBase)`
     }
   }
 
-  &.tooltipped-se {
+  .tooltipped-se {
     &::after {
       right: auto;
       left: 50%;
@@ -130,14 +109,14 @@ const Tooltip = styled(TooltipBase)`
     }
   }
 
-  &.tooltipped-sw::after {
+  .tooltipped-sw::after {
     margin-right: -${get('space.3')}px;
   }
 
   // Tooltips above the object
-  &.tooltipped-n,
-  &.tooltipped-ne,
-  &.tooltipped-nw {
+  .tooltipped-n,
+  .tooltipped-ne,
+  .tooltipped-nw {
     &::after {
       right: 50%;
       bottom: 100%;
@@ -149,11 +128,11 @@ const Tooltip = styled(TooltipBase)`
       right: 50%;
       bottom: auto;
       margin-right: -6px;
-      border-top-color: ${get('colors.black')};
+      border-top-color: ${get('colors.black')}
     }
   }
 
-  &.tooltipped-ne {
+  .tooltipped-ne {
     &::after {
       right: auto;
       left: 50%;
@@ -161,18 +140,18 @@ const Tooltip = styled(TooltipBase)`
     }
   }
 
-  &.tooltipped-nw::after {
+  .tooltipped-nw::after {
     margin-right: -${get('space.3')}px;
   }
 
   // Move the tooltip body to the center of the object.
-  &.tooltipped-s::after,
-  &.tooltipped-n::after {
+  .tooltipped-s::after,
+  .tooltipped-n::after {
     transform: translateX(50%);
   }
 
   // Tooltipped to the left
-  &.tooltipped-w {
+  .tooltipped-w {
     &::after {
       right: 100%;
       bottom: 50%;
@@ -190,7 +169,7 @@ const Tooltip = styled(TooltipBase)`
   }
 
   // tooltipped to the right
-  &.tooltipped-e {
+  .tooltipped-e {
     &::after {
       bottom: 50%;
       left: 100%;
@@ -207,7 +186,48 @@ const Tooltip = styled(TooltipBase)`
     }
   }
 
-  &.tooltipped-multiline {
+  // Tooltip align right and left
+  .tooltipped-align-right-1,
+  .tooltipped-align-right-2 {
+    &::after {
+      right: 0;
+      margin-right: 0;
+    }
+  }
+
+  .tooltipped-align-right-1 {
+    &::before {
+      right: 10px;
+    }
+  }
+
+  .tooltipped-align-right-2 {
+    &::before {
+      right: 15px;
+    }
+  }
+
+  .tooltipped-align-left-1,
+  .tooltipped-align-left-2, {
+    &::after {
+      left: 0;
+      margin-left: 0;
+    }
+  }
+
+  .tooltipped-align-left-1 {
+    &::before {
+      left: 5px;
+    }
+  }
+
+  .tooltipped-align-left-2 {
+    &::before {
+      left: 10px;
+    }
+  }
+
+  .tooltipped-multiline {
     &::after {
       width: max-content;
       max-width: 250px;
@@ -228,45 +248,4 @@ const Tooltip = styled(TooltipBase)`
       right: 100%;
     }
   }
-
-  &.tooltipped-align-right-2::after {
-    right: 0;
-    margin-right: 0;
-  }
-
-  &.tooltipped-align-right-2::before{
-    right: 15px;
-  }
-
-  &.tooltipped-align-left-2::after {
-    left: 0;
-    margin-left: 0;
-  }
-
-  &.tooltipped-align-left-2::before {
-    left: 10px;
-  }
-  ${COMMON}
 `
-
-Tooltip.alignments = ['left', 'right']
-
-Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
-
-Tooltip.defaultProps = {
-  theme,
-  direction: 'n'
-}
-
-Tooltip.propTypes = {
-  align: PropTypes.oneOf(Tooltip.alignments),
-  children: PropTypes.node,
-  direction: PropTypes.oneOf(Tooltip.directions),
-  noDelay: PropTypes.bool,
-  text: PropTypes.string,
-  theme: PropTypes.object,
-  wrap: PropTypes.bool,
-  ...COMMON.propTypes
-}
-
-export default Tooltip
