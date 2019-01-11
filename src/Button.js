@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
-import baseTheme from './theme'
+import theme from './theme'
 import {width} from 'styled-system'
 
 function fontSize({size = '14px', ...props}) {
@@ -78,7 +78,7 @@ const Button = styled(ButtonBase)`
 
 Button.defaultProps = {
   is: 'button',
-  theme: baseTheme
+  theme
 }
 
 Button.propTypes = {
