@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
-import tooltipStyles from './TooltipStyles'
 import theme from './theme'
-
 
 function TooltipBase({direction, children, className, text, noDelay, align, wrap}) {
   const classes = classnames(
@@ -33,7 +31,7 @@ const Tooltip = styled(TooltipBase)`
     height: 0px;
     color: ${get('colors.black')};
     pointer-events: none;
-    content: "";
+    content: '';
     border: 6px solid transparent;
     opacity: 0;
   }
@@ -234,7 +232,7 @@ const Tooltip = styled(TooltipBase)`
     margin-right: 0;
   }
 
-  &.tooltipped-align-right-2::before{
+  &.tooltipped-align-right-2::before {
     right: 15px;
   }
 
@@ -246,7 +244,7 @@ const Tooltip = styled(TooltipBase)`
   &.tooltipped-align-left-2::before {
     left: 10px;
   }
-  ${COMMON}
+  ${COMMON};
 `
 
 Tooltip.alignments = ['left', 'right']

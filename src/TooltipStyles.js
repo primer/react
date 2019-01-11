@@ -12,7 +12,7 @@ export const tooltipStyles = css`
     height: 0;
     color: ${get('colors.black')};
     pointer-events: none;
-    content: "";
+    content: '';
     border: 6px solid transparent;
     opacity: 0;
   }
@@ -128,7 +128,7 @@ export const tooltipStyles = css`
       right: 50%;
       bottom: auto;
       margin-right: -6px;
-      border-top-color: ${get('colors.black')}
+      border-top-color: ${get('colors.black')};
     }
   }
 
@@ -208,7 +208,7 @@ export const tooltipStyles = css`
   }
 
   .tooltipped-align-left-1,
-  .tooltipped-align-left-2, {
+  .tooltipped-align-left-2 {
     &::after {
       left: 0;
       margin-left: 0;

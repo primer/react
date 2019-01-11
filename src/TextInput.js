@@ -63,7 +63,7 @@ const TextInput = styled(TextInputBase)`
   @media (max-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')}px;
   }
-  ${COMMON}
+  ${COMMON};
 `
 
 TextInput.defaultProps = {theme}

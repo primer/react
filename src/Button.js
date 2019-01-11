@@ -1,22 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {darken, desaturate, transparentize} from 'polished'
-import {COMMON, Base, get} from './constants'
-import baseTheme, {colors} from './theme'
+import {COMMON, get} from './constants'
+import baseTheme from './theme'
 import {width} from 'styled-system'
-
 
 function fontSize({size = '14px', ...props}) {
   return {
-    fontSize: size === 'sm' ? `${get('fontSizes.0')(props)}px` :
-              size === 'large' ? `${get('fontSizes.2')(props)}px` :
-              size
+    fontSize:
+      size === 'sm' ? `${get('fontSizes.0')(props)}px` : size === 'large' ? `${get('fontSizes.2')(props)}px` : size
   }
 }
 
 const ButtonBase = ({is: Tag = 'div', onClick, disabled, theme, ...rest}) => {
-  return <Tag disabled={disabled} onClick={disabled ? undefined : onClick }{...rest} />
+  return <Tag disabled={disabled} onClick={disabled ? undefined : onClick} {...rest} />
 }
 
 const Button = styled(ButtonBase)`

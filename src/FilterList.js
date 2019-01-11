@@ -8,7 +8,11 @@ import theme from './theme'
 function ItemBase({children, count, theme, is: Tag, ...rest}) {
   return (
     <a key={nanoid()} {...rest}>
-      {count && <span title="results" className='count'>{count}</span>}
+      {count && (
+        <span title="results" className="count">
+          {count}
+        </span>
+      )}
       {children}
     </a>
   )
@@ -17,12 +21,12 @@ function ItemBase({children, count, theme, is: Tag, ...rest}) {
 const Item = styled(ItemBase)`
   position: relative;
   display: block;
-  padding: ${props => props.small ? `${get('space.1')(props)}px 10px` : `${get('space.2')(props)}px 11px`};
-  margin: ${props => props.small ? '0 0 2px' : '0 0 5px 0'};
+  padding: ${props => (props.small ? `${get('space.1')(props)}px 10px` : `${get('space.2')(props)}px 11px`)};
+  margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')}px;
-  color: ${props => props.selected ? get('colors.white') : get('colors.gray.6')};
-  background-color: ${props => props.selected ? get('colors.blue.5') : ''}!important;
+  color: ${props => (props.selected ? get('colors.white') : get('colors.gray.6'))};
+  background-color: ${props => (props.selected ? get('colors.blue.5') : '')}!important;
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -40,7 +44,7 @@ const Item = styled(ItemBase)`
     float: right;
     font-weight: ${get('fontWeights.bold')};
   }
-  ${COMMON}:
+  ${COMMON}: ;
 `
 
 const FilterListBase = ({children, theme, ...rest}) => {
@@ -53,7 +57,7 @@ const FilterListBase = ({children, theme, ...rest}) => {
 
 const FilterList = styled(FilterListBase)`
   list-style-type: none;
-  ${COMMON}
+  ${COMMON};
 `
 
 FilterList.defaultProps = {

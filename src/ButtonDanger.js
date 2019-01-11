@@ -1,11 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
-import {darken, lighten} from 'polished'
 import Button from './Button'
 import {get} from './constants'
-import baseTheme, {colors} from './theme'
-import {themeGet} from 'styled-system'
-
 
 const ButtonDanger = styled(Button)`
   color: ${get('colors.red.6')}
@@ -15,7 +10,9 @@ const ButtonDanger = styled(Button)`
   &:hover {
     color: ${get('colors.white')};
     background-color: ${get('colors.red.6')};
-    background-image: linear-gradient(-180deg, ${get('colors.button.dangerHoverBgImage')} 0%, ${get('colors.red.6')} 90%);
+    background-image: linear-gradient(-180deg, ${get('colors.button.dangerHoverBgImage')} 0%, ${get(
+  'colors.red.6'
+)} 90%);
     border-color: ${get('colors.blackfade50')};
   }
 

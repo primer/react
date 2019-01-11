@@ -26,7 +26,6 @@ describe('FilterList.Item', () => {
     expect(render(<FilterList.Item selected />)).toMatchSnapshot()
   })
 
-
   it('respects "count" prop', () => {
     const CountMock = render(<FilterList.Item count="400" />).children.pop()
     expect(CountMock.type).toEqual('span')

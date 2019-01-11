@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Octicon from '@githubprimer/octicons-react'
@@ -29,15 +28,14 @@ const CircleBadge = styled(Base)`
   background-color: ${get('colors.white')};
   border-radius: 50%;
   box-shadow: ${get('shadows.medium')};
-  ${COMMON}
-  ${sizeStyles};
+  ${COMMON} ${sizeStyles};
 `
 
 const Icon = styled(Octicon)`
   max-width: 60% !important;
   height: auto !important;
   max-height: 55% !important;
-  ${COMMON}
+  ${COMMON};
 `
 CircleBadge.Icon = Icon
 

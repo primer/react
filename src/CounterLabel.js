@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, Base, get} from './constants'
@@ -7,18 +6,22 @@ import theme from './theme'
 const colorStyles = ({scheme, ...props}) => {
   return {
     color:
-      scheme === 'gray-light' ? get('colors.gray.9')(props) :
-      scheme === 'gray' ? get('colors.white')(props) :
-      get('colors.gray.6')(props)
+      scheme === 'gray-light'
+        ? get('colors.gray.9')(props)
+        : scheme === 'gray'
+          ? get('colors.white')(props)
+          : get('colors.gray.6')(props)
   }
 }
 
 const bgStyles = ({scheme, ...props}) => {
   return {
     backgroundColor:
-      scheme === 'gray-light' ? get('colors.blackfade15')(props) :
-      scheme === 'gray' ? get('colors.gray.5')(props) :
-      get('colors.counter.bg')(props)
+      scheme === 'gray-light'
+        ? get('colors.blackfade15')(props)
+        : scheme === 'gray'
+          ? get('colors.gray.5')(props)
+          : get('colors.counter.bg')(props)
   }
 }
 
@@ -34,7 +37,7 @@ const CounterLabel = styled(Base)`
   ${COMMON};
 
   &:empty {
-  visibility: hidden;
+    visibility: hidden;
   }
 `
 

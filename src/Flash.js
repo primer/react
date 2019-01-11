@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
@@ -18,14 +17,14 @@ const Flash = styled.div`
   background-color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].bg : '')};
   border-color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].borderColor : '')};
   border-style: solid;
-  border-width: ${props => props.full ? '1px 0px' : '1px'};
-  border-radius: ${props => props.full ? '0' : '3px'};
-  margin-top: ${props => props.full ? '-1px' : '0'};
+  border-width: ${props => (props.full ? '1px 0px' : '1px')};
+  border-radius: ${props => (props.full ? '0' : '3px')};
+  margin-top: ${props => (props.full ? '-1px' : '0')};
 
   p:last-child {
     margin-bottom: 0;
   }
-  ${COMMON}
+  ${COMMON};
 `
 
 Flash.defaultProps = {

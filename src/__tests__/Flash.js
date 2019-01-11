@@ -20,7 +20,7 @@ describe('Flash', () => {
   })
 
   it('respects the "scheme" prop', () => {
-    expect(render(<Flash scheme="yellow" theme={theme}/>)).toHaveStyleRule('color', colors.yellow[9])
+    expect(render(<Flash scheme="yellow" theme={theme} />)).toHaveStyleRule('color', colors.yellow[9])
     expect(render(<Flash scheme="red" theme={theme} />)).toHaveStyleRule('color', colors.red[9])
     expect(render(<Flash scheme="green" theme={theme} />)).toHaveStyleRule('color', colors.green[8])
   })

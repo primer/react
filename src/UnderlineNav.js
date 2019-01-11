@@ -57,7 +57,7 @@ const UnderlineNav = styled(UnderlineNavBase)`
     align-self: center;
   }
 
-  ${COMMON}
+  ${COMMON};
 `
 
 UnderlineNav.Link = styled(UnderlineNavLink)`
@@ -72,10 +72,10 @@ UnderlineNav.Link = styled(UnderlineNavLink)`
 
   &:hover,
   &:focus {
-  color: ${get('colors.gray.9')};
-  text-decoration: none;
-  border-bottom-color: ${get('colors.gray.3')};
-  transition: 0.2s ease;
+    color: ${get('colors.gray.9')};
+    text-decoration: none;
+    border-bottom-color: ${get('colors.gray.3')};
+    transition: 0.2s ease;
 
     .UnderlineNav-octicon {
       color: ${get('colors.gray.5')};
@@ -83,9 +83,9 @@ UnderlineNav.Link = styled(UnderlineNavLink)`
   }
 
   &.selected {
-  font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.gray.9')};
-  border-bottom-color: ${get('colors.orange.6')};
+    font-weight: ${get('fontWeights.bold')};
+    color: ${get('colors.gray.9')};
+    border-bottom-color: ${get('colors.orange.6')};
 
     .UnderlineNav-octicon {
       color: ${get('colors.gray.5')};
