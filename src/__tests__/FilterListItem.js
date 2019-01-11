@@ -26,14 +26,8 @@ describe('FilterList.Item', () => {
     expect(render(<FilterList.Item selected />)).toMatchSnapshot()
   })
 
-  it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Mock = jest.fn(() => <div />)
-    expect(render(<FilterList.Item is={Mock} to="#" />)).toMatchSnapshot()
-  })
-
   it('respects "count" prop', () => {
     const CountMock = render(<FilterList.Item count="400" />).children.pop()
     expect(CountMock.type).toEqual('span')
-    expect(CountMock.props.className).toEqual('count')
   })
 })

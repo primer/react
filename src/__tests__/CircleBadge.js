@@ -31,20 +31,6 @@ describe('CircleBadge', () => {
     ).toEqual('primer logo')
   })
 
-  it('adds CircleBadge-icon class to children', () => {
-    const comp = mount(<CircleBadge>{imgInput}</CircleBadge>)
-    expect(comp.find('img').hasClass('CircleBadge-icon')).toEqual(true)
-  })
-
-  it('does not duplicate "CircleBadge-icon" classes', () => {
-    const comp = mount(
-      <CircleBadge>
-        <img className="CircleBadge-icon" alt="" src="primer.jpg" />
-      </CircleBadge>
-    )
-    expect(comp.find('img').props().className).toEqual('CircleBadge-icon')
-  })
-
   it('preserves child class names', () => {
     const comp = mount(
       <CircleBadge>

@@ -1,5 +1,8 @@
 import React from 'react'
-import {styles, compose} from 'styled-system'
+import {styles, compose, get as getKey, themeGet} from 'styled-system'
+import theme from './theme'
+
+export const get = key => themeGet(key, getKey(theme, key))
 
 export const COMMON = compose(
   styles.color,

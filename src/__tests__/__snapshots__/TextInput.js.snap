@@ -1,32 +1,212 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders 1`] = `
+.c0 {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #24292e;
+  vertical-align: middle;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,;
+}
+
+.c0.input-sm {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: $font-size-small;
+  line-height: 20px;
+}
+
+.c0.input-lg {
+  padding: $spacer-1 10px;
+  font-size: $h4-size;
+}
+
+.c0.input-block {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
 <input
-  className="form-control"
+  className="c0 form-control"
   name="zipcode"
   type="text"
 />
 `;
 
 exports[`TextInput renders block 1`] = `
+.c0 {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #24292e;
+  vertical-align: middle;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,;
+}
+
+.c0.input-sm {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: $font-size-small;
+  line-height: 20px;
+}
+
+.c0.input-lg {
+  padding: $spacer-1 10px;
+  font-size: $h4-size;
+}
+
+.c0.input-block {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
 <input
-  className="form-control input-block"
+  className="c0 form-control input-block"
   name="zipcode"
   type="text"
 />
 `;
 
 exports[`TextInput renders large 1`] = `
+.c0 {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #24292e;
+  vertical-align: middle;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,;
+}
+
+.c0.input-sm {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: $font-size-small;
+  line-height: 20px;
+}
+
+.c0.input-lg {
+  padding: $spacer-1 10px;
+  font-size: $h4-size;
+}
+
+.c0.input-block {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
 <input
-  className="form-control input-lg"
+  className="c0 form-control input-lg"
   name="zipcode"
   type="text"
 />
 `;
 
 exports[`TextInput renders small 1`] = `
+.c0 {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #24292e;
+  vertical-align: middle;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,;
+}
+
+.c0.input-sm {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: $font-size-small;
+  line-height: 20px;
+}
+
+.c0.input-lg {
+  padding: $spacer-1 10px;
+  font-size: $h4-size;
+}
+
+.c0.input-block {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
 <input
-  className="form-control input-sm"
+  className="c0 form-control input-sm"
   name="zipcode"
   type="text"
 />

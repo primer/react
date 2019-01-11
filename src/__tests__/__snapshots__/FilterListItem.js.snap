@@ -1,15 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FilterList.Item adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `<div />`;
-
 exports[`FilterList.Item renders the given "is" prop 1`] = `
-<b
-  className="filter-item "
+.c0 {
+  position: relative;
+  display: block;
+  padding: 8px 11px;
+  margin: 0 0 5px 0;
+  overflow: hidden;
+  font-size: 14px;
+  color: #586069;
+  background-color: !important;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #eaecef;
+}
+
+.c0:active {
+  color: #fff;
+  background-color: #0366d6;
+}
+
+.c0 .count {
+  float: right;
+  font-weight: 600;
+}
+
+<a
+  className="c0"
 />
 `;
 
 exports[`FilterList.Item respects the "selected" prop 1`] = `
+.c0 {
+  position: relative;
+  display: block;
+  padding: 8px 11px;
+  margin: 0 0 5px 0;
+  overflow: hidden;
+  font-size: 14px;
+  color: #fff;
+  background-color: #0366d6!important;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #eaecef;
+}
+
+.c0:active {
+  color: #fff;
+  background-color: #0366d6;
+}
+
+.c0 .count {
+  float: right;
+  font-weight: 600;
+}
+
 <a
-  className="filter-item selected "
+  className="c0"
+  selected={true}
 />
 `;
