@@ -1,16 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import sass from 'sass.macro'
-import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
-
-injectGlobal(sass`
-  @import "primer-support/index.scss";
-  @import "primer-avatars/lib/circle-badge.scss";
-`)
-
-const ICON_CLASS = 'CircleBadge-icon'
+import styled from 'styled-components'
+import Octicon from '@githubprimer/octicons-react'
+import {COMMON, Base, get} from './constants'
+import theme from './theme'
 
 const sizeMapper = (size = 'medium') => {
   if (typeof size === 'number') return size
@@ -29,27 +21,44 @@ const sizeStyles = ({size}) => {
   }
 }
 
-const CircleBadge = ({is: Tag = 'div', children, className, ...rest}) => {
-  const mappedChildren = React.Children.map(children, child => {
-    let {className = ''} = child.props
-    if (!className.includes(ICON_CLASS)) {
-      className = classnames(ICON_CLASS, className)
-    }
-    return React.cloneElement(child, {className})
-  })
+const CircleBadge = styled(Base)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${get('colors.white')};
+  border-radius: 50%;
+  box-shadow: ${get('shadows.medium')};
+  ${COMMON} ${sizeStyles};
+`
 
-  const classes = classnames(className, 'CircleBadge')
-  return (
-    <Tag className={classes} {...rest}>
-      {mappedChildren}
-    </Tag>
-  )
+const Icon = styled(Octicon)`
+  max-width: 60% !important;
+  height: auto !important;
+  max-height: 55% !important;
+  ${COMMON};
+`
+CircleBadge.Icon = Icon
+
+CircleBadge.defaultProps = {
+  theme,
+  is: 'div',
+  size: 'medium'
 }
 
 CircleBadge.propTypes = {
-  bg: PropTypes.string,
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number])
+  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(CircleBadge, [...COMMON, sizeStyles])
+CircleBadge.Icon.defaultProps = {
+  theme
+}
+
+CircleBadge.Icon.propsTypes = {
+  theme: PropTypes.object,
+  ...COMMON.propTypes
+}
+
+export default CircleBadge

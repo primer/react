@@ -2,19 +2,20 @@ import React from 'react'
 import Box from '../Box'
 import theme from '../theme'
 import {render} from '../utils/testing'
-import {LAYOUT} from '../system-props'
+import {LAYOUT, COMMON} from '../constants'
 
 describe('Box', () => {
-  it('is a system component', () => {
-    expect(Box.systemComponent).toEqual(true)
-  })
-
-  it('implements layout system props', () => {
+  it('implements system props', () => {
     expect(Box).toImplementSystemProps(LAYOUT)
+    expect(Box).toImplementSystemProps(COMMON)
   })
 
   it('renders without any props', () => {
     expect(render(<Box />)).toMatchSnapshot()
+  })
+
+  it('has default theme', () => {
+    expect(Box).toSetDefaultTheme()
   })
 
   it('renders margin', () => {
@@ -34,10 +35,5 @@ describe('Box', () => {
     expect(render(<Box display="inline-block" />)).toMatchSnapshot()
     expect(render(<Box display="none" />)).toMatchSnapshot()
     expect(render(<Box display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
-  })
-
-  it('respects position', () => {
-    expect(render(<Box position="absolute" />)).toMatchSnapshot()
-    expect(render(<Box position="relative" />)).toMatchSnapshot()
   })
 })

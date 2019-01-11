@@ -1,15 +1,16 @@
 import React from 'react'
 import Flex from '../Flex'
-import {FLEX_ITEM} from '../system-props'
+import {FLEX_ITEM, COMMON} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flex.Item', () => {
-  it('is a system component', () => {
-    expect(Flex.Item.systemComponent).toEqual(true)
+  it('implements system props', () => {
+    expect(Flex.Item).toImplementSystemProps(FLEX_ITEM)
+    expect(Flex.Item).toImplementSystemProps(COMMON)
   })
 
-  it('implements FLEX_ITEM props', () => {
-    expect(Flex.Item).toImplementSystemProps(FLEX_ITEM)
+  it('has default theme', () => {
+    expect(Flex.Item).toSetDefaultTheme()
   })
 
   it('respects alignSelf', () => {

@@ -1,22 +1,56 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import sass from 'sass.macro'
-import {injectGlobal} from 'emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON, Base, get} from './constants'
+import theme from './theme'
 
-injectGlobal(sass`
-  @import "primer-support/index.scss";
-  @import "primer-labels/lib/counters.scss";
-`)
+const colorStyles = ({scheme, ...props}) => {
+  return {
+    color:
+      scheme === 'gray-light'
+        ? get('colors.gray.9')(props)
+        : scheme === 'gray'
+          ? get('colors.white')(props)
+          : get('colors.gray.6')(props)
+  }
+}
 
-function CounterLabel({scheme, children, className}) {
-  return <span className={classnames(className, 'Counter', scheme && `Counter--${scheme}`)}>{children}</span>
+const bgStyles = ({scheme, ...props}) => {
+  return {
+    backgroundColor:
+      scheme === 'gray-light'
+        ? get('colors.blackfade15')(props)
+        : scheme === 'gray'
+          ? get('colors.gray.5')(props)
+          : get('colors.counter.bg')(props)
+  }
+}
+
+const CounterLabel = styled(Base)`
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: ${get('fontSizes.0')}px;
+  font-weight: ${get('fontWeights.bold')};
+  line-height: ${get('lineHeights.condensedUltra')};
+  border-radius: 20px;
+  ${colorStyles};
+  ${bgStyles};
+  ${COMMON};
+
+  &:empty {
+    visibility: hidden;
+  }
+`
+
+CounterLabel.defaultProps = {
+  theme,
+  is: 'span'
 }
 
 CounterLabel.propTypes = {
   children: PropTypes.node,
-  scheme: PropTypes.oneOf(['gray', 'gray-light'])
+  scheme: PropTypes.oneOf(['gray', 'gray-light']),
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(CounterLabel, COMMON)
+export default CounterLabel

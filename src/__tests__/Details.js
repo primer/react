@@ -2,14 +2,19 @@
 import React from 'react'
 import Details from '../Details'
 import {mount, render} from '../utils/testing'
+import {COMMON} from '../constants'
 
 describe('Details', () => {
-  it('is a system component', () => {
-    expect(Details.systemComponent).toEqual(true)
+  it('implements system props', () => {
+    expect(Details).toImplementSystemProps(COMMON)
   })
 
   it('Respects the open prop', () => {
     expect(mount(<Details open />).props().open).toEqual(true)
+  })
+
+  it('has default theme', () => {
+    expect(Details).toSetDefaultTheme()
   })
 
   xit('Renders children as-is', () => {

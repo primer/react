@@ -2,14 +2,14 @@
 import React from 'react'
 import FilterList from '../FilterList'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('FilterList.Item', () => {
-  it('is a system component', () => {
-    expect(FilterList.Item.systemComponent).toEqual(true)
+  it('has default theme', () => {
+    expect(FilterList.Item).toSetDefaultTheme()
   })
 
-  it('implements common system props', () => {
+  it('implements system props', () => {
     expect(FilterList.Item).toImplementSystemProps(COMMON)
   })
 
@@ -26,14 +26,8 @@ describe('FilterList.Item', () => {
     expect(render(<FilterList.Item selected />)).toMatchSnapshot()
   })
 
-  it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Mock = jest.fn(() => <div />)
-    expect(render(<FilterList.Item is={Mock} to="#" />)).toMatchSnapshot()
-  })
-
   it('respects "count" prop', () => {
     const CountMock = render(<FilterList.Item count="400" />).children.pop()
     expect(CountMock.type).toEqual('span')
-    expect(CountMock.props.className).toEqual('count')
   })
 })

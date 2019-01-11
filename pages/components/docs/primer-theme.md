@@ -20,11 +20,11 @@ Custom theming is an optional way to override the Primer values that control col
 
 There are two ways to change the theme of Primer components:
 
-1. You can override the theme for an entire tree of components using the `<ThemeProvider>` from [emotion-theming]:
+1. You can override the theme for an entire tree of components using the `<ThemeProvider>` from [styled-components]:
 
     ```jsx
     import {Block, Button, Text, theme as primer} from '@primer/components'
-    import {ThemeProvider} from 'emotion-theming'
+    import {ThemeProvider} from 'styled-components'
 
     // a theme with custom spacing and font sizes
     const theme = {
@@ -45,7 +45,7 @@ There are two ways to change the theme of Primer components:
     )
     ```
 
-    **⚠️ Note: [emotion-theming]'s `<ThemeProvider>` only allows exactly one child.**
+    **⚠️ Note: [styled-components]'s `<ThemeProvider>` only allows exactly one child.**
 
 1. You can theme individual components by passing the `theme` prop directly:
 
@@ -66,3 +66,5 @@ There are two ways to change the theme of Primer components:
     **☝️ This is an intentionally convoluted example, since you can use `<Text color='#f0f'>` out of the box.**
 
 Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
+
+[styled-components]: https://styled-components.com/

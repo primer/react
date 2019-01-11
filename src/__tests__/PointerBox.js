@@ -3,10 +3,6 @@ import {PointerBox} from '..'
 import {render} from '../utils/testing'
 
 describe('PointerBox', () => {
-  it('is a system component', () => {
-    expect(PointerBox.systemComponent).toEqual(true)
-  })
-
   it('renders a <Caret> in <BorderBox> with relative positioning', () => {
     expect(render(<PointerBox />)).toMatchSnapshot()
   })
@@ -17,5 +13,9 @@ describe('PointerBox', () => {
 
   it('passes the "bg" prop to both <BorderBox> and <Caret>', () => {
     expect(render(<PointerBox bg="red.5" />)).toMatchSnapshot()
+  })
+
+  it('has default theme', () => {
+    expect(PointerBox).toSetDefaultTheme()
   })
 })

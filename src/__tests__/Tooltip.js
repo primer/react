@@ -1,15 +1,15 @@
 import React from 'react'
 import Tooltip from '../Tooltip'
 import {render, renderClasses, rendersClass} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('Tooltip', () => {
-  it('is a system component', () => {
-    expect(Tooltip.systemComponent).toEqual(true)
+  it('implements system props', () => {
+    expect(Tooltip).toImplementSystemProps(COMMON)
   })
 
-  it('implements common system props', () => {
-    expect(Tooltip).toImplementSystemProps(COMMON)
+  it('has default theme', () => {
+    expect(Tooltip).toSetDefaultTheme()
   })
 
   it('renders a <span> with the "tooltipped" class', () => {

@@ -11,7 +11,7 @@ const config = {
     'dist/index.umd.js',
     'dist/css.js',
     'src/index.js',
-    'src/system-props.js'
+    'src/constants.js'
   ],
   missing: [
     'pages',

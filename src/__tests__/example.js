@@ -3,7 +3,7 @@ import React from 'react'
 // import SomeComponent from '../SomeComponent'
 import {colors} from '../theme'
 import {render, renderStyles} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 // 2. remove this definition; it's just for eslint
 function SomeComponent() {}

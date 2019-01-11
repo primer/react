@@ -1,135 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Link passes href down to link element 1`] = `
-.emotion-0 {
+.c0 {
   -webkit-text-decoration: none;
   text-decoration: none;
   color: #0366d6;
 }
 
-.emotion-0:hover {
+.c0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "lineHeight",
-      "textAlign",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-0"
+  className="c0"
   color="blue.5"
   href="https://github.com"
 />
 `;
 
 exports[`Link renders without any props 1`] = `
-.emotion-0 {
+.c0 {
   -webkit-text-decoration: none;
   text-decoration: none;
   color: #0366d6;
 }
 
-.emotion-0:hover {
+.c0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "lineHeight",
-      "textAlign",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-0"
+  className="c0"
   color="blue.5"
 />
 `;
 
 exports[`Link respects hoverColor prop 1`] = `
-.emotion-0 {
+.c0 {
   -webkit-text-decoration: none;
   text-decoration: none;
   color: #0366d6;
 }
 
-.emotion-0:hover {
+.c0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #2188ff;
 }
 
 <a
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "fontFamily",
-      "fontSize",
-      "fontWeight",
-      "lineHeight",
-      "textAlign",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-0"
+  className="c0"
   color="blue.5"
   hoverColor="blue.4"
 />

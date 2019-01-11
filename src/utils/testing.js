@@ -3,7 +3,7 @@ import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import {ThemeProvider} from 'emotion-theming'
+import {ThemeProvider} from 'styled-components'
 import {default as defaultTheme} from '../theme'
 
 const readFile = promisify(require('fs').readFile)
@@ -26,7 +26,7 @@ export function mount(component) {
  * ```
  */
 export function render(component) {
-  return renderer.create(component).toJSON()
+  return renderer.create(mount(component)).toJSON()
 }
 
 /**

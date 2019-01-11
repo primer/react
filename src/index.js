@@ -1,12 +1,3 @@
-import sass from 'sass.macro'
-import {injectGlobal} from 'emotion'
-
-injectGlobal(sass`
-  * { box-sizing: border-box; }
-  body { margin: 0; }
-  table { border-collapse: collapse; }
-`)
-
 export {default as theme} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 
@@ -36,7 +27,6 @@ export {default as Flash} from './Flash'
 export {default as Heading} from './Heading'
 export {default as Label} from './Label'
 export {default as Link} from './Link'
-export {default as OcticonButton} from './OcticonButton'
 export {default as PointerBox} from './PointerBox'
 export {default as StateLabel} from './StateLabel'
 export {default as StyledOcticon} from './StyledOcticon'

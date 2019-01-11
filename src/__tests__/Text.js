@@ -2,14 +2,20 @@ import React from 'react'
 import Text from '../Text'
 import theme from '../theme'
 import {px, render, renderStyles} from '../utils/testing'
+import {COMMON, TYPOGRAPHY} from '../constants'
 
 describe('Text', () => {
-  it('is a system component', () => {
-    expect(Text.systemComponent).toEqual(true)
-  })
-
   it('renders a <span> by default', () => {
     expect(render(<Text />).type).toEqual('span')
+  })
+
+  it('implements system props', () => {
+    expect(Text).toImplementSystemProps(COMMON)
+    expect(Text).toImplementSystemProps(TYPOGRAPHY)
+  })
+
+  it('has default theme', () => {
+    expect(Text).toSetDefaultTheme()
   })
 
   it('respects the "is" prop', () => {
@@ -52,7 +58,7 @@ describe('Text', () => {
   })
 
   it('respects fontFamily="mono"', () => {
-    // emotion removes the whitespace between font-family values
+    // styled-components removes the whitespace between font-family values
     const mono = theme.fonts.mono.replace(/, /g, ',')
     expect(render(<Text fontFamily="mono" />)).toHaveStyleRule('font-family', mono)
   })

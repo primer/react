@@ -1,7 +1,6 @@
 import React from 'react'
 import Document, {Main, NextScript} from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
-import {extractCritical} from 'emotion-server'
 import {getAssetPath} from './doc-components'
 import {utilities, markdown} from '../css'
 
@@ -17,7 +16,6 @@ export default class MyDocument extends Document {
             {utilities}
             {markdown}
           </style>
-          <style id="emotion-static">{extractCritical(page.html).css}</style>
           {sheet.getStyleElement()}
         </>
       )

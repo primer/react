@@ -1,19 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import {injectGlobal} from 'emotion'
-import sass from 'sass.macro'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
+import {COMMON, get} from './constants'
+import theme from './theme'
 
-injectGlobal(sass`
-  @import "primer-support/index.scss";
-  @import "primer-navigation/lib/underline-nav.scss";
-`)
-
-const ITEM_CLASS = 'UnderlineNav-item no-underline'
+const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
-function UnderlineNav({actions, className, align, children, full, label}) {
+function UnderlineNavBase({actions, className, align, children, full, label}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
     <nav className={classes} aria-label={label}>
@@ -23,7 +18,7 @@ function UnderlineNav({actions, className, align, children, full, label}) {
   )
 }
 
-const UnderlineNavLink = ({className, selected, is: Tag, ...rest}) => {
+const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -33,23 +28,94 @@ const UnderlineNavLink = ({className, selected, is: Tag, ...rest}) => {
   return <Tag className={classes} {...rest} />
 }
 
+const UnderlineNav = styled(UnderlineNavBase)`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid ${get('colors.gray.2')};
+  &.UnderlineNav--right {
+    justify-content: flex-end;
+
+    .UnderlineNav-item {
+      margin-right: 0;
+      margin-left: ${get('space.3')}px;
+    }
+
+    .UnderlineNav-actions {
+      flex: 1 1 auto;
+    }
+  }
+  &.UnderlineNav--full {
+    display: block;
+  }
+
+  .UnderlineNav-body {
+    display: flex;
+    margin-bottom: -1px;
+  }
+
+  .UnderlineNav-actions {
+    align-self: center;
+  }
+
+  ${COMMON};
+`
+
+UnderlineNav.Link = styled(UnderlineNavLink)`
+  padding: ${get('space.3')}px ${get('space.2')}px;
+  margin-right: ${get('space.3')}px;
+  font-size: ${get('fontSizes.1')}px;
+  line-height: ${get('lineHeights.default')};
+  color: ${get('colors.gray.6')};
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: ${get('colors.gray.9')};
+    text-decoration: none;
+    border-bottom-color: ${get('colors.gray.3')};
+    transition: 0.2s ease;
+
+    .UnderlineNav-octicon {
+      color: ${get('colors.gray.5')};
+    }
+  }
+
+  &.selected {
+    font-weight: ${get('fontWeights.bold')};
+    color: ${get('colors.gray.9')};
+    border-bottom-color: ${get('colors.orange.6')};
+
+    .UnderlineNav-octicon {
+      color: ${get('colors.gray.5')};
+    }
+  }
+`
+
+UnderlineNav.defaultProps = {
+  theme
+}
+
 UnderlineNav.propTypes = {
   actions: PropTypes.node,
   align: PropTypes.oneOf(['right']),
   children: PropTypes.node,
   full: PropTypes.bool,
-  label: PropTypes.string
+  label: PropTypes.string,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-UnderlineNavLink.defaultProps = {
+UnderlineNav.Link.defaultProps = {
+  theme,
   is: 'a'
 }
 
-UnderlineNavLink.propTypes = {
+UnderlineNav.Link.propTypes = {
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
+  ...COMMON.propTypes
 }
 
-UnderlineNav.Link = withSystemProps(UnderlineNavLink, COMMON)
-
-export default withSystemProps(UnderlineNav, COMMON)
+export default UnderlineNav

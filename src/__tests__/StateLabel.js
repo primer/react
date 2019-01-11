@@ -1,13 +1,9 @@
 import React from 'react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
-import {COMMON} from '../system-props'
+import {COMMON} from '../constants'
 
 describe('StateLabel', () => {
-  it('is a system component', () => {
-    expect(StateLabel.systemComponent).toEqual(true)
-  })
-
   it('implements common system props', () => {
     expect(StateLabel).toImplementSystemProps(COMMON)
   })
@@ -16,6 +12,10 @@ describe('StateLabel', () => {
     expect(render(<StateLabel status="issueOpened" />)).toMatchSnapshot()
     expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
     expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
+  })
+
+  it('has default theme', () => {
+    expect(StateLabel).toSetDefaultTheme()
   })
 
   it('respects the small flag', () => {

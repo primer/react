@@ -1,105 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches the snapshots 1`] = `
-.emotion-3 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.emotion-3 > summary {
-  list-style: none;
-}
-
-.emotion-3 > summary::before {
-  display: none;
-}
-
-.emotion-3 > summary::-webkit-details-marker {
-  display: none;
-}
-
-.emotion-0 {
+.c3 {
   margin-left: 0px;
 }
 
-.emotion-2 {
-  position: absolute;
-  z-index: 99999;
+.c2 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 12px;
+  color: #24292e;
+  background-color: #f6f8fa;
+  background-image: linear-gradient(-180deg,#fafbfc 0%,rgb(239,243,246) 90%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  background-position: -1px -1px;
+  background-size: 110% 110%;
+  border: 1px solid rgba(27,31,35,0.2);
+  border-radius: 0.25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
+}
+
+.c2:hover {
+  background-color: rgb(230,235,241);
+  background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
+  background-position: -0.5em center;
+  border-color: rgba(27,31,35,0.35);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-repeat: repeat-x;
+}
+
+.c2:active {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c2:selected {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c2:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #f6f8fa;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20) box-shadow:none;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+.c4 {
   background-color: #fff;
   margin-top: 4px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  position: absolute;
-  z-index: 99999;
   border: 1px solid;
   border-color: #e1e4e8;
-  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(27,31,35,0.1);
+  border-radius: 3px;
+}
+
+.c1 > summary {
+  list-style: none;
+}
+
+.c1 > summary::before {
+  display: none;
+}
+
+.c1 > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-1 BtnGroup"
+  className="BtnGroup"
 >
   <details
-    className="BtnGroup-form emotion-3"
+    className="BtnGroup-form c0 c1"
+    display="flex"
     open={false}
   >
     <summary
-      blacklist={
-        Array [
-          "css",
-          "color",
-          "bg",
-          "m",
-          "mt",
-          "mr",
-          "mb",
-          "ml",
-          "mx",
-          "my",
-          "p",
-          "pt",
-          "pr",
-          "pb",
-          "pl",
-          "px",
-          "py",
-          "width",
-        ]
-      }
-      className="emotion-1 btn BtnGroup-item"
+      className="c2"
+      grouped={true}
       onClick={[Function]}
-      type="button"
     >
       <svg
         aria-hidden="true"
-        className="emotion-0"
+        className="c3"
         height={14}
         role="img"
         style={
@@ -120,11 +137,7 @@ exports[`Dropdown matches the snapshots 1`] = `
       </svg>
     </summary>
     <div
-      bg="white"
-      className="emotion-2"
-      mt={1}
-      px={3}
-      py={2}
+      className="c4"
     >
       hi
       <svg
@@ -134,6 +147,7 @@ exports[`Dropdown matches the snapshots 1`] = `
             "bottom": "100%",
             "left": 8,
             "marginLeft": null,
+            "marginTop": "-1px",
             "pointerEvents": "none",
             "position": "absolute",
           }
@@ -161,106 +175,123 @@ exports[`Dropdown matches the snapshots 1`] = `
 `;
 
 exports[`Dropdown matches the snapshots 2`] = `
-.emotion-3 {
+.c3 {
+  margin-left: 8px;
+}
+
+.c2 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: inline-block;
+  padding: 6px 12px;
+  color: #24292e;
+  background-color: #f6f8fa;
+  background-image: linear-gradient(-180deg,#fafbfc 0%,rgb(239,243,246) 90%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  background-position: -1px -1px;
+  background-size: 110% 110%;
+  border: 1px solid rgba(27,31,35,0.2);
+  border-radius: 0.25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
 }
 
-.emotion-3 > summary {
-  list-style: none;
+.c2:hover {
+  background-color: rgb(230,235,241);
+  background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
+  background-position: -0.5em center;
+  border-color: rgba(27,31,35,0.35);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-repeat: repeat-x;
 }
 
-.emotion-3 > summary::before {
-  display: none;
+.c2:active {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
 }
 
-.emotion-3 > summary::-webkit-details-marker {
-  display: none;
+.c2:selected {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
 }
 
-.emotion-2 {
-  position: absolute;
-  z-index: 99999;
+.c2:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #f6f8fa;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20) box-shadow:none;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+.c4 {
   background-color: #fff;
   margin-top: 4px;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-  position: absolute;
-  z-index: 99999;
   border: 1px solid;
   border-color: #e1e4e8;
-  border-radius: 3px;
   box-shadow: 0 1px 1px rgba(27,31,35,0.1);
+  border-radius: 3px;
 }
 
-.emotion-0 {
-  margin-left: 8px;
+.c1 > summary {
+  list-style: none;
+}
+
+.c1 > summary::before {
+  display: none;
+}
+
+.c1 > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
-  blacklist={
-    Array [
-      "css",
-      "color",
-      "bg",
-      "m",
-      "mt",
-      "mr",
-      "mb",
-      "ml",
-      "mx",
-      "my",
-      "p",
-      "pt",
-      "pr",
-      "pb",
-      "pl",
-      "px",
-      "py",
-    ]
-  }
-  className="emotion-1 BtnGroup"
+  className="BtnGroup"
 >
   <details
-    className="BtnGroup-form emotion-3"
+    className="BtnGroup-form c0 c1"
+    display="flex"
     open={false}
   >
     <summary
-      blacklist={
-        Array [
-          "css",
-          "color",
-          "bg",
-          "m",
-          "mt",
-          "mr",
-          "mb",
-          "ml",
-          "mx",
-          "my",
-          "p",
-          "pt",
-          "pr",
-          "pb",
-          "pl",
-          "px",
-          "py",
-          "width",
-        ]
-      }
-      className="emotion-1 btn BtnGroup-item"
+      className="c2"
+      grouped={true}
       onClick={[Function]}
-      type="button"
     >
       hi
       <svg
         aria-hidden="true"
-        className="emotion-0"
+        className="c3"
         height={14}
         role="img"
         style={
@@ -281,11 +312,7 @@ exports[`Dropdown matches the snapshots 2`] = `
       </svg>
     </summary>
     <div
-      bg="white"
-      className="emotion-2"
-      mt={1}
-      px={3}
-      py={2}
+      className="c4"
     >
       hello!
       <svg
@@ -295,6 +322,7 @@ exports[`Dropdown matches the snapshots 2`] = `
             "bottom": "100%",
             "left": 8,
             "marginLeft": null,
+            "marginTop": "-1px",
             "pointerEvents": "none",
             "position": "absolute",
           }

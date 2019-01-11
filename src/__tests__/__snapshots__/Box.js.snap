@@ -1,205 +1,201 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Box renders margin 1`] = `
-.emotion-0 {
+.c0 {
   margin: 4px;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;
 
 exports[`Box renders margin 2`] = `
-.emotion-0 {
+.c0 {
   margin: 0px;
 }
 
 @media screen and (min-width:544px) {
-  .emotion-0 {
+  .c0 {
     margin: 4px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .emotion-0 {
+  .c0 {
     margin: 8px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .emotion-0 {
+  .c0 {
     margin: 16px;
   }
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;
 
 exports[`Box renders margin 3`] = `
-.emotion-0 {
+.c0 {
   margin: 4px;
 }
 
 @media screen and (min-width:544px) {
-  .emotion-0 {
+  .c0 {
     margin: 4px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .emotion-0 {
+  .c0 {
     margin: 4px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .emotion-0 {
+  .c0 {
     margin: 16px;
   }
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;
 
 exports[`Box renders padding 1`] = `
-.emotion-0 {
+.c0 {
   padding: 4px;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;
 
 exports[`Box renders padding 2`] = `
-.emotion-0 {
+.c0 {
   padding: 0px;
 }
 
 @media screen and (min-width:544px) {
-  .emotion-0 {
+  .c0 {
     padding: 4px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .emotion-0 {
+  .c0 {
     padding: 8px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .emotion-0 {
+  .c0 {
     padding: 16px;
   }
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;
 
 exports[`Box renders padding 3`] = `
-.emotion-0 {
+.c0 {
   padding: 4px;
 }
 
 @media screen and (min-width:544px) {
-  .emotion-0 {
+  .c0 {
     padding: 4px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .emotion-0 {
+  .c0 {
     padding: 4px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .emotion-0 {
+  .c0 {
     padding: 16px;
   }
 }
 
 <div
-  className="emotion-0"
+  className="c0"
 />
 `;
 
 exports[`Box renders without any props 1`] = `
 <div
-  className="emotion-0"
+  className=""
 />
 `;
 
 exports[`Box respects display 1`] = `
-.emotion-0 {
+.c0 {
   display: inline;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="inline"
 />
 `;
 
 exports[`Box respects display 2`] = `
-.emotion-0 {
+.c0 {
   display: inline-block;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="inline-block"
 />
 `;
 
 exports[`Box respects display 3`] = `
-.emotion-0 {
+.c0 {
   display: none;
 }
 
 <div
-  className="emotion-0"
+  className="c0"
+  display="none"
 />
 `;
 
 exports[`Box respects display 4`] = `
-.emotion-0 {
+.c0 {
   display: none;
 }
 
 @media screen and (min-width:544px) {
-  .emotion-0 {
+  .c0 {
     display: none;
   }
 }
 
 @media screen and (min-width:768px) {
-  .emotion-0 {
+  .c0 {
     display: block;
   }
 }
 
 <div
-  className="emotion-0"
-/>
-`;
-
-exports[`Box respects position 1`] = `
-<div
-  className="emotion-0"
-  position="absolute"
-/>
-`;
-
-exports[`Box respects position 2`] = `
-<div
-  className="emotion-0"
-  position="relative"
+  className="c0"
+  display={
+    Array [
+      "none",
+      "none",
+      "block",
+    ]
+  }
 />
 `;

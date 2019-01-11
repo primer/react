@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import {color} from 'styled-system'
-import styled from 'react-emotion'
-import {withSystemProps, COMMON} from './system-props'
+import styled from 'styled-components'
 import theme, {colors} from './theme'
+import {COMMON} from './constants'
 
 const sizeMap = {
   small: `padding 0.125em ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
@@ -21,7 +20,7 @@ const outlineStyles = `
   box-shadow: none;
 `
 
-const styledLabel = styled('span')`
+const Label = styled('span')`
   display: inline-block;
   font-weight: 600;
   line-height: ${theme.lineHeights.condensedUltra};
@@ -30,21 +29,22 @@ const styledLabel = styled('span')`
   &:hover {
     text-decoration: none;
   }
-  ${color};
-  ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
+  ${COMMON} ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
   ${props => sizeMap[props.size]};
   ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
 `
 
-styledLabel.defaultProps = {
+Label.defaultProps = {
   theme,
   bg: 'gray.5',
   size: 'medium'
 }
 
-styledLabel.propTypes = {
+Label.propTypes = {
   dropshadow: PropTypes.bool,
-  outline: PropTypes.bool
+  outline: PropTypes.bool,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
 }
 
-export default withSystemProps(styledLabel, COMMON)
+export default Label

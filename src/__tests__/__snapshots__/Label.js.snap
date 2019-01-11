@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Label respects the "outline" prop 1`] = `
-.emotion-0 {
+.c0 {
   display: inline-block;
   font-weight: 600;
   line-height: 1;
@@ -19,13 +19,13 @@ exports[`Label respects the "outline" prop 1`] = `
   box-shadow: none;
 }
 
-.emotion-0:hover {
+.c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 <span
-  className="emotion-0"
+  className="c0"
   size="medium"
 />
 `;
