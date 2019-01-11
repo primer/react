@@ -1,3 +1,4 @@
+import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON} from './constants'
@@ -8,10 +9,10 @@ const GlobalStyle = createGlobalStyle`
   body { margin: 0; }
   table { border-collapse: collapse; }
 `
-const Base = (props) => {
+const Base = props => {
   return (
     <div {...props}>
-      <GlobalStyle/>
+      <GlobalStyle />
       {props.children}
     </div>
   )

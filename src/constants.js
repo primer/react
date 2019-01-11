@@ -63,17 +63,11 @@ export const FLEX_ITEM = compose(
   styles.alignSelf
 )
 
-
 // These lists are just used to generate docs
 
 export const COMMON_LIST = ['color', 'space']
 
-export const BORDER_LIST = [
-  'borders',
-  'borderColor',
-  'boxShadow',
-  'borderRadius'
-]
+export const BORDER_LIST = ['borders', 'borderColor', 'boxShadow', 'borderRadius']
 
 export const TYPOGRAPHY_LIST = [
   // typography props
