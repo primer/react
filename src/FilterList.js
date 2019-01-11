@@ -9,9 +9,7 @@ function ItemBase({children, count, theme, is: Tag, ...rest}) {
   return (
     <a key={nanoid()} {...rest}>
       {count && (
-        <span title="results" className="count">
-          {count}
-        </span>
+        <span title="results" className="count">{count}</span>
       )}
       {children}
     </a>
