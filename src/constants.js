@@ -63,4 +63,62 @@ export const FLEX_ITEM = compose(
   styles.alignSelf
 )
 
+// These lists are just used to generate docs
+
+export const COMMON_LIST = ['color', 'space']
+
+export const BORDER_LIST = ['borders', 'borderColor', 'boxShadow', 'borderRadius']
+
+export const TYPOGRAPHY_LIST = [
+  // typography props
+  'fontFamily',
+  'fontSize',
+  'fontWeight',
+  'lineHeight',
+  'textAlign'
+]
+
+export const LAYOUT_LIST = [
+  // layout props
+  'display',
+  'size',
+  'width',
+  'height',
+  'minWidth',
+  'minHeight',
+  'maxWidth',
+  'maxHeight',
+  'overflow',
+  'verticalAlign'
+]
+
+export const POSITION_LIST = [
+  // position props
+  'position',
+  'zIndex',
+  'top',
+  'right',
+  'bottom',
+  'left'
+]
+
+export const FLEX_CONTAINER_LIST = [
+  // flex container props (display: flex)
+  'flexBasis',
+  'flexDirection',
+  'flexWrap',
+  'alignContent',
+  'alignItems',
+  'justifyContent',
+  'justifyItems',
+  'order'
+]
+
+export const FLEX_ITEM_LIST = [
+  // flex container child props
+  'flex',
+  'justifySelf',
+  'alignSelf'
+]
+
 export const Base = ({is: Tag = 'div', theme, ...rest}) => <Tag {...rest} />

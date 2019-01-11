@@ -58,7 +58,7 @@ describe('Text', () => {
   })
 
   it('respects fontFamily="mono"', () => {
-    // emotion removes the whitespace between font-family values
+    // styled-components removes the whitespace between font-family values
     const mono = theme.fonts.mono.replace(/, /g, ',')
     expect(render(<Text fontFamily="mono" />)).toHaveStyleRule('font-family', mono)
   })
