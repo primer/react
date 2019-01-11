@@ -15,7 +15,7 @@ const Flash = styled.div`
   padding: ${get('space.3')}px;
   color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].color : '')};
   background-color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].bg : '')};
-  border-color: ${get('colors.blackfade15');
+  border-color: ${get('colors.blackfade15')};
   border-style: solid;
   border-width: ${props => (props.full ? '1px 0px' : '1px')};
   border-radius: ${props => (props.full ? '0' : '3px')};
