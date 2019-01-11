@@ -78,7 +78,7 @@ This will set the `color`, `font-family`, and `line-height` CSS properties to th
 
 #### Static CSS rendering
 
-If you're rendering React components both server-side _and_ client-side, we suggest following [Emotion's server-side rendering instructions](https://emotion.sh/docs/ssr) to avoid the flash of unstyled content for server-rendered components. This repo's [documentation template component](https://github.com/primer/components/blob/master/pages/_document.js) demonstrates how to do this in [Next.js].
+If you're rendering React components both server-side _and_ client-side, we suggest following [styled-component's server-side rendering instructions](https://www.styled-components.com/docs/advanced#server-side-rendering) to avoid the flash of unstyled content for server-rendered components. This repo's [documentation template component](https://github.com/primer/components/blob/master/pages/_document.js) demonstrates how to do this in [Next.js].
 
 ## Local Development
 
@@ -101,7 +101,7 @@ To run `@primer/components` locally when adding or updating components:
 - Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
 
 
-[emotion]: https://emotion.sh/
+[styled-components]: https://www.styled-components.com/docs
 [Primer CSS]: https://github.com/primer/primer
 [flash of unstyled content]: https://en.wikipedia.org/wiki/Flash_of_unstyled_content
 [Next.js]: https://github.com/zeit/next.js
