@@ -14,6 +14,10 @@ describe('BorderBox', () => {
     expect(BorderBox).toSetDefaultTheme()
   })
 
+  it('respects the "is" prop', () => {
+    expect(render(<BorderBox is="span" />).type).toEqual('span')
+  })
+
   it('renders borders', () => {
     expect(render(<BorderBox borderColor="green.5" />)).toHaveStyleRule('border-color', colors.green[5])
     expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')

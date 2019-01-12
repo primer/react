@@ -13,6 +13,10 @@ describe('Label', () => {
     expect(render(<Label outline />)).toMatchSnapshot()
   })
 
+  it('respects the "is" prop', () => {
+    expect(render(<Label is="span" />).type).toEqual('span')
+  })
+
   it('has default theme', () => {
     expect(Label).toSetDefaultTheme()
   })

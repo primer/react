@@ -27,6 +27,10 @@ describe('StateLabel', () => {
     expect(render(<StateLabel>hi</StateLabel>)).toMatchSnapshot()
   })
 
+  it('respects the "is" prop', () => {
+    expect(render(<StateLabel is="span" />).type).toEqual('span')
+  })
+
   it('does not pass on arbitrary attributes', () => {
     const defaultOutput = render(<StateLabel />)
     expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)

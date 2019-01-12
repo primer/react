@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import {LAYOUT, COMMON} from './constants'
+import {LAYOUT, COMMON, Base} from './constants'
 import theme from './theme'
 
-const Box = styled.div`
+const Box = styled(Base)`
   ${LAYOUT} ${COMMON};
 `
 

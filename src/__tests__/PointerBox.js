@@ -18,4 +18,8 @@ describe('PointerBox', () => {
   it('has default theme', () => {
     expect(PointerBox).toSetDefaultTheme()
   })
+
+  it('respects the "is" prop', () => {
+    expect(render(<PointerBox is="span" />).type).toEqual('span')
+  })
 })
