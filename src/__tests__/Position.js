@@ -30,7 +30,6 @@ describe('position components', () => {
     it('respects the "is" prop', () => {
       expect(render(<Absolute is="span" />).type).toEqual('span')
     })
-
   })
 
   describe('Fixed', () => {

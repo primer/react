@@ -16,7 +16,6 @@ describe('Tooltip', () => {
     expect(render(<Tooltip is="span" />).type).toEqual('span')
   })
 
-
   it('renders a <span> with the "tooltipped" class', () => {
     expect(render(<Tooltip />).type).toEqual('span')
     expect(renderClasses(<Tooltip />)).toContain('tooltipped-n')

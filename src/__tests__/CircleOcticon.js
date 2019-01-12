@@ -32,5 +32,4 @@ describe('CircleOcticon', () => {
   it('respects the "is" prop', () => {
     expect(render(<CircleOcticon icon={Check} is="span" />).type).toEqual('span')
   })
-
 })

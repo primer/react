@@ -33,5 +33,4 @@ describe('CounterLabel', () => {
   it('respects the "is" prop', () => {
     expect(render(<CounterLabel is="span" />).type).toEqual('span')
   })
-
 })

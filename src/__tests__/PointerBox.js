@@ -22,5 +22,4 @@ describe('PointerBox', () => {
   it('respects the "is" prop', () => {
     expect(render(<PointerBox is="span" />).type).toEqual('span')
   })
-
 })

@@ -31,7 +31,6 @@ describe('StateLabel', () => {
     expect(render(<StateLabel is="span" />).type).toEqual('span')
   })
 
-
   it('does not pass on arbitrary attributes', () => {
     const defaultOutput = render(<StateLabel />)
     expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
