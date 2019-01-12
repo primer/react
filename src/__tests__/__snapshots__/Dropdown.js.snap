@@ -137,7 +137,21 @@ exports[`Dropdown matches the snapshots 1`] = `
       </svg>
     </summary>
     <div
+      bg="white"
+      border={1}
+      borderColor="gray.2"
+      borderRadius={1}
+      boxShadow="small"
       className="c4"
+      css={
+        Object {
+          "position": "absolute",
+          "zIndex": 99999,
+        }
+      }
+      mt={1}
+      px={3}
+      py={2}
     >
       hi
       <svg
@@ -312,7 +326,21 @@ exports[`Dropdown matches the snapshots 2`] = `
       </svg>
     </summary>
     <div
+      bg="white"
+      border={1}
+      borderColor="gray.2"
+      borderRadius={1}
+      boxShadow="small"
       className="c4"
+      css={
+        Object {
+          "position": "absolute",
+          "zIndex": 99999,
+        }
+      }
+      mt={1}
+      px={3}
+      py={2}
     >
       hello!
       <svg

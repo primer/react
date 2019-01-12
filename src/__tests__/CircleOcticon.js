@@ -28,4 +28,9 @@ describe('CircleOcticon', () => {
     expect(result).toHaveStyleRule('width', '32px')
     expect(result).toHaveStyleRule('height', '32px')
   })
+
+  it('respects the "is" prop', () => {
+    expect(render(<CircleOcticon icon={Check} is="span" />).type).toEqual('span')
+  })
+
 })

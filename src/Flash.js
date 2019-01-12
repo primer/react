@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, Base} from './constants'
 import theme from './theme'
 
 const schemeMap = {
@@ -10,7 +10,7 @@ const schemeMap = {
   base: {color: 'colors.blue.8', bg: 'colors.blue.1'}
 }
 
-const Flash = styled.div`
+const Flash = styled(Base)`
   position: relative;
   padding: ${get('space.3')}px;
   color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].color : '')};

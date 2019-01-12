@@ -26,12 +26,20 @@ describe('position components', () => {
       expect(result).toHaveStyleRule('position', 'absolute')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
+
+    it('respects the "is" prop', () => {
+      expect(render(<Absolute is="span" />).type).toEqual('span')
+    })
+
   })
 
   describe('Fixed', () => {
     it('implements system props', () => {
       expect(Fixed).toImplementSystemProps(LAYOUT)
       expect(Fixed).toImplementSystemProps(POSITION)
+    })
+    it('respects the "is" prop', () => {
+      expect(render(<Fixed is="span" />).type).toEqual('span')
     })
     it('has default theme', () => {
       expect(Fixed).toSetDefaultTheme()
@@ -54,6 +62,10 @@ describe('position components', () => {
       expect(Relative).toImplementSystemProps(LAYOUT)
       expect(Relative).toImplementSystemProps(POSITION)
     })
+    it('respects the "is" prop', () => {
+      expect(render(<Relative is="span" />).type).toEqual('span')
+    })
+
     it('has default theme', () => {
       expect(Relative).toSetDefaultTheme()
     })
@@ -74,6 +86,9 @@ describe('position components', () => {
     it('implements system props', () => {
       expect(Sticky).toImplementSystemProps(LAYOUT)
       expect(Sticky).toImplementSystemProps(POSITION)
+    })
+    it('respects the "is" prop', () => {
+      expect(render(<Sticky is="span" />).type).toEqual('span')
     })
     it('sets position: sticky', () => {
       expect(render(<Sticky />)).toHaveStyleRule('position', 'sticky')
