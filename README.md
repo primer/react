@@ -76,6 +76,47 @@ export default () => (
 
 This will set the `color`, `font-family`, and `line-height` CSS properties to the same ones used in [primer-base](https://github.com/primer/primer/blob/master/modules/primer-base/lib/base.scss#L15).
 
+#### Theming
+
+Components are styled using Primer's theme by default, but you can provide your own theme by using [styled-component's] `<ThemeProvider>`. If you'd like to fully replace the Primer theme with your custom theme, pass your theme to the `<ThemeProvider>` in the root of your application like so:
+
+```
+import {ThemeProvider} from `styled-components`
+
+const theme = { ... }
+
+const App = (props) => {
+  return (
+    <div>
+      <ThemeProvider theme={theme}>
+        <div>your app here</div>
+      </ThemeProvider>
+    </div>
+  )
+}
+
+```
+
+If you'd like to merge the Primer theme with your theme, you can do so importing the Primer theme and merging using Object.assign:
+
+```
+import {ThemeProvider} from `styled-components`
+import {theme} from '@primer/components'
+
+const customTheme = { ... }
+
+
+const App = (props) => {
+  return (
+    <div>
+      <ThemeProvider theme={Object.assign({}, theme, customTheme)}> // matching keys in customTheme will override keys in the Primer theme
+        <div>your app here</div>
+      </ThemeProvider>
+    </div>
+  )
+}
+```
+
 #### Static CSS rendering
 
 If you're rendering React components both server-side _and_ client-side, we suggest following [styled-component's server-side rendering instructions](https://www.styled-components.com/docs/advanced#server-side-rendering) to avoid the flash of unstyled content for server-rendered components. This repo's [documentation template component](https://github.com/primer/components/blob/master/pages/_document.js) demonstrates how to do this in [Next.js].
