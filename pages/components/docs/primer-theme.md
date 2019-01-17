@@ -48,7 +48,7 @@ There are two ways to change the theme of Primer components:
     **⚠️ Note: [styled-components]'s `<ThemeProvider>` only allows exactly one child.**
 2. You can merge the Primer theme with your custom theme using Object.assign:
 
-```
+```jsx
 import {ThemeProvider} from `styled-components`
 import {theme} from '@primer/components'
 
