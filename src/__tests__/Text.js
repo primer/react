@@ -51,6 +51,11 @@ describe('Text', () => {
     expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', '400')
   })
 
+  it('respects fontStyle', () => {
+    expect(render(<Text fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Text is="var" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+  })
+
   it('respects lineHeight', () => {
     for (const [name, value] of Object.entries(theme.lineHeights)) {
       expect(render(<Text lineHeight={name} />)).toHaveStyleRule('line-height', String(value))
