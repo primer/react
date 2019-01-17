@@ -100,7 +100,7 @@ const App = (props) => {
 If you'd like to merge the Primer theme with your theme, you can do so importing the Primer theme and merging using Object.assign:
 
 ```
-import {ThemeProvider} from `styled-components`
+import {ThemeProvider} from 'styled-components'
 import {theme} from '@primer/components'
 
 const customTheme = { ... }
