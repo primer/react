@@ -81,7 +81,7 @@ This will set the `color`, `font-family`, and `line-height` CSS properties to th
 Components are styled using Primer's theme by default, but you can provide your own theme by using [styled-component's][styled-components] `<ThemeProvider>`. If you'd like to fully replace the Primer theme with your custom theme, pass your theme to the `<ThemeProvider>` in the root of your application like so:
 
 ```jsx
-import {ThemeProvider} from `styled-components`
+import {ThemeProvider} from 'styled-components'
 
 const theme = { ... }
 
