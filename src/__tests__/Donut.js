@@ -69,15 +69,7 @@ describe('Donut', () => {
       expect(render(<Donut.Slice state="success" />).props.fill).toEqual(state.success)
       expect(render(<Donut.Slice state="unknown" />).props.fill).toEqual(state.unknown)
     })
-
-    it('renders unknown states with theme.colors.state.unknown', () => {
-      expect(render(<Donut.Slice state="xyz" />).props.fill).toEqual(state.unknown)
-    })
-
-    it('renders the fallback color when no state color is found in the theme', () => {
-      expect(render(<Donut.Slice state="error" theme={{}} />).props.fill).toEqual('#666')
-    })
-
+    
     it('respects the fill attribute', () => {
       expect(render(<Donut.Slice fill="pink" />).props.fill).toEqual('pink')
     })
