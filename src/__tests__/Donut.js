@@ -69,7 +69,7 @@ describe('Donut', () => {
       expect(render(<Donut.Slice state="success" />).props.fill).toEqual(state.success)
       expect(render(<Donut.Slice state="unknown" />).props.fill).toEqual(state.unknown)
     })
-    
+
     it('respects the fill attribute', () => {
       expect(render(<Donut.Slice fill="pink" />).props.fill).toEqual('pink')
     })
