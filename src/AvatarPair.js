@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {themeGet} from 'styled-system'
+import {get} from './constants'
 import Avatar from './Avatar'
 import theme from './theme'
 
-const getBackgroundColor = themeGet('colors.white', '#fff')
+const getBackgroundColor = get('colors.white')
 
 const Wrapper = styled('div')`
   display: inline-flex;
@@ -15,7 +15,7 @@ const Wrapper = styled('div')`
 const childStyles = props => ({
   display: 'inline-block',
   overflow: 'hidden', // Ensure page layout in Firefox should images fail to load
-  lineHeight: `${themeGet('lineHeights.condensedUltra', 1)}`,
+  lineHeight: `${get('lineHeights.condensedUltra')}`,
   verticalAlign: 'middle',
   borderRadius: '2px',
   position: 'absolute',
