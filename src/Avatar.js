@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {themeGet, space} from 'styled-system'
+import {get} from './constants'
+import {space} from 'styled-system'
 import theme from './theme'
 
 function borderRadius({size}) {
@@ -15,7 +16,7 @@ const Avatar = styled.img.attrs(props => ({
 }))`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
-  line-height: ${themeGet('lineHeights.condensedUltra', 1)};
+  line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
   ${borderRadius};
   ${space};
