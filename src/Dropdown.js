@@ -1,14 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import styled from 'styled-components'
-import StyledOcticon from './StyledOcticon'
-import {TriangleDown} from '@githubprimer/octicons-react'
 import Button from './Button'
-import BorderBox from './BorderBox'
-import Caret from './Caret'
 import Details from './Details'
-import Flex from './Flex'
 import {COMMON, get} from './constants'
 import directionStyles from './DropdownStyles'
 import theme from './theme'
@@ -93,10 +87,12 @@ Dropdown.Menu.propTypes = {
   direction: PropTypes.oneOf(['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se'])
 }
 
+Dropdown.Menu.defaultProps = {
+  direction: 'sw'
+}
+
 Dropdown.propTypes = {
   children: PropTypes.node,
-  scheme: Button.propTypes.scheme,
-  title: PropTypes.string,
   ...COMMON.propTypes
 }
 

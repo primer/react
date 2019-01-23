@@ -27,7 +27,5 @@ Dropdown components get `COMMON` system props. Read our [System Props](/componen
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| scheme | String | | Button scheme used to style the component, can be one of `danger`, `outline` or `primary` |
-| title | String | | Optional prop to set the text in the Dropdown button
 
 export const meta = {displayName: 'Dropdown'}
