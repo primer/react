@@ -3,14 +3,19 @@
 
 The Dropdown component is a lightweight context menu for housing navigation and actions.
 
+Dropdown.Button is used to trigger opening and closing the dropdown.
+
+Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to this component to position the menu in relation to the Dropdown.Button.
+
 ## Default example
 ```.jsx
 <Dropdown scheme="primary" minWidth="5em">
-  <Box role="list">
-    <Box role="listitem">Item 1</Box>
-    <Box role="listitem">Item 2</Box>
-    <Box role="listitem">Item 3</Box>
-  </Box>
+  <Dropdown.Button>Hi</Dropdown.Button>
+  <Dropdown.Menu direction='sw'>
+    <Box>Item 1</Box>
+    <Box>Item 2</Box>
+    <Box>Item 3</Box>
+  </Dropdown.Menu>
 </Dropdown>
 ```
 
