@@ -12,20 +12,35 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 <Dropdown scheme="primary" minWidth="5em">
   <Dropdown.Button>Hi</Dropdown.Button>
   <Dropdown.Menu direction='sw'>
-    <Box>Item 1</Box>
-    <Box>Item 2</Box>
-    <Box>Item 3</Box>
+    <Dropdown.Item>Item 1</Dropdown.Item>
+    <Dropdown.Item>Item 2</Dropdown.Item>
+    <Dropdown.Item>Item 3</Dropdown.Item>
   </Dropdown.Menu>
 </Dropdown>
 ```
 
 ## System props
 
-Dropdown components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+Dropdown wrapper components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+
+Dropdown.Menu, Dropdown.Button, and Dropdown.Item do not get any system props.
 
 ## Component props
 
+
+#### Dropdown.Menu
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
+| direction | String | 'sw' | Sets the direction of the dropdown menu. |
+
+#### Dropdown.Item
+No additional props.
+
+#### Dropdown.Button
+No additional props.
+
+#### Dropdown
+No additional props.
+
 
 export const meta = {displayName: 'Dropdown'}

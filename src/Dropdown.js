@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Button from './Button'
 import Details from './Details'
 import {COMMON, get} from './constants'
-import directionStyles from './DropdownStyles'
+import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
 
 const Dropdown = styled(Details)`
@@ -41,8 +41,7 @@ const DropdownMenu = styled.ul`
   left: 0;
   list-style: none;
   margin-top: 2px;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding: 5px 0 5px 0!important; //TODO: fix this override on our markdown styles
   position: absolute;
   top: 100%;
   width: 160px;
@@ -74,7 +73,7 @@ const DropdownMenu = styled.ul`
   > ul {
     list-style: none;
   }
-  ${props => directionStyles[props.direction]}
+  ${props => props.direction ? getDirectionStyles(props.theme, props.direction) : ''};
 `
 Dropdown.defaultProps = {
   theme
@@ -84,8 +83,30 @@ Dropdown.Button = DropdownButton
 Dropdown.Menu = DropdownMenu
 
 Dropdown.Menu.propTypes = {
-  direction: PropTypes.oneOf(['n', 'e', 's', 'w', 'nw', 'ne', 'sw', 'se'])
+  direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w'])
 }
+
+Dropdown.Item = styled.li`
+  display: block;
+  padding: ${get('space.1')}px 10px ${get('space.1')}px 15px;
+  overflow: hidden;
+  color: $get('colors.gray.9');
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:focus {
+    color: ${get('colors.white')};
+    text-decoration: none;
+    background-color: ${get('colors.blue.5')};
+  }
+
+  &:hover {
+    color: ${get('colors.white')}
+    text-decoration: none;
+    background-color: ${get('colors.blue.5')};
+    outline: none;
+  }
+`
 
 Dropdown.Menu.defaultProps = {
   direction: 'sw'
