@@ -1,87 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches the snapshots 1`] = `
-.c3 {
-  margin-left: 0px;
-}
-
-.c2 {
-  position: relative;
-  display: inline-block;
-  padding: 6px 12px;
-  color: #24292e;
-  background-color: #f6f8fa;
-  background-image: linear-gradient(-180deg,#fafbfc 0%,rgb(239,243,246) 90%);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-repeat: repeat-x;
-  background-position: -1px -1px;
-  background-size: 110% 110%;
-  border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-size: 14px;
-}
-
-.c2:hover {
-  background-color: rgb(230,235,241);
-  background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
-  background-position: -0.5em center;
-  border-color: rgba(27,31,35,0.35);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background-repeat: repeat-x;
-}
-
-.c2:active {
-  background-color: rgb(233,236,239);
-  background-image: none;
-  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
-  border-color: rgba(27,31,35,0.2);
-}
-
-.c2:selected {
-  background-color: rgb(233,236,239);
-  background-image: none;
-  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
-  border-color: rgba(27,31,35,0.2);
-}
-
-.c2:disabled {
-  color: rgba(36,41,46,0.4);
-  background-color: #f6f8fa;
-  background-image: none;
-  border-color: rgba(27,31,35,0.20) box-shadow:none;
-}
-
-.c2:focus {
-  outline: none;
-  box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
-}
-
-.c4 {
-  background-color: #fff;
-  margin-top: 4px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  border: 1px solid;
-  border-color: #e1e4e8;
-  box-shadow: 0 1px 1px rgba(27,31,35,0.1);
-  border-radius: 3px;
-}
-
 .c1 > summary {
   list-style: none;
 }
@@ -95,105 +14,47 @@ exports[`Dropdown matches the snapshots 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  position: relative;
+  display: inline-block;
 }
 
-<div
-  className="BtnGroup"
+<details
+  className="c0 c1"
+  open={false}
 >
-  <details
-    className="BtnGroup-form c0 c1"
-    display="flex"
-    open={false}
-  >
-    <summary
-      className="c2"
-      grouped={true}
-      onClick={[Function]}
-    >
-      <svg
-        aria-hidden="true"
-        className="c3"
-        height={14}
-        role="img"
-        style={
-          Object {
-            "display": "inline-block",
-            "fill": "currentColor",
-            "userSelect": "none",
-            "verticalAlign": "text-bottom",
-          }
-        }
-        viewBox="0 0 12 16"
-        width={10.5}
-      >
-        <path
-          d="M0 5l6 6 6-6H0z"
-          fillRule="evenodd"
-        />
-      </svg>
-    </summary>
-    <div
-      bg="white"
-      border={1}
-      borderColor="gray.2"
-      borderRadius={1}
-      boxShadow="small"
-      className="c4"
-      css={
-        Object {
-          "position": "absolute",
-          "zIndex": 99999,
-        }
-      }
-      mt={1}
-      px={3}
-      py={2}
-    >
-      hi
-      <svg
-        height={16}
-        style={
-          Object {
-            "bottom": "100%",
-            "left": 8,
-            "marginLeft": null,
-            "marginTop": "-1px",
-            "pointerEvents": "none",
-            "position": "absolute",
-          }
-        }
-        width={16}
-      >
-        <g
-          transform="translate(8,16) rotate(180)"
-        >
-          <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="#fff"
-          />
-          <path
-            d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="#e1e4e8"
-            strokeWidth={1}
-          />
-        </g>
-      </svg>
-    </div>
-  </details>
-</div>
+  hi
+</details>
 `;
 
 exports[`Dropdown matches the snapshots 2`] = `
-.c3 {
-  margin-left: 8px;
+.c1 > summary {
+  list-style: none;
 }
 
-.c2 {
+.c1 > summary::before {
+  display: none;
+}
+
+.c1 > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c0 {
+  position: relative;
+  display: inline-block;
+}
+
+<details
+  className="c0 c1"
+  open={false}
+  title="hi"
+>
+  hello!
+</details>
+`;
+
+exports[`Dropdown.Button matches the snapshots 1`] = `
+.c0 {
   position: relative;
   display: inline-block;
   padding: 6px 12px;
@@ -221,7 +82,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   font-size: 14px;
 }
 
-.c2:hover {
+.c0:hover {
   background-color: rgb(230,235,241);
   background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
   background-position: -0.5em center;
@@ -231,148 +92,343 @@ exports[`Dropdown matches the snapshots 2`] = `
   background-repeat: repeat-x;
 }
 
-.c2:active {
+.c0:active {
   background-color: rgb(233,236,239);
   background-image: none;
   box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:selected {
+.c0:selected {
   background-color: rgb(233,236,239);
   background-image: none;
   box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:disabled {
+.c0:disabled {
   color: rgba(36,41,46,0.4);
   background-color: #f6f8fa;
   background-image: none;
   border-color: rgba(27,31,35,0.20) box-shadow:none;
 }
 
-.c2:focus {
+.c0:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-.c4 {
-  background-color: #fff;
-  margin-top: 4px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  border: 1px solid;
-  border-color: #e1e4e8;
-  box-shadow: 0 1px 1px rgba(27,31,35,0.1);
-  border-radius: 3px;
+.c1 {
+  border: 4px solid transparent;
+  border-top-color: currentcolor;
+  content: "";
+  display: inline-block;
+  height: 0;
+  vertical-align: middle;
+  width: 0;
 }
 
-.c1 > summary {
+<summary
+  aria-haspopup="true"
+  className="c0"
+>
+  hi
+  <div
+    className="c1"
+  />
+</summary>
+`;
+
+exports[`Dropdown.Button matches the snapshots 2`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 12px;
+  color: #24292e;
+  background-color: #f6f8fa;
+  background-image: linear-gradient(-180deg,#fafbfc 0%,rgb(239,243,246) 90%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  background-position: -1px -1px;
+  background-size: 110% 110%;
+  border: 1px solid rgba(27,31,35,0.2);
+  border-radius: 0.25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
+}
+
+.c0:hover {
+  background-color: rgb(230,235,241);
+  background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
+  background-position: -0.5em center;
+  border-color: rgba(27,31,35,0.35);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-repeat: repeat-x;
+}
+
+.c0:active {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c0:selected {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c0:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #f6f8fa;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20) box-shadow:none;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+.c1 {
+  border: 4px solid transparent;
+  border-top-color: currentcolor;
+  content: "";
+  display: inline-block;
+  height: 0;
+  vertical-align: middle;
+  width: 0;
+}
+
+<summary
+  aria-haspopup="true"
+  className="c0"
+>
+  hello!
+  <div
+    className="c1"
+  />
+</summary>
+`;
+
+exports[`Dropdown.Item matches the snapshots 1`] = `
+.c0 {
+  display: block;
+  padding: 4px 10px 4px 15px;
+  overflow: hidden;
+  color: $get('colors.gray.9');
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c0:focus {
+  color: #fff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #0366d6;
+}
+
+.c0:hover {
+  color: #fff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #0366d6;
+  outline: none;
+}
+
+<li
+  className="c0"
+>
+  hi
+</li>
+`;
+
+exports[`Dropdown.Item matches the snapshots 2`] = `
+.c0 {
+  display: block;
+  padding: 4px 10px 4px 15px;
+  overflow: hidden;
+  color: $get('colors.gray.9');
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c0:focus {
+  color: #fff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #0366d6;
+}
+
+.c0:hover {
+  color: #fff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #0366d6;
+  outline: none;
+}
+
+<li
+  className="c0"
+>
+  hello!
+</li>
+`;
+
+exports[`Dropdown.Menu matches the snapshots 1`] = `
+.c0 {
+  background-clip: padding-box;
+  background-color: #fff;
+  border: 1px solid rgba(27,31,35,.15);
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  left: 0;
+  list-style: none;
+  margin-top: 2px;
+  padding: 5px 0 5px 0!important;
+  position: absolute;
+  top: 100%;
+  width: 160px;
+  z-index: 100;
+  right: 0;
+  left: auto;
+}
+
+.c0::before {
+  position: absolute;
+  display: inline-block;
+  content: "";
+}
+
+.c0::after {
+  position: absolute;
+  display: inline-block;
+  content: "";
+}
+
+.c0::before {
+  border: 8px solid transparent;
+}
+
+.c0::after {
+  border: 7px solid transparent;
+  border-bottom-color: #fff;
+}
+
+.c0 > ul {
   list-style: none;
 }
 
-.c1 > summary::before {
-  display: none;
+.c0::before {
+  top: -16px;
+  right: 9px;
+  left: auto;
 }
 
-.c1 > summary::-webkit-details-marker {
-  display: none;
+.c0::after {
+  top: -14px;
+  right: 10px;
+  left: auto;
 }
 
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-<div
-  className="BtnGroup"
+<ul
+  className="c0"
+  direction="sw"
 >
-  <details
-    className="BtnGroup-form c0 c1"
-    display="flex"
-    open={false}
-  >
-    <summary
-      className="c2"
-      grouped={true}
-      onClick={[Function]}
-    >
-      hi
-      <svg
-        aria-hidden="true"
-        className="c3"
-        height={14}
-        role="img"
-        style={
-          Object {
-            "display": "inline-block",
-            "fill": "currentColor",
-            "userSelect": "none",
-            "verticalAlign": "text-bottom",
-          }
-        }
-        viewBox="0 0 12 16"
-        width={10.5}
-      >
-        <path
-          d="M0 5l6 6 6-6H0z"
-          fillRule="evenodd"
-        />
-      </svg>
-    </summary>
-    <div
-      bg="white"
-      border={1}
-      borderColor="gray.2"
-      borderRadius={1}
-      boxShadow="small"
-      className="c4"
-      css={
-        Object {
-          "position": "absolute",
-          "zIndex": 99999,
-        }
-      }
-      mt={1}
-      px={3}
-      py={2}
-    >
-      hello!
-      <svg
-        height={16}
-        style={
-          Object {
-            "bottom": "100%",
-            "left": 8,
-            "marginLeft": null,
-            "marginTop": "-1px",
-            "pointerEvents": "none",
-            "position": "absolute",
-          }
-        }
-        width={16}
-      >
-        <g
-          transform="translate(8,16) rotate(180)"
-        >
-          <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="#fff"
-          />
-          <path
-            d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="#e1e4e8"
-            strokeWidth={1}
-          />
-        </g>
-      </svg>
-    </div>
-  </details>
-</div>
+  <li>
+    1
+  </li>
+  <li>
+    2
+  </li>
+  <li>
+    3
+  </li>
+</ul>
+`;
+
+exports[`Dropdown.Menu matches the snapshots 2`] = `
+.c0 {
+  background-clip: padding-box;
+  background-color: #fff;
+  border: 1px solid rgba(27,31,35,.15);
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  left: 0;
+  list-style: none;
+  margin-top: 2px;
+  padding: 5px 0 5px 0!important;
+  position: absolute;
+  top: 100%;
+  width: 160px;
+  z-index: 100;
+  right: 0;
+  left: auto;
+}
+
+.c0::before {
+  position: absolute;
+  display: inline-block;
+  content: "";
+}
+
+.c0::after {
+  position: absolute;
+  display: inline-block;
+  content: "";
+}
+
+.c0::before {
+  border: 8px solid transparent;
+}
+
+.c0::after {
+  border: 7px solid transparent;
+  border-bottom-color: #fff;
+}
+
+.c0 > ul {
+  list-style: none;
+}
+
+.c0::before {
+  top: -16px;
+  right: 9px;
+  left: auto;
+}
+
+.c0::after {
+  top: -14px;
+  right: 10px;
+  left: auto;
+}
+
+<ul
+  className="c0"
+  direction="sw"
+>
+  <li>
+    1
+  </li>
+  <li>
+    2
+  </li>
+  <li>
+    3
+  </li>
+</ul>
 `;
