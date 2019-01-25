@@ -29,4 +29,9 @@ describe('Link', () => {
   it('respects hoverColor prop', () => {
     expect(render(<Link hoverColor="blue.4" />)).toMatchSnapshot()
   })
+
+  it('respects the "fontStyle" prop', () => {
+    expect(render(<Link fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Link is="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+  })
 })
