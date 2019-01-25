@@ -19,6 +19,7 @@ export const BORDER = compose(
 export const TYPOGRAPHY = compose(
   styles.fontFamily,
   styles.fontSize,
+  styles.fontStyle,
   styles.fontWeight,
   styles.lineHeight,
   styles.textAlign
@@ -73,6 +74,7 @@ export const TYPOGRAPHY_LIST = [
   // typography props
   'fontFamily',
   'fontSize',
+  'fontStyle',
   'fontWeight',
   'lineHeight',
   'textAlign'

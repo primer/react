@@ -82,6 +82,11 @@ describe('Heading', () => {
     }
   })
 
+  it('respects the "fontStyle" prop', () => {
+    expect(render(<Heading fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Heading is="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+  })
+
   xit('renders fontSize with f* classes using inverse scale', () => {
     expect(render(<Heading fontSize={0} theme={theme} />)).toEqual(render(<span className="f6" />))
     expect(render(<Heading fontSize={1} theme={theme} />)).toEqual(render(<span className="f5" />))

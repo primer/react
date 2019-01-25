@@ -22,7 +22,7 @@ describe('Text', () => {
     expect(render(<Text is="b" />).type).toEqual('b')
   })
 
-  it('renders font-size', () => {
+  it('renders fontSize', () => {
     for (const fontSize of theme.fontSizes) {
       expect(render(<Text fontSize={fontSize} />)).toHaveStyleRule('font-size', px(fontSize))
     }
@@ -49,6 +49,11 @@ describe('Text', () => {
   it('respects fontWeight', () => {
     expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', '600')
     expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', '400')
+  })
+
+  it('respects the "fontStyle" prop', () => {
+    expect(render(<Text fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Text is="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
 
   it('respects lineHeight', () => {
