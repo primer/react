@@ -14,7 +14,7 @@ const Dropdown = styled(Details)`
 `
 
 const DropdownCaret = styled.div`
-  border: 4px solid transparent;
+  border: ${get('space.1')}px solid transparent;
   border-top-color: currentcolor;
   content: '';
   display: inline-block;
@@ -34,9 +34,9 @@ const DropdownButton = ({children, ...rest}) => {
 
 const DropdownMenu = styled.ul`
   background-clip: padding-box;
-  background-color: #fff;
+  background-color: ${get('colors.white')};
   border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: 4px;
+  border-radius: ${get('space.1')}px;
   box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   left: 0;
   list-style: none;
@@ -60,8 +60,8 @@ const DropdownMenu = styled.ul`
   }
 
   &::before {
-    border: 8px solid transparent;
-    border-bottom-color: ${get('colors.blackFade15')};
+    border: ${get('space.2')}px solid transparent;
+    border-bottom-color: ${get('colors.blackfade15')};
   }
 
   &::after {
