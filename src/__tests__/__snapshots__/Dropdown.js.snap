@@ -121,7 +121,7 @@ exports[`Dropdown.Button matches the snapshots 1`] = `
 .c1 {
   border: 4px solid transparent;
   border-top-color: currentcolor;
-  content: "";
+  content: '';
   display: inline-block;
   height: 0;
   vertical-align: middle;
@@ -207,7 +207,7 @@ exports[`Dropdown.Button matches the snapshots 2`] = `
 .c1 {
   border: 4px solid transparent;
   border-top-color: currentcolor;
-  content: "";
+  content: '';
   display: inline-block;
   height: 0;
   vertical-align: middle;
@@ -293,13 +293,13 @@ exports[`Dropdown.Menu matches the snapshots 1`] = `
 .c0 {
   background-clip: padding-box;
   background-color: #fff;
-  border: 1px solid rgba(27,31,35,.15);
+  border: 1px solid rgba(27,31,35,0.15);
   border-radius: 4px;
-  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  box-shadow: 0 3px 12px rgba(27,31,35,0.15);
   left: 0;
   list-style: none;
   margin-top: 2px;
-  padding: 5px 0 5px 0!important;
+  padding: 5px 0 5px 0 !important;
   position: absolute;
   top: 100%;
   width: 160px;
@@ -311,17 +311,18 @@ exports[`Dropdown.Menu matches the snapshots 1`] = `
 .c0::before {
   position: absolute;
   display: inline-block;
-  content: "";
+  content: '';
 }
 
 .c0::after {
   position: absolute;
   display: inline-block;
-  content: "";
+  content: '';
 }
 
 .c0::before {
   border: 8px solid transparent;
+  border-bottom-color: rgba(27,31,35,0.15);
 }
 
 .c0::after {
@@ -365,13 +366,13 @@ exports[`Dropdown.Menu matches the snapshots 2`] = `
 .c0 {
   background-clip: padding-box;
   background-color: #fff;
-  border: 1px solid rgba(27,31,35,.15);
+  border: 1px solid rgba(27,31,35,0.15);
   border-radius: 4px;
-  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  box-shadow: 0 3px 12px rgba(27,31,35,0.15);
   left: 0;
   list-style: none;
   margin-top: 2px;
-  padding: 5px 0 5px 0!important;
+  padding: 5px 0 5px 0 !important;
   position: absolute;
   top: 100%;
   width: 160px;
@@ -383,17 +384,18 @@ exports[`Dropdown.Menu matches the snapshots 2`] = `
 .c0::before {
   position: absolute;
   display: inline-block;
-  content: "";
+  content: '';
 }
 
 .c0::after {
   position: absolute;
   display: inline-block;
-  content: "";
+  content: '';
 }
 
 .c0::before {
   border: 8px solid transparent;
+  border-bottom-color: rgba(27,31,35,0.15);
 }
 
 .c0::after {
