@@ -78,7 +78,7 @@ This will set the `color`, `font-family`, and `line-height` CSS properties to th
 
 #### Theming
 
-Components are styled using Primer's theme by default, but you can provide your own theme by using [styled-component's][styled-components] `<ThemeProvider>`. If you'd like to fully replace the Primer theme with your custom theme, pass your theme to the `<ThemeProvider>` in the root of your application like so:
+Components are styled using Primer's [theme](https://github.com/primer/components/blob/master/src/theme.js) by default, but you can provide your own theme by using [styled-component's][styled-components] `<ThemeProvider>`. If you'd like to fully replace the Primer [theme](https://github.com/primer/components/blob/master/src/theme.js) with your custom theme, pass your theme to the `<ThemeProvider>` in the root of your application like so:
 
 ```jsx
 import {ThemeProvider} from 'styled-components'
@@ -116,6 +116,8 @@ const App = (props) => {
   )
 }
 ```
+
+*Note that using `Object.assign` will only create a shallow merge. This means that if both themes have a `color` object, the _entire_ `color` object will be replaced with the new `color` object, instead of only replacing duplicate values from the original theme's color object.
 
 #### Static CSS rendering
 
