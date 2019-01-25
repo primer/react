@@ -12,7 +12,7 @@ function fontSize({size = '14px', ...props}) {
   }
 }
 
-const ButtonBase = ({is: Tag = 'div', onClick, disabled, theme, ...rest}) => {
+const ButtonBase = ({is: Tag, onClick, disabled, theme, ...rest}) => {
   return <Tag disabled={disabled} onClick={disabled ? undefined : onClick} {...rest} />
 }
 

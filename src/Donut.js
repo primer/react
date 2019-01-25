@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {arc as Arc, pie as Pie} from 'd3-shape'
 import styled from 'styled-components'
-import {themeGet, space} from 'styled-system'
+import {space} from 'styled-system'
+import {get} from './constants'
 import theme from './theme'
 
 const defaultColor = '#666'
-const getStateColors = themeGet('colors.state', {})
+const getStateColors = get('colors.state')
 
 function DonutBase(props) {
   const {className, data, children = mapData(data), size} = props

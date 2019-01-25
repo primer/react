@@ -20,7 +20,7 @@ Custom theming is an optional way to override the Primer values that control col
 
 There are two ways to change the theme of Primer components:
 
-1. You can override the theme for an entire tree of components using the `<ThemeProvider>` from [styled-components]:
+1. You can override the entire theme for an entire tree of components using the `<ThemeProvider>` from [styled-components]:
 
     ```jsx
     import {Block, Button, Text, theme as primer} from '@primer/components'
@@ -46,8 +46,27 @@ There are two ways to change the theme of Primer components:
     ```
 
     **⚠️ Note: [styled-components]'s `<ThemeProvider>` only allows exactly one child.**
+2. You can merge the Primer theme with your custom theme using Object.assign:
 
-1. You can theme individual components by passing the `theme` prop directly:
+```jsx
+import {ThemeProvider} from `styled-components`
+import {theme} from '@primer/components'
+
+const customTheme = { ... }
+
+
+const App = (props) => {
+  return (
+    <div>
+      <ThemeProvider theme={Object.assign({}, theme, customTheme)}> // matching keys in customTheme will override keys in the Primer theme
+        <div>your app here</div>
+      </ThemeProvider>
+    </div>
+  )
+}
+```
+
+3. You can theme individual components by passing the `theme` prop directly:
 
     ```jsx
     import {Text} from '@primer/components'
@@ -64,6 +83,7 @@ There are two ways to change the theme of Primer components:
     ```
 
     **☝️ This is an intentionally convoluted example, since you can use `<Text color='#f0f'>` out of the box.**
+
 
 Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
 
