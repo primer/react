@@ -10,7 +10,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 ## Default example
 ```.jsx
 <Dropdown scheme="primary" minWidth="5em">
-  <Dropdown.Button>Hi</Dropdown.Button>
+  <Dropdown.Button>Dropdown </Dropdown.Button>
   <Dropdown.Menu direction='sw'>
     <Dropdown.Item>Item 1</Dropdown.Item>
     <Dropdown.Item>Item 2</Dropdown.Item>
