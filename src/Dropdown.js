@@ -10,13 +10,13 @@ import theme from './theme'
 const Dropdown = styled(Details)`
   position: relative;
   display: inline-block;
-  ${COMMON}
+  ${COMMON};
 `
 
 const DropdownCaret = styled.div`
   border: 4px solid transparent;
   border-top-color: currentcolor;
-  content: "";
+  content: '';
   display: inline-block;
   height: 0;
   vertical-align: middle;
@@ -25,9 +25,9 @@ const DropdownCaret = styled.div`
 
 const DropdownButton = ({children, ...rest}) => {
   return (
-    <Button is='summary' aria-haspopup="true" {...rest}>
+    <Button is="summary" aria-haspopup="true" {...rest}>
       {children}
-      <DropdownCaret/>
+      <DropdownCaret />
     </Button>
   )
 }
@@ -35,13 +35,13 @@ const DropdownButton = ({children, ...rest}) => {
 const DropdownMenu = styled.ul`
   background-clip: padding-box;
   background-color: #fff;
-  border: 1px solid rgba(27,31,35,.15);
+  border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 4px;
-  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   left: 0;
   list-style: none;
   margin-top: 2px;
-  padding: 5px 0 5px 0!important; //TODO: fix this override on our markdown styles
+  padding: 5px 0 5px 0 !important; //TODO: fix this override on our markdown styles
   position: absolute;
   top: 100%;
   width: 160px;
@@ -50,13 +50,13 @@ const DropdownMenu = styled.ul`
   &::before {
     position: absolute;
     display: inline-block;
-    content: "";
+    content: '';
   }
 
   &::after {
     position: absolute;
     display: inline-block;
-    content: "";
+    content: '';
   }
 
   &::before {
@@ -66,27 +66,18 @@ const DropdownMenu = styled.ul`
 
   &::after {
     border: 7px solid transparent;
-    border-bottom-color: ${get('colors.white')}
+    border-bottom-color: ${get('colors.white')};
   }
 
   // stylelint-disable-next-line selector-max-type
   > ul {
     list-style: none;
   }
-  ${props => props.direction ? getDirectionStyles(props.theme, props.direction) : ''};
+  ${props => (props.direction ? getDirectionStyles(props.theme, props.direction) : '')};
+  ${COMMON};
 `
-Dropdown.defaultProps = {
-  theme
-}
 
-Dropdown.Button = DropdownButton
-Dropdown.Menu = DropdownMenu
-
-Dropdown.Menu.propTypes = {
-  direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w'])
-}
-
-Dropdown.Item = styled.li`
+const DropdownItem = styled.li`
   display: block;
   padding: ${get('space.1')}px 10px ${get('space.1')}px 15px;
   overflow: hidden;
@@ -106,14 +97,36 @@ Dropdown.Item = styled.li`
     background-color: ${get('colors.blue.5')};
     outline: none;
   }
+  ${COMMON}
 `
 
-Dropdown.Menu.defaultProps = {
-  direction: 'sw'
+Dropdown.Button = styled(DropdownButton)(COMMON)
+Dropdown.Menu = DropdownMenu
+Dropdown.Item = DropdownItem
+
+Dropdown.Menu.propTypes = {
+  direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
+  ...COMMON.propTypes
 }
 
+Dropdown.Menu.defaultProps = {
+  direction: 'sw',
+  theme
+}
+
+Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
+  ...COMMON.propTypes
+}
+
+Dropdown.Button.defaultProps = {theme}
+Dropdown.Button.propTypes = {
+  ...COMMON.propTypes
+}
+
+Dropdown.Item.defaultProps = {theme}
+Dropdown.Item.propTypes = {
   ...COMMON.propTypes
 }
 
