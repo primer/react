@@ -63,7 +63,7 @@ Default values for system props can be set in `Component.defaultProps`.
 
 Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-system functions can be spread in the component's prop types declaration (see example below).
 
- ⚠️ **Make sure to always set the default `theme` prop to our theme! This allows consumers of our components to access our theme values without a ThemeProvider.**
+ ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/master/src/theme.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
 
 
 ```jsx
