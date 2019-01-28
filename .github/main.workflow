@@ -7,5 +7,5 @@ workflow "Lint and test" {
 
 action "install lint & test" {
   uses = "actions/npm@94e6933"
-  runs = "npm install && npm test && npm lint"
+  runs = "sh -c \"npm install && npm test && npm lint\""
 }
