@@ -3,18 +3,18 @@ workflow "Lint and test" {
   resolves = ["install", "lint", "test"]
 }
 
-action "install" {
+action "npm install" {
   uses = "actions/npm@94e6933"
   args = "ci"
 }
 
-action "lint" {
+action "npm lint" {
   needs = ["install"]
   uses = "actions/npm@94e6933"
   args = "run lint"
 }
 
-action "test" {
+action "npm test" {
   needs = ["install"]
   uses = "actions/npm@94e6933"
   args = "test"
