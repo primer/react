@@ -1,6 +1,6 @@
 workflow "Lint and test" {
   on = "push"
-  resolves = ["install", "lint", "test"]
+  resolves = ["npm install", "npm lint", "npm test"]
 }
 
 action "npm install" {
@@ -9,13 +9,13 @@ action "npm install" {
 }
 
 action "npm lint" {
-  needs = ["install"]
+  needs = ["npm install"]
   uses = "actions/npm@94e6933"
   args = "run lint"
 }
 
 action "npm test" {
-  needs = ["install"]
+  needs = ["npm install"]
   uses = "actions/npm@94e6933"
   args = "test"
 }
