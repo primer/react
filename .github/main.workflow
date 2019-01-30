@@ -22,3 +22,7 @@ action "npm test" {
   needs = ["npm install"]
   args = "test"
 }
+
+action "deploy" {
+  uses = "primer/deploy@master"
+}
