@@ -1,8 +1,9 @@
-workflow "Lint and test" {
+workflow "Primer Components Workflow" {
   on = "push"
   resolves = [
     "npm lint",
     "npm test",
+    "deploy"
   ]
 }
 
