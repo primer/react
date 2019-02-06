@@ -6,8 +6,10 @@ import Details from './Details'
 import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
+import {DetailsContext} from './Details';
 
-const Dropdown = styled(Details)`
+const DropdownBase = (props) => <Details overlay {...props}/>
+const Dropdown = styled(DropdownBase)`
   position: relative;
   display: inline-block;
   ${COMMON};
@@ -25,10 +27,14 @@ const DropdownCaret = styled.div`
 
 const DropdownButton = ({children, ...rest}) => {
   return (
-    <Button is="summary" aria-haspopup="true" {...rest}>
-      {children}
-      <DropdownCaret />
-    </Button>
+    <DetailsContext.Consumer>
+      {({toggle}) => (
+        <Button is='summary' aria-haspopup='true' onClick={toggle} {...rest}>
+          {children}
+          <DropdownCaret/>
+        </Button>
+      )}
+    </DetailsContext.Consumer>
   )
 }
 

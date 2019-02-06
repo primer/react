@@ -16,11 +16,31 @@ const DetailsReset = styled('details')`
   }
 `
 
+const overlayStyles = `
+background: red;
+  & > summary::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: block;
+    cursor: default;
+    content: " ";
+    background: transparent;
+  }
+`
+
+export const DetailsContext = React.createContext({
+  toggle: () => {},
+});
+
 class DetailsBase extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {open: Boolean(props.open)}
     this.toggle = this.toggle.bind(this)
+    this.state = {open: Boolean(props.open), toggle: this.toggle}
   }
 
   toggle(event) {
@@ -31,13 +51,14 @@ class DetailsBase extends React.Component {
   }
 
   render() {
-    const {children, render = getRenderer(children), ...rest} = this.props
+    const {children, render = getRenderer(children), overlay, ...rest} = this.props
     const {open} = this.state
-
     return (
-      <DetailsReset {...rest} open={open}>
-        {render({open, toggle: this.toggle})}
-      </DetailsReset>
+      <DetailsContext.Provider value={this.state}>
+        <DetailsReset {...rest} open={open} css="background: red">
+          {render({open, toggle: this.toggle})}
+        </DetailsReset>
+      </DetailsContext.Provider>
     )
   }
 }
