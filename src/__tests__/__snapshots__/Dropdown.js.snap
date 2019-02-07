@@ -1,6 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches the snapshots 1`] = `
+.c2 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 12px;
+  color: #24292e;
+  background-color: #f6f8fa;
+  background-image: linear-gradient(-180deg,#fafbfc 0%,rgb(239,243,246) 90%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  background-position: -1px -1px;
+  background-size: 110% 110%;
+  border: 1px solid rgba(27,31,35,0.2);
+  border-radius: 0.25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
+}
+
+.c2:hover {
+  background-color: rgb(230,235,241);
+  background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
+  background-position: -0.5em center;
+  border-color: rgba(27,31,35,0.35);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-repeat: repeat-x;
+}
+
+.c2:active {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c2:selected {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c2:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #f6f8fa;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20) box-shadow:none;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
 .c1 > summary {
   list-style: none;
 }
@@ -18,15 +82,98 @@ exports[`Dropdown matches the snapshots 1`] = `
   display: inline-block;
 }
 
+.c3 {
+  border: 4px solid transparent;
+  border-top-color: currentcolor;
+  content: '';
+  display: inline-block;
+  height: 0;
+  vertical-align: middle;
+  width: 0;
+}
+
 <details
   className="c0 c1"
   open={false}
 >
+  <summary
+    aria-haspopup="true"
+    className="c0 c2"
+    onClick={[Function]}
+  >
+    <div
+      className="c3"
+    />
+  </summary>
   hi
 </details>
 `;
 
 exports[`Dropdown matches the snapshots 2`] = `
+.c2 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 12px;
+  color: #24292e;
+  background-color: #f6f8fa;
+  background-image: linear-gradient(-180deg,#fafbfc 0%,rgb(239,243,246) 90%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  background-position: -1px -1px;
+  background-size: 110% 110%;
+  border: 1px solid rgba(27,31,35,0.2);
+  border-radius: 0.25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
+}
+
+.c2:hover {
+  background-color: rgb(230,235,241);
+  background-image: linear-gradient(-180deg,rgb(239,243,246) 0%,rgb(230,235,241) 90%);
+  background-position: -0.5em center;
+  border-color: rgba(27,31,35,0.35);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-repeat: repeat-x;
+}
+
+.c2:active {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c2:selected {
+  background-color: rgb(233,236,239);
+  background-image: none;
+  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
+  border-color: rgba(27,31,35,0.2);
+}
+
+.c2:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #f6f8fa;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20) box-shadow:none;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
 .c1 > summary {
   list-style: none;
 }
@@ -44,11 +191,30 @@ exports[`Dropdown matches the snapshots 2`] = `
   display: inline-block;
 }
 
+.c3 {
+  border: 4px solid transparent;
+  border-top-color: currentcolor;
+  content: '';
+  display: inline-block;
+  height: 0;
+  vertical-align: middle;
+  width: 0;
+}
+
 <details
   className="c0 c1"
   open={false}
-  title="hi"
 >
+  <summary
+    aria-haspopup="true"
+    className="c0 c2"
+    onClick={[Function]}
+  >
+    hi
+    <div
+      className="c3"
+    />
+  </summary>
   hello!
 </details>
 `;
