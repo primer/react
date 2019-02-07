@@ -63,18 +63,3 @@ describe('Dropdown.Menu', () => {
     expect(Dropdown.Menu).toSetDefaultTheme()
   })
 })
-
-describe('Dropdown.Button', () => {
-  it('matches the snapshots', () => {
-    expect(render(<Dropdown.Button>hi</Dropdown.Button>)).toMatchSnapshot()
-    expect(render(<Dropdown.Button>hello!</Dropdown.Button>)).toMatchSnapshot()
-  })
-
-  it('implements system props', () => {
-    expect(Dropdown.Button).toImplementSystemProps(COMMON)
-  })
-
-  it('has default theme', () => {
-    expect(Dropdown.Button).toSetDefaultTheme()
-  })
-})

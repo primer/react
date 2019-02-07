@@ -119,6 +119,11 @@ Dropdown.Menu.defaultProps = {
   theme
 }
 
+Dropdown.Item.defaultProps = {theme}
+Dropdown.Item.propTypes = {
+  ...COMMON.propTypes
+}
+
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
