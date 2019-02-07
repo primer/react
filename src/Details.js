@@ -32,18 +32,17 @@ const DetailsReset = styled('details')`
   }
   ${props => props.overlay && props.open ? overlayStyles : ''}
 `
-
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
 function DetailsBase({children, overlay, render = getRenderer(children), ...rest}){
-  const  [open, setOpen] = useState(Boolean(rest.open))
+  const [open, setOpen] = useState(Boolean(rest.open))
+
   function toggle(event) {
     if (event) event.preventDefault()
     setOpen(!open)
   }
-
   return (
     <DetailsReset {...rest} open={open} overlay={overlay}>
       {render({open, toggle})}
