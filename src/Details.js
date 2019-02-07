@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const overlayStyles = `
+const openStyles = `
   & > summary::before {
     position: fixed;
     top: 0;
@@ -17,9 +17,11 @@ const overlayStyles = `
     content: " ";
     background: transparent;
   }
+  background: 'red';
 `
 
 const DetailsReset = styled('details')`
+  ${props => props.open ? openStyles : `background: 'red';`}
   & > summary {
     list-style: none;
   }
