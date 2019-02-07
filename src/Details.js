@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const openStyles = `
+const overlayStyles = `
   & > summary::before {
     position: fixed;
     top: 0;
@@ -21,7 +21,6 @@ const openStyles = `
 `
 
 const DetailsReset = styled('details')`
-  ${props => props.open ? openStyles : `background: 'red';`}
   & > summary {
     list-style: none;
   }
@@ -38,30 +37,18 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-class DetailsBase extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {open: Boolean(props.open)}
-    this.toggle = this.toggle.bind(this)
+function DetailsBase({children, overlay, render = getRenderer(children), ...rest}){
+  const  [open, setOpen] = useState(Boolean(rest.open))
+  function toggle(event) {
+    if (event) event.preventDefault()
+    setOpen(!open)
   }
 
-  toggle(event) {
-    if (event) {
-      event.preventDefault()
-    }
-    this.setState({open: !this.state.open})
-  }
-
-  render() {
-    const {children, render = getRenderer(children), overlay, ...rest} = this.props
-    const {open} = this.state
-
-    return (
-      <DetailsReset {...rest} open={open} overlay={overlay}>
-        {render({open, toggle: this.toggle})}
-      </DetailsReset>
-    )
-  }
+  return (
+    <DetailsReset {...rest} open={open} overlay={overlay}>
+      {render({open, toggle})}
+    </DetailsReset>
+  )
 }
 
 const Details = styled(DetailsBase)(COMMON)
