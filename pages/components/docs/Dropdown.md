@@ -3,14 +3,11 @@
 
 The Dropdown component is a lightweight context menu for housing navigation and actions.
 
-Dropdown.Button is used to trigger opening and closing the dropdown.
-
 Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to this component to position the menu in relation to the Dropdown.Button.
 
 ## Default example
 ```.jsx
-<Dropdown scheme="primary" minWidth="5em">
-  <Dropdown.Button>Dropdown </Dropdown.Button>
+<Dropdown title="Dropdown">
   <Dropdown.Menu direction='sw'>
     <Dropdown.Item>Item 1</Dropdown.Item>
     <Dropdown.Item>Item 2</Dropdown.Item>
@@ -21,7 +18,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## System props
 
-Dropdown, Dropdown.Menu, Dropdown.Button, and Dropdown.Item all get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+Dropdown, Dropdown.Menu, and Dropdown.Item all get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
@@ -29,11 +26,9 @@ Dropdown, Dropdown.Menu, Dropdown.Button, and Dropdown.Item all get `COMMON` sys
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | direction | String | 'sw' | Sets the direction of the dropdown menu. |
+| title | String | | Sets the text inside of the button |
 
 #### Dropdown.Item
-No additional props.
-
-#### Dropdown.Button
 No additional props.
 
 #### Dropdown

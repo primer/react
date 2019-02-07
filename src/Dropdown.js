@@ -6,9 +6,22 @@ import Details from './Details'
 import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
-import {DetailsContext} from './Details';
 
-const DropdownBase = (props) => <Details overlay {...props}/>
+const DropdownBase = ({title, children, ...rest}) => {
+  return (
+    <Details overlay {...rest}>
+      {({open, toggle}) => (
+        <>
+          <Button is="summary" aria-haspopup="true" onClick={toggle} {...rest}>
+            {title}
+            <DropdownCaret />
+          </Button>
+          {children}
+        </>
+      )}
+    </Details>
+  )
+}
 const Dropdown = styled(DropdownBase)`
   position: relative;
   display: inline-block;
@@ -24,19 +37,6 @@ const DropdownCaret = styled.div`
   vertical-align: middle;
   width: 0;
 `
-
-const DropdownButton = ({children, ...rest}) => {
-  return (
-    <DetailsContext.Consumer>
-      {({toggle}) => (
-        <Button is='summary' aria-haspopup='true' onClick={toggle} {...rest}>
-          {children}
-          <DropdownCaret/>
-        </Button>
-      )}
-    </DetailsContext.Consumer>
-  )
-}
 
 const DropdownMenu = styled.ul`
   background-clip: padding-box;
@@ -106,7 +106,6 @@ const DropdownItem = styled.li`
   ${COMMON}
 `
 
-Dropdown.Button = styled(DropdownButton)(COMMON)
 Dropdown.Menu = DropdownMenu
 Dropdown.Item = DropdownItem
 
@@ -123,16 +122,6 @@ Dropdown.Menu.defaultProps = {
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
-  ...COMMON.propTypes
-}
-
-Dropdown.Button.defaultProps = {theme}
-Dropdown.Button.propTypes = {
-  ...COMMON.propTypes
-}
-
-Dropdown.Item.defaultProps = {theme}
-Dropdown.Item.propTypes = {
   ...COMMON.propTypes
 }
 

@@ -4,20 +4,7 @@ import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const DetailsReset = styled('details')`
-  & > summary {
-    list-style: none;
-  }
-  & > summary::before {
-    display: none;
-  }
-  & > summary::-webkit-details-marker {
-    display: none;
-  }
-`
-
 const overlayStyles = `
-background: red;
   & > summary::before {
     position: fixed;
     top: 0;
@@ -32,15 +19,28 @@ background: red;
   }
 `
 
-export const DetailsContext = React.createContext({
-  toggle: () => {},
-});
+const DetailsReset = styled('details')`
+  & > summary {
+    list-style: none;
+  }
+  & > summary::before {
+    display: none;
+  }
+  & > summary::-webkit-details-marker {
+    display: none;
+  }
+  ${props => props.overlay && props.open ? overlayStyles : ''}
+`
+
+function getRenderer(children) {
+  return typeof children === 'function' ? children : () => children
+}
 
 class DetailsBase extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {open: Boolean(props.open)}
     this.toggle = this.toggle.bind(this)
-    this.state = {open: Boolean(props.open), toggle: this.toggle}
   }
 
   toggle(event) {
@@ -53,30 +53,27 @@ class DetailsBase extends React.Component {
   render() {
     const {children, render = getRenderer(children), overlay, ...rest} = this.props
     const {open} = this.state
+
     return (
-      <DetailsContext.Provider value={this.state}>
-        <DetailsReset {...rest} open={open} css="background: red">
-          {render({open, toggle: this.toggle})}
-        </DetailsReset>
-      </DetailsContext.Provider>
+      <DetailsReset {...rest} open={open} overlay={overlay}>
+        {render({open, toggle: this.toggle})}
+      </DetailsReset>
     )
   }
-}
-
-function getRenderer(children) {
-  return typeof children === 'function' ? children : () => children
 }
 
 const Details = styled(DetailsBase)(COMMON)
 
 Details.defaultProps = {
-  theme
+  theme,
+  overlay: false
 }
 
 Details.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
   open: PropTypes.bool,
+  overlay: PropTypes.bool,
   render: PropTypes.func,
   theme: PropTypes.object,
   ...COMMON.propTypes
