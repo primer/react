@@ -10,7 +10,7 @@ import theme from './theme'
 const DropdownBase = ({title, children, ...rest}) => {
   return (
     <Details overlay {...rest}>
-      {({open, toggle}) => (
+      {({toggle}) => (
         <>
           <Button is="summary" aria-haspopup="true" onClick={toggle} {...rest}>
             {title}

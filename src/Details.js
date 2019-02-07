@@ -30,13 +30,13 @@ const DetailsReset = styled('details')`
   & > summary::-webkit-details-marker {
     display: none;
   }
-  ${props => props.overlay && props.open ? overlayStyles : ''}
+  ${props => (props.overlay && props.open ? overlayStyles : '')};
 `
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function DetailsBase({children, overlay, render = getRenderer(children), ...rest}){
+function DetailsBase({children, overlay, render = getRenderer(children), ...rest}) {
   const [open, setOpen] = useState(Boolean(rest.open))
 
   function toggle(event) {

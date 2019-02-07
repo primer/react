@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import getButtonStyles from  './ButtonStyles'
+import getButtonStyles from './ButtonStyles'
 import {width} from 'styled-system'
 
 function fontSize({size = '14px', ...props}) {
@@ -18,10 +18,10 @@ const ButtonBase = ({is: Tag, onClick, disabled, theme, ...rest}) => {
 }
 
 const Button = styled(ButtonBase)`
-    ${props => props.theme ? getButtonStyles(props.theme) : ''};
-    ${fontSize};
-    ${COMMON};
-    ${width};
+  ${props => (props.theme ? getButtonStyles(props.theme) : '')};
+  ${fontSize};
+  ${COMMON};
+  ${width};
 `
 
 Button.defaultProps = {

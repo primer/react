@@ -1,14 +1,15 @@
 import {get} from './constants'
 
-const getButtonStyles = (theme) => {
-  return (
-    `
+const getButtonStyles = theme => {
+  return `
       position: relative;
       display: inline-block;
       padding: 6px 12px;
       color: ${get('colors.gray.9')(theme)};
       background-color: ${get('colors.gray.1')(theme)};
-      background-image: linear-gradient(-180deg, ${get('colors.gray.0')(theme)} 0%, ${get('colors.button.bg2')(theme)} 90%);
+      background-image: linear-gradient(-180deg, ${get('colors.gray.0')(theme)} 0%, ${get('colors.button.bg2')(
+    theme
+  )} 90%);
       font-size: ${get('fontSizes.1')(theme)}px;
       font-weight: ${get('fontWeights.bold')(theme)};
       line-height: 20px;
@@ -25,7 +26,9 @@ const getButtonStyles = (theme) => {
 
       &:hover {
         background-color: ${get('colors.button.hoverBg')(theme)};
-        background-image: linear-gradient(-180deg, ${get('colors.button.bg2')(theme)} 0%, ${get('colors.button.hoverBg')(theme)} 90%);
+        background-image: linear-gradient(-180deg, ${get('colors.button.bg2')(theme)} 0%, ${get(
+    'colors.button.hoverBg'
+  )(theme)} 90%);
         background-position: -0.5em center;
         border-color: ${get('colors.blackfade35')(theme)};
         text-decoration: none;
@@ -59,7 +62,6 @@ const getButtonStyles = (theme) => {
         box-shadow: ${get('colors.button.focusShadow')(theme)} 0px 0px 0px 0.2em;
       }
     `
-  )
 }
 
 export default getButtonStyles
