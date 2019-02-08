@@ -4,7 +4,7 @@ workflow "Primer Components Workflow" {
     "npm lint",
     "npm test",
     "deploy",
-    "publish"
+    "publish",
   ]
 }
 
