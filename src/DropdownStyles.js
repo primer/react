@@ -62,7 +62,7 @@ const getDirectionStyles = (theme, direction) => {
       &::before {
         bottom: -8px;
         left: 9px;
-        border-top: 8px solid ${get('colors.blackfade15')(theme)}
+        border-top: 8px solid ${get('colors.blackfade15')(theme)};
         border-bottom: 0;
         border-left: 8px solid transparent;
       }

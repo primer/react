@@ -1,8 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
+
+const overlayStyles = `
+  & > summary::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: block;
+    cursor: default;
+    content: " ";
+    background: transparent;
+  }
+  background: 'red';
+`
 
 const DetailsReset = styled('details')`
   & > summary {
@@ -14,48 +30,38 @@ const DetailsReset = styled('details')`
   & > summary::-webkit-details-marker {
     display: none;
   }
+  ${props => (props.overlay && props.open ? overlayStyles : '')};
 `
-
-class DetailsBase extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {open: Boolean(props.open)}
-    this.toggle = this.toggle.bind(this)
-  }
-
-  toggle(event) {
-    if (event) {
-      event.preventDefault()
-    }
-    this.setState({open: !this.state.open})
-  }
-
-  render() {
-    const {children, render = getRenderer(children), ...rest} = this.props
-    const {open} = this.state
-
-    return (
-      <DetailsReset {...rest} open={open}>
-        {render({open, toggle: this.toggle})}
-      </DetailsReset>
-    )
-  }
-}
-
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
+}
+
+function DetailsBase({children, overlay, render = getRenderer(children), ...rest}) {
+  const [open, setOpen] = useState(Boolean(rest.open))
+
+  function toggle(event) {
+    if (event) event.preventDefault()
+    setOpen(!open)
+  }
+  return (
+    <DetailsReset {...rest} open={open} overlay={overlay}>
+      {render({open, toggle})}
+    </DetailsReset>
+  )
 }
 
 const Details = styled(DetailsBase)(COMMON)
 
 Details.defaultProps = {
-  theme
+  theme,
+  overlay: false
 }
 
 Details.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
   open: PropTypes.bool,
+  overlay: PropTypes.bool,
   render: PropTypes.func,
   theme: PropTypes.object,
   ...COMMON.propTypes
