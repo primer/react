@@ -26,10 +26,6 @@
 </p>
 
 
-## Status
-
-**⚠️ This project is a work in progress and is not ready for production use yet!**
-
 ## Documentation
 
 Our documentation site lives at [primer.style/components](https://primer.style/components). You'll be able to find the information listed in this README as well as detailed docs for each component, our theme, and system props.
