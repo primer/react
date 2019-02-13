@@ -36,4 +36,5 @@ action "publish" {
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
   ]
-} 
+  args = "[\"--\", \"--unsafe-perm\"]"
+}
