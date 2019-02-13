@@ -3,8 +3,8 @@ workflow "Primer Components Workflow" {
   resolves = [
     "npm lint",
     "npm test",
-    "deploy",
     "publish",
+    "deploy",
   ]
 }
 
