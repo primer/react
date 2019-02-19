@@ -54,14 +54,14 @@ export const FLEX_CONTAINER = compose(
   styles.alignContent,
   styles.alignItems,
   styles.justifyContent,
-  styles.justifyItems,
-  styles.order
+  styles.justifyItems
 )
 
 export const FLEX_ITEM = compose(
   styles.flex,
   styles.justifySelf,
-  styles.alignSelf
+  styles.alignSelf,
+  styles.order
 )
 
 // These lists are just used to generate docs
