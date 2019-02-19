@@ -27,11 +27,13 @@ action "npm test" {
 
 action "deploy" {
   uses = "primer/deploy@v2.0.0"
+  needs = ["npm install"]
   secrets = ["GITHUB_TOKEN", "NOW_TOKEN"]
 }
 
 action "publish" {
   uses = "primer/publish@master"
+  needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
