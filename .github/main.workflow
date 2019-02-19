@@ -3,8 +3,8 @@ workflow "Primer Components Workflow" {
   resolves = [
     "npm lint",
     "npm test",
-    "deploy",
     "publish",
+    "deploy",
   ]
 }
 
@@ -36,4 +36,5 @@ action "publish" {
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
   ]
-} 
+  args = ["--", "--unsafe-perm"]
+}
