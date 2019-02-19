@@ -14,7 +14,7 @@ const IndexHero = () => (
           v{version}
         </Text>
       </Box>
-      <Box mb={6}>
+      <Box mb={6} width="1068">
         <IndexImage />
       </Box>
     </Box>
