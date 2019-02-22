@@ -45,6 +45,7 @@
     "primer-markdown": "3.7.9",
     "primer-typography": "1.0.1",
     "react": "16.8.0",
+    "react-bodymovin": "2.0.0",
     "react-dom": "16.8.0",
     "styled-components": "4.1.2",
     "styled-system": "3.1.3",

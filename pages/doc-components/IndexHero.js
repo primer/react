@@ -1,7 +1,7 @@
 import React from 'react'
-import {Box, Heading, Text} from '../..'
-import IndexImage from './IndexImage.svg'
-import {version} from '../../package.json'
+import { Box, Heading, Text } from '../..'
+import PrimerComponentsAnimation from '../../src/PrimerComponentsAnimation.js'
+import { version } from '../../package.json'
 
 const IndexHero = () => (
   <Box bg="black">
@@ -15,7 +15,7 @@ const IndexHero = () => (
         </Text>
       </Box>
       <Box mb={6}>
-        <IndexImage />
+        <PrimerComponentsAnimation />
       </Box>
     </Box>
   </Box>
