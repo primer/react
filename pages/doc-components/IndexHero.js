@@ -1,7 +1,7 @@
 import React from 'react'
-import { Box, Heading, Text } from '../..'
+import {Box, Heading, Text} from '../..'
 import PrimerComponentsAnimation from '../../src/PrimerComponentsAnimation.js'
-import { version } from '../../package.json'
+import {version} from '../../package.json'
 
 const IndexHero = () => (
   <Box bg="black">
