@@ -1,11 +1,9 @@
 # Getting Started
 
-**⚠️ This project is not production-ready yet!**
-
-Install Primer Components in your application:
+Install Primer Components in your project with npm:
 
 ```
-npm i @primer/components
+npm install @primer/components
 ```
 
 # Usage
@@ -21,9 +19,25 @@ import {
 } from '@primer/components'
 ```
 
-## Styling
+Primer Components come with all the necessary CSS built-in, so you don't need to worry about including [Primer CSS].
 
-This project uses [styled-components] under the hood to generate static CSS from all component styles. You do not need to include Primer CSS for this component library to work.
+## Base styles
 
-[styled-components]: https://styled-components.com/
+You can establish base Primer styles for your app by wrapping all of your Primer components in `<BaseStyles>`:
+
+```jsx
+import {BaseStyles, Box, Heading} from '@primer/components'
+
+export default () => (
+  <BaseStyles>
+    <Box m={4}>
+      <Heading mb={2}>Hello, world!</Heading>
+      <p>This will get Primer text styles.</p>
+    </Box>
+  </BaseStyles>
+)
+```
+
+This will set the `color`, `font-family`, and `line-height` CSS properties to the same ones used in [primer-base](https://github.com/primer/primer/blob/master/modules/primer-base/lib/base.scss#L15).
+
 [Primer CSS]: https://github.com/primer/primer
