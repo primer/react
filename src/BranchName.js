@@ -20,8 +20,8 @@ BranchName.defaultProps = {
 }
 
 BranchName.propTypes = {
-  href: PropTypes.string,
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  href: PropTypes.string,
   ...COMMON.propTypes,
   theme: PropTypes.object
 }

@@ -11,7 +11,7 @@ export const Position = styled.div`
 `
 
 Position.defaultProps = {
-  theme,
+  theme
 }
 
 Position.propTypes = {

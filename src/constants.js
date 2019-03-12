@@ -1,4 +1,3 @@
-import React from 'react'
 import {styles, compose, get as getKey, themeGet} from 'styled-system'
 import theme from './theme'
 

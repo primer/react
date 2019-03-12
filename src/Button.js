@@ -30,10 +30,10 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
+  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
-  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'large']),
   theme: PropTypes.object,
