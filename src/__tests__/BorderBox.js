@@ -14,8 +14,8 @@ describe('BorderBox', () => {
     expect(BorderBox).toSetDefaultTheme()
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<BorderBox is="span" />).type).toEqual('span')
+  it('respects the "as" prop', () => {
+    expect(render(<BorderBox as="span" />).type).toEqual('span')
   })
 
   it('renders borders', () => {

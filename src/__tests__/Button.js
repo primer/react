@@ -15,8 +15,8 @@ describe('Button', () => {
     expect(Button).toSetDefaultTheme()
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Button is="a" />).type).toEqual('a')
+  it('respects the "as" prop', () => {
+    expect(render(<Button as="a" />).type).toEqual('a')
   })
 
   it('implements system props', () => {

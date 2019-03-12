@@ -12,9 +12,9 @@ describe('UnderlineNav.Link', () => {
     expect(UnderlineNav.Link).toSetDefaultTheme()
   })
 
-  it('renders the given "is" prop', () => {
+  it('renders the given "as" prop', () => {
     const Type = props => <b {...props} />
-    expect(render(<UnderlineNav.Link is={Type} />)).toMatchSnapshot()
+    expect(render(<UnderlineNav.Link as={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {
@@ -23,7 +23,7 @@ describe('UnderlineNav.Link', () => {
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
     const Mock = jest.fn(() => <div />)
-    render(<UnderlineNav.Link is={Mock} to="#" />)
+    render(<UnderlineNav.Link as={Mock} to="#" />)
     expect(Mock.mock.calls[0][0].to).toEqual('#')
     expect(Mock.mock.calls[0][0].activeClassName).toEqual('selected')
   })

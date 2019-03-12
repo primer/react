@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnderlineNav.Link renders the given "is" prop 1`] = `
+exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
 .c0 {
   padding: 16px 8px;
   margin-right: 16px;

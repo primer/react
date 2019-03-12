@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
-function ItemBase({children, count, theme, is: Tag, ...rest}) {
+function ItemBase({children, count, theme, as: Tag, ...rest}) {
   return (
     <a key={nanoid()} {...rest}>
       {count && (
@@ -76,14 +76,14 @@ FilterList.Item = Item
 
 FilterList.Item.defaultProps = {
   theme,
-  is: 'a'
+  as: 'a'
 }
 
 FilterList.Item.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   count: PropTypes.string,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   selected: PropTypes.bool,
   theme: PropTypes.object,
   ...COMMON.propTypes

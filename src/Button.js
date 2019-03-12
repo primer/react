@@ -13,7 +13,7 @@ function fontSize({size = '14px', ...props}) {
   }
 }
 
-const ButtonBase = ({is: Tag, onClick, disabled, theme, ...rest}) => {
+const ButtonBase = ({as: Tag, onClick, disabled, theme, ...rest}) => {
   return <Tag disabled={disabled} onClick={disabled ? undefined : onClick} {...rest} />
 }
 
@@ -25,7 +25,7 @@ const Button = styled(ButtonBase)`
 `
 
 Button.defaultProps = {
-  is: 'button',
+  as: 'button',
   theme
 }
 
@@ -33,7 +33,7 @@ Button.propTypes = {
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
-  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'large']),
   theme: PropTypes.object,

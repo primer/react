@@ -32,7 +32,7 @@ module.exports = withPlugins([
     if (dev) {
       /*
        * In development mode, we want to alias the project-root
-       * imports to the source files so that this:
+       * imports to the source files so that thas:
        *
        * ```js
        * import {Box} from '..'

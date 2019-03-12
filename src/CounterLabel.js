@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, Base, get} from './constants'
+import {COMMON, get} from './constants'
 import theme from './theme'
 
 const colorStyles = ({scheme, ...props}) => {
@@ -25,7 +25,7 @@ const bgStyles = ({scheme, ...props}) => {
   }
 }
 
-const CounterLabel = styled(Base)`
+const CounterLabel = styled.div`
   display: inline-block;
   padding: 2px 5px;
   font-size: ${get('fontSizes.0')}px;
@@ -43,7 +43,7 @@ const CounterLabel = styled(Base)`
 
 CounterLabel.defaultProps = {
   theme,
-  is: 'span'
+  as: 'span'
 }
 
 CounterLabel.propTypes = {

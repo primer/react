@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import theme from './theme'
-import {COMMON, Base, get} from './constants'
+import {COMMON, get} from './constants'
 
-const BranchName = styled(Base)`
+const BranchName = styled.div`
   display: inline-block;
   padding: 2px 6px;
   font-size: ${get('fontSizes.0')}px;
@@ -16,12 +16,12 @@ const BranchName = styled(Base)`
 
 BranchName.defaultProps = {
   theme,
-  is: 'a'
+  as: 'a'
 }
 
 BranchName.propTypes = {
   href: PropTypes.string,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   ...COMMON.propTypes,
   theme: PropTypes.object
 }

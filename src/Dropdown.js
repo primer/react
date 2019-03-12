@@ -12,7 +12,7 @@ const DropdownBase = ({title, children, ...rest}) => {
     <Details overlay {...rest}>
       {({toggle}) => (
         <>
-          <Button is="summary" aria-haspopup="true" onClick={toggle} {...rest}>
+          <Button as="summary" aria-haspopup="true" onClick={toggle} {...rest}>
             {title}
             <DropdownCaret />
           </Button>

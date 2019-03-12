@@ -6,10 +6,10 @@ import theme from './theme'
 import BorderBox from './BorderBox'
 
 function CircleOcticon(props) {
-  const {size, is} = props
+  const {size, as} = props
   const {icon, bg, ...rest} = props
   return (
-    <BorderBox is={is} bg={bg} overflow="hidden" border="none" size={size} borderRadius="50%">
+    <BorderBox as={as} bg={bg} overflow="hidden" border="none" size={size} borderRadius="50%">
       <Flex {...rest} alignItems="center" justifyContent="center">
         <Octicon icon={icon} size={size} />
       </Flex>
@@ -20,7 +20,7 @@ function CircleOcticon(props) {
 CircleOcticon.defaultProps = {
   theme,
   ...Flex.defaultProps,
-  is: 'div',
+  as: 'div',
   size: 32
 }
 

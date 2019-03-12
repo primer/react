@@ -3,7 +3,7 @@
 
 `Button` is used for actions, like in forms, while `Link` is used for destinations, or moving from one page to another.
 
-In special cases where you'd like to use a `<a>` styled like a Button, use `<Button is='a'>` and provide an `href`.
+In special cases where you'd like to use a `<a>` styled like a Button, use `<Button as='a'>` and provide an `href`.
 
 ## Default examples
 
@@ -22,7 +22,7 @@ Button components get `COMMON` system props. Read our [System Props](/components
 
 | Prop name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| is | String | `button` | sets the HTML tag for the component |
+| as | String | `button` | sets the HTML tag for the component |
 | disabled | Boolean |  | sets the `disabled` attribute on the Button |
 | grouped | Boolean | | allows you to use Button in a line of Buttons without duplicate borders |
 | onClick | Function | | function to be called when Button is clicked |

@@ -6,13 +6,13 @@ The Details component is an HTML `<details>` element without native browser styl
 You are responsible for rendering your own `<summary>`. To style your summary element like a [Button](./Button), you can use the `is` prop:
 
 ```jsx
-<Button is="summary">Summary text</Button>
+<Button as="summary">Summary text</Button>
 ```
 
 ## With static children
 ```.jsx
 <Details>
-  <Button is="summary">Click me</Button>
+  <Button as="summary">Click me</Button>
   <p>This should show and hide</p>
 </Details>
 ```
@@ -29,7 +29,7 @@ If you use this form or the render prop (see below), **you must attach the `togg
 <Details>
   {({open, toggle}) => (
     <>
-      <Button is="summary" onClick={toggle}>
+      <Button as="summary" onClick={toggle}>
         {open ? 'Hide' : 'Show'}
       </Button>
       <p>This should show and hide</p>
@@ -44,7 +44,7 @@ The Details component also accepts a `render` function prop.
 ```.jsx
 <Details overlay render={({open, toggle}) => (
   <>
-    <Button is="summary" onClick={toggle}>Open? {String(open)}</Button>
+    <Button as="summary" onClick={toggle}>Open? {String(open)}</Button>
     <p>This is the content.</p>
   </>
 )} />

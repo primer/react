@@ -18,7 +18,7 @@ function UnderlineNavBase({actions, className, align, children, full, label}) {
   )
 }
 
-const UnderlineNavLink = ({className, selected, theme, is: Tag, ...rest}) => {
+const UnderlineNavLink = ({className, selected, theme, as: Tag, ...rest}) => {
   const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
 
   if (typeof rest.to === 'string') {
@@ -109,11 +109,11 @@ UnderlineNav.propTypes = {
 
 UnderlineNav.Link.defaultProps = {
   theme,
-  is: 'a'
+  as: 'a'
 }
 
 UnderlineNav.Link.propTypes = {
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   selected: PropTypes.bool,
   ...COMMON.propTypes
 }
