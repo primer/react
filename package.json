@@ -91,6 +91,6 @@
     "styled-components": "4.1.2"
   },
   "peerDependencies": {
-    "styled-components": "4.1.2"
+    "styled-components": "4.x"
   }
 }
