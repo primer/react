@@ -13,11 +13,10 @@ function fontSize({size = '14px', ...props}) {
   }
 }
 
-const ButtonBase = ({as: Tag, onClick, disabled, theme, ...rest}) => {
-  return <Tag disabled={disabled} onClick={disabled ? undefined : onClick} {...rest} />
-}
-
-const Button = styled(ButtonBase)`
+const Button = styled.button.attrs(props => ({
+  disabled: props.disabled,
+  onClick: props.disabled ? undefined : props.onClick
+}))`
   ${props => (props.theme ? getButtonStyles(props.theme) : '')};
   ${fontSize};
   ${COMMON};
