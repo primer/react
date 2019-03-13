@@ -98,7 +98,7 @@ const DropdownItem = styled.li`
   }
 
   &:hover {
-    color: ${get('colors.white')}
+    color: ${get('colors.white')};
     text-decoration: none;
     background-color: ${get('colors.blue.5')};
     outline: none;

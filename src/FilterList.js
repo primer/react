@@ -76,14 +76,14 @@ FilterList.Item = Item
 
 FilterList.Item.defaultProps = {
   theme,
-  is: a
+  is: 'a'
 }
 
 FilterList.Item.propTypes = {
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.node,
   className: PropTypes.string,
   count: PropTypes.string,
+  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   selected: PropTypes.bool,
   theme: PropTypes.object,
   ...COMMON.propTypes

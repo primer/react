@@ -18,16 +18,6 @@ function UnderlineNavBase({actions, className, align, children, full, label}) {
   )
 }
 
-const UnderlineNavLink = ({className, selected, theme, as: Tag, ...rest}) => {
-  const classes = classnames(ITEM_CLASS, selected && SELECTED_CLASS, className)
-
-  if (typeof rest.to === 'string') {
-    rest.activeClassName = SELECTED_CLASS
-  }
-
-  return <Tag className={classes} {...rest} />
-}
-
 const UnderlineNav = styled(UnderlineNavBase)`
   display: flex;
   justify-content: space-between;
@@ -60,7 +50,10 @@ const UnderlineNav = styled(UnderlineNavBase)`
   ${COMMON};
 `
 
-UnderlineNav.Link = styled(UnderlineNavLink)`
+UnderlineNav.Link = styled.a.attrs(props => ({
+  activeClassName: typeof props.to === 'string' ? 'selected' : '',
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+}))`
   padding: ${get('space.3')}px ${get('space.2')}px;
   margin-right: ${get('space.3')}px;
   font-size: ${get('fontSizes.1')}px;
@@ -109,7 +102,6 @@ UnderlineNav.propTypes = {
 
 UnderlineNav.Link.defaultProps = {
   theme,
-  as: 'a'
 }
 
 UnderlineNav.Link.propTypes = {
