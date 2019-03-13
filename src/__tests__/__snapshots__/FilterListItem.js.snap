@@ -36,7 +36,6 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
 
 <b
   className="c0"
-  is="a"
   theme={
     Object {
       "borders": Array [
