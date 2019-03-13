@@ -52,7 +52,7 @@ const UnderlineNav = styled(UnderlineNavBase)`
 
 UnderlineNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
   padding: ${get('space.3')}px ${get('space.2')}px;
   margin-right: ${get('space.3')}px;
@@ -101,7 +101,7 @@ UnderlineNav.propTypes = {
 }
 
 UnderlineNav.Link.defaultProps = {
-  theme,
+  theme
 }
 
 UnderlineNav.Link.propTypes = {

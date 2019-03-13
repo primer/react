@@ -15,7 +15,7 @@ const BranchName = styled.a`
 `
 
 BranchName.defaultProps = {
-  theme,
+  theme
 }
 
 BranchName.propTypes = {

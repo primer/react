@@ -1,6 +1,5 @@
 import React from 'react'
 import {width} from 'styled-system'
-import {shallow} from 'enzyme'
 import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'

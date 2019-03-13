@@ -103,7 +103,7 @@ const DropdownItem = styled.li`
     background-color: ${get('colors.blue.5')};
     outline: none;
   }
-  ${COMMON}
+  ${COMMON};
 `
 
 Dropdown.Menu = DropdownMenu
