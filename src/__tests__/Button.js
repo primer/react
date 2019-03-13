@@ -1,5 +1,6 @@
 import React from 'react'
 import {width} from 'styled-system'
+import {shallow} from 'enzyme'
 import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
@@ -39,10 +40,6 @@ describe('Button', () => {
 
   it('preserves "onClick" prop', () => {
     expect(render(<Button onClick={noop} />).props.onClick).toEqual(noop)
-  })
-
-  it('ignores onClick if disabled', () => {
-    expect(render(<Button disabled onClick={noop} />).props.onClick).toEqual(undefined)
   })
 })
 
