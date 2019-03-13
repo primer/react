@@ -25,7 +25,7 @@ const bgStyles = ({scheme, ...props}) => {
   }
 }
 
-const CounterLabel = styled.div`
+const CounterLabel = styled.span`
   display: inline-block;
   padding: 2px 5px;
   font-size: ${get('fontSizes.0')}px;

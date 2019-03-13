@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
-function ItemBase({children, count, theme, as: Tag, ...rest}) {
+function ItemBase({children, count, theme, ...rest}) {
   return (
     <a key={nanoid()} {...rest}>
       {count && (
