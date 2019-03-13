@@ -14,7 +14,7 @@ export default () => (
   `
 import {Box} from 'primer-react'
 export default () => (
-  <Box as="span">
+  <Box is="span">
     <Text color="green">hi</Text>
   </Box>
 )
