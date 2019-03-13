@@ -21,7 +21,6 @@ const Button = styled.button`
 `
 
 Button.defaultProps = {
-  as: 'button',
   theme
 }
 

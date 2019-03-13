@@ -75,8 +75,7 @@ FilterList.propTypes = {
 FilterList.Item = Item
 
 FilterList.Item.defaultProps = {
-  theme,
-  as: 'a'
+  theme
 }
 
 FilterList.Item.propTypes = {

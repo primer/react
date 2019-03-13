@@ -41,12 +41,10 @@ CircleBadge.Icon = Icon
 
 CircleBadge.defaultProps = {
   theme,
-  as: 'div',
   size: 'medium'
 }
 
 CircleBadge.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
   theme: PropTypes.object,
   ...COMMON.propTypes

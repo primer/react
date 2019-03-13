@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import theme from './theme'
 import {COMMON, get} from './constants'
 
-const BranchName = styled.div`
+const BranchName = styled.a`
   display: inline-block;
   padding: 2px 6px;
   font-size: ${get('fontSizes.0')}px;
@@ -16,11 +16,9 @@ const BranchName = styled.div`
 
 BranchName.defaultProps = {
   theme,
-  as: 'a'
 }
 
 BranchName.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   href: PropTypes.string,
   ...COMMON.propTypes,
   theme: PropTypes.object

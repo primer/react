@@ -17,7 +17,6 @@ Heading.defaultProps = {
 Heading.propTypes = {
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme: PropTypes.object
 }
 

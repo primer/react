@@ -42,8 +42,7 @@ const CounterLabel = styled.span`
 `
 
 CounterLabel.defaultProps = {
-  theme,
-  as: 'span'
+  theme
 }
 
 CounterLabel.propTypes = {

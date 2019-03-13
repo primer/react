@@ -16,24 +16,20 @@ Flex.Item = styled.div`
 
 Flex.defaultProps = {
   theme,
-  display: 'flex',
-  as: 'div'
+  display: 'flex'
 }
 Flex.Item.defaultProps = {
-  theme,
-  as: 'div'
+  theme
 }
 Flex.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_CONTAINER.propTypes,
-  ...display.propTypes,
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  ...display.propTypes
 }
 
 Flex.Item.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_ITEM.propTypes,
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme: PropTypes.object
 }
 
