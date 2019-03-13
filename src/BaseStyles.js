@@ -10,8 +10,9 @@ const GlobalStyle = createGlobalStyle`
   table { border-collapse: collapse; }
 `
 const Base = props => {
+  const {color, lineHeight, fontFamily, theme, ...rest} = props;
   return (
-    <div {...props}>
+    <div {...rest}>
       <GlobalStyle />
       {props.children}
     </div>
