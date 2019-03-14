@@ -69,10 +69,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   list-style: none;
 }
 
-.c1 > summary::before {
-  display: none;
-}
-
 .c1 > summary::-webkit-details-marker {
   display: none;
 }
@@ -176,10 +172,6 @@ exports[`Dropdown matches the snapshots 2`] = `
 
 .c1 > summary {
   list-style: none;
-}
-
-.c1 > summary::before {
-  display: none;
 }
 
 .c1 > summary::-webkit-details-marker {
