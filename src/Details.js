@@ -31,14 +31,14 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
   function openMenu() {
     if (!open) {
       setOpen(true)
-      document.addEventListener('click', closeMenu);
+      document.addEventListener('click', closeMenu)
     }
   }
 
   function closeMenu(event) {
     if (event) event.preventDefault()
     setOpen(false)
-    document.removeEventListener('click', closeMenu);
+    document.removeEventListener('click', closeMenu)
   }
   return (
     <DetailsReset {...rest} open={open} overlay={overlay}>
