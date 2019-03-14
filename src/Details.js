@@ -4,32 +4,13 @@ import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const overlayStyles = `
-  & > summary::before {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 80;
-    display: block;
-    cursor: default;
-    content: " ";
-    background: transparent;
-  }
-`
-
 const DetailsReset = styled('details')`
   & > summary {
     list-style: none;
   }
-  & > summary::before {
-    display: none;
-  }
   & > summary::-webkit-details-marker {
     display: none;
   }
-  ${props => (props.overlay && props.open ? overlayStyles : '')};
 `
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
@@ -40,7 +21,17 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
 
   function toggle(event) {
     if (event) event.preventDefault()
-    setOpen(!open)
+    if (overlay) {
+      setOpen(true)
+      document.addEventListener('click', closeMenu);
+    } else {
+      setOpen(!true)
+    }
+  }
+
+  function closeMenu(event) {
+    setOpen(false)
+    document.removeEventListener('click', closeMenu);
   }
   return (
     <DetailsReset {...rest} open={open} overlay={overlay}>
