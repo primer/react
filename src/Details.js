@@ -21,15 +21,22 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
 
   function toggle(event) {
     if (event) event.preventDefault()
-    if (overlay && !open) {
-      setOpen(true)
-      document.addEventListener('click', closeMenu);
+    if (overlay) {
+      openMenu()
     } else {
       setOpen(!open)
     }
   }
 
+  function openMenu() {
+    if (!open) {
+      setOpen(true)
+      document.addEventListener('click', closeMenu);
+    }
+  }
+
   function closeMenu(event) {
+    if (event) event.preventDefault()
     setOpen(false)
     document.removeEventListener('click', closeMenu);
   }
