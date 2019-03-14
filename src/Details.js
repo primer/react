@@ -25,7 +25,7 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
       setOpen(true)
       document.addEventListener('click', closeMenu);
     } else {
-      setOpen(!true)
+      setOpen(!open)
     }
   }
 
