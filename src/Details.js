@@ -17,7 +17,6 @@ const overlayStyles = `
     content: " ";
     background: transparent;
   }
-  background: 'red';
 `
 
 const DetailsReset = styled('details')`
