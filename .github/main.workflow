@@ -26,7 +26,7 @@ action "npm test" {
 }
 
 action "deploy" {
-  uses = "primer/deploy@v2.0.0"
+  uses = "primer/deploy@66d83b7"
   needs = ["npm install"]
   secrets = ["GITHUB_TOKEN", "NOW_TOKEN"]
 }
