@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "npm run dist",
-    "next-build": "next build",
+    "now-build": "next build",
     "start": "next dev",
-    "next-start": "next start",
+    "now-start": "next start",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
     "postdist": "du -ha dist",
