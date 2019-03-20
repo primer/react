@@ -38,6 +38,7 @@ Link.defaultProps = {
 }
 
 Link.propTypes = {
+  as: PropTypes.oneOf(['a', 'button', 'input', 'summary']),
   href: PropTypes.string,
   theme: PropTypes.object,
   underline: PropTypes.bool,
