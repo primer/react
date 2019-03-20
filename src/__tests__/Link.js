@@ -22,8 +22,8 @@ describe('Link', () => {
     expect(render(<Link />)).toMatchSnapshot()
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Link is="button" />).type).toEqual('button')
+  it('respects the "as" prop', () => {
+    expect(render(<Link as="button" />).type).toEqual('button')
   })
 
   it('respects hoverColor prop', () => {
@@ -32,6 +32,6 @@ describe('Link', () => {
 
   it('respects the "fontStyle" prop', () => {
     expect(render(<Link fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Link is="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    expect(render(<Link as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
 })

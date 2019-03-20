@@ -15,8 +15,8 @@ describe('Button', () => {
     expect(Button).toSetDefaultTheme()
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Button is="a" />).type).toEqual('a')
+  it('respects the "as" prop', () => {
+    expect(render(<Button as="a" />).type).toEqual('a')
   })
 
   it('implements system props', () => {
@@ -39,10 +39,6 @@ describe('Button', () => {
 
   it('preserves "onClick" prop', () => {
     expect(render(<Button onClick={noop} />).props.onClick).toEqual(noop)
-  })
-
-  it('ignores onClick if disabled', () => {
-    expect(render(<Button disabled onClick={noop} />).props.onClick).toEqual(undefined)
   })
 })
 

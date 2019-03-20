@@ -22,13 +22,13 @@ describe('position components', () => {
       expect(render(<Absolute position="relative" />)).toHaveStyleRule('position', 'absolute')
     })
     it('can render other components with the is prop', () => {
-      const result = render(<Absolute is={BorderBox} />)
+      const result = render(<Absolute as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'absolute')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
 
-    it('respects the "is" prop', () => {
-      expect(render(<Absolute is="span" />).type).toEqual('span')
+    it('respects the "as" prop', () => {
+      expect(render(<Absolute as="span" />).type).toEqual('span')
     })
   })
 
@@ -37,8 +37,8 @@ describe('position components', () => {
       expect(Fixed).toImplementSystemProps(LAYOUT)
       expect(Fixed).toImplementSystemProps(POSITION)
     })
-    it('respects the "is" prop', () => {
-      expect(render(<Fixed is="span" />).type).toEqual('span')
+    it('respects the "as" prop', () => {
+      expect(render(<Fixed as="span" />).type).toEqual('span')
     })
     it('has default theme', () => {
       expect(Fixed).toSetDefaultTheme()
@@ -50,7 +50,7 @@ describe('position components', () => {
       expect(render(<Fixed position="relative" />)).toHaveStyleRule('position', 'fixed')
     })
     it('can render other components with the is prop', () => {
-      const result = render(<Fixed is={BorderBox} />)
+      const result = render(<Fixed as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'fixed')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
@@ -61,8 +61,8 @@ describe('position components', () => {
       expect(Relative).toImplementSystemProps(LAYOUT)
       expect(Relative).toImplementSystemProps(POSITION)
     })
-    it('respects the "is" prop', () => {
-      expect(render(<Relative is="span" />).type).toEqual('span')
+    it('respects the "as" prop', () => {
+      expect(render(<Relative as="span" />).type).toEqual('span')
     })
 
     it('has default theme', () => {
@@ -75,7 +75,7 @@ describe('position components', () => {
       expect(render(<Relative position="absolute" />)).toHaveStyleRule('position', 'relative')
     })
     it('can render other components with the is prop', () => {
-      const result = render(<Relative is={BorderBox} />)
+      const result = render(<Relative as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'relative')
       expect(result).toHaveStyleRule('border', '1px solid')
     })
@@ -86,8 +86,8 @@ describe('position components', () => {
       expect(Sticky).toImplementSystemProps(LAYOUT)
       expect(Sticky).toImplementSystemProps(POSITION)
     })
-    it('respects the "is" prop', () => {
-      expect(render(<Sticky is="span" />).type).toEqual('span')
+    it('respects the "as" prop', () => {
+      expect(render(<Sticky as="span" />).type).toEqual('span')
     })
     it('sets position: sticky', () => {
       expect(render(<Sticky />)).toHaveStyleRule('position', 'sticky')
@@ -96,7 +96,7 @@ describe('position components', () => {
       expect(render(<Sticky position="absolute" />)).toHaveStyleRule('position', 'sticky')
     })
     it('can render other components with the is prop', () => {
-      const result = render(<Sticky is={BorderBox} />)
+      const result = render(<Sticky as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'sticky')
       expect(result).toHaveStyleRule('border', '1px solid')
     })

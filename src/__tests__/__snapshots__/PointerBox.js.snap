@@ -14,13 +14,8 @@ exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
 
 <div
   className="c0"
-  position="relative"
 >
   <div
-    bg="red.5"
-    border="1px solid"
-    borderColor="gray.2"
-    borderRadius={1}
     className="c1"
   >
     <svg
@@ -69,12 +64,8 @@ exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret
 
 <div
   className="c0"
-  position="relative"
 >
   <div
-    border="1px solid"
-    borderColor="red.5"
-    borderRadius={1}
     className="c1"
   >
     <svg
@@ -123,12 +114,8 @@ exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1
 
 <div
   className="c0"
-  position="relative"
 >
   <div
-    border="1px solid"
-    borderColor="gray.2"
-    borderRadius={1}
     className="c1"
   >
     <svg

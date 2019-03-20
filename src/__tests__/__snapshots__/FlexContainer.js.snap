@@ -12,7 +12,6 @@ exports[`Flex respects alignContent 1`] = `
 }
 
 <div
-  alignContent="start"
   className="c0"
   display="flex"
 />
@@ -31,7 +30,6 @@ exports[`Flex respects alignItems 1`] = `
 }
 
 <div
-  alignItems="start"
   className="c0"
   display="flex"
 />
@@ -51,7 +49,6 @@ exports[`Flex respects flexDirection 1`] = `
 <div
   className="c0"
   display="flex"
-  flexDirection="row"
 />
 `;
 
@@ -69,7 +66,6 @@ exports[`Flex respects flexWrap 1`] = `
 <div
   className="c0"
   display="flex"
-  flexWrap="nowrap"
 />
 `;
 
@@ -88,7 +84,6 @@ exports[`Flex respects justifyContent 1`] = `
 <div
   className="c0"
   display="flex"
-  justifyContent="start"
 />
 `;
 

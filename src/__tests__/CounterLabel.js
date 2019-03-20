@@ -30,7 +30,7 @@ describe('CounterLabel', () => {
     expect(CounterLabel).toImplementSystemProps(COMMON)
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<CounterLabel is="span" />).type).toEqual('span')
+  it('respects the "as" prop', () => {
+    expect(render(<CounterLabel as="span" />).type).toEqual('span')
   })
 })

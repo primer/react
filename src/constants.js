@@ -1,4 +1,3 @@
-import React from 'react'
 import {styles, compose, get as getKey, themeGet} from 'styled-system'
 import theme from './theme'
 
@@ -72,5 +71,3 @@ export const FLEX_ITEM = composeList(FLEX_ITEM_LIST)
 function composeList(list) {
   return compose(...list.map(name => styles[name]))
 }
-
-export const Base = ({is: Tag = 'div', theme, ...rest}) => <Tag {...rest} />

@@ -1,25 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, LAYOUT, POSITION, Base} from './constants'
+import {COMMON, LAYOUT, POSITION} from './constants'
 import theme from './theme'
 
-export const Position = styled(Base)`
+export const Position = styled.div`
   ${LAYOUT}
   ${COMMON}
   ${POSITION}
 `
 
 Position.defaultProps = {
-  theme,
-  is: 'div'
+  theme
 }
 
 Position.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
   ...POSITION.propTypes,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme: PropTypes.object
 }
 

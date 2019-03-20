@@ -37,7 +37,7 @@ describe('Heading', () => {
   })
 
   it('respects the is prop', () => {
-    expect(render(<Heading is="h6" />).type).toEqual('h6')
+    expect(render(<Heading as="h6" />).type).toEqual('h6')
   })
 
   it('respects fontWeight', () => {
@@ -84,7 +84,7 @@ describe('Heading', () => {
 
   it('respects the "fontStyle" prop', () => {
     expect(render(<Heading fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Heading is="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    expect(render(<Heading as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
 
   xit('renders fontSize with f* classes using inverse scale', () => {

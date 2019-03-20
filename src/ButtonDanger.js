@@ -3,16 +3,18 @@ import Button from './Button'
 import {get} from './constants'
 
 const ButtonDanger = styled(Button)`
-  color: ${get('colors.red.6')}
-  background-color: ${get('colors.gray.0')}
+  color: ${get('colors.red.6')};
+  background-color: ${get('colors.gray.0')};
   background-image: linear-gradient(-180deg, ${get('colors.gray.0')} 0%, ${get('colors.button.bg2')} 90%);
 
   &:hover {
     color: ${get('colors.white')};
     background-color: ${get('colors.red.6')};
-    background-image: linear-gradient(-180deg, ${get('colors.button.dangerHoverBgImage')} 0%, ${get(
-  'colors.red.6'
-)} 90%);
+    background-image: linear-gradient(
+      -180deg,
+      ${get('colors.button.dangerHoverBgImage')} 0%,
+      ${get('colors.red.6')} 90%
+    );
     border-color: ${get('colors.blackfade50')};
   }
 
@@ -29,7 +31,7 @@ const ButtonDanger = styled(Button)`
   }
 
   &:selected {
-    color: ${get('colors.white')}
+    color: ${get('colors.white')};
     background-color: ${get('colors.button.dangerActiveBg')};
     background-image: none;
     box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;

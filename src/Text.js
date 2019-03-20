@@ -1,21 +1,19 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
-import {TYPOGRAPHY, COMMON, Base} from './constants'
+import {TYPOGRAPHY, COMMON} from './constants'
 
-const Text = styled(Base)`
+const Text = styled.span`
   ${TYPOGRAPHY} ${COMMON};
 `
 
 Text.defaultProps = {
-  is: 'span',
   theme
 }
 
 Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   theme: PropTypes.object
 }
 

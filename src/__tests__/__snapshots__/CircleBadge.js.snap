@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CircleBadge respects "is" prop 1`] = `
+exports[`CircleBadge respects "as" prop 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;

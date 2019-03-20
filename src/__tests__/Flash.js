@@ -19,8 +19,8 @@ describe('Flash', () => {
     expect(render(<Flash full />)).toHaveStyleRule('border-width', '1px 0px')
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Flash is="span" />).type).toEqual('span')
+  it('respects the "as" prop', () => {
+    expect(render(<Flash as="span" />).type).toEqual('span')
   })
 
   it('respects the "scheme" prop', () => {

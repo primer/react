@@ -12,8 +12,8 @@ describe('Tooltip', () => {
     expect(Tooltip).toSetDefaultTheme()
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Tooltip is="span" />).type).toEqual('span')
+  it('respects the "as" prop', () => {
+    expect(render(<Tooltip as="span" />).type).toEqual('span')
   })
 
   it('renders a <span> with the "tooltipped" class', () => {

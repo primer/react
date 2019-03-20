@@ -2,7 +2,7 @@
 
 The Link component styles anchor tags with default blue styling and hover text decoration. `Link` is used for destinations, or moving from one page to another.
 
-In special cases where you'd like a `<button>` styled like a `Link`, use `<Link is='button'>`. Make sure to provide a click handler with `onClick`.
+In special cases where you'd like a `<button>` styled like a `Link`, use `<Link as='button'>`. Make sure to provide a click handler with `onClick`.
 
 ## Default example
 
@@ -20,6 +20,6 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 | :- | :- | :-: | :- |
 | href | String | | URL to be used for the Link |
 | underline | Boolean | false | Adds underline to the Link |
-| is | String | 'a' | Can be 'a', 'button', 'input', or 'summary'
+| as | String | 'a' | Can be 'a', 'button', 'input', or 'summary'
 
 export const meta = {displayName: 'Link'}

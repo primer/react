@@ -17,9 +17,9 @@ describe('FilterList.Item', () => {
     expect(render(<FilterList.Item />).type).toEqual('a')
   })
 
-  it('renders the given "is" prop', () => {
+  it('renders the given "as" prop', () => {
     const Type = props => <b {...props} />
-    expect(render(<FilterList.Item is={Type} />)).toMatchSnapshot()
+    expect(render(<FilterList.Item as={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {
