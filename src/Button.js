@@ -13,8 +13,8 @@ function fontSize({size = '14px', ...props}) {
 }
 
 const Button = styled.button.attrs(props => ({
-  onClick: (props.disabled ? undefined : props.onClick),
-  className: (props.disabled ? 'disabled' : '')
+  onClick: props.disabled ? undefined : props.onClick,
+  className: props.disabled ? 'disabled' : ''
 }))`
   ${props => (props.theme ? getButtonStyles(props.theme) : '')};
   ${fontSize};
