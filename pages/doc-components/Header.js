@@ -2,12 +2,11 @@ import React from 'react'
 import {withRouter} from 'next/router'
 import Octicon, {MarkGithub} from '@githubprimer/octicons-react'
 import NextLink from 'next/link'
-import BoxShadow from './BoxShadow'
 import {Text, Flex, Link, Sticky, Box} from '../..'
 
 const Header = ({router}) => (
   <Sticky zIndex={100}>
-    <BoxShadow py={3} bg="gray.9" color="white">
+    <Box>
       <Flex className="p-responsive" alignItems="center" justifyContent="space-between">
         <NextLink href="/components">
           <Link ml={3} color="white" href="/components">
@@ -58,7 +57,7 @@ const Header = ({router}) => (
           </Link>
         </Box>
       </Flex>
-    </BoxShadow>
+    </Box>
   </Sticky>
 )
 
