@@ -31,4 +31,4 @@ Avatar components get `COMMON` system props. Read our [System Props](/components
 
 export const meta = {
   displayName: 'Avatar'
-}
+} 
