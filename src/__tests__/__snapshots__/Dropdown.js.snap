@@ -53,11 +53,12 @@ exports[`Dropdown matches the snapshots 1`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:disabled {
-  color: rgba(36,41,46,0.4);
-  background-color: #f6f8fa;
-  background-image: none;
-  border-color: rgba(27,31,35,0.20) box-shadow:none;
+.c2.disabled {
+  color: rgba(36,41,46,0.4)!important;
+  background-color: #f6f8fa!important;
+  background-image: none!important;
+  border-color: rgba(27,31,35,0.20)!important;
+  box-shadow: none!important;
 }
 
 .c2:focus {
@@ -67,10 +68,6 @@ exports[`Dropdown matches the snapshots 1`] = `
 
 .c1 > summary {
   list-style: none;
-}
-
-.c1 > summary::before {
-  display: none;
 }
 
 .c1 > summary::-webkit-details-marker {
@@ -162,11 +159,12 @@ exports[`Dropdown matches the snapshots 2`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:disabled {
-  color: rgba(36,41,46,0.4);
-  background-color: #f6f8fa;
-  background-image: none;
-  border-color: rgba(27,31,35,0.20) box-shadow:none;
+.c2.disabled {
+  color: rgba(36,41,46,0.4)!important;
+  background-color: #f6f8fa!important;
+  background-image: none!important;
+  border-color: rgba(27,31,35,0.20)!important;
+  box-shadow: none!important;
 }
 
 .c2:focus {
@@ -176,10 +174,6 @@ exports[`Dropdown matches the snapshots 2`] = `
 
 .c1 > summary {
   list-style: none;
-}
-
-.c1 > summary::before {
-  display: none;
 }
 
 .c1 > summary::-webkit-details-marker {

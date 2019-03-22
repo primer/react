@@ -4,7 +4,7 @@ Use the UnderlineNav component to style navigation with a minimal underlined sel
 
 To use UnderlineNav with [react-router](https://github.com/ReactTraining/react-router) or
 [react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
-```is={NavLink}``` and omit the ```selected``` prop.
+```as={NavLink}``` and omit the ```selected``` prop.
 This ensures that the NavLink gets ```activeClassName='selected'```
 
 ## Default example
@@ -40,7 +40,7 @@ UnderlineNav and UnderlineNav.Link components get `COMMON` system props. Read ou
 ### UnderlineNav.Link
 | Prop name | Type | Description |
 | :- | :- | :- |
-| is | String | sets the HTML tag for the component|
+| as | String | sets the HTML tag for the component|
 | selected | Boolean | Used to style the link as selected or unselected |
 
 export const meta = {displayName: 'UnderlineNav'}

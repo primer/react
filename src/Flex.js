@@ -1,39 +1,35 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {display} from 'styled-system'
-import {COMMON, FLEX_CONTAINER, FLEX_ITEM, Base} from './constants'
+import {COMMON, FLEX_CONTAINER, FLEX_ITEM} from './constants'
 import theme from './theme'
 
-const Flex = styled(Base)`
+const Flex = styled.div`
   ${FLEX_CONTAINER}
   ${COMMON}
   ${display}
 `
 
-Flex.Item = styled(Base)`
+Flex.Item = styled.div`
   ${FLEX_ITEM} ${COMMON};
 `
 
 Flex.defaultProps = {
   theme,
-  display: 'flex',
-  is: 'div'
+  display: 'flex'
 }
 Flex.Item.defaultProps = {
-  theme,
-  is: 'div'
+  theme
 }
 Flex.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_CONTAINER.propTypes,
-  ...display.propTypes,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  ...display.propTypes
 }
 
 Flex.Item.propTypes = {
   ...COMMON.propTypes,
   ...FLEX_ITEM.propTypes,
-  is: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   theme: PropTypes.object
 }
 

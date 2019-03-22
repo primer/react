@@ -7,8 +7,8 @@ import {COMMON} from '../constants'
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  it('respects "is" prop', () => {
-    const item = render(<CircleBadge is="a" />)
+  it('respects "as" prop', () => {
+    const item = render(<CircleBadge as="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
   })
@@ -24,7 +24,7 @@ describe('CircleBadge', () => {
   it('applies title', () => {
     expect(
       render(
-        <CircleBadge is="a" title="primer logo">
+        <CircleBadge as="a" title="primer logo">
           {imgInput}
         </CircleBadge>
       ).props['title']

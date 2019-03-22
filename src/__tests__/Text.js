@@ -18,8 +18,8 @@ describe('Text', () => {
     expect(Text).toSetDefaultTheme()
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Text is="b" />).type).toEqual('b')
+  it('respects the "as" prop', () => {
+    expect(render(<Text as="b" />).type).toEqual('b')
   })
 
   it('renders fontSize', () => {
@@ -53,7 +53,7 @@ describe('Text', () => {
 
   it('respects the "fontStyle" prop', () => {
     expect(render(<Text fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Text is="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    expect(render(<Text as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
 
   it('respects lineHeight', () => {

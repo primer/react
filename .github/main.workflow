@@ -9,30 +9,30 @@ workflow "Primer Components Workflow" {
 }
 
 action "npm install" {
-  uses = "actions/npm@94e6933"
+  uses = "actions/npm@v2.0.0"
   args = "ci"
 }
 
 action "npm lint" {
-  uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
+  uses = "actions/npm@v2.0.0"
   needs = ["npm install"]
   args = "run lint"
 }
 
 action "npm test" {
-  uses = "actions/npm@3c8332795d5443adc712d30fa147db61fd520b5a"
+  uses = "actions/npm@v2.0.0"
   needs = ["npm install"]
   args = "test"
 }
 
 action "deploy" {
-  uses = "primer/deploy@v2.0.0"
+  uses = "primer/deploy@v3.0.0"
   needs = ["npm install"]
   secrets = ["GITHUB_TOKEN", "NOW_TOKEN"]
 }
 
 action "publish" {
-  uses = "primer/publish@master"
+  uses = "primer/publish@v1.0.0"
   needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",

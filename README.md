@@ -125,7 +125,7 @@ To run `@primer/components` locally when adding or updating components:
 
 1. Clone this repo: `git clone https://github.com/primer/components`
 1. Install dependencies: `npm install`
-1. Run the dev app: `npm run dev`
+1. Run the dev app: `npm start`
 
 > 👉 See [the contributing docs](contributing.md) for more info on code style, testing, and coverage.
 

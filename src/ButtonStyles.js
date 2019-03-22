@@ -39,7 +39,7 @@ const getButtonStyles = theme => {
         background-color: ${get('colors.button.activeBg')(theme)};
         background-image: none;
         box-shadow: ${get('colors.blackfade15')(theme)} 0px 0.15em 0.3em inset;
-        border-color: ${get('colors.button.border')(theme)} //convert black to rbg here
+        border-color: ${get('colors.button.border')(theme)}; //convert black to rbg here
       }
 
       &:selected {
@@ -49,12 +49,12 @@ const getButtonStyles = theme => {
         border-color: ${get('colors.button.border')(theme)};
       }
 
-      &:disabled {
-        color: ${get('colors.button.disabledColor')(theme)};
-        background-color: ${get('colors.gray.1')(theme)};
-        background-image: none;
-        border-color: ${get('colors.blackfade20')(theme)}
-        box-shadow: none;
+      &.disabled {
+        color: ${get('colors.button.disabledColor')(theme)}!important;
+        background-color: ${get('colors.gray.1')(theme)}!important;
+        background-image: none!important;
+        border-color: ${get('colors.blackfade20')(theme)}!important;
+        box-shadow: none!important;
       }
 
       &:focus {

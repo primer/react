@@ -10,8 +10,8 @@ describe('Box', () => {
     expect(Box).toImplementSystemProps(COMMON)
   })
 
-  it('respects the "is" prop', () => {
-    expect(render(<Box is="span" />).type).toEqual('span')
+  it('respects the "as" prop', () => {
+    expect(render(<Box as="span" />).type).toEqual('span')
   })
 
   it('renders without any props', () => {

@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
@@ -13,11 +12,10 @@ function fontSize({size = '14px', ...props}) {
   }
 }
 
-const ButtonBase = ({is: Tag, onClick, disabled, theme, ...rest}) => {
-  return <Tag disabled={disabled} onClick={disabled ? undefined : onClick} {...rest} />
-}
-
-const Button = styled(ButtonBase)`
+const Button = styled.button.attrs(props => ({
+  onClick: props.disabled ? undefined : props.onClick,
+  className: props.disabled ? 'disabled' : ''
+}))`
   ${props => (props.theme ? getButtonStyles(props.theme) : '')};
   ${fontSize};
   ${COMMON};
@@ -25,15 +23,14 @@ const Button = styled(ButtonBase)`
 `
 
 Button.defaultProps = {
-  is: 'button',
   theme
 }
 
 Button.propTypes = {
+  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
-  is: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'large']),
   theme: PropTypes.object,

@@ -4,9 +4,9 @@ The Text component is a wrapper component that will apply typography styles to t
 
 ## Default example
 ```.jsx
-<Text is='p' fontWeight="bold">bold</Text>
-<Text is='p' color="red.6">red color</Text>
-<Text is='p' color="white" bg="gray.9" p={2}>white on black</Text>
+<Text as='p' fontWeight="bold">bold</Text>
+<Text as='p' color="red.6">red color</Text>
+<Text as='p' color="white" bg="gray.9" p={2}>white on black</Text>
 ```
 
 ## System props
@@ -17,6 +17,6 @@ Text components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Pro
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| is | String | `span` | Sets the HTML tag for the component|
+| as | String | `span` | Sets the HTML tag for the component|
 
 export const meta = {displayName: 'Text'}

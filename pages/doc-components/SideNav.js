@@ -63,7 +63,7 @@ const SideNav = ({router}) => (
         </Flex>
       </BorderBox>
       <Box pt={5} pl={5}>
-        <Text is="p" color="black" m={0} mb={3}>
+        <Text as="p" color="black" m={0} mb={3}>
           <NextLink href="/components/docs/Avatar">
             <Link
               color="gray.9"

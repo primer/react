@@ -53,6 +53,5 @@ exports[`Link respects hoverColor prop 1`] = `
 <a
   className="c0"
   color="blue.5"
-  hoverColor="blue.4"
 />
 `;
