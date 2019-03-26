@@ -49,15 +49,15 @@ export const FLEX_CONTAINER_LIST = [
   'alignContent',
   'alignItems',
   'justifyContent',
-  'justifyItems',
-  'order'
+  'justifyItems'
 ]
 
 export const FLEX_ITEM_LIST = [
   // flex container child props
   'flex',
   'justifySelf',
-  'alignSelf'
+  'alignSelf',
+  'order'
 ]
 
 export const COMMON = composeList(COMMON_LIST)
