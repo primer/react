@@ -85,6 +85,6 @@ const App = (props) => {
     **☝️ This is an intentionally convoluted example, since you can use `<Text color='#f0f'>` out of the box.**
 
 
-Read the [styled-system docs](http://jxnblk.com/styled-system/getting-started#theming) for more information on theming in styled-system.
+Read the [styled-system docs](https://styled-system.com/#theming) for more information on theming in styled-system.
 
 [styled-components]: https://styled-components.com/
