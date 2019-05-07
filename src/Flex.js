@@ -3,14 +3,15 @@ import PropTypes from 'prop-types'
 import {display} from 'styled-system'
 import {COMMON, FLEX_CONTAINER, FLEX_ITEM} from './constants'
 import theme from './theme'
+import Box from './Box'
 
-const Flex = styled.div`
+const Flex = styled(Box)`
   ${FLEX_CONTAINER}
   ${COMMON}
   ${display}
 `
 
-Flex.Item = styled.div`
+Flex.Item = styled(Box)`
   ${FLEX_ITEM} ${COMMON};
 `
 
