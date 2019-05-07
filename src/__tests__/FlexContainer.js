@@ -1,14 +1,11 @@
 import React from 'react'
-import {display} from 'styled-system'
 import Flex from '../Flex'
-import {FLEX_CONTAINER, COMMON} from '../constants'
+import {FLEX_CONTAINER} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flex', () => {
   it('implements system props', () => {
     expect(Flex).toImplementSystemProps(FLEX_CONTAINER)
-    expect(Flex).toImplementSystemProps(COMMON)
-    expect(Flex).toImplementSystemProps(display)
   })
 
   it('has default theme', () => {
