@@ -1,6 +1,6 @@
 import React from 'react'
 import Flex from '../Flex'
-import {FLEX_ITEM, COMMON} from '../constants'
+import {FLEX_ITEM} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flex.Item', () => {

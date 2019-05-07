@@ -1,7 +1,6 @@
 import React from 'react'
-import {display} from 'styled-system'
 import Flex from '../Flex'
-import {FLEX_CONTAINER, COMMON} from '../constants'
+import {FLEX_CONTAINER} from '../constants'
 import {render} from '../utils/testing'
 
 describe('Flex', () => {
