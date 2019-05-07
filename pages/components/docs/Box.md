@@ -6,10 +6,11 @@ The Box component serves as a wrapper component for most layout related needs. U
 
 ```.jsx
 <Box>
- <Label m={1}>Box can be used to create block level elements & more</Label>
+ Box can be used to create both <Box as="span" bg="green.1">inline</Box> and
+ <Box bg="blue.1">block-level elements,</Box>
+ <Box bg="purple.1" width={[1, 1, 1/2]}>elements with fixed or responsive width and height,</Box>
+ <Box bg="yellow.0" p={4} mt={2}>and more!</Box>
 </Box>
-
-<Label m={1}>Default label</Label>
 ```
 
 ## System props
