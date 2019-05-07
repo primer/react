@@ -7,12 +7,10 @@ import Box from './Box'
 
 const Flex = styled(Box)`
   ${FLEX_CONTAINER}
-  ${COMMON}
-  ${display}
 `
 
 Flex.Item = styled(Box)`
-  ${FLEX_ITEM} ${COMMON};
+  ${FLEX_ITEM}
 `
 
 Flex.defaultProps = {
@@ -23,13 +21,11 @@ Flex.Item.defaultProps = {
   theme
 }
 Flex.propTypes = {
-  ...COMMON.propTypes,
+  ...Box.propTypes,
   ...FLEX_CONTAINER.propTypes,
-  ...display.propTypes
 }
 
 Flex.Item.propTypes = {
-  ...COMMON.propTypes,
   ...FLEX_ITEM.propTypes,
   theme: PropTypes.object
 }

@@ -6,7 +6,6 @@ import {render} from '../utils/testing'
 describe('Flex.Item', () => {
   it('implements system props', () => {
     expect(Flex.Item).toImplementSystemProps(FLEX_ITEM)
-    expect(Flex.Item).toImplementSystemProps(COMMON)
   })
 
   it('has default theme', () => {
