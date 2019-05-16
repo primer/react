@@ -39,5 +39,4 @@ action "publish to gpr" {
   env = {
     NPM_REGISTRY_URL = "npm.pkg.github.com"
   }
-  runs = "publish"
 }
