@@ -3,7 +3,6 @@ workflow "Primer Components Workflow" {
   resolves = [
     "npm lint",
     "npm test",
-    "publish to npm",
     "publish to gpr",
     "deploy",
   ]
@@ -30,13 +29,6 @@ action "deploy" {
   uses = "primer/deploy@v3.0.0"
   needs = ["npm install"]
   secrets = ["GITHUB_TOKEN", "NOW_TOKEN"]
-}
-
-action "publish to npm" {
-  uses = "primer/publish@v1.0.0"
-  needs = ["npm install"]
-  secrets = ["GITHUB_TOKEN","NPM_AUTH_TOKEN"]
-  args = ["--", "--unsafe-perm"]
 }
 
 action "publish to gpr" {
