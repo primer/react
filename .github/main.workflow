@@ -32,7 +32,7 @@ action "deploy" {
 }
 
 action "publish to npm" {
-  uses = "primer/publish@v1.0.0"
+  uses = "primer/publish@15db1371fbc8ecb2cb69da3eb14bb93796684aad"
   needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",
