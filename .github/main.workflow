@@ -35,7 +35,7 @@ action "publish to gpr" {
   uses = "primer/publish@v1.0.0"
   needs = ["npm install"]
   env = {
-    NPM_REGISTRY_URL = "https://npm.pkg.github.com",
+    NPM_REGISTRY_URL = "npm.registry.github.com",
   }
   secrets = ["GITHUB_TOKEN","NPM_AUTH_TOKEN"]
   args = ["--", "--unsafe-perm"]
