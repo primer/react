@@ -35,7 +35,7 @@ action "publish to gpr" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   needs = ["npm install"]
   secrets = ["GITHUB_TOKEN", "NPM_AUTH_TOKEN"]
-  args = ["--", "--unsafe-perm", "-ddd"]
+  args = ["publish", "--", "--unsafe-perm", "-ddd"]
   env = {
     NPM_REGISTRY_URL = "npm.pkg.github.com"
   }
