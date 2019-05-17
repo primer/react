@@ -44,7 +44,7 @@ action "publish to npm" {
 
 action "publish to gpr" {
   uses = "primer/publish@bff7454b00ce2cbe6f312757e5d763da0f992d24"
-  needs = ["npm install"]
+  needs = ["publish to npm"]
   secrets = [
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
