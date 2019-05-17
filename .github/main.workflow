@@ -39,7 +39,7 @@ action "publish to npm" {
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
   ]
-  args = ["--", "--unsafe-perm"]
+  args = ["--", "--unsafe-perm"" "--allow-same-version"]
 }
 
 action "publish to gpr" {
@@ -49,7 +49,7 @@ action "publish to gpr" {
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
   ]
-  args = ["--", "--unsafe-perm"]
+  args = ["--", "--unsafe-perm", "--allow-same-version"]
   env = {
     NPM_REGISTRY_URL = "npm.pkg.github.com"
   }
