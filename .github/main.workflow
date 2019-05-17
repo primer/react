@@ -4,6 +4,7 @@ workflow "Primer Components Workflow" {
     "npm lint",
     "npm test",
     "publish to gpr",
+    "publish to npm",
     "deploy",
   ]
 }
@@ -32,7 +33,7 @@ action "deploy" {
 }
 
 action "publish to npm" {
-  uses = "primer/publish@ab7c6642360562f4995a3fef10cabf9e370a6c97"
+  uses = "primer/publish@bff7454b00ce2cbe6f312757e5d763da0f992d24"
   needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",
@@ -42,7 +43,7 @@ action "publish to npm" {
 }
 
 action "publish to gpr" {
-  uses = "primer/publish@ab7c6642360562f4995a3fef10cabf9e370a6c97"
+  uses = "primer/publish@bff7454b00ce2cbe6f312757e5d763da0f992d24"
   needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",
