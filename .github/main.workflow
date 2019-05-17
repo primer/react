@@ -39,7 +39,7 @@ action "publish to npm" {
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
   ]
-  args = ["--", "--unsafe-perm"" "--allow-same-version"]
+  args = ["--", "--unsafe-perm", "--allow-same-version"]
 }
 
 action "publish to gpr" {
