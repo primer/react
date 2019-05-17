@@ -47,7 +47,7 @@ action "publish to gpr" {
   needs = ["publish to npm"]
   secrets = [
     "GITHUB_TOKEN",
-    "NPM_AUTH_TOKEN",
+    "GPR_AUTH_TOKEN",
   ]
   args = ["--", "--unsafe-perm", "--allow-same-version"]
   env = {
