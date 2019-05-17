@@ -33,7 +33,7 @@ action "deploy" {
 }
 
 action "publish to npm" {
-  uses = "primer/publish@bff7454b00ce2cbe6f312757e5d763da0f992d24"
+  uses = "primer/publish@f0be8131d0eb6f24f7f7d83825a766bfc5bcd1ca"
   needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",
@@ -43,7 +43,7 @@ action "publish to npm" {
 }
 
 action "publish to gpr" {
-  uses = "primer/publish@bff7454b00ce2cbe6f312757e5d763da0f992d24"
+  uses = "primer/publish@f0be8131d0eb6f24f7f7d83825a766bfc5bcd1ca"
   needs = ["publish to npm"]
   secrets = [
     "GITHUB_TOKEN",
