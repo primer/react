@@ -31,14 +31,24 @@ action "deploy" {
   secrets = ["GITHUB_TOKEN", "NOW_TOKEN"]
 }
 
-action "publish to gpr" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+action "publish to npm" {
+  uses = "primer/publish@15db1371fbc8ecb2cb69da3eb14bb93796684aad"
   needs = ["npm install"]
   secrets = [
     "GITHUB_TOKEN",
     "NPM_AUTH_TOKEN",
   ]
-  args = ["publish -ddd"]
+  args = ["--", "--unsafe-perm"]
+}
+
+action "publish to gpr" {
+  uses = "primer/publish@15db1371fbc8ecb2cb69da3eb14bb93796684aad"
+  needs = ["npm install"]
+  secrets = [
+    "GITHUB_TOKEN",
+    "NPM_AUTH_TOKEN",
+  ]
+  args = ["--", "--unsafe-perm"]
   env = {
     NPM_REGISTRY_URL = "npm.pkg.github.com"
   }
