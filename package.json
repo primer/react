@@ -37,7 +37,6 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@githubprimer/octicons-react": "8.1.2",
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",
     "d3-shape": "^1.2.0",
@@ -93,6 +92,7 @@
     "styled-components": "4.1.2"
   },
   "peerDependencies": {
-    "styled-components": "4.x"
+    "styled-components": "4.x",
+    "@githubprimer/octicons-react": "8.x"
   }
 }
