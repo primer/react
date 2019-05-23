@@ -4,7 +4,8 @@ import {LAYOUT, COMMON} from './constants'
 import theme from './theme'
 
 const Box = styled.div`
-  ${LAYOUT} ${COMMON};
+  ${LAYOUT}
+  ${COMMON};
 `
 
 Box.defaultProps = {theme}

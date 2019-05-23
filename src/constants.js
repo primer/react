@@ -19,7 +19,6 @@ export const TYPOGRAPHY_LIST = [
 
 export const LAYOUT_LIST = [
   // layout props
-  'display',
   'size',
   'width',
   'height',
