@@ -2,7 +2,6 @@ import React from 'react'
 import App, {Container} from 'next/app'
 import {MDXProvider} from '@mdx-js/tag'
 import Head from 'next/head'
-import {withMDXLive} from 'mdx-live'
 import getConfig from 'next/config'
 import Octicon, {iconsByName, Pencil} from '@githubprimer/octicons-react'
 import * as docComponents from './doc-components'
@@ -11,7 +10,7 @@ import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
 const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
-const {SideNav, Header, IndexHero} = docComponents
+const {SideNav, Header, IndexHero, LiveCode} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
@@ -28,7 +27,7 @@ const components = {
   Octicon,
   // render links with our component
   a: DocLink,
-  code: withMDXLive('pre'),
+  code: LiveCode,
   pre: props => props.children
 }
 
