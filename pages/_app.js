@@ -10,7 +10,7 @@ import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
 const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
-const {SideNav, Header, IndexHero, LiveCode} = docComponents
+const {SideNav, Header, IndexHero, CodeContainer} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
@@ -27,7 +27,7 @@ const components = {
   Octicon,
   // render links with our component
   a: DocLink,
-  code: LiveCode,
+  code: CodeContainer,
   pre: props => props.children
 }
 
