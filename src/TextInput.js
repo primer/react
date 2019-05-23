@@ -36,9 +36,9 @@ const TextInput = styled(TextInputBase)`
   box-shadow: ${get('shadows.formControl')};
 
   &:focus {
-    border-color: ${get('blue.4')};
+    border-color: ${get('colors.blue.4')};
     outline: none;
-    box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControl.focus')};
+    box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
   }
 
   &.input-sm {
