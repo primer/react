@@ -2,7 +2,7 @@ import React from 'react'
 import {LiveCode as MDXLive} from 'mdx-live'
 import copy from 'clipboard-copy'
 
-import {Relative, Absolute, Button, StyledOcticon} from '../..'
+import {Relative, Absolute, Link, StyledOcticon} from '../..'
 import {Clippy, Check} from '@githubprimer/octicons-react'
 
 function CodeContainer({children: code, className: language}) {
@@ -52,10 +52,10 @@ function CopyButton({code}) {
   )
 
   return (
-    <Absolute right={8} bottom={8}>
-      <Button onClick={onClick}>
-        <StyledOcticon icon={copied ? Check : Clippy} color={copied ? 'green.5' : 'inherit'} />
-      </Button>
+    <Absolute right={0} bottom={14}>
+      <Link p={3} onClick={onClick}>
+        <StyledOcticon icon={copied ? Check : Clippy} color={copied ? 'green.5' : 'gray.5'} />
+      </Link>
     </Absolute>
   )
 }
