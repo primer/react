@@ -1,5 +1,7 @@
-import {styles, compose, get as getKey, themeGet} from 'styled-system'
+import * as styledSystem from 'styled-system'
 import theme from './theme'
+
+const {compose, get: getKey, themeGet} = styledSystem
 
 export const get = key => themeGet(key, getKey(theme, key))
 
@@ -69,5 +71,5 @@ export const FLEX_CONTAINER = composeList(FLEX_CONTAINER_LIST)
 export const FLEX_ITEM = composeList(FLEX_ITEM_LIST)
 
 function composeList(list) {
-  return compose(...list.map(name => styles[name]))
+  return compose(...list.map(name => styledSystem[name]))
 }
