@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "12.1.0",
+  "version": "13.0.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -39,7 +39,6 @@
   "dependencies": {
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",
-    "d3-shape": "^1.2.0",
     "nanoid": "2.0.0",
     "primer-colors": "1.0.1",
     "primer-markdown": "3.7.9",
