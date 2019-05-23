@@ -10,7 +10,8 @@ export default [
     plugins,
     external: [
       "styled-components",
-      "@githubprimer/octicons-react"
+      "@githubprimer/octicons-react",
+      "react"
     ],
     output: formats.map(format => ({
       file: `dist/index.${format}.js`,
