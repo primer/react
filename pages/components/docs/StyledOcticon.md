@@ -23,7 +23,7 @@ StyledOcticon passes all of its props except the common system props down to the
 | ariaLabel | String | | Specifies the `aria-label` attribute, which is read verbatim by screen readers |
 | icon | Octicon | | Octicon component used in the component |
 | size | Number | 16 | Sets the uniform `width` and `height` of the SVG element |
-| verticalAlign | String | `text-bottom` | Sets the `text-align` CSS property |
+| verticalAlign | String | `text-bottom` | Sets the `vertical-align` CSS property |
 
 
 export const meta = {displayName: 'StyledOcticon'}
