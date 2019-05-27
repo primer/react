@@ -127,7 +127,7 @@ To run `@primer/components` locally when adding or updating components:
 1. Install dependencies: `npm install`
 1. Run the dev app: `npm start`
 
-> 👉 See [the contributing docs](contributing.md) for more info on code style, testing, and coverage.
+> 👉 See [the contributing docs](CONTRIBUTING.md) for more info on code style, testing, and coverage.
 
 
 ## Principles
