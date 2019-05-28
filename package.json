@@ -94,6 +94,6 @@
   "peerDependencies": {
     "styled-components": "4.x",
     "@githubprimer/octicons-react": "8.x",
-    "react": "16.8.x"
+    "react": "^16.8.0"
   }
 }
