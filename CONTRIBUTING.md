@@ -52,6 +52,7 @@ A code coverage report is included in the `npm test` output, and test coverage d
 ## Tools we use
 
 1. We use [styled-components](https://www.styled-components.com/) to style our components.
+2. We use style functions from [styled-system](https://styled-system.com/) whenever possible, and styled-systems' `style()` function to create new ones.
 
 
 ## Component patterns
