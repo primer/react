@@ -5,7 +5,7 @@ const {compose, get: getKey, themeGet} = styledSystem
 
 export const get = key => themeGet(key, getKey(theme, key))
 
-export const COMMON_LIST = ['color', 'space']
+export const COMMON_LIST = ['color', 'space', 'display']
 
 export const BORDER_LIST = ['borders', 'borderColor', 'boxShadow', 'borderRadius']
 
@@ -21,7 +21,6 @@ export const TYPOGRAPHY_LIST = [
 
 export const LAYOUT_LIST = [
   // layout props
-  'display',
   'size',
   'width',
   'height',
