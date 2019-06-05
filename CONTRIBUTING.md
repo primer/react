@@ -152,8 +152,7 @@ SpaceDiv.propTypes = {
 
 [classnames]: https://www.npmjs.com/package/classnames
 [spread syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-[styled-system]: https://jxnblk.com/styled-system/getting-started
-[system-components]: https://jxnblk.com/styled-system/system-components
+[styled-system]: https://styled-system.com
 [table]: https://jxnblk.com/styled-system/table
 [npx]: https://www.npmjs.com/package/npx
 [Now]: https://zeit.co/now
