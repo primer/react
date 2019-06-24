@@ -11,6 +11,7 @@ export const get = key => themeGet(key, getKey(theme, key))
 export const COMMON = compose(
   styledSystem.space,
   styledSystem.color,
+  styledSystem.display
 )
 COMMON.propTypes = {
   ...systemPropTypes.space,
