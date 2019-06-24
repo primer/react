@@ -1,5 +1,5 @@
 import React from 'react'
-import {width} from 'styled-system'
+import {layout} from 'styled-system'
 import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
@@ -21,7 +21,7 @@ describe('Button', () => {
 
   it('implements system props', () => {
     expect(Button).toImplementSystemProps(COMMON)
-    expect(Button).toImplementSystemProps(width)
+    expect(Button).toImplementSystemProps(layout)
   })
 
   it('respects width props', () => {

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {get} from './constants'
 import {space} from 'styled-system'
+import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 
 function borderRadius({size}) {
@@ -32,7 +33,7 @@ Avatar.propTypes = {
   alt: PropTypes.string.isRequired,
   size: PropTypes.number,
   src: PropTypes.string,
-  ...space.propTypes,
+  ...systemPropTypes.space,
   theme: PropTypes.object
 }
 
