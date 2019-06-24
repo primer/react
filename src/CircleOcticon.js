@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon from '@githubprimer/octicons-react'
+import Octicon from '@primer/octicons-react'
 import Flex from './Flex'
 import theme from './theme'
 import BorderBox from './BorderBox'
