@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -94,6 +94,6 @@
   "peerDependencies": {
     "styled-components": "4.x",
     "@primer/octicons-react": "9.x",
-    "react": "16.8.x"
+    "react": "^16.8.0"
   }
 }
