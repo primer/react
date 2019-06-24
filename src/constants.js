@@ -25,16 +25,23 @@ BORDER.propTypes = {
   ...systemPropTypes.border,
   ...systemPropTypes.shadow,
 }
+export const LAYOUT = compose(
+  styledSystem.width,
+  styledSystem.height
+)
+
+LAYOUT.propTypes = {
+  ...systemPropTypes.width,
+  ...systemPropTypes.height
+}
 
 // these are 1:1 with styled-system's API now,
 // so you could consider dropping the abstraction
 export const TYPOGRAPHY = styledSystem.typography
-export const LAYOUT = styledSystem.layout
 export const POSITION = styledSystem.position
 
 
 TYPOGRAPHY.propTypes = systemPropTypes.typography
-LAYOUT.propTypes = systemPropTypes.layout
 POSITION.propTypes = systemPropTypes.position
 
 // in styled-system v5, all flexbox properties are combined

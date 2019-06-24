@@ -5,7 +5,7 @@ The Box component serves as a wrapper component for most layout related needs. U
 ## Default example
 
 ```.jsx
-<Box>
+<Box display='inline-block'>
  Box can be used to create both <Box as="span" bg="green.1">inline</Box> and
  <Box bg="blue.1">block-level elements,</Box>
  <Box bg="purple.1" width={[1, 1, 1/2]}>elements with fixed or responsive width and height,</Box>
