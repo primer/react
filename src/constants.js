@@ -31,6 +31,7 @@ export const TYPOGRAPHY = styledSystem.typography
 export const LAYOUT = styledSystem.layout
 export const POSITION = styledSystem.position
 
+
 TYPOGRAPHY.propTypes = systemPropTypes.typography
 LAYOUT.propTypes = systemPropTypes.layout
 POSITION.propTypes = systemPropTypes.position

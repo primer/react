@@ -1,5 +1,5 @@
 import React from 'react'
-import {X} from '@githubprimer/octicons-react'
+import {X} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
