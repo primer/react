@@ -5,11 +5,9 @@ The Box component serves as a wrapper component for most layout related needs. U
 ## Default example
 
 ```.jsx
-<Box display='inline-block'>
- Box can be used to create both <Box as="span" bg="green.1">inline</Box> and
- <Box bg="blue.1">block-level elements,</Box>
- <Box bg="purple.1" width={[1, 1, 1/2]}>elements with fixed or responsive width and height,</Box>
- <Box bg="yellow.0" p={4} mt={2}>and more!</Box>
+<Box display='inline-block' width='400px' overflow='hidden' style={{border: '1px solid red'}}>
+  parent
+  <Box bg='blue.4' width='500px'>This should overflow the parent because Box shouldn't have the overflow prop available</Box>
 </Box>
 ```
 
