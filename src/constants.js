@@ -1,28 +1,28 @@
 import * as styledSystem from 'styled-system'
-import { compose } from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import themeGet from '@styled-system/theme-get'
 import theme from './theme'
 
-const { get: getKey } = styledSystem
+const {get: getKey, compose} = styledSystem
 
 export const get = key => themeGet(key, getKey(theme, key))
 
 export const COMMON = compose(
   styledSystem.space,
   styledSystem.color,
+  styledSystem.display
 )
 COMMON.propTypes = {
   ...systemPropTypes.space,
-  ...systemPropTypes.color,
+  ...systemPropTypes.color
 }
 export const BORDER = compose(
   styledSystem.border,
-  styledSystem.shadow,
+  styledSystem.shadow
 )
 BORDER.propTypes = {
   ...systemPropTypes.border,
-  ...systemPropTypes.shadow,
+  ...systemPropTypes.shadow
 }
 
 // these are 1:1 with styled-system's API now,
@@ -30,7 +30,6 @@ BORDER.propTypes = {
 export const TYPOGRAPHY = styledSystem.typography
 export const LAYOUT = styledSystem.layout
 export const POSITION = styledSystem.position
-
 
 TYPOGRAPHY.propTypes = systemPropTypes.typography
 LAYOUT.propTypes = systemPropTypes.layout

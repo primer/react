@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
-import { system, style} from 'styled-system'
+import {system} from 'styled-system'
 
 const buttonStyles = {
   display: 'inline-block',
@@ -19,7 +19,7 @@ const buttonStyles = {
 const hoverColor = system({
   hoverColor: {
     property: 'color',
-    scale: 'colors',
+    scale: 'colors'
   }
 })
 
