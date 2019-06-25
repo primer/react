@@ -32,11 +32,11 @@ const SideNav = ({router}) => (
       height="100%"
       bg="gray.0"
       display="inline-block"
-      border='1px solid'
+      border="1px solid"
       borderTop={[1, 1, 0, 0]}
       borderRight={1}
-      borderLeft='0'
-      borderBottom='0'
+      borderLeft="0"
+      borderBottom="0"
       id="sidenav"
     >
       <BorderBox border="none" borderBottom={1} borderRadius={0} borderColor="gray.2" bg="gray.0">
