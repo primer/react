@@ -10,10 +10,6 @@ describe('Avatar', () => {
     expect(render(<Avatar alt="" />)).toMatchSnapshot()
   })
 
-  it('implements system props', () => {
-    expect(Avatar).toImplementSystemProps(space)
-  })
-
   it('has default theme', () => {
     expect(Avatar).toSetDefaultTheme()
   })
