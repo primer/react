@@ -30,36 +30,9 @@ BORDER.propTypes = {
 export const TYPOGRAPHY = styledSystem.typography
 export const LAYOUT = styledSystem.layout
 export const POSITION = styledSystem.position
+export const FLEX = styledSystem.flexbox
 
 TYPOGRAPHY.propTypes = systemPropTypes.typography
 LAYOUT.propTypes = systemPropTypes.layout
 POSITION.propTypes = systemPropTypes.position
-
-// in styled-system v5, all flexbox properties are combined
-// these *could* be kept in separate flex container and item prop sets, but would require some customization
-export const FLEX_CONTAINER = styledSystem.flexbox
-export const FLEX_ITEM = styledSystem.flexbox
-
-FLEX_CONTAINER.propTypes = systemPropTypes.flexbox
-FLEX_ITEM.propTypes = systemPropTypes.flexbox
-
-// If you'd like to keep flex container and item props separate,
-// the code below should work
-/*
-  export const FLEX_CONTAINER = styledSystem.system({
-    flexBasis: true,
-    flexDirection: true,
-    flexWrap: true,
-    alignContent: true,
-    alignItems: true,
-    justifyContent: true,
-    justifyItems: true,
-  })
-
-  export const FLEX_ITEM = styledSystem.system({
-    flex: true,
-    justifySelf: true,
-    alignSelf: true,
-    order: true
-  })
-*/
+FLEX.propTypes = systemPropTypes.flexbox
