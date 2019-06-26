@@ -1,41 +1,36 @@
 # Flex and Flex.Item
 
-Flex and Flex.Item are wrapping components that will give the content flexbox properties. Flex.Item is included in the export for Flex.
+Flex is a component that will allow you to use flex box properties
+
+*** Previously, `Flex.Item` was used for flex item specific properties - we've added all properties to the `Flex` component, but are keeping Flex.Item around for backwards compatibility. ***
 
 ## Default example
 
 ```.jsx
 <BorderBox width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
-    <Flex.Item>
-      <Box p={3} bg="blue.5">
-        Item 1
-      </Box>
-    </Flex.Item>
-    <Flex.Item>
-      <Box p={3} bg="green.5">
-        Item 2
-      </Box>
-    </Flex.Item>
-    <Flex.Item>
-      <Box p={3} bg="yellow.5">
-        Item 3
-      </Box>
-    </Flex.Item>
+    <Box p={3} bg="blue.5">
+      Item 1
+    </Box>
+    <Box p={3} bg="green.5">
+      Item 2
+    </Box>
+    <Box p={3} bg="yellow.5">
+      Item 3
+    </Box>
   </Flex>
 </BorderBox>
 ```
 
 ## System props
 
-Flex components get `FLEX_CONTAINER`, `COMMON`, and `LAYOUT` system props.
+Flex components get `FLEX`, `COMMON`, and `LAYOUT` system props.
 
-Flex.Item components get `FLEX_ITEM`, `COMMON`, and `LAYOUT` system props.
 
 Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
 
 ## Component props
 
-Flex and Flex.Item do not get any additional props other than the system props mentioned above.
+`Flex` does not get any additional props other than the system props mentioned above.
 
 export const meta = {displayName: 'Flex'}

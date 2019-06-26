@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import {FLEX_CONTAINER, FLEX_ITEM} from './constants'
+import {FLEX} from './constants'
 import theme from './theme'
 import Box from './Box'
 
 const Flex = styled(Box)`
-  ${FLEX_CONTAINER};
+  ${FLEX};
 `
 
+// Keeping this around for backwards compatibility, but it's the same as `FLEX`
 Flex.Item = styled(Box)`
-  ${FLEX_ITEM};
+  ${FLEX};
 `
 
 Flex.defaultProps = {
@@ -21,11 +22,11 @@ Flex.Item.defaultProps = {
 }
 Flex.propTypes = {
   ...Box.propTypes,
-  ...FLEX_CONTAINER.propTypes
+  ...FLEX.propTypes
 }
 
 Flex.Item.propTypes = {
-  ...FLEX_ITEM.propTypes,
+  ...FLEX.propTypes,
   theme: PropTypes.object
 }
 
