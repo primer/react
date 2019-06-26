@@ -4,6 +4,7 @@ import {MDXProvider} from '@mdx-js/tag'
 import Head from 'next/head'
 import {withMDXLive} from 'mdx-live'
 import getConfig from 'next/config'
+import {Header, SideNav} from '@primer/blueprints'
 import Octicon, {iconsByName, Pencil} from '@primer/octicons-react'
 import * as docComponents from './doc-components'
 import * as primerComponents from '..'
@@ -11,7 +12,7 @@ import {repository} from '../package.json'
 
 const {pageMap} = getConfig().publicRuntimeConfig
 const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
-const {SideNav, Header, IndexHero} = docComponents
+const {IndexHero} = docComponents
 
 const iconComponents = Object.keys(iconsByName).reduce((map, key) => {
   map[iconsByName[key].name] = iconsByName[key]
@@ -59,7 +60,15 @@ export default class MyApp extends App {
           <Head>
             <title>Primer Components</title>
           </Head>
-          <Header />
+          <Header
+            documents={documents}
+            root="https://primer.style"
+            subfolder="css"
+            title="Primer"
+            subtitle="CSS"
+          >
+            <JumpNav />
+          </Header>
           <Flex display={['block', 'block', 'flex', 'flex']} flexDirection="row-reverse">
             <Box width="100%">
               {hasHero && <IndexHero />}
@@ -80,7 +89,11 @@ export default class MyApp extends App {
                 )}
               </Box>
             </Box>
-            <SideNav />
+            <SideNav>
+              <NavList currentPath={pathname} path="/components/docs/system-props" />
+              <NavList currentPath={pathname} path="/components/docs/primer-theme" />
+              <NavList currentPath={pathname} path="/components/docs" />
+            </SideNav>
           </Flex>
         </Container>
       </BaseStyles>
