@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
-import {style} from 'styled-system'
+import {system} from 'styled-system'
 
 const buttonStyles = {
   display: 'inline-block',
@@ -16,10 +16,11 @@ const buttonStyles = {
   appearance: 'none'
 }
 
-const hoverColor = style({
-  prop: 'hoverColor',
-  cssProperty: 'color',
-  key: 'colors'
+const hoverColor = system({
+  hoverColor: {
+    property: 'color',
+    scale: 'colors'
+  }
 })
 
 const Link = styled.a`

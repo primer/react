@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@githubprimer/octicons-react'
+import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@primer/octicons-react'
 import theme, {colors} from './theme'
 import {COMMON} from './constants'
 import StyledOcticon from './StyledOcticon'
