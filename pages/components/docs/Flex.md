@@ -2,7 +2,7 @@
 
 Flex is a component that will allow you to use flexbox properties.
 
-*** Previously, `Flex.Item` was used for flex item specific properties - we've added all properties to the `Flex` component, but are keeping Flex.Item around for backwards compatibility. ***
+*Previously, `Flex.Item` was used for flex item specific properties - we've added all properties to the `Flex` component, but are keeping Flex.Item around for backwards compatibility.*
 
 ## Default example
 
