@@ -5,6 +5,7 @@ export {default as BaseStyles} from './BaseStyles'
 export {default as BorderBox} from './BorderBox'
 export {default as Box} from './Box'
 export {default as Flex} from './Flex'
+export {default as Grid} from './Grid'
 export {Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
 // Components
