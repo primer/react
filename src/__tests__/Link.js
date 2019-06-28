@@ -34,4 +34,8 @@ describe('Link', () => {
     expect(render(<Link fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
     expect(render(<Link as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
+
+  it('applies button styles when rendering a button element', () => {
+    expect(render(<Link as="button" />)).toMatchSnapshot()
+  })
 })

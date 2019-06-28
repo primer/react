@@ -29,7 +29,7 @@ const Link = styled.a`
     text-decoration: underline;
     ${hoverColor};
   }
-  ${props => (props.is === 'button' ? buttonStyles : '')};
+  ${props => (props.as === 'button' ? buttonStyles : '')};
   ${TYPOGRAPHY} ${COMMON};
 `
 
