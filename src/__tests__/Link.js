@@ -26,6 +26,14 @@ describe('Link', () => {
     expect(render(<Link as="button" />).type).toEqual('button')
   })
 
+  it('respects the "as" prop with non-string component types', () => {
+    function ExampleLink({children}) {
+      return <a className="example-link">{children}</a>
+    }
+
+    expect(render(<Link as={ExampleLink}>Example</Link>)).toMatchSnapshot()
+  })
+
   it('respects hoverColor prop', () => {
     expect(render(<Link hoverColor="blue.4" />)).toMatchSnapshot()
   })

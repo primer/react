@@ -87,3 +87,11 @@ exports[`Link respects hoverColor prop 1`] = `
   color="blue.5"
 />
 `;
+
+exports[`Link respects the "as" prop with non-string component types 1`] = `
+<a
+  className="example-link"
+>
+  Example
+</a>
+`;
