@@ -3,14 +3,16 @@ import App, {Container} from 'next/app'
 import {MDXProvider} from '@mdx-js/tag'
 import Head from 'next/head'
 import {withMDXLive} from 'mdx-live'
-import getConfig from 'next/config'
-import {Header, SideNav} from '@primer/blueprints'
+import Pages from '@primer/next-pages'
+import {Header, SideNav, JumpNav} from '@primer/blueprints'
+import {NavList} from '@primer/blueprints/next-components'
 import Octicon, {iconsByName, Pencil} from '@primer/octicons-react'
 import * as docComponents from './doc-components'
 import * as primerComponents from '..'
 import {repository} from '../package.json'
+import documents from '../searchIndex'
 
-const {pageMap} = getConfig().publicRuntimeConfig
+const {pageMap = new Map()} = Pages
 const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
 const {IndexHero} = docComponents
 
@@ -45,7 +47,7 @@ export default class MyApp extends App {
   }
 
   render() {
-    const {pathname} = this.props.router
+    const pathname = this.props.router.pathname.replace(/\/$/, '')
     const filename = pageMap[pathname]
     if (!filename) {
       // eslint-disable-next-line no-console
@@ -53,6 +55,8 @@ export default class MyApp extends App {
     }
     const {Component, page} = this.props
     const hasHero = ['/components', '/components/'].includes(pathname)
+    const node = pageMap.get('/docs')
+    console.log('🌸🌸🌸 NODE', node)
 
     return (
       <BaseStyles style={{fontFamily: theme.fonts.normal}}>
@@ -90,9 +94,9 @@ export default class MyApp extends App {
               </Box>
             </Box>
             <SideNav>
-              <NavList currentPath={pathname} path="/components/docs/system-props" />
-              <NavList currentPath={pathname} path="/components/docs/primer-theme" />
-              <NavList currentPath={pathname} path="/components/docs" />
+              <NavList currentPath={pathname} path="/docs/system-props" />
+              <NavList currentPath={pathname} path="/docs/primer-theme" />
+              <NavList currentPath={pathname} path="/docs" />
             </SideNav>
           </Flex>
         </Container>
