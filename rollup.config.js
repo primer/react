@@ -1,17 +1,21 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
+import {string} from 'rollup-plugin-string'
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-const plugins = [babel({exclude: 'node_modules/**'}), commonjs()]
+const plugins = [
+  babel({exclude: 'node_modules/**'}),
+  commonjs(),
+  string({
+    include: '@reach/**/*.css'
+  })
+]
 
 export default [
   {
     input: 'src/index.js',
     plugins,
-    external: [
-      "styled-components",
-      "react"
-    ],
+    external: ['styled-components', 'react'],
     output: formats.map(format => ({
       file: `dist/index.${format}.js`,
       format,
