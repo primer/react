@@ -199,6 +199,3 @@ declare module '@primer/components/src/BaseStyles' {
   export default BaseStyles
 }
 
-declare module '@primer/components/src/theme' {
-  export default Object
-}
