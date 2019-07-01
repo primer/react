@@ -45,6 +45,20 @@ const UnstyledButton = styled(Flex).attrs({
   padding: none;
 `
 
+const DialogHeader = styled(Flex).attrs({
+  p: 3,
+  bg: 'gray.1',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+})`
+  border-radius: 4px 4px 0px 0px;
+  border-bottom: 1px solid #dad5da;
+
+  @media screen and (max-width: 750px) {
+    border-radius: 0px;
+  }
+`
+
 Dialog.defaultProps = {theme}
 
 Dialog.propTypes = {
@@ -58,23 +72,14 @@ const DialogWithHeader = ({title, children, ...props}) => {
   return (
     <>
       <Dialog {...props}>
-        <Flex
-          p={3}
-          bg="gray.1"
-          justifyContent="space-between"
-          alignItems="center"
-          css={{
-            borderRadius: '4px 4px 0px 0px',
-            borderBottom: '1px solid #dad5da'
-          }}
-        >
+        <DialogHeader>
           <Text fontSize={1} fontWeight="bold" fontFamily="sans-serif">
             {title}
           </Text>
           <UnstyledButton onClick={props.onDismiss}>
             <StyledOcticon icon={X} />
           </UnstyledButton>
-        </Flex>
+        </DialogHeader>
         {children}
       </Dialog>
       <ReachGlobalStyle />
