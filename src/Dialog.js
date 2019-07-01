@@ -14,6 +14,10 @@ import Flex from './Flex'
 
 const ReachGlobalStyle = createGlobalStyle`
   ${reachStyles}
+
+  [data-reach-dialog-overlay] {
+    z-index: 1000002; /* Higher than the Dropdown and Tooltip */
+  }
 `
 
 export const Dialog = styled(ReachDialog)`
