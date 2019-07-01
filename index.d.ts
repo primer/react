@@ -76,10 +76,21 @@ declare module '@primer/components' {
     extends FlexContainerProps,
       Omit<React.HTMLProps<HTMLDivElement>, keyof FlexContainerProps> {}
 
+  export const Flex: React.FunctionComponent<FlexProps> & {
+    Item: React.FunctionComponent<FlexItemProps>
+  }
+
   export interface BoxProps extends BaseProps, CommonProps, LayoutProps {}
 
+  export const Box: React.FunctionComponent<BoxProps>
+
   export interface TextProps extends BaseProps, CommonProps, TypographyProps {}
+
+  export const Text: React.FunctionComponent<TextProps>
+
   export interface HeadingProps extends BaseProps, CommonProps, TypographyProps {}
+
+  export const Heading: React.FunctionComponent<HeadingProps>
 
   type DetailsRenderFunction = (args: {open: boolean; toggle: () => void}) => React.ReactElement
 
@@ -90,112 +101,86 @@ declare module '@primer/components' {
     overlay?: boolean
   }
 
+  export const Details: React.FunctionComponent<DetailsProps>
+
   export interface ButtonProps extends BaseProps, CommonProps {
     disabled?: boolean
     grouped?: boolean
     onClick?: Function
     size?: 'sm' | 'large'
   }
+
+  export const ButtonPrimary: React.FunctionComponent<ButtonProps>
+  export const ButtonOutline: React.FunctionComponent<ButtonProps>
+  export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const Button: React.FunctionComponent<ButtonProps>
+
+  export interface AvatarProps extends CommonProps {
+    alt: string
+    src: string
+    isChild?: boolean
+    size?: number
+  }
+
+  export const Avatar: React.FunctionComponent<AvatarProps>
+
+  export interface BaseStylesProps extends TypographyProps, CommonProps {}
+
+  export const BaseStyles: React.FunctionComponent<BaseStylesProps>
 }
 
 declare module '@primer/components/src/Box' {
-  import {BoxProps} from '@primer/components'
-
-  export {BoxProps}
-
-  const Box: React.FunctionComponent<BoxProps>
-
+  import {Box} from '@primer/components'
   export default Box
 }
 
 declare module '@primer/components/src/Text' {
-  import {TextProps} from '@primer/components'
-
-  const Text: React.FunctionComponent<TextProps>
-
+  import {Text} from '@primer/components'
   export default Text
 }
 
 declare module '@primer/components/src/Heading' {
-  import {HeadingProps} from '@primer/components'
-
-  const Heading: React.FunctionComponent<HeadingProps>
-
+  import {Heading} from '@primer/components'
   export default Heading
 }
 
 declare module '@primer/components/src/ButtonDanger' {
-  import {ButtonProps} from '@primer/components'
-
-  const ButtonDanger: React.FunctionComponent<ButtonProps>
-
+  import {ButtonDanger} from '@primer/components'
   export default ButtonDanger
 }
 
 declare module '@primer/components/src/ButtonPrimary' {
-  import {ButtonProps} from '@primer/components'
-
-  const ButtonPrimary: React.FunctionComponent<ButtonProps>
-
+  import {ButtonPrimary} from '@primer/components'
   export default ButtonPrimary
 }
 
 declare module '@primer/components/src/ButtonOutline' {
-  import {ButtonProps} from '@primer/components'
-
-  const ButtonOutline: React.FunctionComponent<ButtonProps>
-
+  import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
 }
 
 declare module '@primer/components/src/Button' {
-  import {ButtonProps} from '@primer/components'
-
-  const Button: React.FunctionComponent<ButtonProps>
-
+  import {Button} from '@primer/components'
   export default Button
 }
 
 declare module '@primer/components/src/Flex' {
-  import {FlexProps, FlexItemProps} from '@primer/components'
-
-  const Flex: React.FunctionComponent<FlexProps> & {
-    Item: React.FunctionComponent<FlexItemProps>
-  }
-
-  export {FlexProps, FlexItemProps}
-
+  import {Flex} from '@primer/components'
   export default Flex
 }
 
 declare module '@primer/components/src/Avatar' {
-  import {CommonProps} from '@primer/components'
-
-  const Avatar: React.FunctionComponent<
-    CommonProps & {
-      alt: string
-      src: string
-      isChild?: boolean
-      size?: number
-    }
-  >
-
+  import {Avatar} from '@primer/components'
   export default Avatar
 }
 
 declare module '@primer/components/src/Details' {
-  import {DetailsProps} from '@primer/components'
-
-  const Details: React.FunctionComponent<DetailsProps>
-
+  import {Details} from '@primer/components'
   export default Details
 }
 
 declare module '@primer/components/src/BaseStyles' {
-  import {TypographyProps, CommonProps} from '@primer/components'
-
-  const BaseStyles: React.FunctionComponent<TypographyProps & CommonProps>
-
+  import {BaseStyles} from '@primer/components'
   export default BaseStyles
 }
 
