@@ -38,6 +38,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "9.0.0",
+    "@reach/dialog": "0.2.9",
     "@styled-system/prop-types": "5.0.5",
     "@styled-system/theme-get": "5.0.5",
     "babel-plugin-macros": "2.4.2",
@@ -94,7 +95,7 @@
     "styled-components": "4.1.2"
   },
   "peerDependencies": {
-    "styled-components": "4.x",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "styled-components": "4.x"
   }
 }
