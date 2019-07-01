@@ -1,15 +1,22 @@
 # Dialog
 
-A dialog
+The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
 ## Default example
 
 ```.jsx
-<Dialog title="Title" isOpen onDismiss={() => {}}>
-  <Box p={3}>
-    <Text fontFamily="sans-serif">Some content</Text>
-  </Box>
-</Dialog>
+<State default={false}>
+  {([isOpen, setIsOpen]) => (
+    <>
+    <Button onClick={() => setIsOpen(true)}>Open</Button>
+      <Dialog title="Title" isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        <Box p={3}>
+          <Text fontFamily="sans-serif">Some content</Text>
+        </Box>
+      </Dialog>
+    </>
+  )}
+</State>
 ```
 
 ## System props
