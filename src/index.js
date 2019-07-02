@@ -1,4 +1,5 @@
 export {default as theme} from './theme'
+export {get as themeGet} from './constants'
 export {default as BaseStyles} from './BaseStyles'
 
 // Layout
