@@ -12,6 +12,12 @@ In special cases where you'd like to use a `<a>` styled like a Button, use `<But
 <ButtonDanger>Button Danger</ButtonDanger>
 <ButtonOutline>Button Outline</ButtonOutline>
 <ButtonPrimary>Button Primary</ButtonPrimary>
+
+<Button.Group mx={2}>
+  <Button>Button</Button>
+  <Button>Button</Button>
+  <Button>Button</Button>
+</Button.Group>
 ```
 
 ## System props
