@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
@@ -14,9 +15,9 @@ function fontSize({size = '14px', ...props}) {
   }
 }
 
-const getClasses = (props) => {
+const getClasses = props => {
   const classes = []
-  if (props.disabled){
+  if (props.disabled) {
     classes.push('disabled')
   }
   if (props.grouped) {
@@ -40,9 +41,11 @@ Button.defaultProps = {
 }
 
 const Group = ({children, ...rest}) => {
-  const newChildren = React.Children.map(children, child => React.cloneElement(child, { grouped: true }))
+  const newChildren = React.Children.map(children, child => React.cloneElement(child, {grouped: true}))
   return (
-    <Box display='inline-block' verticalAlign='middle' {...rest}>{newChildren}</Box>
+    <Box display="inline-block" verticalAlign="middle" {...rest}>
+      {newChildren}
+    </Box>
   )
 }
 

@@ -60,7 +60,6 @@ describe('ButtonOutline', () => {
   })
 })
 
-
 describe('Button.Group', () => {
   it('respects the "as" prop', () => {
     expect(render(<Button.Group as="a" />).type).toEqual('a')
@@ -74,12 +73,11 @@ describe('Button.Group', () => {
   it('adds the grouped class to children', () => {
     const instance = render(
       <Button.Group>
-        <Button/>
-        <Button/>
-        <Button/>
+        <Button />
+        <Button />
+        <Button />
       </Button.Group>
     )
-    expect(instance.children[0].props.className.includes('grouped'));
+    expect(instance.children[0].props.className).toContain('grouped')
   })
-
 })
