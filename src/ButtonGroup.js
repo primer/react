@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import Box from './Box'
 
 const ButtonGroup = styled(Box)`
-  display: inline-block;
   vertical-align: middle;
 
   & > * {
@@ -36,7 +35,9 @@ const ButtonGroup = styled(Box)`
     }
   }
 `
-
+ButtonGroup.defaultProps = {
+  display: 'inline-block'
+}
 ButtonGroup.propTypes = {
   ...Box.propTypes,
 }
