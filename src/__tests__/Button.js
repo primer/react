@@ -59,3 +59,27 @@ describe('ButtonOutline', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
   })
 })
+
+
+describe('Button.Group', () => {
+  it('respects the "as" prop', () => {
+    expect(render(<Button.Group as="a" />).type).toEqual('a')
+  })
+
+  it('implements system props', () => {
+    expect(Button).toImplementSystemProps(COMMON)
+    expect(Button).toImplementSystemProps(layout)
+  })
+
+  it('adds the grouped class to children', () => {
+    const instance = render(
+      <Button.Group>
+        <Button/>
+        <Button/>
+        <Button/>
+      </Button.Group>
+    )
+    expect(instance.children[0].props.className.includes('grouped'));
+  })
+
+})

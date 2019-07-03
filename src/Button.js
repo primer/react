@@ -48,6 +48,10 @@ const Group = ({children, ...rest}) => {
 
 Button.Group = Group
 
+Button.Group.propTypes = {
+  ...Box.propTypes
+}
+
 Button.propTypes = {
   as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
