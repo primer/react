@@ -127,6 +127,73 @@ declare module '@primer/components' {
   export interface BaseStylesProps extends TypographyProps, CommonProps {}
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
+
+  export interface BorderBoxProps extends CommonProps, LayoutProps {
+    border?: string
+    borderColor?: string
+    borderRadius?: string | number
+    boxShadow?: string
+  }
+
+  export const BorderBox: React.FunctionComponent<BorderBoxProps>
+
+  export interface BranchNameProps extends CommonProps {
+    href?: string
+  }
+
+  export const BranchName: React.FunctionComponent<BranchNameProps>
+
+  export interface CircleBadgeProps extends CommonProps {
+    size?: string | number
+  }
+
+  export const CircleBadge: React.FunctionComponent<CircleBadgeProps>
+
+  export interface CircleOcticonProps extends CommonProps {
+    size?: number
+    icon: React.ReactNode
+  }
+
+  export const CircleOcticon: React.FunctionComponent<CircleOcticonProps>
+
+  export interface StyledOcticonProps extends CommonProps {
+    size?: number
+    icon: React.ReactNode
+  }
+
+  export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
+
+  export interface DropdownProps extends CommonProps {}
+
+  export interface DropdownMenuProps extends CommonProps {
+    direction?: string
+    title: string
+  }
+
+  export const Dropdown: React.FunctionComponent<DropdownProps> & {
+    Menu: React.FunctionComponent<DropdownMenuProps>
+    Item: React.FunctionComponent<DropdownProps>
+  }
+
+  export interface FilterListProps extends CommonProps {
+    small?: boolean
+  }
+
+  export interface FilterListItemProps extends CommonProps {
+    count?: number
+    selected?: boolean
+  }
+
+  export const FilterList: React.FunctionComponent<FilterListProps> & {
+    Item: React.FunctionComponent<FilterListItemProps>
+  }
+
+  export interface FlashProps extends CommonProps {
+    full?: boolean
+    scheme?: string
+  }
+
+  export const Flash: React.FunctionComponent<FlashProps>
 }
 
 declare module '@primer/components/src/Box' {
@@ -184,3 +251,36 @@ declare module '@primer/components/src/BaseStyles' {
   export default BaseStyles
 }
 
+declare module '@primer/components/src/BorderBox' {
+  import {BorderBox} from '@primer/components'
+  export default BorderBox
+}
+
+declare module '@primer/components/src/BranchName' {
+  import {BranchName} from '@primer/components'
+  export default BranchName
+}
+declare module '@primer/components/src/CircleBadge' {
+  import {CircleBadge} from '@primer/components'
+  export default CircleBadge
+}
+declare module '@primer/components/src/CircleOcticon' {
+  import {CircleOcticon} from '@primer/components'
+  export default CircleOcticon
+}
+declare module '@primer/components/src/StyledOcticon' {
+  import {StyledOcticon} from '@primer/components'
+  export default StyledOcticon
+}
+declare module '@primer/components/src/Dropdown' {
+  import {Dropdown} from '@primer/components'
+  export default Dropdown
+}
+declare module '@primer/components/src/FilterList' {
+  import {FilterList} from '@primer/components'
+  export default FilterList
+}
+declare module '@primer/components/src/Flash' {
+  import {Flash} from '@primer/components'
+  export default Flash
+}
