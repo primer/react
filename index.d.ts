@@ -194,6 +194,84 @@ declare module '@primer/components' {
   }
 
   export const Flash: React.FunctionComponent<FlashProps>
+
+  export interface CounterLabelProps extends CommonProps {
+    scheme?: string
+  }
+
+  export const CounterLabel: React.FunctionComponent<CounterLabelProps>
+
+  export interface LabelProps extends CommonProps {
+    outline?: boolean
+    size?: 'small' | 'medium' | 'large' | 'xl'
+    dropshadow?: boolean
+  }
+
+  export const Label: React.FunctionComponent<LabelProps>
+
+  export interface LinkProps extends CommonProps, TypographyProps {
+    href: string
+    underline?: boolean
+  }
+
+  export const Link: React.FunctionComponent<LinkProps>
+
+  export interface PointerBoxProps extends CommonProps, LayoutProps {
+    caret?: string
+  }
+
+  export const PointerBox: React.FunctionComponent<PointerBoxProps>
+
+  export interface PositionComponentProps extends PositionProps, CommonProps, LayoutProps {}
+
+  export const Relative: React.FunctionComponent<PositionComponentProps>
+  export const Absolute: React.FunctionComponent<PositionComponentProps>
+  export const Sticky: React.FunctionComponent<PositionComponentProps>
+  export const Fixed: React.FunctionComponent<PositionComponentProps>
+
+  export interface StateLabelProps extends CommonProps {
+    small?: boolean
+    status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
+  }
+
+  export const StateLabel: React.FunctionComponent<StateLabelProps>
+
+  export interface TextInputProps extends CommonProps {
+    autocomplete?: string
+    'aria-label'?: string
+    block?: boolean
+    disabled?: boolean
+    id?: string
+    name?: string
+    onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void
+    placeholder?: string
+    required?: boolean
+    size?: 'small' | 'large'
+    value?: string
+  }
+
+  export const TextInput: React.FunctionComponent<TextInputProps>
+
+  export interface TooltipProps extends CommonProps {
+    align?: 'left' | 'right'
+    direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+    noDelay?: boolean
+    text?: string
+    wrap?: boolean
+  }
+
+  export const Tooltip: React.FunctionComponent<TooltipProps>
+
+  export interface UnderlineNavProps extends CommonProps {
+    actions?: React.ReactNode
+    align?: 'right'
+    full?: boolean
+    label?: string
+  }
+
+  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps>
+
+  export const theme: Object
 }
 
 declare module '@primer/components/src/Box' {
@@ -283,4 +361,59 @@ declare module '@primer/components/src/FilterList' {
 declare module '@primer/components/src/Flash' {
   import {Flash} from '@primer/components'
   export default Flash
+}
+
+declare module '@primer/components/src/CounterLabel' {
+  import {CounterLabel} from '@primer/components'
+  export default CounterLabel
+}
+
+declare module '@primer/components/src/Label' {
+  import {Label} from '@primer/components'
+  export default Label
+}
+
+declare module '@primer/components/src/Link' {
+  import {Link} from '@primer/components'
+  export default Link
+}
+declare module '@primer/components/src/PointerBox' {
+  import {PointerBox} from '@primer/components'
+  export default PointerBox
+}
+declare module '@primer/components/src/Relative' {
+  import {Relative} from '@primer/components'
+  export default Relative
+}
+declare module '@primer/components/src/Absolute' {
+  import {Absolute} from '@primer/components'
+  export default Absolute
+}
+declare module '@primer/components/src/Sticky' {
+  import {Sticky} from '@primer/components'
+  export default Sticky
+}
+declare module '@primer/components/src/Fixed' {
+  import {Fixed} from '@primer/components'
+  export default Fixed
+}
+declare module '@primer/components/src/StateLabel' {
+  import {StateLabel} from '@primer/components'
+  export default StateLabel
+}
+declare module '@primer/components/src/TextInput' {
+  import {TextInput} from '@primer/components'
+  export default TextInput
+}
+declare module '@primer/components/src/Tooltip' {
+  import {Tooltip} from '@primer/components'
+  export default Tooltip
+}
+declare module '@primer/components/src/UnderlineNav' {
+  import {UnderlineNav} from '@primer/components'
+  export default UnderlineNav
+}
+declare module '@primer/components/src/theme' {
+  import {theme} from '@primer/components'
+  export default theme
 }
