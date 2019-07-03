@@ -1,6 +1,6 @@
 import React from 'react'
 import {layout} from 'styled-system'
-import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
+import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonGroup} from '..'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
 
@@ -60,24 +60,13 @@ describe('ButtonOutline', () => {
   })
 })
 
-describe('Button.Group', () => {
+describe('ButtonGroup', () => {
   it('respects the "as" prop', () => {
-    expect(render(<Button.Group as="a" />).type).toEqual('a')
+    expect(render(<ButtonGroup as="a" />).type).toEqual('a')
   })
 
   it('implements system props', () => {
-    expect(Button).toImplementSystemProps(COMMON)
-    expect(Button).toImplementSystemProps(layout)
-  })
-
-  it('adds the grouped class to children', () => {
-    const instance = render(
-      <Button.Group>
-        <Button />
-        <Button />
-        <Button />
-      </Button.Group>
-    )
-    expect(instance.children[0].props.className).toContain('grouped')
+    expect(ButtonGroup).toImplementSystemProps(COMMON)
+    expect(ButtonGroup).toImplementSystemProps(layout)
   })
 })

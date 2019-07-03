@@ -15,20 +15,9 @@ function fontSize({size = '14px', ...props}) {
   }
 }
 
-const getClasses = props => {
-  const classes = []
-  if (props.disabled) {
-    classes.push('disabled')
-  }
-  if (props.grouped) {
-    classes.push('grouped')
-  }
-  return classes.join(' ')
-}
-
 const Button = styled.button.attrs(props => ({
   onClick: props.disabled ? undefined : props.onClick,
-  className: getClasses(props)
+  className: props.disabled ? 'disabled' : ''
 }))`
   ${props => (props.theme ? getButtonStyles(props.theme) : '')};
   ${fontSize};
@@ -40,26 +29,10 @@ Button.defaultProps = {
   theme
 }
 
-const Group = ({children, ...rest}) => {
-  const newChildren = React.Children.map(children, child => React.cloneElement(child, {grouped: true}))
-  return (
-    <Box display="inline-block" verticalAlign="middle" {...rest}>
-      {newChildren}
-    </Box>
-  )
-}
-
-Button.Group = Group
-
-Button.Group.propTypes = {
-  ...Box.propTypes
-}
-
 Button.propTypes = {
   as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
-  grouped: PropTypes.bool,
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'large']),
   theme: PropTypes.object,
