@@ -282,7 +282,7 @@ exports[`Dropdown.Menu matches the snapshots 1`] = `
   background-clip: padding-box;
   background-color: #fff;
   border: 1px solid rgba(27,31,35,0.15);
-  border-radius: 4px;
+  border-radius: 3px;
   box-shadow: 0 3px 12px rgba(27,31,35,0.15);
   left: 0;
   list-style: none;
@@ -355,7 +355,7 @@ exports[`Dropdown.Menu matches the snapshots 2`] = `
   background-clip: padding-box;
   background-color: #fff;
   border: 1px solid rgba(27,31,35,0.15);
-  border-radius: 4px;
+  border-radius: 3px;
   box-shadow: 0 3px 12px rgba(27,31,35,0.15);
   left: 0;
   list-style: none;
