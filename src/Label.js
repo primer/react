@@ -4,10 +4,10 @@ import theme, {colors} from './theme'
 import {COMMON} from './constants'
 
 const sizeMap = {
-  small: `padding 0.125em ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
-  medium: `padding: 3px ${theme.space[1]}px; font-size: ${theme.fontSizes[0]}px;`,
-  large: `padding: 4px ${theme.space[2]}px; ${theme.fontSizes[1]}px;`,
-  xl: `padding: ${theme.space[1]}px; ${theme.space[2]}px; ${theme.fontSizes[2]}px;`
+  small: `padding 0.125em ${theme.space[1]}; font-size: ${theme.fontSizes[0]}px;`,
+  medium: `padding: 3px ${theme.space[1]}; font-size: ${theme.fontSizes[0]}px;`,
+  large: `padding: 4px ${theme.space[2]}; ${theme.fontSizes[1]}px;`,
+  xl: `padding: ${theme.space[1]}; ${theme.space[2]}; ${theme.fontSizes[2]}px;`
 }
 
 const outlineStyles = `

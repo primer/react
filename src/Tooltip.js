@@ -54,7 +54,7 @@ const Tooltip = styled(TooltipBase)`
     pointer-events: none;
     content: attr(aria-label);
     background: ${get('colors.black')};
-    border-radius: ${get('radii.1')}px;
+    border-radius: ${get('radii.1')};
     opacity: 0;
   }
 
@@ -124,12 +124,12 @@ const Tooltip = styled(TooltipBase)`
     &::after {
       right: auto;
       left: 50%;
-      margin-left: -${get('space.3')}px;
+      margin-left: -${get('space.3')};
     }
   }
 
   &.tooltipped-sw::after {
-    margin-right: -${get('space.3')}px;
+    margin-right: -${get('space.3')};
   }
 
   // Tooltips above the object
@@ -155,12 +155,12 @@ const Tooltip = styled(TooltipBase)`
     &::after {
       right: auto;
       left: 50%;
-      margin-left: -${get('space.3')}px;
+      margin-left: -${get('space.3')};
     }
   }
 
   &.tooltipped-nw::after {
-    margin-right: -${get('space.3')}px;
+    margin-right: -${get('space.3')};
   }
 
   // Move the tooltip body to the center of the object.

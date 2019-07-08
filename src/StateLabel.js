@@ -36,14 +36,14 @@ function StateLabelBase({className, status, small = false, children}) {
 const StateLabel = styled(StateLabelBase)`
   display: inline-flex;
   align-items: center;
-  padding: ${props => (props.small ? `0.125em ${theme.space[1]}px` : `${theme.space[1]}px ${theme.space[2]}px`)};
+  padding: ${props => (props.small ? `0.125em ${theme.space[1]}` : `${theme.space[1]} ${theme.space[2]}`)};
   font-weight: 600;
   line-height: 20px;
   color: ${colors.white};
   font-size: ${props => (props.small ? `${theme.fontSizes[0]}px` : `${theme.fontSizes[1]}px`)};
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
-  border-radius: ${theme.radii[1]}px;
+  border-radius: ${theme.radii[1]};
   ${COMMON};
 `
 

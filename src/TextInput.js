@@ -22,7 +22,7 @@ function TextInputBase({autocomplete, theme, size, block, className, ...rest}) {
 
 const TextInput = styled(TextInputBase)`
   min-height: 34px;
-  padding: 6px ${get('space.2')}px;
+  padding: 6px ${get('space.2')};
   font-size: ${get('fontSizes.2')}px;
   line-height: 20px;
   color: ${get('colors.gray.9')};
@@ -31,7 +31,7 @@ const TextInput = styled(TextInputBase)`
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
   border: 1px solid ${get('colors.gray.3')};
-  border-radius: ${get('radii.1')}px;
+  border-radius: ${get('radii.1')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
 

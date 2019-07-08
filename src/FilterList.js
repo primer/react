@@ -21,7 +21,7 @@ function ItemBase({children, count, theme, ...rest}) {
 const Item = styled(ItemBase)`
   position: relative;
   display: block;
-  padding: ${props => (props.small ? `${get('space.1')(props)}px 10px` : `${get('space.2')(props)}px 11px`)};
+  padding: ${props => (props.small ? `${get('space.1')(props)} 10px` : `${get('space.2')(props)} 11px`)};
   margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')}px;
@@ -31,7 +31,7 @@ const Item = styled(ItemBase)`
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
-  border-radius: ${get('radii.1')}px;
+  border-radius: ${get('radii.1')};
   &:hover {
     text-decoration: none;
     background-color: ${get('colors.filterList.hoverBg')};
