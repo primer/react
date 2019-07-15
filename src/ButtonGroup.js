@@ -39,7 +39,7 @@ ButtonGroup.defaultProps = {
   display: 'inline-block'
 }
 ButtonGroup.propTypes = {
-  ...Box.propTypes,
+  ...Box.propTypes
 }
 
 export default ButtonGroup

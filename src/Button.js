@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import getButtonStyles from './ButtonStyles'
-import Box from './Box'
 import {layout} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 
