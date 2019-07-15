@@ -46,24 +46,52 @@ exports[`Dropdown matches the snapshots 1`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:selected {
-  background-color: rgb(233,236,239);
-  background-image: none;
-  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
-  border-color: rgba(27,31,35,0.2);
-}
-
 .c2.disabled {
   color: rgba(36,41,46,0.4)!important;
   background-color: #f6f8fa!important;
   background-image: none!important;
   border-color: rgba(27,31,35,0.20)!important;
   box-shadow: none!important;
+  cursor: default;
 }
 
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+.c2.grouped {
+  position: relative;
+  border-right-width: 0;
+  border-radius: 0;
+}
+
+.c2.grouped:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c2.grouped:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c2.grouped:focus,
+.c2.grouped:active,
+.c2.grouped:hover {
+  border-right-width: 1px;
+}
+
+.c2.grouped:focus + .grouped,
+.c2.grouped:active + .grouped,
+.c2.grouped:hover + .grouped {
+  border-left-width: 0;
+}
+
+.c2:focus,
+.c2:active {
+  z-index: 1;
 }
 
 .c1 > summary {
@@ -152,24 +180,52 @@ exports[`Dropdown matches the snapshots 2`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:selected {
-  background-color: rgb(233,236,239);
-  background-image: none;
-  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
-  border-color: rgba(27,31,35,0.2);
-}
-
 .c2.disabled {
   color: rgba(36,41,46,0.4)!important;
   background-color: #f6f8fa!important;
   background-image: none!important;
   border-color: rgba(27,31,35,0.20)!important;
   box-shadow: none!important;
+  cursor: default;
 }
 
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+.c2.grouped {
+  position: relative;
+  border-right-width: 0;
+  border-radius: 0;
+}
+
+.c2.grouped:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c2.grouped:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c2.grouped:focus,
+.c2.grouped:active,
+.c2.grouped:hover {
+  border-right-width: 1px;
+}
+
+.c2.grouped:focus + .grouped,
+.c2.grouped:active + .grouped,
+.c2.grouped:hover + .grouped {
+  border-left-width: 0;
+}
+
+.c2:focus,
+.c2:active {
+  z-index: 1;
 }
 
 .c1 > summary {
