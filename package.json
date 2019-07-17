@@ -4,6 +4,7 @@
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "typings": "index.d.ts",
   "scripts": {
     "dev": "next dev",
     "prebuild": "npm run dist",
@@ -31,6 +32,7 @@
     "codemods",
     "dist",
     "src",
+    "index.d.ts",
     "!src/__tests__",
     "!src/utils"
   ],
