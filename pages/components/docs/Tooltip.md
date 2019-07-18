@@ -7,7 +7,7 @@ Tooltips as a UI pattern should be our last resort for conveying information bec
 
 Before adding a tooltip, please consider: Is this information essential and necessary? Can the UI be made clearer? Can the information be shown on the page by default?
 
-**Attention:** we use aria-label for tooltip contents, because it is crucial that they are accessible to screen reader users. However, aria-label replaces the text content of an element in screen readers, so only use .tooltipped on elements with no existing text content, or consider using title for supplemental information.
+**Attention:** we use aria-label for tooltip contents, because it is crucial that they are accessible to screen reader users. However, aria-label replaces the text content of an element in screen readers, so only use Tooltip on elements with no existing text content, or consider using `title` for supplemental information.
 
 
 
