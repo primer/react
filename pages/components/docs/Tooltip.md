@@ -31,7 +31,6 @@ Tooltip components get `COMMON` system props. Read our [System Props](/component
 | direction | String | | Can be one of `n`, `ne`, `e`, `se`, `s`, `sw`, `w`, `nw` | Sets where the tooltip renders in relation to the target. |
 | noDelay | Boolean | | When set to `true`, tooltip appears without any delay |
 | aria-label | String | | Text used in `aria-label` (for accessibility).
-| text (DEPRECATED, use `aria-label` prop) | String | | Text used in `aria-label` (for accessibility).
 | wrap | Boolean | | Use `true` to allow text within tooltip to wrap.
 
 
