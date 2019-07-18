@@ -1,15 +1,8 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
-import {string} from 'rollup-plugin-string'
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-const plugins = [
-  babel({exclude: 'node_modules/**'}),
-  commonjs(),
-  string({
-    include: '@reach/**/*.css'
-  })
-]
+const plugins = [babel({exclude: 'node_modules/**'}), commonjs()]
 
 export default [
   {

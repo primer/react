@@ -1,6 +1,6 @@
 import React from 'react'
 import {Dialog as ReachDialog} from '@reach/dialog'
-import reachStyles from '@reach/dialog/styles.css'
+import raw from 'raw.macro'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
 import {space, color} from 'styled-system'
@@ -11,6 +11,8 @@ import {LAYOUT} from './constants'
 import theme from './theme'
 import Text from './Text'
 import Flex from './Flex'
+
+const reachStyles = raw('@reach/dialog/styles.css')
 
 const ReachGlobalStyle = createGlobalStyle`
   ${reachStyles}
