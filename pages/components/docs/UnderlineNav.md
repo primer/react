@@ -7,18 +7,20 @@ To use UnderlineNav with [react-router](https://github.com/ReactTraining/react-r
 ```as={NavLink}``` and omit the ```selected``` prop.
 This ensures that the NavLink gets ```activeClassName='selected'```
 
+**Attention:** Make sure to properly label your `UnderlineNav` with an `aria-label` to provide context about the type of navigation contained in `UnderlineNav`.
+
 ## Default example
 
 ```.jsx
 <ExampleHeading>
   Using <Text fontFamily="mono">{'<UnderlineNav.Link>'}</Text>
 </ExampleHeading>
-<UnderlineNav>
-  <UnderlineNav.Link href="#foo" selected>
-    Selected
+<UnderlineNav aria-label="Main">
+  <UnderlineNav.Link href="#home" selected>
+    Home
   </UnderlineNav.Link>
-  <UnderlineNav.Link href="#bar">Bar</UnderlineNav.Link>
-  <UnderlineNav.Link href="#baz">Baz</UnderlineNav.Link>
+  <UnderlineNav.Link href="#documentation">Documentation</UnderlineNav.Link>
+  <UnderlineNav.Link href="#support">Support</UnderlineNav.Link>
 </UnderlineNav>
 ```
 
@@ -35,7 +37,7 @@ UnderlineNav and UnderlineNav.Link components get `COMMON` system props. Read ou
 | actions | Node | Place another element, such as a button, to the opposite side of the navigation items.|
 | align | String | Use `right` to have navigation items aligned right. |
 | full | Boolean | Used to make navigation fill the width of the container. |
-| label | String | Used to set the `aria-label` on the top level `<nav>` element. |
+| aria-label | String | Used to set the `aria-label` on the top level `<nav>` element. |
 
 ### UnderlineNav.Link
 | Prop name | Type | Description |
