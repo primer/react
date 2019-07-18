@@ -14,7 +14,7 @@ All Primer Components have access to the `as` prop, provided by [styled-componen
 For example, if you wanted to add some flex utilities to the `Text` component, you could do:
 
 ```.jsx
-<Text as='Flex'>Hello!</Text>
+<Text as={Flex}>Hello!</Text>
 ```
 
 
