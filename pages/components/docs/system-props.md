@@ -8,6 +8,14 @@ Primer Components utilize what we call "system props" to apply a standard set of
 
 To check which system props each component includes, check the documentation for that component.
 
+### The `as` prop
+All Primer Components have access to the `as` prop, provided by [styled-components](https://www.styled-components.com/docs/api#as-polymorphic-prop). We use the `as` prop to render a component with the styles of the passed component in `as`, but with the system props of the base component.
+
+For example, if you wanted to add some flex utilities to the `Text` component, you could do:
+
+```.jsx
+<Text as='Flex'>Hello!</Text>
+```
 
 
 ### System Prop Categories
