@@ -44,7 +44,7 @@ const UnstyledButton = styled(Flex).attrs({
 })`
   background: none;
   border: none;
-  padding: none;
+  padding: 0;
 `
 
 const DialogHeader = styled(Flex).attrs({
