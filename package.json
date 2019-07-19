@@ -1,9 +1,10 @@
 {
   "name": "@primer/components",
-  "version": "13.1.0",
+  "version": "13.2.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "typings": "index.d.ts",
   "scripts": {
     "dev": "next dev",
     "prebuild": "npm run dist",
@@ -31,6 +32,7 @@
     "codemods",
     "dist",
     "src",
+    "index.d.ts",
     "!src/__tests__",
     "!src/utils"
   ],
@@ -38,6 +40,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "9.0.0",
+    "@reach/dialog": "0.2.9",
     "@styled-system/prop-types": "5.0.5",
     "@styled-system/theme-get": "5.0.5",
     "babel-plugin-macros": "2.4.2",
@@ -84,6 +87,7 @@
     "primer-tooltips": "1.5.7",
     "primer-utilities": "4.12.0",
     "raw-loader": "0.5.1",
+    "raw.macro": "0.3.0",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "16.8.1",
     "rollup": "0.62.0",
@@ -93,7 +97,7 @@
     "styled-components": "4.1.2"
   },
   "peerDependencies": {
-    "styled-components": "4.x",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "styled-components": "4.x"
   }
 }

@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid respects gridArea 1`] = `
+.c0 {
+  display: grid;
+  grid-area: sidebar;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridAutoColumns 1`] = `
+.c0 {
+  display: grid;
+  grid-auto-columns: 1fr;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridAutoFlow 1`] = `
+.c0 {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridAutoRows 1`] = `
+.c0 {
+  display: grid;
+  grid-auto-rows: 1fr;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridColumn 1`] = `
+.c0 {
+  display: grid;
+  grid-column: 1 / 2;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridColumnGap 1`] = `
+.c0 {
+  display: grid;
+  grid-column-gap: 8px;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridGap 1`] = `
+.c0 {
+  display: grid;
+  grid-gap: 4px;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridRow 1`] = `
+.c0 {
+  display: grid;
+  grid-row: 1 / 2;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridRowGap 1`] = `
+.c0 {
+  display: grid;
+  grid-row-gap: 8px;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridTemplateAreas 1`] = `
+.c0 {
+  display: grid;
+  grid-template-areas: sidebar main;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridTemplateColumns 1`] = `
+.c0 {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects gridTemplateRows 1`] = `
+.c0 {
+  display: grid;
+  grid-template-rows: 200px 1fr;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
+exports[`Grid respects responsive display 1`] = `
+.c0 {
+  display: grid;
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    display: inline-grid;
+  }
+}
+
+<div
+  className="c0"
+  display={
+    Array [
+      "grid",
+      "inline-grid",
+    ]
+  }
+/>
+`;

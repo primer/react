@@ -31,8 +31,10 @@ export const TYPOGRAPHY = styledSystem.typography
 export const LAYOUT = styledSystem.layout
 export const POSITION = styledSystem.position
 export const FLEX = styledSystem.flexbox
+export const GRID = styledSystem.grid
 
 TYPOGRAPHY.propTypes = systemPropTypes.typography
 LAYOUT.propTypes = systemPropTypes.layout
 POSITION.propTypes = systemPropTypes.position
 FLEX.propTypes = systemPropTypes.flexbox
+GRID.propTypes = systemPropTypes.grid

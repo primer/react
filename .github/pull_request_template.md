@@ -9,6 +9,7 @@ Description of changes
 
 #### Merge checklist
 - [ ] Changed base branch to release branch
+- [ ] Add or update TypeScript definitions (`index.d.ts`) if necessary
 - [ ] Tested in Chrome
 - [ ] Tested in Firefox
 - [ ] Tested in Safari
