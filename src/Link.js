@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import {isValidElementType} from 'react-is'
 import styled from 'styled-components'
 import {system} from 'styled-system'
 import {COMMON, TYPOGRAPHY} from './constants'
 import theme from './theme'
+import elementType from './utils/elementType'
 
 const buttonStyles = {
   display: 'inline-block',
@@ -40,13 +40,7 @@ Link.defaultProps = {
 }
 
 Link.propTypes = {
-  as: (props, propName, componentName) => {
-    if (props[propName] && !isValidElementType(props[propName])) {
-      return new Error(
-        `Invalid prop '${propName}' supplied to '${componentName}': the prop is not a valid React component`
-      )
-    }
-  },
+  as: elementType,
   href: PropTypes.string,
   theme: PropTypes.object,
   underline: PropTypes.bool,
