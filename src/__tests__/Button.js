@@ -1,6 +1,6 @@
 import React from 'react'
 import {layout} from 'styled-system'
-import {Button, ButtonPrimary, ButtonDanger, ButtonOutline} from '..'
+import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonGroup} from '..'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
 
@@ -57,5 +57,16 @@ describe('ButtonDanger', () => {
 describe('ButtonOutline', () => {
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
+  })
+})
+
+describe('ButtonGroup', () => {
+  it('respects the "as" prop', () => {
+    expect(render(<ButtonGroup as="a" />).type).toEqual('a')
+  })
+
+  it('implements system props', () => {
+    expect(ButtonGroup).toImplementSystemProps(COMMON)
+    expect(ButtonGroup).toImplementSystemProps(layout)
   })
 })

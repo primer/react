@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
-function TooltipBase({direction, children, className, text, noDelay, align, wrap}) {
+function TooltipBase({direction, children, className, text, noDelay, align, wrap, ...rest}) {
   const classes = classnames(
     className,
     `tooltipped-${direction}`,
@@ -14,7 +14,7 @@ function TooltipBase({direction, children, className, text, noDelay, align, wrap
     wrap && 'tooltipped-multiline'
   )
   return (
-    <span aria-label={text} className={classes}>
+    <span aria-label={text} {...rest} className={classes}>
       {children}
     </span>
   )

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {TYPOGRAPHY, COMMON} from './constants'
-import theme from './theme'
 import {system} from 'styled-system'
+import {COMMON, TYPOGRAPHY} from './constants'
+import theme from './theme'
+import elementType from './utils/elementType'
 
 const buttonStyles = {
   display: 'inline-block',
@@ -29,7 +30,7 @@ const Link = styled.a`
     text-decoration: underline;
     ${hoverColor};
   }
-  ${props => (props.is === 'button' ? buttonStyles : '')};
+  ${props => (props.as === 'button' ? buttonStyles : '')};
   ${TYPOGRAPHY} ${COMMON};
 `
 
@@ -39,7 +40,7 @@ Link.defaultProps = {
 }
 
 Link.propTypes = {
-  as: PropTypes.oneOf(['a', 'button', 'input', 'summary']),
+  as: elementType,
   href: PropTypes.string,
   theme: PropTypes.object,
   underline: PropTypes.bool,
