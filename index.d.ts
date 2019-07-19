@@ -254,6 +254,7 @@ declare module '@primer/components' {
 
   export interface TooltipProps extends CommonProps {
     align?: 'left' | 'right'
+    'aria-label'?: string
     direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
     noDelay?: boolean
     text?: string
@@ -265,6 +266,7 @@ declare module '@primer/components' {
   export interface UnderlineNavProps extends CommonProps {
     actions?: React.ReactNode
     align?: 'right'
+    'aria-label'?: string
     full?: boolean
     label?: string
   }
