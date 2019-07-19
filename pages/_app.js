@@ -8,6 +8,7 @@ import Octicon, {iconsByName, Pencil} from '@primer/octicons-react'
 import * as docComponents from './doc-components'
 import * as primerComponents from '..'
 import {repository} from '../package.json'
+import State from './doc-components/State'
 
 const {pageMap} = getConfig().publicRuntimeConfig
 const {BaseStyles, Box, Flex, Link, Text, theme} = primerComponents
@@ -26,6 +27,7 @@ const components = {
   ...docComponents,
   ...primerComponents,
   Octicon,
+  State,
   // render links with our component
   a: DocLink,
   code: withMDXLive('pre'),

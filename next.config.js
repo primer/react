@@ -8,9 +8,7 @@ const pageMap = getPageMap(join(__dirname, 'pages'), pageExtensions)
 
 const assetPrefix = process.env.NOW_URL
 
-module.exports = withPlugins([
-  mdx({extension: /\.mdx?$/})
-], {
+module.exports = withPlugins([mdx({extension: /\.mdx?$/})], {
   /*
    * Note: Prefixing assets with the fully qualified deployment URL
    * makes them available even when the site is served from a path alias, as in
@@ -27,6 +25,11 @@ module.exports = withPlugins([
     config.module.rules.push({
       test: /\.svg$/,
       use: {loader: '@svgr/webpack'}
+    })
+
+    config.module.rules.push({
+      test: /\.css$/,
+      use: {loader: 'raw-loader'}
     })
 
     config.resolve.alias = {
