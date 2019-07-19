@@ -75,7 +75,7 @@ const DialogWithHeader = ({title, children, ...props}) => {
     <>
       <Dialog {...props}>
         <DialogHeader>
-          <Text fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+          <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
             {title}
           </Text>
           <UnstyledButton onClick={props.onDismiss}>
