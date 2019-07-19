@@ -75,9 +75,13 @@ const DialogWithHeader = ({title, children, ...props}) => {
     <>
       <Dialog {...props}>
         <DialogHeader>
-          <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
-            {title}
-          </Text>
+          {typeof title === 'string' ? (
+            <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+              {title}
+            </Text>
+          ) : (
+            title
+          )}
           <UnstyledButton onClick={props.onDismiss}>
             <StyledOcticon icon={X} />
           </UnstyledButton>
@@ -99,7 +103,7 @@ DialogWithHeader.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
   theme: PropTypes.object,
-  title: PropTypes.string.isRequired
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
 }
 
 export default DialogWithHeader

@@ -19,6 +19,12 @@ The dialog component is used for all modals. It renders on top of the rest of th
 </State>
 ```
 
+You can also pass any React node as the title to override the styling:
+
+```JS
+<Dialog title={<Text fontSize={6}>Title</Text>}>
+```
+
 ## System props
 
 Dialog components get the `COMMON` and `LAYOUT` categories of system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
@@ -29,7 +35,7 @@ These props are **all required**.
 
 | Prop name | Type | Description |
 | :- | :- | :- |
-| title | String | The title shown in the header |
+| title | String or Node | The title shown in the header |
 | isOpen | Boolean | Handles opening and closing the dialog |
 | onDismiss | Function | Should close the dialog |
 
