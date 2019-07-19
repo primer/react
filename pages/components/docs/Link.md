@@ -4,6 +4,8 @@ The Link component styles anchor tags with default blue styling and hover text d
 
 In special cases where you'd like a `<button>` styled like a `Link`, use `<Link as='button'>`. Make sure to provide a click handler with `onClick`.
 
+**Important:** When using the `as` prop, be sure to always render an accessible element type, like `a`, `button`, `input`, or `summary`.
+
 ## Default example
 
 ```.jsx
@@ -16,10 +18,10 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 
 ## Component props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| href | String | | URL to be used for the Link |
-| underline | Boolean | false | Adds underline to the Link |
-| as | String | 'a' | Can be 'a', 'button', 'input', or 'summary'
+| Name      | Type    | Default | Description                                 |
+| :-------- | :------ | :-----: | :------------------------------------------ |
+| href      | String  |         | URL to be used for the Link                 |
+| underline | Boolean |  false  | Adds underline to the Link                  |
+| as        | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary' |
 
 export const meta = {displayName: 'Link'}
