@@ -8,10 +8,10 @@ import theme from './theme'
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
-function UnderlineNavBase({actions, className, align, children, full, label}) {
+function UnderlineNavBase({actions, className, align, children, full, label, ...rest}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
-    <nav className={classes} aria-label={label}>
+    <nav className={classes} aria-label={label} {...rest}>
       <div className="UnderlineNav-body">{children}</div>
       {actions && <div className="UnderlineNav-actions">{actions}</div>}
     </nav>
