@@ -19,14 +19,17 @@ function getRenderer(children) {
 function DetailsBase({children, overlay, render = getRenderer(children), defaultOpen = false, ...rest}) {
   const [open, setOpen] = useState(defaultOpen)
 
-  useEffect(() => {
-    if (overlay && open) {
-      document.addEventListener('click', closeMenu)
-      return () => {
-        document.removeEventListener('click', closeMenu)
+  useEffect(
+    () => {
+      if (overlay && open) {
+        document.addEventListener('click', closeMenu)
+        return () => {
+          document.removeEventListener('click', closeMenu)
+        }
       }
-    }
-  }, [open, overlay]);
+    },
+    [open, overlay]
+  )
 
   function toggle(event) {
     setOpen(event.target.open)
