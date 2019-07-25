@@ -32,7 +32,6 @@ function DetailsBase({children, overlay, render = getRenderer(children), default
   )
 
   function toggle(event) {
-    console.log('TOGGLE!')
     setOpen(event.target.open)
   }
 
