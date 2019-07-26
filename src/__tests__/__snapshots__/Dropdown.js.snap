@@ -26,6 +26,8 @@ exports[`Dropdown matches the snapshots 1`] = `
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
 }
 
@@ -160,6 +162,8 @@ exports[`Dropdown matches the snapshots 2`] = `
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
 }
 
