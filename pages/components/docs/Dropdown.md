@@ -14,23 +14,6 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
     <Dropdown.Item>Item 3</Dropdown.Item>
   </Dropdown.Menu>
 </Dropdown>
-
-<Dropdown title="Dropdown two">
-  <Dropdown.Menu direction='sw'>
-    <Dropdown.Item>Item 1</Dropdown.Item>
-    <Dropdown.Item>Item 2</Dropdown.Item>
-    <Dropdown.Item>Item 3</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>
-
-
-<Dropdown title="Dropdown three">
-  <Dropdown.Menu direction='sw'>
-    <Dropdown.Item>Item 1</Dropdown.Item>
-    <Dropdown.Item>Item 2</Dropdown.Item>
-    <Dropdown.Item>Item 3</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>
 ```
 
 ## System props
