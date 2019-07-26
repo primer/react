@@ -23,6 +23,7 @@ const getButtonStyles = theme => {
       border: 1px solid ${get('colors.button.border')(theme)};
       border-radius: 0.25em;
       appearance: none;
+      text-decoration: none;
 
       &:hover {
         background-color: ${get('colors.button.hoverBg')(theme)};
