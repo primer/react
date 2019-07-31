@@ -293,6 +293,14 @@ declare module '@primer/components' {
   }
 
   export const theme: Object
+
+  export interface DialogProps extends CommonProps {
+    title: string
+    isOpen: boolean
+    onDismiss: () => unknown
+  }
+
+  export const Dialog: React.FunctionComponent<DialogProps>
 }
 
 declare module '@primer/components/src/Box' {
@@ -441,4 +449,8 @@ declare module '@primer/components/src/UnderlineNav' {
 declare module '@primer/components/src/theme' {
   import {theme} from '@primer/components'
   export default theme
+}
+declare module '@primer/components/src/Dialog' {
+  import {Dialog} from '@primer/components'
+  export default Dialog
 }
