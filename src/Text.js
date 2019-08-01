@@ -4,7 +4,8 @@ import theme from './theme'
 import {TYPOGRAPHY, COMMON} from './constants'
 
 const Text = styled.span`
-  ${TYPOGRAPHY} ${COMMON};
+  ${TYPOGRAPHY};
+  ${COMMON};
 `
 
 Text.defaultProps = {
