@@ -84,11 +84,7 @@ describe('Details', () => {
   })
 
   it('Toggles when you click outside', () => {
-    const wrapper = mount(
-      <Details>
-        {({open}) => <summary>{open ? 'close' : 'open'}</summary>}
-      </Details>
-    )
+    const wrapper = mount(<Details>{({open}) => <summary>{open ? 'close' : 'open'}</summary>}</Details>)
 
     document.body.click()
 
@@ -103,11 +99,13 @@ describe('Details', () => {
 
   it('Does not toggle or prevent click events when you click inside', () => {
     const wrapper = mount(
-      <Details open={true}>
-        {({open}) => <>
-          <summary>{open ? 'close' : 'open'}</summary>
-          <div>content</div>
-        </>}
+      <Details open>
+        {({open}) => (
+          <>
+            <summary>{open ? 'close' : 'open'}</summary>
+            <div>content</div>
+          </>
+        )}
       </Details>
     )
 
@@ -125,5 +123,4 @@ describe('Details', () => {
 
     wrapper.unmount()
   })
-
 })
