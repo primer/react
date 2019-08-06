@@ -17,7 +17,7 @@ function getRenderer(children) {
 }
 
 function DetailsBase({children, overlay, render = getRenderer(children), ...rest}) {
-  const element = useRef(null)
+  const {current: element} = useRef(null)
   const [open, setOpen] = useState(Boolean(rest.open))
 
   function toggle(event) {
