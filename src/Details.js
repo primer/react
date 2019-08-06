@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
@@ -17,6 +17,7 @@ function getRenderer(children) {
 }
 
 function DetailsBase({children, overlay, render = getRenderer(children), ...rest}) {
+  const [element, setRef] = useRef(null)
   const [open, setOpen] = useState(Boolean(rest.open))
 
   function toggle(event) {
@@ -36,12 +37,15 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
   }
 
   function closeMenu(event) {
-    if (event) event.preventDefault()
-    setOpen(false)
-    document.removeEventListener('click', closeMenu)
+    if (event && event.target.closest('details') !== element) {
+      event.preventDefault()
+      setOpen(false)
+      document.removeEventListener('click', closeMenu)
+    }
   }
+
   return (
-    <DetailsReset {...rest} open={open} overlay={overlay}>
+    <DetailsReset {...rest} ref={setRef} open={open} overlay={overlay}>
       {render({open, toggle})}
     </DetailsReset>
   )
