@@ -51,18 +51,6 @@ declare module '@primer/components' {
       StyledSystem.BottomProps,
       StyledSystem.LeftProps {}
 
-  interface FlexContainerProps
-    extends BaseProps,
-      CommonProps,
-      LayoutProps,
-      StyledSystem.FlexBasisProps,
-      StyledSystem.FlexDirectionProps,
-      StyledSystem.FlexWrapProps,
-      StyledSystem.AlignContentProps,
-      StyledSystem.AlignItemsProps,
-      StyledSystem.JustifyContentProps,
-      StyledSystem.JustifyItemsProps {}
-
   interface FlexItemProps
     extends BaseProps,
       CommonProps,
@@ -71,6 +59,19 @@ declare module '@primer/components' {
       StyledSystem.JustifySelfProps,
       StyledSystem.AlignSelfProps,
       StyledSystem.OrderProps {}
+
+  interface FlexContainerProps
+    extends BaseProps,
+      CommonProps,
+      LayoutProps,
+      FlexItemProps,
+      StyledSystem.FlexBasisProps,
+      StyledSystem.FlexDirectionProps,
+      StyledSystem.FlexWrapProps,
+      StyledSystem.AlignContentProps,
+      StyledSystem.AlignItemsProps,
+      StyledSystem.JustifyContentProps,
+      StyledSystem.JustifyItemsProps {}
 
   export interface FlexProps
     extends FlexContainerProps,
