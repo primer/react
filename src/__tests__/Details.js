@@ -80,6 +80,50 @@ describe('Details', () => {
     expect(dom.hasAttribute('open')).toEqual(false)
     expect(summary.text()).toEqual('open')
 
+    summary.simulate('click')
+  })
+
+  it('Toggles when you click outside', () => {
+    const wrapper = mount(
+      <Details>
+        {({open}) => <summary>{open ? 'close' : 'open'}</summary>}
+      </Details>
+    )
+
+    document.body.click()
+
+    const dom = wrapper.getDOMNode()
+    const summary = wrapper.find('summary')
+
+    expect(dom.hasAttribute('open')).toEqual(false)
+    expect(summary.text()).toEqual('open')
+
     wrapper.unmount()
   })
+
+  it('Does not toggle or prevent click events when you click inside', () => {
+    const wrapper = mount(
+      <Details open={true}>
+        {({open}) => <>
+          <summary>{open ? 'close' : 'open'}</summary>
+          <div>content</div>
+        </>}
+      </Details>
+    )
+
+    document.body.click()
+
+    const dom = wrapper.getDOMNode()
+    const content = dom.querySelector('div')
+
+    let clickEvent
+    content.addEventListener('click', event => (clickEvent = event))
+    content.click()
+
+    expect(dom.hasAttribute('open')).toEqual(true)
+    expect(clickEvent.defaultPrevented).toBe(false)
+
+    wrapper.unmount()
+  })
+
 })
