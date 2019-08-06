@@ -17,7 +17,7 @@ function getRenderer(children) {
 }
 
 function DetailsBase({children, overlay, render = getRenderer(children), ...rest}) {
-  const {current: element} = useRef(null)
+  const ref = useRef(null)
   const [open, setOpen] = useState(Boolean(rest.open))
 
   function toggle(event) {
@@ -38,7 +38,7 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
 
   function closeMenu(event) {
     // only close the menu if we're clicking outside
-    if (event && event.target.closest('details') !== element) {
+    if (event && event.target.closest('details') !== ref.current) {
       event.preventDefault()
       setOpen(false)
       document.removeEventListener('click', closeMenu)
@@ -46,7 +46,7 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
   }
 
   return (
-    <DetailsReset {...rest} ref={element} open={open} overlay={overlay}>
+    <DetailsReset {...rest} ref={ref} overlay={overlay}>
       {render({open, toggle})}
     </DetailsReset>
   )
