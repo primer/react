@@ -46,7 +46,7 @@ function DetailsBase({children, overlay, render = getRenderer(children), ...rest
   }
 
   return (
-    <DetailsReset {...rest} ref={ref} overlay={overlay}>
+    <DetailsReset {...rest} ref={ref} open={open} overlay={overlay}>
       {render({open, toggle})}
     </DetailsReset>
   )
