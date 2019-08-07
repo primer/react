@@ -23,7 +23,6 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
   </Dropdown.Menu>
 </Dropdown>
 
-
 <Dropdown title="Dropdown three">
   <Dropdown.Menu direction='sw'>
     <Dropdown.Item>Item 1</Dropdown.Item>
