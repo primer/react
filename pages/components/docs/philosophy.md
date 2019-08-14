@@ -1,5 +1,7 @@
 # Primer Components Philosophy
 
+## Presentational Components
+Our main goal with Primer Components was to create components that matched up with the components we've got in Primer CSS. To start, we are focusing primarily on presentational components that display UI. This doesn't mean we won't ever handle JS behavior in our components, but for now we are focusing on simple, UI components that don't handle submitting or fetching data. If you would like to handle data in our a Primer Component, feel free to create a container component or high order component around the Primer Component to do so.
 
 ## Building Blocks vs Pattern Components vs Helper Components
 
