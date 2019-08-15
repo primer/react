@@ -1,7 +1,13 @@
 # Primer Components Philosophy
 
 ## Presentational Components
-Our main goal with Primer Components was to create components that matched up with the components we've got in Primer CSS. To start, we are focusing primarily on presentational components that display UI. This doesn't mean we won't ever handle JS behavior in our components, but for now we are focusing on simple, UI components that don't handle submitting or fetching data. If you would like to handle data in our a Primer Component, feel free to create a container component or high order component around the Primer Component to do so.
+ We are focusing primarily on presentational components that display UI. This doesn't mean we won't ever handle complex JS behavior beyond UI interaction in our components, but for now we are focusing on simple, UI components that don't handle submitting or fetching data. If you would like to handle data in a Primer Component, feel free to create a container component or high order component around the Primer Component to do so.
+
+## Assume that people will break the rules, provide safe ways for them to do so
+While one of the goals of a design system is to enforce consistent UI, successful design system tools must also provide _some_ flexibility to it's users. Otherwise, you will have a stagnant component library that can't adapt to real life implementations. We offer utility props via [styled-system] to allow users of the components some flexibility when it comes to color and spacing.
+
+Another important aspect of providing safe ways for users to break rules is our Primer Theme. The theme is a collection of common design values such as spacing, font sizes, colors, and more. While you're able to tweak some styles, adjusting these values with other values from the theme helps us keep design iterations within the realm of our design system.
+
 
 ## Building Blocks vs Pattern Components vs Helper Components
 
