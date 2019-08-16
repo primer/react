@@ -73,14 +73,14 @@ const SideNav = ({router}) => (
               Primer Theme
             </Link>
           </NextLink>
-          <NextLink href="/components/docs/primer-theme">
+          <NextLink href="/components/docs/core-concepts">
             <Link
               color="gray.9"
-              href="/components/docs/primer-theme"
+              href="/components/docs/core-concepts"
               m={0}
-              fontWeight={router.pathname === '/components/docs/primer-theme' ? 'bold' : null}
+              fontWeight={router.pathname === '/components/docs/core-concepts' ? 'bold' : null}
             >
-              Primer Components Core Concepts
+              Core Concepts
             </Link>
           </NextLink>
         </Flex>
