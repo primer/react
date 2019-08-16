@@ -4,7 +4,7 @@ To get started using Primer Components, run `npm install @primer/components` in 
 
 You can now start importing Primer Components! There are a few ways to import Primer Components. You can either:
 
-Import them individually from the main bundle
+Import them individually from the main bundle:
 
 ```
 import {Box, Flex} from '@primer/components'
