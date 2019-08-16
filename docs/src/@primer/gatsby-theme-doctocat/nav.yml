@@ -11,64 +11,64 @@
 - title: Building Block Components
   url: /building-block-components
   children:
-    - title: Border Box
-      url: /BorderBox
+    - title: BorderBox
+      url: /components/BorderBox
     - title: Button
-      url: /button
+      url: /components/Button
     - title: CounterLabel
-      url: /CounterLabel
+      url: /components/CounterLabel
     - title: Details
-      url: /Details
+      url: /components/Details
     - title: Dialog
-      url: /Dialog
+      url: /components/Dialog
     - title: Dropdown
-      url: /Dropdown
+      url: /components/Dropdown
     - title: Heading
-      url: /Heading
+      url: /components/Heading
     - title: Label
-      url: /Label
+      url: /components/Label
     - title: Link
-      url: /Link
+      url: /components/Link
     - title: PointerBox
-      url: /PointerBox
+      url: /components/PointerBox
     - title: StateLabel
-      url: /StateLabel
+      url: /components/StateLabel
     - title: StyledOcticon
-      url: /StyledOcticon
+      url: /components/StyledOcticon
     - title: TextInput
-      url: /TextInput
+      url: /components/TextInput
     - title: Tooltip
-      url: /Tooltip
+      url: /components/Tooltip
 
 - title: Helper Components
   url: /helper-components
   children:
     - title: Box
-      url: /Box
+      url: /components/Box
     - title: Flex
-      url: /Flex
+      url: /components/Flex
     - title: Grid
-      url: /Grid
+      url: /components/Grid
     - title: Position
-      url: /Position
+      url: /components/Position
     - title: Text
-      url: /Text
+      url: /components/Text
 
 
 - title: Pattern Components
   url: /pattern-components
   children:
     - title: Avatar
-      url: /Avatar
+      url: /components/Avatar
     - title: BranchName
-      url: /BranchName
+      url: /components/BranchName
     - title: CircleBadge
-      url: /CircleBadge
+      url: /components/CircleBadge
     - title: CircleOcticon
-      url: /CircleOction
+      url: /components/CircleOcticon
     - title: FilterList
-      url: /FilterList
+      url: /components/FilterList
     - title: Flash
-      url: /Flash
+      url: /components/Flash
     - title: UnderlineNav
-      url: /UnderlineNav
+      url: /components/UnderlineNav

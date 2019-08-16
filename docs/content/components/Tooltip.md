@@ -4,7 +4,8 @@ title: Tooltip
 
 The Tooltip component adds a tooltip to add context to elements on the page. The Tooltip has a black background by default.
 
-### ⚠️ Usage warning! ⚠️
+***⚠️ Usage warning! ⚠️***
+
 Tooltips as a UI pattern should be our last resort for conveying information because it is hidden by default and often with zero or little visual indicator of its existence.
 
 Before adding a tooltip, please consider: Is this information essential and necessary? Can the UI be made clearer? Can the information be shown on the page by default?
