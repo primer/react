@@ -1,6 +1,6 @@
 # Core Concepts
 
-## 1. The `as` prop
+## The `as` prop
 The `as` prop is a feature that all of our components get from [styled-components](https://www.styled-components.com). It allows you to pass a HTML tag or another component to a Primer Component to be rendered as the base tag of that component.
 
 
@@ -31,7 +31,7 @@ const LinkFlex = <Flex as='a'/>
 ```
 
 
-## 2. Responsive props
+## Responsive props
 It's really easy to set different values for most of our component props based on screen size! We take advantage of [styled-system](https://github.com/styled-system/styled-system)'s responsive props API in our components.
 
 ```
@@ -42,11 +42,11 @@ or
 <Text fontSize={[1,1,1,4]}/>
 ```
 
-## 3. Providing your own theme
+## Providing your own theme
 
 You can provide your own theme to Primer Components! There are a few ways of doing this to varying degrees, checkout the [theme docs](https://primer.style/components/docs/primer-theme) for more information.
 
-4. The `css` prop
+## The `css` prop
 When push comes to shove and you just _really_ need to add a custom CSS rule, you can do that with the `css` prop. Please don't abuse this :)
 
 ```
@@ -54,7 +54,7 @@ When push comes to shove and you just _really_ need to add a custom CSS rule, yo
 
 ```
 
-## 5. Types of components
+## Types of components
 
 We categorize our components into 3 general types. Building block components, pattern components, and helper components. Understanding how these types of components interact with each other can help you better understand how to get the most out of Primer Components.
 
