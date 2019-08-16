@@ -15,7 +15,7 @@
 
 
 - title: Building Block Components
-  url: /building-block-components
+  url: /components/building-blocks
   children:
     - title: BorderBox
       url: /components/BorderBox
@@ -47,7 +47,7 @@
       url: /components/Tooltip
 
 - title: Helper Components
-  url: /helper-components
+  url: /components/helper-components
   children:
     - title: Box
       url: /components/Box
@@ -62,7 +62,7 @@
 
 
 - title: Pattern Components
-  url: /pattern-components
+  url: /components/pattern-components
   children:
     - title: Avatar
       url: /components/Avatar
