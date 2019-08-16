@@ -1,4 +1,6 @@
-# Flex
+---
+title: Flex
+---
 
 Flex is a component that will allow you to use flexbox properties.
 

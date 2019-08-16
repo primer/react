@@ -1,4 +1,6 @@
-# Dialog
+---
+title: Dialog
+---
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 

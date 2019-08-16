@@ -1,4 +1,6 @@
-# Heading
+---
+title: Heading
+---
 
 The Heading component will render an html `h1-6` tag without any default styling. Please reference the [w3 recommendations for headings](https://www.w3.org/WAI/tutorials/page-structure/headings/) to ensure your headings provide an accessible experience for screen reader users.
 

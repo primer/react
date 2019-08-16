@@ -1,6 +1,6 @@
-
-# Dropdown
-
+---
+title: Dropdown
+---
 The Dropdown component is a lightweight context menu for housing navigation and actions.
 
 Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to this component to position the menu in relation to the Dropdown.Button.

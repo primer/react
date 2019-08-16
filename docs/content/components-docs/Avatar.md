@@ -1,5 +1,7 @@
+---
+title: Avatar
+---
 
-# Avatar
 
 Avatars are images used to represent users and organizations on GitHub. They typically are squares with rounded edges.
 
@@ -31,4 +33,4 @@ Avatar components get `COMMON` system props. Read our [System Props](/components
 
 export const meta = {
   displayName: 'Avatar'
-} 
+}

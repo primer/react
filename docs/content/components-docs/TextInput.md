@@ -1,4 +1,6 @@
-# TextInput
+---
+title: TextInput
+---
 
 TextInput is a form component to add default styling to the native text input. Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 ## Default example

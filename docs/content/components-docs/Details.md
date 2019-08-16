@@ -1,5 +1,6 @@
-
-# Details
+---
+title: Details
+---
 
 The Details component is an HTML `<details>` element without native browser styling that optionally uses the [render props pattern](https://reactjs.org/docs/render-props.html) to pass its state to child components.
 

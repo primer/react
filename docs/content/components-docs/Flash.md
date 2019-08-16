@@ -1,5 +1,6 @@
-
-# Flash
+---
+title: Flash
+---
 
 The Flash component informs users of successful or pending actions.
 

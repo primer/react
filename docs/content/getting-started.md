@@ -2,6 +2,8 @@
 title: Getting Started
 ---
 
+## Installation
+
 To get started using Primer Components, run `npm install @primer/components` in your application.
 
 You can now start importing Primer Components! There are a few ways to import Primer Components. You can either:

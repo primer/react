@@ -1,4 +1,7 @@
-# BranchName
+---
+title: BranchName
+---
+
 
 BranchName is a label-type component rendered as an `<a>` tag by default with monospace font and blue background.
 

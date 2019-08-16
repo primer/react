@@ -1,4 +1,6 @@
-# UnderlineNav
+---
+title: UnderlineNav
+---
 
 Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
 

@@ -1,4 +1,6 @@
-# Link
+---
+title: Link
+---
 
 The Link component styles anchor tags with default blue styling and hover text decoration. `Link` is used for destinations, or moving from one page to another.
 

@@ -1,4 +1,6 @@
-# Grid
+---
+title: Grid
+---
 
 Grid is a component that exposes grid system props. See the [CSS Tricks Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to learn more about Grid Layout.
 
