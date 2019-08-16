@@ -1,0 +1,16 @@
+{
+  "name": "doctocat-template",
+  "repository": "primer/doctocat-template",
+  "version": "1.0.0",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "now-build": "npm run build"
+  },
+  "dependencies": {
+    "@primer/gatsby-theme-doctocat": "^0.9.0",
+    "gatsby": "^2.13.25",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
