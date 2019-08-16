@@ -36,7 +36,7 @@ In order to set basic color, font-family, and line-heights across your project, 
 ```jsx
 import {BaseStyles, Box, Heading} from '@primer/components'
 
-export default MyApp () => (
+export default const MyApp = () => (
   <BaseStyles>
     <Box m={4}>
       <Heading mb={2}>Hello, world!</Heading>
