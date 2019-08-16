@@ -3,6 +3,7 @@
   "repository": "primer/doctocat-template",
   "version": "1.0.0",
   "scripts": {
+    "clean": "gatsby clean",
     "develop": "gatsby develop",
     "build": "gatsby build",
     "now-build": "npm run build"
