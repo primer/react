@@ -62,6 +62,16 @@ const SideNav = ({router}) => (
               Primer Theme
             </Link>
           </NextLink>
+          <NextLink href="/components/docs/primer-theme">
+            <Link
+              color="gray.9"
+              href="/components/docs/primer-theme"
+              m={0}
+              fontWeight={router.pathname === '/components/docs/primer-theme' ? 'bold' : null}
+            >
+              Primer Components Core Concepts
+            </Link>
+          </NextLink>
         </Flex>
       </BorderBox>
       <Box pt={5} pl={5}>
