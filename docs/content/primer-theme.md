@@ -16,6 +16,7 @@ In the background, [styled-system](https://github.com/jxnblk/styled-system) does
 
 Our full theme is as follows:
 
+
 <pre>{JSON.stringify(theme, null, '  ')}</pre>
 
 

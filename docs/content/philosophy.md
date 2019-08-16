@@ -1,4 +1,7 @@
-# Primer Components Philosophy
+---
+title: Philosophy
+---
+
 
 ## Presentational Components
  We are focusing primarily on presentational components that display UI. This doesn't mean we won't ever handle complex JS behavior beyond UI interaction in our components, but for now we are focusing on simple, UI components that don't handle submitting or fetching data. If you would like to handle data in a Primer Component, feel free to create a container component or high order component around the Primer Component to do so.

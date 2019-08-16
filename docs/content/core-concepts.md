@@ -1,4 +1,7 @@
-# Core Concepts
+---
+title: Core Concepts
+---
+
 
 ## The `as` prop
 The `as` prop is a feature that all of our components get from [styled-components](https://www.styled-components.com). It allows you to pass a HTML tag or another component to a Primer Component to be rendered as the base tag of that component.
