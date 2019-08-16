@@ -1,6 +1,10 @@
+---
+title: Primer Theme
+---
+
+
 import theme from '../../src/theme.js'
 
-# Primer Theme
 
 Primer Components come with built-in access to our Primer theme. The [theme file](https://github.com/primer/components/blob/master/src/theme.js) contains an object which holds values
 for common variables such as color, fonts, box shadows, and more. Our theme file pulls many of its color and typography values from [primer-primitives](https://github.com/primer/primer-primitives).

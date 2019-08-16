@@ -1,4 +1,6 @@
-# Getting Started
+---
+title: Getting Started
+---
 
 To get started using Primer Components, run `npm install @primer/components` in your application.
 

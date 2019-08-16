@@ -1,7 +1,74 @@
-- title: Page 1
-  url: /page-1
-- title: Example
-  url: /example
+- title: Getting Started
+  url: /getting-started
+
+- title: Primer Theme
+  url: /primer-theme
+
+- title: System Props
+  url: /system-props
+
+
+- title: Building Block Components
+  url: /building-block-components
   children:
-    - title: Page 2
-      url: /example/page-2
+    - title: Border Box
+      url: /BorderBox
+    - title: Button
+      url: /button
+    - title: CounterLabel
+      url: /CounterLabel
+    - title: Details
+      url: /Details
+    - title: Dialog
+      url: /Dialog
+    - title: Dropdown
+      url: /Dropdown
+    - title: Heading
+      url: /Heading
+    - title: Label
+      url: /Label
+    - title: Link
+      url: /Link
+    - title: PointerBox
+      url: /PointerBox
+    - title: StateLabel
+      url: /StateLabel
+    - title: StyledOcticon
+      url: /StyledOcticon
+    - title: TextInput
+      url: /TextInput
+    - title: Tooltip
+      url: /Tooltip
+
+- title: Helper Components
+  url: /helper-components
+  children:
+    - title: Box
+      url: /Box
+    - title: Flex
+      url: /Flex
+    - title: Grid
+      url: /Grid
+    - title: Position
+      url: /Position
+    - title: Text
+      url: /Text
+
+
+- title: Pattern Components
+  url: /pattern-components
+  children:
+    - title: Avatar
+      url: /Avatar
+    - title: BranchName
+      url: /BranchName
+    - title: CircleBadge
+      url: /CircleBadge
+    - title: CircleOcticon
+      url: /CircleOction
+    - title: FilterList
+      url: /FilterList
+    - title: Flash
+      url: /Flash
+    - title: UnderlineNav
+      url: /UnderlineNav
