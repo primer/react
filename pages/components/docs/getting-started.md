@@ -46,4 +46,4 @@ export default MyApp () => (
 )
 ```
 
-This will set the `color`, `font-family`, and `line-height` CSS properties to the same ones used [to style `<body>` in Primer CSS](https://github.com/primer/css/blob/master/src/base/base.scss#L15-L20).
+This will apply the same `color`, `font-family`, and `line-height` styles to the `<body>` as [Primer CSS's base styles](https://github.com/primer/css/blob/master/src/base/base.scss#L15-L20).
