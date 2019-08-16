@@ -1,7 +1,7 @@
-# 5 things you need to know about Primer Components
+# 5 Things You Need to Know About Primer Components
 
 1. The `as` prop
-The `as` prop is a feature that all of our components get from [styled-components]. It allows you to pass a HTML tag or another component to a Primer Component to be rendered as the base tag of that component.
+The `as` prop is a feature that all of our components get from (https://www.styled-components.com)[styled-components]. It allows you to pass a HTML tag or another component to a Primer Component to be rendered as the base tag of that component.
 
 
 For example, say you are using a `Button` component, and you really need to apply `Flex` styles to it. You can compose `Flex` and `Button` like so:
@@ -33,7 +33,7 @@ const LinkFlex = <Flex as='a'/>
 
 
 2. Responsive props
-It's really easy to set different values for most of our component props based on screen size! We take advantage of [styled-system]'s responsive props API in our components.
+It's really easy to set different values for most of our component props based on screen size! We take advantage of (https://github.com/styled-system/styled-system)[styled-system]'s responsive props API in our components.
 
 ```
 <Button display={['flex', 'flex', 'none']}/>
@@ -45,7 +45,7 @@ or
 
 3. Providing your own theme
 
-You can provide your own theme to Primer Components! There are a few ways of doing this to varying degrees, checkout the [theme docs] for more information.
+You can provide your own theme to Primer Components! There are a few ways of doing this to varying degrees, checkout the (https://primer.style/components/docs/primer-theme)[theme docs] for more information.
 
 4. The `css` prop
 When push comes to shove and you just _really_ need to add a custom CSS rule, you can do that with the `css` prop. Please don't abuse this :)
