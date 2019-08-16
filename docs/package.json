@@ -8,7 +8,7 @@
     "now-build": "npm run build"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "^0.9.0",
+    "@primer/gatsby-theme-doctocat": "^0.11.0",
     "gatsby": "^2.13.25",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
