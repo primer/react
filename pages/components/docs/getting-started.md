@@ -25,7 +25,7 @@ Primer Components is shipped with a few libraries labeled as peer dependencies. 
 
 Before getting started using Primer Components, make sure that the following libraries are installed in your host project:
 
-- `styled-components` at versions 4.0.0 or higher
+- `styled-components` at version 4.0.0 or higher
 - `react` at versions 16.8.0 and higher
 
 
