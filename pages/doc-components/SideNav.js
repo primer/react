@@ -73,6 +73,16 @@ const SideNav = ({router}) => (
               Primer Theme
             </Link>
           </NextLink>
+          <NextLink href="/components/docs/core-concepts">
+            <Link
+              color="gray.9"
+              href="/components/docs/core-concepts"
+              m={0}
+              fontWeight={router.pathname === '/components/docs/core-concepts' ? 'bold' : null}
+            >
+              Core Concepts
+            </Link>
+          </NextLink>
         </Flex>
       </BorderBox>
       <Box pt={5} pl={5}>
