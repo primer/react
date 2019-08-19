@@ -25,6 +25,8 @@ When push comes to shove and you just _really_ need to add a custom CSS rule, yo
 
 ```
 
+Please note that you will need to have the **[styled-components babel plugin](https://www.styled-components.com/docs/tooling#babel-plugin)** set up in your project in order to use the `css` prop.
+
 ## Types of components
 
 We categorize our components into 3 general types. Building block components, pattern components, and helper components. Understanding how these types of components interact with each other can help you better understand how to get the most out of Primer Components.
