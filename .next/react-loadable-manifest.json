@@ -1,0 +1,34 @@
+{
+  "./noop": [
+    {
+      "id": "./node_modules/next/dist/client/noop.js",
+      "name": "./node_modules/next/dist/client/noop.js",
+      "file": "static/chunks/0.js",
+      "publicPath": "static/chunks/0.js"
+    }
+  ],
+  "bodymovin/build/player/bodymovin_light.min": [
+    {
+      "id": "./node_modules/bodymovin/build/player/bodymovin_light.min.js",
+      "name": "./node_modules/bodymovin/build/player/bodymovin_light.min.js",
+      "file": "static/chunks/1.js",
+      "publicPath": "static/chunks/1.js"
+    }
+  ],
+  "react-bodymovin": [
+    {
+      "id": "./node_modules/react-bodymovin/lib/ReactBodymovin.js",
+      "name": "./node_modules/react-bodymovin/lib/ReactBodymovin.js",
+      "file": "static/chunks/1.js",
+      "publicPath": "static/chunks/1.js"
+    }
+  ],
+  "./ReactBodymovinImpl": [
+    {
+      "id": "./node_modules/react-bodymovin/lib/ReactBodymovinImpl.js",
+      "name": "./node_modules/react-bodymovin/lib/ReactBodymovinImpl.js",
+      "file": "static/chunks/1.js",
+      "publicPath": "static/chunks/1.js"
+    }
+  ]
+}

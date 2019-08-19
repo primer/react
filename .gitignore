@@ -2,9 +2,9 @@
 .DS_Store
 *.log
 *.tgz
-.next/
 .test/
 coverage/
 dist/
 node_modules
 docs/.cache
+docs/public
