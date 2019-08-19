@@ -100,13 +100,10 @@ Categories of system props are exported from `src/constants.js`:
 
 ## Writing documentation
 
-We use [Next.js](https://github.com/zeit/next.js/) and [MDX Docs](https://github.com/jxnblk/mdx-docs/) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
+We use [Doctocat](https://github.com/primer/doctocat) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
 
-To add a new component to our documentation site:
+To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content/components`.
 
-1. Create a new file with the `.md` extension for your component in `pages/components/docs`.
-2. Copy & paste the template from `doc-template.md` & replace placeholder brackets with relevant information.
-3. Add the new file to the `index.js` in `pages/components/docs`
 
 ## Deployment
 We deploy the Primer Components site using [Now]. Install the Now CLI and log in with:
