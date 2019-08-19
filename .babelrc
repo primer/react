@@ -1,7 +1,4 @@
 {
-  "presets": [
-    "next/babel"
-  ],
   "plugins": [
     "macros",
     "add-react-displayname",
@@ -10,7 +7,7 @@
   "env": {
     "test": {
       "presets": [
-        ["next/babel", {"preset-env": {"modules": "commonjs"}}]
+        [{"preset-env": {"modules": "commonjs"}}]
       ]
     }
   }
