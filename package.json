@@ -41,8 +41,8 @@
   "dependencies": {
     "@primer/octicons-react": "^9.0.0",
     "@reach/dialog": "0.2.9",
-    "@styled-system/prop-types": "5.0.5",
-    "@styled-system/theme-get": "5.0.5",
+    "@styled-system/prop-types": "^5.0.5",
+    "@styled-system/theme-get": "^5.0.5",
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",
     "nanoid": "2.0.0",
@@ -53,7 +53,7 @@
     "react-bodymovin": "2.0.0",
     "react-dom": "^16.8.1",
     "react-is": "16.8.6",
-    "styled-system": "5.0.5"
+    "styled-system": "^5.0.5"
   },
   "devDependencies": {
     "@mdx-js/loader": "0.15.0",
