@@ -5,13 +5,18 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "gatsby build",
-    "now-build": "npm run build"
+    "build": "npm i && gatsby build"
   },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "^0.11.0",
+    "@styled-system/prop-types": "^5.1.0",
+    "@styled-system/theme-get": "^5.1.0",
     "gatsby": "^2.13.25",
+    "primer-colors": "^1.0.1",
+    "primer-typography": "^1.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "styled-system": "^5.1.0"
   }
 }

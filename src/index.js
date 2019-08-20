@@ -1,5 +1,5 @@
 export {default as theme} from './theme'
-export {get as themeGet} from './constants'
+export {get as themeGet, PROP_TYPES} from './constants'
 export {default as BaseStyles} from './BaseStyles'
 
 // Layout
