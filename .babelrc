@@ -1,13 +1,19 @@
 {
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-env"
+  ],
   "plugins": [
     "macros",
     "add-react-displayname",
-    "babel-plugin-styled-components"
+    "babel-plugin-styled-components",
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "test": {
       "presets": [
-        [{"preset-env": {"modules": "commonjs"}}]
+        ["@babel/preset-react", {"modules": "commonjs"}],
+        ["@babel/preset-env", {"modules": "commonjs"}]
       ]
     }
   }
