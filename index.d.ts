@@ -60,7 +60,7 @@ declare module '@primer/components' {
       StyledSystem.AlignSelfProps,
       StyledSystem.OrderProps {}
 
-  interface FlexContainerProps
+  interface FlexProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
@@ -72,10 +72,6 @@ declare module '@primer/components' {
       StyledSystem.AlignItemsProps,
       StyledSystem.JustifyContentProps,
       StyledSystem.JustifyItemsProps {}
-
-  export interface FlexProps
-    extends FlexContainerProps,
-      Omit<React.HTMLProps<HTMLDivElement>, keyof FlexContainerProps> {}
 
   export const Flex: React.FunctionComponent<FlexProps> & {
     Item: React.FunctionComponent<FlexItemProps>
