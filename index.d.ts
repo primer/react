@@ -1,7 +1,6 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
-  import * as StyledSystem from 'styled-system'
-  import * as StyledSystemProps from '@styled-system/prop-types'
+  import * as SSTypes from '@types/styled-system'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -12,70 +11,70 @@ declare module '@primer/components' {
     to?: History.LocationDescriptor
   }
 
-  interface CommonProps extends BaseProps, StyledSystemProps.color, StyledSystemProps.space {}
+  interface CommonProps extends BaseProps, SSTypes.color, SSTypes.space {}
 
   interface LayoutProps
     extends BaseProps,
-      StyledSystem.DisplayProps,
-      StyledSystem.SizeProps,
-      StyledSystem.WidthProps,
-      StyledSystem.HeightProps,
-      StyledSystem.MinWidthProps,
-      StyledSystem.MinHeightProps,
-      StyledSystem.MaxWidthProps,
-      StyledSystem.MaxHeightProps,
-      StyledSystem.OverflowProps,
-      StyledSystem.VerticalAlignProps {}
+      SSTypes.DisplayProps,
+      SSTypes.SizeProps,
+      SSTypes.WidthProps,
+      SSTypes.HeightProps,
+      SSTypes.MinWidthProps,
+      SSTypes.MinHeightProps,
+      SSTypes.MaxWidthProps,
+      SSTypes.MaxHeightProps,
+      SSTypes.OverflowProps,
+      SSTypes.VerticalAlignProps {}
 
   interface TypographyProps
     extends BaseProps,
-      StyledSystem.FontFamilyProps,
-      StyledSystem.FontSizeProps,
-      StyledSystem.FontStyleProps,
-      StyledSystem.FontWeightProps,
-      StyledSystem.LineHeightProps,
-      StyledSystem.TextAlignProps {}
+      SSTypes.FontFamilyProps,
+      SSTypes.FontSizeProps,
+      SSTypes.FontStyleProps,
+      SSTypes.FontWeightProps,
+      SSTypes.LineHeightProps,
+      SSTypes.TextAlignProps {}
 
   interface BorderProps
     extends BaseProps,
-      StyledSystem.BordersProps,
-      StyledSystem.BorderColorProps,
-      StyledSystem.BoxShadowProps,
-      StyledSystem.BorderRadiusProps {}
+      SSTypes.BordersProps,
+      SSTypes.BorderColorProps,
+      SSTypes.BoxShadowProps,
+      SSTypes.BorderRadiusProps {}
 
   interface PositionProps
     extends BaseProps,
-      StyledSystem.PositionProps,
-      StyledSystem.ZIndexProps,
-      StyledSystem.TopProps,
-      StyledSystem.RightProps,
-      StyledSystem.BottomProps,
-      StyledSystem.LeftProps {}
+      SSTypes.PositionProps,
+      SSTypes.ZIndexProps,
+      SSTypes.TopProps,
+      SSTypes.RightProps,
+      SSTypes.BottomProps,
+      SSTypes.LeftProps {}
 
   interface FlexItemProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
-      StyledSystem.FlexProps,
-      StyledSystem.JustifySelfProps,
-      StyledSystem.AlignSelfProps,
-      StyledSystem.OrderProps {}
+      SSTypes.FlexProps,
+      SSTypes.JustifySelfProps,
+      SSTypes.AlignSelfProps,
+      SSTypes.OrderProps {}
 
   interface FlexProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
-      StyledSystem.FlexProps,
-      StyledSystem.JustifySelfProps,
-      StyledSystem.AlignSelfProps,
-      StyledSystem.OrderProps,
-      StyledSystem.FlexBasisProps,
-      StyledSystem.FlexDirectionProps,
-      StyledSystem.FlexWrapProps,
-      StyledSystem.AlignContentProps,
-      StyledSystem.AlignItemsProps,
-      StyledSystem.JustifyContentProps,
-      StyledSystem.JustifyItemsProps {}
+      SSTypes.FlexProps,
+      SSTypes.JustifySelfProps,
+      SSTypes.AlignSelfProps,
+      SSTypes.OrderProps,
+      SSTypes.FlexBasisProps,
+      SSTypes.FlexDirectionProps,
+      SSTypes.FlexWrapProps,
+      SSTypes.AlignContentProps,
+      SSTypes.AlignItemsProps,
+      SSTypes.JustifyContentProps,
+      SSTypes.JustifyItemsProps {}
 
   export const Flex: React.FunctionComponent<FlexProps> & {
     Item: React.FunctionComponent<FlexItemProps>
