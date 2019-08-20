@@ -76,9 +76,7 @@ declare module '@primer/components' {
       StyledSystem.JustifyContentProps,
       StyledSystem.JustifyItemsProps {}
 
-  export const Flex: React.FunctionComponent<FlexProps> & {
-    Item: React.FunctionComponent<FlexItemProps>
-  }
+  export const Flex: React.FunctionComponent<FlexProps>
 
   export interface BoxProps extends BaseProps, CommonProps, LayoutProps {}
 
