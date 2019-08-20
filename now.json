@@ -2,9 +2,6 @@
   "name": "primer-components",
   "version": 2,
   "alias": "primer-components.now.sh",
-  "engines": {
-    "node": ">=10"
-  },
   "files": [
     ".babelrc",
     "css.js",
@@ -13,5 +10,12 @@
     "rollup.config.js",
     "src",
     "static"
+  ],
+  "builds": [
+    {
+      "src": "docs/package.json",
+      "use": "@now/static-build",
+      "config": {"distDir": "public"}
+    }
   ]
 }

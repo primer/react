@@ -6,11 +6,8 @@
   "module": "dist/index.esm.js",
   "typings": "index.d.ts",
   "scripts": {
-    "prebuild": "npm run dist",
     "start": "cd docs && gatsby develop",
     "predist": "rm -rf dist",
-    "build": "cd docs && gatsby build --prefix-paths",
-    "now-build": "npm run build",
     "dist": "NODE_ENV=production rollup -c",
     "prepack": "script/npm-prepack",
     "prepublishOnly": "npm run dist",
