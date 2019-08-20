@@ -55,5 +55,3 @@ LAYOUT.propTypes = systemPropTypes.layout
 POSITION.propTypes = systemPropTypes.position
 FLEX.propTypes = systemPropTypes.flexbox
 GRID.propTypes = systemPropTypes.grid
-
-export const PROP_TYPES = Object.assign({}, COMMON, LAYOUT, BORDER, TYPOGRAPHY, FLEX, POSITION, GRID)
