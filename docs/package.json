@@ -1,5 +1,6 @@
 {
-  "name": "component-docs",
+  "name": "doctocat-template",
+  "repository": "primer/doctocat-template",
   "version": "1.0.0",
   "scripts": {
     "clean": "gatsby clean",
@@ -7,7 +8,6 @@
     "build": "npm i && gatsby build"
   },
   "dependencies": {
-    "@primer/components": "13.1.0",
     "@primer/gatsby-theme-doctocat": "^0.11.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
@@ -17,7 +17,6 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "styled-components": "^4.3.2",
     "styled-system": "^5.1.0"
   }
 }
