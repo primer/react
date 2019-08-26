@@ -1,6 +1,6 @@
 # TabNav
 
-Use the TabNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
+Use the TabNav component to style navigation with a tab-based selected state, typically used for navigation placed at the top of the page.
 
 To use TabNav with [react-router](https://github.com/ReactTraining/react-router) or
 [react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
@@ -32,12 +32,9 @@ TabNav and TabNav.Link components get `COMMON` system props. Read our [System Pr
 
 ### TabNav
 
-| Prop name  | Type    | Description                                                                            |
-| :--------- | :------ | :------------------------------------------------------------------------------------- |
-| actions    | Node    | Place another element, such as a button, to the opposite side of the navigation items. |
-| align      | String  | Use `right` to have navigation items aligned right.                                    |
-| full       | Boolean | Used to make navigation fill the width of the container.                               |
-| aria-label | String  | Used to set the `aria-label` on the top level `<nav>` element.                         |
+| Prop name  | Type   | Description                                                    |
+| :--------- | :----- | :------------------------------------------------------------- |
+| aria-label | String | Used to set the `aria-label` on the top level `<nav>` element. |
 
 ### TabNav.Link
 
