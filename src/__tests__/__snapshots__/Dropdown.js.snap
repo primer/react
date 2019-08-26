@@ -121,12 +121,12 @@ exports[`Dropdown matches the snapshots 1`] = `
 
 <details
   className="c0 c1"
+  onToggle={[Function]}
   open={false}
 >
   <summary
     aria-haspopup="true"
     className="c0 c2"
-    onClick={[Function]}
   >
     <div
       className="c3"
@@ -257,12 +257,12 @@ exports[`Dropdown matches the snapshots 2`] = `
 
 <details
   className="c0 c1"
+  onToggle={[Function]}
   open={false}
 >
   <summary
     aria-haspopup="true"
     className="c0 c2"
-    onClick={[Function]}
   >
     hi
     <div
@@ -278,7 +278,7 @@ exports[`Dropdown.Item matches the snapshots 1`] = `
   display: block;
   padding: 4px 10px 4px 15px;
   overflow: hidden;
-  color: $get('colors.gray.9');
+  color: #24292e;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -310,7 +310,7 @@ exports[`Dropdown.Item matches the snapshots 2`] = `
   display: block;
   padding: 4px 10px 4px 15px;
   overflow: hidden;
-  color: $get('colors.gray.9');
+  color: #24292e;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

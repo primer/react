@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "13.3.1",
+  "version": "14.0.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -64,7 +64,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-styled-components": "1.10.0",
-    "enzyme": "3.5.1",
+    "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.5.0",
     "eslint": "4.19.1",
     "eslint-plugin-github": "1.0.0",
