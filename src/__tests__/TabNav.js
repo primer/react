@@ -16,7 +16,7 @@ describe('TabNav', () => {
     expect(render(<TabNav />).type).toEqual('nav')
   })
 
-  it('adds the UnderlineNav class', () => {
+  it('adds the TabNav class', () => {
     expect(rendersClass(<TabNav />, 'TabNav')).toEqual(true)
   })
 
