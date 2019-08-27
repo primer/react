@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "repository": "primer/doctocat-template",
+  "repository": "primer/components",
   "version": "1.0.0",
   "scripts": {
     "clean": "gatsby clean",
