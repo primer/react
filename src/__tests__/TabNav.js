@@ -20,8 +20,8 @@ describe('TabNav', () => {
     expect(rendersClass(<TabNav />, 'TabNav')).toEqual(true)
   })
 
-  it('sets aria-label to the "label" prop', () => {
-    expect(render(<TabNav label="foo" />).props['aria-label']).toEqual('foo')
+  it('sets aria-label appropriately', () => {
+    expect(render(<TabNav aria-label="foo" />).props['aria-label']).toEqual('foo')
   })
 
   it('wraps its children in an "TabNav-body" div', () => {

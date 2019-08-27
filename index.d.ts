@@ -238,7 +238,7 @@ declare module '@primer/components' {
   export const StateLabel: React.FunctionComponent<StateLabelProps>
 
   export interface TabNavProps extends CommonProps {
-    label?: string
+    'aria-label'?: string
   }
 
   export const TabNav: React.FunctionComponent<TabNavProps>
