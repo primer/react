@@ -237,6 +237,12 @@ declare module '@primer/components' {
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
 
+  export interface TabNavProps extends CommonProps {
+    label?: string
+  }
+
+  export const TabNav: React.FunctionComponent<TabNavProps>
+
   export interface TextInputProps extends CommonProps {
     autocomplete?: string
     'aria-label'?: string
@@ -403,6 +409,10 @@ declare module '@primer/components/src/Fixed' {
 declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
+}
+declare module '@primer/components/src/TabNav' {
+  import {TabNav} from '@primer/components'
+  export default TabNav
 }
 declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
