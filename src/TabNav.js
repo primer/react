@@ -62,7 +62,6 @@ TabNav.defaultProps = {
 
 TabNav.propTypes = {
   children: PropTypes.node,
-  label: PropTypes.string,
   theme: PropTypes.object,
   ...COMMON.propTypes
 }

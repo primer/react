@@ -241,7 +241,13 @@ declare module '@primer/components' {
     'aria-label'?: string
   }
 
-  export const TabNav: React.FunctionComponent<TabNavProps>
+  export interface TabNavItemProps extends CommonProps {
+    selected?: boolean
+  }
+
+  export const TabNav: React.FunctionComponent<TabNavProps> & {
+    Item: React.FunctionComponent<TabNavItemProps>
+  }
 
   export interface TextInputProps extends CommonProps {
     autocomplete?: string
@@ -278,7 +284,13 @@ declare module '@primer/components' {
     label?: string
   }
 
-  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps>
+  export interface UnderlineNavItemProps extends CommonProps {
+    selected?: boolean
+  }
+
+  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps> & {
+    Item: React.FunctionComponent<UnderlineNavItemProps>
+  }
 
   export const theme: Object
 }
