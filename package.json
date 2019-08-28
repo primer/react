@@ -1,12 +1,12 @@
 {
   "name": "@primer/components",
-  "version": "13.3.2",
+  "version": "13.3.1",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "typings": "index.d.ts",
   "scripts": {
-    "start": "cd docs && gatsby develop",
+    "start": "cd docs && npm run develop",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
     "prepack": "script/npm-prepack",
