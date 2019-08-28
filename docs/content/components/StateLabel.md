@@ -19,5 +19,3 @@ StateLabel components get `COMMON` system props. Read our [System Props](/compon
 | :- | :- | :-: | :- |
 | small | Boolean | | Used to create a smaller version of the default StateLabel |
 | status | String | | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed` or `pullMerged`.
-
-export const meta = {displayName: 'StateLabel'}

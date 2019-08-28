@@ -28,5 +28,3 @@ TextInput components get `COMMON` system props. Read our [System Props](/compone
 | required | Boolean | | Sets the `required` attribute on the element |
 | size | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
 | value | String | | Current value of the Input. |
-
-export const meta = {displayName: 'TextInput'}

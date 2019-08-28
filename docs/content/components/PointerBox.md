@@ -21,5 +21,3 @@ PointerBox components get `LAYOUT` and `COMMON` system props. Read our [System P
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | caret | String | bottom | Sets the location of the caret. The format is `[edge]-[position on edge]`. For example, `right-top` will position the caret on the top of the right edge of the box. Use `top`, `right`, `bottom`, or `left` to position a caret in the center of that edge. |
-
-export const meta = {displayName: 'PointerBox'}

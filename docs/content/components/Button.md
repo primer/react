@@ -40,6 +40,3 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 
 ### ButtonGroup
 `ButtonGroup` has access to the same props as `Box`
-
-
-export const meta = {displayName: 'Button'}

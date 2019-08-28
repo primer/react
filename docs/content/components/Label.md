@@ -23,5 +23,3 @@ Label components get `COMMON` system props. Read our [System Props](/components/
 | outline | Boolean | | Creates an outline style label |
 | size | String | 'medium' | Can be one of `small`, `medium` (default), `large` or `xl` .
 | dropshadow | Boolean | | Adds a dropshadow to the label |
-
-export const meta = {displayName: 'Label'}

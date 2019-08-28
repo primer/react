@@ -19,5 +19,3 @@ Text components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Pro
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | as | String | `span` | Sets the HTML tag for the component|
-
-export const meta = {displayName: 'Text'}

@@ -21,5 +21,3 @@ BranchName components get `COMMON` system props. Read our [System Props](/compon
 | :- | :- | :-: | :- |
 | as | String | `<a>` | sets the HTML tag for the component |
 | href | String | | a URL to link the component to |
-
-export const meta = {displayName: 'BranchName'}

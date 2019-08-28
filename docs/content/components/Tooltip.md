@@ -35,6 +35,3 @@ Tooltip components get `COMMON` system props. Read our [System Props](/component
 | noDelay | Boolean | | When set to `true`, tooltip appears without any delay |
 | aria-label | String | | Text used in `aria-label` (for accessibility).
 | wrap | Boolean | | Use `true` to allow text within tooltip to wrap.
-
-
-export const meta = {displayName: 'Tooltip'}

@@ -30,7 +30,3 @@ Avatar components get `COMMON` system props. Read our [System Props](/components
 | isChild | Boolean | | adds the `avatar-child` class if present |
 | size | Number | 20 | adds the `avatar-small` class if less than 24 |
 | src | String | | The source url of the avatar image |
-
-export const meta = {
-  displayName: 'Avatar'
-}

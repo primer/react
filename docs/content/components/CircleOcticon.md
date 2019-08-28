@@ -21,6 +21,3 @@ CircleOcticon components get `COMMON` system props. Read our [System Props](/com
 | :- | :- | :-: | :- |
 | icon | Octicon | | Octicon component used in the component |
 | size | Number | 32 | used to set the width and height of the component |
-
-
-export const meta = {displayName: 'CircleOcticon'}

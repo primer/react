@@ -33,6 +33,3 @@ No additional props.
 
 #### Dropdown
 No additional props.
-
-
-export const meta = {displayName: 'Dropdown'}

@@ -34,5 +34,3 @@ Read our [System Props](/components/docs/system-props) doc page for a full list 
 ## Component props
 
 `Flex` does not get any additional props other than the system props mentioned above.
-
-export const meta = {displayName: 'Flex'}

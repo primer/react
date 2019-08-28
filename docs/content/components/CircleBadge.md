@@ -27,6 +27,3 @@ CircleBadge and CircleBadge.Icon components get `COMMON` system props. Read our 
 
 ### CircleBadge.Icon
 CircleBadge.Icon components do not receive any additional props besides `COMMON` system props.
-
-
-export const meta = {displayName: 'CircleBadge'}

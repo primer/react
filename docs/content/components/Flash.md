@@ -20,5 +20,3 @@ Flash components get `COMMON` system props. Read our [System Props](/components/
 | :- | :- | :-: | :- |
 | full | Boolean | | Creates a full width Flash component|
 | scheme | String | blue | Can be one of `green`, `yellow`, or `red` - sets the background color, border, and text color of the Flash component
-
-export const meta = {displayName: 'Flash'}

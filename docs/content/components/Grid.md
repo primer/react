@@ -22,5 +22,3 @@ Read our [System Props](/components/docs/system-props) doc page for a full list 
 ## Component props
 
 `Grid` does not get any additional props other than the system props mentioned above.
-
-export const meta = {displayName: 'Grid'}

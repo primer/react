@@ -16,5 +16,3 @@ Heading components get `TYPOGRAPHY` and `COMMON` system props. Read our [System 
 ## Component props
 
 Heading does not get any additional props other than the system props mentioned above.
-
-export const meta = {displayName: 'Heading'}

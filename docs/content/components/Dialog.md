@@ -40,7 +40,3 @@ These props are **all required**.
 | title | String or Node | The title shown in the header |
 | isOpen | Boolean | Handles opening and closing the dialog |
 | onDismiss | Function | Should close the dialog |
-
-export const meta = {
-  displayName: 'Dialog'
-}

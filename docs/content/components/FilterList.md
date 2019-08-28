@@ -31,5 +31,3 @@ FilterList components get `COMMON` system props. Read our [System Props](/compon
 | count | Number |  | Number to be displayed in the list item |
 | as | String |`a`| sets the HTML tag for the component |
 | selected | Boolean | | Used to set selected style |
-
-export const meta = {displayName: 'FilterList'}

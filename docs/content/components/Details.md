@@ -62,5 +62,3 @@ Details components get `COMMON` system props. Read our [System Props](/component
 | open | Boolean | | Sets the open/closed state of the Details component |
 | render | Function | | Optional render function, to allow you to handle toggling and open/closed state from a container component.
 | overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it
-
-export const meta = {displayName: 'Details'}
