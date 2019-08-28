@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "npm i && gatsby build"
+    "build": "gatsby build --prefix-paths"
   },
   "dependencies": {
     "@primer/components": "^13.3.1",

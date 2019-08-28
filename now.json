@@ -11,6 +11,14 @@
     "src",
     "static"
   ],
+  "routes": [
+    {"src": "/components(/.*)?", "dest": "/docs$1"},
+    {
+      "src": "/",
+      "status": 301,
+      "headers": {"Location": "/components"}
+    }
+  ],
   "builds": [
     {
       "src": "docs/package.json",
