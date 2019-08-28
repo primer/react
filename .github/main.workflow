@@ -3,8 +3,7 @@ workflow "Primer Components Workflow" {
   resolves = [
     "npm lint",
     "npm test",
-    "publish",
-    "deploy",
+    "publish"
   ]
 }
 
@@ -23,12 +22,6 @@ action "npm test" {
   uses = "actions/npm@v2.0.0"
   needs = ["npm install"]
   args = "test"
-}
-
-action "deploy" {
-  uses = "primer/deploy@v3.0.0"
-  needs = ["npm install"]
-  secrets = ["GITHUB_TOKEN", "NOW_TOKEN"]
 }
 
 action "publish" {
