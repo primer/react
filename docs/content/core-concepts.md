@@ -1,38 +1,6 @@
----
-title: Core Concepts
----
+# Core concepts
 
-
-## The `as` prop
-The `as` prop is a feature that all of our components get from [styled-components](https://www.styled-components.com). It allows you to pass a HTML tag or another component to a Primer Component to be rendered as the base tag of that component.
-
-
-For example, say you are using a `Button` component, and you really need to apply `Flex` styles to it. You can compose `Flex` and `Button` like so:
-
-```
-<Button as={Flex}/>
-```
-
-This will allow you to use all of the `Button` props _and_ all of the `Flex` props without having to wrap your `Button` component in another `Flex` component.
-
-This pattern does have some limitations. Say you are using a `<Button>` component and you really want it to use an `a` tag, but you also need flex props. In this case, you'd need to wrap your `Button` component in a `Flex` and use the `as` prop on `Button` to set it to an `a` tag. You cannot provide multiple values for the `as` prop.
-
-
-```
-<Flex>
-  <Button as='a' />
-</Flex>
-```
-
-One alternate way to do this is to define `Flex` using the `as` prop set to `a` and then pass the custom `Flex` to the `Button`'s `as` prop, but that can feel a bit messy:
-
-```
-const LinkFlex = <Flex as='a'/>
-//in render function...
-<Button as={LinkFlex}/>
-
-```
-
+This document aims to discuss some of the core concepts of building with Primer Components.
 
 ## Responsive props
 It's really easy to set different values for most of our component props based on screen size! We take advantage of [styled-system](https://github.com/styled-system/styled-system)'s responsive props API in our components.
@@ -57,6 +25,8 @@ When push comes to shove and you just _really_ need to add a custom CSS rule, yo
 
 ```
 
+Please note that you will need to have the **[styled-components babel plugin](https://www.styled-components.com/docs/tooling#babel-plugin)** set up in your project in order to use the `css` prop.
+
 ## Types of components
 
 We categorize our components into 3 general types. Building block components, pattern components, and helper components. Understanding how these types of components interact with each other can help you better understand how to get the most out of Primer Components.
@@ -72,3 +42,26 @@ We categorize our components into 3 general types. Building block components, pa
  - Helper Components
 
  Helper components are components that help the user achieve common CSS patterns while maintaining some control over values used. Some examples of helper components are `Flex`, `Text`, `Grid`, and the `Position` components.
+
+
+ ## The `as` prop
+ The `as` prop is a feature that all of our components get from [styled-components](https://www.styled-components.com). It allows you to pass a HTML tag or another component to a Primer Component to be rendered as the base tag of that component along with all of it's styles and props.
+
+
+ For example, say you are using a `Button` component, and you really need to apply `Flex` styles to it. You can compose `Flex` and `Button` like so:
+
+ ```.jsx
+ <Flex as={Button}/>
+ ```
+
+ This will allow you to use all of the `Button` props _and_ all of the `Flex` props without having to wrap your `Button` component in another `Flex` component.
+
+ **This pattern does have some limitations.** Usage of the `as` prop can lead to unexpected output. In the example above, if the user had done `<Button as={Flex}/>` instead, because the `Flex`'s render method is ultimately applied, and `Flex` components render `div`'s, you'll see that the rendered component is a `div` when ideally you'd like it to be a `button`. It is also not always clear how the styles in both components will interact and/or override each other.
+
+For these reasons, **we recommend only using the `as` prop when you cannot achieve the same result by nesting components.** The `Flex` / `Button` example could be done like so:
+
+```.jsx
+<Flex>
+  <Button>Hi</Button>
+</Flex>
+```
