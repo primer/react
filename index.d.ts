@@ -1,6 +1,7 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
+  import * as StyledSystemProps from '@styled-system/prop-types'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -11,7 +12,7 @@ declare module '@primer/components' {
     to?: History.LocationDescriptor
   }
 
-  interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
+  interface CommonProps extends BaseProps, StyledSystemProps.color, StyledSystemProps.space {}
 
   interface LayoutProps
     extends BaseProps,
@@ -60,11 +61,14 @@ declare module '@primer/components' {
       StyledSystem.AlignSelfProps,
       StyledSystem.OrderProps {}
 
-  interface FlexContainerProps
+  interface FlexProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
-      FlexItemProps,
+      StyledSystem.FlexProps,
+      StyledSystem.JustifySelfProps,
+      StyledSystem.AlignSelfProps,
+      StyledSystem.OrderProps,
       StyledSystem.FlexBasisProps,
       StyledSystem.FlexDirectionProps,
       StyledSystem.FlexWrapProps,
@@ -72,10 +76,6 @@ declare module '@primer/components' {
       StyledSystem.AlignItemsProps,
       StyledSystem.JustifyContentProps,
       StyledSystem.JustifyItemsProps {}
-
-  export interface FlexProps
-    extends FlexContainerProps,
-      Omit<React.HTMLProps<HTMLDivElement>, keyof FlexContainerProps> {}
 
   export const Flex: React.FunctionComponent<FlexProps> & {
     Item: React.FunctionComponent<FlexItemProps>

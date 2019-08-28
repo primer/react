@@ -41,6 +41,17 @@ const SideNav = ({router}) => (
     >
       <BorderBox border="none" borderBottom={1} borderRadius={0} borderColor="gray.2" bg="gray.0">
         <Flex flexDirection="column" alignItems="start" p={5}>
+          <NextLink href="/components/docs/getting-started">
+            <Link
+              color="gray.9"
+              href="/components/docs/getting-started"
+              m={0}
+              mb={4}
+              fontWeight={router.pathname === '/components/docs/getting-started' ? 'bold' : null}
+            >
+              Getting Started
+            </Link>
+          </NextLink>
           <NextLink href="/components/docs/system-props">
             <Link
               color="gray.9"
@@ -60,6 +71,16 @@ const SideNav = ({router}) => (
               fontWeight={router.pathname === '/components/docs/primer-theme' ? 'bold' : null}
             >
               Primer Theme
+            </Link>
+          </NextLink>
+          <NextLink href="/components/docs/core-concepts">
+            <Link
+              color="gray.9"
+              href="/components/docs/core-concepts"
+              m={0}
+              fontWeight={router.pathname === '/components/docs/core-concepts' ? 'bold' : null}
+            >
+              Core Concepts
             </Link>
           </NextLink>
         </Flex>
