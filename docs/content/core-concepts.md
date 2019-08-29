@@ -1,4 +1,6 @@
-# Core concepts
+---
+title: Core Concepts
+---
 
 This document aims to discuss some of the core concepts of building with Primer Components.
 
