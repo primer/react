@@ -1,6 +1,7 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
+  import * as StyledSystemProps from '@styled-system/prop-types'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -11,7 +12,7 @@ declare module '@primer/components' {
     to?: History.LocationDescriptor
   }
 
-  interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
+  interface CommonProps extends BaseProps, StyledSystemProps.color, StyledSystemProps.space {}
 
   interface LayoutProps
     extends BaseProps,
@@ -60,11 +61,14 @@ declare module '@primer/components' {
       StyledSystem.AlignSelfProps,
       StyledSystem.OrderProps {}
 
-  interface FlexContainerProps
+  interface FlexProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
-      FlexItemProps,
+      StyledSystem.FlexProps,
+      StyledSystem.JustifySelfProps,
+      StyledSystem.AlignSelfProps,
+      StyledSystem.OrderProps,
       StyledSystem.FlexBasisProps,
       StyledSystem.FlexDirectionProps,
       StyledSystem.FlexWrapProps,
@@ -72,10 +76,6 @@ declare module '@primer/components' {
       StyledSystem.AlignItemsProps,
       StyledSystem.JustifyContentProps,
       StyledSystem.JustifyItemsProps {}
-
-  export interface FlexProps
-    extends FlexContainerProps,
-      Omit<React.HTMLProps<HTMLDivElement>, keyof FlexContainerProps> {}
 
   export const Flex: React.FunctionComponent<FlexProps> & {
     Item: React.FunctionComponent<FlexItemProps>
@@ -237,6 +237,18 @@ declare module '@primer/components' {
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
 
+  export interface TabNavProps extends CommonProps {
+    'aria-label'?: string
+  }
+
+  export interface TabNavItemProps extends CommonProps {
+    selected?: boolean
+  }
+
+  export const TabNav: React.FunctionComponent<TabNavProps> & {
+    Item: React.FunctionComponent<TabNavItemProps>
+  }
+
   export interface TextInputProps extends CommonProps {
     autocomplete?: string
     'aria-label'?: string
@@ -272,9 +284,23 @@ declare module '@primer/components' {
     label?: string
   }
 
-  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps>
+  export interface UnderlineNavItemProps extends CommonProps {
+    selected?: boolean
+  }
+
+  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps> & {
+    Item: React.FunctionComponent<UnderlineNavItemProps>
+  }
 
   export const theme: Object
+
+  export interface DialogProps extends CommonProps {
+    title: string
+    isOpen: boolean
+    onDismiss: () => unknown
+  }
+
+  export const Dialog: React.FunctionComponent<DialogProps>
 }
 
 declare module '@primer/components/src/Box' {
@@ -404,6 +430,10 @@ declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
 }
+declare module '@primer/components/src/TabNav' {
+  import {TabNav} from '@primer/components'
+  export default TabNav
+}
 declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
@@ -419,4 +449,8 @@ declare module '@primer/components/src/UnderlineNav' {
 declare module '@primer/components/src/theme' {
   import {theme} from '@primer/components'
   export default theme
+}
+declare module '@primer/components/src/Dialog' {
+  import {Dialog} from '@primer/components'
+  export default Dialog
 }
