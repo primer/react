@@ -1,8 +1,4 @@
 {
-  "presets": [
-    ["@babel/preset-react", {"modules": "false"}],
-    ["@babel/preset-env", {"modules": "false"}]
-  ],
   "plugins": [
     "macros",
     "add-react-displayname",
@@ -12,8 +8,8 @@
   "env": {
     "test": {
       "presets": [
-        ["@babel/preset-react", {"modules": "false"}],
-        ["@babel/preset-env", {"modules": "false"}]
+        ["@babel/preset-react", {"modules": "commonjs"}],
+        ["@babel/preset-env", {"modules": "commonjs"}]
       ]
     }
   }
