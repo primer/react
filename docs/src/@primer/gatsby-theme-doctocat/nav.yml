@@ -13,14 +13,22 @@
   - title: Philosophy
     url: /philosophy
 
-
-- title: Building Block Components
-  url: /components/building-blocks
+- title: Components
   children:
+    - title: Avatar
+      url: /components/Avatar
     - title: BorderBox
       url: /components/BorderBox
+    - title: Box
+      url: /components/Box
+    - title: BranchName
+      url: /components/BranchName
     - title: Button
       url: /components/Button
+    - title: CircleBadge
+      url: /components/CircleBadge
+    - title: CircleOcticon
+      url: /components/CircleOcticon
     - title: CounterLabel
       url: /components/CounterLabel
     - title: Details
@@ -29,6 +37,14 @@
       url: /components/Dialog
     - title: Dropdown
       url: /components/Dropdown
+    - title: FilterList
+      url: /components/FilterList
+    - title: Flash
+      url: /components/Flash
+    - title: Flex
+      url: /components/Flex
+    - title: Grid
+      url: /components/Grid
     - title: Heading
       url: /components/Heading
     - title: Label
@@ -37,44 +53,17 @@
       url: /components/Link
     - title: PointerBox
       url: /components/PointerBox
+    - title: Position
+      url: /components/Position
     - title: StateLabel
       url: /components/StateLabel
     - title: StyledOcticon
       url: /components/StyledOcticon
+    - title: Text
+      url: /components/Text
     - title: TextInput
       url: /components/TextInput
     - title: Tooltip
       url: /components/Tooltip
-
-- title: Helper Components
-  url: /components/helper-components
-  children:
-    - title: Box
-      url: /components/Box
-    - title: Flex
-      url: /components/Flex
-    - title: Grid
-      url: /components/Grid
-    - title: Position
-      url: /components/Position
-    - title: Text
-      url: /components/Text
-
-
-- title: Pattern Components
-  url: /components/pattern-components
-  children:
-    - title: Avatar
-      url: /components/Avatar
-    - title: BranchName
-      url: /components/BranchName
-    - title: CircleBadge
-      url: /components/CircleBadge
-    - title: CircleOcticon
-      url: /components/CircleOcticon
-    - title: FilterList
-      url: /components/FilterList
-    - title: Flash
-      url: /components/Flash
     - title: UnderlineNav
       url: /components/UnderlineNav
