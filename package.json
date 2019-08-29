@@ -34,12 +34,8 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-<<<<<<< HEAD
     "@babel/polyfill": "7.4.4",
-    "@primer/octicons-react": "9.0.0",
-=======
     "@primer/octicons-react": "^9.0.0",
->>>>>>> master
     "@reach/dialog": "0.2.9",
     "@styled-system/prop-types": "5.0.5",
     "@styled-system/theme-get": "5.0.5",
@@ -66,11 +62,6 @@
     "@mdx-js/mdx": "0.15.0",
     "@mdx-js/tag": "0.15.0",
     "@svgr/webpack": "2.4.1",
-<<<<<<< HEAD
-=======
-    "@testing-library/react": "8.0.6",
-    "@zeit/next-mdx": "1.1.0",
->>>>>>> master
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-styled-components": "1.10.0",
