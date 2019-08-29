@@ -12,10 +12,7 @@ Many of our theme keys correspond to system props on our components. For example
 
 In the background, [styled-system](https://github.com/jxnblk/styled-system) does the work of finding the `medium` value from `maxWidth` key in the theme file and applying the corresponding CSS.
 
-Our full theme is as follows:
-
-
-<pre>{JSON.stringify(theme, null, '  ')}</pre>
+Our full theme can be found [here](https://github.com/primer/components/blob/master/src/theme.js).
 
 
 ### Custom Theming
