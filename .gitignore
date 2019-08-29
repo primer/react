@@ -1,4 +1,5 @@
 .test
 node_modules
 .DS_Store
-coverage
+coverage/
+dist/
