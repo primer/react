@@ -68,6 +68,7 @@ const SideNav = ({router}) => (
               color="gray.9"
               href="/components/docs/primer-theme"
               m={0}
+              mb={4}
               fontWeight={router.pathname === '/components/docs/primer-theme' ? 'bold' : null}
             >
               Primer Theme
