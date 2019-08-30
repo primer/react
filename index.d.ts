@@ -241,12 +241,13 @@ declare module '@primer/components' {
     'aria-label'?: string
   }
 
-  export interface TabNavItemProps extends CommonProps {
+  export interface TabNavLinkProps extends CommonProps {
+    href: string
     selected?: boolean
   }
 
   export const TabNav: React.FunctionComponent<TabNavProps> & {
-    Item: React.FunctionComponent<TabNavItemProps>
+    Link: React.FunctionComponent<TabNavLinkProps>
   }
 
   export interface TextInputProps extends CommonProps {
@@ -284,12 +285,13 @@ declare module '@primer/components' {
     label?: string
   }
 
-  export interface UnderlineNavItemProps extends CommonProps {
+  export interface UnderlineNavLinkProps extends CommonProps {
+    href: string
     selected?: boolean
   }
 
   export const UnderlineNav: React.FunctionComponent<UnderlineNavProps> & {
-    Item: React.FunctionComponent<UnderlineNavItemProps>
+    Link: React.FunctionComponent<UnderlineNavLinkProps>
   }
 
   export const theme: Object
