@@ -211,7 +211,7 @@ declare module '@primer/components' {
   export const Label: React.FunctionComponent<LabelProps>
 
   export interface LinkProps extends CommonProps, TypographyProps {
-    href: string
+    href?: string
     underline?: boolean
   }
 
@@ -242,7 +242,7 @@ declare module '@primer/components' {
   }
 
   export interface TabNavLinkProps extends CommonProps {
-    href: string
+    href?: string
     selected?: boolean
   }
 
@@ -286,7 +286,7 @@ declare module '@primer/components' {
   }
 
   export interface UnderlineNavLinkProps extends CommonProps {
-    href: string
+    href?: string
     selected?: boolean
   }
 
