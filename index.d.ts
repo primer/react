@@ -1,7 +1,6 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
-  import * as StyledSystemProps from '@styled-system/prop-types'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -12,7 +11,7 @@ declare module '@primer/components' {
     to?: History.LocationDescriptor
   }
 
-  interface CommonProps extends BaseProps, StyledSystemProps.color, StyledSystemProps.space {}
+  interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
 
   interface LayoutProps
     extends BaseProps,
