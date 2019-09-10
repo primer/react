@@ -6,7 +6,7 @@ The Position component is a wrapper component that gives the containing componen
 
 ## Default examples
 
-```.jsx live
+```jsx live
 <Box p={2} mb={200}>
   <ExampleHeading mb={2}>Relative + Absolute</ExampleHeading>
   <Relative size={128} mx={128} my={6}>

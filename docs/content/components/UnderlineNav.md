@@ -13,7 +13,7 @@ This ensures that the NavLink gets ```activeClassName='selected'```
 
 ## Default example
 
-```.jsx live
+```jsx live
 <ExampleHeading>
   Using <Text fontFamily="mono">{'<UnderlineNav.Link>'}</Text>
 </ExampleHeading>

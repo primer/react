@@ -11,7 +11,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 
 ## Default examples
 
-```.jsx live
+```jsx live
 <Button>Button</Button>
 <ButtonDanger>Button Danger</ButtonDanger>
 <ButtonOutline>Button Outline</ButtonOutline>

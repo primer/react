@@ -6,7 +6,7 @@ The dialog component is used for all modals. It renders on top of the rest of th
 
 ## Default example
 
-```.jsx live
+```jsx live
 <State default={false}>
   {([isOpen, setIsOpen]) => (
     <>

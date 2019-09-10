@@ -11,7 +11,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ## Default example
 
-```.jsx live
+```jsx live
 <ExampleHeading>
   Using <Text fontFamily="mono">{'<TabNav.Link>'}</Text>
 </ExampleHeading>

@@ -7,7 +7,7 @@ Use CircleBadge to visually connect logos of third party services like in market
 
 ## Default example
 
-```.jsx live
+```jsx live
 <CircleBadge>
   <CircleBadge.Icon icon={Zap} />
 </CircleBadge>

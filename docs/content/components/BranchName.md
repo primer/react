@@ -7,7 +7,7 @@ BranchName is a label-type component rendered as an `<a>` tag by default with mo
 
 ## Default example
 
-```.jsx live live
+```jsx live live
 <BranchName>a_new_feature_branch</BranchName>
 ```
 

@@ -6,7 +6,7 @@ StyledOcticon renders an Octicon with common system props, including `color`, ma
 
 ## Default example
 
-```.jsx live
+```jsx live
 <StyledOcticon icon={Check} size={32} color="green.5" mr={2} />
 <StyledOcticon icon={X} size={32} color="red.5" />
 ```

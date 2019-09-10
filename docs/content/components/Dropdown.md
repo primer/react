@@ -6,7 +6,7 @@ The Dropdown component is a lightweight context menu for housing navigation and 
 Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to this component to position the menu in relation to the Dropdown.Button.
 
 ## Default example
-```.jsx live
+```jsx live
 <Dropdown title="Dropdown">
   <Dropdown.Menu direction='sw'>
     <Dropdown.Item>Item 1</Dropdown.Item>

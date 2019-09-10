@@ -5,7 +5,7 @@ title: CounterLabel
 Use the CounterLabel component to add a count to navigational elements and buttons.
 
 ## Default example
-```.jsx live
+```jsx live
 <CounterLabel>12</CounterLabel>
 <CounterLabel scheme={'gray'}>13</CounterLabel>
 <CounterLabel scheme={'gray-light'}>13</CounterLabel>

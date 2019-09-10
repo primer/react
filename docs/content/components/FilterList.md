@@ -6,7 +6,7 @@ The FilterList component is a menu with filter options that filter the main cont
 
 ## Default example
 
-```.jsx live
+```jsx live
 <FilterList>
   <FilterList.Item selected count='32' href='#foo'>First Filter</FilterList.Item>
   <FilterList.Item count='2' href='#bar'>Second Filter</FilterList.Item>

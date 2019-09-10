@@ -16,7 +16,7 @@ Before adding a tooltip, please consider: Is this information essential and nece
 
 ## Default example
 
-```.jsx live
+```jsx live
 <BorderBox p={3}>
   <Tooltip aria-label="Hello, Tooltip!">Text with a tooltip</Tooltip>
 </BorderBox>

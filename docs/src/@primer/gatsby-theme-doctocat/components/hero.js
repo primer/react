@@ -2,10 +2,10 @@ import loadable from '@loadable/component'
 import {Box, Heading, Text} from '@primer/components'
 import React from 'react'
 import {Container} from '@primer/gatsby-theme-doctocat'
-import heroIllustration from './primer-components-hero.svg'
+import heroIllustration from '../primer-components-hero.svg'
 import {version} from '../../../../../package.json'
 
-const HeroAnimation = loadable(() => import('./PrimerComponentsAnimation'), {
+const HeroAnimation = loadable(() => import('../PrimerComponentsAnimation'), {
   fallback: <img src={heroIllustration} alt="" width="100%" />
 })
 
