@@ -6,7 +6,7 @@ The Flash component informs users of successful or pending actions.
 
 ## Default example
 
-```.jsx
+```.jsx live
 <Flash m={4} scheme="green"> Flash green </Flash>
 ```
 

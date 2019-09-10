@@ -7,7 +7,7 @@ The Box component serves as a wrapper component for most layout related needs. U
 
 ## Default example
 
-```.jsx
+```.jsx live live
 <Box>
  Box can be used to create both <Box as="span" bg="green.1">inline</Box> and
  <Box bg="blue.1">block-level elements,</Box>

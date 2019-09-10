@@ -11,7 +11,7 @@ You are responsible for rendering your own `<summary>`. To style your summary el
 ```
 
 ## With static children
-```.jsx
+```.jsx live
 <Details>
   <Button as="summary">Click me</Button>
   <p>This should show and hide</p>
@@ -26,7 +26,7 @@ The render function gets an object with two keys:
 
 If you use this form or the render prop (see below), **you must attach the `toggle` prop as an event listener**. If you don't the render function will not be called when the element is toggled by the native browser behavior.
 
-```.jsx
+```.jsx live
 <Details>
   {({open, toggle}) => (
     <>
@@ -42,7 +42,7 @@ If you use this form or the render prop (see below), **you must attach the `togg
 ## With render prop
 The Details component also accepts a `render` function prop.
 
-```.jsx
+```.jsx live
 <Details overlay render={({open, toggle}) => (
   <>
     <Button as="summary" onClick={toggle}>Open? {String(open)}</Button>

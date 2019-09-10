@@ -52,7 +52,7 @@ We categorize our components into 3 general types. Building block components, pa
 
  For example, say you are using a `Button` component, and you really need to apply `Flex` styles to it. You can compose `Flex` and `Button` like so:
 
- ```.jsx
+ ```.jsx live
  <Flex as={Button}/>
  ```
 
@@ -62,7 +62,7 @@ We categorize our components into 3 general types. Building block components, pa
 
 For these reasons, **we recommend only using the `as` prop when you cannot achieve the same result by nesting components.** The `Flex` / `Button` example could be done like so:
 
-```.jsx
+```.jsx live
 <Flex>
   <Button>Hi</Button>
 </Flex>

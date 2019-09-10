@@ -10,7 +10,7 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 
 ## Default example
 
-```.jsx
+```.jsx live
 <Link mb={1} href="https://github.com">Link</Link>
 ```
 

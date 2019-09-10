@@ -4,7 +4,7 @@ title: Text
 The Text component is a wrapper component that will apply typography styles to the text inside.
 
 ## Default example
-```.jsx
+```.jsx live
 <Text as='p' fontWeight="bold">bold</Text>
 <Text as='p' color="red.6">red color</Text>
 <Text as='p' color="white" bg="gray.9" p={2}>white on black</Text>

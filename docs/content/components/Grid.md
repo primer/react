@@ -6,7 +6,7 @@ Grid is a component that exposes grid system props. See the [CSS Tricks Complete
 
 ## Default example
 
-```.jsx
+```.jsx live
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
     <Box p={3} bg="blue.2">1</Box>
     <Box p={3} bg="yellow.2">2</Box>

@@ -6,7 +6,7 @@ PointerBox is a [BorderBox](./BorderBox) component with a caret added to it.
 
 ## Default example
 
-```.jsx
+```.jsx live
 <PointerBox m={4} p={2} minHeight={100} bg="green.1" borderColor="green.5">
   PointerBox
 </PointerBox>

@@ -6,7 +6,7 @@ The Label component is used to add contextual metadata to a design. Visually it 
 
 ## Default example
 
-```.jsx
+```.jsx live
 <Label m={1}>Default label</Label>
 <Label m={1} scheme="gray-darker">Darker gray label</Label>
 <Label m={1} outline>Default outline label</Label>

@@ -8,7 +8,7 @@ Flex is a component that will allow you to use flexbox properties.
 
 ## Default example
 
-```.jsx
+```.jsx live
 <BorderBox width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
     <Box p={3} bg="blue.5">
