@@ -1,6 +1,4 @@
----
-title: Core Concepts
----
+# Core concepts
 
 This document aims to discuss some of the core concepts of building with Primer Components.
 
@@ -53,7 +51,7 @@ We categorize our components into 3 general types. Building block components, pa
  For example, say you are using a `Button` component, and you really need to apply `Flex` styles to it. You can compose `Flex` and `Button` like so:
 
  ```jsx live
- <Flex as={Button}/>
+ <Flex as={Button} href='https://github.com'>Hello</Flex>
  ```
 
  This will allow you to use all of the `Button` props _and_ all of the `Flex` props without having to wrap your `Button` component in another `Flex` component.
@@ -64,6 +62,6 @@ For these reasons, **we recommend only using the `as` prop when you cannot achie
 
 ```jsx live
 <Flex>
-  <Button>Hi</Button>
+  <Button href='https://github.com'>Hi</Button>
 </Flex>
 ```
