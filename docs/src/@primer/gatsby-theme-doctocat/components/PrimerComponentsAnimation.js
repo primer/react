@@ -1,10 +1,6 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
 import animation from './PrimerComponentsAnimation.json'
-
-const ReactBodymovin = dynamic(() => import('react-bodymovin'), {
-  ssr: false
-})
+import ReactBodymovin from 'react-bodymovin'
 
 const bodymovinOptions = {
   loop: true,
