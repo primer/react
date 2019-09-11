@@ -5,7 +5,6 @@ title: Dialog
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
 ## Default example
-
 ```jsx live
 <State default={false}>
   {([isOpen, setIsOpen]) => (
@@ -23,7 +22,7 @@ The dialog component is used for all modals. It renders on top of the rest of th
 
 You can also pass any React node as the title to override the styling:
 
-```JS
+```jsx
 <Dialog title={<Text fontSize={6}>Title</Text>}>
 ```
 
