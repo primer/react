@@ -1,11 +1,26 @@
 ---
 title: Dialog
 ---
+import State from '../components/State'
+import {Button, Dialog, Box, Text} from '@primer/components'
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
-## Default example
-```jsx live
+
+<State default={false}>
+  {([isOpen, setIsOpen]) => (
+    <>
+    <Button onClick={() => setIsOpen(true)}>Open</Button>
+      <Dialog title="Title" isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        <Box p={3}>
+          <Text fontFamily="sans-serif">Some content</Text>
+        </Box>
+      </Dialog>
+    </>
+  )}
+</State>
+
+```jsx
 <State default={false}>
   {([isOpen, setIsOpen]) => (
     <>
@@ -19,6 +34,7 @@ The dialog component is used for all modals. It renders on top of the rest of th
   )}
 </State>
 ```
+
 
 You can also pass any React node as the title to override the styling:
 
