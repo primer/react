@@ -8,10 +8,10 @@ import theme from './theme'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-function TabNavBase({actions, className, align, children, full, label, ...rest}) {
+function TabNavBase({actions, className, align, children, full, ...rest}) {
   const classes = classnames(className, 'TabNav')
   return (
-    <nav className={classes} aria-label={label} {...rest}>
+    <nav className={classes} {...rest}>
       <div className="TabNav-body">{children}</div>
     </nav>
   )
@@ -72,6 +72,7 @@ TabNav.Link.defaultProps = {
 
 TabNav.Link.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes
 }
