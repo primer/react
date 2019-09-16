@@ -1,0 +1,38 @@
+name: Primer Components Workflow
+on: [push]
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: npm ci
+  
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Publish to GPR
+        uses: "primer/publish@f0be8131d0eb6f24f7f7d83825a766bfc5bcd1ca"
+        with:
+          - GITHUB_TOKEN
+          - GPR_AUTH_TOKEN
+        args: ["--", "--unsafe-perm", "--allow-same-version"]
+
+      - name: Publish to the npm registry
+        uses: "primer/publish@f0be8131d0eb6f24f7f7d83825a766bfc5bcd1ca"
+        with:
+          - GITHUB_TOKEN
+          - NPM_AUTH_TOKEN
+        args: ["--", "--unsafe-perm", "--allow-same-version"]
+
+      - name: Deploy
+        uses: "primer/deploy@v3.0.0"
+        with:
+          - GITHUB_TOKEN
+          - NOW_TOKEN
