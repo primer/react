@@ -106,6 +106,7 @@ UnderlineNav.Link.defaultProps = {
 
 UnderlineNav.Link.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes
 }

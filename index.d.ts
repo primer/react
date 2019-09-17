@@ -1,7 +1,6 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
-  import * as StyledSystemProps from '@styled-system/prop-types'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -12,7 +11,7 @@ declare module '@primer/components' {
     to?: History.LocationDescriptor
   }
 
-  interface CommonProps extends BaseProps, StyledSystemProps.color, StyledSystemProps.space {}
+  interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
 
   interface LayoutProps
     extends BaseProps,
@@ -211,7 +210,7 @@ declare module '@primer/components' {
   export const Label: React.FunctionComponent<LabelProps>
 
   export interface LinkProps extends CommonProps, TypographyProps {
-    href: string
+    href?: string
     underline?: boolean
   }
 
@@ -241,12 +240,13 @@ declare module '@primer/components' {
     'aria-label'?: string
   }
 
-  export interface TabNavItemProps extends CommonProps {
+  export interface TabNavLinkProps extends CommonProps {
+    href?: string
     selected?: boolean
   }
 
   export const TabNav: React.FunctionComponent<TabNavProps> & {
-    Item: React.FunctionComponent<TabNavItemProps>
+    Link: React.FunctionComponent<TabNavLinkProps>
   }
 
   export interface TextInputProps extends CommonProps {
@@ -284,12 +284,13 @@ declare module '@primer/components' {
     label?: string
   }
 
-  export interface UnderlineNavItemProps extends CommonProps {
+  export interface UnderlineNavLinkProps extends CommonProps {
+    href?: string
     selected?: boolean
   }
 
   export const UnderlineNav: React.FunctionComponent<UnderlineNavProps> & {
-    Item: React.FunctionComponent<UnderlineNavItemProps>
+    Link: React.FunctionComponent<UnderlineNavLinkProps>
   }
 
   export const theme: Object

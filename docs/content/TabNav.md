@@ -41,6 +41,7 @@ TabNav and TabNav.Link components get `COMMON` system props. Read our [System Pr
 | Prop name | Type    | Description                                      |
 | :-------- | :------ | :----------------------------------------------- |
 | as        | String  | sets the HTML tag for the component              |
+| href      | String  | URL to be used for the Link                      |
 | selected  | Boolean | Used to style the link as selected or unselected |
 
 export const meta = {displayName: 'TabNav'}
