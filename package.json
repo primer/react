@@ -35,7 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "7.4.4",
-    "@primer/octicons-react": "^9.0.0",
+    "@primer/octicons-react": "^9.1.1",
     "@reach/dialog": "0.2.9",
     "@styled-system/prop-types": "5.0.5",
     "@styled-system/theme-get": "5.0.5",
