@@ -53,7 +53,7 @@ The Details component also accepts a `render` function prop.
 
 ## System props
 
-Details components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+Details components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
 
 ## Component props
 

@@ -15,7 +15,7 @@ Use CircleBadge to visually connect logos of third party services like in market
 
 ## System props
 
-CircleBadge and CircleBadge.Icon components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+CircleBadge and CircleBadge.Icon components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
 
 ## Component props
 

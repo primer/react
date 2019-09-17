@@ -24,7 +24,7 @@ Before adding a tooltip, please consider: Is this information essential and nece
 
 ## System props
 
-Tooltip components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+Tooltip components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
 
 ## Component props
 

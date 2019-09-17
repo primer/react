@@ -13,7 +13,7 @@ StyledOcticon renders an Octicon with common system props, including `color`, ma
 
 ## System props
 
-StyledOcticon components get `COMMON` system props. Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+StyledOcticon components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
 
 ## Component props
 

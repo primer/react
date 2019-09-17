@@ -29,7 +29,7 @@ Flex is a component that will allow you to use flexbox properties.
 Flex components get `FLEX`, `COMMON`, and `LAYOUT` system props.
 
 
-Read our [System Props](/components/docs/system-props) doc page for a full list of available props.
+Read our [System Props](/components/system-props) doc page for a full list of available props.
 
 ## Component props
 
