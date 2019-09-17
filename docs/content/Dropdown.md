@@ -18,7 +18,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## System props
 
-Dropdown, Dropdown.Menu, and Dropdown.Item all get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+Dropdown, Dropdown.Menu, and Dropdown.Item all get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

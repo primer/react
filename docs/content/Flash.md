@@ -12,7 +12,7 @@ The Flash component informs users of successful or pending actions.
 
 ## System props
 
-Flash components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+Flash components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

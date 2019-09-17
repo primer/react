@@ -13,7 +13,7 @@ BranchName is a label-type component rendered as an `<a>` tag by default with mo
 
 ## System props
 
-BranchName components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+BranchName components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

@@ -46,7 +46,7 @@ You can also pass any React node as the title to override the styling:
 
 ## System props
 
-Dialog components get the `COMMON` and `LAYOUT` categories of system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+Dialog components get the `COMMON` and `LAYOUT` categories of system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

@@ -11,7 +11,7 @@ TextInput is a form component to add default styling to the native text input. D
 
 ## System props
 
-TextInput components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+TextInput components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

@@ -11,7 +11,7 @@ The Heading component will render an html `h1-6` tag without any default styling
 
 ## System props
 
-Heading components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+Heading components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

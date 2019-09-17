@@ -14,7 +14,7 @@ The Label component is used to add contextual metadata to a design. Visually it 
 
 ## System props
 
-Label components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+Label components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

@@ -26,7 +26,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ## System props
 
-TabNav and TabNav.Link components get `COMMON` system props. Read our [System Props](/components/system-props) doc page for a full list of available props.
+TabNav and TabNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
