@@ -17,7 +17,7 @@ or
 
 ## Providing your own theme
 
-You can provide your own theme to Primer Components! There are a few ways of doing this to varying degrees, checkout the [theme docs](https://primer.style/components/docs/primer-theme) for more information.
+You can provide your own theme to Primer Components! There are a few ways of doing this to varying degrees, checkout the [theme docs](https://primer.style/components/primer-theme) for more information.
 
 ## The `css` prop
 When push comes to shove and you just _really_ need to add a custom CSS rule, you can do that with the `css` prop. Please don't abuse this :)
