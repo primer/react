@@ -10,7 +10,7 @@
   "dependencies": {
     "@loadable/component": "^5.10.2",
     "@primer/components": "^13.3.1",
-    "@primer/gatsby-theme-doctocat": "^0.14.2",
+    "@primer/gatsby-theme-doctocat": "^0.15.1",
     "@primer/octicons-react": "^9.1.1",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
