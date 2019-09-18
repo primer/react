@@ -14,9 +14,6 @@ This ensures that the NavLink gets `activeClassName='selected'`
 ## Default example
 
 ```jsx live
-<ExampleHeading>
-  Using <Text fontFamily="mono">{'<UnderlineNav.Link>'}</Text>
-</ExampleHeading>
 <UnderlineNav aria-label="Main">
   <UnderlineNav.Link href="#home" selected>
     Home
