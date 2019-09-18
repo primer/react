@@ -1,10 +1,5 @@
-.*.swp
+.test
+node_modules
 .DS_Store
-*.log
-*.tgz
-.next/
-.test/
 coverage/
 dist/
-node_modules
-.cache
