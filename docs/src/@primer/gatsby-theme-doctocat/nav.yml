@@ -20,8 +20,8 @@
       url: /Box
     - title: BranchName
       url: /BranchName
-    - title: Button
-      url: /Button
+    - title: Buttons
+      url: /Buttons
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
