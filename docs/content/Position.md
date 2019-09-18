@@ -8,7 +8,7 @@ The Position component is a wrapper component that gives the containing componen
 
 ```jsx live
 <Box p={2} mb={200}>
-  <ExampleHeading mb={2}>Relative + Absolute</ExampleHeading>
+  <Heading mb={2}>Relative + Absolute</Heading>
   <Relative size={128} mx={128} my={6}>
     <Box border={1} borderColor="gray.2" size="100%">
       <Absolute left="100%" top={0} bg="red.1" p={1}>rt</Absolute>
@@ -22,7 +22,7 @@ The Position component is a wrapper component that gives the containing componen
     </Box>
   </Relative>
 
-  <ExampleHeading my={2}>Sticky</ExampleHeading>
+  <Heading my={2}>Sticky</Heading>
 
   <Box border={1} borderColor="green.5" height={1000}>
     <Sticky top={0} bg="green.2" p={6}>
@@ -30,7 +30,7 @@ The Position component is a wrapper component that gives the containing componen
     </Sticky>
   </Box>
 
-  <ExampleHeading my={2}>Fixed</ExampleHeading>
+  <Heading my={2}>Fixed</Heading>
   <p>(see the bottom right of the screen)</p>
 
   <Fixed bottom={0} right={0} bg="red.2" p={2}>
