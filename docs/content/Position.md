@@ -24,11 +24,11 @@ The Position component is a wrapper component that gives the containing componen
 
   <Heading my={2}>Sticky</Heading>
 
-  <Box border={1} borderColor="green.5" height={1000}>
+  <BorderBox border={1} borderColor="green.5" height={500}>
     <Sticky top={0} bg="green.2" p={6}>
       I'm sticky!
     </Sticky>
-  </Box>
+  </BorderBox>
 
   <Heading my={2}>Fixed</Heading>
   <p>(see the bottom right of the screen)</p>
