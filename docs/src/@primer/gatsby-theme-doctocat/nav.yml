@@ -1,14 +1,14 @@
 - title: Getting Started
   url: /getting-started
   children:
-  - title: Primer Theme
-    url: /primer-theme
+    - title: Primer Theme
+      url: /primer-theme
 
-  - title: System Props
-    url: /system-props
+    - title: System Props
+      url: /system-props
 
-  - title: Core Concepts
-    url: /core-concepts
+    - title: Core Concepts
+      url: /core-concepts
 
 - title: Components
   children:
@@ -56,6 +56,8 @@
       url: /StateLabel
     - title: StyledOcticon
       url: /StyledOcticon
+    - title: TabNav
+      url: /TabNav
     - title: Text
       url: /Text
     - title: TextInput
