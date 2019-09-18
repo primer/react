@@ -18,7 +18,7 @@ jobs:
         run: npm test
 
       - name: Publish to the npm registry
-        uses: "primer/publish@v1.0.0"
+        uses: "primer/publish@c047b7c2646dd34b9f26a3e6a52c6393c07d7d52"
         with:
           args: "-- --unsafe-perm --allow-same-version"
         env:
