@@ -7,7 +7,7 @@ BorderBox is a Box component with a border. When no `borderColor` is present, th
 
 ## Default example
 
-```jsx live live
+```jsx live
 <BorderBox>This is a BorderBox</BorderBox>
 ```
 
