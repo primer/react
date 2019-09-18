@@ -1,32 +1,32 @@
 name: Primer Components Workflow
-	on: [push]
-	
-	jobs:
-	  publish:
-	    name: Publish
-	    runs-on: ubuntu-latest
-	    steps:
-	      - uses: actions/checkout@v1
-	
-	      - name: Install dependencies
-	        run: npm ci
-	
-	      - name: Lint
-	        run: npm run lint
-	
-	      - name: Test
-	        run: npm test
-	
-	      - name: Publish to the npm registry
-	        uses: "primer/publish@v1.0.0"
-	        with:
-	          args: "-- --unsafe-perm --allow-same-version"
-	        env:
-	          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-	          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-	
-	      - name: Deploy
-	        uses: "primer/deploy@v3.0.0"
-	        env:
-	          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-	          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
+on: [push]
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Publish to the npm registry
+        uses: "primer/publish@v1.0.0"
+        with:
+          args: "-- --unsafe-perm --allow-same-version"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Deploy
+        uses: "primer/deploy@v3.0.0"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
