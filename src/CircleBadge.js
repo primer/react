@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Octicon from '@primer/octicons-react'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -21,7 +20,7 @@ const sizeStyles = ({size}) => {
   }
 }
 
-const CircleBadge = styled.div`
+const CircleBadge = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
