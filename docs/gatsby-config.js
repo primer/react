@@ -17,7 +17,7 @@ module.exports = {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
         alias: {
-          "@primer/components": path.resolve(__dirname, '../src')
+          "@primer/components": process.env.NODE_ENV === 'production' ? 'node_modules/@primer/components' : path.resolve(__dirname, '../src')
         },
         extensions: []
       }
