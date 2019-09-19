@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
@@ -30,13 +31,19 @@ const CircleBadge = styled.span`
   ${COMMON} ${sizeStyles};
 `
 
-const Icon = styled.div`
+const IconWrapper = styled.span`
   max-width: 60% !important;
   height: auto !important;
   max-height: 55% !important;
   ${COMMON};
 `
-CircleBadge.Icon = Icon
+CircleBadge.Icon = ({icon: IconTag}) => {
+  return (
+    <IconWrapper>
+      <IconTag/>
+    </IconWrapper>
+  )
+}
 
 CircleBadge.defaultProps = {
   theme,
