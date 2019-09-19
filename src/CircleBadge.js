@@ -31,7 +31,7 @@ const CircleBadge = styled.div`
   ${COMMON} ${sizeStyles};
 `
 
-const Icon = styled(Octicon)`
+const Icon = styled.div`
   max-width: 60% !important;
   height: auto !important;
   max-height: 55% !important;
