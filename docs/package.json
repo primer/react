@@ -11,7 +11,7 @@
     "@loadable/component": "^5.10.2",
     "@primer/components": "^13.3.1",
     "@primer/gatsby-theme-doctocat": "^0.16.0",
-    "@primer/octicons-react": "^9.1.1",
+    "@primer/octicons-react": "0.0.0-709e9fd",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "gatsby": "^2.13.25",
