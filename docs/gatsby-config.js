@@ -12,13 +12,6 @@ module.exports = {
       options: {
         repoRootPath: '..',
       },
-    },
-    {
-      resolve: `gatsby-plugin-alias-imports`,
-      options: {
-        modules: [path.resolve(__dirname, '../src'), 'node_modules'],
-        extensions: []
-      }
     }
   ],
   pathPrefix: '/components'

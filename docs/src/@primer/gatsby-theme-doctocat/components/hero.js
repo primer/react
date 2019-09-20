@@ -1,5 +1,5 @@
 import loadable from '@loadable/component'
-import {Box, Heading, Text} from '@primer/components'
+import {Box, Heading, Text} from '../../../../../src'
 import React from 'react'
 import {Container} from '@primer/gatsby-theme-doctocat'
 import heroIllustration from '../primer-components-hero.svg'
