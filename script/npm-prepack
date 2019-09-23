@@ -14,7 +14,7 @@ const config = {
     'src/constants.js'
   ],
   missing: [
-    'pages',
+    'docs',
     'src/__tests__',
     'src/utils',
     '*.config.js',
