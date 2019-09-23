@@ -11,7 +11,7 @@
     "dist": "NODE_ENV=production rollup -c",
     "prepack": "script/npm-prepack",
     "prepublishOnly": "npm run dist",
-    "lint": "eslint src docs/components codemods",
+    "lint": "eslint src docs/components",
     "test": "jest -- src",
     "watch": "jest --watch --no-coverage"
   },
