@@ -2,7 +2,7 @@ import * as styledSystem from 'styled-system'
 import PropTypes from 'prop-types'
 import systemPropTypes from '@styled-system/prop-types'
 import themeGet from '@styled-system/theme-get'
-import {theme} from '../../src'
+import {theme} from '@primer/components'
 
 const {get: getKey, compose, system} = styledSystem
 

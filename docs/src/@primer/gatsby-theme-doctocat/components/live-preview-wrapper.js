@@ -1,4 +1,4 @@
-import {BaseStyles, Box} from '../../../../../src'
+import {BaseStyles, Box} from '@primer/components'
 import React from 'react'
 
 // Users can shadow this file to wrap live previews.
