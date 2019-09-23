@@ -1,15 +1,13 @@
 module.exports = (ast, j, moduleName, propsMap) => {
   const importsByName = {}
 
-  ast
-    .find(j.ImportDeclaration, decl => decl.source.value === moduleName)
-    .forEach(decl => {
-      j(decl)
-        .find(j.ImportSpecifier)
-        .forEach(spec => {
-          importsByName[spec.node.imported.name] = spec.node.local.name
-        })
-    })
+  ast.find(j.ImportDeclaration, decl => decl.source.value === moduleName).forEach(decl => {
+    j(decl)
+      .find(j.ImportSpecifier)
+      .forEach(spec => {
+        importsByName[spec.node.imported.name] = spec.node.local.name
+      })
+  })
 
   ast
     .find(j.JSXElement, {

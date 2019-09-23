@@ -9,8 +9,8 @@ const colorStyles = ({scheme, ...props}) => {
       scheme === 'gray-light'
         ? get('colors.gray.9')(props)
         : scheme === 'gray'
-        ? get('colors.white')(props)
-        : get('colors.gray.6')(props)
+          ? get('colors.white')(props)
+          : get('colors.gray.6')(props)
   }
 }
 
@@ -20,8 +20,8 @@ const bgStyles = ({scheme, ...props}) => {
       scheme === 'gray-light'
         ? get('colors.blackfade15')(props)
         : scheme === 'gray'
-        ? get('colors.gray.5')(props)
-        : get('colors.counter.bg')(props)
+          ? get('colors.gray.5')(props)
+          : get('colors.counter.bg')(props)
   }
 }
 
