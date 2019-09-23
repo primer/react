@@ -12,6 +12,14 @@ module.exports = {
       options: {
         repoRootPath: '..',
       },
+    },
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@primer/components': path.resolve(__dirname, '../src'),
+        }
+      }
     }
   ],
   pathPrefix: '/components'
