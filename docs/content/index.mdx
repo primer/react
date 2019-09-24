@@ -1,38 +1,19 @@
-<p align="center">
-  <img width="300px" src="/static/assets/readme-components.png">
-</p>
+---
+title: Primer Components
+---
 
-<h1 align="center">Primer Components</h1>
-
-<p align="center">React components for the Primer Design System</p>
-
-<p align="center">
-  <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/components">
-    <img alt="" src="https://img.shields.io/npm/v/@primer/components.svg">
-  </a>
-  <a aria-label="contributors graph" href="https://github.com/primer/components/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/primer/components.svg">
-  </a>
-  <a aria-label="last commit" href="https://github.com/primer/components/commits/master">
-    <img alt="" src=
-  "https://img.shields.io/github/last-commit/primer/components.svg">
-  </a>
-  <a aria-label="join us in spectrum" href="https://spectrum.chat/?t=492cd17e-6e41-4e66-9160-2297e245b596">
-    <img alt="" src="https://withspectrum.github.io/badge/badge.svg">
-  </a>
-  <a aria-label="license" href="https://github.com/primer/components/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/primer/components.svg" alt="">
-  </a>
-</p>
+import {HeroLayout} from '@primer/gatsby-theme-doctocat'
+export default HeroLayout
 
 
-## Documentation
+## What are Primer Components?
 
-Our documentation site lives at [primer.style/components](https://primer.style/components). You'll be able to find the information listed in this README as well as detailed docs for each component, our theme, and system props.
+Primer Components are React components which implement GitHub's Primer Design System 🎉
+
 
 ## Installation
 
-Install @primer/components in your project with npm:
+Install `@primer/components` in your project with npm:
 
 ```
 npm install @primer/components
@@ -70,7 +51,7 @@ export default () => (
 )
 ```
 
-This will set the `color`, `font-family`, and `line-height` CSS properties to the same ones used in [primer-base](https://github.com/primer/primer/blob/master/modules/primer-base/lib/base.scss#L15).
+This will set the `color`, `font-family`, and `line-height` CSS properties to the same ones used [to style `<body>` in Primer CSS](https://github.com/primer/css/blob/master/src/base/base.scss#L15-L20).
 
 #### Theming
 
@@ -127,7 +108,7 @@ To run `@primer/components` locally when adding or updating components:
 1. Install dependencies: `npm install`
 1. Run the dev app: `npm start`
 
-> 👉 See [the contributing docs](CONTRIBUTING.md) for more info on code style, testing, and coverage.
+> 👉 See [the contributing docs](https://github.com/primer/components/blob/master/CONTRIBUTING.md) for more info on code style, testing, and coverage.
 
 
 ## Principles
