@@ -1,4 +1,6 @@
-# TabNav
+---
+title: TabNav
+---
 
 Use the TabNav component to style navigation with a tab-based selected state, typically used for navigation placed at the top of the page.
 
@@ -12,9 +14,6 @@ This ensures that the NavLink gets `activeClassName='selected'`
 ## Default example
 
 ```jsx live
-<ExampleHeading>
-  Using <Text fontFamily="mono">{'<TabNav.Link>'}</Text>
-</ExampleHeading>
 <TabNav aria-label="Main">
   <TabNav.Link href="#home" selected>
     Home
@@ -43,5 +42,3 @@ TabNav and TabNav.Link components get `COMMON` system props. Read our [System Pr
 | as        | String  | sets the HTML tag for the component              |
 | href      | String  | URL to be used for the Link                      |
 | selected  | Boolean | Used to style the link as selected or unselected |
-
-export const meta = {displayName: 'TabNav'}
