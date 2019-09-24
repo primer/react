@@ -5,13 +5,13 @@ import theme from './theme'
 
 const Heading = styled.h1`
   font-weight: ${get('fontWeights.bold')};
-  font-size: ${get('fontSizes.5')};
+  font-size: ${get('fontSizes.5')}px;
+  margin: 0;
   ${TYPOGRAPHY} ${COMMON};
 `
 
 Heading.defaultProps = {
-  theme,
-  m: 0
+  theme
 }
 
 Heading.propTypes = {
