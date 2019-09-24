@@ -36,7 +36,6 @@ function DetailsBase({children, overlay, render = getRenderer(children), default
   }
 
   function closeMenu(event) {
-    if (event) event.preventDefault()
     setOpen(false)
   }
 
