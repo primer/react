@@ -26,7 +26,7 @@ export function mount(component) {
  * ```
  */
 export function render(component) {
-  return renderer.create(mount(component)).toJSON()
+  return renderer.create(component).toJSON()
 }
 
 /**
