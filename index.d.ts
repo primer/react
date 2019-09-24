@@ -60,11 +60,14 @@ declare module '@primer/components' {
       StyledSystem.AlignSelfProps,
       StyledSystem.OrderProps {}
 
-  interface FlexContainerProps
+  interface FlexProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
-      FlexItemProps,
+      StyledSystem.FlexProps,
+      StyledSystem.JustifySelfProps,
+      StyledSystem.AlignSelfProps,
+      StyledSystem.OrderProps,
       StyledSystem.FlexBasisProps,
       StyledSystem.FlexDirectionProps,
       StyledSystem.FlexWrapProps,
@@ -72,10 +75,6 @@ declare module '@primer/components' {
       StyledSystem.AlignItemsProps,
       StyledSystem.JustifyContentProps,
       StyledSystem.JustifyItemsProps {}
-
-  export interface FlexProps
-    extends FlexContainerProps,
-      Omit<React.HTMLProps<HTMLDivElement>, keyof FlexContainerProps> {}
 
   export const Flex: React.FunctionComponent<FlexProps> & {
     Item: React.FunctionComponent<FlexItemProps>
@@ -211,7 +210,7 @@ declare module '@primer/components' {
   export const Label: React.FunctionComponent<LabelProps>
 
   export interface LinkProps extends CommonProps, TypographyProps {
-    href: string
+    href?: string
     underline?: boolean
   }
 
@@ -236,6 +235,19 @@ declare module '@primer/components' {
   }
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
+
+  export interface TabNavProps extends CommonProps {
+    'aria-label'?: string
+  }
+
+  export interface TabNavLinkProps extends CommonProps {
+    href?: string
+    selected?: boolean
+  }
+
+  export const TabNav: React.FunctionComponent<TabNavProps> & {
+    Link: React.FunctionComponent<TabNavLinkProps>
+  }
 
   export interface TextInputProps extends CommonProps {
     autocomplete?: string
@@ -272,9 +284,24 @@ declare module '@primer/components' {
     label?: string
   }
 
-  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps>
+  export interface UnderlineNavLinkProps extends CommonProps {
+    href?: string
+    selected?: boolean
+  }
+
+  export const UnderlineNav: React.FunctionComponent<UnderlineNavProps> & {
+    Link: React.FunctionComponent<UnderlineNavLinkProps>
+  }
 
   export const theme: Object
+
+  export interface DialogProps extends CommonProps {
+    title: string
+    isOpen: boolean
+    onDismiss: () => unknown
+  }
+
+  export const Dialog: React.FunctionComponent<DialogProps>
 }
 
 declare module '@primer/components/src/Box' {
@@ -404,6 +431,10 @@ declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
 }
+declare module '@primer/components/src/TabNav' {
+  import {TabNav} from '@primer/components'
+  export default TabNav
+}
 declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
@@ -419,4 +450,8 @@ declare module '@primer/components/src/UnderlineNav' {
 declare module '@primer/components/src/theme' {
   import {theme} from '@primer/components'
   export default theme
+}
+declare module '@primer/components/src/Dialog' {
+  import {Dialog} from '@primer/components'
+  export default Dialog
 }

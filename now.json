@@ -1,23 +1,29 @@
 {
   "name": "primer-components",
+  "version": 2,
   "alias": "primer-components.now.sh",
-  "scale": {
-    "sfo": {
-      "min": 1,
-      "max": 1
-    }
-  },
-  "engines": {
-    "node": ">=10"
-  },
   "files": [
     ".babelrc",
     "css.js",
-    "next.config.js",
     "package-lock.json",
-    "pages",
+    "docs",
     "rollup.config.js",
     "src",
     "static"
+  ],
+  "routes": [
+    {"src": "/components(/.*)?", "dest": "/docs$1"},
+    {
+      "src": "/",
+      "status": 301,
+      "headers": {"Location": "/components"}
+    }
+  ],
+  "builds": [
+    {
+      "src": "docs/package.json",
+      "use": "@now/static-build",
+      "config": {"distDir": "public"}
+    }
   ]
 }

@@ -14,7 +14,7 @@ const config = {
     'src/constants.js'
   ],
   missing: [
-    'pages',
+    'docs',
     'src/__tests__',
     'src/utils',
     '*.config.js',
@@ -57,7 +57,7 @@ run('npm', ['-s', '--ignore-scripts', 'pack', '--json'])
     mustHave(config.required),
     mustLack(config.missing)
   ]))
-  .catch(err => die(err.message))
+  .catch(err => die(err))
   .then(() => {
     if (dir) {
       log(`removing: ${dir}`)
@@ -78,18 +78,20 @@ function die(...args) {
   process.exitCode = 1
 }
 
-function mustHave(globs) {
-  return Promise.all(globs.map(fse.exists)).then(results => {
-    const missing = results.map((exists, i) => ({glob: globs[i], exists}))
+function mustHave(paths) {
+  return Promise.all(paths.map(fse.pathExists)).then(results => {
+    const missing = results.map((exists, i) => ({path: paths[i], exists}))
       .filter(res => !res.exists)
     if (missing.length > 0) {
-      throw new Error(`Missing files:${list(missing.map(d => d.glob))}`)
+      throw new Error(`Missing files:${list(missing.map(d => d.path))}`)
     }
   })
 }
 
 function mustLack(globs) {
-  return Promise.all(globs.map(globby)).then(results => {
+  const globOptions = {cwd: process.cwd()}
+  const promises = globs.map(pattern => globby(pattern, globOptions))
+  return Promise.all(promises).then(results => {
     const found = results.map((matches, i) => ({glob: globs[i], matches}))
       .filter(res => res.matches.length > 0)
     if (found.length > 0) {
