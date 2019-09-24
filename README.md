@@ -1,6 +1,6 @@
 <p align="center">
   <img width="300px" src="/static/assets/readme-components.png">
-</p> 
+</p>
 
 <h1 align="center">Primer Components</h1>
 
