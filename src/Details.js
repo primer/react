@@ -39,7 +39,6 @@ function DetailsBase({children, overlay, render = getRenderer(children), default
   function closeMenu(event) {
     // only close the menu if we're clicking outside
     if (event && event.target.closest('details') !== ref.current) {
-      event.preventDefault()
       setOpen(false)
       document.removeEventListener('click', closeMenu)
     }
