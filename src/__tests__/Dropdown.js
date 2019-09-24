@@ -38,18 +38,18 @@ describe('Dropdown.Menu', () => {
     expect(
       render(
         <Dropdown.Menu>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
+          <li key="a">1</li>
+          <li key="b">2</li>
+          <li key="c">3</li>
         </Dropdown.Menu>
       )
     ).toMatchSnapshot()
     expect(
       render(
         <Dropdown.Menu>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
+          <li key={1}>1</li>
+          <li key={2}>2</li>
+          <li key={3}>3</li>
         </Dropdown.Menu>
       )
     ).toMatchSnapshot()

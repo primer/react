@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
@@ -18,29 +18,31 @@ function getRenderer(children) {
 
 function DetailsBase({children, overlay, render = getRenderer(children), defaultOpen = false, ...rest}) {
   const [open, setOpen] = useState(defaultOpen)
+  const ref = useRef(null)
 
-  useEffect(
-    () => {
-      if (overlay && open) {
-        document.addEventListener('click', closeMenu)
-        return () => {
-          document.removeEventListener('click', closeMenu)
-        }
+  useEffect(() => {
+    if (overlay && open) {
+      document.addEventListener('click', closeMenu)
+      return () => {
+        document.removeEventListener('click', closeMenu)
       }
-    },
-    [open, overlay]
-  )
+    }
+  }, [open, overlay])
 
   function toggle(event) {
     setOpen(event.target.open)
   }
 
   function closeMenu(event) {
-    setOpen(false)
+    // only close the menu if we're clicking outside
+    if (event && event.target.closest('details') !== ref.current) {
+      setOpen(false)
+      document.removeEventListener('click', closeMenu)
+    }
   }
 
   return (
-    <DetailsReset {...rest} open={open} onToggle={toggle} overlay={overlay}>
+    <DetailsReset {...rest} ref={ref} open={open} onToggle={toggle} overlay={overlay}>
       {render({open})}
     </DetailsReset>
   )
