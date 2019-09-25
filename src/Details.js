@@ -1,8 +1,15 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useCallback, useRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
+
+// The <details> element is not yet supported in Edge so we have to use a polyfill.
+// We have to check if window is defined before importing the polyfill
+// so the code doesn’t run while pages build
+if (typeof window !== 'undefined') {
+  import('details-element-polyfill')
+}
 
 const DetailsReset = styled('details')`
   & > summary {
@@ -20,6 +27,17 @@ function DetailsBase({children, overlay, render = getRenderer(children), default
   const [open, setOpen] = useState(defaultOpen)
   const ref = useRef(null)
 
+  const closeMenu = useCallback(
+    event => {
+      // only close the menu if we're clicking outside
+      if (event && event.target.closest('details') !== ref.current) {
+        setOpen(false)
+        document.removeEventListener('click', closeMenu)
+      }
+    },
+    [ref]
+  )
+
   useEffect(() => {
     if (overlay && open) {
       document.addEventListener('click', closeMenu)
@@ -27,18 +45,10 @@ function DetailsBase({children, overlay, render = getRenderer(children), default
         document.removeEventListener('click', closeMenu)
       }
     }
-  }, [open, overlay])
+  }, [open, overlay, closeMenu])
 
   function toggle(event) {
     setOpen(event.target.open)
-  }
-
-  function closeMenu(event) {
-    // only close the menu if we're clicking outside
-    if (event && event.target.closest('details') !== ref.current) {
-      setOpen(false)
-      document.removeEventListener('click', closeMenu)
-    }
   }
 
   return (
