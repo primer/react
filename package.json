@@ -41,6 +41,7 @@
     "@types/styled-system": "5.1.1",
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",
+    "details-element-polyfill": "2.4.0",
     "nanoid": "2.0.0",
     "primer-colors": "1.0.1",
     "primer-markdown": "3.7.9",
