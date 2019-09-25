@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
@@ -16,33 +16,34 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function DetailsBase({children, overlay, render = getRenderer(children), ...rest}) {
-  const [open, setOpen] = useState(Boolean(rest.open))
+function DetailsBase({children, overlay, render = getRenderer(children), defaultOpen = false, ...rest}) {
+  const [open, setOpen] = useState(defaultOpen)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (overlay && open) {
+      document.addEventListener('click', closeMenu)
+      return () => {
+        document.removeEventListener('click', closeMenu)
+      }
+    }
+  }, [open, overlay])
 
   function toggle(event) {
-    if (event) event.preventDefault()
-    if (overlay) {
-      openMenu()
-    } else {
-      setOpen(!open)
-    }
-  }
-
-  function openMenu() {
-    if (!open) {
-      setOpen(true)
-      document.addEventListener('click', closeMenu)
-    }
+    setOpen(event.target.open)
   }
 
   function closeMenu(event) {
-    if (event) event.preventDefault()
-    setOpen(false)
-    document.removeEventListener('click', closeMenu)
+    // only close the menu if we're clicking outside
+    if (event && event.target.closest('details') !== ref.current) {
+      setOpen(false)
+      document.removeEventListener('click', closeMenu)
+    }
   }
+
   return (
-    <DetailsReset {...rest} open={open} overlay={overlay}>
-      {render({open, toggle})}
+    <DetailsReset {...rest} ref={ref} open={open} onToggle={toggle} overlay={overlay}>
+      {render({open})}
     </DetailsReset>
   )
 }
@@ -57,7 +58,7 @@ Details.defaultProps = {
 Details.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
-  open: PropTypes.bool,
+  defaultOpen: PropTypes.bool,
   overlay: PropTypes.bool,
   render: PropTypes.func,
   theme: PropTypes.object,
