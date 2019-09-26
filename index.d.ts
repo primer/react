@@ -80,11 +80,19 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<FlexItemProps>
   }
 
-  export interface BoxProps extends BaseProps, CommonProps, LayoutProps, React.HTMLAttributes<HTMLDivElement> {}
+  export interface BoxProps
+    extends BaseProps,
+      CommonProps,
+      LayoutProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Box: React.FunctionComponent<BoxProps>
 
-  export interface TextProps extends BaseProps, CommonProps, TypographyProps, React.HTMLAttributes<HTMLSpanElement> {}
+  export interface TextProps
+    extends BaseProps,
+      CommonProps,
+      TypographyProps,
+      Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 
   export const Text: React.FunctionComponent<TextProps>
 
@@ -92,13 +100,13 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      React.HTMLAttributes<HTMLHeadingElement> {}
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {}
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
   type DetailsRenderFunction = (args: {open: boolean; toggle: () => void}) => React.ReactElement
 
-  export interface DetailsProps extends CommonProps, React.HTMLAttributes<HTMLDetailsElement> {
+  export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
     render?: DetailsRenderFunction
     children?: DetailsRenderFunction | React.ReactNode
     overlay?: boolean
@@ -106,7 +114,10 @@ declare module '@primer/components' {
 
   export const Details: React.FunctionComponent<DetailsProps>
 
-  export interface ButtonProps extends BaseProps, CommonProps, React.HTMLAttributes<HTMLDetailsElement> {
+  export interface ButtonProps
+    extends BaseProps,
+      CommonProps,
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     grouped?: boolean
     size?: 'sm' | 'large'
   }
@@ -116,7 +127,7 @@ declare module '@primer/components' {
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
-  export interface AvatarProps extends CommonProps, React.HTMLAttributes<HTMLImageElement> {
+  export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     isChild?: boolean
     size?: number
   }
@@ -136,11 +147,11 @@ declare module '@primer/components' {
 
   export const BorderBox: React.FunctionComponent<BorderBoxProps>
 
-  export interface BranchNameProps extends CommonProps, React.HTMLAttributes<HTMLAnchorElement> {}
+  export interface BranchNameProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {}
 
   export const BranchName: React.FunctionComponent<BranchNameProps>
 
-  export interface CircleBadgeProps extends CommonProps, React.HTMLAttributes<HTMLDivElement> {
+  export interface CircleBadgeProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     size?: string | number
   }
 
@@ -162,7 +173,7 @@ declare module '@primer/components' {
 
   export interface DropdownProps extends CommonProps, ButtonProps {}
 
-  export interface DropdownMenuProps extends CommonProps, React.HTMLAttributes<HTMLUListElement> {
+  export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: string
     title: string
   }
@@ -172,11 +183,13 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<DropdownProps>
   }
 
-  export interface FilterListProps extends CommonProps, React.HTMLAttributes<HTMLUListElement> {
+  export interface FilterListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     small?: boolean
   }
 
-  export interface FilterListItemProps extends CommonProps, React.HTMLAttributes<HTMLAnchorElement> {
+  export interface FilterListItemProps
+    extends CommonProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     count?: number
     selected?: boolean
   }
@@ -185,20 +198,20 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<FilterListItemProps>
   }
 
-  export interface FlashProps extends CommonProps, React.HTMLAttributes<HTMLDivElement> {
+  export interface FlashProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     full?: boolean
     scheme?: string
   }
 
   export const Flash: React.FunctionComponent<FlashProps>
 
-  export interface CounterLabelProps extends CommonProps, React.HTMLAttributes<HTMLSpanElement> {
+  export interface CounterLabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     scheme?: string
   }
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
-  export interface LabelProps extends CommonProps, React.HTMLAttributes<HTMLSpanElement> {
+  export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
     size?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
@@ -206,7 +219,10 @@ declare module '@primer/components' {
 
   export const Label: React.FunctionComponent<LabelProps>
 
-  export interface LinkProps extends CommonProps, TypographyProps, React.HTMLAttributes<HTMLAnchorElement> {
+  export interface LinkProps
+    extends CommonProps,
+      TypographyProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     underline?: boolean
   }
 
@@ -222,7 +238,7 @@ declare module '@primer/components' {
     extends PositionProps,
       CommonProps,
       LayoutProps,
-      React.HTMLAttributes<HTMLDivElement> {}
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Relative: React.FunctionComponent<PositionComponentProps>
   export const Absolute: React.FunctionComponent<PositionComponentProps>
@@ -236,9 +252,9 @@ declare module '@primer/components' {
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
 
-  export interface TabNavProps extends CommonProps, React.HTMLAttributes<HTMLDivElement> {}
+  export interface TabNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export interface TabNavLinkProps extends CommonProps, React.HTMLAttributes<HTMLAnchorElement> {
+  export interface TabNavLinkProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
   }
 
@@ -246,7 +262,9 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<TabNavLinkProps>
   }
 
-  export interface TextInputProps extends CommonProps, React.HTMLAttributes<HTMLInputElement> {
+  export interface TextInputProps
+    extends CommonProps,
+      Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
     autocomplete?: string
     block?: boolean
     size?: 'small' | 'large'
@@ -254,7 +272,7 @@ declare module '@primer/components' {
 
   export const TextInput: React.FunctionComponent<TextInputProps>
 
-  export interface TooltipProps extends CommonProps, React.HTMLAttributes<HTMLSpanElement> {
+  export interface TooltipProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     align?: 'left' | 'right'
     direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
     noDelay?: boolean
@@ -264,14 +282,16 @@ declare module '@primer/components' {
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
 
-  export interface UnderlineNavProps extends CommonProps, React.HTMLAttributes<HTMLDivElement> {
+  export interface UnderlineNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     actions?: React.ReactNode
     align?: 'right'
     full?: boolean
     label?: string
   }
 
-  export interface UnderlineNavLinkProps extends CommonProps, React.HTMLAttributes<HTMLAnchorElement> {
+  export interface UnderlineNavLinkProps
+    extends CommonProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
   }
 
@@ -280,6 +300,7 @@ declare module '@primer/components' {
   }
 
   export const theme: Object
+  export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {
     title: string
