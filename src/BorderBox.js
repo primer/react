@@ -8,7 +8,8 @@ const BorderBox = styled(Box)(BORDER)
 
 BorderBox.defaultProps = {
   theme,
-  border: '1px solid',
+  borderWidth: 1,
+  borderStyle: 'solid',
   borderColor: 'gray.2',
   borderRadius: 1
 }
