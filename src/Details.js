@@ -23,8 +23,8 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function DetailsBase({children, overlay, render = getRenderer(children), defaultOpen = false, ...rest}) {
-  const [open, setOpen] = useState(defaultOpen)
+function DetailsBase({children, overlay, render = getRenderer(children), open: defaultOpen, ...rest}) {
+  const [open, setOpen] = useState(!!defaultOpen)
   const ref = useRef(null)
 
   const closeMenu = useCallback(
@@ -68,7 +68,7 @@ Details.defaultProps = {
 Details.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   className: PropTypes.string,
-  defaultOpen: PropTypes.bool,
+  open: PropTypes.bool,
   overlay: PropTypes.bool,
   render: PropTypes.func,
   theme: PropTypes.object,
