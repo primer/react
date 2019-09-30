@@ -22,7 +22,7 @@ const Link = styled.a.attrs(props => ({
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
-    ${props => (props.muted ? `color: ${get('colors.blue.5')(theme)}`: '')};
+    ${props => (props.muted ? `color: ${get('colors.blue.5')(theme)}` : '')};
   }
   ${props => (props.as === 'button' ? buttonStyles : '')};
   ${TYPOGRAPHY} ${COMMON};
