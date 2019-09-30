@@ -125,6 +125,7 @@ Dropdown.Item.propTypes = {
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
+  title: PropTypes.string,
   ...COMMON.propTypes
 }
 
