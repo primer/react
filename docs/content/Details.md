@@ -42,5 +42,5 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| defaultOpen | Boolean | | Sets the open/closed state of the Details component |
+| defaultOpen | Boolean | | Sets the initial open/closed state |
 | overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it
