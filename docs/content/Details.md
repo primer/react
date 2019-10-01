@@ -19,7 +19,7 @@ You are responsible for rendering your own `<summary>`. To style your summary el
 ```
 
 ## With children as a function
-The render function gets an object with the `open` prop to allow you to conditionally update UI based on the open state of the dropdown:
+The render function gets an object with the `open` render prop to allow you to conditionally update UI based on the open state of the dropdown:
 
 ```jsx live
 <Details>
@@ -42,5 +42,5 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| open | Boolean | | Sets the open/closed state of the Details component |
+| defaultOpen | Boolean | | Sets the initial open/closed state |
 | overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it

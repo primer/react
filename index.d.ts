@@ -104,11 +104,12 @@ declare module '@primer/components' {
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
-  type DetailsRenderFunction = (args: {open: boolean; toggle: () => void}) => React.ReactElement
+  type DetailsRenderFunction = (args: {open: boolean}) => React.ReactElement
 
   export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
     render?: DetailsRenderFunction
     children?: DetailsRenderFunction | React.ReactNode
+    defaultOpen?: boolean
     overlay?: boolean
   }
 
