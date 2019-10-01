@@ -25,6 +25,7 @@ TextInput components get `COMMON` system props. Read our [System Props](/system-
 | name | String | | Sets the `name` attribute on the element |
 | onChange | Function | | Function to be called when content in Input changes |
 | placeholder | String | | Sets the placeholder text |
+| readOnly | Boolean | | Sets the `readonly` attribute on the element |
 | required | Boolean | | Sets the `required` attribute on the element |
 | size | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
 | value | String | | Current value of the Input. |

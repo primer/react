@@ -76,6 +76,7 @@ TextInput.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'large']),
   theme: PropTypes.object,
