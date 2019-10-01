@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "react",
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
     "allowJs": true,
     "rootDir": "src",
     "outDir": "dist",
@@ -11,6 +11,5 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src"]
 }
