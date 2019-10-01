@@ -1,8 +1,8 @@
-import babel from 'rollup-plugin-babel'
+import typescript from 'rollup-plugin-typescript'
 import commonjs from 'rollup-plugin-commonjs'
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-const plugins = [babel({exclude: 'node_modules/**'}), commonjs()]
+const plugins = [typescript({module: 'CommonJS'}), commonjs()]
 
 export default [
   {
