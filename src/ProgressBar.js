@@ -32,7 +32,7 @@ ProgressBar.defaultProps = {
 
 ProgressBar.propTypes = {
   ...COMMON.propTypes,
-  large: PropTypes.boolean,
+  large: PropTypes.bool,
   progress: PropTypes.oneOf(PropTypes.string, PropTypes.number)
 }
 
