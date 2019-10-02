@@ -21,7 +21,6 @@ describe('ProgressBar', () => {
   })
 
   it('respects the "progress" prop', () => {
-    const comp = mount(<ProgressBar progress={80} id='progressbar' />)
-    expect(comp.childAt(0)).toHaveStyleRule('width', '80%')
+    expect(render(<ProgressBar progress={80} large />)).toMatchSnapshot()
   })
 })
