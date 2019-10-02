@@ -38,6 +38,7 @@
     "@reach/dialog": "0.2.9",
     "@styled-system/prop-types": "5.0.5",
     "@styled-system/theme-get": "5.0.5",
+    "@types/styled-components": "4.1.19",
     "@types/styled-system": "5.1.1",
     "babel-plugin-macros": "2.4.2",
     "classnames": "^2.2.5",

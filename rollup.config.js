@@ -1,8 +1,7 @@
 import typescript from 'rollup-plugin-typescript'
-import commonjs from 'rollup-plugin-commonjs'
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-const plugins = [typescript({module: 'CommonJS'}), commonjs()]
+const plugins = [typescript()]
 
 export default [
   {
