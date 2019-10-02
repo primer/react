@@ -309,7 +309,17 @@ declare module '@primer/components' {
   }
 
   export const Dialog: React.FunctionComponent<DialogProps>
+
+  export interface ProgressBarProps
+    extends BaseProps, CommonProps {
+      progress?: number | string
+      size?: 'sm' | 'large'
+    }
+
+  export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
+
+
 
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'

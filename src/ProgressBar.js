@@ -1,10 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 
-
 const Bar = styled.span`
-  width: ${props => props.progress ? `${props.progress}%` : ''};
+  width: ${props => (props.progress ? `${props.progress}%` : '')};
   ${COMMON}
 `
 
@@ -14,21 +14,26 @@ const ProgressContainer = styled.span`
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
   border-radius: ${get('radii.1')}px;
-  height: ${props => props.large ? '10px' : '5px'};
+  height: ${props => (props.large ? '10px' : '5px')};
   ${COMMON}
 `
 
 const ProgressBar = ({progress, bg, ...rest}) => {
   return (
     <ProgressContainer {...rest}>
-      <Bar progress={progress} bg={bg}/>
+      <Bar progress={progress} bg={bg} />
     </ProgressContainer>
-
   )
 }
 
 ProgressBar.defaultProps = {
   bg: 'green.5'
+}
+
+ProgressBar.propTypes = {
+  ...COMMON.propTypes,
+  large: PropTypes.boolean,
+  progress: PropTypes.oneOf(PropTypes.string, PropTypes.number)
 }
 
 export default ProgressBar
