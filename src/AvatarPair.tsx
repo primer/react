@@ -18,7 +18,7 @@ const childStyles = props => ({
   lineHeight: `${get('lineHeights.condensedUltra')}`,
   verticalAlign: 'middle',
   borderRadius: '2px',
-  position: 'absolute',
+  position: 'absolute' as const,
   right: '-15%',
   bottom: '-9%',
   boxShadow: '-2px -2px 0 rgba(255,255,255,0.8)',
