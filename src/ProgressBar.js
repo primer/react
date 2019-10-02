@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import theme from './theme'
 import {COMMON, get} from './constants'
 
 const Bar = styled.span`
-  width: ${props => (props.progress ? `${props.progress}%` : '')};
+  width: ${props => (props.progress ? `${props.progress}%` : 0)};
   ${COMMON}
 `
 
@@ -27,7 +28,8 @@ const ProgressBar = ({progress, bg, ...rest}) => {
 }
 
 ProgressBar.defaultProps = {
-  bg: 'green.5'
+  bg: 'green.5',
+  theme
 }
 
 ProgressBar.propTypes = {
