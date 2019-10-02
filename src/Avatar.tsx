@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {get} from './constants'
 import {space} from 'styled-system'
-//@ts-ignore
-import systemPropTypes from '@styled-system/prop-types'
+import * as systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 import { AvatarProps } from '@primer/components'
 
