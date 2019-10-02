@@ -46,4 +46,12 @@ describe('Link', () => {
   it('applies button styles when rendering a button element', () => {
     expect(render(<Link as="button" />)).toMatchSnapshot()
   })
+
+  it('respectes the "muted" prop', () => {
+    expect(render(<Link muted />)).toMatchSnapshot()
+  })
+
+  it('respectes the "color" prop when "muted" prop is also passed', () => {
+    expect(render(<Link muted color="black" />)).toMatchSnapshot()
+  })
 })

@@ -69,6 +69,46 @@ exports[`Link renders without any props 1`] = `
 />
 `;
 
+exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #1b1f23;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+<a
+  className="c0"
+  color="black"
+  muted={true}
+/>
+`;
+
+exports[`Link respectes the "muted" prop 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #586069;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+<a
+  className="c0"
+  color="gray.6"
+  muted={true}
+/>
+`;
+
 exports[`Link respects hoverColor prop 1`] = `
 .c0 {
   -webkit-text-decoration: none;

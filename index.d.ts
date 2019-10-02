@@ -224,6 +224,7 @@ declare module '@primer/components' {
     extends CommonProps,
       TypographyProps,
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    muted?: boolean
     underline?: boolean
   }
 
