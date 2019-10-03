@@ -6,19 +6,19 @@ import {COMMON} from '../constants'
 
 const avatarComp = (
   <AvatarStack>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer"/>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/github"/>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer"/>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/github"/>
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer" />
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/github" />
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer" />
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/github" />
   </AvatarStack>
 )
 
 const rightAvatarComp = (
   <AvatarStack alignRight>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer"/>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/github"/>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer"/>
-    <AvatarStack.Item src="https://avatars.githubusercontent.com/github"/>
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer" />
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/github" />
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/primer" />
+    <AvatarStack.Item src="https://avatars.githubusercontent.com/github" />
   </AvatarStack>
 )
 

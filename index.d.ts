@@ -311,6 +311,18 @@ declare module '@primer/components' {
   }
 
   export const Dialog: React.FunctionComponent<DialogProps>
+
+  export interface AvatarStackProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+    alignRight?: boolean
+  }
+
+  export interface AvatarStackItemProps
+    extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {}
+
+  export const AvatarStack: React.FunctionComponent<AvatarStackProps> & {
+    Item: React.FunctionComponent<AvatarItemProps>
+  }
+
 }
 
 declare module '@primer/components/src/Box' {
