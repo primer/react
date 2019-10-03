@@ -37,7 +37,7 @@ const AvatarChild = styled.img`
 `
 const transformChildren = children => {
   const count = children.length
-  const newChildren = children.map((child, index) => {
+  const newChildren = React.Children.map(children, (child, index) => {
     return (
       <>
         {count > 3 && index === 2 && <div className="avatar-more" />}
