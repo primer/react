@@ -65,7 +65,7 @@ const Item = styled.img.attrs(() => ({
   }
 
   // Account for 4+ avatars
-  &:nth-child(n+4) {
+  &:nth-child(n + 4) {
     display: none;
     opacity: 0;
   }
@@ -102,7 +102,7 @@ const AvatarStackBody = styled.span`
       margin-right: 3px;
     }
 
-    .avatar:nth-child(n+4) {
+    .avatar:nth-child(n + 4) {
       display: flex;
       opacity: 1;
     }
