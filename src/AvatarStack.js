@@ -55,6 +55,38 @@ const AvatarStackWrapper = styled.span`
   min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
   ${COMMON}
+
+  ${props =>  props.alignRight ? `
+    .body {
+      right: 0;
+      flex-direction: row-reverse;
+
+      &:hover .avatar {
+        margin-right: 0;
+        margin-left: 3px;
+      }
+    }
+
+    .avatar.avatar-more {
+      background: ${get('colors.gray.3')};
+
+      &::before {
+        width: 5px;
+      }
+
+      &::after {
+        width: 2px;
+        background: ${get('colors.gray.1')};
+      }
+    }
+
+    .avatar {
+      margin-right: 0;
+      margin-left: -11px;
+      border-right: 0;
+      border-left: ${get('borders.1')} solid ${get('colors.white')};
+    }
+  `: ''}
 `
 
 const AvatarStackBody = styled.span`
@@ -106,7 +138,7 @@ const AvatarStackBody = styled.span`
 const AvatarStack = ({children, ...rest}) => {
   return (
     <AvatarStackWrapper count={children.length} {...rest}>
-      <AvatarStackBody>{transformChildren(children)}</AvatarStackBody>
+      <AvatarStackBody className='body'>{transformChildren(children)}</AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
