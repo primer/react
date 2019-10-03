@@ -320,7 +320,7 @@ declare module '@primer/components' {
     extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {}
 
   export const AvatarStack: React.FunctionComponent<AvatarStackProps> & {
-    Item: React.FunctionComponent<AvatarItemProps>
+    Item: React.FunctionComponent<AvatarStackItemProps>
   }
 
 }
