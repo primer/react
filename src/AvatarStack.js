@@ -51,6 +51,7 @@ const transformChildren = children => {
 }
 
 const AvatarStackWrapper = styled.span`
+  display: inline-block;
   position: relative;
   min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
