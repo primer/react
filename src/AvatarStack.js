@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get, COMMON} from './constants'
+import theme from './theme'
 
 const rightStyles = `
   .body {
@@ -136,7 +137,7 @@ const AvatarStackBody = styled.span`
     }
   }
 `
-const AvatarStack = ({children, ...rest}) => {
+const AvatarStack = ({children = [], ...rest}) => {
   return (
     <AvatarStackWrapper count={children.length} {...rest}>
       <AvatarStackBody className="body">{transformChildren(children)}</AvatarStackBody>
@@ -146,4 +147,11 @@ const AvatarStack = ({children, ...rest}) => {
 
 AvatarStack.Item = Item
 
+AvatarStack.defaultProps = {
+  theme
+}
+
+AvatarStack.propTypes = {
+  ...COMMON.propTypes
+}
 export default AvatarStack
