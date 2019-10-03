@@ -16,10 +16,18 @@ describe('ProgressBar', () => {
     expect(render(<ProgressBar as="span" />).type).toEqual('span')
   })
 
-  it('respects the "size" prop', () => {
+  it('respects the "barSize" prop', () => {
     expect(render(<ProgressBar progress={80} barSize="small" />)).toHaveStyleRule('height', '5px')
     expect(render(<ProgressBar progress={80} barSize="default" />)).toHaveStyleRule('height', '8px')
     expect(render(<ProgressBar progress={80} barSize="large" />)).toHaveStyleRule('height', '10px')
+  })
+
+  it('respects the "inline" prop', () => {
+    expect(render(<ProgressBar progress={80} inline />)).toHaveStyleRule('display', 'inline-flex')
+  })
+
+  it('respects the "width" prop', () => {
+    expect(render(<ProgressBar progress={80} inline width="100px" />)).toHaveStyleRule('width', '100px')
   })
 
   it('respects the "progress" prop', () => {

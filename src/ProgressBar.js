@@ -16,7 +16,7 @@ const sizeMap = {
 }
 
 const ProgressContainer = styled.span`
-  display: flex;
+  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   height: ${get('spacing.2')};
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
@@ -42,8 +42,8 @@ ProgressBar.defaultProps = {
 ProgressBar.propTypes = {
   ...COMMON.propTypes,
   barSize: PropTypes.oneOf(['small', 'default', 'large']),
+  inline: PropTypes.bool,
   progress: PropTypes.oneOf([PropTypes.string, PropTypes.number])
-
 }
 
 export default ProgressBar

@@ -313,7 +313,8 @@ declare module '@primer/components' {
   export interface ProgressBarProps
     extends BaseProps, CommonProps {
       progress?: number | string
-      large?: boolean
+      barSize?: 'small' | 'default' | 'large'
+      inline?: boolean
     }
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>

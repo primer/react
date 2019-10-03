@@ -3,12 +3,20 @@ title: ProgressBar
 ---
 
 
-Use `ProgressBar` to visualize task completion.
+Use `ProgressBar` to visualize task completion. 
 
 ## Default example
 
 ```jsx live
 <ProgressBar progress={80}/>
+ ```
+
+ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be sure to set a width**.
+ ```jsx live
+  <>
+    <Text mr={3}>5 of 10</Text>
+    <ProgressBar progress={50} inline width='100px'/>
+  </>
  ```
 
 ## System props
@@ -21,4 +29,5 @@ ProgressBar components get `COMMON` system props. Read our [System Props](/syste
 | :- | :- | :-: | :- |
 | progress | Number | | Used to set the size of the green bar |
 | barSize | String | 'default' | Controls the height of the progress bar. Can be 'small', 'large', or 'default'. If omitted, height is set to the default height. |
+| inline | Boolean | false | Styles the progress bar inline |
 | bg | String | 'green.5' | Set the progress bar color, defaults to bg-green |
