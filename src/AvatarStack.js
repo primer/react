@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
+import {get, COMMON} from './constants'
 import uuid from 'uuid'
 
 const AvatarChild = styled.img`
@@ -55,6 +55,7 @@ const AvatarStackWrapper = styled.span`
   position: relative;
   min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
+  ${COMMON}
 `
 
 const AvatarStackBody = styled.span`
@@ -105,7 +106,7 @@ const AvatarStackBody = styled.span`
 `
 const AvatarStack = ({children, ...rest}) => {
   return (
-    <AvatarStackWrapper count={children.length}>
+    <AvatarStackWrapper count={children.length} {...rest}>
       <AvatarStackBody>{transformChildren(children)}</AvatarStackBody>
     </AvatarStackWrapper>
   )
