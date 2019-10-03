@@ -311,7 +311,7 @@ declare module '@primer/components' {
   export const Dialog: React.FunctionComponent<DialogProps>
 
   export interface ProgressBarProps
-    extends BaseProps, CommonProps {
+    extends BaseProps, CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
       progress?: number | string
       large?: boolean
     }
