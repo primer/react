@@ -1,6 +1,6 @@
 import React from 'react'
 import ProgressBar from '../ProgressBar'
-import {render, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../constants'
 
 describe('ProgressBar', () => {
@@ -16,11 +16,13 @@ describe('ProgressBar', () => {
     expect(render(<ProgressBar as="span" />).type).toEqual('span')
   })
 
-  it('respects the "large" prop', () => {
-    expect(render(<ProgressBar progress={80} large />)).toHaveStyleRule('height', '10px')
+  it('respects the "size" prop', () => {
+    expect(render(<ProgressBar progress={80} barSize="small" />)).toHaveStyleRule('height', '5px')
+    expect(render(<ProgressBar progress={80} barSize="default" />)).toHaveStyleRule('height', '8px')
+    expect(render(<ProgressBar progress={80} barSize="large" />)).toHaveStyleRule('height', '10px')
   })
 
   it('respects the "progress" prop', () => {
-    expect(render(<ProgressBar progress={80} large />)).toMatchSnapshot()
+    expect(render(<ProgressBar progress={80} />)).toMatchSnapshot()
   })
 })

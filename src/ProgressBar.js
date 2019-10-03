@@ -21,7 +21,7 @@ const ProgressContainer = styled.span`
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
   border-radius: ${get('radii.1')}px;
-  height: ${props => sizeMap[props.size]};
+  height: ${props => sizeMap[props.barSize]};
   ${COMMON}
 `
 
@@ -35,14 +35,15 @@ const ProgressBar = ({progress, bg, ...rest}) => {
 
 ProgressBar.defaultProps = {
   bg: 'green.5',
-  size: 'default',
+  barSize: 'default',
   theme
 }
 
 ProgressBar.propTypes = {
   ...COMMON.propTypes,
-  progress: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-  size: PropTypes.oneOf(['small', 'default', 'large'])
+  barSize: PropTypes.oneOf(['small', 'default', 'large']),
+  progress: PropTypes.oneOf([PropTypes.string, PropTypes.number])
+
 }
 
 export default ProgressBar
