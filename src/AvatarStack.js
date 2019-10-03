@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get, COMMON} from './constants'
-import uuid from 'uuid'
 
-const AvatarChild = styled.img`
+const Item = styled.img.attrs(props => ({
+  className: 'avatar'
+}))`
   position: relative;
   z-index: 2;
   display: flex;
@@ -41,9 +42,7 @@ const transformChildren = children => {
     return (
       <>
         {count > 3 && index === 2 && <div className="avatar-more" />}
-        <AvatarChild className="avatar" key={uuid()} {...child.props}>
-          {child.children}
-        </AvatarChild>
+        {child}
       </>
     )
   })
@@ -111,5 +110,7 @@ const AvatarStack = ({children, ...rest}) => {
     </AvatarStackWrapper>
   )
 }
+
+AvatarStack.Item = Item
 
 export default AvatarStack
