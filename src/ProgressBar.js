@@ -17,7 +17,6 @@ const sizeMap = {
 
 const ProgressContainer = styled.span`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
-  height: ${get('spacing.2')};
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
   border-radius: ${get('radii.1')}px;
