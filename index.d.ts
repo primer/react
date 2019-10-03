@@ -311,7 +311,18 @@ declare module '@primer/components' {
   }
 
   export const Dialog: React.FunctionComponent<DialogProps>
+
+  export interface ProgressBarProps
+    extends BaseProps, CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+      progress?: number | string
+      barSize?: 'small' | 'default' | 'large'
+      inline?: boolean
+    }
+
+  export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
+
+
 
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
@@ -463,4 +474,9 @@ declare module '@primer/components/src/theme' {
 declare module '@primer/components/src/Dialog' {
   import {Dialog} from '@primer/components'
   export default Dialog
+}
+
+declare module '@primer/components/src/ProgressBar' {
+  import {ProgressBar} from '@primer/components'
+  export default ProgressBar
 }
