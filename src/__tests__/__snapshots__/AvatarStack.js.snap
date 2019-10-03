@@ -32,7 +32,7 @@ exports[`Avatar matches snapshot 1`] = `
   border-radius: 2px;
 }
 
-.c2:nth-child(n+4) {
+.c2:nth-child(n + 4) {
   display: none;
   opacity: 0;
 }
@@ -57,7 +57,7 @@ exports[`Avatar matches snapshot 1`] = `
   margin-right: 3px;
 }
 
-.c1:hover .avatar:nth-child(n+4) {
+.c1:hover .avatar:nth-child(n + 4) {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -156,7 +156,7 @@ exports[`Avatar respects alignRight props 1`] = `
   border-radius: 2px;
 }
 
-.c2:nth-child(n+4) {
+.c2:nth-child(n + 4) {
   display: none;
   opacity: 0;
 }
@@ -223,7 +223,7 @@ exports[`Avatar respects alignRight props 1`] = `
   margin-right: 3px;
 }
 
-.c1:hover .avatar:nth-child(n+4) {
+.c1:hover .avatar:nth-child(n + 4) {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
