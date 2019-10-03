@@ -7,10 +7,10 @@ AvatarStack is used to display more than one Avatar in an inline stack.
 AvatarStack
 ```jsx live
  <AvatarStack>
-  <AvatarStack.Item src="https://avatars.githubusercontent.com/primer"/>
-  <AvatarStack.Item src="https://avatars.githubusercontent.com/github"/>
-  <AvatarStack.Item src="https://avatars.githubusercontent.com/primer"/>
-  <AvatarStack.Item src="https://avatars.githubusercontent.com/github"/>
+  <AvatarStack.Item alt="Primer src="https://avatars.githubusercontent.com/primer"/>
+  <AvatarStack.Item alt="GitHub" src="https://avatars.githubusercontent.com/github"/>
+  <AvatarStack.Item alt="Primer 2" src="https://avatars.githubusercontent.com/primer"/>
+  <AvatarStack.Item alt="GitHub 2" src="https://avatars.githubusercontent.com/github"/>
  </AvatarStack>
  ```
 
@@ -24,4 +24,5 @@ AvatarStack components get `COMMON` system props. Read our [System Props](/syste
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | alignRight | Boolean | | Creates right aligned AvatarStack |
+| alt | String | | Adds accessible alternative text for avatars |
 
