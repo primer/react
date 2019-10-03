@@ -11,7 +11,6 @@ const Bar = styled.span`
 
 const ProgressContainer = styled.span`
   display: flex;
-  height: ${get('spacing.2')};
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
   border-radius: ${get('radii.1')}px;
