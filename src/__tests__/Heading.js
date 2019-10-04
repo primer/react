@@ -72,7 +72,7 @@ describe('Heading', () => {
     expect(render(<Heading fontFamily="mono" theme={theme} />)).toHaveStyleRule('font-family', theme.fonts.mono)
   })
 
-  xit('respects nowrap', () => {
+  it.skip('respects nowrap', () => {
     expect(render(<Heading nowrap theme={theme} />)).toEqual(render(<span className="no-wrap" />))
   })
 
@@ -87,7 +87,7 @@ describe('Heading', () => {
     expect(render(<Heading as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
 
-  xit('renders fontSize with f* classes using inverse scale', () => {
+  it.skip('renders fontSize with f* classes using inverse scale', () => {
     expect(render(<Heading fontSize={0} theme={theme} />)).toEqual(render(<span className="f6" />))
     expect(render(<Heading fontSize={1} theme={theme} />)).toEqual(render(<span className="f5" />))
     expect(render(<Heading fontSize={2} theme={theme} />)).toEqual(render(<span className="f4" />))
@@ -97,13 +97,13 @@ describe('Heading', () => {
     expect(render(<Heading fontSize={6} theme={theme} />)).toEqual(render(<span className="f0" />))
   })
 
-  xit('does not pass on arbitrary attributes', () => {
+  it.skip('does not pass on arbitrary attributes', () => {
     const defaultOutput = render(<Heading />)
     expect(render(<Heading bugs="bar" />)).toEqual(defaultOutput)
     expect(render(<Heading hidden />)).toEqual(defaultOutput)
   })
 
-  xit('respects other values for fontSize', () => {
+  it.skip('respects other values for fontSize', () => {
     expect(render(<Heading fontSize="2em" theme={theme} />)).toHaveStyleRule('font-size', '2em')
     expect(render(<Heading fontSize={100} theme={theme} />)).toHaveStyleRule('font-size', '100px')
   })
