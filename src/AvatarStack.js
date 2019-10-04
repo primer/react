@@ -5,17 +5,15 @@ import {get, COMMON} from './constants'
 import theme from './theme'
 
 const rightStyles = `
-  .AvatarStackBody {
-    right: 0;
-    flex-direction: row-reverse;
+  right: 0;
+  flex-direction: row-reverse;
 
-    &:hover .AvatarItem {
-      margin-right: 0;
-      margin-left: 3px;
-    }
+  &:hover .AvatarItem {
+    margin-right: 0;
+    margin-left: 3px;
   }
 
-  .AvatarItem.AvatarItem-more {
+  .AvatarItem-more {
     background: ${get('colors.gray.3')};
 
     &::before {
@@ -36,46 +34,14 @@ const rightStyles = `
   }
 `
 
-const Item = styled.img.attrs(() => ({
-  className: 'AvatarItem'
-}))`
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: 20px;
-  height: 20px;
-  box-sizing: content-box;
-  margin-right: -11px;
-  background-color: ${get('colors.white')};
-  border-right: ${get('borders.1')} ${get('colors.white')};
-  border-radius: 2px;
-  transition: margin 0.1s ease-in-out;
+const Item = styled.img.attrs(() => ({className: 'AvatarItem'}))``
 
-  &:first-child {
-    z-index: 3;
-  }
-
-  &:last-child {
-    z-index: 1;
-    border-right: 0;
-  }
-
-  img {
-    border-radius: 2px;
-  }
-
-  // Account for 4+ avatars
-  &:nth-child(n + 4) {
-    display: none;
-    opacity: 0;
-  }
-`
 const transformChildren = children => {
   const count = children.length
   const newChildren = React.Children.map(children, (child, index) => {
     return (
       <>
-        {count > 3 && index === 2 && <div className="AvatarItem-more" />}
+        {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
         {child}
       </>
     )
@@ -89,7 +55,6 @@ const AvatarStackWrapper = styled.span`
   min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
   ${COMMON}
-  ${props => (props.alignRight ? rightStyles : '')}
 `
 
 const AvatarStackBody = styled.span`
@@ -109,6 +74,39 @@ const AvatarStackBody = styled.span`
 
     .AvatarItem-more {
       display: none !important;
+    }
+  }
+
+  .AvatarItem {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    box-sizing: content-box;
+    margin-right: -11px;
+    background-color: ${get('colors.white')};
+    border-right: ${get('borders.1')} ${get('colors.white')};
+    border-radius: 2px;
+    transition: margin 0.1s ease-in-out;
+
+    &:first-child {
+      z-index: 3;
+    }
+
+    &:last-child {
+      z-index: 1;
+      border-right: 0;
+    }
+
+    img {
+      border-radius: 2px;
+    }
+
+    // Account for 4+ avatars
+    &:nth-child(n + 4) {
+      display: none;
+      opacity: 0;
     }
   }
 
@@ -137,11 +135,12 @@ const AvatarStackBody = styled.span`
       background: ${get('colors.gray.3')};
     }
   }
+  ${props => (props.alignRight ? rightStyles : '')}
 `
-const AvatarStack = ({children = [], ...rest}) => {
+const AvatarStack = ({children = [], alignRight, ...rest}) => {
   return (
     <AvatarStackWrapper count={children.length} {...rest}>
-      <AvatarStackBody className="AvatarStackBody">{transformChildren(children)}</AvatarStackBody>
+      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">{transformChildren(children)}</AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
