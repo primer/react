@@ -54,6 +54,8 @@
       url: /PointerBox
     - title: Position
       url: /Position
+    - title: ProgressBar
+      url: /ProgressBar
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
