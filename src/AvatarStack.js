@@ -124,7 +124,7 @@ const AvatarStackBody = styled.span`
       height: 20px;
       content: '';
       border-radius: 2px;
-      outline: ${get('borders.1')} solid ${get('colors.white')};
+      outline: ${get('borders.1')} ${get('colors.white')};
     }
 
     &::before {
