@@ -16,6 +16,8 @@ The LabelGroup component is used to add commonly used margins and wrapping for g
 
 ## System props
 
-Label components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+LabelGroup components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
+
+LabelGroup does not get any additional props other than the `COMMON` system props.
