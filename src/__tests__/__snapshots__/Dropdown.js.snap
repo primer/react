@@ -96,15 +96,15 @@ exports[`Dropdown matches the snapshots 1`] = `
   z-index: 1;
 }
 
-.c1 > summary {
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -126,7 +126,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
+    className="c2 c1"
   >
     <div
       className="c3"
@@ -232,15 +232,15 @@ exports[`Dropdown matches the snapshots 2`] = `
   z-index: 1;
 }
 
-.c1 > summary {
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -262,7 +262,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
+    className="c2 c1"
   >
     hi
     <div
