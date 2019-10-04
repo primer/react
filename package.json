@@ -33,7 +33,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "7.4.4",
+    "@babel/polyfill": "7.6.0",
     "@primer/octicons-react": "^9.1.1",
     "@reach/dialog": "0.2.9",
     "@styled-system/prop-types": "5.0.5",
@@ -53,10 +53,10 @@
     "styled-system": "5.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.5",
-    "@babel/core": "7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
-    "@babel/preset-env": "7.5.5",
+    "@babel/cli": "7.6.2",
+    "@babel/core": "7.6.2",
+    "@babel/plugin-proposal-object-rest-spread": "7.6.2",
+    "@babel/preset-env": "7.6.2",
     "@babel/preset-react": "7.0.0",
     "@mdx-js/loader": "0.15.0",
     "@mdx-js/mdx": "0.15.0",
