@@ -4,36 +4,37 @@ import styled from 'styled-components'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
-const rightStyles = `
-  right: 0;
-  flex-direction: row-reverse;
+const alignRightStyles = theme => {
+  return `
+    right: 0;
+    flex-direction: row-reverse;
 
-  &:hover .AvatarItem {
-    margin-right: 0;
-    margin-left: 3px;
-  }
-
-  .AvatarItem-more {
-    background: ${get('colors.gray.3')};
-
-    &::before {
-      width: 5px;
+    &:hover .AvatarItem {
+      margin-right: 0;
+      margin-left: 3px;
     }
 
-    &::after {
-      width: 2px;
-      background: ${get('colors.gray.1')};
+    .AvatarItem-more {
+      background: ${get('colors.gray.3')(theme)};
+
+      &::before {
+        width: 5px;
+      }
+
+      &::after {
+        background: ${get('colors.gray.1')(theme)};
+        width: 2px;
+      }
     }
-  }
 
-  .AvatarItem {
-    margin-right: 0;
-    margin-left: -11px;
-    border-right: 0;
-    border-left: ${get('borders.1')} ${get('colors.white')};
-  }
-`
-
+    .AvatarItem {
+      margin-right: 0;
+      margin-left: -11px;
+      border-right: 0;
+      border-left: ${get('borders.1')(theme)} ${get('colors.white')(theme)};
+    }
+  `
+}
 const Item = styled.img.attrs(() => ({className: 'AvatarItem'}))``
 
 const transformChildren = children => {
@@ -113,7 +114,7 @@ const AvatarStackBody = styled.span`
   .AvatarItem-more {
     z-index: 1;
     margin-right: 0;
-    background: ${get('colors.gray.2')};
+    background: ${get('colors.gray.1')};
 
     &::before,
     &::after {
@@ -135,7 +136,7 @@ const AvatarStackBody = styled.span`
       background: ${get('colors.gray.3')};
     }
   }
-  ${props => (props.alignRight ? rightStyles : '')}
+  ${props => (props.alignRight ? alignRightStyles(props.theme) : '')}
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   return (
