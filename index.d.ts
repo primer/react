@@ -311,6 +311,10 @@ declare module '@primer/components' {
   }
 
   export const Dialog: React.FunctionComponent<DialogProps>
+
+  export interface LabelGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
+
+  export const LabelGroup: React.FunctionComponent<LabelGroupProps>
 }
 
 declare module '@primer/components/src/Box' {
@@ -464,3 +468,9 @@ declare module '@primer/components/src/Dialog' {
   import {Dialog} from '@primer/components'
   export default Dialog
 }
+
+declare module '@primer/components/src/LabelGroup' {
+  import {LabelGroup} from '@primer/components'
+  export default LabelGroup
+}
+
