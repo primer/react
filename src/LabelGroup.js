@@ -5,7 +5,7 @@ import {COMMON} from './constants'
 
 const transformChildren = children => {
   return React.Children.map(children, child => {
-    return React.cloneElement(child, {mr: 1})
+    return React.cloneElement(child, {mr: 1, className: 'LabelItem'})
   })
 }
 
@@ -13,7 +13,7 @@ const LabelGroup = styled.span.attrs(props => ({
   children: transformChildren(props.children)
 }))`
   ${COMMON}
-  & span:last-child {
+  & .LabelItem:last-child {
     margin-right: 0;
   }
 `
