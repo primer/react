@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import CircleBadge from '../CircleBadge'
 import {render, mount} from '../utils/testing'

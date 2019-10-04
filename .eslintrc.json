@@ -6,8 +6,10 @@
   ],
   "rules": {
     "import/no-namespace": 0,
+    "no-shadow": 0,
     "no-unused-vars": ["error", {
       "ignoreRestSiblings": true
-    }]
+    }],
+    "eslint-comments/no-use": 0
   }
 }
