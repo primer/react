@@ -5,17 +5,17 @@ import {get, COMMON} from './constants'
 import theme from './theme'
 
 const rightStyles = `
-  .body {
+  .AvatarStackBody {
     right: 0;
     flex-direction: row-reverse;
 
-    &:hover .avatar {
+    &:hover .AvatarItem {
       margin-right: 0;
       margin-left: 3px;
     }
   }
 
-  .avatar.avatar-more {
+  .AvatarItem.AvatarItem-more {
     background: ${get('colors.gray.3')};
 
     &::before {
@@ -28,7 +28,7 @@ const rightStyles = `
     }
   }
 
-  .avatar {
+  .AvatarItem {
     margin-right: 0;
     margin-left: -11px;
     border-right: 0;
@@ -37,7 +37,7 @@ const rightStyles = `
 `
 
 const Item = styled.img.attrs(() => ({
-  className: 'avatar'
+  className: 'AvatarItem'
 }))`
   position: relative;
   z-index: 2;
@@ -75,7 +75,7 @@ const transformChildren = children => {
   const newChildren = React.Children.map(children, (child, index) => {
     return (
       <>
-        {count > 3 && index === 2 && <div className="avatar-more" />}
+        {count > 3 && index === 2 && <div className="AvatarItem-more" />}
         {child}
       </>
     )
@@ -98,21 +98,21 @@ const AvatarStackBody = styled.span`
   background: white;
 
   &:hover {
-    .avatar {
+    .AvatarItem {
       margin-right: 3px;
     }
 
-    .avatar:nth-child(n + 4) {
+    .AvatarItem:nth-child(n + 4) {
       display: flex;
       opacity: 1;
     }
 
-    .avatar-more {
+    .AvatarItem-more {
       display: none !important;
     }
   }
 
-  .avatar-more {
+  .AvatarItem-more {
     z-index: 1;
     margin-right: 0;
     background: ${get('colors.gray.2')};
@@ -141,7 +141,7 @@ const AvatarStackBody = styled.span`
 const AvatarStack = ({children = [], ...rest}) => {
   return (
     <AvatarStackWrapper count={children.length} {...rest}>
-      <AvatarStackBody className="body">{transformChildren(children)}</AvatarStackBody>
+      <AvatarStackBody className="AvatarStackBody">{transformChildren(children)}</AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
