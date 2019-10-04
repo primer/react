@@ -17,8 +17,6 @@ exports[`CircleBadge respects "as" prop 1`] = `
   background-color: #fff;
   border-radius: 50%;
   box-shadow: 0 1px 5px rgba(27,31,35,0.15);
-  width: medium;
-  height: medium;
   width: 96px;
   height: 96px;
 }
