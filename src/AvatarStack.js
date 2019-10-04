@@ -39,7 +39,7 @@ const Item = styled.img.attrs(() => ({className: 'AvatarItem'}))``
 
 const transformChildren = children => {
   const count = children.length
-  const newChildren = React.Children.map(children, (child, index) => {
+  return React.Children.map(children, (child, index) => {
     return (
       <>
         {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
@@ -47,7 +47,6 @@ const transformChildren = children => {
       </>
     )
   })
-  return newChildren
 }
 
 const AvatarStackWrapper = styled.span`
