@@ -32,7 +32,7 @@ const rightStyles = `
     margin-right: 0;
     margin-left: -11px;
     border-right: 0;
-    border-left: ${get('borders.1')} solid ${get('colors.white')};
+    border-left: ${get('borders.1')} ${get('colors.white')};
   }
 `
 
