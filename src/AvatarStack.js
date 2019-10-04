@@ -47,7 +47,7 @@ const Item = styled.img.attrs(() => ({
   box-sizing: content-box;
   margin-right: -11px;
   background-color: ${get('colors.white')};
-  border-right: ${get('borders.1')} solid ${get('colors.white')};
+  border-right: ${get('borders.1')} ${get('colors.white')};
   border-radius: 2px;
   transition: margin 0.1s ease-in-out;
 
