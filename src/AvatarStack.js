@@ -140,7 +140,9 @@ const AvatarStackBody = styled.span`
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   return (
     <AvatarStackWrapper count={children.length} {...rest}>
-      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">{transformChildren(children)}</AvatarStackBody>
+      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
+        {transformChildren(children)}
+      </AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
