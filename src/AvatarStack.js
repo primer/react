@@ -35,7 +35,6 @@ const alignRightStyles = theme => {
     }
   `
 }
-const Item = styled.img.attrs(() => ({className: 'AvatarItem'}))``
 
 const transformChildren = children => {
   const count = children.length
@@ -43,7 +42,7 @@ const transformChildren = children => {
     return (
       <>
         {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
-        {child}
+        {React.cloneElement(child, {className: 'AvatarItem'})}
       </>
     )
   })
@@ -101,6 +100,7 @@ const AvatarStackBody = styled.span`
 
     img {
       border-radius: 2px;
+      width: inherit;
     }
 
     // Account for 4+ avatars
@@ -146,8 +146,6 @@ const AvatarStack = ({children = [], alignRight, ...rest}) => {
     </AvatarStackWrapper>
   )
 }
-
-AvatarStack.Item = Item
 
 AvatarStack.defaultProps = {
   theme

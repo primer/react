@@ -316,12 +316,7 @@ declare module '@primer/components' {
     alignRight?: boolean
   }
 
-  export interface AvatarStackItemProps
-    extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {}
-
-  export const AvatarStack: React.FunctionComponent<AvatarStackProps> & {
-    Item: React.FunctionComponent<AvatarStackItemProps>
-  }
+  export const AvatarStack: React.FunctionComponent<AvatarStackProps> 
 
 }
 
