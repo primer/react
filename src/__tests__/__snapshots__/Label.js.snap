@@ -7,9 +7,14 @@ exports[`Label respects the "outline" prop 1`] = `
   line-height: 1;
   color: #fff;
   border-radius: 2px;
-  background-color: #6a737d;
-  padding: 3px 4px;
   font-size: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #6a737d;
+  width: medium;
+  height: medium;
   margin-top: -1px;
   margin-bottom: -1px;
   font-weight: 400;

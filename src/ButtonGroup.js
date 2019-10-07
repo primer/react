@@ -12,6 +12,12 @@ const ButtonGroup = styled(Box)`
     :first-child {
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
+      margin-right: 0;
+    }
+
+    :not(:first-child) {
+      margin-left: 0;
+      margin-right: 0;
     }
 
     :last-child {

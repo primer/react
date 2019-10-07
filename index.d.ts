@@ -315,7 +315,23 @@ declare module '@primer/components' {
   export interface LabelGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 
   export const LabelGroup: React.FunctionComponent<LabelGroupProps>
+
+  export interface AvatarStackProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+    alignRight?: boolean
+  }
+
+  export const AvatarStack: React.FunctionComponent<AvatarStackProps> 
+  export interface ProgressBarProps
+    extends BaseProps, CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+      progress?: number | string
+      barSize?: 'small' | 'default' | 'large'
+      inline?: boolean
+    }
+
+  export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
+
+
 
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
@@ -472,5 +488,10 @@ declare module '@primer/components/src/Dialog' {
 declare module '@primer/components/src/LabelGroup' {
   import {LabelGroup} from '@primer/components'
   export default LabelGroup
+}
+
+declare module '@primer/components/src/ProgressBar' {
+  import {ProgressBar} from '@primer/components'
+  export default ProgressBar
 }
 
