@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {PropsWithChildren} from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {CSSObject} from 'styled-components'
 import {get} from './constants'
 import Avatar from './Avatar'
 import theme from './theme'
+import {AvatarProps} from '@primer/components'
 
 const getBackgroundColor = get('colors.white')
 
@@ -12,7 +13,7 @@ const Wrapper = styled('div')`
   position: relative;
 `
 
-const childStyles = props => ({
+const childStyles = (props: CSSObject) => ({
   display: 'inline-block',
   overflow: 'hidden', // Ensure page layout in Firefox should images fail to load
   lineHeight: `${get('lineHeights.condensedUltra')}`,
@@ -26,11 +27,15 @@ const childStyles = props => ({
 })
 
 const ChildAvatar = styled(Avatar)(childStyles)
-const AvatarPair = ({children, ...rest}) => {
+const AvatarPair = ({children, ...rest}: PropsWithChildren<AvatarProps>) => {
   const avatars = React.Children.map(children, (child, i) => {
-    return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar {...child.props} size={20} />
+    return i === 0 && React.isValidElement(child) ? (
+      React.cloneElement(child, {size: 40})
+    ) : (
+      <ChildAvatar {...(child as React.ReactElement<any>).props} size={20} />
+    )
   })
-  return <Wrapper {...rest}>{avatars}</Wrapper>
+  return <Wrapper {...(rest as any)}>{avatars}</Wrapper>
 }
 
 // styled() changes this
