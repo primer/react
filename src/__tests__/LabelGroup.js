@@ -18,7 +18,7 @@ describe('BranchName', () => {
   })
 
   it('respects the "as" prop', () => {
-    expect(render(<LabelGroup as="div" />).type).toEqual('span')
+    expect(render(<LabelGroup as="div" />).type).toEqual('div')
   })
 
   it('implements common system props', () => {

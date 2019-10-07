@@ -11,11 +11,15 @@ exports[`BranchName matches snapshot 1`] = `
   line-height: 1;
   color: #fff;
   border-radius: 2px;
+  font-size: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   margin: 4px;
   background-color: #6a737d;
-  margin-right: 4px;
-  padding: 3px 4px;
-  font-size: 12px;
+  width: medium;
+  height: medium;
 }
 
 .c1:hover {
@@ -29,11 +33,15 @@ exports[`BranchName matches snapshot 1`] = `
   line-height: 1;
   color: #fff;
   border-radius: 2px;
+  font-size: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   margin: 4px;
   background-color: #6a737d;
-  margin-right: 4px;
-  padding: 3px 4px;
-  font-size: 12px;
+  width: medium;
+  height: medium;
   margin-top: -1px;
   margin-bottom: -1px;
   font-weight: 400;
@@ -52,19 +60,19 @@ exports[`BranchName matches snapshot 1`] = `
   className="c0"
 >
   <span
-    className="c1 LabelItem"
+    className="c1"
     size="medium"
   >
     Default label
   </span>
   <span
-    className="c1 LabelItem"
+    className="c1"
     size="medium"
   >
     Darker gray label
   </span>
   <span
-    className="c2 LabelItem"
+    className="c2"
     size="medium"
   >
     Default outline label
