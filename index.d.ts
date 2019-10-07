@@ -320,9 +320,9 @@ declare module '@primer/components' {
     alignRight?: boolean
   }
 
-  export const AvatarStack: React.FunctionComponent<AvatarStackProps> 
+  export const AvatarStack: React.FunctionComponent<AvatarStackProps>
   export interface ProgressBarProps
-    extends BaseProps, CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+    extends BaseProps, CommonProps, StyledSystem.WidthProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
       progress?: number | string
       barSize?: 'small' | 'default' | 'large'
       inline?: boolean
