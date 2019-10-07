@@ -5,11 +5,11 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
-function TextInputBase({autocomplete, theme, size, block, className, ...rest}) {
+function TextInputBase({autocomplete, theme, variant, block, className, ...rest}) {
   const classes = classnames(className, 'form-control', {
     'input-block': block,
-    'input-sm': size === 'small',
-    'input-lg': size === 'large'
+    'input-sm': variant === 'small',
+    'input-lg': variant === 'large'
   })
   const inputProps = {
     className: classes,
