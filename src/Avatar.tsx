@@ -4,9 +4,9 @@ import {get} from './constants'
 import {space} from 'styled-system'
 import * as systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
-import { AvatarProps } from '@primer/components'
+import {AvatarProps} from '@primer/components'
 
-function borderRadius({size}) {
+function borderRadius({size}: {size: number}) {
   return {
     borderRadius: size <= 24 ? '2px' : '3px'
   }

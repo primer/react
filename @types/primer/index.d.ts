@@ -463,3 +463,5 @@ declare module '@primer/components/src/Dialog' {
   import {Dialog} from '@primer/components'
   export default Dialog
 }
+
+declare module '@styled-system/prop-types'
