@@ -3,7 +3,7 @@
 exports[`ProgressBar respects the "progress" prop 1`] = `
 .c1 {
   width: 80%;
-  background-color: green.5;
+  background-color: #28a745;
 }
 
 .c0 {
