@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import {layout} from 'styled-system'
+import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 import {COMMON, get} from './constants'
 
@@ -22,12 +24,13 @@ const ProgressContainer = styled.span`
   border-radius: ${get('radii.1')}px;
   height: ${props => sizeMap[props.barSize]};
   ${COMMON}
+  ${layout.width}
 `
 
-const ProgressBar = ({progress, bg, ...rest}) => {
+const ProgressBar = ({progress, bg, theme, ...rest}) => {
   return (
-    <ProgressContainer {...rest}>
-      <Bar progress={progress} bg={bg} />
+    <ProgressContainer theme={theme} {...rest}>
+      <Bar progress={progress} bg={bg} theme={theme} />
     </ProgressContainer>
   )
 }
@@ -42,7 +45,9 @@ ProgressBar.propTypes = {
   ...COMMON.propTypes,
   barSize: PropTypes.oneOf(['small', 'default', 'large']),
   inline: PropTypes.bool,
-  progress: PropTypes.oneOf([PropTypes.string, PropTypes.number])
+  progress: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: systemPropTypes.layout.width,
+  theme: PropTypes.object
 }
 
 export default ProgressBar
