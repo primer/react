@@ -62,6 +62,7 @@ exports[`Avatar matches snapshot 1`] = `
 
 .c1 .AvatarItem img {
   border-radius: 2px;
+  width: inherit;
 }
 
 .c1 .AvatarItem:nth-child(n + 4) {
@@ -102,22 +103,22 @@ exports[`Avatar matches snapshot 1`] = `
     className="AvatarStackBody c1"
   >
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
     <div
       className="AvatarItem-more AvatarItem"
     />
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
   </span>
@@ -190,6 +191,7 @@ exports[`Avatar respects alignRight props 1`] = `
 
 .c1 .AvatarItem img {
   border-radius: 2px;
+  width: inherit;
 }
 
 .c1 .AvatarItem:nth-child(n + 4) {
@@ -255,22 +257,22 @@ exports[`Avatar respects alignRight props 1`] = `
     className="AvatarStackBody c1"
   >
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
     <div
       className="AvatarItem-more AvatarItem"
     />
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
-      className="AvatarItem "
+      className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
   </span>
