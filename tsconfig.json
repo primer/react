@@ -9,7 +9,12 @@
     "sourceMap": true,
     "strict": false,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+
+    "typeRoots": [
+      "node_modules/@types",
+      "@types"
+    ]
   },
   "include": ["src"]
 }
