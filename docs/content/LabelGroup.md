@@ -8,9 +8,9 @@ The LabelGroup component is used to add commonly used margins and wrapping for g
 
 ```jsx live
 <LabelGroup>
-  <Label m={1}>Default label</Label>
-  <Label m={1} scheme="gray-darker">Darker gray label</Label>
-  <Label m={1} outline>Default outline label</Label>
+  <Label>Default label</Label>
+  <Label bg='red.4'>Label with red background</Label>
+  <Label outline>Default outline label</Label>
 </LabelGroup>
 ```
 
