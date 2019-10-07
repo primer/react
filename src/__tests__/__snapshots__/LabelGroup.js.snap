@@ -16,7 +16,6 @@ exports[`BranchName matches snapshot 1`] = `
   padding-right: 3px;
   padding-top: 4px;
   padding-bottom: 4px;
-  margin: 4px;
   background-color: #6a737d;
   width: medium;
   height: medium;
@@ -38,7 +37,6 @@ exports[`BranchName matches snapshot 1`] = `
   padding-right: 3px;
   padding-top: 4px;
   padding-bottom: 4px;
-  margin: 4px;
   background-color: #6a737d;
   width: medium;
   height: medium;

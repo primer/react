@@ -6,9 +6,9 @@ import {COMMON} from '../constants'
 
 const comp = (
   <LabelGroup>
-    <Label m={1}>Default label</Label>
-    <Label m={1} scheme="gray-darker">Darker gray label</Label>
-    <Label m={1} outline>Default outline label</Label>
+    <Label>Default label</Label>
+    <Label>Darker gray label</Label>
+    <Label outline>Default outline label</Label>
   </LabelGroup>
 )
 
