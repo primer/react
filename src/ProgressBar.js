@@ -42,7 +42,7 @@ ProgressBar.propTypes = {
   ...COMMON.propTypes,
   barSize: PropTypes.oneOf(['small', 'default', 'large']),
   inline: PropTypes.bool,
-  progress: PropTypes.oneOf([PropTypes.string, PropTypes.number])
+  progress: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }
 
 export default ProgressBar
