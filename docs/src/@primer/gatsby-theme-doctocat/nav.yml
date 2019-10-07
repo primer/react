@@ -48,6 +48,8 @@
       url: /Heading
     - title: Label
       url: /Label
+    - title: LabelGroup
+      url: /LabelGroup
     - title: Link
       url: /Link
     - title: PointerBox
