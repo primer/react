@@ -312,6 +312,11 @@ declare module '@primer/components' {
 
   export const Dialog: React.FunctionComponent<DialogProps>
 
+  export interface AvatarStackProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+    alignRight?: boolean
+  }
+
+  export const AvatarStack: React.FunctionComponent<AvatarStackProps> 
   export interface ProgressBarProps
     extends BaseProps, CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
       progress?: number | string
