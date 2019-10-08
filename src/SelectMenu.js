@@ -1,9 +1,7 @@
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, TYPOGRAPHY, get} from './constants'
 import Button from './Button'
-import Flex from './Flex'
-import Heading from './Heading'
 import theme from './theme'
 import '@github/details-menu-element'
 
@@ -67,8 +65,10 @@ const ModalWrapper = styled.div`
     position: relative;
     z-index: 99; // Needs to be higher than .details-overlay's z-index: 80.
     display: flex;
-    max-height: 66%;
+    ${props => props.filter ? 'height: 80%' : ''};
+    max-height: ${props => props.filter ? 'none' : '66%'};
     margin: auto 0;
+    ${props => props.filter ? 'margin-top: 0' : ''};
     overflow: hidden; // Enables border radius on scrollable child elements
     pointer-events: auto;
     flex-direction: column;
@@ -78,7 +78,7 @@ const ModalWrapper = styled.div`
     animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
     @media (min-width: ${get('breakpoints.0')}) {
-      width: 300px;
+      width: ${props  => props.filter ? 'auto' : '300px'};
       height: auto;
       max-height: 350px;
       margin: ${get('space.1')}px 0 ${get('space.3')}px 0;
@@ -101,7 +101,7 @@ const ModalWrapper = styled.div`
 
 SelectMenu.Summary = ({children, ...rest}) => <Button as='summary' {...rest}>{children}</Button>
 
-SelectMenu.Modal = ({children, theme}) => {
+SelectMenu.Modal = ({children, filter, theme}) => {
   return (
     <ModalWrapper theme={theme}>
       <details-menu class='modal' role='menu'>
@@ -118,7 +118,7 @@ SelectMenu.Modal.defaultProps = {
 SelectMenu.Header = styled.header`
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
-  padding: ${get('space.3')};
+  padding: ${get('space.3')}px;
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding-top: ${get('space.2')}px;
@@ -135,6 +135,8 @@ SelectMenu.Title = styled.h3`
   font-size: ${get('fontSizes.1')}px;
   font-weight: ${get('fontWeights.bold')};
   margin: 0;
+  ${COMMON}
+  ${TYPOGRAPHY}
 
   @media (min-width: ${get('breakpoints.0')}) {
     font-size: inherit;
@@ -145,4 +147,31 @@ SelectMenu.Title.defaultProps = {
   theme
 }
 
+const StyledForm = styled.form`
+  padding: ${get('space.3')}px;
+  margin: 0;
+  border-top: ${get('borders.1')} ${get('colors.borders.gray')}; 
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding: ${get('space.2')}px;
+  }
+`
+
+const StyledInput = styled.input`
+  display: block;
+  width: 100%;
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    font-size: ${get('fontSizes.1')}px;
+  }
+`
+
+
+SelectMenu.Filter = (props) => {
+  return (
+    <StyledForm>
+      <StyledInput type="text" {...props}/> 
+    </StyledForm>
+  )
+}
 export default SelectMenu

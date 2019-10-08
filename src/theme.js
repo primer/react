@@ -26,6 +26,7 @@ const colors = {
     unknown: gray[4]
   },
   borders: {
+    gray: gray[2],
     grayDark: '#d1d5da'
   },
   button: {

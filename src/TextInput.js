@@ -45,13 +45,13 @@ const TextInput = styled(TextInputBase)`
     min-height: 28px;
     padding-top: 3px;
     padding-bottom: 3px;
-    font-size: $font-size-small;
+    font-size: ${get('fontSizes.0')}px;
     line-height: 20px;
   }
 
   &.input-lg {
-    padding: $spacer-1 10px;
-    font-size: $h4-size;
+    padding: ${get('space.1')}px 10px;
+    font-size: ${get('fontSizes.3')};
   }
 
   &.input-block {
