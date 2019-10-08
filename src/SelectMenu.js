@@ -3,7 +3,6 @@ import styled, {keyframes} from 'styled-components'
 import {COMMON, TYPOGRAPHY, get} from './constants'
 import Button from './Button'
 import theme from './theme'
-import '@github/details-menu-element'
 
 const SelectMenu = styled.details`
   &[open] > summary::before {
