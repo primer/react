@@ -12,6 +12,10 @@ describe('Label', () => {
     expect(render(<Label outline />)).toMatchSnapshot()
   })
 
+  it('respects the "variant" prop', () => {
+    expect(render(<Label variant="xl" />)).toMatchSnapshot()
+  })
+
   it('respects the "as" prop', () => {
     expect(render(<Label as="span" />).type).toEqual('span')
   })

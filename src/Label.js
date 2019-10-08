@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import theme, {colors} from './theme'
-import {COMMON} from './constants'
+import {COMMON, get} from './constants'
 
-const outlineStyles = `
+const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
   margin-bottom: -1px; // offsets the 1px border
   font-weight: 400;
-  color: ${colors.gray[6]};
+  color: ${get('colors.gray.6')};
   background-color: transparent;
-  border: ${theme.borders[1]} ${colors.blackfade15};
+  border: ${get('borders.1')} ${get('colors.blackfade15')};
   box-shadow: none;
 `
 
 const sizeVariant = variant({
-  prop: 'size',
   variants: {
     small: {
       fontSize: 0,
@@ -43,8 +42,8 @@ const sizeVariant = variant({
 const Label = styled('span')`
   display: inline-block;
   font-weight: 600;
-  line-height: ${theme.lineHeights.condensedUltra};
-  color: ${colors.white};
+  line-height: ${get('lineHeights.condensedUltra')};
+  color: ${get('colors.white')};
   border-radius: 2px;
   &:hover {
     text-decoration: none;
@@ -57,13 +56,14 @@ const Label = styled('span')`
 Label.defaultProps = {
   theme,
   bg: 'gray.5',
-  size: 'medium'
+  variant: 'medium'
 }
 
 Label.propTypes = {
   dropshadow: PropTypes.bool,
   outline: PropTypes.bool,
   theme: PropTypes.object,
+  variant: PropTypes.oneOf(['small', 'medium', 'large', 'xl']),
   ...COMMON.propTypes
 }
 

@@ -214,7 +214,7 @@ declare module '@primer/components' {
 
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
-    size?: 'small' | 'medium' | 'large' | 'xl'
+    variant?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
   }
 
