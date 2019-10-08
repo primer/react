@@ -51,10 +51,12 @@ const TextInput = styled.input.attrs(({autocomplete, theme, variant, block, clas
 
   ${sizeVariants}
 
-  ${props => props.block && css`
-    display: block;
-    width: 100%;
-  `}
+  ${props =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+    `}
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
   @media (max-width: ${get('breakpoints.1')}) {
@@ -75,9 +77,9 @@ TextInput.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
-  variant: PropTypes.oneOf(['small', 'large']),
   theme: PropTypes.object,
   value: PropTypes.string,
+  variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width
 }
