@@ -153,7 +153,9 @@ declare module '@primer/components' {
   export const BranchName: React.FunctionComponent<BranchNameProps>
 
   export interface CircleBadgeProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-    size?: string | number
+    inline?: boolean
+    size?: number
+    variant?: 'small' | 'medium' | 'large'
   }
 
   export const CircleBadge: React.FunctionComponent<CircleBadgeProps>

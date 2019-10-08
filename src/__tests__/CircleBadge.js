@@ -16,6 +16,18 @@ describe('CircleBadge', () => {
     expect(CircleBadge).toSetDefaultTheme()
   })
 
+  it('respects the inline prop', () => {
+    expect(render(<CircleBadge inline />)).toMatchSnapshot()
+  })
+
+  it('respects the variant prop', () => {
+    expect(render(<CircleBadge variant="large" />)).toMatchSnapshot()
+  })
+
+  it('uses the size prop to override the variant prop', () => {
+    expect(render(<CircleBadge variant="large" size={20} />)).toMatchSnapshot()
+  })
+
   it('implements system props', () => {
     expect(CircleBadge).toImplementSystemProps(COMMON)
   })
