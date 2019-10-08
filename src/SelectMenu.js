@@ -2,6 +2,8 @@ import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import {COMMON, get} from './constants'
 import Button from './Button'
+import Flex from './Flex'
+import Heading from './Heading'
 import theme from './theme'
 import '@github/details-menu-element'
 
@@ -42,7 +44,7 @@ const ModalWrapper = styled.div`
   left: 0;
   z-index: 99;
   display: flex;
-  padding: ${get('space.3')};
+  padding: ${get('space.3')}px;
   pointer-events: none;
   flex-direction: column;
 
@@ -55,6 +57,10 @@ const ModalWrapper = styled.div`
     pointer-events: none;
     content: "";
     background-color: ${get('colors.blackfade50')};
+
+    @media (min-width: ${get('breakpoints.0')}) {
+      display: none;
+    }
   }
 
   .modal {
@@ -66,10 +72,30 @@ const ModalWrapper = styled.div`
     overflow: hidden; // Enables border radius on scrollable child elements
     pointer-events: auto;
     flex-direction: column;
-    background-color: $gray-100;
-    border-radius: $border-radius * 2;
+    background-color: ${get('colors.gray.1')};
+    border-radius: ${get('radii.1') *2}px;
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
     animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
+
+    @media (min-width: ${get('breakpoints.0')}) {
+      width: 300px;
+      height: auto;
+      max-height: 350px;
+      margin: ${get('space.1')}px 0 ${get('space.3')}px 0;
+      font-size: ${get('fontSizes.0')}px;
+      border: ${get('borders.1')} ${get('colors.borders.grayDark')};
+      border-radius: ${get('radii.1')}px;
+      box-shadow: $box-shadow-medium;
+    }
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    padding: 0;
   }
 `
 
@@ -88,4 +114,35 @@ SelectMenu.Modal = ({children, theme}) => {
 SelectMenu.Modal.defaultProps = {
   theme
 }
+
+SelectMenu.Header = styled.header`
+  display: flex;
+  flex: none; // fixes header from getting squeezed in Safari iOS
+  padding: ${get('space.3')};
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding-top: ${get('space.2')}px;
+    padding-bottom: ${get('space.2')}px;
+  }
+`
+
+SelectMenu.Header.defaultProps = {
+  theme
+}
+
+SelectMenu.Title = styled.h3`
+  flex: auto;
+  font-size: ${get('fontSizes.1')}px;
+  font-weight: ${get('fontWeights.bold')};
+  margin: 0;
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    font-size: inherit;
+  }
+`
+
+SelectMenu.Title.defaultProps = {
+  theme
+}
+
 export default SelectMenu

@@ -25,6 +25,9 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
+  borders: {
+    grayDark: '#d1d5da'
+  },
   button: {
     disabledColor: 'rgba(36, 41, 46, 0.4)',
     bg2: 'rgb(239, 243, 246)',
