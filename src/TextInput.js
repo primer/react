@@ -1,4 +1,3 @@
-import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import systemPropTypes from '@styled-system/prop-types'
 import styled, {css} from 'styled-components'
@@ -23,9 +22,7 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = styled.input.attrs(({autocomplete, theme, variant, block, className, ...rest}) => ({
-  className: classnames(className, 'form-control'),
-  autoComplete: autocomplete,
+const TextInput = styled.input.attrs(({theme, variant, block, ...rest}) => ({
   type: 'text',
   ...rest
 }))`

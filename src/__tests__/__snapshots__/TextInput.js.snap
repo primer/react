@@ -30,7 +30,7 @@ exports[`TextInput renders 1`] = `
 }
 
 <input
-  className="c0 form-control"
+  className="c0"
   name="zipcode"
   type="text"
 />
@@ -68,7 +68,7 @@ exports[`TextInput renders block 1`] = `
 }
 
 <input
-  className="c0 form-control"
+  className="c0"
   name="zipcode"
   type="text"
 />
@@ -109,7 +109,7 @@ exports[`TextInput renders large 1`] = `
 }
 
 <input
-  className="c0 form-control"
+  className="c0"
   name="zipcode"
   type="text"
 />
@@ -152,7 +152,7 @@ exports[`TextInput renders small 1`] = `
 }
 
 <input
-  className="c0 form-control"
+  className="c0"
   name="zipcode"
   type="text"
 />
