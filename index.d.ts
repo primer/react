@@ -495,3 +495,7 @@ declare module '@primer/components/src/ProgressBar' {
   export default ProgressBar
 }
 
+declare module '@primer/components/src/AvatarStack' {
+  import {AvatarStack} from '@primer/components'
+  export default AvatarStack
+}
