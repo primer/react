@@ -1,7 +1,9 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import systemPropTypes from '@styled-system/prop-types'
 import styled from 'styled-components'
+import {layout} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -64,6 +66,7 @@ const TextInput = styled(TextInputBase)`
     font-size: ${get('fontSizes.1')}px;
   }
   ${COMMON};
+  ${layout.width}
 `
 
 TextInput.defaultProps = {theme}
@@ -80,7 +83,8 @@ TextInput.propTypes = {
   size: PropTypes.oneOf(['small', 'large']),
   theme: PropTypes.object,
   value: PropTypes.string,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  width: systemPropTypes.layout.width
 }
 
 export default TextInput
