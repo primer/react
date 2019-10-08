@@ -52,6 +52,8 @@
       url: /PointerBox
     - title: Position
       url: /Position
+    - title: SelectMenu
+      url: /SelectMenu
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
