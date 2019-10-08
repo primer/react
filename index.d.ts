@@ -265,7 +265,7 @@ declare module '@primer/components' {
   }
 
   export interface TextInputProps
-    extends CommonProps, StyledSystem.WidthProps
+    extends CommonProps, StyledSystem.WidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
     autocomplete?: string
     block?: boolean
