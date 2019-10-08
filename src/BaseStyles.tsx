@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   body { margin: 0; }
   table { border-collapse: collapse; }
 `
-const Base = props => {
+const Base = (props: any) => {
   const {color, lineHeight, fontFamily, theme, ...rest} = props
   return (
     <div {...rest}>

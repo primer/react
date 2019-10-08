@@ -4,14 +4,19 @@ import systemPropTypes from '@styled-system/prop-types'
 import themeGet from '@styled-system/theme-get'
 import theme from './theme'
 
+declare module 'styled-system' {
+  interface styleFn {
+    propTypes: any
+  }
+}
+
 const {get: getKey, compose, system} = styledSystem
 
-export const get = key => themeGet(key, getKey(theme, key))
+export const get = (key: string | number) => themeGet(key, getKey(theme, key))
 
 const whiteSpace = system({
   whiteSpace: {
-    property: 'whiteSpace',
-    cssProperty: 'whiteSpace'
+    property: 'whiteSpace'
   }
 })
 

@@ -43,7 +43,7 @@ AvatarPair.displayName = 'AvatarPair'
 
 AvatarPair.defaultProps = {theme}
 AvatarPair.propTypes = {
-  children: PropTypes.instanceOf(Avatar),
+  children: PropTypes.instanceOf(Avatar as any),
   ...Avatar.propTypes,
   theme: PropTypes.object
 }
