@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
-const alignRightStyles = theme => {
-  return `
+const alignRightStyles = css`
     right: 0;
     flex-direction: row-reverse;
 
@@ -15,14 +14,14 @@ const alignRightStyles = theme => {
     }
 
     .AvatarItem-more {
-      background: ${get('colors.gray.3')(theme)};
+      background: ${get('colors.gray.3')};
 
       &::before {
         width: 5px;
       }
 
       &::after {
-        background: ${get('colors.gray.1')(theme)};
+        background: ${get('colors.gray.1')};
         width: 2px;
       }
     }
@@ -31,10 +30,9 @@ const alignRightStyles = theme => {
       margin-right: 0;
       margin-left: -11px;
       border-right: 0;
-      border-left: ${get('borders.1')(theme)} ${get('colors.white')(theme)};
+      border-left: ${get('borders.1')} ${get('colors.white')};
     }
   `
-}
 
 const transformChildren = children => {
   const count = children.length
@@ -135,7 +133,7 @@ const AvatarStackBody = styled.span`
       background: ${get('colors.gray.3')};
     }
   }
-  ${props => (props.alignRight ? alignRightStyles(props.theme) : '')}
+  ${props => (props.alignRight ? alignRightStyles : '')}
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   return (

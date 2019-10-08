@@ -6,7 +6,9 @@ TextInput is a form component to add default styling to the native text input. D
 ## Default example
 
 ```jsx live
-<TextInput aria-label="Zipcode" name="zipcode" />
+<TextInput aria-label="Zipcode" name="zipcode" placeholder="Hello there" block variant="small"/>
+<TextInput aria-label="Zipcode" name="zipcode" placeholder="Hello there" block />
+<TextInput aria-label="Zipcode" name="zipcode" placeholder="Hello there" block variant="large" />
 ```
 
 ## System props
@@ -26,5 +28,5 @@ TextInput components get `COMMON` system props. Read our [System Props](/system-
 | onChange | Function | | Function to be called when content in Input changes |
 | placeholder | String | | Sets the placeholder text |
 | required | Boolean | | Sets the `required` attribute on the element |
-| size | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
+| variant | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
 | value | String | | Current value of the Input. |
