@@ -10,13 +10,13 @@ const sizeVariants = variant({
   variants: {
     small: {
       minHeight: '28px',
-      px: 1,
+      px: 2,
       py: '3px',
       fontSize: 0,
       lineHeight: '20px'
     },
     large: {
-      px: 1,
+      px: 2,
       py: '10px',
       fontSize: 3
     }
