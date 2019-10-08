@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressBar respects the "progress" prop 1`] = `
+.c1 {
+  width: 80%;
+  background-color: #28a745;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  background-color: #e1e4e8;
+  border-radius: 3px;
+  height: 8px;
+}
+
+<span
+  className="c0"
+>
+  <span
+    className="c1"
+  />
+</span>
+`;

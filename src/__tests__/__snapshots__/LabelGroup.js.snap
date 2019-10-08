@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BranchName matches snapshot 1`] = `
+.c0 .LabelItem:last-child {
+  margin-right: 0;
+}
+
+.c1 {
+  display: inline-block;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #6a737d;
+  width: medium;
+  height: medium;
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c2 {
+  display: inline-block;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #6a737d;
+  width: medium;
+  height: medium;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  font-weight: 400;
+  color: #586069;
+  background-color: transparent;
+  border: 1px solid rgba(27,31,35,0.15);
+  box-shadow: none;
+}
+
+.c2:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+<span
+  className="c0"
+>
+  <span
+    className="c1"
+    size="medium"
+  >
+    Default label
+  </span>
+  <span
+    className="c1"
+    size="medium"
+  >
+    Darker gray label
+  </span>
+  <span
+    className="c2"
+    size="medium"
+  >
+    Default outline label
+  </span>
+</span>
+`;
