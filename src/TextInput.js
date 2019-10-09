@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import systemPropTypes from '@styled-system/prop-types'
 import styled from 'styled-components'
-import {layout} from 'styled-system'
+import {width} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
