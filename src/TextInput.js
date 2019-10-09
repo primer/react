@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import systemPropTypes from '@styled-system/prop-types'
 import styled, {css} from 'styled-components'
-import {variant, layout} from 'styled-system'
+import {variant, width} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -60,7 +60,7 @@ const TextInput = styled.input.attrs(({theme, variant, block, ...rest}) => ({
     font-size: ${get('fontSizes.1')}px;
   }
   ${COMMON};
-  ${layout.width}
+  ${width}
 `
 
 TextInput.defaultProps = {theme}
