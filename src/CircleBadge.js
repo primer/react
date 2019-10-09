@@ -2,9 +2,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Octicon from '@primer/octicons-react'
 import {COMMON, get} from './constants'
+import isNumeric from './utils/isNumeric'
 import theme from './theme'
-
-const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n)
 
 const variantSizes = {
   small: 56,

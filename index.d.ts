@@ -119,8 +119,8 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    grouped?: boolean
-    size?: 'sm' | 'large'
+    fontSize?: number
+    variant?: 'small' | 'medium' | 'large'
   }
 
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>

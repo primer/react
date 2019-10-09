@@ -30,13 +30,14 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 
 ## Component props
 
+Props other than the ones listed here are forwarded to the underlying React `button` component.
+
 ### Button
 | Prop name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | as | String | `button` | sets the HTML tag for the component |
-| disabled | Boolean |  | sets the `disabled` attribute on the Button |
-| onClick | Function | | function to be called when Button is clicked |
-| size | String | | use `sm` for a small Button, or `large` for a large Button
+| fontSize | Number or String | | explicitly sets the font size for the Button text; overrides any value for the `variant` prop |
+| variant | String | 'medium' | a value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set |
 
 ### ButtonGroup
 `ButtonGroup` has access to the same props as `Box`
