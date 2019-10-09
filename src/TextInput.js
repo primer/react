@@ -66,7 +66,7 @@ const TextInput = styled(TextInputBase)`
     font-size: ${get('fontSizes.1')}px;
   }
   ${COMMON};
-  ${layout.width}
+  ${width}
 `
 
 TextInput.defaultProps = {theme}
