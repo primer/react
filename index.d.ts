@@ -267,9 +267,8 @@ declare module '@primer/components' {
   export interface TextInputProps
     extends CommonProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
-    autocomplete?: string
     block?: boolean
-    size?: 'small' | 'large'
+    variant?: 'small' | 'large'
   }
 
   export const TextInput: React.FunctionComponent<TextInputProps>
