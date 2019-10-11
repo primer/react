@@ -52,7 +52,7 @@ const TextInput = styled.input.attrs(({theme, variant, block, ...rest}) => ({
       width: 100%;
     `}
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
-  @media (max-width: ${get('breakpoints.1')}) {
+  @media (min-width: ${get('breakpoints.0')}) {
     font-size: ${get('fontSizes.1')}px;
   }
   ${COMMON};
