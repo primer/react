@@ -62,22 +62,62 @@ exports[`BranchName matches snapshot 1`] = `
   className="c0"
 >
   <span
-    className="c1"
+    className="LabelItem c1"
     size="medium"
   >
     Default label
   </span>
   <span
-    className="c1"
+    className="LabelItem c1"
     size="medium"
   >
     Darker gray label
   </span>
   <span
-    className="c2"
+    className="LabelItem c2"
     size="medium"
   >
     Default outline label
   </span>
+</span>
+`;
+
+exports[`BranchName preserves className on children 1`] = `
+.c0 .LabelItem {
+  margin-right: 4px;
+}
+
+.c0 .LabelItem:last-child {
+  margin-right: 0;
+}
+
+.c1 {
+  display: inline-block;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #6a737d;
+  width: medium;
+  height: medium;
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+<span
+  className="c0"
+>
+  <span
+    className="custom-className LabelItem c1"
+    size="medium"
+  />
 </span>
 `;
