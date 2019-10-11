@@ -1,5 +1,7 @@
 ---
 title: StyledOcticon
+tags:
+- Icon
 ---
 
 StyledOcticon renders an Octicon with common system props, including `color`, margin, and padding.
