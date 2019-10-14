@@ -30,7 +30,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 
 ## Component props
 
-Props other than the ones listed here are forwarded to the underlying React `button` component.
+Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
 
 ### Button
 | Prop name | Type | Default | Description |
