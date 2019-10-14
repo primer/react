@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import buttonStyles from './ButtonStyles'
-import {compose, system, layout} from 'styled-system'
+import {compose, layout, fontSize} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 
 const fontSizeVariants = {
@@ -23,13 +23,7 @@ const Button = styled.button.attrs(({disabled, onClick}) => ({
   ${buttonStyles}
   ${variants}
   ${compose(
-    system({
-      fontSize: {
-        property: 'fontSize',
-        cssProperty: 'fontSize',
-        scale: 'fontSizes'
-      }
-    }),
+    fontSize,
     COMMON,
     layout
   )}
@@ -45,7 +39,7 @@ Button.propTypes = {
   as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
-  fontSize: PropTypes.number,
+  fontSize: systemPropTypes.fontSize,
   onClick: PropTypes.func,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
