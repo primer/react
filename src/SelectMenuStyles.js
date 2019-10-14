@@ -158,16 +158,16 @@ export const listStyles = css`
       background-color: ${get('colors.blue.4')};
     }
 
-    body:not(.intent-mouse) .SelectMenu-tab:focus {
+    body:not(.intent-mouse) .SelectMenuTab:focus {
       background-color: ${get('colors.blue.1')};
     }
 
-    .SelectMenu-tab:not([aria-checked="true"]):hover {
+    .SelectMenuTab:not([aria-checked="true"]):hover {
       color: ${get('colors.gray.9')};
       background-color: ${get('colors.gray.2')};
     }
 
-    .SelectMenu-tab:not([aria-checked="true"]):active {
+    .SelectMenuTab:not([aria-checked="true"]):active {
       color: ${get('colors.gray.9')};
       background-color: ${get('colors.gray.1')};
     }

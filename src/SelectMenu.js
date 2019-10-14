@@ -101,4 +101,64 @@ SelectMenu.List.defaultProps = {
   theme
 }
 
+SelectMenu.Tabs = styled.nav`
+  display: flex;
+  flex-shrink: 0;
+  margin-bottom: -1px; // hide border of element below
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
+  -webkit-overflow-scrolling: touch;
+
+  // Hide scrollbar so it doesn't cover the text
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding: 0 ${get('space.2')}px;
+    border-top: 0;
+  }
+`
+
+SelectMenu.Tab = styled.button.attrs(props => ({
+  className: 'SelectMenuTab',
+  "aria-selected": props.selected
+}))`
+  flex: 1;
+  padding: ${get('space.2')}px ${get('space.3')}px;
+  font-size: ${get('fontSizes.0')}px;
+  font-weight: 500;
+  color:  ${get('colors.gray.5')};
+  text-align: center;
+  background-color: transparent;
+  border: 0;
+  box-shadow: inset 0 -1px 0 ${get('colors.borders.gray')};
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    flex: none;
+    padding: ${get('space.1')}px ${get('space.3')}px;
+    border: ${get('borders.1')} transparent;
+    border-bottom-width: 0;
+    border-top-left-radius: ${get('radii.1')}px;
+    border-top-right-radius: ${get('radii.1')}px;
+  }
+
+  &[aria-selected="true"] {
+    z-index: 1; // Keeps box-shadow visible when hovering
+    color: ${get('colors.gray.9')};
+    background-color: ${get('colors.white')};
+    box-shadow: 0 0 0 1px ${get('colors.borders.gray')};
+
+    @media (min-width: ${get('breakpoints.0')}) {
+      border-color: ${get('colors.borders.gray')};
+      box-shadow: none;
+    }
+  }
+`
+
 export default SelectMenu

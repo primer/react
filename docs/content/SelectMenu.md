@@ -10,6 +10,10 @@ title: SelectMenu
         <SelectMenu.Title>Filter by Author</SelectMenu.Title>
       </SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter users" aria-label="Filter users"/>
+      <SelectMenu.Tabs>
+        <SelectMenu.Tab selected>Users</SelectMenu.Tab>
+        <SelectMenu.Tab>Repos</SelectMenu.Tab>
+      </SelectMenu.Tabs>
       <SelectMenu.List>
         <button type="button">Hubot</button>
         <button type="button">Bender</button>
