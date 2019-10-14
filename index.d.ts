@@ -118,8 +118,8 @@ declare module '@primer/components' {
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
+      StyledSystem.FontSizeProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    fontSize?: number
     variant?: 'small' | 'medium' | 'large'
   }
 
