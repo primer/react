@@ -3,19 +3,22 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import buttonStyles from './ButtonStyles'
-import {compose, layout, fontSize} from 'styled-system'
+import {compose, variant, layout, fontSize} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 
-const fontSizeVariants = {
-  small: get('fontSizes.0'),
-  medium: get('fontSizes.1'),
-  large: get('fontSizes.2')
-}
-
-const variants = ({variant, theme}) => {
-  const getter = fontSizeVariants[variant] || fontSizeVariants['medium']
-  return {fontSize: getter(theme)}
-}
+const variants = variant({
+  variants: {
+    small: {
+      fontSize: 0,
+    },
+    medium: {
+      fontSize: 1,
+    },
+    large: {
+      fontSize: 2,
+    }
+  }
+})
 
 const Button = styled.button.attrs(({disabled, onClick}) => ({
   onClick: disabled ? undefined : onClick
