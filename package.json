@@ -61,7 +61,7 @@
     "@mdx-js/loader": "0.15.0",
     "@mdx-js/mdx": "0.15.0",
     "@mdx-js/tag": "0.15.0",
-    "@svgr/webpack": "2.4.1",
+    "@svgr/webpack": "4.3.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-styled-components": "1.10.0",
