@@ -112,4 +112,16 @@ SelectMenu.Tab = styled.button.attrs(props => ({
   ${tabStyles}
 `
 
+SelectMenu.Footer = styled.div`
+  padding: ${get('space.2')}px ${get('space.3')}px;
+  font-size: ${get('fontSizes.0')}px;
+  color: ${get('colors.gray.5')};
+  text-align: center;
+  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding: ${get('space.1')}px ${get('space.2')}px;
+  }
+`
+
 export default SelectMenu
