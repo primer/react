@@ -39,7 +39,6 @@ CircleBadge.Icon = Icon
 
 CircleBadge.defaultProps = {
   inline: false,
-  size: undefined,
   theme,
   variant: 'medium'
 }

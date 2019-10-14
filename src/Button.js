@@ -30,7 +30,6 @@ const Button = styled.button.attrs(({disabled, onClick}) => ({
 `
 
 Button.defaultProps = {
-  fontSize: undefined,
   theme,
   variant: 'medium'
 }
