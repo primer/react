@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON} from './constants'
 import theme from './theme'
 import buttonStyles from './ButtonStyles'
 import {compose, variant, layout, fontSize} from 'styled-system'
@@ -9,13 +9,13 @@ import systemPropTypes from '@styled-system/prop-types'
 const variants = variant({
   variants: {
     small: {
-      fontSize: 0,
+      fontSize: 0
     },
     medium: {
-      fontSize: 1,
+      fontSize: 1
     },
     large: {
-      fontSize: 2,
+      fontSize: 2
     }
   }
 })
