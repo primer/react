@@ -41,7 +41,7 @@ Button.propTypes = {
   as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
-  fontSize: systemPropTypes.fontSize,
+  fontSize: systemPropTypes.typography.fontSize,
   onClick: PropTypes.func,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
