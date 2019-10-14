@@ -57,19 +57,16 @@ exports[`BranchName matches snapshot 1`] = `
 >
   <span
     className="c1 LabelItem"
-    size="medium"
   >
     Default label
   </span>
   <span
     className="c1 LabelItem"
-    size="medium"
   >
     Darker gray label
   </span>
   <span
     className="c2 LabelItem"
-    size="medium"
   >
     Default outline label
   </span>

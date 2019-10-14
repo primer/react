@@ -23,24 +23,6 @@ exports[`TextInput renders 1`] = `
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-.c0.input-sm {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: $font-size-small;
-  line-height: 20px;
-}
-
-.c0.input-lg {
-  padding: $spacer-1 10px;
-  font-size: $h4-size;
-}
-
-.c0.input-block {
-  display: block;
-  width: 100%;
-}
-
 @media (max-width:768px) {
   .c0 {
     font-size: 14px;
@@ -48,7 +30,7 @@ exports[`TextInput renders 1`] = `
 }
 
 <input
-  className="c0 form-control"
+  className="c0"
   name="zipcode"
   type="text"
 />
@@ -69,30 +51,14 @@ exports[`TextInput renders block 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  display: block;
+  width: 100%;
 }
 
 .c0:focus {
   border-color: #2188ff;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
-}
-
-.c0.input-sm {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: $font-size-small;
-  line-height: 20px;
-}
-
-.c0.input-lg {
-  padding: $spacer-1 10px;
-  font-size: $h4-size;
-}
-
-.c0.input-block {
-  display: block;
-  width: 100%;
 }
 
 @media (max-width:768px) {
@@ -102,7 +68,7 @@ exports[`TextInput renders block 1`] = `
 }
 
 <input
-  className="c0 form-control input-block"
+  className="c0"
   name="zipcode"
   type="text"
 />
@@ -123,30 +89,17 @@ exports[`TextInput renders large 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
 }
 
 .c0:focus {
   border-color: #2188ff;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
-}
-
-.c0.input-sm {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: $font-size-small;
-  line-height: 20px;
-}
-
-.c0.input-lg {
-  padding: $spacer-1 10px;
-  font-size: $h4-size;
-}
-
-.c0.input-block {
-  display: block;
-  width: 100%;
 }
 
 @media (max-width:768px) {
@@ -156,7 +109,7 @@ exports[`TextInput renders large 1`] = `
 }
 
 <input
-  className="c0 form-control input-lg"
+  className="c0"
   name="zipcode"
   type="text"
 />
@@ -177,30 +130,19 @@ exports[`TextInput renders small 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .c0:focus {
   border-color: #2188ff;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
-}
-
-.c0.input-sm {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: $font-size-small;
-  line-height: 20px;
-}
-
-.c0.input-lg {
-  padding: $spacer-1 10px;
-  font-size: $h4-size;
-}
-
-.c0.input-block {
-  display: block;
-  width: 100%;
 }
 
 @media (max-width:768px) {
@@ -210,7 +152,7 @@ exports[`TextInput renders small 1`] = `
 }
 
 <input
-  className="c0 form-control input-sm"
+  className="c0"
   name="zipcode"
   type="text"
 />

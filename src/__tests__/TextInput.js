@@ -13,7 +13,7 @@ describe('TextInput', () => {
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" variant="small" />)).toMatchSnapshot()
   })
 
   it('has default theme', () => {
@@ -21,7 +21,7 @@ describe('TextInput', () => {
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" variant="large" />)).toMatchSnapshot()
   })
 
   it('renders block', () => {

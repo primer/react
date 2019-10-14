@@ -48,15 +48,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-  cursor: default;
-}
-
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -183,15 +174,6 @@ exports[`Dropdown matches the snapshots 2`] = `
   background-image: none;
   box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
   border-color: rgba(27,31,35,0.2);
-}
-
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-  cursor: default;
 }
 
 .c2:focus {
