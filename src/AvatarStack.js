@@ -60,6 +60,7 @@ const AvatarStackBody = styled.span`
   display: flex;
   position: absolute;
   background: white;
+  z-index: 0;
 
   &:hover {
     .AvatarItem {
