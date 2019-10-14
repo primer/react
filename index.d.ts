@@ -118,9 +118,9 @@ declare module '@primer/components' {
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
+      StyledSystem.FontSizeProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    grouped?: boolean
-    size?: 'sm' | 'large'
+    variant?: 'small' | 'medium' | 'large'
   }
 
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
@@ -154,7 +154,9 @@ declare module '@primer/components' {
   export const BranchName: React.FunctionComponent<BranchNameProps>
 
   export interface CircleBadgeProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-    size?: string | number
+    inline?: boolean
+    size?: number
+    variant?: 'small' | 'medium' | 'large'
   }
 
   export const CircleBadge: React.FunctionComponent<CircleBadgeProps>
@@ -215,7 +217,7 @@ declare module '@primer/components' {
 
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
-    size?: 'small' | 'medium' | 'large' | 'xl'
+    variant?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
   }
 
@@ -266,11 +268,10 @@ declare module '@primer/components' {
   }
 
   export interface TextInputProps
-    extends CommonProps,
+    extends CommonProps, StyledSystem.WidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
-    autocomplete?: string
     block?: boolean
-    size?: 'small' | 'large'
+    variant?: 'small' | 'large'
   }
 
   export const TextInput: React.FunctionComponent<TextInputProps>
