@@ -12,7 +12,6 @@ import SelectMenuModal from './SelectMenuModal'
 import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabs from './SelectMenuTabs'
-import SelectMenuTitle from './SelectMenuTitle'
 
 const SelectMenu = styled.details`
   ${wrapperStyles}
@@ -29,6 +28,5 @@ SelectMenu.Modal = SelectMenuModal
 SelectMenu.Summary = SelectMenuSummary
 SelectMenu.Tabs = SelectMenuTabs
 SelectMenu.Tab = SelectMenuTab
-SelectMenu.Title = SelectMenuTitle
 
 export default SelectMenu
