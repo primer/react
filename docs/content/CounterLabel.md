@@ -1,6 +1,6 @@
 ---
 title: CounterLabel
-tags: ["pill"]
+tags: pill
 ---
 
 Use the CounterLabel component to add a count to navigational elements and buttons.
