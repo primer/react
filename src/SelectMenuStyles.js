@@ -104,48 +104,6 @@ export const listStyles = css`
   border-top: ${get('borders.1')} ${get('colors.borders.gray')};
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
-  .SelectMenu--list-item {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: ${get('space.3')}px;
-    overflow: hidden;
-    color: ${get('colors.gray.6')};
-    text-align: left;
-    cursor: pointer;
-    background-color: ${get('colors.white')};
-    border: 0;
-
-    & + & {
-      // Add a top border only if the above element also is a list item
-      border-top: ${get('borders.1')} ${get('colors.gray.2')};
-    }
-
-    &:hover {
-      text-decoration: none;
-    }
-
-    &:focus {
-      outline:none;
-    }
-
-    @media (min-width: ${get('breakpoints.0')}) {
-      padding-top: ${get('space.2')}px;
-      padding-bottom: ${get('space.2')}px;
-    }
-  }
-
-  .SelectMenu--list-item[aria-checked="true"] {
-    font-weight: 500;
-    color: ${get('colors.gray.9')};
-
-    .SelectMenu-icon {
-      visibility: visible;
-      transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
-      transform: scale(1);
-    }
-  }
-
   @media (hover: hover) {
     body:not(.intent-mouse) .SelectMenu--list-item:focus,
     .SelectMenu--list-item:hover {
@@ -247,5 +205,47 @@ export const tabWrapperStyles = css`
   @media (min-width: ${get('breakpoints.0')}) {
     padding: 0 ${get('space.2')}px;
     border-top: 0;
+  }
+`
+
+export const listItemStyles = css`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: ${get('space.3')}px;
+  overflow: hidden;
+  color: ${get('colors.gray.6')};
+  text-align: left;
+  cursor: pointer;
+  background-color: ${get('colors.white')};
+  border: 0;
+
+  & + & {
+    // Add a top border only if the above element also is a list item
+    border-top: ${get('borders.1')} ${get('colors.gray.2')};
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline:none;
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding-top: ${get('space.2')}px;
+    padding-bottom: ${get('space.2')}px;
+  }
+
+  &[aria-checked="true"] {
+    font-weight: 500;
+    color: ${get('colors.gray.9')};
+
+    .SelectMenu-icon {
+      visibility: visible;
+      transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
+      transform: scale(1);
+    }
   }
 `

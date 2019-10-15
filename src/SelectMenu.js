@@ -1,11 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import {COMMON, TYPOGRAPHY, get} from './constants'
 import Button from './Button'
 import TextInput from './TextInput'
 import theme from './theme'
-import classnames from 'classnames'
-import {modalStyles, wrapperStyles, listStyles, tabStyles, tabWrapperStyles} from './SelectMenuStyles'
+import StyledOcticon from './StyledOcticon'
+import {Octoface} from '@primer/octicons-react'
+import {modalStyles, wrapperStyles, listStyles, listItemStyles, tabStyles, tabWrapperStyles} from './SelectMenuStyles'
 
 const SelectMenu = styled.details`
   ${wrapperStyles}
@@ -82,21 +83,15 @@ SelectMenu.Filter = (props) => {
   )
 }
 
-const transformChildren = children => {
-  return React.Children.map(children, child => {
-    return React.cloneElement(child, {role: 'menuitem', className: classnames(child.props.className, 'SelectMenu--list-item')})
-  })
-}
-
-const StyledList = styled.div`
+SelectMenu.Item = styled.button.attrs(props => ({
+  role: 'menuitem',
+  className: 'SelectMenu--list-item'
+}))`
+  ${listItemStyles}
+`
+SelectMenu.List = styled.div`
   ${listStyles}
 `
-SelectMenu.List = ({children, ...rest}) => {
-  return (
-    <StyledList {...rest}>{transformChildren(children)}</StyledList>
-  )
-}
-
 SelectMenu.List.defaultProps = {
   theme
 }
@@ -112,7 +107,7 @@ SelectMenu.Tab = styled.button.attrs(props => ({
   ${tabStyles}
 `
 
-SelectMenu.Footer = styled.div`
+SelectMenu.Footer = styled.footer`
   padding: ${get('space.2')}px ${get('space.3')}px;
   font-size: ${get('fontSizes.0')}px;
   color: ${get('colors.gray.5')};
@@ -124,4 +119,54 @@ SelectMenu.Footer = styled.div`
   }
 `
 
+SelectMenu.Divider = styled.div`
+  padding: ${get('space.1')}px ${get('space.3')}px;
+  margin: 0;
+  font-size: ${get('fontSizes.0')}px;
+  font-weight: ${get('fontWeights.bold')};
+  color: ${get('colors.gray.5')};
+  background-color: ${get('colors.gray.1')};
+  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
+  border-bottom: ${get('borders.1')} ${get('colors.borders.gray')};
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+`
+
+const pulseKeyframes = keyframes`
+  0% {
+    opacity: 0.3;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+`
+
+const Animation = styled.div`
+  padding: ${get('space.4')}px ${get('space.3')}px;
+  text-align: center;
+  background-color: ${get('colors.white')};
+  animation-name: ${pulseKeyframes};
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+`
+
+SelectMenu.Loading = () => {
+  return (
+    <Animation>
+      <StyledOcticon size={32} icon={Octoface}/>
+    </Animation>
+  )
+}
 export default SelectMenu
