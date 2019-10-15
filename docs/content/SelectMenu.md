@@ -7,22 +7,23 @@ title: SelectMenu
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
     <SelectMenu.Modal>
       <SelectMenu.Header>
-        <SelectMenu.Title>Filter by Author</SelectMenu.Title>
+        <SelectMenu.Title>Filter by project</SelectMenu.Title>
       </SelectMenu.Header>
-      <SelectMenu.Filter placeholder="Filter users" aria-label="Filter users"/>
+      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.Tabs>
-        <SelectMenu.Tab selected>Branches</SelectMenu.Tab>
-        <SelectMenu.Tab>Tags</SelectMenu.Tab>
+        <SelectMenu.Tab selected>Repository</SelectMenu.Tab>
+        <SelectMenu.Tab>Organization</SelectMenu.Tab>
       </SelectMenu.Tabs>
       <SelectMenu.List>
-        <SelectMenu.Item>master</SelectMenu.Item>
-        <SelectMenu.Item >fix-SelectMenu.Item</SelectMenu.Item>
+        <SelectMenu.Item>Primer Components release tracking</SelectMenu.Item>
+        <SelectMenu.Item >Primer Compononents roadmap</SelectMenu.Item>
         <SelectMenu.Divider>More options</SelectMenu.Divider>
-        <SelectMenu.Item >add-styles</SelectMenu.Item>
-        <SelectMenu.Item >delete-page</SelectMenu.Item>
-        <SelectMenu.Item >hotfix-1</SelectMenu.Item>
+        <SelectMenu.Item >Primer Components bugs</SelectMenu.Item>
       </SelectMenu.List>
-      <SelectMenu.Footer>Showing 5 of 5</SelectMenu.Footer>
+      <SelectMenu.List hidden>
+        <SelectMenu.Item>Design Systems projects</SelectMenu.Item>
+      </SelectMenu.List>
+      <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>
 </SelectMenu>
 ```

@@ -3,7 +3,9 @@ import {tabWrapperStyles} from './SelectMenuStyles'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const SelectMenuTabs = styled.nav`
+const SelectMenuTabs = styled.nav.attrs({
+  role: 'tablist'
+})`
   ${tabWrapperStyles}
   ${COMMON}
 `
