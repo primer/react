@@ -1,12 +1,14 @@
 import React from 'react'
-import styled, {keyframes} from 'styled-components'
+import styled from 'styled-components'
 import {COMMON, TYPOGRAPHY, get} from './constants'
 import Button from './Button'
+import Box from './Box'
 import TextInput from './TextInput'
 import theme from './theme'
 import StyledOcticon from './StyledOcticon'
 import {Octoface, Check} from '@primer/octicons-react'
-import {modalStyles, wrapperStyles, listStyles, listItemStyles, tabStyles, tabWrapperStyles} from './SelectMenuStyles'
+import Animations from './Animations'
+import {modalStyles, wrapperStyles, dividerStyles, footerStyles, listStyles, listItemStyles, tabStyles, tabWrapperStyles} from './SelectMenuStyles'
 
 const SelectMenu = styled.details`
   ${wrapperStyles}
@@ -117,65 +119,20 @@ SelectMenu.Tab = styled.button.attrs(props => ({
 `
 
 SelectMenu.Footer = styled.footer`
-  padding: ${get('space.2')}px ${get('space.3')}px;
-  font-size: ${get('fontSizes.0')}px;
-  color: ${get('colors.gray.5')};
-  text-align: center;
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
-
-  @media (min-width: ${get('breakpoints.0')}) {
-    padding: ${get('space.1')}px ${get('space.2')}px;
-  }
+  ${footerStyles}
 `
 
 SelectMenu.Divider = styled.div`
-  padding: ${get('space.1')}px ${get('space.3')}px;
-  margin: 0;
-  font-size: ${get('fontSizes.0')}px;
-  font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.gray.5')};
-  background-color: ${get('colors.gray.1')};
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
-  border-bottom: ${get('borders.1')} ${get('colors.borders.gray')};
-
-  &:first-child {
-    border-top: 0;
-  }
-
-  &:last-child {
-    border-bottom: 0;
-  }
-`
-
-const pulseKeyframes = keyframes`
-  0% {
-    opacity: 0.3;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.3;
-  }
-`
-
-const Animation = styled.div`
-  padding: ${get('space.4')}px ${get('space.3')}px;
-  text-align: center;
-  background-color: ${get('colors.white')};
-  animation-name: ${pulseKeyframes};
-  animation-duration: 2s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  ${dividerStyles}
 `
 
 SelectMenu.Loading = () => {
   return (
-    <Animation>
-      <StyledOcticon size={32} icon={Octoface}/>
-    </Animation>
+    <Box bg='white' py={4} px={3} css='text-align: center'>
+      <Animations.Pulse>
+        <StyledOcticon size={32} icon={Octoface}/>
+      </Animations.Pulse>
+    </Box>
   )
 }
 export default SelectMenu
