@@ -5,7 +5,7 @@ import Button from './Button'
 import TextInput from './TextInput'
 import theme from './theme'
 import StyledOcticon from './StyledOcticon'
-import {Octoface} from '@primer/octicons-react'
+import {Octoface, Check} from '@primer/octicons-react'
 import {modalStyles, wrapperStyles, listStyles, listItemStyles, tabStyles, tabWrapperStyles} from './SelectMenuStyles'
 
 const SelectMenu = styled.details`
@@ -83,7 +83,7 @@ SelectMenu.Filter = (props) => {
   )
 }
 
-SelectMenu.Item = styled.button.attrs(props => ({
+const StyledItem = styled.button.attrs(props => ({
   role: 'menuitem',
   className: 'SelectMenu--list-item'
 }))`
@@ -94,6 +94,15 @@ SelectMenu.List = styled.div`
 `
 SelectMenu.List.defaultProps = {
   theme
+}
+
+SelectMenu.Item = ({children,...rest}) => {
+  return (
+    <StyledItem {...rest}>
+      <StyledOcticon className='SelectMenu-selected' icon={Check}/>
+      {children}
+    </StyledItem>
+  )
 }
 
 SelectMenu.Tabs = styled.nav`

@@ -219,6 +219,7 @@ export const listItemStyles = css`
   cursor: pointer;
   background-color: ${get('colors.white')};
   border: 0;
+  line-height: inherit;
 
   & + & {
     // Add a top border only if the above element also is a list item
@@ -233,6 +234,15 @@ export const listItemStyles = css`
     outline:none;
   }
 
+  .SelectMenu-selected {
+    width: ${get('space.3')}px; // fixed width to make sure following content aligns
+    margin-right: ${get('space.2')}px;
+    visibility: hidden;
+    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
+    transform: scale(0);
+  }
+  
+
   @media (min-width: ${get('breakpoints.0')}) {
     padding-top: ${get('space.2')}px;
     padding-bottom: ${get('space.2')}px;
@@ -242,7 +252,7 @@ export const listItemStyles = css`
     font-weight: 500;
     color: ${get('colors.gray.9')};
 
-    .SelectMenu-icon {
+    .SelectMenu-selected {
       visibility: visible;
       transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
       transform: scale(1);
