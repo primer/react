@@ -12,6 +12,8 @@
 
 - title: Components
   children:
+    - title: Animations
+      url: /Animations
     - title: Avatar
       url: /Avatar
     - title: BorderBox
