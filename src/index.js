@@ -10,7 +10,7 @@ export {default as Grid} from './Grid'
 export {Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
 // Components
-export {default as Animations} from './Animations'
+export {default as AnimationPulse} from './AnimationPulse'
 export {default as Avatar} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
 export {default as AvatarStack} from './AvatarStack'

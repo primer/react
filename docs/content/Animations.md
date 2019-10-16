@@ -6,9 +6,9 @@ Use Animation helper components to provide animations to UI.
 
 
 ```jsx live
-<Animations.Pulse>
+<AnimationPulse>
   <StyledOcticon size={32} icon={Octoface}/>
-</Animations.Pulse>
+</AnimationPulse>
 ```
 
 ## System props

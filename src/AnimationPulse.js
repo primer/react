@@ -2,8 +2,6 @@ import styled, {keyframes} from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const Animations = {}
-
 const pulseKeyframes = keyframes`
   0% {
     opacity: 0.3;
@@ -18,7 +16,7 @@ const pulseKeyframes = keyframes`
   }
 `
 
-Animations.Pulse = styled.span`
+AnimationPulse = styled.span`
   animation-name: ${pulseKeyframes};
   animation-duration: 2s;
   animation-timing-function: linear;
@@ -26,8 +24,8 @@ Animations.Pulse = styled.span`
   ${COMMON}
 `
 
-Animations.Pulse.defaultProps = {
+AnimationPulse.defaultProps = {
   theme
 }
 
-export default Animations
+export default AnimationPulse
