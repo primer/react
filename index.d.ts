@@ -304,6 +304,21 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<UnderlineNavLinkProps>
   }
 
+  export interface SubNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    actions?: React.ReactNode
+    align?: 'right'
+    full?: boolean
+    label?: string
+  }
+
+  export interface SubNavLinkProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export const SubNav: React.FunctionComponent<SubNavProps> & {
+    Link: React.FunctionComponent<SubNavLinkProps>
+  }
+
   export const theme: Object
   export const themeGet: (key: any) => any
 
@@ -325,16 +340,17 @@ declare module '@primer/components' {
 
   export const AvatarStack: React.FunctionComponent<AvatarStackProps>
   export interface ProgressBarProps
-    extends BaseProps, CommonProps, StyledSystem.WidthProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
-      progress?: number | string
-      barSize?: 'small' | 'default' | 'large'
-      inline?: boolean
-    }
+    extends BaseProps,
+      CommonProps,
+      StyledSystem.WidthProps,
+      Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+    progress?: number | string
+    barSize?: 'small' | 'default' | 'large'
+    inline?: boolean
+  }
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
-
-
 
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
@@ -483,6 +499,10 @@ declare module '@primer/components/src/Tooltip' {
 declare module '@primer/components/src/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
+}
+declare module '@primer/components/src/SubNav' {
+  import {SubNav} from '@primer/components'
+  export default SubNav
 }
 declare module '@primer/components/src/theme' {
   import {theme} from '@primer/components'

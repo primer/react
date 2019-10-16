@@ -62,6 +62,8 @@
       url: /StateLabel
     - title: StyledOcticon
       url: /StyledOcticon
+    - title: SubNav
+      url: /SubNav
     - title: TabNav
       url: /TabNav
     - title: Text
