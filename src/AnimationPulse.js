@@ -16,7 +16,7 @@ const pulseKeyframes = keyframes`
   }
 `
 
-AnimationPulse = styled.span`
+const AnimationPulse = styled.span`
   animation-name: ${pulseKeyframes};
   animation-duration: 2s;
   animation-timing-function: linear;
