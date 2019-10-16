@@ -13,7 +13,7 @@ title: SelectMenu
         <SelectMenu.Tab>Organization</SelectMenu.Tab>
       </SelectMenu.Tabs>
       <SelectMenu.List>
-        <SelectMenu.Item>Primer Components release tracking</SelectMenu.Item>
+        <SelectMenu.Item aria-checked="true">Primer Components release tracking</SelectMenu.Item>
         <SelectMenu.Item >Primer Compononents roadmap</SelectMenu.Item>
         <SelectMenu.Divider>More options</SelectMenu.Divider>
         <SelectMenu.Item >Primer Components bugs</SelectMenu.Item>
