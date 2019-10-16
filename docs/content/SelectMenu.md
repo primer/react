@@ -50,7 +50,7 @@ Provides styling for the SelectMenu content
 
 ### SelectMenu.List
 
-Wrapper around SelectMenu items. Use multiple `SelectMenu.List` components when using tab navigation within the select menu. Handle selected tab state in the consuming application and dynamically apple the `hidden` HTML attribute on the list to hide unselected tabs.
+Wrapper around SelectMenu items. Use multiple `SelectMenu.List` components when using tab navigation within the select menu. Handle selected tab state in the consuming application and dynamically apply the `hidden` HTML attribute on the list to hide unselected tabs.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
