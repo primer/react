@@ -100,7 +100,7 @@ exports[`Avatar matches snapshot 1`] = `
   className="c0"
 >
   <span
-    className="AvatarStackBody c1"
+    className="c1 AvatarStackBody"
   >
     <img
       className="AvatarItem"
@@ -254,7 +254,7 @@ exports[`Avatar respects alignRight props 1`] = `
   className="c0"
 >
   <span
-    className="AvatarStackBody c1"
+    className="c1 AvatarStackBody"
   >
     <img
       className="AvatarItem"

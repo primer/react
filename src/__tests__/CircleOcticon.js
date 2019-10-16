@@ -11,7 +11,7 @@ describe('CircleOcticon', () => {
     expect(result).toHaveStyleRule('height', '10px')
   })
 
-  xit('has default theme', () => {
+  it.skip('has default theme', () => {
     expect(CircleOcticon).toSetDefaultTheme()
   })
 
