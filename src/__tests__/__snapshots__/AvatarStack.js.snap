@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar matches snapshot 1`] = `
+.c0 {
+  display: inline-block;
+  position: relative;
+  min-width: 46px;
+  height: 20px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  background: white;
+}
+
+.c1:hover .AvatarItem {
+  margin-right: 3px;
+}
+
+.c1:hover .AvatarItem:nth-child(n + 4) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 1;
+}
+
+.c1:hover .AvatarItem-more {
+  display: none !important;
+}
+
+.c1 .AvatarItem {
+  position: relative;
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  box-sizing: content-box;
+  margin-right: -11px;
+  background-color: #fff;
+  border-right: 1px solid #fff;
+  border-radius: 2px;
+  -webkit-transition: margin 0.1s ease-in-out;
+  transition: margin 0.1s ease-in-out;
+}
+
+.c1 .AvatarItem:first-child {
+  z-index: 3;
+}
+
+.c1 .AvatarItem:last-child {
+  z-index: 1;
+  border-right: 0;
+}
+
+.c1 .AvatarItem img {
+  border-radius: 2px;
+  width: inherit;
+}
+
+.c1 .AvatarItem:nth-child(n + 4) {
+  display: none;
+  opacity: 0;
+}
+
+.c1 .AvatarItem-more {
+  z-index: 1;
+  margin-right: 0;
+  background: #f6f8fa;
+}
+
+.c1 .AvatarItem-more::before,
+.c1 .AvatarItem-more::after {
+  position: absolute;
+  display: block;
+  height: 20px;
+  content: '';
+  border-radius: 2px;
+  outline: 1px solid #fff;
+}
+
+.c1 .AvatarItem-more::before {
+  width: 17px;
+  background: #e1e4e8;
+}
+
+.c1 .AvatarItem-more::after {
+  width: 14px;
+  background: #d1d5da;
+}
+
+<span
+  className="c0"
+>
+  <span
+    className="AvatarStackBody c1"
+  >
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+    <div
+      className="AvatarItem-more AvatarItem"
+    />
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+  </span>
+</span>
+`;
+
+exports[`Avatar respects alignRight props 1`] = `
+.c0 {
+  display: inline-block;
+  position: relative;
+  min-width: 46px;
+  height: 20px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  background: white;
+  right: 0;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+.c1:hover .AvatarItem {
+  margin-right: 3px;
+}
+
+.c1:hover .AvatarItem:nth-child(n + 4) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 1;
+}
+
+.c1:hover .AvatarItem-more {
+  display: none !important;
+}
+
+.c1 .AvatarItem {
+  position: relative;
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  box-sizing: content-box;
+  margin-right: -11px;
+  background-color: #fff;
+  border-right: 1px solid #fff;
+  border-radius: 2px;
+  -webkit-transition: margin 0.1s ease-in-out;
+  transition: margin 0.1s ease-in-out;
+}
+
+.c1 .AvatarItem:first-child {
+  z-index: 3;
+}
+
+.c1 .AvatarItem:last-child {
+  z-index: 1;
+  border-right: 0;
+}
+
+.c1 .AvatarItem img {
+  border-radius: 2px;
+  width: inherit;
+}
+
+.c1 .AvatarItem:nth-child(n + 4) {
+  display: none;
+  opacity: 0;
+}
+
+.c1 .AvatarItem-more {
+  z-index: 1;
+  margin-right: 0;
+  background: #f6f8fa;
+}
+
+.c1 .AvatarItem-more::before,
+.c1 .AvatarItem-more::after {
+  position: absolute;
+  display: block;
+  height: 20px;
+  content: '';
+  border-radius: 2px;
+  outline: 1px solid #fff;
+}
+
+.c1 .AvatarItem-more::before {
+  width: 17px;
+  background: #e1e4e8;
+}
+
+.c1 .AvatarItem-more::after {
+  width: 14px;
+  background: #d1d5da;
+}
+
+.c1:hover .AvatarItem {
+  margin-right: 0;
+  margin-left: 3px;
+}
+
+.c1 .AvatarItem-more {
+  background: #d1d5da;
+}
+
+.c1 .AvatarItem-more::before {
+  width: 5px;
+}
+
+.c1 .AvatarItem-more::after {
+  background: #f6f8fa;
+  width: 2px;
+}
+
+.c1 .AvatarItem {
+  margin-right: 0;
+  margin-left: -11px;
+  border-right: 0;
+  border-left: 1px solid #fff;
+}
+
+<span
+  className="c0"
+>
+  <span
+    className="AvatarStackBody c1"
+  >
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+    <div
+      className="AvatarItem-more AvatarItem"
+    />
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      className="AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+  </span>
+</span>
+`;

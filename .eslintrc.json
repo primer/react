@@ -8,6 +8,12 @@
     "import/no-namespace": 0,
     "no-unused-vars": ["error", {
       "ignoreRestSiblings": true
-    }]
+    }],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": []
+      }
+    ]
   }
 }

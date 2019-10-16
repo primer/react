@@ -16,6 +16,8 @@
       url: /Animations
     - title: Avatar
       url: /Avatar
+    - title: AvatarStack
+      url: /AvatarStack
     - title: BorderBox
       url: /BorderBox
     - title: Box
@@ -48,12 +50,16 @@
       url: /Heading
     - title: Label
       url: /Label
+    - title: LabelGroup
+      url: /LabelGroup
     - title: Link
       url: /Link
     - title: PointerBox
       url: /PointerBox
     - title: Position
       url: /Position
+    - title: ProgressBar
+      url: /ProgressBar
     - title: SelectMenu
       url: /SelectMenu
     - title: StateLabel
