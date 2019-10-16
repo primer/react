@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import theme from './theme'
-import classnames from 'classnames'
 import {COMMON, get} from './constants'
 
 const transformChildren = children => {
   return React.Children.map(children, child => {
-    const classes = classnames(child.props['className'], 'LabelItem')
-    return React.cloneElement(child, {className: classes})
+    return React.cloneElement(child, {className: 'LabelItem'})
   })
 }
 

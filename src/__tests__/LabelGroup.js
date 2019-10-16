@@ -25,16 +25,6 @@ describe('BranchName', () => {
     expect(LabelGroup).toImplementSystemProps(COMMON)
   })
 
-  it('preserves className on children', () => {
-    expect(
-      render(
-        <LabelGroup>
-          <Label className="custom-className" />
-        </LabelGroup>
-      )
-    ).toMatchSnapshot()
-  })
-
   it('matches snapshot', () => {
     expect(render(comp)).toMatchSnapshot()
   })
