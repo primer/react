@@ -6,7 +6,7 @@ import {COMMON} from './constants'
 import StyledOcticon from './StyledOcticon'
 import theme from './theme'
 
-const StyledItem = styled.button.attrs(props => ({
+const StyledItem = styled.button.attrs(() => ({
   role: 'menuitem',
   className: 'SelectMenu--list-item'
 }))`
@@ -14,10 +14,10 @@ const StyledItem = styled.button.attrs(props => ({
   ${COMMON}
 `
 
-const SelectMenuItem = ({children,...rest}) => {
+const SelectMenuItem = ({children, ...rest}) => {
   return (
     <StyledItem {...rest}>
-      <StyledOcticon className='SelectMenu-selected' icon={Check}/>
+      <StyledOcticon className="SelectMenu-selected" icon={Check} />
       {children}
     </StyledItem>
   )

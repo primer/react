@@ -15,10 +15,10 @@ const StyledForm = styled.form`
   }
 `
 
-const SelectMenuFilter = (props) => {
+const SelectMenuFilter = props => {
   return (
     <StyledForm>
-      <TextInput width="100%" block type="text" {...props}/> 
+      <TextInput width="100%" block type="text" {...props} />
     </StyledForm>
   )
 }

@@ -26,7 +26,7 @@ export const modalStyles = css`
     bottom: 0;
     left: 0;
     pointer-events: none;
-    content: "";
+    content: '';
     background-color: ${get('colors.blackfade50')};
 
     @media (min-width: ${get('breakpoints.0')}) {
@@ -38,10 +38,10 @@ export const modalStyles = css`
     position: relative;
     z-index: 99; // Needs to be higher than .details-overlay's z-index: 80.
     display: flex;
-    ${props => props.filter ? 'height: 80%' : ''};
-    max-height: ${props => props.filter ? 'none' : '66%'};
+    ${props => (props.filter ? 'height: 80%' : '')};
+    max-height: ${props => (props.filter ? 'none' : '66%')};
     margin: auto 0;
-    ${props => props.filter ? 'margin-top: 0' : ''};
+    ${props => (props.filter ? 'margin-top: 0' : '')};
     overflow: hidden; // Enables border radius on scrollable child elements
     pointer-events: auto;
     flex-direction: column;
@@ -51,7 +51,7 @@ export const modalStyles = css`
     animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
     @media (min-width: ${get('breakpoints.0')}) {
-      width: ${props  => props.filter ? 'auto' : '300px'};
+      width: ${props => (props.filter ? 'auto' : '300px')};
       height: auto;
       max-height: 350px;
       margin: ${get('space.1')}px 0 ${get('space.3')}px 0;
@@ -82,15 +82,21 @@ export const wrapperStyles = css`
     z-index: 80;
     display: block;
     cursor: default;
-    content: " ";
+    content: ' ';
     background: transparent;
   }
   // Remove marker added by the display: list-item browser default
-  > summary { list-style: none; }
+  > summary {
+    list-style: none;
+  }
   // Remove marker added by details polyfill
-  > summary::before { display: none; }
+  > summary::before {
+    display: none;
+  }
   // Remove marker added by Chrome
-  > summary::-webkit-details-marker { display: none; }
+  > summary::-webkit-details-marker {
+    display: none;
+  }
 `
 
 export const listStyles = css`
@@ -120,12 +126,12 @@ export const listStyles = css`
       background-color: ${get('colors.blue.1')};
     }
 
-    .SelectMenuTab:not([aria-checked="true"]):hover {
+    .SelectMenuTab:not([aria-checked='true']):hover {
       color: ${get('colors.gray.9')};
       background-color: ${get('colors.gray.2')};
     }
 
-    .SelectMenuTab:not([aria-checked="true"]):active {
+    .SelectMenuTab:not([aria-checked='true']):active {
       color: ${get('colors.gray.9')};
       background-color: ${get('colors.gray.1')};
     }
@@ -156,7 +162,7 @@ export const tabStyles = css`
   padding: ${get('space.2')}px ${get('space.3')}px;
   font-size: ${get('fontSizes.0')}px;
   font-weight: 500;
-  color:  ${get('colors.gray.5')};
+  color: ${get('colors.gray.5')};
   text-align: center;
   background-color: transparent;
   border: 0;
@@ -175,7 +181,7 @@ export const tabStyles = css`
     border-top-right-radius: ${get('radii.1')}px;
   }
 
-  &[aria-selected="true"] {
+  &[aria-selected='true'] {
     z-index: 1; // Keeps box-shadow visible when hovering
     color: ${get('colors.gray.9')};
     background-color: ${get('colors.white')};
@@ -231,7 +237,7 @@ export const listItemStyles = css`
   }
 
   &:focus {
-    outline:none;
+    outline: none;
   }
 
   .SelectMenu-selected {
@@ -241,14 +247,13 @@ export const listItemStyles = css`
     transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
     transform: scale(0);
   }
-  
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding-top: ${get('space.2')}px;
     padding-bottom: ${get('space.2')}px;
   }
 
-  &[aria-checked="true"] {
+  &[aria-checked='true'] {
     font-weight: 500;
     color: ${get('colors.gray.9')};
 

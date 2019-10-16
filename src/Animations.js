@@ -2,7 +2,7 @@ import styled, {keyframes} from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-let Animations = {}
+const Animations = {}
 
 const pulseKeyframes = keyframes`
   0% {

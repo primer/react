@@ -33,9 +33,7 @@ const StyledHeader = styled.header`
 const SelectMenuHeader = ({children, ...rest}) => {
   return (
     <StyledHeader {...rest}>
-      <SelectMenuTitle>
-        {children}
-      </SelectMenuTitle>
+      <SelectMenuTitle>{children}</SelectMenuTitle>
     </StyledHeader>
   )
 }

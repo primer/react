@@ -7,7 +7,7 @@ import {COMMON} from './constants'
 const SelectMenuTab = styled.button.attrs(props => ({
   className: 'SelectMenuTab',
   role: 'tab',
-  "aria-selected": props.selected
+  'aria-selected': props.selected
 }))`
   ${tabStyles}
   ${COMMON}
@@ -19,7 +19,7 @@ SelectMenuTab.defaultProps = {
 }
 
 SelectMenuTab.propTypes = {
-  selected: PropTypes.bool,
+  selected: PropTypes.bool
 }
 
 export default SelectMenuTab

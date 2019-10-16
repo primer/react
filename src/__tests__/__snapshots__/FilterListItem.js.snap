@@ -67,6 +67,10 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
           "#05264c",
         ],
         "bodytext": "#24292e",
+        "borders": Object {
+          "gray": "#e1e4e8",
+          "grayDark": "#d1d5da",
+        },
         "button": Object {
           "activeBg": "rgb(233, 236, 239)",
           "bg2": "rgb(239, 243, 246)",
