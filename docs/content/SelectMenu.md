@@ -48,6 +48,18 @@ Used as the trigger component for the SelectMenu dropdown. Must be used with `Se
 ### SelectMenu.Modal
 Provides styling for the SelectMenu content
 
+### SelectMenu.List
+
+Wrapper around SelectMenu items. Use multiple `SelectMenu.List` components when using tab navigation within the select menu. Handle selected tab state in the consuming application and dynamically apple the `hidden` HTML attribute on the list to hide unselected tabs.
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| hidden | Boolean | false| Sets the HTML hidden attribute, used when you'd like to hide panels for tab navigation within a SelectMenu
+
+### SelectMenu.Item
+
+Items in the SelectMenu.List. Handle setting the `aria-checked` attribute in the consuming application. When `aria-checked` is set to true, selected styles will appear for list items.
+
 ### SelectMenu.Header
 A heading for the SelectMenu
 
@@ -66,14 +78,6 @@ Individual tabs for the tab navigation in SelectMenu. `selected` state should be
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | selected | Boolean | false | Used to style the selected tab.
-
-### SelectMenu.List
-
-Wrapper around SelectMenu items. Use multiple `SelectMenu.List` components when using tab navigation within the select menu. Handle selected tab state in the consuming application and dynamically apple the `hidden` HTML attribute on the list to hide unselected tabs.
-
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| hidden | Boolean | false| Sets the HTML hidden attribute, used when you'd like to hide panels for tab navigation within a SelectMenu
 
 ### SelectMenu.Divider
 Used to create a divider between list items
