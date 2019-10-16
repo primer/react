@@ -128,6 +128,11 @@ declare module '@primer/components' {
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
+  export interface AnimationPulseProps
+    extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const AnimationPulse: React.FunctionComponent<AnimationProps>
+
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     isChild?: boolean
     size?: number
@@ -247,6 +252,35 @@ declare module '@primer/components' {
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
+  export interface SelectMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuFilterProps extends CommonProps, Omit<React.FormHTMLAttributes<HTMLFormElement>, 'color'> {}
+  export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuHeaderProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuItemProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {}
+  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuLoadingProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuTabsProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLttributes<HTMLButtonElement>, 'color'> {
+    selected?: boolean 
+  }
+
+  export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
+    Divider: React.FunctionComponent<SelectMenuDividerProps>,
+    Filter: React.FunctionComponent<SelectMenuFilterProps>,
+    Footer: React.FunctionComponent<SelectMenuFooterProps>,
+    Header: React.FunctionComponent<SelectMenuHeaderProps>,
+    Item: React.FunctionComponent<SelectMenuItemProps>,
+    List: React.FunctionComponent<SelectMenuListProps>,
+    Loading: React.FunctionComponent<SelectMenuLoadingProps>,
+    Modal: React.FunctionComponent<SelectMenuModalProps>,
+    Summary: React.FunctionComponent<SelectMenuSummaryProps>,
+    Tabs: React.FunctionComponent<SelectMenuTabsProps>,
+    Tab: React.FunctionComponent<SelectMenuTabProps>,
+  }
+
   export interface StateLabelProps extends CommonProps {
     small?: boolean
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
@@ -330,7 +364,10 @@ declare module '@primer/components' {
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
 
-
+declare module '@primer/components/src/AnimationPulse' {
+  import {AnimationPulse} from '@primer/components'
+  export default AnimationPulse
+}
 
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
@@ -455,6 +492,12 @@ declare module '@primer/components/src/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
 }
+
+declare module '@primer/components/src/SelectMenu' {
+  import {SelectMenu} from '@primer/components'
+  export default SelectMenu
+}
+
 declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
