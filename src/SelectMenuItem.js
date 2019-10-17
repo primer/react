@@ -14,17 +14,18 @@ const StyledItem = styled.a.attrs(() => ({
   ${COMMON}
 `
 
-const SelectMenuItem = ({children, ...rest}) => {
+const SelectMenuItem = ({children, selected, ...rest}) => {
   return (
     <StyledItem {...rest}>
-      <StyledOcticon className="SelectMenu-selected" icon={Check} />
+      {selected && <StyledOcticon className="SelectMenu-selected" icon={Check} />}
       {children}
     </StyledItem>
   )
 }
 
 SelectMenuItem.defaultProps = {
-  theme
+  theme,
+  selected: false
 }
 
 export default SelectMenuItem
