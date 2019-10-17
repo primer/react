@@ -131,7 +131,7 @@ declare module '@primer/components' {
   export interface AnimationPulseProps
     extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export const AnimationPulse: React.FunctionComponent<AnimationProps>
+  export const AnimationPulse: React.FunctionComponent<AnimationPulseProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     isChild?: boolean
@@ -257,13 +257,13 @@ declare module '@primer/components' {
   export interface SelectMenuFilterProps extends CommonProps, Omit<React.FormHTMLAttributes<HTMLFormElement>, 'color'> {}
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuHeaderProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
-  export interface SelectMenuItemProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {}
+  export interface SelectMenuItemProps extends CommonProps, Omit<React.HTMLAttributes<HTMLButtonElement>, 'color'> {}
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuLoadingProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuTabsProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLttributes<HTMLButtonElement>, 'color'> {
+  export interface SelectMenuTabProps extends CommonProps, Omit<React.HTMLttributes<HTMLButtonElement>, 'color'> {
     selected?: boolean 
   }
 
