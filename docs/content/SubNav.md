@@ -2,7 +2,7 @@
 title: SubNav
 ---
 
-Use the SubNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
+Use the SubNav component for navigation on a dashboard-type interface with another set of navigation components above it. This helps distinguish navigation hierarchy.
 
 To use SubNav with [react-router](https://github.com/ReactTraining/react-router) or
 [react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
