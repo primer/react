@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import Details from '../Details'
 import {mount} from '../utils/testing'
@@ -18,7 +17,7 @@ describe('Details', () => {
     fires in the test, the native `details` open state has already been updated, which is
     not the case in the browser. Leaving this test disabled for now.
    */
-  xit('Can be toggled', () => {
+  it.skip('Can be toggled', () => {
     const wrapper = mount(<Details>{({open}) => <summary>{open ? 'close' : 'open'}</summary>}</Details>)
 
     const dom = wrapper.getDOMNode()
@@ -57,7 +56,7 @@ describe('Details', () => {
     wrapper.unmount()
   })
 
-  xit('Does not toggle or prevent click events when you click inside', () => {
+  it.skip('Does not toggle or prevent click events when you click inside', () => {
     const wrapper = mount(
       <Details open>
         {({open}) => (

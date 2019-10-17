@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-param, jsdoc/require-returns, jsdoc/require-description-complete-sentence, jsdoc/match-description */
 import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'

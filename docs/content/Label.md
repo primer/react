@@ -21,6 +21,6 @@ Label components get `COMMON` system props. Read our [System Props](/system-prop
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | outline | Boolean | | Creates an outline style label |
-| size | String | 'medium' | Can be one of `small`, `medium` (default), `large` or `xl` .
+| variant | String | 'medium' | Can be one of `small`, `medium` (default), `large` or `xl` .
 | dropshadow | Boolean | | Adds a dropshadow to the label |
 | bg | String | 'gray.5' | Part of the `COMMON` system props, used to change the background of the label.

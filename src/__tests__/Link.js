@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Link from '../Link'
 import {render} from '../utils/testing'

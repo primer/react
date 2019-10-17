@@ -9,7 +9,7 @@ import {COMMON} from '../constants'
 function SomeComponent() {}
 
 // 3. remove the leading "x" from this line to enable the test
-xdescribe('SomeComponent', () => {
+describe.skip('SomeComponent', () => {
   // if applicable, ensure that this is a "system component"
   it('is a system component', () => {
     expect(SomeComponent.systemComponent).toBe(true)

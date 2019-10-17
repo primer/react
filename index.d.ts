@@ -118,14 +118,15 @@ declare module '@primer/components' {
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
+      StyledSystem.FontSizeProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    grouped?: boolean
-    size?: 'sm' | 'large'
+    variant?: 'small' | 'medium' | 'large'
   }
 
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
@@ -139,7 +140,7 @@ declare module '@primer/components' {
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
 
-  export interface BorderBoxProps extends CommonProps, LayoutProps, BoxProps {
+  export interface BorderBoxProps extends CommonProps, LayoutProps, BorderProps, BoxProps {
     border?: string
     borderColor?: string
     borderRadius?: string | number
@@ -153,7 +154,9 @@ declare module '@primer/components' {
   export const BranchName: React.FunctionComponent<BranchNameProps>
 
   export interface CircleBadgeProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-    size?: string | number
+    inline?: boolean
+    size?: number
+    variant?: 'small' | 'medium' | 'large'
   }
 
   export const CircleBadge: React.FunctionComponent<CircleBadgeProps>
@@ -214,7 +217,7 @@ declare module '@primer/components' {
 
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
-    size?: 'small' | 'medium' | 'large' | 'xl'
+    variant?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
   }
 
@@ -265,11 +268,10 @@ declare module '@primer/components' {
   }
 
   export interface TextInputProps
-    extends CommonProps,
+    extends CommonProps, StyledSystem.WidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
-    autocomplete?: string
     block?: boolean
-    size?: 'small' | 'large'
+    variant?: 'small' | 'large'
   }
 
   export const TextInput: React.FunctionComponent<TextInputProps>
@@ -361,6 +363,11 @@ declare module '@primer/components/src/ButtonPrimary' {
 declare module '@primer/components/src/ButtonOutline' {
   import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
+}
+
+declare module '@primer/components/src/ButtonGroup' {
+  import {ButtonGroup} from '@primer/components'
+  export default ButtonGroup
 }
 
 declare module '@primer/components/src/Button' {
