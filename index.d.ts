@@ -123,9 +123,12 @@ declare module '@primer/components' {
     size?: 'sm' | 'large'
   }
 
+  export interface ButtonTableList extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
   export interface AnimationPulseProps
@@ -397,6 +400,11 @@ declare module '@primer/components/src/ButtonPrimary' {
 declare module '@primer/components/src/ButtonOutline' {
   import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
+}
+
+declare module '@primer/components/src/ButtonTableList' {
+  import {ButtonTableList} from '@primer/components'
+  export default ButtonTableList
 }
 
 declare module '@primer/components/src/Button' {
