@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {COMMON, LAYOUT, TYPOGRAPHY, get} from './constants'
 import theme from './theme'
 
-
 const ButtonTableList = styled.summary`
   display: inline-block;
   padding: 0;
