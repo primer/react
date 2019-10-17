@@ -21,7 +21,7 @@ function SubNavBase({actions, className, align, children, full, label, ...rest})
 const SubNav = styled(SubNavBase)`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid ${get('colors.gray.2')};
+
   &.SubNav--right {
     justify-content: flex-end;
 
@@ -54,20 +54,32 @@ SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
-  padding: ${get('space.3')}px ${get('space.2')}px;
-  margin-right: ${get('space.3')}px;
+  padding: ${get('space.2')}px ${get('space.3')}px;
+  font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.1')}px;
   line-height: ${get('lineHeights.default')};
   color: ${get('colors.gray.6')};
   text-align: center;
-  border-bottom: 2px solid transparent;
   text-decoration: none;
+  border-top: 1px solid ${get('colors.gray.2')};
+  border-bottom: 1px solid ${get('colors.gray.2')};
+  border-right: 1px solid ${get('colors.gray.2')};
+
+  &:first-child {
+    border-top-left-radius: ${get('space.1')}px;
+    border-bottom-left-radius: ${get('space.1')}px;
+    border-left: 1px solid ${get('colors.gray.2')};
+  }
+
+  &:last-child {
+    border-top-right-radius: ${get('space.1')}px;
+    border-bottom-right-radius: ${get('space.1')}px;
+  }
 
   &:hover,
   &:focus {
-    color: ${get('colors.gray.9')};
     text-decoration: none;
-    border-bottom-color: ${get('colors.gray.3')};
+    background-color: ${get('colors.gray.1')};
     transition: 0.2s ease;
 
     .SubNav-octicon {
@@ -76,10 +88,9 @@ SubNav.Link = styled.a.attrs(props => ({
   }
 
   &.selected {
-    font-weight: ${get('fontWeights.bold')};
-    color: ${get('colors.gray.9')};
-    border-bottom-color: ${get('colors.orange.6')};
-
+    color: ${get('colors.white')};
+    background-color: ${get('colors.blue.5')};
+    border: 0;
     .SubNav-octicon {
       color: ${get('colors.gray.5')};
     }
