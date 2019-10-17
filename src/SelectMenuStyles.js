@@ -242,7 +242,7 @@ export const listItemStyles = css`
   .SelectMenu-selected {
     width: ${get('space.3')}px; // fixed width to make sure following content aligns
     margin-right: ${get('space.2')}px;
-    visibility: hidden;
+    display: none;
     transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
     transform: scale(0);
   }
@@ -257,7 +257,7 @@ export const listItemStyles = css`
     color: ${get('colors.gray.9')};
 
     .SelectMenu-selected {
-      visibility: visible;
+      display: inline-block;
       transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
       transform: scale(1);
     }
