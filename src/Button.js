@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, LAYOUT, get} from './constants'
 import theme from './theme'
 import getButtonStyles from './ButtonStyles'
-import {layout} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
 
 function fontSize({size = '14px', ...props}) {
   return {
@@ -20,7 +18,7 @@ const Button = styled.button.attrs(props => ({
   ${props => (props.theme ? getButtonStyles(props.theme) : '')};
   ${fontSize};
   ${COMMON};
-  ${layout};
+  ${LAYOUT};
 `
 
 Button.defaultProps = {
@@ -35,7 +33,7 @@ Button.propTypes = {
   size: PropTypes.oneOf(['sm', 'large']),
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...systemPropTypes.layout
+  ...LAYOUT.propTypes
 }
 
 export default Button
