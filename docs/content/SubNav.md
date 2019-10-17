@@ -23,6 +23,20 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </SubNav>
 ```
 
+## SubNav with search example
+
+```jsx live
+<SubNav aria-label="Main">
+  <SubNav.Link href="#home" selected>
+    Home
+  </SubNav.Link>
+  <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+  <SubNav.Link href="#support">Support</SubNav.Link>
+
+  <SubNav.Search />
+</SubNav>
+```
+
 ## System props
 
 SubNav and SubNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
