@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {COMMON} from './constants'
+import theme from './theme'
 import {wrapperStyles} from './SelectMenuStyles'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
@@ -29,4 +30,7 @@ SelectMenu.Summary = SelectMenuSummary
 SelectMenu.Tabs = SelectMenuTabs
 SelectMenu.Tab = SelectMenuTab
 
+SelectMenu.defaultProps = {
+  theme
+}
 export default SelectMenu
