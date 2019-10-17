@@ -123,7 +123,11 @@ declare module '@primer/components' {
     size?: 'sm' | 'large'
   }
 
-  export interface ButtonTableListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface ButtonTableListProps
+    extends CommonProps,
+      TypographyProps,
+      LayoutProps,
+      Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
