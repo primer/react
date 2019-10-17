@@ -4,6 +4,8 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import TextInput from './TextInput'
+import {Search} from '@primer/octicons-react'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -96,6 +98,11 @@ SubNav.Link = styled.a.attrs(props => ({
     }
   }
 `
+
+SubNav.Search = styled(TextInput).attrs(props => ({
+  type: 'search',
+  icon: Search
+}))``
 
 SubNav.defaultProps = {
   theme
