@@ -17,7 +17,7 @@ const StyledForm = styled.form`
 
 const SelectMenuFilter = props => {
   return (
-    <StyledForm>
+    <StyledForm theme={theme}>
       <TextInput width="100%" block type="text" {...props} />
     </StyledForm>
   )

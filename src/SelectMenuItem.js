@@ -6,7 +6,7 @@ import {COMMON} from './constants'
 import StyledOcticon from './StyledOcticon'
 import theme from './theme'
 
-const StyledItem = styled.button.attrs(() => ({
+const StyledItem = styled.a.attrs(() => ({
   role: 'menuitem',
   className: 'SelectMenu--list-item'
 }))`
