@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {COMMON} from './constants'
 import {modalStyles} from './SelectMenuStyles'
 import theme from './theme'
+import '@github/details-menu-element'
 
 const ModalWrapper = styled.div`
   ${modalStyles}
@@ -11,11 +12,11 @@ const ModalWrapper = styled.div`
 
 const SelectMenuModal = ({children, ...rest}) => {
   return (
-    <ModalWrapper {...rest}>
-      <details-menu class="modal" role="menu">
+    <details-menu class="details-menu" role="menu">
+      <ModalWrapper>
         {children}
-      </details-menu>
-    </ModalWrapper>
+      </ModalWrapper>
+    </details-menu>
   )
 }
 
