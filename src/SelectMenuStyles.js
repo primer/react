@@ -225,6 +225,7 @@ export const listItemStyles = css`
   background-color: ${get('colors.white')};
   border: 0;
   line-height: inherit;
+  text-decoration: none;
 
   & + & {
     // Add a top border only if the above element also is a list item
