@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import {COMMON} from './constants'
 import {modalStyles} from './SelectMenuStyles'
 import theme from './theme'
-import '@github/details-menu-element'
 
 const ModalWrapper = styled.div`
   ${modalStyles}
