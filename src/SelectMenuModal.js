@@ -13,9 +13,7 @@ const ModalWrapper = styled.div`
 const SelectMenuModal = ({children, ...rest}) => {
   return (
     <details-menu class="details-menu" role="menu">
-      <ModalWrapper>
-        {children}
-      </ModalWrapper>
+      <ModalWrapper {...rest}>{children}</ModalWrapper>
     </details-menu>
   )
 }

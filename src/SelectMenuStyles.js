@@ -44,7 +44,7 @@ export const wrapperStyles = css`
     padding: ${get('space.3')}px;
     pointer-events: none;
     flex-direction: column;
-  
+
     &::before {
       position: absolute;
       top: 0;
@@ -54,12 +54,12 @@ export const wrapperStyles = css`
       pointer-events: none;
       content: '';
       background-color: ${get('colors.blackfade50')};
-  
+
       @media (min-width: ${get('breakpoints.0')}) {
         display: none;
       }
     }
-  
+
     @media (min-width: ${get('breakpoints.0')}) {
       position: absolute;
       top: auto;
