@@ -102,7 +102,9 @@ SubNav.Link = styled.a.attrs(props => ({
 SubNav.Search = styled(TextInput).attrs(props => ({
   type: 'search',
   icon: Search
-}))``
+}))`
+  margin-left: ${get('space.2')}px;
+`
 
 SubNav.defaultProps = {
   theme
