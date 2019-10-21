@@ -9,9 +9,9 @@ import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
 
 const DropdownBase = ({title, children, className, ...rest}) => {
-  const classes = classnames(className, 'Dropdown-button')
+  const classes = classnames('Dropdown-button')
   return (
-    <Details overlay {...rest}>
+    <Details overlay className={className} {...rest}>
       <>
         <Button as="summary" aria-haspopup="true" className={classes} {...rest}>
           {title}

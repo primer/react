@@ -54,7 +54,6 @@ SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
-  // padding: ${get('space.2')}px ${get('space.3')}px;
   padding-left: ${get('space.3')}px;
   padding-right: ${get('space.3')}px;
   min-height: 34px; // copied from TextInput, but should be a variable.

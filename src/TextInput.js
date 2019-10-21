@@ -25,12 +25,13 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, type, className, ...rest}) => {
-  const classes = classnames(className, 'TextInput-wrapper')
+const TextInput = ({icon, type, className, width, ...rest}) => {
+  const wrapperClasses = classnames(className, 'TextInput-wrapper')
+  const inputClasses = classnames('TextInput-input', icon ? 'input-icon' : 'input-no-icon')
   return (
-    <Wrapper className={classes}>
+    <Wrapper width={width} className={wrapperClasses}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <input className="TextInput-input" type={type || 'text'} {...rest} />
+      <input className={inputClasses} type={type || 'text'} {...rest} />
     </Wrapper>
   )
 }
@@ -43,7 +44,6 @@ const Wrapper = styled.span`
   line-height: 20px;
   color: ${get('colors.gray.9')};
   vertical-align: middle;
-  background-color: ${get('colors.white')};
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
   border: 1px solid ${get('colors.gray.3')};
@@ -59,7 +59,22 @@ const Wrapper = styled.span`
   .TextInput-input {
     border: 0;
     margin-right: ${get('space.1')}px;
-    font-size: ${get('fontSizes.1')}px;
+    font-size: ${get('fontSizes.2')}px;
+    background-color: transparent;
+    color: inherit;
+    ${props =>
+      props.width &&
+      css`
+        width: ${props.width}px;
+      `}
+
+    &.input-icon {
+
+    }
+
+    &.input-no-icon {
+      padding: ${get('space.2')}px;
+    }
 
     &:focus {
       outline: 0;
@@ -78,7 +93,7 @@ const Wrapper = styled.span`
     css`
       display: block;
       width: 100%;
-    `}
+    `}    
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
   @media (max-width: ${get('breakpoints.1')}) {
