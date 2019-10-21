@@ -36,6 +36,8 @@
       url: /Dialog
     - title: Dropdown
       url: /Dropdown
+    - title: FilteredSearch
+      url: /FilteredSearch
     - title: FilterList
       url: /FilterList
     - title: Flash

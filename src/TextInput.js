@@ -25,7 +25,7 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, type, className, width, ...rest}) => {
+const TextInput = ({icon, type, className, width, theme, ...rest}) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames('TextInput-input', icon ? 'input-icon' : 'input-no-icon')
   return (
