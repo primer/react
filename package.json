@@ -50,6 +50,7 @@
     "react-bodymovin": "2.0.0",
     "react-dom": "^16.10.2",
     "react-is": "16.10.2",
+    "styled-components": "4.4.0",
     "styled-system": "5.1.2"
   },
   "devDependencies": {
@@ -92,8 +93,7 @@
     "rollup": "1.23.1",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "10.1.0",
-    "sass.macro": "0.1.0",
-    "styled-components": "4.4.0"
+    "sass.macro": "0.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
