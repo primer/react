@@ -29,7 +29,7 @@ const TextInput = ({icon, type, className, width, theme, ...rest}) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames('TextInput-input', icon ? 'input-icon' : 'input-no-icon')
   return (
-    <Wrapper width={width} className={wrapperClasses}>
+    <Wrapper width={width} className={wrapperClasses} theme={theme}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <input className={inputClasses} type={type || 'text'} {...rest} />
     </Wrapper>

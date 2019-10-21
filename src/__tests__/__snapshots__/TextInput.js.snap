@@ -2,13 +2,19 @@
 
 exports[`TextInput renders 1`] = `
 .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   min-height: 34px;
-  padding: 6px 8px;
   font-size: 16px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
-  background-color: #fff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d1d5da;
@@ -17,9 +23,32 @@ exports[`TextInput renders 1`] = `
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
 }
 
-.c0:focus {
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #959da5;
+  margin: 0 8px;
+}
+
+.c0 .TextInput-input {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+}
+
+.c0 .TextInput-input.input-no-icon {
+  padding: 8px;
+}
+
+.c0 .TextInput-input:focus {
+  outline: 0;
+}
+
+.c0:focus-within {
   border-color: #2188ff;
-  outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
@@ -29,35 +58,66 @@ exports[`TextInput renders 1`] = `
   }
 }
 
-<input
-  className="c0"
-  name="zipcode"
-  type="text"
-/>
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="TextInput-input input-no-icon"
+    name="zipcode"
+    type="text"
+  />
+</span>
 `;
 
 exports[`TextInput renders block 1`] = `
 .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   min-height: 34px;
-  padding: 6px 8px;
   font-size: 16px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
-  background-color: #fff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d1d5da;
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  display: block;
-  width: 100%;
 }
 
-.c0:focus {
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #959da5;
+  margin: 0 8px;
+}
+
+.c0 .TextInput-input {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+}
+
+.c0 .TextInput-input.input-no-icon {
+  padding: 8px;
+}
+
+.c0 .TextInput-input:focus {
+  outline: 0;
+}
+
+.c0:focus-within {
   border-color: #2188ff;
-  outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
@@ -67,38 +127,67 @@ exports[`TextInput renders block 1`] = `
   }
 }
 
-<input
-  className="c0"
-  name="zipcode"
-  type="text"
-/>
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    block={true}
+    className="TextInput-input input-no-icon"
+    name="zipcode"
+    type="text"
+  />
+</span>
 `;
 
 exports[`TextInput renders large 1`] = `
 .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   min-height: 34px;
-  padding: 6px 8px;
   font-size: 16px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
-  background-color: #fff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d1d5da;
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 20px;
 }
 
-.c0:focus {
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #959da5;
+  margin: 0 8px;
+}
+
+.c0 .TextInput-input {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+}
+
+.c0 .TextInput-input.input-no-icon {
+  padding: 8px;
+}
+
+.c0 .TextInput-input:focus {
+  outline: 0;
+}
+
+.c0:focus-within {
   border-color: #2188ff;
-  outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
@@ -108,40 +197,67 @@ exports[`TextInput renders large 1`] = `
   }
 }
 
-<input
-  className="c0"
-  name="zipcode"
-  type="text"
-/>
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="TextInput-input input-no-icon"
+    name="zipcode"
+    type="text"
+    variant="large"
+  />
+</span>
 `;
 
 exports[`TextInput renders small 1`] = `
 .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   min-height: 34px;
-  padding: 6px 8px;
   font-size: 16px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
-  background-color: #fff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d1d5da;
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
 }
 
-.c0:focus {
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #959da5;
+  margin: 0 8px;
+}
+
+.c0 .TextInput-input {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+}
+
+.c0 .TextInput-input.input-no-icon {
+  padding: 8px;
+}
+
+.c0 .TextInput-input:focus {
+  outline: 0;
+}
+
+.c0:focus-within {
   border-color: #2188ff;
-  outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
@@ -151,9 +267,14 @@ exports[`TextInput renders small 1`] = `
   }
 }
 
-<input
-  className="c0"
-  name="zipcode"
-  type="text"
-/>
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="TextInput-input input-no-icon"
+    name="zipcode"
+    type="text"
+    variant="small"
+  />
+</span>
 `;

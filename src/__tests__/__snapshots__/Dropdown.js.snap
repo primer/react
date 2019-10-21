@@ -22,7 +22,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -118,7 +118,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c2 c1"
+    className="c2 Dropdown-button"
   >
     <div
       className="c3"
@@ -150,7 +150,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -246,7 +246,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c2 c1"
+    className="c2 Dropdown-button"
   >
     hi
     <div
