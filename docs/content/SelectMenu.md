@@ -13,13 +13,13 @@ title: SelectMenu
         <SelectMenu.Tab>Organization</SelectMenu.Tab>
       </SelectMenu.Tabs>
       <SelectMenu.List>
-        <SelectMenu.Item>Primer Components release tracking</SelectMenu.Item>
-        <SelectMenu.Item >Primer Compononents roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components release tracking</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Compononents roadmap</SelectMenu.Item>
         <SelectMenu.Divider>More options</SelectMenu.Divider>
-        <SelectMenu.Item >Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
       </SelectMenu.List>
       <SelectMenu.List hidden>
-        <SelectMenu.Item>Design Systems projects</SelectMenu.Item>
+        <SelectMenu.Item href="#">Design Systems projects</SelectMenu.Item>
       </SelectMenu.List>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>
