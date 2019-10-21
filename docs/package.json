@@ -23,6 +23,6 @@
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
-    "minipass": "^2.9.0"
+    "minipass": "^3.0.1"
   }
 }
