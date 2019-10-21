@@ -1,17 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import classnames from 'classnames'
 import Button from './Button'
 import Details from './Details'
 import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
 
-const DropdownBase = ({title, children, ...rest}) => {
+const DropdownBase = ({title, children, className, ...rest}) => {
+  const classes = classnames(className, 'Dropdown-button')
   return (
     <Details overlay {...rest}>
       <>
-        <Button as="summary" aria-haspopup="true" {...rest}>
+        <Button as="summary" aria-haspopup="true" className={classes} {...rest}>
           {title}
           <DropdownCaret />
         </Button>

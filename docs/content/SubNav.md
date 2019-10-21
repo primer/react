@@ -33,7 +33,30 @@ This ensures that the NavLink gets `activeClassName='selected'`
   <SubNav.Link href="#documentation">Documentation</SubNav.Link>
   <SubNav.Link href="#support">Support</SubNav.Link>
 
-  <SubNav.Search />
+  <TextInput type="search" icon={Search} />
+</SubNav>
+```
+
+## SubNav with filtered search example
+
+```jsx live
+<SubNav aria-label="Main">
+  <SubNav.Link href="#home" selected>
+    Home
+  </SubNav.Link>
+  <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+  <SubNav.Link href="#support">Support</SubNav.Link>
+
+  <FilteredSearch>
+    <Dropdown title="Filter">
+      <Dropdown.Menu direction="sw">
+        <Dropdown.Item>Item 1</Dropdown.Item>
+        <Dropdown.Item>Item 2</Dropdown.Item>
+        <Dropdown.Item>Item 3</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    <TextInput type="search" icon={Search} />
+  </FilteredSearch>
 </SubNav>
 ```
 

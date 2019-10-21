@@ -26,8 +26,9 @@ const sizeVariants = variant({
 })
 
 const TextInput = ({icon, type, className, ...rest}) => {
+  const classes = classnames(className, 'TextInput-wrapper')
   return (
-    <Wrapper className={className}>
+    <Wrapper className={classes}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <input className="TextInput-input" type={type || 'text'} {...rest} />
     </Wrapper>

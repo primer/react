@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
+import {layout} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import FilteredSearch from './FilteredSearch'
 import TextInput from './TextInput'
-import {Search} from '@primer/octicons-react'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -56,7 +57,10 @@ SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
-  padding: ${get('space.2')}px ${get('space.3')}px;
+  // padding: ${get('space.2')}px ${get('space.3')}px;
+  padding-left: ${get('space.3')}px;
+  padding-right: ${get('space.3')}px;
+  min-height: 34px; // copied from TextInput, but should be a variable.
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.1')}px;
   line-height: ${get('lineHeights.default')};
@@ -66,16 +70,19 @@ SubNav.Link = styled.a.attrs(props => ({
   border-top: 1px solid ${get('colors.gray.2')};
   border-bottom: 1px solid ${get('colors.gray.2')};
   border-right: 1px solid ${get('colors.gray.2')};
+  display: flex;
+  align-items: center;
 
   &:first-child {
-    border-top-left-radius: ${get('space.1')}px;
-    border-bottom-left-radius: ${get('space.1')}px;
+    border-top-left-radius: ${get('radii.1')}px;
+    border-bottom-left-radius: ${get('radii.1')}px;
     border-left: 1px solid ${get('colors.gray.2')};
   }
 
-  &:last-child {
-    border-top-right-radius: ${get('space.1')}px;
-    border-bottom-right-radius: ${get('space.1')}px;
+  &:last-of-type {
+    border-top-right-radius: ${get('radii.1')}px;
+    border-bottom-right-radius: ${get('radii.1')}px;
+    margin-right: ${get('space.2')}px;
   }
 
   &:hover,
@@ -97,13 +104,6 @@ SubNav.Link = styled.a.attrs(props => ({
       color: ${get('colors.gray.5')};
     }
   }
-`
-
-SubNav.Search = styled(TextInput).attrs(props => ({
-  type: 'search',
-  icon: Search
-}))`
-  margin-left: ${get('space.2')}px;
 `
 
 SubNav.defaultProps = {
