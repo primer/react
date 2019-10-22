@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "15.0.1",
+  "version": "15.1.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -69,7 +69,7 @@
     "enzyme-adapter-react-16": "1.15.1",
     "eslint": "6.5.1",
     "eslint-plugin-github": "3.2.0",
-    "eslint-plugin-jest": "22.19.0",
+    "eslint-plugin-jest": "22.20.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
     "fs-extra": "8.1.0",
