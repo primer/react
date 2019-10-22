@@ -79,7 +79,7 @@
     "jscodeshift": "0.6.4",
     "mdx-live": "2.0.0-alpha.2",
     "node-sass": "4.12.0",
-    "primer-forms": "2.1.4",
+    "primer-forms": "2.1.8",
     "primer-layout": "1.6.2",
     "primer-module-build": "1.0.5",
     "primer-navigation": "1.5.11",
