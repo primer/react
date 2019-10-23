@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import classnames from 'classnames'
 import Button from './Button'
 import Details from './Details'
 import {COMMON, get} from './constants'
