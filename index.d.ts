@@ -188,6 +188,12 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<DropdownProps>
   }
 
+  export interface FilteredSearchProps extends CommonProps {
+    // just children
+  }
+
+  export const FilteredSearch: React.FunctionComponent<FilteredSearchProps>
+
   export interface FilterListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     small?: boolean
   }
@@ -269,7 +275,8 @@ declare module '@primer/components' {
   }
 
   export interface TextInputProps
-    extends CommonProps, StyledSystem.WidthProps,
+    extends CommonProps,
+      StyledSystem.WidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
     block?: boolean
     variant?: 'small' | 'large'
