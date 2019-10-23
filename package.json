@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "15.0.1",
+  "version": "15.0.2",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
