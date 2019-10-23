@@ -8,8 +8,8 @@ import theme from './theme'
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
 
-function SubNavBase({actions, className, align, children, full, label, ...rest}) {
-  const classes = classnames(className, 'SubNav', align && `SubNav--${align}`, full && 'SubNav--full')
+function SubNavBase({actions, className, children, label, ...rest}) {
+  const classes = classnames(className, 'SubNav')
   return (
     <nav className={classes} aria-label={label} {...rest}>
       <div className="SubNav-body">{children}</div>
@@ -21,22 +21,6 @@ function SubNavBase({actions, className, align, children, full, label, ...rest})
 const SubNav = styled(SubNavBase)`
   display: flex;
   justify-content: space-between;
-
-  &.SubNav--right {
-    justify-content: flex-end;
-
-    .SubNav-item {
-      margin-right: 0;
-      margin-left: ${get('space.3')}px;
-    }
-
-    .SubNav-actions {
-      flex: 1 1 auto;
-    }
-  }
-  &.SubNav--full {
-    display: block;
-  }
 
   .SubNav-body {
     display: flex;

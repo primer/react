@@ -8,7 +8,7 @@ const FilteredSearch = styled.div`
   display: flex;
   align-items: stretch;
 
-  .Dropdown-button {
+  summary {
     border-radius: 0;
     border-top-left-radius: ${get('radii.1')}px;
     border-bottom-left-radius: ${get('radii.1')}px;

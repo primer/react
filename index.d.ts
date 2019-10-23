@@ -313,8 +313,6 @@ declare module '@primer/components' {
 
   export interface SubNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     actions?: React.ReactNode
-    align?: 'right'
-    full?: boolean
     label?: string
   }
 
