@@ -27,14 +27,45 @@ const sizeVariants = variant({
 
 const TextInput = ({icon, type, className, width, theme, ...rest}) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
-  const inputClasses = classnames('TextInput-input', icon ? 'input-icon' : 'input-no-icon')
+  const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
+  const hasIcon = !!icon
   return (
     <Wrapper width={width} className={wrapperClasses} theme={theme}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <input className={inputClasses} type={type || 'text'} {...rest} />
+      <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
     </Wrapper>
   )
 }
+
+const Input = styled.input.attrs(props => ({
+  type: props.type || 'text'
+}))`
+  border: 0;
+  margin-right: ${get('space.1')}px;
+  font-size: ${get('fontSizes.2')}px;
+  background-color: transparent;
+  color: inherit;
+  ${props =>
+    props.width &&
+    css`
+      width: ${props.width}px;
+    `}
+
+  ${props => {
+    if (props.hasIcon) {
+      return css`
+        padding-left: 0;
+      `
+    } else {
+      return css`
+        padding-left: ${get('space.2')}px;
+      `
+    }
+  }}
+  &:focus {
+    outline: 0;
+  }
+`
 
 const Wrapper = styled.span`
   display: inline-flex;
@@ -55,30 +86,6 @@ const Wrapper = styled.span`
     align-self: center;
     color: ${get('colors.gray.4')};
     margin: 0 ${get('space.2')}px;
-  }
-  .TextInput-input {
-    border: 0;
-    margin-right: ${get('space.1')}px;
-    font-size: ${get('fontSizes.2')}px;
-    background-color: transparent;
-    color: inherit;
-    ${props =>
-      props.width &&
-      css`
-        width: ${props.width}px;
-      `}
-
-    &.input-icon {
-
-    }
-
-    &.input-no-icon {
-      padding: ${get('space.2')}px;
-    }
-
-    &:focus {
-      outline: 0;
-    }
   }
 
   &:focus-within {
