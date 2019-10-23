@@ -1,6 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders 1`] = `
+.c1 {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+  padding-left: 8px;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -31,22 +44,6 @@ exports[`TextInput renders 1`] = `
   margin: 0 8px;
 }
 
-.c0 .TextInput-input {
-  border: 0;
-  margin-right: 4px;
-  font-size: 16px;
-  background-color: transparent;
-  color: inherit;
-}
-
-.c0 .TextInput-input.input-no-icon {
-  padding: 8px;
-}
-
-.c0 .TextInput-input:focus {
-  outline: 0;
-}
-
 .c0:focus-within {
   border-color: #2188ff;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -62,7 +59,7 @@ exports[`TextInput renders 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="TextInput-input input-no-icon"
+    className="c1 input-no-icon"
     name="zipcode"
     type="text"
   />
@@ -70,6 +67,19 @@ exports[`TextInput renders 1`] = `
 `;
 
 exports[`TextInput renders block 1`] = `
+.c1 {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+  padding-left: 8px;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -100,22 +110,6 @@ exports[`TextInput renders block 1`] = `
   margin: 0 8px;
 }
 
-.c0 .TextInput-input {
-  border: 0;
-  margin-right: 4px;
-  font-size: 16px;
-  background-color: transparent;
-  color: inherit;
-}
-
-.c0 .TextInput-input.input-no-icon {
-  padding: 8px;
-}
-
-.c0 .TextInput-input:focus {
-  outline: 0;
-}
-
 .c0:focus-within {
   border-color: #2188ff;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -131,8 +125,7 @@ exports[`TextInput renders block 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    block={true}
-    className="TextInput-input input-no-icon"
+    className="c1 input-no-icon"
     name="zipcode"
     type="text"
   />
@@ -140,6 +133,19 @@ exports[`TextInput renders block 1`] = `
 `;
 
 exports[`TextInput renders large 1`] = `
+.c1 {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+  padding-left: 8px;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -170,22 +176,6 @@ exports[`TextInput renders large 1`] = `
   margin: 0 8px;
 }
 
-.c0 .TextInput-input {
-  border: 0;
-  margin-right: 4px;
-  font-size: 16px;
-  background-color: transparent;
-  color: inherit;
-}
-
-.c0 .TextInput-input.input-no-icon {
-  padding: 8px;
-}
-
-.c0 .TextInput-input:focus {
-  outline: 0;
-}
-
 .c0:focus-within {
   border-color: #2188ff;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -201,15 +191,27 @@ exports[`TextInput renders large 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="TextInput-input input-no-icon"
+    className="c1 input-no-icon"
     name="zipcode"
     type="text"
-    variant="large"
   />
 </span>
 `;
 
 exports[`TextInput renders small 1`] = `
+.c1 {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+  padding-left: 8px;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -240,22 +242,6 @@ exports[`TextInput renders small 1`] = `
   margin: 0 8px;
 }
 
-.c0 .TextInput-input {
-  border: 0;
-  margin-right: 4px;
-  font-size: 16px;
-  background-color: transparent;
-  color: inherit;
-}
-
-.c0 .TextInput-input.input-no-icon {
-  padding: 8px;
-}
-
-.c0 .TextInput-input:focus {
-  outline: 0;
-}
-
 .c0:focus-within {
   border-color: #2188ff;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -271,10 +257,9 @@ exports[`TextInput renders small 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="TextInput-input input-no-icon"
+    className="c1 input-no-icon"
     name="zipcode"
     type="text"
-    variant="small"
   />
 </span>
 `;

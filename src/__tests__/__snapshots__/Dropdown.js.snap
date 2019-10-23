@@ -118,7 +118,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c2 Dropdown-button"
+    className="c2"
   >
     <div
       className="c3"
@@ -246,7 +246,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c2 Dropdown-button"
+    className="c2"
   >
     hi
     <div

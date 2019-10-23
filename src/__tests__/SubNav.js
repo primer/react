@@ -20,14 +20,6 @@ describe('SubNav', () => {
     expect(rendersClass(<SubNav />, 'SubNav')).toEqual(true)
   })
 
-  it('respects the "align" prop', () => {
-    expect(rendersClass(<SubNav align="right" />, 'SubNav--right')).toEqual(true)
-  })
-
-  it('respects the "full" prop', () => {
-    expect(rendersClass(<SubNav full />, 'SubNav--full')).toEqual(true)
-  })
-
   it('sets aria-label to the "label" prop', () => {
     expect(render(<SubNav label="foo" />).props['aria-label']).toEqual('foo')
   })
