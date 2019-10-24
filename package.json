@@ -22,7 +22,6 @@
     "design-system"
   ],
   "files": [
-    "css.js",
     "codemods",
     "dist",
     "src",
