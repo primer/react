@@ -7,9 +7,9 @@ import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
 
-const DropdownBase = ({title, children, ...rest}) => {
+const DropdownBase = ({title, children, className, ...rest}) => {
   return (
-    <Details overlay {...rest}>
+    <Details overlay className={className} {...rest}>
       <>
         <Button as="summary" aria-haspopup="true" {...rest}>
           {title}

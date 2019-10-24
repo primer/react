@@ -36,6 +36,8 @@
       url: /Dialog
     - title: Dropdown
       url: /Dropdown
+    - title: FilteredSearch
+      url: /FilteredSearch
     - title: FilterList
       url: /FilterList
     - title: Flash
@@ -62,6 +64,8 @@
       url: /StateLabel
     - title: StyledOcticon
       url: /StyledOcticon
+    - title: SubNav
+      url: /SubNav
     - title: TabNav
       url: /TabNav
     - title: Text
