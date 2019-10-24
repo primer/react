@@ -44,7 +44,6 @@
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
     "react": "^16.10.2",
-    "react-dom": "^16.10.2",
     "react-is": "16.10.2",
     "styled-system": "5.1.2"
   },
