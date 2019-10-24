@@ -64,6 +64,7 @@
     "jest-styled-components": "6.3.3",
     "jscodeshift": "0.6.4",
     "raw.macro": "0.3.0",
+    "react-dom": "16.11.0",
     "react-test-renderer": "16.10.2",
     "rollup": "1.25.1",
     "rollup-plugin-babel": "4.3.3",
