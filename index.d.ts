@@ -277,7 +277,7 @@ declare module '@primer/components' {
   export interface TextInputProps
     extends CommonProps,
       StyledSystem.WidthProps,
-      Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
+      Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
     variant?: 'small' | 'large'
   }
