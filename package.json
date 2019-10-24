@@ -67,6 +67,8 @@
     "jest": "25.0.0",
     "jest-styled-components": "6.3.3",
     "jscodeshift": "0.6.4",
+    "primer-markdown": "4.0.0",
+    "primer-utilities": "5.0.0",
     "raw.macro": "0.3.0",
     "react-test-renderer": "16.10.2",
     "rollup": "1.25.1",
