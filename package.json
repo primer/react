@@ -41,8 +41,6 @@
     "babel-plugin-macros": "2.6.1",
     "classnames": "^2.2.5",
     "details-element-polyfill": "2.4.0",
-    "fs-extra": "8.1.0",
-    "globby": "10.0.1",
     "nanoid": "2.1.4",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
