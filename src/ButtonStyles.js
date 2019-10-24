@@ -19,7 +19,7 @@ export default css`
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid ${get('colors.button.border')};
-  border-radius: 0.25em;
+  border-radius: ${get('radii.1')}px;
   appearance: none;
   text-decoration: none;
 
