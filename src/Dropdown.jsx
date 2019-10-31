@@ -29,6 +29,7 @@ const Dropdown = styled(DropdownBase)`
 const DropdownCaret = styled.div`
   border: ${get('space.1')}px solid transparent;
   border-top-color: currentcolor;
+  border-bottom-width: 0;
   content: '';
   display: inline-block;
   height: 0;

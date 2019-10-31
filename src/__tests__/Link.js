@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Link from '../Link'
 import {render} from '../utils/testing'
@@ -45,5 +45,13 @@ describe('Link', () => {
 
   it('applies button styles when rendering a button element', () => {
     expect(render(<Link as="button" />)).toMatchSnapshot()
+  })
+
+  it('respectes the "muted" prop', () => {
+    expect(render(<Link muted />)).toMatchSnapshot()
+  })
+
+  it('respectes the "color" prop when "muted" prop is also passed', () => {
+    expect(render(<Link muted color="black" />)).toMatchSnapshot()
   })
 })

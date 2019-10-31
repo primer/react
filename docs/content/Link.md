@@ -11,7 +11,9 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 ## Default example
 
 ```jsx live
-<Link mb={1} href="https://github.com">Link</Link>
+<Link mb={1} href="https://github.com">
+  Link
+</Link>
 ```
 
 ## System props
@@ -20,8 +22,9 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 
 ## Component props
 
-| Name      | Type    | Default | Description                                 |
-| :-------- | :------ | :-----: | :------------------------------------------ |
-| href      | String  |         | URL to be used for the Link                 |
-| underline | Boolean |  false  | Adds underline to the Link                  |
-| as        | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary' |
+| Name      | Type    | Default | Description                                       |
+| :-------- | :------ | :-----: | :------------------------------------------------ |
+| href      | String  |         | URL to be used for the Link                       |
+| muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
+| underline | Boolean |  false  | Adds underline to the Link                        |
+| as        | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary'       |

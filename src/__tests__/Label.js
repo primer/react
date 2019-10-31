@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
 import Label from '../Label'
 import {render} from '../utils/testing'
@@ -11,6 +10,10 @@ describe('Label', () => {
 
   it('respects the "outline" prop', () => {
     expect(render(<Label outline />)).toMatchSnapshot()
+  })
+
+  it('respects the "variant" prop', () => {
+    expect(render(<Label variant="xl" />)).toMatchSnapshot()
   })
 
   it('respects the "as" prop', () => {
