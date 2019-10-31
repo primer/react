@@ -44,7 +44,9 @@ const TextInput = styled.input.attrs(({theme, variant, block, ...rest}) => ({
     outline: none;
     box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
   }
+
   ${sizeVariants}
+
   ${props =>
     props.block &&
     css`

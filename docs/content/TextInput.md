@@ -15,7 +15,7 @@ TextInput components get `COMMON` system props. Read our [System Props](/system-
 
 ## Component props
 
-Native `input` attributes are forwarded to the underlying React `input` component and are not listed below.
+Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |

@@ -89,10 +89,11 @@ exports[`TextInput renders large 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  width: large;
-  height: large;
-  width: large;
-  height: large;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
 }
 
 .c0:focus {
@@ -110,7 +111,6 @@ exports[`TextInput renders large 1`] = `
 <input
   className="c0"
   name="zipcode"
-  size="large"
   type="text"
 />
 `;
@@ -130,10 +130,13 @@ exports[`TextInput renders small 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  width: small;
-  height: small;
-  width: small;
-  height: small;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .c0:focus {
@@ -151,7 +154,6 @@ exports[`TextInput renders small 1`] = `
 <input
   className="c0"
   name="zipcode"
-  size="small"
   type="text"
 />
 `;

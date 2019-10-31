@@ -48,15 +48,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-  cursor: default;
-}
-
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -96,15 +87,15 @@ exports[`Dropdown matches the snapshots 1`] = `
   z-index: 1;
 }
 
-.c1 > summary {
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -127,7 +118,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
+    className="c2 c1"
   >
     <div
       className="c3"
@@ -185,15 +176,6 @@ exports[`Dropdown matches the snapshots 2`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-  cursor: default;
-}
-
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
@@ -233,15 +215,15 @@ exports[`Dropdown matches the snapshots 2`] = `
   z-index: 1;
 }
 
-.c1 > summary {
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -264,7 +246,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
+    className="c2 c1"
   >
     hi
     <div

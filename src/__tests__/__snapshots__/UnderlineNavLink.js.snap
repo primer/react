@@ -40,7 +40,7 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
 
 <b
   activeClassName=""
-  className="UnderlineNav-item c0"
+  className="c0 UnderlineNav-item"
   theme={
     Object {
       "borders": Array [
@@ -289,7 +289,7 @@ exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
 }
 
 <a
-  className="UnderlineNav-item selected c0"
+  className="c0 UnderlineNav-item selected"
   selected={true}
 />
 `;
