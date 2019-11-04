@@ -10,6 +10,9 @@
     - title: Core Concepts
       url: /core-concepts
 
+    - title: Philosophy
+      url: /philosophy
+
 - title: Components
   children:
     - title: Avatar
