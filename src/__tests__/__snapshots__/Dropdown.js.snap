@@ -22,7 +22,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -46,15 +46,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   background-image: none;
   box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
   border-color: rgba(27,31,35,0.2);
-}
-
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-  cursor: default;
 }
 
 .c2:focus {
@@ -96,15 +87,15 @@ exports[`Dropdown matches the snapshots 1`] = `
   z-index: 1;
 }
 
-.c1 > summary {
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -127,7 +118,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
+    className="c2"
   >
     <div
       className="c3"
@@ -159,7 +150,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -183,15 +174,6 @@ exports[`Dropdown matches the snapshots 2`] = `
   background-image: none;
   box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
   border-color: rgba(27,31,35,0.2);
-}
-
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-  cursor: default;
 }
 
 .c2:focus {
@@ -233,15 +215,15 @@ exports[`Dropdown matches the snapshots 2`] = `
   z-index: 1;
 }
 
-.c1 > summary {
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -264,7 +246,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
+    className="c2"
   >
     hi
     <div

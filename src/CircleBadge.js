@@ -2,27 +2,25 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Octicon from '@primer/octicons-react'
 import {COMMON, get} from './constants'
+import isNumeric from './utils/isNumeric'
 import theme from './theme'
 
-const sizeMapper = (size = 'medium') => {
-  if (typeof size === 'number') return size
-  const map = {
-    small: 56,
-    medium: 96,
-    large: 128
-  }
-  return map[size]
+const variantSizes = {
+  small: 56,
+  medium: 96,
+  large: 128
 }
 
-const sizeStyles = ({size}) => {
+const sizeStyles = ({size, variant}) => {
+  const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
-    width: sizeMapper(size),
-    height: sizeMapper(size)
+    width: calc,
+    height: calc
   }
 }
 
 const CircleBadge = styled.div`
-  display: flex;
+  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.white')};
@@ -40,13 +38,16 @@ const Icon = styled(Octicon)`
 CircleBadge.Icon = Icon
 
 CircleBadge.defaultProps = {
+  inline: false,
   theme,
-  size: 'medium'
+  variant: 'medium'
 }
 
 CircleBadge.propTypes = {
-  size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.number]),
+  inline: PropTypes.bool,
+  size: PropTypes.number,
   theme: PropTypes.object,
+  variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes
 }
 

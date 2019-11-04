@@ -1,46 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
+exports[`SubNav.Link renders the given "as" prop 1`] = `
 .c0 {
-  padding: 16px 8px;
-  margin-right: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  min-height: 34px;
+  font-weight: 600;
   font-size: 14px;
   line-height: 1.5;
   color: #586069;
   text-align: center;
-  border-bottom: 2px solid transparent;
   -webkit-text-decoration: none;
   text-decoration: none;
+  border-top: 1px solid #e1e4e8;
+  border-bottom: 1px solid #e1e4e8;
+  border-right: 1px solid #e1e4e8;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-left: 1px solid #e1e4e8;
+}
+
+.c0:last-of-type {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-right: 8px;
 }
 
 .c0:hover,
 .c0:focus {
-  color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-bottom-color: #d1d5da;
+  background-color: #f6f8fa;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 
-.c0:hover .UnderlineNav-octicon,
-.c0:focus .UnderlineNav-octicon {
+.c0:hover .SubNav-octicon,
+.c0:focus .SubNav-octicon {
   color: #6a737d;
 }
 
 .c0.selected {
-  font-weight: 600;
-  color: #24292e;
-  border-bottom-color: #e36209;
+  color: #fff;
+  background-color: #0366d6;
+  border: 0;
 }
 
-.c0.selected .UnderlineNav-octicon {
+.c0.selected .SubNav-octicon {
   color: #6a737d;
 }
 
 <b
   activeClassName=""
-  className="c0 UnderlineNav-item"
+  className="c0 SubNav-item"
   theme={
     Object {
       "borders": Array [
@@ -246,46 +269,69 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
 />
 `;
 
-exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
+exports[`SubNav.Link respects the "selected" prop 1`] = `
 .c0 {
-  padding: 16px 8px;
-  margin-right: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  min-height: 34px;
+  font-weight: 600;
   font-size: 14px;
   line-height: 1.5;
   color: #586069;
   text-align: center;
-  border-bottom: 2px solid transparent;
   -webkit-text-decoration: none;
   text-decoration: none;
+  border-top: 1px solid #e1e4e8;
+  border-bottom: 1px solid #e1e4e8;
+  border-right: 1px solid #e1e4e8;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-left: 1px solid #e1e4e8;
+}
+
+.c0:last-of-type {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-right: 8px;
 }
 
 .c0:hover,
 .c0:focus {
-  color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-bottom-color: #d1d5da;
+  background-color: #f6f8fa;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 
-.c0:hover .UnderlineNav-octicon,
-.c0:focus .UnderlineNav-octicon {
+.c0:hover .SubNav-octicon,
+.c0:focus .SubNav-octicon {
   color: #6a737d;
 }
 
 .c0.selected {
-  font-weight: 600;
-  color: #24292e;
-  border-bottom-color: #e36209;
+  color: #fff;
+  background-color: #0366d6;
+  border: 0;
 }
 
-.c0.selected .UnderlineNav-octicon {
+.c0.selected .SubNav-octicon {
   color: #6a737d;
 }
 
 <a
-  className="c0 UnderlineNav-item selected"
+  className="c0 SubNav-item selected"
   selected={true}
 />
 `;

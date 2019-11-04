@@ -13,7 +13,7 @@ describe('StyledOcticon', () => {
     expect(render(<StyledOcticon icon={X} />)).toMatchSnapshot()
   })
 
-  xit('has default theme', () => {
+  it.skip('has default theme', () => {
     expect(StyledOcticon).toSetDefaultTheme()
   })
 })

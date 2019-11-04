@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BranchName matches snapshot 1`] = `
+.c0 .LabelItem {
+  margin-right: 4px;
+}
+
 .c0 .LabelItem:last-child {
   margin-right: 0;
 }
@@ -17,8 +21,6 @@ exports[`BranchName matches snapshot 1`] = `
   padding-top: 4px;
   padding-bottom: 4px;
   background-color: #6a737d;
-  width: medium;
-  height: medium;
 }
 
 .c1:hover {
@@ -38,8 +40,6 @@ exports[`BranchName matches snapshot 1`] = `
   padding-top: 4px;
   padding-bottom: 4px;
   background-color: #6a737d;
-  width: medium;
-  height: medium;
   margin-top: -1px;
   margin-bottom: -1px;
   font-weight: 400;
@@ -58,20 +58,17 @@ exports[`BranchName matches snapshot 1`] = `
   className="c0"
 >
   <span
-    className="c1"
-    size="medium"
+    className="c1 LabelItem"
   >
     Default label
   </span>
   <span
-    className="c1"
-    size="medium"
+    className="c1 LabelItem"
   >
     Darker gray label
   </span>
   <span
-    className="c2"
-    size="medium"
+    className="c2 LabelItem"
   >
     Default outline label
   </span>
