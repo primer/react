@@ -1,14 +1,14 @@
 - title: Getting Started
   url: /getting-started
   children:
-  - title: Primer Theme
-    url: /primer-theme
+    - title: Primer Theme
+      url: /primer-theme
 
-  - title: System Props
-    url: /system-props
+    - title: System Props
+      url: /system-props
 
-  - title: Core Concepts
-    url: /core-concepts
+    - title: Core Concepts
+      url: /core-concepts
 
   - title: Philosophy
     url: /philosophy
@@ -17,6 +17,8 @@
   children:
     - title: Avatar
       url: /Avatar
+    - title: AvatarStack
+      url: /AvatarStack
     - title: BorderBox
       url: /BorderBox
     - title: Box
@@ -37,6 +39,8 @@
       url: /Dialog
     - title: Dropdown
       url: /Dropdown
+    - title: FilteredSearch
+      url: /FilteredSearch
     - title: FilterList
       url: /FilterList
     - title: Flash
@@ -49,16 +53,24 @@
       url: /Heading
     - title: Label
       url: /Label
+    - title: LabelGroup
+      url: /LabelGroup
     - title: Link
       url: /Link
     - title: PointerBox
       url: /PointerBox
     - title: Position
       url: /Position
+    - title: ProgressBar
+      url: /ProgressBar
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
       url: /StyledOcticon
+    - title: SubNav
+      url: /SubNav
+    - title: TabNav
+      url: /TabNav
     - title: Text
       url: /Text
     - title: TextInput

@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-param, jsdoc/require-returns, jsdoc/require-description-complete-sentence, jsdoc/match-description */
 import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
@@ -26,7 +27,7 @@ export function mount(component) {
  * ```
  */
 export function render(component) {
-  return renderer.create(mount(component)).toJSON()
+  return renderer.create(component).toJSON()
 }
 
 /**

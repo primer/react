@@ -4,7 +4,6 @@
   "alias": "primer-components.now.sh",
   "files": [
     ".babelrc",
-    "css.js",
     "package-lock.json",
     "docs",
     "rollup.config.js",

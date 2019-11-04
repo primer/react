@@ -6,8 +6,16 @@
   ],
   "rules": {
     "import/no-namespace": 0,
+    "no-shadow": 0,
     "no-unused-vars": ["error", {
       "ignoreRestSiblings": true
-    }]
+    }],
+    "eslint-comments/no-use": 0,
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": []
+      }
+    ]
   }
 }

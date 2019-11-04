@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import CircleBadge from '../CircleBadge'
 import {render, mount} from '../utils/testing'
@@ -15,6 +14,18 @@ describe('CircleBadge', () => {
 
   it('has default theme', () => {
     expect(CircleBadge).toSetDefaultTheme()
+  })
+
+  it('respects the inline prop', () => {
+    expect(render(<CircleBadge inline />)).toMatchSnapshot()
+  })
+
+  it('respects the variant prop', () => {
+    expect(render(<CircleBadge variant="large" />)).toMatchSnapshot()
+  })
+
+  it('uses the size prop to override the variant prop', () => {
+    expect(render(<CircleBadge variant="large" size={20} />)).toMatchSnapshot()
   })
 
   it('implements system props', () => {

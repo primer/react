@@ -45,5 +45,3 @@ UnderlineNav and UnderlineNav.Link components get `COMMON` system props. Read ou
 | as        | String  | sets the HTML tag for the component              |
 | href      | String  | URL to be used for the Link                      |
 | selected  | Boolean | Used to style the link as selected or unselected |
-
-export const meta = {displayName: 'UnderlineNav'}

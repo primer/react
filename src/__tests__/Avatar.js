@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Avatar from '../Avatar'
 import theme from '../theme'
