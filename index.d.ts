@@ -15,25 +15,13 @@ declare module '@primer/components' {
 
   interface LayoutProps
     extends BaseProps,
-      StyledSystem.DisplayProps,
-      StyledSystem.SizeProps,
-      StyledSystem.WidthProps,
-      StyledSystem.HeightProps,
-      StyledSystem.MinWidthProps,
-      StyledSystem.MinHeightProps,
-      StyledSystem.MaxWidthProps,
-      StyledSystem.MaxHeightProps,
-      StyledSystem.OverflowProps,
-      StyledSystem.VerticalAlignProps {}
+      StyledSystem.LayoutProps {}
 
   interface TypographyProps
     extends BaseProps,
-      StyledSystem.FontFamilyProps,
-      StyledSystem.FontSizeProps,
-      StyledSystem.FontStyleProps,
-      StyledSystem.FontWeightProps,
-      StyledSystem.LineHeightProps,
-      StyledSystem.TextAlignProps {}
+      StyledSystem.TypographyProps {
+        whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+      }
 
   interface BorderProps
     extends BaseProps,
