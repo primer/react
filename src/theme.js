@@ -1,5 +1,5 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
-import {fontSizes, lineHeights} from 'primer-typography'
+import {lineHeights} from 'primer-typography'
 
 const colors = {
   bodytext: gray[9],
@@ -84,16 +84,7 @@ const theme = {
   },
   colors,
   borders: [0, '1px solid'],
-  fontSizes: [
-    '12px',
-    '14px',
-    '16px',
-    '20px',
-    '24px',
-    '32px',
-    '40px',
-    '48px'
-  ],
+  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
   lineHeights,
   radii: ['0', '3px', '6px'],
   shadows: {
