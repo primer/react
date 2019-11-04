@@ -100,13 +100,10 @@ Categories of system props are exported from `src/constants.js`:
 
 ## Writing documentation
 
-We use [Next.js](https://github.com/zeit/next.js/) and [MDX Docs](https://github.com/jxnblk/mdx-docs/) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
+We use [Doctocat](https://github.com/primer/doctocat) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
 
-To add a new component to our documentation site:
+To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content/components`.
 
-1. Create a new file with the `.md` extension for your component in `pages/components/docs`.
-2. Copy & paste the template from `doc-template.md` & replace placeholder brackets with relevant information.
-3. Add the new file to the `index.js` in `pages/components/docs`
 
 ## Deployment
 We deploy the Primer Components site using [Now]. Install the Now CLI and log in with:
@@ -127,6 +124,15 @@ This will create a new deployment and alias it to its production URL, [primer-co
 ### Path aliasing
 This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `primer-components.now.sh`.
 
+## Troubleshooting
+
+**`npm start` fails with an error like `gatsby: command not found`**
+
+Make sure to run `npm install` from inside the `docs/` subfolder *as well as* the root folder.
+
+**`npm start` fails with a different error**
+
+Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
 
 ## Glossary
 

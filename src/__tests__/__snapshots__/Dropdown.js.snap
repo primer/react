@@ -22,10 +22,12 @@ exports[`Dropdown matches the snapshots 1`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
 }
 
@@ -46,35 +48,54 @@ exports[`Dropdown matches the snapshots 1`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:selected {
-  background-color: rgb(233,236,239);
-  background-image: none;
-  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
-  border-color: rgba(27,31,35,0.2);
-}
-
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-}
-
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-.c1 > summary {
+.c2.grouped {
+  position: relative;
+  border-right-width: 0;
+  border-radius: 0;
+}
+
+.c2.grouped:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c2.grouped:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c2.grouped:focus,
+.c2.grouped:active,
+.c2.grouped:hover {
+  border-right-width: 1px;
+}
+
+.c2.grouped:focus + .grouped,
+.c2.grouped:active + .grouped,
+.c2.grouped:hover + .grouped {
+  border-left-width: 0;
+}
+
+.c2:focus,
+.c2:active {
+  z-index: 1;
+}
+
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -82,6 +103,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 .c3 {
   border: 4px solid transparent;
   border-top-color: currentcolor;
+  border-bottom-width: 0;
   content: '';
   display: inline-block;
   height: 0;
@@ -91,12 +113,12 @@ exports[`Dropdown matches the snapshots 1`] = `
 
 <details
   className="c0 c1"
+  onToggle={[Function]}
   open={false}
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
-    onClick={[Function]}
+    className="c2"
   >
     <div
       className="c3"
@@ -128,10 +150,12 @@ exports[`Dropdown matches the snapshots 2`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
 }
 
@@ -152,35 +176,54 @@ exports[`Dropdown matches the snapshots 2`] = `
   border-color: rgba(27,31,35,0.2);
 }
 
-.c2:selected {
-  background-color: rgb(233,236,239);
-  background-image: none;
-  box-shadow: rgba(27,31,35,0.15) 0px 0.15em 0.3em inset;
-  border-color: rgba(27,31,35,0.2);
-}
-
-.c2.disabled {
-  color: rgba(36,41,46,0.4)!important;
-  background-color: #f6f8fa!important;
-  background-image: none!important;
-  border-color: rgba(27,31,35,0.20)!important;
-  box-shadow: none!important;
-}
-
 .c2:focus {
   outline: none;
   box-shadow: rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-.c1 > summary {
+.c2.grouped {
+  position: relative;
+  border-right-width: 0;
+  border-radius: 0;
+}
+
+.c2.grouped:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c2.grouped:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c2.grouped:focus,
+.c2.grouped:active,
+.c2.grouped:hover {
+  border-right-width: 1px;
+}
+
+.c2.grouped:focus + .grouped,
+.c2.grouped:active + .grouped,
+.c2.grouped:hover + .grouped {
+  border-left-width: 0;
+}
+
+.c2:focus,
+.c2:active {
+  z-index: 1;
+}
+
+.c0 > summary {
   list-style: none;
 }
 
-.c1 > summary::-webkit-details-marker {
+.c0 > summary::-webkit-details-marker {
   display: none;
 }
 
-.c0 {
+.c1 {
   position: relative;
   display: inline-block;
 }
@@ -188,6 +231,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 .c3 {
   border: 4px solid transparent;
   border-top-color: currentcolor;
+  border-bottom-width: 0;
   content: '';
   display: inline-block;
   height: 0;
@@ -197,12 +241,12 @@ exports[`Dropdown matches the snapshots 2`] = `
 
 <details
   className="c0 c1"
+  onToggle={[Function]}
   open={false}
 >
   <summary
     aria-haspopup="true"
-    className="c0 c2"
-    onClick={[Function]}
+    className="c2"
   >
     hi
     <div
@@ -218,7 +262,7 @@ exports[`Dropdown.Item matches the snapshots 1`] = `
   display: block;
   padding: 4px 10px 4px 15px;
   overflow: hidden;
-  color: $get('colors.gray.9');
+  color: #24292e;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -250,7 +294,7 @@ exports[`Dropdown.Item matches the snapshots 2`] = `
   display: block;
   padding: 4px 10px 4px 15px;
   overflow: hidden;
-  color: $get('colors.gray.9');
+  color: #24292e;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

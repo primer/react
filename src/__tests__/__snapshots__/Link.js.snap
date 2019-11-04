@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Link applies button styles when rendering a button element 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: #0366d6;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<button
+  className="c0"
+  color="blue.5"
+/>
+`;
+
 exports[`Link passes href down to link element 1`] = `
 .c0 {
   -webkit-text-decoration: none;
@@ -37,6 +69,46 @@ exports[`Link renders without any props 1`] = `
 />
 `;
 
+exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #1b1f23;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+<a
+  className="c0"
+  color="black"
+  muted={true}
+/>
+`;
+
+exports[`Link respectes the "muted" prop 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #586069;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+}
+
+<a
+  className="c0"
+  color="gray.6"
+  muted={true}
+/>
+`;
+
 exports[`Link respects hoverColor prop 1`] = `
 .c0 {
   -webkit-text-decoration: none;
@@ -54,4 +126,12 @@ exports[`Link respects hoverColor prop 1`] = `
   className="c0"
   color="blue.5"
 />
+`;
+
+exports[`Link respects the "as" prop with non-string component types 1`] = `
+<a
+  className="example-link"
+>
+  Example
+</a>
 `;

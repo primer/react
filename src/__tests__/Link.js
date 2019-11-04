@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Link from '../Link'
 import {render} from '../utils/testing'
@@ -26,6 +26,14 @@ describe('Link', () => {
     expect(render(<Link as="button" />).type).toEqual('button')
   })
 
+  it('respects the "as" prop with non-string component types', () => {
+    function ExampleLink({children}) {
+      return <a className="example-link">{children}</a>
+    }
+
+    expect(render(<Link as={ExampleLink}>Example</Link>)).toMatchSnapshot()
+  })
+
   it('respects hoverColor prop', () => {
     expect(render(<Link hoverColor="blue.4" />)).toMatchSnapshot()
   })
@@ -33,5 +41,17 @@ describe('Link', () => {
   it('respects the "fontStyle" prop', () => {
     expect(render(<Link fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
     expect(render(<Link as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+  })
+
+  it('applies button styles when rendering a button element', () => {
+    expect(render(<Link as="button" />)).toMatchSnapshot()
+  })
+
+  it('respectes the "muted" prop', () => {
+    expect(render(<Link muted />)).toMatchSnapshot()
+  })
+
+  it('respectes the "color" prop when "muted" prop is also passed', () => {
+    expect(render(<Link muted color="black" />)).toMatchSnapshot()
   })
 })
