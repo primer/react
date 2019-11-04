@@ -16,7 +16,7 @@ Our components can roughly be categorized into two different component types:
 
 - Pattern Components
 
-Pattern components represent a commonly used pattern in our UI. Some examples of pattern components are `Button`, `Avatar`, or `Label`.
+Pattern components help us repeat commonly used UI patterns and interactions in order to maintain our brand and provide a great user experience. Some examples of pattern components are `Button`, `Avatar`, or `Label`.
 
 - Helper Components
 
