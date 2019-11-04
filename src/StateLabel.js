@@ -40,7 +40,7 @@ const StateLabel = styled(StateLabelBase)`
   font-weight: 600;
   line-height: 20px;
   color: ${colors.white};
-  font-size: ${props => (props.small ? `${theme.fontSizes[0]}px` : `${theme.fontSizes[1]}px`)};
+  font-size: ${props => (props.small ? theme.fontSizes[0] : theme.fontSizes[1])};
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
   border-radius: ${theme.radii[1]};

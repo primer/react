@@ -41,14 +41,14 @@ const Input = styled.input.attrs(props => ({
   type: props.type || 'text'
 }))`
   border: 0;
-  margin-right: ${get('space.1')}px;
-  font-size: ${get('fontSizes.2')}px;
+  margin-right: ${get('space.1')};
+  font-size: ${get('fontSizes.2')};
   background-color: transparent;
   color: inherit;
   ${props =>
     props.width &&
     css`
-      width: ${props.width}px;
+      width: ${props.width};
     `}
 
   ${props => {
@@ -58,7 +58,7 @@ const Input = styled.input.attrs(props => ({
       `
     } else {
       return css`
-        padding-left: ${get('space.2')}px;
+        padding-left: ${get('space.2')};
       `
     }
   }}
@@ -71,7 +71,7 @@ const Wrapper = styled.span`
   display: inline-flex;
   align-items: stretch;
   min-height: 34px;
-  font-size: ${get('fontSizes.2')}px;
+  font-size: ${get('fontSizes.2')};
   line-height: 20px;
   color: ${get('colors.gray.9')};
   vertical-align: middle;
@@ -85,7 +85,7 @@ const Wrapper = styled.span`
   .TextInput-icon {
     align-self: center;
     color: ${get('colors.gray.4')};
-    margin: 0 ${get('space.2')}px;
+    margin: 0 ${get('space.2')};
   }
 
   &:focus-within {
@@ -104,7 +104,7 @@ const Wrapper = styled.span`
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
   @media (max-width: ${get('breakpoints.1')}) {
-    font-size: ${get('fontSizes.1')}px;
+    font-size: ${get('fontSizes.1')};
   }
   ${COMMON};
   ${width}

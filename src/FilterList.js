@@ -24,7 +24,7 @@ const Item = styled(ItemBase)`
   padding: ${props => (props.small ? `${get('space.1')(props)} 10px` : `${get('space.2')(props)} 11px`)};
   margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   color: ${props => (props.selected ? get('colors.white') : get('colors.gray.6'))};
   background-color: ${props => (props.selected ? get('colors.blue.5') : '')}!important;
   text-decoration: none;

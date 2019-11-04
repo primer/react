@@ -56,7 +56,7 @@ UnderlineNav.Link = styled.a.attrs(props => ({
 }))`
   padding: ${get('space.3')} ${get('space.2')};
   margin-right: ${get('space.3')};
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.default')};
   color: ${get('colors.gray.6')};
   text-align: center;

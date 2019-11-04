@@ -84,7 +84,16 @@ const theme = {
   },
   colors,
   borders: [0, '1px solid'],
-  fontSizes,
+  fontSizes: [
+    '12px',
+    '14px',
+    '16px',
+    '20px',
+    '24px',
+    '32px',
+    '40px',
+    '48px'
+  ],
   lineHeights,
   radii: ['0', '3px', '6px'],
   shadows: {
