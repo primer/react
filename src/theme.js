@@ -1,5 +1,5 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
-import {fontSizes, lineHeights} from 'primer-typography'
+import {lineHeights} from 'primer-typography'
 
 const colors = {
   bodytext: gray[9],
@@ -88,9 +88,9 @@ const theme = {
   },
   colors,
   borders: [0, '1px solid'],
-  fontSizes,
+  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
   lineHeights,
-  radii: [0, 3, 6],
+  radii: ['0', '3px', '6px'],
   shadows: {
     small: '0 1px 1px rgba(27, 31, 35, 0.1)',
     medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
@@ -99,7 +99,7 @@ const theme = {
     formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em'
   },
-  space: [0, 4, 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128]
+  space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 }
 
 export default theme

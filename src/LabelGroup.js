@@ -12,7 +12,7 @@ const transformChildren = children => {
 const StyledLabelGroup = styled.span`
   ${COMMON}
   & .LabelItem {
-    margin-right: ${get('space.1')}px;
+    margin-right: ${get('space.1')};
   }
   & .LabelItem:last-child {
     margin-right: 0;

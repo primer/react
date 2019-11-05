@@ -34,15 +34,12 @@ function getPosition(edge, align, spacing) {
 const getBg = style({prop: 'bg', key: 'colors'})
 const getBorderColor = style({prop: 'borderColor', key: 'colors'})
 const getBorderWidth = style({prop: 'borderWidth', key: 'borderWidths', scale: [0, 1]})
-const getSize = style({prop: 'size', key: 'space'})
 
 function Caret(props) {
   const {bg} = getBg(props)
   const {borderColor} = getBorderColor(props)
   const {borderWidth} = getBorderWidth(props)
-  const {size} = getSize(props)
-
-  const {location} = props
+  const {size, location} = props
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
 
@@ -104,7 +101,7 @@ Caret.defaultProps = {
   borderColor: 'gray.2',
   borderWidth: 1,
   location: 'bottom',
-  size: 2,
+  size: 8,
   theme
 }
 

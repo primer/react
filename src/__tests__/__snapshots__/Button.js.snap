@@ -22,7 +22,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid rgba(27,31,35,0.2);
-  border-radius: 0.25em;
+  border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

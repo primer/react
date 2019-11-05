@@ -28,7 +28,7 @@ const bgStyles = ({scheme, ...props}) => {
 const CounterLabel = styled.span`
   display: inline-block;
   padding: 2px 5px;
-  font-size: ${get('fontSizes.0')}px;
+  font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
   line-height: ${get('lineHeights.condensedUltra')};
   border-radius: 20px;

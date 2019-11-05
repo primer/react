@@ -1,8 +1,9 @@
 ---
 title: StyledOcticon
+tags: icon
 ---
 
-StyledOcticon renders an Octicon with common system props, including `color`, margin, and padding.
+StyledOcticon renders an [Octicon](https://octicons.github.com) with common system props, including `color`, margin, and padding.
 
 ## Default example
 
@@ -22,6 +23,6 @@ StyledOcticon passes all of its props except the common system props down to the
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | ariaLabel | String | | Specifies the `aria-label` attribute, which is read verbatim by screen readers |
-| icon | Octicon | | Octicon component used in the component |
+| icon | Octicon | | [Octicon component](https://github.com/primer/octicons/tree/master/lib/octicons_react) used in the component |
 | size | Number | 16 | Sets the uniform `width` and `height` of the SVG element |
 | verticalAlign | String | `text-bottom` | Sets the `vertical-align` CSS property |

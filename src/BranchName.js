@@ -6,7 +6,7 @@ import {COMMON, get} from './constants'
 const BranchName = styled.a`
   display: inline-block;
   padding: 2px 6px;
-  font-size: ${get('fontSizes.0')}px;
+  font-size: ${get('fontSizes.0')};
   font-family: ${get('fonts.mono')};
   color: rgba(27, 31, 35, 0.6);
   background-color: #eaf5ff;

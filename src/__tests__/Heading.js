@@ -8,7 +8,7 @@ const theme = {
   colors: {
     green: ['#010', '#020', '#030', '#040', '#050', '#060']
   },
-  fontSizes: [12, 14, 16, 20, 24, 32, 40, 48],
+  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
   fonts: {
     normal: 'Helvetica,sans-serif',
     mono: 'Consolas,monospace'
@@ -77,7 +77,7 @@ describe('Heading', () => {
 
   it('renders fontSize', () => {
     for (const fontSize of theme.fontSizes) {
-      expect(render(<Heading fontSize={fontSize} theme={theme} />)).toHaveStyleRule('font-size', `${fontSize}px`)
+      expect(render(<Heading fontSize={fontSize} theme={theme} />)).toHaveStyleRule('font-size', `${fontSize}`)
     }
   })
 
