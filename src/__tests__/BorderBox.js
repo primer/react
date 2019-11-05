@@ -24,7 +24,7 @@ describe('BorderBox', () => {
   })
 
   it('renders border radius', () => {
-    expect(render(<BorderBox borderRadius={2} />)).toHaveStyleRule('border-radius', `${theme.radii[2]}px`)
+    expect(render(<BorderBox borderRadius={2} />)).toHaveStyleRule('border-radius', theme.radii[2])
   })
 
   // the test returns the box shadow value without spaces, so had to manually provide the expected string here

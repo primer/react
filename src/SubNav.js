@@ -38,11 +38,11 @@ SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
-  padding-left: ${get('space.3')}px;
-  padding-right: ${get('space.3')}px;
+  padding-left: ${get('space.3')};
+  padding-right: ${get('space.3')};
   min-height: 34px; // copied from TextInput, but should be a variable.
   font-weight: ${get('fontWeights.bold')};
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.default')};
   color: ${get('colors.gray.6')};
   text-align: center;
@@ -54,15 +54,15 @@ SubNav.Link = styled.a.attrs(props => ({
   align-items: center;
 
   &:first-child {
-    border-top-left-radius: ${get('radii.1')}px;
-    border-bottom-left-radius: ${get('radii.1')}px;
+    border-top-left-radius: ${get('radii.1')};
+    border-bottom-left-radius: ${get('radii.1')};
     border-left: 1px solid ${get('colors.gray.2')};
   }
 
   &:last-of-type {
-    border-top-right-radius: ${get('radii.1')}px;
-    border-bottom-right-radius: ${get('radii.1')}px;
-    margin-right: ${get('space.2')}px;
+    border-top-right-radius: ${get('radii.1')};
+    border-bottom-right-radius: ${get('radii.1')};
+    margin-right: ${get('space.2')};
   }
 
   &:hover,

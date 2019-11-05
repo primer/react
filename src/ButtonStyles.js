@@ -8,7 +8,7 @@ export default css`
   color: ${get('colors.gray.9')};
   background-color: ${get('colors.gray.1')};
   background-image: linear-gradient(-180deg, ${get('colors.gray.0')} 0%, ${get('colors.button.bg2')} 90%);
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
   white-space: nowrap;
@@ -19,7 +19,7 @@ export default css`
   background-position: -1px -1px;
   background-size: 110% 110%;
   border: 1px solid ${get('colors.button.border')};
-  border-radius: ${get('radii.1')}px;
+  border-radius: ${get('radii.1')};
   appearance: none;
   text-decoration: none;
 
@@ -61,14 +61,14 @@ export default css`
     border-radius: 0;
 
     &:first-child {
-      border-top-left-radius: ${get('radii.1')}px;
-      border-bottom-left-radius: ${get('radii.1')}px;
+      border-top-left-radius: ${get('radii.1')};
+      border-bottom-left-radius: ${get('radii.1')};
     }
 
     &:last-child {
       border-right-width: 1px;
-      border-top-right-radius: ${get('radii.1')}px;
-      border-bottom-right-radius: ${get('radii.1')}px;
+      border-top-right-radius: ${get('radii.1')};
+      border-bottom-right-radius: ${get('radii.1')};
     }
 
     &:focus,

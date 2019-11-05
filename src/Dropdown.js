@@ -27,7 +27,7 @@ const Dropdown = styled(DropdownBase)`
 `
 
 const DropdownCaret = styled.div`
-  border: ${get('space.1')}px solid transparent;
+  border: ${get('space.1')} solid transparent;
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -41,7 +41,7 @@ const DropdownMenu = styled.ul`
   background-clip: padding-box;
   background-color: ${get('colors.white')};
   border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: ${get('space.1')}px;
+  border-radius: ${get('radii.1')};
   box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   left: 0;
   list-style: none;
@@ -65,7 +65,7 @@ const DropdownMenu = styled.ul`
   }
 
   &::before {
-    border: ${get('space.2')}px solid transparent;
+    border: ${get('space.2')} solid transparent;
     border-bottom-color: ${get('colors.blackfade15')};
   }
 
@@ -84,7 +84,7 @@ const DropdownMenu = styled.ul`
 
 const DropdownItem = styled.li`
   display: block;
-  padding: ${get('space.1')}px 10px ${get('space.1')}px 15px;
+  padding: ${get('space.1')} 10px ${get('space.1')} 15px;
   overflow: hidden;
   color: ${get('colors.gray.9')};
   text-overflow: ellipsis;

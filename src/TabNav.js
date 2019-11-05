@@ -34,7 +34,7 @@ TabNav.Link = styled.a.attrs(props => ({
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
   padding: 8px 12px;
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   line-height: 20px;
   color: ${get('colors.gray.6')};
   text-decoration: none;
