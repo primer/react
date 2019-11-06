@@ -5,7 +5,7 @@ import theme from './theme'
 const ButtonTableList = styled.summary`
   display: inline-block;
   padding: 0;
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   color: ${get('colors.gray.6')};
   text-decoration: none;
   white-space: nowrap;
@@ -29,7 +29,7 @@ const ButtonTableList = styled.summary`
 
   &:after {
     display: inline-block;
-    margin-left: ${get('space.1')}px;
+    margin-left: ${get('space.1')};
     width: 0;
     height: 0;
     vertical-align: -2px;

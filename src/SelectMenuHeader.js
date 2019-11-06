@@ -5,7 +5,7 @@ import theme from './theme'
 
 const SelectMenuTitle = styled.h3`
   flex: auto;
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0;
 
@@ -21,13 +21,13 @@ SelectMenuTitle.defaultProps = {
 const StyledHeader = styled.header`
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
-  padding: ${get('space.3')}px;
+  padding: ${get('space.3')};
   ${COMMON}
   ${TYPOGRAPHY}
 
   @media (min-width: ${get('breakpoints.0')}) {
-    padding-top: ${get('space.2')}px;
-    padding-bottom: ${get('space.2')}px;
+    padding-top: ${get('space.2')};
+    padding-bottom: ${get('space.2')};
   }
 `
 const SelectMenuHeader = ({children, ...rest}) => {

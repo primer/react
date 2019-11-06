@@ -4,7 +4,7 @@ import theme from './theme'
 
 const SelectMenuTitle = styled.h3`
   flex: auto;
-  font-size: ${get('fontSizes.1')}px;
+  font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0;
   ${COMMON}
