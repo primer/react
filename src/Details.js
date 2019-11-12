@@ -7,8 +7,9 @@ import theme from './theme'
 // The <details> element is not yet supported in Edge so we have to use a polyfill.
 // We have to check if window is defined before importing the polyfill
 // so the code doesn’t run while pages build
+// uses require because of primer/components issue #638
 if (typeof window !== 'undefined') {
-  import('details-element-polyfill')
+  require('details-element-polyfill')
 }
 
 const DetailsReset = styled('details')`
