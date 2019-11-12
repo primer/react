@@ -15,25 +15,13 @@ declare module '@primer/components' {
 
   interface LayoutProps
     extends BaseProps,
-      StyledSystem.DisplayProps,
-      StyledSystem.SizeProps,
-      StyledSystem.WidthProps,
-      StyledSystem.HeightProps,
-      StyledSystem.MinWidthProps,
-      StyledSystem.MinHeightProps,
-      StyledSystem.MaxWidthProps,
-      StyledSystem.MaxHeightProps,
-      StyledSystem.OverflowProps,
-      StyledSystem.VerticalAlignProps {}
+      StyledSystem.LayoutProps {}
 
   interface TypographyProps
     extends BaseProps,
-      StyledSystem.FontFamilyProps,
-      StyledSystem.FontSizeProps,
-      StyledSystem.FontStyleProps,
-      StyledSystem.FontWeightProps,
-      StyledSystem.LineHeightProps,
-      StyledSystem.TextAlignProps {}
+      StyledSystem.TypographyProps {
+        whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+      }
 
   interface BorderProps
     extends BaseProps,
@@ -60,21 +48,7 @@ declare module '@primer/components' {
       StyledSystem.AlignSelfProps,
       StyledSystem.OrderProps {}
 
-  interface FlexProps
-    extends BaseProps,
-      CommonProps,
-      LayoutProps,
-      StyledSystem.FlexProps,
-      StyledSystem.JustifySelfProps,
-      StyledSystem.AlignSelfProps,
-      StyledSystem.OrderProps,
-      StyledSystem.FlexBasisProps,
-      StyledSystem.FlexDirectionProps,
-      StyledSystem.FlexWrapProps,
-      StyledSystem.AlignContentProps,
-      StyledSystem.AlignItemsProps,
-      StyledSystem.JustifyContentProps,
-      StyledSystem.JustifyItemsProps {}
+  interface FlexProps extends BaseProps, CommonProps, LayoutProps, StyledSystem.FlexboxProps, BoxProps {}
 
   export const Flex: React.FunctionComponent<FlexProps> & {
     Item: React.FunctionComponent<FlexItemProps>
@@ -187,6 +161,12 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<DropdownProps>
   }
 
+  export interface FilteredSearchProps extends CommonProps {
+    // just children
+  }
+
+  export const FilteredSearch: React.FunctionComponent<FilteredSearchProps>
+
   export interface FilterListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     small?: boolean
   }
@@ -268,8 +248,9 @@ declare module '@primer/components' {
   }
 
   export interface TextInputProps
-    extends CommonProps, StyledSystem.WidthProps,
-      Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size'> {
+    extends CommonProps,
+      StyledSystem.WidthProps,
+      Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
     variant?: 'small' | 'large'
   }
@@ -303,6 +284,19 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<UnderlineNavLinkProps>
   }
 
+  export interface SubNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    actions?: React.ReactNode
+    label?: string
+  }
+
+  export interface SubNavLinkProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export const SubNav: React.FunctionComponent<SubNavProps> & {
+    Link: React.FunctionComponent<SubNavLinkProps>
+  }
+
   export const theme: Object
   export const themeGet: (key: any) => any
 
@@ -324,16 +318,17 @@ declare module '@primer/components' {
 
   export const AvatarStack: React.FunctionComponent<AvatarStackProps>
   export interface ProgressBarProps
-    extends BaseProps, CommonProps, StyledSystem.WidthProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
-      progress?: number | string
-      barSize?: 'small' | 'default' | 'large'
-      inline?: boolean
-    }
+    extends BaseProps,
+      CommonProps,
+      StyledSystem.WidthProps,
+      Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+    progress?: number | string
+    barSize?: 'small' | 'default' | 'large'
+    inline?: boolean
+  }
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
-
-
 
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
@@ -482,6 +477,10 @@ declare module '@primer/components/src/Tooltip' {
 declare module '@primer/components/src/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
+}
+declare module '@primer/components/src/SubNav' {
+  import {SubNav} from '@primer/components'
+  export default SubNav
 }
 declare module '@primer/components/src/theme' {
   import {theme} from '@primer/components'

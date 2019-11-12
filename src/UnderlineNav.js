@@ -27,7 +27,7 @@ const UnderlineNav = styled(UnderlineNavBase)`
 
     .UnderlineNav-item {
       margin-right: 0;
-      margin-left: ${get('space.3')}px;
+      margin-left: ${get('space.3')};
     }
 
     .UnderlineNav-actions {
@@ -54,9 +54,9 @@ UnderlineNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
-  padding: ${get('space.3')}px ${get('space.2')}px;
-  margin-right: ${get('space.3')}px;
-  font-size: ${get('fontSizes.1')}px;
+  padding: ${get('space.3')} ${get('space.2')};
+  margin-right: ${get('space.3')};
+  font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.default')};
   color: ${get('colors.gray.6')};
   text-align: center;
