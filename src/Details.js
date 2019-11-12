@@ -8,7 +8,7 @@ import theme from './theme'
 // We have to check if window is defined before importing the polyfill
 // so the code doesn’t run while pages build
 if (typeof window !== 'undefined') {
-  import('details-element-polyfill')
+  require('details-element-polyfill').default
 }
 
 const DetailsReset = styled('details')`
