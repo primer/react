@@ -32,6 +32,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
+    "@primer/gatsby-theme-doctocat": "0.0.0-c06ed5c",
     "@primer/octicons-react": "^9.2.0",
     "@reach/dialog": "0.3.0",
     "@styled-system/prop-types": "5.1.2",
