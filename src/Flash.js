@@ -12,7 +12,7 @@ const schemeMap = {
 
 const Flash = styled.div`
   position: relative;
-  padding: ${get('space.3')}px;
+  padding: ${get('space.3')};
   color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].color : '')};
   background-color: ${props => get(schemeMap[props.scheme] ? schemeMap[props.scheme].bg : '')};
   border-color: ${get('colors.blackfade15')};
