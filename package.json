@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "15.1.0",
+  "version": "15.1.1",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -32,7 +32,6 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "0.0.0-c06ed5c",
     "@primer/octicons-react": "^9.2.0",
     "@reach/dialog": "0.3.0",
     "@styled-system/prop-types": "5.1.2",
