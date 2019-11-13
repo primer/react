@@ -45,11 +45,7 @@ const Input = styled.input.attrs(props => ({
   font-size: ${get('fontSizes.2')};
   background-color: transparent;
   color: inherit;
-  ${props =>
-    props.width &&
-    css`
-      width: ${props.width};
-    `}
+  width: 100%;
 
   ${props => {
     if (props.hasIcon) {
