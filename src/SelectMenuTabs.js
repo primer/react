@@ -4,7 +4,7 @@ import {tabWrapperStyles} from './SelectMenuStyles'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const Tabs = ({children, initialTab}) => {
+const Tabs = ({children}) => {
   return (
     <nav role='tablist'>
       {children}

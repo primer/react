@@ -5,23 +5,23 @@ import {SelectMenu} from '@primer/components'
 
 <SelectMenu>
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
-    <SelectMenu.Modal>
+    <SelectMenu.Modal initialTab="Repository">
       <SelectMenu.Header>Filter by project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.Tabs initialTab="Repository">
         <SelectMenu.Tab name="Repository"/>
         <SelectMenu.Tab name="Organization" />
-        <SelectMenu.TabPanel tabName="Repository">
-          <SelectMenu.Item href="#">Primer Components release tracking</SelectMenu.Item>
-          <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-          <SelectMenu.Divider>More options</SelectMenu.Divider>
-          <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        </SelectMenu.TabPanel>
-        <SelectMenu.TabPanel tabName="Organization">
-          <SelectMenu.Item href="#">Design Systems projects</SelectMenu.Item>
-          <SelectMenu.Item href="#">Design Systems projects 2</SelectMenu.Item>
-          <SelectMenu.Item href="#">Design Systems projects 3</SelectMenu.Item>
-        </SelectMenu.TabPanel>
+        <SelectMenu.TabPanel tabName="Repository" 
+        items={[
+           {url: '#', title: 'Primer Components release tracking'},
+           {url: '#', title: 'Primer Components roadmap'},
+           {url: '#', title: 'Primer Components bugs'}]}
+        />
+        <SelectMenu.TabPanel tabName="Organization" items={[
+           {url: '#', title: 'Design Systems Roadmap'},
+           {url: '#', title: 'Design Systems OKRs'},
+           {url: '#', title: 'Design Systems coverage'}]}
+        />
       </SelectMenu.Tabs>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>

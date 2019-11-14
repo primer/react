@@ -12,8 +12,10 @@ const MenuContext = createContext()
 
 const SelectMenuModal = ({children, initialTab, ...rest}) => {
   const [selectedTab, setSelectedTab] = useState(initialTab)
+  const [isFiltering, setIsFiltering] = useState(false)
+  const [items, setItems] = useState([])
   const [results, setResults] = useState([])
-  const menuProviderValues = { selectedTab, setSelectedTab, results, setResults }
+  const menuProviderValues = { selectedTab, setSelectedTab, results, setResults, items, setItems, isFiltering, setIsFiltering }
   return (
     <MenuContext.Provider value={menuProviderValues}>
       <details-menu class="details-menu" role="menu">

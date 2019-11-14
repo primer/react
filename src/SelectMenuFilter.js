@@ -24,10 +24,11 @@ const SelectMenuFilter = props => {
   }
 
   React.useEffect(() => {
-    const results = menuContext.results.filter(item => {
-      item.toLowerCase().includes(searchTerm)
+    const results = menuContext.items.filter(item => {
+      return item.title.toLowerCase().includes(searchTerm.toLowerCase())
     })
     menuContext.setResults(results)
+    menuContext.setIsFiltering(searchTerm.length > 0)
   }, [searchTerm])
   return (
     <StyledForm theme={theme}>
