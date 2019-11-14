@@ -9,11 +9,11 @@ import {SelectMenu} from '@primer/components'
       <SelectMenu.Header>Filter by project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.Tabs initialTab="Repository">
-        <SelectMenu.Tab mt="4" name="Repository"/>
+        <SelectMenu.Tab name="Repository"/>
         <SelectMenu.Tab name="Organization" />
         <SelectMenu.TabPanel tabName="Repository">
           <SelectMenu.Item href="#">Primer Components release tracking</SelectMenu.Item>
-          <SelectMenu.Item href="#">Primer Compononents roadmap</SelectMenu.Item>
+          <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
           <SelectMenu.Divider>More options</SelectMenu.Divider>
           <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
         </SelectMenu.TabPanel>

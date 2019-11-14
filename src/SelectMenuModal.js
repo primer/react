@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createContext, useState} from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import {modalStyles} from './SelectMenuStyles'
@@ -8,12 +8,19 @@ const ModalWrapper = styled.div`
   ${modalStyles}
   ${COMMON}
 `
+const MenuContext = createContext()
 
 const SelectMenuModal = ({children, ...rest}) => {
+  const [selectedTab, setSelectedTab] = useState(initialTab)
+  const [results, setResults] = useState('')
+  const menuProviderValues = { selectedTab, setSelectedTab, results, setResults }
   return (
-    <details-menu class="details-menu" role="menu">
-      <ModalWrapper {...rest}>{children}</ModalWrapper>
-    </details-menu>
+    <MenuContext.Provider value={menuProviderValues}>
+      <details-menu class="details-menu" role="menu">
+        <ModalWrapper {...rest}>{children}</ModalWrapper>
+      </details-menu>
+    </MenuContext.Provider>
+
   )
 }
 
@@ -21,4 +28,4 @@ SelectMenuModal.defaultProps = {
   theme
 }
 
-export default SelectMenuModal
+export {SelectMenuModal, MenuContext}
