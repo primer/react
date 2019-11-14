@@ -12,7 +12,8 @@ import SelectMenuLoading from './SelectMenuLoading'
 import SelectMenuModal from './SelectMenuModal'
 import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTab from './SelectMenuTab'
-import SelectMenuTabs from './SelectMenuTabs'
+import {SelectMenuTabs} from './SelectMenuTabs'
+import SelectMenuTabPanel from './SelectMenuTabPanel'
 
 const SelectMenu = styled.details`
   ${wrapperStyles}
@@ -29,6 +30,7 @@ SelectMenu.Modal = SelectMenuModal
 SelectMenu.Summary = SelectMenuSummary
 SelectMenu.Tabs = SelectMenuTabs
 SelectMenu.Tab = SelectMenuTab
+SelectMenu.TabPanel = SelectMenuTabPanel
 
 SelectMenu.defaultProps = {
   theme

@@ -41,7 +41,7 @@ export const wrapperStyles = css`
     left: 0;
     z-index: 99;
     display: flex;
-    padding: ${get('space.3')}px;
+    padding: ${get('space.3')};
     pointer-events: none;
     flex-direction: column;
 
@@ -91,10 +91,10 @@ export const modalStyles = css`
     width: ${props => (props.filter ? 'auto' : '300px')};
     height: auto;
     max-height: 350px;
-    margin: ${get('space.1')}px 0 ${get('space.3')}px 0;
-    font-size: ${get('fontSizes.0')}px;
+    margin: ${get('space.1')} 0 ${get('space.3')} 0;
+    font-size: ${get('fontSizes.0')};
     border: ${get('borders.1')} ${get('colors.borders.grayDark')};
-    border-radius: ${get('radii.1')}px;
+    border-radius: ${get('radii.1')};
     box-shadow: 0 1px 5px ${get('colors.borders.blackfade15')} !default;
   }
 `
@@ -159,8 +159,8 @@ export const listStyles = css`
 
 export const tabStyles = css`
   flex: 1;
-  padding: ${get('space.2')}px ${get('space.3')}px;
-  font-size: ${get('fontSizes.0')}px;
+  padding: ${get('space.2')} ${get('space.3')};
+  font-size: ${get('fontSizes.0')};
   font-weight: 500;
   color: ${get('colors.gray.5')};
   text-align: center;
@@ -174,11 +174,11 @@ export const tabStyles = css`
 
   @media (min-width: ${get('breakpoints.0')}) {
     flex: none;
-    padding: ${get('space.1')}px ${get('space.3')}px;
+    padding: ${get('space.1')} ${get('space.3')};
     border: ${get('borders.1')} transparent;
     border-bottom-width: 0;
-    border-top-left-radius: ${get('radii.1')}px;
-    border-top-right-radius: ${get('radii.1')}px;
+    border-top-left-radius: ${get('radii.1')};
+    border-top-right-radius: ${get('radii.1')};
   }
 
   &[aria-selected='true'] {
@@ -209,7 +209,7 @@ export const tabWrapperStyles = css`
   }
 
   @media (min-width: ${get('breakpoints.0')}) {
-    padding: 0 ${get('space.2')}px;
+    padding: 0 ${get('space.2')};
     border-top: 0;
   }
 `
@@ -217,7 +217,7 @@ export const tabWrapperStyles = css`
 export const listItemStyles = css`
   display: block;
   width: 100%;
-  padding: ${get('space.3')}px;
+  padding: ${get('space.3')};
   overflow: hidden;
   color: ${get('colors.gray.6')};
   text-align: left;
@@ -241,16 +241,16 @@ export const listItemStyles = css`
   }
 
   .SelectMenu-selected {
-    width: ${get('space.3')}px; // fixed width to make sure following content aligns
-    margin-right: ${get('space.2')}px;
+    width: ${get('space.3')}; // fixed width to make sure following content aligns
+    margin-right: ${get('space.2')};
     display: none;
     transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
     transform: scale(0);
   }
 
   @media (min-width: ${get('breakpoints.0')}) {
-    padding-top: ${get('space.2')}px;
-    padding-bottom: ${get('space.2')}px;
+    padding-top: ${get('space.2')};
+    padding-bottom: ${get('space.2')};
   }
 
   &[aria-checked='true'] {
@@ -266,21 +266,21 @@ export const listItemStyles = css`
 `
 
 export const footerStyles = css`
-  padding: ${get('space.2')}px ${get('space.3')}px;
-  font-size: ${get('fontSizes.0')}px;
+  padding: ${get('space.2')} ${get('space.3')};
+  font-size: ${get('fontSizes.0')};
   color: ${get('colors.gray.5')};
   text-align: center;
   border-top: ${get('borders.1')} ${get('colors.borders.gray')};
 
   @media (min-width: ${get('breakpoints.0')}) {
-    padding: ${get('space.1')}px ${get('space.2')}px;
+    padding: ${get('space.1')} ${get('space.2')};
   }
 `
 
 export const dividerStyles = css`
-  padding: ${get('space.1')}px ${get('space.3')}px;
+  padding: ${get('space.1')} ${get('space.3')};
   margin: 0;
-  font-size: ${get('fontSizes.0')}px;
+  font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.gray.5')};
   background-color: ${get('colors.gray.1')};

@@ -1,30 +1,32 @@
 ---
 title: SelectMenu
 ---
+import {SelectMenu} from '@primer/components'
 
-```jsx live
 <SelectMenu>
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
     <SelectMenu.Modal>
       <SelectMenu.Header>Filter by project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
-      <SelectMenu.Tabs>
-        <SelectMenu.Tab selected>Repository</SelectMenu.Tab>
-        <SelectMenu.Tab>Organization</SelectMenu.Tab>
+      <SelectMenu.Tabs initialTab="Repository">
+        <SelectMenu.Tab mt="4" name="Repository"/>
+        <SelectMenu.Tab name="Organization" />
+        <SelectMenu.TabPanel tabName="Repository">
+          <SelectMenu.Item href="#">Primer Components release tracking</SelectMenu.Item>
+          <SelectMenu.Item href="#">Primer Compononents roadmap</SelectMenu.Item>
+          <SelectMenu.Divider>More options</SelectMenu.Divider>
+          <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        </SelectMenu.TabPanel>
+        <SelectMenu.TabPanel tabName="Organization">
+          <SelectMenu.Item href="#">Design Systems projects</SelectMenu.Item>
+          <SelectMenu.Item href="#">Design Systems projects 2</SelectMenu.Item>
+          <SelectMenu.Item href="#">Design Systems projects 3</SelectMenu.Item>
+        </SelectMenu.TabPanel>
       </SelectMenu.Tabs>
-      <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components release tracking</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Compononents roadmap</SelectMenu.Item>
-        <SelectMenu.Divider>More options</SelectMenu.Divider>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      </SelectMenu.List>
-      <SelectMenu.List hidden>
-        <SelectMenu.Item href="#">Design Systems projects</SelectMenu.Item>
-      </SelectMenu.List>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>
 </SelectMenu>
-```
+
 
 #### With Loading State
 ```jsx live
