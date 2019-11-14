@@ -411,6 +411,7 @@ declare module '@primer/components/src/ButtonOutline' {
 declare module '@primer/components/src/ButtonTableList' {
   import {ButtonTableList} from '@primer/components'
   export default ButtonTableList
+}
 
 declare module '@primer/components/src/ButtonGroup' {
   import {ButtonGroup} from '@primer/components'
