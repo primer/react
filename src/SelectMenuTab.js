@@ -14,7 +14,7 @@ const TabBase = ({name, ...rest}) => {
   const isSelected = menuContext.selectedTab === name
 
   return (
-    <button role='tab' className='SelectMenuTab' aria-selected={isSelected} onClick={handleClick} {...rest}>
+    <button role="tab" className="SelectMenuTab" aria-selected={isSelected} onClick={handleClick} {...rest}>
       {name}
     </button>
   )

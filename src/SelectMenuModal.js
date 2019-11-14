@@ -15,7 +15,16 @@ const SelectMenuModal = ({children, initialTab, ...rest}) => {
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [items, setItems] = useState([])
   const [results, setResults] = useState([])
-  const menuProviderValues = { selectedTab, setSelectedTab, results, setResults, items, setItems, isFiltering, setIsFiltering }
+  const menuProviderValues = {
+    selectedTab,
+    setSelectedTab,
+    results,
+    setResults,
+    items,
+    setItems,
+    isFiltering,
+    setIsFiltering
+  }
 
   return (
     <MenuContext.Provider value={menuProviderValues}>
@@ -23,7 +32,6 @@ const SelectMenuModal = ({children, initialTab, ...rest}) => {
         <ModalWrapper {...rest}>{children}</ModalWrapper>
       </details-menu>
     </MenuContext.Provider>
-
   )
 }
 

@@ -8,7 +8,7 @@ import {MenuContext} from './SelectMenuModal'
 import uuid from 'uuid'
 
 const List = ({items, hasTabs}) => {
-  const menuContext = useContext(MenuContext);
+  const menuContext = useContext(MenuContext)
   if (!hasTabs) {
     menuContext.setItems(items)
   }
@@ -16,7 +16,11 @@ const List = ({items, hasTabs}) => {
   return (
     <>
       {itemSource.map(item => {
-        return <SelectMenuItem key={uuid()} href={item.url}>{item.title}</SelectMenuItem>
+        return (
+          <SelectMenuItem key={uuid()} href={item.url}>
+            {item.title}
+          </SelectMenuItem>
+        )
       })}
     </>
   )
