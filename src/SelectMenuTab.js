@@ -8,7 +8,9 @@ import {COMMON} from './constants'
 
 const TabBase = ({name, ...rest}) => {
   const menuContext = useContext(MenuContext)
-  const handleClick = () => menuContext.setSelectedTab(name)
+  const handleClick = () => {
+    menuContext.setSelectedTab(name)
+  }
   const isSelected = menuContext.selectedTab === name
 
   return (

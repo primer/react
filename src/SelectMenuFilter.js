@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
@@ -18,15 +18,16 @@ const StyledForm = styled.form`
 
 const SelectMenuFilter = props => {
   const [searchTerm, setSearchTerm] = useState('')
+  const menuContext = useContext(MenuContext)
   const handleChange = e => {
     setSearchTerm(e.target.value)
   }
 
   React.useEffect(() => {
-    const results = MenuContext.results.filter(item => {
+    const results = menuContext.results.filter(item => {
       item.toLowerCase().includes(searchTerm)
     })
-    MenuContext.setResults(results)
+    menuContext.setResults(results)
   }, [searchTerm])
   return (
     <StyledForm theme={theme}>

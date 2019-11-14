@@ -1,12 +1,13 @@
 import React, {useContext} from 'react'
-import {TabContext} from './SelectMenuTabs'
+import SelectMenuList from './SelectMenuList'
+import {MenuContext} from './SelectMenuModal'
 
 const SelectMenuTabPanel = ({children, tabName}) => {
-  const tabContext = useContext(TabContext);
+  const menuContext = useContext(MenuContext);
   return (
-    <div hidden={tabContext.selectedTab !== tabName}>
+    <SelectMenuList hidden={menuContext.selectedTab !== tabName}>
       {children}
-    </div>
+    </SelectMenuList>
   )
 }
 
