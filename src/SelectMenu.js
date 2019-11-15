@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
@@ -20,7 +21,7 @@ const SelectMenu = styled.details`
   ${COMMON}
 `
 
-SelectMenu.Fragment = () => <include-fragement {...rest}/>
+SelectMenu.Fragment = props => <include-fragement {...props} />
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter
