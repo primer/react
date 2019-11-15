@@ -19,6 +19,8 @@ const SelectMenu = styled.details`
   ${wrapperStyles}
   ${COMMON}
 `
+
+SelectMenu.Fragment = () => <include-fragement {...rest}/>
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter

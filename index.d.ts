@@ -258,8 +258,12 @@ declare module '@primer/components' {
   export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     selected?: boolean 
   }
+  export interface SelectMenuFragmentProps {
+    src: string
+  }
 
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
+    Fragment: React.FunctionComponent<SelectMenuFragmentProps>,
     Divider: React.FunctionComponent<SelectMenuDividerProps>,
     Filter: React.FunctionComponent<SelectMenuFilterProps>,
     Footer: React.FunctionComponent<SelectMenuFooterProps>,
