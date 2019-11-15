@@ -29,7 +29,7 @@ const SelectMenuFilter = props => {
     })
     menuContext.setResults(results)
     menuContext.setIsFiltering(searchTerm.length > 0)
-  }, [searchTerm])
+  }, [searchTerm, menuContext.items])
   return (
     <StyledForm theme={theme}>
       <TextInput width="100%" block type="text" value={searchTerm} onChange={handleChange} {...props} />

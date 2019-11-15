@@ -8,7 +8,7 @@ const SelectMenuTabPanel = ({tabName, items}) => {
     if (menuContext.selectedTab === tabName) {
       menuContext.setItems(items)
     }
-  }, [menuContext.selectedTab])
+  }, [menuContext.selectedTab, tabName, items])
 
   return <SelectMenuList role="tabpanel" hasTabs hidden={menuContext.selectedTab !== tabName} items={items} />
 }

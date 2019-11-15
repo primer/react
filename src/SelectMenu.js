@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
+import PropTypes from 'prop-types'
 import theme from './theme'
 import {wrapperStyles} from './SelectMenuStyles'
 import SelectMenuDivider from './SelectMenuDivider'
@@ -37,5 +38,9 @@ SelectMenu.TabPanel = SelectMenuTabPanel
 
 SelectMenu.defaultProps = {
   theme
+}
+
+SelectMenu.propTypes = {
+  preload: PropTypes.bool
 }
 export default SelectMenu
