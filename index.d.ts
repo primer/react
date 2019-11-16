@@ -252,7 +252,15 @@ declare module '@primer/components' {
   export interface SelectMenuItemProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
   }
-  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  interface SelectItems {
+    url: string,
+    title: string
+  }
+  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    hasTabs?: boolean,
+    items : Array<SelectItems>
+  }
   export interface SelectMenuLoadingProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
