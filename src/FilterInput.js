@@ -128,7 +128,7 @@ function debounce(callback) {
 
 export default FilterInputElement
 
-if (!window.customElements.get('filter-input')) {
+if (window && window.customElements && !window.customElements.get('filter-input')) {
   window.FilterInputElement = FilterInputElement
   window.customElements.define('filter-input', FilterInputElement)
 }
