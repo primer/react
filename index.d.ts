@@ -296,7 +296,7 @@ declare module '@primer/components' {
 
   export interface StaticFilterProps extends CommonProps, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'> {}
 
-  export const StaticFilter: React.FunctionCoponent<StaticFilterProps>
+  export const StaticFilter: React.FunctionComponent<StaticFilterProps>
 
   export interface TabNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
