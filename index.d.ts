@@ -294,6 +294,10 @@ declare module '@primer/components' {
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
 
+  export interface StaticFilterProps extends CommonProps, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'> {}
+
+  export const StaticFilter: React.FunctionCoponent<StaticFilterProps>
+
   export interface TabNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface TabNavLinkProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
@@ -535,6 +539,12 @@ declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
 }
+
+declare module '@primer/components/src/StaticFilter' {
+  import {StaticFilter} from '@primer/components'
+  export default StaticFilter
+}
+
 declare module '@primer/components/src/TabNav' {
   import {TabNav} from '@primer/components'
   export default TabNav
