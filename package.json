@@ -36,6 +36,8 @@
     "@reach/dialog": "0.3.0",
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/theme-get": "5.1.2",
+    "@types/history": "4.7.3",
+    "@types/styled-components": "4.4.0",
     "@types/styled-system": "5.1.2",
     "babel-plugin-macros": "2.6.1",
     "classnames": "^2.2.5",
