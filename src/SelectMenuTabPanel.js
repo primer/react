@@ -1,5 +1,4 @@
 import React, {useContext} from 'react'
-import SelectMenuList from './SelectMenuList'
 import {MenuContext} from './SelectMenuModal'
 
 const SelectMenuTabPanel = ({tabName, children}) => {
