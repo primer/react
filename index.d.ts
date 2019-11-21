@@ -257,10 +257,7 @@ declare module '@primer/components' {
     url: string,
     title: string
   }
-  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-    hasTabs?: boolean,
-    items : Array<SelectItems>
-  }
+  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuLoadingProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
@@ -293,10 +290,6 @@ declare module '@primer/components' {
   }
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
-
-  export interface StaticFilterProps extends CommonProps, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'> {}
-
-  export const StaticFilter: React.FunctionComponent<StaticFilterProps>
 
   export interface TabNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
@@ -538,11 +531,6 @@ declare module '@primer/components/src/SelectMenu' {
 declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
-}
-
-declare module '@primer/components/src/StaticFilter' {
-  import {StaticFilter} from '@primer/components'
-  export default StaticFilter
 }
 
 declare module '@primer/components/src/TabNav' {

@@ -2,15 +2,14 @@ import React, {useContext} from 'react'
 import SelectMenuList from './SelectMenuList'
 import {MenuContext} from './SelectMenuModal'
 
-const SelectMenuTabPanel = ({tabName, items}) => {
+const SelectMenuTabPanel = ({tabName, children}) => {
   const menuContext = useContext(MenuContext)
-  React.useEffect(() => {
-    if (menuContext.selectedTab === tabName) {
-      menuContext.setItems(items)
-    }
-  }, [menuContext.selectedTab, tabName, items])
 
-  return <SelectMenuList role="tabpanel" hasTabs hidden={menuContext.selectedTab !== tabName} items={items} />
+  return (
+    <div role="tabpanel" hidden={menuContext.selectedTab !== tabName}>
+      {children}
+    </div>
+  )
 }
 
 export default SelectMenuTabPanel

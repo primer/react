@@ -215,7 +215,6 @@ export const tabWrapperStyles = css`
 `
 
 export const listItemStyles = css`
-  display: block;
   width: 100%;
   padding: ${get('space.3')};
   overflow: hidden;

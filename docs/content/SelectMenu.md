@@ -11,17 +11,22 @@ import {SelectMenu} from '@primer/components'
       <SelectMenu.Tabs initialTab="Repository">
         <SelectMenu.Tab name="Repository"/>
         <SelectMenu.Tab name="Organization" />
-        <SelectMenu.TabPanel tabName="Repository" 
-        items={[
-           {url: '#', title: 'Primer Components release tracking'},
-           {url: '#', title: 'Primer Components roadmap'},
-           {url: '#', title: 'Primer Components bugs'}]}
-        />
-        <SelectMenu.TabPanel tabName="Organization" items={[
-           {url: '#', title: 'Design Systems Roadmap'},
-           {url: '#', title: 'Design Systems OKRs'},
-           {url: '#', title: 'Design Systems coverage'}]}
-        />
+        <SelectMenu.TabPanel tabName="Repository">
+          <SelectMenu.List>
+            <SelectMenu.Item>hi</SelectMenu.Item>
+            <SelectMenu.Item>hi</SelectMenu.Item>
+            <SelectMenu.Item>hi</SelectMenu.Item>
+            <SelectMenu.Item>hi</SelectMenu.Item>
+          </SelectMenu.List>
+        </SelectMenu.TabPanel>
+        <SelectMenu.TabPanel tabName="Organization">
+          <SelectMenu.List>
+            <SelectMenu.Item>foo</SelectMenu.Item>
+            <SelectMenu.Item>bar</SelectMenu.Item>
+            <SelectMenu.Item>bing</SelectMenu.Item>
+            <SelectMenu.Item>bang</SelectMenu.Item>
+          </SelectMenu.List>
+        </SelectMenu.TabPanel>
       </SelectMenu.Tabs>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>

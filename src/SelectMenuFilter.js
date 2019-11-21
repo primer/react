@@ -1,9 +1,8 @@
-import React, {useState, useContext} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import TextInput from './TextInput'
-import {MenuContext} from './SelectMenuModal'
 
 const StyledForm = styled.form`
   padding: ${get('space.3')};
@@ -17,22 +16,9 @@ const StyledForm = styled.form`
 `
 
 const SelectMenuFilter = props => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const menuContext = useContext(MenuContext)
-  const handleChange = e => {
-    setSearchTerm(e.target.value)
-  }
-
-  React.useEffect(() => {
-    const results = menuContext.items.filter(item => {
-      return item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    })
-    menuContext.setResults(results)
-    menuContext.setIsFiltering(searchTerm.length > 0)
-  }, [searchTerm, menuContext.items])
   return (
     <StyledForm theme={theme}>
-      <TextInput width="100%" block type="text" value={searchTerm} onChange={handleChange} {...props} />
+      <TextInput width="100%" block type="text" {...props} />
     </StyledForm>
   )
 }

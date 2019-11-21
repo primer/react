@@ -7,36 +7,26 @@ import theme from './theme'
 import {MenuContext} from './SelectMenuModal'
 import uuid from 'uuid'
 
-const List = ({items, hasTabs}) => {
-  const menuContext = useContext(MenuContext)
-  if (!hasTabs) {
-    menuContext.setItems(items)
-  }
-  const itemSource = menuContext.isFiltering ? menuContext.results : menuContext.items
+const List = ({children, ...rest}) => {
   return (
-    <>
-      {itemSource.map(item => {
-        return (
-          <SelectMenuItem key={uuid()} href={item.url}>
-            {item.title}
-          </SelectMenuItem>
-        )
-      })}
-    </>
+    <div role="menu" id="filter-menu" {...rest}>
+      <ul data-filter-list>
+        {children}
+      </ul>
+    </div>
   )
 }
 
 const SelectMenuList = styled(List)`
   ${listStyles}
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
 `
 SelectMenuList.defaultProps = {
-  theme,
-  hasTabs: false
-}
-
-SelectMenuList.propTypes = {
-  hasTabs: PropTypes.bool,
-  items: PropTypes.arrayOf(PropTypes.shape({title: PropTypes.string, url: PropTypes.string}))
+  theme
 }
 
 export default SelectMenuList

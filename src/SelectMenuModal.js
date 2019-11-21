@@ -11,19 +11,10 @@ const ModalWrapper = styled.div`
 const MenuContext = createContext()
 
 const SelectMenuModal = ({children, initialTab, ...rest}) => {
-  const [isFiltering, setIsFiltering] = useState(false)
   const [selectedTab, setSelectedTab] = useState(initialTab)
-  const [items, setItems] = useState([])
-  const [results, setResults] = useState([])
   const menuProviderValues = {
     selectedTab,
-    setSelectedTab,
-    results,
-    setResults,
-    items,
-    setItems,
-    isFiltering,
-    setIsFiltering
+    setSelectedTab
   }
 
   return (
