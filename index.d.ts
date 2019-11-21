@@ -13,15 +13,11 @@ declare module '@primer/components' {
 
   interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
 
-  interface LayoutProps
-    extends BaseProps,
-      StyledSystem.LayoutProps {}
+  interface LayoutProps extends BaseProps, StyledSystem.LayoutProps {}
 
-  interface TypographyProps
-    extends BaseProps,
-      StyledSystem.TypographyProps {
-        whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
-      }
+  interface TypographyProps extends BaseProps, StyledSystem.TypographyProps {
+    whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+  }
 
   interface BorderProps
     extends BaseProps,
@@ -110,8 +106,7 @@ declare module '@primer/components' {
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
-  export interface AnimationPulseProps
-    extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface AnimationPulseProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const AnimationPulse: React.FunctionComponent<AnimationPulseProps>
 
@@ -246,17 +241,21 @@ declare module '@primer/components' {
     preload?: boolean
   }
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuFilterProps extends CommonProps, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'> {
+  export interface SelectMenuFilterProps
+    extends CommonProps,
+      Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'> {
     autofocus?: boolean
   }
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuHeaderProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
-  export interface SelectMenuItemProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+  export interface SelectMenuItemProps
+    extends CommonProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
   }
 
   interface SelectItems {
-    url: string,
+    url: string
     title: string
   }
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
@@ -264,26 +263,29 @@ declare module '@primer/components' {
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuTabsProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    selected?: boolean 
+  export interface SelectMenuTabProps
+    extends CommonProps,
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+    selected?: boolean
   }
   export interface SelectMenuFragmentProps {
     src: string
   }
 
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
-    Fragment: React.FunctionComponent<SelectMenuFragmentProps>,
-    Divider: React.FunctionComponent<SelectMenuDividerProps>,
-    Filter: React.FunctionComponent<SelectMenuFilterProps>,
-    Footer: React.FunctionComponent<SelectMenuFooterProps>,
-    Header: React.FunctionComponent<SelectMenuHeaderProps>,
-    Item: React.FunctionComponent<SelectMenuItemProps>,
-    List: React.FunctionComponent<SelectMenuListProps>,
-    Loading: React.FunctionComponent<SelectMenuLoadingProps>,
-    Modal: React.FunctionComponent<SelectMenuModalProps>,
-    Summary: React.FunctionComponent<SelectMenuSummaryProps>,
-    Tabs: React.FunctionComponent<SelectMenuTabsProps>,
-    Tab: React.FunctionComponent<SelectMenuTabProps>,
+    Context: React.Context<{filterText: string | undefined}>
+    Fragment: React.FunctionComponent<SelectMenuFragmentProps>
+    Divider: React.FunctionComponent<SelectMenuDividerProps>
+    Filter: React.FunctionComponent<SelectMenuFilterProps>
+    Footer: React.FunctionComponent<SelectMenuFooterProps>
+    Header: React.FunctionComponent<SelectMenuHeaderProps>
+    Item: React.FunctionComponent<SelectMenuItemProps>
+    List: React.FunctionComponent<SelectMenuListProps>
+    Loading: React.FunctionComponent<SelectMenuLoadingProps>
+    Modal: React.FunctionComponent<SelectMenuModalProps>
+    Summary: React.FunctionComponent<SelectMenuSummaryProps>
+    Tabs: React.FunctionComponent<SelectMenuTabsProps>
+    Tab: React.FunctionComponent<SelectMenuTabProps>
   }
 
   export interface StateLabelProps extends CommonProps {

@@ -11,7 +11,7 @@ import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
 import SelectMenuLoading from './SelectMenuLoading'
-import {SelectMenuModal} from './SelectMenuModal'
+import {SelectMenuModal, MenuContext} from './SelectMenuModal'
 import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabs from './SelectMenuTabs'
@@ -33,6 +33,7 @@ const SelectMenu = styled(SelectMenuBase)`
 `
 
 SelectMenu.Fragment = props => <include-fragement {...props} />
+SelectMenu.Context = MenuContext
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter

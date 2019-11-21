@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import TextInput from './TextInput'
+import {MenuContext} from './SelectMenuModal'
 
 const StyledForm = styled.form`
   padding: ${get('space.3')};
@@ -16,9 +17,17 @@ const StyledForm = styled.form`
 `
 
 const SelectMenuFilter = props => {
+  const {setFilterText} = useContext(MenuContext)
+  const [value, setValue] = useState(undefined)
+  const onChange = ev => {
+    setValue(ev.target.value)
+  }
+  useEffect(() => {
+    setFilterText(value)
+  }, [value])
   return (
     <StyledForm theme={theme}>
-      <TextInput width="100%" block {...props} />
+      <TextInput width="100%" block value={value} onChange={onChange} {...props} />
     </StyledForm>
   )
 }
