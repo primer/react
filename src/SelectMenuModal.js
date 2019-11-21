@@ -12,9 +12,12 @@ const MenuContext = createContext()
 
 const SelectMenuModal = ({children, initialTab, ...rest}) => {
   const [selectedTab, setSelectedTab] = useState(initialTab)
+  const [filterText, setFilterText] = useState(undefined)
   const menuProviderValues = {
     selectedTab,
-    setSelectedTab
+    setSelectedTab,
+    filterText,
+    setFilterText
   }
 
   return (
