@@ -25,7 +25,7 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, type, className, width, theme, ...rest}) => {
+const TextInput = ({icon, className, width, theme, ...rest}) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
@@ -106,7 +106,10 @@ const Wrapper = styled.span`
   ${width}
 `
 
-TextInput.defaultProps = {theme}
+TextInput.defaultProps = {
+  theme,
+  type: 'text'
+}
 
 TextInput.propTypes = {
   block: PropTypes.bool,
