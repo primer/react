@@ -112,12 +112,15 @@ export const listStyles = css`
 
   @media (hover: hover) {
     body:not(.intent-mouse) .SelectMenu--list-item:focus,
-    .SelectMenu--list-item:hover {
+    .SelectMenu--list-item:focus a,
+    .SelectMenu--list-item:hover,
+    .SelectMenu--list-item:hover a {
       color: ${get('colors.white')};
       background-color: ${get('colors.blue.5')};
     }
 
-    .SelectMenu--list-item:active {
+    .SelectMenu--list-item:active,
+    .SelectMenu--list-item:active a {
       color: ${get('colors.white')};
       background-color: ${get('colors.blue.4')};
     }
@@ -151,7 +154,8 @@ export const listStyles = css`
     // iOS Safari
     // :active would work if ontouchstart is added to the button
     // Instead this tweaks the "native" highlight color
-    .SelectMenu--list-item {
+    .SelectMenu--list-item,
+    .SelectMenu--list-item a {
       -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
     }
   }
@@ -225,6 +229,11 @@ export const listItemStyles = css`
   border: 0;
   line-height: inherit;
   text-decoration: none;
+
+  a {
+    text-decoration: none;
+    color: ${get('colors.gray.6')};
+  }
 
   & + & {
     // Add a top border only if the above element also is a list item
