@@ -16,11 +16,19 @@ import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
+import useKeyboardNav from './KeyboardHook'
 
-const SelectMenu = styled.details`
+const SelectMenu = styled(SelectMenuBase)`
   ${wrapperStyles}
   ${COMMON}
 `
+
+const SelectMenuBase = ({children, ...rest}) => {
+  const detailsRef = useKeyboardNav()
+  return (
+    <details ref={detailsRef} {...rest}>{children}</details>
+  )
+}
 
 SelectMenu.Fragment = props => <include-fragement {...props} />
 SelectMenu.Divider = SelectMenuDivider
