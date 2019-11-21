@@ -37,9 +37,7 @@ const TextInput = ({icon, className, width, theme, ...rest}) => {
   )
 }
 
-const Input = styled.input.attrs(props => ({
-  type: props.type || 'text'
-}))`
+const Input = styled.input`
   border: 0;
   margin-right: ${get('space.1')};
   font-size: ${get('fontSizes.2')};
