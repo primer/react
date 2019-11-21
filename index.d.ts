@@ -246,7 +246,9 @@ declare module '@primer/components' {
     preload?: boolean
   }
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuFilterProps extends CommonProps, Omit<React.FormHTMLAttributes<HTMLFormElement>, 'color'> {}
+  export interface SelectMenuFilterProps extends CommonProps, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'> {
+    autofocus?: boolean
+  }
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuHeaderProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuItemProps extends CommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
