@@ -1,9 +1,8 @@
-import {useRef, useEffect} from 'react'
-import ReactDOM from 'react-dom'
+import {useEffect} from 'react'
 
 // adapted from details-menu web component https://github.com/github/details-menu-element
-function useKeyboardNav(details, thingRef) {
-  const handleKeyDown = (event) => {
+function useKeyboardNav(details) {
+  const handleKeyDown = event => {
     const closeDetails = () => {
       details.current.removeAttribute('open')
       const summary = details.current.querySelector('summary')
@@ -22,7 +21,7 @@ function useKeyboardNav(details, thingRef) {
       const def = next ? options[0] : options[options.length - 1]
       return found || def
     }
-  
+
     const isMenuItem = el => {
       const role = el.getAttribute('role')
       return role === 'menuitem' || role === 'menuitemcheckbox' || role === 'menuitemradio'
@@ -72,9 +71,9 @@ function useKeyboardNav(details, thingRef) {
     }
   }
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
+    details.current.addEventListener('keydown', handleKeyDown)
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
+      details.current.removeEventListener('keydown', handleKeyDown)
     }
   })
 }
