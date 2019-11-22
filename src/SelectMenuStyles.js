@@ -276,7 +276,6 @@ export const tabWrapperStyles = css`
   }
 `
 
-
 export const footerStyles = css`
   padding: ${get('space.2')} ${get('space.3')};
   font-size: ${get('fontSizes.0')};
