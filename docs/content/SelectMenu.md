@@ -9,28 +9,15 @@ import {SelectMenu} from '@primer/components'
       <SelectMenu.Header>Filter by project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.List>
-        <SelectMenu.Item>hi</SelectMenu.Item>
-        <SelectMenu.Item>hi</SelectMenu.Item>
-        <SelectMenu.Item>hi</SelectMenu.Item>
-        <SelectMenu.Item>hi</SelectMenu.Item>
+        <SelectMenu.Item>1️⃣</SelectMenu.Item>
+        <SelectMenu.Item>2️⃣</SelectMenu.Item>
+        <SelectMenu.Item>3️⃣</SelectMenu.Item>
+        <SelectMenu.Item>4️⃣</SelectMenu.Item>
       </SelectMenu.List>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>
 </SelectMenu>
 
-
-#### With Loading State
-```jsx live
-<SelectMenu>
-    <SelectMenu.Summary>Robots</SelectMenu.Summary>
-    <SelectMenu.Modal>
-      <SelectMenu.Header>Filter by Author</SelectMenu.Header>
-      <SelectMenu.Filter placeholder="Filter users" aria-label="Filter users"/>
-      <SelectMenu.Loading/>
-      <SelectMenu.Footer>Loading...</SelectMenu.Footer>
-    </SelectMenu.Modal>
-</SelectMenu>
-```
 
 ### SelectMenu
 Used as a wrapper component for select menus

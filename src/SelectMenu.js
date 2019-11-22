@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import PropTypes from 'prop-types'
@@ -19,7 +19,8 @@ import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './KeyboardHook'
 
 const SelectMenuBase = ({children, ...rest}) => {
-  const detailsRef = useKeyboardNav()
+  const detailsRef = useRef(null)
+  useKeyboardNav(detailsRef)
   return (
     <details ref={detailsRef} {...rest}>
       {children}
