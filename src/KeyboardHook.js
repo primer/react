@@ -40,7 +40,7 @@ function useKeyboardNav(details, thingRef) {
         break
       case 'ArrowDown':
         {
-          if (isSummaryFocused && isOpen) {
+          if (isSummaryFocused && !isOpen) {
             openDetails(details)
           }
           const target = focusItem(true)
@@ -50,7 +50,7 @@ function useKeyboardNav(details, thingRef) {
         break
       case 'ArrowUp':
         {
-          if (isSummaryFocused && isOpen) {
+          if (isSummaryFocused && !isOpen) {
             openDetails()
           }
           const target = focusItem(false)
