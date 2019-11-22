@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 // adapted from details-menu web component https://github.com/github/details-menu-element
 function useKeyboardNav(details, thingRef) {
   const handleKeyDown = (event) => {
-    event.Handled = true
     const closeDetails = () => {
       details.current.removeAttribute('open')
       const summary = details.current.querySelector('summary')
