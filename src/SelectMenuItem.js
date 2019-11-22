@@ -8,7 +8,7 @@ import theme from './theme'
 
 const StyledItem = styled.li.attrs(() => ({
   role: 'menuitem',
-  className: 'SelectMenu--list-item'
+  tabIndex: 0
 }))`
   ${listItemStyles}
   ${COMMON}

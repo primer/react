@@ -111,21 +111,7 @@ export const listStyles = css`
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
   @media (hover: hover) {
-    body:not(.intent-mouse) .SelectMenu--list-item:focus,
-    .SelectMenu--list-item:focus a,
-    .SelectMenu--list-item:hover,
-    .SelectMenu--list-item:hover a {
-      color: ${get('colors.white')};
-      background-color: ${get('colors.blue.5')};
-    }
-
-    .SelectMenu--list-item:active,
-    .SelectMenu--list-item:active a {
-      color: ${get('colors.white')};
-      background-color: ${get('colors.blue.4')};
-    }
-
-    body:not(.intent-mouse) .SelectMenuTab:focus {
+    .SelectMenuTab:focus {
       background-color: ${get('colors.blue.1')};
     }
 
@@ -139,6 +125,78 @@ export const listStyles = css`
       background-color: ${get('colors.gray.1')};
     }
   }
+`
+
+export const listItemStyles = css`
+  width: 100%;
+  padding: ${get('space.3')};
+  overflow: hidden;
+  color: ${get('colors.gray.6')};
+  text-align: left;
+  cursor: pointer;
+  background-color: ${get('colors.white')};
+  border: 0;
+  line-height: inherit;
+  text-decoration: none;
+
+  a {
+    text-decoration: none;
+    color: ${get('colors.gray.6')};
+  }
+
+  & + & {
+    // Add a top border only if the above element also is a list item
+    border-top: ${get('borders.1')} ${get('colors.gray.2')};
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+    background: red;
+  }
+
+  .SelectMenu-selected {
+    width: ${get('space.3')}; // fixed width to make sure following content aligns
+    margin-right: ${get('space.2')};
+    display: none;
+    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
+    transform: scale(0);
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding-top: ${get('space.2')};
+    padding-bottom: ${get('space.2')};
+  }
+
+  &[aria-checked='true'] {
+    font-weight: 500;
+    color: ${get('colors.gray.9')};
+
+    .SelectMenu-selected {
+      display: inline-block;
+      transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
+      transform: scale(1);
+    }
+  }
+
+  @media (hover: hover) {
+    &:focus,
+    &:focus a,
+    &:hover,
+    &:hover a {
+      color: ${get('colors.white')};
+      background-color: ${get('colors.blue.5')};
+    }
+
+    &:active,
+    &:active a {
+      color: ${get('colors.white')};
+      background-color: ${get('colors.blue.4')};
+    }
+  }
 
   // Can not hover states
   //
@@ -146,16 +204,16 @@ export const listStyles = css`
 
   @media (hover: none) {
     // Android
-    .SelectMenu--list-item:focus,
-    .SelectMenu--list-item:active {
+    &:focus,
+    &:active {
       background-color: ${get('colors.gray.0')};
     }
 
     // iOS Safari
     // :active would work if ontouchstart is added to the button
     // Instead this tweaks the "native" highlight color
-    .SelectMenu--list-item,
-    .SelectMenu--list-item a {
+    -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
+    a {
       -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
     }
   }
@@ -218,60 +276,6 @@ export const tabWrapperStyles = css`
   }
 `
 
-export const listItemStyles = css`
-  width: 100%;
-  padding: ${get('space.3')};
-  overflow: hidden;
-  color: ${get('colors.gray.6')};
-  text-align: left;
-  cursor: pointer;
-  background-color: ${get('colors.white')};
-  border: 0;
-  line-height: inherit;
-  text-decoration: none;
-
-  a {
-    text-decoration: none;
-    color: ${get('colors.gray.6')};
-  }
-
-  & + & {
-    // Add a top border only if the above element also is a list item
-    border-top: ${get('borders.1')} ${get('colors.gray.2')};
-  }
-
-  &:hover {
-    text-decoration: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  .SelectMenu-selected {
-    width: ${get('space.3')}; // fixed width to make sure following content aligns
-    margin-right: ${get('space.2')};
-    display: none;
-    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
-    transform: scale(0);
-  }
-
-  @media (min-width: ${get('breakpoints.0')}) {
-    padding-top: ${get('space.2')};
-    padding-bottom: ${get('space.2')};
-  }
-
-  &[aria-checked='true'] {
-    font-weight: 500;
-    color: ${get('colors.gray.9')};
-
-    .SelectMenu-selected {
-      display: inline-block;
-      transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
-      transform: scale(1);
-    }
-  }
-`
 
 export const footerStyles = css`
   padding: ${get('space.2')} ${get('space.3')};
