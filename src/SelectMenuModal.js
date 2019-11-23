@@ -22,9 +22,9 @@ const SelectMenuModal = ({children, initialTab, ...rest}) => {
 
   return (
     <MenuContext.Provider value={menuProviderValues}>
-      <details-menu class="details-menu" role="menu">
+      <div class="details-menu" role="menu">
         <ModalWrapper {...rest}>{children}</ModalWrapper>
-      </details-menu>
+      </div>
     </MenuContext.Provider>
   )
 }
