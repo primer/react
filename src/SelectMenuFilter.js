@@ -4,6 +4,7 @@ import {COMMON, get} from './constants'
 import theme from './theme'
 import TextInput from './TextInput'
 import {MenuContext} from './SelectMenuModal'
+import useFilter from './hooks/FilterHook'
 
 const StyledForm = styled.form`
   padding: ${get('space.3')};
@@ -17,14 +18,7 @@ const StyledForm = styled.form`
 `
 
 const SelectMenuFilter = props => {
-  const {setFilterText} = useContext(MenuContext)
-  const [value, setValue] = useState(undefined)
-  const onChange = ev => {
-    setValue(ev.target.value)
-  }
-  useEffect(() => {
-    setFilterText(value)
-  }, [value])
+  const [value, onChange] = useFilter()
   return (
     <StyledForm theme={theme}>
       <TextInput width="100%" block value={value} onChange={onChange} {...props} />
