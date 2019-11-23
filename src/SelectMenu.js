@@ -11,20 +11,31 @@ import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
 import SelectMenuLoading from './SelectMenuLoading'
-import {SelectMenuModal, MenuContext} from './SelectMenuModal'
+import SelectMenuModal from './SelectMenuModal'
 import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './hooks/KeyboardHook'
 
+const MenuContext = createContext()
 const SelectMenuBase = ({children, ...rest}) => {
   const detailsRef = useRef(null)
+  const [selectedTab, setSelectedTab] = useState(initialTab)
+  const [filterText, setFilterText] = useState(undefined)
+  const menuProviderValues = {
+    selectedTab,
+    setSelectedTab,
+    filterText,
+    setFilterText
+  }
   useKeyboardNav(detailsRef)
   return (
-    <details ref={detailsRef} {...rest}>
-      {children}
-    </details>
+    <MenuContext.Provider value={menuProviderValues}>
+      <details ref={detailsRef} {...rest}>
+        {children}
+      </details>
+    </MenuContext.Provider>
   )
 }
 
@@ -55,4 +66,4 @@ SelectMenu.defaultProps = {
 SelectMenu.propTypes = {
   preload: PropTypes.bool
 }
-export default SelectMenu
+export default {SelectMenu, MenuContext}

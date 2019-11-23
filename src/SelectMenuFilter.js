@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import TextInput from './TextInput'
-import {MenuContext} from './SelectMenuModal'
+import {MenuContext} from './SelectMenu'
 import useFilter from './hooks/FilterHook'
 
 const StyledForm = styled.form`

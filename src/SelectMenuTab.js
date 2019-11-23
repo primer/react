@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {tabStyles} from './SelectMenuStyles'
-import {MenuContext} from './SelectMenuModal'
+import {MenuContext} from './SelectMenu'
 import theme from './theme'
 import {COMMON} from './constants'
 

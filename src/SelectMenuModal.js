@@ -8,24 +8,12 @@ const ModalWrapper = styled.div`
   ${modalStyles}
   ${COMMON}
 `
-const MenuContext = createContext()
 
 const SelectMenuModal = ({children, initialTab, ...rest}) => {
-  const [selectedTab, setSelectedTab] = useState(initialTab)
-  const [filterText, setFilterText] = useState(undefined)
-  const menuProviderValues = {
-    selectedTab,
-    setSelectedTab,
-    filterText,
-    setFilterText
-  }
-
   return (
-    <MenuContext.Provider value={menuProviderValues}>
-      <div class="details-menu" role="menu">
-        <ModalWrapper {...rest}>{children}</ModalWrapper>
-      </div>
-    </MenuContext.Provider>
+    <div class="details-menu" role="menu">
+      <ModalWrapper {...rest}>{children}</ModalWrapper>
+    </div> // does this need to wrap the modal wrapper?
   )
 }
 
@@ -33,4 +21,4 @@ SelectMenuModal.defaultProps = {
   theme
 }
 
-export {SelectMenuModal, MenuContext}
+export default SelectMenuModal
