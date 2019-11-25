@@ -1,16 +1,14 @@
-import {useContext, useEffect, useState} from 'react'
+import {useContext} from 'react'
 import {MenuContext} from '../SelectMenuContext'
 
 function useFilter() {
-  const {setFilterText} = useContext(MenuContext)
-  const [value, setValue] = useState(undefined)
+  const {filterText, setFilterText} = useContext(MenuContext)
+
   const onChange = ev => {
-    setValue(ev.target.value)
+    setFilterText(ev.target.value)
   }
-  useEffect(() => {
-    setFilterText(value)
-  }, [value])
-  return [value, onChange]
+
+  return [filterText, onChange]
 }
 
 export default useFilter
