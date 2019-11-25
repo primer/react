@@ -128,7 +128,7 @@ export const listStyles = css`
 `
 
 export const listItemStyles = css`
-  width: 100%;
+  display: block;
   padding: ${get('space.3')};
   overflow: hidden;
   color: ${get('colors.gray.6')};

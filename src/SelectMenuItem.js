@@ -6,9 +6,8 @@ import {COMMON} from './constants'
 import StyledOcticon from './StyledOcticon'
 import theme from './theme'
 
-const StyledItem = styled.li.attrs(() => ({
+const StyledItem = styled.a.attrs(() => ({
   role: 'menuitem',
-  tabIndex: 0
 }))`
   ${listItemStyles}
   ${COMMON}
