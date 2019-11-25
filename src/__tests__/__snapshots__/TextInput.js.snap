@@ -143,6 +143,11 @@ exports[`TextInput renders large 1`] = `
   color: inherit;
   width: 100%;
   padding-left: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
 }
 
 .c1:focus {
@@ -210,6 +215,13 @@ exports[`TextInput renders small 1`] = `
   color: inherit;
   width: 100%;
   padding-left: 8px;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .c1:focus {
