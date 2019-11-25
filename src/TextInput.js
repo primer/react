@@ -61,6 +61,8 @@ const Input = styled.input.attrs(props => ({
   &:focus {
     outline: 0;
   }
+
+  ${sizeVariants}
 `
 
 const Wrapper = styled.span`
@@ -88,8 +90,6 @@ const Wrapper = styled.span`
     border-color: ${get('colors.blue.4')};
     box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
   }
-
-  ${sizeVariants}
 
   ${props =>
     props.block &&
