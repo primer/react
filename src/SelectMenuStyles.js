@@ -139,11 +139,6 @@ export const listItemStyles = css`
   line-height: inherit;
   text-decoration: none;
 
-  a {
-    text-decoration: none;
-    color: ${get('colors.gray.6')};
-  }
-
   & + & {
     // Add a top border only if the above element also is a list item
     border-top: ${get('borders.1')} ${get('colors.gray.2')};
@@ -156,6 +151,10 @@ export const listItemStyles = css`
   &:focus {
     outline: none;
     background: red;
+  }
+
+  &[hidden] {
+    display: none!important;
   }
 
   .SelectMenu-selected {
@@ -184,15 +183,12 @@ export const listItemStyles = css`
 
   @media (hover: hover) {
     &:focus,
-    &:focus a,
-    &:hover,
-    &:hover a {
+    &:hover {
       color: ${get('colors.white')};
       background-color: ${get('colors.blue.5')};
     }
 
-    &:active,
-    &:active a {
+    &:active {
       color: ${get('colors.white')};
       background-color: ${get('colors.blue.4')};
     }
@@ -213,9 +209,6 @@ export const listItemStyles = css`
     // :active would work if ontouchstart is added to the button
     // Instead this tweaks the "native" highlight color
     -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
-    a {
-      -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
-    }
   }
 `
 
