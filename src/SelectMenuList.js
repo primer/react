@@ -4,6 +4,7 @@ import {listStyles} from './SelectMenuStyles'
 import theme from './theme'
 
 const List = ({children, ...rest}) => {
+  // id & data attribute for compatibility with filter-input web component
   return (
     <div role="menu" id="filter-menu" {...rest}>
       <ul data-filter-list>{children}</ul>
