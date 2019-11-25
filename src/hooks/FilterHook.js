@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from 'react'
-import {MenuContext} from '../SelectMenu'
+import {MenuContext} from '../SelectMenuContext'
 
 function useFilter() {
   const {setFilterText} = useContext(MenuContext)

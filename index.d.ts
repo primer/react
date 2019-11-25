@@ -273,7 +273,14 @@ declare module '@primer/components' {
   }
 
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
-    Context: React.Context<{filterText: string | undefined}>
+    ContextProvider: React.FunctionComponent<{
+      value: {
+        selectedTab: string | undefined
+        setSelectedTab: (selectedTab: string | undefined) => void
+        filterText: string | undefined
+        setFilterText: (filterText: string | undefined) => void
+      }
+    }>
     Fragment: React.FunctionComponent<SelectMenuFragmentProps>
     Divider: React.FunctionComponent<SelectMenuDividerProps>
     Filter: React.FunctionComponent<SelectMenuFilterProps>
@@ -386,6 +393,8 @@ declare module '@primer/components' {
   }
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
+
+  export const useFilter: () => [string | undefined, (ev: React.KeyboardEvent<HTMLInputElement>) => void]
 }
 
 declare module '@primer/components/src/AnimationPulse' {

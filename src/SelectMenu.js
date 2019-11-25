@@ -1,9 +1,10 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import PropTypes from 'prop-types'
 import theme from './theme'
 import {wrapperStyles} from './SelectMenuStyles'
+import {ContextProvider} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
 import SelectMenuFooter from './SelectMenuFooter'
@@ -18,8 +19,7 @@ import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './hooks/KeyboardHook'
 
-const MenuContext = createContext()
-const SelectMenuBase = ({children, ...rest}) => {
+const SelectMenuBase = ({children, initialTab, ...rest}) => {
   const detailsRef = useRef(null)
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [filterText, setFilterText] = useState(undefined)
@@ -31,11 +31,11 @@ const SelectMenuBase = ({children, ...rest}) => {
   }
   useKeyboardNav(detailsRef)
   return (
-    <MenuContext.Provider value={menuProviderValues}>
+    <ContextProvider value={menuProviderValues}>
       <details ref={detailsRef} {...rest}>
         {children}
       </details>
-    </MenuContext.Provider>
+    </ContextProvider>
   )
 }
 
@@ -45,7 +45,7 @@ const SelectMenu = styled(SelectMenuBase)`
 `
 
 SelectMenu.Fragment = props => <include-fragement {...props} />
-SelectMenu.Context = MenuContext
+SelectMenu.ContextProvider = ContextProvider
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter
@@ -66,4 +66,4 @@ SelectMenu.defaultProps = {
 SelectMenu.propTypes = {
   preload: PropTypes.bool
 }
-export default {SelectMenu, MenuContext}
+export default SelectMenu
