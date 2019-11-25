@@ -9,10 +9,10 @@ import {SelectMenu} from '@primer/components'
       <SelectMenu.Header>Filter by project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.List>
-        <SelectMenu.Item>1️⃣</SelectMenu.Item>
-        <SelectMenu.Item>2️⃣</SelectMenu.Item>
-        <SelectMenu.Item>3️⃣</SelectMenu.Item>
-        <SelectMenu.Item>4️⃣</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       </SelectMenu.List>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
     </SelectMenu.Modal>
@@ -23,7 +23,7 @@ import {SelectMenu} from '@primer/components'
 Used as a wrapper component for select menus
 
 ### SelectMenu.Summary
-Used as the trigger component for the SelectMenu dropdown. Must be used with `SelectMenu` and `SelectMenu.Modal`
+Used as the trigger component for the SelectMenu dropdown. Must be used with `SelectMenu` and `SelectMenu.Modal`s
 
 ### SelectMenu.Modal
 Provides styling for the SelectMenu content
