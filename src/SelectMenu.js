@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import PropTypes from 'prop-types'
@@ -20,19 +20,26 @@ import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './hooks/KeyboardHook'
 
 const SelectMenuBase = ({children, initialTab, ...rest}) => {
-  const detailsRef = useRef(null)
+  const ref = useRef(null)
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [filterText, setFilterText] = useState(undefined)
+  const [open, setOpen] = useState(false)
+  useKeyboardNav(ref)
   const menuProviderValues = {
     selectedTab,
     setSelectedTab,
     filterText,
-    setFilterText
+    setFilterText,
+    open
   }
-  useKeyboardNav(detailsRef)
+
+  function toggle(event) {
+    setOpen(event.target.open)
+  }
+
   return (
     <ContextProvider value={menuProviderValues}>
-      <details ref={detailsRef} {...rest}>
+      <details ref={ref} {...rest} onToggle={toggle}>
         {children}
       </details>
     </ContextProvider>

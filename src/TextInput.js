@@ -25,17 +25,18 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, width, theme, ...rest}) => {
+
+const TextInput = React.forwardRef(({icon, className, width, theme, ...rest}, ref) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
   return (
     <Wrapper width={width} className={wrapperClasses} theme={theme}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
+      <Input ref={ref} className={inputClasses} hasIcon={hasIcon} {...rest} />
     </Wrapper>
   )
-}
+})
 
 const Input = styled.input`
   border: 0;
