@@ -32,43 +32,6 @@ export const wrapperStyles = css`
   > summary::-webkit-details-marker {
     display: none;
   }
-
-  .details-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 99;
-    display: flex;
-    padding: ${get('space.3')};
-    pointer-events: none;
-    flex-direction: column;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      pointer-events: none;
-      content: '';
-      background-color: ${get('colors.blackfade50')};
-
-      @media (min-width: ${get('breakpoints.0')}) {
-        display: none;
-      }
-    }
-
-    @media (min-width: ${get('breakpoints.0')}) {
-      position: absolute;
-      top: auto;
-      right: auto;
-      bottom: auto;
-      left: auto;
-      padding: 0;
-    }
-  }
 `
 
 export const modalStyles = css`
@@ -96,6 +59,43 @@ export const modalStyles = css`
     border: ${get('borders.1')} ${get('colors.borders.grayDark')};
     border-radius: ${get('radii.1')};
     box-shadow: 0 1px 5px ${get('colors.borders.blackfade15')} !default;
+  }
+`
+
+export const modalWrapperStyles = css`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  display: flex;
+  padding: ${get('space.3')};
+  pointer-events: none;
+  flex-direction: column;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    content: '';
+    background-color: ${get('colors.blackfade50')};
+
+    @media (min-width: ${get('breakpoints.0')}) {
+      display: none;
+    }
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    padding: 0;
   }
 `
 
