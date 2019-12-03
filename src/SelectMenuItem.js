@@ -15,7 +15,7 @@ const StyledItem = styled.a.attrs(() => ({
 
 const SelectMenuItem = ({children, selected, ...rest}) => {
   return (
-    <StyledItem {...rest}>
+    <StyledItem {...rest} aria-checked={selected}>
       {selected && <StyledOcticon className="SelectMenu-selected" icon={Check} />}
       {children}
     </StyledItem>

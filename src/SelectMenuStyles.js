@@ -129,7 +129,7 @@ export const listStyles = css`
 
 export const listItemStyles = css`
   display: block;
-  padding: ${get('space.3')};
+  padding: ${get('space.2')} ${get('space.2')} ${get('space.2')} 30px;
   overflow: hidden;
   color: ${get('colors.gray.6')};
   text-align: left;
@@ -178,6 +178,9 @@ export const listItemStyles = css`
       display: inline-block;
       transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
       transform: scale(1);
+      position: absolute;
+      left: 0;
+      margin-left: 8px;
     }
   }
 
