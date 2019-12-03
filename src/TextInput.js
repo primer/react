@@ -25,7 +25,6 @@ const sizeVariants = variant({
   }
 })
 
-
 const TextInput = React.forwardRef(({icon, className, width, theme, ...rest}, ref) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')

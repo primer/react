@@ -1,4 +1,4 @@
-import React, {useRef, useState, useCallback, useEffect} from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import PropTypes from 'prop-types'

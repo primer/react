@@ -154,7 +154,7 @@ export const listItemStyles = css`
   }
 
   &[hidden] {
-    display: none!important;
+    display: none !important;
   }
 
   .SelectMenu-selected {

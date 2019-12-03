@@ -7,7 +7,7 @@ import StyledOcticon from './StyledOcticon'
 import theme from './theme'
 
 const StyledItem = styled.a.attrs(() => ({
-  role: 'menuitem',
+  role: 'menuitem'
 }))`
   ${listItemStyles}
   ${COMMON}
