@@ -392,7 +392,7 @@ declare module '@primer/components' {
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 
-  export const useFilter: () => [string | undefined, (ev: React.KeyboardEvent<HTMLInputElement>) => void]
+  export const useMenuFilter: () => [string | undefined, (ev: React.KeyboardEvent<HTMLInputElement>) => void]
 }
 
 declare module '@primer/components/src/AnimationPulse' {

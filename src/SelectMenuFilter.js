@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import TextInput from './TextInput'
-import useFilter from './hooks/FilterHook'
+import useMenuFilter from './hooks/MenuFilterHook'
 import {MenuContext} from './SelectMenuContext'
 
 const StyledForm = styled.form`
@@ -18,7 +18,7 @@ const StyledForm = styled.form`
 `
 
 function SelectMenuFilter(props) {
-  const [value, onChange] = useFilter()
+  const [value, onChange] = useMenuFilter()
   const inputRef = useRef(null)
   const {open} = useContext(MenuContext)
 

@@ -1,7 +1,7 @@
 import {useContext} from 'react'
 import {MenuContext} from '../SelectMenuContext'
 
-function useFilter() {
+function useMenuFilter() {
   const {filterText, setFilterText} = useContext(MenuContext)
 
   const onChange = ev => {
@@ -11,4 +11,4 @@ function useFilter() {
   return [filterText, onChange]
 }
 
-export default useFilter
+export default useMenuFilter

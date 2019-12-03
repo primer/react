@@ -48,4 +48,4 @@ export {default as Tooltip} from './Tooltip'
 export {default as UnderlineNav} from './UnderlineNav'
 
 // Hooks
-export {default as useFilter} from './hooks/FilterHook'
+export {default as useMenuFilter} from './hooks/MenuFilterHook'
