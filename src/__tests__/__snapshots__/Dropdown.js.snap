@@ -100,8 +100,13 @@ exports[`Dropdown matches the snapshots 1`] = `
   display: inline-block;
 }
 
+.c1 summary {
+  color: #444d56;
+}
+
 .c3 {
   border: 4px solid transparent;
+  margin-left: 4px;
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -228,8 +233,13 @@ exports[`Dropdown matches the snapshots 2`] = `
   display: inline-block;
 }
 
+.c1 summary {
+  color: #444d56;
+}
+
 .c3 {
   border: 4px solid transparent;
+  margin-left: 4px;
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -267,6 +277,12 @@ exports[`Dropdown.Item matches the snapshots 1`] = `
   white-space: nowrap;
 }
 
+.c0 a {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 .c0:focus {
   color: #fff;
   -webkit-text-decoration: none;
@@ -274,7 +290,8 @@ exports[`Dropdown.Item matches the snapshots 1`] = `
   background-color: #0366d6;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:hover a {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -299,6 +316,12 @@ exports[`Dropdown.Item matches the snapshots 2`] = `
   white-space: nowrap;
 }
 
+.c0 a {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 .c0:focus {
   color: #fff;
   -webkit-text-decoration: none;
@@ -306,7 +329,8 @@ exports[`Dropdown.Item matches the snapshots 2`] = `
   background-color: #0366d6;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:hover a {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
