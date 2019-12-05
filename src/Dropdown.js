@@ -24,10 +24,15 @@ const Dropdown = styled(DropdownBase)`
   position: relative;
   display: inline-block;
   ${COMMON};
+
+  summary {
+    color: ${get('colors.gray.7')};
+  }
 `
 
 const DropdownCaret = styled.div`
   border: ${get('space.1')} solid transparent;
+  margin-left: ${get('space.1')};
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -90,13 +95,19 @@ const DropdownItem = styled.li`
   text-overflow: ellipsis;
   white-space: nowrap;
 
+  a {
+    color: ${get('colors.gray.9')};
+    text-decoration: none;
+  }
+
   &:focus {
     color: ${get('colors.white')};
     text-decoration: none;
     background-color: ${get('colors.blue.5')};
   }
 
-  &:hover {
+  &:hover,
+  &:hover a {
     color: ${get('colors.white')};
     text-decoration: none;
     background-color: ${get('colors.blue.5')};

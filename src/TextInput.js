@@ -30,7 +30,7 @@ const TextInput = ({icon, type, className, width, theme, ...rest}) => {
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
   return (
-    <Wrapper width={width} className={wrapperClasses} theme={theme}>
+    <Wrapper className={wrapperClasses} theme={theme}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
     </Wrapper>
@@ -84,6 +84,7 @@ const Wrapper = styled.span`
     align-self: center;
     color: ${get('colors.gray.4')};
     margin: 0 ${get('space.2')};
+    flex-shrink: 0;
   }
 
   &:focus-within {
