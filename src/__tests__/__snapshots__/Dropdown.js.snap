@@ -29,6 +29,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 14px;
+  color: #444d56;
 }
 
 .c2:hover {
@@ -100,10 +101,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   display: inline-block;
 }
 
-.c1 summary {
-  color: #444d56;
-}
-
 .c3 {
   border: 4px solid transparent;
   margin-left: 4px;
@@ -124,6 +121,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   <summary
     aria-haspopup="true"
     className="c2"
+    color="gray.7"
   >
     <div
       className="c3"
@@ -162,6 +160,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 14px;
+  color: #444d56;
 }
 
 .c2:hover {
@@ -233,10 +232,6 @@ exports[`Dropdown matches the snapshots 2`] = `
   display: inline-block;
 }
 
-.c1 summary {
-  color: #444d56;
-}
-
 .c3 {
   border: 4px solid transparent;
   margin-left: 4px;
@@ -257,6 +252,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   <summary
     aria-haspopup="true"
     className="c2"
+    color="gray.7"
   >
     hi
     <div
@@ -281,9 +277,16 @@ exports[`Dropdown.Item matches the snapshots 1`] = `
   color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
+  display: block;
+  padding: 4px 10px 4px 15px;
+  overflow: hidden;
+  color: #24292e;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.c0:focus {
+.c0:focus,
+.c0 a:focus {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -320,9 +323,16 @@ exports[`Dropdown.Item matches the snapshots 2`] = `
   color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
+  display: block;
+  padding: 4px 10px 4px 15px;
+  overflow: hidden;
+  color: #24292e;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.c0:focus {
+.c0:focus,
+.c0 a:focus {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
