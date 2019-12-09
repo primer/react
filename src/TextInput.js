@@ -30,7 +30,7 @@ const TextInput = ({icon, type, className, width, theme, ...rest}) => {
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
   return (
-    <Wrapper className={wrapperClasses} theme={theme}>
+    <Wrapper width={width} className={wrapperClasses} theme={theme}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
     </Wrapper>
