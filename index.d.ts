@@ -266,7 +266,7 @@ declare module '@primer/components' {
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     name: string
   }
-  export interface SelectMenuTabPanel extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SelectMenuTabPanelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     tabName: string
   }
   export interface SelectMenuFragmentProps {
@@ -294,6 +294,7 @@ declare module '@primer/components' {
     Summary: React.FunctionComponent<SelectMenuSummaryProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
     Tab: React.FunctionComponent<SelectMenuTabProps>
+    TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
   }
 
   export interface StateLabelProps extends CommonProps {
