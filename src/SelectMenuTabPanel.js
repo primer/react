@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import PropTypes from 'prop-types'
 import {MenuContext} from './SelectMenuContext'
 
 const SelectMenuTabPanel = ({tabName, children}) => {
@@ -9,6 +10,10 @@ const SelectMenuTabPanel = ({tabName, children}) => {
       {children}
     </div>
   )
+}
+
+SelectMenuTabPanel.propTypes = {
+  tabName: PropTypes.string
 }
 
 export default SelectMenuTabPanel
