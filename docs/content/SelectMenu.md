@@ -3,19 +3,26 @@ title: SelectMenu
 ---
 import {SelectMenu} from '@primer/components'
 
-<SelectMenu>
-    <SelectMenu.Summary>Robots</SelectMenu.Summary>
-    <SelectMenu.Modal initialTab="Repository">
-      <SelectMenu.Header>Filter by project</SelectMenu.Header>
-      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
-      <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      </SelectMenu.List>
-      <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
-    </SelectMenu.Modal>
+<SelectMenu initialTab="Repository">
+  <SelectMenu.Summary>Robots</SelectMenu.Summary>
+  <SelectMenu.Modal>
+    <SelectMenu.Header>Filter by project</SelectMenu.Header>
+    <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
+    <SelectMenu.Tabs>
+      <SelectMenu.Tab name="Repository"/>
+      <SelectMenu.Tab name="Organization"/>
+    </SelectMenu.Tabs>
+    <SelectMenu.TabPanel tabName="Repository">
+      <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
+    </SelectMenu.TabPanel>
+    <SelectMenu.TabPanel tabName="Organization">
+      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+    </SelectMenu.TabPanel>
+    <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
+  </SelectMenu.Modal>
 </SelectMenu>
 
 

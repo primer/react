@@ -239,6 +239,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     preload?: boolean
+    initialTab?: string
   }
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuFilterProps extends TextInputProps {
