@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
+import Flex from './Flex'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -44,10 +45,7 @@ const SubNav = styled(SubNavBase)`
   ${FLEX};
 `
 
-SubNav.Links = styled.div`
-  display: flex;
-  ${FLEX};
-`
+SubNav.Links = Flex
 
 SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
