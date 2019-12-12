@@ -5,7 +5,11 @@ import {COMMON} from './constants'
 import theme from './theme'
 
 const Tabs = ({className, children}) => {
-  return <div role="tablist" className={className}>{children}</div>
+  return (
+    <div role="tablist" className={className}>
+      {children}
+    </div>
+  )
 }
 
 const SelectMenuTabs = styled(Tabs)`
