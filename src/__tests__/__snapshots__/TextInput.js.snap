@@ -43,6 +43,9 @@ exports[`TextInput renders 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -110,6 +113,9 @@ exports[`TextInput renders block 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -182,6 +188,9 @@ exports[`TextInput renders large 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -256,6 +265,9 @@ exports[`TextInput renders small 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
