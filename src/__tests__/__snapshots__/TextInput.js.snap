@@ -279,3 +279,70 @@ exports[`TextInput renders small 1`] = `
   />
 </span>
 `;
+
+exports[`TextInput should render a password input 1`] = `
+.c1 {
+  border: 0;
+  margin-right: 4px;
+  font-size: 16px;
+  background-color: transparent;
+  color: inherit;
+  width: 100%;
+  padding-left: 8px;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #24292e;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #959da5;
+  margin: 0 8px;
+}
+
+.c0:focus-within {
+  border-color: #2188ff;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+@media (max-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1 input-no-icon"
+    name="password"
+    type="password"
+  />
+</span>
+`;
