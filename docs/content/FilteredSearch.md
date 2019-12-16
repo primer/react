@@ -15,7 +15,7 @@ The FilteredSearch component is a helper component to style a Dropdown and a Tex
       <Dropdown.Item>Item 3</Dropdown.Item>
     </Dropdown.Menu>
   </Dropdown>
-  <TextInput type="search" icon={Search} />
+  <TextInput icon={Search} />
 </FilteredSearch>
 ```
 
