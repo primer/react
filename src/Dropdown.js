@@ -11,7 +11,7 @@ const DropdownBase = ({title, children, className, ...rest}) => {
   return (
     <Details overlay className={className} {...rest}>
       <>
-        <Button as="summary" aria-haspopup="true" {...rest}>
+        <Button as="summary" color="gray.7" aria-haspopup="true" {...rest}>
           {title}
           <DropdownCaret />
         </Button>
@@ -28,6 +28,7 @@ const Dropdown = styled(DropdownBase)`
 
 const DropdownCaret = styled.div`
   border: ${get('space.1')} solid transparent;
+  margin-left: ${get('space.1')};
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -89,14 +90,26 @@ const DropdownItem = styled.li`
   color: ${get('colors.gray.9')};
   text-overflow: ellipsis;
   white-space: nowrap;
+  a {
+    color: ${get('colors.gray.9')};
+    text-decoration: none;
+    display: block;
+    padding: ${get('space.1')} 10px ${get('space.1')} 15px;
+    overflow: hidden;
+    color: ${get('colors.gray.9')};
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-  &:focus {
+  &:focus,
+  a:focus {
     color: ${get('colors.white')};
     text-decoration: none;
     background-color: ${get('colors.blue.5')};
   }
 
-  &:hover {
+  &:hover,
+  &:hover a {
     color: ${get('colors.white')};
     text-decoration: none;
     background-color: ${get('colors.blue.5')};

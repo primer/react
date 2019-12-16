@@ -25,12 +25,12 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, type, className, width, theme, ...rest}) => {
+const TextInput = ({icon, type, className, ...rest}) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
   return (
-    <Wrapper width={width} className={wrapperClasses} theme={theme}>
+    <Wrapper className={wrapperClasses}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
     </Wrapper>
@@ -63,6 +63,8 @@ const Input = styled.input.attrs(props => ({
   }
 
   ${sizeVariants}
+  ${COMMON}
+  ${width}
 `
 
 const Wrapper = styled.span`
@@ -84,6 +86,7 @@ const Wrapper = styled.span`
     align-self: center;
     color: ${get('colors.gray.4')};
     margin: 0 ${get('space.2')};
+    flex-shrink: 0;
   }
 
   &:focus-within {
@@ -102,8 +105,6 @@ const Wrapper = styled.span`
   @media (max-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
-  ${COMMON};
-  ${width}
 `
 
 TextInput.defaultProps = {theme}

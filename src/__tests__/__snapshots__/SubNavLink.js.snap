@@ -25,7 +25,7 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
   align-items: center;
 }
 
-.c0:first-child {
+.c0:first-of-type {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border-left: 1px solid #e1e4e8;
@@ -34,7 +34,6 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
 .c0:last-of-type {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  margin-right: 8px;
 }
 
 .c0:hover,
@@ -294,7 +293,7 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   align-items: center;
 }
 
-.c0:first-child {
+.c0:first-of-type {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border-left: 1px solid #e1e4e8;
@@ -303,7 +302,6 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
 .c0:last-of-type {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  margin-right: 8px;
 }
 
 .c0:hover,
