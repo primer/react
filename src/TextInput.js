@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
-import {variant, width} from 'styled-system'
+import {variant, width, color} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -25,12 +25,12 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, ...rest}) => {
+const TextInput = ({icon, bg, className, ...rest}) => {
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
   return (
-    <Wrapper className={wrapperClasses}>
+    <Wrapper bg={bg} className={wrapperClasses}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
     </Wrapper>
@@ -104,6 +104,7 @@ const Wrapper = styled.span`
   @media (max-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
+  ${color}
 `
 
 TextInput.defaultProps = {theme}
