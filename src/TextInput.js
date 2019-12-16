@@ -41,7 +41,6 @@ const Input = styled.input.attrs(props => ({
   type: props.type || 'text'
 }))`
   border: 0;
-  margin-right: ${get('space.1')};
   font-size: ${get('fontSizes.2')};
   background-color: transparent;
   color: inherit;
@@ -50,11 +49,11 @@ const Input = styled.input.attrs(props => ({
   ${props => {
     if (props.hasIcon) {
       return css`
-        padding-left: 0;
+        padding: 0;
       `
     } else {
       return css`
-        padding-left: ${get('space.2')};
+        padding: 6px ${get('space.2')};
       `
     }
   }}
