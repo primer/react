@@ -5,7 +5,10 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "cd .. && npm install && cd docs && gatsby build --prefix-paths"
+    "build": "cd .. && yarn && cd docs && gatsby build --prefix-paths"
+  },
+  "engines": {
+    "node" : "12.x" 
   },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "^0.16.6",
