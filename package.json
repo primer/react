@@ -6,10 +6,10 @@
   "module": "dist/index.esm.js",
   "typings": "index.d.ts",
   "scripts": {
-    "start": "cd docs && npm run develop",
+    "start": "cd docs && yarn run develop",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
-    "prepublishOnly": "npm run dist",
+    "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
     "watch": "jest --watch --no-coverage"

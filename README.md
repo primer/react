@@ -32,10 +32,14 @@ Our documentation site lives at [primer.style/components](https://primer.style/c
 
 ## Installation
 
-Install @primer/components in your project with npm:
+Install @primer/components in your project with your package manager of choice:
 
 ```
 npm install @primer/components
+
+// or
+
+yarn add @primer/components
 ```
 
 ## Usage
@@ -124,8 +128,8 @@ If you're rendering React components both server-side _and_ client-side, we sugg
 To run `@primer/components` locally when adding or updating components:
 
 1. Clone this repo: `git clone https://github.com/primer/components`
-1. Install dependencies in the repo root and `docs` subfolder: `pushd docs && npm install && popd && npm install`
-1. Run the dev app: `npm start`
+1. Install dependencies in the repo root and `docs` subfolder: `pushd docs && yarn && popd && yarn`
+1. Run the dev app: `yarn start`
 
 > 👉 See [the contributing docs](CONTRIBUTING.md) for more info on code style, testing, coverage, and troubleshooting.
 
