@@ -43,6 +43,7 @@ const Input = styled.input.attrs(props => ({
   border: 0;
   font-size: ${get('fontSizes.2')};
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
 
