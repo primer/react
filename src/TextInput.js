@@ -26,13 +26,13 @@ const sizeVariants = variant({
 })
 
 const TextInput = ({icon, bg, className, ...rest}) => {
+  // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
-  const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
   const hasIcon = !!icon
   return (
     <Wrapper bg={bg} className={wrapperClasses}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
+      <Input hasIcon={hasIcon} {...rest} />
     </Wrapper>
   )
 }
@@ -111,16 +111,10 @@ const Wrapper = styled.span`
 TextInput.defaultProps = {theme}
 
 TextInput.propTypes = {
-  autocomplete: PropTypes.string,
   block: PropTypes.bool,
-  disabled: PropTypes.bool,
   id: PropTypes.string,
-  name: PropTypes.string,
   onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
   theme: PropTypes.object,
-  value: PropTypes.string,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width
