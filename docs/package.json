@@ -7,6 +7,9 @@
     "develop": "gatsby develop",
     "now-build": "cd .. && yarn && cd docs && gatsby build --prefix-paths"
   },
+  "engines": {
+    "node" : ">=8.11.0" 
+  },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "^0.16.6",
     "@primer/octicons-react": "^9.2.0",
