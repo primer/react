@@ -112,9 +112,6 @@ TextInput.defaultProps = {theme}
 
 TextInput.propTypes = {
   block: PropTypes.bool,
-  id: PropTypes.string,
-  onChange: PropTypes.func,
-  theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width
