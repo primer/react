@@ -335,6 +335,9 @@ exports[`TextInput should render a password input 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
