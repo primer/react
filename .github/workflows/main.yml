@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn
 
       - name: Lint
-        run: npm run lint
+        run: yarn run lint
 
       - name: Test
-        run: npm test
+        run: yarn test
 
       - name: Publish to the npm registry
         uses: "primer/publish@v2.0.0"

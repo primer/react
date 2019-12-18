@@ -16,7 +16,7 @@
 We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our JavaScript. To check your work before pushing, run:
 
 ```
-npm run lint
+yarn run lint
 ```
 
 Or, you can use [npx] to run eslint on one or more specific files:
@@ -30,24 +30,24 @@ npx eslint src/**/MyComponent.js
 **Protip:** The [eslint `--fix` flag](https://eslint.org/docs/user-guide/command-line-interface#--fix) can automatically fix most linting errors, such as those involving whitespace or incorrect ordering of object keys and imports. You can fix those issues across the entire project with:
 
 ```sh
-npm run lint -- --fix
+yarn run lint -- --fix
 ```
 
-**Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
+**Protip:** `yarn run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
 
 ## Testing
 
-We test our components with [Jest](https://facebook.github.io/jest/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run the tests locally with `npm test` (or `npm t`). To run the tests as you work, run Jest in watch mode with:
+We test our components with [Jest](https://facebook.github.io/jest/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run the tests locally with `yarn test`. To run the tests as you work, run Jest in watch mode with:
 
 ```
-npm t -- --watch
+yarn test -- --watch
 ```
 
 See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways that we test our components.
 
 ### Code coverage
 
-A code coverage report is included in the `npm test` output, and test coverage data is generated in the `coverage/` directory.
+A code coverage report is included in the `yarn test` output, and test coverage data is generated in the `coverage/` directory.
 
 ## Tools we use
 
@@ -109,7 +109,7 @@ To add a new component to our documentation site, create a new file with the `.m
 We deploy the Primer Components site using [Now]. Install the Now CLI and log in with:
 
 ```sh
-npm i -g now
+yarn global now
 now login
 ```
 
@@ -126,11 +126,11 @@ This site is served as a subdirectory of [primer.style] using a [path alias](htt
 
 ## Troubleshooting
 
-**`npm start` fails with an error like `gatsby: command not found`**
+**`yarn start` fails with an error like `gatsby: command not found`**
 
-Make sure to run `npm install` from inside the `docs/` subfolder *as well as* the root folder.
+Make sure to run `yarn` from inside the `docs/` subfolder *as well as* the root folder.
 
-**`npm start` fails with a different error**
+** `yarn start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
 
