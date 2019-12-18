@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
-import {variant, width, color} from 'styled-system'
+import {variant, width} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -31,7 +31,7 @@ const TextInput = ({icon, bg, className, ...rest}) => {
   return (
     <Wrapper className={wrapperClasses} hasIcon={!!icon} {...rest}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input {...rest}/>
+      <Input {...rest} />
     </Wrapper>
   )
 }
