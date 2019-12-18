@@ -6,7 +6,7 @@ TextInput is a form component to add default styling to the native text input. D
 ## Default example
 
 ```jsx live
-<TextInput variant="small" aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
+<TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
 
 <TextInput ml={4} icon={Search} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
