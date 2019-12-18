@@ -26,13 +26,13 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, ...rest}) => {
+const TextInput = ({icon, className, block, ...rest}) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const wrapperProps = pick(rest)
   const inputProps = omit(rest)
   return (
-    <Wrapper className={wrapperClasses} hasIcon={!!icon} {...wrapperProps}>
+    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} {...wrapperProps}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <Input {...inputProps} />
     </Wrapper>
