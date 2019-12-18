@@ -28,11 +28,10 @@ const sizeVariants = variant({
 const TextInput = ({icon, bg, className, ...rest}) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
-  const hasIcon = !!icon
   return (
-    <Wrapper bg={bg} className={wrapperClasses}>
+    <Wrapper className={wrapperClasses} hasIcon={!!icon} {...rest}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input hasIcon={hasIcon} {...rest} />
+      <Input {...rest}/>
     </Wrapper>
   )
 }
@@ -41,30 +40,14 @@ const Input = styled.input.attrs(props => ({
   type: props.type || 'text'
 }))`
   border: 0;
-  font-size: ${get('fontSizes.2')};
+  font-size: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
   width: 100%;
-
-  ${props => {
-    if (props.hasIcon) {
-      return css`
-        padding: 0;
-      `
-    } else {
-      return css`
-        padding: 6px ${get('space.2')};
-      `
-    }
-  }}
   &:focus {
     outline: 0;
   }
-
-  ${sizeVariants}
-  ${COMMON}
-  ${width}
 `
 
 const Wrapper = styled.span`
@@ -81,6 +64,18 @@ const Wrapper = styled.span`
   border-radius: ${get('radii.1')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
+
+  ${props => {
+    if (props.hasIcon) {
+      return css`
+        padding: 0;
+      `
+    } else {
+      return css`
+        padding: 6px ${get('space.2')};
+      `
+    }
+  }}
 
   .TextInput-icon {
     align-self: center;
@@ -105,7 +100,9 @@ const Wrapper = styled.span`
   @media (max-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
-  ${color}
+  ${COMMON}
+  ${width}
+  ${sizeVariants}
 `
 
 TextInput.defaultProps = {theme}
