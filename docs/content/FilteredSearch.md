@@ -4,7 +4,7 @@ title: FilteredSearch
 
 The FilteredSearch component helps style a Dropdown and a TextInput side-by-side.
 
-**Note:** You *must* use a `TextInput` and `Dropdown` in order for this component to work properly.
+**Note:** You *must* use a `TextInput` and `Dropdown` (or native `<details>` and `<summary>`) in order for this component to work properly.
 ## Default example
 
 ```jsx live
