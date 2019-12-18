@@ -61,7 +61,6 @@ exports[`TextInput renders 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
-  name="zipcode"
 >
   <input
     className="c1"
@@ -106,8 +105,6 @@ exports[`TextInput renders block 1`] = `
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
   padding: 6px 8px;
-  display: block;
-  width: 100%;
 }
 
 .c0 .TextInput-icon {
@@ -134,7 +131,6 @@ exports[`TextInput renders block 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
-  name="zipcode"
 >
   <input
     className="c1"
@@ -210,7 +206,6 @@ exports[`TextInput renders large 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
-  name="zipcode"
 >
   <input
     className="c1"
@@ -288,7 +283,6 @@ exports[`TextInput renders small 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
-  name="zipcode"
 >
   <input
     className="c1"
@@ -359,8 +353,6 @@ exports[`TextInput should render a password input 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
-  name="password"
-  type="password"
 >
   <input
     className="c1"
