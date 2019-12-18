@@ -21,3 +21,4 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
 | :- | :- | :-: | :- |
 | block | Boolean | | Adds `display: block` to element |
 | variant | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
+| width | String or Number | | Set the width of the input
