@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
+import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
 import {variant, width} from 'styled-system'
@@ -25,13 +26,15 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, bg, className, ...rest}) => {
+const TextInput = ({icon, className, ...rest}) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
+  const wrapperProps = pick(rest)
+  const inputProps = omit(rest)
   return (
-    <Wrapper className={wrapperClasses} hasIcon={!!icon} {...rest}>
+    <Wrapper className={wrapperClasses} hasIcon={!!icon} {...wrapperProps}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input {...rest} />
+      <Input {...inputProps} />
     </Wrapper>
   )
 }
