@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
+import Flex from './Flex'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -25,6 +26,14 @@ const SubNav = styled(SubNavBase)`
   .SubNav-body {
     display: flex;
     margin-bottom: -1px;
+
+    > * {
+      margin-left: ${get('space.2')};
+    }
+
+    > *:first-child {
+      margin-left: 0;
+    }
   }
 
   .SubNav-actions {
@@ -32,7 +41,11 @@ const SubNav = styled(SubNavBase)`
   }
 
   ${COMMON};
+
+  ${FLEX};
 `
+
+SubNav.Links = Flex
 
 SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -53,7 +66,7 @@ SubNav.Link = styled.a.attrs(props => ({
   display: flex;
   align-items: center;
 
-  &:first-child {
+  &:first-of-type {
     border-top-left-radius: ${get('radii.1')};
     border-bottom-left-radius: ${get('radii.1')};
     border-left: 1px solid ${get('colors.gray.2')};
@@ -62,7 +75,6 @@ SubNav.Link = styled.a.attrs(props => ({
   &:last-of-type {
     border-top-right-radius: ${get('radii.1')};
     border-bottom-right-radius: ${get('radii.1')};
-    margin-right: ${get('space.2')};
   }
 
   &:hover,
@@ -108,6 +120,9 @@ SubNav.Link.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   href: PropTypes.string,
   selected: PropTypes.bool,
+  ...COMMON.propTypes
+}
+SubNav.Links.propTypes = {
   ...COMMON.propTypes
 }
 

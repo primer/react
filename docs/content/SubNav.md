@@ -15,11 +15,13 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ```jsx live
 <SubNav aria-label="Main">
-  <SubNav.Link href="#home" selected>
-    Home
-  </SubNav.Link>
-  <SubNav.Link href="#documentation">Documentation</SubNav.Link>
-  <SubNav.Link href="#support">Support</SubNav.Link>
+  <SubNav.Links>
+    <SubNav.Link href="#home" selected>
+      Home
+    </SubNav.Link>
+    <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+    <SubNav.Link href="#support">Support</SubNav.Link>
+  </SubNav.Links>
 </SubNav>
 ```
 
@@ -27,13 +29,15 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ```jsx live
 <SubNav aria-label="Main">
-  <SubNav.Link href="#home" selected>
-    Home
-  </SubNav.Link>
-  <SubNav.Link href="#documentation">Documentation</SubNav.Link>
-  <SubNav.Link href="#support">Support</SubNav.Link>
+  <SubNav.Links>
+    <SubNav.Link href="#home" selected>
+      Home
+    </SubNav.Link>
+    <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+    <SubNav.Link href="#support">Support</SubNav.Link>
+  </SubNav.Links>
 
-  <TextInput type="search" icon={Search} />
+  <TextInput type="search" icon={Search} width={320} />
 </SubNav>
 ```
 
@@ -41,22 +45,29 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ```jsx live
 <SubNav aria-label="Main">
-  <SubNav.Link href="#home" selected>
-    Home
-  </SubNav.Link>
-  <SubNav.Link href="#documentation">Documentation</SubNav.Link>
-  <SubNav.Link href="#support">Support</SubNav.Link>
-
   <FilteredSearch>
     <Dropdown title="Filter">
       <Dropdown.Menu direction="sw">
-        <Dropdown.Item>Item 1</Dropdown.Item>
-        <Dropdown.Item>Item 2</Dropdown.Item>
-        <Dropdown.Item>Item 3</Dropdown.Item>
+        <Dropdown.Item>
+          <a href="#">Item 1</a>
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <a href="#">Item 2</a>
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <a href="#">Item 3</a>
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-    <TextInput type="search" icon={Search} />
+    <TextInput type="search" icon={Search} width={320} />
   </FilteredSearch>
+  <SubNav.Links>
+    <SubNav.Link href="#home" selected>
+      Home
+    </SubNav.Link>
+    <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+    <SubNav.Link href="#support">Support</SubNav.Link>
+  </SubNav.Links>
 </SubNav>
 ```
 

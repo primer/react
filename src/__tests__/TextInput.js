@@ -34,4 +34,8 @@ describe('TextInput', () => {
     component.find('input').simulate('change')
     expect(onChangeMock).toHaveBeenCalled()
   })
+
+  it('should render a password input', () => {
+    expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
+  })
 })
