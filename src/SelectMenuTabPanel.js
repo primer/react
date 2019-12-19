@@ -7,6 +7,7 @@ import {get} from './constants'
 
 const TabPanel = ({tabName, className, children}) => {
   const menuContext = useContext(MenuContext)
+  // eslint-disable-next-line no-console
   console.log(menuContext)
   return (
     <div role="tabpanel" className={className} hidden={menuContext.selectedTab !== tabName}>

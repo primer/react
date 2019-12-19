@@ -25,11 +25,7 @@ const Button = styled.button.attrs(({disabled, onClick}) => ({
 }))`
   ${buttonStyles}
   ${variants}
-  ${compose(
-    fontSize,
-    COMMON,
-    LAYOUT
-  )}
+  ${compose(fontSize, COMMON, LAYOUT)}
 `
 
 Button.defaultProps = {
