@@ -15,19 +15,29 @@ const whiteSpace = system({
   }
 })
 
-export const TYPOGRAPHY = compose(styledSystem.typography, whiteSpace)
+export const TYPOGRAPHY = compose(
+  styledSystem.typography,
+  whiteSpace
+)
 
 TYPOGRAPHY.propTypes = {
   ...systemPropTypes.typography,
   whiteSpace: PropTypes.oneOf(['normal', 'nowrap', 'pre-wrap', 'pre', 'pre-line'])
 }
 
-export const COMMON = compose(styledSystem.space, styledSystem.color, styledSystem.display)
+export const COMMON = compose(
+  styledSystem.space,
+  styledSystem.color,
+  styledSystem.display
+)
 COMMON.propTypes = {
   ...systemPropTypes.space,
   ...systemPropTypes.color
 }
-export const BORDER = compose(styledSystem.border, styledSystem.shadow)
+export const BORDER = compose(
+  styledSystem.border,
+  styledSystem.shadow
+)
 BORDER.propTypes = {
   ...systemPropTypes.border,
   ...systemPropTypes.shadow
