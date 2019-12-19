@@ -30,7 +30,8 @@ const SelectMenuBase = ({children, initialTab, ...rest}) => {
     setSelectedTab,
     filterText,
     setFilterText,
-    open
+    open,
+    initialTab
   }
 
   function toggle(event) {
