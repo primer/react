@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
+import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
 import {variant, width} from 'styled-system'
@@ -25,14 +26,15 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, ...rest}) => {
+const TextInput = ({icon, className, block, ...rest}) => {
+  // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
-  const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
-  const hasIcon = !!icon
+  const wrapperProps = pick(rest)
+  const inputProps = omit(rest)
   return (
-    <Wrapper className={wrapperClasses}>
+    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} {...wrapperProps}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input className={inputClasses} hasIcon={hasIcon} {...rest} />
+      <Input {...inputProps} />
     </Wrapper>
   )
 }
@@ -41,30 +43,14 @@ const Input = styled.input.attrs(props => ({
   type: props.type || 'text'
 }))`
   border: 0;
-  margin-right: ${get('space.1')};
-  font-size: ${get('fontSizes.2')};
+  font-size: inherit;
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
-
-  ${props => {
-    if (props.hasIcon) {
-      return css`
-        padding-left: 0;
-      `
-    } else {
-      return css`
-        padding-left: ${get('space.2')};
-      `
-    }
-  }}
   &:focus {
     outline: 0;
   }
-
-  ${sizeVariants}
-  ${COMMON}
-  ${width}
 `
 
 const Wrapper = styled.span`
@@ -81,6 +67,18 @@ const Wrapper = styled.span`
   border-radius: ${get('radii.1')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
+
+  ${props => {
+    if (props.hasIcon) {
+      return css`
+        padding: 0;
+      `
+    } else {
+      return css`
+        padding: 6px ${get('space.2')};
+      `
+    }
+  }}
 
   .TextInput-icon {
     align-self: center;
@@ -105,21 +103,15 @@ const Wrapper = styled.span`
   @media (max-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
+  ${COMMON}
+  ${width}
+  ${sizeVariants}
 `
 
 TextInput.defaultProps = {theme}
 
 TextInput.propTypes = {
-  autocomplete: PropTypes.string,
   block: PropTypes.bool,
-  disabled: PropTypes.bool,
-  id: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  theme: PropTypes.object,
-  value: PropTypes.string,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width
