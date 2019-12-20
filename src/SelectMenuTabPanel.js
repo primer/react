@@ -11,7 +11,6 @@ const TabPanel = ({tabName, className, children}) => {
     <div
       role="tabpanel"
       className={className}
-      data-intital={menuContext.initialTab}
       hidden={menuContext.selectedTab !== tabName}
     >
       {children}
