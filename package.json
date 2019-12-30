@@ -74,6 +74,6 @@
   },
   "peerDependencies": {
     "react": "^16.8.0",
-    "styled-components": "4.x"
+    "styled-components": "4.x || 5.x"
   }
 }
