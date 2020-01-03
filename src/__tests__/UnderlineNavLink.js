@@ -1,11 +1,10 @@
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
-
 
 describe('UnderlineNav.Link', () => {
   it('renders an <a> by default', () => {

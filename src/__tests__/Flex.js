@@ -2,7 +2,7 @@ import React from 'react'
 import Flex from '../Flex'
 import {FLEX} from '../constants'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -18,7 +18,7 @@ describe('Flex', () => {
     expect(results).toHaveNoViolations()
     cleanup()
   })
-  
+
   it('has default theme', () => {
     expect(Flex).toSetDefaultTheme()
   })

@@ -1,7 +1,7 @@
 import React from 'react'
 import SubNav from '../SubNav'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -21,7 +21,6 @@ describe('SubNav.Link', () => {
     expect(results).toHaveNoViolations()
     cleanup()
   })
-
 
   it('renders the given "as" prop', () => {
     const Type = props => <b {...props} />

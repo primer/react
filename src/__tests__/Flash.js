@@ -3,7 +3,7 @@ import Flash from '../Flash'
 import {COMMON} from '../constants'
 import theme, {colors} from '../theme'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)

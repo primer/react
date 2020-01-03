@@ -3,7 +3,7 @@ import React from 'react'
 import Link from '../Link'
 import {render} from '../utils/testing'
 import {COMMON, TYPOGRAPHY} from '../constants'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -13,7 +13,6 @@ describe('Link', () => {
     expect(Link).toImplementSystemProps(COMMON)
     expect(Link).toImplementSystemProps(TYPOGRAPHY)
   })
-  
 
   it('has default theme', () => {
     expect(Link).toSetDefaultTheme()

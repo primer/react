@@ -2,7 +2,7 @@ import React from 'react'
 import Details from '../Details'
 import {mount} from '../utils/testing'
 import {COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -16,7 +16,7 @@ describe('Details', () => {
     expect(Details).toSetDefaultTheme()
   })
 
-  it("should have no axe violations", async () => {
+  it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Details />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()

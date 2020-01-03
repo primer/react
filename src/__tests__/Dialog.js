@@ -2,23 +2,17 @@ import React from 'react'
 import Dialog from '../Dialog'
 import Box from '../Box'
 import Text from '../Text'
-import {render} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
-const State = props => {
-  const result = React.useState(props.default)
-  return props.children(result)
-}
-
 const comp = (
-    <Dialog title="Title" isOpen={true} onDismiss={() => null}>
-      <Box p={3}>
-        <Text fontFamily="sans-serif">Some content</Text>
-      </Box>
-    </Dialog>
+  <Dialog title="Title" isOpen onDismiss={() => null}>
+    <Box p={3}>
+      <Text fontFamily="sans-serif">Some content</Text>
+    </Box>
+  </Dialog>
 )
 
 describe('Dialog', () => {
@@ -28,5 +22,4 @@ describe('Dialog', () => {
     expect(results).toHaveNoViolations()
     cleanup()
   })
-
 })

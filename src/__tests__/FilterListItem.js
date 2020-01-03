@@ -2,7 +2,7 @@ import React from 'react'
 import FilterList from '../FilterList'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -12,7 +12,7 @@ describe('FilterList.Item', () => {
     expect(FilterList.Item).toSetDefaultTheme()
   })
 
-  it("should have no axe violations", async () => {
+  it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilterList.Item>stuff</FilterList.Item>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()

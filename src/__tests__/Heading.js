@@ -2,7 +2,7 @@ import React from 'react'
 import {Heading} from '..'
 import {render} from '../utils/testing'
 import {TYPOGRAPHY, COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)

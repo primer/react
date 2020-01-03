@@ -3,7 +3,7 @@ import {LAYOUT, POSITION} from '../constants'
 import BorderBox from '../BorderBox'
 import {Absolute, Fixed, Relative, Sticky} from '../Position'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -16,7 +16,7 @@ describe('position components', () => {
     })
 
     it('should have no axe violations', async () => {
-      const {container} = HTMLRender(<Absolute/>)
+      const {container} = HTMLRender(<Absolute />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
       cleanup()
@@ -53,7 +53,7 @@ describe('position components', () => {
     })
 
     it('should have no axe violations', async () => {
-      const {container} = HTMLRender(<Fixed/>)
+      const {container} = HTMLRender(<Fixed />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
       cleanup()
@@ -85,7 +85,7 @@ describe('position components', () => {
     })
 
     it('should have no axe violations', async () => {
-      const {container} = HTMLRender(<Relative/>)
+      const {container} = HTMLRender(<Relative />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
       cleanup()
@@ -117,7 +117,7 @@ describe('position components', () => {
     })
 
     it('should have no axe violations', async () => {
-      const {container} = HTMLRender(<Sticky/>)
+      const {container} = HTMLRender(<Sticky />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
       cleanup()

@@ -3,7 +3,7 @@ import {Check} from '@primer/octicons-react'
 import {colors} from '../theme'
 import CircleOcticon from '../CircleOcticon'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
@@ -15,7 +15,7 @@ describe('CircleOcticon', () => {
     expect(result).toHaveStyleRule('height', '10px')
   })
 
-  it("should have no axe violations", async () => {
+  it('should have no axe violations', async () => {
     const {container} = HTMLRender(<CircleOcticon icon={Check} size={10} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
