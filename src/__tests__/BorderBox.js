@@ -3,8 +3,19 @@ import theme, {colors} from '../theme'
 import BorderBox from '../BorderBox'
 import {render} from '../utils/testing'
 import {LAYOUT, COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('BorderBox', () => {
+  it("should have no axe violations", async () => {
+    const {container} = HTMLRender(<BorderBox/>)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
+  })
+
   it('implements layout system props', () => {
     expect(BorderBox).toImplementSystemProps(LAYOUT)
     expect(BorderBox).toImplementSystemProps(COMMON)
