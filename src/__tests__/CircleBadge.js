@@ -2,6 +2,10 @@ import React from 'react'
 import CircleBadge from '../CircleBadge'
 import {render, mount} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 const imgInput = <img alt="" src="primer.jpg" />
 
@@ -10,6 +14,13 @@ describe('CircleBadge', () => {
     const item = render(<CircleBadge as="a" />)
     expect(item.type).toEqual('a')
     expect(item).toMatchSnapshot()
+  })
+
+  it("should have no axe violations", async () => {
+    const {container} = HTMLRender(<CircleBadge variant="large" size={20} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {
