@@ -2,10 +2,21 @@ import React from 'react'
 import TabNav from '../TabNav'
 import {mount, render, rendersClass} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('TabNav', () => {
   it('implements system props', () => {
     expect(TabNav).toImplementSystemProps(COMMON)
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<TabNav />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {
