@@ -2,10 +2,21 @@ import React from 'react'
 import StateLabel from '../StateLabel'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('StateLabel', () => {
   it('implements common system props', () => {
     expect(StateLabel).toImplementSystemProps(COMMON)
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<StateLabel status="issueOpened" />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('respects the status prop', () => {
