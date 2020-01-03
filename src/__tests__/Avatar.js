@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 
 describe('Avatar', () => {
   it("should have no axe violations", async () => {
-    const {container} = HTMLRender(<Avatar alt="" />)
+    const {container} = HTMLRender(<Avatar/>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
