@@ -2,6 +2,10 @@ import React from 'react'
 import {Heading} from '..'
 import {render} from '../utils/testing'
 import {TYPOGRAPHY, COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
@@ -29,6 +33,13 @@ const theme = {
 describe('Heading', () => {
   it('renders <h1> by default', () => {
     expect(render(<Heading />).type).toEqual('h1')
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Heading>Hello</Heading>)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {

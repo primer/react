@@ -2,8 +2,19 @@ import React from 'react'
 import Grid from '../Grid'
 import {GRID} from '../constants'
 import {render} from '../utils/testing'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('Grid', () => {
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Grid />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
+  })
+
   it('implements system props', () => {
     expect(Grid).toImplementSystemProps(GRID)
   })
