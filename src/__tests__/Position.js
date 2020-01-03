@@ -3,12 +3,23 @@ import {LAYOUT, POSITION} from '../constants'
 import BorderBox from '../BorderBox'
 import {Absolute, Fixed, Relative, Sticky} from '../Position'
 import {render} from '../utils/testing'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('position components', () => {
   describe('Absolute', () => {
     it('implements system props', () => {
       expect(Absolute).toImplementSystemProps(LAYOUT)
       expect(Absolute).toImplementSystemProps(POSITION)
+    })
+
+    it('should have no axe violations', async () => {
+      const {container} = HTMLRender(<Absolute/>)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
     })
 
     it('has default theme', () => {
@@ -40,6 +51,14 @@ describe('position components', () => {
     it('respects the "as" prop', () => {
       expect(render(<Fixed as="span" />).type).toEqual('span')
     })
+
+    it('should have no axe violations', async () => {
+      const {container} = HTMLRender(<Fixed/>)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
+    })
+
     it('has default theme', () => {
       expect(Fixed).toSetDefaultTheme()
     })
@@ -63,6 +82,13 @@ describe('position components', () => {
     })
     it('respects the "as" prop', () => {
       expect(render(<Relative as="span" />).type).toEqual('span')
+    })
+
+    it('should have no axe violations', async () => {
+      const {container} = HTMLRender(<Relative/>)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
     })
 
     it('has default theme', () => {
@@ -89,6 +115,14 @@ describe('position components', () => {
     it('respects the "as" prop', () => {
       expect(render(<Sticky as="span" />).type).toEqual('span')
     })
+
+    it('should have no axe violations', async () => {
+      const {container} = HTMLRender(<Sticky/>)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
+    })
+
     it('sets position: sticky', () => {
       expect(render(<Sticky />)).toHaveStyleRule('position', 'sticky')
     })
