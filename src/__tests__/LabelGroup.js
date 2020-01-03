@@ -3,6 +3,10 @@ import LabelGroup from '../LabelGroup'
 import Label from '../Label'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from "@testing-library/react";
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 const comp = (
   <LabelGroup>
@@ -15,6 +19,13 @@ const comp = (
 describe('BranchName', () => {
   it('has default theme', () => {
     expect(LabelGroup).toSetDefaultTheme()
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(comp)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('respects the "as" prop', () => {
