@@ -298,7 +298,7 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<SubNavLinkProps>
   }
 
-  export const theme: Object
+  export const theme: {[key: string]: any}
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {
