@@ -103,10 +103,12 @@ exports[`Avatar matches snapshot 1`] = `
     className="c1 AvatarStackBody"
   >
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
@@ -114,10 +116,12 @@ exports[`Avatar matches snapshot 1`] = `
       className="AvatarItem-more AvatarItem"
     />
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
@@ -257,10 +261,12 @@ exports[`Avatar respects alignRight props 1`] = `
     className="c1 AvatarStackBody"
   >
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />
@@ -268,10 +274,12 @@ exports[`Avatar respects alignRight props 1`] = `
       className="AvatarItem-more AvatarItem"
     />
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
+      alt=""
       className="AvatarItem"
       src="https://avatars.githubusercontent.com/github"
     />

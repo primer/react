@@ -1,10 +1,21 @@
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
 import {render} from '../utils/testing'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('UnderlineNav.Link', () => {
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNav.Link />).type).toEqual('a')
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<UnderlineNav.Link href="www.github.com">Go to GitHub</UnderlineNav.Link>)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {

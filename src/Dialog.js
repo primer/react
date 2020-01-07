@@ -22,7 +22,7 @@ const ReachGlobalStyle = createGlobalStyle`
   }
 `
 
-export const Dialog = styled(ReachDialog)`
+export const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   padding: 0 !important;
@@ -61,19 +61,10 @@ const DialogHeader = styled(Flex).attrs({
   }
 `
 
-Dialog.defaultProps = {theme}
-
-Dialog.propTypes = {
-  ...LAYOUT.propTypes,
-  ...systemPropTypes.space,
-  ...systemPropTypes.color,
-  theme: PropTypes.object
-}
-
-const DialogWithHeader = ({title, children, ...props}) => {
+const Dialog = ({title, children, ...props}) => {
   return (
     <>
-      <Dialog {...props}>
+      <StyledDialog {...props}>
         <DialogHeader>
           {typeof title === 'string' ? (
             <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
@@ -87,15 +78,15 @@ const DialogWithHeader = ({title, children, ...props}) => {
           </UnstyledButton>
         </DialogHeader>
         {children}
-      </Dialog>
+      </StyledDialog>
       <ReachGlobalStyle />
     </>
   )
 }
 
-DialogWithHeader.defaultProps = {theme}
+Dialog.defaultProps = {theme}
 
-DialogWithHeader.propTypes = {
+Dialog.propTypes = {
   ...LAYOUT.propTypes,
   ...systemPropTypes.space,
   ...systemPropTypes.color,
@@ -106,4 +97,4 @@ DialogWithHeader.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
 }
 
-export default DialogWithHeader
+export default Dialog
