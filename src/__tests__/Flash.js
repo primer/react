@@ -3,8 +3,19 @@ import Flash from '../Flash'
 import {COMMON} from '../constants'
 import theme, {colors} from '../theme'
 import {render} from '../utils/testing'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('Flash', () => {
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Flash scheme="yellow" theme={theme} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
+  })
+
   it('implements system props', () => {
     expect(Flash).toImplementSystemProps(COMMON)
   })

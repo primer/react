@@ -2,7 +2,9 @@
 title: TextInput
 ---
 
-TextInput is a form component to add default styling to the native text input. Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
+TextInput is a form component to add default styling to the native text input. 
+
+**Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 ## Default example
 
 ```jsx live
@@ -21,6 +23,7 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
+| aria-label | String | | Required. Allows input to be accessible. |
 | block | Boolean | | Adds `display: block` to element |
 | variant | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
 | width | String or Number | | Set the width of the input |

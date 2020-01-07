@@ -2,6 +2,10 @@ import React from 'react'
 import SubNav from '../SubNav'
 import {mount, render, rendersClass} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('SubNav', () => {
   it('implements system props', () => {
@@ -10,6 +14,13 @@ describe('SubNav', () => {
 
   it('has default theme', () => {
     expect(SubNav).toSetDefaultTheme()
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<SubNav />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('renders a <nav>', () => {

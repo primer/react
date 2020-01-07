@@ -3,6 +3,10 @@ import Text from '../Text'
 import theme from '../theme'
 import {px, render, renderStyles} from '../utils/testing'
 import {COMMON, TYPOGRAPHY} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('Text', () => {
   it('renders a <span> by default', () => {
@@ -12,6 +16,13 @@ describe('Text', () => {
   it('implements system props', () => {
     expect(Text).toImplementSystemProps(COMMON)
     expect(Text).toImplementSystemProps(TYPOGRAPHY)
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Text>hello</Text>)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {

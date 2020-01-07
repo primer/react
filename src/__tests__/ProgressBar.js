@@ -2,10 +2,21 @@ import React from 'react'
 import ProgressBar from '../ProgressBar'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('ProgressBar', () => {
   it('implements system props', () => {
     expect(ProgressBar).toImplementSystemProps(COMMON)
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<ProgressBar progress={80} barSize="small" />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {

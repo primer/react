@@ -2,10 +2,21 @@ import React from 'react'
 import Tooltip from '../Tooltip'
 import {render, renderClasses, rendersClass} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('Tooltip', () => {
   it('implements system props', () => {
     expect(Tooltip).toImplementSystemProps(COMMON)
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Tooltip text="hi" />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('has default theme', () => {

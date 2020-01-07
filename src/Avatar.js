@@ -13,7 +13,8 @@ function borderRadius({size}) {
 
 const Avatar = styled.img.attrs(props => ({
   height: props.size,
-  width: props.size
+  width: props.size,
+  alt: props.alt
 }))`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
