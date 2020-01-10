@@ -57,12 +57,6 @@ const colors = {
 
 const theme = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
-  maxWidths: {
-    small: '544px',
-    medium: '768px',
-    large: '1012px',
-    xlarge: '1280px'
-  },
   fonts: {
     normal: fontStack([
       '-apple-system',
@@ -94,6 +88,12 @@ const theme = {
     'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
     formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em'
+  },
+  sizes: {
+    small: '544px',
+    medium: '768px',
+    large: '1012px',
+    xlarge: '1280px'
   },
   space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 }
