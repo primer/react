@@ -37,6 +37,14 @@ const ButtonDanger = styled(Button)`
     box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;
     border-color: ${get('colors.blackfade50')};
   }
+
+  &:disabled {
+    color: ${get('colors.button.dangerDisabledColor')};
+    background-color: ${get('colors.button.bg2')};
+    background-image: none;
+    border-color: ${get('colors.blackfade20')};
+    box-shadow: none;
+  }
 `
 
 export default ButtonDanger

@@ -35,6 +35,7 @@ const colors = {
     dangerActiveBg: 'rgb(181, 32, 44)',
     dangerFocusShadow: 'rgba(203, 36, 49, 0.4)',
     dangerHoverBgImage: 'rgb(222, 68, 80)',
+    dangerDisabledColor: 'rgba(203,36,49,0.4)',
     white: 'rgb(255, 255, 255)',
     outlineBlue: 'rgb(3, 102, 214)',
     outlineShadow: 'rgba(3, 102, 214, 0.4)',
