@@ -32,6 +32,13 @@ const ButtonPrimary = styled(Button)`
   &:focus {
     box-shadow: rgba(52, 208, 88, 0.4) 0px 0px 0px 0.2em;
   }
+  &:disabled {
+    color: ${get('colors.button.primaryDisabledColor')};
+    background-color: ${get('colors.button.primaryDisabledBg')};
+    background-image: none;
+    border-color: ${get('colors.button.primaryDisabledBorder')};
+    box-shadow: none;
+  }
 `
 
 export default ButtonPrimary

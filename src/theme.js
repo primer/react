@@ -29,6 +29,7 @@ const colors = {
   button: {
     disabledColor: 'rgba(36, 41, 46, 0.4)',
     bg2: 'rgb(239, 243, 246)',
+    disabledBg: '#eff3f6',
     border: 'rgba(27, 31, 35, 0.2)',
     focusShadow: 'rgba(3, 102, 214, 0.3)',
     activeBg: 'rgb(233, 236, 239)',
@@ -47,7 +48,10 @@ const colors = {
     primaryBorder: 'rgba(27, 31, 35, 0.5)',
     primaryActiveBg: 'rgb(39, 159, 67)',
     primaryActiveShadow: 'rgba(27, 31, 35, 0.15)',
-    primaryFocusShadow: 'rgba(52, 208, 88, 0.4)'
+    primaryFocusShadow: 'rgba(52, 208, 88, 0.4)',
+    primaryDisabledColor: 'rgba(255, 255, 255, .75)',
+    primaryDisabledBg: '#94d3a2',
+    primaryDisabledBorder: 'rgba(27,31,35,0.2)'
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'

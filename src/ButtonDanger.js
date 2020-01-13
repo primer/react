@@ -40,7 +40,7 @@ const ButtonDanger = styled(Button)`
 
   &:disabled {
     color: ${get('colors.button.dangerDisabledColor')};
-    background-color: ${get('colors.button.bg2')};
+    background-color: ${get('colors.button.disabledBg')};
     background-image: none;
     border-color: ${get('colors.blackfade20')};
     box-shadow: none;

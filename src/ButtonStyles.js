@@ -77,7 +77,7 @@ export default css`
 
   &:disabled {
     color: ${get('colors.button.disabledColor')};
-    background-color: ${get('colors.gray.1')};
+    background-color: ${get('colors.button.disabledBg')};
     background-image: none;
     border-color: ${get('colors.blackfade20')};
     box-shadow: none;
