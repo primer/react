@@ -1,5 +1,5 @@
 # Contribution guidelines
-
+1. [Roadmap](#roadmap)
 1. [Code style](#code-style)
 2. [Testing](#testing)
     * [Code coverage](#code-coverage)
@@ -10,6 +10,9 @@
 5. [Writing Documentation](#writing-documentation)
 6. [Deployment](#deployment)
 7. [Glossary](#glossary)
+
+## Roadmap
+If you're looking for something to work on, a great place to start is our issues labeled [up for grabs](https://github.com/primer/components/issues?q=is%3Aopen+is%3Aissue+label%3A%22up+for+grabs%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Components Roadmap](https://github.com/primer/components/projects/3) to make sure it hasn't already been started on.
 
 ## Code Style
 
