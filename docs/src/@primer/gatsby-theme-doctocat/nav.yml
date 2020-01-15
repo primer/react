@@ -25,6 +25,8 @@
       url: /Box
     - title: BranchName
       url: /BranchName
+    - title: Breadcrumbs
+      url: /Breadcrumbs
     - title: Buttons
       url: /Buttons
     - title: CircleBadge
