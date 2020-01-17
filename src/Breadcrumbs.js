@@ -8,11 +8,11 @@ import theme from './theme'
 const ITEM_CLASS = 'Breadcrumb-item'
 const SELECTED_CLASS = 'selected'
 
-function BreadcrumbBase({className, children, label, separator, ...rest}) {
+function BreadcrumbBase({className, children, ...rest}) {
   const classes = classnames(className, 'Breadcrumb')
-  const wrappedChildren = React.Children.map(children, (child) => <Breadcrumb.Wrapper separator={separator}>{child}</Breadcrumb.Wrapper>)
+  const wrappedChildren = React.Children.map(children, child => <Breadcrumb.Wrapper>{child}</Breadcrumb.Wrapper>)
   return (
-    <nav className={classes} aria-label={label} {...rest}>
+    <nav className={classes} aria-hidden={true} {...rest}>
       <ol>{wrappedChildren}</ol>
     </nav>
   )
@@ -30,9 +30,8 @@ const Breadcrumb = styled(BreadcrumbBase)`
   }
 `
 
-Breadcrumb.Wrapper= styled.li.attrs(({separator}) => ({
-  className: classnames(ITEM_CLASS),
-  separator
+Breadcrumb.Wrapper = styled.li.attrs(() => ({
+  className: classnames(ITEM_CLASS)
 }))`
   display: inline-block;
   white-space: nowrap;
@@ -42,7 +41,7 @@ Breadcrumb.Wrapper= styled.li.attrs(({separator}) => ({
     padding-left: ${get('space.1')};
     color: ${get('colors.gray.2')};
     font-size: ${get('fontSizes.0')};
-    content: "${props => props.separator}";
+    content: '/';
   }
   &:first-child {
     margin-left: 0;
@@ -71,16 +70,11 @@ Breadcrumb.Item = styled.a.attrs(props => ({
 `
 
 Breadcrumb.defaultProps = {
-  theme,
-  separator: '/'
+  theme
 }
 
 Breadcrumb.propTypes = {
-  actions: PropTypes.node,
-  align: PropTypes.oneOf(['right']),
   children: PropTypes.node,
-  full: PropTypes.bool,
-  label: PropTypes.string,
   theme: PropTypes.object,
   ...COMMON.propTypes
 }

@@ -31,8 +31,12 @@ describe('Breadcrumb', () => {
     expect(rendersClass(<Breadcrumb />, 'Breadcrumb')).toEqual(true)
   })
 
-  it('sets aria-label to the "label" prop', () => {
-    expect(render(<Breadcrumb label="foo" />).props['aria-label']).toEqual('foo')
+  it('sets aria-label to the "aria-label" prop', () => {
+    expect(render(<Breadcrumb aria-label="foo" />).props['aria-label']).toEqual('foo')
+  })
+
+  it('has aria-hidden set to true', () => {
+    expect(render(<Breadcrumb />).props['aria-hidden']).toEqual(true)
   })
 
   it('wraps its children in an "Breadcrumb-item" li', () => {
@@ -44,5 +48,4 @@ describe('Breadcrumb', () => {
     expect(list.childAt(0).type()).toEqual(Breadcrumb.Wrapper)
     expect(item.childAt(0).type()).toEqual(Breadcrumb.Item)
   })
-
 })

@@ -17,17 +17,9 @@ This ensures that the NavLink gets `activeClassName='selected'`
 <Breadcrumb aria-label="Breadcrumbs">
   <Breadcrumb.Item href="#business">Business</Breadcrumb.Item>
   <Breadcrumb.Item href="#customers">Customers</Breadcrumb.Item>
-  <Breadcrumb.Item href="#mailchimp" selected>MailChimp</Breadcrumb.Item>
-</Breadcrumb>
-```
-
-## Custom separator example
-
-```jsx live
-<Breadcrumb aria-label="Breadcrumbs" separator=">">
-  <Breadcrumb.Item href="#business">Business</Breadcrumb.Item>
-  <Breadcrumb.Item href="#customers">Customers</Breadcrumb.Item>
-  <Breadcrumb.Item href="#mailchimp" selected>MailChimp</Breadcrumb.Item>
+  <Breadcrumb.Item href="#mailchimp" selected>
+    MailChimp
+  </Breadcrumb.Item>
 </Breadcrumb>
 ```
 
@@ -39,10 +31,9 @@ Breadcrumb and Breadcrumb.Item components get `COMMON` system props. Read our [S
 
 ### Breadcrumb
 
-| Prop name  | Type    | Description                                                                            |
-| :--------- | :------ | :------------------------------------------------------------------------------------- |
-| separator  | String  | Define the character to display between breadcrumbs. default `/`.                      |
-| aria-label | String  | Used to set the `aria-label` on the top level `<nav>` element.                         |
+| Prop name  | Type   | Description                                                    |
+| :--------- | :----- | :------------------------------------------------------------- |
+| aria-label | String | Used to set the `aria-label` on the top level `<nav>` element. |
 
 ### Breadcrumb.Item
 
