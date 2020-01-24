@@ -184,7 +184,7 @@ After opening a pull request, a member of the design systems team will add the a
 
 
 ### What we look for in reviews
-- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Componnets!)
+- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Components)
 - Does the component follow our Primer Components code style?
 - Does the component use theme values for most CSS values?
 - Does the component have access to the [default theme](#adding-default-theme)?
