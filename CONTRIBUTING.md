@@ -208,7 +208,7 @@ Once you merge your branch into master, any changes to the docs will automatical
 This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `primer-components.now.sh`.
 
 ### Publishing
-We use a custom GitHub Actiont to handle all of our processes relating to publishing to NPM. This includes release candidates, canary releases, and publishing the final release.
+We use a custom GitHub Actions to handle all of our processes relating to publishing to NPM. This includes release candidates, canary releases, and publishing the final release.
 
 The [publish GitHub Action](https://github.com/primer/publish) will automatically publish a canary release for each commit to a branch. If the branch is prefixed with `release-` it will publish a release candidate. To find the canary release or release candidtate, navigate to the PR and find the `publish` check in the merge box. Clicking on the `details` link for the check will navigate you to the unpkg page for that canary release/release candidate. For more documentation on our publish GitHub Action and workflows, please refer to the [`@primer/publish` repo](https://github.com/primer/publish).
 
