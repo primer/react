@@ -1,15 +1,21 @@
 # Contribution guidelines
 1. [Roadmap](#roadmap)
-1. [Code style](#code-style)
-2. [Testing](#testing)
-    * [Code coverage](#code-coverage)
-3. [Tools we use](#tools-we-use)
-4. [Component patterns](#component-patterns)
-    * [Components with only system props](#components-with-only-system-props)
-    * [Primer CSS components](#primer-css-components)
-5. [Writing Documentation](#writing-documentation)
-6. [Deployment](#deployment)
+2. [Developing Components](#developing-components)
+    * [Tools we use](#tools-we-use)
+    * [Component patterns](#component-patterns)
+    * [Linting](#linting)
+    * [Testing](#testing)
+    * [Code Coverage](#code-coverage)
+    * [Additonal resources](#additional-resources)
+3. [Writing Documentation](#writing-documentation)
+4. [Creating a PR](#creating-a-pr)
+5. [Deployment & Publishing](#deployment-and-publishing)
+    * [Deploying](#deploying)
+    * [Path aliasing](#path-aliasing)
+    * [Publishing](#publishing)
+6. [Troubleshooting](#troubleshooting)
 7. [Glossary](#glossary)
+    * [System Props](#system-props)
 
 ## Roadmap
 If you're looking for something to work on, a great place to start is our issues labeled [up for grabs](https://github.com/primer/components/issues?q=is%3Aopen+is%3Aissue+label%3A%22up+for+grabs%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Components Roadmap](https://github.com/primer/components/projects/3) to make sure it hasn't already been started on.
@@ -131,7 +137,9 @@ We use [Doctocat](https://github.com/primer/doctocat) to power our documentation
 To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content/components`.
 
 
-## Deploying Docs
+## Deploying and publishing
+
+### Deploying
 All of our documentation sites use the [Now integration](https://github.com/organizations/primer/settings/installations/1007619) to deploy documentation changes whenever code is merged into master. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `now` bot. This will include a link to the preview site for your branch. 
 
 Once you merge your branch into master, any changes to the docs will automatically deploy. No further action is necessary.
@@ -139,7 +147,7 @@ Once you merge your branch into master, any changes to the docs will automatical
 ### Path aliasing
 This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `primer-components.now.sh`.
 
-### Publishing to NPM
+### Publishing
 We use a custom GitHub Actiont to handle all of our processes relating to publishing to NPM. This includes release candidates, canary releases, and publishing the final release.
 
 The [publish GitHub Action](https://github.com/primer/publish) will automatically publish a canary release for each commit to a branch. If the branch is prefixed with `release-` it will publish a release candidate. To find the canary release or release candidtate, navigate to the PR and find the `publish` check in the merge box. Clicking on the `details` link for the check will navigate you to the unpkg page for that canary release/release candidate. For more documentation on our publish GitHub Action and workflows, please refer to the [`@primer/publish` repo](https://github.com/primer/publish).
