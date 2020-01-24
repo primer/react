@@ -193,7 +193,7 @@ After opening a pull request, a member of the design systems team will add the a
 - Does the component have appropriate tests?
 - Does the work done increase the bundle size significantly?
 
-If everything looks great, the design systems team member will approve the pull request and merge when appropriate. You do not need to worry about merging it on your own, we'll take care of that for you :)
+If everything looks great, the design systems team member will approve the pull request and merge when appropriate. Minor and patch changes are released frequently, and we try to bundle up breaking changes and avoid shipping major versions too often. If your pull request is time-senstive, please let a design systems team member know. You do not need to worry about merging pull requests on your own, we'll take care of that for you :)
 
 ## Deploying and publishing
 
