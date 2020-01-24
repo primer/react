@@ -2,15 +2,17 @@ Describe your changes here.
 
 Closes # (type the issue number after # if applicable; otherwise remove this line)
 
-#### If development process was changed
-Description of changes
+### Screenshots
+Please provide before/after screenshots for any visual changes
 
-- [ ] Updated README
-
-#### Merge checklist
-- [ ] Changed base branch to release branch
-- [ ] Add or update TypeScript definitions (`index.d.ts`) if necessary
+### Merge checklist
+- [ ] Added or updated TypeScript definitions (`index.d.ts`) if necessary
+- [ ] Added/updated tests
+- [ ] Added/updated documentation
 - [ ] Tested in Chrome
 - [ ] Tested in Firefox
 - [ ] Tested in Safari
 - [ ] Tested in Edge
+
+
+Take a look at the [What we look for in reviews](https://github.com/primer/components/blob/master/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contibuting guidelines for more infomation on how we review PRs.
