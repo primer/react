@@ -5,7 +5,7 @@
     * [Component patterns](#component-patterns)
     * [Linting](#linting)
     * [Testing](#testing)
-    * [Code Coverage](#code-coverage)
+    * [TypeScript Support](#typescript-support)
     * [Additonal resources](#additional-resources)
 3. [Writing Documentation](#writing-documentation)
 4. [Creating a PR](#creating-a-pr)
@@ -117,10 +117,11 @@ yarn test -- --watch
 
 See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways that we test our components.
 
-### Code coverage
+### TypeScript Support
 
-A code coverage report is included in the `yarn test` output, and test coverage data is generated in the `coverage/` directory.
+Several of the projects that consume Primer Components are written in TypeScript! Though Primer Components is not currently written in TS, we do export type declartions in order to make Primer Components compatible with other TS projects.
 
+Whenever adding new components or modifying the props of an existing component, **please make sure to update the type declaration** in `index.d.ts`! This is super important to make sure we don't break compatibility :) 
 
 ### Additional Resources
 
