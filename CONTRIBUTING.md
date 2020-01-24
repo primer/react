@@ -3,6 +3,8 @@
 2. [Developing Components](#developing-components)
     * [Tools we use](#tools-we-use)
     * [Component patterns](#component-patterns)
+    * [Adding default theme](#adding-default-theme)
+    * [Adding System Props](#adding-system-props)
     * [Linting](#linting)
     * [Testing](#testing)
     * [TypeScript Support](#typescript-support)
@@ -51,6 +53,8 @@ Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-
 
 Here's an example of a basic component written in the style of Primer Components:
 
+#### Basic Component Example
+
 ```jsx
 import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
@@ -75,6 +79,23 @@ Component.propTypes = {
 export default Component
 ```
 
+### Adding Default Theme
+Each component needs access to our default Primer Theme, so that users of the component can access theme values easily in their consuming applications.
+
+To add the default theme to a component, import the theme and assign it to the component's defaultProps object:
+
+```jsx
+import theme from './theme'
+
+Component.defaultProps = {
+  theme, // make sure to always set the default theme!
+}
+
+```
+
+### Adding System Props
+Each component should have access to the appropriate system props. Every component has access to `COMMON`. For **most** components added, you'll only need to give the component to `COMMON`. If you are unsure, ping a DS team member on your PR.
+
 Categories of system props are exported from `src/constants.js`:
 
 * `COMMON` includes color and spacing (margin and padding) props
@@ -82,6 +103,23 @@ Categories of system props are exported from `src/constants.js`:
 * `POSITION` includes positioning props
 * `FLEX_CONTAINER` includes flexbox props for containers
 * `FLEX_ITEM` includes flexbox props for items in a flex container
+
+To give the component access to a group of system props, import the system prop function from `./constants` and include the system prop function in your styled-component like so:
+
+```jsx
+import {COMMON} from './constants'
+
+const Component = styled.div`
+  ${COMMON};
+  // additional styles here
+`
+
+// don't forget to also add it to your prop type declaration!
+
+Component.propTypes = {
+   ...COMMON.propTypes
+}
+```
 
 ### Linting
 
@@ -119,9 +157,9 @@ See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways 
 
 ### TypeScript Support
 
-Several of the projects that consume Primer Components are written in TypeScript! Though Primer Components is not currently written in TS, we do export type declartions in order to make Primer Components compatible with other TS projects.
+Several of the projects that consume Primer Components are written in TypeScript! Though Primer Components is not currently written in TS, we do export type definitions in order to make Primer Components compatible with other TS projects.
 
-Whenever adding new components or modifying the props of an existing component, **please make sure to update the type declaration** in `index.d.ts`! This is super important to make sure we don't break compatibility :) 
+Whenever adding new components or modifying the props of an existing component, **please make sure to update the type definition** in `index.d.ts`! This is super important to make sure we don't break compatibility :) 
 
 ### Additional Resources
 
@@ -137,6 +175,19 @@ We use [Doctocat](https://github.com/primer/doctocat) to power our documentation
 
 To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content/components`.
 
+## Creating a PR
+
+When you're ready to create a PR, open one using the appropriate PR template. 
+
+- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the PR stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Componnets!)
+- Does the component follow our Primer Components code style?
+- Does the component use theme values for most CSS values?
+- Does the component have access to the [default theme](#adding-default-theme)?
+- Does the component have the [correct system props implemented](#adding-system-props)?
+- Is the component API intuitive?
+- Does the component have the appriopriate [type definitions in `index.d.ts`](#typescript-support)?
+- Is the component documented accurately?
+- Does the component have appropriate tests?
 
 ## Deploying and publishing
 
