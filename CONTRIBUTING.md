@@ -173,7 +173,7 @@ Whenever adding new components or modifying the props of an existing component, 
 
 We use [Doctocat](https://github.com/primer/doctocat) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
 
-To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content/components`.
+To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content` (e.g. `docs/content/Button.md`).
 
 ## Creating a pull request
 
