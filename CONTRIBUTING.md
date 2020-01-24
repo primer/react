@@ -177,7 +177,7 @@ To add a new component to our documentation site, create a new file with the `.m
 
 ## Creating a pull request
 
-When you're ready to create a pull request, open one using the pull request template. Be sure to add screenshots of any relevant work and a thoughtful description.
+When creating a new pull request, please follow the guidelines in the auto-populated pull request template. Be sure to add screenshots of any relevant work and a thoughtful description.
 
 ### What to expect after opening a pull request
 After opening a pull request, a member of the design systems team will add the appropriate labels (major, minor, patch release labels) and update the base branch to the correct release branch. Usually, you'll receive a response from the design systems team within a day or two. The design systems team member will review the pull request keeping the following items in mind:
