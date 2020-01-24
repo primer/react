@@ -13,7 +13,7 @@
 4. [Creating a pull request](#creating-a-pull-request)
     * [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
     * [What we look for in reviews](#what-we-look-for-in-reviews)
-5. [Deployment & publishing](#deployment-and-publishing)
+5. [Deploying & publishing](#deploying-and-publishing)
     * [Deploying](#deploying)
     * [Path aliasing](#path-aliasing)
     * [Publishing](#publishing)
