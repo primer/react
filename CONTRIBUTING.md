@@ -10,7 +10,7 @@
     * [TypeScript Support](#typescript-support)
     * [Additonal resources](#additional-resources)
 3. [Writing Documentation](#writing-documentation)
-4. [Creating a PR](#creating-a-pr)
+4. [Creating a pull request](#creating-a-pull-request)
 5. [Deployment & Publishing](#deployment-and-publishing)
     * [Deploying](#deploying)
     * [Path aliasing](#path-aliasing)
@@ -177,7 +177,7 @@ To add a new component to our documentation site, create a new file with the `.m
 
 ## Creating a pull request
 
-When you're ready to create a pull request, open one using the appropriate pull request template. Be sure to add screenshots of any relevant work and a thoughtful description.
+When you're ready to create a pull request, open one using the pull request template. Be sure to add screenshots of any relevant work and a thoughtful description.
 
 ### What to expect after opening a pull request
 After opening a pull request, a member of the design systems team will add the appropriate labels (major, minor, patch release labels) and update the base branch to the correct release branch. Usually, you'll receive a response from the design systems team within a day or two. The design systems team member will review the pull request keeping the following items in mind:
@@ -188,10 +188,10 @@ After opening a pull request, a member of the design systems team will add the a
 - Does the component have access to the [default theme](#adding-default-theme)?
 - Does the component have the [correct system props implemented](#adding-system-props)?
 - Is the component API intuitive?
-- Does the component have the appriopriate [type definitions in `index.d.ts`](#typescript-support)?
+- Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
 - Is the component documented accurately?
 - Does the component have appropriate tests?
-- Does the work done increase the bundle size significantly?
+- Does the pull request increase the bundle size significantly?
 
 If everything looks great, the design systems team member will approve the pull request and merge when appropriate. Minor and patch changes are released frequently, and we try to bundle up breaking changes and avoid shipping major versions too often. If your pull request is time-senstive, please let a design systems team member know. You do not need to worry about merging pull requests on your own, we'll take care of that for you :)
 
