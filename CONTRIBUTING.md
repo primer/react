@@ -157,7 +157,7 @@ See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways 
 
 ### TypeScript support
 
-Several of the projects that consume Primer Components are written in TypeScript! Though Primer Components is not currently written in TS, we do export type definitions in order to make Primer Components compatible with other TS projects.
+Several of the projects that consume Primer Components are written in TypeScript. Though Primer Components is not currently written in TS, we do export type definitions in order to make Primer Components compatible with other TS projects.
 
 Whenever adding new components or modifying the props of an existing component, **please make sure to update the type definition** in `index.d.ts`! This is super important to make sure we don't break compatibility :) 
 
