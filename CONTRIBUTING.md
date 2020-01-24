@@ -175,11 +175,14 @@ We use [Doctocat](https://github.com/primer/doctocat) to power our documentation
 
 To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content/components`.
 
-## Creating a PR
+## Creating a pull request
 
-When you're ready to create a PR, open one using the appropriate PR template. 
+When you're ready to create a pull request, open one using the appropriate pull request template. Be sure to add screenshots of any relevant work and a thoughtful description.
 
-- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the PR stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Componnets!)
+### What to expect after opening a pull request
+After opening a pull request, a member of the design systems team will add the appropriate labels (major, minor, patch release labels) and update the base branch to the correct release branch. Usually, you'll receive a response from the design systems team within a day or two. The design systems team member will review the pull request keeping the following items in mind:
+
+- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Componnets!)
 - Does the component follow our Primer Components code style?
 - Does the component use theme values for most CSS values?
 - Does the component have access to the [default theme](#adding-default-theme)?
@@ -188,6 +191,9 @@ When you're ready to create a PR, open one using the appropriate PR template.
 - Does the component have the appriopriate [type definitions in `index.d.ts`](#typescript-support)?
 - Is the component documented accurately?
 - Does the component have appropriate tests?
+- Does the work done increase the bundle size significantly?
+
+If everything looks great, the design systems team member will approve the pull request and merge when appropriate. You do not need to worry about merging it on your own, we'll take care of that for you :)
 
 ## Deploying and publishing
 
