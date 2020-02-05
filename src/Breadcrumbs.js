@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
 
-const ITEM_CLASS = 'Breadcrumb-item'
 const SELECTED_CLASS = 'selected'
 
 function BreadcrumbBase({className, children, ...rest}) {
@@ -30,9 +29,7 @@ const Breadcrumb = styled(BreadcrumbBase)`
   }
 `
 
-Breadcrumb.Wrapper = styled.li.attrs(() => ({
-  className: classnames(ITEM_CLASS)
-}))`
+Breadcrumb.Wrapper = styled.li`
   display: inline-block;
   white-space: nowrap;
   list-style: none;
