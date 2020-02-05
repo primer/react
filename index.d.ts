@@ -13,15 +13,11 @@ declare module '@primer/components' {
 
   interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
 
-  interface LayoutProps
-    extends BaseProps,
-      StyledSystem.LayoutProps {}
+  interface LayoutProps extends BaseProps, StyledSystem.LayoutProps {}
 
-  interface TypographyProps
-    extends BaseProps,
-      StyledSystem.TypographyProps {
-        whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
-      }
+  interface TypographyProps extends BaseProps, StyledSystem.TypographyProps {
+    whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+  }
 
   interface BorderProps
     extends BaseProps,
@@ -274,6 +270,14 @@ declare module '@primer/components' {
     full?: boolean
     label?: string
   }
+
+  export interface TruncateProps extends StyledSystem.MaxWidthProps, TypographyProps, BaseProps {
+    expandable?: boolean
+    inline?: boolean
+    title: string
+  }
+
+  export const Truncate: React.FunctionComponent<TruncateProps>
 
   export interface UnderlineNavLinkProps
     extends CommonProps,
