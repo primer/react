@@ -31,7 +31,6 @@ describe('Breadcrumb', () => {
     expect(rendersClass(<Breadcrumb />, 'Breadcrumb')).toEqual(true)
   })
 
-
   it('wraps its children in an li', () => {
     const children = <Breadcrumb.Item>yo</Breadcrumb.Item>
     const wrapper = mount(<Breadcrumb>{children}</Breadcrumb>)
