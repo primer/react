@@ -1,6 +1,5 @@
 import React from 'react'
 import Truncate from '../Truncate'
-import TruncateExpandable from '../TruncateExpandable'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import {render} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -37,57 +36,13 @@ describe('Truncate', () => {
     expect(render(<Truncate maxWidth={250} title="a-long-branch-name" />)).toHaveStyleRule('max-width', '250px')
   })
 
-  it('respects the variant prop', () => {
-    expect(render(<Truncate variant="target" title="a-long-branch-name" />)).toHaveStyleRule('display', 'inline-block')
-  })
-})
-
-describe('TruncateExpandable', () => {
-  it('renders a <div> by default', () => {
-    expect(render(<TruncateExpandable title="a-long-branch-name" />).type).toEqual('div')
+  it('respects the inline prop', () => {
+    expect(render(<Truncate inline title="a-long-branch-name" />)).toHaveStyleRule('display', 'inline-block')
   })
 
-  it('implements system props', () => {
-    expect(TruncateExpandable).toImplementSystemProps(COMMON)
-    expect(TruncateExpandable).toImplementSystemProps(TYPOGRAPHY)
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(
-      <TruncateExpandable title="a-long-branch-name">a-long-branch-name</TruncateExpandable>
-    )
-    const results = await axe(container)
-    expect(results).toHaveNoViolations()
-    cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(TruncateExpandable).toSetDefaultTheme()
-  })
-
-  it('has the correct default styles', () => {
-    expect(render(<TruncateExpandable title="a-long-branch-name" />)).toHaveStyleRule(
-      'max-width',
-      '10000px !important',
-      {modifier: ':hover'}
-    )
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<TruncateExpandable as="strong" title="a-long-branch-name" />).type).toEqual('strong')
-  })
-
-  it('respects the maxWidth prop', () => {
-    expect(render(<TruncateExpandable maxWidth={250} title="a-long-branch-name" />)).toHaveStyleRule(
-      'max-width',
-      '250px'
-    )
-  })
-
-  it('respects the variant prop', () => {
-    expect(render(<TruncateExpandable variant="target" title="a-long-branch-name" />)).toHaveStyleRule(
-      'display',
-      'inline-block'
-    )
+  it('respects the expandable prop', () => {
+    expect(render(<Truncate expandable title="a-long-branch-name" />)).toHaveStyleRule('max-width', '10000px', {
+      modifier: ':hover'
+    })
   })
 })

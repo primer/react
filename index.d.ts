@@ -272,13 +272,12 @@ declare module '@primer/components' {
   }
 
   export interface TruncateProps extends StyledSystem.MaxWidthProps, TextProps {
+    expandable: boolean
+    inline: boolean
     title: string
-    variant: 'target'
   }
 
   export const Truncate: React.FunctionComponent<TruncateProps>
-
-  export const TruncateExpandable: React.FunctionComponent<TruncateProps>
 
   export interface UnderlineNavLinkProps
     extends CommonProps,
