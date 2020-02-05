@@ -34,10 +34,10 @@ Breadcrumb.Wrapper = styled.li`
   white-space: nowrap;
   list-style: none;
   &::after {
-    padding-right: ${get('space.1')};
-    padding-left: ${get('space.1')};
+    padding-right: 0.5em;
+    padding-left: 0.5em;
     color: ${get('colors.gray.2')};
-    font-size: ${get('fontSizes.0')};
+    font-size: ${get('fontSizes.1')};
     content: '/';
   }
   &:first-child {
@@ -55,8 +55,9 @@ Breadcrumb.Item = styled.a.attrs(props => ({
   className: classnames(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null
 }))`
+  color: ${get('colors.blue.5')};
   display: inline-block;
-  font-size: ${get('fontSizes.0')};
+  font-size: ${get('fontSizes.1')};
   text-decoration: none;
   &:hover {
     text-decoration: underline;
