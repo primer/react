@@ -52,7 +52,8 @@ Breadcrumb.Wrapper = styled.li`
 
 Breadcrumb.Item = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(props.selected && SELECTED_CLASS, props.className)
+  className: classnames(props.selected && SELECTED_CLASS, props.className),
+  'aria-current': props.selected ? 'page' : null
 }))`
   display: inline-block;
   font-size: ${get('fontSizes.0')};
