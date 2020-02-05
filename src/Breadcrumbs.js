@@ -11,7 +11,7 @@ function BreadcrumbBase({className, children, ...rest}) {
   const classes = classnames(className, 'Breadcrumb')
   const wrappedChildren = React.Children.map(children, child => <Breadcrumb.Wrapper>{child}</Breadcrumb.Wrapper>)
   return (
-    <nav className={classes} aria-hidden={true} {...rest}>
+    <nav className={classes} aria-label="breadcrumb" aria-hidden={true} {...rest}>
       <ol>{wrappedChildren}</ol>
     </nav>
   )

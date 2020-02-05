@@ -9,12 +9,10 @@ To use Breadcrumb with [react-router](https://github.com/ReactTraining/react-rou
 `as={NavLink}` and omit the `selected` prop.
 This ensures that the NavLink gets `activeClassName='selected'`
 
-**Attention:** Make sure to properly label your `Breadcrumb` with an `aria-label` to provide context about the type of navigation contained in `Breadcrumb`.
-
 ## Default example
 
 ```jsx live
-<Breadcrumb aria-label="Breadcrumbs">
+<Breadcrumb>
   <Breadcrumb.Item href="#business">Business</Breadcrumb.Item>
   <Breadcrumb.Item href="#customers">Customers</Breadcrumb.Item>
   <Breadcrumb.Item href="#mailchimp" selected>
@@ -31,9 +29,7 @@ Breadcrumb and Breadcrumb.Item components get `COMMON` system props. Read our [S
 
 ### Breadcrumb
 
-| Prop name  | Type   | Description                                                    |
-| :--------- | :----- | :------------------------------------------------------------- |
-| aria-label | String | Used to set the `aria-label` on the top level `<nav>` element. |
+The `Breadcrumb` component does not receive any additional props besides `COMMON` system props.
 
 ### Breadcrumb.Item
 
