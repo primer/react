@@ -13,15 +13,11 @@ declare module '@primer/components' {
 
   interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
 
-  interface LayoutProps
-    extends BaseProps,
-      StyledSystem.LayoutProps {}
+  interface LayoutProps extends BaseProps, StyledSystem.LayoutProps {}
 
-  interface TypographyProps
-    extends BaseProps,
-      StyledSystem.TypographyProps {
-        whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
-      }
+  interface TypographyProps extends BaseProps, StyledSystem.TypographyProps {
+    whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+  }
 
   interface BorderProps
     extends BaseProps,
@@ -298,6 +294,21 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<SubNavLinkProps>
   }
 
+  export interface BreadcrumbProps
+    extends CommonProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'>,
+      FlexProps {}
+
+  export interface BreadcrumbItemProps
+    extends CommonProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export const Breadcrumb: React.FunctionComponent<BreadcrumbProps> & {
+    Item: React.FunctionComponent<BreadcrumbItemProps>
+  }
+
   export const theme: {[key: string]: any}
   export const themeGet: (key: any) => any
 
@@ -505,4 +516,9 @@ declare module '@primer/components/src/ProgressBar' {
 declare module '@primer/components/src/AvatarStack' {
   import {AvatarStack} from '@primer/components'
   export default AvatarStack
+}
+
+declare module '@primer/components/src/Breadcrumbs' {
+  import {Breadcrumb} from '@primer/components'
+  export default Breadcrumb
 }
