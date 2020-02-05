@@ -271,9 +271,9 @@ declare module '@primer/components' {
     label?: string
   }
 
-  export interface TruncateProps extends StyledSystem.MaxWidthProps, TextProps {
-    expandable: boolean
-    inline: boolean
+  export interface TruncateProps extends StyledSystem.MaxWidthProps, TypographyProps, BaseProps {
+    expandable?: boolean
+    inline?: boolean
     title: string
   }
 
