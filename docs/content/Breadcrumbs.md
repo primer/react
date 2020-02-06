@@ -33,8 +33,8 @@ The `Breadcrumb` component does not receive any additional props besides `COMMON
 
 ### Breadcrumb.Item
 
-| Prop name | Type    | Description                                      |
-| :-------- | :------ | :----------------------------------------------- |
-| as        | String  | sets the HTML tag for the component              |
-| href      | String  | URL to be used for the Link                      |
-| selected  | Boolean | Used to style the link as selected or unselected |
+| Prop name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| as        | String  | `a` | sets the HTML tag for the component              |
+| href      | String  | | URL to be used for the Link                      |
+| selected  | Boolean | false | Used to style the link as selected or unselected |
