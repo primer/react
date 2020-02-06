@@ -150,7 +150,6 @@ export const listItemStyles = css`
 
   &:focus {
     outline: none;
-    background: red;
   }
 
   &[hidden] {
@@ -225,11 +224,7 @@ export const tabStyles = css`
   background-color: transparent;
   border: 0;
   box-shadow: inset 0 -1px 0 ${get('colors.borders.gray')};
-
-  &:focus {
-    outline: none;
-  }
-
+  
   @media (min-width: ${get('breakpoints.0')}) {
     flex: none;
     padding: ${get('space.1')} ${get('space.3')};
@@ -250,14 +245,16 @@ export const tabStyles = css`
       box-shadow: none;
     }
   }
+
+  &:focus {
+    background-color: #dbedff;
+  }
 `
 
 export const tabWrapperStyles = css`
   display: flex;
   flex-shrink: 0;
   margin-bottom: -1px; // hide border of element below
-  overflow-x: auto;
-  overflow-y: hidden;
   border-top: ${get('borders.1')} ${get('colors.borders.gray')};
   -webkit-overflow-scrolling: touch;
 

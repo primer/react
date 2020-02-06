@@ -13,13 +13,13 @@ import {SelectMenu} from '@primer/components'
       <SelectMenu.Tab name="Organization"/>
     </SelectMenu.Tabs>
     <SelectMenu.TabPanel tabName="Repository">
-      <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
-    </SelectMenu.TabPanel>
-    <SelectMenu.TabPanel tabName="Organization">
       <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
       <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+    </SelectMenu.TabPanel>
+    <SelectMenu.TabPanel tabName="Organization">
+      <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
     </SelectMenu.TabPanel>
     <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
   </SelectMenu.Modal>
