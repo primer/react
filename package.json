@@ -1,15 +1,15 @@
 {
   "name": "@primer/components",
-  "version": "15.1.2",
+  "version": "15.2.3",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "typings": "index.d.ts",
   "scripts": {
-    "start": "cd docs && npm run develop",
+    "start": "cd docs && yarn run develop",
     "predist": "rm -rf dist",
     "dist": "NODE_ENV=production rollup -c",
-    "prepublishOnly": "npm run dist",
+    "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
     "watch": "jest --watch --no-coverage"
@@ -35,13 +35,17 @@
     "@primer/octicons-react": "^9.2.0",
     "@reach/dialog": "0.3.0",
     "@styled-system/prop-types": "5.1.2",
+    "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
     "@types/history": "^4.7.3",
     "@types/styled-components": "^4.4.0",
+    "@testing-library/react": "9.4.0",
     "@types/styled-system": "5.1.2",
     "babel-plugin-macros": "2.6.1",
+    "babel-polyfill": "6.26.0",
     "classnames": "^2.2.5",
     "details-element-polyfill": "2.4.0",
+    "jest-axe": "3.2.0",
     "nanoid": "2.1.4",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
@@ -50,16 +54,16 @@
     "styled-system": "5.1.2"
   },
   "devDependencies": {
-    "@babel/core": "7.6.4",
+    "@babel/core": "7.7.7",
     "@babel/plugin-proposal-object-rest-spread": "7.6.2",
-    "@babel/preset-env": "7.6.3",
+    "@babel/preset-env": "7.7.7",
     "@babel/preset-react": "7.6.3",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-styled-components": "1.10.6",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.1",
     "eslint": "6.5.1",
-    "eslint-plugin-github": "3.2.0",
+    "eslint-plugin-github": "3.4.0",
     "eslint-plugin-jest": "22.20.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "jest": "25.0.0",
@@ -75,6 +79,6 @@
   },
   "peerDependencies": {
     "react": "^16.8.0",
-    "styled-components": "4.x"
+    "styled-components": "4.x || 5.x"
   }
 }

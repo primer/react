@@ -14,6 +14,7 @@ const colors = {
   yellow,
   blackfade15: 'rgba(27, 31, 35, 0.15)',
   blackfade20: 'rgba(27, 31, 35, 0.20)',
+  blackfade30: 'rgba(27,31,35,0.3)',
   blackfade35: 'rgba(27, 31, 35, 0.35)',
   blackfade50: 'rgba(27, 31, 35, 0.5)',
   whitefade15: 'rgba(255, 255, 255, 0.15)',
@@ -32,6 +33,7 @@ const colors = {
   button: {
     disabledColor: 'rgba(36, 41, 46, 0.4)',
     bg2: 'rgb(239, 243, 246)',
+    disabledBg: '#eff3f6',
     border: 'rgba(27, 31, 35, 0.2)',
     focusShadow: 'rgba(3, 102, 214, 0.3)',
     activeBg: 'rgb(233, 236, 239)',
@@ -39,6 +41,7 @@ const colors = {
     dangerActiveBg: 'rgb(181, 32, 44)',
     dangerFocusShadow: 'rgba(203, 36, 49, 0.4)',
     dangerHoverBgImage: 'rgb(222, 68, 80)',
+    dangerDisabledColor: 'rgba(203,36,49,0.4)',
     white: 'rgb(255, 255, 255)',
     outlineBlue: 'rgb(3, 102, 214)',
     outlineShadow: 'rgba(3, 102, 214, 0.4)',
@@ -49,7 +52,10 @@ const colors = {
     primaryBorder: 'rgba(27, 31, 35, 0.5)',
     primaryActiveBg: 'rgb(39, 159, 67)',
     primaryActiveShadow: 'rgba(27, 31, 35, 0.15)',
-    primaryFocusShadow: 'rgba(52, 208, 88, 0.4)'
+    primaryFocusShadow: 'rgba(52, 208, 88, 0.4)',
+    primaryDisabledColor: 'rgba(255, 255, 255, .75)',
+    primaryDisabledBg: '#94d3a2',
+    primaryDisabledBorder: 'rgba(27,31,35,0.2)'
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'

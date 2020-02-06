@@ -320,6 +320,7 @@ declare module '@primer/components' {
       StyledSystem.WidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
+    icon?: React.ReactElement
     variant?: 'small' | 'large'
   }
 
@@ -352,7 +353,7 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<UnderlineNavLinkProps>
   }
 
-  export interface SubNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SubNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'>, FlexProps {
     actions?: React.ReactNode
     label?: string
   }
@@ -365,7 +366,7 @@ declare module '@primer/components' {
     Link: React.FunctionComponent<SubNavLinkProps>
   }
 
-  export const theme: Object
+  export const theme: {[key: string]: any}
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {

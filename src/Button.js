@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, LAYOUT} from './constants'
+import {COMMON} from './constants'
 import theme from './theme'
 import buttonStyles from './ButtonStyles'
-import {compose, variant, fontSize} from 'styled-system'
+import {compose, variant, fontSize, layout} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 
 const variants = variant({
@@ -25,11 +25,7 @@ const Button = styled.button.attrs(({disabled, onClick}) => ({
 }))`
   ${buttonStyles}
   ${variants}
-  ${compose(
-    fontSize,
-    COMMON,
-    LAYOUT
-  )}
+  ${compose(fontSize, COMMON, layout)}
 `
 
 Button.defaultProps = {
@@ -46,7 +42,7 @@ Button.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes,
-  ...LAYOUT.propTypes
+  ...systemPropTypes.layout
 }
 
 export default Button

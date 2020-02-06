@@ -3,8 +3,19 @@ import Box from '../Box'
 import theme from '../theme'
 import {render} from '../utils/testing'
 import {LAYOUT, COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Box />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
+  })
+
   it('implements system props', () => {
     expect(Box).toImplementSystemProps(LAYOUT)
     expect(Box).toImplementSystemProps(COMMON)

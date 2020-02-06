@@ -25,6 +25,13 @@ const ButtonOutline = styled(Button)`
     box-shadow: ${get('colors.button.outlineShadow')} 0px 0px 0px 0.2em;
     border-color: ${get('colors.button.outlineBlue')};
   }
+
+  &:disabled {
+    color: ${get('colors.blackfade30')};
+    background-color: ${get('colors.white')};
+    border-color: ${get('colors.blackfade15')};
+    box-shadow: none;
+  }
 `
 
 export default ButtonOutline

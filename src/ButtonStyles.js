@@ -39,17 +39,6 @@ export default css`
     border-color: ${get('colors.button.border')}; //convert black to rbg here
   }
 
-  ${props =>
-    props.disabled &&
-    css`
-      color: ${get('colors.button.disabledColor')} !important;
-      background-color: ${get('colors.gray.1')} !important;
-      background-image: none !important;
-      border-color: ${get('colors.blackfade20')} !important;
-      box-shadow: none !important;
-      cursor: default;
-    `}
-
   &:focus {
     outline: none;
     box-shadow: ${get('colors.button.focusShadow')} 0px 0px 0px 0.2em;
@@ -84,5 +73,14 @@ export default css`
   &:focus,
   &:active {
     z-index: 1;
+  }
+
+  &:disabled {
+    color: ${get('colors.button.disabledColor')};
+    background-color: ${get('colors.button.disabledBg')};
+    background-image: none;
+    border-color: ${get('colors.blackfade20')};
+    box-shadow: none;
+    cursor: default;
   }
 `

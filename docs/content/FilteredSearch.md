@@ -2,8 +2,9 @@
 title: FilteredSearch
 ---
 
-The FilteredSearch component is a helper component to style a Dropdown and a TextInput side-by-side.
+The FilteredSearch component helps style a Dropdown and a TextInput side-by-side.
 
+**Note:** You *must* use a `TextInput` and `Dropdown` (or native `<details>` and `<summary>`) in order for this component to work properly.
 ## Default example
 
 ```jsx live
@@ -15,7 +16,7 @@ The FilteredSearch component is a helper component to style a Dropdown and a Tex
       <Dropdown.Item>Item 3</Dropdown.Item>
     </Dropdown.Menu>
   </Dropdown>
-  <TextInput type="search" icon={Search} />
+  <TextInput icon={Search} />
 </FilteredSearch>
 ```
 

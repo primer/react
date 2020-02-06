@@ -29,6 +29,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 14px;
+  color: #444d56;
 }
 
 .c2:hover {
@@ -87,6 +88,15 @@ exports[`Dropdown matches the snapshots 1`] = `
   z-index: 1;
 }
 
+.c2:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #eff3f6;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20);
+  box-shadow: none;
+  cursor: default;
+}
+
 .c0 > summary {
   list-style: none;
 }
@@ -102,6 +112,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 
 .c3 {
   border: 4px solid transparent;
+  margin-left: 4px;
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -119,6 +130,7 @@ exports[`Dropdown matches the snapshots 1`] = `
   <summary
     aria-haspopup="true"
     className="c2"
+    color="gray.7"
   >
     <div
       className="c3"
@@ -157,6 +169,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 14px;
+  color: #444d56;
 }
 
 .c2:hover {
@@ -215,6 +228,15 @@ exports[`Dropdown matches the snapshots 2`] = `
   z-index: 1;
 }
 
+.c2:disabled {
+  color: rgba(36,41,46,0.4);
+  background-color: #eff3f6;
+  background-image: none;
+  border-color: rgba(27,31,35,0.20);
+  box-shadow: none;
+  cursor: default;
+}
+
 .c0 > summary {
   list-style: none;
 }
@@ -230,6 +252,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 
 .c3 {
   border: 4px solid transparent;
+  margin-left: 4px;
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -247,6 +270,7 @@ exports[`Dropdown matches the snapshots 2`] = `
   <summary
     aria-haspopup="true"
     className="c2"
+    color="gray.7"
   >
     hi
     <div
@@ -267,14 +291,28 @@ exports[`Dropdown.Item matches the snapshots 1`] = `
   white-space: nowrap;
 }
 
-.c0:focus {
+.c0 a {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  padding: 4px 10px 4px 15px;
+  overflow: hidden;
+  color: #24292e;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c0:focus,
+.c0 a:focus {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #0366d6;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:hover a {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -299,14 +337,28 @@ exports[`Dropdown.Item matches the snapshots 2`] = `
   white-space: nowrap;
 }
 
-.c0:focus {
+.c0 a {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  padding: 4px 10px 4px 15px;
+  overflow: hidden;
+  color: #24292e;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c0:focus,
+.c0 a:focus {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #0366d6;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:hover a {
   color: #fff;
   -webkit-text-decoration: none;
   text-decoration: none;

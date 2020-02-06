@@ -2,10 +2,21 @@ import React from 'react'
 import TextInput from '../TextInput'
 import {render, mount} from '../utils/testing'
 import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
+expect.extend(toHaveNoViolations)
 
 describe('TextInput', () => {
   it('implements system props', () => {
     expect(TextInput).toImplementSystemProps(COMMON)
+  })
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<TextInput aria-label="zipcode" name="zipcode" variant="small" />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 
   it('renders', () => {
@@ -33,5 +44,9 @@ describe('TextInput', () => {
     const component = mount(<TextInput onChange={onChangeMock} value="test" />)
     component.find('input').simulate('change')
     expect(onChangeMock).toHaveBeenCalled()
+  })
+
+  it('should render a password input', () => {
+    expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
   })
 })

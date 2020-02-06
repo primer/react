@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
+import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
 import {variant, width} from 'styled-system'
@@ -25,42 +26,29 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = React.forwardRef(({icon, className, width, theme, ...rest}, ref) => {
+const TextInput = React.forwardRef(({icon, className, block, ...rest}, ref) => {
+  // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
-  const inputClasses = classnames(icon ? 'input-icon' : 'input-no-icon')
-  const hasIcon = !!icon
+  const wrapperProps = pick(rest)
+  const inputProps = omit(rest)
   return (
-    <Wrapper width={width} className={wrapperClasses} theme={theme}>
+    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} {...wrapperProps}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input ref={ref} className={inputClasses} hasIcon={hasIcon} {...rest} />
+      <Input ref={ref} {...inputProps} />
     </Wrapper>
   )
 })
 
 const Input = styled.input`
   border: 0;
-  margin-right: ${get('space.1')};
-  font-size: ${get('fontSizes.2')};
+  font-size: inherit;
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
-
-  ${props => {
-    if (props.hasIcon) {
-      return css`
-        padding-left: 0;
-      `
-    } else {
-      return css`
-        padding-left: ${get('space.2')};
-      `
-    }
-  }}
   &:focus {
     outline: 0;
   }
-
-  ${sizeVariants}
 `
 
 const Wrapper = styled.span`
@@ -78,10 +66,23 @@ const Wrapper = styled.span`
   outline: none;
   box-shadow: ${get('shadows.formControl')};
 
+  ${props => {
+    if (props.hasIcon) {
+      return css`
+        padding: 0;
+      `
+    } else {
+      return css`
+        padding: 6px ${get('space.2')};
+      `
+    }
+  }}
+
   .TextInput-icon {
     align-self: center;
     color: ${get('colors.gray.4')};
     margin: 0 ${get('space.2')};
+    flex-shrink: 0;
   }
 
   &:focus-within {
@@ -100,8 +101,9 @@ const Wrapper = styled.span`
   @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
-  ${COMMON};
+  ${COMMON}
   ${width}
+  ${sizeVariants}
 `
 
 TextInput.defaultProps = {
@@ -111,7 +113,6 @@ TextInput.defaultProps = {
 
 TextInput.propTypes = {
   block: PropTypes.bool,
-  theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width

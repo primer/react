@@ -3,12 +3,11 @@
 exports[`TextInput renders 1`] = `
 .c1 {
   border: 0;
-  margin-right: 4px;
-  font-size: 16px;
+  font-size: inherit;
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
-  padding-left: 8px;
 }
 
 .c1:focus {
@@ -35,6 +34,7 @@ exports[`TextInput renders 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  padding: 6px 8px;
 }
 
 .c0 .TextInput-icon {
@@ -43,6 +43,9 @@ exports[`TextInput renders 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -60,7 +63,7 @@ exports[`TextInput renders 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="c1 input-no-icon"
+    className="c1"
     name="zipcode"
     type="text"
   />
@@ -70,12 +73,11 @@ exports[`TextInput renders 1`] = `
 exports[`TextInput renders block 1`] = `
 .c1 {
   border: 0;
-  margin-right: 4px;
-  font-size: 16px;
+  font-size: inherit;
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
-  padding-left: 8px;
 }
 
 .c1:focus {
@@ -102,6 +104,9 @@ exports[`TextInput renders block 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  padding: 6px 8px;
+  display: block;
+  width: 100%;
 }
 
 .c0 .TextInput-icon {
@@ -110,6 +115,9 @@ exports[`TextInput renders block 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -127,7 +135,7 @@ exports[`TextInput renders block 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="c1 input-no-icon"
+    className="c1"
     name="zipcode"
     type="text"
   />
@@ -137,17 +145,11 @@ exports[`TextInput renders block 1`] = `
 exports[`TextInput renders large 1`] = `
 .c1 {
   border: 0;
-  margin-right: 4px;
-  font-size: 16px;
+  font-size: inherit;
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
-  padding-left: 8px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 20px;
 }
 
 .c1:focus {
@@ -174,6 +176,12 @@ exports[`TextInput renders large 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  padding: 6px 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
 }
 
 .c0 .TextInput-icon {
@@ -182,6 +190,9 @@ exports[`TextInput renders large 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -199,7 +210,7 @@ exports[`TextInput renders large 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="c1 input-no-icon"
+    className="c1"
     name="zipcode"
     type="text"
   />
@@ -209,19 +220,11 @@ exports[`TextInput renders large 1`] = `
 exports[`TextInput renders small 1`] = `
 .c1 {
   border: 0;
-  margin-right: 4px;
-  font-size: 16px;
+  font-size: inherit;
   background-color: transparent;
+  -webkit-appearance: none;
   color: inherit;
   width: 100%;
-  padding-left: 8px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
 }
 
 .c1:focus {
@@ -248,6 +251,14 @@ exports[`TextInput renders small 1`] = `
   border-radius: 3px;
   outline: none;
   box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  padding: 6px 8px;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .c0 .TextInput-icon {
@@ -256,6 +267,79 @@ exports[`TextInput renders small 1`] = `
   align-self: center;
   color: #959da5;
   margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #2188ff;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+}
+
+@media (max-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1"
+    name="zipcode"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput should render a password input 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #24292e;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
+  padding: 6px 8px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #959da5;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -273,9 +357,9 @@ exports[`TextInput renders small 1`] = `
   className="c0 TextInput-wrapper"
 >
   <input
-    className="c1 input-no-icon"
-    name="zipcode"
-    type="text"
+    className="c1"
+    name="password"
+    type="password"
   />
 </span>
 `;
