@@ -4,7 +4,7 @@ import {COMMON} from './constants'
 import PropTypes from 'prop-types'
 import theme from './theme'
 import {wrapperStyles} from './SelectMenuStyles'
-import {ContextProvider} from './SelectMenuContext'
+import {MenuContext} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
 import SelectMenuFooter from './SelectMenuFooter'
@@ -39,11 +39,11 @@ const SelectMenuBase = ({children, initialTab, ...rest}) => {
   }
 
   return (
-    <ContextProvider value={menuProviderValues}>
+    <MenuContext.Provider value={menuProviderValues}>
       <details ref={ref} {...rest} onToggle={toggle}>
         {children}
       </details>
-    </ContextProvider>
+    </MenuContext.Provider>
   )
 }
 
@@ -53,7 +53,7 @@ const SelectMenu = styled(SelectMenuBase)`
 `
 
 SelectMenu.Fragment = props => <include-fragement {...props} />
-SelectMenu.ContextProvider = ContextProvider
+SelectMenu.MenuContext = MenuContext
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter
