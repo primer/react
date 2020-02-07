@@ -1,5 +1,17 @@
 export default [
   {
+    group: 'AvatarStack',
+    name: 'Default',
+    code: `
+      <AvatarStack>
+        <img alt="Primer" src="https://avatars.githubusercontent.com/primer"/>
+        <img alt="GitHub" src="https://avatars.githubusercontent.com/github"/>
+        <img alt="Atom" src="https://avatars.githubusercontent.com/atom"/>
+        <img alt="Desktop" src="https://avatars.githubusercontent.com/desktop"/>
+      </AvatarStack>
+    `
+  },
+  {
     group: 'Button',
     name: 'Default',
     code: `
@@ -28,6 +40,17 @@ export default [
     `
   },
   {
+    group: 'ButtonGroup',
+    name: 'Default',
+    code: `
+      <ButtonGroup>
+        <Button>Button</Button>
+        <Button>Button</Button>
+        <Button>Button</Button>
+      </ButtonGroup>
+    `
+  },
+  {
     group: 'Dropdown',
     name: 'Default',
     code: `
@@ -38,6 +61,17 @@ export default [
           <Dropdown.Item>Item 3</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+    `
+  },
+  {
+    group: 'FilterList',
+    name: 'Default',
+    code: `
+      <FilterList>
+        <FilterList.Item selected count='32' href='#foo'>First Filter</FilterList.Item>
+        <FilterList.Item count='2' href='#bar'>Second Filter</FilterList.Item>
+        <FilterList.Item href='#baz'>Third Filter</FilterList.Item>
+      </FilterList>
     `
   },
   {
