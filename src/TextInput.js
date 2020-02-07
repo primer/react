@@ -26,6 +26,7 @@ const sizeVariants = variant({
   }
 })
 
+// using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef(({icon, className, block, ...rest}, ref) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
