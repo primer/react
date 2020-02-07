@@ -9,7 +9,7 @@ const SELECTED_CLASS = 'selected'
 
 function BreadcrumbBase({className, children, theme, ...rest}) {
   const classes = classnames(className, 'Breadcrumb')
-  const wrappedChildren = React.Children.map(children, child => <Breadcrumb.Wrapper>{child}</Breadcrumb.Wrapper>)
+  const wrappedChildren = React.Children.map(children, child => <Breadcrumb.Wrapper theme={theme}>{child}</Breadcrumb.Wrapper>)
   return (
     <nav className={classes} aria-label="breadcrumb" {...rest}>
       <ol>{wrappedChildren}</ol>
