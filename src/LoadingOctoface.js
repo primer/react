@@ -3,7 +3,7 @@ import Box from './Box'
 import AnimationPulse from './AnimationPulse'
 import StyledOcticon, {Octoface} from '@primer/octicons-react'
 
-const SelectMenuLoading = props => {
+const LoadingOctoface = props => {
   return (
     <Box bg="white" py={4} px={3} css="text-align: center" {...props}>
       <AnimationPulse>
@@ -13,4 +13,4 @@ const SelectMenuLoading = props => {
   )
 }
 
-export default SelectMenuLoading
+export default LoadingOctoface

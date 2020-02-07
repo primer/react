@@ -258,7 +258,7 @@ declare module '@primer/components' {
     title: string
   }
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuLoadingProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuTabsProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
@@ -290,13 +290,14 @@ declare module '@primer/components' {
     Header: React.FunctionComponent<SelectMenuHeaderProps>
     Item: React.FunctionComponent<SelectMenuItemProps>
     List: React.FunctionComponent<SelectMenuListProps>
-    Loading: React.FunctionComponent<SelectMenuLoadingProps>
     Modal: React.FunctionComponent<SelectMenuModalProps>
     Summary: React.FunctionComponent<SelectMenuSummaryProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
     Tab: React.FunctionComponent<SelectMenuTabProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
   }
+
+  export const LoadingOctoface: React.FunctionComponent<LoadingOctofaceProps>
 
   export interface StateLabelProps extends CommonProps {
     small?: boolean
@@ -593,3 +594,9 @@ declare module '@primer/components/src/AvatarStack' {
   import {AvatarStack} from '@primer/components'
   export default AvatarStack
 }
+
+declare module '@primer/components/src/LoadingOctoface' {
+  import {LoadingOctoface} from '@primer/components'
+  export default LoadingOctoface
+}
+

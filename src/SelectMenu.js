@@ -11,7 +11,6 @@ import SelectMenuFooter from './SelectMenuFooter'
 import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
-import SelectMenuLoading from './SelectMenuLoading'
 import SelectMenuModal from './SelectMenuModal'
 import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTab from './SelectMenuTab'
@@ -60,7 +59,6 @@ SelectMenu.Footer = SelectMenuFooter
 SelectMenu.Header = SelectMenuHeader
 SelectMenu.Item = SelectMenuItem
 SelectMenu.List = SelectMenuList
-SelectMenu.Loading = SelectMenuLoading
 SelectMenu.Modal = SelectMenuModal
 SelectMenu.Summary = SelectMenuSummary
 SelectMenu.Tabs = SelectMenuTabs
