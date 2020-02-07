@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Primer Components',
-  components: '../src/index',
+  components: './src/index',
   outputPath: './public',
   snippets: './playroom/snippets.js',
   frameComponent: './playroom/FrameComponent.js',
