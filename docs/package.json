@@ -5,10 +5,12 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "cd .. && yarn && cd docs && gatsby build --prefix-paths"
+    "build": "cd .. && yarn && cd docs && gatsby build --prefix-paths && yarn playroom:build",
+    "playroom:start": "playroom start",
+    "playroom:build": "playroom build"
   },
   "engines": {
-    "node" : "10.x" 
+    "node": "10.x"
   },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "^0.16.6",
@@ -23,6 +25,7 @@
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
-    "minipass": "^2.9.0"
+    "minipass": "^2.9.0",
+    "playroom": "0.15.1"
   }
 }
