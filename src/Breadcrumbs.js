@@ -7,7 +7,7 @@ import theme from './theme'
 
 const SELECTED_CLASS = 'selected'
 
-function BreadcrumbBase({className, children, ...rest}) {
+function BreadcrumbBase({className, children, theme, ...rest}) {
   const classes = classnames(className, 'Breadcrumb')
   const wrappedChildren = React.Children.map(children, child => <Breadcrumb.Wrapper>{child}</Breadcrumb.Wrapper>)
   return (
