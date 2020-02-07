@@ -4,32 +4,11 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
+import Box from './Box'
 
 const SELECTED_CLASS = 'selected'
 
-function BreadcrumbBase({className, children, theme, ...rest}) {
-  const classes = classnames(className, 'Breadcrumb')
-  const wrappedChildren = React.Children.map(children, child => <Breadcrumb.Wrapper theme={theme}>{child}</Breadcrumb.Wrapper>)
-  return (
-    <nav className={classes} aria-label="breadcrumb" {...rest}>
-      <ol>{wrappedChildren}</ol>
-    </nav>
-  )
-}
-
-const Breadcrumb = styled(BreadcrumbBase)`
-  display: flex;
-  justify-content: space-between;
-  ${COMMON};
-  ${FLEX};
-  & > ol {
-    padding-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-`
-
-Breadcrumb.Wrapper = styled.li`
+const Wrapper = styled.li`
   display: inline-block;
   white-space: nowrap;
   list-style: none;
@@ -48,6 +27,23 @@ Breadcrumb.Wrapper = styled.li`
       content: none;
     }
   }
+`
+
+const BreadcrumbBase = ({className, children, theme, ...rest}) => {
+  const classes = classnames(className, 'Breadcrumb')
+  const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
+  return (
+    <nav className={classes} aria-label="breadcrumb" {...rest}>
+      <Box as="ol" my={0} pl={0}>{wrappedChildren}</Box>
+    </nav>
+  )
+}
+
+const Breadcrumb = styled(BreadcrumbBase)`
+  display: flex;
+  justify-content: space-between;
+  ${COMMON};
+  ${FLEX};
 `
 
 Breadcrumb.Item = styled.a.attrs(props => ({
@@ -74,8 +70,6 @@ Breadcrumb.defaultProps = {
 }
 
 Breadcrumb.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.object,
   ...COMMON.propTypes
 }
 
@@ -87,9 +81,6 @@ Breadcrumb.Item.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   href: PropTypes.string,
   selected: PropTypes.bool,
-  ...COMMON.propTypes
-}
-Breadcrumb.Item.propTypes = {
   ...COMMON.propTypes
 }
 
