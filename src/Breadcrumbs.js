@@ -34,7 +34,9 @@ const BreadcrumbBase = ({className, children, theme, ...rest}) => {
   const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
   return (
     <nav className={classes} aria-label="breadcrumb" {...rest}>
-      <Box as="ol" my={0} pl={0}>{wrappedChildren}</Box>
+      <Box as="ol" my={0} pl={0}>
+        {wrappedChildren}
+      </Box>
     </nav>
   )
 }
