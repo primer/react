@@ -17,7 +17,7 @@ const SelectMenuItem = ({children, selected, href, ...rest}) => {
   return (
     <StyledItem {...rest} aria-checked={selected}>
       <a href={href}>
-        {selected && <StyledOcticon className="SelectMenu-selected" icon={Check} />}
+        <StyledOcticon className="SelectMenu-icon SelectMenu-selected-icon" icon={Check} />
         {children}
       </a>
     </StyledItem>

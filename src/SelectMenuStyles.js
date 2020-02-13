@@ -160,18 +160,27 @@ export const listItemStyles = css`
     padding-bottom: ${get('space.2')};
   }
 
+  .SelectMenu-icon {
+    width: ${get('space.3')};
+    margin-right: ${get('space.2')};
+    flex-shrink: 0;
+  }
+
+  .SelectMenu-selected-icon {
+    visibility: hidden;
+    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
+    transform: scale(0);
+  }
+
   // selected items
   &[aria-checked='true'] {
     font-weight: 500;
     color: ${get('colors.gray.9')};
 
-    .SelectMenu-selected {
-      display: inline-block;
+    .SelectMenu-selected-icon {
+      visibility: visible;
       transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
       transform: scale(1);
-      position: absolute;
-      left: 0;
-      margin-left: 8px;
     }
   }
 
