@@ -270,9 +270,10 @@ export const tabWrapperStyles = css`
 `
 
 export const footerStyles = css`
+  margin-top: -1px;
   padding: ${get('space.2')} ${get('space.3')};
   font-size: ${get('fontSizes.0')};
-  color: ${get('colors.gray.5')};
+  color: ${get('colors.text.grayLight')};
   text-align: center;
   border-top: ${get('borders.1')} ${get('colors.border.gray')};
 

@@ -36,8 +36,26 @@ import {SelectMenu} from '@primer/components'
   </SelectMenu>
 ```
 
+### With `Footer`
+```jsx live
+  <SelectMenu>
+    <SelectMenu.Summary>Projects</SelectMenu.Summary>
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Filter by project</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Divider>More Options</SelectMenu.Divider>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+      <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
 
-### SelectMenu with Tabs
+
+### With Tabs
 ```jsx live
   <SelectMenu initialTab="Repository">
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
