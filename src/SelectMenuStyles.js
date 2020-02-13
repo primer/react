@@ -56,9 +56,9 @@ export const modalStyles = css`
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
-    border: ${get('borders.1')} ${get('colors.borders.grayDark')};
+    border: ${get('borders.1')} ${get('colors.border.grayDark')};
     border-radius: ${get('radii.1')};
-    box-shadow: 0 1px 5px ${get('colors.borders.blackfade15')} !default;
+    box-shadow: 0 1px 5px ${get('colors.blackfade15')} !default;
   }
 `
 
@@ -107,7 +107,6 @@ export const listStyles = css`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: ${get('colors.white')};
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
   @media (hover: hover) {
@@ -128,21 +127,17 @@ export const listStyles = css`
 `
 
 export const listItemStyles = css`
-  display: block;
-  padding: ${get('space.2')} ${get('space.2')} ${get('space.2')} 30px;
+  display: flex;
+  align-items: center;
+  padding: ${get('space.3')};
   overflow: hidden;
-  color: ${get('colors.gray.6')};
+  color:  ${get('colors.text.gray')};
   text-align: left;
   cursor: pointer;
   background-color: ${get('colors.white')};
   border: 0;
-  line-height: inherit;
-  text-decoration: none;
+  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
 
-  & + & {
-    // Add a top border only if the above element also is a list item
-    border-top: ${get('borders.1')} ${get('colors.gray.2')};
-  }
 
   &:hover {
     text-decoration: none;
@@ -156,19 +151,12 @@ export const listItemStyles = css`
     display: none !important;
   }
 
-  .SelectMenu-selected {
-    width: ${get('space.3')}; // fixed width to make sure following content aligns
-    margin-right: ${get('space.2')};
-    display: none;
-    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
-    transform: scale(0);
-  }
-
   @media (min-width: ${get('breakpoints.0')}) {
     padding-top: ${get('space.2')};
     padding-bottom: ${get('space.2')};
   }
 
+  // selected items
   &[aria-checked='true'] {
     font-weight: 500;
     color: ${get('colors.gray.9')};
@@ -183,16 +171,15 @@ export const listItemStyles = css`
     }
   }
 
+  // can hover states
   @media (hover: hover) {
-    &:focus,
+    body:not(.intent-mouse) .SelectMenu-item:focus,
     &:hover {
-      color: ${get('colors.white')};
-      background-color: ${get('colors.blue.5')};
+      background-color: ${get('colors.bg.gray')};
     }
-
+  
     &:active {
-      color: ${get('colors.white')};
-      background-color: ${get('colors.blue.4')};
+      background-color: ${get('colors.bg.grayLight')};
     }
   }
 
@@ -204,7 +191,7 @@ export const listItemStyles = css`
     // Android
     &:focus,
     &:active {
-      background-color: ${get('colors.gray.0')};
+      background-color: ${get('colors.bg.grayLight')};
     }
 
     // iOS Safari
@@ -223,7 +210,7 @@ export const tabStyles = css`
   text-align: center;
   background-color: transparent;
   border: 0;
-  box-shadow: inset 0 -1px 0 ${get('colors.borders.gray')};
+  box-shadow: inset 0 -1px 0 ${get('colors.border.gray')};
   
   @media (min-width: ${get('breakpoints.0')}) {
     flex: none;
@@ -238,10 +225,10 @@ export const tabStyles = css`
     z-index: 1; // Keeps box-shadow visible when hovering
     color: ${get('colors.gray.9')};
     background-color: ${get('colors.white')};
-    box-shadow: 0 0 0 1px ${get('colors.borders.gray')};
+    box-shadow: 0 0 0 1px ${get('colors.border.gray')};
 
     @media (min-width: ${get('breakpoints.0')}) {
-      border-color: ${get('colors.borders.gray')};
+      border-color: ${get('colors.border.gray')};
       box-shadow: none;
     }
   }
@@ -255,7 +242,7 @@ export const tabWrapperStyles = css`
   display: flex;
   flex-shrink: 0;
   margin-bottom: -1px; // hide border of element below
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
+  border-top: ${get('borders.1')} ${get('colors.border.gray')};
   -webkit-overflow-scrolling: touch;
 
   // Hide scrollbar so it doesn't cover the text
@@ -274,7 +261,7 @@ export const footerStyles = css`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.gray.5')};
   text-align: center;
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
+  border-top: ${get('borders.1')} ${get('colors.border.gray')};
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding: ${get('space.1')} ${get('space.2')};
@@ -288,8 +275,8 @@ export const dividerStyles = css`
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.gray.5')};
   background-color: ${get('colors.gray.1')};
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
-  border-bottom: ${get('borders.1')} ${get('colors.borders.gray')};
+  border-top: ${get('borders.1')} ${get('colors.border.gray')};
+  border-bottom: ${get('borders.1')} ${get('colors.border.gray')};
 
   &:first-child {
     border-top: 0;

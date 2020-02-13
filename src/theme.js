@@ -26,7 +26,8 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
-  borders: {
+  border: {
+    grayLight: '#eaecef',
     gray: gray[2],
     grayDark: '#d1d5da'
   },
@@ -62,6 +63,13 @@ const colors = {
   },
   filterList: {
     hoverBg: '#eaecef'
+  },
+  text: {
+    gray: gray[6]
+  },
+  bg: {
+    gray: gray[1],
+    grayLight: gray[0]
   }
 }
 

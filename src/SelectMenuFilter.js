@@ -9,7 +9,7 @@ import {MenuContext} from './SelectMenuContext'
 const StyledForm = styled.form`
   padding: ${get('space.3')};
   margin: 0;
-  border-top: ${get('borders.1')} ${get('colors.borders.gray')};
+  border-top: ${get('borders.1')} ${get('colors.border.gray')};
   ${COMMON}
 
   @media (min-width: ${get('breakpoints.0')}) {

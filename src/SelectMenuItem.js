@@ -6,19 +6,22 @@ import {COMMON} from './constants'
 import StyledOcticon from './StyledOcticon'
 import theme from './theme'
 
-const StyledItem = styled.a.attrs(() => ({
+const StyledItem = styled.li.attrs(() => ({
   role: 'menuitem'
 }))`
   ${listItemStyles}
   ${COMMON}
 `
 
-const SelectMenuItem = ({children, selected, ...rest}) => {
+const SelectMenuItem = ({children, selected, href, ...rest}) => {
   return (
     <StyledItem {...rest} aria-checked={selected}>
-      {selected && <StyledOcticon className="SelectMenu-selected" icon={Check} />}
-      {children}
+      <a href={href}>
+        {selected && <StyledOcticon className="SelectMenu-selected" icon={Check} />}
+        {children}
+      </a>
     </StyledItem>
+
   )
 }
 
