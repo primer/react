@@ -20,6 +20,8 @@ import {SelectMenu} from '@primer/components'
 ```
 
 ### With `Divider`
+Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.List`.
+
 ```jsx live
   <SelectMenu>
     <SelectMenu.Summary>Projects</SelectMenu.Summary>
@@ -37,6 +39,9 @@ import {SelectMenu} from '@primer/components'
 ```
 
 ### With `Footer`
+
+Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
+
 ```jsx live
   <SelectMenu>
     <SelectMenu.Summary>Projects</SelectMenu.Summary>
@@ -56,6 +61,13 @@ import {SelectMenu} from '@primer/components'
 
 
 ### With Tabs
+
+Use `SelectMenu.Tabs` to wrap the the tab navigation and `SelectMenu.Tab` for each tab in the navigation.
+
+`SelectMenu.TabPanel` should wrap each corresponding panel for each of the tabs. The `tabName` prop for each `SelectMenu.TabPanel` must match the `name` prop on the corresponding `SelectMenu.Tab`.
+
+To set one of the tabs to be open by default, use `initialTab` on the main `SelectMenu` component. Otherwise, the first tab will be shown by default.
+
 ```jsx live
   <SelectMenu initialTab="Repository">
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
