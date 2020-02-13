@@ -9,6 +9,7 @@ import systemPropTypes from '@styled-system/prop-types'
 const variants = variant({
   variants: {
     small: {
+      p: '3px 10px',
       fontSize: 0
     },
     medium: {
