@@ -19,6 +19,23 @@ import {SelectMenu} from '@primer/components'
   </SelectMenu>
 ```
 
+### With `Divider`
+```jsx live
+  <SelectMenu>
+    <SelectMenu.Summary>Projects</SelectMenu.Summary>
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Filter by project</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Divider>More Options</SelectMenu.Divider>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
 
 ### SelectMenu with Tabs
 ```jsx live

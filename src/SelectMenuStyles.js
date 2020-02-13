@@ -286,16 +286,7 @@ export const dividerStyles = css`
   margin: 0;
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.gray.5')};
-  background-color: ${get('colors.gray.1')};
-  border-top: ${get('borders.1')} ${get('colors.border.gray')};
-  border-bottom: ${get('borders.1')} ${get('colors.border.gray')};
-
-  &:first-child {
-    border-top: 0;
-  }
-
-  &:last-child {
-    border-bottom: 0;
-  }
+  color: ${get('colors.text.grayLight')};
+  background-color: ${get('colors.bg.gray')};
+  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
 `

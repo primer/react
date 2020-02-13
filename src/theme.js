@@ -65,7 +65,8 @@ const colors = {
     hoverBg: '#eaecef'
   },
   text: {
-    gray: gray[6]
+    gray: gray[6],
+    grayLight: gray[5]
   },
   bg: {
     gray: gray[1],
