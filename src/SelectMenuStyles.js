@@ -47,7 +47,7 @@ export const modalStyles = css`
   flex-direction: column;
   background-color: ${get('colors.gray.1')};
   border-radius: 6px;
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {
@@ -107,6 +107,7 @@ export const listStyles = css`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: ${get('colors.white')};
+  border-top: ${get('borders.1')} ${get('colors.border.gray')};
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
   @media (hover: hover) {
@@ -131,13 +132,16 @@ export const listItemStyles = css`
   align-items: center;
   padding: ${get('space.3')};
   overflow: hidden;
-  color:  ${get('colors.text.gray')};
   text-align: left;
   cursor: pointer;
   background-color: ${get('colors.white')};
   border: 0;
   border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
 
+  a {
+    color:  ${get('colors.text.gray')};
+    text-decoration: none;
+  }
 
   &:hover {
     text-decoration: none;
