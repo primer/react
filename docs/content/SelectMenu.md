@@ -69,15 +69,12 @@ Use `SelectMenu.Tabs` to wrap the the tab navigation and `SelectMenu.Tab` for ea
 To set one of the tabs to be open by default, use `initialTab` on the main `SelectMenu` component. Otherwise, the first tab will be shown by default.
 
 ```jsx live
-  <SelectMenu initialTab="Repository">
+  <SelectMenu>
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
     <SelectMenu.Modal>
       <SelectMenu.Header>Filter by project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
-      <SelectMenu.Tabs>
-        <SelectMenu.Tab name="Repository"/>
-        <SelectMenu.Tab name="Organization"/>
-      </SelectMenu.Tabs>
+      <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
       <SelectMenu.TabPanel tabName="Repository">
         <SelectMenu.List>
           <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>

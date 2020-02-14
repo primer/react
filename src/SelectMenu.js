@@ -13,7 +13,6 @@ import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
 import SelectMenuModal from './SelectMenuModal'
 import SelectMenuSummary from './SelectMenuSummary'
-import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './hooks/KeyboardHook'
@@ -62,7 +61,6 @@ SelectMenu.List = SelectMenuList
 SelectMenu.Modal = SelectMenuModal
 SelectMenu.Summary = SelectMenuSummary
 SelectMenu.Tabs = SelectMenuTabs
-SelectMenu.Tab = SelectMenuTab
 SelectMenu.TabPanel = SelectMenuTabPanel
 
 SelectMenu.defaultProps = {

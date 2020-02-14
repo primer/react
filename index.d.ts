@@ -261,11 +261,10 @@ declare module '@primer/components' {
   export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
-  export interface SelectMenuTabsProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuTabProps
+  export interface SelectMenuTabsProps
     extends CommonProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    name: string
+    tabs: string[]
   }
   export interface SelectMenuTabPanelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     tabName: string
@@ -293,7 +292,6 @@ declare module '@primer/components' {
     Modal: React.FunctionComponent<SelectMenuModalProps>
     Summary: React.FunctionComponent<SelectMenuSummaryProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
-    Tab: React.FunctionComponent<SelectMenuTabProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
   }
 

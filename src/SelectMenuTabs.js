@@ -1,13 +1,38 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {tabWrapperStyles} from './SelectMenuStyles'
 import {COMMON} from './constants'
+import {MenuContext} from './SelectMenuContext'
+import {tabStyles} from './SelectMenuStyles'
 import theme from './theme'
 
-const Tabs = ({className, children}) => {
+const TabBase = ({name, index, ...rest}) => {
+  const menuContext = useContext(MenuContext)
+  const handleClick = () => {
+    menuContext.setSelectedTab(name)
+  }
+  if (!menuContext.selectedTab && index === 0) {
+    menuContext.setSelectedTab(name)
+  }
+
+  const isSelected = menuContext.selectedTab === name
+
+  return (
+    <button role="tab" className="SelectMenuTab" aria-selected={isSelected} onClick={handleClick} {...rest}>
+      {name}
+    </button>
+  )
+}
+
+const SelectMenuTab = styled(TabBase)`
+  ${tabStyles}
+  ${COMMON}
+`
+
+const Tabs = ({className, tabs}) => {
   return (
     <div role="tablist" className={className}>
-      {children}
+      {tabs.map((tab, index) => <SelectMenuTab index={index} name={tab}/>)}
     </div>
   )
 }
@@ -19,6 +44,10 @@ const SelectMenuTabs = styled(Tabs)`
 
 SelectMenuTabs.defaultProps = {
   theme
+}
+
+SelectMenuTabs.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default SelectMenuTabs
