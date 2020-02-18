@@ -80,10 +80,10 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 ```
 
 ### SelectMenu
-Used as a wrapper component for select menus
+Main wrapper component for select menu.
 
 ### SelectMenu.Modal
-Provides styling for the SelectMenu content
+Used to wrap the content in a `SelectMenu`.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
@@ -91,8 +91,11 @@ Provides styling for the SelectMenu content
 
 ### SelectMenu.Item
 
-Items in the SelectMenu.List. Handle setting the `aria-checked` attribute in the consuming application. When `aria-checked` is set to true, selected styles will appear for list items.
+Individual items in a select menu.
 
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| selected | boolean | | Used to apply styles to the selected items in the list.
 
 ### SelectMenu.Loading
 A default loading state for the SelectMenu contents
@@ -101,7 +104,18 @@ A default loading state for the SelectMenu contents
 A footer for the SelectMenu
 
 ### SelectMenu.Tabs
-Tab navigation for the SelectMenu
+Tab navigation for the SelectMenu.
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| tabs | Array | | Array of tab names. Used to generate individual tabs for each item. Must match the `tabName` prop used on `SelectMenu.TabPanel`.
+
+### SelectMenu.TabPanel
+Wraps the content for each tab. Make sure to use the `tabName` prop to identify each tab panel with the correct tab in the tab navigation.
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| tabName | String | | Used to identify the corresponding tab. Must match the string used in the `tabs` array in the `SelectMenu.Tabs` component.
 
 ### SelectMenu.Divider
 Used to create a divider between list items
