@@ -22,7 +22,6 @@ const SelectMenuItem = ({children, selected, href, ...rest}) => {
         {children}
       </a>
     </StyledItem>
-
   )
 }
 

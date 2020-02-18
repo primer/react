@@ -47,7 +47,7 @@ export const modalStyles = css`
   flex-direction: column;
   background-color: ${get('colors.gray.1')};
   border-radius: 6px;
-  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  box-shadow: 0 1px 5px rgba(27, 31, 35, 0.15);
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {
@@ -139,7 +139,7 @@ export const listItemStyles = css`
   border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
 
   a {
-    color:  ${get('colors.text.gray')};
+    color: ${get('colors.text.gray')};
     text-decoration: none;
   }
 
@@ -190,7 +190,7 @@ export const listItemStyles = css`
     &:hover {
       background-color: ${get('colors.bg.gray')};
     }
-  
+
     &:active {
       background-color: ${get('colors.bg.grayLight')};
     }
@@ -224,7 +224,7 @@ export const tabStyles = css`
   background-color: transparent;
   border: 0;
   box-shadow: inset 0 -1px 0 ${get('colors.border.gray')};
-  
+
   @media (min-width: ${get('breakpoints.0')}) {
     flex: none;
     padding: ${get('space.1')} ${get('space.3')};

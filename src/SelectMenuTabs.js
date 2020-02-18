@@ -1,10 +1,11 @@
 import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {tabWrapperStyles} from './SelectMenuStyles'
+import {tabWrapperStyles, tabStyles} from './SelectMenuStyles'
 import {COMMON} from './constants'
 import {MenuContext} from './SelectMenuContext'
-import {tabStyles} from './SelectMenuStyles'
+import uuid from 'uuid'
+
 import theme from './theme'
 
 const TabBase = ({name, index, ...rest}) => {
@@ -32,7 +33,9 @@ const SelectMenuTab = styled(TabBase)`
 const Tabs = ({className, tabs}) => {
   return (
     <div role="tablist" className={className}>
-      {tabs.map((tab, index) => <SelectMenuTab index={index} name={tab}/>)}
+      {tabs.map((tab, index) => (
+        <SelectMenuTab key={uuid()} index={index} name={tab} />
+      ))}
     </div>
   )
 }

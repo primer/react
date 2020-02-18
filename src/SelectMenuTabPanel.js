@@ -9,15 +9,8 @@ import {COMMON} from './constants'
 const TabPanelBase = ({tabName, className, children, ...rest}) => {
   const menuContext = useContext(MenuContext)
   return (
-    <div
-      role="tabpanel"
-      className={className}
-      hidden={menuContext.selectedTab !== tabName}
-      {...rest}
-    >
-      <SelectMenuList>
-        {children}
-      </SelectMenuList>
+    <div role="tabpanel" className={className} hidden={menuContext.selectedTab !== tabName} {...rest}>
+      <SelectMenuList>{children}</SelectMenuList>
     </div>
   )
 }
