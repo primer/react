@@ -12,7 +12,6 @@ import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
 import SelectMenuModal from './SelectMenuModal'
-import SelectMenuSummary from './SelectMenuSummary'
 import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './hooks/KeyboardHook'
@@ -59,7 +58,6 @@ SelectMenu.Header = SelectMenuHeader
 SelectMenu.Item = SelectMenuItem
 SelectMenu.List = SelectMenuList
 SelectMenu.Modal = SelectMenuModal
-SelectMenu.Summary = SelectMenuSummary
 SelectMenu.Tabs = SelectMenuTabs
 SelectMenu.TabPanel = SelectMenuTabPanel
 

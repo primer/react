@@ -6,7 +6,7 @@ import {SelectMenu} from '@primer/components'
 ### Default Example
 ```jsx live
   <SelectMenu>
-    <SelectMenu.Summary>Projects</SelectMenu.Summary>
+    <Button as="summary">Projects</Button>
     <SelectMenu.Modal title="Filter by Project">
       <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
       <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -21,7 +21,7 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
 
 ```jsx live
   <SelectMenu>
-    <SelectMenu.Summary>Projects</SelectMenu.Summary>
+    <Button as="summary">Projects</Button>
     <SelectMenu.Modal title="Filter by Project">
       <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
       <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -38,7 +38,7 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 
 ```jsx live
   <SelectMenu>
-    <SelectMenu.Summary>Projects</SelectMenu.Summary>
+    <Button as="summary">Projects</Button>
     <SelectMenu.Modal title="Filter by project">
       <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
       <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -61,7 +61,7 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 
 ```jsx live
   <SelectMenu>
-    <SelectMenu.Summary>Robots</SelectMenu.Summary>
+    <Button as="summary">Projects</Button>
     <SelectMenu.Modal title="Filter by project">
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
@@ -81,9 +81,6 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 
 ### SelectMenu
 Used as a wrapper component for select menus
-
-### SelectMenu.Summary
-Used as the trigger component for the SelectMenu dropdown. Must be used with `SelectMenu` and `SelectMenu.Modal`s
 
 ### SelectMenu.Modal
 Provides styling for the SelectMenu content

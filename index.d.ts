@@ -246,21 +246,14 @@ declare module '@primer/components' {
     autofocus?: boolean
   }
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
-  export interface SelectMenuHeaderProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuItemProps
     extends CommonProps,
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
   }
 
-  interface SelectItems {
-    url: string
-    title: string
-  }
-  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuSummaryProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
   export interface SelectMenuTabsProps
     extends CommonProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
@@ -286,11 +279,8 @@ declare module '@primer/components' {
     Divider: React.FunctionComponent<SelectMenuDividerProps>
     Filter: React.FunctionComponent<SelectMenuFilterProps>
     Footer: React.FunctionComponent<SelectMenuFooterProps>
-    Header: React.FunctionComponent<SelectMenuHeaderProps>
     Item: React.FunctionComponent<SelectMenuItemProps>
-    List: React.FunctionComponent<SelectMenuListProps>
     Modal: React.FunctionComponent<SelectMenuModalProps>
-    Summary: React.FunctionComponent<SelectMenuSummaryProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
   }
