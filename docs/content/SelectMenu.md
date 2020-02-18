@@ -7,49 +7,16 @@ import {SelectMenu} from '@primer/components'
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Filter by Project">
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+    <SelectMenu.Modal title="Projects">
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
     </SelectMenu.Modal>
   </SelectMenu>
 ```
-
-### With `Divider`
-Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.List`.
-
-```jsx live
-  <SelectMenu>
-    <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Filter by Project">
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-      <SelectMenu.Divider>More Options</SelectMenu.Divider>
-      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-    </SelectMenu.Modal>
-  </SelectMenu>
-```
-
-### With `Footer`
-
-Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
-
-```jsx live
-  <SelectMenu>
-    <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Filter by project">
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-      <SelectMenu.Divider>More Options</SelectMenu.Divider>
-      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
-    </SelectMenu.Modal>
-  </SelectMenu>
-```
-
 
 ### With Tabs
 
@@ -62,19 +29,74 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Filter by project">
-      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
+    <SelectMenu.Modal title="Projects">
       <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
       <SelectMenu.TabPanel tabName="Repository">
-          <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-          <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-          <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-          <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       </SelectMenu.TabPanel>
       <SelectMenu.TabPanel tabName="Organization">
         <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
       </SelectMenu.TabPanel>
       <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
+### With `Filter`
+Use a `SelectMenu.Filter` to add a filter UI to your select menu. This component manages the input value and exposes it via the `SelectMenu.MenuContext` context, but users are expected to implement their own filtering. 
+
+```jsx live
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal title="Filter by Project">
+      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Divider>More Options</SelectMenu.Divider>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
+### With `Divider`
+Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.List`.
+
+```jsx live
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal title="Projects">
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Divider>More Options</SelectMenu.Divider>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
+### With `Footer`
+
+Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
+
+```jsx live
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal title="Projects">
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+        <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
+      </SelectMenu.List>
     </SelectMenu.Modal>
   </SelectMenu>
 ```
@@ -88,6 +110,11 @@ Used to wrap the content in a `SelectMenu`.
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | title | String | | Sets the text used in the heading inside of the select menu content.
+
+
+### SelectMenu.List
+
+Used to wrap the select menu list content.  Required.
 
 ### SelectMenu.Item
 

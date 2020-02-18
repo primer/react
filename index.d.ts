@@ -246,6 +246,7 @@ declare module '@primer/components' {
     autofocus?: boolean
   }
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export interface SelectMenuItemProps
     extends CommonProps,
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
@@ -282,6 +283,7 @@ declare module '@primer/components' {
     Divider: React.FunctionComponent<SelectMenuDividerProps>
     Filter: React.FunctionComponent<SelectMenuFilterProps>
     Footer: React.FunctionComponent<SelectMenuFooterProps>
+    List: React.FunctionComponent<SelectMenuListProps>
     Item: React.FunctionComponent<SelectMenuItemProps>
     Modal: React.FunctionComponent<SelectMenuModalProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>

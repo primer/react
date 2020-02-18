@@ -51,6 +51,7 @@ const SelectMenu = styled(SelectMenuBase)`
 
 SelectMenu.Fragment = props => <include-fragement {...props} />
 SelectMenu.MenuContext = MenuContext
+SelectMenu.List = SelectMenuList
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter

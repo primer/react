@@ -1,9 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import {modalStyles, modalWrapperStyles} from './SelectMenuStyles'
 import SelectMenuHeader from './SelectMenuHeader'
-import SelectMenuList from './SelectMenuList'
 import theme from './theme'
 
 const Modal = styled.div`
@@ -20,9 +20,7 @@ const SelectMenuModal = ({children, title, ...rest}) => {
     <ModalWrapper {...rest} role="menu">
       <Modal>
         <SelectMenuHeader>{title}</SelectMenuHeader>
-        <SelectMenuList>
-          {children}
-        </SelectMenuList>
+        {children}
       </Modal>
     </ModalWrapper>
   )
@@ -32,7 +30,7 @@ SelectMenuModal.defaultProps = {
   theme
 }
 
-SelectMenu.propTypes = {
+SelectMenuModal.propTypes = {
   title: PropTypes.string
 }
 
