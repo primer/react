@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import {modalStyles, modalWrapperStyles} from './SelectMenuStyles'
+import SelectMenuHeader from './SelectMenuHeader'
+import SelectMenuList from './SelectMenuList'
 import theme from './theme'
 
 const Modal = styled.div`
@@ -13,10 +15,15 @@ const ModalWrapper = styled.div`
   ${COMMON}
 `
 
-const SelectMenuModal = ({children, ...rest}) => {
+const SelectMenuModal = ({children, title, ...rest}) => {
   return (
     <ModalWrapper {...rest} role="menu">
-      <Modal>{children}</Modal>
+      <Modal>
+        <SelectMenuHeader>{title}</SelectMenuHeader>
+        <SelectMenuList>
+          {children}
+        </SelectMenuList>
+      </Modal>
     </ModalWrapper>
   )
 }

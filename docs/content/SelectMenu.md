@@ -7,14 +7,11 @@ import {SelectMenu} from '@primer/components'
 ```jsx live
   <SelectMenu>
     <SelectMenu.Summary>Projects</SelectMenu.Summary>
-    <SelectMenu.Modal>
-      <SelectMenu.Header>Filter by project</SelectMenu.Header>
-      <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      </SelectMenu.List>
+    <SelectMenu.Modal title="Filter by Project">
+      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
     </SelectMenu.Modal>
   </SelectMenu>
 ```
@@ -25,15 +22,12 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
 ```jsx live
   <SelectMenu>
     <SelectMenu.Summary>Projects</SelectMenu.Summary>
-    <SelectMenu.Modal>
-      <SelectMenu.Header>Filter by project</SelectMenu.Header>
-      <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-        <SelectMenu.Divider>More Options</SelectMenu.Divider>
-        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      </SelectMenu.List>
+    <SelectMenu.Modal title="Filter by Project">
+      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Divider>More Options</SelectMenu.Divider>
+      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
     </SelectMenu.Modal>
   </SelectMenu>
 ```
@@ -45,15 +39,12 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 ```jsx live
   <SelectMenu>
     <SelectMenu.Summary>Projects</SelectMenu.Summary>
-    <SelectMenu.Modal>
-      <SelectMenu.Header>Filter by project</SelectMenu.Header>
-      <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-        <SelectMenu.Divider>More Options</SelectMenu.Divider>
-        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      </SelectMenu.List>
+    <SelectMenu.Modal title="Filter by project">
+      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Divider>More Options</SelectMenu.Divider>
+      <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+      <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
     </SelectMenu.Modal>
   </SelectMenu>
@@ -71,17 +62,14 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 ```jsx live
   <SelectMenu>
     <SelectMenu.Summary>Robots</SelectMenu.Summary>
-    <SelectMenu.Modal>
-      <SelectMenu.Header>Filter by project</SelectMenu.Header>
+    <SelectMenu.Modal title="Filter by project">
       <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
       <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
       <SelectMenu.TabPanel tabName="Repository">
-        <SelectMenu.List>
           <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
           <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
           <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
           <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-        </SelectMenu.List>
       </SelectMenu.TabPanel>
       <SelectMenu.TabPanel tabName="Organization">
         <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
@@ -100,20 +88,14 @@ Used as the trigger component for the SelectMenu dropdown. Must be used with `Se
 ### SelectMenu.Modal
 Provides styling for the SelectMenu content
 
-### SelectMenu.List
-
-Wrapper around SelectMenu items. Use multiple `SelectMenu.List` components when using tab navigation within the select menu. Handle selected tab state in the consuming application and dynamically apply the `hidden` HTML attribute on the list to hide unselected tabs.
-
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| hidden | Boolean | false| Sets the HTML hidden attribute, used when you'd like to hide panels for tab navigation within a SelectMenu
+| title | String | | Sets the text used in the heading inside of the select menu content.
 
 ### SelectMenu.Item
 
 Items in the SelectMenu.List. Handle setting the `aria-checked` attribute in the consuming application. When `aria-checked` is set to true, selected styles will appear for list items.
 
-### SelectMenu.Header
-A heading for the SelectMenu
 
 ### SelectMenu.Loading
 A default loading state for the SelectMenu contents
@@ -123,13 +105,6 @@ A footer for the SelectMenu
 
 ### SelectMenu.Tabs
 Tab navigation for the SelectMenu
-
-### SelectMenu.Tab
-Individual tabs for the tab navigation in SelectMenu. `selected` state should be handled in consuming application and passed down via the `selected` prop to get styling.
-
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| selected | Boolean | false | Used to style the selected tab.
 
 ### SelectMenu.Divider
 Used to create a divider between list items

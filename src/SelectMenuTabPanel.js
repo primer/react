@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {MenuContext} from './SelectMenuContext'
+import SelectMenuList from './SelectMenuList'
 import theme from './theme'
 import {get} from './constants'
 
@@ -13,7 +14,9 @@ const TabPanel = ({tabName, className, children}) => {
       className={className}
       hidden={menuContext.selectedTab !== tabName}
     >
-      {children}
+      <SelectMenuList>
+        {children}
+      </SelectMenuList>
     </div>
   )
 }
