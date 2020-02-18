@@ -1,5 +1,5 @@
-import {get} from './constants'
 import {keyframes, css} from 'styled-components'
+import {get} from '../constants'
 
 const animateModal = keyframes`
   0% {

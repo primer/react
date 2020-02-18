@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON} from './constants'
+import {COMMON} from '../constants'
 import {modalStyles, modalWrapperStyles} from './SelectMenuStyles'
 import SelectMenuHeader from './SelectMenuHeader'
-import theme from './theme'
+import theme from '../theme'
 
 const Modal = styled.div`
   ${modalStyles}

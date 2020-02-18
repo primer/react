@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {Check} from '@primer/octicons-react'
 import {listItemStyles} from './SelectMenuStyles'
-import {COMMON} from './constants'
-import StyledOcticon from './StyledOcticon'
-import theme from './theme'
+import {COMMON} from '../constants'
+import StyledOcticon from '../StyledOcticon'
+import theme from '../theme'
 
 const StyledItem = styled.li.attrs(() => ({
   role: 'menuitem'

@@ -1,12 +1,11 @@
 import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {tabWrapperStyles, tabStyles} from './SelectMenuStyles'
-import {COMMON} from './constants'
-import {MenuContext} from './SelectMenuContext'
 import uuid from 'uuid'
-
-import theme from './theme'
+import {tabWrapperStyles, tabStyles} from './SelectMenuStyles'
+import {COMMON} from '../constants'
+import {MenuContext} from './SelectMenuContext'
+import theme from '../theme'
 
 const TabBase = ({name, index, ...rest}) => {
   const menuContext = useContext(MenuContext)

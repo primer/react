@@ -1,8 +1,8 @@
 import React, {useRef, useContext, useEffect} from 'react'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
-import theme from './theme'
-import TextInput from './TextInput'
+import {COMMON, get} from '../constants'
+import theme from '../theme'
+import TextInput from '../TextInput'
 import useMenuFilter from './hooks/MenuFilterHook'
 import {MenuContext} from './SelectMenuContext'
 

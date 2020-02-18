@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import {get, COMMON, TYPOGRAPHY} from './constants'
-import theme from './theme'
+import {get, COMMON, TYPOGRAPHY} from '../constants'
+import theme from '../theme'
 
 const SelectMenuTitle = styled.h3`
   flex: auto;

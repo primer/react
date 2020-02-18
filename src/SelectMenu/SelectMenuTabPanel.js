@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
-import theme from './theme'
-import {COMMON} from './constants'
+import theme from '../theme'
+import {COMMON} from '../constants'
 
 const TabPanelBase = ({tabName, className, children, ...rest}) => {
   const menuContext = useContext(MenuContext)

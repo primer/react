@@ -47,6 +47,3 @@ export {default as TextInput} from './TextInput'
 export {default as Text} from './Text'
 export {default as Tooltip} from './Tooltip'
 export {default as UnderlineNav} from './UnderlineNav'
-
-// Hooks
-export {default as useMenuFilter} from './hooks/MenuFilterHook'
