@@ -30,4 +30,9 @@ SelectMenuItem.defaultProps = {
   selected: false
 }
 
+SelectMenuItem.propTypes = {
+  selected: PropTypes.bool,
+  ...COMMON.propTypes
+}
+
 export default SelectMenuItem

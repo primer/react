@@ -14,10 +14,6 @@ const SelectMenuTitle = styled.h3`
   }
 `
 
-SelectMenuTitle.defaultProps = {
-  theme
-}
-
 const StyledHeader = styled.header`
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS

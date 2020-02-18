@@ -8,7 +8,6 @@ import {MenuContext} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
 import SelectMenuFooter from './SelectMenuFooter'
-import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
 import SelectMenuModal from './SelectMenuModal'
@@ -49,7 +48,6 @@ const SelectMenu = styled(SelectMenuBase)`
   ${COMMON}
 `
 
-SelectMenu.Fragment = props => <include-fragement {...props} />
 SelectMenu.MenuContext = MenuContext
 SelectMenu.List = SelectMenuList
 SelectMenu.Divider = SelectMenuDivider
@@ -67,6 +65,7 @@ SelectMenu.defaultProps = {
 }
 
 SelectMenu.propTypes = {
-  preload: PropTypes.bool
+  initialTab: PropTypes.string
 }
+
 export default SelectMenu

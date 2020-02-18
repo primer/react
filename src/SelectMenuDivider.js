@@ -12,4 +12,8 @@ SelectMenuDivider.defaultProps = {
   theme
 }
 
+SelectMenuDivder.propTypes = {
+  ...COMMON.propTypes
+}
+
 export default SelectMenuDivider

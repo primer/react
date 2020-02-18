@@ -31,7 +31,8 @@ SelectMenuModal.defaultProps = {
 }
 
 SelectMenuModal.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  ...COMMON.propTypes
 }
 
 export default SelectMenuModal

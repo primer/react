@@ -12,4 +12,8 @@ SelectMenuFooter.defaultProps = {
   theme
 }
 
+SelectMenuFooter.propTypes = {
+  ...COMMON.propTypes
+}
+
 export default SelectMenuFooter

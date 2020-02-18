@@ -3,7 +3,8 @@ title: SelectMenu
 ---
 import {SelectMenu} from '@primer/components'
 
-### Default Example
+## Examples
+### Basic Example
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
@@ -100,13 +101,29 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
     </SelectMenu.Modal>
   </SelectMenu>
 ```
+## Subcomponents
 
 ### SelectMenu
 Main wrapper component for select menu.
 
+#### System props
+
+SelectMenu components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Component Props
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| initialTab | String | | If using the `SelectMenu.Tabs` component, you can use this prop to change the tab shown on open. By default, the first tab will be used.
+
+
 ### SelectMenu.Modal
 Used to wrap the content in a `SelectMenu`.
 
+#### System Props
+
+SelectMenu.Modal components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | title | String | | Sets the text used in the heading inside of the select menu content.
@@ -116,23 +133,35 @@ Used to wrap the content in a `SelectMenu`.
 
 Used to wrap the select menu list content.  Required.
 
+#### System Props
+
+SelectMenu.List components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Component Props
+SelectMenu.List components do not get any additional props besides system props.
+
+
 ### SelectMenu.Item
 
 Individual items in a select menu.
 
+#### System Props
+
+SelectMenu.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Compponent Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | selected | boolean | | Used to apply styles to the selected items in the list.
 
-### SelectMenu.Loading
-A default loading state for the SelectMenu contents
-
-### SelectMenu.Footer
-A footer for the SelectMenu
-
 ### SelectMenu.Tabs
 Tab navigation for the SelectMenu.
 
+#### System Props
+
+SelectMenu.Tabs components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | tabs | Array | | Array of tab names. Used to generate individual tabs for each item. Must match the `tabName` prop used on `SelectMenu.TabPanel`.
@@ -140,10 +169,32 @@ Tab navigation for the SelectMenu.
 ### SelectMenu.TabPanel
 Wraps the content for each tab. Make sure to use the `tabName` prop to identify each tab panel with the correct tab in the tab navigation.
 
+#### System Props
+
+SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | tabName | String | | Used to identify the corresponding tab. Must match the string used in the `tabs` array in the `SelectMenu.Tabs` component.
 
+
 ### SelectMenu.Divider
 Used to create a divider between list items
 
+#### System Props
+
+SelectMenu.Divder components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Component Props
+SelectMenu.Divider components do not get any additional props besides system props.
+
+### SelectMenu.Footer
+A footer for the SelectMenu.
+
+#### System Props
+
+SelectMenu.Footer components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Component Props
+SelectMenu.Footer components do not get any additional props besides system props.

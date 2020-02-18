@@ -27,7 +27,6 @@ const TabBase = ({name, index, ...rest}) => {
 
 const SelectMenuTab = styled(TabBase)`
   ${tabStyles}
-  ${COMMON}
 `
 
 const Tabs = ({className, tabs}) => {
@@ -48,7 +47,8 @@ SelectMenuTabs.defaultProps = {
 }
 
 SelectMenuTabs.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.string)
+  tabs: PropTypes.arrayOf(PropTypes.string),
+  ...COMMON.propTypes
 }
 
 export default SelectMenuTabs
