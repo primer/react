@@ -22,7 +22,7 @@ import {SelectMenu} from '@primer/components'
 
 Use `SelectMenu.Tabs` to wrap the the tab navigation and `SelectMenu.Tab` for each tab in the navigation.
 
-`SelectMenu.TabPanel` should wrap each corresponding panel for each of the tabs. The `tabName` prop for each `SelectMenu.TabPanel` must match the `name` prop on the corresponding `SelectMenu.Tab`.
+`SelectMenu.TabPanel` should wrap each corresponding panel for each of the tabs. The `tabName` prop for each `SelectMenu.TabPanel` must match the name provided in the `tabs` prop on `SelectMenu.Tabs`.
 
 To set one of the tabs to be open by default, use `initialTab` on the main `SelectMenu` component. Otherwise, the first tab will be shown by default.
 
@@ -46,7 +46,7 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 ```
 
 ### With `Filter`
-Use a `SelectMenu.Filter` to add a filter UI to your select menu. This component manages the input value and exposes it via the `SelectMenu.MenuContext` context, but users are expected to implement their own filtering. 
+Use a `SelectMenu.Filter` to add a filter UI to your select menu. This component manages the input value and exposes it via the `SelectMenu.MenuContext` context, but users are expected to implement their own filtering. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
 
 ```jsx live
   <SelectMenu>
