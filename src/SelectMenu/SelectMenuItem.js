@@ -8,7 +8,7 @@ import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
 
 const StyledItem = styled.li.attrs(() => ({
-  role: 'menuitem'
+  role: 'menuitemcheckbox'
 }))`
   ${listItemStyles}
   ${COMMON}

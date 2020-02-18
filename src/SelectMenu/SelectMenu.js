@@ -64,7 +64,8 @@ SelectMenu.defaultProps = {
 }
 
 SelectMenu.propTypes = {
-  initialTab: PropTypes.string
+  initialTab: PropTypes.string,
+  ...COMMON.propTypes
 }
 
 export default SelectMenu

@@ -76,6 +76,10 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
         "1280px",
       ],
       "colors": Object {
+        "bg": Object {
+          "gray": "#f6f8fa",
+          "grayLight": "#fafbfc",
+        },
         "black": "#1b1f23",
         "blackfade15": "rgba(27, 31, 35, 0.15)",
         "blackfade20": "rgba(27, 31, 35, 0.20)",
@@ -95,9 +99,10 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
           "#05264c",
         ],
         "bodytext": "#24292e",
-        "borders": Object {
+        "border": Object {
           "gray": "#e1e4e8",
           "grayDark": "#d1d5da",
+          "grayLight": "#eaecef",
         },
         "button": Object {
           "activeBg": "rgb(233, 236, 239)",
@@ -199,6 +204,10 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
           "queued": "#dbab09",
           "success": "#28a745",
           "unknown": "#959da5",
+        },
+        "text": Object {
+          "gray": "#586069",
+          "grayLight": "#6a737d",
         },
         "white": "#fff",
         "whitefade15": "rgba(255, 255, 255, 0.15)",
