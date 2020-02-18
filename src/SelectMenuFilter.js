@@ -38,4 +38,8 @@ SelectMenuFilter.defaultProps = {
   theme
 }
 
+SelectMenuFilter.propTypes = {
+  ...COMMON.propTypes
+}
+
 export default SelectMenuFilter

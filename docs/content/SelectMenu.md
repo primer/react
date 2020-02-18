@@ -104,7 +104,7 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 
 SelectMenu.Tabs components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
-### Component Props
+#### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | tabs | Array | | Array of tab names. Used to generate individual tabs for each item. Must match the `tabName` prop used on `SelectMenu.TabPanel`.
@@ -113,10 +113,9 @@ SelectMenu.Tabs components get `COMMON` system props. Read our [System Props](/s
 Wraps the content for each tab. Make sure to use the `tabName` prop to identify each tab panel with the correct tab in the tab navigation.
 
 #### System Props
-
 SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
-### Component Props
+#### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | tabName | String | | Used to identify the corresponding tab. Must match the string used in the `tabs` array in the `SelectMenu.Tabs` component.
@@ -139,6 +138,13 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. This component
     </SelectMenu.Modal>
   </SelectMenu>
 ```
+
+#### System Props
+SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+#### Component Props
+SelectMenu.Filter components do not get any additional props besides system props.
+
 ### SelectMenu.Divider
 Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.List`.
 
