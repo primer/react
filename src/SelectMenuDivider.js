@@ -12,7 +12,7 @@ SelectMenuDivider.defaultProps = {
   theme
 }
 
-SelectMenuDivder.propTypes = {
+SelectMenuDivider.propTypes = {
   ...COMMON.propTypes
 }
 
