@@ -53,7 +53,6 @@ SelectMenu.List = SelectMenuList
 SelectMenu.Divider = SelectMenuDivider
 SelectMenu.Filter = SelectMenuFilter
 SelectMenu.Footer = SelectMenuFooter
-SelectMenu.Header = SelectMenuHeader
 SelectMenu.Item = SelectMenuItem
 SelectMenu.List = SelectMenuList
 SelectMenu.Modal = SelectMenuModal
