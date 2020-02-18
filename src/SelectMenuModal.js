@@ -32,4 +32,8 @@ SelectMenuModal.defaultProps = {
   theme
 }
 
+SelectMenu.propTypes = {
+  title: PropTypes.string
+}
+
 export default SelectMenuModal

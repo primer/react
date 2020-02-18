@@ -253,7 +253,10 @@ declare module '@primer/components' {
   }
 
   export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    title?: string
+  }
+
   export interface SelectMenuTabsProps
     extends CommonProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
