@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 import theme from './theme'
-import {get} from './constants'
 
 const TabPanel = ({tabName, className, children}) => {
   const menuContext = useContext(MenuContext)
@@ -21,16 +20,12 @@ const TabPanel = ({tabName, className, children}) => {
   )
 }
 
-const SelectMenuTabPanel = styled(TabPanel)`
-  border-top: 1px ${get('colors.gray.2')} solid;
-`
-
-SelectMenuTabPanel.defaultProps = {
+TabPanel.defaultProps = {
   theme
 }
 
-SelectMenuTabPanel.propTypes = {
+TabPanel.propTypes = {
   tabName: PropTypes.string
 }
 
-export default SelectMenuTabPanel
+export default TabPanel
