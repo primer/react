@@ -7,7 +7,6 @@ export default css`
   padding: 6px 16px;
   color: ${get('buttons.default.color.default')};
   background-color: ${get('buttons.default.bg.default')};
-  font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
   white-space: nowrap;
