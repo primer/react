@@ -27,6 +27,10 @@ const ButtonOutline = styled(ButtonBase)`
     border-color: ${get('buttons.outline.border.default')};
     background-color: ${get('buttons.outline.bg.disabled')};
   }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
+  }
 `
 
 export default ButtonOutline

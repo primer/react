@@ -19,7 +19,7 @@ const ButtonPrimary = styled(ButtonBase)`
   }
 
   &:focus {
-    box-shadow: none;
+    box-shadow: 0 0 0 3px #94D3A2;
     background-color: ${get('buttons.primary.bg.focus')};
   }
   &:disabled {

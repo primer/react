@@ -20,10 +20,9 @@ export default css`
     text-decoration: none;
   }
 
-  // &:focus {
-  //   outline: none;
-  //   border: 3px solid ${get('buttons.default.border.focus')};
-  // }
+  &:focus {
+    outline: none;
+  }
 
   &:focus,
   &:active {

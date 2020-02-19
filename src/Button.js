@@ -27,6 +27,10 @@ const Button = styled(ButtonBase)`
     background-color: ${get('buttons.default.bg.disabled')};
     border-color: ${get('buttons.default.border.disabled')};
   }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
+  }
 `
 
 Button.defaultProps = {

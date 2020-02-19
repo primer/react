@@ -28,6 +28,10 @@ const ButtonDanger = styled(ButtonBase)`
     background-color: ${get('buttons.danger.bg.disabled')};
     border: 1px solid ${get('buttons.danger.border.default')};
   }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(203, 36, 49, 0.4);
+  }
 `
 
 export default ButtonDanger
