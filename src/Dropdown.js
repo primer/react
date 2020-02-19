@@ -11,7 +11,7 @@ const DropdownBase = ({title, children, className, ...rest}) => {
   return (
     <Details overlay className={className} {...rest}>
       <>
-        <Button as="summary" color="gray.7" aria-haspopup="true" {...rest}>
+        <Button as="summary" aria-haspopup="true" {...rest}>
           {title}
           <DropdownCaret />
         </Button>
