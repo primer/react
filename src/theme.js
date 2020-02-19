@@ -141,7 +141,7 @@ const buttons = {
     },
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03',
+      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       active: 'inset 0px 1px 0px rgba(4, 66, 137, 0.2)',
     }
   }

@@ -5,7 +5,7 @@ import {get} from './constants'
 const ButtonPrimary = styled(ButtonBase)`
   color: ${get('buttons.primary.color.default')};
   background-color: ${get('buttons.primary.bg.default')};
-  border-color: ${get('buttons.primary.border.default')};
+  border: 1px solid ${get('buttons.primary.border.default')};
   box-shadow: ${get('buttons.primary.shadow.default')};
 
   &:hover {
