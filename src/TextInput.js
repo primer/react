@@ -64,7 +64,7 @@ const Wrapper = styled.span`
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
   border: 1px solid ${get('colors.gray.3')};
-  border-radius: ${get('radii.1')};
+  border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
 
