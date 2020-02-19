@@ -25,32 +25,6 @@ export default css`
   //   border: 3px solid ${get('buttons.default.border.focus')};
   // }
 
-  &.grouped {
-    position: relative;
-    border-right-width: 0;
-    border-radius: 0;
-
-    &:first-child {
-      border-top-left-radius: ${get('radii.2')};
-      border-bottom-left-radius: ${get('radii.2')};
-    }
-
-    &:last-child {
-      border-right-width: 1px;
-      border-top-right-radius: ${get('radii.2')};
-      border-bottom-right-radius: ${get('radii.2')};
-    }
-
-    &:focus,
-    &:active,
-    &:hover {
-      border-right-width: 1px;
-
-      + .grouped {
-        border-left-width: 0;
-      }
-    }
-  }
   &:focus,
   &:active {
     z-index: 1;
