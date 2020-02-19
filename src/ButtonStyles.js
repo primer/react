@@ -4,7 +4,7 @@ import {get} from './constants'
 export default css`
   position: relative;
   display: inline-block;
-  padding: 6px 12px;
+  padding: 6px 16px;
   color: ${get('colors.gray.9')};
   background-color: ${get('colors.gray.1')};
   background-image: linear-gradient(-180deg, ${get('colors.gray.0')} 0%, ${get('colors.button.bg2')} 90%);
