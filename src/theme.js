@@ -1,6 +1,5 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
 import {lineHeights} from 'primer-typography'
-import { textAlign } from 'styled-system'
 
 const colors = {
   bodytext: gray[9],
@@ -42,7 +41,8 @@ const colors = {
   text: {
     gray: gray[6],
     grayLight: gray[5],
-    grayDark: gray[9]
+    grayDark: gray[9],
+    red: red[6]
   },
   bg: {
     gray: gray[1],
@@ -53,17 +53,17 @@ const colors = {
 const buttons = {
   default: {
     color: {
-      default: gray[9], //text-gray-dark
+      default: coplors.text.grayDark,
       disabled: gray[4]
     },
     border: {
-      default: gray[2], //border-gray
-      focus: 'rgba(27,31,35,0.1)', // blackfade 10
-      active: '#d1d5da', //border-gray-dark
-      disabled: '#eaecef'//border-gray-light
+      default: colors.border.gray,
+      focus: colors.blackfade10, 
+      active: colors.border.grayDark, 
+      disabled: colors.border.grayLight,
     },
     bg: {
-      default: gray[0],
+      default: colors.bg.grayLight,
       active: '#F3F4F6', //custom gray
     },
     shadow: {
@@ -78,17 +78,17 @@ const buttons = {
       disabled: colors.whitefade50
     },
     border: {
-      default: '#22863A',
-      focus: '#94D3A2',
-      hover: '#176F2C',
+      default: green[6],
+      focus: '#94D3A2', //custom green
+      hover: green[7],
       disabled: 'rgba(34, 134, 58, 0.1)'
     },
     bg: {
-      default: '#159739',
-      focus: '#138934',
-      hover: '#138934',
-      active: '#138934',
-      disabled: '#94D3A2'
+      default: '#159739', //custom green
+      focus: '#138934', //custom green
+      hover: '#138934', //custom green
+      active: '#138934', //custom green
+      disabled: '#94D3A2' // custom
     },
     shadow: {
       default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
@@ -97,13 +97,13 @@ const buttons = {
   },
   danger: {
     color: {
-      default: red[6], //text-red
+      default: colors.text.red,
       hover: white,
       active: white,
       disabled: 'rgba(203,36,49, .5)' // custom?
     },
     border: {
-      default: gray[2], //border-gray
+      default: colors.border.gray,
       focus: 'rgba(203, 36, 49, 0.4)',
       hover: red[7],
       active: red[7],
