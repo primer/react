@@ -19,6 +19,7 @@ const colors = {
   blackfade35: 'rgba(27, 31, 35, 0.35)',
   blackfade50: 'rgba(27, 31, 35, 0.5)',
   whitefade15: 'rgba(255, 255, 255, 0.15)',
+  whitefade50: 'rgba(255, 255, 255, 0.50)',
   state: {
     error: red[5],
     failure: red[5],
@@ -31,36 +32,6 @@ const colors = {
     grayLight: '#eaecef',
     gray: gray[2],
     grayDark: '#d1d5da'
-  },
-  button: {
-    bg: gray[0],
-    selectedBg: '#F3F4F6',
-    activeBg: 'rgb(233, 236, 239)',
-    shadow: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-    hoverShadow: '0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)',
-    focusShadow: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-    activeShadow: 'inset 0px 2px 0px rgba(149, 157, 165, 0.1)',
-    hoverBorder: '1px solid rgba(27, 31, 35, 0.1)',
-    activeBorder: '#D1D5DA', //border-gray-dark
-    focusBorder: '3px solid rgba(3, 102, 214, 0.3)',
-    disabledColor: gray[4],
-    dangerActiveBg: 'rgb(181, 32, 44)',
-    dangerFocusShadow: 'rgba(203, 36, 49, 0.4)',
-    dangerHoverBgImage: 'rgb(222, 68, 80)',
-    dangerDisabledColor: 'rgba(203,36,49,0.4)',
-    white: 'rgb(255, 255, 255)',
-    outlineBlue: 'rgb(3, 102, 214)',
-    outlineShadow: 'rgba(3, 102, 214, 0.4)',
-    primaryBg: '#159739',
-    primaryFocusBg: '#138934',
-    primaryHoverBg: '#138934',
-    primaryActiveBg: '#138934',
-    primaryDisabledBg: '#94D3A2',
-    primaryBorder: '#22863A',
-    primaryHoverBorder: '#22863A',
-    primaryDisabledBorder: 'rgba(34, 134, 58, 0.1)',
-    primaryDisabledColor: 'rgba(255, 255, 255, .50)',
-    primaryFocusOutline: '#94D3A2',
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
@@ -77,6 +48,103 @@ const colors = {
     gray: gray[1],
     grayLight: gray[0]
   }	
+}
+
+const buttons = {
+  default: {
+    color: {
+      default: gray[9], //text-gray-dark
+      disabled: gray[4]
+    },
+    border: {
+      default: gray[2], //border-gray
+      focus: 'rgba(27,31,35,0.1)', // blackfade 10
+      active: '#d1d5da', //border-gray-dark
+      disabled: '#eaecef'//border-gray-light
+    },
+    bg: {
+      default: gray[0],
+      active: '#F3F4F6', //custom gray
+    },
+    shadow: {
+      default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+      hover: '0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)',
+      active: 'inset 0px 2px 0px rgba(149, 157, 165, 0.1)',
+    }
+  },
+  primary: {
+    color: {
+      default: white,
+      disabled: colors.whitefade50
+    },
+    border: {
+      default: '#22863A',
+      focus: '#94D3A2',
+      hover: '#176F2C',
+      disabled: 'rgba(34, 134, 58, 0.1)'
+    },
+    bg: {
+      default: '#159739',
+      focus: '#138934',
+      hover: '#138934',
+      active: '#138934',
+      disabled: '#94D3A2'
+    },
+    shadow: {
+      default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      active: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
+    }
+  },
+  danger: {
+    color: {
+      default: red[6], //text-red
+      hover: white,
+      active: white,
+      disabled: 'rgba(203,36,49, .5)' // custom?
+    },
+    border: {
+      default: gray[2], //border-gray
+      focus: 'rgba(203, 36, 49, 0.4)',
+      hover: red[7],
+      active: red[7],
+    },
+    bg: {
+      default: gray[0],
+      hover: red[6],
+      active: red[6],
+      disabled: '#F3F4F6'
+    },
+    shadow: {
+      default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      active: 'inset 0px 2px 0px rgba(179, 29, 40, 0.4)',
+    }
+  },
+  outline: {
+    color: {
+      default: blue[6],
+      hover: white,
+      active: white,
+      disabled: gray[4]
+    },
+    border: {
+      default: gray[2], //border-gray
+      focus: 'rgba(3, 102, 214, 0.3)',
+      hover: blue[6],
+      active: blue[6],
+    },
+    bg: {
+      default: gray[0],
+      hover: blue[5],
+      active: blue[5],
+      disabled: '#F3F4F6'
+    },
+    shadow: {
+      default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03',
+      active: 'inset 0px 1px 0px rgba(4, 66, 137, 0.2)',
+    }
+  }
 }
 
 const theme = {
@@ -121,7 +189,8 @@ const theme = {
     primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
     primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
   },
-  space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
+  space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px'],
+  buttons,
 }
 
 export default theme

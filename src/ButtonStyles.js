@@ -5,8 +5,8 @@ export default css`
   position: relative;
   display: inline-block;
   padding: 6px 16px;
-  color: ${get('colors.text.grayDark')};
-  background-color: ${get('colors.button.bg')};
+  color: ${get('buttons.default.color.default')};
+  background-color: ${get('buttons.default.bg.default')};
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
@@ -14,27 +14,28 @@ export default css`
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  border: 1px solid ${get('colors.border.gray')};
+  border: 1px solid ${get('buttons.default.border.default')};
   border-radius: ${get('radii.2')};
   appearance: none;
   text-decoration: none;
+  box-shadow: ${get('buttons.default.shadow.default')};
 
   &:hover {
-    border-color: ${get('colors.button.hoverBorder')};
-    box-shadow: ${get('colors.button.hoverShadow')};
+    border-color: ${get('buttons.default.border.hover')};
+    box-shadow: ${get('buttons.default.shadow.hover')};
+    // needed to override link styles
     text-decoration: none;
   }
 
   &:active {
-    background-color: ${get('colors.button.activeBg')};
-    box-shadow: ${get('colors.button.activeShadow')};
-    border-color: ${get('colors.button.activeBorder')};
+    background-color: ${get('buttons.default.bg.active')};
+    box-shadow: ${get('buttons.default.shadow.active')};
+    border-color: ${get('buttons.default.border.active')};
   }
 
   &:focus {
     outline: none;
-    border: ${get('colors.button.focusBorder')};
-    box-shadow: ${get('colors.button.focusShadow')};
+    border: 3px solid ${get('buttons.default.border.focus')};
   }
 
   &.grouped {
@@ -43,14 +44,14 @@ export default css`
     border-radius: 0;
 
     &:first-child {
-      border-top-left-radius: ${get('radii.1')};
-      border-bottom-left-radius: ${get('radii.1')};
+      border-top-left-radius: ${get('radii.2')};
+      border-bottom-left-radius: ${get('radii.2')};
     }
 
     &:last-child {
       border-right-width: 1px;
-      border-top-right-radius: ${get('radii.1')};
-      border-bottom-right-radius: ${get('radii.1')};
+      border-top-right-radius: ${get('radii.2')};
+      border-bottom-right-radius: ${get('radii.2')};
     }
 
     &:focus,
@@ -69,11 +70,9 @@ export default css`
   }
 
   &:disabled {
-    color: ${get('colors.button.disabledColor')};
-    background-color: ${get('colors.button.disabledBg')};
-    background-image: none;
-    border-color: ${get('colors.border.grayLight')};
-    box-shadow: none;
+    color: ${get('buttons.default.color.disabled')};
+    background-color: ${get('buttons.default.bg.disabled')};
+    border-color: ${get('buttons.default.border.disabled')};
     cursor: default;
   }
 `
