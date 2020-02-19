@@ -4,9 +4,9 @@ import {listStyles} from './SelectMenuStyles'
 import theme from '../theme'
 import {COMMON} from '../constants'
 
-const List = ({children, ...rest}) => {
+const List = ({children, theme, ...rest}) => {
   return (
-    <div role="menu" {...rest}>
+    <div {...rest}>
       <ul>{children}</ul>
     </div>
   )
