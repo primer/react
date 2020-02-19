@@ -1,5 +1,6 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
 import {lineHeights} from 'primer-typography'
+import { textAlign } from 'styled-system'
 
 const colors = {
   bodytext: gray[9],
@@ -26,14 +27,23 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
+  border: {
+    grayLight: '#eaecef',
+    gray: gray[2],
+    grayDark: '#d1d5da'
+  },
   button: {
-    disabledColor: 'rgba(36, 41, 46, 0.4)',
-    bg2: 'rgb(239, 243, 246)',
-    disabledBg: '#eff3f6',
-    border: 'rgba(27, 31, 35, 0.2)',
-    focusShadow: 'rgba(3, 102, 214, 0.3)',
+    bg: gray[0],
+    selectedBg: '#F3F4F6',
     activeBg: 'rgb(233, 236, 239)',
-    hoverBg: 'rgb(230, 235, 241)',
+    shadow: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+    hoverShadow: '0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)',
+    focusShadow: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+    activeShadow: 'inset 0px 2px 0px rgba(149, 157, 165, 0.1)',
+    hoverBorder: '1px solid rgba(27, 31, 35, 0.1)',
+    activeBorder: '#D1D5DA', //border-gray-dark
+    focusBorder: '3px solid rgba(3, 102, 214, 0.3)',
+    disabledColor: gray[4],
     dangerActiveBg: 'rgb(181, 32, 44)',
     dangerFocusShadow: 'rgba(203, 36, 49, 0.4)',
     dangerHoverBgImage: 'rgb(222, 68, 80)',
@@ -41,24 +51,32 @@ const colors = {
     white: 'rgb(255, 255, 255)',
     outlineBlue: 'rgb(3, 102, 214)',
     outlineShadow: 'rgba(3, 102, 214, 0.4)',
-    primaryBg: 'rgb(40, 167, 69)',
-    primaryBgImage: 'rgb(52, 208, 88)',
-    primaryHoverBg: 'rgb(38, 159, 66)',
-    primaryHoverBgImage: 'rgb(47, 203, 83)',
-    primaryBorder: 'rgba(27, 31, 35, 0.5)',
-    primaryActiveBg: 'rgb(39, 159, 67)',
-    primaryActiveShadow: 'rgba(27, 31, 35, 0.15)',
-    primaryFocusShadow: 'rgba(52, 208, 88, 0.4)',
-    primaryDisabledColor: 'rgba(255, 255, 255, .75)',
-    primaryDisabledBg: '#94d3a2',
-    primaryDisabledBorder: 'rgba(27,31,35,0.2)'
+    primaryBg: '#159739',
+    primaryFocusBg: '#138934',
+    primaryHoverBg: '#138934',
+    primaryActiveBg: '#138934',
+    primaryDisabledBg: '#94D3A2',
+    primaryBorder: '#22863A',
+    primaryHoverBorder: '#22863A',
+    primaryDisabledBorder: 'rgba(34, 134, 58, 0.1)',
+    primaryDisabledColor: 'rgba(255, 255, 255, .50)',
+    primaryFocusOutline: '#94D3A2',
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
   },
   filterList: {
     hoverBg: '#eaecef'
-  }
+  },
+  text: {
+    gray: gray[6],
+    grayLight: gray[5],
+    grayDark: gray[9]
+  },
+  bg: {
+    gray: gray[1],
+    grayLight: gray[0]
+  }	
 }
 
 const theme = {
@@ -99,7 +117,9 @@ const theme = {
     large: '0 1px 15px rgba(27, 31, 35, 0.15)',
     'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
     formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
-    formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em'
+    formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
+    primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+    primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
   },
   space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 }

@@ -5,8 +5,8 @@ export default css`
   position: relative;
   display: inline-block;
   padding: 6px 16px;
-  color: ${get('colors.gray.9')};
-  background-color: ${get('colors.gray.0')};
+  color: ${get('colors.text.grayDark')};
+  background-color: ${get('colors.button.bg')};
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
@@ -14,30 +14,27 @@ export default css`
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  border: 1px solid ${get('colors.button.border')};
+  border: 1px solid ${get('colors.border.gray')};
   border-radius: ${get('radii.2')};
   appearance: none;
   text-decoration: none;
 
   &:hover {
-    background-color: ${get('colors.button.hoverBg')};
-    background-image: linear-gradient(-180deg, ${get('colors.button.bg2')} 0%, ${get('colors.button.hoverBg')} 90%);
-    background-position: -0.5em center;
-    border-color: ${get('colors.blackfade35')};
+    border-color: ${get('colors.button.hoverBorder')};
+    box-shadow: ${get('colors.button.hoverShadow')};
     text-decoration: none;
-    background-repeat: repeat-x;
   }
 
   &:active {
     background-color: ${get('colors.button.activeBg')};
-    background-image: none;
-    box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;
-    border-color: ${get('colors.button.border')}; //convert black to rbg here
+    box-shadow: ${get('colors.button.activeShadow')};
+    border-color: ${get('colors.button.activeBorder')};
   }
 
   &:focus {
     outline: none;
-    box-shadow: ${get('colors.button.focusShadow')} 0px 0px 0px 0.2em;
+    border: ${get('colors.button.focusBorder')};
+    box-shadow: ${get('colors.button.focusShadow')};
   }
 
   &.grouped {
@@ -75,7 +72,7 @@ export default css`
     color: ${get('colors.button.disabledColor')};
     background-color: ${get('colors.button.disabledBg')};
     background-image: none;
-    border-color: ${get('colors.blackfade20')};
+    border-color: ${get('colors.border.grayLight')};
     box-shadow: none;
     cursor: default;
   }
