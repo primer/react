@@ -6,8 +6,7 @@ export default css`
   display: inline-block;
   padding: 6px 16px;
   color: ${get('colors.gray.9')};
-  background-color: ${get('colors.gray.1')};
-  background-image: linear-gradient(-180deg, ${get('colors.gray.0')} 0%, ${get('colors.button.bg2')} 90%);
+  background-color: ${get('colors.gray.0')};
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
@@ -15,11 +14,8 @@ export default css`
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  background-repeat: repeat-x;
-  background-position: -1px -1px;
-  background-size: 110% 110%;
   border: 1px solid ${get('colors.button.border')};
-  border-radius: ${get('radii.1')};
+  border-radius: ${get('radii.2')};
   appearance: none;
   text-decoration: none;
 
