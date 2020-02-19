@@ -1,6 +1,6 @@
 import React from 'react'
 import SideNav from '../SideNav'
-import {mount, render, rendersClass} from '../utils/testing'
+import {render} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
