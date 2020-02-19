@@ -230,6 +230,23 @@ declare module '@primer/components' {
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
+  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    bordered?: boolean
+    variant?: 'normal' | 'lightweight'
+  }
+
+  export interface SideNavLinkProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    href?: string
+    muted?: boolean
+    selected?: boolean
+    underline?: boolean
+    variant: 'normal' | 'full'
+  }
+
+  export const SideNav: React.FunctionComponent<SideNavProps> & {
+    Link: React.FunctionComponent<SideNavLinkProps>
+  }
+
   export interface StateLabelProps extends CommonProps {
     small?: boolean
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
