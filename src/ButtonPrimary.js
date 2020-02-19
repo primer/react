@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Button from './Button'
+import ButtonBase from './ButtonBase'
 import {get} from './constants'
 
-const ButtonPrimary = styled(Button)`
+const ButtonPrimary = styled(ButtonBase)`
   color: ${get('buttons.primary.color.default')};
   background-color: ${get('buttons.primary.bg.default')};
   border-color: ${get('buttons.primary.border.default')};

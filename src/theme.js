@@ -53,7 +53,7 @@ const colors = {
 const buttons = {
   default: {
     color: {
-      default: coplors.text.grayDark,
+      default: colors.text.grayDark,
       disabled: gray[4]
     },
     border: {

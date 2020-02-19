@@ -1,48 +1,40 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON} from './constants'
-import theme from './theme'
-import buttonStyles from './ButtonStyles'
-import {compose, variant, layout, fontSize} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
+import {COMMON, get} from './constants'
+import theme from './theme'
+import ButtonBase from './ButtonBase'
 
-const variants = variant({
-  variants: {
-    small: {
-      p: '4px 12px',
-      fontSize: 0
-    },
-    medium: {
-      fontSize: 1
-    },
-    large: {
-      fontSize: 2,
-      p: '10px 20px'
-    }
+const Button = styled(ButtonBase)`
+  color: ${get('buttons.default.color.default')};
+  background-color: ${get('buttons.default.bg.default')};
+  border: 1px solid ${get('buttons.default.border.default')};
+  box-shadow: ${get('buttons.default.shadow.default')};
+
+  &:hover {
+    border-color: ${get('buttons.default.border.hover')};
+    box-shadow: ${get('buttons.default.shadow.hover')};
   }
-})
 
-const Button = styled.button.attrs(({disabled, onClick}) => ({
-  onClick: disabled ? undefined : onClick
-}))`
-  ${buttonStyles}
-  ${variants}
-  ${compose(fontSize, COMMON, layout)}
+  &:active {
+    background-color: ${get('buttons.default.bg.active')};
+    box-shadow: ${get('buttons.default.shadow.active')};
+    border-color: ${get('buttons.default.border.active')};
+  }
+
+  &:disabled {
+    color: ${get('buttons.default.color.disabled')};
+    background-color: ${get('buttons.default.bg.disabled')};
+    border-color: ${get('buttons.default.border.disabled')};
+  }
 `
 
 Button.defaultProps = {
   theme,
-  variant: 'medium'
 }
 
 Button.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
-  children: PropTypes.node,
-  disabled: PropTypes.bool,
-  fontSize: systemPropTypes.typography.fontSize,
-  onClick: PropTypes.func,
   theme: PropTypes.object,
-  variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes,
   ...systemPropTypes.layout
 }

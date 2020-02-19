@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Button from './Button'
+import ButtonBase from './ButtonBase'
 import {get} from './constants'
 
-const ButtonDanger = styled(Button)`
+const ButtonDanger = styled(ButtonBase)`
   color: ${get('buttons.danger.color.default')};
   border: 1px solid ${get('buttons.danger.border.default')};
   background-color: ${get('buttons.danger.bg.default')};

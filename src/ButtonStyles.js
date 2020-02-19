@@ -5,31 +5,19 @@ export default css`
   position: relative;
   display: inline-block;
   padding: 6px 16px;
-  color: ${get('buttons.default.color.default')};
-  background-color: ${get('buttons.default.bg.default')};
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  border: 1px solid ${get('buttons.default.border.default')};
   border-radius: ${get('radii.2')};
   appearance: none;
   text-decoration: none;
-  box-shadow: ${get('buttons.default.shadow.default')};
 
   &:hover {
-    border-color: ${get('buttons.default.border.hover')};
-    box-shadow: ${get('buttons.default.shadow.hover')};
     // needed to override link styles
     text-decoration: none;
-  }
-
-  &:active {
-    background-color: ${get('buttons.default.bg.active')};
-    box-shadow: ${get('buttons.default.shadow.active')};
-    border-color: ${get('buttons.default.border.active')};
   }
 
   // &:focus {
@@ -69,9 +57,6 @@ export default css`
   }
 
   &:disabled {
-    color: ${get('buttons.default.color.disabled')};
-    background-color: ${get('buttons.default.bg.disabled')};
-    border-color: ${get('buttons.default.border.disabled')};
     cursor: default;
   }
 `

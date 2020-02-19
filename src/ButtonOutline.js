@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Button from './Button'
+import ButtonBase from './ButtonBase'
 import {get} from './constants'
 
-const ButtonOutline = styled(Button)`
+const ButtonOutline = styled(ButtonBase)`
   color: ${get('colors.button.outlineBlue')};
   background-color: ${get('colors.button.white')};
   background-image: none;
