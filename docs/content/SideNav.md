@@ -27,7 +27,7 @@ Different kinds of content can be added inside a SideNav item. Use system props 
 
 ## Full variant
 
-Give the link the `full` variant to a `SideNav.Link` to spread child elements across the link, which is useful for status icons, labels, and the like.
+Add the `variant='full'` prop to a `SideNav.Link` to spread child elements across the link, which is useful for status icons, labels, and the like.
 
 ```jsx live
 <SideNav bordered maxWidth={360} aria-label="Main">
