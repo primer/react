@@ -1,0 +1,350 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideNav sets aria-current on a selected link 1`] = `
+.c1 {
+  background-color: #fafbfc;
+}
+
+.c2 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 > .c0 {
+  border-bottom: none;
+}
+
+.c0.variant-normal > .c2 {
+  color: #586069;
+  padding: 16px;
+  border: 0;
+  border-top: 1px solid #e1e4e8;
+}
+
+.c0.variant-normal > .c2:first-child {
+  border-top: 0;
+}
+
+.c0.variant-normal > .c2:last-child {
+  box-shadow: 0 1px 0 #e1e4e8;
+}
+
+.c0.variant-normal > .c2::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 3px;
+  pointer-events: none;
+  content: '';
+}
+
+.c0.variant-normal > .c2:hover,
+.c0.variant-normal > .c2:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #f6f8fa;
+  outline: none;
+}
+
+.c0.variant-normal > .c2:hover::before,
+.c0.variant-normal > .c2:focus::before {
+  background-color: #959da5;
+}
+
+.c0.variant-normal > .c2:active {
+  background-color: #fff;
+}
+
+.c0.variant-normal > .c2[aria-current='page'],
+.c0.variant-normal > .c2[aria-selected='true'] {
+  font-weight: 500;
+  color: #24292e;
+  background-color: #fff;
+}
+
+.c0.variant-normal > .c2[aria-current='page']::before,
+.c0.variant-normal > .c2[aria-selected='true']::before {
+  background-color: #d15704;
+}
+
+.c0.variant-lightweight > .c2 {
+  padding: 4px 0;
+  color: #0366d6;
+}
+
+.c0.variant-lightweight > .c2:hover,
+.c0.variant-lightweight > .c2:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.c0.variant-lightweight > .c2[aria-current='page'],
+.c0.variant-lightweight > .c2[aria-selected='true'] {
+  color: #24292e;
+  font-weight: 500;
+}
+
+<nav
+  className="c0 c1 variant-normal"
+>
+  <a
+    className="c2"
+    color="blue.5"
+    href="#one"
+  >
+    One
+  </a>
+  <a
+    aria-current="page"
+    className="c2"
+    color="blue.5"
+    href="#two"
+    selected={true}
+  >
+    Two
+  </a>
+</nav>
+`;
+
+exports[`SideNav sets different styles for SideNav.Links with the full variant 1`] = `
+.c1 {
+  background-color: #fafbfc;
+}
+
+.c2 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 > .c0 {
+  border-bottom: none;
+}
+
+.c0.variant-normal > .c2 {
+  color: #586069;
+  padding: 16px;
+  border: 0;
+  border-top: 1px solid #e1e4e8;
+}
+
+.c0.variant-normal > .c2:first-child {
+  border-top: 0;
+}
+
+.c0.variant-normal > .c2:last-child {
+  box-shadow: 0 1px 0 #e1e4e8;
+}
+
+.c0.variant-normal > .c2::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 3px;
+  pointer-events: none;
+  content: '';
+}
+
+.c0.variant-normal > .c2:hover,
+.c0.variant-normal > .c2:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #f6f8fa;
+  outline: none;
+}
+
+.c0.variant-normal > .c2:hover::before,
+.c0.variant-normal > .c2:focus::before {
+  background-color: #959da5;
+}
+
+.c0.variant-normal > .c2:active {
+  background-color: #fff;
+}
+
+.c0.variant-normal > .c2[aria-current='page'],
+.c0.variant-normal > .c2[aria-selected='true'] {
+  font-weight: 500;
+  color: #24292e;
+  background-color: #fff;
+}
+
+.c0.variant-normal > .c2[aria-current='page']::before,
+.c0.variant-normal > .c2[aria-selected='true']::before {
+  background-color: #d15704;
+}
+
+.c0.variant-lightweight > .c2 {
+  padding: 4px 0;
+  color: #0366d6;
+}
+
+.c0.variant-lightweight > .c2:hover,
+.c0.variant-lightweight > .c2:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.c0.variant-lightweight > .c2[aria-current='page'],
+.c0.variant-lightweight > .c2[aria-selected='true'] {
+  color: #24292e;
+  font-weight: 500;
+}
+
+.c3 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+  position: relative;
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+
+.c3:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3 > .c0 {
+  border-bottom: none;
+}
+
+.c0.variant-normal > .c3 {
+  color: #586069;
+  padding: 16px;
+  border: 0;
+  border-top: 1px solid #e1e4e8;
+}
+
+.c0.variant-normal > .c3:first-child {
+  border-top: 0;
+}
+
+.c0.variant-normal > .c3:last-child {
+  box-shadow: 0 1px 0 #e1e4e8;
+}
+
+.c0.variant-normal > .c3::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 3px;
+  pointer-events: none;
+  content: '';
+}
+
+.c0.variant-normal > .c3:hover,
+.c0.variant-normal > .c3:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #f6f8fa;
+  outline: none;
+}
+
+.c0.variant-normal > .c3:hover::before,
+.c0.variant-normal > .c3:focus::before {
+  background-color: #959da5;
+}
+
+.c0.variant-normal > .c3:active {
+  background-color: #fff;
+}
+
+.c0.variant-normal > .c3[aria-current='page'],
+.c0.variant-normal > .c3[aria-selected='true'] {
+  font-weight: 500;
+  color: #24292e;
+  background-color: #fff;
+}
+
+.c0.variant-normal > .c3[aria-current='page']::before,
+.c0.variant-normal > .c3[aria-selected='true']::before {
+  background-color: #d15704;
+}
+
+.c0.variant-lightweight > .c3 {
+  padding: 4px 0;
+  color: #0366d6;
+}
+
+.c0.variant-lightweight > .c3:hover,
+.c0.variant-lightweight > .c3:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.c0.variant-lightweight > .c3[aria-current='page'],
+.c0.variant-lightweight > .c3[aria-selected='true'] {
+  color: #24292e;
+  font-weight: 500;
+}
+
+<nav
+  className="c0 c1 variant-normal"
+>
+  <a
+    className="c2"
+    color="blue.5"
+    href="#one"
+  >
+    One
+  </a>
+  <a
+    className="c3"
+    color="blue.5"
+    href="#two"
+  >
+    Two
+  </a>
+</nav>
+`;

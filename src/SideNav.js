@@ -2,15 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import classnames from 'classnames'
-import {COMMON, LAYOUT, FLEX, get} from './constants'
+import {COMMON, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
 import Link from './Link'
 import Box from './Box'
 import BorderBox from './BorderBox'
 
-function SideNavBase({variant, className, border, children, ...props}) {
-  const BoxComponent = border ? BorderBox : Box
+function SideNavBase({variant, className, bordered, children, ...props}) {
+  const BoxComponent = bordered ? BorderBox : Box
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
@@ -25,73 +25,47 @@ const SideNav = styled(SideNavBase)`
   background-color: ${get('colors.gray.0')};
 
   ${props =>
-    props.border &&
+    props.bordered &&
     css`
-      ${SideNav} > & {
+      // Remove duplicate borders from nested SideNavs
+      & > & {
         border-left: 0;
         border-right: 0;
         border-bottom: 0;
       }
     `}
 
-  ${LAYOUT};
+  ${COMMON};
 `
 
-// const SideNavOld = styled.nav.attrs(props => {
-//   const variantClassName = props.variant === 'lightweight' ? 'lightweight' : 'normal'
-//   return {
-//     className:
-//   }
-// })`
-//   ${props =>
-//     props.border &&
-//     css`
-//       border: ${get('borders.1')} ${get('colors.gray.2')};
-
-//       // nested SideNavs should only have a top border
-//       ${SideNav} > & {
-//         border: 0;
-//         border-top: ${get('borders.1')} ${get('colors.gray.2')};
-//       }
-//     `};
-
-//   ${COMMON};
-//   ${LAYOUT};
-// `
-
 SideNav.Link = styled(Link).attrs(props => {
-  const attrs = {}
-
-  if (props.full) {
-    attrs['display'] = 'flex'
-    attrs['alignItems'] = 'center'
-    attrs['justifyContent'] = 'space-between'
-  }
-
   const isReactRouter = typeof props.to === 'string'
-  if (isReactRouter) {
+  if (isReactRouter || props.selected) {
     // according to their docs, NavLink supports aria-current:
     // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
-    attrs['aria-current'] = 'page'
-  } else if (props.selected) {
-    attrs['aria-current'] = 'page'
+    return {'aria-current': 'page'}
+  } else {
+    return {}
   }
-
-  return attrs
 })`
   position: relative;
   display: block;
+  ${props =>
+    props.variant === 'full' &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    `}
   width: 100%;
   text-align: left;
-  // These wasn't in the original primer/css version?
+  // TOOD [MKT]: this wasn't in the Primer CSS version but
+  // is required to make the component match visually
   font-size: ${get('fontSizes.1')};
 
   & > ${SideNav} {
     border-bottom: none;
   }
-
-  ${COMMON};
-  ${FLEX};
 
   ${SideNav}.variant-normal > & {
     color: ${get('colors.gray.6')};
@@ -171,16 +145,18 @@ SideNav.Link = styled(Link).attrs(props => {
 `
 
 SideNav.defaultProps = {
-  theme
+  theme,
+  variant: 'normal'
 }
 
 SideNav.propTypes = {
   as: elementType,
+  bordered: PropTypes.bool,
   children: PropTypes.node,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['normal', 'lightweight']),
-  ...COMMON.propTypes,
-  ...LAYOUT.propTypes
+  ...BorderBox.propTypes,
+  ...COMMON.propTypes
 }
 
 SideNav.Link.defaultProps = {
@@ -190,11 +166,10 @@ SideNav.Link.defaultProps = {
 
 SideNav.Link.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  full: PropTypes.bool,
-  href: PropTypes.string,
   selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...FLEX.propTypes
+  theme: PropTypes.object,
+  variant: PropTypes.oneOf(['normal', 'full']),
+  ...Link.propTypes
 }
 
 export default SideNav

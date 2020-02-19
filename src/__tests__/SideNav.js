@@ -30,4 +30,28 @@ describe('SideNav', () => {
   it('sets aria-label appropriately', () => {
     expect(render(<SideNav aria-label="foo" />).props['aria-label']).toEqual('foo')
   })
+
+  it('sets aria-current on a selected link', () => {
+    const elem = (
+      <SideNav>
+        <SideNav.Link href="#one">One</SideNav.Link>
+        <SideNav.Link href="#two" selected>
+          Two
+        </SideNav.Link>
+      </SideNav>
+    )
+    expect(render(elem)).toMatchSnapshot()
+  })
+
+  it('sets different styles for SideNav.Links with the full variant', () => {
+    const elem = (
+      <SideNav>
+        <SideNav.Link href="#one">One</SideNav.Link>
+        <SideNav.Link href="#two" variant="full">
+          Two
+        </SideNav.Link>
+      </SideNav>
+    )
+    expect(render(elem)).toMatchSnapshot()
+  })
 })
