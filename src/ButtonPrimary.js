@@ -19,10 +19,8 @@ const ButtonPrimary = styled(Button)`
   }
 
   &:focus {
-    outline: none;
     box-shadow: none;
     background-color: ${get('buttons.primary.bg.focus')};
-    border: 3px solid ${get('buttons.primary.border.focus')};
   }
   &:disabled {
     color: ${get('buttons.primary.color.disabled')};

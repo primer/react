@@ -33,10 +33,10 @@ export default css`
     border-color: ${get('buttons.default.border.active')};
   }
 
-  &:focus {
-    outline: none;
-    border: 3px solid ${get('buttons.default.border.focus')};
-  }
+  // &:focus {
+  //   outline: none;
+  //   border: 3px solid ${get('buttons.default.border.focus')};
+  // }
 
   &.grouped {
     position: relative;

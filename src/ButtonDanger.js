@@ -15,10 +15,6 @@ const ButtonDanger = styled(Button)`
     box-shadow: ${get('buttons.danger.shadow.hover')};
   }
 
-  &:focus {
-    border-color: ${get('buttons.danger.border.focus')};
-  }
-
   &:active {
     color: ${get('buttons.danger.color.active')};
     background-color: ${get('buttons.danger.bg.active')};
