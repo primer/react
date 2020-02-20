@@ -14,6 +14,10 @@ const ButtonOutline = styled(ButtonBase)`
     border-color: ${get('buttons.outline.border.hover')};
     box-shadow: ${get('buttons.outline.shadow.hover')};
   }
+  // focus must come before :active so that the active box shadow overrides
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
+  }
 
   &:active {
     color: ${get('buttons.outline.color.active')};
@@ -26,10 +30,6 @@ const ButtonOutline = styled(ButtonBase)`
     color: ${get('buttons.outline.color.disabled')};
     border-color: ${get('buttons.outline.border.default')};
     background-color: ${get('buttons.outline.bg.disabled')};
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
   }
 `
 

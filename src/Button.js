@@ -12,8 +12,14 @@ const Button = styled(ButtonBase)`
   box-shadow: ${get('buttons.default.shadow.default')};
 
   &:hover {
+    background-color: ${get('buttons.default.bg.hover')};
     border-color: ${get('buttons.default.border.hover')};
     box-shadow: ${get('buttons.default.shadow.hover')};
+  }
+  
+  // focus must come before :active so that the active box shadow overrides
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
   }
 
   &:active {
@@ -26,10 +32,6 @@ const Button = styled(ButtonBase)`
     color: ${get('buttons.default.color.disabled')};
     background-color: ${get('buttons.default.bg.disabled')};
     border-color: ${get('buttons.default.border.disabled')};
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
   }
 `
 

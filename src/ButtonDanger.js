@@ -14,6 +14,10 @@ const ButtonDanger = styled(ButtonBase)`
     border-color: ${get('buttons.danger.border.hover')};
     box-shadow: ${get('buttons.danger.shadow.hover')};
   }
+  // focus must come before :active so that the active box shadow overrides
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(203, 36, 49, 0.4);
+  }
 
   &:active {
     color: ${get('buttons.danger.color.active')};
@@ -22,15 +26,10 @@ const ButtonDanger = styled(ButtonBase)`
     border-color: ${get('buttons.danger.border.active')};
   }
 
-
   &:disabled {
     color: ${get('buttons.danger.color.disabled')};
     background-color: ${get('buttons.danger.bg.disabled')};
     border: 1px solid ${get('buttons.danger.border.default')};
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 3px rgba(203, 36, 49, 0.4);
   }
 `
 

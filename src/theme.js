@@ -64,7 +64,9 @@ const buttons = {
     },
     bg: {
       default: colors.bg.grayLight,
+      hover: '#F3F4F6', // custom gray
       active: '#F3F4F6', //custom gray
+      disabled: colors.bg.grayLight
     },
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
