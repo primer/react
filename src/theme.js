@@ -83,6 +83,7 @@ const buttons = {
     border: {
       default: green[6],
       hover: green[7],
+      active: green[7],
       disabled: 'rgba(34, 134, 58, 0.1)'
     },
     bg: {
@@ -108,7 +109,7 @@ const buttons = {
     border: {
       default: colors.border.gray,
       hover: red[7],
-      active: red[7],
+      active: red[8],
     },
     bg: {
       default: gray[0],
@@ -133,7 +134,7 @@ const buttons = {
     border: {
       default: gray[2], //border-gray
       hover: blue[6],
-      active: blue[6],
+      active: 'rgba(4, 66, 137, .5)',
     },
     bg: {
       default: gray[0],

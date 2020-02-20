@@ -22,6 +22,7 @@ const ButtonPrimary = styled(ButtonBase)`
   &:active {
     background-color: ${get('buttons.primary.bg.active')};
     box-shadow: ${get('buttons.primary.shadow.active')};
+    border-color: ${get('buttons.primary.border.active')};
   }
 
   &:disabled {
