@@ -36,9 +36,9 @@ function StateLabelBase({className, status, small = false, children}) {
 const StateLabel = styled(StateLabelBase)`
   display: inline-flex;
   align-items: center;
-  padding: ${props => (props.small ? `0.125em ${theme.space[1]}` : `${theme.space[1]} ${theme.space[2]}`)};
+  padding: ${props => (props.small ? `4px 8px` : `8px 12px`)};
   font-weight: 600;
-  line-height: 20px;
+  line-height: 16px;
   color: ${colors.white};
   font-size: ${props => (props.small ? theme.fontSizes[0] : theme.fontSizes[1])};
   text-align: center;

@@ -19,23 +19,24 @@ const sizeVariant = variant({
   variants: {
     small: {
       fontSize: 0,
-      px: '8px',
-      py: '0px'
+      lineHeight: '16px',
+      padding: '0px 8px'
     },
     medium: {
       fontSize: 0,
-      px: '8px',
-      py: '1px'
+      lineHeight: '20px',
+      padding: '0 8px'
     },
     large: {
-      fontSize: 1,
-      px: '12px',
-      py: '4px'
+      fontSize: 0,
+      lineHeight: '24px',
+      padding: '0 12px'
     },
+    // corresponds to StateLabel fontSize/lineHeight/padding
     xl: {
-      fontSize: 2,
-      px: 1,
-      py: 2
+      fontSize: 1,
+      lineHeight: '16px',
+      padding: '8px 12px'
     }
   }
 })
@@ -43,7 +44,6 @@ const sizeVariant = variant({
 const Label = styled('span')`
   display: inline-block;
   font-weight: 600;
-  line-height: ${get('lineHeights.condensedUltra')};
   color: ${get('colors.white')};
   border-radius: 100px;
   &:hover {
