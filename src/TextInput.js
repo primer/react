@@ -75,7 +75,7 @@ const Wrapper = styled.span`
       `
     } else {
       return css`
-        padding: 6px ${get('space.2')};
+        padding: 6px 12px;
       `
     }
   }}
