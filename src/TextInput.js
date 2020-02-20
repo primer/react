@@ -26,15 +26,15 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, block, ...rest}) => {
+const TextInput = ({icon, className, block, disabled, ...rest}) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const wrapperProps = pick(rest)
   const inputProps = omit(rest)
   return (
-    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} {...wrapperProps}>
+    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} disabled={disabled} {...wrapperProps}>
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input {...inputProps} />
+      <Input disabled={disabled} {...inputProps} />
     </Wrapper>
   )
 }
@@ -57,13 +57,13 @@ const Wrapper = styled.span`
   display: inline-flex;
   align-items: stretch;
   min-height: 34px;
-  font-size: ${get('fontSizes.2')};
+  font-size: ${get('fontSizes.1')};
   line-height: 20px;
   color: ${get('colors.gray.9')};
   vertical-align: middle;
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
-  border: 1px solid ${get('colors.gray.3')};
+  border: 1px solid ${get('colors.border.gray')};
   border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
@@ -91,6 +91,13 @@ const Wrapper = styled.span`
     border-color: ${get('colors.blue.4')};
     box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
   }
+
+  ${props => props.disabled &&
+    css`
+     background-color: ${get('colors.bg.disabled')};
+     box-shadow: ${get('shadows.formControlDisabled')}
+    }
+  `}
 
   ${props =>
     props.block &&
