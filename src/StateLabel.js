@@ -43,7 +43,7 @@ const StateLabel = styled(StateLabelBase)`
   font-size: ${props => (props.small ? theme.fontSizes[0] : theme.fontSizes[1])};
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
-  border-radius: 100px;
+  border-radius: ${get('radii.3')};
   ${COMMON};
 `
 

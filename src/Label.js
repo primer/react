@@ -45,7 +45,7 @@ const Label = styled('span')`
   display: inline-block;
   font-weight: 600;
   color: ${get('colors.white')};
-  border-radius: 100px;
+  border-radius: ${get('radii.3')};
   &:hover {
     text-decoration: none;
   }

@@ -182,7 +182,7 @@ const theme = {
   borders: [0, '1px solid'],
   fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
   lineHeights,
-  radii: ['0', '3px', '6px'],
+  radii: ['0', '3px', '6px', '100px'],
   shadows: {
     small: '0 1px 1px rgba(27, 31, 35, 0.1)',
     medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
