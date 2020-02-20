@@ -46,8 +46,9 @@ const colors = {
   },
   bg: {
     gray: gray[1],
-    grayLight: gray[0]
-  }	
+    grayLight: gray[0],
+    disabled: '#F3F4F6'
+  }
 }
 
 const buttons = {
@@ -58,7 +59,6 @@ const buttons = {
     },
     border: {
       default: colors.border.gray,
-      focus: colors.blackfade10, 
       active: colors.border.grayDark, 
       disabled: colors.border.grayLight,
     },
@@ -72,6 +72,7 @@ const buttons = {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
       hover: '0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)',
       active: 'inset 0px 2px 0px rgba(149, 157, 165, 0.1)',
+      focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
     }
   },
   primary: {
@@ -81,7 +82,6 @@ const buttons = {
     },
     border: {
       default: green[6],
-      focus: '#94D3A2', //custom green
       hover: green[7],
       disabled: 'rgba(34, 134, 58, 0.1)'
     },
@@ -94,7 +94,8 @@ const buttons = {
     },
     shadow: {
       default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
+      active: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
+      focus: '0 0 0 3px #94D3A2'
     }
   },
   danger: {
@@ -106,7 +107,6 @@ const buttons = {
     },
     border: {
       default: colors.border.gray,
-      focus: 'rgba(203, 36, 49, 0.4)',
       hover: red[7],
       active: red[7],
     },
@@ -120,6 +120,7 @@ const buttons = {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
       hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       active: 'inset 0px 2px 0px rgba(179, 29, 40, 0.4)',
+      focus: '0 0 0 3px rgba(203, 36, 49, 0.4)'
     }
   },
   outline: {
@@ -131,7 +132,6 @@ const buttons = {
     },
     border: {
       default: gray[2], //border-gray
-      focus: 'rgba(3, 102, 214, 0.3)',
       hover: blue[6],
       active: blue[6],
     },
@@ -145,6 +145,7 @@ const buttons = {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
       hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       active: 'inset 0px 1px 0px rgba(4, 66, 137, 0.2)',
+      focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
     }
   }
 }
@@ -186,7 +187,8 @@ const theme = {
     medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
     large: '0 1px 15px rgba(27, 31, 35, 0.15)',
     'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
-    formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
+    formControl: 'inset 0px 2px 0px rgba(225, 228, 232, 0.2)',
+    formControlDisabled: 'inset 0px 2px 0px rgba(220, 227, 237, 0.3)',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
     primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
     primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
