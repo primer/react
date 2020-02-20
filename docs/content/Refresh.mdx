@@ -1,54 +1,133 @@
-<Heading as="h1">Component Refresh Sticker Sheet</Heading>
+<Box p={4}>
+  <Heading as="h1">Component Refresh Sticker Sheet</Heading>
 
-<Heading as='h4' fontSize={2}>Default</Heading>
-<Flex pl={2} py={1} flexGrow="1" justifyContent="space-between">
-  <Button>Button</Button>
-  <ButtonPrimary>Button</ButtonPrimary>
-  <ButtonDanger>Button</ButtonDanger>
-  <ButtonOutline>Button</ButtonOutline>
-</Flex>
+  <Heading as="h3" fontSize={3}>Buttons</Heading>
+  <Heading as="h4" fontSize={2}>
+    Default
+  </Heading>
+  <Flex pl={2} py={1} flexGrow="1">
+    <Button mr={2}>Button</Button>
+    <ButtonPrimary mr={2}>Button</ButtonPrimary>
+    <ButtonDanger mr={2}>Button</ButtonDanger>
+    <ButtonOutline>Button</ButtonOutline>
+  </Flex>
 
-<Heading as='h4' fontSize={2}>Disabled</Heading>
-<Flex pl={2} py={1} flexGrow="1" justifyContent="space-between">
-  <Button disabled>Button</Button>
-  <ButtonPrimary disabled>Button</ButtonPrimary>
-  <ButtonDanger disabled>Button</ButtonDanger>
-  <ButtonOutline disabled>Button</ButtonOutline>
-</Flex>
-<Heading as='h4' fontSize={2}>Small</Heading>
-<Flex pl={2} py={1} flexGrow="1" justifyContent="space-between">
-  <Button variant="small">Button</Button>
-  <ButtonPrimary variant="small">Button</ButtonPrimary>
-  <ButtonDanger variant="small">Button</ButtonDanger>
-  <ButtonOutline variant="small">Button</ButtonOutline>
-</Flex>
+  <Heading as="h4" fontSize={2}>
+    Disabled
+  </Heading>
+  <Flex pl={2} py={1} flexGrow="1">
+    <Button disabled mr={2}>Button</Button>
+    <ButtonPrimary mr={2} disabled>Button</ButtonPrimary>
+    <ButtonDanger mr={2} disabled>Button</ButtonDanger>
+    <ButtonOutline mr={2} disabled>Button</ButtonOutline>
+  </Flex>
+  <Heading as="h4" fontSize={2}>
+    Small
+  </Heading>
+  <Flex pl={2} py={1} flexGrow="1">
+    <Button variant="small" mr={2}>Button</Button>
+    <ButtonPrimary variant="small" mr={2}>Button</ButtonPrimary>
+    <ButtonDanger variant="small" mr={2}>Button</ButtonDanger>
+    <ButtonOutline variant="small" mr={2}>Button</ButtonOutline>
+  </Flex>
+
+  <Heading as="h4" fontSize={2}>
+    Large
+  </Heading>
+  <Flex pl={2} py={1} mt={40} width="100%">
+    <Button variant="large" mr={2}>Button</Button>
+    <ButtonPrimary variant="large" mr={2}>Button</ButtonPrimary>
+    <ButtonDanger variant="large" mr={2}>Button</ButtonDanger>
+    <ButtonOutline variant="large">Button</ButtonOutline>
+  </Flex>
+
+  <Heading as="h4" my={2} fontSize={2}>
+    Button Group
+  </Heading>
+
+  <ButtonGroup>
+    <Button>One</Button>
+    <Button>Two</Button>
+    <Button>Three</Button>
+  </ButtonGroup>
+
+  <ButtonGroup ml={4}>
+    <ButtonOutline>One</ButtonOutline>
+    <ButtonOutline>Two</ButtonOutline>
+    <ButtonOutline>Three</ButtonOutline>
+  </ButtonGroup>
+
+  <Heading as="h3" my={2} fontSize={3}>
+    Labels
+  </Heading>
+  <Label variant="small" outline borderColor="red.2" mr={2} color="red.4">
+    small
+  </Label>
+  <Label variant="medium" mr={2}>medium (default)</Label>
+  <Label variant="large" mr={2}>large</Label>
+  <Label variant="xl">xl label</Label>
   
-<Heading as='h4' fontSize={2}>Large</Heading>
-<Flex
-  pl={2}
-  py={1}
-  mt={40}
-  width="100%"
-  justifyContent="space-between"
->
-  <Button variant="large">Button</Button>
-  <ButtonPrimary variant="large">Button</ButtonPrimary>
-  <ButtonDanger variant="large">Button</ButtonDanger>
-  <ButtonOutline variant="large">Button</ButtonOutline>
-</Flex>
-    
-<Heading as="h4" my={2} fontSize={2}>Button Group</Heading>
+  <Heading as="h4" fontSize={1} m={2}>Stacked:</Heading>
+  <Flex width="240px" flexGrow="0" flexWrap="wrap">
+    <Label variant="medium" bg="#A575FF" m={1}>good first issue</Label>
+    <Label variant="medium" bg="#FF75C8" m={1}>🚂 deploy: train</Label>
+    <Label variant="medium" bg="#1C90FA" m={1}>css</Label>
+    <Label variant="medium" bg=" #FFF06C" color="#24292E" m={1}>documentation</Label>
+    <Label variant="medium" bg="#656BFE" m={1}>primer</Label>
+  </Flex>
+  <Heading as="h3" my={2} fontSize={3}>
+    State Labels
+  </Heading>
+  <StateLabel status="issueOpened" mr={2} small>OPEN</StateLabel>
+  <StateLabel status="issueOpened" mr={2}>OPEN</StateLabel>
+  <StateLabel status="issueClosed" mr={2}>CLOSED</StateLabel>
+  <StateLabel status="pullClosed" mr={2}>CLOSED</StateLabel>
+  <StateLabel status="pullMerged">Merged</StateLabel>
 
-<ButtonGroup>
-  <Button>One</Button>
-  <Button>Two</Button>
-  <Button>Three</Button>
-</ButtonGroup>
+  <Heading as="h3" my={2} fontSize={3}>
+    Dropdowns
+  </Heading>
+  <Dropdown title="Dropdown">
+    <Dropdown.Menu direction="sw">
+      <Dropdown.Item>Item 1</Dropdown.Item>
+      <Dropdown.Item>Item 2</Dropdown.Item>
+      <Dropdown.Item>Item 3</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
 
-<ButtonGroup ml={4}>
-  <ButtonOutline>One</ButtonOutline>
-  <ButtonOutline>Two</ButtonOutline>
-  <ButtonOutline>Three</ButtonOutline>
-</ButtonGroup>
+  <Heading as="h3" my={2} fontSize={3}>
+    Text Input
+  </Heading>
+  <TextInput
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Zipcode"
+    autoComplete="postal-code"
+  />
 
-<Heading as="h4" my={2} fontSize={2}>Labels</Heading>
+  <Heading as="h3" my={2} fontSize={3}>
+    UnderlineNav
+  </Heading>
+  <UnderlineNav mb={4} aria-label="Main">
+    <UnderlineNav.Link href="#home" selected>
+      Home
+    </UnderlineNav.Link>
+    <UnderlineNav.Link href="#documentation">Documentation</UnderlineNav.Link>
+    <UnderlineNav.Link href="#support">Support</UnderlineNav.Link>
+  </UnderlineNav>
+
+  <Heading as="h3" my={2} fontSize={3}>
+    Filtered Search
+  </Heading>
+
+  <FilteredSearch>
+    <Dropdown title="Filter">
+      <Dropdown.Menu direction="sw">
+        <Dropdown.Item>Item 1</Dropdown.Item>
+        <Dropdown.Item>Item 2</Dropdown.Item>
+        <Dropdown.Item>Item 3</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    <TextInput />
+  </FilteredSearch>
+</Box>
