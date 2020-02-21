@@ -76,7 +76,6 @@ UnderlineNav.Link = styled.a.attrs(props => ({
   }
 
   &.selected {
-    font-weight: ${get('fontWeights.bold')};
     color: ${get('colors.gray.9')};
     border-bottom-color: ${get('colors.orange.5')};
 
