@@ -40,7 +40,10 @@ const StateLabel = styled(StateLabelBase)`
   font-weight: 600;
   line-height: 16px;
   color: ${colors.white};
-  font-size: ${props => (props.small ? theme.fontSizes[0] : theme.fontSizes[1])}; // TODO: these should use the get function instead of referencing the theme directly
+  font-size: ${props =>
+    props.small
+      ? theme.fontSizes[0]
+      : theme.fontSizes[1]}; // TODO: these should use the get function instead of referencing the theme directly
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
   border-radius: ${get('radii.3')};

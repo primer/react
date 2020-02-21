@@ -21,7 +21,7 @@ function UnderlineNavBase({actions, className, align, children, full, label, ...
 const UnderlineNav = styled(UnderlineNavBase)`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #EAECEF;
+  border-bottom: 1px solid #eaecef;
   &.UnderlineNav--right {
     justify-content: flex-end;
 

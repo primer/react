@@ -59,8 +59,8 @@ const buttons = {
     },
     border: {
       default: colors.border.gray,
-      active: colors.border.grayDark, 
-      disabled: colors.border.grayLight,
+      active: colors.border.grayDark,
+      disabled: colors.border.grayLight
     },
     bg: {
       default: colors.bg.grayLight,
@@ -109,7 +109,7 @@ const buttons = {
     border: {
       default: colors.border.gray,
       hover: red[7],
-      active: red[8],
+      active: red[8]
     },
     bg: {
       default: gray[0],
@@ -134,7 +134,7 @@ const buttons = {
     border: {
       default: gray[2], //border-gray
       hover: blue[6],
-      active: 'rgba(4, 66, 137, .5)',
+      active: 'rgba(4, 66, 137, .5)'
     },
     bg: {
       default: gray[0],
@@ -192,10 +192,10 @@ const theme = {
     formControlDisabled: 'inset 0px 2px 0px rgba(220, 227, 237, 0.3)',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
     primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-    primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
+    primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
   },
   space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px'],
-  buttons,
+  buttons
 }
 
 export default theme

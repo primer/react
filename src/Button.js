@@ -16,7 +16,7 @@ const Button = styled(ButtonBase)`
     border-color: ${get('buttons.default.border.hover')};
     box-shadow: ${get('buttons.default.shadow.hover')};
   }
-  
+
   // focus must come before :active so that the active box shadow overrides
   &:focus {
     border-color: transparent;
@@ -37,7 +37,7 @@ const Button = styled(ButtonBase)`
 `
 
 Button.defaultProps = {
-  theme,
+  theme
 }
 
 Button.propTypes = {

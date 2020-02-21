@@ -92,7 +92,8 @@ const Wrapper = styled.span`
     box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
   }
 
-  ${props => props.disabled &&
+  ${props =>
+    props.disabled &&
     css`
      background-color: ${get('colors.bg.disabled')};
      box-shadow: ${get('shadows.formControlDisabled')}
