@@ -225,6 +225,7 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
         "bold": 600,
         "light": 300,
         "normal": 400,
+        "semibold": 500,
       },
       "fonts": Object {
         "mono": "SFMono-Regular, Consolas, \\"Liberation Mono\\", Menlo, Courier, monospace",

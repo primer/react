@@ -226,6 +226,19 @@ declare module '@primer/components' {
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
+  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    bordered?: boolean
+    variant?: 'normal' | 'lightweight'
+  }
+
+  export interface SideNavLinkProps extends CommonProps, TypographyProps, LinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    variant?: 'normal' | 'full'
+  }
+
+  export const SideNav: React.FunctionComponent<SideNavProps> & {
+    Link: React.FunctionComponent<SideNavLinkProps>
+  }
+
   export interface StateLabelProps extends CommonProps {
     small?: boolean
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
@@ -497,6 +510,10 @@ declare module '@primer/components/src/Tooltip' {
 declare module '@primer/components/src/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
+}
+declare module '@primer/components/src/SideNav' {
+  import {SideNav} from '@primer/components'
+  export default SideNav
 }
 declare module '@primer/components/src/SubNav' {
   import {SubNav} from '@primer/components'
