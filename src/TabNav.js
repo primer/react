@@ -19,7 +19,7 @@ function TabNavBase({actions, className, align, children, full, ...rest}) {
 
 const TabNav = styled(TabNavBase)`
   display: flex;
-  border-bottom: 1px solid ${get('colors.gray.3')};
+  border-bottom: 1px solid ${get('colors.border.gray')};
 
   .TabNav-body {
     display: flex;
@@ -36,7 +36,7 @@ TabNav.Link = styled.a.attrs(props => ({
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
-  color: ${get('colors.gray.6')};
+  color: ${get('colors.black')};
   text-decoration: none;
   background-color: transparent;
   border: 1px solid transparent;
@@ -44,14 +44,15 @@ TabNav.Link = styled.a.attrs(props => ({
 
   &:hover,
   &:focus {
-    color: ${get('colors.gray.9')};
+    color: ${get('colors.text.grayDark')};
     text-decoration: none;
   }
 
   &.selected {
-    color: ${get('colors.gray.9')};
-    border-color: ${get('colors.gray.3')};
-    border-radius: 3px 3px 0 0;
+    color: ${get('colors.text.grayDark')};
+    border-color: ${get('colors.border.gray')};
+    border-top-right-radius: ${get('radii.2')};
+    border-top-left-radius: ${get('radii.2')};
     background-color: ${get('colors.white')};
   }
 `
