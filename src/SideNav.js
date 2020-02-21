@@ -79,7 +79,6 @@ SideNav.Link = styled(Link).attrs(props => {
 
     &:last-child {
       // makes sure there is a "bottom border" in case the list is not long enough
-      // stylelint-disable-next-line primer/box-shadow
       box-shadow: 0 1px 0 ${get('colors.gray.2')};
     }
 
