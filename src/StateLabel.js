@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@primer/octicons-react'
 import theme, {colors} from './theme'
-import {COMMON} from './constants'
+import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
 
 const statusMap = {
@@ -40,7 +40,7 @@ const StateLabel = styled(StateLabelBase)`
   font-weight: 600;
   line-height: 16px;
   color: ${colors.white};
-  font-size: ${props => (props.small ? theme.fontSizes[0] : theme.fontSizes[1])};
+  font-size: ${props => (props.small ? theme.fontSizes[0] : theme.fontSizes[1])}; // TODO: these should use the get function instead of referencing the theme directly
   text-align: center;
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
   border-radius: ${get('radii.3')};
