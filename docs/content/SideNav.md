@@ -133,7 +133,7 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 
 ## System props
 
-`SideNav` components get `COMMON` and `LAYOUT` system props; using the `bordered` property adds access to `BORDER` props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`SideNav` components get `COMMON`, `BORDER`, and `LAYOUT` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
@@ -142,7 +142,7 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | as | String | 'nav' | Sets the HTML tag for the component. |
-| bordered | Boolean | false | Renders the component with a border and gives access to `BORDER` system props. |
+| bordered | Boolean | false | Renders the component with a border. |
 | variant | String | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
 
 ### SideNav.Link

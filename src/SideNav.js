@@ -6,18 +6,20 @@ import {COMMON, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
 import Link from './Link'
-import Box from './Box'
 import BorderBox from './BorderBox'
 
 function SideNavBase({variant, className, bordered, children, ...props}) {
-  const BoxComponent = bordered ? BorderBox : Box
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
+  if (!bordered) {
+    props = {...props, border: 'none'}
+  }
+
   return (
-    <BoxComponent as="nav" className={newClassName} {...props}>
+    <BorderBox as="nav" className={newClassName} {...props}>
       {children}
-    </BoxComponent>
+    </BorderBox>
   )
 }
 
