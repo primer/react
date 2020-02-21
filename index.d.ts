@@ -235,12 +235,8 @@ declare module '@primer/components' {
     variant?: 'normal' | 'lightweight'
   }
 
-  export interface SideNavLinkProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
-    href?: string
-    muted?: boolean
-    selected?: boolean
-    underline?: boolean
-    variant: 'normal' | 'full'
+  export interface SideNavLinkProps extends CommonProps, TypographyProps, LinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    variant?: 'normal' | 'full'
   }
 
   export const SideNav: React.FunctionComponent<SideNavProps> & {
@@ -495,6 +491,10 @@ declare module '@primer/components/src/Tooltip' {
 declare module '@primer/components/src/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
+}
+declare module '@primer/components/src/SideNav' {
+  import {SideNav} from '@primer/components'
+  export default SideNav
 }
 declare module '@primer/components/src/SubNav' {
   import {SubNav} from '@primer/components'
