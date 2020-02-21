@@ -67,14 +67,14 @@ SubNav.Link = styled.a.attrs(props => ({
   align-items: center;
 
   &:first-of-type {
-    border-top-left-radius: ${get('radii.1')};
-    border-bottom-left-radius: ${get('radii.1')};
+    border-top-left-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
     border-left: 1px solid ${get('colors.gray.2')};
   }
 
   &:last-of-type {
-    border-top-right-radius: ${get('radii.1')};
-    border-bottom-right-radius: ${get('radii.1')};
+    border-top-right-radius: ${get('radii.2')};
+    border-bottom-right-radius: ${get('radii.2')};
   }
 
   &:hover,
