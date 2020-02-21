@@ -32,7 +32,14 @@ const TextInput = ({icon, className, block, disabled, ...rest}) => {
   const wrapperProps = pick(rest)
   const inputProps = omit(rest)
   return (
-    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} theme={theme} disabled={disabled} {...wrapperProps}>
+    <Wrapper
+      className={wrapperClasses}
+      hasIcon={!!icon}
+      block={block}
+      theme={theme}
+      disabled={disabled}
+      {...wrapperProps}
+    >
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
       <Input disabled={disabled} {...inputProps} />
     </Wrapper>
