@@ -61,8 +61,6 @@ SideNav.Link = styled(Link).attrs(props => {
     `}
   width: 100%;
   text-align: left;
-  // TOOD [MKT]: this wasn't in the Primer CSS version but
-  // is required to make the component match visually
   font-size: ${get('fontSizes.1')};
 
   & > ${SideNav} {
