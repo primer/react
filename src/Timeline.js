@@ -23,11 +23,7 @@ const Timeline = styled(Flex)`
 `
 
 Timeline.Item = props => {
-  return (
-    <TimelineItemInternal {...props} flexDirection="row">
-      {props.children}
-    </TimelineItemInternal>
-  )
+  return <TimelineItemInternal {...props}>{props.children}</TimelineItemInternal>
 }
 
 const TimelineItemInternal = styled(Flex).attrs(props => ({
