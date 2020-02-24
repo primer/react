@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON} from './constants'
+import {COMMON, get} from './constants'
 import theme from './theme'
+import Box from './Box'
 import Flex from './Flex'
-import Box from './Text'
+import {Relative} from './Position'
 import classnames from 'classnames'
 
 const Timeline = styled(Flex)`
@@ -33,8 +34,8 @@ const TimelineItemInternal = styled(Flex).attrs(props => ({
   className: classnames('Timeline-Item', props.className, props.condensed && 'condensed')
 }))`
   position: relative;
-  padding: 16px 0;
-  margin-left: 16px;
+  padding: ${get('space.3')} 0;
+  margin-left: ${get('space.3')};
   &::before {
     position: absolute;
     top: 0;
@@ -43,22 +44,22 @@ const TimelineItemInternal = styled(Flex).attrs(props => ({
     display: block;
     width: 2px;
     content: '';
-    background-color: #e1e4e8;
+    background-color: ${get('colors.gray.2')};
   }
 
   &.condensed {
-    padding-top: 4px;
+    padding-top: ${get('space.1')};
     padding-bottom: 0;
     &:last-child {
-      padding-bottom: 16px;
+      padding-bottom: ${get('space.3')};
     }
 
     .TimelineItem-Badge {
       height: 16px;
-      margin-top: 8px;
-      margin-bottom: 8px;
-      color: #959da5;
-      background-color: #fff;
+      margin-top: ${get('space.2')};
+      margin-bottom: ${get('space.2')};
+      color: ${get('colors.gray.4')};
+      background-color: ${get('colors.white')};
       border: 0;
     }
   }
@@ -73,14 +74,12 @@ const TimelineBadgeInternal = styled(Flex).attrs(props => ({
   z-index: 1;
   width: 32px;
   height: 32px;
-  margin-right: 8px;
+  margin-right: ${get('space.2')};
   margin-left: -15px;
-  color: #444d56;
-  align-items: center;
-  background-color: #e1e4e8;
-  border: 2px solid #fff;
+  color: ${get('colors.gray.7')};
+  background-color: ${get('colors.gray.2')};
+  border: 2px solid ${get('colors.white')};
   border-radius: 50%;
-  justify-content: center;
   flex-shrink: 0;
   ${COMMON};
 `
@@ -96,22 +95,21 @@ Timeline.Badge = props => {
 Timeline.Body = styled(Box)`
   min-width: 0;
   max-width: 100%;
-  margin-top: 4px;
-  color: #444d56;
+  margin-top: ${get('space.1')};
+  color: ${get('colors.gray.7')};
   flex: auto;
-  font-size: 14px;
+  font-size: ${get('fontSizes.1')};
 `
 
-Timeline.Break = styled(Box)`
-  position: relative;
+Timeline.Break = styled(Relative)`
   z-index: 1;
   height: 24px;
   margin: 0;
-  margin-bottom: -16px;
-  margin-left: 0px;
-  background-color: #fff;
+  margin-bottom: -${get('space.3')};
+  margin-left: 0;
+  background-color: ${get('colors.white')};
   border: 0;
-  border-top: 4px solid #e1e4e8;
+  border-top: ${get('space.1')} solid ${get('colors.gray.2')};
 `
 
 Timeline.defaultProps = {
