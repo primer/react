@@ -90,6 +90,26 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 </Timeline>
 ```
 
+## Timeline Break
+
+```jsx live
+<Timeline>
+  <Timeline.Item>
+    <Timeline.Badge bg="red.5">
+      <StyledOcticon icon={Flame} color="white" />
+    </Timeline.Badge>
+    <Timeline.Body>Red background used when closed events occur</Timeline.Body>
+  </Timeline.Item>
+  <Timeline.Break />
+  <Timeline.Item>
+    <Timeline.Badge bg="green.5">
+      <StyledOcticon icon={Flame} color="white" />
+    </Timeline.Badge>
+    <Timeline.Body>Green background when opened or passed events occur</Timeline.Body>
+  </Timeline.Item>
+</Timeline>
+```
+
 ## System props
 
 Timeline and Timeline.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.

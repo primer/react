@@ -96,6 +96,18 @@ Timeline.Body = styled(Box)`
   font-size: 14px;
 `
 
+Timeline.Break = styled(Box)`
+  position: relative;
+  z-index: 1;
+  height: 24px;
+  margin: 0;
+  margin-bottom: -16px;
+  margin-left: 0px;
+  background-color: #fff;
+  border: 0;
+  border-top: 4px solid #e1e4e8;
+`
+
 Timeline.defaultProps = {
   theme
 }

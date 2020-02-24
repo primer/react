@@ -271,6 +271,7 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<TimelineItemProps>
     Badge: React.FunctionComponent<TimelineBadgeProps>
     Body: React.FunctionComponent<TextProps>
+    Break: React.Function<BoxProps>
   }
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
