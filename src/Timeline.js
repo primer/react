@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 // import {COMMON, get} from './constants'
 import theme from './theme'
-import BorderBox from './BorderBox'
 import Flex from './Flex'
 
 const Timeline = props => {
@@ -15,24 +14,48 @@ const Timeline = props => {
 }
 
 Timeline.Item = props => {
-  const {hideSidebar = false, badgeColor = 'gray.1', badgeContent, ...baseProps} = props
+  const {badgeColor = 'gray.1', badgeContent, ...baseProps} = props
 
   return (
-    <Flex {...baseProps} flexDirection="row">
+    <TimelineItemInternal {...baseProps} flexDirection="row">
       <Flex flexShrink={0} width="32px" style={{position: 'relative'}}>
-        {!hideSidebar && (
-          <BorderBox border="1px solid black" height="100%" style={{position: 'absolute', left: '15px', top: '32px'}} />
-        )}
-
         <Timeline.Badge bg={badgeColor}>{badgeContent}</Timeline.Badge>
       </Flex>
       {props.children}
-    </Flex>
+    </TimelineItemInternal>
   )
 }
 
+const TimelineItemInternal = styled(Flex)`
+  position: relative;
+  padding: 16px 0;
+  margin-left: 16px;
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 2px;
+    content: '';
+    background-color: #e1e4e8;
+  }
+`
+
 const TimelineBadgeInternal = styled(Flex)`
-  border-radius: 120px;
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  margin-left: -15px;
+  color: #444d56;
+  align-items: center;
+  background-color: #e1e4e8;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  justify-content: center;
+  flex-shrink: 0;
 `
 
 Timeline.Badge = props => {

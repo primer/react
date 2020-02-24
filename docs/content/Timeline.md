@@ -8,7 +8,7 @@ The TimelineItem component is used to display items on a vertical timeline, conn
 
 ```jsx live
 <Timeline>
-  <Timeline.Item badgeContent={<StyledOcticon icon={Zap} />}>Default badge color</Timeline.Item>
+  <Timeline.Item badgeContent={<StyledOcticon icon={Flame} />}>Default badge color</Timeline.Item>
 </Timeline>
 ```
 
