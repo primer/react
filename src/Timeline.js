@@ -49,7 +49,6 @@ const TimelineBadgeInternal = styled(Flex)`
   margin-left: -15px;
   color: #444d56;
   align-items: center;
-  background-color: #e1e4e8;
   border: 2px solid #fff;
   border-radius: 50%;
   justify-content: center;
@@ -57,10 +56,10 @@ const TimelineBadgeInternal = styled(Flex)`
 `
 
 Timeline.Badge = props => {
-  const {...baseProps} = props
+  const {bg = 'gray.2', ...baseProps} = props
 
   return (
-    <TimelineBadgeInternal {...baseProps} alignItems="center" justifyContent="center">
+    <TimelineBadgeInternal {...baseProps} bg={bg} alignItems="center" justifyContent="center">
       {props.children}
     </TimelineBadgeInternal>
   )

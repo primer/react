@@ -4,7 +4,7 @@ title: Timeline
 
 The Timeline.Item component is used to display items on a vertical timeline, connected by Timeline.Badge elements.
 
-## Default example
+## Example with in-line links
 
 ```jsx live
 <Timeline>
@@ -23,6 +23,50 @@ The Timeline.Item component is used to display items on a vertical timeline, con
         Just now
       </Link>
     </Timeline.Body>
+  </Timeline.Item>
+</Timeline>
+```
+
+## Default Color example
+
+```jsx live
+<Timeline>
+  <Timeline.Item>
+    <Timeline.Badge>
+      <StyledOcticon icon={Flame} />
+    </Timeline.Badge>
+    <Timeline.Body>Default badge color</Timeline.Body>
+  </Timeline.Item>
+</Timeline>
+```
+
+## Adding color to a Badge
+
+```jsx live
+<Timeline>
+  <Timeline.Item>
+    <Timeline.Badge bg="red.5">
+      <StyledOcticon icon={Flame} color="white" />
+    </Timeline.Badge>
+    <Timeline.Body>Red background used when closed events occur</Timeline.Body>
+  </Timeline.Item>
+  <Timeline.Item>
+    <Timeline.Badge bg="green.5">
+      <StyledOcticon icon={Flame} color="white" />
+    </Timeline.Badge>
+    <Timeline.Body>Green background when opened or passed events occur</Timeline.Body>
+  </Timeline.Item>
+  <Timeline.Item>
+    <Timeline.Badge bg="purple.5">
+      <StyledOcticon icon={Flame} color="white" />
+    </Timeline.Badge>
+    <Timeline.Body>Purple background used when pull requests are merged</Timeline.Body>
+  </Timeline.Item>
+  <Timeline.Item>
+    <Timeline.Badge bg="blue.5">
+      <StyledOcticon icon={Flame} color="white" />
+    </Timeline.Badge>
+    <Timeline.Body>Blue background to indicate new events below</Timeline.Body>
   </Timeline.Item>
 </Timeline>
 ```
