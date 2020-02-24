@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import theme from './theme'
 import Flex from './Flex'
 import Box from './Text'
+import classnames from 'classnames'
 
 const Timeline = props => {
   return (
@@ -24,7 +25,9 @@ Timeline.Item = props => {
   )
 }
 
-const TimelineItemInternal = styled(Flex)`
+const TimelineItemInternal = styled(Flex).attrs(props => ({
+  className: classnames(props.className, props.condensed && 'condensed')
+}))`
   position: relative;
   padding: 16px 0;
   margin-left: 16px;
@@ -38,9 +41,28 @@ const TimelineItemInternal = styled(Flex)`
     content: '';
     background-color: #e1e4e8;
   }
+
+  &.condensed {
+    padding-top: 4px;
+    padding-bottom: 0;
+    &:last-child {
+      padding-bottom: 16px;
+    }
+
+    .TimelineItem-Badge {
+      height: 16px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: #959da5;
+      background-color: #fff;
+      border: 0;
+    }
+  }
 `
 
-const TimelineBadgeInternal = styled(Flex)`
+const TimelineBadgeInternal = styled(Flex).attrs(props => ({
+  className: classnames(props.className, 'TimelineItem-Badge')
+}))`
   position: relative;
   z-index: 1;
   width: 32px;

@@ -71,6 +71,25 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 </Timeline>
 ```
 
+## Condensed items
+
+```jsx live
+<Timeline>
+  <Timeline.Item condensed>
+    <Timeline.Badge>
+      <StyledOcticon icon={GitCommit} />
+    </Timeline.Badge>
+    <Timeline.Body>This is the message of a condensed TimelineItem</Timeline.Body>
+  </Timeline.Item>
+  <Timeline.Item condensed>
+    <Timeline.Badge>
+      <StyledOcticon icon={GitCommit} />
+    </Timeline.Badge>
+    <Timeline.Body>This is the message of a condensed TimelineItem</Timeline.Body>
+  </Timeline.Item>
+</Timeline>
+```
+
 ## System props
 
 Timeline and Timeline.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
