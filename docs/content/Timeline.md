@@ -12,7 +12,17 @@ The Timeline.Item component is used to display items on a vertical timeline, con
     <Timeline.Badge>
       <StyledOcticon icon={Flame} />
     </Timeline.Badge>
-    <Timeline.Body>Default Badge color</Timeline.Body>
+    <Timeline.Body>
+      <Link href="#" fontWeight="bold" color="gray.8" mr={1} muted>
+        Monalisa
+      </Link>
+      created one <Link href="#" fontWeight="bold" color="gray.8" mr={1} muted>
+        hot potato
+      </Link>
+      <Link href="#" color="gray.7" muted>
+        Just now
+      </Link>
+    </Timeline.Body>
   </Timeline.Item>
 </Timeline>
 ```
