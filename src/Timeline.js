@@ -1,22 +1,28 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 import styled from 'styled-components'
-// import {COMMON, get} from './constants'
+import {COMMON} from './constants'
 import theme from './theme'
 import Flex from './Flex'
 import Box from './Text'
 import classnames from 'classnames'
 
-const Timeline = props => {
-  return (
-    <Flex {...props} flexDirection="column">
-      {props.children}
-    </Flex>
-  )
-}
+const Timeline = styled(Flex)`
+  flex-direction: column;
+  ${props =>
+    props.clipSidebar &&
+    `.Timeline-Item:first-child {
+    padding-top: 0;
+  }
+
+  .Timeline-Item:last-child {
+    padding-bottom: 0;
+  }
+`}
+`
 
 Timeline.Item = props => {
-  const {...baseProps} = props
+  const {paddingTop, paddingBottom, ...baseProps} = props
 
   return (
     <TimelineItemInternal {...baseProps} flexDirection="row">
@@ -26,7 +32,7 @@ Timeline.Item = props => {
 }
 
 const TimelineItemInternal = styled(Flex).attrs(props => ({
-  className: classnames(props.className, props.condensed && 'condensed')
+  className: classnames('Timeline-Item', props.className, props.condensed && 'condensed')
 }))`
   position: relative;
   padding: 16px 0;
@@ -58,12 +64,14 @@ const TimelineItemInternal = styled(Flex).attrs(props => ({
       border: 0;
     }
   }
+  ${COMMON};
 `
 
 const TimelineBadgeInternal = styled(Flex).attrs(props => ({
   className: classnames(props.className, 'TimelineItem-Badge')
 }))`
   position: relative;
+  overflow: hidden;
   z-index: 1;
   width: 32px;
   height: 32px;
@@ -71,17 +79,19 @@ const TimelineBadgeInternal = styled(Flex).attrs(props => ({
   margin-left: -15px;
   color: #444d56;
   align-items: center;
+  background-color: #e1e4e8;
   border: 2px solid #fff;
   border-radius: 50%;
   justify-content: center;
   flex-shrink: 0;
+  ${COMMON};
 `
 
 Timeline.Badge = props => {
-  const {bg = 'gray.2', ...baseProps} = props
+  const {...baseProps} = props
 
   return (
-    <TimelineBadgeInternal {...baseProps} bg={bg} alignItems="center" justifyContent="center">
+    <TimelineBadgeInternal {...baseProps} alignItems="center" justifyContent="center">
       {props.children}
     </TimelineBadgeInternal>
   )
