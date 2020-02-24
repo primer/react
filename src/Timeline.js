@@ -4,6 +4,7 @@ import styled from 'styled-components'
 // import {COMMON, get} from './constants'
 import theme from './theme'
 import Flex from './Flex'
+import Box from './Text'
 
 const Timeline = props => {
   return (
@@ -14,13 +15,10 @@ const Timeline = props => {
 }
 
 Timeline.Item = props => {
-  const {badgeColor = 'gray.1', badgeContent, ...baseProps} = props
+  const {...baseProps} = props
 
   return (
     <TimelineItemInternal {...baseProps} flexDirection="row">
-      <Flex flexShrink={0} width="32px" style={{position: 'relative'}}>
-        <Timeline.Badge bg={badgeColor}>{badgeContent}</Timeline.Badge>
-      </Flex>
       {props.children}
     </TimelineItemInternal>
   )
@@ -67,6 +65,15 @@ Timeline.Badge = props => {
     </TimelineBadgeInternal>
   )
 }
+
+Timeline.Body = styled(Box)`
+  min-width: 0;
+  max-width: 100%;
+  margin-top: 4px;
+  color: #444d56;
+  flex: auto;
+  font-size: 14px;
+`
 
 Timeline.defaultProps = {
   theme

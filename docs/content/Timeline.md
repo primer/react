@@ -2,13 +2,18 @@
 title: Timeline
 ---
 
-The TimelineItem component is used to display items on a vertical timeline, connected by TimelineItem-badge elements.
+The Timeline.Item component is used to display items on a vertical timeline, connected by Timeline.Badge elements.
 
 ## Default example
 
 ```jsx live
 <Timeline>
-  <Timeline.Item badgeContent={<StyledOcticon icon={Flame} />}>Default badge color</Timeline.Item>
+  <Timeline.Item>
+    <Timeline.Badge>
+      <StyledOcticon icon={Flame} />
+    </Timeline.Badge>
+    <Timeline.Body>Default Badge color</Timeline.Body>
+  </Timeline.Item>
 </Timeline>
 ```
 

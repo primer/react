@@ -264,16 +264,7 @@ declare module '@primer/components' {
 
   export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {}
 
-  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {
-    /** @default gray.1 */
-    badgeColor?: string
-
-    /** Should be 32x32 or smaller */
-    badgeContent?: JSX.Element
-
-    /** @default false */
-    hideSidebar?: boolean
-  }
+  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {}
   export interface TimelineBadgeProps extends Omit<FlexProps, 'height' | 'width' | 'alignItems' | 'justifyContent'> {
     /** @default 32 */
     size?: number
@@ -282,6 +273,7 @@ declare module '@primer/components' {
   export const Timeline: React.FunctionComponent<TimelineProps> & {
     Item: React.FunctionComponent<TimelineItemProps>
     Badge: React.FunctionComponent<TimelineBadgeProps>
+    Body: React.FunctionComponent<TextProps>
   }
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
