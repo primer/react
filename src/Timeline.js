@@ -57,10 +57,10 @@ const TimelineBadgeInternal = styled(Flex)`
 `
 
 Timeline.Badge = props => {
-  const {size = 32, ...baseProps} = props
+  const {...baseProps} = props
 
   return (
-    <TimelineBadgeInternal {...baseProps} height={size} width={size} alignItems="center" justifyContent="center">
+    <TimelineBadgeInternal {...baseProps} alignItems="center" justifyContent="center">
       {props.children}
     </TimelineBadgeInternal>
   )
