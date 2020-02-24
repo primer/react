@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
@@ -22,10 +22,8 @@ const Timeline = styled(Flex)`
 `
 
 Timeline.Item = props => {
-  const {paddingTop, paddingBottom, ...baseProps} = props
-
   return (
-    <TimelineItemInternal {...baseProps} flexDirection="row">
+    <TimelineItemInternal {...props} flexDirection="row">
       {props.children}
     </TimelineItemInternal>
   )
@@ -88,10 +86,8 @@ const TimelineBadgeInternal = styled(Flex).attrs(props => ({
 `
 
 Timeline.Badge = props => {
-  const {...baseProps} = props
-
   return (
-    <TimelineBadgeInternal {...baseProps} alignItems="center" justifyContent="center">
+    <TimelineBadgeInternal {...props} alignItems="center" justifyContent="center">
       {props.children}
     </TimelineBadgeInternal>
   )
@@ -122,31 +118,42 @@ Timeline.defaultProps = {
   theme
 }
 
-// Timeline.propTypes = {
-//   children: PropTypes.node,
-//   theme: PropTypes.object,
-//   ...COMMON.propTypes
-// }
+Timeline.propTypes = {
+  children: PropTypes.node,
+  clipSidebar: PropTypes.bool,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
+}
 
 Timeline.Item.defaultProps = {
   theme
 }
 
-// Timeline.Item.propTypes = {
-//   children: PropTypes.node,
-//   theme: PropTypes.object,
-//   ...COMMON.propTypes
-// }
+Timeline.Item.propTypes = {
+  children: PropTypes.node,
+  condensed: PropTypes.bool,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
+}
 
 Timeline.Badge.defaultProps = {
   theme
 }
 
-// TabNav.Link.propTypes = {
-//   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-//   href: PropTypes.string,
-//   selected: PropTypes.bool,
-//   ...COMMON.propTypes
-// }
+Timeline.Badge.propTypes = {
+  children: PropTypes.node,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
+}
+
+Timeline.Break.defaultProps = {
+  theme
+}
+
+Timeline.Break.propTypes = {
+  children: PropTypes.node,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
+}
 
 export default Timeline

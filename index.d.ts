@@ -262,9 +262,13 @@ declare module '@primer/components' {
     wrap?: boolean
   }
 
-  export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {}
+  export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {
+    clipSidebar?: boolean
+  }
 
-  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {}
+  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {
+    condensed?: boolean
+  }
   export interface TimelineBadgeProps extends Omit<FlexProps, 'height' | 'width' | 'alignItems' | 'justifyContent'> {}
 
   export const Timeline: React.FunctionComponent<TimelineProps> & {
