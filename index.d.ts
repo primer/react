@@ -13,15 +13,11 @@ declare module '@primer/components' {
 
   interface CommonProps extends BaseProps, StyledSystem.ColorProps, StyledSystem.SpaceProps {}
 
-  interface LayoutProps
-    extends BaseProps,
-      StyledSystem.LayoutProps {}
+  interface LayoutProps extends BaseProps, StyledSystem.LayoutProps {}
 
-  interface TypographyProps
-    extends BaseProps,
-      StyledSystem.TypographyProps {
-        whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
-      }
+  interface TypographyProps extends BaseProps, StyledSystem.TypographyProps {
+    whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
+  }
 
   interface BorderProps
     extends BaseProps,
@@ -266,6 +262,28 @@ declare module '@primer/components' {
     wrap?: boolean
   }
 
+  export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {}
+
+  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {
+    /** @default gray.1 */
+    badgeColor?: string
+
+    /** Should be 32x32 or smaller */
+    badgeContent?: JSX.Element
+
+    /** @default false */
+    hideSidebar?: boolean
+  }
+  export interface TimelineBadgeProps extends Omit<FlexProps, 'height' | 'width' | 'alignItems' | 'justifyContent'> {
+    /** @default 32 */
+    size?: number
+  }
+
+  export const Timeline: React.FunctionComponent<TimelineProps> & {
+    Item: React.FunctionComponent<TimelineItemProps>
+    Badge: React.FunctionComponent<TimelineBadgeProps>
+  }
+
   export const Tooltip: React.FunctionComponent<TooltipProps>
 
   export interface UnderlineNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -470,6 +488,10 @@ declare module '@primer/components/src/TabNav' {
 declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
+}
+declare module '@primer/components/src/Timeline' {
+  import {Timeline} from '@primer/components'
+  export default Timeline
 }
 declare module '@primer/components/src/Tooltip' {
   import {Tooltip} from '@primer/components'

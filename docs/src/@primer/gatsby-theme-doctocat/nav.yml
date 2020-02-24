@@ -76,6 +76,8 @@
       url: /Text
     - title: TextInput
       url: /TextInput
+    - title: Timeline
+      url: /Timeline
     - title: Tooltip
       url: /Tooltip
     - title: UnderlineNav
