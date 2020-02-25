@@ -27,7 +27,7 @@ Timeline.Item = props => {
 }
 
 const TimelineItemInternal = styled(Flex).attrs(props => ({
-  className: classnames('Timeline-Item', props.className, props.condensed && 'condensed')
+  className: classnames('Timeline-Item', props.className)
 }))`
   position: relative;
   padding: ${get('space.3')} 0;
@@ -43,22 +43,24 @@ const TimelineItemInternal = styled(Flex).attrs(props => ({
     background-color: ${get('colors.gray.2')};
   }
 
-  &.condensed {
-    padding-top: ${get('space.1')};
+  ${props =>
+    props.condensed &&
+    `
+    padding-top: ${props.theme.space['1']};
     padding-bottom: 0;
     &:last-child {
-      padding-bottom: ${get('space.3')};
+      padding-bottom: ${props.theme.space['3']};
     }
 
     .TimelineItem-Badge {
       height: 16px;
-      margin-top: ${get('space.2')};
-      margin-bottom: ${get('space.2')};
-      color: ${get('colors.gray.4')};
-      background-color: ${get('colors.white')};
+      margin-top: ${props.theme.space['2']};
+      margin-bottom: ${props.theme.space['2']};
+      color: ${props.theme.colors.gray[4]};
+      background-color: ${props.theme.colors.white};
       border: 0;
     }
-  }
+  `}
   ${COMMON};
 `
 
