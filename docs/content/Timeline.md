@@ -29,6 +29,8 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 
 ## Default Color example
 
+The default Timeline.Badge color is dark text on a light grey background.
+
 ```jsx live
 <Timeline>
   <Timeline.Item>
@@ -41,6 +43,9 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 ```
 
 ## Adding color to a Badge
+
+To have color variants, use the `bg` prop on the `Timeline.Badge`. If an icon is being used, set the `color` prop
+of the child `StyledOcticon` if necessary.
 
 ```jsx live
 <Timeline>
@@ -73,6 +78,8 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 
 ## Condensed items
 
+Timeline has a condensed prop that will reduce the vertical padding and remove the background from the badge item. These are most commonly used in commits. To condense a single item, remove the top or bottom padding with the `pt={0}` or `pb={0}` prop.
+
 ```jsx live
 <Timeline>
   <Timeline.Item condensed>
@@ -91,6 +98,8 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 ```
 
 ## Timeline Break
+
+To create a visual break in the timeline, use Timeline.Break. This adds a horizontal bar across the timeline to show that something has disrupted it. Usually this happens when a close or merged event occurs.
 
 ```jsx live
 <Timeline>
@@ -118,14 +127,12 @@ Timeline and Timeline.Item components get `COMMON` system props. Read our [Syste
 
 ### Timeline.Item
 
-| Prop name  | Type   | Description                                                    |
-| :--------- | :----- | :------------------------------------------------------------- |
-| aria-label | String | Used to set the `aria-label` on the top level `<nav>` element. |
+| Prop name   | Type    | Description                                                                       |
+| :---------- | :------ | :-------------------------------------------------------------------------------- |
+| clipSidebar | Boolean | Hides the sidebar above the first Timeline.Item and below the last Timeline.Item. |
 
 ### Timeline.Badge
 
-| Prop name | Type    | Description                                      |
-| :-------- | :------ | :----------------------------------------------- |
-| as        | String  | sets the HTML tag for the component              |
-| href      | String  | URL to be used for the Link                      |
-| selected  | Boolean | Used to style the link as selected or unselected |
+| Prop name | Type    | Description                                                 |
+| :-------- | :------ | :---------------------------------------------------------- |
+| condensed | Boolean | Reduces vertical padding and removes background from badge. |
