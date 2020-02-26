@@ -12,6 +12,7 @@
     "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
+    "update-snapshots": "jest -u -- src",
     "watch": "jest --watch --no-coverage",
     "playroom:start": "playroom start",
     "playroom:build": "playroom build",

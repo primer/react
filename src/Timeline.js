@@ -142,6 +142,16 @@ Timeline.Badge.propTypes = {
   ...COMMON.propTypes
 }
 
+Timeline.Body.defaultProps = {
+  theme
+}
+
+Timeline.Body.propTypes = {
+  children: PropTypes.node,
+  theme: PropTypes.object,
+  ...COMMON.propTypes
+}
+
 Timeline.Break.defaultProps = {
   theme
 }

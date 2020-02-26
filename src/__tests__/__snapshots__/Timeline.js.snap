@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timeline renders 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+  className="c0"
+  display="flex"
+/>
+`;
+
+exports[`Timeline renders with clipSidebar prop 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c0 .Timeline-Item:first-child {
+  padding-top: 0;
+}
+
+.c0 .Timeline-Item:last-child {
+  padding-bottom: 0;
+}
+
+<div
+  className="c0"
+  display="flex"
+/>
+`;
+
+exports[`Timeline.Badge renders 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  margin-left: -15px;
+  color: #444d56;
+  background-color: #e1e4e8;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+<div
+  className="c0 TimelineItem-Badge"
+  display="flex"
+/>
+`;
+
+exports[`Timeline.Item renders 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  padding: 16px 0;
+  margin-left: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 2px;
+  content: '';
+  background-color: #e1e4e8;
+}
+
+<div
+  className="c0 Timeline-Item"
+  display="flex"
+/>
+`;
+
+exports[`Timeline.Item renders with condensed prop 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  padding: 16px 0;
+  margin-left: 16px;
+  padding-top: 4px;
+  padding-bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 2px;
+  content: '';
+  background-color: #e1e4e8;
+}
+
+.c0:last-child {
+  padding-bottom: 16px;
+}
+
+.c0 .TimelineItem-Badge {
+  height: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #959da5;
+  background-color: #fff;
+  border: 0;
+}
+
+<div
+  className="c0 Timeline-Item"
+  display="flex"
+/>
+`;
