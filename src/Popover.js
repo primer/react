@@ -53,7 +53,7 @@ Popover.Content = styled(BorderBox)`
   // Bottom-oriented carets
   ${Popover}.caret-pos--bottom & ,
   ${Popover}.caret-pos--bottom-right & ,
-  ${Popover}.caret-pos--bottom-left &  {
+  ${Popover}.caret-pos--bottom-left & {
     &::before,
     &::after {
       top: auto;
@@ -74,7 +74,7 @@ Popover.Content = styled(BorderBox)`
 
   // Top & Bottom: Right-oriented carets
   ${Popover}.caret-pos--top-right & ,
-  ${Popover}.caret-pos--bottom-right &  {
+  ${Popover}.caret-pos--bottom-right & {
     right: -9px;
     margin-right: 0;
 
@@ -95,7 +95,7 @@ Popover.Content = styled(BorderBox)`
 
   // Top & Bottom: Left-oriented carets
   ${Popover}.caret-pos--top-left & ,
-  ${Popover}.caret-pos--bottom-left &  {
+  ${Popover}.caret-pos--bottom-left & {
     left: -9px;
     margin-left: 0;
 
@@ -116,7 +116,7 @@ Popover.Content = styled(BorderBox)`
   ${Popover}.caret-pos--right-bottom & ,
   ${Popover}.caret-pos--left & ,
   ${Popover}.caret-pos--left-top & ,
-  ${Popover}.caret-pos--left-bottom &  {
+  ${Popover}.caret-pos--left-bottom & {
     &::before,
     &::after {
       top: 50%;
@@ -138,7 +138,7 @@ Popover.Content = styled(BorderBox)`
   // Right-oriented carets
   ${Popover}.caret-pos--right & ,
   ${Popover}.caret-pos--right-top & ,
-  ${Popover}.caret-pos--right-bottom &  {
+  ${Popover}.caret-pos--right-bottom & {
     &::before {
       right: -${get('space.3')};
       border-left-color: ${get('colors.popover.caretColor')};
@@ -154,7 +154,7 @@ Popover.Content = styled(BorderBox)`
   // Left-oriented carets
   ${Popover}.caret-pos--left & ,
   ${Popover}.caret-pos--left-top & ,
-  ${Popover}.caret-pos--left-bottom &  {
+  ${Popover}.caret-pos--left-bottom & {
     &::before {
       left: -${get('space.3')};
       border-right-color: ${get('colors.popover.caretColor')};
@@ -169,7 +169,7 @@ Popover.Content = styled(BorderBox)`
 
   // Right & Left: Top-oriented carets
   ${Popover}.caret-pos--right-top & ,
-  ${Popover}.caret-pos--left-top &  {
+  ${Popover}.caret-pos--left-top & {
     &::before,
     &::after {
       top: ${get('space.4')};
@@ -178,7 +178,7 @@ Popover.Content = styled(BorderBox)`
 
   // Right & Left: Bottom-oriented carets
   ${Popover}.caret-pos--right-bottom & ,
-  ${Popover}.caret-pos--left-bottom &  {
+  ${Popover}.caret-pos--left-bottom & {
     &::before,
     &::after {
       top: auto;
@@ -193,7 +193,7 @@ Popover.Content = styled(BorderBox)`
     }
   }
 
-  // ${Popover}.caret-pos--large &  {
+  // ${Popover}.caret-pos--large & {
   //   @include breakpoint(sm) {
   //     min-width: 320px;
   //   }
