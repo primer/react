@@ -125,7 +125,7 @@ Timeline and Timeline.Item components get `COMMON` system props. Read our [Syste
 
 ## Component props
 
-### Timeline.Item
+### Timeline
 
 | Prop name   | Type    | Description                                                                       |
 | :---------- | :------ | :-------------------------------------------------------------------------------- |
