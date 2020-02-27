@@ -58,6 +58,9 @@ const colors = {
   },
   filterList: {
     hoverBg: '#eaecef'
+  },
+  popover: {
+    caretColor: 'rgba(27, 31, 35, 0.15)'
   }
 }
 
