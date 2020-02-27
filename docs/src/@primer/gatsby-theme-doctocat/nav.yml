@@ -26,6 +26,8 @@
       url: /Box
     - title: BranchName
       url: /BranchName
+    - title: Breadcrumbs
+      url: /Breadcrumbs
     - title: Buttons
       url: /Buttons
     - title: CircleBadge
@@ -64,6 +66,8 @@
       url: /Position
     - title: ProgressBar
       url: /ProgressBar
+    - title: SideNav
+      url: /SideNav
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
@@ -80,5 +84,7 @@
       url: /Timeline
     - title: Tooltip
       url: /Tooltip
+    - title: Truncate
+      url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav

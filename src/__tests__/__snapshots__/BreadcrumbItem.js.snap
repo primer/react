@@ -1,68 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubNav.Link renders the given "as" prop 1`] = `
+exports[`Breadcrumb.Item renders the given "as" prop 1`] = `
 .c0 {
-  padding-left: 16px;
-  padding-right: 16px;
-  min-height: 34px;
-  font-weight: 600;
+  color: #0366d6;
+  display: inline-block;
   font-size: 14px;
-  line-height: 1.5;
-  color: #586069;
-  text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-top: 1px solid #e1e4e8;
-  border-bottom: 1px solid #e1e4e8;
-  border-right: 1px solid #e1e4e8;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
-.c0:first-of-type {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-left: 1px solid #e1e4e8;
-}
-
-.c0:last-of-type {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.c0:hover,
-.c0:focus {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background-color: #f6f8fa;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-
-.c0:hover .SubNav-octicon,
-.c0:focus .SubNav-octicon {
-  color: #6a737d;
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c0.selected {
-  color: #fff;
-  background-color: #0366d6;
-  border: 0;
-}
-
-.c0.selected .SubNav-octicon {
-  color: #6a737d;
+  color: #444d56;
+  pointer-events: none;
 }
 
 <b
   activeClassName=""
-  className="c0 SubNav-item"
+  aria-current={null}
+  className="c0"
   theme={
     Object {
       "borders": Array [
@@ -275,68 +235,28 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
 />
 `;
 
-exports[`SubNav.Link respects the "selected" prop 1`] = `
+exports[`Breadcrumb.Item respects the "selected" prop 1`] = `
 .c0 {
-  padding-left: 16px;
-  padding-right: 16px;
-  min-height: 34px;
-  font-weight: 600;
+  color: #0366d6;
+  display: inline-block;
   font-size: 14px;
-  line-height: 1.5;
-  color: #586069;
-  text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-top: 1px solid #e1e4e8;
-  border-bottom: 1px solid #e1e4e8;
-  border-right: 1px solid #e1e4e8;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
-.c0:first-of-type {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-left: 1px solid #e1e4e8;
-}
-
-.c0:last-of-type {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.c0:hover,
-.c0:focus {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  background-color: #f6f8fa;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-
-.c0:hover .SubNav-octicon,
-.c0:focus .SubNav-octicon {
-  color: #6a737d;
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .c0.selected {
-  color: #fff;
-  background-color: #0366d6;
-  border: 0;
-}
-
-.c0.selected .SubNav-octicon {
-  color: #6a737d;
+  color: #444d56;
+  pointer-events: none;
 }
 
 <a
-  className="c0 SubNav-item selected"
+  aria-current="page"
+  className="c0 selected"
   selected={true}
 />
 `;

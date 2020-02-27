@@ -226,6 +226,19 @@ declare module '@primer/components' {
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
+  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    bordered?: boolean
+    variant?: 'normal' | 'lightweight'
+  }
+
+  export interface SideNavLinkProps extends CommonProps, TypographyProps, LinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    variant?: 'normal' | 'full'
+  }
+
+  export const SideNav: React.FunctionComponent<SideNavProps> & {
+    Link: React.FunctionComponent<SideNavLinkProps>
+  }
+
   export interface StateLabelProps extends CommonProps {
     small?: boolean
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
@@ -287,6 +300,14 @@ declare module '@primer/components' {
     label?: string
   }
 
+  export interface TruncateProps extends StyledSystem.MaxWidthProps, TypographyProps, BaseProps {
+    expandable?: boolean
+    inline?: boolean
+    title: string
+  }
+
+  export const Truncate: React.FunctionComponent<TruncateProps>
+
   export interface UnderlineNavLinkProps
     extends CommonProps,
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
@@ -308,6 +329,21 @@ declare module '@primer/components' {
 
   export const SubNav: React.FunctionComponent<SubNavProps> & {
     Link: React.FunctionComponent<SubNavLinkProps>
+  }
+
+  export interface BreadcrumbProps
+    extends CommonProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'>,
+      FlexProps {}
+
+  export interface BreadcrumbItemProps
+    extends CommonProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export const Breadcrumb: React.FunctionComponent<BreadcrumbProps> & {
+    Item: React.FunctionComponent<BreadcrumbItemProps>
   }
 
   export const theme: {[key: string]: any}
@@ -495,6 +531,10 @@ declare module '@primer/components/src/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
 }
+declare module '@primer/components/src/SideNav' {
+  import {SideNav} from '@primer/components'
+  export default SideNav
+}
 declare module '@primer/components/src/SubNav' {
   import {SubNav} from '@primer/components'
   export default SubNav
@@ -521,4 +561,9 @@ declare module '@primer/components/src/ProgressBar' {
 declare module '@primer/components/src/AvatarStack' {
   import {AvatarStack} from '@primer/components'
   export default AvatarStack
+}
+
+declare module '@primer/components/src/Breadcrumbs' {
+  import {Breadcrumb} from '@primer/components'
+  export default Breadcrumb
 }
