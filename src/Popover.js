@@ -1,8 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import classnames from 'classnames'
-import {COMMON, LAYOUT, get} from './constants'
+import {LAYOUT, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
 import Link from './Link'
@@ -21,7 +20,7 @@ const Popover = styled(Box).attrs(({className, caret}) => {
   ${LAYOUT};
 `
 
-const PopoverMessage = styled(BorderBox)`
+Popover.Content = styled(BorderBox)`
   position: relative;
   width: 232px;
   margin-right: auto;
@@ -201,23 +200,13 @@ const PopoverMessage = styled(BorderBox)`
   // }
 `
 
-Popover.Content = function PopoverContent({className, caret, children, ...props}) {
-  const caretClassName = `caret-pos--${caret}`
-  const newClassName = classnames(className, caretClassName)
-
-  return (
-    <PopoverMessage className={newClassName} {...props}>
-      {children}
-    </PopoverMessage>
-  )
-}
-
 Popover.defaultProps = {
   caret: 'top',
   theme
 }
 
 Popover.propTypes = {
+  as: elementType,
   caret: PropTypes.oneOf([
     'top',
     'bottom',
@@ -245,6 +234,7 @@ Popover.Content.defaultProps = {
 }
 
 Popover.Content.propTypes = {
+  as: elementType,
   theme: PropTypes.object,
   ...BorderBox.propTypes
 }
