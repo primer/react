@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {Flex, Text} from '../src'
+import {Flex, Text, Heading} from '../src'
 
 const useAddRuleForPseudoClass = (ref, pseudoClass) => {
   const [modifiedClassName, setModifiedClassName] = useState('')
@@ -41,7 +41,16 @@ export const WithPseudoClass = props => {
   })
 }
 
-export const StickerSheet = ({props, pseudoClasses, children}) => {
+export const StickerSheet = ({children, title}) => {
+  return (
+    <Flex p={[3, 4]} flexDirection="column">
+      <Heading>{title}</Heading>
+      {children}
+    </Flex>
+  )
+}
+
+export const ComponentStickerSheet = ({props = [], pseudoClasses = [], title, children}) => {
   const rows = [{}]
   for (const prop of props) {
     for (const value of prop.values) {
@@ -50,34 +59,51 @@ export const StickerSheet = ({props, pseudoClasses, children}) => {
       rows.push(modifiedProps)
     }
   }
-  const propsModifiedChildren = rows.map((modifiedProps, index) => {
+  const propsModifiedChildren = rows.map(modifiedProps => {
     const keys = Object.keys(modifiedProps)
     const label = keys.length === 0 ? 'normal' : keys.map(key => `${key}: ${modifiedProps[key]}`).join(', ')
     return (
-      <Flex flexDirection="column" key={index.toString()}>
-        <Text mr={2}>{label}</Text>
-        <Flex mb={2}>
-          {React.Children.map(children, child => React.cloneElement(child, {...modifiedProps, mr: 2}))}
-        </Flex>
-      </Flex>
+      <StickerSheetRow
+        label={label}
+        key={label}
+        childWrapper={child => React.cloneElement(child, {mr: 2, ...child.props, ...modifiedProps})}
+      >
+        {children}
+      </StickerSheetRow>
     )
   })
-  const pseudoClassChildren = pseudoClasses.map((pseudoClass, index) => {
+  const pseudoClassChildren = pseudoClasses.map(pseudoClass => {
     return (
-      <Flex flexDirection="column" key={index.toString()}>
-        <Text mr={2}>{pseudoClass}</Text>
-        <Flex key={index.toString()} mb={2}>
-          {React.Children.map(children, child => (
-            <WithPseudoClass pseudoClass={pseudoClass}>{React.cloneElement(child, {mr: 2})}</WithPseudoClass>
-          ))}
-        </Flex>
-      </Flex>
+      <StickerSheetRow
+        label={pseudoClass}
+        key={pseudoClass}
+        childWrapper={child => (
+          <WithPseudoClass pseudoClass={pseudoClass}>
+            {React.cloneElement(child, {mr: 2, ...child.props})}
+          </WithPseudoClass>
+        )}
+      >
+        {children}
+      </StickerSheetRow>
     )
   })
   return (
-    <Flex flexDirection="column">
-      {propsModifiedChildren}
+    <Flex flexDirection="column" mb={2}>
+      <Text fontSize={3} fontWeight="bold">
+        {title}
+      </Text>
+      {propsModifiedChildren[0]}
       {pseudoClassChildren}
+      {propsModifiedChildren.slice(1)}
+    </Flex>
+  )
+}
+
+const StickerSheetRow = ({children, label, childWrapper}) => {
+  return (
+    <Flex flexDirection="column">
+      <Text mr={2}>{label}</Text>
+      <Flex mb={2}>{React.Children.map(children, child => childWrapper(child))}</Flex>
     </Flex>
   )
 }
