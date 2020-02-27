@@ -231,7 +231,11 @@ declare module '@primer/components' {
     variant?: 'normal' | 'lightweight'
   }
 
-  export interface SideNavLinkProps extends CommonProps, TypographyProps, LinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+  export interface SideNavLinkProps
+    extends CommonProps,
+      TypographyProps,
+      LinkProps,
+      Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
     variant?: 'normal' | 'full'
   }
 
@@ -287,8 +291,8 @@ declare module '@primer/components' {
   export const Timeline: React.FunctionComponent<TimelineProps> & {
     Item: React.FunctionComponent<TimelineItemProps>
     Badge: React.FunctionComponent<TimelineBadgeProps>
-    Body: React.FunctionComponent<TextProps>
-    Break: React.Function<BoxProps>
+    Body: React.FunctionComponent<BoxProps>
+    Break: React.FunctionComponent<BoxProps>
   }
 
   export const Tooltip: React.FunctionComponent<TooltipProps>

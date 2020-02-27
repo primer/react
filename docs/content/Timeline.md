@@ -131,8 +131,8 @@ Timeline and Timeline.Item components get `COMMON` system props. Read our [Syste
 | :---------- | :------ | :-------------------------------------------------------------------------------- |
 | clipSidebar | Boolean | Hides the sidebar above the first Timeline.Item and below the last Timeline.Item. |
 
-### Timeline.Badge
+### Timeline.Item
 
-| Prop name | Type    | Description                                                 |
-| :-------- | :------ | :---------------------------------------------------------- |
-| condensed | Boolean | Reduces vertical padding and removes background from badge. |
+| Prop name | Type    | Description                                                           |
+| :-------- | :------ | :-------------------------------------------------------------------- |
+| condensed | Boolean | Reduces vertical padding and removes background from an item's badge. |

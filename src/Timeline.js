@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
 import Box from './Box'
 import Flex from './Flex'
@@ -20,13 +20,11 @@ const Timeline = styled(Flex)`
     padding-bottom: 0;
   }
 `}
+  ${COMMON};
+  ${FLEX};
 `
 
-Timeline.Item = props => {
-  return <TimelineItemInternal {...props}>{props.children}</TimelineItemInternal>
-}
-
-const TimelineItemInternal = styled(Flex).attrs(props => ({
+Timeline.Item = styled(Flex).attrs(props => ({
   className: classnames('Timeline-Item', props.className)
 }))`
   position: relative;
@@ -62,6 +60,7 @@ const TimelineItemInternal = styled(Flex).attrs(props => ({
     }
   `}
   ${COMMON};
+  ${FLEX};
 `
 
 const TimelineBadgeInternal = styled(Flex).attrs(props => ({
@@ -118,7 +117,8 @@ Timeline.propTypes = {
   children: PropTypes.node,
   clipSidebar: PropTypes.bool,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...FLEX.propTypes
 }
 
 Timeline.Item.defaultProps = {
@@ -129,7 +129,8 @@ Timeline.Item.propTypes = {
   children: PropTypes.node,
   condensed: PropTypes.bool,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...FLEX.propTypes
 }
 
 Timeline.Badge.defaultProps = {
