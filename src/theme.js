@@ -91,7 +91,7 @@ const buttons = {
       focus: '#138934', //custom green
       hover: '#138934', //custom green
       active: '#138934', //custom green
-      disabled: '#94D3A2' // custom
+      disabled: '#94D3A2' // custom gray
     },
     shadow: {
       default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
