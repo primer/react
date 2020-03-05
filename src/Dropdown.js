@@ -139,7 +139,7 @@ Dropdown.Item.propTypes = {
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   ...COMMON.propTypes
 }
 
