@@ -176,6 +176,7 @@ const theme = {
   fontWeights: {
     light: 300,
     normal: 400,
+    semibold: 500,
     bold: 600
   },
   colors,

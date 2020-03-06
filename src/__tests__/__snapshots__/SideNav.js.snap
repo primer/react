@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideNav and SideNav.Link renders with default props 1`] = `
+.c0 {
+  border: none;
+  border-color: #e1e4e8;
+  border-radius: 3px;
+}
+
+.c2 {
+  background-color: #fafbfc;
+}
+
+.c3 > .c1 {
+  border-bottom: none;
+}
+
+.c1.variant-normal > .c3 {
+  color: #586069;
+  padding: 16px;
+  border: 0;
+  border-top: 1px solid #e1e4e8;
+}
+
+.c1.variant-normal > .c3:first-child {
+  border-top: 0;
+}
+
+.c1.variant-normal > .c3:last-child {
+  box-shadow: 0 1px 0 #e1e4e8;
+}
+
+.c1.variant-normal > .c3::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 3px;
+  pointer-events: none;
+  content: '';
+}
+
+.c1.variant-normal > .c3:hover,
+.c1.variant-normal > .c3:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #f6f8fa;
+  outline: none;
+}
+
+.c1.variant-normal > .c3:hover::before,
+.c1.variant-normal > .c3:focus::before {
+  background-color: #959da5;
+}
+
+.c1.variant-normal > .c3:active {
+  background-color: #fff;
+}
+
+.c1.variant-normal > .c3[aria-current='page'],
+.c1.variant-normal > .c3[aria-selected='true'] {
+  font-weight: 500;
+  color: #24292e;
+  background-color: #fff;
+}
+
+.c1.variant-normal > .c3[aria-current='page']::before,
+.c1.variant-normal > .c3[aria-selected='true']::before {
+  background-color: #d15704;
+}
+
+.c1.variant-lightweight > .c3 {
+  padding: 4px 0;
+  color: #0366d6;
+}
+
+.c1.variant-lightweight > .c3:hover,
+.c1.variant-lightweight > .c3:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.c1.variant-lightweight > .c3[aria-current='page'],
+.c1.variant-lightweight > .c3[aria-selected='true'] {
+  color: #24292e;
+  font-weight: 500;
+}
+
+<nav
+  className="c0 c1 c2 variant-normal"
+/>
+`;
+
+exports[`SideNav and SideNav.Link renders with default props 2`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #0366d6;
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 > .c1 {
+  border-bottom: none;
+}
+
+.c1.variant-normal > .c0 {
+  color: #586069;
+  padding: 16px;
+  border: 0;
+  border-top: 1px solid #e1e4e8;
+}
+
+.c1.variant-normal > .c0:first-child {
+  border-top: 0;
+}
+
+.c1.variant-normal > .c0:last-child {
+  box-shadow: 0 1px 0 #e1e4e8;
+}
+
+.c1.variant-normal > .c0::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 3px;
+  pointer-events: none;
+  content: '';
+}
+
+.c1.variant-normal > .c0:hover,
+.c1.variant-normal > .c0:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #f6f8fa;
+  outline: none;
+}
+
+.c1.variant-normal > .c0:hover::before,
+.c1.variant-normal > .c0:focus::before {
+  background-color: #959da5;
+}
+
+.c1.variant-normal > .c0:active {
+  background-color: #fff;
+}
+
+.c1.variant-normal > .c0[aria-current='page'],
+.c1.variant-normal > .c0[aria-selected='true'] {
+  font-weight: 500;
+  color: #24292e;
+  background-color: #fff;
+}
+
+.c1.variant-normal > .c0[aria-current='page']::before,
+.c1.variant-normal > .c0[aria-selected='true']::before {
+  background-color: #d15704;
+}
+
+.c1.variant-lightweight > .c0 {
+  padding: 4px 0;
+  color: #0366d6;
+}
+
+.c1.variant-lightweight > .c0:hover,
+.c1.variant-lightweight > .c0:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.c1.variant-lightweight > .c0[aria-current='page'],
+.c1.variant-lightweight > .c0[aria-selected='true'] {
+  color: #24292e;
+  font-weight: 500;
+}
+
+<a
+  className="c0"
+  color="blue.5"
+/>
+`;
