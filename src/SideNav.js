@@ -119,7 +119,7 @@ SideNav.Link = styled(Link).attrs(props => {
 
       // Bar on the left
       &::before {
-        background-color: ${get('colors.orange.7')};
+        background-color: ${get('colors.orange.5')};
       }
     }
   }
