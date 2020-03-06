@@ -77,11 +77,6 @@ SideNav.Link = styled(Link).attrs(props => {
       border-top: 0;
     }
 
-    &:last-child {
-      // makes sure there is a "bottom border" in case the list is not long enough
-      box-shadow: 0 1px 0 ${get('colors.gray.2')};
-    }
-
     // Bar on the left
     &::before {
       position: absolute;
