@@ -12,14 +12,11 @@ exports[`BranchName matches snapshot 1`] = `
 .c1 {
   display: inline-block;
   font-weight: 600;
-  line-height: 1;
   color: #fff;
-  border-radius: 2px;
+  border-radius: 100px;
   font-size: 12px;
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  line-height: 20px;
+  padding: 0 8px;
   background-color: #6a737d;
 }
 
@@ -31,22 +28,19 @@ exports[`BranchName matches snapshot 1`] = `
 .c2 {
   display: inline-block;
   font-weight: 600;
-  line-height: 1;
   color: #fff;
-  border-radius: 2px;
+  border-radius: 100px;
   font-size: 12px;
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  line-height: 20px;
+  padding: 0 8px;
   background-color: #6a737d;
   margin-top: -1px;
   margin-bottom: -1px;
-  font-weight: 400;
   color: #586069;
-  background-color: transparent;
   border: 1px solid rgba(27,31,35,0.15);
   box-shadow: none;
+  background-color: #6a737d;
+  background-color: transparent;
 }
 
 .c2:hover {
