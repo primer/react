@@ -65,7 +65,7 @@ const buttons = {
     bg: {
       default: colors.bg.grayLight,
       hover: '#F3F4F6', // custom gray
-      active: '#F3F4F6', //custom gray
+      active: '#edeff2', //custom gray
       disabled: colors.bg.grayLight
     },
     shadow: {
@@ -90,7 +90,7 @@ const buttons = {
       default: '#159739', //custom green
       focus: '#138934', //custom green
       hover: '#138934', //custom green
-      active: '#138934', //custom green
+      active: '#128031', // 2% darker than hover bg
       disabled: '#94D3A2' // custom gray
     },
     shadow: {
@@ -114,7 +114,7 @@ const buttons = {
     bg: {
       default: gray[0],
       hover: red[6],
-      active: red[6],
+      active: '#be222e', // 2% darker than hover bg
       disabled: '#F3F4F6'
     },
     shadow: {
@@ -139,7 +139,7 @@ const buttons = {
     bg: {
       default: gray[0],
       hover: blue[5],
-      active: blue[5],
+      active: '#035fc7', // 2% darker than hover bg
       disabled: '#F3F4F6'
     },
     shadow: {

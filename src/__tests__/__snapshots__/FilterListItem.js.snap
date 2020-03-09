@@ -51,7 +51,7 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
       "buttons": Object {
         "danger": Object {
           "bg": Object {
-            "active": "#cb2431",
+            "active": "#be222e",
             "default": "#fafbfc",
             "disabled": "#F3F4F6",
             "hover": "#cb2431",
@@ -76,7 +76,7 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
         },
         "default": Object {
           "bg": Object {
-            "active": "#F3F4F6",
+            "active": "#edeff2",
             "default": "#fafbfc",
             "disabled": "#fafbfc",
             "hover": "#F3F4F6",
@@ -99,7 +99,7 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
         },
         "outline": Object {
           "bg": Object {
-            "active": "#0366d6",
+            "active": "#035fc7",
             "default": "#fafbfc",
             "disabled": "#F3F4F6",
             "hover": "#0366d6",
@@ -124,7 +124,7 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
         },
         "primary": Object {
           "bg": Object {
-            "active": "#138934",
+            "active": "#128031",
             "default": "#159739",
             "disabled": "#94D3A2",
             "focus": "#138934",

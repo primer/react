@@ -56,7 +56,7 @@ exports[`Dropdown matches the snapshots 1`] = `
 }
 
 .c2:active {
-  background-color: #F3F4F6;
+  background-color: #edeff2;
   box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
   border-color: #d1d5da;
 }
@@ -165,7 +165,7 @@ exports[`Dropdown matches the snapshots 2`] = `
 }
 
 .c2:active {
-  background-color: #F3F4F6;
+  background-color: #edeff2;
   box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
   border-color: #d1d5da;
 }
