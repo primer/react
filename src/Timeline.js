@@ -1,27 +1,27 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import {COMMON, FLEX, get} from './constants'
-import theme from './theme'
+import {COMMON, get} from './constants'
+import styled, {css} from 'styled-components'
+
 import Box from './Box'
 import Flex from './Flex'
+import PropTypes from 'prop-types'
+import React from 'react'
 import {Relative} from './Position'
 import classnames from 'classnames'
+import theme from './theme'
 
 const Timeline = styled(Flex)`
   flex-direction: column;
   ${props =>
     props.clipSidebar &&
-    `.Timeline-Item:first-child {
-    padding-top: 0;
-  }
+    css`
+      .Timeline-Item:first-child {
+        padding-top: 0;
+      }
 
-  .Timeline-Item:last-child {
-    padding-bottom: 0;
-  }
-`}
-  ${COMMON};
-  ${FLEX};
+      .Timeline-Item:last-child {
+        padding-bottom: 0;
+      }
+    `}
 `
 
 Timeline.Item = styled(Flex).attrs(props => ({
@@ -43,24 +43,24 @@ Timeline.Item = styled(Flex).attrs(props => ({
 
   ${props =>
     props.condensed &&
-    `
-    padding-top: ${props.theme.space['1']};
-    padding-bottom: 0;
-    &:last-child {
-      padding-bottom: ${props.theme.space['3']};
-    }
+    css`
+      padding-top: ${get('space.1')};
+      padding-bottom: 0;
+      &:last-child {
+        padding-bottom: ${get('space.3')};
+      }
 
-    .TimelineItem-Badge {
-      height: 16px;
-      margin-top: ${props.theme.space['2']};
-      margin-bottom: ${props.theme.space['2']};
-      color: ${props.theme.colors.gray[4]};
-      background-color: ${props.theme.colors.white};
-      border: 0;
-    }
-  `}
+      .TimelineItem-Badge {
+        height: 16px;
+        margin-top: ${get('space.2')};
+        margin-bottom: ${get('space.2')};
+        color: ${get('colors.gray.4')};
+        background-color: ${get('colors.white')};
+        border: 0;
+      }
+    `}
+
   ${COMMON};
-  ${FLEX};
 `
 
 const TimelineBadgeInternal = styled(Flex).attrs(props => ({
@@ -78,6 +78,7 @@ const TimelineBadgeInternal = styled(Flex).attrs(props => ({
   border: 2px solid ${get('colors.white')};
   border-radius: 50%;
   flex-shrink: 0;
+
   ${COMMON};
 `
 
@@ -117,8 +118,7 @@ Timeline.propTypes = {
   children: PropTypes.node,
   clipSidebar: PropTypes.bool,
   theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...FLEX.propTypes
+  ...Flex.propTypes
 }
 
 Timeline.Item.defaultProps = {
@@ -129,8 +129,7 @@ Timeline.Item.propTypes = {
   children: PropTypes.node,
   condensed: PropTypes.bool,
   theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...FLEX.propTypes
+  ...Flex.propTypes
 }
 
 Timeline.Badge.defaultProps = {
@@ -140,7 +139,7 @@ Timeline.Badge.defaultProps = {
 Timeline.Badge.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...Flex.propTypes
 }
 
 Timeline.Body.defaultProps = {
@@ -150,7 +149,7 @@ Timeline.Body.defaultProps = {
 Timeline.Body.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...Box.propTypes
 }
 
 Timeline.Break.defaultProps = {
@@ -160,7 +159,7 @@ Timeline.Break.defaultProps = {
 Timeline.Break.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...Box.propTypes
 }
 
 export default Timeline

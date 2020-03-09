@@ -1,15 +1,19 @@
-import React from 'react'
-import Timeline from '../Timeline'
-import {render, rendersClass} from '../utils/testing'
-import {COMMON} from '../constants'
+import 'babel-polyfill'
+
+import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+import {render, rendersClass} from '../utils/testing'
+
+import React from 'react'
+import Timeline from '../Timeline'
 expect.extend(toHaveNoViolations)
 
 describe('Timeline', () => {
   it('implements system props', () => {
     expect(Timeline).toImplementSystemProps(COMMON)
+    expect(Timeline).toImplementSystemProps(FLEX)
+    expect(Timeline).toImplementSystemProps(LAYOUT)
   })
 
   it('should have no axe violations', async () => {
@@ -34,7 +38,9 @@ describe('Timeline', () => {
 
 describe('Timeline.Item', () => {
   it('implements system props', () => {
-    expect(Timeline.Item).toImplementSystemProps(COMMON)
+    expect(Timeline).toImplementSystemProps(COMMON)
+    expect(Timeline).toImplementSystemProps(FLEX)
+    expect(Timeline).toImplementSystemProps(LAYOUT)
   })
 
   it('should have no axe violations', async () => {
@@ -63,7 +69,8 @@ describe('Timeline.Item', () => {
 
 describe('Timeline.Badge', () => {
   it('implements system props', () => {
-    expect(Timeline.Badge).toImplementSystemProps(COMMON)
+    expect(Timeline).toImplementSystemProps(COMMON)
+    expect(Timeline).toImplementSystemProps(LAYOUT)
   })
 
   it('should have no axe violations', async () => {
