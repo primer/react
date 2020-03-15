@@ -36,11 +36,6 @@ exports[`Button respects the "disabled" prop 1`] = `
   outline: none;
 }
 
-.c0:focus,
-.c0:active {
-  z-index: 1;
-}
-
 .c0:disabled {
   cursor: default;
 }
@@ -107,11 +102,6 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 
 .c0:focus {
   outline: none;
-}
-
-.c0:focus,
-.c0:active {
-  z-index: 1;
 }
 
 .c0:disabled {
@@ -185,11 +175,6 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   outline: none;
 }
 
-.c0:focus,
-.c0:active {
-  z-index: 1;
-}
-
 .c0:disabled {
   cursor: default;
 }
@@ -259,11 +244,6 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
 
 .c0:focus {
   outline: none;
-}
-
-.c0:focus,
-.c0:active {
-  z-index: 1;
 }
 
 .c0:disabled {

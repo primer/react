@@ -24,11 +24,6 @@ export default css`
     outline: none;
   }
 
-  &:focus,
-  &:active {
-    z-index: 1;
-  }
-
   &:disabled {
     cursor: default;
   }
