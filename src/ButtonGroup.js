@@ -35,6 +35,11 @@ const ButtonGroup = styled(Box)`
         border-left-width: 0;
       }
     }
+
+    :focus,
+    :active {
+      z-index: 1;
+    }
   }
 `
 ButtonGroup.defaultProps = {
