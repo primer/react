@@ -4,7 +4,7 @@ exports[`SideNav and SideNav.Link renders with default props 1`] = `
 .c0 {
   border: none;
   border-color: #e1e4e8;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .c2 {
@@ -24,10 +24,6 @@ exports[`SideNav and SideNav.Link renders with default props 1`] = `
 
 .c1.variant-normal > .c3:first-child {
   border-top: 0;
-}
-
-.c1.variant-normal > .c3:last-child {
-  box-shadow: 0 1px 0 #e1e4e8;
 }
 
 .c1.variant-normal > .c3::before {
@@ -68,7 +64,7 @@ exports[`SideNav and SideNav.Link renders with default props 1`] = `
 
 .c1.variant-normal > .c3[aria-current='page']::before,
 .c1.variant-normal > .c3[aria-selected='true']::before {
-  background-color: #d15704;
+  background-color: #f66a0a;
 }
 
 .c1.variant-lightweight > .c3 {
@@ -127,10 +123,6 @@ exports[`SideNav and SideNav.Link renders with default props 2`] = `
   border-top: 0;
 }
 
-.c1.variant-normal > .c0:last-child {
-  box-shadow: 0 1px 0 #e1e4e8;
-}
-
 .c1.variant-normal > .c0::before {
   position: absolute;
   top: 0;
@@ -169,7 +161,7 @@ exports[`SideNav and SideNav.Link renders with default props 2`] = `
 
 .c1.variant-normal > .c0[aria-current='page']::before,
 .c1.variant-normal > .c0[aria-selected='true']::before {
-  background-color: #d15704;
+  background-color: #f66a0a;
 }
 
 .c1.variant-lightweight > .c0 {

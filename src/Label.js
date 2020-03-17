@@ -1,40 +1,42 @@
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
-import {variant} from 'styled-system'
+import {variant, borderColor} from 'styled-system'
 import theme from './theme'
 import {COMMON, get} from './constants'
 
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
   margin-bottom: -1px; // offsets the 1px border
-  font-weight: 400;
   color: ${get('colors.gray.6')};
-  background-color: transparent;
   border: ${get('borders.1')} ${get('colors.blackfade15')};
   box-shadow: none;
+  ${borderColor};
+  ${COMMON};
+  background-color: transparent;
 `
 
 const sizeVariant = variant({
   variants: {
     small: {
       fontSize: 0,
-      px: '0.125em',
-      py: 1
+      lineHeight: '16px',
+      padding: '0px 8px'
     },
     medium: {
       fontSize: 0,
-      px: '3px',
-      py: 1
+      lineHeight: '20px',
+      padding: '0 8px'
     },
     large: {
-      fontSize: 1,
-      px: 1,
-      py: 2
+      fontSize: 0,
+      lineHeight: '24px',
+      padding: '0 12px'
     },
+    // corresponds to StateLabel fontSize/lineHeight/padding
     xl: {
-      fontSize: 2,
-      px: 1,
-      py: 2
+      fontSize: 1,
+      lineHeight: '16px',
+      padding: '8px 12px'
     }
   }
 })
@@ -42,9 +44,8 @@ const sizeVariant = variant({
 const Label = styled('span')`
   display: inline-block;
   font-weight: 600;
-  line-height: ${get('lineHeights.condensedUltra')};
   color: ${get('colors.white')};
-  border-radius: 2px;
+  border-radius: ${get('radii.3')};
   &:hover {
     text-decoration: none;
   }
