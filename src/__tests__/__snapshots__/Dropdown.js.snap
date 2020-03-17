@@ -36,11 +36,6 @@ exports[`Dropdown matches the snapshots 1`] = `
   outline: none;
 }
 
-.c2:focus,
-.c2:active {
-  z-index: 1;
-}
-
 .c2:disabled {
   cursor: default;
 }
@@ -143,11 +138,6 @@ exports[`Dropdown matches the snapshots 2`] = `
 
 .c2:focus {
   outline: none;
-}
-
-.c2:focus,
-.c2:active {
-  z-index: 1;
 }
 
 .c2:disabled {
