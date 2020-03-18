@@ -191,6 +191,10 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
+  export interface GridProps extends BoxProps, StyledSystem.GridProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
+
+  export const Grid: React.FunctionComponent<GridProps>
+
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
     variant?: 'small' | 'medium' | 'large' | 'xl'
@@ -455,6 +459,11 @@ declare module '@primer/components/src/FilterList' {
 declare module '@primer/components/src/Flash' {
   import {Flash} from '@primer/components'
   export default Flash
+}
+
+declare module '@primer/components/src/Grid' {
+  import {Grid} from '@primer/components'
+  export default Grid
 }
 
 declare module '@primer/components/src/CounterLabel' {
