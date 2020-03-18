@@ -189,11 +189,11 @@ declare module '@primer/components' {
     scheme?: string
   }
 
+  export const CounterLabel: React.FunctionComponent<CounterLabelProps>
+
   export interface GridProps extends BoxProps, StyledSystem.GridProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 
   export const Grid: React.FunctionComponent<GridProps>
-
-  export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
