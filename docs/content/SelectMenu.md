@@ -21,6 +21,43 @@ Several additional components exist to provide even more functionality: `SelectM
   </SelectMenu>
 ```
 
+## With a Filter
+```jsx live
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal title="Filter by Project">
+      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Divider>More Options</SelectMenu.Divider>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
+## With Tabs
+```jsx live
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal title="Projects">
+      <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
+      <SelectMenu.TabPanel tabName="Repository">
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.TabPanel>
+      <SelectMenu.TabPanel tabName="Organization">
+        <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
+      </SelectMenu.TabPanel>
+      <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
 ## SelectMenu
 Main wrapper component for select menu.
 
@@ -81,25 +118,6 @@ To set one of the tabs to be open by default, use `initialTab` on the main `Sele
 
 If you need access to the open tab state, you can find it in the MenuContext object exported from `SelectMenu`.
 
-```jsx live
-  <SelectMenu>
-    <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Projects">
-      <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
-      <SelectMenu.TabPanel tabName="Repository">
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      </SelectMenu.TabPanel>
-      <SelectMenu.TabPanel tabName="Organization">
-        <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
-      </SelectMenu.TabPanel>
-      <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
-    </SelectMenu.Modal>
-  </SelectMenu>
-```
-
 ### System Props
 
 SelectMenu.Tabs components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
@@ -122,22 +140,6 @@ SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props
 
 ## SelectMenu.Filter
 Use a `SelectMenu.Filter` to add a filter UI to your select menu. This component manages the input value and exposes it via the `SelectMenu.MenuContext` context, but users are expected to implement their own filtering. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
-
-```jsx live
-  <SelectMenu>
-    <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Filter by Project">
-      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
-      <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
-        <SelectMenu.Divider>More Options</SelectMenu.Divider>
-        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
-        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
-      </SelectMenu.List>
-    </SelectMenu.Modal>
-  </SelectMenu>
-```
 
 ### System Props
 SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
