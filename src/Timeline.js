@@ -63,30 +63,27 @@ Timeline.Item = styled(Flex).attrs(props => ({
   ${COMMON};
 `
 
-const TimelineBadgeInternal = styled(Flex).attrs(props => ({
-  className: classnames(props.className, 'TimelineItem-Badge')
-}))`
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  width: 32px;
-  height: 32px;
-  margin-right: ${get('space.2')};
-  margin-left: -15px;
-  color: ${get('colors.gray.7')};
-  background-color: ${get('colors.gray.2')};
-  border: 2px solid ${get('colors.white')};
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  ${COMMON};
-`
-
-Timeline.Badge = props => {
+Timeline.Badge = (props) => {
   return (
-    <TimelineBadgeInternal {...props} alignItems="center" justifyContent="center">
-      {props.children}
-    </TimelineBadgeInternal>
+    <Relative zIndex={1}>
+      <Flex
+        flexShrink={0}
+        className={classnames(props.className, 'TimelineItem-Badge')}
+        css={`border-radius: 50%; border: 2px solid ${get('colors.white')}`}
+        overflow='hidden'
+        color='gray.7'
+        bg='gray.2'
+        width='32px'
+        height='32px'
+        mr={2}
+        ml='-15px'
+        alignItems='center'
+        justifyContent='center'
+        {...props}
+      >
+        {props.children}
+      </Flex>
+    </Relative>
   )
 }
 
