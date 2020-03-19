@@ -219,8 +219,8 @@ export const tabStyles = css`
     padding: ${get('space.1')} ${get('space.3')};
     border: ${get('borders.1')} transparent;
     border-bottom-width: 0;
-    border-top-left-radius: ${get('radii.1')};
-    border-top-right-radius: ${get('radii.1')};
+    border-top-left-radius: ${get('radii.2')};
+    border-top-right-radius: ${get('radii.2')};
   }
 
   &[aria-selected='true'] {
