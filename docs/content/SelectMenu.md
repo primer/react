@@ -79,6 +79,8 @@ Use `SelectMenu.Tabs` to wrap the the tab navigation and `SelectMenu.Tab` for ea
 
 To set one of the tabs to be open by default, use `initialTab` on the main `SelectMenu` component. Otherwise, the first tab will be shown by default.
 
+If you need access to the open tab state, you can find it in the MenuContext object exported from `SelectMenu`.
+
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>

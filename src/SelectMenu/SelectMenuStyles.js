@@ -137,18 +137,11 @@ export const listItemStyles = css`
   background-color: ${get('colors.white')};
   border: 0;
   border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
-
-  a {
-    color: ${get('colors.text.gray')};
-    text-decoration: none;
-  }
+  color: ${get('colors.text.gray')};
+  text-decoration: none;
 
   &:hover {
     text-decoration: none;
-  }
-
-  &:focus {
-    outline: none;
   }
 
   &[hidden] {
@@ -191,7 +184,7 @@ export const listItemStyles = css`
       background-color: ${get('colors.bg.gray')};
     }
 
-    &:active {
+    &:active, &:focus {
       background-color: ${get('colors.bg.grayLight')};
     }
   }
