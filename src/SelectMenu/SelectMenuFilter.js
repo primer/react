@@ -10,6 +10,7 @@ const StyledForm = styled.form`
   padding: ${get('space.3')};
   margin: 0;
   border-top: ${get('borders.1')} ${get('colors.border.gray')};
+  background-color: ${get('colors.white')};
   ${COMMON}
 
   @media (min-width: ${get('breakpoints.0')}) {
