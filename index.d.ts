@@ -235,7 +235,11 @@ declare module '@primer/components' {
     variant?: 'normal' | 'lightweight'
   }
 
-  export interface SideNavLinkProps extends CommonProps, TypographyProps, LinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+  export interface SideNavLinkProps
+    extends CommonProps,
+      TypographyProps,
+      LinkProps,
+      Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
     variant?: 'normal' | 'full'
   }
 
@@ -277,6 +281,22 @@ declare module '@primer/components' {
     noDelay?: boolean
     text?: string
     wrap?: boolean
+  }
+
+  export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {
+    clipSidebar?: boolean
+  }
+
+  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {
+    condensed?: boolean
+  }
+  export interface TimelineBadgeProps extends Omit<FlexProps, 'height' | 'width' | 'alignItems' | 'justifyContent'> {}
+
+  export const Timeline: React.FunctionComponent<TimelineProps> & {
+    Item: React.FunctionComponent<TimelineItemProps>
+    Badge: React.FunctionComponent<TimelineBadgeProps>
+    Body: React.FunctionComponent<BoxProps>
+    Break: React.FunctionComponent<BoxProps>
   }
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
@@ -511,6 +531,10 @@ declare module '@primer/components/src/TabNav' {
 declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
+}
+declare module '@primer/components/src/Timeline' {
+  import {Timeline} from '@primer/components'
+  export default Timeline
 }
 declare module '@primer/components/src/Tooltip' {
   import {Tooltip} from '@primer/components'
