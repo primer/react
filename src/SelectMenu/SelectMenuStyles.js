@@ -46,7 +46,7 @@ export const modalStyles = css`
   pointer-events: auto;
   flex-direction: column;
   background-color: ${get('colors.gray.1')};
-  border-radius: 6px;
+  border-radius: ${get('radii.2')};
   box-shadow: 0 1px 5px rgba(27, 31, 35, 0.15);
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
@@ -57,7 +57,7 @@ export const modalStyles = css`
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
     border: ${get('borders.1')} ${get('colors.border.grayDark')};
-    border-radius: ${get('radii.1')};
+    border-radius: ${get('radii.2')};
     box-shadow: 0 1px 5px ${get('colors.blackfade15')} !default;
   }
 `
@@ -180,12 +180,8 @@ export const listItemStyles = css`
   // can hover states
   @media (hover: hover) {
     body:not(.intent-mouse) .SelectMenu-item:focus,
-    &:hover {
+    &:hover, &:active, &:focus  {
       background-color: ${get('colors.bg.gray')};
-    }
-
-    &:active, &:focus {
-      background-color: ${get('colors.bg.grayLight')};
     }
   }
 
