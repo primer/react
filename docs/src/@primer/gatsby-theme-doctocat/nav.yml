@@ -14,6 +14,7 @@
       url: /philosophy
 
 - title: Components
+  url: /
   children:
     - title: Animations
       url: /Animations
@@ -27,6 +28,8 @@
       url: /Box
     - title: BranchName
       url: /BranchName
+    - title: Breadcrumbs
+      url: /Breadcrumbs
     - title: Buttons
       url: /Buttons
     - title: CircleBadge
@@ -69,6 +72,8 @@
       url: /ProgressBar
     - title: SelectMenu
       url: /SelectMenu
+    - title: SideNav
+      url: /SideNav
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
@@ -81,7 +86,11 @@
       url: /Text
     - title: TextInput
       url: /TextInput
+    - title: Timeline
+      url: /Timeline
     - title: Tooltip
       url: /Tooltip
+    - title: Truncate
+      url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav

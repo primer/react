@@ -160,7 +160,7 @@ declare module '@primer/components' {
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: string
-    title: string
+    title: string | React.ReactNode
   }
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {
@@ -201,6 +201,10 @@ declare module '@primer/components' {
   }
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
+
+  export interface GridProps extends BoxProps, StyledSystem.GridProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
+
+  export const Grid: React.FunctionComponent<GridProps>
 
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
@@ -269,8 +273,6 @@ declare module '@primer/components' {
     tabName: string
   }
 
-  export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
     ContextProvider: React.FunctionComponent<{
       value: {
@@ -290,7 +292,25 @@ declare module '@primer/components' {
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
   }
 
+  export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
   export const LoadingOctoface: React.FunctionComponent<LoadingOctofaceProps>
+
+  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    bordered?: boolean
+    variant?: 'normal' | 'lightweight'
+  }
+
+  export interface SideNavLinkProps
+    extends CommonProps,
+      TypographyProps,
+      LinkProps,
+      Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    variant?: 'normal' | 'full'
+  }
+
+  export const SideNav: React.FunctionComponent<SideNavProps> & {
+    Link: React.FunctionComponent<SideNavLinkProps>
+  }
 
   export interface StateLabelProps extends CommonProps {
     small?: boolean
@@ -328,6 +348,22 @@ declare module '@primer/components' {
     wrap?: boolean
   }
 
+  export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {
+    clipSidebar?: boolean
+  }
+
+  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {
+    condensed?: boolean
+  }
+  export interface TimelineBadgeProps extends Omit<FlexProps, 'height' | 'width' | 'alignItems' | 'justifyContent'> {}
+
+  export const Timeline: React.FunctionComponent<TimelineProps> & {
+    Item: React.FunctionComponent<TimelineItemProps>
+    Badge: React.FunctionComponent<TimelineBadgeProps>
+    Body: React.FunctionComponent<BoxProps>
+    Break: React.FunctionComponent<BoxProps>
+  }
+
   export const Tooltip: React.FunctionComponent<TooltipProps>
 
   export interface UnderlineNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -336,6 +372,14 @@ declare module '@primer/components' {
     full?: boolean
     label?: string
   }
+
+  export interface TruncateProps extends StyledSystem.MaxWidthProps, TypographyProps, BaseProps {
+    expandable?: boolean
+    inline?: boolean
+    title: string
+  }
+
+  export const Truncate: React.FunctionComponent<TruncateProps>
 
   export interface UnderlineNavLinkProps
     extends CommonProps,
@@ -358,6 +402,21 @@ declare module '@primer/components' {
 
   export const SubNav: React.FunctionComponent<SubNavProps> & {
     Link: React.FunctionComponent<SubNavLinkProps>
+  }
+
+  export interface BreadcrumbProps
+    extends CommonProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'>,
+      FlexProps {}
+
+  export interface BreadcrumbItemProps
+    extends CommonProps,
+      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export const Breadcrumb: React.FunctionComponent<BreadcrumbProps> & {
+    Item: React.FunctionComponent<BreadcrumbItemProps>
   }
 
   export const theme: {[key: string]: any}
@@ -499,6 +558,11 @@ declare module '@primer/components/src/Flash' {
   export default Flash
 }
 
+declare module '@primer/components/src/Grid' {
+  import {Grid} from '@primer/components'
+  export default Grid
+}
+
 declare module '@primer/components/src/CounterLabel' {
   import {CounterLabel} from '@primer/components'
   export default CounterLabel
@@ -552,6 +616,10 @@ declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
 }
+declare module '@primer/components/src/Timeline' {
+  import {Timeline} from '@primer/components'
+  export default Timeline
+}
 declare module '@primer/components/src/Tooltip' {
   import {Tooltip} from '@primer/components'
   export default Tooltip
@@ -559,6 +627,10 @@ declare module '@primer/components/src/Tooltip' {
 declare module '@primer/components/src/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
+}
+declare module '@primer/components/src/SideNav' {
+  import {SideNav} from '@primer/components'
+  export default SideNav
 }
 declare module '@primer/components/src/SubNav' {
   import {SubNav} from '@primer/components'
@@ -593,3 +665,7 @@ declare module '@primer/components/src/LoadingOctoface' {
   export default LoadingOctoface
 }
 
+declare module '@primer/components/src/Breadcrumbs' {
+  import {Breadcrumb} from '@primer/components'
+  export default Breadcrumb
+}

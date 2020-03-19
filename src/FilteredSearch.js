@@ -10,14 +10,14 @@ const FilteredSearch = styled.div`
 
   summary {
     border-radius: 0;
-    border-top-left-radius: ${get('radii.1')};
-    border-bottom-left-radius: ${get('radii.1')};
+    border-top-left-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
     border-right: 0;
   }
   .TextInput-wrapper {
     border-radius: 0;
-    border-top-right-radius: ${get('radii.1')};
-    border-bottom-right-radius: ${get('radii.1')};
+    border-top-right-radius: ${get('radii.2')};
+    border-bottom-right-radius: ${get('radii.2')};
     z-index: 1; // Allows the focus outline to show on top of the dropdown.
   }
 `

@@ -8,10 +8,10 @@
     "build": "cd .. && yarn && cd docs && gatsby build --prefix-paths"
   },
   "engines": {
-    "node" : "10.x" 
+    "node": "10.x"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "^0.16.6",
+    "@primer/gatsby-theme-doctocat": "^0.16.10",
     "@primer/octicons-react": "^9.2.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",

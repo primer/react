@@ -2,15 +2,9 @@
   "name": "primer-components",
   "version": 2,
   "alias": "primer-components.now.sh",
-  "files": [
-    ".babelrc",
-    "package-lock.json",
-    "docs",
-    "rollup.config.js",
-    "src",
-    "static"
-  ],
+  "files": [".babelrc", "package-lock.json", "docs", "rollup.config.js", "src", "static"],
   "routes": [
+    {"src": "/playroom(/.*)?", "dest": "$1"},
     {"src": "/components(/.*)?", "dest": "/docs$1"},
     {
       "src": "/",
@@ -21,6 +15,11 @@
   "builds": [
     {
       "src": "docs/package.json",
+      "use": "@now/static-build",
+      "config": {"distDir": "public"}
+    },
+    {
+      "src": "package.json",
       "use": "@now/static-build",
       "config": {"distDir": "public"}
     }
