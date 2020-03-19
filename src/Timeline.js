@@ -67,8 +67,8 @@ Timeline.Badge = props => {
   return (
     <Relative zIndex={1}>
       <Flex
-        flexShrink={0}
         className={classnames(props.className, 'TimelineItem-Badge')}
+        flexShrink={0}
         css={`
           border-radius: 50%;
           border: 2px solid ${get('colors.white')};

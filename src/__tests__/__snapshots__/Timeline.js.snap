@@ -44,10 +44,25 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
 
 exports[`Timeline.Badge renders 1`] = `
 .c0 {
+  z-index: 1;
+  position: relative;
+}
+
+.c1 {
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-right: 8px;
+  margin-left: -15px;
+  color: #444d56;
+  background-color: #e1e4e8;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -56,30 +71,22 @@ exports[`Timeline.Badge renders 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  margin-left: -15px;
-  color: #444d56;
-  background-color: #e1e4e8;
-  border: 2px solid #fff;
   border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  border: 2px solid #fff;
 }
 
 <div
-  className="c0 TimelineItem-Badge"
-  display="flex"
-/>
+  className="c0"
+>
+  <div
+    className="c1 TimelineItem-Badge"
+    color="gray.7"
+    display="flex"
+    height="32px"
+    overflow="hidden"
+    width="32px"
+  />
+</div>
 `;
 
 exports[`Timeline.Item renders 1`] = `

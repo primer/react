@@ -87,8 +87,4 @@ describe('Timeline.Badge', () => {
   it('renders', () => {
     expect(render(<Timeline.Badge />)).toMatchSnapshot()
   })
-
-  it('adds the TimelineItem-Badge class', () => {
-    expect(rendersClass(<Timeline.Badge />, 'TimelineItem-Badge')).toEqual(true)
-  })
 })
