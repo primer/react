@@ -147,7 +147,7 @@ declare module '@primer/components' {
 
   export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, ButtonProps {
     as?: React.ReactType
-    title: string | React.ReactNode
+    title?: string | React.ReactNode
   }
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
