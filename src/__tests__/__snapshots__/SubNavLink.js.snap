@@ -175,6 +175,7 @@ exports[`SubNav.Link renders the given "as" prop 1`] = `
         },
       },
       "colors": Object {
+        "accent": "#f66a0a",
         "bg": Object {
           "disabled": "#F3F4F6",
           "gray": "#f6f8fa",

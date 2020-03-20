@@ -145,11 +145,13 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends CommonProps, ButtonProps {}
+  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, ButtonProps {
+    as?: React.ReactType
+    title?: string | React.ReactNode
+  }
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: string
-    title: string | React.ReactNode
   }
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {
@@ -191,7 +193,7 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
-  export interface GridProps extends BoxProps, StyledSystem.GridProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
+  export interface GridProps extends BoxProps, StyledSystem.GridProps {}
 
   export const Grid: React.FunctionComponent<GridProps>
 
