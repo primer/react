@@ -193,7 +193,7 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
-  export interface GridProps extends BoxProps, StyledSystem.GridProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
+  export interface GridProps extends BoxProps, StyledSystem.GridProps {}
 
   export const Grid: React.FunctionComponent<GridProps>
 
