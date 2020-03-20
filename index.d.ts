@@ -145,11 +145,13 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends CommonProps, ButtonProps {}
+  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, ButtonProps {
+    as?: React.ReactType
+    title?: string | React.ReactNode
+  }
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: string
-    title: string | React.ReactNode
   }
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {

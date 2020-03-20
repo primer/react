@@ -48,7 +48,8 @@ const colors = {
     gray: gray[1],
     grayLight: gray[0],
     disabled: '#F3F4F6'
-  }
+  },
+  accent: orange[5]
 }
 
 const buttons = {
