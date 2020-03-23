@@ -133,7 +133,7 @@ TextInput.propTypes = {
   minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
-  width: systemPropTypes.layout.width,
+  width: systemPropTypes.layout.width
 }
 
 export default TextInput
