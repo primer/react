@@ -6,6 +6,8 @@ declare module '@primer/components' {
 
   export interface BaseProps extends React.Props<any> {
     as?: React.ReactType
+    className?: string
+    css?: string
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
