@@ -6,6 +6,8 @@ declare module '@primer/components' {
 
   export interface BaseProps extends React.Props<any> {
     as?: React.ReactType
+    className?: string
+    css?: string
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
@@ -145,7 +147,11 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, ButtonProps {
+  export interface DropdownProps
+    extends React.Props<any>,
+      StyledSystem.ColorProps,
+      StyledSystem.SpaceProps,
+      ButtonProps {
     as?: React.ReactType
     title?: string | React.ReactNode
   }
