@@ -129,11 +129,11 @@ TextInput.defaultProps = {theme}
 
 TextInput.propTypes = {
   block: PropTypes.bool,
+  maxWidth: systemPropTypes.layout.maxWidth,
+  minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width,
-  minWidth: systemPropTypes.layout.minWidth,
-  maxWidth: systemPropTypes.layout.maxWidth
 }
 
 export default TextInput
