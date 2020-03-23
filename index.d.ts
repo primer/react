@@ -145,7 +145,7 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, ButtonProps {
+  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, Omit<ButtonProps, 'title'> {
     as?: React.ReactType
     title?: string | React.ReactNode
   }
