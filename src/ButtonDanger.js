@@ -1,41 +1,36 @@
 import styled from 'styled-components'
-import Button from './Button'
+import ButtonBase from './ButtonBase'
 import {get} from './constants'
 
-const ButtonDanger = styled(Button)`
-  color: ${get('colors.red.6')};
-  background-color: ${get('colors.gray.0')};
-  background-image: linear-gradient(-180deg, ${get('colors.gray.0')} 0%, ${get('colors.button.bg2')} 90%);
+const ButtonDanger = styled(ButtonBase)`
+  color: ${get('buttons.danger.color.default')};
+  border: 1px solid ${get('buttons.danger.border.default')};
+  background-color: ${get('buttons.danger.bg.default')};
+  box-shadow: ${get('buttons.danger.shadow.default')};
 
   &:hover {
-    color: ${get('colors.white')};
-    background-color: ${get('colors.red.6')};
-    background-image: linear-gradient(
-      -180deg,
-      ${get('colors.button.dangerHoverBgImage')} 0%,
-      ${get('colors.red.6')} 90%
-    );
-    border-color: ${get('colors.blackfade50')};
+    color: ${get('buttons.danger.color.hover')};
+    background-color: ${get('buttons.danger.bg.hover')};
+    border-color: ${get('buttons.danger.border.hover')};
+    box-shadow: ${get('buttons.danger.shadow.hover')};
   }
-
+  // focus must come before :active so that the active box shadow overrides
   &:focus {
-    box-shadow: ${get('colors.button.dangerFocusShadow')} 0px 0px 0px 0.2em;
+    border-color: transparent;
+    box-shadow: ${get('buttons.danger.shadow.focus')};
   }
 
   &:active {
-    color: ${get('colors.white')};
-    background-color: ${get('colors.button.dangerActiveBg')};
-    background-image: none;
-    box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;
-    border-color: ${get('colors.blackfade50')};
+    color: ${get('buttons.danger.color.active')};
+    background-color: ${get('buttons.danger.bg.active')};
+    box-shadow: ${get('buttons.danger.shadow.active')};
+    border-color: ${get('buttons.danger.border.active')};
   }
 
-  &:selected {
-    color: ${get('colors.white')};
-    background-color: ${get('colors.button.dangerActiveBg')};
-    background-image: none;
-    box-shadow: ${get('colors.blackfade15')} 0px 0.15em 0.3em inset;
-    border-color: ${get('colors.blackfade50')};
+  &:disabled {
+    color: ${get('buttons.danger.color.disabled')};
+    background-color: ${get('buttons.danger.bg.disabled')};
+    border: 1px solid ${get('buttons.danger.border.default')};
   }
 `
 

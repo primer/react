@@ -63,17 +63,32 @@ describe('ButtonPrimary', () => {
   it('renders a <button>', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
   })
+
+  it('renders correct disabled styles', () => {
+    const item = render(<ButtonPrimary disabled />)
+    expect(item).toMatchSnapshot()
+  })
 })
 
 describe('ButtonDanger', () => {
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
   })
+
+  it('renders correct disabled styles', () => {
+    const item = render(<ButtonDanger disabled />)
+    expect(item).toMatchSnapshot()
+  })
 })
 
 describe('ButtonOutline', () => {
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
+  })
+
+  it('renders correct disabled styles', () => {
+    const item = render(<ButtonOutline disabled />)
+    expect(item).toMatchSnapshot()
   })
 })
 
