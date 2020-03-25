@@ -261,7 +261,8 @@ declare module '@primer/components' {
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface SelectMenuFilterProps extends TextInputProps {
-    autofocus?: boolean
+    autofocus?: boolean,
+    value: string
   }
 
   export interface SelectMenuTabsProps extends CommonProps,
@@ -277,9 +278,9 @@ declare module '@primer/components' {
     ContextProvider: React.FunctionComponent<{
       value: {
         selectedTab: string | undefined
-        setSelectedTab: (selectedTab: string | undefined) => void
-        filterText: string | undefined
-        setFilterText: (filterText: string | undefined) => void
+        setSelectedTab: (selectedTab: string | undefined) => void,
+        open: boolean | undefined,
+        initialTab:  string | undefined
       }
     }>
     Divider: React.FunctionComponent<SelectMenuDividerProps>

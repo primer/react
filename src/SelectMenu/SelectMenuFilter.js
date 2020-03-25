@@ -1,9 +1,9 @@
 import React, {useRef, useContext, useEffect} from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
 import TextInput from '../TextInput'
-import useMenuFilter from './hooks/MenuFilterHook'
 import {MenuContext} from './SelectMenuContext'
 
 const StyledForm = styled.form`
@@ -39,7 +39,8 @@ SelectMenuFilter.defaultProps = {
 }
 
 SelectMenuFilter.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  value: PropTypes.string
 }
 
 export default SelectMenuFilter

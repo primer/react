@@ -18,14 +18,11 @@ import useKeyboardNav from './hooks/KeyboardHook'
 const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
   const ref = useRef(null)
   const [selectedTab, setSelectedTab] = useState(initialTab)
-  const [filterText, setFilterText] = useState('')
   const [open, setOpen] = useState(false)
   useKeyboardNav(ref)
   const menuProviderValues = {
     selectedTab,
     setSelectedTab,
-    filterText,
-    setFilterText,
     open,
     initialTab
   }

@@ -64,7 +64,7 @@ describe('SelectMenu.Filter', () => {
   })
 
   it('snapshot matches', () => {
-    expect(render(<SelectMenu.Filter />)).toMatchSnapshot()
+    expect(render(<SelectMenu.Filter value="stuff" />)).toMatchSnapshot()
   })
 
 })
