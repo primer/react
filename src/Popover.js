@@ -4,7 +4,6 @@ import classnames from 'classnames'
 import {LAYOUT, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
-import Link from './Link'
 import Box from './Box'
 import BorderBox from './BorderBox'
 
@@ -226,7 +225,6 @@ Popover.propTypes = {
   relative: PropTypes.bool,
   theme: PropTypes.object,
   ...Box.propTypes,
-  ...Link.propTypes,
   ...LAYOUT.propTYpes
 }
 
