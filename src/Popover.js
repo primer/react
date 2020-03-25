@@ -198,6 +198,21 @@ Popover.Content = styled(BorderBox)`
   // }
 `
 
+export const CARET_POSITIONS = [
+  'top',
+  'bottom',
+  'left',
+  'right',
+  'bottom-left',
+  'bottom-right',
+  'top-left',
+  'top-right',
+  'left-bottom',
+  'left-top',
+  'right-bottom',
+  'right-top'
+]
+
 Popover.defaultProps = {
   caret: 'top',
   theme
@@ -205,20 +220,7 @@ Popover.defaultProps = {
 
 Popover.propTypes = {
   as: elementType,
-  caret: PropTypes.oneOf([
-    'top',
-    'bottom',
-    'left',
-    'right',
-    'bottom-left',
-    'bottom-right',
-    'top-left',
-    'top-right',
-    'left-bottom',
-    'left-top',
-    'right-bottom',
-    'right-top'
-  ]),
+  caret: PropTypes.oneOf(CARET_POSITIONS),
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
