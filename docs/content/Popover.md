@@ -6,7 +6,9 @@ Popovers are used to bring attention to specific user interface elements, typica
 
 Two components make up a popover; the `Popover` component controls the absolute positioning of the popover, and `Popover.Content` renders the inner content of the popover as well as the caret.
 
-A popover must exist within an element with a `relative` position in order for it to be positioned correctly. It can be useful to give the `Popover.Content` element a margin to help align the popover.
+By default, the popover renders with absolute positioning, meaning it should usually be wrapped in an element with a relative position in order to be positioned properly. To render the popover with relative positioning, use the `relative` property.
+
+It can be useful to give the `Popover.Content` element a margin to help align the popover.
 
 ## Default Example
 
