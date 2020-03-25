@@ -11,7 +11,7 @@ const DropdownBase = ({title, children, className, ...rest}) => {
   return (
     <Details overlay className={className} {...rest}>
       <>
-        <Button as="summary" color="gray.7" aria-haspopup="true" {...rest}>
+        <Button as="summary" aria-haspopup="true" {...rest}>
           {title}
           <DropdownCaret />
         </Button>
@@ -27,8 +27,8 @@ const Dropdown = styled(DropdownBase)`
 `
 
 const DropdownCaret = styled.div`
-  border: ${get('space.1')} solid transparent;
-  margin-left: ${get('space.1')};
+  border: 4px solid transparent;
+  margin-left: 12px;
   border-top-color: currentcolor;
   border-bottom-width: 0;
   content: '';
@@ -42,7 +42,7 @@ const DropdownMenu = styled.ul`
   background-clip: padding-box;
   background-color: ${get('colors.white')};
   border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: ${get('radii.1')};
+  border-radius: ${get('radii.2')};
   box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   left: 0;
   list-style: none;
@@ -66,7 +66,7 @@ const DropdownMenu = styled.ul`
   }
 
   &::before {
-    border: ${get('space.2')} solid transparent;
+    border: 8px solid transparent;
     border-bottom-color: ${get('colors.blackfade15')};
   }
 
@@ -139,7 +139,7 @@ Dropdown.Item.propTypes = {
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   ...COMMON.propTypes
 }
 

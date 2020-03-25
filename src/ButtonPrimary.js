@@ -1,43 +1,34 @@
 import styled from 'styled-components'
-import Button from './Button'
+import ButtonBase from './ButtonBase'
 import {get} from './constants'
 
-const ButtonPrimary = styled(Button)`
-  color: ${get('colors.button.white')};
-  background-color: ${get('colors.button.primaryBg')};
-  background-image: linear-gradient(
-    -180deg,
-    ${get('colors.button.primaryBgImage')} 0%,
-    ${get('colors.button.primaryBg')} 90%
-  );
+const ButtonPrimary = styled(ButtonBase)`
+  color: ${get('buttons.primary.color.default')};
+  background-color: ${get('buttons.primary.bg.default')};
+  border: 1px solid ${get('buttons.primary.border.default')};
+  box-shadow: ${get('buttons.primary.shadow.default')};
 
   &:hover {
-    background-color: ${get('colors.button.primaryHoverBg')};
-    background-image: linear-gradient(
-      -180deg,
-      ${get('colors.button.primaryHoverBgImage')} 0%,
-      ${get('colors.button.primaryHoverBg')} 90%
-    );
-    background-position: -0.5em center;
-    border-color: ${get('colors.button.primaryBorder')};
+    background-color: ${get('buttons.primary.bg.hover')};
+    border-color: ${get('buttons.primary.border.hover')};
+  }
+  // focus must come before :active so that the active box shadow overrides
+  &:focus {
+    border-color: transparent;
+    box-shadow: ${get('buttons.primary.shadow.focus')};
+    background-color: ${get('buttons.primary.bg.focus')};
   }
 
   &:active {
-    background-color: ${get('colors.button.primaryActiveBg')};
-    background-image: none;
-    box-shadow: ${get('colors.button.primaryActiveShadow')} 0px 0.15em 0.3em inset;
-    border-color: ${get('colors.button.primaryBorder')};
+    background-color: ${get('buttons.primary.bg.active')};
+    box-shadow: ${get('buttons.primary.shadow.active')};
+    border-color: ${get('buttons.primary.border.active')};
   }
 
-  &:focus {
-    box-shadow: rgba(52, 208, 88, 0.4) 0px 0px 0px 0.2em;
-  }
   &:disabled {
-    color: ${get('colors.button.primaryDisabledColor')};
-    background-color: ${get('colors.button.primaryDisabledBg')};
-    background-image: none;
-    border-color: ${get('colors.button.primaryDisabledBorder')};
-    box-shadow: none;
+    color: ${get('buttons.primary.color.disabled')};
+    background-color: ${get('buttons.primary.bg.disabled')};
+    border-color: ${get('buttons.primary.border.disabled')};
   }
 `
 

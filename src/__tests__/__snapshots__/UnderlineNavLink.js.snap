@@ -18,7 +18,7 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
   color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-bottom-color: #d1d5da;
+  border-bottom-color: #f66a0a;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
@@ -29,9 +29,8 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
 }
 
 .c0.selected {
-  font-weight: 600;
   color: #24292e;
-  border-bottom-color: #e36209;
+  border-bottom-color: #f66a0a;
 }
 
 .c0.selected .UnderlineNav-octicon {
@@ -53,7 +52,112 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
         "1012px",
         "1280px",
       ],
+      "buttons": Object {
+        "danger": Object {
+          "bg": Object {
+            "active": "#be222e",
+            "default": "#fafbfc",
+            "disabled": "#F3F4F6",
+            "hover": "#cb2431",
+          },
+          "border": Object {
+            "active": "#9e1c23",
+            "default": "#e1e4e8",
+            "hover": "#b31d28",
+          },
+          "color": Object {
+            "active": "#fff",
+            "default": "#cb2431",
+            "disabled": "rgba(203,36,49, .5)",
+            "hover": "#fff",
+          },
+          "shadow": Object {
+            "active": "inset 0px 2px 0px rgba(179, 29, 40, 0.4)",
+            "default": "0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)",
+            "focus": "0 0 0 3px rgba(203, 36, 49, 0.4)",
+            "hover": "0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)",
+          },
+        },
+        "default": Object {
+          "bg": Object {
+            "active": "#edeff2",
+            "default": "#fafbfc",
+            "disabled": "#fafbfc",
+            "hover": "#F3F4F6",
+          },
+          "border": Object {
+            "active": "#d1d5da",
+            "default": "#e1e4e8",
+            "disabled": "#eaecef",
+          },
+          "color": Object {
+            "default": "#24292e",
+            "disabled": "#959da5",
+          },
+          "shadow": Object {
+            "active": "inset 0px 2px 0px rgba(149, 157, 165, 0.1)",
+            "default": "0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)",
+            "focus": "0 0 0 3px rgba(3, 102, 214, 0.3)",
+            "hover": "0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)",
+          },
+        },
+        "outline": Object {
+          "bg": Object {
+            "active": "#035fc7",
+            "default": "#fafbfc",
+            "disabled": "#F3F4F6",
+            "hover": "#0366d6",
+          },
+          "border": Object {
+            "active": "rgba(4, 66, 137, .5)",
+            "default": "#e1e4e8",
+            "hover": "#005cc5",
+          },
+          "color": Object {
+            "active": "#fff",
+            "default": "#005cc5",
+            "disabled": "#959da5",
+            "hover": "#fff",
+          },
+          "shadow": Object {
+            "active": "inset 0px 1px 0px rgba(4, 66, 137, 0.2)",
+            "default": "0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)",
+            "focus": "0 0 0 3px rgba(3, 102, 214, 0.3)",
+            "hover": "0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)",
+          },
+        },
+        "primary": Object {
+          "bg": Object {
+            "active": "#128031",
+            "default": "#159739",
+            "disabled": "#94D3A2",
+            "focus": "#138934",
+            "hover": "#138934",
+          },
+          "border": Object {
+            "active": "#176f2c",
+            "default": "#22863a",
+            "disabled": "rgba(34, 134, 58, 0.1)",
+            "hover": "#176f2c",
+          },
+          "color": Object {
+            "default": "#fff",
+            "disabled": "rgba(255, 255, 255, 0.50)",
+          },
+          "shadow": Object {
+            "active": "inset 0px 1px 0px rgba(20, 70, 32, 0.2)",
+            "default": " 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)",
+            "focus": "0 0 0 3px #94D3A2",
+          },
+        },
+      },
       "colors": Object {
+        "accent": "#f66a0a",
+        "bg": Object {
+          "disabled": "#F3F4F6",
+          "gray": "#f6f8fa",
+          "grayLight": "#fafbfc",
+        },
         "black": "#1b1f23",
         "blackfade15": "rgba(27, 31, 35, 0.15)",
         "blackfade20": "rgba(27, 31, 35, 0.20)",
@@ -73,32 +177,10 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
           "#05264c",
         ],
         "bodytext": "#24292e",
-        "button": Object {
-          "activeBg": "rgb(233, 236, 239)",
-          "bg2": "rgb(239, 243, 246)",
-          "border": "rgba(27, 31, 35, 0.2)",
-          "dangerActiveBg": "rgb(181, 32, 44)",
-          "dangerDisabledColor": "rgba(203,36,49,0.4)",
-          "dangerFocusShadow": "rgba(203, 36, 49, 0.4)",
-          "dangerHoverBgImage": "rgb(222, 68, 80)",
-          "disabledBg": "#eff3f6",
-          "disabledColor": "rgba(36, 41, 46, 0.4)",
-          "focusShadow": "rgba(3, 102, 214, 0.3)",
-          "hoverBg": "rgb(230, 235, 241)",
-          "outlineBlue": "rgb(3, 102, 214)",
-          "outlineShadow": "rgba(3, 102, 214, 0.4)",
-          "primaryActiveBg": "rgb(39, 159, 67)",
-          "primaryActiveShadow": "rgba(27, 31, 35, 0.15)",
-          "primaryBg": "rgb(40, 167, 69)",
-          "primaryBgImage": "rgb(52, 208, 88)",
-          "primaryBorder": "rgba(27, 31, 35, 0.5)",
-          "primaryDisabledBg": "#94d3a2",
-          "primaryDisabledBorder": "rgba(27,31,35,0.2)",
-          "primaryDisabledColor": "rgba(255, 255, 255, .75)",
-          "primaryFocusShadow": "rgba(52, 208, 88, 0.4)",
-          "primaryHoverBg": "rgb(38, 159, 66)",
-          "primaryHoverBgImage": "rgb(47, 203, 83)",
-          "white": "rgb(255, 255, 255)",
+        "border": Object {
+          "gray": "#e1e4e8",
+          "grayDark": "#d1d5da",
+          "grayLight": "#eaecef",
         },
         "counter": Object {
           "bg": "rgba(27, 31, 35, 0.08)",
@@ -174,8 +256,15 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
           "success": "#28a745",
           "unknown": "#959da5",
         },
+        "text": Object {
+          "gray": "#586069",
+          "grayDark": "#24292e",
+          "grayLight": "#6a737d",
+          "red": "#cb2431",
+        },
         "white": "#fff",
         "whitefade15": "rgba(255, 255, 255, 0.15)",
+        "whitefade50": "rgba(255, 255, 255, 0.50)",
         "yellow": Array [
           "#fffdef",
           "#fffbdd",
@@ -224,13 +313,17 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
         "0",
         "3px",
         "6px",
+        "100px",
       ],
       "shadows": Object {
         "extra-large": "0 10px 50px rgba(27, 31, 35, 0.07)",
-        "formControl": "rgba(27, 31, 35, 0.075) 0px 1px 2px inset",
+        "formControl": "inset 0px 2px 0px rgba(225, 228, 232, 0.2)",
+        "formControlDisabled": "inset 0px 2px 0px rgba(220, 227, 237, 0.3)",
         "formControlFocus": "rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em",
         "large": "0 1px 15px rgba(27, 31, 35, 0.15)",
         "medium": "0 1px 5px rgba(27, 31, 35, 0.15)",
+        "primaryActiveShadow": "inset 0px 1px 0px rgba(20, 70, 32, 0.2)",
+        "primaryShadow": "0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)",
         "small": "0 1px 1px rgba(27, 31, 35, 0.1)",
       },
       "space": Array [
@@ -271,7 +364,7 @@ exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
   color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-bottom-color: #d1d5da;
+  border-bottom-color: #f66a0a;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
@@ -282,9 +375,8 @@ exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
 }
 
 .c0.selected {
-  font-weight: 600;
   color: #24292e;
-  border-bottom-color: #e36209;
+  border-bottom-color: #f66a0a;
 }
 
 .c0.selected .UnderlineNav-octicon {

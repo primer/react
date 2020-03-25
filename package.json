@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "15.3.0",
+  "version": "16.2.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -12,6 +12,7 @@
     "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
+    "update-snapshots": "jest -u -- src",
     "watch": "jest --watch --no-coverage",
     "playroom:start": "playroom start",
     "playroom:build": "playroom build",
