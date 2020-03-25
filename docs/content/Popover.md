@@ -28,7 +28,7 @@ A popover must exist within an element with a `relative` position in order for i
 
 ## Caret position
 
-`Popover` supports various caret positions, which you can specify via the `caret` property. This demo shows all the valid values for the prop. The default is `top`. Note that the `top-left`, `bottom-left`, `top-right`, and `bottom-right` values modify the vertical alignment of the popover.
+`Popover` supports various caret positions, which you can specify via the `caret` property. This demo shows all the valid values for the prop. The default is `top`. Note that the `top-left`, `bottom-left`, `top-right`, and `bottom-right` values modify the horizontal alignment of the popover.
 
 ```javascript live noinline
 function PopoverDemo(props) {
