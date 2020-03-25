@@ -26,6 +26,7 @@ Popover.Content = styled(BorderBox)`
   margin-right: auto;
   margin-left: auto;
   padding: ${get('space.4')};
+  background-color: ${get('colors.white')};
 
   // Carets
   &::before,
