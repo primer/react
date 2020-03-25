@@ -190,12 +190,6 @@ Popover.Content = styled(BorderBox)`
       bottom: calc(${get('space.3')} + 1px);
     }
   }
-
-  // ${Popover}.caret-pos--large & {
-  //   @include breakpoint(sm) {
-  //     min-width: 320px;
-  //   }
-  // }
 `
 
 export const CARET_POSITIONS = [
