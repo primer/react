@@ -221,28 +221,25 @@ declare module '@primer/components' {
 
   export const PointerBox: React.FunctionComponent<PointerBoxProps>
 
-  export interface PopoverProps extends BoxProps, LayoutProps {
-    as?: React.ReactType
+  export interface PopoverProps extends BoxProps {
     caret?:
-      | 'top'
-      | 'bottom'
-      | 'left'
-      | 'right'
-      | 'bottom-left'
-      | 'bottom-right'
-      | 'top-left'
-      | 'top-right'
-      | 'left-bottom'
-      | 'left-top'
-      | 'right-bottom'
-      | 'right-top'
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-bottom'
+    | 'left-top'
+    | 'right-bottom'
+    | 'right-top'
     open?: boolean
     relative?: boolean
   }
 
-  export interface PopoverContentProps extends BorderBoxProps {
-    as?: React.ReactType
-  }
+  export interface PopoverContentProps extends BorderBoxProps { }
 
   export const Popover: React.FunctionComponent<PopoverProps> & {
     Content: React.FunctionComponent<PopoverContentProps>
