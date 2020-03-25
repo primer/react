@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import classnames from 'classnames'
-import {LAYOUT, get} from './constants'
+import {get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
 import Box from './Box'
@@ -15,8 +15,6 @@ const Popover = styled(Box).attrs(({className, caret}) => {
   position: ${props => (props.relative ? 'relative' : 'absolute')};
   z-index: 100;
   display: ${props => (props.open ? 'block' : 'none')};
-
-  ${LAYOUT};
 `
 
 Popover.Content = styled(BorderBox)`
@@ -224,8 +222,7 @@ Popover.propTypes = {
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
-  ...Box.propTypes,
-  ...LAYOUT.propTYpes
+  ...Box.propTypes
 }
 
 Popover.Content.defaultProps = {
