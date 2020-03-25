@@ -83,3 +83,28 @@ function CaretSelector(props) {
 
 render(<PopoverDemo />)
 ```
+
+## System props
+
+`Popover` components get `COMMON`, `LAYOUT`, and `POSITION` system props. `Popover.Content` components get `COMMON`, `LAYOUT`, and `BORDER` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+### Popover
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| as | String | 'div' | Sets the HTML tag for the component. |
+| caret | String | 'top' | Controls the position of the caret. See below for the list of caret positions. |
+| open | Boolean | false | Controls the visibility of the popover. |
+| relative | Boolean | false | Set to true to render the popover using relative positioning. |
+
+#### Caret Positions
+
+The `caret` prop can be one of the following values: `top`, `bottom`, `left`, `right`, `bottom-left`, `bottom-right`, `top-left`, `top-right`, `left-bottom`, `left-top`, `right-bottom`, or `right-top`.
+
+### Popover.Content
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| as | String | 'div' | Sets the HTML tag for the component. |
