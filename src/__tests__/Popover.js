@@ -1,7 +1,7 @@
 import React from 'react'
 import Popover, {CARET_POSITIONS} from '../Popover'
 import {render} from '../utils/testing'
-import {BORDER, COMMON, LAYOUT} from '../constants'
+import {BORDER, COMMON, LAYOUT, POSITION} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -11,6 +11,7 @@ describe('Popover and Popover.Content', () => {
   it('implements system props', () => {
     expect(Popover).toImplementSystemProps(COMMON)
     expect(Popover).toImplementSystemProps(LAYOUT)
+    expect(Popover).toImplementSystemProps(POSITION)
 
     expect(Popover.Content).toImplementSystemProps(COMMON)
     expect(Popover.Content).toImplementSystemProps(LAYOUT)

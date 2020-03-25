@@ -221,7 +221,7 @@ declare module '@primer/components' {
 
   export const PointerBox: React.FunctionComponent<PointerBoxProps>
 
-  export interface PopoverProps extends BoxProps {
+  export interface PopoverProps extends CommonProps, LayoutProps, PositionProps {
     caret?:
     | 'top'
     | 'bottom'

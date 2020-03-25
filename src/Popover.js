@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import classnames from 'classnames'
-import {get} from './constants'
+import {COMMON, LAYOUT, POSITION, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
-import Box from './Box'
 import BorderBox from './BorderBox'
 
-const Popover = styled(Box).attrs(({className, caret}) => {
+const Popover = styled.div.attrs(({className, caret}) => {
   return {
     className: classnames(className, `caret-pos--${caret}`)
   }
@@ -15,6 +14,10 @@ const Popover = styled(Box).attrs(({className, caret}) => {
   position: ${props => (props.relative ? 'relative' : 'absolute')};
   z-index: 100;
   display: ${props => (props.open ? 'block' : 'none')};
+
+  ${COMMON};
+  ${LAYOUT};
+  ${POSITION};
 `
 
 Popover.Content = styled(BorderBox)`
@@ -24,6 +27,9 @@ Popover.Content = styled(BorderBox)`
   margin-left: auto;
   padding: ${get('space.4')};
   background-color: ${get('colors.white')};
+
+  ${COMMON};
+  ${LAYOUT};
 
   // Carets
   &::before,
@@ -218,7 +224,9 @@ Popover.propTypes = {
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
-  ...Box.propTypes
+  ...COMMON.propTypes,
+  ...LAYOUT.propTypes,
+  ...POSITION.propTypes
 }
 
 Popover.Content.defaultProps = {
