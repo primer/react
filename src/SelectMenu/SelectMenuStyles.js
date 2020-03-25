@@ -143,6 +143,9 @@ export const listItemStyles = css`
   &:hover {
     text-decoration: none;
   }
+  &:focus {
+    outline: none;
+  }
 
   &[hidden] {
     display: none !important;
