@@ -53,3 +53,18 @@ describe('SelectMenu', () => {
 
 // initialTab shows correct tab and applies hidden to the other tab
 // aria roles are implemented correctly
+
+describe('SelectMenu.Filter', () => {
+  it('implements system props', () => {
+    expect(SelectMenu.Filter).toImplementSystemProps(COMMON)
+  })
+
+  it('has default theme', () => {
+    expect(SelectMenu.Filter).toSetDefaultTheme()
+  })
+
+  it('snapshot matches', () => {
+    expect(render(<SelectMenu.Filter />)).toMatchSnapshot()
+  })
+
+})

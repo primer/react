@@ -22,11 +22,14 @@ Several additional components exist to provide even more functionality: `SelectM
 ```
 
 ## With a Filter
+
+*Note: The filter input value is meant to be controlled/managed by the consuming application.
+
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
     <SelectMenu.Modal title="Filter by Project">
-      <SelectMenu.Filter placeholder="Filter projects" aria-label="Filter Projects"/>
+      <SelectMenu.Filter placeholder="Filter projects" value="" aria-label="Filter Projects"/>
       <SelectMenu.List>
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
         <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -139,13 +142,15 @@ SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props
 | tabName | String | | Used to identify the corresponding tab. Must match the string used in the `tabs` array in the `SelectMenu.Tabs` component.
 
 ## SelectMenu.Filter
-Use a `SelectMenu.Filter` to add a filter UI to your select menu. This component manages the input value and exposes it via the `SelectMenu.MenuContext` context, but users are expected to implement their own filtering. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
+Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expected to implement their own filtering and manage the state of the `value` prop on the input. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
 
 ### System Props
 SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
-SelectMenu.Filter components do not get any additional props besides system props.
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| value | String | | Users of this component must provide a value for the filter input that is managed in the consuming application |
 
 ## SelectMenu.Divider
 Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.List`.
