@@ -29,7 +29,7 @@ function SelectMenuFilter(props) {
   }, [open])
   return (
     <StyledForm theme={theme}>
-      <TextInput ref={inputRef} width="100%" block value={props.value} onChange={onChange} {...props} />
+      <TextInput ref={inputRef} width="100%" block value={props.value} {...props} />
     </StyledForm>
   )
 }
