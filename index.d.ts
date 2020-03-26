@@ -223,6 +223,30 @@ declare module '@primer/components' {
 
   export const PointerBox: React.FunctionComponent<PointerBoxProps>
 
+  export interface PopoverProps extends CommonProps, LayoutProps, PositionProps {
+    caret?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-bottom'
+    | 'left-top'
+    | 'right-bottom'
+    | 'right-top'
+    open?: boolean
+    relative?: boolean
+  }
+
+  export interface PopoverContentProps extends BorderBoxProps { }
+
+  export const Popover: React.FunctionComponent<PopoverProps> & {
+    Content: React.FunctionComponent<PopoverContentProps>
+  }
+
   export interface PositionComponentProps
     extends PositionProps,
       CommonProps,
@@ -509,6 +533,10 @@ declare module '@primer/components/src/Link' {
 declare module '@primer/components/src/PointerBox' {
   import {PointerBox} from '@primer/components'
   export default PointerBox
+}
+declare module '@primer/components/src/Popover' {
+  import {Popover} from '@primer/components'
+  export default Popover
 }
 declare module '@primer/components/src/Relative' {
   import {Relative} from '@primer/components'
