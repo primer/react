@@ -48,7 +48,7 @@ Several additional components exist to provide even more functionality: `SelectM
     <SelectMenu.Modal title="Projects">
       <SelectMenu.Tabs>
         <SelectMenu.Tab index={0} tabName="Repository"/>
-        <SelectMenu.Tab index={0} tabName="Organization"/>
+        <SelectMenu.Tab index={1} tabName="Organization"/>
       </SelectMenu.Tabs>
       <SelectMenu.TabPanel tabName="Repository">
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
@@ -118,11 +118,13 @@ SelectMenu.Item components get `COMMON` system props. Read our [System Props](/s
 ## SelectMenu.Tabs
 Use `SelectMenu.Tabs` to wrap the the tab navigation and `SelectMenu.Tab` for each tab in the navigation.
 
-`SelectMenu.TabPanel` should wrap each corresponding panel for each of the tabs. The `tabName` prop for each `SelectMenu.TabPanel` must match the name provided in the `tabs` prop on `SelectMenu.Tabs`.
+`SelectMenu.TabPanel` should wrap each corresponding panel for each of the tabs. The `tabName` prop for each `SelectMenu.TabPanel` must match the name provided in the `tabName` prop on `SelectMenu.Tab`.
 
 To set one of the tabs to be open by default, use `initialTab` on the main `SelectMenu` component. Otherwise, the first tab will be shown by default.
 
-If you need access to the open tab state, you can find it in the MenuContext object exported from `SelectMenu`.
+Each `Select.Menu` tab will need to have an `index` prop. The first tab should be at index `0`, the second at index `1` and so forth. The `index` prop is used to show the first tab by default.
+
+If you need access to the selected tab state, you can find it in the MenuContext object exported from `SelectMenu` as `MenuContext.selectedTab`.
 
 ### System Props
 
