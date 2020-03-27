@@ -46,7 +46,10 @@ Several additional components exist to provide even more functionality: `SelectM
   <SelectMenu>
     <Button as="summary">Projects</Button>
     <SelectMenu.Modal title="Projects">
-      <SelectMenu.Tabs tabs={['Repository', 'Organization']}/>
+      <SelectMenu.Tabs>
+        <SelectMenu.Tab index={0} tabName="Repository"/>
+        <SelectMenu.Tab index={0} tabName="Organization"/>
+      </SelectMenu.Tabs>
       <SelectMenu.TabPanel tabName="Repository">
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
         <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
