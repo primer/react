@@ -16,23 +16,47 @@ const BasicSelectMenu = () => {
         <SelectMenu.List>
           <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
           <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+          <SelectMenu.Divider>stuff</SelectMenu.Divider>
           <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
           <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+          <SelectMenu.Footer>footer</SelectMenu.Footer>
         </SelectMenu.List>
       </SelectMenu.Modal>
     </SelectMenu>
   )
 }
-describe('Basic Select Menu', () => {
+
+const MenuWithTabs = () => {
+  return (
+    <SelectMenu>
+      <Button as="summary">Projects</Button>
+      <SelectMenu.Modal title="Projects">
+        <SelectMenu.Tabs>
+          <SelectMenu.Tab index={0} tabName="Repository"/>
+          <SelectMenu.Tab index={1} tabName="Organization"/>
+        </SelectMenu.Tabs>
+        <SelectMenu.TabPanel tabName="Repository">
+          <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+          <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+          <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+          <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+        </SelectMenu.TabPanel>
+        <SelectMenu.TabPanel tabName="Organization">
+          <SelectMenu.Item href="#"> Project 2</SelectMenu.Item>
+        </SelectMenu.TabPanel>
+        <SelectMenu.Footer>Showing 3 of 3</SelectMenu.Footer>
+      </SelectMenu.Modal>
+    </SelectMenu>
+  )
+}
+
+describe('SelectMenu', () => {
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BasicSelectMenu />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
   })
-})
-
-describe('SelectMenu', () => {
   it('implements system props', () => {
     expect(SelectMenu).toImplementSystemProps(COMMON)
   })
@@ -49,22 +73,20 @@ describe('SelectMenu', () => {
     expect(render(<SelectMenu />)).toMatchSnapshot()
   })
 
-})
+  // initialTab shows correct tab and applies hidden to the other tab
 
-// initialTab shows correct tab and applies hidden to the other tab
-// aria roles are implemented correctly
+  // clicking on a tab opens the tab
 
-describe('SelectMenu.Filter', () => {
-  it('implements system props', () => {
-    expect(SelectMenu.Filter).toImplementSystemProps(COMMON)
-  })
+  // clicking on the trigger opens the menu
 
-  it('has default theme', () => {
-    expect(SelectMenu.Filter).toSetDefaultTheme()
-  })
+  // selected list items have the selected icon showing
 
-  it('snapshot matches', () => {
-    expect(render(<SelectMenu.Filter value="stuff" />)).toMatchSnapshot()
-  })
+  // unselected list items do not have the selected icon showing
+
+  // clicking on a list item calls onClick prop
+
+  // clicking on tab calls onClick prop
+
+  // clicking on an item closes the modal
 
 })
