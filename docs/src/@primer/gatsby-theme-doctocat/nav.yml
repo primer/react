@@ -16,8 +16,6 @@
 - title: Components
   url: /
   children:
-    - title: Animations
-      url: /Animations
     - title: Avatar
       url: /Avatar
     - title: AvatarStack
@@ -62,8 +60,6 @@
       url: /LabelGroup
     - title: Link
       url: /Link
-    - title: LoadingOctoface
-      url: /LoadingOctoface
     - title: PointerBox
       url: /PointerBox
     - title: Position
