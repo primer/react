@@ -249,8 +249,7 @@ declare module '@primer/components' {
   
   export interface SelectMenuItemProps extends CommonProps,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
-    selected?: boolean,
-    onClick?: function
+    selected?: boolean
   }
 
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
@@ -266,8 +265,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     index: number,
-    tabName: string,
-    onClick?: function
+    tabName: string
   }
 
   export interface SelectMenuTabPanelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -450,8 +448,6 @@ declare module '@primer/components' {
   }
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
-
-  export const useMenuFilter: () => [string | undefined, (ev: React.KeyboardEvent<HTMLInputElement>) => void]
 }
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'

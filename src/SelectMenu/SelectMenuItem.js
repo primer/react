@@ -19,6 +19,9 @@ const StyledItem = styled.a.attrs(() => ({
 // other than 'a' will break a11y.
 const SelectMenuItem = ({children, selected, onClick, as, ...rest}) => {
   const menuContext = useContext(MenuContext)
+
+  // close the menu when an item is clicked
+  // this can be overriden if the user provides a `onClick` prop and prevents default in it
   const handleClick = e => {
     onClick && onClick(e)
 

@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import {get, COMMON, TYPOGRAPHY} from '../constants'
 import theme from '../theme'
 
+// SelectMenu.Header is intentionally not exported, it's an internal component used in
+// SelectMenu.Modal
+
 const SelectMenuTitle = styled.h3`
   flex: auto;
   font-size: ${get('fontSizes.1')};

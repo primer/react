@@ -22,6 +22,7 @@ function SelectMenuFilter(props) {
   const inputRef = useRef(null)
   const {open} = useContext(MenuContext)
 
+  // puts focus on the filter input when the menu is opened
   useEffect(() => {
     if (open) {
       inputRef.current.focus()
