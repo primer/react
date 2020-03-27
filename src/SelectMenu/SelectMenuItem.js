@@ -9,7 +9,7 @@ import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
 
 const StyledItem = styled.a.attrs(() => ({
-  role: 'menuitemcheckbox',
+  role: 'menuitemcheckbox'
 }))`
   ${listItemStyles}
   ${COMMON}
@@ -19,7 +19,7 @@ const StyledItem = styled.a.attrs(() => ({
 // other than 'a' will break a11y.
 const SelectMenuItem = ({children, selected, onClick, as, ...rest}) => {
   const menuContext = useContext(MenuContext)
-  const handleClick = (e) => {
+  const handleClick = e => {
     onClick && onClick(e)
 
     if (!e.defaultPrevented) {
@@ -28,8 +28,8 @@ const SelectMenuItem = ({children, selected, onClick, as, ...rest}) => {
   }
   return (
     <StyledItem {...rest} onClick={handleClick} aria-checked={selected}>
-        <StyledOcticon className="SelectMenu-icon SelectMenu-selected-icon" icon={Check} />
-        {children}
+      <StyledOcticon className="SelectMenu-icon SelectMenu-selected-icon" icon={Check} />
+      {children}
     </StyledItem>
   )
 }

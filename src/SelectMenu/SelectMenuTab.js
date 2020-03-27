@@ -5,7 +5,7 @@ import {tabStyles} from './SelectMenuStyles'
 
 const TabBase = ({tabName, index, onClick, ...rest}) => {
   const menuContext = useContext(MenuContext)
-  const handleClick = (e) => {
+  const handleClick = e => {
     // if consumer has attached an onClick event, call it
     onClick && onClick(e)
     if (!e.defaultPrevented) {

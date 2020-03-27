@@ -14,7 +14,9 @@ const BasicSelectMenu = () => {
       <Button as="summary">Projects</Button>
       <SelectMenu.Modal title="Projects">
         <SelectMenu.List>
-          <SelectMenu.Item selected href="#">Primer Components bugs</SelectMenu.Item>
+          <SelectMenu.Item selected href="#">
+            Primer Components bugs
+          </SelectMenu.Item>
           <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
           <SelectMenu.Divider>stuff</SelectMenu.Divider>
           <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
@@ -32,8 +34,8 @@ const MenuWithTabs = () => {
       <Button as="summary">Projects</Button>
       <SelectMenu.Modal title="Projects">
         <SelectMenu.Tabs>
-          <SelectMenu.Tab index={0} tabName="Repository"/>
-          <SelectMenu.Tab index={1} data-test="orgTab" tabName="Organization"/>
+          <SelectMenu.Tab index={0} tabName="Repository" />
+          <SelectMenu.Tab index={1} data-test="orgTab" tabName="Organization" />
         </SelectMenu.Tabs>
         <SelectMenu.TabPanel tabName="Repository">
           <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
@@ -78,8 +80,13 @@ describe('SelectMenu', () => {
 
   // initialTab shows correct tab and applies hidden to the other tab
   it('shows correct initial tab', () => {
-      const wrapper = mount(<MenuWithTabs/>)
-      expect(wrapper.find('[aria-selected="true"]').first().prop('tabName')).toEqual("Organization");
+    const wrapper = mount(<MenuWithTabs />)
+    expect(
+      wrapper
+        .find('[aria-selected="true"]')
+        .first()
+        .prop('tabName')
+    ).toEqual('Organization')
   })
 
   // clicking on a tab opens the tab
@@ -87,8 +94,13 @@ describe('SelectMenu', () => {
   // selected list items have the selected icon showing
   // it seems like finding by aria-selected isn't working?! finding by a data- attribute works
   it('shows check svg in item when selected', () => {
-      const wrapper = mount(<Basic/>)
-      expect(wrapper.find('[aria-selected="true"]').first().prop('tabName')).toEqual("Organization");
+    const wrapper = mount(<Basic />)
+    expect(
+      wrapper
+        .find('[aria-selected="true"]')
+        .first()
+        .prop('tabName')
+    ).toEqual('Organization')
   })
 
   // unselected list items do not have the selected icon showing
@@ -98,5 +110,4 @@ describe('SelectMenu', () => {
   // clicking on tab calls onClick prop
 
   // clicking on an item closes the modal
-
 })
