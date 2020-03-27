@@ -70,7 +70,8 @@ SelectMenu.Item components get `COMMON` system props. Read our [System Props](/s
 ### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| selected | boolean | | Used to apply styles to the selected items in the list.
+| selected | boolean | | Used to apply styles to the selected items in the list. |
+| onClick | function | | Function called when item is clicked. By default we also close the menu when items are clicked. If you would like the menu to stay open, pass an `e.preventDefault()` to your onClick handler.  |
 
 ## With a Filter
 
