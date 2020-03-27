@@ -152,6 +152,12 @@ const buttons = {
   }
 }
 
+const popovers = {
+  colors: {
+    caret: 'rgba(27, 31, 35, 0.15)'
+  }
+}
+
 const theme = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
   maxWidths: {
@@ -197,7 +203,8 @@ const theme = {
     primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
   },
   space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px'],
-  buttons
+  buttons,
+  popovers
 }
 
 export default theme
