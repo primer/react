@@ -1,6 +1,176 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectMenu snapshot matches 1`] = `
+.c8 {
+  padding: 4px 16px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6a737d;
+  background-color: #f6f8fa;
+  border-bottom: 1px solid #eaecef;
+}
+
+.c9 {
+  margin-top: -1px;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #6a737d;
+  text-align: center;
+  border-top: 1px solid #e1e4e8;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  background-color: #fff;
+  border: 0;
+  border-bottom: 1px solid #eaecef;
+  color: #586069;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c7:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c7:focus {
+  outline: none;
+}
+
+.c7[hidden] {
+  display: none !important;
+}
+
+.c7 .SelectMenu-icon {
+  width: 16px;
+  margin-right: 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c7 .SelectMenu-selected-icon {
+  visibility: hidden;
+  -webkit-transition: -webkit-transform 0.12s cubic-bezier(0.5,0.1,1,0.5),visibility 0s 0.12s linear;
+  -webkit-transition: transform 0.12s cubic-bezier(0.5,0.1,1,0.5),visibility 0s 0.12s linear;
+  transition: transform 0.12s cubic-bezier(0.5,0.1,1,0.5),visibility 0s 0.12s linear;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+
+.c7[aria-checked='true'] {
+  font-weight: 500;
+  color: #24292e;
+}
+
+.c7[aria-checked='true'] .SelectMenu-selected-icon {
+  visibility: visible;
+  -webkit-transition: -webkit-transform 0.12s cubic-bezier(0,0,0.2,1),visibility 0s linear;
+  -webkit-transition: transform 0.12s cubic-bezier(0,0,0.2,1),visibility 0s linear;
+  transition: transform 0.12s cubic-bezier(0,0,0.2,1),visibility 0s linear;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.c6 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #fff;
+  border-top: 1px solid #e1e4e8;
+  -webkit-overflow-scrolling: touch;
+}
+
+.c5 {
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  padding: 16px;
+}
+
+.c3 {
+  position: relative;
+  z-index: 99;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 66%;
+  margin: auto 0;
+  overflow: hidden;
+  pointer-events: auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
+  animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
+}
+
+.c2 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 16px;
+  pointer-events: none;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  content: '';
+  background-color: rgba(27,31,35,0.5);
+}
+
 .c0[open] > summary::before {
   position: fixed;
   top: 0;
@@ -26,8 +196,320 @@ exports[`SelectMenu snapshot matches 1`] = `
   display: none;
 }
 
+.c1 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 14px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid #e1e4e8;
+  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:focus {
+  outline: none;
+}
+
+.c1:disabled {
+  cursor: default;
+}
+
+.c1:hover {
+  background-color: #F3F4F6;
+  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
+}
+
+.c1:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c1:active {
+  background-color: #edeff2;
+  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
+  border-color: #d1d5da;
+}
+
+.c1:disabled {
+  color: #959da5;
+  background-color: #fafbfc;
+  border-color: #eaecef;
+}
+
+@media (min-width:544px) {
+  .c9 {
+    padding: 4px 8px;
+  }
+}
+
+@media (min-width:544px) {
+  .c7 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+@media (hover:hover) {
+  .c7 body:not(.intent-mouse) .SelectMenu-item:focus,
+  .c7:hover,
+  .c7:active,
+  .c7:focus {
+    background-color: #f6f8fa;
+  }
+}
+
+@media (hover:none) {
+  .c7 {
+    -webkit-tap-highlight-color: rgba(#d1d5da,0.5);
+  }
+
+  .c7:focus,
+  .c7:active {
+    background-color: #fafbfc;
+  }
+}
+
+@media (hover:hover) {
+  .c6 .SelectMenuTab:focus {
+    background-color: #dbedff;
+  }
+
+  .c6 .SelectMenuTab:not([aria-checked='true']):hover {
+    color: #24292e;
+    background-color: #e1e4e8;
+  }
+
+  .c6 .SelectMenuTab:not([aria-checked='true']):active {
+    color: #24292e;
+    background-color: #f6f8fa;
+  }
+}
+
+@media (min-width:544px) {
+  .c5 {
+    font-size: inherit;
+  }
+}
+
+@media (min-width:544px) {
+  .c4 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+@media (min-width:544px) {
+  .c3 {
+    width: 300px;
+    height: auto;
+    max-height: 350px;
+    margin: 4px 0 16px 0;
+    font-size: 12px;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(27,31,35,0.15) !default;
+  }
+}
+
+@media (min-width:544px) {
+  .c2::before {
+    display: none;
+  }
+}
+
+@media (min-width:544px) {
+  .c2 {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    padding: 0;
+  }
+}
+
 <details
   className="c0"
   onToggle={[Function]}
-/>
+  open={false}
+>
+  <summary
+    className="c1"
+  >
+    Projects
+  </summary>
+  <div
+    className="c2"
+    role="menu"
+  >
+    <div
+      className="c3"
+    >
+      <header
+        className="c4"
+      >
+        <h3
+          className="c5"
+        >
+          Projects
+        </h3>
+      </header>
+      <div
+        className="c6"
+      >
+        <a
+          aria-checked={true}
+          className="c7"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+          Primer Components bugs
+        </a>
+        <a
+          aria-checked={false}
+          className="c7"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+          Primer Components roadmap
+        </a>
+        <div
+          className="c8"
+        >
+          stuff
+        </div>
+        <a
+          aria-checked={false}
+          className="c7"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+           Project 3
+        </a>
+        <a
+          aria-checked={false}
+          className="c7"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+          Project 4
+        </a>
+        <footer
+          className="c9"
+        >
+          footer
+        </footer>
+      </div>
+    </div>
+  </div>
+</details>
 `;
