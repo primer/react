@@ -92,7 +92,7 @@
         "name": "ESM Build"
       },
       {
-        "path": "dist/index.esm.js",
+        "path": "dist/index.umd.js",
         "name": "UMD Build"
       }
     ]
