@@ -24,6 +24,7 @@ const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
   const menuProviderValues = {
     selectedTab,
     setSelectedTab,
+    setOpen,
     open,
     initialTab
   }
@@ -34,7 +35,7 @@ const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
 
   return (
     <MenuContext.Provider value={menuProviderValues}>
-      <details ref={ref} {...rest} onToggle={toggle}>
+      <details ref={ref} {...rest} open={open} onToggle={toggle}>
         {children}
       </details>
     </MenuContext.Provider>
