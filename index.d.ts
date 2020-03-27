@@ -106,10 +106,6 @@ declare module '@primer/components' {
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
-  export interface AnimationPulseProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-
-  export const AnimationPulse: React.FunctionComponent<AnimationPulseProps>
-
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     isChild?: boolean
     size?: number
@@ -253,7 +249,8 @@ declare module '@primer/components' {
   
   export interface SelectMenuItemProps extends CommonProps,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
-    selected?: boolean
+    selected?: boolean,
+    onClick?: function
   }
 
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
@@ -261,13 +258,16 @@ declare module '@primer/components' {
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface SelectMenuFilterProps extends TextInputProps {
-    autofocus?: boolean,
     value: string
   }
 
   export interface SelectMenuTabsProps extends CommonProps,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    tabs: string[]
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+    index: number,
+    tabName: string,
+    onClick?: function
   }
 
   export interface SelectMenuTabPanelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -280,6 +280,7 @@ declare module '@primer/components' {
         selectedTab: string | undefined
         setSelectedTab: (selectedTab: string | undefined) => void,
         open: boolean | undefined,
+        setOpen: (open: boolean | undefined) => void,
         initialTab:  string | undefined
       }
     }>
@@ -290,11 +291,9 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<SelectMenuItemProps>
     Modal: React.FunctionComponent<SelectMenuModalProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
+    Tab: React.FunctionComponent<SelectMenuTabProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
   }
-
-  export interface LoadingOctofaceProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  export const LoadingOctoface: React.FunctionComponent<LoadingOctofaceProps>
 
   export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
@@ -454,12 +453,6 @@ declare module '@primer/components' {
 
   export const useMenuFilter: () => [string | undefined, (ev: React.KeyboardEvent<HTMLInputElement>) => void]
 }
-
-declare module '@primer/components/src/AnimationPulse' {
-  import {AnimationPulse} from '@primer/components'
-  export default AnimationPulse
-}
-
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
   export default Box
@@ -659,11 +652,6 @@ declare module '@primer/components/src/ProgressBar' {
 declare module '@primer/components/src/AvatarStack' {
   import {AvatarStack} from '@primer/components'
   export default AvatarStack
-}
-
-declare module '@primer/components/src/LoadingOctoface' {
-  import {LoadingOctoface} from '@primer/components'
-  export default LoadingOctoface
 }
 
 declare module '@primer/components/src/Breadcrumbs' {

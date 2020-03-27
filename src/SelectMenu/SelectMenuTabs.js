@@ -23,7 +23,6 @@ SelectMenuTabs.defaultProps = {
 }
 
 SelectMenuTabs.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.string),
   ...COMMON.propTypes
 }
 

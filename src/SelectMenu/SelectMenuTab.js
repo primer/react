@@ -31,4 +31,10 @@ const SelectMenuTab = styled(TabBase)`
   ${tabStyles}
 `
 
+SelectMenuTab.propTypes = {
+  index: PropTypes.number,
+  tabName: PropTypes.string,
+  onClick: PropTypes.function
+}
+
 export default SelectMenuTab
