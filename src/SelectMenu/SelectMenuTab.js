@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import {tabStyles} from './SelectMenuStyles'
@@ -33,8 +34,8 @@ const SelectMenuTab = styled(TabBase)`
 
 SelectMenuTab.propTypes = {
   index: PropTypes.number,
-  tabName: PropTypes.string,
-  onClick: PropTypes.function
+  onClick: PropTypes.function,
+  tabName: PropTypes.string
 }
 
 export default SelectMenuTab
