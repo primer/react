@@ -7,7 +7,7 @@ import {space, color} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import {X} from '@primer/octicons-react'
 import StyledOcticon from './StyledOcticon'
-import {get, LAYOUT} from './constants'
+import {LAYOUT} from './constants'
 import theme from './theme'
 import Text from './Text'
 import Flex from './Flex'
@@ -54,7 +54,6 @@ const UnstyledButton = styled(Flex).attrs({
 
 const DialogHeader = styled(Flex).attrs({
   p: 3,
-  bg: 'gray.1',
   justifyContent: 'space-between',
   alignItems: 'center'
 })`
@@ -102,16 +101,21 @@ Dialog.propTypes = {
   theme: PropTypes.object
 }
 
-DialogHeader.defaultProps = {theme}
+DialogHeader.defaultProps = {
+  alignItems: 'center',
+  bg: 'gray.1',
+  justifyContent: 'space-between',
+  theme
+}
 
 DialogHeader.propTypes = {
-  theme: PropTypes.object
+  ...Flex.propTypes
 }
 
 DialogHeaderText.defaultProps = {theme}
 
 DialogHeaderText.propTypes = {
-  theme: PropTypes.object
+  ...DialogHeader.propTypes
 }
 
 Dialog.Header = DialogHeader
