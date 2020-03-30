@@ -8,26 +8,13 @@ The dialog component is used for all modals. It renders on top of the rest of th
 
 **Note:** You'll need to manage the `isOpen` state in a wrapper component of your own. For documentation purposes only we've created a mock `State` to handle this, but you should handle the state in the component you consume `Dialog` in or in a wrapper component.
 
-
+```jsx live
 <State default={false}>
   {([isOpen, setIsOpen]) => (
     <>
       <Button onClick={() => setIsOpen(true)}>Open</Button>
-      <Dialog title="Title" isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
-        <Box p={3}>
-          <Text fontFamily="sans-serif">Some content</Text>
-        </Box>
-      </Dialog>
-    </>
-  )}
-</State>
-
-```jsx
-<State default={false}>
-  {([isOpen, setIsOpen]) => (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open</Button>
-      <Dialog title="Title" isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+      <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        <Dialog.HeaderText>Title</Dialog.HeaderText>
         <Box p={3}>
           <Text fontFamily="sans-serif">Some content</Text>
         </Box>
@@ -37,23 +24,35 @@ The dialog component is used for all modals. It renders on top of the rest of th
 </State>
 ```
 
+To pass non-text content into the header, use `Dialog.Header` instead of `Dialog.HeaderText`:
 
-You can also pass any React node as the title to override the styling:
-
-```jsx
-<Dialog title={<Text fontSize={6}>Title</Text>}>
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open</Button>
+      <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        <Dialog.Header>
+          <Octicon icon={Zap} />
+        </Dialog.Header>
+        <Box p={3}>
+          <Text fontFamily="sans-serif">Some content</Text>
+        </Box>
+      </Dialog>
+    </>
+  )}
+</State>
 ```
 
 ## System props
 
-Dialog components get the `COMMON` and `LAYOUT` categories of system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`Dialog` components get the `COMMON` and `LAYOUT` categories of system props. `Dialog.Header` and `Dialog.HeaderText` components get `COMMON`, `LAYOUT`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
-These props are **all required**.
-
 | Prop name | Type | Description |
 | :- | :- | :- |
-| title | String or Node | The title shown in the header |
-| isOpen | Boolean | Handles opening and closing the dialog |
-| onDismiss | Function | Should close the dialog |
+| isOpen | Boolean | Set whether or not the dialog is shown |
+| onDismiss | Function | A user-provided function that should close the dialog |
+
+`Dialog.Header` and `Dialog.HeaderText` do not take any non-system props.

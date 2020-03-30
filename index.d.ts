@@ -389,12 +389,18 @@ declare module '@primer/components' {
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {
-    title: string
     isOpen: boolean
     onDismiss: () => unknown
   }
 
-  export const Dialog: React.FunctionComponent<DialogProps>
+  export interface DialogHeaderProps extends FlexProps {}
+
+  export interface DialogHeaderTextProps extends DialogHeaderProps {}
+
+  export const Dialog: React.FunctionComponent<DialogProps> & {
+    Header: React.FunctionComponent<DialogHeaderProps>
+    HeaderText: React.FunctionComponent<DialogHeaderTextProps>
+  }
 
   export interface LabelGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 

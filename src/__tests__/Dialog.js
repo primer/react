@@ -8,7 +8,8 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 const comp = (
-  <Dialog title="Title" isOpen onDismiss={() => null}>
+  <Dialog isOpen onDismiss={() => null}>
+    <Dialog.HeaderText>Title</Dialog.HeaderText>
     <Box p={3}>
       <Text fontFamily="sans-serif">Some content</Text>
     </Box>

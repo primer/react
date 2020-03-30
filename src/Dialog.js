@@ -7,7 +7,7 @@ import {space, color} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import {X} from '@primer/octicons-react'
 import StyledOcticon from './StyledOcticon'
-import {LAYOUT} from './constants'
+import {get, LAYOUT} from './constants'
 import theme from './theme'
 import Text from './Text'
 import Flex from './Flex'
@@ -26,6 +26,7 @@ export const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   padding: 0 !important;
+  position: relative;
 
   @media screen and (max-width: 750px) {
     width: 100vw !important;
@@ -45,6 +46,10 @@ const UnstyledButton = styled(Flex).attrs({
   background: none;
   border: none;
   padding: 0;
+
+  position: absolute;
+  top: 16px;
+  right: 16px;
 `
 
 const DialogHeader = styled(Flex).attrs({
@@ -61,22 +66,23 @@ const DialogHeader = styled(Flex).attrs({
   }
 `
 
-const Dialog = ({title, children, ...props}) => {
+function DialogHeaderText({children, theme, ...rest}) {
+  return (
+    <DialogHeader theme={theme} {...rest}>
+      <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif" theme={theme}>
+        {children}
+      </Text>
+    </DialogHeader>
+  )
+}
+
+const Dialog = ({children, ...props}) => {
   return (
     <>
       <StyledDialog {...props}>
-        <DialogHeader>
-          {typeof title === 'string' ? (
-            <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
-              {title}
-            </Text>
-          ) : (
-            title
-          )}
-          <UnstyledButton onClick={props.onDismiss}>
-            <StyledOcticon icon={X} />
-          </UnstyledButton>
-        </DialogHeader>
+        <UnstyledButton onClick={props.onDismiss}>
+          <StyledOcticon icon={X} />
+        </UnstyledButton>
         {children}
       </StyledDialog>
       <ReachGlobalStyle />
@@ -93,8 +99,21 @@ Dialog.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
-  theme: PropTypes.object,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
+  theme: PropTypes.object
 }
 
+DialogHeader.defaultProps = {theme}
+
+DialogHeader.propTypes = {
+  theme: PropTypes.object
+}
+
+DialogHeaderText.defaultProps = {theme}
+
+DialogHeaderText.propTypes = {
+  theme: PropTypes.object
+}
+
+Dialog.Header = DialogHeader
+Dialog.HeaderText = DialogHeaderText
 export default Dialog
