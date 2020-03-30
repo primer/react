@@ -268,6 +268,7 @@ declare module '@primer/components' {
       TypographyProps,
       LinkProps,
       Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
     variant?: 'normal' | 'full'
   }
 
