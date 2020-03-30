@@ -66,16 +66,14 @@ const DialogHeaderBase = styled(Flex).attrs({
 `
 
 function DialogHeader({theme, children, ...rest}) {
-  if (React.Children.count(children) === 1) {
-    const child = React.Children.toArray(children)[0]
-    if (typeof child === 'string') {
-      children = (
-        <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
-          {children}
-        </Text>
-      )
-    }
+  if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
+    children = (
+      <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+        {children}
+      </Text>
+    )
   }
+
   return (
     <DialogHeaderBase theme={theme} {...rest}>
       {children}
