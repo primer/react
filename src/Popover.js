@@ -20,6 +20,14 @@ const Popover = styled.div.attrs(({className, caret}) => {
   ${POSITION};
 `
 
+function getPopoverBorderColor(props) {
+  if (props.borderColor) {
+    return get(`colors.${props.borderColor}`)(props)
+  } else {
+    return get('popovers.colors.caret')(props)
+  }
+}
+
 Popover.Content = styled(BorderBox)`
   position: relative;
   width: 232px;
@@ -44,7 +52,7 @@ Popover.Content = styled(BorderBox)`
     top: -${get('space.3')};
     margin-left: -9px;
     border: ${get('space.2')} solid transparent; // TODO: solid?
-    border-bottom-color: ${get('popovers.colors.caret')};
+    border-bottom-color: ${getPopoverBorderColor};
   }
 
   &::after {
@@ -66,7 +74,7 @@ Popover.Content = styled(BorderBox)`
 
     &::before {
       bottom: -${get('space.3')};
-      border-top-color: ${get('popovers.colors.caret')};
+      border-top-color: ${getPopoverBorderColor};
     }
 
     &::after {
@@ -145,7 +153,7 @@ Popover.Content = styled(BorderBox)`
   ${Popover}.caret-pos--right-bottom & {
     &::before {
       right: -${get('space.3')};
-      border-left-color: ${get('popovers.colors.caret')};
+      border-left-color: ${getPopoverBorderColor};
     }
 
     &::after {
@@ -161,7 +169,7 @@ Popover.Content = styled(BorderBox)`
   ${Popover}.caret-pos--left-bottom & {
     &::before {
       left: -${get('space.3')};
-      border-right-color: ${get('popovers.colors.caret')};
+      border-right-color: ${getPopoverBorderColor};
     }
 
     &::after {
