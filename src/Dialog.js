@@ -52,7 +52,7 @@ const UnstyledButton = styled(Flex).attrs({
   right: 16px;
 `
 
-const DialogHeader = styled(Flex).attrs({
+const DialogHeaderBase = styled(Flex).attrs({
   p: 3,
   justifyContent: 'space-between',
   alignItems: 'center'
@@ -65,13 +65,21 @@ const DialogHeader = styled(Flex).attrs({
   }
 `
 
-function DialogHeaderText({children, theme, ...rest}) {
+function DialogHeader({theme, children, ...rest}) {
+  if (React.Children.count(children) === 1) {
+    const child = React.Children.toArray(children)[0]
+    if (typeof child === 'string') {
+      children = (
+        <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+          {children}
+        </Text>
+      )
+    }
+  }
   return (
-    <DialogHeader theme={theme} {...rest}>
-      <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif" theme={theme}>
-        {children}
-      </Text>
-    </DialogHeader>
+    <DialogHeaderBase theme={theme} {...rest}>
+      {children}
+    </DialogHeaderBase>
   )
 }
 
@@ -112,12 +120,5 @@ DialogHeader.propTypes = {
   ...Flex.propTypes
 }
 
-DialogHeaderText.defaultProps = {theme}
-
-DialogHeaderText.propTypes = {
-  ...DialogHeader.propTypes
-}
-
 Dialog.Header = DialogHeader
-Dialog.HeaderText = DialogHeaderText
 export default Dialog

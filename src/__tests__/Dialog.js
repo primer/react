@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 
 const comp = (
   <Dialog isOpen onDismiss={() => null}>
-    <Dialog.HeaderText>Title</Dialog.HeaderText>
+    <Dialog.Header>Title</Dialog.Header>
     <Box p={3}>
       <Text fontFamily="sans-serif">Some content</Text>
     </Box>

@@ -14,7 +14,7 @@ The dialog component is used for all modals. It renders on top of the rest of th
     <>
       <Button onClick={() => setIsOpen(true)}>Open</Button>
       <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
-        <Dialog.HeaderText>Title</Dialog.HeaderText>
+        <Dialog.Header>Title</Dialog.Header>
         <Box p={3}>
           <Text fontFamily="sans-serif">Some content</Text>
         </Box>
@@ -24,7 +24,7 @@ The dialog component is used for all modals. It renders on top of the rest of th
 </State>
 ```
 
-To pass non-text content into the header, use `Dialog.Header` instead of `Dialog.HeaderText`:
+You can also pass any non-text content into the header:
 
 ```jsx live
 <State default={false}>
@@ -46,7 +46,7 @@ To pass non-text content into the header, use `Dialog.Header` instead of `Dialog
 
 ## System props
 
-`Dialog` components get the `COMMON` and `LAYOUT` categories of system props. `Dialog.Header` and `Dialog.HeaderText` components get `COMMON`, `LAYOUT`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`Dialog` components get the `COMMON` and `LAYOUT` categories of system props. `Dialog.Header` components get `COMMON`, `LAYOUT`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
@@ -55,4 +55,4 @@ To pass non-text content into the header, use `Dialog.Header` instead of `Dialog
 | isOpen | Boolean | Set whether or not the dialog is shown |
 | onDismiss | Function | A user-provided function that should close the dialog |
 
-`Dialog.Header` and `Dialog.HeaderText` do not take any non-system props.
+`Dialog.Header` does not take any non-system props.
