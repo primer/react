@@ -2,15 +2,16 @@
 title: SelectMenu
 ---
 
-The `SelectMenu` components are a suite of 9 components which can be combined together to make several different variations of our GitHub select menu. At it's most basic form, a select menu is comprised of a `SelectMenu` wrapper, which contains a `summary` component of your choice and a `Select.Modal` which contains the select menu content. Use `SelectMenu.List` to wrap items in the select menu, and `SelectMenu.Item` to wrap each item.
+The `SelectMenu` components are a suite of components which can be combined together to make several different variations of our GitHub select menu. At it's most basic form, a select menu is comprised of a `SelectMenu` wrapper, which contains a `summary` component of your choice and a `Select.Modal` which contains the select menu content. Use `SelectMenu.List` to wrap items in the select menu, and `SelectMenu.Item` to wrap each item.
 
-Several additional components exist to provide even more functionality: `SelectMenu.Filter`, `SelectMenu.Tabs`, `SelectMenu.TabPanel` `SelectMenu.Footer` and `SelectMenu.Divider`.
+Several additional components exist to provide even more functionality: `SelectMenu.Header`, `SelectMenu.Filter`, `SelectMenu.Tabs`, `SelectMenu.TabPanel` `SelectMenu.Footer` and `SelectMenu.Divider`.
 
 ## Basic Example
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Projects">
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Projects</SelectMenu.Header>
       <SelectMenu.List>
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
         <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -80,7 +81,8 @@ SelectMenu.Item components get `COMMON` system props. Read our [System Props](/s
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Filter by Project">
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Filter by Project</SelectMenu.Header>
       <SelectMenu.Filter placeholder="Filter projects" value="" aria-label="Filter Projects"/>
       <SelectMenu.List>
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
@@ -108,7 +110,8 @@ SelectMenu.Filter components get `COMMON` system props. Read our [System Props](
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Projects">
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Projects</SelectMenu.Header>
       <SelectMenu.Tabs>
         <SelectMenu.Tab index={0} tabName="Repository"/>
         <SelectMenu.Tab index={1} tabName="Organization"/>
@@ -165,6 +168,8 @@ SelectMenu.Tab components get `COMMON` system props. Read our [System Props](/sy
 ## SelectMenu.TabPanel
 Wraps the content for each tab. Make sure to use the `tabName` prop to identify each tab panel with the correct tab in the tab navigation.
 
+**Note**: SelectMenu.TabPanel wraps content in a SelectMenu.List, so adding a SelectMenu.List manually is not necessary.
+
 ### System Props
 SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -179,7 +184,8 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Projects">
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Projects</SelectMenu.Header>
       <SelectMenu.List>
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
         <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -204,7 +210,8 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 ```jsx live
   <SelectMenu>
     <Button as="summary">Projects</Button>
-    <SelectMenu.Modal title="Projects">
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Projects</SelectMenu.Header>
       <SelectMenu.List>
         <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
         <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
@@ -222,3 +229,29 @@ SelectMenu.Footer components get `COMMON` system props. Read our [System Props](
 
 ### Component Props
 SelectMenu.Footer components do not get any additional props besides system props.
+
+## SelectMenu.Header
+Use a `SelectMenu.Header` to add a header to the top of the select menu content.
+
+```jsx live
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Projects</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+        <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+```
+
+### System Props
+
+SelectMenu.Header components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+### Component Props
+SelectMenu.Header components do not get any additional props besides system props.

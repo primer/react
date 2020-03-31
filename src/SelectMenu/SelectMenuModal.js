@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from '../constants'
 import {modalStyles, modalWrapperStyles} from './SelectMenuStyles'
-import SelectMenuHeader from './SelectMenuHeader'
 import theme from '../theme'
 
 const Modal = styled.div`
@@ -15,11 +14,10 @@ const ModalWrapper = styled.div`
   ${COMMON}
 `
 
-const SelectMenuModal = ({children, title, ...rest}) => {
+const SelectMenuModal = ({children, ...rest}) => {
   return (
     <ModalWrapper {...rest} role="menu">
       <Modal>
-        <SelectMenuHeader>{title}</SelectMenuHeader>
         {children}
       </Modal>
     </ModalWrapper>
@@ -31,7 +29,6 @@ SelectMenuModal.defaultProps = {
 }
 
 SelectMenuModal.propTypes = {
-  title: PropTypes.string,
   ...COMMON.propTypes
 }
 
