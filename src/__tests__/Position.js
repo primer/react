@@ -35,7 +35,8 @@ describe('position components', () => {
     it('can render other components with the is prop', () => {
       const result = render(<Absolute as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'absolute')
-      expect(result).toHaveStyleRule('border', '1px solid')
+      expect(result).toHaveStyleRule('border-width', '1px')
+      expect(result).toHaveStyleRule('border-style', 'solid')
     })
 
     it('respects the "as" prop', () => {
