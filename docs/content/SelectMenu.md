@@ -26,9 +26,9 @@ Several additional components exist to provide even more functionality: `SelectM
 Main wrapper component for select menu.
 
 ```jsx
-  <SelectMenu>
-    {/* all other sub components are wrapped here*/}
-  </SelectMenu>
+<SelectMenu>
+  {/* all other sub components are wrapped here*/}
+</SelectMenu>
 ```
 
 ### System props
