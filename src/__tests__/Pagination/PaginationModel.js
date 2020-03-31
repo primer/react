@@ -85,25 +85,51 @@ describe('Pagination model', () => {
     expect(model).toMatchObject(expected)
   })
 
-  it("doesn't show a break if only one page is skipped", () => {
-    const model = buildPaginationModel(9, 5, true, 2, 1)
-    const expected = [
-      {type: 'PREV', num: 4},
-      {type: 'NUM', num: 1},
-      {type: 'NUM', num: 2},
-      {type: 'NUM', num: 3},
-      {type: 'NUM', num: 4},
-      {type: 'NUM', num: 5, selected: true},
-      {type: 'NUM', num: 6},
-      {type: 'NUM', num: 7},
-      {type: 'NUM', num: 8},
-      {type: 'NUM', num: 9},
-      {type: 'NEXT', num: 6}
-    ]
-    expect(model).toMatchObject(expected)
-  })
+  // it("doesn't show a break if only one page is skipped", () => {
+  //   const model = buildPaginationModel(9, 5, true, 2, 1)
+  //   const expected = [
+  //     {type: 'PREV', num: 4},
+  //     {type: 'NUM', num: 1},
+  //     {type: 'NUM', num: 2},
+  //     {type: 'NUM', num: 3},
+  //     {type: 'NUM', num: 4},
+  //     {type: 'NUM', num: 5, selected: true},
+  //     {type: 'NUM', num: 6},
+  //     {type: 'NUM', num: 7},
+  //     {type: 'NUM', num: 8},
+  //     {type: 'NUM', num: 9},
+  //     {type: 'NEXT', num: 6}
+  //   ]
+  //   expect(model).toMatchObject(expected)
+  // })
 
   it('adds items to the right if it hits bounds to the left', () => {
-    //
+    const model = buildPaginationModel(15, 2, true, 1, 1)
+    const expected = [
+      {type: 'PREV', num: 1},
+      {type: 'NUM', num: 1},
+      {type: 'NUM', num: 2, selected: true},
+      {type: 'NUM', num: 3},
+      // normally with a surround of 1, only 1 and 3 would be shown
+      // however, since 1 was already shown, we extend to 4
+      {type: 'NUM', num: 4},
+      {type: 'BREAK'}
+    ]
+    expect(first(model, 6)).toMatchObject(expected)
+  })
+
+  it('adds items to the left if it hits bounds to the right', () => {
+    const model = buildPaginationModel(15, 14, true, 1, 1)
+    const expected = [
+      // normally with a surround of 1, only 13 and 15 would be shown
+      // however, since 15 was already shown, we extend to 12
+      {type: 'BREAK'},
+      {type: 'NUM', num: 12},
+      {type: 'NUM', num: 13},
+      {type: 'NUM', num: 14, selected: true},
+      {type: 'NUM', num: 15},
+      {type: 'NEXT', num: 15}
+    ]
+    expect(last(model, 6)).toMatchObject(expected)
   })
 })
