@@ -1,7 +1,8 @@
 import React from 'react'
 import SelectMenu from '../SelectMenu'
 import Button from '../Button'
-import {mount} from '../utils/testing'
+import {mount, render, renderRoot} from '../utils/testing'
+import TestRenderer from 'react-test-renderer'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -34,8 +35,8 @@ const MenuWithTabs = () => {
       <Button as="summary">Projects</Button>
       <SelectMenu.Modal title="Projects">
         <SelectMenu.Tabs>
-          <SelectMenu.Tab index={0} tabName="Repository" />
-          <SelectMenu.Tab index={1} data-test="orgTab" tabName="Organization" />
+          <SelectMenu.Tab index={0} data-test="repo-tab" aria-role={true} tabName="Repository" />
+          <SelectMenu.Tab index={1} tabName="Organization" />
         </SelectMenu.Tabs>
         <SelectMenu.TabPanel tabName="Repository">
           <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
@@ -67,43 +68,26 @@ describe('SelectMenu', () => {
     expect(SelectMenu).toSetDefaultTheme()
   })
 
-  // shallow rendering doesn't work because the component needs `ref` to be defined to render the keyboard hook
-  // using mount returns [Function type] for the type
-  it.skip('respects the "as" prop', () => {
-    expect(mount(<BasicSelectMenu as="span" />).type).toEqual('span')
+  it('does not allow the "as" prop on SelectMenu', () => {
+    expect(render(<SelectMenu as="span" />).type).toEqual('span')
   })
 
-  // same as above, returns ReactWraper{} instead of snapshot
-  it.skip('snapshot matches', () => {
-    expect(mount(<BasicSelectMenu />)).toMatchSnapshot()
-  })
-
-  // initialTab shows correct tab and applies hidden to the other tab
-  it.skip('shows correct initial tab', () => {
-    const wrapper = mount(<MenuWithTabs />)
-    expect(
-      wrapper
-        .find('[aria-selected="true"]')
-        .first()
-        .prop('tabName')
-    ).toEqual('Organization')
+  it('shows correct initial tab', () => {
+    const testInstance = renderRoot(<MenuWithTabs/>)
+    expect(testInstance.findByProps({"aria-selected": true}).props.children).toBe('Organization')
   })
 
   // clicking on a tab opens the tab
+  xit('clicking on a tab opens the tab', () => {
+    const root = renderRoot(<MenuWithTabs/>)
+    expect(root.findByProps({"aria-selected": true}).props["data-test"]).toBe('repo-tab')
+  });
 
-  // selected list items have the selected icon showing
-  // it seems like finding by aria-selected isn't working?! finding by a data- attribute works
-  it.skip('shows check svg in item when selected', () => {
-    const wrapper = mount(<BasicSelectMenu />)
-    expect(
-      wrapper
-        .find('[aria-selected="true"]')
-        .first()
-        .prop('tabName')
-    ).toEqual('Organization')
+
+  it('selected items have aria-checked', () => {
+    const testInstance = renderRoot(<BasicSelectMenu/>)
+    expect(testInstance.findByProps({"aria-checked": true}).props.children[1]).toBe('Primer Components bugs')
   })
-
-  // unselected list items do not have the selected icon showing
 
   // clicking on a list item calls onClick prop
 
