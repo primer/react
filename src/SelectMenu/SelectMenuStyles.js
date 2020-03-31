@@ -45,7 +45,7 @@ export const modalStyles = css`
   overflow: hidden; // Enables border radius on scrollable child elements
   pointer-events: auto;
   flex-direction: column;
-  background-color: ${get('colors.gray.1')};
+  background-color: ${get('colors.white')};
   border-radius: ${get('radii.2')};
   box-shadow: 0 1px 5px rgba(27, 31, 35, 0.15);
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
