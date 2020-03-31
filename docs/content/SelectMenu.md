@@ -74,9 +74,8 @@ SelectMenu.Item components get `COMMON` system props. Read our [System Props](/s
 | selected | boolean | | Used to apply styles to the selected items in the list. |
 | onClick | function | | Function called when item is clicked. By default we also close the menu when items are clicked. If you would like the menu to stay open, pass an `e.preventDefault()` to your onClick handler.  |
 
-## With a Filter
-
-*Note: The filter input value is meant to be controlled/managed by the consuming application.
+## SelectMenu.Filter
+Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expected to implement their own filtering and manage the state of the `value` prop on the input. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
 
 ```jsx live
   <SelectMenu>
@@ -95,8 +94,6 @@ SelectMenu.Item components get `COMMON` system props. Read our [System Props](/s
   </SelectMenu>
 ```
 
-## SelectMenu.Filter
-Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expected to implement their own filtering and manage the state of the `value` prop on the input. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
 
 ### System Props
 SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
