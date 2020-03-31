@@ -14,7 +14,7 @@ Import them individually from the main bundle:
 import {Box, Flex} from '@primer/components'
 ```
 
-or, if you've configured your application to tree-shake with webpack, you can import them indivdually from the `src` folder:
+or, if you've configured your application to tree-shake with webpack, you can import them individually from the `src` folder:
 
 ```
 import Box from '@primer/components/src/Box'

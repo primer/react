@@ -62,6 +62,8 @@
       url: /Link
     - title: PointerBox
       url: /PointerBox
+    - title: Popover
+      url: /Popover
     - title: Position
       url: /Position
     - title: ProgressBar
@@ -80,6 +82,8 @@
       url: /Text
     - title: TextInput
       url: /TextInput
+    - title: Timeline
+      url: /Timeline
     - title: Tooltip
       url: /Tooltip
     - title: Truncate

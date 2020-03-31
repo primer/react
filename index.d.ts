@@ -6,6 +6,8 @@ declare module '@primer/components' {
 
   export interface BaseProps extends React.Props<any> {
     as?: React.ReactType
+    className?: string
+    css?: string
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
@@ -145,11 +147,13 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends CommonProps, ButtonProps {}
+  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, Omit<ButtonProps, 'title'> {
+    as?: React.ReactType
+    title?: string | React.ReactNode
+  }
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: string
-    title: string
   }
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {
@@ -191,6 +195,10 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
+  export interface GridProps extends BoxProps, StyledSystem.GridProps {}
+
+  export const Grid: React.FunctionComponent<GridProps>
+
   export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
     variant?: 'small' | 'medium' | 'large' | 'xl'
@@ -215,6 +223,30 @@ declare module '@primer/components' {
 
   export const PointerBox: React.FunctionComponent<PointerBoxProps>
 
+  export interface PopoverProps extends CommonProps, LayoutProps, PositionProps {
+    caret?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-bottom'
+    | 'left-top'
+    | 'right-bottom'
+    | 'right-top'
+    open?: boolean
+    relative?: boolean
+  }
+
+  export interface PopoverContentProps extends BorderBoxProps { }
+
+  export const Popover: React.FunctionComponent<PopoverProps> & {
+    Content: React.FunctionComponent<PopoverContentProps>
+  }
+
   export interface PositionComponentProps
     extends PositionProps,
       CommonProps,
@@ -231,7 +263,12 @@ declare module '@primer/components' {
     variant?: 'normal' | 'lightweight'
   }
 
-  export interface SideNavLinkProps extends CommonProps, TypographyProps, LinkProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+  export interface SideNavLinkProps
+    extends CommonProps,
+      TypographyProps,
+      LinkProps,
+      Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
     variant?: 'normal' | 'full'
   }
 
@@ -259,6 +296,8 @@ declare module '@primer/components' {
   export interface TextInputProps
     extends CommonProps,
       StyledSystem.WidthProps,
+      StyledSystem.MaxWidthProps,
+      StyledSystem.MinWidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
     icon?: React.ReactElement
@@ -273,6 +312,22 @@ declare module '@primer/components' {
     noDelay?: boolean
     text?: string
     wrap?: boolean
+  }
+
+  export interface TimelineProps extends Omit<FlexProps, 'flexDirection'> {
+    clipSidebar?: boolean
+  }
+
+  export interface TimelineItemProps extends Omit<FlexProps, 'flexDirection'> {
+    condensed?: boolean
+  }
+  export interface TimelineBadgeProps extends Omit<FlexProps, 'height' | 'width' | 'alignItems' | 'justifyContent'> {}
+
+  export const Timeline: React.FunctionComponent<TimelineProps> & {
+    Item: React.FunctionComponent<TimelineItemProps>
+    Badge: React.FunctionComponent<TimelineBadgeProps>
+    Body: React.FunctionComponent<BoxProps>
+    Break: React.FunctionComponent<BoxProps>
   }
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
@@ -457,6 +512,11 @@ declare module '@primer/components/src/Flash' {
   export default Flash
 }
 
+declare module '@primer/components/src/Grid' {
+  import {Grid} from '@primer/components'
+  export default Grid
+}
+
 declare module '@primer/components/src/CounterLabel' {
   import {CounterLabel} from '@primer/components'
   export default CounterLabel
@@ -474,6 +534,10 @@ declare module '@primer/components/src/Link' {
 declare module '@primer/components/src/PointerBox' {
   import {PointerBox} from '@primer/components'
   export default PointerBox
+}
+declare module '@primer/components/src/Popover' {
+  import {Popover} from '@primer/components'
+  export default Popover
 }
 declare module '@primer/components/src/Relative' {
   import {Relative} from '@primer/components'
@@ -502,6 +566,10 @@ declare module '@primer/components/src/TabNav' {
 declare module '@primer/components/src/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
+}
+declare module '@primer/components/src/Timeline' {
+  import {Timeline} from '@primer/components'
+  export default Timeline
 }
 declare module '@primer/components/src/Tooltip' {
   import {Tooltip} from '@primer/components'

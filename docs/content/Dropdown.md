@@ -26,7 +26,7 @@ Dropdown, Dropdown.Menu, and Dropdown.Item all get `COMMON` system props. Read o
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | direction | String | 'sw' | Sets the direction of the dropdown menu. |
-| title | String | | Sets the text inside of the button |
+| title | String or Node | | Sets the text inside of the button, can be either a string or a React node |
 
 #### Dropdown.Item
 No additional props.

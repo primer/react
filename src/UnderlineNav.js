@@ -67,7 +67,7 @@ UnderlineNav.Link = styled.a.attrs(props => ({
   &:focus {
     color: ${get('colors.gray.9')};
     text-decoration: none;
-    border-bottom-color: ${get('colors.orange.5')};
+    border-bottom-color: ${get('colors.accent')};
     transition: 0.2s ease;
 
     .UnderlineNav-octicon {
@@ -77,7 +77,7 @@ UnderlineNav.Link = styled.a.attrs(props => ({
 
   &.selected {
     color: ${get('colors.gray.9')};
-    border-bottom-color: ${get('colors.orange.5')};
+    border-bottom-color: ${get('colors.accent')};
 
     .UnderlineNav-octicon {
       color: ${get('colors.gray.5')};
@@ -104,7 +104,7 @@ UnderlineNav.Link.defaultProps = {
 }
 
 UnderlineNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.node,
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes
