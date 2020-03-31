@@ -14,10 +14,10 @@ const ModalWrapper = styled.div`
   ${COMMON}
 `
 
-const SelectMenuModal = ({children, ...rest}) => {
+const SelectMenuModal = ({children, theme, ...rest}) => {
   return (
-    <ModalWrapper {...rest} role="menu">
-      <Modal>
+    <ModalWrapper theme={theme} {...rest} role="menu">
+      <Modal theme={theme}>
         {children}
       </Modal>
     </ModalWrapper>
