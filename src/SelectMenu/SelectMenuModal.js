@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from '../constants'
 import {modalStyles, modalWrapperStyles} from './SelectMenuStyles'
@@ -17,9 +16,7 @@ const ModalWrapper = styled.div`
 const SelectMenuModal = ({children, theme, ...rest}) => {
   return (
     <ModalWrapper theme={theme} {...rest} role="menu">
-      <Modal theme={theme}>
-        {children}
-      </Modal>
+      <Modal theme={theme}>{children}</Modal>
     </ModalWrapper>
   )
 }
