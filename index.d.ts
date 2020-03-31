@@ -252,7 +252,7 @@ declare module '@primer/components' {
     selected?: boolean
   }
 
-  export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuFooterProps extends CommonProps, Omit<React.FooterHTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
@@ -273,14 +273,12 @@ declare module '@primer/components' {
   }
 
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
-    ContextProvider: React.FunctionComponent<{
-      value: {
-        selectedTab: string | undefined
-        setSelectedTab: (selectedTab: string | undefined) => void,
-        open: boolean | undefined,
-        setOpen: (open: boolean | undefined) => void,
-        initialTab:  string | undefined
-      }
+    MenuContext: React.FunctionComponent<{
+      selectedTab: string | undefined
+      setSelectedTab: (selectedTab: string | undefined) => void,
+      open: boolean | undefined,
+      setOpen: (open: boolean | undefined) => void,
+      initialTab:  string | undefined
     }>
     Divider: React.FunctionComponent<SelectMenuDividerProps>
     Filter: React.FunctionComponent<SelectMenuFilterProps>
