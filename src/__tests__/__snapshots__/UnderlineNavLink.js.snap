@@ -152,6 +152,7 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
         },
       },
       "colors": Object {
+        "accent": "#f66a0a",
         "bg": Object {
           "disabled": "#F3F4F6",
           "gray": "#f6f8fa",
@@ -307,6 +308,11 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
         "medium": "768px",
         "small": "544px",
         "xlarge": "1280px",
+      },
+      "popovers": Object {
+        "colors": Object {
+          "caret": "rgba(27, 31, 35, 0.15)",
+        },
       },
       "radii": Array [
         "0",

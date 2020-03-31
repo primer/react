@@ -27,4 +27,6 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
 | block | Boolean | | Adds `display: block` to element |
 | variant | String | | Can be either `small` or `large`. Creates a smaller or larger input than the default.
 | width | String or Number | | Set the width of the input |
+| maxWidth | String or Number or [Array](https://styled-system.com/guides/array-props) | | Set the maximum width of the input |
+| minWidth | String or Number or [Array](https://styled-system.com/guides/array-props) | | Set the minimum width of the input |
 | icon | Node (pass Octicon react component) | | Icon to be used inside of input. Positioned on the right edge. | 

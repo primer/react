@@ -5,7 +5,7 @@ import systemPropTypes from '@styled-system/prop-types'
 import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
-import {variant, width} from 'styled-system'
+import {variant, width, minWidth, maxWidth} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -119,6 +119,8 @@ const Wrapper = styled.span`
   }
   ${COMMON}
   ${width}
+  ${minWidth}
+  ${maxWidth}
   ${sizeVariants}
 `
 
@@ -129,6 +131,8 @@ TextInput.defaultProps = {
 
 TextInput.propTypes = {
   block: PropTypes.bool,
+  maxWidth: systemPropTypes.layout.maxWidth,
+  minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width

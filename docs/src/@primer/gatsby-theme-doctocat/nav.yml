@@ -62,6 +62,8 @@
       url: /Link
     - title: PointerBox
       url: /PointerBox
+    - title: Popover
+      url: /Popover
     - title: Position
       url: /Position
     - title: ProgressBar

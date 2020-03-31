@@ -48,7 +48,8 @@ const colors = {
     gray: gray[1],
     grayLight: gray[0],
     disabled: '#F3F4F6'
-  }
+  },
+  accent: orange[5]
 }
 
 const buttons = {
@@ -151,14 +152,14 @@ const buttons = {
   }
 }
 
+const popovers = {
+  colors: {
+    caret: 'rgba(27, 31, 35, 0.15)'
+  }
+}
+
 const theme = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
-  maxWidths: {
-    small: '544px',
-    medium: '768px',
-    large: '1012px',
-    xlarge: '1280px'
-  },
   fonts: {
     normal: fontStack([
       '-apple-system',
@@ -195,8 +196,15 @@ const theme = {
     primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
     primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
   },
+  sizes: {
+    small: '544px',
+    medium: '768px',
+    large: '1012px',
+    xlarge: '1280px'
+  },
   space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px'],
-  buttons
+  buttons,
+  popovers
 }
 
 export default theme
