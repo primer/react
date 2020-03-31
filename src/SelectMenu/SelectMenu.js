@@ -43,7 +43,8 @@ const wrapperStyles = `
   }
 `
 
-const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
+// 'as' is spread out because we don't want users to be able to change the tag.
+const SelectMenuBase = ({children, as, initialTab, theme, ...rest}) => {
   const ref = useRef(null)
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [open, setOpen] = useState(false)
