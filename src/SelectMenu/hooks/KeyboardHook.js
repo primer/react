@@ -71,11 +71,13 @@ function useKeyboardNav(details) {
     }
   }
   useEffect(() => {
+    if (!details.current) return
+
     details.current.addEventListener('keydown', handleKeyDown)
     return () => {
       details.current.removeEventListener('keydown', handleKeyDown)
     }
-  })
+  }, [details.current])
 }
 
 export default useKeyboardNav
