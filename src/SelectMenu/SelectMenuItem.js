@@ -17,7 +17,7 @@ const StyledItem = styled.a.attrs(() => ({
 
 // 'as' is spread out because we don't want users to be able to change the tag. using something
 // other than 'a' will break a11y.
-const SelectMenuItem = ({children, selected, onClick, as, ...rest}) => {
+const SelectMenuItem = ({children, selected, theme, onClick, as, ...rest}) => {
   const menuContext = useContext(MenuContext)
 
   // close the menu when an item is clicked
@@ -30,8 +30,8 @@ const SelectMenuItem = ({children, selected, onClick, as, ...rest}) => {
     }
   }
   return (
-    <StyledItem {...rest} onClick={handleClick} aria-checked={selected}>
-      <StyledOcticon className="SelectMenu-icon SelectMenu-selected-icon" icon={Check} />
+    <StyledItem {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
+      <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={Check} />
       {children}
     </StyledItem>
   )
