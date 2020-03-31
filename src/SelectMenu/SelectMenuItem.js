@@ -1,12 +1,92 @@
 import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {Check} from '@primer/octicons-react'
-import {listItemStyles} from './SelectMenuStyles'
 import {MenuContext} from './SelectMenuContext'
-import {COMMON} from '../constants'
+import {COMMON, get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
+
+export const listItemStyles = css`
+  display: flex;
+  align-items: center;
+  padding: ${get('space.3')};
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  background-color: ${get('colors.white')};
+  border: 0;
+  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
+  color: ${get('colors.text.gray')};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  &[hidden] {
+    display: none !important;
+  }
+
+  @media (min-width: ${get('breakpoints.0')}) {
+    padding-top: ${get('space.2')};
+    padding-bottom: ${get('space.2')};
+  }
+
+  .SelectMenu-icon {
+    width: ${get('space.3')};
+    margin-right: ${get('space.2')};
+    flex-shrink: 0;
+  }
+
+  .SelectMenu-selected-icon {
+    visibility: hidden;
+    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
+    transform: scale(0);
+  }
+
+  // selected items
+  &[aria-checked='true'] {
+    font-weight: 500;
+    color: ${get('colors.gray.9')};
+
+    .SelectMenu-selected-icon {
+      visibility: visible;
+      transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
+      transform: scale(1);
+    }
+  }
+
+  // can hover states
+  @media (hover: hover) {
+    body:not(.intent-mouse) .SelectMenu-item:focus,
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: ${get('colors.bg.gray')};
+    }
+  }
+
+  // Can not hover states
+  //
+  // For touch input
+
+  @media (hover: none) {
+    // Android
+    &:focus,
+    &:active {
+      background-color: ${get('colors.bg.grayLight')};
+    }
+
+    // iOS Safari
+    // :active would work if ontouchstart is added to the button
+    // Instead this tweaks the "native" highlight color
+    -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
+  }
+`
 
 const StyledItem = styled.a.attrs(() => ({
   role: 'menuitemcheckbox'

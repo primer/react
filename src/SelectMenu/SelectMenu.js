@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {COMMON} from '../constants'
 import theme from '../theme'
-import {wrapperStyles} from './SelectMenuStyles'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
@@ -16,6 +15,33 @@ import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
 import useKeyboardNav from './hooks/useKeyboardNav'
+
+const wrapperStyles = `
+  &[open] > summary::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: block;
+    cursor: default;
+    content: ' ';
+    background: transparent;
+  }
+  // Remove marker added by the display: list-item browser default
+  > summary {
+    list-style: none;
+  }
+  // Remove marker added by details polyfill
+  > summary::before {
+    display: none;
+  }
+  // Remove marker added by Chrome
+  > summary::-webkit-details-marker {
+    display: none;
+  }
+`
 
 const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
   const ref = useRef(null)
