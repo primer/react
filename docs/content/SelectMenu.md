@@ -99,6 +99,8 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expe
 SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
+SelectMenu.Filter components receive all the props that the [TextInput](/TextInput) component gets.
+
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | value | String | | Users of this component must provide a value for the filter input that is managed in the consuming application |
