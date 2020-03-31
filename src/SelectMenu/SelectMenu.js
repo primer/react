@@ -15,7 +15,7 @@ import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
-import useKeyboardNav from './hooks/KeyboardHook'
+import useKeyboardNav from './hooks/useKeyboardNav'
 
 const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
   const ref = useRef(null)
