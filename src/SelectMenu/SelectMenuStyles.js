@@ -51,7 +51,7 @@ export const modalStyles = css`
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {
-    width: ${props => (props.filter ? 'auto' : '300px')};
+    width: '300px';
     height: auto;
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
