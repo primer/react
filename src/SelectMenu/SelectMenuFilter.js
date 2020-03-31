@@ -18,7 +18,7 @@ const StyledForm = styled.form`
   }
 `
 
-function SelectMenuFilter(props) {
+function SelectMenuFilter({theme, ...rest}) {
   const inputRef = useRef(null)
   const {open} = useContext(MenuContext)
 
@@ -30,7 +30,7 @@ function SelectMenuFilter(props) {
   }, [open])
   return (
     <StyledForm theme={theme}>
-      <TextInput ref={inputRef} width="100%" block value={props.value} {...props} />
+      <TextInput theme={theme} ref={inputRef} width="100%" block value={props.value} {...rest} />
     </StyledForm>
   )
 }
