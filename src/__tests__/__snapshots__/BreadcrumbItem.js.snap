@@ -286,12 +286,6 @@ exports[`Breadcrumb.Item renders the given "as" prop 1`] = `
         "condensedUltra": 1,
         "default": 1.5,
       },
-      "maxWidths": Object {
-        "large": "1012px",
-        "medium": "768px",
-        "small": "544px",
-        "xlarge": "1280px",
-      },
       "popovers": Object {
         "colors": Object {
           "caret": "rgba(27, 31, 35, 0.15)",
@@ -313,6 +307,12 @@ exports[`Breadcrumb.Item renders the given "as" prop 1`] = `
         "primaryActiveShadow": "inset 0px 1px 0px rgba(20, 70, 32, 0.2)",
         "primaryShadow": "0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)",
         "small": "0 1px 1px rgba(27, 31, 35, 0.1)",
+      },
+      "sizes": Object {
+        "large": "1012px",
+        "medium": "768px",
+        "small": "544px",
+        "xlarge": "1280px",
       },
       "space": Array [
         "0",
