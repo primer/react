@@ -2,7 +2,7 @@
 title: TextInput
 ---
 
-TextInput is a form component to add default styling to the native text input. 
+TextInput is a form component to add default styling to the native text input.
 
 **Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 ## Default example
@@ -11,6 +11,17 @@ TextInput is a form component to add default styling to the native text input.
 <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
 
 <TextInput ml={4} icon={Search} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
+
+<TextInput placeholder="test" state="error" />
+```
+
+```jsx live
+<TextInput placeholder="email" state="error" />
+<Popover relative open={true} caret="top-left" ml={2}>
+  <Popover.Content p={1} mt={2} borderColor='red.5'>
+    <Text fontSize={1}>This field has an error</Text>
+  </Popover.Content>
+</Popover>
 ```
 
 ## System props
@@ -29,4 +40,4 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
 | width | String or Number | | Set the width of the input |
 | maxWidth | String or Number or [Array](https://styled-system.com/guides/array-props) | | Set the maximum width of the input |
 | minWidth | String or Number or [Array](https://styled-system.com/guides/array-props) | | Set the minimum width of the input |
-| icon | Node (pass Octicon react component) | | Icon to be used inside of input. Positioned on the right edge. | 
+| icon | Node (pass Octicon react component) | | Icon to be used inside of input. Positioned on the right edge. |

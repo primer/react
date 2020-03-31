@@ -26,7 +26,22 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, block, disabled, ...rest}) => {
+const stateVariants = variant({
+  prop: 'state',
+  variants: {
+    normal: {
+      borderColor: 'border.gray'
+    },
+    error: {
+      borderColor: 'red.7'
+    },
+    warning: {
+      borderColor: 'yellow.7'
+    }
+  }
+})
+
+const TextInput = ({icon, className, block, disabled, state, ...rest}) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const wrapperProps = pick(rest)
@@ -38,6 +53,7 @@ const TextInput = ({icon, className, block, disabled, ...rest}) => {
       block={block}
       theme={theme}
       disabled={disabled}
+      state={state}
       {...wrapperProps}
     >
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
@@ -74,6 +90,8 @@ const Wrapper = styled.span`
   border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
+
+  ${stateVariants};
 
   ${props => {
     if (props.hasIcon) {
@@ -112,7 +130,7 @@ const Wrapper = styled.span`
     css`
       display: block;
       width: 100%;
-    `}    
+    `}
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
   @media (max-width: ${get('breakpoints.1')}) {
@@ -125,12 +143,16 @@ const Wrapper = styled.span`
   ${sizeVariants}
 `
 
-TextInput.defaultProps = {theme}
+TextInput.defaultProps = {
+  state: 'normal',
+  theme
+}
 
 TextInput.propTypes = {
   block: PropTypes.bool,
   maxWidth: systemPropTypes.layout.maxWidth,
   minWidth: systemPropTypes.layout.minWidth,
+  state: PropTypes.oneOf(['normal', 'error', 'warning']),
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width
