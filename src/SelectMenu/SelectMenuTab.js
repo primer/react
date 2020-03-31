@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
@@ -15,9 +15,11 @@ const TabBase = ({tabName, index, onClick, ...rest}) => {
   }
 
   // if no tab is selected when the component renders, show the first tab
-  if (!menuContext.selectedTab && index === 0) {
-    menuContext.setSelectedTab(tabName)
-  }
+  useEffect(() => {
+    if (!menuContext.selectedTab && index === 0) {
+      menuContext.setSelectedTab(tabName)
+    }
+  }, [])
 
   const isSelected = menuContext.selectedTab === tabName
 
@@ -34,7 +36,7 @@ const SelectMenuTab = styled(TabBase)`
 
 SelectMenuTab.propTypes = {
   index: PropTypes.number,
-  onClick: PropTypes.function,
+  onClick: PropTypes.func,
   tabName: PropTypes.string
 }
 
