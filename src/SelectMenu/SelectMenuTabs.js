@@ -4,9 +4,9 @@ import {tabWrapperStyles} from './SelectMenuStyles'
 import {COMMON} from '../constants'
 import theme from '../theme'
 
-const Tabs = ({className, children, ...rest}) => {
+const Tabs = ({children, ...rest}) => {
   return (
-    <div role="tablist" className={className} {...rest}>
+    <div role="tablist" {...rest}>
       {children}
     </div>
   )
