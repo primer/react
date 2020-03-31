@@ -29,10 +29,10 @@ const StyledHeader = styled.header`
     padding-bottom: ${get('space.2')};
   }
 `
-const SelectMenuHeader = ({children, ...rest}) => {
+const SelectMenuHeader = ({children, theme, ...rest}) => {
   return (
-    <StyledHeader {...rest}>
-      <SelectMenuTitle>{children}</SelectMenuTitle>
+    <StyledHeader theme={theme} {...rest}>
+      <SelectMenuTitle theme={theme}>{children}</SelectMenuTitle>
     </StyledHeader>
   )
 }
