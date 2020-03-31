@@ -1,15 +1,16 @@
 import {useEffect} from 'react'
 
+
 // adapted from details-menu web component https://github.com/github/details-menu-element
-function useKeyboardNav(details) {
+function useKeyboardNav(details, open, setOpen) {
   const handleKeyDown = event => {
     const closeDetails = () => {
-      details.current.removeAttribute('open')
+      setOpen(false)
       const summary = details.current.querySelector('summary')
       if (summary) summary.focus()
     }
     const openDetails = () => {
-      details.current.setAttribute('open', '')
+      setOpen(true)
     }
     const focusItem = next => {
       const options = Array.from(
@@ -27,11 +28,10 @@ function useKeyboardNav(details) {
       return role === 'menuitem' || role === 'menuitemcheckbox' || role === 'menuitemradio'
     }
     if (!(event instanceof KeyboardEvent)) return
-    const isOpen = details.current.hasAttribute('open')
     const isSummaryFocused = event.target instanceof Element && event.target.tagName === 'SUMMARY'
     switch (event.key) {
       case 'Escape':
-        if (isOpen) {
+        if (open) {
           closeDetails(details)
           event.preventDefault()
           event.stopPropagation()
@@ -39,7 +39,7 @@ function useKeyboardNav(details) {
         break
       case 'ArrowDown':
         {
-          if (isSummaryFocused && !isOpen) {
+          if (isSummaryFocused && !open) {
             openDetails(details)
           }
           const target = focusItem(true)
@@ -49,7 +49,7 @@ function useKeyboardNav(details) {
         break
       case 'ArrowUp':
         {
-          if (isSummaryFocused && !isOpen) {
+          if (isSummaryFocused && !open) {
             openDetails()
           }
           const target = focusItem(false)

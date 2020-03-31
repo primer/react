@@ -47,7 +47,6 @@ const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
   const ref = useRef(null)
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [open, setOpen] = useState(false)
-  useKeyboardNav(ref)
   const menuProviderValues = {
     selectedTab,
     setSelectedTab,
@@ -59,6 +58,8 @@ const SelectMenuBase = ({children, initialTab, theme, ...rest}) => {
   function toggle(event) {
     setOpen(event.target.open)
   }
+
+  useKeyboardNav(ref, open, setOpen)
 
   return (
     <MenuContext.Provider value={menuProviderValues}>
