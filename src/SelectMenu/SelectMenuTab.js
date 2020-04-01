@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import {get, COMMON} from '../constants'
+import theme from '../theme'
 
 const tabStyles = css`
   flex: 1;
@@ -42,7 +43,12 @@ const tabStyles = css`
   }
 `
 
-const TabBase = ({tabName, index, className, onClick, ...rest}) => {
+const StyledTab = styled.button`
+  ${tabStyles}
+  ${COMMON}
+`
+
+const SelectMenuTab = ({tabName, index, className, onClick, ...rest}) => {
   const menuContext = useContext(MenuContext)
   const handleClick = e => {
     // if consumer has attached an onClick event, call it
@@ -62,16 +68,16 @@ const TabBase = ({tabName, index, className, onClick, ...rest}) => {
   const isSelected = menuContext.selectedTab === tabName
 
   return (
-    <button role="tab" className={classnames("SelectMenuTab", className)} aria-selected={isSelected} onClick={handleClick} {...rest}>
+    <StyledTab role="tab" className={classnames("SelectMenuTab", className)} aria-selected={isSelected} onClick={handleClick} {...rest}>
       {tabName}
-    </button>
+    </StyledTab>
   )
 }
 
-const SelectMenuTab = styled(TabBase)`
-  ${tabStyles}
-  ${COMMON}
-`
+
+SelectMenuTab.defaultProps = {
+  theme
+}
 
 SelectMenuTab.propTypes = {
   index: PropTypes.number,

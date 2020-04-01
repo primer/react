@@ -1,23 +1,23 @@
 import React from 'react'
 import SelectMenu from '../SelectMenu'
 import Button from '../Button'
-import {mount, render, renderRoot} from '../utils/testing'
+import {mount, renderRoot} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
-const BasicSelectMenu = ({onClick}) => {
+const BasicSelectMenu = ({onClick, as}) => {
   return (
-    <SelectMenu>
+    <SelectMenu as={as}>
       <Button as="summary">Projects</Button>
       <SelectMenu.Modal title="Projects">
         <SelectMenu.List>
           <SelectMenu.Item selected href="#">
             Primer Components bugs
           </SelectMenu.Item>
-          <SelectMenu.Item onClick={onClick} data-test="menu-item" href="#">Primer Components roadmap</SelectMenu.Item>
+          <SelectMenu.Item onClick={onClick} as={as} data-test="menu-item" href="#">Primer Components roadmap</SelectMenu.Item>
           <SelectMenu.Divider>stuff</SelectMenu.Divider>
           <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
           <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
@@ -28,13 +28,13 @@ const BasicSelectMenu = ({onClick}) => {
   )
 }
 
-const MenuWithTabs = () => {
+const MenuWithTabs = ({onClick}) => {
   return (
     <SelectMenu initialTab="Organization">
       <Button as="summary">Projects</Button>
       <SelectMenu.Modal title="Projects">
         <SelectMenu.Tabs>
-          <SelectMenu.Tab index={0} data-test="repo-tab" tabName="Repository" />
+          <SelectMenu.Tab index={0} onClick={onClick} data-test="repo-tab" tabName="Repository" />
           <SelectMenu.Tab index={1} tabName="Organization" />
         </SelectMenu.Tabs>
         <SelectMenu.TabPanel tabName="Repository">
@@ -68,7 +68,13 @@ describe('SelectMenu', () => {
   })
 
   it('does not allow the "as" prop on SelectMenu', () => {
-    expect(render(<SelectMenu as="span" />).type).toEqual('span')
+    const component = mount(<BasicSelectMenu as="span" />)
+    expect(component.find("details").length).toEqual(1)
+  })
+
+  it('does not allow the "as" prop on SelectMenu.Item', () => {
+    const component = mount(<BasicSelectMenu as="span" />)
+    expect(component.find("[data-test='menu-item']").first().getDOMNode().tagName).toEqual("A")
   })
 
   it('shows correct initial tab', () => {
@@ -92,12 +98,23 @@ describe('SelectMenu', () => {
     const mockClick = jest.fn()
     const component = mount(<BasicSelectMenu onClick={mockClick} />)
     const item = component.find("[data-test='menu-item']").first()
-    console.log(item.debug())
     item.simulate('click')
     expect(mockClick.mock.calls.length).toEqual(1)
   });
 
-  // clicking on tab calls onClick prop
+  it('clicking on a tab calls user provided onClick handler', () => {
+    const mockClick = jest.fn()
+    const component = mount(<MenuWithTabs onClick={mockClick} />)
+    const item = component.find("[data-test='repo-tab']").first()
+    item.simulate('click')
+    expect(mockClick.mock.calls.length).toEqual(1)
+  });
 
-  // clicking on an item closes the modal
+  // 
+  it('clicking on an item closes the modal', () => {
+    const component = mount(<BasicSelectMenu />)
+    const item = component.find("[data-test='menu-item']").first()
+    item.simulate('click')
+    expect(component.getDOMNode().attributes.open).toBeFalsy()
+  });
 })

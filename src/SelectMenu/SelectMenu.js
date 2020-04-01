@@ -43,8 +43,13 @@ const wrapperStyles = `
   }
 `
 
+const StyledSelectMenu = styled.details`
+  ${wrapperStyles}
+  ${COMMON}
+`
+
 // 'as' is spread out because we don't want users to be able to change the tag.
-const SelectMenuBase = ({children, as, initialTab, theme, ...rest}) => {
+const SelectMenu = ({children, initialTab, as, ...rest}) => {
   const ref = useRef(null)
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [open, setOpen] = useState(false)
@@ -64,17 +69,12 @@ const SelectMenuBase = ({children, as, initialTab, theme, ...rest}) => {
 
   return (
     <MenuContext.Provider value={menuProviderValues}>
-      <details ref={ref} {...rest} open={open} onToggle={toggle}>
+      <StyledSelectMenu ref={ref} {...rest} open={open} onToggle={toggle}>
         {children}
-      </details>
+      </StyledSelectMenu>
     </MenuContext.Provider>
   )
 }
-
-const SelectMenu = styled(SelectMenuBase)`
-  ${wrapperStyles}
-  ${COMMON}
-`
 
 SelectMenu.MenuContext = MenuContext
 SelectMenu.List = SelectMenuList
