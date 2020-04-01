@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 // import classnames from 'classnames'
 import {get} from '../constants'
 // import theme from '../theme'
 // import elementType from './utils/elementType'
 // import Link from './Link'
 import Box from '../Box'
-import {buildPaginationModel} from './model'
+import {buildPaginationModel, buildComponentData} from './model'
 
 const Page = styled.a`
   position: relative;
@@ -17,81 +17,60 @@ const Page = styled.a`
   font-size: 13px;
   font-style: normal;
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('blue.5')};
+  color: ${get('pagination.colors.link')};
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
   background: ${get('white')};
-  border: ${get('borders.1')} ${get('colors.border.gray')};
-`
+  border: ${get('borders.1')} ${get('pagination.colors.border')};
+  text-decoration: none;
 
-function buildPaginationModelComponent(page, hrefBuilder, ariaLabelBuilder, onClick) {
-  const props = {}
-  let content = ''
-  let key = ''
-
-  switch (page.type) {
-    case 'PREV': {
-      key = 'page-prev'
-      content = 'Previous'
-      if (page.disabled) {
-        Object.assign(props, {as: 'span', 'aria-disabled': 'true'})
-      } else {
-        Object.assign(props, {
-          rel: 'prev',
-          href: hrefBuilder(page.num),
-          'aria-label': 'Previous Page',
-          onClick
-        })
-      }
-      break
-    }
-    case 'NEXT': {
-      key = 'page-next'
-      content = 'Next'
-      if (page.disabled) {
-        Object.assign(props, {as: 'span', 'aria-disabled': 'true'})
-      } else {
-        Object.assign(props, {
-          rel: 'next',
-          href: hrefBuilder(page.num),
-          'aria-label': 'Next Page',
-          onClick
-        })
-      }
-      break
-    }
-    case 'NUM': {
-      key = `page-${page.num}`
-      content = page.num
-      if (page.selected) {
-        Object.assign(props, {as: 'em', 'aria-current': 'page'})
-      } else {
-        Object.assign(props, {href: hrefBuilder(page.num), 'aria-label': ariaLabelBuilder(page.num), onClick})
-      }
-      break
-    }
-    case 'BREAK': {
-      key = `page-${page.num}-break`
-      content = '…'
-      Object.assign(props, {as: 'span'})
-    }
+  &:first-child {
+    margin-left: 0;
+    border-top-left-radius: ${get('radii.1')};
+    border-bottom-left-radius: ${get('radii.1')};
   }
 
-  return (
-    <Page {...props} key={key}>
-      {content}
-    </Page>
-  )
-}
+  &:last-child {
+    border-top-right-radius: ${get('radii.1')};
+    border-bottom-right-radius: ${get('radii.1')};
+  }
+
+  ${props =>
+    !props.selected &&
+    css`
+      &:hover,
+      &:focus {
+        z-index: 2;
+        background-color: ${get('pagination.colors.hover.bg')};
+        border-color: ${get('pagination.colors.border')};
+      }
+    `}
+
+  ${props =>
+    props.selected &&
+    css`
+      z-index: 3;
+      color: ${get('colors.white')};
+      background-color: ${get('pagination.colors.selected.bg')};
+      border-color: ${get('pagination.colors.selected.border')};
+    `}
+
+  ${props =>
+    props.disabled &&
+    css`
+      color: ${get('pagination.colors.disabled.fg')};
+      cursor: default;
+      background-color: ${get('pagination.colors.disabled.bg')};
+    `}
+`
 
 function usePaginationPages({
-  pages,
+  pageCount,
   currentPage,
   onPageChange,
   hrefBuilder,
-  ariaLabelBuilder,
   marginPageCount,
   showPages,
   surroundingPageCount
@@ -99,12 +78,19 @@ function usePaginationPages({
   const pageChange = React.useCallback(n => e => onPageChange(e, n), [onPageChange])
 
   const model = React.useMemo(() => {
-    return buildPaginationModel(pages, currentPage, showPages, marginPageCount, surroundingPageCount)
-  }, [pages, currentPage, showPages, marginPageCount, surroundingPageCount])
+    return buildPaginationModel(pageCount, currentPage, showPages, marginPageCount, surroundingPageCount)
+  }, [pageCount, currentPage, showPages, marginPageCount, surroundingPageCount])
 
   const children = React.useMemo(() => {
-    return model.map(page => buildPaginationModelComponent(page, hrefBuilder, ariaLabelBuilder, pageChange(page.num)))
-  }, [model, hrefBuilder, ariaLabelBuilder, pageChange])
+    return model.map(page => {
+      const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
+      return (
+        <Page {...props} key={key}>
+          {content}
+        </Page>
+      )
+    })
+  }, [model, hrefBuilder, pageChange])
 
   return children
 }
@@ -117,22 +103,20 @@ const PaginationContainer = styled.nav`
 
 function Pagination({
   theme,
-  pages,
+  pageCount,
   currentPage,
   onPageChange,
   hrefBuilder,
-  ariaLabelBuilder,
   marginPageCount,
   showPages,
   surroundingPageCount,
   ...rest
 }) {
   const pageElements = usePaginationPages({
-    pages,
+    pageCount,
     currentPage,
     onPageChange,
     hrefBuilder,
-    ariaLabelBuilder,
     marginPageCount,
     showPages,
     surroundingPageCount
@@ -144,10 +128,6 @@ function Pagination({
   )
 }
 
-function defaultAriaLabelBuilder(pageNum) {
-  return `Page ${pageNum}`
-}
-
 function defaultHrefBuilder(pageNum) {
   return `#${pageNum}`
 }
@@ -155,18 +135,16 @@ function defaultHrefBuilder(pageNum) {
 function noop() {}
 
 Pagination.propTypes = {
-  ariaLabelBuilder: PropTypes.func,
   currentPage: PropTypes.number.isRequired,
   hrefBuilder: PropTypes.func,
   marginPageCount: PropTypes.number,
   onPageChange: PropTypes.func,
-  pages: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
   showPages: PropTypes.bool,
   surroundingPageCount: PropTypes.number
 }
 
 Pagination.defaultProps = {
-  ariaLabelBuilder: defaultAriaLabelBuilder,
   hrefBuilder: defaultHrefBuilder,
   marginPageCount: 1,
   onPageChange: noop,

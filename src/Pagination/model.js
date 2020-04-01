@@ -98,3 +98,59 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
   const next = {type: 'NEXT', num: currentPage + 1, disabled: currentPage === pageCount}
   return [prev, ...pages, next]
 }
+
+export function buildComponentData(page, hrefBuilder, onClick) {
+  const props = {}
+  let content = ''
+  let key = ''
+
+  switch (page.type) {
+    case 'PREV': {
+      key = 'page-prev'
+      content = 'Previous'
+      if (page.disabled) {
+        Object.assign(props, {as: 'span', 'aria-disabled': 'true', disabled: true})
+      } else {
+        Object.assign(props, {
+          rel: 'prev',
+          href: hrefBuilder(page.num),
+          'aria-label': 'Previous Page',
+          onClick
+        })
+      }
+      break
+    }
+    case 'NEXT': {
+      key = 'page-next'
+      content = 'Next'
+      if (page.disabled) {
+        Object.assign(props, {as: 'span', 'aria-disabled': 'true', disabled: true})
+      } else {
+        Object.assign(props, {
+          rel: 'next',
+          href: hrefBuilder(page.num),
+          'aria-label': 'Next Page',
+          onClick
+        })
+      }
+      break
+    }
+    case 'NUM': {
+      key = `page-${page.num}`
+      content = page.num
+      if (page.selected) {
+        Object.assign(props, {as: 'em', 'aria-current': 'page', selected: true})
+      } else {
+        Object.assign(props, {href: hrefBuilder(page.num), 'aria-label': `Page ${page.num}`, onClick})
+      }
+      break
+    }
+    case 'BREAK': {
+      key = `page-${page.num}-break`
+      content = '…'
+      Object.assign(props, {as: 'span', disabled: true})
+    }
+  }
+
+  return {props, key, content}
+}

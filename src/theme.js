@@ -158,6 +158,24 @@ const popovers = {
   }
 }
 
+const pagination = {
+  colors: {
+    border: colors.border.gray,
+    link: colors.blue[5],
+    disabled: {
+      fg: colors.gray[3],
+      bg: colors.gray[0]
+    },
+    hover: {
+      bg: colors.gray[1]
+    },
+    selected: {
+      border: colors.blue[5],
+      bg: colors.blue[5]
+    }
+  }
+}
+
 const theme = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
   maxWidths: {
@@ -204,6 +222,7 @@ const theme = {
   },
   space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px'],
   buttons,
+  pagination,
   popovers
 }
 
