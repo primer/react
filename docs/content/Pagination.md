@@ -11,7 +11,7 @@ The pagination component only requires two properties to render: `pageCount`, wh
 
 ```jsx live
 <Pagination
-  pageCount={10}
+  pageCount={15}
   currentPage={2}
   onPageChange={e => e.preventDefault()}
 />
@@ -71,7 +71,7 @@ type HrefBuilder = (page: number) => string
       <BorderBox p={2}>
         <Box>The last URL clicked was: {lastUrl}</Box>
         <Pagination
-          pageCount={10}
+          pageCount={15}
           currentPage={2}
           onPageChange={onPageChange}
           hrefBuilder={hrefBuilder}
@@ -138,4 +138,56 @@ To hide all the page numbers and create a simple pagination container with just 
     )
   }}
 </State>
+```
+
+## System props
+
+Pagination components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| currentPage | Number | | **Required.** The currently selected page. |
+| hrefBuilder | Function | `#${page}` | A function to generate links based on page number. |
+| marginPageCount | Number | 1 | How many pages to always show at the left and right of the component. |
+| onPageChange | Function | | Called with event and page number when a page is clicked. |
+| pageCount | Number | | **Required.** The total number of pages. |
+| showPages | Boolean | `true` | Whether or not to show the individual page links. |
+| surroundingPageCount | Number | 2 | How many pages to display on each side of the currently selected page. |
+
+## Theming
+
+The following snippet shows the properties in the theme that control the styling of the pagination component:
+
+```javascript
+{
+  // ... rest of theme ...
+  pagination: {
+    fontWeight,
+    borderRadius,
+    colors: {
+      normal: {
+        fg,
+        bg,
+        border
+      },
+      disabled: {
+        fg,
+        bg,
+        border
+      },
+      hover: {
+        fg,
+        bg,
+        border
+      },
+      selected: {
+        fg,
+        bg,
+        border
+      }
+    }
+  }
+}
 ```
