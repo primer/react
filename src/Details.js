@@ -52,8 +52,12 @@ function Details({children, overlay, render = getRenderer(children), open, onTog
     }
   }, [internalOpen, overlay, closeMenu])
 
-  function handleToggle(event) {
-    setInternalOpen(event.target.open)
+  function handleToggle(e) {
+    onToggle && onToggle(e)
+
+    if(!event.defaultPrevented) {
+      setInternalOpen(e.target.open)
+    }
   }
 
   return (

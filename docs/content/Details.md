@@ -38,6 +38,8 @@ The render function gets an object with the `open` render prop to allow you to c
 ## Manage the open state manually
 The `Details` element is built to also let you manage the open state and toggle functionality if necessary. Just provide values to the `open` and `onToggle` props.
 
+**Note:** The `overlay` prop will not function automatically if you chose to provide your own `open` state. You'll need to implement this yourself.
+
 ```jsx live
 // state component is for demo purposes only.
 <State default={false}>
