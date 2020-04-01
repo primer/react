@@ -34,22 +34,11 @@ It can be useful to give the `Popover.Content` element a margin to help align th
 The `borderColor` system prop (read our [System Props](/system-props) doc page for more info) also affects the color of the caret.
 
 ```jsx live
-<State default={"red.5"}>
-  {([color, setColor]) => {
-    const setter = (color) => () => setColor(color)
-    return (
-      <Popover relative open={true}>
-        <Popover.Content borderColor={color} minWidth={250}>
-          <ButtonGroup>
-            <Button onClick={setter('red.5')}>Red</Button>
-            <Button onClick={setter('blue.5')}>Blue</Button>
-            <Button onClick={setter('green.5')}>Green</Button>
-          </ButtonGroup>
-        </Popover.Content>
-      </Popover>
-    )
-  }}
-</State>
+<Popover relative open={true}>
+  <Popover.Content borderColor='blue.5'>
+    <Text>Hi there!</Text>
+  </Popover.Content>
+</Popover>
 ```
 
 ## Caret position
