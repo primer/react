@@ -72,7 +72,9 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {}
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  }
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
