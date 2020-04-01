@@ -15,10 +15,10 @@ Heading.defaultProps = {
 }
 
 Heading.propTypes = {
-  ...COMMON.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  theme: PropTypes.object,
   as: PropTypes.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']),
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...TYPOGRAPHY.propTypes
 }
 
 export default Heading
