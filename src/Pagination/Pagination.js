@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 // import classnames from 'classnames'
-import {get} from '../constants'
+import {get, COMMON} from '../constants'
 // import theme from '../theme'
 // import elementType from './utils/elementType'
 // import Link from './Link'
@@ -16,35 +16,37 @@ const Page = styled.a`
   margin-left: -1px;
   font-size: 13px;
   font-style: normal;
-  font-weight: ${get('fontWeights.bold')};
-  color: ${get('pagination.colors.link')};
+  font-weight: ${get('pagination.fontWeight')};
+  color: ${get('pagination.colors.normal.fg')};
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  background: ${get('white')};
-  border: ${get('borders.1')} ${get('pagination.colors.border')};
+  background: ${get('pagination.colors.normal.bg')};
+  border: ${get('borders.1')} ${get('pagination.colors.normal.border')};
   text-decoration: none;
 
   &:first-child {
     margin-left: 0;
-    border-top-left-radius: ${get('radii.1')};
-    border-bottom-left-radius: ${get('radii.1')};
+    border-top-left-radius: ${get('pagination.borderRadius')};
+    border-bottom-left-radius: ${get('pagination.borderRadius')};
   }
 
   &:last-child {
-    border-top-right-radius: ${get('radii.1')};
-    border-bottom-right-radius: ${get('radii.1')};
+    border-top-right-radius: ${get('pagination.borderRadius')};
+    border-bottom-right-radius: ${get('pagination.borderRadius')};
   }
 
   ${props =>
     !props.selected &&
+    !props.disabled &&
     css`
       &:hover,
       &:focus {
         z-index: 2;
+        color: ${get('pagination.colors.hover.fg')};
         background-color: ${get('pagination.colors.hover.bg')};
-        border-color: ${get('pagination.colors.border')};
+        border-color: ${get('pagination.colors.hover.border')};
       }
     `}
 
@@ -52,7 +54,7 @@ const Page = styled.a`
     props.selected &&
     css`
       z-index: 3;
-      color: ${get('colors.white')};
+      color: ${get('pagination.colors.selected.fg')};
       background-color: ${get('pagination.colors.selected.bg')};
       border-color: ${get('pagination.colors.selected.border')};
     `}
@@ -63,10 +65,14 @@ const Page = styled.a`
       color: ${get('pagination.colors.disabled.fg')};
       cursor: default;
       background-color: ${get('pagination.colors.disabled.bg')};
+      border-color: ${get('pagination.colors.disabled.border')};
     `}
+
+  ${COMMON};
 `
 
 function usePaginationPages({
+  theme,
   pageCount,
   currentPage,
   onPageChange,
@@ -85,7 +91,7 @@ function usePaginationPages({
     return model.map(page => {
       const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
       return (
-        <Page {...props} key={key}>
+        <Page {...props} key={key} theme={theme}>
           {content}
         </Page>
       )
@@ -113,6 +119,7 @@ function Pagination({
   ...rest
 }) {
   const pageElements = usePaginationPages({
+    theme,
     pageCount,
     currentPage,
     onPageChange,
@@ -122,8 +129,10 @@ function Pagination({
     surroundingPageCount
   })
   return (
-    <PaginationContainer aria-label="Pagination" {...rest}>
-      <Box display="inline-block">{pageElements}</Box>
+    <PaginationContainer aria-label="Pagination" {...rest} theme={theme}>
+      <Box display="inline-block" theme={theme}>
+        {pageElements}
+      </Box>
     </PaginationContainer>
   )
 }

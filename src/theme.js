@@ -1,6 +1,7 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
 import {lineHeights} from 'primer-typography'
 
+// General
 const colors = {
   bodytext: gray[9],
   black,
@@ -51,6 +52,59 @@ const colors = {
   },
   accent: orange[5]
 }
+
+const breakpoints = ['544px', '768px', '1012px', '1280px']
+
+const maxWidths = {
+  small: '544px',
+  medium: '768px',
+  large: '1012px',
+  xlarge: '1280px'
+}
+
+const fonts = {
+  normal: fontStack([
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Helvetica',
+    'Arial',
+    'sans-serif',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol'
+  ]),
+  mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
+}
+
+const fontWeights = {
+  light: 300,
+  normal: 400,
+  semibold: 500,
+  bold: 600
+}
+
+const borders = [0, '1px solid']
+
+const radii = ['0', '3px', '6px', '100px']
+
+const shadows = {
+  small: '0 1px 1px rgba(27, 31, 35, 0.1)',
+  medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
+  large: '0 1px 15px rgba(27, 31, 35, 0.15)',
+  'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
+  formControl: 'inset 0px 2px 0px rgba(225, 228, 232, 0.2)',
+  formControlDisabled: 'inset 0px 2px 0px rgba(220, 227, 237, 0.3)',
+  formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
+  primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+  primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
+}
+
+const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
+
+const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
+
+// Components
 
 const buttons = {
   default: {
@@ -159,68 +213,47 @@ const popovers = {
 }
 
 const pagination = {
+  fontWeight: fontWeights.bold,
+  borderRadius: radii[1],
   colors: {
-    border: colors.border.gray,
-    link: colors.blue[5],
+    normal: {
+      fg: colors.blue[5],
+      bg: colors.white,
+      border: colors.border.gray
+    },
     disabled: {
       fg: colors.gray[3],
-      bg: colors.gray[0]
+      bg: colors.gray[0],
+      border: colors.border.gray
     },
     hover: {
-      bg: colors.gray[1]
+      fg: colors.blue[5],
+      bg: colors.gray[1],
+      border: colors.border.gray
     },
     selected: {
-      border: colors.blue[5],
-      bg: colors.blue[5]
+      fg: colors.white,
+      bg: colors.blue[5],
+      border: colors.blue[5]
     }
   }
 }
 
 const theme = {
-  breakpoints: ['544px', '768px', '1012px', '1280px'],
-  maxWidths: {
-    small: '544px',
-    medium: '768px',
-    large: '1012px',
-    xlarge: '1280px'
-  },
-  fonts: {
-    normal: fontStack([
-      '-apple-system',
-      'BlinkMacSystemFont',
-      'Segoe UI',
-      'Helvetica',
-      'Arial',
-      'sans-serif',
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'Segoe UI Symbol'
-    ]),
-    mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
-  },
-  fontWeights: {
-    light: 300,
-    normal: 400,
-    semibold: 500,
-    bold: 600
-  },
+  // General
+  borders,
+  breakpoints,
   colors,
-  borders: [0, '1px solid'],
-  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
+  fonts,
+  fontSizes,
+  fontWeights,
   lineHeights,
-  radii: ['0', '3px', '6px', '100px'],
-  shadows: {
-    small: '0 1px 1px rgba(27, 31, 35, 0.1)',
-    medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
-    large: '0 1px 15px rgba(27, 31, 35, 0.15)',
-    'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
-    formControl: 'inset 0px 2px 0px rgba(225, 228, 232, 0.2)',
-    formControlDisabled: 'inset 0px 2px 0px rgba(220, 227, 237, 0.3)',
-    formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
-    primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-    primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
-  },
-  space: ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px'],
+  maxWidths,
+  radii,
+  shadows,
+  space,
+
+  // Components
   buttons,
   pagination,
   popovers
