@@ -56,7 +56,8 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
       .slice()
       .sort((a, b) => a - b)
       .filter((item, idx, ary) => !idx || item !== ary[idx - 1])
-    for (const [idx, num] of sorted.entries()) {
+    for (let idx = 0; idx < sorted.length; idx++) {
+      const num = sorted[idx]
       const selected = num === currentPage
       if (idx === 0) {
         if (num !== 1) {
