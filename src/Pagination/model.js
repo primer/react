@@ -2,10 +2,10 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
   const pages = []
 
   if (showPages) {
-    const pageNums = new Set()
+    const pageNums = []
     const addPage = n => {
       if (n >= 1 && n <= pageCount) {
-        pageNums.add(n)
+        pageNums.push(n)
       }
     }
 
@@ -52,7 +52,10 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
       addPage(i)
     }
 
-    const sorted = [...pageNums.values()].sort((a, b) => a - b)
+    const sorted = pageNums
+      .slice()
+      .sort((a, b) => a - b)
+      .filter((item, idx, ary) => !idx || item !== ary[idx - 1])
     for (const [idx, num] of sorted.entries()) {
       const selected = num === currentPage
       if (idx === 0) {
