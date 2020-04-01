@@ -52,11 +52,7 @@ const UnstyledButton = styled(Flex).attrs({
   right: 16px;
 `
 
-const DialogHeaderBase = styled(Flex).attrs({
-  p: 3,
-  justifyContent: 'space-between',
-  alignItems: 'center'
-})`
+const DialogHeaderBase = styled(Flex)`
   border-radius: 4px 4px 0px 0px;
   border-bottom: 1px solid #dad5da;
 
@@ -75,7 +71,7 @@ function DialogHeader({theme, children, ...rest}) {
   }
 
   return (
-    <DialogHeaderBase theme={theme} {...rest}>
+    <DialogHeaderBase theme={theme} p={3} {...rest}>
       {children}
     </DialogHeaderBase>
   )
@@ -108,7 +104,7 @@ Dialog.propTypes = {
 }
 
 DialogHeader.defaultProps = {
-  bg: 'gray.1',
+  backgroundColor: 'gray.1',
   theme
 }
 

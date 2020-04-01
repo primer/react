@@ -314,7 +314,7 @@ exports[`Dialog renders consistently 1`] = `
   }
 >
   <DialogHeader
-    bg="gray.1"
+    backgroundColor="gray.1"
     theme={
       Object {
         "borders": Array [
