@@ -72,9 +72,7 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {
-    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  }
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {}
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
@@ -218,6 +216,28 @@ declare module '@primer/components' {
   }
 
   export const Link: React.FunctionComponent<LinkProps>
+
+  export type PaginationHrefBuilder = (page: number) => string
+
+  export type PaginationPageChangeCallback = (e: React.MouseEvent, page: number) => void
+
+  export interface PaginationProps extends CommonProps {
+    currentPage: number
+    hrefBuilder?: PaginationHrefBuilder
+    /**
+     * How many pages to show on the left and right of the component
+     */
+    marginPageCount?: number
+    onPageChange?: PaginationPageChangeCallback
+    pageCount: number
+    showPages?: boolean
+    /**
+     * How many pages to show directly to the left and right of the current page
+     */
+    surroundingPageCount?: number
+  }
+
+  export const Pagination: React.FunctionComponent<PaginationProps>
 
   export interface PointerBoxProps extends CommonProps, LayoutProps, BorderBoxProps {
     caret?: string
@@ -391,15 +411,12 @@ declare module '@primer/components' {
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {
+    title: string
     isOpen: boolean
     onDismiss: () => unknown
   }
 
-  export interface DialogHeaderProps extends FlexProps {}
-
-  export const Dialog: React.FunctionComponent<DialogProps> & {
-    Header: React.FunctionComponent<DialogHeaderProps>
-  }
+  export const Dialog: React.FunctionComponent<DialogProps>
 
   export interface LabelGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 
@@ -535,6 +552,10 @@ declare module '@primer/components/src/Label' {
 declare module '@primer/components/src/Link' {
   import {Link} from '@primer/components'
   export default Link
+}
+declare module '@primer/components/src/Pagination' {
+  import {Pagination} from '@primer/components'
+  export default Pagination
 }
 declare module '@primer/components/src/PointerBox' {
   import {PointerBox} from '@primer/components'

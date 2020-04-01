@@ -8,8 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 const comp = (
-  <Dialog isOpen onDismiss={() => null}>
-    <Dialog.Header>Title</Dialog.Header>
+  <Dialog title="Title" isOpen onDismiss={() => null}>
     <Box p={3}>
       <Text fontFamily="sans-serif">Some content</Text>
     </Box>
@@ -22,9 +21,5 @@ describe('Dialog', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('renders consistently', () => {
-    expect(comp).toMatchSnapshot()
   })
 })
