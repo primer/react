@@ -146,7 +146,10 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface DropdownProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
+    open?: boolean,
+    
+  }
 
   export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
