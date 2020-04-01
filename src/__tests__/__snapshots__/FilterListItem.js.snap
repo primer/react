@@ -305,6 +305,32 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
         "small": "544px",
         "xlarge": "1280px",
       },
+      "pagination": Object {
+        "borderRadius": "3px",
+        "colors": Object {
+          "disabled": Object {
+            "bg": "#fafbfc",
+            "border": "#e1e4e8",
+            "fg": "#d1d5da",
+          },
+          "hover": Object {
+            "bg": "#f6f8fa",
+            "border": "#e1e4e8",
+            "fg": "#0366d6",
+          },
+          "normal": Object {
+            "bg": "#fff",
+            "border": "#e1e4e8",
+            "fg": "#0366d6",
+          },
+          "selected": Object {
+            "bg": "#0366d6",
+            "border": "#0366d6",
+            "fg": "#fff",
+          },
+        },
+        "fontWeight": 600,
+      },
       "popovers": Object {
         "colors": Object {
           "caret": "rgba(27, 31, 35, 0.15)",
