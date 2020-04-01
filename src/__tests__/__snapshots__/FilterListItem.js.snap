@@ -329,6 +329,7 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
             "fg": "#fff",
           },
         },
+        "fontSize": "13px",
         "fontWeight": 600,
       },
       "popovers": Object {
