@@ -7,18 +7,18 @@ import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
 
-const DropdownBase = ({children, className, ...rest}) => {
-  return (
-    <Details overlay className={className} {...rest}>
-      {children}
-    </Details>
-  )
-}
-const Dropdown = styled(DropdownBase)`
+const StyledDetails = styled(Details)`
   position: relative;
   display: inline-block;
-  ${COMMON};
 `
+
+const Dropdown = ({children, className, ...rest}) => {
+  return (
+    <StyledDetails overlay className={className} {...rest}>
+      {children}
+    </StyledDetails>
+  )
+}
 
 Dropdown.Button = ({children, ...rest}) => {
   return (
