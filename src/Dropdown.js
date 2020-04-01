@@ -147,6 +147,8 @@ Dropdown.Caret.propTpyes = {
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
   children: PropTypes.node,
+  open: PropTypes.bool,
+  onToggle: PropTypes.func,
   ...COMMON.propTypes
 }
 
