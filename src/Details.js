@@ -29,7 +29,7 @@ function getRenderer(children) {
 function Details({children, overlay, render = getRenderer(children), open, onToggle, defaultOpen = false, ...rest}) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   // only handle open state if user doesn't provide a value for the open prop
-  const shouldHandleOpen = open === undefined
+  const shouldHandleOpen = typeof open === undefined
   const ref = useRef(null)
 
   const closeMenu = useCallback(

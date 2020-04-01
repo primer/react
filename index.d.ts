@@ -81,6 +81,7 @@ declare module '@primer/components' {
     children?: DetailsRenderFunction | React.ReactNode
     defaultOpen?: boolean
     overlay?: boolean
+    open?: boolean
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
