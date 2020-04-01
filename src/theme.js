@@ -100,6 +100,13 @@ const shadows = {
   primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
 }
 
+const sizes = {
+  small: '544px',
+  medium: '768px',
+  large: '1012px',
+  xlarge: '1280px'
+}
+
 const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
@@ -249,9 +256,9 @@ const theme = {
   fontSizes,
   fontWeights,
   lineHeights,
-  maxWidths,
   radii,
   shadows,
+  sizes,
   space,
 
   // Components
