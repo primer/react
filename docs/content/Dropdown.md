@@ -12,7 +12,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 <Dropdown direction='w'>
   <Dropdown.Button>Dropdown</Dropdown.Button>
   <Dropdown.Menu direction='sw'>
-    <Dropdown.Item onClick={onClick}>Item 1</Dropdown.Item>
+    <Dropdown.Item>Item 1</Dropdown.Item>
     <Dropdown.Item>Item 2</Dropdown.Item>
     <Dropdown.Item>Item 3</Dropdown.Item>
   </Dropdown.Menu>
@@ -41,7 +41,11 @@ Dropdown, Dropdown.Menu, Dropdown.Button, Dropdown.Caret, and Dropdown.Item all 
 ## Component props
 
 #### Dropdown
-No additional props.
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| open | Boolean | | Use the open prop if you'd like to manage the open state |
+| onToggle | Function | | Called whenever user clicks on `summary` element. If you are controlling your own `open` state this will be the only function called on click, otherwise it's called before the internal `handleToggle` function.|
+
 
 #### Dropdown.Menu
 | Name | Type | Default | Description |

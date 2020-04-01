@@ -29,7 +29,7 @@ function getRenderer(children) {
 function Details({children, overlay, render = getRenderer(children), open, onToggle, defaultOpen = false, ...rest}) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   // only handle open state if user doesn't provide a value for the open prop
-  const shouldHandleOpen = typeof open === undefined
+  const shouldHandleOpen = typeof open === "undefined"
   const ref = useRef(null)
 
   const closeMenu = useCallback(
@@ -42,7 +42,7 @@ function Details({children, overlay, render = getRenderer(children), open, onTog
     },
     [ref]
   )
-
+  // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
     if (shouldHandleOpen && overlay && internalOpen) {
       document.addEventListener('click', closeMenu)
@@ -50,12 +50,13 @@ function Details({children, overlay, render = getRenderer(children), open, onTog
         document.removeEventListener('click', closeMenu)
       }
     }
-  }, [internalOpen, overlay, closeMenu])
+  }, [internalOpen, shouldHandleOpen, overlay, closeMenu])
 
   function handleToggle(e) {
     onToggle && onToggle(e)
 
-    if(!event.defaultPrevented) {
+    if(!e.defaultPrevented) {
+      console.log('internally handling toggle')
       setInternalOpen(e.target.open)
     }
   }
