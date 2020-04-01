@@ -12,27 +12,31 @@ if (typeof window !== 'undefined') {
   require('details-element-polyfill')
 }
 
-const DetailsReset = styled('details')`
+const StyledDetails = styled('details')`
   & > summary {
     list-style: none;
   }
   & > summary::-webkit-details-marker {
     display: none;
   }
+
+  ${COMMON}
 `
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function DetailsBase({children, overlay, render = getRenderer(children), defaultOpen = false, ...rest}) {
-  const [open, setOpen] = useState(defaultOpen)
+function Details({children, overlay, render = getRenderer(children), open, onToggle, defaultOpen = false, ...rest}) {
+  const [internalOpen, setInternalOpen] = useState(defaultOpen)
+  // only handle open state if user doesn't provide a value for the open prop
+  const shouldHandleOpen = open === undefined
   const ref = useRef(null)
 
   const closeMenu = useCallback(
     event => {
       // only close the menu if we're clicking outside
       if (event && event.target.closest('details') !== ref.current) {
-        setOpen(false)
+        setInternalOpen(false)
         document.removeEventListener('click', closeMenu)
       }
     },
@@ -40,26 +44,24 @@ function DetailsBase({children, overlay, render = getRenderer(children), default
   )
 
   useEffect(() => {
-    if (overlay && open) {
+    if (shouldHandleOpen && overlay && internalOpen) {
       document.addEventListener('click', closeMenu)
       return () => {
         document.removeEventListener('click', closeMenu)
       }
     }
-  }, [open, overlay, closeMenu])
+  }, [internalOpen, overlay, closeMenu])
 
-  function toggle(event) {
-    setOpen(event.target.open)
+  function handleToggle(event) {
+    setInternalOpen(event.target.open)
   }
 
   return (
-    <DetailsReset {...rest} ref={ref} open={open} onToggle={toggle} overlay={overlay}>
+    <StyledDetails {...rest} ref={ref} open={shouldHandleOpen ? internalOpen : open} onToggle={shouldHandleOpen ? handleToggle : onToggle} overlay={overlay}>
       {render({open})}
-    </DetailsReset>
+    </StyledDetails>
   )
 }
-
-const Details = styled(DetailsBase)(COMMON)
 
 Details.defaultProps = {
   theme,

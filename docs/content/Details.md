@@ -16,6 +16,7 @@ You are responsible for rendering your own `<summary>`. To style your summary el
   <Button as="summary">Click me</Button>
   <p>This should show and hide</p>
 </Details>
+
 ```
 
 ## With children as a function
@@ -32,6 +33,29 @@ The render function gets an object with the `open` render prop to allow you to c
     </>
   )}
 </Details>
+```
+
+## Manage the open state manually
+The `Details` element is built to also let you manage the open state and toggle functionality if necessary. Just provide values to the `open` and `onToggle` props.
+
+```jsx live
+// state component is for demo purposes only.
+<State default={false}>
+  {([open, setOpen]) => {
+    
+    const handleToggle = (e) => {
+      console.log('toggling')
+      setOpen(e.target.open)
+    }
+
+    return (
+      <Details open={open} onToggle={handleToggle}>
+        <Button as="summary">Click me</Button>
+        <p>This should show and hide</p>
+      </Details>
+    )
+  }}
+</State>
 ```
 
 ## System props
