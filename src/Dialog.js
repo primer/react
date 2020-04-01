@@ -108,9 +108,7 @@ Dialog.propTypes = {
 }
 
 DialogHeader.defaultProps = {
-  alignItems: 'center',
   bg: 'gray.1',
-  justifyContent: 'space-between',
   theme
 }
 
