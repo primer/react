@@ -63,6 +63,14 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
     for (const [idx, num] of sorted.entries()) {
       const selected = num === currentPage
       if (idx === 0) {
+        if (num !== 1) {
+          // If the first page isn't page one,
+          // we need to add a break
+          pages.push({
+            type: 'BREAK',
+            num: 1
+          })
+        }
         pages.push({
           type: 'NUM',
           num,
@@ -77,6 +85,14 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
             num,
             selected
           })
+          if (idx === sorted.length - 1 && num !== pageCount) {
+            // If the last page we're rendering
+            // isn't the final page, we need a break
+            pages.push({
+              type: 'BREAK',
+              num: pageCount
+            })
+          }
         } else {
           // We skipped some, so add a break
           pages.push({
