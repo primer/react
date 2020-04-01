@@ -85,14 +85,6 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
             num,
             selected
           })
-          if (idx === sorted.length - 1 && num !== pageCount) {
-            // If the last page we're rendering
-            // isn't the final page, we need a break
-            pages.push({
-              type: 'BREAK',
-              num: pageCount
-            })
-          }
         } else {
           // We skipped some, so add a break
           pages.push({
@@ -106,6 +98,16 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
           })
         }
       }
+    }
+
+    const lastPage = pages[pages.length - 1]
+    if (lastPage.type === 'NUM' && lastPage.num !== pageCount) {
+      // The last page we rendered wasn't the actual last page,
+      // so we need an additional break
+      pages.push({
+        type: 'BREAK',
+        num: pageCount
+      })
     }
   }
 
