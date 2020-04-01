@@ -10,7 +10,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 ## Default example
 ```jsx live
     <Dropdown>
-      <Dropdown.Button>{text}</Dropdown.Button>
+      <Dropdown.Button>Dropdown</Dropdown.Button>
       <Dropdown.Menu direction='se'>
         <Dropdown.Item onClick={onClick}>Item 1</Dropdown.Item>
         <Dropdown.Item>Item 2</Dropdown.Item>
