@@ -29,7 +29,7 @@ function getRenderer(children) {
 function Details({children, overlay, render = getRenderer(children), open, onToggle, defaultOpen = false, ...rest}) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   // only handle open state if user doesn't provide a value for the open prop
-  const shouldHandleOpen = typeof open === "undefined"
+  const shouldHandleOpen = typeof open === 'undefined'
   const ref = useRef(null)
 
   const closeMenu = useCallback(
@@ -55,14 +55,19 @@ function Details({children, overlay, render = getRenderer(children), open, onTog
   function handleToggle(e) {
     onToggle && onToggle(e)
 
-    if(!e.defaultPrevented) {
-      console.log('internally handling toggle')
+    if (!e.defaultPrevented) {
       setInternalOpen(e.target.open)
     }
   }
 
   return (
-    <StyledDetails {...rest} ref={ref} open={shouldHandleOpen ? internalOpen : open} onToggle={shouldHandleOpen ? handleToggle : onToggle} overlay={overlay}>
+    <StyledDetails
+      {...rest}
+      ref={ref}
+      open={shouldHandleOpen ? internalOpen : open}
+      onToggle={shouldHandleOpen ? handleToggle : onToggle}
+      overlay={overlay}
+    >
       {render({open})}
     </StyledDetails>
   )
