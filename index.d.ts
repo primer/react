@@ -217,6 +217,22 @@ declare module '@primer/components' {
 
   export const Link: React.FunctionComponent<LinkProps>
 
+  export type PaginationHrefBuilder = (page: number) => string
+
+  export type PaginationPageChangeCallback = (e: React.MouseEvent, page: number) => void
+
+  export interface PaginationProps extends CommonProps {
+    currentPage: number
+    hrefBuilder?: PaginationHrefBuilder
+    marginPageCount?: number
+    onPageChange?: PaginationPageChangeCallback
+    pageCount: number
+    showPages?: boolean
+    surroundingPageCount?: number
+  }
+
+  export const Pagination: React.FunctionComponent<PaginationProps>
+
   export interface PointerBoxProps extends CommonProps, LayoutProps, BorderBoxProps {
     caret?: string
   }
@@ -530,6 +546,10 @@ declare module '@primer/components/src/Label' {
 declare module '@primer/components/src/Link' {
   import {Link} from '@primer/components'
   export default Link
+}
+declare module '@primer/components/src/Pagination' {
+  import {Pagination} from '@primer/components'
+  export default Pagination
 }
 declare module '@primer/components/src/PointerBox' {
   import {PointerBox} from '@primer/components'

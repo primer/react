@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
-// import classnames from 'classnames'
 import {get, COMMON} from '../constants'
-// import theme from '../theme'
-// import elementType from './utils/elementType'
-// import Link from './Link'
+import theme from '../theme'
 import Box from '../Box'
 import {buildPaginationModel, buildComponentData} from './model'
 
@@ -158,7 +155,8 @@ Pagination.defaultProps = {
   marginPageCount: 1,
   onPageChange: noop,
   showPages: true,
-  surroundingPageCount: 2
+  surroundingPageCount: 2,
+  theme
 }
 
 export default Pagination

@@ -151,7 +151,7 @@ Pagination components get `COMMON` system props. Read our [System Props](/system
 | currentPage | Number | | **Required.** The currently selected page. |
 | hrefBuilder | Function | `#${page}` | A function to generate links based on page number. |
 | marginPageCount | Number | 1 | How many pages to always show at the left and right of the component. |
-| onPageChange | Function | | Called with event and page number when a page is clicked. |
+| onPageChange | Function | no-op | Called with event and page number when a page is clicked. |
 | pageCount | Number | | **Required.** The total number of pages. |
 | showPages | Boolean | `true` | Whether or not to show the individual page links. |
 | surroundingPageCount | Number | 2 | How many pages to display on each side of the currently selected page. |
