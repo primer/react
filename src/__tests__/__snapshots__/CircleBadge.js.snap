@@ -16,7 +16,7 @@ exports[`CircleBadge respects "as" prop 1`] = `
   justify-content: center;
   background-color: #fff;
   border-radius: 50%;
-  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  box-shadow: 0 3px 6px rgba(149,157,165,0.15);
   width: 96px;
   height: 96px;
 }
@@ -42,7 +42,7 @@ exports[`CircleBadge respects the inline prop 1`] = `
   justify-content: center;
   background-color: #fff;
   border-radius: 50%;
-  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  box-shadow: 0 3px 6px rgba(149,157,165,0.15);
   width: 96px;
   height: 96px;
 }
@@ -68,7 +68,7 @@ exports[`CircleBadge respects the variant prop 1`] = `
   justify-content: center;
   background-color: #fff;
   border-radius: 50%;
-  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  box-shadow: 0 3px 6px rgba(149,157,165,0.15);
   width: 128px;
   height: 128px;
 }
@@ -94,7 +94,7 @@ exports[`CircleBadge uses the size prop to override the variant prop 1`] = `
   justify-content: center;
   background-color: #fff;
   border-radius: 50%;
-  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  box-shadow: 0 3px 6px rgba(149,157,165,0.15);
   width: 20px;
   height: 20px;
 }
