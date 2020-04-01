@@ -213,6 +213,7 @@ const popovers = {
 }
 
 const pagination = {
+  fontSize: '13px',
   fontWeight: fontWeights.bold,
   borderRadius: radii[1],
   colors: {

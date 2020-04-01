@@ -164,6 +164,7 @@ The following snippet shows the properties in the theme that control the styling
 {
   // ... rest of theme ...
   pagination: {
+    fontSize,
     fontWeight,
     borderRadius,
     colors: {

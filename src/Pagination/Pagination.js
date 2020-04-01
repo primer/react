@@ -11,7 +11,7 @@ const Page = styled.a`
   float: left;
   padding: 7px 12px;
   margin-left: -1px;
-  font-size: 13px;
+  font-size: ${get('pagination.fontSize')};
   font-style: normal;
   font-weight: ${get('pagination.fontWeight')};
   color: ${get('pagination.colors.normal.fg')};
