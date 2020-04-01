@@ -55,13 +55,6 @@ const colors = {
 
 const breakpoints = ['544px', '768px', '1012px', '1280px']
 
-const maxWidths = {
-  small: '544px',
-  medium: '768px',
-  large: '1012px',
-  xlarge: '1280px'
-}
-
 const fonts = {
   normal: fontStack([
     '-apple-system',
