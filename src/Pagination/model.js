@@ -1,9 +1,3 @@
-const DEBUG = false
-
-const debug = (...args) => {
-  if (DEBUG) console.log(...args)
-}
-
 export function buildPaginationModel(pageCount, currentPage, showPages, marginPageCount, surroundingPageCount) {
   const pages = []
 
@@ -59,7 +53,6 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
     }
 
     const sorted = [...pageNums.values()].sort((a, b) => a - b)
-    debug('sorted', sorted)
     for (const [idx, num] of sorted.entries()) {
       const selected = num === currentPage
       if (idx === 0) {
@@ -111,7 +104,6 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
     }
   }
 
-  debug(pages)
   const prev = {type: 'PREV', num: currentPage - 1, disabled: currentPage === 1}
   const next = {type: 'NEXT', num: currentPage + 1, disabled: currentPage === pageCount}
   return [prev, ...pages, next]

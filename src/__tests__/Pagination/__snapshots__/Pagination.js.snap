@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination matches snapshot 1`] = `
+.c1 {
+  display: inline-block;
+}
+
+.c2 {
+  position: relative;
+  float: left;
+  padding: 7px 12px;
+  margin-left: -1px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  color: #0366d6;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #fff;
+  border: 1px solid #e1e4e8;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #d1d5da;
+  cursor: default;
+  background-color: #fafbfc;
+  border-color: #e1e4e8;
+}
+
+.c2:first-child {
+  margin-left: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c2:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c3 {
+  position: relative;
+  float: left;
+  padding: 7px 12px;
+  margin-left: -1px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  color: #0366d6;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #fff;
+  border: 1px solid #e1e4e8;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  z-index: 3;
+  color: #fff;
+  background-color: #0366d6;
+  border-color: #0366d6;
+}
+
+.c3:first-child {
+  margin-left: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c3:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c4 {
+  position: relative;
+  float: left;
+  padding: 7px 12px;
+  margin-left: -1px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  color: #0366d6;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #fff;
+  border: 1px solid #e1e4e8;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:first-child {
+  margin-left: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.c4:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.c4:hover,
+.c4:focus {
+  z-index: 2;
+  color: #0366d6;
+  background-color: #f6f8fa;
+  border-color: #e1e4e8;
+}
+
+.c0 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+<nav
+  aria-label="Pagination"
+  className="c0"
+>
+  <div
+    className="c1"
+    display="inline-block"
+  >
+    <span
+      aria-disabled="true"
+      className="c2"
+      disabled={true}
+    >
+      Previous
+    </span>
+    <em
+      aria-current="page"
+      className="c3"
+      selected={true}
+    >
+      1
+    </em>
+    <a
+      aria-label="Page 2"
+      className="c4"
+      href="#2"
+      onClick={[Function]}
+    >
+      2
+    </a>
+    <a
+      aria-label="Page 3"
+      className="c4"
+      href="#3"
+      onClick={[Function]}
+    >
+      3
+    </a>
+    <a
+      aria-label="Page 4"
+      className="c4"
+      href="#4"
+      onClick={[Function]}
+    >
+      4
+    </a>
+    <a
+      aria-label="Page 5"
+      className="c4"
+      href="#5"
+      onClick={[Function]}
+    >
+      5
+    </a>
+    <a
+      aria-label="Page 6"
+      className="c4"
+      href="#6"
+      onClick={[Function]}
+    >
+      6
+    </a>
+    <span
+      className="c2"
+      disabled={true}
+    >
+      …
+    </span>
+    <a
+      aria-label="Page 10"
+      className="c4"
+      href="#10"
+      onClick={[Function]}
+    >
+      10
+    </a>
+    <a
+      aria-label="Next Page"
+      className="c4"
+      href="#2"
+      onClick={[Function]}
+      rel="next"
+    >
+      Next
+    </a>
+  </div>
+</nav>
+`;

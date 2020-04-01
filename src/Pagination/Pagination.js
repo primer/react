@@ -147,7 +147,8 @@ Pagination.propTypes = {
   onPageChange: PropTypes.func,
   pageCount: PropTypes.number.isRequired,
   showPages: PropTypes.bool,
-  surroundingPageCount: PropTypes.number
+  surroundingPageCount: PropTypes.number,
+  ...COMMON.propTypes
 }
 
 Pagination.defaultProps = {
