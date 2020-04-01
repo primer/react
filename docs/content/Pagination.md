@@ -3,7 +3,7 @@ title: Pagination
 ---
 import State from '../components/State'
 
-Use the pagination component to create a connected set of links that go to related pages (for example, previous, next, or page numbers).
+Use the pagination component to create a connected set of links that lead to related pages (for example, previous, next, or page numbers).
 
 ## Basic example
 
@@ -96,7 +96,7 @@ Two props control how many links are displayed in the pagination container at an
 />
 ```
 
-The algorithm tries to minimize the amount the component shrinks and grows as the user changes pages; for this reason, if any of the pages in the margin (controlled via `marginPageCount`) intersect with pages in the center (controlled by `surroundingPageCount`), the center section will be shifted to the right. Consider the following examples, where pages one through six are shown when any of the first four pages are selected. Only when the fifth page is selected and there is a gap between the margin pages and the center pages does a break element appear.
+The algorithm tries to minimize the amount the component shrinks and grows as the user changes pages; for this reason, if any of the pages in the margin (controlled via `marginPageCount`) intersect with pages in the center (controlled by `surroundingPageCount`), the center section will be shifted away from the margin. Consider the following examples, where pages one through six are shown when any of the first four pages are selected. Only when the fifth page is selected and there is a gap between the margin pages and the center pages does a break element appear.
 
 ```jsx live
 <Box>
