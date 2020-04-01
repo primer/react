@@ -133,7 +133,7 @@ describe('Pagination model', () => {
     expect(last(model, 6)).toMatchObject(expected)
   })
 
-  it('correctly creates breaks next to the next/prev links with a margin of 0', () => {
+  it('correctly creates breaks next to the next/prev links when margin is 0', () => {
     const model = buildPaginationModel(10, 5, true, 0, 1)
     const expected = [
       {type: 'PREV'},
