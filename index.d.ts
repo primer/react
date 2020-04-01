@@ -150,7 +150,7 @@ declare module '@primer/components' {
   export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
-    direction?: string
+    direction?: 'ne'| 'e'| 'se'| 's'| 'sw'| 'w'
   }
 
   export interface DropdownButtonProps extends ButtonProps, Omit<React.HTMLAttributes, 'color'> {}

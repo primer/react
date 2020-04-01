@@ -9,14 +9,16 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## Default example
 ```jsx live
-<Dropdown>
-  <Dropdown.Button>Dropdown</Dropdown.Button>
-  <Dropdown.Menu direction='sw'>
-    <Dropdown.Item>Item 1</Dropdown.Item>
-    <Dropdown.Item>Item 2</Dropdown.Item>
-    <Dropdown.Item>Item 3</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>
+    <Dropdown>
+      <Dropdown.Button>{text}</Dropdown.Button>
+      <Dropdown.Menu direction='se'>
+        <Dropdown.Item onClick={onClick}>Item 1</Dropdown.Item>
+        <Dropdown.Item>Item 2</Dropdown.Item>
+        <Dropdown.Item>Item 3</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    )
+  }}
 ```
 
 ## With custom button
@@ -46,7 +48,7 @@ No additional props.
 #### Dropdown.Menu
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| direction | String | 'sw' | Sets the direction of the dropdown menu. |
+| direction | String | 'sw' | Sets the direction of the dropdown menu. Pick from 'ne', 'e', 'se', 's', 'sw', or 'w' |
 
 #### Dropdown.Button
 | Name | Type | Default | Description |
