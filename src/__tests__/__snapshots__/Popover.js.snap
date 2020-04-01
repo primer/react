@@ -8,7 +8,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -31,7 +32,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -55,7 +56,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -148,7 +149,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -162,7 +163,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -216,7 +217,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -239,7 +241,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -263,7 +265,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -356,7 +358,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -370,7 +372,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -424,7 +426,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -447,7 +450,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -471,7 +474,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -564,7 +567,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -578,7 +581,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -632,7 +635,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -655,7 +659,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -679,7 +683,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -772,7 +776,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -786,7 +790,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -840,7 +844,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -863,7 +868,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -887,7 +892,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -980,7 +985,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -994,7 +999,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1048,7 +1053,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1071,7 +1077,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1095,7 +1101,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1188,7 +1194,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1202,7 +1208,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1256,7 +1262,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1279,7 +1286,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1303,7 +1310,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1396,7 +1403,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1410,7 +1417,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1464,7 +1471,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1487,7 +1495,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1511,7 +1519,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1604,7 +1612,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1618,7 +1626,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1672,7 +1680,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1695,7 +1704,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1719,7 +1728,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1812,7 +1821,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1826,7 +1835,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1880,7 +1889,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1903,7 +1913,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1927,7 +1937,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2020,7 +2030,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2034,7 +2044,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2088,7 +2098,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -2111,7 +2122,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -2135,7 +2146,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2228,7 +2239,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2242,7 +2253,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2296,7 +2307,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -2319,7 +2331,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -2343,7 +2355,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2436,7 +2448,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2450,7 +2462,7 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2517,7 +2529,7 @@ exports[`Popover and Popover.Content renders with default props 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2610,7 +2622,7 @@ exports[`Popover and Popover.Content renders with default props 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2624,7 +2636,7 @@ exports[`Popover and Popover.Content renders with default props 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2665,7 +2677,8 @@ exports[`Popover and Popover.Content renders with default props 1`] = `
 
 exports[`Popover and Popover.Content renders with default props 2`] = `
 .c0 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -2688,7 +2701,7 @@ exports[`Popover and Popover.Content renders with default props 2`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c0::after {
@@ -2712,7 +2725,7 @@ exports[`Popover and Popover.Content renders with default props 2`] = `
 .c1.caret-pos--bottom-right .c0::before,
 .c1.caret-pos--bottom-left .c0::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c1.caret-pos--bottom .c0::after,
@@ -2805,7 +2818,7 @@ exports[`Popover and Popover.Content renders with default props 2`] = `
 .c1.caret-pos--right-top .c0::before,
 .c1.caret-pos--right-bottom .c0::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c1.caret-pos--right .c0::after,
@@ -2819,7 +2832,7 @@ exports[`Popover and Popover.Content renders with default props 2`] = `
 .c1.caret-pos--left-top .c0::before,
 .c1.caret-pos--left-bottom .c0::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c1.caret-pos--left .c0::after,
