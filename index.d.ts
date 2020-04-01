@@ -224,10 +224,16 @@ declare module '@primer/components' {
   export interface PaginationProps extends CommonProps {
     currentPage: number
     hrefBuilder?: PaginationHrefBuilder
+    /**
+     * How many pages to show on the left and right of the component
+     */
     marginPageCount?: number
     onPageChange?: PaginationPageChangeCallback
     pageCount: number
     showPages?: boolean
+    /**
+     * How many pages to show directly to the left and right of the current page
+     */
     surroundingPageCount?: number
   }
 
