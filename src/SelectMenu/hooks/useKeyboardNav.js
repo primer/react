@@ -1,6 +1,5 @@
 import {useEffect} from 'react'
 
-
 // adapted from details-menu web component https://github.com/github/details-menu-element
 function useKeyboardNav(details, open, setOpen) {
   const handleKeyDown = event => {

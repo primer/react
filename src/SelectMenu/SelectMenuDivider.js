@@ -12,7 +12,6 @@ const dividerStyles = css`
   border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
 `
 
-
 const SelectMenuDivider = styled.div`
   ${dividerStyles}
   ${COMMON}

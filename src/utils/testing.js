@@ -39,7 +39,6 @@ export function renderRoot(component) {
   return renderer.create(component).root
 }
 
-
 /**
  * Get the HTML class names rendered by the component instance
  * as an array.

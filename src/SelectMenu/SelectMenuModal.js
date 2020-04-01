@@ -75,7 +75,6 @@ const modalWrapperStyles = css`
   }
 `
 
-
 const Modal = styled.div`
   ${modalStyles}
 `

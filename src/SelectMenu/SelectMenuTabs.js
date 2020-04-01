@@ -3,7 +3,6 @@ import styled, {css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
 
-
 const tabWrapperStyles = css`
   display: flex;
   flex-shrink: 0;

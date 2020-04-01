@@ -2,7 +2,6 @@ import styled, {css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
 
-
 const footerStyles = css`
   margin-top: -1px;
   padding: ${get('space.2')} ${get('space.3')};

@@ -17,7 +17,9 @@ const BasicSelectMenu = ({onClick, as}) => {
           <SelectMenu.Item selected href="#">
             Primer Components bugs
           </SelectMenu.Item>
-          <SelectMenu.Item onClick={onClick} as={as} data-test="menu-item" href="#">Primer Components roadmap</SelectMenu.Item>
+          <SelectMenu.Item onClick={onClick} as={as} data-test="menu-item" href="#">
+            Primer Components roadmap
+          </SelectMenu.Item>
           <SelectMenu.Divider>stuff</SelectMenu.Divider>
           <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
           <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
@@ -69,29 +71,34 @@ describe('SelectMenu', () => {
 
   it('does not allow the "as" prop on SelectMenu', () => {
     const component = mount(<BasicSelectMenu as="span" />)
-    expect(component.find("details").length).toEqual(1)
+    expect(component.find('details').length).toEqual(1)
   })
 
   it('does not allow the "as" prop on SelectMenu.Item', () => {
     const component = mount(<BasicSelectMenu as="span" />)
-    expect(component.find("[data-test='menu-item']").first().getDOMNode().tagName).toEqual("A")
+    expect(
+      component
+        .find("[data-test='menu-item']")
+        .first()
+        .getDOMNode().tagName
+    ).toEqual('A')
   })
 
   it('shows correct initial tab', () => {
-    const testInstance = renderRoot(<MenuWithTabs/>)
-    expect(testInstance.findByProps({"aria-selected": true}).props.children).toBe('Organization')
+    const testInstance = renderRoot(<MenuWithTabs />)
+    expect(testInstance.findByProps({'aria-selected': true}).props.children).toBe('Organization')
   })
 
   it('clicking on a tab opens the tab', () => {
-    const component = mount(<MenuWithTabs/>);
+    const component = mount(<MenuWithTabs />)
     const tab = component.find("[data-test='repo-tab']").first()
     tab.simulate('click')
-    expect(tab.getDOMNode().attributes["aria-selected"]).toBeTruthy()
-  });
+    expect(tab.getDOMNode().attributes['aria-selected']).toBeTruthy()
+  })
 
   it('selected items have aria-checked', () => {
-    const testInstance = renderRoot(<BasicSelectMenu/>)
-    expect(testInstance.findByProps({"aria-checked": true}).props.children[1]).toBe('Primer Components bugs')
+    const testInstance = renderRoot(<BasicSelectMenu />)
+    expect(testInstance.findByProps({'aria-checked': true}).props.children[1]).toBe('Primer Components bugs')
   })
 
   it('clicking on a list item calls user provided onClick handler', () => {
@@ -100,7 +107,7 @@ describe('SelectMenu', () => {
     const item = component.find("[data-test='menu-item']").first()
     item.simulate('click')
     expect(mockClick.mock.calls.length).toEqual(1)
-  });
+  })
 
   it('clicking on a tab calls user provided onClick handler', () => {
     const mockClick = jest.fn()
@@ -108,13 +115,13 @@ describe('SelectMenu', () => {
     const item = component.find("[data-test='repo-tab']").first()
     item.simulate('click')
     expect(mockClick.mock.calls.length).toEqual(1)
-  });
+  })
 
-  // 
+  //
   it('clicking on an item closes the modal', () => {
     const component = mount(<BasicSelectMenu />)
     const item = component.find("[data-test='menu-item']").first()
     item.simulate('click')
     expect(component.getDOMNode().attributes.open).toBeFalsy()
-  });
+  })
 })

@@ -68,12 +68,17 @@ const SelectMenuTab = ({tabName, index, className, onClick, ...rest}) => {
   const isSelected = menuContext.selectedTab === tabName
 
   return (
-    <StyledTab role="tab" className={classnames("SelectMenuTab", className)} aria-selected={isSelected} onClick={handleClick} {...rest}>
+    <StyledTab
+      role="tab"
+      className={classnames('SelectMenuTab', className)}
+      aria-selected={isSelected}
+      onClick={handleClick}
+      {...rest}
+    >
       {tabName}
     </StyledTab>
   )
 }
-
 
 SelectMenuTab.defaultProps = {
   theme
