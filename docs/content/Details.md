@@ -41,12 +41,10 @@ The `Details` element is built to also let you manage the open state and toggle 
 **Note:** The `overlay` prop will not function automatically if you chose to provide your own `open` state. You'll need to implement this yourself.
 
 ```jsx live
-// state component is for demo purposes only.
 <State default={false}>
   {([open, setOpen]) => {
     
     const handleToggle = (e) => {
-      console.log('toggling')
       setOpen(e.target.open)
     }
 

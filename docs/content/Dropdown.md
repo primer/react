@@ -34,6 +34,31 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 </Dropdown>
 ```
 
+## Manage the open state manually
+The `Dropdown` element is built to also let you manage the open state and toggle functionality if necessary. Just provide values to the `open` and `onToggle` props.
+
+```jsx live
+<State default={false}>
+  {([open, setOpen]) => {
+    
+    const handleToggle = (e) => {
+      setOpen(e.target.open)
+    }
+
+    return (
+      <Dropdown open={open} onToggle={handleToggle}>
+        <Dropdown.Button>Dropdown</Dropdown.Button>
+        <Dropdown.Menu direction='sw'>
+          <Dropdown.Item>Item 1</Dropdown.Item>
+          <Dropdown.Item>Item 2</Dropdown.Item>
+          <Dropdown.Item>Item 3</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    )
+  }}
+</State>
+```
+
 ## System props
 
 Dropdown, Dropdown.Menu, Dropdown.Button, Dropdown.Caret, and Dropdown.Item all get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
