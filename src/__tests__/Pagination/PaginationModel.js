@@ -85,24 +85,6 @@ describe('Pagination model', () => {
     expect(model).toMatchObject(expected)
   })
 
-  // it("doesn't show a break if only one page is skipped", () => {
-  //   const model = buildPaginationModel(9, 5, true, 2, 1)
-  //   const expected = [
-  //     {type: 'PREV', num: 4},
-  //     {type: 'NUM', num: 1},
-  //     {type: 'NUM', num: 2},
-  //     {type: 'NUM', num: 3},
-  //     {type: 'NUM', num: 4},
-  //     {type: 'NUM', num: 5, selected: true},
-  //     {type: 'NUM', num: 6},
-  //     {type: 'NUM', num: 7},
-  //     {type: 'NUM', num: 8},
-  //     {type: 'NUM', num: 9},
-  //     {type: 'NEXT', num: 6}
-  //   ]
-  //   expect(model).toMatchObject(expected)
-  // })
-
   it('adds items to the right if it hits bounds to the left', () => {
     const model = buildPaginationModel(15, 2, true, 1, 1)
     const expected = [
