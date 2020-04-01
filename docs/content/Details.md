@@ -69,4 +69,6 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | defaultOpen | Boolean | | Sets the initial open/closed state |
-| overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it
+| overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it |
+| open | Boolean | | Use the open prop if you'd like to manage the open state |
+| onToggle | Function | | Function to call when user clicks on the `summary` element |
