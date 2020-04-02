@@ -158,13 +158,13 @@ declare module '@primer/components' {
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
   export interface DropdownProps extends DetailsProps {}
-  export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
+  export interface DropdownItemProps extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: 'ne'| 'e'| 'se'| 's'| 'sw'| 'w'
   }
 
-  export interface DropdownButtonProps extends ButtonProps, Omit<React.HTMLAttributes, 'color'> {}
+  export interface DropdownButtonProps extends ButtonProps {}
 
   export interface DropdownCaretProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
@@ -307,7 +307,7 @@ declare module '@primer/components' {
     selected?: boolean
   }
 
-  export interface SelectMenuFooterProps extends CommonProps, Omit<React.FooterHTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
