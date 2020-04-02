@@ -17,7 +17,7 @@ describe('Dropdown', () => {
 
   it('matches the snapshots', () => {
     expect(render(<Dropdown>hi</Dropdown>)).toMatchSnapshot()
-    expect(render(<Dropdown title="hi">hello!</Dropdown>)).toMatchSnapshot()
+    expect(render(<Dropdown>hello!</Dropdown>)).toMatchSnapshot()
   })
 
   it('implements system props', () => {
@@ -41,6 +41,16 @@ describe('Dropdown.Item', () => {
 
   it('has default theme', () => {
     expect(Dropdown.Item).toSetDefaultTheme()
+  })
+})
+
+describe('Dropdown.Button', () => {
+  it('matches the snapshots', () => {
+    expect(render(<Dropdown.Button>hi</Dropdown.Button>)).toMatchSnapshot()
+  })
+
+  it('has default theme', () => {
+    expect(Dropdown.Button).toSetDefaultTheme()
   })
 })
 

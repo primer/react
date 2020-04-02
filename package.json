@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "16.4.0",
+  "version": "17.0.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -41,6 +41,7 @@
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
+    "@types/styled-components": "^4.4.0",
     "@testing-library/react": "9.4.0",
     "@types/styled-system": "5.1.2",
     "babel-plugin-macros": "2.6.1",

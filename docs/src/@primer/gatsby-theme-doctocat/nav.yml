@@ -60,6 +60,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
+    - title: Pagination
+      url: /Pagination
     - title: PointerBox
       url: /PointerBox
     - title: Popover
@@ -68,6 +70,8 @@
       url: /Position
     - title: ProgressBar
       url: /ProgressBar
+    - title: SelectMenu
+      url: /SelectMenu
     - title: SideNav
       url: /SideNav
     - title: StateLabel
