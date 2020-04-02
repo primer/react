@@ -6,6 +6,8 @@ declare module '@primer/components' {
 
   export interface BaseProps extends React.Props<any> {
     as?: React.ReactType
+    className?: string
+    css?: string
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
@@ -223,11 +225,57 @@ declare module '@primer/components' {
 
   export const Link: React.FunctionComponent<LinkProps>
 
+  export type PaginationHrefBuilder = (page: number) => string
+
+  export type PaginationPageChangeCallback = (e: React.MouseEvent, page: number) => void
+
+  export interface PaginationProps extends CommonProps {
+    currentPage: number
+    hrefBuilder?: PaginationHrefBuilder
+    /**
+     * How many pages to show on the left and right of the component
+     */
+    marginPageCount?: number
+    onPageChange?: PaginationPageChangeCallback
+    pageCount: number
+    showPages?: boolean
+    /**
+     * How many pages to show directly to the left and right of the current page
+     */
+    surroundingPageCount?: number
+  }
+
+  export const Pagination: React.FunctionComponent<PaginationProps>
+
   export interface PointerBoxProps extends CommonProps, LayoutProps, BorderBoxProps {
     caret?: string
   }
 
   export const PointerBox: React.FunctionComponent<PointerBoxProps>
+
+  export interface PopoverProps extends CommonProps, LayoutProps, PositionProps {
+    caret?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-bottom'
+    | 'left-top'
+    | 'right-bottom'
+    | 'right-top'
+    open?: boolean
+    relative?: boolean
+  }
+
+  export interface PopoverContentProps extends BorderBoxProps { }
+
+  export const Popover: React.FunctionComponent<PopoverProps> & {
+    Content: React.FunctionComponent<PopoverContentProps>
+  }
 
   export interface PositionComponentProps
     extends PositionProps,
@@ -250,6 +298,7 @@ declare module '@primer/components' {
       TypographyProps,
       LinkProps,
       Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
     variant?: 'normal' | 'full'
   }
 
@@ -277,6 +326,8 @@ declare module '@primer/components' {
   export interface TextInputProps
     extends CommonProps,
       StyledSystem.WidthProps,
+      StyledSystem.MaxWidthProps,
+      StyledSystem.MinWidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
     icon?: React.ReactElement
@@ -510,9 +561,17 @@ declare module '@primer/components/src/Link' {
   import {Link} from '@primer/components'
   export default Link
 }
+declare module '@primer/components/src/Pagination' {
+  import {Pagination} from '@primer/components'
+  export default Pagination
+}
 declare module '@primer/components/src/PointerBox' {
   import {PointerBox} from '@primer/components'
   export default PointerBox
+}
+declare module '@primer/components/src/Popover' {
+  import {Popover} from '@primer/components'
+  export default Popover
 }
 declare module '@primer/components/src/Relative' {
   import {Relative} from '@primer/components'

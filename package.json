@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "16.2.0",
+  "version": "17.0.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -83,5 +83,18 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "styled-components": "4.x || 5.x"
+  },
+  "actionBundlesize": {
+    "build": "yarn && yarn dist",
+    "files": [
+      {
+        "path": "dist/index.esm.js",
+        "name": "ESM Build"
+      },
+      {
+        "path": "dist/index.umd.js",
+        "name": "UMD Build"
+      }
+    ]
   }
 }
