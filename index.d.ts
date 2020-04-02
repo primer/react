@@ -83,6 +83,9 @@ declare module '@primer/components' {
     children?: DetailsRenderFunction | React.ReactNode
     defaultOpen?: boolean
     overlay?: boolean
+    open?: boolean
+    onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    onClickOutside?: (event: MouseEvent) => void
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
@@ -147,18 +150,23 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, Omit<ButtonProps, 'title'> {
-    as?: React.ReactType
-    title?: string | React.ReactNode
-  }
+  export interface DropdownProps extends DetailsProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
+  export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
-    direction?: string
+    direction?: 'ne'| 'e'| 'se'| 's'| 'sw'| 'w'
   }
+
+  export interface DropdownButtonProps extends ButtonProps, Omit<React.HTMLAttributes, 'color'> {}
+
+  export interface DropdownCaretProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {
     Menu: React.FunctionComponent<DropdownMenuProps>
     Item: React.FunctionComponent<DropdownProps>
+    Button: React.FunctionComponent<DropdownButtonProps>
+    Caret: React.FunctionComponent<DropdownCaretProps>
   }
 
   export interface FilteredSearchProps extends CommonProps {
