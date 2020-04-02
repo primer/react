@@ -117,7 +117,6 @@ describe('SelectMenu', () => {
     expect(mockClick.mock.calls.length).toEqual(1)
   })
 
-  //
   it('clicking on an item closes the modal', () => {
     const component = mount(<BasicSelectMenu />)
     const item = component.find("[data-test='menu-item']").first()
