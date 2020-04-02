@@ -83,7 +83,7 @@ declare module '@primer/components' {
     overlay?: boolean
     open?: boolean
     onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
-    onClickOutside?: React.MouseEventHandler
+    onClickOutside?: (event: MouseEvent) => void
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
