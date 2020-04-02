@@ -70,6 +70,8 @@
       url: /Position
     - title: ProgressBar
       url: /ProgressBar
+    - title: SelectMenu
+      url: /SelectMenu
     - title: SideNav
       url: /SideNav
     - title: StateLabel

@@ -53,7 +53,7 @@ exports[`TextInput renders 1`] = `
   box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -125,7 +125,7 @@ exports[`TextInput renders block 1`] = `
   box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -200,7 +200,7 @@ exports[`TextInput renders large 1`] = `
   box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -277,7 +277,7 @@ exports[`TextInput renders small 1`] = `
   box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -347,7 +347,7 @@ exports[`TextInput should render a password input 1`] = `
   box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }

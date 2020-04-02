@@ -98,9 +98,16 @@ declare module '@primer/components' {
     variant?: 'small' | 'medium' | 'large'
   }
 
+  export interface ButtonTableListProps
+    extends CommonProps,
+      TypographyProps,
+      LayoutProps,
+      Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
@@ -288,6 +295,58 @@ declare module '@primer/components' {
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
+  export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    initialTab?: string
+  }
+
+  export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  
+  export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export interface SelectMenuFooterProps extends CommonProps, Omit<React.FooterHTMLAttributes<HTMLElement>, 'color'> {}
+
+  export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuFilterProps extends TextInputProps {
+    value: string
+  }
+
+  export interface SelectMenuTabsProps extends CommonProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+    index: number,
+    tabName: string
+  }
+
+  export interface SelectMenuTabPanelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    tabName: string
+  }
+
+  export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
+    MenuContext: React.FunctionComponent<{
+      selectedTab: string | undefined
+      setSelectedTab: (selectedTab: string | undefined) => void,
+      open: boolean | undefined,
+      setOpen: (open: boolean | undefined) => void,
+      initialTab:  string | undefined
+    }>
+    Divider: React.FunctionComponent<SelectMenuDividerProps>
+    Filter: React.FunctionComponent<SelectMenuFilterProps>
+    Footer: React.FunctionComponent<SelectMenuFooterProps>
+    List: React.FunctionComponent<SelectMenuListProps>
+    Item: React.FunctionComponent<SelectMenuItemProps>
+    Modal: React.FunctionComponent<SelectMenuModalProps>
+    Tabs: React.FunctionComponent<SelectMenuTabsProps>
+    Tab: React.FunctionComponent<SelectMenuTabProps>
+    TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
+  }
+
   export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
     variant?: 'normal' | 'lightweight'
@@ -447,7 +506,6 @@ declare module '@primer/components' {
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
-
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
   export default Box
@@ -476,6 +534,11 @@ declare module '@primer/components/src/ButtonPrimary' {
 declare module '@primer/components/src/ButtonOutline' {
   import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
+}
+
+declare module '@primer/components/src/ButtonTableList' {
+  import {ButtonTableList} from '@primer/components'
+  export default ButtonTableList
 }
 
 declare module '@primer/components/src/ButtonGroup' {
@@ -589,10 +652,17 @@ declare module '@primer/components/src/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
 }
+
+declare module '@primer/components/src/SelectMenu' {
+  import {SelectMenu} from '@primer/components'
+  export default SelectMenu
+}
+
 declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
 }
+
 declare module '@primer/components/src/TabNav' {
   import {TabNav} from '@primer/components'
   export default TabNav
