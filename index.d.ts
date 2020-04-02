@@ -312,6 +312,8 @@ declare module '@primer/components' {
 
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
+  export interface SelectMenuHeaderProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
   export interface SelectMenuFilterProps extends TextInputProps {
     value: string
   }
@@ -345,6 +347,7 @@ declare module '@primer/components' {
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
     Tab: React.FunctionComponent<SelectMenuTabProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
+    Header: React.FunctionComponent<SelectMenuHeaderProps>
   }
 
   export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
