@@ -157,7 +157,6 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends DetailsProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
@@ -169,9 +168,9 @@ declare module '@primer/components' {
 
   export interface DropdownCaretProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export const Dropdown: React.FunctionComponent<DropdownProps> & {
+  export const Dropdown: React.FunctionComponent<DetailsProps> & {
     Menu: React.FunctionComponent<DropdownMenuProps>
-    Item: React.FunctionComponent<DropdownProps>
+    Item: React.FunctionComponent<DropdownItemProps>
     Button: React.FunctionComponent<DropdownButtonProps>
     Caret: React.FunctionComponent<DropdownCaretProps>
   }
