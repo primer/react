@@ -12,54 +12,71 @@ if (typeof window !== 'undefined') {
   require('details-element-polyfill')
 }
 
-const DetailsReset = styled('details')`
+const StyledDetails = styled('details')`
   & > summary {
     list-style: none;
   }
   & > summary::-webkit-details-marker {
     display: none;
   }
+
+  ${COMMON}
 `
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function DetailsBase({children, overlay, render = getRenderer(children), defaultOpen = false, ...rest}) {
-  const [open, setOpen] = useState(defaultOpen)
+function Details({
+  children,
+  overlay,
+  render = getRenderer(children),
+  open: userOpen,
+  onClickOutside,
+  onToggle,
+  defaultOpen = false,
+  ...rest
+}) {
+  const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const ref = useRef(null)
+  // only use internal open state if user doesn't provide a value for the open prop
+  const open = typeof userOpen !== 'undefined' ? userOpen : internalOpen
 
-  const closeMenu = useCallback(
+  const onClickOutsideInternal = useCallback(
     event => {
-      // only close the menu if we're clicking outside
-      if (event && event.target.closest('details') !== ref.current) {
-        setOpen(false)
-        document.removeEventListener('click', closeMenu)
+      if (event.target.closest('details') !== ref.current) {
+        onClickOutside && onClickOutside(event)
+        if (!event.defaultPrevented) {
+          setInternalOpen(false)
+        }
       }
     },
-    [ref]
+    [ref, onClickOutside, setInternalOpen]
   )
 
+  // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
-    if (overlay && open) {
-      document.addEventListener('click', closeMenu)
+    if (open && overlay) {
+      document.addEventListener('click', onClickOutsideInternal)
       return () => {
-        document.removeEventListener('click', closeMenu)
+        document.removeEventListener('click', onClickOutsideInternal)
       }
     }
-  }, [open, overlay, closeMenu])
+  }, [open, overlay, onClickOutsideInternal])
 
-  function toggle(event) {
-    setOpen(event.target.open)
+  function handleToggle(e) {
+    onToggle && onToggle(e)
+
+    if (!e.defaultPrevented) {
+      setInternalOpen(e.target.open)
+    }
   }
 
   return (
-    <DetailsReset {...rest} ref={ref} open={open} onToggle={toggle} overlay={overlay}>
+    <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay}>
       {render({open})}
-    </DetailsReset>
+    </StyledDetails>
   )
 }
-
-const Details = styled(DetailsBase)(COMMON)
 
 Details.defaultProps = {
   theme,

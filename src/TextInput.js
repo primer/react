@@ -26,7 +26,8 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, block, disabled, ...rest}) => {
+// using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
+const TextInput = React.forwardRef(({icon, className, block, disabled, ...rest}, ref) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const wrapperProps = pick(rest)
@@ -41,14 +42,12 @@ const TextInput = ({icon, className, block, disabled, ...rest}) => {
       {...wrapperProps}
     >
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input disabled={disabled} {...inputProps} />
+      <Input ref={ref} disabled={disabled} {...inputProps} />
     </Wrapper>
   )
-}
+})
 
-const Input = styled.input.attrs(props => ({
-  type: props.type || 'text'
-}))`
+const Input = styled.input`
   border: 0;
   font-size: inherit;
   background-color: transparent;
@@ -115,7 +114,7 @@ const Wrapper = styled.span`
     `}    
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
-  @media (max-width: ${get('breakpoints.1')}) {
+  @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
   ${COMMON}
@@ -125,7 +124,10 @@ const Wrapper = styled.span`
   ${sizeVariants}
 `
 
-TextInput.defaultProps = {theme}
+TextInput.defaultProps = {
+  theme,
+  type: 'text'
+}
 
 TextInput.propTypes = {
   block: PropTypes.bool,

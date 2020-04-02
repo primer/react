@@ -52,7 +52,13 @@ expect.extend({
   },
 
   toSetDefaultTheme(Component) {
-    const wrapper = mount(<Component />)
+    let comp
+    if (Component.type) {
+      comp = Component
+    } else {
+      comp = <Component />
+    }
+    const wrapper = mount(comp)
     const pass = this.equals(wrapper.prop('theme'), theme)
     return {
       pass,

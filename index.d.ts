@@ -83,6 +83,9 @@ declare module '@primer/components' {
     children?: DetailsRenderFunction | React.ReactNode
     defaultOpen?: boolean
     overlay?: boolean
+    open?: boolean
+    onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    onClickOutside?: (event: MouseEvent) => void
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
@@ -95,9 +98,16 @@ declare module '@primer/components' {
     variant?: 'small' | 'medium' | 'large'
   }
 
+  export interface ButtonTableListProps
+    extends CommonProps,
+      TypographyProps,
+      LayoutProps,
+      Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
@@ -147,18 +157,23 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends React.Props<any>, StyledSystem.ColorProps, StyledSystem.SpaceProps, Omit<ButtonProps, 'title'> {
-    as?: React.ReactType
-    title?: string | React.ReactNode
-  }
+  export interface DropdownProps extends DetailsProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
+  export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
-    direction?: string
+    direction?: 'ne'| 'e'| 'se'| 's'| 'sw'| 'w'
   }
+
+  export interface DropdownButtonProps extends ButtonProps, Omit<React.HTMLAttributes, 'color'> {}
+
+  export interface DropdownCaretProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {
     Menu: React.FunctionComponent<DropdownMenuProps>
     Item: React.FunctionComponent<DropdownProps>
+    Button: React.FunctionComponent<DropdownButtonProps>
+    Caret: React.FunctionComponent<DropdownCaretProps>
   }
 
   export interface FilteredSearchProps extends CommonProps {
@@ -217,6 +232,28 @@ declare module '@primer/components' {
 
   export const Link: React.FunctionComponent<LinkProps>
 
+  export type PaginationHrefBuilder = (page: number) => string
+
+  export type PaginationPageChangeCallback = (e: React.MouseEvent, page: number) => void
+
+  export interface PaginationProps extends CommonProps {
+    currentPage: number
+    hrefBuilder?: PaginationHrefBuilder
+    /**
+     * How many pages to show on the left and right of the component
+     */
+    marginPageCount?: number
+    onPageChange?: PaginationPageChangeCallback
+    pageCount: number
+    showPages?: boolean
+    /**
+     * How many pages to show directly to the left and right of the current page
+     */
+    surroundingPageCount?: number
+  }
+
+  export const Pagination: React.FunctionComponent<PaginationProps>
+
   export interface PointerBoxProps extends CommonProps, LayoutProps, BorderBoxProps {
     caret?: string
   }
@@ -257,6 +294,61 @@ declare module '@primer/components' {
   export const Absolute: React.FunctionComponent<PositionComponentProps>
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
+
+  export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    initialTab?: string
+  }
+
+  export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  
+  export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    selected?: boolean
+  }
+
+  export interface SelectMenuFooterProps extends CommonProps, Omit<React.FooterHTMLAttributes<HTMLElement>, 'color'> {}
+
+  export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuHeaderProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+
+  export interface SelectMenuFilterProps extends TextInputProps {
+    value: string
+  }
+
+  export interface SelectMenuTabsProps extends CommonProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+    index: number,
+    tabName: string
+  }
+
+  export interface SelectMenuTabPanelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    tabName: string
+  }
+
+  export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
+    MenuContext: React.FunctionComponent<{
+      selectedTab: string | undefined
+      setSelectedTab: (selectedTab: string | undefined) => void,
+      open: boolean | undefined,
+      setOpen: (open: boolean | undefined) => void,
+      initialTab:  string | undefined
+    }>
+    Divider: React.FunctionComponent<SelectMenuDividerProps>
+    Filter: React.FunctionComponent<SelectMenuFilterProps>
+    Footer: React.FunctionComponent<SelectMenuFooterProps>
+    List: React.FunctionComponent<SelectMenuListProps>
+    Item: React.FunctionComponent<SelectMenuItemProps>
+    Modal: React.FunctionComponent<SelectMenuModalProps>
+    Tabs: React.FunctionComponent<SelectMenuTabsProps>
+    Tab: React.FunctionComponent<SelectMenuTabProps>
+    TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
+    Header: React.FunctionComponent<SelectMenuHeaderProps>
+  }
 
   export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
@@ -417,7 +509,6 @@ declare module '@primer/components' {
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
-
 declare module '@primer/components/src/Box' {
   import {Box} from '@primer/components'
   export default Box
@@ -446,6 +537,11 @@ declare module '@primer/components/src/ButtonPrimary' {
 declare module '@primer/components/src/ButtonOutline' {
   import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
+}
+
+declare module '@primer/components/src/ButtonTableList' {
+  import {ButtonTableList} from '@primer/components'
+  export default ButtonTableList
 }
 
 declare module '@primer/components/src/ButtonGroup' {
@@ -531,6 +627,10 @@ declare module '@primer/components/src/Link' {
   import {Link} from '@primer/components'
   export default Link
 }
+declare module '@primer/components/src/Pagination' {
+  import {Pagination} from '@primer/components'
+  export default Pagination
+}
 declare module '@primer/components/src/PointerBox' {
   import {PointerBox} from '@primer/components'
   export default PointerBox
@@ -555,10 +655,17 @@ declare module '@primer/components/src/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
 }
+
+declare module '@primer/components/src/SelectMenu' {
+  import {SelectMenu} from '@primer/components'
+  export default SelectMenu
+}
+
 declare module '@primer/components/src/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
 }
+
 declare module '@primer/components/src/TabNav' {
   import {TabNav} from '@primer/components'
   export default TabNav

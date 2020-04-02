@@ -7,26 +7,29 @@ import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
 
-const DropdownBase = ({title, children, className, ...rest}) => {
-  return (
-    <Details overlay className={className} {...rest}>
-      <>
-        <Button as="summary" aria-haspopup="true" {...rest}>
-          {title}
-          <DropdownCaret />
-        </Button>
-        {children}
-      </>
-    </Details>
-  )
-}
-const Dropdown = styled(DropdownBase)`
+const StyledDetails = styled(Details)`
   position: relative;
   display: inline-block;
-  ${COMMON};
 `
 
-const DropdownCaret = styled.div`
+const Dropdown = ({children, className, ...rest}) => {
+  return (
+    <StyledDetails overlay className={className} {...rest}>
+      {children}
+    </StyledDetails>
+  )
+}
+
+Dropdown.Button = ({children, ...rest}) => {
+  return (
+    <Button as="summary" aria-haspopup="true" {...rest}>
+      {children}
+      <Dropdown.Caret />
+    </Button>
+  )
+}
+
+Dropdown.Caret = styled.div`
   border: 4px solid transparent;
   margin-left: 12px;
   border-top-color: currentcolor;
@@ -36,9 +39,10 @@ const DropdownCaret = styled.div`
   height: 0;
   vertical-align: middle;
   width: 0;
+  ${COMMON}
 `
 
-const DropdownMenu = styled.ul`
+Dropdown.Menu = styled.ul`
   background-clip: padding-box;
   background-color: ${get('colors.white')};
   border: 1px solid rgba(27, 31, 35, 0.15);
@@ -83,7 +87,7 @@ const DropdownMenu = styled.ul`
   ${COMMON};
 `
 
-const DropdownItem = styled.li`
+Dropdown.Item = styled.li`
   display: block;
   padding: ${get('space.1')} 10px ${get('space.1')} 15px;
   overflow: hidden;
@@ -118,9 +122,6 @@ const DropdownItem = styled.li`
   ${COMMON};
 `
 
-Dropdown.Menu = DropdownMenu
-Dropdown.Item = DropdownItem
-
 Dropdown.Menu.propTypes = {
   direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
   ...COMMON.propTypes
@@ -136,10 +137,16 @@ Dropdown.Item.propTypes = {
   ...COMMON.propTypes
 }
 
+Dropdown.Button.defaultProps = {theme}
+
+Dropdown.Caret.defaultProps = {theme}
+Dropdown.Caret.propTpyes = {
+  ...COMMON.propTypes
+}
+
 Dropdown.defaultProps = {theme}
 Dropdown.propTypes = {
-  children: PropTypes.node,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  ...Details.propTypes,
   ...COMMON.propTypes
 }
 
