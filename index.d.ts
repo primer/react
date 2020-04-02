@@ -157,21 +157,20 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends DetailsProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
-
-  export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
+  export interface DropdownProps extends DetailsProps {}
+  export interface DropdownItemProps extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
     direction?: 'ne'| 'e'| 'se'| 's'| 'sw'| 'w'
   }
 
-  export interface DropdownButtonProps extends ButtonProps, Omit<React.HTMLAttributes, 'color'> {}
+  export interface DropdownButtonProps extends ButtonProps {}
 
   export interface DropdownCaretProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Dropdown: React.FunctionComponent<DropdownProps> & {
     Menu: React.FunctionComponent<DropdownMenuProps>
-    Item: React.FunctionComponent<DropdownProps>
+    Item: React.FunctionComponent<DropdownItemProps>
     Button: React.FunctionComponent<DropdownButtonProps>
     Caret: React.FunctionComponent<DropdownCaretProps>
   }
@@ -308,7 +307,7 @@ declare module '@primer/components' {
     selected?: boolean
   }
 
-  export interface SelectMenuFooterProps extends CommonProps, Omit<React.FooterHTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
