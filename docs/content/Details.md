@@ -43,13 +43,11 @@ The `Details` element is built to also let you manage the open state and toggle 
 ```jsx live
 <State default={false}>
   {([open, setOpen]) => {
-    
-    const handleToggle = (e) => {
-      setOpen(e.target.open)
-    }
+    const handleToggle = (e) => setOpen(e.target.open)
+    const handleClickOutside = () => setOpen(false)
 
     return (
-      <Details open={open} onToggle={handleToggle}>
+      <Details open={open} onToggle={handleToggle} onClickOutside={handleClickOutside} overlay>
         <Button as="summary">Click me</Button>
         <p>This should show and hide</p>
       </Details>
@@ -70,3 +68,4 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 | overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it |
 | open | Boolean | | Use the open prop if you'd like to manage the open state |
 | onToggle | Function | | Called whenever user clicks on `summary` element. If you are controlling your own `open` state this will be the only function called on click, otherwise it's called before the internal `handleToggle` function.|
+| onClickOutside | Function | | Function to call whenever user clicks outside of the Details component. This is optional and only necessary if you are controlling your own `open` state. |

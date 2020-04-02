@@ -65,11 +65,17 @@ Dropdown, Dropdown.Menu, Dropdown.Button, Dropdown.Caret, and Dropdown.Item all 
 
 ## Component props
 
+The Dropdown component is extended from the [`Details`](/Details) component and gets all props that the [`Details`](/Details) component gets. They are listed below, reference the [`Details`](/Details) docs for more details on how to manage your own `open` state.
+
 #### Dropdown
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
+| defaultOpen | Boolean | | Sets the initial open/closed state |
+| overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it |
 | open | Boolean | | Use the open prop if you'd like to manage the open state |
 | onToggle | Function | | Called whenever user clicks on `summary` element. If you are controlling your own `open` state this will be the only function called on click, otherwise it's called before the internal `handleToggle` function.|
+| onClickOutside | Function | | Function to call whenever user clicks outside of the Details component. This is optional and only necessary if you are controlling your own `open` state. |
+
 
 
 #### Dropdown.Menu

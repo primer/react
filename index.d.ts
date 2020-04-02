@@ -82,6 +82,8 @@ declare module '@primer/components' {
     defaultOpen?: boolean
     overlay?: boolean
     open?: boolean
+    onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    onClickOutside?: React.MouseEventHandler
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
@@ -146,10 +148,7 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
-    open?: boolean,
-    
-  }
+  export interface DropdownProps extends DetailsProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface DropdownItem extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 

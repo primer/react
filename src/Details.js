@@ -26,31 +26,43 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function Details({children, overlay, render = getRenderer(children), open, onToggle, defaultOpen = false, ...rest}) {
-  const [internalOpen, setInternalOpen] = useState(defaultOpen)
+function Details({
+  children,
+  overlay,
+  render = getRenderer(children),
+  open: userOpen,
+  onClickOutside,
+  onToggle,
+  defaultOpen = false,
+  ...rest
+}) {
   // only handle open state if user doesn't provide a value for the open prop
-  const shouldHandleOpen = typeof open === 'undefined'
+  const userManagingState = typeof userOpen !== 'undefined'
+  const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const ref = useRef(null)
+  const open = userOpen || internalOpen
 
-  const closeMenu = useCallback(
+  const onClickOutsideInternal = useCallback(
     event => {
-      // only close the menu if we're clicking outside
-      if (event && event.target.closest('details') !== ref.current) {
-        setInternalOpen(false)
-        document.removeEventListener('click', closeMenu)
+      if (event.target.closest('details') !== ref.current) {
+        onClickOutside && onClickOutside(event)
+        if (!event.defaultPrevented) {
+          setInternalOpen(false)
+        }
       }
     },
-    [ref]
+    [ref, onClickOutside, setInternalOpen]
   )
+
   // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
-    if (shouldHandleOpen && overlay && internalOpen) {
-      document.addEventListener('click', closeMenu)
+    if (open && overlay) {
+      document.addEventListener('click', onClickOutsideInternal)
       return () => {
-        document.removeEventListener('click', closeMenu)
+        document.removeEventListener('click', onClickOutsideInternal)
       }
     }
-  }, [internalOpen, shouldHandleOpen, overlay, closeMenu])
+  }, [open, overlay, onClickOutsideInternal])
 
   function handleToggle(e) {
     onToggle && onToggle(e)
@@ -61,13 +73,7 @@ function Details({children, overlay, render = getRenderer(children), open, onTog
   }
 
   return (
-    <StyledDetails
-      {...rest}
-      ref={ref}
-      open={shouldHandleOpen ? internalOpen : open}
-      onToggle={shouldHandleOpen ? handleToggle : onToggle}
-      overlay={overlay}
-    >
+    <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay}>
       {render({open})}
     </StyledDetails>
   )
