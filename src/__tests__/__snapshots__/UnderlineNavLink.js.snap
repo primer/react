@@ -303,6 +303,33 @@ exports[`UnderlineNav.Link renders the given "as" prop 1`] = `
         "condensedUltra": 1,
         "default": 1.5,
       },
+      "pagination": Object {
+        "borderRadius": "3px",
+        "colors": Object {
+          "disabled": Object {
+            "bg": "#fafbfc",
+            "border": "#e1e4e8",
+            "fg": "#d1d5da",
+          },
+          "hover": Object {
+            "bg": "#f6f8fa",
+            "border": "#e1e4e8",
+            "fg": "#0366d6",
+          },
+          "normal": Object {
+            "bg": "#fff",
+            "border": "#e1e4e8",
+            "fg": "#0366d6",
+          },
+          "selected": Object {
+            "bg": "#0366d6",
+            "border": "#0366d6",
+            "fg": "#fff",
+          },
+        },
+        "fontSize": "13px",
+        "fontWeight": 600,
+      },
       "popovers": Object {
         "colors": Object {
           "caret": "rgba(27, 31, 35, 0.15)",

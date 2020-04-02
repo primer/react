@@ -60,6 +60,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
+    - title: Pagination
+      url: /Pagination
     - title: PointerBox
       url: /PointerBox
     - title: Popover
