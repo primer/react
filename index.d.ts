@@ -82,7 +82,7 @@ declare module '@primer/components' {
     defaultOpen?: boolean
     overlay?: boolean
     open?: boolean
-    onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    onToggle?: React.MouseEventHandler
     onClickOutside?: React.MouseEventHandler
   }
 
