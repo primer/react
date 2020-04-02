@@ -39,7 +39,7 @@ function Details({
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const ref = useRef(null)
   // only use internal open state if user doesn't provide a value for the open prop
-  const open = userOpen || internalOpen
+  const open = typeof userOpen !== 'undefined' ? userOpen : internalOpen
 
   const onClickOutsideInternal = useCallback(
     event => {
