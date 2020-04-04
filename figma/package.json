@@ -1,0 +1,43 @@
+{
+  "name": "@primer/figma-components",
+  "version": "0.0.1",
+  "description": "Primer React components to Figma adapter",
+  "main": "./src/code.tsx",
+  "scripts": {
+    "webpack:watch": "webpack --watch",
+    "clean": "rm -rf dist/",
+    "build:js": "webpack",
+    "build": "npm run clean && npm run build:js"
+  },
+  "private": true,
+  "keywords": [
+    "react",
+    "react-figma",
+    "styled-components",
+    "figma",
+    "react-primitives"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/primer/components.git"
+  },
+  "author": "Macintosh Helper <github@macintoshhelper.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chroma-js": "^2.1.0",
+    "react": "^16.9.0",
+    "react-figma": "0.0.57",
+    "react-primitives": "^0.8.1",
+    "styled-components": "^5.0.1",
+    "yoga-layout-prebuilt": "^1.9.3"
+  },
+  "devDependencies": {
+    "html-webpack-inline-source-plugin": "^0.0.10",
+    "html-webpack-plugin": "^3.2.0",
+    "react-figma-webpack-config": "0.0.5",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
+  }
+}

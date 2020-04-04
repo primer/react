@@ -1,0 +1,7 @@
+{
+  "name": "@primer/components",
+  "id": "045995778738837860",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}
