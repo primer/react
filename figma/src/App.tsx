@@ -22,12 +22,6 @@ const Artboard = styled(Frame)`
 `;
 
 export const App = () => {
-  const colors = {
-    Classic: '#12f24E',
-    Neue: '#21304E',
-    White: '#ffffff'
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Page isCurrent name="Buttons">

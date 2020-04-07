@@ -2,31 +2,31 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import systemPropTypes from '@styled-system/prop-types'
 import {COMMON, get} from './constants'
+import {makeShadow} from './utils/shadow'
 import theme from './theme'
-import {Platform} from './primitives'
 import ButtonBase from './ButtonBase'
 
 const Button = styled(ButtonBase)`
   color: ${get('buttons.default.color.default')};
   background-color: ${get('buttons.default.bg.default')};
   border: 1px solid ${get('buttons.default.border.default')};
-  ${Platform.OS === 'web' ? `box-shadow: ${get('buttons.default.shadow.default')};` : ''}
+  ${makeShadow(get('buttons.default.shadow.default'))}
 
   &:hover {
     background-color: ${get('buttons.default.bg.hover')};
     border-color: ${get('buttons.default.border.hover')};
-    ${Platform.OS === 'web' ? `box-shadow: ${get('buttons.default.shadow.hover')};` : ''}
+    ${makeShadow(get('buttons.default.shadow.hover'))}
   }
 
   // focus must come before :active so that the active box shadow overrides
   &:focus {
     border-color: transparent;
-    ${Platform.OS === 'web' ? `box-shadow: ${get('buttons.default.shadow.focus')};` : ''}
+    ${makeShadow(get('buttons.default.shadow.focus'))}
   }
 
   &:active {
     background-color: ${get('buttons.default.bg.active')};
-    ${Platform.OS === 'web' ? `box-shadow: ${get('buttons.default.shadow.active')};` : ''}
+    ${makeShadow(get('buttons.default.shadow.active'))}
     border-color: ${get('buttons.default.border.active')};
   }
 
