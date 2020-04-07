@@ -329,16 +329,14 @@ declare module '@primer/components' {
     tabName: string
   }
 
-  export interface MenuContextInterface {
-    selectedTab: string | undefined
-    setSelectedTab: (selectedTab: string | undefined) => void,
-    open: boolean | undefined,
-    setOpen: (open: boolean | undefined) => void,
-    initialTab:  string | undefined
-  }
-
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
-    MenuContext: MenuContextInterface
+    MenuContext: React.Context<{
+      selectedTab: string | undefined
+      setSelectedTab: (selectedTab: string | undefined) => void,
+      open: boolean | undefined,
+      setOpen: (open: boolean | undefined) => void,
+      initialTab:  string | undefined
+    }>
     Divider: React.FunctionComponent<SelectMenuDividerProps>
     Filter: React.FunctionComponent<SelectMenuFilterProps>
     Footer: React.FunctionComponent<SelectMenuFooterProps>
