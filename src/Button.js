@@ -1,12 +1,23 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import systemPropTypes from '@styled-system/prop-types'
 import {COMMON, get} from './constants'
 import {makeShadow} from './utils/shadow'
+import {Platform} from './primitives'
 import theme from './theme'
-import ButtonBase from './ButtonBase'
+import ButtonBase, {ButtonText} from './ButtonBase'
 
-const Button = styled(ButtonBase)`
+const StyledText = styled(ButtonText)`
+  color: ${get('buttons.default.color.default')};
+`
+
+const Button = styled(ButtonBase).attrs(({variant, children}) => ({
+  ...(Platform.OS !== 'web' && {
+    children: <StyledText variant={variant}>{children}</StyledText>,
+    name: 'Button',
+  }),
+}))`
   color: ${get('buttons.default.color.default')};
   background-color: ${get('buttons.default.bg.default')};
   border: 1px solid ${get('buttons.default.border.default')};

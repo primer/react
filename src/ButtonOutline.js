@@ -1,9 +1,20 @@
+import React from 'react'
 import styled from 'styled-components'
-import ButtonBase from './ButtonBase'
+import ButtonBase, {ButtonText} from './ButtonBase'
 import {get} from './constants'
 import {makeShadow} from './utils/shadow'
+import {Platform} from './primitives'
 
-const ButtonOutline = styled(ButtonBase)`
+const StyledText = styled(ButtonText)`
+  color: ${get('buttons.outline.color.default')};
+`
+
+const ButtonOutline = styled(ButtonBase).attrs(({children, variant}) => ({
+  ...(Platform.OS !== 'web' && {
+    children: <StyledText variant={variant}>{children}</StyledText>,
+    name: 'ButtonOutline',
+  }),
+}))`
   color: ${get('buttons.outline.color.default')};
   border: 1px solid ${get('buttons.outline.border.default')};
   background-color: ${get('buttons.outline.bg.default')};

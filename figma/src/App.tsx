@@ -3,6 +3,7 @@ import { Page, Frame } from 'react-figma';
 
 // @ts-ignore
 import styled, { ThemeProvider } from 'styled-components';
+import { layout } from 'styled-system';
 
 import Button from '../../src/Button';
 import ButtonPrimary from '../../src/ButtonPrimary';
@@ -13,19 +14,19 @@ import ButtonOutline from '../../src/ButtonOutline';
 import theme from '../../src/theme';
 
 const Artboard = styled(Frame)`
-    padding-top: 40px;
-    padding-bottom: 40px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: ${(96 + 8) * 4}px;
-    justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  ${layout}
 `;
 
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Page isCurrent name="Buttons">
-        <Artboard>
+        <Artboard width={800}>
           <Button>Button</Button>
           <ButtonDanger>Button Danger</ButtonDanger>
           <ButtonOutline>Button Outline</ButtonOutline>

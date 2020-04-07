@@ -1,9 +1,20 @@
+import React from 'react'
 import styled from 'styled-components'
-import ButtonBase from './ButtonBase'
+import ButtonBase, {ButtonText} from './ButtonBase'
 import {get} from './constants'
 import {makeShadow} from './utils/shadow'
+import {Platform} from './primitives'
 
-const ButtonDanger = styled(ButtonBase)`
+const StyledText = styled(ButtonText)`
+  color: ${get('buttons.danger.color.default')};
+`
+
+const ButtonDanger = styled(ButtonBase).attrs(({children, variant}) => ({
+  ...(Platform.OS !== 'web' && {
+    children: <StyledText variant={variant}>{children}</StyledText>,
+    name: 'ButtonDanger',
+  }),
+}))`
   color: ${get('buttons.danger.color.default')};
   border: 1px solid ${get('buttons.danger.border.default')};
   background-color: ${get('buttons.danger.bg.default')};
