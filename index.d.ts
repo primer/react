@@ -330,7 +330,7 @@ declare module '@primer/components' {
   }
 
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
-    MenuContext: React.FunctionComponent<{
+    MenuContext: React.Context<{
       selectedTab: string | undefined
       setSelectedTab: (selectedTab: string | undefined) => void,
       open: boolean | undefined,
