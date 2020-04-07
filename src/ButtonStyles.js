@@ -1,9 +1,8 @@
 import {css} from 'styled-components'
 import {get} from './constants'
-import {Platform} from './primitives'
 
 export const buttonTextStyles = css`
-  font-weight: ${Platform.OS === 'web' ? get('fontWeights.bold') : '700'};
+  font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
 `
 

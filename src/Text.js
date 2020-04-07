@@ -11,7 +11,7 @@ const Text = styled.span`
 
 Text.defaultProps = {
   theme,
-  ...(Platform.OS !== 'web' && {fontSize: 14, fontFamily: 'Helvetica'}), // No font inherited on native platforms
+  ...(Platform.OS !== 'web' && {fontSize: 14, fontFamily: 'SF Pro Text'}), // No font inherited on native platforms
 }
 
 Text.propTypes = {

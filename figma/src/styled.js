@@ -16,6 +16,14 @@ if (Platform.OS === 'figma') {
   styled.div = styled.View;
   styled.button = styled.View;
   styled.span = styled.Text;
+  styled.p = styled.Text;
+  styled.h1 = styled.Text;
+  styled.h2 = styled.Text;
+  styled.h3 = styled.Text;
+  styled.h4 = styled.Text;
+  styled.h5 = styled.Text;
+  styled.h6 = styled.Text;
+  styled.img = styled.Image;
 } else {
   styled = styledW;
   ThemeProvider = ThemeProviderW;
