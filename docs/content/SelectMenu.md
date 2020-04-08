@@ -43,7 +43,7 @@ SelectMenu components get `COMMON` system props. Read our [System Props](/system
 ## SelectMenu.MenuContext
 SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.html#reactcreatecontext) that exposes some helpful state values to be used via [`React.useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext) in consuming applications.  SelectMenu.MenuContext can only be used in components that are already wrapped in a `SelectMenu` as `SelectMenu` contains the [context provider](https://reactjs.org/docs/context.html#contextprovider).
 
-### Values and functions available on MenuContext
+### Values available on MenuContext
 | Name | Type | Description |
 | :- | :- | :- |
 | selectedTab | string | The currently selected tab |
