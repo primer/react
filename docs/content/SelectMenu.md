@@ -48,7 +48,7 @@ SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.ht
 | :- | :- | :- |
 | selectedTab | string | The currently selected tab |
 | setSelectedTab | function | Used to update the currently selected tab state |
-| open | boolean | State for open/closed status of the menu content  |
+| open | boolean | State for open/closed status of the menu modal  |
 | setOpen | function | Used to update the `open` state |
 | initialTab | string | Mostly used internally to pass down which tab should be set to open by default. To change this value it's best to use the `initialTab` prop on `SelectMenu` instead. |
 
