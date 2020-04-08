@@ -40,6 +40,42 @@ SelectMenu components get `COMMON` system props. Read our [System Props](/system
 | :- | :- | :-: | :- |
 | initialTab | String | | If using the `SelectMenu.Tabs` component, you can use this prop to change the tab shown on open. By default, the first tab will be used.
 
+## SelectMenu.MenuContext
+SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.html#reactcreatecontext) that exposes some helpful state values to be used via [`React.useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext) in consuming applications.  SelectMenu.MenuContext can only be used in components that are already wrapped in a `SelectMenu` as `SelectMenu` contains the [context provider](https://reactjs.org/docs/context.html#contextprovider).
+
+### Values and functions available on MenuContext
+| Name | Type | Description |
+| :- | :- | :- |
+| selectedTab | string | The currently selected tab |
+| setSelectedTab | function | Used to update the currently selected tab state |
+| open | boolean | State for open/closed status of the menu content  |
+| setOpen | function | Used to update the `open` state |
+| initialTab | string | Mostly used internally to pass down which tab should be set to open by default. To change this value it's best to use the `initialTab` prop on `SelectMenu` instead. |
+
+
+### Example Usage
+```jsx
+import {SelectMenu, Button} from `@primer/components`
+import React, {useContext} from 'react'
+
+const MyMenu = () => {
+  <SelectMenu>
+    <MyButton as="summary" />
+    <SelectMenu.Modal>
+      content
+    </SelectMenu.Modal>
+  </SelectMenu>
+}
+
+// note that we can only use the context in components that are already wrapped by SelectMenu (and thus the Context.Provider)
+const MyButton = () => {
+  const menuContext = useContext(SelectMenu.MenuContext);
+
+  return (
+    <Button as="summary">{menuContext.open ? 'Open' : 'Closed'}</Button>
+  )
+}
+```
 
 ## SelectMenu.Modal
 Used to wrap the content in a `SelectMenu`.
