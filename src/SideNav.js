@@ -67,6 +67,16 @@ SideNav.Link = styled(Link).attrs(props => {
     border-bottom: none;
   }
 
+  &:first-child {
+    border-top-right-radius: ${get('radii.2')};
+    border-top-left-radius: ${get('radii.2')};
+  }
+
+  &:last-child {
+    border-bottom-right-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
+  }
+
   ${SideNav}.variant-normal > & {
     color: ${get('colors.gray.6')};
     padding: ${get('space.3')};
