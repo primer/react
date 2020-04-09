@@ -150,7 +150,7 @@ const buttons = {
     },
     shadow: {
       default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
+      active: 'inset 0px 2px 0px rgba(20, 70, 32, 0.2)',
       focus: '0 0 0 3px #94D3A2'
     }
   },
@@ -200,7 +200,7 @@ const buttons = {
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
       hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 1px 0px rgba(4, 66, 137, 0.2)',
+      active: 'inset 0px 2px 0px rgba(4, 66, 137, 0.2)',
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
     }
   }
