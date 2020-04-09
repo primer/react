@@ -9,6 +9,8 @@ const tabWrapperStyles = css`
   margin-bottom: -1px; // hide border of element below
   border-top: ${get('borders.1')} ${get('colors.border.gray')};
   -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   // Hide scrollbar so it doesn't cover the text
   &::-webkit-scrollbar {
