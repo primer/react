@@ -204,7 +204,7 @@ const buttons = {
   },
   outline: {
     color: {
-      default: blue[6],
+      default: blue[5],
       hover: white,
       active: white,
       disabled: gray[4]
