@@ -1,6 +1,7 @@
-import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
-import {lineHeights} from 'primer-typography'
+import {colors as colorPrimitives, typography} from '@primer/primitives'
 
+const {lineHeights} = typography
+const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
 // General
 const colors = {
   bodytext: gray[9],
@@ -13,6 +14,7 @@ const colors = {
   purple,
   red,
   yellow,
+  pink,
   blackfade15: 'rgba(27, 31, 35, 0.15)',
   blackfade20: 'rgba(27, 31, 35, 0.20)',
   blackfade30: 'rgba(27,31,35,0.3)',
@@ -50,7 +52,28 @@ const colors = {
     grayLight: gray[0],
     disabled: '#F3F4F6'
   },
-  accent: orange[5]
+  accent: orange[5],
+  labels: {
+    gray: gray[2],
+    grayText: gray[9],
+    grayDark: gray[5],
+    grayDarkText: gray[9],
+    blue: blue[5],
+    blueText: blue[5],
+    orange: orange[5],
+    orangeText: orange[6],
+    green: green[5],
+    greenText: green[6],
+    red: red[6],
+    redText: red[6],
+    yellow: yellow[6],
+    yellowText: yellow[9],
+    pink: pink[4],
+    pinkText: pink[6],
+    purple: purple[4],
+    purple: [5]
+
+  }
 }
 
 const breakpoints = ['544px', '768px', '1012px', '1280px']
