@@ -10,7 +10,7 @@ BorderBox.defaultProps = {
   theme,
   border: '1px solid',
   borderColor: 'gray.2',
-  borderRadius: 1
+  borderRadius: 2
 }
 
 BorderBox.propTypes = {

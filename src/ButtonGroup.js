@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {get} from './constants'
 import Box from './Box'
 
 const ButtonGroup = styled(Box)`
@@ -10,8 +11,8 @@ const ButtonGroup = styled(Box)`
     border-radius: 0;
 
     :first-child {
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
+      border-top-left-radius: ${get('radii.2')};
+      border-bottom-left-radius: ${get('radii.2')};
       margin-right: 0;
     }
 
@@ -22,8 +23,8 @@ const ButtonGroup = styled(Box)`
 
     :last-child {
       border-right-width: 1px;
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px;
+      border-top-right-radius: ${get('radii.2')};
+      border-bottom-right-radius: ${get('radii.2')};
     }
 
     :focus,

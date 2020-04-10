@@ -1210,10 +1210,10 @@
     style-value-types "^3.1.7"
     tslib "^1.10.0"
 
-"@primer/components@^15.1.1":
-  version "15.2.3"
-  resolved "https://registry.yarnpkg.com/@primer/components/-/components-15.2.3.tgz#8392524850b76cf551893afec94e8e5cf1c01175"
-  integrity sha512-INFi9In2kZXCG7AExjUIc9EFiQ/DDV6liYcVJ6reQivVi2EiXczBWoY+9s6KyFPSgKN7g4vlZWp5TfwABffzcw==
+"@primer/components@^16.1.0":
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/@primer/components/-/components-16.3.0.tgz#c623424cc57edcfc5007284970ffbc0fd72f7dbf"
+  integrity sha512-oydKIzcDCtIDjbGEUCLuxW94sDfBFbKRne/I4DlnYYnv6DGxpL1hE3zLoKp3+f5ycpsFSAckXJBafIhimQljpQ==
   dependencies:
     "@primer/octicons-react" "^9.2.0"
     "@reach/dialog" "0.3.0"
@@ -1234,16 +1234,16 @@
     react-is "16.10.2"
     styled-system "5.1.2"
 
-"@primer/gatsby-theme-doctocat@^0.16.9":
-  version "0.16.9"
-  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.16.9.tgz#7ab8b769ac02c9ceaa1d43d150e24b0e75989f6c"
-  integrity sha512-Nz23CpAorBMntpVuvCJfUK/1CKD0BxdjqAIvDbfaHzgUZgLSXthAdXupQl1OEp4EPnDb2Egv3ZBt4CT5ssfdNQ==
+"@primer/gatsby-theme-doctocat@^0.20.0":
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.20.0.tgz#95f7d965ecfa7199ad0e022b1029b9c6b2a793ff"
+  integrity sha512-ltCnDFRT+X3EIT5jI8jsGKeVx7RZTJpqC9Ms1AbtTZ7V6aJ6ocHbY0kSYqWmGu8Juaqy0u3aocoG8u4P66q7QQ==
   dependencies:
     "@babel/preset-env" "^7.5.5"
     "@babel/preset-react" "^7.0.0"
     "@mdx-js/mdx" "^1.0.21"
     "@mdx-js/react" "^1.0.21"
-    "@primer/components" "^15.1.1"
+    "@primer/components" "^16.1.0"
     "@primer/octicons-react" "^9.1.1"
     "@styled-system/theme-get" "^5.0.12"
     "@testing-library/jest-dom" "^4.1.0"
@@ -1278,7 +1278,7 @@
     prism-react-renderer "^0.1.7"
     react-addons-text-content "^0.0.4"
     react-element-to-jsx-string "^14.0.3"
-    react-focus-on "^3.0.6"
+    react-focus-on "^3.3.0"
     react-frame-component "^4.1.1"
     react-helmet "^5.2.1"
     react-live "^2.1.2"
@@ -11031,7 +11031,7 @@ react-focus-lock@^2.1.0, react-focus-lock@^2.2.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-focus-on@^3.0.6:
+react-focus-on@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/react-focus-on/-/react-focus-on-3.3.0.tgz#f6b3630ef61cdb26018b4d47cafca726b0d7aaa5"
   integrity sha512-Qbgg2A0YwVuY2g3l5yazzTlHrOC6L4a1P2advANQmdXo7xeAokV5RCtk4sqT0ZoW81LU8IAJCsYzqIdXBBclGg==

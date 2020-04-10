@@ -23,7 +23,7 @@ describe('SubNav.Link', () => {
   })
 
   it('renders the given "as" prop', () => {
-    const Type = props => <b {...props} />
+    const Type = ({theme, ...props}) => <b {...props} />
     expect(render(<SubNav.Link as={Type} />)).toMatchSnapshot()
   })
 

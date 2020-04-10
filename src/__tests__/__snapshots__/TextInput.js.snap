@@ -24,17 +24,17 @@ exports[`TextInput renders 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
   outline: none;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  padding: 6px 8px;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  padding: 6px 12px;
 }
 
 .c0 .TextInput-icon {
@@ -50,10 +50,10 @@ exports[`TextInput renders 1`] = `
 
 .c0:focus-within {
   border-color: #2188ff;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -94,17 +94,17 @@ exports[`TextInput renders block 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
   outline: none;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  padding: 6px 8px;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  padding: 6px 12px;
   display: block;
   width: 100%;
 }
@@ -122,10 +122,10 @@ exports[`TextInput renders block 1`] = `
 
 .c0:focus-within {
   border-color: #2188ff;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -166,17 +166,17 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
   outline: none;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  padding: 6px 8px;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  padding: 6px 12px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
@@ -197,10 +197,10 @@ exports[`TextInput renders large 1`] = `
 
 .c0:focus-within {
   border-color: #2188ff;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -241,17 +241,17 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
   outline: none;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  padding: 6px 8px;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  padding: 6px 12px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -274,10 +274,10 @@ exports[`TextInput renders small 1`] = `
 
 .c0:focus-within {
   border-color: #2188ff;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }
@@ -318,17 +318,17 @@ exports[`TextInput should render a password input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
   outline: none;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset;
-  padding: 6px 8px;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  padding: 6px 12px;
 }
 
 .c0 .TextInput-icon {
@@ -344,10 +344,10 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0:focus-within {
   border-color: #2188ff;
-  box-shadow: rgba(27,31,35,0.075) 0px 1px 2px inset,rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
   .c0 {
     font-size: 14px;
   }

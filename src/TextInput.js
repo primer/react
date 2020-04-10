@@ -5,7 +5,7 @@ import systemPropTypes from '@styled-system/prop-types'
 import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
 import Octicon from './StyledOcticon'
-import {variant, width} from 'styled-system'
+import {variant, width, minWidth, maxWidth} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 
@@ -26,22 +26,28 @@ const sizeVariants = variant({
   }
 })
 
-const TextInput = ({icon, className, block, ...rest}) => {
+// using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
+const TextInput = React.forwardRef(({icon, className, block, disabled, ...rest}, ref) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const wrapperProps = pick(rest)
   const inputProps = omit(rest)
   return (
-    <Wrapper className={wrapperClasses} hasIcon={!!icon} block={block} {...wrapperProps}>
+    <Wrapper
+      className={wrapperClasses}
+      hasIcon={!!icon}
+      block={block}
+      theme={theme}
+      disabled={disabled}
+      {...wrapperProps}
+    >
       {icon && <Octicon className="TextInput-icon" icon={icon} />}
-      <Input {...inputProps} />
+      <Input ref={ref} disabled={disabled} {...inputProps} />
     </Wrapper>
   )
-}
+})
 
-const Input = styled.input.attrs(props => ({
-  type: props.type || 'text'
-}))`
+const Input = styled.input`
   border: 0;
   font-size: inherit;
   background-color: transparent;
@@ -57,14 +63,14 @@ const Wrapper = styled.span`
   display: inline-flex;
   align-items: stretch;
   min-height: 34px;
-  font-size: ${get('fontSizes.2')};
+  font-size: ${get('fontSizes.1')};
   line-height: 20px;
   color: ${get('colors.gray.9')};
   vertical-align: middle;
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
-  border: 1px solid ${get('colors.gray.3')};
-  border-radius: ${get('radii.1')};
+  border: 1px solid ${get('colors.border.gray')};
+  border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.formControl')};
 
@@ -75,7 +81,7 @@ const Wrapper = styled.span`
       `
     } else {
       return css`
-        padding: 6px ${get('space.2')};
+        padding: 6px 12px;
       `
     }
   }}
@@ -93,6 +99,14 @@ const Wrapper = styled.span`
   }
 
   ${props =>
+    props.disabled &&
+    css`
+     background-color: ${get('colors.bg.disabled')};
+     box-shadow: ${get('shadows.formControlDisabled')}
+    }
+  `}
+
+  ${props =>
     props.block &&
     css`
       display: block;
@@ -100,18 +114,25 @@ const Wrapper = styled.span`
     `}    
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
-  @media (max-width: ${get('breakpoints.1')}) {
+  @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
   ${COMMON}
   ${width}
+  ${minWidth}
+  ${maxWidth}
   ${sizeVariants}
 `
 
-TextInput.defaultProps = {theme}
+TextInput.defaultProps = {
+  theme,
+  type: 'text'
+}
 
 TextInput.propTypes = {
   block: PropTypes.bool,
+  maxWidth: systemPropTypes.layout.maxWidth,
+  minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   width: systemPropTypes.layout.width

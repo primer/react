@@ -23,7 +23,7 @@ describe('Breadcrumb.Item', () => {
   })
 
   it('renders the given "as" prop', () => {
-    const Type = props => <b {...props} />
+    const Type = ({theme, ...props}) => <b {...props} />
     expect(render(<Breadcrumb.Item as={Type} />)).toMatchSnapshot()
   })
 

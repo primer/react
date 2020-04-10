@@ -28,7 +28,7 @@ describe('FilterList.Item', () => {
   })
 
   it('renders the given "as" prop', () => {
-    const Type = props => <b {...props} />
+    const Type = ({theme, ...props}) => <b {...props} />
     expect(render(<FilterList.Item as={Type} />)).toMatchSnapshot()
   })
 

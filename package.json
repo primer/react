@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "15.3.0",
+  "version": "17.1.1",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -12,6 +12,7 @@
     "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
+    "update-snapshots": "jest -u -- src",
     "watch": "jest --watch --no-coverage",
     "playroom:start": "playroom start",
     "playroom:build": "playroom build",
@@ -40,6 +41,7 @@
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
+    "@types/styled-components": "^4.4.0",
     "@testing-library/react": "9.4.0",
     "@types/styled-system": "5.1.2",
     "babel-plugin-macros": "2.6.1",
@@ -82,5 +84,18 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "styled-components": "4.x || 5.x"
+  },
+  "actionBundlesize": {
+    "build": "yarn && yarn dist",
+    "files": [
+      {
+        "path": "dist/index.esm.js",
+        "name": "ESM Build"
+      },
+      {
+        "path": "dist/index.umd.js",
+        "name": "UMD Build"
+      }
+    ]
   }
 }

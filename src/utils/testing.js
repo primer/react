@@ -31,6 +31,15 @@ export function render(component) {
 }
 
 /**
+ * Render the component (a React.createElement() or JSX expression)
+ * using react-test-renderer and return the root node
+ * ```
+ */
+export function renderRoot(component) {
+  return renderer.create(component).root
+}
+
+/**
  * Get the HTML class names rendered by the component instance
  * as an array.
  *
