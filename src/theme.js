@@ -136,7 +136,7 @@ const buttons = {
       disabled: gray[4]
     },
     border: {
-      default: colors.border.gray,
+      default: 'rgba(27, 31, 35, 0.12)',
       active: colors.border.grayDark,
       disabled: colors.border.grayLight
     },
@@ -147,7 +147,7 @@ const buttons = {
       disabled: colors.bg.grayLight
     },
     shadow: {
-      default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+      default: '0px 1px 0px rgba(27, 31, 35, 0.04), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
       hover: '0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)',
       active: 'inset 0px 2px 0px rgba(149, 157, 165, 0.1)',
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
@@ -160,20 +160,21 @@ const buttons = {
     },
     border: {
       default: green[6],
-      hover: green[7],
-      active: green[7],
+      hover: 'rgba(27, 31, 35, 0.15)',
+      active: 'rgba(27, 31, 35, 0.15)',
       disabled: 'rgba(34, 134, 58, 0.1)'
     },
     bg: {
-      default: '#159739', //custom green
-      focus: '#138934', //custom green
-      hover: '#138934', //custom green
+      default: '#2EA44F', //custom green
+      focus: '#2C974B', //custom green
+      hover: '#2C974B', //custom green
       active: '#128031', // 2% darker than hover bg
       disabled: '#94D3A2' // custom gray
     },
     shadow: {
       default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 2px 0px rgba(20, 70, 32, 0.2)',
+      active: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      hover: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       focus: '0 0 0 3px #94D3A2'
     }
   },
@@ -186,8 +187,8 @@ const buttons = {
     },
     border: {
       default: colors.border.gray,
-      hover: red[7],
-      active: red[8]
+      hover: 'rgba(27, 31, 35, 0.15)',
+      active: 'rgba(27, 31, 35, 0.15)'
     },
     bg: {
       default: gray[0],
@@ -197,8 +198,8 @@ const buttons = {
     },
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 2px 0px rgba(179, 29, 40, 0.4)',
+      active: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      hover: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       focus: '0 0 0 3px rgba(203, 36, 49, 0.4)'
     }
   },
@@ -211,8 +212,8 @@ const buttons = {
     },
     border: {
       default: gray[2], //border-gray
-      hover: blue[6],
-      active: 'rgba(4, 66, 137, .5)'
+      hover: 'rgba(27, 31, 35, 0.15)',
+      active: 'rgba(27, 31, 35, 0.15)'
     },
     bg: {
       default: gray[0],
@@ -222,8 +223,8 @@ const buttons = {
     },
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 2px 0px rgba(4, 66, 137, 0.2)',
+      active: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      hover: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
     }
   }
