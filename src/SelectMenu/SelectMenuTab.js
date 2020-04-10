@@ -24,6 +24,7 @@ const tabStyles = css`
     border-bottom-width: 0;
     border-top-left-radius: ${get('radii.2')};
     border-top-right-radius: ${get('radii.2')};
+    background-color: ${get('colors.white')};
   }
 
   &[aria-selected='true'] {
