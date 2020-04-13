@@ -38,11 +38,12 @@
   "dependencies": {
     "@primer/octicons-react": "^9.2.0",
     "@reach/dialog": "0.3.0",
+    "@styled-system/css": "5.1.5",
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
-    "@types/styled-components": "^4.4.0",
     "@testing-library/react": "9.4.0",
+    "@types/styled-components": "^4.4.0",
     "@types/styled-system": "5.1.2",
     "babel-plugin-macros": "2.6.1",
     "babel-polyfill": "6.26.0",
@@ -79,7 +80,7 @@
     "rollup": "1.25.1",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "10.1.0",
-    "styled-components": "4.4.0"
+    "styled-components": "5.1.0"
   },
   "peerDependencies": {
     "react": "^16.8.0",
