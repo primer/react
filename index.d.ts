@@ -301,7 +301,7 @@ declare module '@primer/components' {
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  
+
   export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
@@ -368,7 +368,7 @@ declare module '@primer/components' {
   }
 
   export interface StateLabelProps extends CommonProps {
-    small?: boolean
+    variant?: 'small' | 'large'
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
   }
 

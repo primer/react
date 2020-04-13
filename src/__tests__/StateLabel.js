@@ -29,9 +29,9 @@ describe('StateLabel', () => {
     expect(StateLabel).toSetDefaultTheme()
   })
 
-  it('respects the small flag', () => {
-    expect(render(<StateLabel small />)).toMatchSnapshot()
-    expect(render(<StateLabel small={false} />)).toMatchSnapshot()
+  it('respects the variant prop', () => {
+    expect(render(<StateLabel variant="small" />)).toMatchSnapshot()
+    expect(render(<StateLabel variant="large" />)).toMatchSnapshot()
   })
 
   it('renders children', () => {

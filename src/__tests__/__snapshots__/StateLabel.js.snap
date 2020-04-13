@@ -10,14 +10,14 @@ exports[`StateLabel renders children 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
   background-color: #6a737d;
   border-radius: 100px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -25,56 +25,6 @@ exports[`StateLabel renders children 1`] = `
 >
   hi
 </span>
-`;
-
-exports[`StateLabel respects the small flag 1`] = `
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 4px 8px;
-  font-weight: 600;
-  line-height: 16px;
-  color: #fff;
-  font-size: 12px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 100px;
-}
-
-<span
-  className="c0"
-/>
-`;
-
-exports[`StateLabel respects the small flag 2`] = `
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 8px 12px;
-  font-weight: 600;
-  line-height: 16px;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 100px;
-}
-
-<span
-  className="c0"
-/>
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
@@ -91,14 +41,14 @@ exports[`StateLabel respects the status prop 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
   background-color: #159739;
   border-radius: 100px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -142,14 +92,14 @@ exports[`StateLabel respects the status prop 2`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
   background-color: #cb2431;
   border-radius: 100px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -193,14 +143,14 @@ exports[`StateLabel respects the status prop 3`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
   background-color: #6f42c1;
   border-radius: 100px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -228,4 +178,54 @@ exports[`StateLabel respects the status prop 3`] = `
     />
   </svg>
 </span>
+`;
+
+exports[`StateLabel respects the variant prop 1`] = `
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #6a737d;
+  border-radius: 100px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+<span
+  className="c0"
+/>
+`;
+
+exports[`StateLabel respects the variant prop 2`] = `
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  background-color: #6a737d;
+  border-radius: 100px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+/>
 `;

@@ -17,5 +17,5 @@ StateLabel components get `COMMON` system props. Read our [System Props](/system
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| small | Boolean | | Used to create a smaller version of the default StateLabel |
+| variant | String | 'large' | a value of `small` or `large` results in a smaller or larger version of the StateLabel. |
 | status | String | | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed` or `pullMerged`.
