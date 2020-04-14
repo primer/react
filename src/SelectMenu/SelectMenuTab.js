@@ -63,7 +63,7 @@ const SelectMenuTab = ({tabName, index, className, onClick, ...rest}) => {
     if (!menuContext.selectedTab && index === 0) {
       menuContext.setSelectedTab(tabName)
     }
-  }, [])
+  }, [index, menuContext, tabName])
 
   const isSelected = menuContext.selectedTab === tabName
 
