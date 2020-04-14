@@ -71,8 +71,7 @@ const colors = {
     pink: pink[4],
     pinkText: pink[6],
     purple: purple[4],
-    purple: [5]
-
+    purpleText: [5]
   }
 }
 
