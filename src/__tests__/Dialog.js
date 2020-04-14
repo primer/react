@@ -23,8 +23,4 @@ describe('Dialog', () => {
     expect(results).toHaveNoViolations()
     cleanup()
   })
-
-  it('renders consistently', () => {
-    expect(comp).toMatchSnapshot()
-  })
 })
