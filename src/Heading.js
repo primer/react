@@ -1,15 +1,14 @@
-import withSx from './hoc/withSx'
-import styled from 'styled-components'
+import sx from './sx'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON, get} from './constants'
 import theme from './theme'
 
-const Heading = withSx(styled.h1`
+const Heading = sx.styled.h1`
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.5')};
   margin: 0;
   ${TYPOGRAPHY} ${COMMON};
-`)
+`
 
 Heading.defaultProps = {
   theme

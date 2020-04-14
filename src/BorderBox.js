@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import sx from './sx'
 import PropTypes from 'prop-types'
 import Box from './Box'
 import theme from './theme'
 import {BORDER} from './constants'
 
-const BorderBox = styled(Box)(BORDER)
+const BorderBox = sx.styled(Box)(BORDER)
 
 BorderBox.defaultProps = {
   theme,
