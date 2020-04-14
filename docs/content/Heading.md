@@ -19,4 +19,4 @@ Heading components get `TYPOGRAPHY` and `COMMON` system props. Read our [System 
 
 | Prop name | Type    | Description                                      |
 | :-------- | :------ | :----------------------------------------------- |
-| as        | String  | sets the HTML tag for the component              |
+| as        | String or React element  | sets the HTML tag for the component              |

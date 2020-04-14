@@ -72,9 +72,7 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {
-    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  }
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
@@ -303,7 +301,7 @@ declare module '@primer/components' {
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  
+
   export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
