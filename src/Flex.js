@@ -4,14 +4,10 @@ import {FLEX} from './constants'
 import theme from './theme'
 import Box from './Box'
 
-const Flex = styled(Box)`
-  ${FLEX};
-`
+const Flex = styled(Box)``
 
 // Keeping this around for backwards compatibility, but it's the same as `FLEX`
-Flex.Item = styled(Box)`
-  ${FLEX};
-`
+Flex.Item = styled(Box)``
 
 Flex.defaultProps = {
   theme,

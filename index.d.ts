@@ -37,28 +37,21 @@ declare module '@primer/components' {
       StyledSystem.BottomProps,
       StyledSystem.LeftProps {}
 
-  interface FlexItemProps
-    extends BaseProps,
-      CommonProps,
-      LayoutProps,
-      StyledSystem.FlexProps,
-      StyledSystem.JustifySelfProps,
-      StyledSystem.AlignSelfProps,
-      StyledSystem.OrderProps {}
-
-  interface FlexProps extends BaseProps, CommonProps, LayoutProps, StyledSystem.FlexboxProps, BoxProps {}
-
-  export const Flex: React.FunctionComponent<FlexProps> & {
-    Item: React.FunctionComponent<FlexItemProps>
-  }
-
   export interface BoxProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
+      StyledSystem.FlexboxProps,
       Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Box: React.FunctionComponent<BoxProps>
+
+  interface FlexProps extends BoxProps {}
+  interface FlexItemProps extends BoxProps {}
+
+  export const Flex: React.FunctionComponent<FlexProps> & {
+    Item: React.FunctionComponent<FlexItemProps>
+  }
 
   export interface TextProps
     extends BaseProps,
@@ -349,7 +342,7 @@ declare module '@primer/components' {
     Header: React.FunctionComponent<SelectMenuHeaderProps>
   }
 
-  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SideNavProps extends CommonProps, BorderBoxProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
     variant?: 'normal' | 'lightweight'
   }
