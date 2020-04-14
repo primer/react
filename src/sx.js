@@ -5,10 +5,7 @@ const sxProps = props => css(props.sx)
 
 function generateSxComp(base) {
   return function(strings, ...values) {
-    const Comp = base(strings, ...values)
-    return styled(Comp)`
-      ${sxProps};
-    `
+    return base(strings, ...values, sxProps)
   }
 }
 
