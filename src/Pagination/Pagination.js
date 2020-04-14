@@ -93,7 +93,7 @@ function usePaginationPages({
         </Page>
       )
     })
-  }, [model, hrefBuilder, pageChange])
+  }, [model, hrefBuilder, pageChange, theme])
 
   return children
 }
