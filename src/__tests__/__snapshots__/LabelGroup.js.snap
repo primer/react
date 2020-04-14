@@ -11,7 +11,7 @@ exports[`BranchName matches snapshot 1`] = `
 
 .c1 {
   display: inline-block;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   border-radius: 100px;
   font-size: 12px;
@@ -27,7 +27,7 @@ exports[`BranchName matches snapshot 1`] = `
 
 .c2 {
   display: inline-block;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   border-radius: 100px;
   font-size: 12px;
