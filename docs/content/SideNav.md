@@ -131,27 +131,13 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 <SideNav.Link as={NavLink} to="...">...</SideNav.Link>
 ```
 
-## System props
+## SideNav props
 
-`SideNav` components get `COMMON`, `BORDER`, and `LAYOUT` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+import {SideNav} from "@primer/components"
+import ComponentProps from "../components/ComponentProps"
 
-## Component props
+<ComponentProps Component={SideNav} name="SideNav" />
 
-### SideNav
+## SideNav.Link props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'nav' | Sets the HTML tag for the component. |
-| bordered | Boolean | false | Renders the component with a border. |
-| variant | String | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
-
-### SideNav.Link
-
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'a' | Sets the HTML tag for the component. |
-| href      | String  |         | URL to be used for the Link                       |
-| muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
-| selected | Boolean | false | Sets the link as selected, giving it a different style and setting the `aria-current` attribute. |
-| underline | Boolean |  false  | Adds underline to the Link                        |
-| variant | String | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
+<ComponentProps Component={SideNav.Link} name="SideNav.Link" />

@@ -11,7 +11,14 @@ BorderBox is a Box component with a border. When no `borderColor` is present, th
 <BorderBox>This is a BorderBox</BorderBox>
 ```
 
-## System props
+## Props
+
+import {BorderBox} from "@primer/components"
+import ComponentProps from "../components/ComponentProps"
+
+<ComponentProps Component={BorderBox} name="BorderBox" />
+
+<!-- ## System props
 
 BorderBox components get `COMMON`, `LAYOUT` and `BORDER` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -22,4 +29,4 @@ BorderBox components get `COMMON`, `LAYOUT` and `BORDER` system props. Read our 
 | border | String | 'borders.1' (from theme) | Sets the border, use theme values or provide your own. |
 | borderColor | String | 'gray.2' (from theme) | Sets the border color, use theme values or provide your own. |
 | borderRadius | String or Number| 'radii.1' (from theme)| Sets the border radius, use theme values or provide your own. |
-| boxShadow | String | | Sets box shadow, use theme values or provide your own. |
+| boxShadow | String | | Sets box shadow, use theme values or provide your own. | -->

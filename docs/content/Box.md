@@ -16,12 +16,9 @@ The Box component serves as a wrapper component for most layout related needs. U
 </Box>
 ```
 
-## System props
+## Props
 
-Box components get the `COMMON` and `LAYOUT` categories of system props. Read our [System Props](/system-props) doc page for a full list of available props.
+import {Box} from "@primer/components"
+import ComponentProps from "../components/ComponentProps"
 
-## Component props
-
-| Prop name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | `div` | sets the HTML tag for the component|
+<ComponentProps Component={Box} name="Box" />

@@ -16,15 +16,9 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 </Link>
 ```
 
-## System props
+## Props
 
-Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+import {Link} from "@primer/components"
+import ComponentProps from "../components/ComponentProps"
 
-## Component props
-
-| Name      | Type    | Default | Description                                       |
-| :-------- | :------ | :-----: | :------------------------------------------------ |
-| href      | String  |         | URL to be used for the Link                       |
-| muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
-| underline | Boolean |  false  | Adds underline to the Link                        |
-| as        | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary'       |
+<ComponentProps Component={Link} name="Link" />
