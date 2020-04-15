@@ -72,7 +72,7 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {}
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
@@ -301,7 +301,7 @@ declare module '@primer/components' {
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  
+
   export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
@@ -480,12 +480,15 @@ declare module '@primer/components' {
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {
-    title: string
     isOpen: boolean
     onDismiss: () => unknown
   }
 
-  export const Dialog: React.FunctionComponent<DialogProps>
+  export interface DialogHeaderProps extends FlexProps {}
+
+  export const Dialog: React.FunctionComponent<DialogProps> & {
+    Header: React.FunctionComponent<DialogHeaderProps>
+  }
 
   export interface LabelGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 

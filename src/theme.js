@@ -82,10 +82,10 @@ const borders = [0, '1px solid']
 const radii = ['0', '3px', '6px', '100px']
 
 const shadows = {
-  small: '0 1px 1px rgba(27, 31, 35, 0.1)',
-  medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
-  large: '0 1px 15px rgba(27, 31, 35, 0.15)',
-  'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
+  small: '0 1px 0 rgba(149, 157, 165, 0.1)',
+  medium: '0 3px 6px rgba(149, 157, 165, 0.15)',
+  large: '0 8px 24px rgba(149, 157, 165, 0.2)',
+  'extra-large': '0 12px 48px rgba(149, 157, 165, 0.3)',
   formControl: 'inset 0px 2px 0px rgba(225, 228, 232, 0.2)',
   formControlDisabled: 'inset 0px 2px 0px rgba(220, 227, 237, 0.3)',
   formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
