@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import {addDocumentedProps, PropTypes} from './PropsDocs'
 import styled from 'styled-components'
 import {system} from 'styled-system'
 import {COMMON, TYPOGRAPHY, get} from './constants'
@@ -37,17 +37,20 @@ const Link = styled.a.attrs(props => ({
 `
 
 Link.defaultProps = {
-  theme
+  muted: false,
+  theme,
+  underline: false
 }
 
-Link.propTypes = {
-  as: elementType,
-  href: PropTypes.string,
-  muted: PropTypes.bool,
-  theme: PropTypes.object,
-  underline: PropTypes.bool,
-  ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes
-}
+addDocumentedProps(Link, {
+  system: [COMMON, TYPOGRAPHY],
+  own: {
+    as: elementType.desc("Can be 'a', 'button', 'input', or 'summary'"),
+    href: PropTypes.string.desc('URL to be used for the Link'),
+    muted: PropTypes.bool.desc('Uses light gray for Link color, and blue on hover'),
+    theme: PropTypes.object.hidden,
+    underline: PropTypes.bool.desc('Adds underline to the Link')
+  }
+})
 
 export default Link

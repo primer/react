@@ -25,13 +25,16 @@ TYPOGRAPHY.propTypes = {
 export const COMMON = compose(styledSystem.space, styledSystem.color, styledSystem.display)
 COMMON.propTypes = {
   ...systemPropTypes.space,
-  ...systemPropTypes.color
+  ...systemPropTypes.color,
+  ...systemPropTypes.display
 }
+COMMON.systemPropsName = 'COMMON'
 export const BORDER = compose(styledSystem.border, styledSystem.shadow)
 BORDER.propTypes = {
   ...systemPropTypes.border,
   ...systemPropTypes.shadow
 }
+BORDER.systemPropsName = 'BORDER'
 
 // these are 1:1 with styled-system's API now,
 // so you could consider dropping the abstraction
@@ -41,7 +44,12 @@ export const FLEX = styledSystem.flexbox
 export const GRID = styledSystem.grid
 
 TYPOGRAPHY.propTypes = systemPropTypes.typography
+TYPOGRAPHY.systemPropsName = 'TYPOGRAPHY'
 LAYOUT.propTypes = systemPropTypes.layout
+LAYOUT.systemPropsName = 'LAYOUT'
 POSITION.propTypes = systemPropTypes.position
+POSITION.systemPropsName = 'POSITION'
 FLEX.propTypes = systemPropTypes.flexbox
+FLEX.systemPropsName = 'FLEX'
 GRID.propTypes = systemPropTypes.grid
+GRID.systemPropsName = 'GRID'

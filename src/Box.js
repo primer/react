@@ -1,23 +1,20 @@
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import {space, color} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
-import {LAYOUT} from './constants'
+import {addDocumentedProps, PropTypes} from './PropsDocs'
+import {COMMON, LAYOUT} from './constants'
 import theme from './theme'
 
 const Box = styled.div`
   ${LAYOUT}
-  ${space}
-  ${color}
+  ${COMMON}
 `
 
 Box.defaultProps = {theme}
 
-Box.propTypes = {
-  ...LAYOUT.propTypes,
-  ...systemPropTypes.space,
-  ...systemPropTypes.color,
-  theme: PropTypes.object
-}
+addDocumentedProps(Box, {
+  system: [COMMON, LAYOUT],
+  own: {
+    theme: PropTypes.object.hidden
+  }
+})
 
 export default Box

@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import classnames from 'classnames'
+import {addDocumentedProps, PropTypes} from './PropsDocs'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
@@ -140,30 +140,43 @@ SideNav.Link = styled(Link).attrs(props => {
 
 SideNav.defaultProps = {
   theme,
+  bordered: false,
   variant: 'normal'
 }
 
-SideNav.propTypes = {
-  as: elementType,
-  bordered: PropTypes.bool,
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['normal', 'lightweight']),
-  ...BorderBox.propTypes,
-  ...COMMON.propTypes
-}
+addDocumentedProps(SideNav, {
+  system: [COMMON],
+  inherited: [BorderBox],
+  own: {
+    as: elementType.desc('Sets the HTML tag for the element'),
+    bordered: PropTypes.bool.desc('Renders the component with a border'),
+    children: PropTypes.node.hidden,
+    theme: PropTypes.object.hidden,
+    variant: PropTypes.oneOf(['normal', 'lightweight']).desc(
+      'Set to `lightweight` to render [in a lightweight style](#lightweight-variant)'
+    )
+  }
+})
 
 SideNav.Link.defaultProps = {
   theme,
+  selected: false,
   variant: 'normal'
 }
 
-SideNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  selected: PropTypes.bool,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['normal', 'full']),
-  ...Link.propTypes
-}
+addDocumentedProps(SideNav.Link, {
+  system: [],
+  inherited: [Link],
+  own: {
+    as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).desc('Sets the HTML tag for the element'),
+    selected: PropTypes.bool.desc(
+      'Sets the link as selected, giving it a different style and setting the `aria-current` attribute'
+    ),
+    theme: PropTypes.object.hidden,
+    variant: PropTypes.oneOf(['normal', 'full']).desc(
+      'Set to `full` to render a [full variant](#full-variant), suitable for including icons and labels'
+    )
+  }
+})
 
 export default SideNav
