@@ -2,7 +2,8 @@
 
 exports[`SideNav and SideNav.Link renders with default props 1`] = `
 .c0 {
-  border: none;
+  border-width: 0;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
 }

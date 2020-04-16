@@ -2,13 +2,13 @@
 
 exports[`Flex respects alignContent 1`] = `
 .c0 {
+  -webkit-align-content: start;
+  -ms-flex-line-pack: start;
+  align-content: start;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-content: start;
-  -ms-flex-line-pack: start;
-  align-content: start;
 }
 
 <div
@@ -19,14 +19,14 @@ exports[`Flex respects alignContent 1`] = `
 
 exports[`Flex respects alignItems 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-align-items: start;
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div
@@ -37,13 +37,13 @@ exports[`Flex respects alignItems 1`] = `
 
 exports[`Flex respects flexDirection 1`] = `
 .c0 {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
 }
 
 <div
@@ -54,13 +54,13 @@ exports[`Flex respects flexDirection 1`] = `
 
 exports[`Flex respects flexWrap 1`] = `
 .c0 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
 }
 
 <div
@@ -71,14 +71,14 @@ exports[`Flex respects flexWrap 1`] = `
 
 exports[`Flex respects justifyContent 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: start;
   -webkit-justify-content: start;
   -ms-flex-pack: start;
   justify-content: start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 <div

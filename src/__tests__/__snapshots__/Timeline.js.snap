@@ -49,17 +49,6 @@ exports[`Timeline.Badge renders 1`] = `
 }
 
 .c1 {
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-right: 8px;
-  margin-left: -15px;
-  color: #444d56;
-  background-color: #e1e4e8;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -71,6 +60,17 @@ exports[`Timeline.Badge renders 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 8px;
+  margin-left: -15px;
+  color: #444d56;
+  background-color: #e1e4e8;
   border-radius: 50%;
   border: 2px solid #fff;
 }
