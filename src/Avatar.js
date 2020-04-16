@@ -5,9 +5,18 @@ import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 
+function borderRadiusValue({size, shape}) {
+  switch (shape) {
+    case 'round':
+      return '50%'
+    default:
+      return size <= 24 ? '2px' : '3px'
+  }
+}
+
 function borderRadius({size, shape}) {
   return {
-    borderRadius: shape === 'round' ? '50%' : size <= 24 ? '2px' : '3px'
+    borderRadius: borderRadiusValue({size, shape})
   }
 }
 
