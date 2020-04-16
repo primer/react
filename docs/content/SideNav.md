@@ -71,7 +71,7 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
 
 ```jsx live
 <BorderBox p={3} backgroundColor='gray.0' maxWidth={360}>
-  <BorderBox border='none' borderBottom={1} mb={2} pb={1}>
+  <BorderBox borderWidth={0} borderBottomWidth={1} borderRadius={0} mb={2} pb={1}>
     <Heading as="h5" fontSize={1} color="gray.7">Menu</Heading>
   </BorderBox>
   <SideNav variant="lightweight">

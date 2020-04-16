@@ -13,7 +13,7 @@ function SideNavBase({variant, className, bordered, children, ...props}) {
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
   if (!bordered) {
-    props = {...props, border: 'none'}
+    props = {...props, borderWidth: 0}
   }
 
   return (
