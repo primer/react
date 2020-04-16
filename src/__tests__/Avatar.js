@@ -44,7 +44,7 @@ describe('Avatar', () => {
     expect(render(<Avatar m={2} alt="" />)).toHaveStyleRule('margin', px(theme.space[2]))
   })
 
-  it('respects form prop', () => {
-    expect(render(<Avatar form="round" alt="" />)).toHaveStyleRule('border-radius', percent(50))
+  it('respects shape prop', () => {
+    expect(render(<Avatar shape="round" alt="" />)).toHaveStyleRule('border-radius', percent(50))
   })
 })
