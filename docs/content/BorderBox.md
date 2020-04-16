@@ -11,6 +11,8 @@ BorderBox is a Box component with a border. When no `borderColor` is present, th
 <BorderBox>This is a BorderBox</BorderBox>
 ```
 
+Note that `BorderBox` has default props set for `borderWidth`, `borderStyle`, and `borderColor`. This means that you cannot use `border={0} borderBottom={1}` or similar patterns; instead, use individual properties like `borderWidth={0} borderBottomWidth={1}`.
+
 ## System props
 
 BorderBox components get `COMMON`, `LAYOUT`, `BORDER`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
