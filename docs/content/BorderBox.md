@@ -19,7 +19,8 @@ BorderBox components get `COMMON`, `LAYOUT`, `BORDER`, and `FLEX` system props. 
 
 | Prop name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| border | String | 'borders.1' (from theme) | Sets the border, use theme values or provide your own. |
+| borderWidth | String | '1px' | Sets the border, use theme values or provide your own. |
+| borderStyle | String | 'solid' | Sets the border style, use theme values or provide your own. |
 | borderColor | String | 'gray.2' (from theme) | Sets the border color, use theme values or provide your own. |
-| borderRadius | String or Number| 'radii.1' (from theme)| Sets the border radius, use theme values or provide your own. |
+| borderRadius | String or Number| 2 (from theme)| Sets the border radius, use theme values or provide your own. |
 | boxShadow | String | | Sets box shadow, use theme values or provide your own. |
