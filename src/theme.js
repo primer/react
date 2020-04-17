@@ -64,8 +64,7 @@ const fonts = {
     'Arial',
     'sans-serif',
     'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol'
+    'Segoe UI Emoji'
   ]),
   mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
 }
