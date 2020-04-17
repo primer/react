@@ -31,8 +31,8 @@ const theme = {
 }
 
 describe('Heading', () => {
-  it('renders <h1> by default', () => {
-    expect(render(<Heading />).type).toEqual('h1')
+  it('renders <h2> by default', () => {
+    expect(render(<Heading />).type).toEqual('h2')
   })
 
   it('should have no axe violations', async () => {
@@ -46,7 +46,7 @@ describe('Heading', () => {
     expect(Heading).toSetDefaultTheme()
   })
 
-  it('respects the is prop', () => {
+  it('respects the as prop', () => {
     expect(render(<Heading as="h6" />).type).toEqual('h6')
   })
 
@@ -94,7 +94,6 @@ describe('Heading', () => {
 
   it('respects the "fontStyle" prop', () => {
     expect(render(<Heading fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Heading as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
   })
 
   it.skip('renders fontSize with f* classes using inverse scale', () => {

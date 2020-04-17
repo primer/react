@@ -2,7 +2,8 @@
   "extends": [
     "plugin:github/es6",
     "plugin:github/react",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "rules": {
     "import/no-namespace": 0,
@@ -11,6 +12,7 @@
       "ignoreRestSiblings": true
     }],
     "eslint-comments/no-use": 0,
+    "react-hooks/exhaustive-deps": "error",
     "jsx-a11y/label-has-for": [
       2,
       {
