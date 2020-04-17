@@ -4,7 +4,7 @@ title: Flex
 
 The `Flex` component behaves the same as the `Box` component except that it has `display: flex` set by default.
 
-*Previously, `Flex.Item` was used for flex item specific properties - we've added all properties to the `Box` and `Flex` components, but are keeping `Flex.Item` around for backwards compatibility.*
+*Previously, a `Flex.Item` component was used for flex item specific properties; this component is deprecated in favor of the `Box` component, which now has all such properties.*
 
 ## Default example
 
