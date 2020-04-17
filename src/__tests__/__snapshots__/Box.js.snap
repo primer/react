@@ -141,6 +141,7 @@ exports[`Box renders without any props 1`] = `
 exports[`Box respects display 1`] = `
 .c0 {
   display: inline;
+  display: inline;
 }
 
 <div
@@ -151,6 +152,7 @@ exports[`Box respects display 1`] = `
 
 exports[`Box respects display 2`] = `
 .c0 {
+  display: inline-block;
   display: inline-block;
 }
 
@@ -163,6 +165,7 @@ exports[`Box respects display 2`] = `
 exports[`Box respects display 3`] = `
 .c0 {
   display: none;
+  display: none;
 }
 
 <div
@@ -174,6 +177,19 @@ exports[`Box respects display 3`] = `
 exports[`Box respects display 4`] = `
 .c0 {
   display: none;
+  display: none;
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    display: block;
+  }
 }
 
 @media screen and (min-width:544px) {

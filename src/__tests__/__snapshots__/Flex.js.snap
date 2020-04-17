@@ -2,6 +2,10 @@
 
 exports[`Flex respects alignContent 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-align-content: start;
   -ms-flex-line-pack: start;
   align-content: start;
@@ -19,6 +23,10 @@ exports[`Flex respects alignContent 1`] = `
 
 exports[`Flex respects alignItems 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-align-items: start;
   -webkit-box-align: start;
   -ms-flex-align: start;
@@ -37,6 +45,10 @@ exports[`Flex respects alignItems 1`] = `
 
 exports[`Flex respects flexDirection 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -54,6 +66,10 @@ exports[`Flex respects flexDirection 1`] = `
 
 exports[`Flex respects flexWrap 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-wrap: nowrap;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
@@ -71,6 +87,10 @@ exports[`Flex respects flexWrap 1`] = `
 
 exports[`Flex respects justifyContent 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: start;
   -webkit-justify-content: start;
   -ms-flex-pack: start;
@@ -93,6 +113,19 @@ exports[`Flex respects responsive display 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  }
 }
 
 @media screen and (min-width:544px) {
