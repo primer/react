@@ -22,8 +22,7 @@ declare module '@primer/components' {
   }
 
   interface BorderProps
-    extends BaseProps,
-      StyledSystem.BordersProps,
+    extends StyledSystem.BordersProps,
       StyledSystem.BorderColorProps,
       StyledSystem.BoxShadowProps,
       StyledSystem.BorderRadiusProps {}
@@ -47,11 +46,8 @@ declare module '@primer/components' {
   export const Box: React.FunctionComponent<BoxProps>
 
   interface FlexProps extends BoxProps {}
-  interface FlexItemProps extends BoxProps {}
 
-  export const Flex: React.FunctionComponent<FlexProps> & {
-    Item: React.FunctionComponent<FlexItemProps>
-  }
+  export const Flex: React.FunctionComponent<FlexProps> & {}
 
   export interface TextProps
     extends BaseProps,
