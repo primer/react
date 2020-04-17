@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import {FLEX} from './constants'
 import theme from './theme'
 import Box from './Box'
 
@@ -17,12 +16,11 @@ Flex.Item.defaultProps = {
   theme
 }
 Flex.propTypes = {
-  ...Box.propTypes,
-  ...FLEX.propTypes
+  ...Box.propTypes
 }
 
 Flex.Item.propTypes = {
-  ...FLEX.propTypes,
+  ...Box.propTypes,
   theme: PropTypes.object
 }
 

@@ -115,13 +115,7 @@ declare module '@primer/components' {
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
 
-  export interface BorderBoxProps extends CommonProps, LayoutProps, BorderProps, BoxProps {
-    borderWidth?: string | number
-    borderStyle?: string
-    borderColor?: string
-    borderRadius?: string | number
-    boxShadow?: string
-  }
+  export interface BorderBoxProps extends BorderProps, BoxProps {}
 
   export const BorderBox: React.FunctionComponent<BorderBoxProps>
 
