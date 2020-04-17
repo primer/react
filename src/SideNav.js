@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import classnames from 'classnames'
-import {addDocumentedProps, PropTypes} from './PropsDocs'
+import PropTypes from './DocPropTypes'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
@@ -144,7 +144,7 @@ SideNav.defaultProps = {
   variant: 'normal'
 }
 
-addDocumentedProps(SideNav, {
+SideNav.propTypes = PropTypes.doc({
   system: [COMMON],
   inherited: [BorderBox],
   own: {
@@ -164,7 +164,7 @@ SideNav.Link.defaultProps = {
   variant: 'normal'
 }
 
-addDocumentedProps(SideNav.Link, {
+SideNav.Link.propTypes = PropTypes.doc({
   system: [],
   inherited: [Link],
   own: {

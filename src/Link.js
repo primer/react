@@ -1,4 +1,4 @@
-import {addDocumentedProps, PropTypes} from './PropsDocs'
+import PropTypes from './DocPropTypes'
 import styled from 'styled-components'
 import {system} from 'styled-system'
 import {COMMON, TYPOGRAPHY, get} from './constants'
@@ -42,7 +42,7 @@ Link.defaultProps = {
   underline: false
 }
 
-addDocumentedProps(Link, {
+Link.propTypes = PropTypes.doc({
   system: [COMMON, TYPOGRAPHY],
   own: {
     as: elementType.desc("Can be 'a', 'button', 'input', or 'summary'"),

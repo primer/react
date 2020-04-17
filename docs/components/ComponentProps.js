@@ -8,7 +8,7 @@ import Text from '../../src/Text'
 import Details from '../../src/Details'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 import Paragraph from '@primer/gatsby-theme-doctocat/src/components/paragraph'
-import Table from '@primer/gatsby-theme-doctocat/src/components/table'
+import Table from './Table'
 
 function getHeadingElement(headingLevel) {
   switch (headingLevel) {
@@ -35,8 +35,8 @@ const InheritedBox = styled(BorderBox)`
 
 function collect(inherited, acc = {system: [], inherited: []}, seen = new Set()) {
   for (const Comp of inherited) {
-    if (Comp.propTypesDocumented) {
-      const {system, inherited: nestedInherited} = Comp.propTypesDocumented
+    if (Comp.propTypes && Comp.propTypes.__doc_spec) {
+      const {system, inherited: nestedInherited} = Comp.propTypes.__doc_spec
       for (const sys of system) {
         if (!seen.has(sys)) {
           acc.system.push(sys)
@@ -59,12 +59,13 @@ function collect(inherited, acc = {system: [], inherited: []}, seen = new Set())
 }
 
 function ComponentProps({Component, name, headingLevel, showInherited, showSystem}) {
-  if (!Component.propTypesDocumented) {
+  if (!Component.propTypes || !Component.propTypes.__doc_spec) {
     return null
   }
+
   const Heading = getHeadingElement(headingLevel)
 
-  const {own} = Component.propTypesDocumented
+  const {own} = Component.propTypes.__doc_spec
   const {system, inherited} = collect([Component])
 
   const output = []
@@ -75,7 +76,7 @@ function ComponentProps({Component, name, headingLevel, showInherited, showSyste
     )
   }
 
-  const inheritedWithDocs = inherited.filter(Comp => Comp.propTypesDocumented)
+  const inheritedWithDocs = inherited.filter(Comp => Comp.propTypes && Comp.propTypes.__doc_spec)
   if (inheritedWithDocs.length && showInherited) {
     output.push()
     output.push(
@@ -213,49 +214,12 @@ function getType(doc) {
         </>
       )
     }
+    case 'objectOf': {
+      return `object with values of type ${getType(doc.args.doc)}`
+    }
     default:
       return '(unknown type)'
   }
-}
-
-function OwnProps({props, defaults, headingLevel}) {
-  const Heading = getHeadingElement(headingLevel)
-  const propsToShow = Object.keys(props).filter(key => !props[key].doc.hidden)
-  if (propsToShow.length === 0) {
-    return (
-      <>
-        <Heading>Component props</Heading>
-        <Text>This component gets no additional props.</Text>
-      </>
-    )
-  }
-  return (
-    <>
-      <Heading>Component props</Heading>
-      <Table>
-        <thead>
-          <tr>
-            <th align="left">Name</th>
-            <th align="left">Type</th>
-            <th align="left">Default value</th>
-            <th align="left">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {propsToShow.map(prop => {
-            return (
-              <tr key={prop}>
-                <td align="left">{prop}</td>
-                <td align="left">{getType(props[prop].doc)}</td>
-                <td align="left">{getDefault(defaults, prop)}</td>
-                <td align="left">{props[prop].doc.desc}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
-    </>
-  )
 }
 
 function SystemProps({name, systemProps, headingLevel}) {
@@ -267,26 +231,41 @@ function SystemProps({name, systemProps, headingLevel}) {
         <InlineCode>{name}</InlineCode> components receive the following categories of system props. See our{' '}
         <Link href="/system-props">System Props page</Link> for more information.
       </Paragraph>
-      <Table>
-        <thead>
-          <tr>
-            <th align="left">Category</th>
-            <th align="left">Included props</th>
-          </tr>
-        </thead>
-        <tbody>
-          {systemProps.map(s => (
-            <tr key={s.systemPropsName}>
-              <td>
-                <InlineCode>{s.systemPropsName}</InlineCode>
-              </td>
-              <td>
-                <div>{Object.keys(s.propTypes).join(', ')}</div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Table
+        columns={['Category', 'Included props']}
+        rows={systemProps.map(s => [
+          <InlineCode key="system-prop-name">{s.systemPropsName}</InlineCode>,
+          <div key="included-props">{Object.keys(s.propTypes).join(', ')}</div>
+        ])}
+      />
+    </>
+  )
+}
+
+function OwnProps({props, defaults, headingLevel}) {
+  const Heading = getHeadingElement(headingLevel)
+  const propsToShow = Object.keys(props).filter(key => !props[key].doc.hidden)
+  if (propsToShow.length === 0) {
+    return (
+      <>
+        <Heading>Component props</Heading>
+        <Text>This component gets no additional component specific props.</Text>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Heading>Component props</Heading>
+      <Table
+        columns={['Name', 'Type', 'Default value', 'Description']}
+        rows={propsToShow.map(prop => [
+          `${prop}${props[prop].doc.isRequired ? '*' : ''}`,
+          getType(props[prop].doc),
+          getDefault(defaults, prop),
+          props[prop].doc.desc
+        ])}
+      />
     </>
   )
 }

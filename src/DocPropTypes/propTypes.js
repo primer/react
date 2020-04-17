@@ -12,15 +12,21 @@ function proxyPropTypes(target, wrapper, names) {
   }
 }
 
+function invisibleProp(descriptor) {
+  return {
+    configurable: false,
+    enumerable: false,
+    ...descriptor
+  }
+}
+
 function addDocKeys(checker, isRequired, name, args = []) {
   function newIsRequired(...args) {
     return isRequired(...args)
   }
 
   Object.defineProperties(checker, {
-    doc: {
-      configurable: false,
-      enumerable: false,
+    doc: invisibleProp({
       value: {
         name,
         hidden: false,
@@ -28,69 +34,58 @@ function addDocKeys(checker, isRequired, name, args = []) {
         desc: '',
         args
       }
-    },
-    desc: {
-      configurable: false,
-      enumerable: false,
+    }),
+    desc: invisibleProp({
       value: desc => {
         checker.doc.desc = desc
         return checker
       }
-    },
-    hidden: {
-      configurable: false,
-      enumerable: false,
+    }),
+    hidden: invisibleProp({
       get() {
         checker.doc.hidden = true
         return checker
       }
-    },
-    isRequired: {
-      configurable: false,
-      enumerable: false,
-      value: newIsRequired
-    }
+    }),
+    isRequired: invisibleProp({
+      get() {
+        checker.doc.isRequired = true
+        return newIsRequired
+      }
+    })
   })
 
   Object.defineProperties(newIsRequired, {
-    doc: {
-      configurable: false,
-      enumerable: false,
+    doc: invisibleProp({
       get() {
         return checker.doc
       }
-    },
-    desc: {
-      configurable: false,
-      enumerable: false,
+    }),
+    desc: invisibleProp({
       value: desc => {
         checker.doc.desc = desc
         return newIsRequired
       }
-    },
-    hidden: {
-      configurable: false,
-      enumerable: false,
+    }),
+    hidden: invisibleProp({
       get() {
         checker.doc.hidden = true
         return newIsRequired
       }
-    }
+    })
   })
 }
 
 export function wrapPrimitivePropType(propType, name) {
   const checker = (...args) => propType(...args)
-  const origIsRequired = propType.isRequired
-  addDocKeys(checker, origIsRequired, name)
+  addDocKeys(checker, propType.isRequired, name)
   return checker
 }
 
 export function wrapCallablePropType(propType, name) {
   return function checkerCreator(args) {
     const checker = propType(args)
-    const origIsRequired = checker.isRequired
-    addDocKeys(checker, origIsRequired, name, args)
+    addDocKeys(checker, checker.isRequired, name, args)
     return checker
   }
 }
@@ -119,5 +114,32 @@ proxyPropTypes(propTypes, wrapCallablePropType, [
   'shape',
   'exact'
 ])
+
+function getPropTypesFromArray(ary, propTypes) {
+  return ary.reduce((acc, item) => {
+    Object.assign(acc, item[propTypes])
+    return acc
+  }, {})
+}
+
+propTypes.doc = function docPropTypes(spec) {
+  const system = spec.system || []
+  const inherited = spec.inherited || []
+  const own = spec.own || {}
+
+  const finalPropTypes = {
+    ...getPropTypesFromArray(system, 'propTypes'),
+    ...getPropTypesFromArray(inherited, 'propTypes'),
+    ...own
+  }
+
+  Object.defineProperty(finalPropTypes, '__doc_spec', {
+    configurable: false,
+    enumerable: false,
+    value: {system, inherited, own}
+  })
+
+  return finalPropTypes
+}
 
 export {propTypes}

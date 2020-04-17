@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {addDocumentedProps, PropTypes} from './PropsDocs'
+import PropTypes from './DocPropTypes'
 import Box from './Box'
 import theme from './theme'
 import {BORDER} from './constants'
@@ -13,7 +13,7 @@ BorderBox.defaultProps = {
   borderRadius: 2
 }
 
-addDocumentedProps(BorderBox, {
+BorderBox.propTypes = PropTypes.doc({
   system: [BORDER],
   inherited: [Box],
   own: {

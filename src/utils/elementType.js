@@ -1,4 +1,4 @@
-import {wrapPrimitivePropType} from '../PropsDocs'
+import {wrapPrimitivePropType} from '../DocPropTypes'
 import {isValidElementType} from 'react-is'
 
 // This function is a temporary workaround until we can get
