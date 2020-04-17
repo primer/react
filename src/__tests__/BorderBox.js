@@ -2,7 +2,7 @@ import React from 'react'
 import theme, {colors} from '../theme'
 import BorderBox from '../BorderBox'
 import {render} from '../utils/testing'
-import {LAYOUT, COMMON} from '../constants'
+import {LAYOUT, COMMON, BORDER, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -19,6 +19,8 @@ describe('BorderBox', () => {
   it('implements layout system props', () => {
     expect(BorderBox).toImplementSystemProps(LAYOUT)
     expect(BorderBox).toImplementSystemProps(COMMON)
+    expect(BorderBox).toImplementSystemProps(BORDER)
+    expect(BorderBox).toImplementSystemProps(FLEX)
   })
 
   it('has default theme', () => {
