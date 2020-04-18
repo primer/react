@@ -14,6 +14,7 @@ export default css`
   border-radius: ${get('radii.2')};
   appearance: none;
   text-decoration: none;
+  text-align: center;
 
   &:hover {
     // needed to override link styles
