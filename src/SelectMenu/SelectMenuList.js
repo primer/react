@@ -10,7 +10,7 @@ const listStyles = css`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: ${get('colors.white')};
-  border-top: ${get('borders.1')} ${get('colors.border.gray')};
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
   @media (hover: hover) {

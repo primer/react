@@ -8,7 +8,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -216,7 +217,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -424,7 +426,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of b
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -632,7 +635,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -840,7 +844,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1048,7 +1053,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of l
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1256,7 +1262,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1464,7 +1471,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1672,7 +1680,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of r
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -1880,7 +1889,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -2088,7 +2098,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -2296,7 +2307,8 @@ exports[`Popover and Popover.Content renders correctly for a caret position of t
 }
 
 .c2 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;
@@ -2665,7 +2677,8 @@ exports[`Popover and Popover.Content renders with default props 1`] = `
 
 exports[`Popover and Popover.Content renders with default props 2`] = `
 .c0 {
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
   position: relative;

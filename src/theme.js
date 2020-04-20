@@ -1,5 +1,6 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
 import {lineHeights} from 'primer-typography'
+import {lighten, rgba, desaturate} from 'polished'
 
 // General
 const colors = {
@@ -28,10 +29,23 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
+
   border: {
-    grayLight: '#eaecef',
+    blackFade: rgba(black, 0.15),
+    blue: blue[5],
+    blueLight: blue[2],
+    grayLight: lighten(0.03, gray[2]),
     gray: gray[2],
-    grayDark: '#d1d5da'
+    grayDark: gray[3],
+    grayDarker: gray[7],
+    green: green[4],
+    greenLight: desaturate(0.4, green[3]),
+    purple: purple[5],
+    red: red[5],
+    redLight: desaturate(0.6, red[3]),
+    white,
+    whiteFade: rgba(white, 0.15),
+    yellow: desaturate(0.6, yellow[3])
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
@@ -76,7 +90,7 @@ const fontWeights = {
   bold: 600
 }
 
-const borders = [0, '1px solid']
+const borderWidths = [0, '1px']
 
 const radii = ['0', '3px', '6px', '100px']
 
@@ -241,7 +255,7 @@ const pagination = {
 
 const theme = {
   // General
-  borders,
+  borderWidths,
   breakpoints,
   colors,
   fonts,
