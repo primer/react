@@ -44,7 +44,7 @@ exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
           d="M-8,0L0,8L8,0"
           fill="none"
           stroke="#e1e4e8"
-          strokeWidth={1}
+          strokeWidth="1px"
         />
       </g>
     </svg>
@@ -95,7 +95,7 @@ exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret
           d="M-8,0L0,8L8,0"
           fill="none"
           stroke="#d73a49"
-          strokeWidth={1}
+          strokeWidth="1px"
         />
       </g>
     </svg>
@@ -146,7 +146,7 @@ exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1
           d="M-8,0L0,8L8,0"
           fill="none"
           stroke="#e1e4e8"
-          strokeWidth={1}
+          strokeWidth="1px"
         />
       </g>
     </svg>

@@ -26,7 +26,7 @@ exports[`Caret renders cardinal directions 1`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -57,7 +57,7 @@ exports[`Caret renders cardinal directions 2`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -89,7 +89,7 @@ exports[`Caret renders cardinal directions 3`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -120,7 +120,7 @@ exports[`Caret renders cardinal directions 4`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -152,7 +152,7 @@ exports[`Caret renders cardinal directions 5`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -184,7 +184,7 @@ exports[`Caret renders cardinal directions 6`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -216,7 +216,7 @@ exports[`Caret renders cardinal directions 7`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -248,7 +248,7 @@ exports[`Caret renders cardinal directions 8`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -279,7 +279,7 @@ exports[`Caret renders cardinal directions 9`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -310,7 +310,7 @@ exports[`Caret renders cardinal directions 10`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -341,7 +341,7 @@ exports[`Caret renders cardinal directions 11`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -372,7 +372,7 @@ exports[`Caret renders cardinal directions 12`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
