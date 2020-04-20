@@ -32,7 +32,7 @@ const modalStyles = css`
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
-    border: ${get('borders.1')} ${get('colors.border.grayDark')};
+    border: ${get('borderWidths.1')} solid ${get('colors.border.grayDark')};
     border-radius: ${get('radii.2')};
     box-shadow: 0 1px 5px ${get('colors.blackfade15')} !default;
   }

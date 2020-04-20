@@ -71,7 +71,7 @@ SideNav.Link = styled(Link).attrs(props => {
     color: ${get('colors.gray.6')};
     padding: ${get('space.3')};
     border: 0;
-    border-top: ${get('borders.1')} ${get('colors.gray.2')};
+    border-top: ${get('borderWidths.1')} solid ${get('colors.gray.2')};
 
     &:first-child {
       border-top: 0;

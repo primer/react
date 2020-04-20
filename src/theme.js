@@ -77,7 +77,7 @@ const fontWeights = {
   bold: 600
 }
 
-const borders = [0, '1px solid']
+const borderWidths = [0, '1px']
 
 const radii = ['0', '3px', '6px', '100px']
 
@@ -242,7 +242,7 @@ const pagination = {
 
 const theme = {
   // General
-  borders,
+  borderWidths,
   breakpoints,
   colors,
   fonts,
