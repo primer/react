@@ -23,9 +23,7 @@ declare module '@primer/components' {
 
   interface BorderProps
     extends StyledSystem.BordersProps,
-      StyledSystem.BorderColorProps,
-      StyledSystem.BoxShadowProps,
-      StyledSystem.BorderRadiusProps {}
+      StyledSystem.BoxShadowProps {}
 
   interface PositionProps
     extends BaseProps,
