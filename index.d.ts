@@ -45,7 +45,7 @@ declare module '@primer/components' {
 
   interface FlexProps extends BoxProps {}
 
-  export const Flex: React.FunctionComponent<FlexProps> & {}
+  export const Flex: React.FunctionComponent<FlexProps>
 
   export interface TextProps
     extends BaseProps,
