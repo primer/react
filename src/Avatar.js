@@ -7,10 +7,10 @@ import theme from './theme'
 
 function borderRadiusValue({size, shape}) {
   switch (shape) {
-    case 'round':
+    case 'circle':
       return '50%'
     default:
-      return size <= 24 ? '2px' : '3px'
+      return size <= 24 ? '5px' : '6px'
   }
 }
 
@@ -37,7 +37,7 @@ Avatar.defaultProps = {
   theme,
   size: 20,
   alt: '',
-  shape: 'square'
+  shape: 'circle'
 }
 
 Avatar.propTypes = {
@@ -45,7 +45,7 @@ Avatar.propTypes = {
   size: PropTypes.number,
   src: PropTypes.string,
   ...systemPropTypes.space,
-  shape: PropTypes.PropTypes.oneOf(['square', 'round']),
+  shape: PropTypes.PropTypes.oneOf(['square', 'circle']),
   theme: PropTypes.object
 }
 

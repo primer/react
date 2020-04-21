@@ -1,36 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {get} from './constants'
+import Relative from './Relative'
 import Avatar from './Avatar'
 import theme from './theme'
 
-const getBackgroundColor = get('colors.white')
 
-const Wrapper = styled('div')`
-  display: inline-flex;
-  position: relative;
+const ChildAvatar = styled(Avatar)`
+  position: absolute;
+  right: -15%;
+  bottom: -9%;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
 `
-
-const childStyles = props => ({
-  display: 'inline-block',
-  overflow: 'hidden', // Ensure page layout in Firefox should images fail to load
-  lineHeight: `${get('lineHeights.condensedUltra')}`,
-  verticalAlign: 'middle',
-  borderRadius: '2px',
-  position: 'absolute',
-  right: '-15%',
-  bottom: '-9%',
-  boxShadow: '-2px -2px 0 rgba(255,255,255,0.8)',
-  backgroundColor: `${getBackgroundColor(props)}`
-})
-
-const ChildAvatar = styled(Avatar)(childStyles)
 const AvatarPair = ({children, ...rest}) => {
   const avatars = React.Children.map(children, (child, i) => {
-    return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar {...child.props} size={20} />
+    console.log(child.props.shape)
+    return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar bg="white" {...child.props} size={20} />
   })
-  return <Wrapper {...rest}>{avatars}</Wrapper>
+  return <Relative display="inline-flex" {...rest}>{avatars}</Relative>
 }
 
 // styled() changes this
