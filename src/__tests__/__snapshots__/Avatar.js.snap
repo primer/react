@@ -13,6 +13,7 @@ exports[`Avatar renders default props 1`] = `
   alt=""
   className="c0"
   height={20}
+  shape="square"
   size={20}
   width={20}
 />

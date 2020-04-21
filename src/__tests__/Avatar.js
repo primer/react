@@ -1,7 +1,7 @@
 import React from 'react'
 import Avatar from '../Avatar'
 import theme from '../theme'
-import {px, render} from '../utils/testing'
+import {px, render, percent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -42,5 +42,9 @@ describe('Avatar', () => {
 
   it('respects margin props', () => {
     expect(render(<Avatar m={2} alt="" />)).toHaveStyleRule('margin', px(theme.space[2]))
+  })
+
+  it('respects shape prop', () => {
+    expect(render(<Avatar shape="round" alt="" />)).toHaveStyleRule('border-radius', percent(50))
   })
 })

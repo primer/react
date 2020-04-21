@@ -5,9 +5,18 @@ import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 
-function borderRadius({size}) {
+function borderRadiusValue({size, shape}) {
+  switch (shape) {
+    case 'round':
+      return '50%'
+    default:
+      return size <= 24 ? '2px' : '3px'
+  }
+}
+
+function borderRadius({size, shape}) {
   return {
-    borderRadius: size <= 24 ? '2px' : '3px'
+    borderRadius: borderRadiusValue({size, shape})
   }
 }
 
@@ -27,7 +36,8 @@ const Avatar = styled.img.attrs(props => ({
 Avatar.defaultProps = {
   theme,
   size: 20,
-  alt: ''
+  alt: '',
+  shape: 'square'
 }
 
 Avatar.propTypes = {
@@ -35,6 +45,7 @@ Avatar.propTypes = {
   size: PropTypes.number,
   src: PropTypes.string,
   ...systemPropTypes.space,
+  shape: PropTypes.PropTypes.oneOf(['square', 'round']),
   theme: PropTypes.object
 }
 
