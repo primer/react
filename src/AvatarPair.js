@@ -13,7 +13,6 @@ const ChildAvatar = styled(Avatar)`
 `
 const AvatarPair = ({children, ...rest}) => {
   const avatars = React.Children.map(children, (child, i) => {
-    console.log(child.props.shape)
     return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar bg="white" {...child.props} size={20} />
   })
   return <Relative display="inline-flex" {...rest}>{avatars}</Relative>
@@ -24,7 +23,6 @@ AvatarPair.displayName = 'AvatarPair'
 
 AvatarPair.defaultProps = {theme}
 AvatarPair.propTypes = {
-  children: PropTypes.instanceOf(Avatar),
   ...Avatar.propTypes,
   theme: PropTypes.object
 }

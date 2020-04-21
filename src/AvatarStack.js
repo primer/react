@@ -4,6 +4,14 @@ import styled from 'styled-components'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
+function getBorderRadius(props) {
+  if (props.square) {
+    return props.size <= 24 ? '4px' : get('radii.2')(props)
+  } else {
+    return '50%'
+  }
+}
+
 const alignRightStyles = theme => {
   return `
     right: 0;
@@ -23,7 +31,7 @@ const alignRightStyles = theme => {
 
       &::after {
         background: ${get('colors.gray.1')(theme)};
-        border-radius: ${props => props.square ? get('radii.2') : '50%'};
+        border-radius: ${props => getBorderRadius(props)};
         width: 2px;
       }
     }
@@ -87,7 +95,7 @@ const AvatarStackBody = styled.span`
     margin-right: -11px;
     background-color: ${get('colors.white')};
     box-shadow: 0 0 0 2px ${get('colors.white')};
-    border-radius: ${props => props.square ? get('radii.2') : '50%'};
+    border-radius: ${props => getBorderRadius(props)};
     transition: margin 0.1s ease-in-out;
 
     &:first-child {
@@ -100,7 +108,7 @@ const AvatarStackBody = styled.span`
     }
 
     img {
-      border-radius: ${props => props.square ? get('radii.2') : '50%'};
+      border-radius: ${props => getBorderRadius(props)};
       width: inherit;
     }
 
@@ -122,7 +130,7 @@ const AvatarStackBody = styled.span`
       display: block;
       height: 20px;
       content: '';
-      border-radius: ${props => props.square ? get('radii.2') : '50%'};
+      border-radius: ${props => getBorderRadius(props)};
       box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
     }
 

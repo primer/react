@@ -3,17 +3,23 @@ title: Avatar
 ---
 
 
-Avatars are images used to represent users and organizations on GitHub. They typically are squares with rounded edges.
+Avatars are images used to represent users and organizations on GitHub. Use the default round avatar for users, and the `square` prop for organization or any other non-human avatars.
 
 ## Default example
 
 ```jsx live
-<Avatar mb={4} src="https://avatars.githubusercontent.com/primer" size={128} />
-
+<Avatar src="https://avatars.githubusercontent.com/primer" size={128} />
 ```
-To create a Parent + Child avatar combination, wrap Avatars in AvatarPair:
+
+## Square Avatar
+
 ```jsx live
- <AvatarPair my={4}>
+<Avatar square src="https://avatars.githubusercontent.com/primer" />
+```
+
+## AvatarPair
+```jsx live
+ <AvatarPair>
   <Avatar src="https://avatars.githubusercontent.com/primer"/>
   <Avatar src="https://avatars.githubusercontent.com/primer"/>
  </AvatarPair>

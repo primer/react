@@ -6,9 +6,9 @@ import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 
 
-function getBorderRadius({size, square}) {
-  if (square) {
-    return size <= 24 ? '4px' : '6px'
+function getBorderRadius(props) {
+  if (props.square) {
+    return props.size <= 24 ? '4px' : '6px'
   } else {
     return '50%'
   }
@@ -23,7 +23,7 @@ const Avatar = styled.img.attrs(props => ({
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
-  border-radius: ${props => getBorderRadius(props.size, props.square)};
+  border-radius: ${props => getBorderRadius(props)};
   ${space};
 `
 
