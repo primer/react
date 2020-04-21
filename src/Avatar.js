@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {get} from './constants'
+import {get, COMMON} from './constants'
 import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
@@ -24,7 +24,7 @@ const Avatar = styled.img.attrs(props => ({
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
   border-radius: ${props => getBorderRadius(props)};
-  ${space};
+  ${COMMON};
 `
 
 Avatar.defaultProps = {
@@ -35,10 +35,10 @@ Avatar.defaultProps = {
 }
 
 Avatar.propTypes = {
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
+  ...COMMON.propTypes,
   size: PropTypes.number,
   src: PropTypes.string,
-  ...systemPropTypes.space,
   square: PropTypes.bool,
   theme: PropTypes.object
 }
