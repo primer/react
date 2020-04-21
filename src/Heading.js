@@ -17,7 +17,8 @@ Heading.defaultProps = {
 Heading.propTypes = {
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...TYPOGRAPHY.propTypes
+  ...TYPOGRAPHY.propTypes,
+  ...sx.propTypes
 }
 
 export default Heading

@@ -17,7 +17,8 @@ BorderBox.defaultProps = {
 BorderBox.propTypes = {
   theme: PropTypes.object,
   ...Box.propTypes,
-  ...BORDER.propTypes
+  ...BORDER.propTypes,
+  ...sx.propTypes
 }
 
 export default BorderBox

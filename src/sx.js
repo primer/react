@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import css from '@styled-system/css'
 
@@ -21,6 +22,10 @@ const sx = {
   get styled() {
     return sxStyled
   }
+}
+
+sx.propTypes = {
+  sx: PropTypes.object
 }
 
 export default sx
