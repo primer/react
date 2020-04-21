@@ -34,7 +34,7 @@ const alignRightStyles = theme => {
     .AvatarItem {
       margin-right: 0;
       margin-left: -11px;
-      box-shadow: 0 0 0 2px ${get('colors.white')};
+      box-shadow: 0 0 0 1px ${get('colors.white')};
     }
   `
 }
@@ -88,7 +88,7 @@ const AvatarStackBody = styled.span`
     box-sizing: content-box;
     margin-right: -11px;
     background-color: ${get('colors.white')};
-    box-shadow: 0 0 0 2px ${get('colors.white')};
+    box-shadow: 0 0 0 1px ${get('colors.white')};
     border-radius: ${props => getBorderRadius(props)};
     transition: margin 0.1s ease-in-out;
 
@@ -125,7 +125,7 @@ const AvatarStackBody = styled.span`
       height: 20px;
       content: '';
       border-radius: ${props => getBorderRadius(props)};
-      box-shadow: 0 0 0 2px ${get('colors.white')};;
+      box-shadow: 0 0 0 1px ${get('colors.white')};
     }
 
     &::before {
