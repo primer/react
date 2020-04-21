@@ -25,22 +25,16 @@ const alignRightStyles = theme => {
     .AvatarItem-more {
       background: ${get('colors.gray.3')(theme)};
 
-      &::before {
-        width: 5px;
-      }
-
       &::after {
         background: ${get('colors.gray.1')(theme)};
         border-radius: ${props => getBorderRadius(props)};
-        width: 2px;
       }
     }
 
     .AvatarItem {
       margin-right: 0;
       margin-left: -11px;
-      border-right: 0;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+      box-shadow: 0 0 0 2px ${get('colors.white')};
     }
   `
 }
@@ -131,7 +125,7 @@ const AvatarStackBody = styled.span`
       height: 20px;
       content: '';
       border-radius: ${props => getBorderRadius(props)};
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+      box-shadow: 0 0 0 2px ${get('colors.white')};;
     }
 
     &::before {
