@@ -35,10 +35,8 @@ Avatar.defaultProps = {
 }
 
 Avatar.propTypes = {
-  alt: PropTypes.string,
   ...COMMON.propTypes,
   size: PropTypes.number,
-  src: PropTypes.string,
   square: PropTypes.bool,
   theme: PropTypes.object
 }
