@@ -23,7 +23,7 @@ AvatarPair.displayName = 'AvatarPair'
 
 AvatarPair.defaultProps = {theme}
 AvatarPair.propTypes = {
-  ...Avatar.propTypes,
+  ...Relative.propTypes,
   theme: PropTypes.object
 }
 
