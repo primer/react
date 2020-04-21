@@ -5,18 +5,12 @@ import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 
-function borderRadiusValue({size, shape}) {
-  switch (shape) {
-    case 'circle':
-      return '50%'
-    default:
-      return size <= 24 ? '5px' : '6px'
-  }
-}
 
-function borderRadius({size, shape}) {
-  return {
-    borderRadius: borderRadiusValue({size, shape})
+function getBorderRadius({size, square}) {
+  if (square) {
+    return size <= 24 ? '4px' : '6px'
+  } else {
+    return '50%'
   }
 }
 
@@ -29,7 +23,7 @@ const Avatar = styled.img.attrs(props => ({
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
-  ${borderRadius};
+  border-radius: ${props => getBorderRadius(props.size, props.square)};
   ${space};
 `
 
@@ -37,7 +31,7 @@ Avatar.defaultProps = {
   theme,
   size: 20,
   alt: '',
-  shape: 'circle'
+  square: false
 }
 
 Avatar.propTypes = {
@@ -45,7 +39,7 @@ Avatar.propTypes = {
   size: PropTypes.number,
   src: PropTypes.string,
   ...systemPropTypes.space,
-  shape: PropTypes.PropTypes.oneOf(['square', 'circle']),
+  square: PropTypes.bool,
   theme: PropTypes.object
 }
 
