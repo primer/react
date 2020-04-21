@@ -5,6 +5,7 @@ import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@primer/octico
 import theme, {colors} from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
+import sx from './sx'
 
 const statusMap = {
   issueClosed: colors.red[6],
@@ -48,6 +49,7 @@ const StateLabel = styled(StateLabelBase)`
   background-color: ${props => (props.status ? statusMap[props.status] : statusMap.gray)};
   border-radius: ${get('radii.3')};
   ${COMMON};
+  ${sx};
 `
 
 StateLabel.defaultProps = {
@@ -58,7 +60,8 @@ StateLabel.propTypes = {
   small: PropTypes.bool,
   status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']),
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default StateLabel

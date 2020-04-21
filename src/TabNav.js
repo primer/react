@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -27,6 +28,7 @@ const TabNav = styled(TabNavBase)`
   }
 
   ${COMMON};
+  ${sx};
 `
 
 TabNav.Link = styled.a.attrs(props => ({
@@ -55,6 +57,9 @@ TabNav.Link = styled.a.attrs(props => ({
     border-top-left-radius: ${get('radii.2')};
     background-color: ${get('colors.white')};
   }
+
+  ${COMMON};
+  ${sx};
 `
 
 TabNav.defaultProps = {
@@ -64,7 +69,8 @@ TabNav.defaultProps = {
 TabNav.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 TabNav.Link.defaultProps = {
@@ -72,10 +78,13 @@ TabNav.Link.defaultProps = {
 }
 
 TabNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   href: PropTypes.string,
   selected: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+TabNav.Link.displayName = 'TabNav.Link'
 
 export default TabNav

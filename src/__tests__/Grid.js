@@ -1,26 +1,20 @@
 import React from 'react'
 import Grid from '../Grid'
-import {GRID} from '../constants'
-import {render} from '../utils/testing'
+import {COMMON, FLEX, LAYOUT, GRID} from '../constants'
+import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Grid', () => {
+  behavesAsComponent(Grid, [COMMON, FLEX, LAYOUT, GRID])
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Grid />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('implements system props', () => {
-    expect(Grid).toImplementSystemProps(GRID)
-  })
-
-  it('has default theme', () => {
-    expect(Grid).toSetDefaultTheme()
   })
 
   it('gets display: grid by default', () => {
@@ -77,10 +71,6 @@ describe('Grid', () => {
 
   it('respects responsive display', () => {
     expect(render(<Grid display={['grid', 'inline-grid']} />)).toMatchSnapshot()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Grid as="span" />).type).toEqual('span')
   })
 
   it('renders a div by default', () => {

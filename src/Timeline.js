@@ -8,6 +8,7 @@ import React from 'react'
 import {Relative} from './Position'
 import classnames from 'classnames'
 import theme from './theme'
+import sx from './sx'
 
 const Timeline = styled(Flex)`
   flex-direction: column;
@@ -22,6 +23,8 @@ const Timeline = styled(Flex)`
         padding-bottom: 0;
       }
     `}
+
+  ${sx};
 `
 
 Timeline.Item = styled(Flex).attrs(props => ({
@@ -61,6 +64,7 @@ Timeline.Item = styled(Flex).attrs(props => ({
     `}
 
   ${COMMON};
+  ${sx};
 `
 
 Timeline.Badge = props => {
@@ -97,6 +101,7 @@ Timeline.Body = styled(Box)`
   color: ${get('colors.gray.7')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
+  ${sx};
 `
 
 Timeline.Break = styled(Relative)`
@@ -108,6 +113,7 @@ Timeline.Break = styled(Relative)`
   background-color: ${get('colors.white')};
   border: 0;
   border-top: ${get('space.1')} solid ${get('colors.gray.2')};
+  ${sx};
 `
 
 Timeline.defaultProps = {
@@ -118,7 +124,8 @@ Timeline.propTypes = {
   children: PropTypes.node,
   clipSidebar: PropTypes.bool,
   theme: PropTypes.object,
-  ...Flex.propTypes
+  ...Flex.propTypes,
+  ...sx.propTypes
 }
 
 Timeline.Item.defaultProps = {
@@ -129,8 +136,11 @@ Timeline.Item.propTypes = {
   children: PropTypes.node,
   condensed: PropTypes.bool,
   theme: PropTypes.object,
-  ...Flex.propTypes
+  ...Flex.propTypes,
+  ...sx.propTypes
 }
+
+Timeline.Item.displayName = 'Timeline.Item'
 
 Timeline.Badge.defaultProps = {
   theme
@@ -139,8 +149,11 @@ Timeline.Badge.defaultProps = {
 Timeline.Badge.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...Flex.propTypes
+  ...Flex.propTypes,
+  ...sx.propTypes
 }
+
+Timeline.Badge.displayName = 'Timeline.Badge'
 
 Timeline.Body.defaultProps = {
   theme
@@ -149,8 +162,11 @@ Timeline.Body.defaultProps = {
 Timeline.Body.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...Box.propTypes
+  ...Box.propTypes,
+  ...sx.propTypes
 }
+
+Timeline.Body.displayName = 'Timeline.Body'
 
 Timeline.Break.defaultProps = {
   theme
@@ -159,7 +175,10 @@ Timeline.Break.defaultProps = {
 Timeline.Break.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
-  ...Box.propTypes
+  ...Box.propTypes,
+  ...sx.propTypes
 }
+
+Timeline.Break.displayName = 'Timeline.Break'
 
 export default Timeline

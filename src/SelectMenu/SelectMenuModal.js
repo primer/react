@@ -2,6 +2,7 @@ import React from 'react'
 import styled, {keyframes, css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 
 const animateModal = keyframes`
   0% {
@@ -82,6 +83,7 @@ const Modal = styled.div`
 const ModalWrapper = styled.div`
   ${modalWrapperStyles}
   ${COMMON}
+  ${sx};
 `
 
 const SelectMenuModal = ({children, theme, ...rest}) => {
@@ -97,7 +99,10 @@ SelectMenuModal.defaultProps = {
 }
 
 SelectMenuModal.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuModal.displayName = 'SelectMenu.Modal'
 
 export default SelectMenuModal

@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 import theme from '../theme'
 import {COMMON, get} from '../constants'
+import sx from '../sx'
 
 const listStyles = css`
   position: relative;
@@ -33,13 +34,17 @@ const listStyles = css`
 const SelectMenuList = styled.div`
   ${listStyles}
   ${COMMON}
+  ${sx};
 `
 SelectMenuList.defaultProps = {
   theme
 }
 
 SelectMenuList.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuList.displayName = 'SelectMenu.List'
 
 export default SelectMenuList

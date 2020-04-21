@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import {get, COMMON, TYPOGRAPHY} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
 // SelectMenu.Modal
@@ -28,6 +30,8 @@ const StyledHeader = styled.header`
     padding-top: ${get('space.2')};
     padding-bottom: ${get('space.2')};
   }
+
+  ${sx};
 `
 const SelectMenuHeader = ({children, theme, ...rest}) => {
   return (
@@ -40,5 +44,14 @@ const SelectMenuHeader = ({children, theme, ...rest}) => {
 SelectMenuHeader.defaultProps = {
   theme
 }
+
+SelectMenuHeader.propTypes = {
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...TYPOGRAPHY.propTypes,
+  ...sx.propTypes
+}
+
+SelectMenuHeader.displayName = 'SelectMenu.Header'
 
 export default SelectMenuHeader

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 const schemeMap = {
   green: {color: 'colors.green.8', bg: 'colors.green.1'},
@@ -25,6 +26,7 @@ const Flash = styled.div`
     margin-bottom: 0;
   }
   ${COMMON};
+  ${sx};
 `
 
 Flash.defaultProps = {
@@ -37,7 +39,8 @@ Flash.propTypes = {
   full: PropTypes.bool,
   scheme: PropTypes.oneOf(Object.keys(schemeMap)),
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default Flash

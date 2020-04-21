@@ -7,6 +7,7 @@ import theme from './theme'
 import elementType from './utils/elementType'
 import Link from './Link'
 import BorderBox from './BorderBox'
+import sx from './sx'
 
 function SideNavBase({variant, className, bordered, children, ...props}) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
@@ -38,6 +39,7 @@ const SideNav = styled(SideNavBase)`
     `}
 
   ${COMMON};
+  ${sx};
 `
 
 SideNav.Link = styled(Link).attrs(props => {
@@ -136,6 +138,8 @@ SideNav.Link = styled(Link).attrs(props => {
       font-weight: ${get('fontWeights.semibold')};
     }
   }
+
+  ${sx};
 `
 
 SideNav.defaultProps = {
@@ -149,8 +153,7 @@ SideNav.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['normal', 'lightweight']),
-  ...BorderBox.propTypes,
-  ...COMMON.propTypes
+  ...BorderBox.propTypes
 }
 
 SideNav.Link.defaultProps = {
@@ -165,5 +168,7 @@ SideNav.Link.propTypes = {
   variant: PropTypes.oneOf(['normal', 'full']),
   ...Link.propTypes
 }
+
+SideNav.Link.displayName = 'SideNav.Link'
 
 export default SideNav

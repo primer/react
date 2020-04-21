@@ -8,6 +8,7 @@ declare module '@primer/components' {
     as?: React.ReactType
     className?: string
     css?: string
+    sx?: object
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
@@ -80,6 +81,7 @@ declare module '@primer/components' {
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
+      LayoutProps,
       StyledSystem.FontSizeProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     variant?: 'small' | 'medium' | 'large'

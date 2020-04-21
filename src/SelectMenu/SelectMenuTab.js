@@ -5,6 +5,7 @@ import styled, {css} from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import {get, COMMON} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 
 const tabStyles = css`
   flex: 1;
@@ -46,6 +47,7 @@ const tabStyles = css`
 const StyledTab = styled.button`
   ${tabStyles}
   ${COMMON}
+  ${sx};
 `
 
 const SelectMenuTab = ({tabName, index, className, onClick, ...rest}) => {
@@ -88,7 +90,10 @@ SelectMenuTab.propTypes = {
   index: PropTypes.number,
   onClick: PropTypes.func,
   tabName: PropTypes.string,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuTab.displayName = 'SelectMenu.Tab'
 
 export default SelectMenuTab

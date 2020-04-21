@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StyledOcticon matches the snapshot 1`] = `
+exports[`StyledOcticon renders consistently 1`] = `
 <svg
   aria-hidden="true"
   className=""
