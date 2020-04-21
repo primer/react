@@ -20,7 +20,7 @@ const Page = styled.a`
   cursor: pointer;
   user-select: none;
   background: ${get('pagination.colors.normal.bg')};
-  border: ${get('borders.1')} ${get('pagination.colors.normal.border')};
+  border: ${get('borderWidths.1')} solid ${get('pagination.colors.normal.border')};
   text-decoration: none;
 
   &:first-child {
@@ -93,7 +93,7 @@ function usePaginationPages({
         </Page>
       )
     })
-  }, [model, hrefBuilder, pageChange])
+  }, [model, hrefBuilder, pageChange, theme])
 
   return children
 }

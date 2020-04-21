@@ -9,7 +9,7 @@ function CircleOcticon(props) {
   const {size, as} = props
   const {icon, bg, as: asProp, ...rest} = props
   return (
-    <BorderBox as={as} bg={bg} overflow="hidden" border="none" size={size} borderRadius="50%">
+    <BorderBox as={as} bg={bg} overflow="hidden" borderWidth={0} size={size} borderRadius="50%">
       <Flex {...rest} alignItems="center" justifyContent="center">
         <Octicon icon={icon} size={size} />
       </Flex>

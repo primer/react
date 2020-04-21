@@ -1,40 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {get, COMMON} from './constants'
 import theme from './theme'
-
-const alignRightStyles = theme => {
-  return `
-    right: 0;
-    flex-direction: row-reverse;
-
-    &:hover .AvatarItem {
-      margin-right: 0;
-      margin-left: 3px;
-    }
-
-    .AvatarItem-more {
-      background: ${get('colors.gray.3')(theme)};
-
-      &::before {
-        width: 5px;
-      }
-
-      &::after {
-        background: ${get('colors.gray.1')(theme)};
-        width: 2px;
-      }
-    }
-
-    .AvatarItem {
-      margin-right: 0;
-      margin-left: -11px;
-      border-right: 0;
-      border-left: ${get('borders.1')(theme)} ${get('colors.white')(theme)};
-    }
-  `
-}
 
 const transformChildren = children => {
   const count = children.length
@@ -85,7 +53,7 @@ const AvatarStackBody = styled.span`
     box-sizing: content-box;
     margin-right: -11px;
     background-color: ${get('colors.white')};
-    border-right: ${get('borders.1')} ${get('colors.white')};
+    border-right: ${get('borderWidths.1')} solid ${get('colors.white')};
     border-radius: 2px;
     transition: margin 0.1s ease-in-out;
 
@@ -122,7 +90,7 @@ const AvatarStackBody = styled.span`
       height: 20px;
       content: '';
       border-radius: 2px;
-      outline: ${get('borders.1')} ${get('colors.white')};
+      outline: ${get('borderWidths.1')} solid ${get('colors.white')};
     }
 
     &::before {
@@ -135,7 +103,38 @@ const AvatarStackBody = styled.span`
       background: ${get('colors.gray.3')};
     }
   }
-  ${props => (props.alignRight ? alignRightStyles(props.theme) : '')}
+
+  ${props =>
+    props.alignRight &&
+    css`
+      right: 0;
+      flex-direction: row-reverse;
+
+      &:hover .AvatarItem {
+        margin-right: 0;
+        margin-left: 3px;
+      }
+
+      .AvatarItem-more {
+        background: ${get('colors.gray.3')};
+
+        &::before {
+          width: 5px;
+        }
+
+        &::after {
+          background: ${get('colors.gray.1')};
+          width: 2px;
+        }
+      }
+
+      .AvatarItem {
+        margin-right: 0;
+        margin-left: -11px;
+        border-right: 0;
+        border-left: ${get('borderWidths.1')} solid ${get('colors.white')};
+      }
+    `}
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   return (

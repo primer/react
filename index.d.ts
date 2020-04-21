@@ -22,11 +22,8 @@ declare module '@primer/components' {
   }
 
   interface BorderProps
-    extends BaseProps,
-      StyledSystem.BordersProps,
-      StyledSystem.BorderColorProps,
-      StyledSystem.BoxShadowProps,
-      StyledSystem.BorderRadiusProps {}
+    extends StyledSystem.BordersProps,
+      StyledSystem.BoxShadowProps {}
 
   interface PositionProps
     extends BaseProps,
@@ -37,28 +34,18 @@ declare module '@primer/components' {
       StyledSystem.BottomProps,
       StyledSystem.LeftProps {}
 
-  interface FlexItemProps
-    extends BaseProps,
-      CommonProps,
-      LayoutProps,
-      StyledSystem.FlexProps,
-      StyledSystem.JustifySelfProps,
-      StyledSystem.AlignSelfProps,
-      StyledSystem.OrderProps {}
-
-  interface FlexProps extends BaseProps, CommonProps, LayoutProps, StyledSystem.FlexboxProps, BoxProps {}
-
-  export const Flex: React.FunctionComponent<FlexProps> & {
-    Item: React.FunctionComponent<FlexItemProps>
-  }
-
   export interface BoxProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
+      StyledSystem.FlexboxProps,
       Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Box: React.FunctionComponent<BoxProps>
+
+  interface FlexProps extends BoxProps {}
+
+  export const Flex: React.FunctionComponent<FlexProps>
 
   export interface TextProps
     extends BaseProps,
@@ -72,7 +59,7 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {}
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
@@ -122,12 +109,7 @@ declare module '@primer/components' {
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
 
-  export interface BorderBoxProps extends CommonProps, LayoutProps, BorderProps, BoxProps {
-    border?: string
-    borderColor?: string
-    borderRadius?: string | number
-    boxShadow?: string
-  }
+  export interface BorderBoxProps extends BorderProps, BoxProps {}
 
   export const BorderBox: React.FunctionComponent<BorderBoxProps>
 
@@ -301,7 +283,7 @@ declare module '@primer/components' {
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-  
+
   export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
@@ -349,7 +331,7 @@ declare module '@primer/components' {
     Header: React.FunctionComponent<SelectMenuHeaderProps>
   }
 
-  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SideNavProps extends CommonProps, BorderBoxProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
     variant?: 'normal' | 'lightweight'
   }
@@ -480,12 +462,15 @@ declare module '@primer/components' {
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps {
-    title: string
     isOpen: boolean
     onDismiss: () => unknown
   }
 
-  export const Dialog: React.FunctionComponent<DialogProps>
+  export interface DialogHeaderProps extends FlexProps {}
+
+  export const Dialog: React.FunctionComponent<DialogProps> & {
+    Header: React.FunctionComponent<DialogHeaderProps>
+  }
 
   export interface LabelGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {}
 

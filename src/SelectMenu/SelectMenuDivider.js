@@ -9,7 +9,7 @@ const dividerStyles = css`
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.grayLight')};
   background-color: ${get('colors.bg.gray')};
-  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.grayLight')};
 `
 
 const SelectMenuDivider = styled.div`

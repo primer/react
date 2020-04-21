@@ -1,5 +1,6 @@
 import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
 import {lineHeights} from 'primer-typography'
+import {lighten, rgba, desaturate} from 'polished'
 
 // General
 const colors = {
@@ -28,10 +29,23 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
+
   border: {
-    grayLight: '#eaecef',
+    blackFade: rgba(black, 0.15),
+    blue: blue[5],
+    blueLight: blue[2],
+    grayLight: lighten(0.03, gray[2]),
     gray: gray[2],
-    grayDark: '#d1d5da'
+    grayDark: gray[3],
+    grayDarker: gray[7],
+    green: green[4],
+    greenLight: desaturate(0.4, green[3]),
+    purple: purple[5],
+    red: red[5],
+    redLight: desaturate(0.6, red[3]),
+    white,
+    whiteFade: rgba(white, 0.15),
+    yellow: desaturate(0.6, yellow[3])
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
@@ -64,8 +78,7 @@ const fonts = {
     'Arial',
     'sans-serif',
     'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol'
+    'Segoe UI Emoji'
   ]),
   mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
 }
@@ -77,15 +90,15 @@ const fontWeights = {
   bold: 600
 }
 
-const borders = [0, '1px solid']
+const borderWidths = [0, '1px']
 
 const radii = ['0', '3px', '6px', '100px']
 
 const shadows = {
-  small: '0 1px 1px rgba(27, 31, 35, 0.1)',
-  medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
-  large: '0 1px 15px rgba(27, 31, 35, 0.15)',
-  'extra-large': '0 10px 50px rgba(27, 31, 35, 0.07)',
+  small: '0 1px 0 rgba(149, 157, 165, 0.1)',
+  medium: '0 3px 6px rgba(149, 157, 165, 0.15)',
+  large: '0 8px 24px rgba(149, 157, 165, 0.2)',
+  'extra-large': '0 12px 48px rgba(149, 157, 165, 0.3)',
   formControl: 'inset 0px 2px 0px rgba(225, 228, 232, 0.2)',
   formControlDisabled: 'inset 0px 2px 0px rgba(220, 227, 237, 0.3)',
   formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
@@ -242,7 +255,7 @@ const pagination = {
 
 const theme = {
   // General
-  borders,
+  borderWidths,
   breakpoints,
   colors,
   fonts,

@@ -3,6 +3,7 @@
 exports[`Pagination matches snapshot 1`] = `
 .c1 {
   display: inline-block;
+  display: inline-block;
 }
 
 .c2 {

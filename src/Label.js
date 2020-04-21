@@ -8,7 +8,7 @@ const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
   margin-bottom: -1px; // offsets the 1px border
   color: ${get('colors.gray.6')};
-  border: ${get('borders.1')} ${get('colors.blackfade15')};
+  border: ${get('borderWidths.1')} solid ${get('colors.blackfade15')};
   box-shadow: none;
   ${borderColor};
   ${COMMON};

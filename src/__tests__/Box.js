@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '../Box'
 import theme from '../theme'
 import {render} from '../utils/testing'
-import {LAYOUT, COMMON} from '../constants'
+import {LAYOUT, COMMON, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -17,8 +17,9 @@ describe('Box', () => {
   })
 
   it('implements system props', () => {
-    expect(Box).toImplementSystemProps(LAYOUT)
     expect(Box).toImplementSystemProps(COMMON)
+    expect(Box).toImplementSystemProps(LAYOUT)
+    expect(Box).toImplementSystemProps(FLEX)
   })
 
   it('respects the "as" prop', () => {

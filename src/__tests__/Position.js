@@ -35,7 +35,8 @@ describe('position components', () => {
     it('can render other components with the is prop', () => {
       const result = render(<Absolute as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'absolute')
-      expect(result).toHaveStyleRule('border', '1px solid')
+      expect(result).toHaveStyleRule('border-width', '1px')
+      expect(result).toHaveStyleRule('border-style', 'solid')
     })
 
     it('respects the "as" prop', () => {
@@ -71,7 +72,8 @@ describe('position components', () => {
     it('can render other components with the is prop', () => {
       const result = render(<Fixed as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'fixed')
-      expect(result).toHaveStyleRule('border', '1px solid')
+      expect(result).toHaveStyleRule('border-width', '1px')
+      expect(result).toHaveStyleRule('border-style', 'solid')
     })
   })
 
@@ -103,7 +105,8 @@ describe('position components', () => {
     it('can render other components with the is prop', () => {
       const result = render(<Relative as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'relative')
-      expect(result).toHaveStyleRule('border', '1px solid')
+      expect(result).toHaveStyleRule('border-width', '1px')
+      expect(result).toHaveStyleRule('border-style', 'solid')
     })
   })
 
@@ -132,7 +135,8 @@ describe('position components', () => {
     it('can render other components with the is prop', () => {
       const result = render(<Sticky as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'sticky')
-      expect(result).toHaveStyleRule('border', '1px solid')
+      expect(result).toHaveStyleRule('border-width', '1px')
+      expect(result).toHaveStyleRule('border-style', 'solid')
     })
   })
 })

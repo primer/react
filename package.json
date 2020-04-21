@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "17.1.1",
+  "version": "19.0.0",
   "description": "Primer react components",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -51,6 +51,7 @@
     "details-element-polyfill": "2.4.0",
     "jest-axe": "3.2.0",
     "nanoid": "2.1.4",
+    "polished": "3.5.2",
     "primer-colors": "1.0.1",
     "primer-typography": "1.0.1",
     "react": "^16.10.2",
@@ -70,6 +71,7 @@
     "eslint-plugin-github": "3.4.0",
     "eslint-plugin-jest": "22.20.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react-hooks": "3.0.0",
     "jest": "25.0.0",
     "jest-styled-components": "6.3.3",
     "jscodeshift": "0.6.4",

@@ -16,7 +16,7 @@ export const listItemStyles = css`
   cursor: pointer;
   background-color: ${get('colors.white')};
   border: 0;
-  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.grayLight')};
   color: ${get('colors.text.gray')};
   text-decoration: none;
 

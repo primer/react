@@ -2,7 +2,7 @@ import React from 'react'
 import theme, {colors} from '../theme'
 import BorderBox from '../BorderBox'
 import {render} from '../utils/testing'
-import {LAYOUT, COMMON} from '../constants'
+import {LAYOUT, COMMON, BORDER, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -19,6 +19,8 @@ describe('BorderBox', () => {
   it('implements layout system props', () => {
     expect(BorderBox).toImplementSystemProps(LAYOUT)
     expect(BorderBox).toImplementSystemProps(COMMON)
+    expect(BorderBox).toImplementSystemProps(BORDER)
+    expect(BorderBox).toImplementSystemProps(FLEX)
   })
 
   it('has default theme', () => {
@@ -40,6 +42,6 @@ describe('BorderBox', () => {
 
   // the test returns the box shadow value without spaces, so had to manually provide the expected string here
   it('renders box shadow', () => {
-    expect(render(<BorderBox boxShadow="small" />)).toHaveStyleRule('box-shadow', '0 1px 1px rgba(27,31,35,0.1)')
+    expect(render(<BorderBox boxShadow="small" />)).toHaveStyleRule('box-shadow', '0 1px 0 rgba(149,157,165,0.1)')
   })
 })
