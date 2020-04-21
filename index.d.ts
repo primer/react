@@ -112,7 +112,6 @@ declare module '@primer/components' {
   export const Button: React.FunctionComponent<ButtonProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
-    isChild?: boolean
     size?: number
     square?: boolean
   }
