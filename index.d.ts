@@ -114,7 +114,7 @@ declare module '@primer/components' {
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     isChild?: boolean
     size?: number
-    shape?: 'square' | 'round'
+    square?: boolean
   }
 
   export const Avatar: React.FunctionComponent<AvatarProps>
@@ -496,7 +496,8 @@ declare module '@primer/components' {
   export const LabelGroup: React.FunctionComponent<LabelGroupProps>
 
   export interface AvatarStackProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
-    alignRight?: boolean
+    alignRight?: boolean,
+    square?: boolean
   }
 
   export const AvatarStack: React.FunctionComponent<AvatarStackProps>

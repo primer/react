@@ -23,6 +23,7 @@ const alignRightStyles = theme => {
 
       &::after {
         background: ${get('colors.gray.1')(theme)};
+        border-radius: ${props => props.square ? get('radii.2') : '50%'};
         width: 2px;
       }
     }
@@ -31,7 +32,7 @@ const alignRightStyles = theme => {
       margin-right: 0;
       margin-left: -11px;
       border-right: 0;
-      border-left: ${get('borders.1')(theme)} ${get('colors.white')(theme)};
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
     }
   `
 }
@@ -85,8 +86,8 @@ const AvatarStackBody = styled.span`
     box-sizing: content-box;
     margin-right: -11px;
     background-color: ${get('colors.white')};
-    border-right: ${get('borders.1')} ${get('colors.white')};
-    border-radius: 2px;
+    box-shadow: 0 0 0 2px ${get('colors.white')};
+    border-radius: ${props => props.square ? get('radii.2') : '50%'};
     transition: margin 0.1s ease-in-out;
 
     &:first-child {
@@ -99,7 +100,7 @@ const AvatarStackBody = styled.span`
     }
 
     img {
-      border-radius: 2px;
+      border-radius: ${props => props.square ? get('radii.2') : '50%'};
       width: inherit;
     }
 
@@ -121,8 +122,8 @@ const AvatarStackBody = styled.span`
       display: block;
       height: 20px;
       content: '';
-      border-radius: 2px;
-      outline: ${get('borders.1')} ${get('colors.white')};
+      border-radius: ${props => props.square ? get('radii.2') : '50%'};
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
     }
 
     &::before {
@@ -137,10 +138,10 @@ const AvatarStackBody = styled.span`
   }
   ${props => (props.alignRight ? alignRightStyles(props.theme) : '')}
 `
-const AvatarStack = ({children = [], alignRight, ...rest}) => {
+const AvatarStack = ({children = [], alignRight, square, ...rest}) => {
   return (
     <AvatarStackWrapper count={children.length} {...rest}>
-      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
+      <AvatarStackBody alignRight={alignRight} square={square} className="AvatarStackBody">
         {transformChildren(children)}
       </AvatarStackBody>
     </AvatarStackWrapper>
@@ -148,7 +149,8 @@ const AvatarStack = ({children = [], alignRight, ...rest}) => {
 }
 
 AvatarStack.defaultProps = {
-  theme
+  theme,
+  square: false
 }
 
 AvatarStack.propTypes = {

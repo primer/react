@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Relative from './Relative'
+import {Relative} from './Position'
 import Avatar from './Avatar'
 import theme from './theme'
-
 
 const ChildAvatar = styled(Avatar)`
   position: absolute;
