@@ -1,5 +1,5 @@
 import React from 'react'
-import {Check} from '@primer/octicons-react'
+import {CheckIcon} from '@primer/octicons-v2-react'
 import {colors} from '../theme'
 import CircleOcticon from '../CircleOcticon'
 import {render} from '../utils/testing'
@@ -16,7 +16,7 @@ describe('CircleOcticon', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<CircleOcticon icon={Check} size={10} />)
+    const {container} = HTMLRender(<CircleOcticon icon={CheckIcon} size={10} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
