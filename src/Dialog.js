@@ -5,8 +5,7 @@ import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
 import {space, color} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
-import {X} from '@primer/octicons-v2-react'
-import StyledOcticon from './StyledOcticon'
+import {XIcon} from '@primer/octicons-v2-react'
 import {LAYOUT} from './constants'
 import theme from './theme'
 import Text from './Text'
@@ -82,7 +81,7 @@ const Dialog = ({children, ...props}) => {
     <>
       <StyledDialog {...props}>
         <UnstyledButton onClick={props.onDismiss}>
-          <StyledOcticon icon={X} />
+          <XIcon/>
         </UnstyledButton>
         {children}
       </StyledDialog>
