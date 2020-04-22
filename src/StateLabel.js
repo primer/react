@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {GitMerge, GitPullRequest, IssueClosed, IssueOpened} from '@primer/octicons-v2-react'
+import {GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon} from '@primer/octicons-v2-react'
 import theme, {colors} from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
@@ -16,11 +16,11 @@ const statusMap = {
 }
 
 const octiconMap = {
-  issueOpened: IssueOpened,
-  pullOpened: GitPullRequest,
-  issueClosed: IssueClosed,
-  pullClosed: GitPullRequest,
-  pullMerged: GitMerge
+  issueOpened: IssueOpenedIcon,
+  pullOpened: GitPullRequestIcon,
+  issueClosed: IssueClosedIcon,
+  pullClosed: GitPullRequestIcon,
+  pullMerged: GitMergeIcon
 }
 
 function StateLabelBase({className, status, small = false, children}) {
