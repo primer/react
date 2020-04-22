@@ -32,13 +32,8 @@ function SelectMenuFilter({theme, value, sx, ...rest}) {
     }
   }, [open])
 
-  let sxProps = {}
-  if (sx) {
-    sxProps = {sx}
-  }
-
   return (
-    <StyledForm theme={theme} {...sxProps}>
+    <StyledForm theme={theme} sx={sx}>
       <TextInput theme={theme} ref={inputRef} width="100%" block value={value} {...rest} />
     </StyledForm>
   )
