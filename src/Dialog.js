@@ -81,7 +81,7 @@ const Dialog = ({children, ...props}) => {
     <>
       <StyledDialog {...props}>
         <UnstyledButton onClick={props.onDismiss}>
-          <XIcon/>
+          <XIcon />
         </UnstyledButton>
         {children}
       </StyledDialog>
