@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
-import {Check} from '@primer/octicons-react'
+import {Check} from '@primer/octicons-v2-react'
 import {MenuContext} from './SelectMenuContext'
 import {COMMON, get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
