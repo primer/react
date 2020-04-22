@@ -27,20 +27,20 @@ describe('CircleOcticon', () => {
   })
 
   it('renders {borderRadius: 50%}', () => {
-    expect(render(<CircleOcticon icon={Check} />)).toHaveStyleRule('border-radius', '50%')
+    expect(render(<CircleOcticon icon={CheckIcon} />)).toHaveStyleRule('border-radius', '50%')
   })
 
   it('respects the bg prop', () => {
-    expect(render(<CircleOcticon icon={Check} bg="red.5" />)).toHaveStyleRule('background-color', colors.red[5])
+    expect(render(<CircleOcticon icon={CheckIcon} bg="red.5" />)).toHaveStyleRule('background-color', colors.red[5])
   })
 
   it('has a default size', () => {
-    const result = render(<CircleOcticon icon={Check} />)
+    const result = render(<CircleOcticon icon={CheckIcon} />)
     expect(result).toHaveStyleRule('width', '32px')
     expect(result).toHaveStyleRule('height', '32px')
   })
 
   it('respects the "as" prop', () => {
-    expect(render(<CircleOcticon icon={Check} as="span" />).type).toEqual('span')
+    expect(render(<CircleOcticon icon={CheckIcon} as="span" />).type).toEqual('span')
   })
 })
