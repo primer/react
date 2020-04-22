@@ -24,6 +24,20 @@ This example demonstrates applying a bottom border to `Heading`, a component tha
 </Heading>
 ```
 
+## Responsive values
+
+Just like [values passed to system props](https://styled-system.com/responsive-styles), values in the `sx` prop can be provided as arrays to provide responsive styling.
+
+```jsx live
+<BorderBox
+  p={2}
+  sx={{
+    bg: ['red.1', 'green.1', 'blue.1', 'purple.1', 'yellow.1']
+  }}>
+    Responsive background color
+</BorderBox>
+```
+
 ## Nesting, pseudo-classes, and pseudo-elements
 
 The `sx` prop also allows for declaring styles based on media queries, psueudo-classes, and pseudo-elements. This example, though contrived, demonstrates the ability:
