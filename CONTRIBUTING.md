@@ -111,6 +111,8 @@ Categories of system props are exported from `src/constants.js`:
 * `TYPOGRAPHY` includes font family, font weight, and line-height props
 * `POSITION` includes positioning props
 * `FLEX` includes flexbox props
+* `BORDER` includes border and box-shadow props
+* `GRID` includes grid props
 
 To give the component access to a group of system props, import the system prop function from `./constants` and include the system prop function in your styled-component like so:
 
