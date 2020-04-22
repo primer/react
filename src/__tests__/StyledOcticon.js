@@ -1,5 +1,5 @@
 import React from 'react'
-import {X} from '@primer/octicons-react'
+import {XIcon} from '@primer/octicons-v2-react'
 import StyledOcticon from '../StyledOcticon'
 import {render} from '../utils/testing'
 import {COMMON} from '../constants'
@@ -14,7 +14,7 @@ describe('StyledOcticon', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<StyledOcticon icon={X} />)
+    const {container} = HTMLRender(<StyledOcticon icon={XIcon} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
