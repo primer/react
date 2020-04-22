@@ -10,7 +10,7 @@ expect.extend(toHaveNoViolations)
 
 describe('CircleOcticon', () => {
   it('renders a <div> with width and height', () => {
-    const result = render(<CircleOcticon icon={Check} size={10} />)
+    const result = render(<CircleOcticon icon={CheckIcon} size={10} />)
     expect(result).toHaveStyleRule('width', '10px')
     expect(result).toHaveStyleRule('height', '10px')
   })

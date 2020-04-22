@@ -1,6 +1,6 @@
 import * as primerComponents from '@primer/components'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
-import Octicon, {
+import {
   CheckIcon,
   ZapIcon,
   XIcon,

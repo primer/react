@@ -21,7 +21,7 @@ describe('StyledOcticon', () => {
   })
 
   it('matches the snapshot', () => {
-    expect(render(<StyledOcticon icon={X} />)).toMatchSnapshot()
+    expect(render(<StyledOcticon icon={XIcon} />)).toMatchSnapshot()
   })
 
   it.skip('has default theme', () => {

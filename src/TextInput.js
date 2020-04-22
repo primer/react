@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
 import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
-import Octicon from './StyledOcticon'
+import StyleOcticon from './StyledOcticon'
 import {variant, width, minWidth, maxWidth} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
@@ -41,7 +41,7 @@ const TextInput = React.forwardRef(({icon, className, block, disabled, ...rest},
       disabled={disabled}
       {...wrapperProps}
     >
-      {icon && <Octicon className="TextInput-icon" icon={icon} />}
+      {icon && <StyleOcticon className="TextInput-icon" icon={icon} />}
       <Input ref={ref} disabled={disabled} {...inputProps} />
     </Wrapper>
   )
