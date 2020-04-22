@@ -3,7 +3,13 @@ import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 
-const StyledOcticon = styled.span(COMMON)
+const Wrapper = styled.span(COMMON)
+
+const StyledOcticon = ({icon: Icon, rest}) => {
+  <Wrapper {...rest}>
+    <Icon/>
+  </Wrapper>
+}
 
 StyledOcticon.defaultProps = {
   theme
