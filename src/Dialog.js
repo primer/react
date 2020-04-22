@@ -78,7 +78,7 @@ function DialogHeader({theme, children, ...rest}) {
   )
 }
 
-const Dialog = ({children, ...props}) => {
+function Dialog({children, ...props}) {
   return (
     <>
       <StyledDialog {...props}>
@@ -103,8 +103,6 @@ Dialog.propTypes = {
   ...sx.propTypes,
   theme: PropTypes.object
 }
-
-Dialog.displayName = 'Dialog'
 
 DialogHeader.defaultProps = {
   backgroundColor: 'gray.1',
