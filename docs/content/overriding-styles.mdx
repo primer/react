@@ -1,0 +1,59 @@
+---
+title: Overriding styles with the sx prop
+---
+
+Our goal with Primer Components is to hit the sweet spot between providing too little and too much ability to override styles. Our components already support a standard set of [system props](/system-props), but sometimes a component just isn't *quite* flexible enough to look the way you need it to look. For those cases, we provide the `sx` prop.
+
+The `sx` prop allows ad-hoc styling that is still theme aware. Declare the styles you want to apply in camel-cased object notation, and any values use appropriate theme values; for example, any `color` property values will use the values from the `colors` key in the theme.
+
+## Basic example
+
+This example demonstrates applying a bottom border to `Heading`, a component that does not receive `BORDER` system props. The `borderBottomWidth` value comes from `theme.borderWidths` and `borderBottomColor` comes from `theme.colors`.
+
+```jsx live
+<Heading pb={2}>Heading</Heading>
+
+<Heading
+  pb={2}
+  sx={{
+    borderBottomWidth: 1,
+    borderBottomColor: 'border.gray',
+    borderBottomStyle: 'solid'
+  }}>
+    Heading with bottom border
+</Heading>
+```
+
+## Nesting, pseudo-classes, and pseudo-elements
+
+The `sx` prop also allows for declaring styles based on media queries, psueudo-classes, and pseudo-elements. This example, though contrived, demonstrates the ability:
+
+```jsx live
+<Box sx={{
+  '> *': {
+    borderWidth: 1,
+    borderColor: 'border.gray',
+    borderStyle: 'solid',
+    borderBottomWidth: 0,
+    padding: 2,
+    ':last-child': {
+      borderBottomWidth: 1
+    },
+    ':hover': {
+      bg: 'gray.1'
+    }
+  }
+}}>
+  <Box>First</Box>
+  <Box>Second</Box>
+  <Box>Third</Box>
+</Box>
+```
+
+## When to use the `sx` prop
+
+The `sx` prop clearly provides a lot of power, which means it is an easy tool to abuse. To best make use of it, we recommend following these guidelines:
+
+* Only use the `sx` prop for small stylistic changes to components. For more substantial changes, create your own wrapper using `styled-components`.
+* Use [system props](/system-props) instead of the `sx` prop whenever possible.
+* Avoid nesting and pseudo-selectors in `sx` prop values when possible.
