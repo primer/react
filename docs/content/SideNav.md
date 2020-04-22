@@ -48,7 +48,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={PrimitiveDotIcon} color="green.5" />
+    <StyledOcticon mr={2} size={16} icon={DotIcon} color="green.5" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -100,7 +100,7 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
     <Text>Account</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" selected>
-    <StyledOcticon mr={2} size={16} icon={OctofaceIcon} />
+    <StyledOcticon mr={2} size={16} icon={FlameIcon} />
     <Text>Profile</Text>
   </SideNav.Link>
 

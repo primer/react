@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
@@ -28,12 +29,20 @@ const CircleBadge = styled.div`
   ${COMMON} ${sizeStyles};
 `
 
-const Icon = styled.span`
+const IconWrapper = styled.span`
   max-width: 60% !important;
   height: auto !important;
   max-height: 55% !important;
   ${COMMON};
 `
+const Icon = ({icon: IconComponent}) => {
+  return (
+    <IconWrapper>
+      <IconComponent/>
+    </IconWrapper>
+  )
+}
+
 CircleBadge.Icon = Icon
 
 CircleBadge.defaultProps = {

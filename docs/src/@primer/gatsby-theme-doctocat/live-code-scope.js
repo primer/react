@@ -2,14 +2,13 @@ import * as primerComponents from '@primer/components'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import {
   CheckIcon,
-  ZapIcon,
   XIcon,
   SearchIcon,
-  PrimitiveDotIcon,
-  OctofaceIcon,
+  DotIcon,
   PersonIcon,
   MailIcon,
   GitCommitIcon,
+  AlertIcon,
   FlameIcon
 } from '@primer/octicons-v2-react'
 import State from '../../../components/State'
@@ -20,10 +19,9 @@ export default {
   State,
   CheckIcon,
   SearchIcon,
-  ZapIcon,
   XIcon,
-  PrimitiveDotIcon,
-  OctofaceIcon,
+  DotIcon,
+  AlertIcon,
   PersonIcon,
   MailIcon,
   GitCommitIcon,
