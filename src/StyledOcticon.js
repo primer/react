@@ -9,7 +9,7 @@ const Wrapper = styled.span(COMMON)
 const StyledOcticon = ({icon: Icon, rest}) => {
   return (
     <Wrapper {...rest}>
-      <Icon/>
+      <Icon />
     </Wrapper>
   )
 }

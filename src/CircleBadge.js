@@ -38,7 +38,7 @@ const IconWrapper = styled.span`
 const Icon = ({icon: IconComponent}) => {
   return (
     <IconWrapper>
-      <IconComponent/>
+      <IconComponent />
     </IconWrapper>
   )
 }
