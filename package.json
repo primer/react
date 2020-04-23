@@ -37,6 +37,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "^9.2.0",
+    "@primer/primitives": "2.0.1",
     "@reach/dialog": "0.3.0",
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",
@@ -50,8 +51,6 @@
     "details-element-polyfill": "2.4.0",
     "jest-axe": "3.2.0",
     "nanoid": "2.1.4",
-    "primer-colors": "1.0.1",
-    "primer-typography": "1.0.1",
     "react": "^16.10.2",
     "react-is": "16.10.2",
     "styled-system": "5.1.2"
