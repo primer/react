@@ -40,7 +40,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   cursor: default;
 }
 
-.c0[disabled] svg {
+.c0:disabled svg {
   opacity: 0.6;
 }
 
@@ -112,7 +112,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   cursor: default;
 }
 
-.c0[disabled] svg {
+.c0:disabled svg {
   opacity: 0.6;
 }
 
@@ -187,7 +187,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   cursor: default;
 }
 
-.c0[disabled] svg {
+.c0:disabled svg {
   opacity: 0.6;
 }
 
@@ -262,7 +262,7 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   cursor: default;
 }
 
-.c0[disabled] svg {
+.c0:disabled svg {
   opacity: 0.6;
 }
 

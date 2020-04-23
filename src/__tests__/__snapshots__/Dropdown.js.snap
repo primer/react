@@ -86,7 +86,7 @@ exports[`Dropdown.Button matches the snapshots 1`] = `
   cursor: default;
 }
 
-.c0[disabled] svg {
+.c0:disabled svg {
   opacity: 0.6;
 }
 
