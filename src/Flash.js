@@ -22,12 +22,11 @@ const variants = variant({
     default: {
       backgroundColor: 'flash.default.bg',
       borderColor: 'flash.default.border'
-    },
+    }
   }
 })
 
 const getIconColor = (variant, theme) => get(`colors.flash.${variant}.icon`)(theme)
-
 
 const Flash = styled.div`
   position: relative;
@@ -59,8 +58,8 @@ Flash.defaultProps = {
 Flash.propTypes = {
   children: PropTypes.node,
   full: PropTypes.bool,
-  variant: PropTypes.oneOf(['default', 'warning', 'success', 'danger']),
   theme: PropTypes.object,
+  variant: PropTypes.oneOf(['default', 'warning', 'success', 'danger']),
   ...COMMON.propTypes
 }
 

@@ -71,7 +71,7 @@ const colors = {
       icon: yellow[8],
       bg: yellow[1],
       border: 'rgba(176, 136, 0, 0.2)'
-    },
+    }
   }
 }
 
