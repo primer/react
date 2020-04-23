@@ -20,7 +20,7 @@ const Page = styled.a`
   cursor: pointer;
   user-select: none;
   background: ${get('pagination.colors.normal.bg')};
-  border: ${get('borders.1')} ${get('pagination.colors.normal.border')};
+  border-radius: ${get('radii.2')};
   text-decoration: none;
 
   &:first-child {
