@@ -50,7 +50,49 @@ const colors = {
     grayLight: gray[0],
     disabled: '#F3F4F6'
   },
-  accent: orange[5]
+  accent: orange[5],
+  labels: {
+    gray: gray[2],
+    grayText: gray[9],
+    grayDark: gray[5],
+    grayDarkText: gray[9],
+    blue: blue[5],
+    blueText: blue[5],
+    orange: orange[5],
+    orangeText: orange[6],
+    green: green[5],
+    greenText: green[6],
+    red: red[6],
+    redText: red[6],
+    yellow: yellow[6],
+    yellowText: yellow[9],
+    pink: pink[4],
+    pinkText: pink[6],
+    purple: purple[4],
+    purpleText: [5]
+  },
+  flash: {
+    default: {
+      icon: 'rgba(4, 66, 137, 0.6)',
+      bg: blue[1],
+      border: 'rgba(4, 66, 137, 0.2)'
+    },
+    success: {
+      icon: 'rgba(23, 111, 44, 0.8)',
+      bg: green[1],
+      border: 'rgba(23, 111, 44, 0.2)'
+    },
+    danger: {
+      icon: 'rgba(158, 28, 35, 0.6)',
+      bg: '#FFE3E6',
+      border: 'rgba(158, 28, 35, 0.2)'
+    },
+    warning: {
+      icon: yellow[8],
+      bg: yellow[1],
+      border: 'rgba(176, 136, 0, 0.2)'
+    },
+  }
 }
 
 const breakpoints = ['544px', '768px', '1012px', '1280px']
