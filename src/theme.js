@@ -51,26 +51,6 @@ const colors = {
     disabled: '#F3F4F6'
   },
   accent: orange[5],
-  labels: {
-    gray: gray[2],
-    grayText: gray[9],
-    grayDark: gray[5],
-    grayDarkText: gray[9],
-    blue: blue[5],
-    blueText: blue[5],
-    orange: orange[5],
-    orangeText: orange[6],
-    green: green[5],
-    greenText: green[6],
-    red: red[6],
-    redText: red[6],
-    yellow: yellow[6],
-    yellowText: yellow[9],
-    pink: pink[4],
-    pinkText: pink[6],
-    purple: purple[4],
-    purpleText: [5]
-  },
   flash: {
     default: {
       icon: 'rgba(4, 66, 137, 0.6)',
