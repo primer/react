@@ -13,7 +13,7 @@ const tabStyles = css`
   font-weight: 500;
   color: ${get('colors.gray.5')};
   text-align: center;
-  background-color: transparent;
+  background-color: ${get('colors.gray.1')};
   border: 0;
   box-shadow: inset 0 -1px 0 ${get('colors.border.gray')};
 
@@ -24,6 +24,7 @@ const tabStyles = css`
     border-bottom-width: 0;
     border-top-left-radius: ${get('radii.2')};
     border-top-right-radius: ${get('radii.2')};
+    background-color: ${get('colors.white')};
   }
 
   &[aria-selected='true'] {
