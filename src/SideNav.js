@@ -24,7 +24,7 @@ function SideNavBase({variant, className, bordered, children, ...props}) {
 }
 
 const SideNav = styled(SideNavBase)`
-  background-color: ${get('colors.gray.0')};
+  background-color: ${get('colors.white')};
 
   ${props =>
     props.bordered &&
@@ -67,6 +67,16 @@ SideNav.Link = styled(Link).attrs(props => {
     border-bottom: none;
   }
 
+  &:first-child {
+    border-top-right-radius: ${get('radii.2')};
+    border-top-left-radius: ${get('radii.2')};
+  }
+
+  &:last-child {
+    border-bottom-right-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
+  }
+
   ${SideNav}.variant-normal > & {
     color: ${get('colors.gray.6')};
     padding: ${get('space.3')};
@@ -95,26 +105,16 @@ SideNav.Link = styled(Link).attrs(props => {
       text-decoration: none;
       background-color: ${get('colors.gray.1')};
       outline: none;
-
-      // Bar on the left
-      &::before {
-        background-color: ${get('colors.gray.4')};
-      }
-    }
-
-    &:active {
-      background-color: ${get('colors.white')};
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
       font-weight: ${get('fontWeights.semibold')};
       color: ${get('colors.gray.9')};
-      background-color: ${get('colors.white')};
 
       // Bar on the left
       &::before {
-        background-color: ${get('colors.orange.5')};
+        background-color: ${get('colors.accent')};
       }
     }
   }

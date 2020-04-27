@@ -7,8 +7,9 @@ const tabWrapperStyles = css`
   display: flex;
   flex-shrink: 0;
   margin-bottom: -1px; // hide border of element below
-  border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
   -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   // Hide scrollbar so it doesn't cover the text
   &::-webkit-scrollbar {
@@ -17,7 +18,7 @@ const tabWrapperStyles = css`
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding: 0 ${get('space.2')};
-    border-top: 0;
+    margin-top: ${get('space.3')};
   }
 `
 
