@@ -10,7 +10,7 @@ The `sx` prop allows ad-hoc styling that is still theme aware. Declare the style
 
 The `sx` prop provides a lot of power, which means it is an easy tool to abuse. To best make use of it, we recommend following these guidelines:
 
-* Only use the `sx` prop for small stylistic changes to components. For more substantial changes, create your own wrapper using `styled-components`.
+* Use the `sx` prop for small stylistic changes to components. For more substantial changes, consider abstracting your style changes into your own wrapper component.
 * Use [system props](/system-props) instead of the `sx` prop whenever possible.
 * Avoid nesting and pseudo-selectors in `sx` prop values when possible.
 
