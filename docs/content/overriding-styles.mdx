@@ -6,6 +6,14 @@ Our goal with Primer Components is to hit the sweet spot between providing too l
 
 The `sx` prop allows ad-hoc styling that is still theme aware. Declare the styles you want to apply in camel-cased object notation, and any values use appropriate theme values; for example, any `color` property values will use the values from the `colors` key in the theme.
 
+## When to use the `sx` prop
+
+The `sx` prop provides a lot of power, which means it is an easy tool to abuse. To best make use of it, we recommend following these guidelines:
+
+* Only use the `sx` prop for small stylistic changes to components. For more substantial changes, create your own wrapper using `styled-components`.
+* Use [system props](/system-props) instead of the `sx` prop whenever possible.
+* Avoid nesting and pseudo-selectors in `sx` prop values when possible.
+
 ## Basic example
 
 This example demonstrates applying a bottom border to `Heading`, a component that does not receive `BORDER` system props. The `borderBottomWidth` value comes from `theme.borderWidths` and `borderBottomColor` comes from `theme.colors`.
@@ -63,11 +71,3 @@ The `sx` prop also allows for declaring styles based on media queries, psueudo-c
   <Box>Third</Box>
 </Box>
 ```
-
-## When to use the `sx` prop
-
-The `sx` prop clearly provides a lot of power, which means it is an easy tool to abuse. To best make use of it, we recommend following these guidelines:
-
-* Only use the `sx` prop for small stylistic changes to components. For more substantial changes, create your own wrapper using `styled-components`.
-* Use [system props](/system-props) instead of the `sx` prop whenever possible.
-* Avoid nesting and pseudo-selectors in `sx` prop values when possible.
