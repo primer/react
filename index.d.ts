@@ -1,6 +1,7 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
+  import {SystemStyleObject} from '@styled-system/css'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -8,7 +9,7 @@ declare module '@primer/components' {
     as?: React.ReactType
     className?: string
     css?: string
-    sx?: object
+    sx?: SystemStyleObject
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
