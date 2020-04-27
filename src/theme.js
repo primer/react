@@ -123,6 +123,22 @@ const sizes = {
 }
 
 const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
+const headingSizes = {
+  h1: '32px',
+  h2: '24px',
+  h3: '20px',
+  h4: '16px',
+  h5: '14px',
+  h6: '12px'
+}
+const mobileHeadingSizes =  {
+  h1: '26px',
+  h2: '22px',
+  h3: '18px',
+  h4: '16px',
+  h5: '14px',
+  h6: '12px'
+}
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
@@ -270,6 +286,8 @@ const theme = {
   colors,
   fonts,
   fontSizes,
+  headingSizes,
+  mobileHeadingSizes,
   fontWeights,
   lineHeights,
   radii,
