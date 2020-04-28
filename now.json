@@ -6,6 +6,7 @@
   "routes": [
     {"src": "/playroom(/.*)?", "dest": "$1"},
     {"src": "/components(/.*)?", "dest": "/docs$1"},
+    {"src": "/components/getting-started/", "dest": "/docs/"},
     {
       "src": "/",
       "status": 301,
