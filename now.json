@@ -4,9 +4,13 @@
   "alias": "primer-components.now.sh",
   "files": [".babelrc", "yarn.lock", "docs", "rollup.config.js", "src", "static"],
   "routes": [
+    {
+      "src": "/components/getting-started/?",
+      "status": 307,
+      "headers": {"Location": "/components?test=1"}
+    },
     {"src": "/playroom(/.*)?", "dest": "$1"},
     {"src": "/components(/.*)?", "dest": "/docs$1"},
-    {"src": "/components/getting-started/", "dest": "/docs/"},
     {
       "src": "/",
       "status": 301,
