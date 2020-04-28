@@ -72,7 +72,7 @@ The best solution for this error — for now — seems to be disabling the auto
 
 In your `tsconfig.json`, set the `types` array under the `compilerOptions` like so:
 
-```diff
+```json
 {
   "compilerOptions": {
     "types": ["node", "react", "styled-components", "jest"]
