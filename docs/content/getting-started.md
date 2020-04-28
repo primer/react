@@ -56,6 +56,12 @@ This will apply the same `color`, `font-family`, and `line-height` styles to the
 
 Primer Components includes TypeScript support with no additional `@types` package necessary. You will need to install `@types/styled-components` and `@types/react` if you import either of those packages.
 
+Once installed, you can import components and their prop type interfaces from the `@primer/components` package:
+
+```typescript
+import {BorderBox, BorderBoxProps} from '@primer/components'
+```
+
 ### Fixing "Duplicate identifier 'FormData'"
 
 Ever since `@types/styled-components` version `14.1.19`, it has a dependency of both `@types/react` and `@types/react-native`. Unfortunately, those declarations clash; for more information, see [issue 33311](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311) and [issue 33015](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015) in the DefinitelyTyped repo.
