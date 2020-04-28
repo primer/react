@@ -54,7 +54,7 @@ This will apply the same `color`, `font-family`, and `line-height` styles to the
 
 ## TypeScript
 
-Primer Components includes TypeScript support with no additional `@types` package necessary. You will need to install `@types/styled-components` and `@types/react` if you import either of those packages.
+Primer Components includes TypeScript support and ships with its own typings. You will need to install `@types/styled-components` and `@types/react` if you import either of those packages directly, as normal.
 
 Once installed, you can import components and their prop type interfaces from the `@primer/components` package:
 
