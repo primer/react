@@ -114,10 +114,10 @@ SelectMenu.List components do not get any additional props besides system props.
 
 ## SelectMenu.Item
 
-Individual items in a select menu.
+Individual items in a select menu. SelectMenu.Item renders an anchor tag by default, you'll need to make sure to provide the appropriate `href`. 
 
 ```jsx
-<SelectMenu.Item selected={true}>
+<SelectMenu.Item href="/link/to/thing" selected={true}>
   {/* wraps an individual list item*/}
 </SelectMenu.Item>
 ```

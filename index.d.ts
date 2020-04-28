@@ -302,7 +302,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export interface SelectMenuItemProps extends Omit<CommonProps, 'as'>,
+  export interface SelectMenuItemProps extends CommonProps,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     selected?: boolean
   }

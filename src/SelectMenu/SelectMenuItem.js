@@ -95,9 +95,7 @@ const StyledItem = styled.a.attrs(() => ({
   ${COMMON}
 `
 
-// 'as' is spread out because we don't want users to be able to change the tag. using something
-// other than 'a' will break a11y.
-const SelectMenuItem = ({children, selected, theme, onClick, as, ...rest}) => {
+const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
   const menuContext = useContext(MenuContext)
 
   // close the menu when an item is clicked
