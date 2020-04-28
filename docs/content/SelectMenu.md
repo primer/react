@@ -116,6 +116,8 @@ SelectMenu.List components do not get any additional props besides system props.
 
 Individual items in a select menu. SelectMenu.Item renders an anchor tag by default, you'll need to make sure to provide the appropriate `href`. 
 
+You can use a `button` tag instead by utilizing the [`as` prop](/core-concepts#the-as-prop). Be sure to consider [which HTML element is the right choice](https://marcysutton.com/links-vs-buttons-in-modern-web-applications) for your usage of the component. 
+
 ```jsx
 <SelectMenu.Item href="/link/to/thing" selected={true}>
   {/* wraps an individual list item*/}
