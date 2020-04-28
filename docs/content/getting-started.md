@@ -58,7 +58,7 @@ Primer Components includes TypeScript support with no additional `@types` packag
 
 ### Fixing "Duplicate identifier 'FormData'"
 
-Since version 14.1.9, `@types/styled-components` has a dependency of both `@types/react` and `@types/react-native`. Unfortunately, those declarations clash; for more information, see [issue 33311](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311) and [issue 33015](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015) in the DefinitelyTyped repo.
+Ever since `@types/styled-components` version `14.1.19`, it has a dependency of both `@types/react` and `@types/react-native`. Unfortunately, those declarations clash; for more information, see [issue 33311](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311) and [issue 33015](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015) in the DefinitelyTyped repo.
 
 You may run into this conflict even if you're not importing anything from `react-native` or don't have it installed. This is because the TypeScript compiler automatically includes types from the folders in `node_modules/@types` automatically. The TypeScript compiler allows you to opt-out of this behavior [using the `typeRoots` and `types` configuration options](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#types-typeroots-and-types).
 
