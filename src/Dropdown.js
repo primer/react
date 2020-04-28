@@ -140,7 +140,7 @@ Dropdown.Item.propTypes = {
 Dropdown.Button.defaultProps = {theme}
 
 Dropdown.Caret.defaultProps = {theme}
-Dropdown.Caret.propTpyes = {
+Dropdown.Caret.propTypes = {
   ...COMMON.propTypes
 }
 
