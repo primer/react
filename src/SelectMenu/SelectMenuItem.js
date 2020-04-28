@@ -19,6 +19,8 @@ export const listItemStyles = css`
   border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
   color: ${get('colors.text.gray')};
   text-decoration: none;
+  font-size: ${get('fontSizes.0')};
+  width: 100%;
 
   &:hover {
     text-decoration: none;
