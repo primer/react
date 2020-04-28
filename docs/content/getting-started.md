@@ -54,7 +54,7 @@ This will apply the same `color`, `font-family`, and `line-height` styles to the
 
 ## TypeScript
 
-Primer Components includes TypeScript support with no additional `@types` package necessary. You will need to install `@types/styled-components` and `@types/react`, as `styled-components` and `react` are [both peer dependencies](#installing-peer-dependencies).
+Primer Components includes TypeScript support with no additional `@types` package necessary. You will need to install `@types/styled-components` and `@types/react` if you import either of those packages.
 
 ### Fixing "Duplicate identifier 'FormData'"
 
