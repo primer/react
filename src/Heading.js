@@ -2,14 +2,22 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON, get} from './constants'
+import Deprecated from './utils/Deprecated'
 import theme from './theme'
 
-export const Heading = styled.h2`
+// remove all of this when Heading is deprecated
+const StyledHeading = styled.h2`
   font-weight: ${get('fontWeights.bold')};
-  font-size: ${get('fontSizes.5')}; // kept in for backwards compat, when Heading is deprecated this should be removed
+  font-size: ${get('fontSizes.5')};
   margin: 0;
   ${TYPOGRAPHY} ${COMMON};
 `
+
+const Heading = (props) => {(
+  <Deprecated componentName="Heading" message="Use the H1, H2, H3, H4, H5, H6 components instead">
+    <StyledHeading {...props}/>
+  </Deprecated>
+)}
 
 Heading.defaultProps = {
   theme
@@ -20,17 +28,34 @@ Heading.propTypes = {
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes
 }
+//
+
+const HeadingInternal = styled.h2`
+  font-weight: ${get('fontWeights.bold')};
+  margin: 0;
+  ${TYPOGRAPHY} ${COMMON};
+`
+
+HeadingInternal.defaultProps = {
+  theme
+}
+
+HeadingInternal.propTypes = {
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...TYPOGRAPHY.propTypes
+}
 
 function withHeading(level) {
   const WithHeading = props => (
-    <Heading
+    <HeadingInternal
       as={level}
       fontSize={[`mobileHeadingSizes.${level}`, `mobileHeadingSizes.${level}`, `headingSizes.${level}`]}
       {...props}
     />
   )
-  WithHeading.propTypes = Heading.propTypes
-  WithHeading.defaultProps = Heading.defaultProps
+  WithHeading.propTypes = HeadingInternal.propTypes
+  WithHeading.defaultProps = HeadingInternal.defaultProps
   return WithHeading
 }
 
