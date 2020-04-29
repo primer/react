@@ -93,7 +93,7 @@ const App = (props) => {
 }
 ```
 
-*Note that using `Object.assign` will only create a shallow merge. This means that if both themes have a `color` object, the _entire_ `color` object will be replaced with the new `color` object, instead of only replacing duplicate values from the original theme's color object.
+Note that using `Object.assign` to merge themes will only create a shallow merge. This means that if both themes have a `color` object, the _entire_ `color` object will be replaced with the new `color` object, instead of only replacing duplicate values from the original theme's color object. If you want to merge sub-values, be sure to use a deep-merging strategy.
 
 ## Static CSS rendering
 
