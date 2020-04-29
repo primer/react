@@ -13,11 +13,13 @@ const StyledHeading = styled.h2`
   ${TYPOGRAPHY} ${COMMON};
 `
 
-const Heading = (props) => {(
-  <Deprecated componentName="Heading" message="Use the H1, H2, H3, H4, H5, H6 components instead">
-    <StyledHeading {...props}/>
-  </Deprecated>
-)}
+export const Heading = (props) => {
+  return (
+    <Deprecated componentName="Heading" message="Use the H1, H2, H3, H4, H5, H6 components instead">
+      <StyledHeading {...props}/>
+    </Deprecated>
+  )
+}
 
 Heading.defaultProps = {
   theme

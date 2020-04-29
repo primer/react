@@ -2,7 +2,11 @@
 title: Heading
 ---
 
+Our suite of heading components render headings with default font sizes for each level. If you'd like to change the font size while keeping the markup semantically correct, use the `fontSize` prop.
+
 Please reference the [w3 recommendations for headings](https://www.w3.org/WAI/tutorials/page-structure/headings/) to ensure your headings provide an accessible experience for screen reader users.
+
+**Note:** The old `Heading` component will be deprecated soon, use the named `H1, `H2`, `H3`, `H4`, `H5`, `H6` components instead.
 
 ## Default example
 ```jsx live
