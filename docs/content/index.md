@@ -22,7 +22,7 @@ import {Box, Flex} from '@primer/components'
 
 ### Peer Dependencies
 
-Primer Components is shipped with a few libraries labeled as peer dependencies. These libraries are separated because they are commonly already installed in the host project and having multiple versions can introduce errors.
+Primer Components ships with a few libraries labeled as peer dependencies. These libraries are separated because they are commonly already installed in the host project and having multiple versions can introduce errors.
 
 Before getting started using Primer Components, make sure that the following libraries are installed in your host project:
 
