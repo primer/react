@@ -10,12 +10,12 @@ export const Heading = styled.h2`
   ${TYPOGRAPHY} ${COMMON};
 `
 
-export const H1 = (props) => <Heading as='h1' {...props} fontSize={['mobileHeadingSizes.h1', 'mobileHeadingSizes.h1', 'headingSizes.h1']} />
-export const H2 = (props) => <Heading as='h2' fontSize={['22px', '22px', '24px']} {...props}/>
-export const H3 = (props) => <Heading as='h3' fontSize={['18px', '18px', '20px']} {...props}/>
-export const H4 = (props) => <Heading as='h4' fontSize='16px' {...props}/>
-export const H5 = (props) => <Heading as='h5' fontSize='14px' {...props}/>
-export const H6 = (props) => <Heading as='h6' fontSize='12px' {...props}/>
+export const H1 = (props) => <Heading as='h1' fontSize={['mobileHeadingSizes.h1', 'mobileHeadingSizes.h1', 'headingSizes.h1']} {...props} />
+export const H2 = (props) => <Heading as='h2' fontSize={['mobileHeadingSizes.h2', 'mobileHeadingSizes.h2', 'headingSizes.h2']} {...props}/>
+export const H3 = (props) => <Heading as='h3' fontSize={['mobileHeadingSizes.h3', 'mobileHeadingSizes.h3', 'headingSizes.h3']} {...props}/>
+export const H4 = (props) => <Heading as='h4' fontSize={['mobileHeadingSizes.h4', 'mobileHeadingSizes.h4', 'headingSizes.h4']} {...props}/>
+export const H5 = (props) => <Heading as='h5' fontSize={['mobileHeadingSizes.h5', 'mobileHeadingSizes.h5', 'headingSizes.h5']} {...props}/>
+export const H6 = (props) => <Heading as='h6' fontSize={['mobileHeadingSizes.h6', 'mobileHeadingSizes.h6', 'headingSizes.h6']} {...props}/>
 
 Heading.defaultProps = {
   theme,
