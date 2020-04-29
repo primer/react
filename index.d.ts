@@ -74,7 +74,13 @@ declare module '@primer/components' {
       TypographyProps,
       Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
-  export const Heading: React.FunctionComponent<HeadingProps>
+  export const H1: React.FunctionComponent<HeadingProps>
+  export const H2: React.FunctionComponent<HeadingProps>
+  export const H3: React.FunctionComponent<HeadingProps>
+  export const H4: React.FunctionComponent<HeadingProps>
+  export const H5: React.FunctionComponent<HeadingProps>
+  export const H6: React.FunctionComponent<HeadingProps>
+
 
   type DetailsRenderFunction = (args: {open: boolean}) => React.ReactElement
 
@@ -521,9 +527,32 @@ declare module '@primer/components/src/Text' {
   export default Text
 }
 
-declare module '@primer/components/src/Heading' {
-  import {Heading} from '@primer/components'
-  export default Heading
+declare module '@primer/components/src/H1' {
+  import {H1} from '@primer/components'
+  export default H1
+}
+declare module '@primer/components/src/H2' {
+  import {H2} from '@primer/components'
+  export default H2
+}
+declare module '@primer/components/src/H3' {
+  import {H3} from '@primer/components'
+  export default H3
+}
+
+declare module '@primer/components/src/H4' {
+  import {H4} from '@primer/components'
+  export default H4
+}
+
+declare module '@primer/components/src/H5' {
+  import {H5} from '@primer/components'
+  export default H5
+}
+
+declare module '@primer/components/src/H6' {
+  import {H6} from '@primer/components'
+  export default H6
 }
 
 declare module '@primer/components/src/ButtonDanger' {
