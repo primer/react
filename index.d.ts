@@ -74,6 +74,7 @@ declare module '@primer/components' {
       TypographyProps,
       Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
+  export const Heading: React.FunctionComponent<HeadingProps>
   export const H1: React.FunctionComponent<HeadingProps>
   export const H2: React.FunctionComponent<HeadingProps>
   export const H3: React.FunctionComponent<HeadingProps>
@@ -528,8 +529,8 @@ declare module '@primer/components/src/Text' {
 }
 
 declare module '@primer/components/src/Heading' {
-  import {H1, H2, H3, H4, H5, H6} from '@primer/components'
-  export {H1, H2, H3, H4, H5, H6}
+  import {Heading, H1, H2, H3, H4, H5, H6} from '@primer/components'
+  export {Heading, H1, H2, H3, H4, H5, H6}
 }
 
 declare module '@primer/components/src/ButtonDanger' {
@@ -646,22 +647,6 @@ declare module '@primer/components/src/PointerBox' {
 declare module '@primer/components/src/Popover' {
   import {Popover} from '@primer/components'
   export default Popover
-}
-declare module '@primer/components/src/Relative' {
-  import {Relative} from '@primer/components'
-  export default Relative
-}
-declare module '@primer/components/src/Absolute' {
-  import {Absolute} from '@primer/components'
-  export default Absolute
-}
-declare module '@primer/components/src/Sticky' {
-  import {Sticky} from '@primer/components'
-  export default Sticky
-}
-declare module '@primer/components/src/Fixed' {
-  import {Fixed} from '@primer/components'
-  export default Fixed
 }
 
 declare module '@primer/components/src/Position' {
