@@ -7,7 +7,10 @@
     "macros",
     "add-react-displayname",
     "babel-plugin-styled-components",
-    "@babel/plugin-proposal-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    ["transform-define", {
+      "__DEV__": "process.env.NODE_ENV !== 'production'"
+    }]
   ],
   "env": {
     "test": {
