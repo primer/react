@@ -96,14 +96,14 @@
     "styled-components": "4.x || 5.x"
   },
   "actionBundlesize": {
-    "build": "yarn && yarn dist",
+    "build": "yarn && yarn dist:rollup",
     "files": [
       {
-        "path": "dist/index.esm.js",
+        "path": "dist/browser.esm.js",
         "name": "ESM Build"
       },
       {
-        "path": "dist/index.umd.js",
+        "path": "dist/browser.umd.js",
         "name": "UMD Build"
       }
     ]
