@@ -49,7 +49,7 @@ HeadingInternal.propTypes = {
 }
 
 function withHeading(level) {
-  const WithHeading = props => (
+  const WithHeading = ({as, ...props}) => (
     <HeadingInternal
       as={level}
       fontSize={[`mobileHeadingSizes.${level}`, `mobileHeadingSizes.${level}`, `headingSizes.${level}`]}

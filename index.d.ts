@@ -74,13 +74,21 @@ declare module '@primer/components' {
       TypographyProps,
       Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
+export interface H1Props extends Omit<HeadingProps, 'as'> {}
+export interface H2Props extends Omit<HeadingProps, 'as'> {}
+export interface H3Props extends Omit<HeadingProps, 'as'> {}
+export interface H4Props extends Omit<HeadingProps, 'as'> {}
+export interface H5Props extends Omit<HeadingProps, 'as'> {}
+export interface H6Props extends Omit<HeadingProps, 'as'> {}
+
+
   export const Heading: React.FunctionComponent<HeadingProps>
-  export const H1: React.FunctionComponent<HeadingProps>
-  export const H2: React.FunctionComponent<HeadingProps>
-  export const H3: React.FunctionComponent<HeadingProps>
-  export const H4: React.FunctionComponent<HeadingProps>
-  export const H5: React.FunctionComponent<HeadingProps>
-  export const H6: React.FunctionComponent<HeadingProps>
+  export const H1: React.FunctionComponent<H1Props>
+  export const H2: React.FunctionComponent<H2Props>
+  export const H3: React.FunctionComponent<H3Props>
+  export const H4: React.FunctionComponent<H4Props>
+  export const H5: React.FunctionComponent<H5Props>
+  export const H6: React.FunctionComponent<H6Props>
 
 
   type DetailsRenderFunction = (args: {open: boolean}) => React.ReactElement
