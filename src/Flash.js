@@ -34,7 +34,7 @@ const Flash = styled.div`
   padding: ${get('space.3')};
   border-style: solid;
   border-width: ${props => (props.full ? '1px 0px' : '1px')};
-  border-radius: ${props => (props.full ? '0' : '3px')};
+  border-radius: ${props => (props.full ? '0' : get('radii.2'))};
   margin-top: ${props => (props.full ? '-1px' : '0')};
 
   p:last-child {
