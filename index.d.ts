@@ -184,6 +184,7 @@ declare module '@primer/components' {
   export interface FlashProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     full?: boolean
     variant?: 'success' | 'default' | 'warning' | 'danger'
+    scheme?: string
   }
 
   export const Flash: React.FunctionComponent<FlashProps>
