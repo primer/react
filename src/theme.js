@@ -140,6 +140,8 @@ const mobileHeadingSizes =  {
   h6: '12px'
 }
 
+Object.assign(fontSizes, {headingSizes, mobileHeadingSizes})
+
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
 // Components
@@ -286,8 +288,6 @@ const theme = {
   colors,
   fonts,
   fontSizes,
-  headingSizes,
-  mobileHeadingSizes,
   fontWeights,
   lineHeights,
   radii,
