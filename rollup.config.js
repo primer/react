@@ -1,8 +1,17 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
+import {terser} from 'rollup-plugin-terser'
+
+// NOTE: this can be removed once the next version of rollup-plugin-commonjs is released
+const namedExports = {
+  'prop-types': ['object', 'func', 'oneOfType', 'node', 'bool', 'string', 'any', 'arrayOf'],
+  'react-dom': ['createPortal'],
+  'react-is': ['isValidElementType']
+}
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-const plugins = [babel({exclude: 'node_modules/**'}), commonjs()]
+const plugins = [babel({exclude: 'node_modules/**'}), resolve(), commonjs({namedExports}), terser()]
 
 export default [
   {
@@ -10,9 +19,13 @@ export default [
     plugins,
     external: ['styled-components', 'react'],
     output: formats.map(format => ({
-      file: `dist/index.${format}.js`,
+      file: `dist/browser.${format}.js`,
       format,
-      name: 'primer'
+      name: 'primer',
+      globals: {
+        react: 'React',
+        'styled-components': 'styled'
+      }
     }))
   }
 ]
