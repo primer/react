@@ -22,9 +22,9 @@ Heading.propTypes = {
 
 function withHeading(level) {
   const WithHeading = props => <Heading as={level} fontSize={[`mobileHeadingSizes.${level}`, `mobileHeadingSizes.${level}`, `headingSizes.${level}`]} {...props} />
-  WithHeading.propTypes = Position.propTypes
-  WithHeading.defaultProps = Position.defaultProps
-  WithHeading.displayName = `Position.${position}`
+  WithHeading.propTypes = Heading.propTypes
+  WithHeading.defaultProps = Heading.defaultProps
+  WithHeading.displayName = level.toUpperCase()
   return WithHeading
 }
 
