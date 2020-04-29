@@ -17,7 +17,7 @@ const TabPanelBase = ({tabName, className, children, ...rest}) => {
 }
 
 const TabPanel = styled(TabPanelBase)`
-  border-top: ${get('borders.1')} ${get('colors.border.gray')};
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
   ${COMMON}
   ${sx};
 `
