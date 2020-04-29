@@ -1,7 +1,8 @@
 - title: About
+  url: /getting-started
   children:
     - title: Getting Started
-      url: /
+      url: /getting-started
 
     - title: Primer Theme
       url: /primer-theme
