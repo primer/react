@@ -1,12 +1,15 @@
 import React from 'react'
 import UnderlineNav from '../UnderlineNav'
-import {render} from '../utils/testing'
+import {COMMON} from '../constants'
+import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('UnderlineNav.Link', () => {
+  behavesAsComponent(UnderlineNav.Link, [COMMON])
+
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNav.Link />).type).toEqual('a')
   })
@@ -16,15 +19,6 @@ describe('UnderlineNav.Link', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(UnderlineNav.Link).toSetDefaultTheme()
-  })
-
-  it('renders the given "as" prop', () => {
-    const Type = ({theme, ...props}) => <b {...props} />
-    expect(render(<UnderlineNav.Link as={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {

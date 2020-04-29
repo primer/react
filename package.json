@@ -36,9 +36,10 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@primer/octicons-react": "^9.2.0",
+    "@primer/octicons-react": "^9.6.0",
     "@primer/primitives": "3.0.0",
     "@reach/dialog": "0.3.0",
+    "@styled-system/css": "5.1.5",
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",

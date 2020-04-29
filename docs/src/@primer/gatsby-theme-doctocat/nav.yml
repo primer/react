@@ -13,6 +13,9 @@
     - title: Philosophy
       url: /philosophy
 
+    - title: Overriding Styles
+      url: /overriding-styles
+
 - title: Components
   url: /
   children:

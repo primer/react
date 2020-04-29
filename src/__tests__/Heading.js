@@ -1,6 +1,6 @@
 import React from 'react'
 import {Heading} from '..'
-import {render} from '../utils/testing'
+import {render, behavesAsComponent} from '../utils/testing'
 import {TYPOGRAPHY, COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -31,6 +31,8 @@ const theme = {
 }
 
 describe('Heading', () => {
+  behavesAsComponent(Heading, [COMMON, TYPOGRAPHY])
+
   it('renders <h2> by default', () => {
     expect(render(<Heading />).type).toEqual('h2')
   })
@@ -40,14 +42,6 @@ describe('Heading', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(Heading).toSetDefaultTheme()
-  })
-
-  it('respects the as prop', () => {
-    expect(render(<Heading as="h6" />).type).toEqual('h6')
   })
 
   it('respects fontWeight', () => {
@@ -115,10 +109,5 @@ describe('Heading', () => {
   it.skip('respects other values for fontSize', () => {
     expect(render(<Heading fontSize="2em" theme={theme} />)).toHaveStyleRule('font-size', '2em')
     expect(render(<Heading fontSize={100} theme={theme} />)).toHaveStyleRule('font-size', '100px')
-  })
-
-  it('implements system props', () => {
-    expect(Heading).toImplementSystemProps(TYPOGRAPHY)
-    expect(Heading).toImplementSystemProps(COMMON)
   })
 })

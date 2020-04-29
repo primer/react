@@ -1,8 +1,7 @@
 import React from 'react'
-import {layout} from 'styled-system'
-import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonGroup} from '..'
-import {render} from '../utils/testing'
-import {COMMON} from '../constants'
+import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonGroup, ButtonTableList} from '..'
+import {render, behavesAsComponent} from '../utils/testing'
+import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -11,6 +10,8 @@ expect.extend(toHaveNoViolations)
 function noop() {}
 
 describe('Button', () => {
+  behavesAsComponent(Button, [COMMON, LAYOUT])
+
   it('renders a <button>', () => {
     expect(render(<Button />).type).toEqual('button')
   })
@@ -20,19 +21,6 @@ describe('Button', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(Button).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Button as="a" />).type).toEqual('a')
-  })
-
-  it('implements system props', () => {
-    expect(Button).toImplementSystemProps(COMMON)
-    expect(Button).toImplementSystemProps(layout)
   })
 
   it('preserves "onClick" prop', () => {
@@ -60,6 +48,8 @@ describe('Button', () => {
 })
 
 describe('ButtonPrimary', () => {
+  behavesAsComponent(ButtonPrimary, [COMMON, LAYOUT])
+
   it('renders a <button>', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
   })
@@ -71,6 +61,8 @@ describe('ButtonPrimary', () => {
 })
 
 describe('ButtonDanger', () => {
+  behavesAsComponent(ButtonDanger, [COMMON, LAYOUT])
+
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
   })
@@ -82,6 +74,8 @@ describe('ButtonDanger', () => {
 })
 
 describe('ButtonOutline', () => {
+  behavesAsComponent(ButtonOutline, [COMMON, LAYOUT])
+
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
   })
@@ -93,12 +87,9 @@ describe('ButtonOutline', () => {
 })
 
 describe('ButtonGroup', () => {
-  it('respects the "as" prop', () => {
-    expect(render(<ButtonGroup as="a" />).type).toEqual('a')
-  })
+  behavesAsComponent(ButtonGroup, [COMMON, FLEX, LAYOUT])
+})
 
-  it('implements system props', () => {
-    expect(ButtonGroup).toImplementSystemProps(COMMON)
-    expect(ButtonGroup).toImplementSystemProps(layout)
-  })
+describe('ButtonTableList', () => {
+  behavesAsComponent(ButtonTableList, [COMMON, TYPOGRAPHY, LAYOUT])
 })

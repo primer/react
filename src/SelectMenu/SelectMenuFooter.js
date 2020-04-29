@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 
 const footerStyles = css`
   margin-top: -1px;
@@ -18,6 +19,7 @@ const footerStyles = css`
 const SelectMenuFooter = styled.footer`
   ${footerStyles}
   ${COMMON}
+  ${sx};
 `
 
 SelectMenuFooter.defaultProps = {
@@ -25,7 +27,10 @@ SelectMenuFooter.defaultProps = {
 }
 
 SelectMenuFooter.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuFooter.displayName = 'SelectMenu.Footer'
 
 export default SelectMenuFooter

@@ -1,6 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CircleBadge respects "as" prop 1`] = `
+exports[`CircleBadge CircleBadge.Icon renders consistently 1`] = `
+.c0 {
+  max-width: 60% !important;
+  height: auto !important;
+  max-height: 55% !important;
+}
+
+<svg
+  aria-hidden="true"
+  className="c0"
+  height={16}
+  role="img"
+  style={
+    Object {
+      "display": "inline-block",
+      "fill": "currentColor",
+      "userSelect": "none",
+      "verticalAlign": "text-bottom",
+    }
+  }
+  viewBox="0 0 16 16"
+  width={16}
+>
+  <div />
+</svg>
+`;
+
+exports[`CircleBadge renders consistently 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -21,9 +48,14 @@ exports[`CircleBadge respects "as" prop 1`] = `
   height: 96px;
 }
 
-<a
+<div
   className="c0"
-/>
+>
+  <img
+    alt=""
+    src="primer.jpg"
+  />
+</div>
 `;
 
 exports[`CircleBadge respects the inline prop 1`] = `

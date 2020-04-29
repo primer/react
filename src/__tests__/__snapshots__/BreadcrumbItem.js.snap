@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Breadcrumb.Item renders the given "as" prop 1`] = `
+exports[`Breadcrumb.Item renders consistently 1`] = `
 .c0 {
   color: #0366d6;
   display: inline-block;
@@ -19,8 +19,7 @@ exports[`Breadcrumb.Item renders the given "as" prop 1`] = `
   pointer-events: none;
 }
 
-<b
-  activeClassName=""
+<a
   aria-current={null}
   className="c0"
 />

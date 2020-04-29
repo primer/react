@@ -3,12 +3,11 @@ import {Dialog as ReachDialog} from '@reach/dialog'
 import raw from 'raw.macro'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
-import {space, color} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
 import {X} from '@primer/octicons-react'
 import StyledOcticon from './StyledOcticon'
-import {LAYOUT} from './constants'
+import {COMMON, LAYOUT} from './constants'
 import theme from './theme'
+import sx from './sx'
 import Text from './Text'
 import Flex from './Flex'
 
@@ -36,8 +35,8 @@ export const StyledDialog = styled(ReachDialog)`
   }
 
   ${LAYOUT}
-  ${space}
-  ${color}
+  ${COMMON}
+  ${sx};
 `
 
 const UnstyledButton = styled(Flex).attrs({
@@ -59,6 +58,8 @@ const DialogHeaderBase = styled(Flex)`
   @media screen and (max-width: 750px) {
     border-radius: 0px;
   }
+
+  ${sx};
 `
 
 function DialogHeader({theme, children, ...rest}) {
@@ -77,7 +78,7 @@ function DialogHeader({theme, children, ...rest}) {
   )
 }
 
-const Dialog = ({children, ...props}) => {
+function Dialog({children, ...props}) {
   return (
     <>
       <StyledDialog {...props}>
@@ -94,12 +95,12 @@ const Dialog = ({children, ...props}) => {
 Dialog.defaultProps = {theme}
 
 Dialog.propTypes = {
+  ...COMMON.propTypes,
   ...LAYOUT.propTypes,
-  ...systemPropTypes.space,
-  ...systemPropTypes.color,
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
+  ...sx.propTypes,
   theme: PropTypes.object
 }
 
@@ -111,6 +112,8 @@ DialogHeader.defaultProps = {
 DialogHeader.propTypes = {
   ...Flex.propTypes
 }
+
+DialogHeader.displayName = 'Dialog.Header'
 
 Dialog.Header = DialogHeader
 export default Dialog

@@ -6,6 +6,7 @@ import Details from './Details'
 import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
+import sx from './sx'
 
 const StyledDetails = styled(Details)`
   position: relative;
@@ -39,7 +40,8 @@ Dropdown.Caret = styled.div`
   height: 0;
   vertical-align: middle;
   width: 0;
-  ${COMMON}
+  ${COMMON};
+  ${sx};
 `
 
 Dropdown.Menu = styled.ul`
@@ -85,6 +87,7 @@ Dropdown.Menu = styled.ul`
   }
   ${props => (props.direction ? getDirectionStyles(props.theme, props.direction) : '')};
   ${COMMON};
+  ${sx};
 `
 
 Dropdown.Item = styled.li`
@@ -120,31 +123,42 @@ Dropdown.Item = styled.li`
     outline: none;
   }
   ${COMMON};
+  ${sx};
 `
 
 Dropdown.Menu.propTypes = {
   direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 Dropdown.Menu.defaultProps = {
   direction: 'sw',
   theme
 }
+Dropdown.Menu.displayName = 'Dropdown.Menu'
 
 Dropdown.Item.defaultProps = {theme}
 Dropdown.Item.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+Dropdown.Item.displayName = 'Dropdown.Item'
 
-Dropdown.Button.defaultProps = {theme}
+Dropdown.Button.defaultProps = {theme, ...Button.defaultProps}
+Dropdown.Button.propTypes = {
+  ...Button.propTypes
+}
+Dropdown.Button.displayName = 'Dropdown.Button'
 
 Dropdown.Caret.defaultProps = {theme}
 Dropdown.Caret.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+Dropdown.Caret.displayName = 'Dropdown.Caret'
 
-Dropdown.defaultProps = {theme}
+Dropdown.defaultProps = {theme, ...Details.defaultProps}
 Dropdown.propTypes = {
   ...Details.propTypes,
   ...COMMON.propTypes

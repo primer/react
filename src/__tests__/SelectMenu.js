@@ -1,7 +1,7 @@
 import React from 'react'
 import SelectMenu from '../SelectMenu'
 import Button from '../Button'
-import {mount, renderRoot} from '../utils/testing'
+import {mount, renderRoot, COMPONENT_DISPLAY_NAME_REGEX} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -55,6 +55,18 @@ const MenuWithTabs = ({onClick}) => {
 }
 
 describe('SelectMenu', () => {
+  for (const subComp of ['List', 'Divider', 'Filter', 'Item', 'List', 'Modal', 'Tabs', 'Tab', 'TabPanel', 'Header']) {
+    const Comp = SelectMenu[subComp]
+
+    it('implements the sx prop', () => {
+      expect(Comp).toImplementSxProp()
+    })
+
+    it('sets a valid displayName', () => {
+      expect(Comp.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+    })
+  }
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BasicSelectMenu />)
     const results = await axe(container)

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Timeline renders 1`] = `
+exports[`Timeline renders consistently 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -50,7 +50,7 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
 />
 `;
 
-exports[`Timeline.Badge renders 1`] = `
+exports[`Timeline.Badge renders consistently 1`] = `
 .c0 {
   z-index: 1;
   position: relative;
@@ -101,7 +101,7 @@ exports[`Timeline.Badge renders 1`] = `
 </div>
 `;
 
-exports[`Timeline.Item renders 1`] = `
+exports[`Timeline.Item renders consistently 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;

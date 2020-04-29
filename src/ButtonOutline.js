@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import ButtonBase from './ButtonBase'
 import {get} from './constants'
+import theme from './theme'
+import sx from './sx'
 
 const ButtonOutline = styled(ButtonBase)`
   color: ${get('buttons.outline.color.default')};
@@ -32,6 +34,17 @@ const ButtonOutline = styled(ButtonBase)`
     border-color: ${get('buttons.outline.border.default')};
     background-color: ${get('buttons.outline.bg.disabled')};
   }
+
+  ${sx};
 `
+
+ButtonOutline.defaultProps = {
+  theme
+}
+
+ButtonOutline.propTypes = {
+  ...ButtonBase.propTypes,
+  ...sx.propTypes
+}
 
 export default ButtonOutline

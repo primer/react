@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Link from '../Link'
-import {render} from '../utils/testing'
+import {render, behavesAsComponent} from '../utils/testing'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,14 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Link', () => {
-  it('implements system props', () => {
-    expect(Link).toImplementSystemProps(COMMON)
-    expect(Link).toImplementSystemProps(TYPOGRAPHY)
-  })
-
-  it('has default theme', () => {
-    expect(Link).toSetDefaultTheme()
-  })
+  behavesAsComponent(Link, [COMMON, TYPOGRAPHY])
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Link href="www.github.com">GitHub</Link>)
@@ -27,22 +19,6 @@ describe('Link', () => {
 
   it('passes href down to link element', () => {
     expect(render(<Link href="https://github.com" />)).toMatchSnapshot()
-  })
-
-  it('renders without any props', () => {
-    expect(render(<Link />)).toMatchSnapshot()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Link as="button" />).type).toEqual('button')
-  })
-
-  it('respects the "as" prop with non-string component types', () => {
-    function ExampleLink({children}) {
-      return <a className="example-link">{children}</a>
-    }
-
-    expect(render(<Link as={ExampleLink}>Example</Link>)).toMatchSnapshot()
   })
 
   it('respects hoverColor prop', () => {

@@ -1,20 +1,17 @@
 import React from 'react'
 import Truncate from '../Truncate'
 import {COMMON, TYPOGRAPHY} from '../constants'
-import {render} from '../utils/testing'
+import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Truncate', () => {
+  behavesAsComponent(Truncate, [COMMON, TYPOGRAPHY], () => <Truncate title="a-long-branch-name" />)
+
   it('renders a <div> by default', () => {
     expect(render(<Truncate title="a-long-branch-name" />).type).toEqual('div')
-  })
-
-  it('implements system props', () => {
-    expect(Truncate).toImplementSystemProps(COMMON)
-    expect(Truncate).toImplementSystemProps(TYPOGRAPHY)
   })
 
   it('should have no axe violations', async () => {
@@ -22,14 +19,6 @@ describe('Truncate', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(Truncate).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Truncate as="strong" title="a-long-branch-name" />).type).toEqual('strong')
   })
 
   it('respects the maxWidth prop', () => {

@@ -5,11 +5,12 @@ import styled from 'styled-components'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
 import Flex from './Flex'
+import sx from './sx'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
 
-function SubNavBase({actions, className, children, label, ...rest}) {
+function SubNavBase({actions, className, children, label, theme, ...rest}) {
   const classes = classnames(className, 'SubNav')
   return (
     <nav className={classes} aria-label={label} {...rest}>
@@ -41,8 +42,8 @@ const SubNav = styled(SubNavBase)`
   }
 
   ${COMMON};
-
   ${FLEX};
+  ${sx};
 `
 
 SubNav.Links = Flex
@@ -96,6 +97,9 @@ SubNav.Link = styled.a.attrs(props => ({
       color: ${get('colors.gray.5')};
     }
   }
+
+  ${COMMON};
+  ${sx};
 `
 
 SubNav.defaultProps = {
@@ -109,7 +113,8 @@ SubNav.propTypes = {
   full: PropTypes.bool,
   label: PropTypes.string,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 SubNav.Link.defaultProps = {
@@ -117,13 +122,17 @@ SubNav.Link.defaultProps = {
 }
 
 SubNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   href: PropTypes.string,
   selected: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+SubNav.Link.displayName = 'SubNav.Link'
+
 SubNav.Links.propTypes = {
-  ...COMMON.propTypes
+  ...Flex.propTypes
 }
+SubNav.Links.displayName = 'SubNav.Links'
 
 export default SubNav

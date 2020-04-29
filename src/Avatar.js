@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
+import sx from './sx'
 import {get} from './constants'
 import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
@@ -22,6 +23,7 @@ const Avatar = styled.img.attrs(props => ({
   vertical-align: middle;
   ${borderRadius};
   ${space};
+  ${sx};
 `
 
 Avatar.defaultProps = {
@@ -35,6 +37,7 @@ Avatar.propTypes = {
   size: PropTypes.number,
   src: PropTypes.string,
   ...systemPropTypes.space,
+  ...sx.propTypes,
   theme: PropTypes.object
 }
 
