@@ -14,9 +14,7 @@ npm install @primer/components react styled-components
 yarn add @primer/components react styled-components
 ```
 
-You can now start importing Primer Components! There are a few ways to import Primer Components. You can either:
-
-Import them individually from the main bundle:
+You can now start importing Primer Components!
 
 ```javascript
 import {Box, Flex} from '@primer/components'
