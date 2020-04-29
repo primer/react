@@ -2,8 +2,8 @@
   "name": "@primer/components",
   "version": "19.0.0",
   "description": "Primer react components",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "typings": "index.d.ts",
   "scripts": {
     "start": "cd docs && yarn run develop",
