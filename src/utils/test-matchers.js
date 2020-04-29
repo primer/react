@@ -100,5 +100,47 @@ expect.extend({
       pass,
       message: () => 'default theme is not set'
     }
+  },
+
+  toSetExports(mod, expectedExports) {
+    if (!Object.keys(expectedExports).includes('default')) {
+      return {
+        pass: false,
+        message: () => "You must specify the module's default export"
+      }
+    }
+
+    const seen = new Set()
+    for (const exp of Object.keys(expectedExports)) {
+      seen.add(exp)
+      if (mod[exp] !== expectedExports[exp]) {
+        if (!mod[exp] && !expectedExports[exp]) {
+          continue
+        }
+
+        return {
+          pass: false,
+          message: () => `Module exported a different value from key '${exp}' than expected`
+        }
+      }
+    }
+
+    for (const exp of Object.keys(mod)) {
+      if (seen.has(exp)) {
+        continue
+      }
+
+      if (mod[exp] !== expectedExports[exp]) {
+        return {
+          pass: false,
+          message: () => `Module exported an unexpected value from key '${exp}'`
+        }
+      }
+    }
+
+    return {
+      pass: true,
+      message: () => ''
+    }
   }
 })

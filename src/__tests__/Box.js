@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import theme from '../theme'
-import {render, behavesAsComponent} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {LAYOUT, COMMON, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -10,6 +10,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
   behavesAsComponent(Box, [COMMON, LAYOUT, FLEX])
+
+  checkExports('Box', {
+    default: Box
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Box />)

@@ -1,8 +1,8 @@
 import React from 'react'
 import {LAYOUT, POSITION} from '../constants'
 import BorderBox from '../BorderBox'
-import {Absolute, Fixed, Relative, Sticky} from '../Position'
-import {render, behavesAsComponent} from '../utils/testing'
+import {Position, Absolute, Fixed, Relative, Sticky} from '../Position'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -11,6 +11,15 @@ expect.extend(toHaveNoViolations)
 describe('position components', () => {
   describe('Absolute', () => {
     behavesAsComponent(Absolute, [LAYOUT, POSITION])
+
+    checkExports('Position', {
+      default: null,
+      Position,
+      Absolute,
+      Fixed,
+      Relative,
+      Sticky
+    })
 
     it('should have no axe violations', async () => {
       const {container} = HTMLRender(<Absolute />)
