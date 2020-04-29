@@ -527,32 +527,9 @@ declare module '@primer/components/src/Text' {
   export default Text
 }
 
-declare module '@primer/components/src/H1' {
-  import {H1} from '@primer/components'
-  export default H1
-}
-declare module '@primer/components/src/H2' {
-  import {H2} from '@primer/components'
-  export default H2
-}
-declare module '@primer/components/src/H3' {
-  import {H3} from '@primer/components'
-  export default H3
-}
-
-declare module '@primer/components/src/H4' {
-  import {H4} from '@primer/components'
-  export default H4
-}
-
-declare module '@primer/components/src/H5' {
-  import {H5} from '@primer/components'
-  export default H5
-}
-
-declare module '@primer/components/src/H6' {
-  import {H6} from '@primer/components'
-  export default H6
+declare module '@primer/components/src/Heading' {
+  import {H1, H2, H3, H4, H5, H6} from '@primer/components'
+  export {H1, H2, H3, H4, H5, H6}
 }
 
 declare module '@primer/components/src/ButtonDanger' {
@@ -685,6 +662,11 @@ declare module '@primer/components/src/Sticky' {
 declare module '@primer/components/src/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
+}
+
+declare module '@primer/components/src/Position' {
+  import {Relative, Absolute, Sticky, Fixed} from '@primer/components'
+  export {Relative, Absolute, Sticky, Fixed}
 }
 
 declare module '@primer/components/src/SelectMenu' {
