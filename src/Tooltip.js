@@ -6,7 +6,7 @@ import {COMMON, get} from './constants'
 import theme from './theme'
 import sx from './sx'
 
-function TooltipBase({direction, children, className, text, noDelay, align, wrap, ...rest}) {
+function TooltipBase({direction, children, className, text, noDelay, align, wrap, theme, ...rest}) {
   const classes = classnames(
     className,
     `tooltipped-${direction}`,

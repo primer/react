@@ -9,7 +9,7 @@ import sx from './sx'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-function TabNavBase({actions, className, align, children, full, ...rest}) {
+function TabNavBase({actions, className, align, children, full, theme, ...rest}) {
   const classes = classnames(className, 'TabNav')
   return (
     <nav className={classes} {...rest}>

@@ -23,6 +23,7 @@ const StyledHeader = styled.header`
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
   padding: ${get('space.3')};
+  border-bottom: ${get('borders.1')} ${get('colors.border.gray')};
   ${COMMON}
   ${TYPOGRAPHY}
 

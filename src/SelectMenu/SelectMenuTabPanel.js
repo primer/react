@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 import theme from '../theme'
-import {COMMON} from '../constants'
+import {COMMON, get} from '../constants'
 import sx from '../sx'
 
 const TabPanelBase = ({tabName, className, children, ...rest}) => {
@@ -17,6 +17,7 @@ const TabPanelBase = ({tabName, className, children, ...rest}) => {
 }
 
 const TabPanel = styled(TabPanelBase)`
+  border-top: ${get('borders.1')} ${get('colors.border.gray')};
   ${COMMON}
   ${sx};
 `

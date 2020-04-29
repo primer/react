@@ -1989,6 +1989,11 @@
   dependencies:
     prop-types "^15.6.1"
 
+"@primer/primitives@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-3.0.0.tgz#ccfb324b478b2373733535ec49f8de29e238c55d"
+  integrity sha512-ISXB43vcA+kg5pmGtGo3lPlHmY5Mg9nLhliePJu3Y5aP7g28TO+9cC99gL240pZHYsO0aVyU26WZwUXn6UIqJQ==
+
 "@reach/component-component@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@reach/component-component/-/component-component-0.3.0.tgz#ccf593e26132cbec0ad92774b80356dcf544d5c5"
@@ -8677,16 +8682,6 @@ pretty-format@^25.0.0:
     ansi-regex "^4.0.0"
     ansi-styles "^4.0.0"
     react-is "^16.8.4"
-
-primer-colors@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/primer-colors/-/primer-colors-1.0.1.tgz#9bc2dbfefeba3ec987eb7d71c6a3d14c67ae9c35"
-  integrity sha512-bxo3OPoIO1F/C07RpKbLjPzuSsTkOMzo9Yl9OJFHGD7/UxA+JvNdZK0GbJzWtz5Y8H6KabbHadxwVWRp1xl08A==
-
-primer-typography@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/primer-typography/-/primer-typography-1.0.1.tgz#559c03e0d2470fa2d48a4166a63091f4b1162759"
-  integrity sha512-9f1MNOMYOWemosmJIG8FToqZoL7YKQW3KHNsMS3DddTUzJefnVzeqmiiTBPc2ok0yE7fE2PgobG9iRY+itgdVg==
 
 private@^0.1.6, private@~0.1.5:
   version "0.1.8"

@@ -46,8 +46,8 @@ exports[`Dropdown.Button renders consistently 1`] = `
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
-  border: 1px solid #e1e4e8;
-  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+  border: 1px solid rgba(27,31,35,0.12);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -61,6 +61,10 @@ exports[`Dropdown.Button renders consistently 1`] = `
 
 .c0:disabled {
   cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
 .c0:hover {

@@ -9,7 +9,7 @@ import sx from './sx'
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
-function UnderlineNavBase({actions, className, align, children, full, label, ...rest}) {
+function UnderlineNavBase({actions, className, align, children, full, label, theme, ...rest}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
     <nav className={classes} aria-label={label} {...rest}>
@@ -69,7 +69,7 @@ UnderlineNav.Link = styled.a.attrs(props => ({
   &:focus {
     color: ${get('colors.gray.9')};
     text-decoration: none;
-    border-bottom-color: ${get('colors.accent')};
+    border-bottom-color: ${get('colors.gray.2')};
     transition: 0.2s ease;
 
     .UnderlineNav-octicon {

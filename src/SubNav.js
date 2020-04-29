@@ -10,7 +10,7 @@ import sx from './sx'
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
 
-function SubNavBase({actions, className, children, label, ...rest}) {
+function SubNavBase({actions, className, children, label, theme, ...rest}) {
   const classes = classnames(className, 'SubNav')
   return (
     <nav className={classes} aria-label={label} {...rest}>

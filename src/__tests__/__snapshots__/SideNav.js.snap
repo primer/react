@@ -21,6 +21,16 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   border-bottom: none;
 }
 
+.c0:first-child {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.c0:last-child {
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
 .c1.variant-normal > .c0 {
   color: #586069;
   padding: 16px;
@@ -52,20 +62,10 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   outline: none;
 }
 
-.c1.variant-normal > .c0:hover::before,
-.c1.variant-normal > .c0:focus::before {
-  background-color: #959da5;
-}
-
-.c1.variant-normal > .c0:active {
-  background-color: #fff;
-}
-
 .c1.variant-normal > .c0[aria-current='page'],
 .c1.variant-normal > .c0[aria-selected='true'] {
   font-weight: 500;
   color: #24292e;
-  background-color: #fff;
 }
 
 .c1.variant-normal > .c0[aria-current='page']::before,
@@ -107,7 +107,7 @@ exports[`SideNav renders consistently 1`] = `
 }
 
 .c1 {
-  background-color: #fafbfc;
+  background-color: #fff;
 }
 
 <nav

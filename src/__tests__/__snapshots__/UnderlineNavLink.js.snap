@@ -18,7 +18,7 @@ exports[`UnderlineNav.Link renders consistently 1`] = `
   color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-bottom-color: #f66a0a;
+  border-bottom-color: #e1e4e8;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
@@ -60,7 +60,7 @@ exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
   color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-bottom-color: #f66a0a;
+  border-bottom-color: #e1e4e8;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }

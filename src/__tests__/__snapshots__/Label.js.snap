@@ -3,7 +3,7 @@
 exports[`Label renders consistently 1`] = `
 .c0 {
   display: inline-block;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   border-radius: 100px;
   font-size: 12px;
@@ -25,7 +25,7 @@ exports[`Label renders consistently 1`] = `
 exports[`Label respects the "outline" prop 1`] = `
 .c0 {
   display: inline-block;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   border-radius: 100px;
   font-size: 12px;
@@ -54,7 +54,7 @@ exports[`Label respects the "outline" prop 1`] = `
 exports[`Label respects the "variant" prop 1`] = `
 .c0 {
   display: inline-block;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   border-radius: 100px;
   font-size: 14px;
