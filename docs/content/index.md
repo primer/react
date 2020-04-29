@@ -145,7 +145,7 @@ In your `tsconfig.json`, set the `types` array under the `compilerOptions` like 
 
 Of course, customize the array based on the `@types/` packages you have installed for your project.
 
-## ## Local Development
+## Local Development
 
 To run `@primer/components` locally when adding or updating components:
 
