@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 import theme from '../theme'
-import {COMMON} from '../constants'
+import {COMMON, get} from '../constants'
+import sx from '../sx'
 
 const TabPanelBase = ({tabName, className, children, ...rest}) => {
   const menuContext = useContext(MenuContext)
@@ -16,7 +17,9 @@ const TabPanelBase = ({tabName, className, children, ...rest}) => {
 }
 
 const TabPanel = styled(TabPanelBase)`
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
   ${COMMON}
+  ${sx};
 `
 
 TabPanel.defaultProps = {
@@ -25,7 +28,10 @@ TabPanel.defaultProps = {
 
 TabPanel.propTypes = {
   tabName: PropTypes.string,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+TabPanel.displayName = 'SelectMenu.TabPanel'
 
 export default TabPanel

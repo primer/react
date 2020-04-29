@@ -1,36 +1,21 @@
 import React from 'react'
 import Box from '../Box'
 import theme from '../theme'
-import {render} from '../utils/testing'
-import {LAYOUT, COMMON} from '../constants'
+import {render, behavesAsComponent} from '../utils/testing'
+import {LAYOUT, COMMON, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
+  behavesAsComponent(Box, [COMMON, LAYOUT, FLEX])
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Box />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('implements system props', () => {
-    expect(Box).toImplementSystemProps(LAYOUT)
-    expect(Box).toImplementSystemProps(COMMON)
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Box as="span" />).type).toEqual('span')
-  })
-
-  it('renders without any props', () => {
-    expect(render(<Box />)).toMatchSnapshot()
-  })
-
-  it('has default theme', () => {
-    expect(Box).toSetDefaultTheme()
   })
 
   it('renders margin', () => {

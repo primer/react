@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pagination matches snapshot 1`] = `
+exports[`Pagination renders consistently 1`] = `
 .c1 {
+  display: inline-block;
   display: inline-block;
 }
 

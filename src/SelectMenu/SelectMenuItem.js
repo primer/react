@@ -6,6 +6,7 @@ import {MenuContext} from './SelectMenuContext'
 import {COMMON, get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
+import sx from '../sx'
 
 export const listItemStyles = css`
   display: flex;
@@ -16,7 +17,7 @@ export const listItemStyles = css`
   cursor: pointer;
   background-color: ${get('colors.white')};
   border: 0;
-  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.grayLight')};
   color: ${get('colors.text.gray')};
   text-decoration: none;
 
@@ -93,6 +94,7 @@ const StyledItem = styled.a.attrs(() => ({
 }))`
   ${listItemStyles}
   ${COMMON}
+  ${sx};
 `
 
 // 'as' is spread out because we don't want users to be able to change the tag. using something
@@ -124,7 +126,10 @@ SelectMenuItem.defaultProps = {
 
 SelectMenuItem.propTypes = {
   selected: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuItem.displayName = 'SelectMenu.Item'
 
 export default SelectMenuItem

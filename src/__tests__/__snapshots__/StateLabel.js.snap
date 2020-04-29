@@ -27,6 +27,31 @@ exports[`StateLabel renders children 1`] = `
 </span>
 `;
 
+exports[`StateLabel renders consistently 1`] = `
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 8px 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  background-color: #6a737d;
+  border-radius: 100px;
+}
+
+<span
+  className="c0"
+/>
+`;
+
 exports[`StateLabel respects the small flag 1`] = `
 .c0 {
   display: -webkit-inline-box;

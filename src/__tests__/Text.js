@@ -1,7 +1,7 @@
 import React from 'react'
 import Text from '../Text'
 import theme from '../theme'
-import {px, render, renderStyles} from '../utils/testing'
+import {px, render, renderStyles, behavesAsComponent} from '../utils/testing'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,13 +9,10 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Text', () => {
+  behavesAsComponent(Text, [COMMON, TYPOGRAPHY])
+
   it('renders a <span> by default', () => {
     expect(render(<Text />).type).toEqual('span')
-  })
-
-  it('implements system props', () => {
-    expect(Text).toImplementSystemProps(COMMON)
-    expect(Text).toImplementSystemProps(TYPOGRAPHY)
   })
 
   it('should have no axe violations', async () => {
@@ -23,14 +20,6 @@ describe('Text', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(Text).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Text as="b" />).type).toEqual('b')
   })
 
   it('renders fontSize', () => {

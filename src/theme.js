@@ -1,6 +1,8 @@
-import {black, white, gray, blue, green, orange, purple, red, yellow} from 'primer-colors'
-import {lineHeights} from 'primer-typography'
+import {colors as colorPrimitives, typography} from '@primer/primitives'
+import {lighten, rgba, desaturate} from 'polished'
 
+const {lineHeights} = typography
+const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
 // General
 const colors = {
   bodytext: gray[9],
@@ -13,6 +15,7 @@ const colors = {
   purple,
   red,
   yellow,
+  pink,
   blackfade15: 'rgba(27, 31, 35, 0.15)',
   blackfade20: 'rgba(27, 31, 35, 0.20)',
   blackfade30: 'rgba(27,31,35,0.3)',
@@ -28,10 +31,23 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
+
   border: {
-    grayLight: '#eaecef',
+    blackFade: rgba(black, 0.15),
+    blue: blue[5],
+    blueLight: blue[2],
+    grayLight: lighten(0.03, gray[2]),
     gray: gray[2],
-    grayDark: '#d1d5da'
+    grayDark: gray[3],
+    grayDarker: gray[7],
+    green: green[4],
+    greenLight: desaturate(0.4, green[3]),
+    purple: purple[5],
+    red: red[5],
+    redLight: desaturate(0.6, red[3]),
+    white,
+    whiteFade: rgba(white, 0.15),
+    yellow: desaturate(0.6, yellow[3])
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
@@ -72,6 +88,26 @@ const colors = {
       bg: yellow[1],
       border: 'rgba(176, 136, 0, 0.2)'
     }
+  },
+  labels: {
+    gray: gray[2],
+    grayText: gray[9],
+    grayDark: gray[5],
+    grayDarkText: gray[9],
+    blue: blue[5],
+    blueText: blue[5],
+    orange: orange[5],
+    orangeText: orange[6],
+    green: green[5],
+    greenText: green[6],
+    red: red[6],
+    redText: red[6],
+    yellow: yellow[6],
+    yellowText: yellow[9],
+    pink: pink[4],
+    pinkText: pink[6],
+    purple: purple[4],
+    purpleText: [5]
   }
 }
 
@@ -86,8 +122,7 @@ const fonts = {
     'Arial',
     'sans-serif',
     'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol'
+    'Segoe UI Emoji'
   ]),
   mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
 }
@@ -99,7 +134,7 @@ const fontWeights = {
   bold: 600
 }
 
-const borders = [0, '1px solid']
+const borderWidths = [0, '1px']
 
 const radii = ['0', '3px', '6px', '100px']
 
@@ -135,7 +170,7 @@ const buttons = {
       disabled: gray[4]
     },
     border: {
-      default: colors.border.gray,
+      default: 'rgba(27, 31, 35, 0.12)',
       active: colors.border.grayDark,
       disabled: colors.border.grayLight
     },
@@ -146,7 +181,7 @@ const buttons = {
       disabled: colors.bg.grayLight
     },
     shadow: {
-      default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
+      default: '0px 1px 0px rgba(27, 31, 35, 0.04), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
       hover: '0px 1px 0px rgba(209, 213, 218, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.1)',
       active: 'inset 0px 2px 0px rgba(149, 157, 165, 0.1)',
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
@@ -159,20 +194,21 @@ const buttons = {
     },
     border: {
       default: green[6],
-      hover: green[7],
-      active: green[7],
+      hover: 'rgba(27, 31, 35, 0.15)',
+      active: 'rgba(27, 31, 35, 0.15)',
       disabled: 'rgba(34, 134, 58, 0.1)'
     },
     bg: {
-      default: '#159739', //custom green
-      focus: '#138934', //custom green
-      hover: '#138934', //custom green
+      default: '#2EA44F', //custom green
+      focus: '#2C974B', //custom green
+      hover: '#2C974B', //custom green
       active: '#128031', // 2% darker than hover bg
       disabled: '#94D3A2' // custom gray
     },
     shadow: {
       default: ' 0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)',
+      active: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      hover: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       focus: '0 0 0 3px #94D3A2'
     }
   },
@@ -185,8 +221,8 @@ const buttons = {
     },
     border: {
       default: colors.border.gray,
-      hover: red[7],
-      active: red[8]
+      hover: 'rgba(27, 31, 35, 0.15)',
+      active: 'rgba(27, 31, 35, 0.15)'
     },
     bg: {
       default: gray[0],
@@ -196,22 +232,22 @@ const buttons = {
     },
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 2px 0px rgba(179, 29, 40, 0.4)',
+      active: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      hover: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       focus: '0 0 0 3px rgba(203, 36, 49, 0.4)'
     }
   },
   outline: {
     color: {
-      default: blue[6],
+      default: blue[5],
       hover: white,
       active: white,
       disabled: gray[4]
     },
     border: {
       default: gray[2], //border-gray
-      hover: blue[6],
-      active: 'rgba(4, 66, 137, .5)'
+      hover: 'rgba(27, 31, 35, 0.15)',
+      active: 'rgba(27, 31, 35, 0.15)'
     },
     bg: {
       default: gray[0],
@@ -221,8 +257,8 @@ const buttons = {
     },
     shadow: {
       default: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.25)',
-      hover: '0px 1px 0px rgba(149, 157, 165, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
-      active: 'inset 0px 1px 0px rgba(4, 66, 137, 0.2)',
+      active: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
+      hover: '0px 1px 0px rgba(27, 31, 35, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
     }
   }
@@ -264,7 +300,7 @@ const pagination = {
 
 const theme = {
   // General
-  borders,
+  borderWidths,
   breakpoints,
   colors,
   fonts,

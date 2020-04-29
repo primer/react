@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
+import sx from '../sx'
 import {get, COMMON} from '../constants'
 import theme from '../theme'
 import Box from '../Box'
@@ -20,7 +21,7 @@ const Page = styled.a`
   cursor: pointer;
   user-select: none;
   background: ${get('pagination.colors.normal.bg')};
-  border: ${get('borders.1')} ${get('pagination.colors.normal.border')};
+  border: ${get('borderWidths.1')} solid ${get('pagination.colors.normal.border')};
   text-decoration: none;
 
   &:first-child {
@@ -102,6 +103,7 @@ const PaginationContainer = styled.nav`
   margin-top: 20px;
   margin-bottom: 15px;
   text-align: center;
+  ${sx};
 `
 
 function Pagination({
@@ -148,7 +150,8 @@ Pagination.propTypes = {
   pageCount: PropTypes.number.isRequired,
   showPages: PropTypes.bool,
   surroundingPageCount: PropTypes.number,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 Pagination.defaultProps = {

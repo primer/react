@@ -1,6 +1,7 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
+  import {SystemStyleObject} from '@styled-system/css'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -8,6 +9,7 @@ declare module '@primer/components' {
     as?: React.ReactType
     className?: string
     css?: string
+    sx?: SystemStyleObject
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
@@ -22,11 +24,8 @@ declare module '@primer/components' {
   }
 
   interface BorderProps
-    extends BaseProps,
-      StyledSystem.BordersProps,
-      StyledSystem.BorderColorProps,
-      StyledSystem.BoxShadowProps,
-      StyledSystem.BorderRadiusProps {}
+    extends StyledSystem.BordersProps,
+      StyledSystem.BoxShadowProps {}
 
   interface PositionProps
     extends BaseProps,
@@ -37,28 +36,18 @@ declare module '@primer/components' {
       StyledSystem.BottomProps,
       StyledSystem.LeftProps {}
 
-  interface FlexItemProps
-    extends BaseProps,
-      CommonProps,
-      LayoutProps,
-      StyledSystem.FlexProps,
-      StyledSystem.JustifySelfProps,
-      StyledSystem.AlignSelfProps,
-      StyledSystem.OrderProps {}
-
-  interface FlexProps extends BaseProps, CommonProps, LayoutProps, StyledSystem.FlexboxProps, BoxProps {}
-
-  export const Flex: React.FunctionComponent<FlexProps> & {
-    Item: React.FunctionComponent<FlexItemProps>
-  }
-
   export interface BoxProps
     extends BaseProps,
       CommonProps,
       LayoutProps,
+      StyledSystem.FlexboxProps,
       Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const Box: React.FunctionComponent<BoxProps>
+
+  interface FlexProps extends BoxProps {}
+
+  export const Flex: React.FunctionComponent<FlexProps>
 
   export interface TextProps
     extends BaseProps,
@@ -93,6 +82,7 @@ declare module '@primer/components' {
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
+      LayoutProps,
       StyledSystem.FontSizeProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     variant?: 'small' | 'medium' | 'large'
@@ -122,12 +112,7 @@ declare module '@primer/components' {
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
 
-  export interface BorderBoxProps extends CommonProps, LayoutProps, BorderProps, BoxProps {
-    border?: string
-    borderColor?: string
-    borderRadius?: string | number
-    boxShadow?: string
-  }
+  export interface BorderBoxProps extends BorderProps, BoxProps {}
 
   export const BorderBox: React.FunctionComponent<BorderBoxProps>
 
@@ -349,7 +334,7 @@ declare module '@primer/components' {
     Header: React.FunctionComponent<SelectMenuHeaderProps>
   }
 
-  export interface SideNavProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SideNavProps extends CommonProps, BorderBoxProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
     variant?: 'normal' | 'lightweight'
   }
