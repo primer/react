@@ -58,6 +58,7 @@ function withHeading(level) {
   )
   WithHeading.propTypes = HeadingInternal.propTypes
   WithHeading.defaultProps = HeadingInternal.defaultProps
+  WithHeading.displayName = level.toUpperCase()
   return WithHeading
 }
 
