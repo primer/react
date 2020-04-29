@@ -131,7 +131,7 @@ const headingSizes = {
   h5: '14px',
   h6: '12px'
 }
-const mobileHeadingSizes =  {
+const mobileHeadingSizes = {
   h1: '26px',
   h2: '22px',
   h3: '18px',

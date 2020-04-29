@@ -12,7 +12,7 @@ export const Heading = styled.h2`
 `
 
 Heading.defaultProps = {
-  theme,
+  theme
 }
 
 Heading.propTypes = {
@@ -22,7 +22,13 @@ Heading.propTypes = {
 }
 
 function withHeading(level) {
-  const WithHeading = props => <Heading as={level} fontSize={[`mobileHeadingSizes.${level}`, `mobileHeadingSizes.${level}`, `headingSizes.${level}`]} {...props} />
+  const WithHeading = props => (
+    <Heading
+      as={level}
+      fontSize={[`mobileHeadingSizes.${level}`, `mobileHeadingSizes.${level}`, `headingSizes.${level}`]}
+      {...props}
+    />
+  )
   WithHeading.propTypes = Heading.propTypes
   WithHeading.defaultProps = Heading.defaultProps
   return WithHeading
@@ -34,4 +40,3 @@ export const H3 = withHeading('h3')
 export const H4 = withHeading('h4')
 export const H5 = withHeading('h5')
 export const H6 = withHeading('h6')
-
