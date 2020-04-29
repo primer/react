@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BranchName matches snapshot 1`] = `
+exports[`LabelGroup renders consistently 1`] = `
 .c0 .LabelItem {
   margin-right: 4px;
 }

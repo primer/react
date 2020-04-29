@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Box renders consistently 1`] = `
+<div
+  className=""
+/>
+`;
+
 exports[`Box renders margin 1`] = `
 .c0 {
   margin: 4px;
@@ -129,12 +135,6 @@ exports[`Box renders padding 3`] = `
 
 <div
   className="c0"
-/>
-`;
-
-exports[`Box renders without any props 1`] = `
-<div
-  className=""
 />
 `;
 

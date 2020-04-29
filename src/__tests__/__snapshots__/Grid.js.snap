@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Grid renders consistently 1`] = `
+.c0 {
+  display: grid;
+  display: grid;
+}
+
+<div
+  className="c0"
+  display="grid"
+/>
+`;
+
 exports[`Grid respects gridArea 1`] = `
 .c0 {
   display: grid;

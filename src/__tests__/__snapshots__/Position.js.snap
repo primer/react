@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`position components Absolute renders consistently 1`] = `
+.c0 {
+  position: absolute;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`position components Fixed renders consistently 1`] = `
+.c0 {
+  position: fixed;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`position components Relative renders consistently 1`] = `
+.c0 {
+  position: relative;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`position components Sticky renders consistently 1`] = `
+.c0 {
+  top: 0;
+  z-index: 1;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+<div
+  className="c0"
+/>
+`;

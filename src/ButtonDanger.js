@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import ButtonBase from './ButtonBase'
 import {get} from './constants'
+import theme from './theme'
+import sx from './sx'
 
 const ButtonDanger = styled(ButtonBase)`
   color: ${get('buttons.danger.color.default')};
@@ -32,6 +34,17 @@ const ButtonDanger = styled(ButtonBase)`
     background-color: ${get('buttons.danger.bg.disabled')};
     border: 1px solid ${get('buttons.danger.border.default')};
   }
+
+  ${sx};
 `
+
+ButtonDanger.defaultProps = {
+  theme
+}
+
+ButtonDanger.propTypes = {
+  ...ButtonBase.propTypes,
+  ...sx.propTypes
+}
 
 export default ButtonDanger

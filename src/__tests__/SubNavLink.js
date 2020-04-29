@@ -1,18 +1,17 @@
 import React from 'react'
 import SubNav from '../SubNav'
-import {render} from '../utils/testing'
+import {COMMON} from '../constants'
+import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SubNav.Link', () => {
+  behavesAsComponent(SubNav.Link, [COMMON])
+
   it('renders an <a> by default', () => {
     expect(render(<SubNav.Link />).type).toEqual('a')
-  })
-
-  it('has default theme', () => {
-    expect(SubNav.Link).toSetDefaultTheme()
   })
 
   it('should have no axe violations', async () => {
@@ -20,11 +19,6 @@ describe('SubNav.Link', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('renders the given "as" prop', () => {
-    const Type = ({theme, ...props}) => <b {...props} />
-    expect(render(<SubNav.Link as={Type} />)).toMatchSnapshot()
   })
 
   it('respects the "selected" prop', () => {

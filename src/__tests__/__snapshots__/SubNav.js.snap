@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubNav renders consistently 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c0 .SubNav-body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: -1px;
+}
+
+.c0 .SubNav-body > * {
+  margin-left: 8px;
+}
+
+.c0 .SubNav-body > *:first-child {
+  margin-left: 0;
+}
+
+.c0 .SubNav-actions {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+<nav
+  className="c0 SubNav"
+>
+  <div
+    className="SubNav-body"
+  />
+</nav>
+`;

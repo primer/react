@@ -153,3 +153,54 @@ exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1
   </div>
 </div>
 `;
+
+exports[`PointerBox renders consistently 1`] = `
+.c1 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e1e4e8;
+  border-radius: 6px;
+}
+
+.c0 {
+  position: relative;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <svg
+      height={16}
+      style={
+        Object {
+          "left": "50%",
+          "marginLeft": -8,
+          "marginTop": "-1px",
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": "100%",
+        }
+      }
+      width={16}
+    >
+      <g
+        transform="translate(8,0)"
+      >
+        <path
+          d="M-8,0L0,8L8,0L-8,0Z"
+          fill="#fff"
+        />
+        <path
+          d="M-8,0L0,8L8,0"
+          fill="none"
+          stroke="#e1e4e8"
+          strokeWidth="1px"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+`;

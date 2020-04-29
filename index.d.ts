@@ -1,6 +1,7 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
+  import {SystemStyleObject} from '@styled-system/css'
   import * as StyledComponents from 'styled-components'
   import * as History from 'history'
 
@@ -8,6 +9,7 @@ declare module '@primer/components' {
     as?: React.ReactType
     className?: string
     css?: string
+    sx?: SystemStyleObject
     title?: string
     // NOTE(@mxstbr): Necessary workaround to make <Component as={Link} to="/bla" /> work
     to?: History.LocationDescriptor
@@ -80,6 +82,7 @@ declare module '@primer/components' {
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
+      LayoutProps,
       StyledSystem.FontSizeProps,
       Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     variant?: 'small' | 'medium' | 'large'

@@ -3,6 +3,7 @@ import styled, {css} from 'styled-components'
 import {variant, borderColor} from 'styled-system'
 import theme from './theme'
 import {COMMON, get} from './constants'
+import sx from './sx'
 
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
@@ -52,6 +53,7 @@ const Label = styled('span')`
   ${sizeVariant}
   ${COMMON} ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')};
   ${props => (props.outline ? outlineStyles : '')}; // must be last to override other values
+  ${sx};
 `
 
 Label.defaultProps = {
@@ -65,7 +67,8 @@ Label.propTypes = {
   outline: PropTypes.bool,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large', 'xl']),
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default Label

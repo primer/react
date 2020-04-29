@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FilterList.Item renders the given "as" prop 1`] = `
+exports[`FilterList.Item renders consistently 1`] = `
 .c0 {
   position: relative;
   display: block;
@@ -34,7 +34,7 @@ exports[`FilterList.Item renders the given "as" prop 1`] = `
   font-weight: 600;
 }
 
-<b
+<a
   className="c0"
 />
 `;
