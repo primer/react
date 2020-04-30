@@ -20,6 +20,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
@@ -92,6 +93,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #cb2431;
   border: 1px solid #e1e4e8;
@@ -167,6 +169,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #0366d6;
   border: 1px solid #e1e4e8;
@@ -242,6 +245,7 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #fff;
   background-color: #2EA44F;

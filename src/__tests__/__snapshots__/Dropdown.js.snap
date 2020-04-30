@@ -66,6 +66,7 @@ exports[`Dropdown.Button matches the snapshots 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
