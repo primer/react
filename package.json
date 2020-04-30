@@ -72,6 +72,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-styled-components": "1.10.7",
+    "babel-plugin-transform-replace-expressions": "0.2.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.1",
     "eslint": "6.5.1",

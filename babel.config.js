@@ -1,3 +1,9 @@
+const defines = require('./babel-defines')
+
+function replacementPlugin(env) {
+  return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
+}
+
 const sharedPlugins = [
   'macros',
   'add-react-displayname',
@@ -5,15 +11,7 @@ const sharedPlugins = [
   '@babel/plugin-proposal-object-rest-spread'
 ]
 
-const devPlugins = [
-  [
-    '@babel/plugin-transform-runtime',
-    {
-      version: '7.9.2',
-      helpers: true
-    }
-  ]
-]
+const devPlugins = [['@babel/plugin-transform-runtime', {version: '7.9.2', helpers: true}]]
 
 function makePresets(moduleValue) {
   return [
@@ -26,15 +24,15 @@ module.exports = {
   env: {
     development: {
       presets: makePresets('commonjs'),
-      plugins: sharedPlugins.concat(devPlugins)
+      plugins: [...sharedPlugins, ...devPlugins, replacementPlugin('development')]
     },
     production: {
       presets: makePresets(false),
-      plugins: sharedPlugins
+      plugins: [...sharedPlugins, replacementPlugin('production')]
     },
     test: {
       presets: makePresets('commonjs'),
-      plugins: sharedPlugins
+      plugins: [...sharedPlugins, replacementPlugin('test')]
     }
   }
 }

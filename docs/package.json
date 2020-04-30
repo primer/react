@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "cd .. && yarn && cd docs && gatsby build --prefix-paths"
+    "build": "cd .. && yarn && cd docs && NODE_ENV=production gatsby build --prefix-paths"
   },
   "engines": {
     "node": ">= 10.x"
