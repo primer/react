@@ -27,4 +27,8 @@ export default css`
   &:disabled {
     cursor: default;
   }
+
+  &:disabled svg {
+    opacity: 0.6;
+  }
 `
