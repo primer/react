@@ -1,6 +1,6 @@
 import React from 'react'
-import FilterList from '../FilterList'
-import {render, behavesAsComponent} from '../utils/testing'
+import {FilterList} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('FilterList', () => {
   behavesAsComponent(FilterList, [COMMON])
+
+  checkExports('FilterList', {
+    default: FilterList
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilterList>Hello</FilterList>)

@@ -1,6 +1,6 @@
 import React from 'react'
-import SideNav from '../SideNav'
-import {render, behavesAsComponent} from '../utils/testing'
+import {SideNav} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {BORDER, COMMON, LAYOUT, FLEX, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('SideNav', () => {
   behavesAsComponent(SideNav, [BORDER, LAYOUT, COMMON, FLEX])
+
+  checkExports('SideNav', {
+    default: SideNav
+  })
 
   describe('SideNav.Link', () => {
     behavesAsComponent(SideNav.Link, [COMMON, TYPOGRAPHY])

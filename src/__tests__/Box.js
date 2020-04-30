@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '../Box'
+import {Box} from '..'
 import theme from '../theme'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {LAYOUT, COMMON, FLEX} from '../constants'

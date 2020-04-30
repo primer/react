@@ -1,6 +1,6 @@
 import React from 'react'
-import Tooltip from '../Tooltip'
-import {render, renderClasses, rendersClass, behavesAsComponent} from '../utils/testing'
+import {Tooltip} from '..'
+import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Tooltip', () => {
   behavesAsComponent(Tooltip, [COMMON])
+
+  checkExports('Tooltip', {
+    default: Tooltip
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Tooltip text="hi" />)

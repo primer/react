@@ -1,6 +1,6 @@
 import React from 'react'
-import ProgressBar from '../ProgressBar'
-import {render, behavesAsComponent} from '../utils/testing'
+import {ProgressBar} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('ProgressBar', () => {
   behavesAsComponent(ProgressBar, [COMMON])
+
+  checkExports('ProgressBar', {
+    default: ProgressBar
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<ProgressBar progress={80} barSize="small" />)

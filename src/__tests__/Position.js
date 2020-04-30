@@ -1,7 +1,6 @@
 import React from 'react'
 import {LAYOUT, POSITION} from '../constants'
-import BorderBox from '../BorderBox'
-import {Position, Absolute, Fixed, Relative, Sticky} from '../Position'
+import {BorderBox, Position, Absolute, Fixed, Relative, Sticky} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -13,8 +12,7 @@ describe('position components', () => {
     behavesAsComponent(Absolute, [LAYOUT, POSITION])
 
     checkExports('Position', {
-      default: null,
-      Position,
+      default: Position,
       Absolute,
       Fixed,
       Relative,

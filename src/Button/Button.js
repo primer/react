@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import sx from './sx'
-import {get} from './constants'
-import theme from './theme'
+import sx from '../sx'
+import {get} from '../constants'
+import theme from '../theme'
 import ButtonBase from './ButtonBase'
 
 const Button = styled(ButtonBase)`

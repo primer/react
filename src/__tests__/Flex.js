@@ -1,7 +1,7 @@
 import React from 'react'
-import Flex from '../Flex'
+import {Flex} from '..'
 import {COMMON, FLEX, LAYOUT} from '../constants'
-import {render, behavesAsComponent} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Flex', () => {
   behavesAsComponent(Flex, [COMMON, FLEX, LAYOUT])
+
+  checkExports('Flex', {
+    default: Flex
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Flex />)

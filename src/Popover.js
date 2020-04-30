@@ -202,7 +202,7 @@ Popover.Content = styled(BorderBox)`
   ${sx};
 `
 
-export const CARET_POSITIONS = [
+Popover.CARET_POSITIONS = [
   'top',
   'bottom',
   'left',
@@ -224,7 +224,7 @@ Popover.defaultProps = {
 
 Popover.propTypes = {
   as: elementType,
-  caret: PropTypes.oneOf(CARET_POSITIONS),
+  caret: PropTypes.oneOf(Popover.CARET_POSITIONS),
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
