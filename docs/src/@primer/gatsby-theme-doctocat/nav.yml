@@ -1,6 +1,9 @@
-- title: Getting Started
+- title: About
   url: /getting-started
   children:
+    - title: Getting Started
+      url: /getting-started
+
     - title: Primer Theme
       url: /primer-theme
 
@@ -17,7 +20,6 @@
       url: /overriding-styles
 
 - title: Components
-  url: /
   children:
     - title: Avatar
       url: /Avatar
