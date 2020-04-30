@@ -43,6 +43,7 @@ exports[`Dropdown.Button renders consistently 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
