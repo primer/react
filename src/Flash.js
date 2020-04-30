@@ -62,12 +62,14 @@ const StyledFlash = styled.div`
 
 const Flash = ({variant, scheme, ...props}) => {
   if (scheme) {
-    deprecate({name: 'The scheme prop', version: '20.0.0', message: 'Use the variant prop instead. See https://primer.style/components/Flash for more details.'})
+    deprecate({
+      name: 'The scheme prop',
+      version: '20.0.0',
+      message: 'Use the variant prop instead. See https://primer.style/components/Flash for more details.'
+    })
     variant = schemeMap[scheme]
   } // deprecate 20.0.0
-  return (
-    <StyledFlash variant={variant} {...props}/>
-  )
+  return <StyledFlash variant={variant} {...props} />
 }
 
 Flash.defaultProps = {

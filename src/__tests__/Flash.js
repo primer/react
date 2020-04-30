@@ -12,7 +12,7 @@ describe('Flash', () => {
   behavesAsComponent(Flash, [COMMON])
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Flash scheme="yellow" theme={theme} />)
+    const {container} = HTMLRender(<Flash variant="warning" theme={theme} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
