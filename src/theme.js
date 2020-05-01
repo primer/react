@@ -242,6 +242,33 @@ const buttons = {
   }
 }
 
+const flash = {
+  default: {
+    backgroundColor: blue[1],
+    borderColor: 'rgba(4, 66, 137, 0.2)'
+  },
+  success: {
+    backgroundColor: green[1],
+    borderColor: 'rgba(23, 111, 44, 0.2)'
+  },
+  danger: {
+    backgroundColor: '#FFE3E6',
+    borderColor: 'rgba(158, 28, 35, 0.2)'
+  },
+  warning: {
+    backgroundColor: yellow[1],
+    borderColor: 'rgba(176, 136, 0, 0.2)'
+  }
+}
+
+// this has to be separated from the flash object since we have to use an svg selector to style the icon color
+const flashIcon = {
+  default: 'rgba(4, 66, 137, 0.6)',
+  success: 'rgba(23, 111, 44, 0.8)',
+  danger: 'rgba(158, 28, 35, 0.6)',
+  warning: yellow[8]
+}
+
 const popovers = {
   colors: {
     caret: 'rgba(27, 31, 35, 0.15)'
@@ -293,7 +320,9 @@ const theme = {
   // Components
   buttons,
   pagination,
-  popovers
+  popovers,
+  flash,
+  flashIcon
 }
 
 export default theme
