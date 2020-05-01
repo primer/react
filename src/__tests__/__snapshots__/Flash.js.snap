@@ -3,18 +3,23 @@
 exports[`Flash renders consistently 1`] = `
 .c0 {
   position: relative;
+  color: #24292e;
   padding: 16px;
-  color: #032f62;
-  background-color: #dbedff;
-  border-color: rgba(27,31,35,0.15);
   border-style: solid;
   border-width: 1px;
-  border-radius: 3px;
+  border-radius: 6px;
   margin-top: 0;
+  background-color: #dbedff;
+  border-color: rgba(4,66,137,0.2);
 }
 
 .c0 p:last-child {
   margin-bottom: 0;
+}
+
+.c0 svg {
+  color: rgba(4,66,137,0.6);
+  margin-right: 8px;
 }
 
 <div
