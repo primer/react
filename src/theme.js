@@ -67,28 +67,6 @@ const colors = {
     disabled: '#F3F4F6'
   },
   accent: orange[5],
-  flash: {
-    default: {
-      icon: 'rgba(4, 66, 137, 0.6)',
-      bg: blue[1],
-      border: 'rgba(4, 66, 137, 0.2)'
-    },
-    success: {
-      icon: 'rgba(23, 111, 44, 0.8)',
-      bg: green[1],
-      border: 'rgba(23, 111, 44, 0.2)'
-    },
-    danger: {
-      icon: 'rgba(158, 28, 35, 0.6)',
-      bg: '#FFE3E6',
-      border: 'rgba(158, 28, 35, 0.2)'
-    },
-    warning: {
-      icon: yellow[8],
-      bg: yellow[1],
-      border: 'rgba(176, 136, 0, 0.2)'
-    }
-  },
   labels: {
     gray: gray[2],
     grayText: gray[9],
@@ -264,6 +242,29 @@ const buttons = {
   }
 }
 
+const flash = {
+  default: {
+    icon: 'rgba(4, 66, 137, 0.6)',
+    backgroundColor: blue[1],
+    borderColor: 'rgba(4, 66, 137, 0.2)'
+  },
+  success: {
+    icon: 'rgba(23, 111, 44, 0.8)',
+    backgroundColor: green[1],
+    borderColor: 'rgba(23, 111, 44, 0.2)'
+  },
+  danger: {
+    icon: 'rgba(158, 28, 35, 0.6)',
+    backgroundColor: '#FFE3E6',
+    borderColor: 'rgba(158, 28, 35, 0.2)'
+  },
+  warning: {
+    icon: yellow[8],
+    backgroundColor: yellow[1],
+    borderColor: 'rgba(176, 136, 0, 0.2)'
+  }
+}
+
 const popovers = {
   colors: {
     caret: 'rgba(27, 31, 35, 0.15)'
@@ -315,7 +316,8 @@ const theme = {
   // Components
   buttons,
   pagination,
-  popovers
+  popovers,
+  flash
 }
 
 export default theme

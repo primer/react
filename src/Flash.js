@@ -15,24 +15,7 @@ const schemeMap = {
 }
 
 const variants = variant({
-  variants: {
-    success: {
-      borderColor: 'flash.success.border',
-      bg: 'flash.success.bg'
-    },
-    danger: {
-      borderColor: 'flash.danger.border',
-      bg: 'flash.danger.bg'
-    },
-    warning: {
-      borderColor: 'flash.warning.border',
-      bg: 'flash.warning.bg'
-    },
-    default: {
-      borderColor: 'flash.default.border',
-      bg: 'flash.default.bg'
-    }
-  }
+  scale: 'flash',
 })
 
 const getIconColor = (variant, theme) => get(`colors.flash.${variant}.icon`)(theme)
