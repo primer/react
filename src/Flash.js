@@ -18,7 +18,7 @@ const variants = variant({
   scale: 'flash',
 })
 
-const getIconColor = (variant, theme) => get(`colors.flash.${variant}.icon`)(theme)
+const getIconColor = (variant, theme) => get(`flashIcon.${variant}`)(theme)
 
 const StyledFlash = styled.div`
   position: relative;

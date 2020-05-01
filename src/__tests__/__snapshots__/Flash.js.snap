@@ -9,8 +9,8 @@ exports[`Flash renders consistently 1`] = `
   border-width: 1px;
   border-radius: 6px;
   margin-top: 0;
-  border-color: rgba(4,66,137,0.2);
   background-color: #dbedff;
+  border-color: rgba(4,66,137,0.2);
 }
 
 .c0 p:last-child {
