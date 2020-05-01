@@ -15,7 +15,7 @@ const schemeMap = {
 }
 
 const variants = variant({
-  scale: 'flash',
+  scale: 'flash'
 })
 
 const getIconColor = (variant, theme) => get(`flashIcon.${variant}`)(theme)
