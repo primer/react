@@ -1,8 +1,6 @@
 {
-	"name": "Primer Components",
-	"image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:12",
-	"forwardPorts": [
-		8000
-	],
-	"postCreateCommand": "pushd docs && yarn && popd && yarn"
+  "name": "Primer Components",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:12",
+  "forwardPorts": [8000],
+  "postCreateCommand": "pushd docs && yarn && popd && yarn"
 }
