@@ -138,3 +138,7 @@ In your `tsconfig.json`, set the `types` array under the `compilerOptions` like 
 ```
 
 Of course, customize the array based on the `@types/` packages you have installed for your project.
+
+## Silencing warnings
+
+Like React, Primer Components emits warnings to the JavaScript console under certain conditions, like using deprecated components or props. Similar to React, you can silence these warnings by setting the `NODE_ENV` environment variable to `production` during bundling.
