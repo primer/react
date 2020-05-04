@@ -12,7 +12,13 @@ const namedExports = {
 }
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-const plugins = [babel({exclude: 'node_modules/**'}), resolve(), commonjs({namedExports}), terser(), visualizer()]
+const plugins = [
+  babel({exclude: 'node_modules/**'}),
+  resolve(),
+  commonjs({namedExports}),
+  terser(),
+  visualizer({sourcemap: true})
+]
 
 export default [
   {
@@ -22,6 +28,7 @@ export default [
     output: formats.map(format => ({
       file: `dist/browser.${format}.js`,
       format,
+      sourcemap: true,
       name: 'primer',
       globals: {
         react: 'React',
