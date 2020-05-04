@@ -33,7 +33,7 @@ Importing components individually can reduce bundle sizes if you don't have tree
 
 Primer Components ships with a few libraries labeled as peer dependencies. These libraries are separated because they are commonly already installed in the host project and having multiple versions can introduce errors.
 
-Before getting started using Primer Components, make sure that the following libraries are installed in your host project:
+Primer Components requires the following libraries to be installed along with it:
 
 - `styled-components` at version 4.0.0 or higher
 - `react` at versions 16.8.0 or higher
