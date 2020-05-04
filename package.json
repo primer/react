@@ -2,15 +2,15 @@
   "name": "@primer/components",
   "version": "19.0.0",
   "description": "Primer react components",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "typings": "index.d.ts",
   "scripts": {
     "start": "cd docs && yarn run develop",
     "predist": "rm -rf dist",
     "dist": "yarn dist:rollup && yarn dist:transpile",
     "dist:rollup": "NODE_ENV=production rollup -c",
-    "dist:transpile": "babel src --out-dir dist",
+    "dist:transpile": "rm -rf lib && babel src --out-dir lib",
     "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
@@ -30,10 +30,9 @@
   "files": [
     "codemods",
     "dist",
-    "src",
+    "lib",
     "index.d.ts",
-    "!src/__tests__",
-    "!src/utils"
+    "!lib/__tests__"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",

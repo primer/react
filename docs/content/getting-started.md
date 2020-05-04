@@ -20,11 +20,11 @@ You can now import Primer Components from the main package module:
 import {Box, Flex} from '@primer/components'
 ```
 
-Alternatively, you can import individual components from the `dist` subfolder:
+Alternatively, you can import individual components from the `lib` subfolder:
 
 ```javascript
-import Box from '@primer/components/dist/Box'
-import Flex from '@primer/components/dist/Flex'
+import Box from '@primer/components/lib/Box'
+import Flex from '@primer/components/lib/Flex'
 ```
 
 Importing components individually can reduce bundle sizes if you don't have tree-shaking set up in your app.
