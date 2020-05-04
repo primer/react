@@ -246,6 +246,4 @@ Popover.Content.propTypes = {
 
 Popover.Content.displayName = 'Popover.Content'
 
-window.Popover = Popover
-
 export default Popover
