@@ -4,14 +4,14 @@ title: Getting Started
 
 ## Installation
 
-To get started using Primer Components, install the package and its two peer dependencies with your package manager of choice:
+To get started using Primer Components, install the package and its peer dependencies with your package manager of choice:
 
 ```bash
 # with npm
-npm install @primer/components react styled-components
+npm install @primer/components react react-dom styled-components
 
 # with yarn
-yarn add @primer/components react styled-components
+yarn add @primer/components react react-dom styled-components
 ```
 
 You can now import Primer Components from the main package module:
@@ -37,6 +37,7 @@ Before getting started using Primer Components, make sure that the following lib
 
 - `styled-components` at version 4.0.0 or higher
 - `react` at versions 16.8.0 or higher
+- `react-dom` at versions 16.8.0 or higher
 
 ## BaseStyles
 
