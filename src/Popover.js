@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import classnames from 'classnames'
 import {COMMON, LAYOUT, POSITION, get} from './constants'
 import theme from './theme'
-import elementType from './utils/elementType'
 import BorderBox from './BorderBox'
 import sx from './sx'
 
@@ -223,7 +222,7 @@ Popover.defaultProps = {
 }
 
 Popover.propTypes = {
-  as: elementType,
+  as: PropTypes.elementType,
   caret: PropTypes.oneOf(Popover.CARET_POSITIONS),
   open: PropTypes.bool,
   relative: PropTypes.bool,
@@ -239,12 +238,14 @@ Popover.Content.defaultProps = {
 }
 
 Popover.Content.propTypes = {
-  as: elementType,
+  as: PropTypes.elementType,
   theme: PropTypes.object,
   ...BorderBox.propTypes,
   ...sx.propTypes
 }
 
 Popover.Content.displayName = 'Popover.Content'
+
+window.Popover = Popover
 
 export default Popover
