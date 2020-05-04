@@ -1,7 +1,5 @@
 import {colors as colorPrimitives, typography} from '@primer/primitives'
-import lighten from 'polished/src/color/lighten'
-import rgba from 'polished/src/color/rgba'
-import desaturate from 'polished/src/color/desaturate'
+import {lighten, rgba, desaturate} from 'polished'
 
 const {lineHeights} = typography
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
