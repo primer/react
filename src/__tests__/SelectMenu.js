@@ -74,16 +74,6 @@ describe('SelectMenu', () => {
     expect(component.find('details').length).toEqual(1)
   })
 
-  it('does not allow the "as" prop on SelectMenu.Item', () => {
-    const component = mount(<BasicSelectMenu as="span" />)
-    expect(
-      component
-        .find("[data-test='menu-item']")
-        .first()
-        .getDOMNode().tagName
-    ).toEqual('A')
-  })
-
   it('shows correct initial tab', () => {
     const testInstance = renderRoot(<MenuWithTabs />)
     expect(testInstance.findByProps({'aria-selected': true}).props.children).toBe('Organization')
