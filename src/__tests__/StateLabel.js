@@ -5,6 +5,7 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import {Deprecations} from '../utils/deprecate'
 expect.extend(toHaveNoViolations)
 
 describe('StateLabel', () => {
@@ -25,6 +26,11 @@ describe('StateLabel', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
+  })
+
+  it('respects the deprecated "small" prop', () => {
+    expect(render(<StateLabel status="issueOpened" small />)).toHaveStyleRule('font-size', '12px')
+    expect(Deprecations.getDeprecations()).toHaveLength(1)
   })
 
   it('respects the status prop', () => {
