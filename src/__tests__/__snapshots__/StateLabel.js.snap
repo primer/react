@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StateLabel renders children 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -14,8 +18,8 @@ exports[`StateLabel renders children 1`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
+  background-color: #159739;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -26,11 +30,36 @@ exports[`StateLabel renders children 1`] = `
 <span
   className="c0"
 >
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width={14}
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
   hi
 </span>
 `;
 
 exports[`StateLabel renders consistently 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -44,8 +73,8 @@ exports[`StateLabel renders consistently 1`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
+  background-color: #159739;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -55,7 +84,30 @@ exports[`StateLabel renders consistently 1`] = `
 
 <span
   className="c0"
-/>
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width={14}
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
+  Open
+</span>
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
@@ -76,9 +128,8 @@ exports[`StateLabel respects the status prop 1`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
-  background-color: #159739;
   border-radius: 100px;
+  background-color: #159739;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -131,9 +182,8 @@ exports[`StateLabel respects the status prop 2`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
-  background-color: #cb2431;
   border-radius: 100px;
+  background-color: #cb2431;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -186,9 +236,8 @@ exports[`StateLabel respects the status prop 3`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
-  background-color: #6f42c1;
   border-radius: 100px;
+  background-color: #6f42c1;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -224,6 +273,10 @@ exports[`StateLabel respects the status prop 3`] = `
 `;
 
 exports[`StateLabel respects the variant prop 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -237,8 +290,8 @@ exports[`StateLabel respects the variant prop 1`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
+  background-color: #159739;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 8px;
@@ -248,10 +301,36 @@ exports[`StateLabel respects the variant prop 1`] = `
 
 <span
   className="c0"
-/>
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={NaN}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width="1em"
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
 `;
 
 exports[`StateLabel respects the variant prop 2`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -265,8 +344,8 @@ exports[`StateLabel respects the variant prop 2`] = `
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
+  background-color: #159739;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -276,5 +355,27 @@ exports[`StateLabel respects the variant prop 2`] = `
 
 <span
   className="c0"
-/>
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width={14}
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
 `;

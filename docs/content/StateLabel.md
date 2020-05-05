@@ -18,4 +18,4 @@ StateLabel components get `COMMON` system props. Read our [System Props](/system
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | variant | String | 'normal' | a value of `small` or `normal` results in a smaller or larger version of the StateLabel. |
-| status | String | | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed` or `pullMerged`.
+| status | String | | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed`, `pullMerged`, or `draft`.

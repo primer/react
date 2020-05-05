@@ -70,7 +70,7 @@ expect.extend({
     const rendered = render(elem)
 
     function checkStylesDeep(rendered) {
-      const className = rendered.props.className
+      const className = rendered.props ? rendered.props.className : ''
       const styles = getComputedStyles(className)
       if (styles[mediaKey] && styles[mediaKey].color) {
         return true

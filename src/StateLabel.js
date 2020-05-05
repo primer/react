@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {GitMerge, GitPullRequest, IssueClosed, IssueOpened, Question} from '@primer/octicons-react'
 import {variant} from 'styled-system'
-import theme, {colors} from './theme'
+import theme from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx from './sx'
@@ -13,7 +13,8 @@ const octiconMap = {
   pullOpened: GitPullRequest,
   issueClosed: IssueClosed,
   pullClosed: GitPullRequest,
-  pullMerged: GitMerge
+  pullMerged: GitMerge,
+  draft: GitPullRequest
 }
 
 const colorVariants = variant({
@@ -34,24 +35,13 @@ const sizeVariants = variant({
   }
 })
 
-function StateLabelBase({className, status, variant = 'large', children}) {
-  const octiconProps = variant === 'small' ? {width: '1em'} : {}
-  return (
-    <span className={className}>
-      {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status] || Question} />}
-      {children}
-    </span>
-  )
-}
-
-const StateLabel = styled(StateLabelBase)`
+const StateLabelBase = styled.span`
   display: inline-flex;
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: ${colors.white};
+  color: ${get('colors.white')};
   text-align: center;
-  background-color: ${get('stateLabels.colors.unknown')};
   border-radius: ${get('radii.3')};
   ${colorVariants};
   ${sizeVariants};
@@ -59,13 +49,24 @@ const StateLabel = styled(StateLabelBase)`
   ${sx};
 `
 
+function StateLabel({children, ...rest}) {
+  const {status, variant} = rest
+  const octiconProps = variant === 'small' ? {width: '1em'} : {}
+  return (
+    <StateLabelBase {...rest}>
+      {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status] || Question} />}
+      {children}
+    </StateLabelBase>
+  )
+}
+
 StateLabel.defaultProps = {
   theme,
   variant: 'normal'
 }
 
 StateLabel.propTypes = {
-  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']).isRequired,
+  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged', 'draft']).isRequired,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'normal']),
   ...COMMON.propTypes,

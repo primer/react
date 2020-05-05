@@ -5,6 +5,12 @@ import {COMMON} from './constants'
 import theme from './theme'
 import sx from './sx'
 
+// ???
+// Octicon.propTypes = {
+//   ...Octicon.propTypes,
+//   width: PropTypes.oneOfType([Octicon.propTypes.width, PropTypes.string])
+// }
+
 const StyledOcticon = styled(Octicon)`
   ${COMMON};
   ${sx};
