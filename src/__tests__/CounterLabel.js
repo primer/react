@@ -1,6 +1,6 @@
 import React from 'react'
-import CounterLabel from '../CounterLabel'
-import {render, behavesAsComponent} from '../utils/testing'
+import {CounterLabel} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {colors} from '../theme'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -10,6 +10,10 @@ expect.extend(toHaveNoViolations)
 
 describe('CounterLabel', () => {
   behavesAsComponent(CounterLabel, [COMMON])
+
+  checkExports('CounterLabel', {
+    default: CounterLabel
+  })
 
   it('renders a <span>', () => {
     expect(render(<CounterLabel />).type).toEqual('span')

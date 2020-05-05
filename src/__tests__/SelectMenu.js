@@ -1,7 +1,6 @@
 import React from 'react'
-import SelectMenu from '../SelectMenu'
-import Button from '../Button'
-import {mount, renderRoot, COMPONENT_DISPLAY_NAME_REGEX} from '../utils/testing'
+import {SelectMenu, Button} from '..'
+import {mount, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -55,6 +54,10 @@ const MenuWithTabs = ({onClick}) => {
 }
 
 describe('SelectMenu', () => {
+  checkExports('SelectMenu', {
+    default: SelectMenu
+  })
+
   for (const subComp of ['List', 'Divider', 'Filter', 'Item', 'List', 'Modal', 'Tabs', 'Tab', 'TabPanel', 'Header']) {
     const Comp = SelectMenu[subComp]
 

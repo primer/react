@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import classnames from 'classnames'
 import {COMMON, LAYOUT, POSITION, get} from './constants'
 import theme from './theme'
-import elementType from './utils/elementType'
 import BorderBox from './BorderBox'
 import sx from './sx'
 
@@ -202,7 +201,7 @@ Popover.Content = styled(BorderBox)`
   ${sx};
 `
 
-export const CARET_POSITIONS = [
+Popover.CARET_POSITIONS = [
   'top',
   'bottom',
   'left',
@@ -223,8 +222,8 @@ Popover.defaultProps = {
 }
 
 Popover.propTypes = {
-  as: elementType,
-  caret: PropTypes.oneOf(CARET_POSITIONS),
+  as: PropTypes.elementType,
+  caret: PropTypes.oneOf(Popover.CARET_POSITIONS),
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
@@ -239,7 +238,7 @@ Popover.Content.defaultProps = {
 }
 
 Popover.Content.propTypes = {
-  as: elementType,
+  as: PropTypes.elementType,
   theme: PropTypes.object,
   ...BorderBox.propTypes,
   ...sx.propTypes

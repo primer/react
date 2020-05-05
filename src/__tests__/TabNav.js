@@ -1,6 +1,6 @@
 import React from 'react'
-import TabNav from '../TabNav'
-import {mount, render, rendersClass, behavesAsComponent} from '../utils/testing'
+import {TabNav} from '..'
+import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('TabNav', () => {
   behavesAsComponent(TabNav, [COMMON])
+
+  checkExports('TabNav', {
+    default: TabNav
+  })
 
   describe('TabNav.Link', () => {
     behavesAsComponent(TabNav.Link, [COMMON])

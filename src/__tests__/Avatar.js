@@ -1,7 +1,7 @@
 import React from 'react'
-import Avatar from '../Avatar'
+import {Avatar} from '..'
 import theme from '../theme'
-import {px, render, behavesAsComponent} from '../utils/testing'
+import {px, render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -10,6 +10,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Avatar', () => {
   behavesAsComponent(Avatar, [{propTypes: systemPropTypes.space}])
+
+  checkExports('Avatar', {
+    default: Avatar
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Avatar />)

@@ -1,7 +1,7 @@
 import React from 'react'
-import Text from '../Text'
+import {Text} from '..'
 import theme from '../theme'
-import {px, render, renderStyles, behavesAsComponent} from '../utils/testing'
+import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -10,6 +10,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Text', () => {
   behavesAsComponent(Text, [COMMON, TYPOGRAPHY])
+
+  checkExports('Text', {
+    default: Text
+  })
 
   it('renders a <span> by default', () => {
     expect(render(<Text />).type).toEqual('span')

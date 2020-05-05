@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from '../Link'
-import {render, behavesAsComponent} from '../utils/testing'
+import {Link} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Link', () => {
   behavesAsComponent(Link, [COMMON, TYPOGRAPHY])
+
+  checkExports('Link', {
+    default: Link
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Link href="www.github.com">GitHub</Link>)

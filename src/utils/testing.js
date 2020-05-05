@@ -218,3 +218,10 @@ export function behavesAsComponent(Component, systemPropArray, toRender = null, 
     expect(render(getElement())).toMatchSnapshot()
   })
 }
+
+export function checkExports(path, exports) {
+  it('has declared exports', () => {
+    const mod = require(`../${path}`)
+    expect(mod).toSetExports(exports)
+  })
+}

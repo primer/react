@@ -1,6 +1,6 @@
 import React from 'react'
-import Label from '../Label'
-import {render, behavesAsComponent} from '../utils/testing'
+import {Label} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Label', () => {
   behavesAsComponent(Label, [COMMON])
+
+  checkExports('Label', {
+    default: Label
+  })
 
   it('renders a <span>', () => {
     expect(render(<Label />).type).toEqual('span')

@@ -1,5 +1,5 @@
 import React from 'react'
-import UnderlineNav from '../UnderlineNav'
+import {UnderlineNav} from '..'
 import {COMMON} from '../constants'
 import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
