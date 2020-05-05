@@ -357,7 +357,7 @@ declare module '@primer/components' {
   }
 
   export interface StateLabelProps extends CommonProps {
-    variant?: 'small' | 'large'
+    variant?: 'small' | 'normal'
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
   }
 

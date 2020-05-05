@@ -16,33 +16,21 @@ const octiconMap = {
   pullMerged: GitMerge
 }
 
-const buildColorVariant = state => ({
-  [state]: {backgroundColor: get(`stateLabels.colors.${state}`)}
-})
-
-const colorVariant = variant({
+const colorVariants = variant({
   prop: 'status',
+  scale: 'stateLabels.status',
+  // https://styled-system.com/variants/#migrating-from-legacy-api
   variants: {
-    ...buildColorVariant('issueOpened'),
-    ...buildColorVariant('issueClosed'),
-    ...buildColorVariant('pullOpened'),
-    ...buildColorVariant('pullClosed'),
-    ...buildColorVariant('pullMerged')
+    ...theme.stateLabels.status
   }
 })
 
-const sizeVariant = variant({
+const sizeVariants = variant({
+  prop: 'variant',
+  scale: 'stateLabels.sizes',
+  // https://styled-system.com/variants/#migrating-from-legacy-api
   variants: {
-    small: {
-      py: 1,
-      px: 2,
-      fontSize: 0
-    },
-    large: {
-      py: 2,
-      px: '12px',
-      fontSize: 1
-    }
+    ...theme.stateLabels.sizes
   }
 })
 
@@ -64,22 +52,22 @@ const StateLabel = styled(StateLabelBase)`
   color: ${colors.white};
   text-align: center;
   background-color: ${get('stateLabels.colors.unknown')};
-  ${colorVariant};
   border-radius: ${get('radii.3')};
-  ${sizeVariant};
+  ${colorVariants};
+  ${sizeVariants};
   ${COMMON};
   ${sx};
 `
 
 StateLabel.defaultProps = {
   theme,
-  variant: 'large'
+  variant: 'normal'
 }
 
 StateLabel.propTypes = {
-  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']),
+  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']).isRequired,
   theme: PropTypes.object,
-  variant: PropTypes.oneOf(['small', 'large']),
+  variant: PropTypes.oneOf(['small', 'normal']),
   ...COMMON.propTypes,
   ...sx.propTypes
 }
