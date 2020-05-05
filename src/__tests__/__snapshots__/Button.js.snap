@@ -1,5 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Button renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27,31,35,0.12);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:hover {
+  background-color: #F3F4F6;
+  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
+}
+
+.c0:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c0:active {
+  background-color: #edeff2;
+  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
+  border-color: #d1d5da;
+}
+
+.c0:disabled {
+  color: #959da5;
+  background-color: #fafbfc;
+  border-color: #eaecef;
+}
+
+<button
+  className="c0"
+/>
+`;
+
 exports[`Button respects the "disabled" prop 1`] = `
 .c0 {
   position: relative;
@@ -20,11 +92,12 @@ exports[`Button respects the "disabled" prop 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
-  border: 1px solid #e1e4e8;
-  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+  border: 1px solid rgba(27,31,35,0.12);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -38,6 +111,10 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0:disabled {
   cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
 .c0:hover {
@@ -68,7 +145,7 @@ exports[`Button respects the "disabled" prop 1`] = `
 />
 `;
 
-exports[`ButtonDanger renders correct disabled styles 1`] = `
+exports[`ButtonDanger renders consistently 1`] = `
 .c0 {
   position: relative;
   display: inline-block;
@@ -88,6 +165,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #cb2431;
   border: 1px solid #e1e4e8;
@@ -108,11 +186,15 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   cursor: default;
 }
 
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
 .c0:hover {
   color: #fff;
   background-color: #cb2431;
-  border-color: #b31d28;
-  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
 }
 
 .c0:focus {
@@ -123,8 +205,83 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 .c0:active {
   color: #fff;
   background-color: #be222e;
-  box-shadow: inset 0px 2px 0px rgba(179,29,40,0.4);
-  border-color: #9e1c23;
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  border-color: rgba(27,31,35,0.15);
+}
+
+.c0:disabled {
+  color: rgba(203,36,49,.5);
+  background-color: #F3F4F6;
+  border: 1px solid #e1e4e8;
+}
+
+<button
+  className="c0"
+/>
+`;
+
+exports[`ButtonDanger renders correct disabled styles 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #cb2431;
+  border: 1px solid #e1e4e8;
+  background-color: #fafbfc;
+  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:hover {
+  color: #fff;
+  background-color: #cb2431;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+}
+
+.c0:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(203,36,49,0.4);
+}
+
+.c0:active {
+  color: #fff;
+  background-color: #be222e;
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  border-color: rgba(27,31,35,0.15);
 }
 
 .c0:disabled {
@@ -136,6 +293,134 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 <button
   className="c0"
   disabled={true}
+/>
+`;
+
+exports[`ButtonGroup renders consistently 1`] = `
+.c0 {
+  display: inline-block;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.c0.c0 > * {
+  position: relative;
+  border-right-width: 0;
+  border-radius: 0;
+}
+
+.c0.c0 > *:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  margin-right: 0;
+}
+
+.c0.c0 > *:not(:first-child) {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c0.c0 > *:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.c0.c0 > *:focus,
+.c0.c0 > *:active,
+.c0.c0 > *:hover {
+  border-right-width: 1px;
+}
+
+.c0.c0 > *:focus + *,
+.c0.c0 > *:active + *,
+.c0.c0 > *:hover + * {
+  border-left-width: 0;
+}
+
+.c0.c0 > *:focus,
+.c0.c0 > *:active {
+  z-index: 1;
+}
+
+<div
+  className="c0"
+  display="inline-block"
+/>
+`;
+
+exports[`ButtonOutline renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #0366d6;
+  border: 1px solid #e1e4e8;
+  background-color: #fafbfc;
+  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:hover {
+  color: #fff;
+  background-color: #0366d6;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+}
+
+.c0:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c0:active {
+  color: #fff;
+  background-color: #035fc7;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+}
+
+.c0:disabled {
+  color: #959da5;
+  border-color: #e1e4e8;
+  background-color: #F3F4F6;
+}
+
+<button
+  className="c0"
 />
 `;
 
@@ -159,8 +444,9 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
-  color: #005cc5;
+  color: #0366d6;
   border: 1px solid #e1e4e8;
   background-color: #fafbfc;
   box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
@@ -179,11 +465,15 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   cursor: default;
 }
 
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
 .c0:hover {
   color: #fff;
   background-color: #0366d6;
-  border-color: #005cc5;
-  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
 }
 
 .c0:focus {
@@ -194,8 +484,8 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
 .c0:active {
   color: #fff;
   background-color: #035fc7;
-  border-color: rgba(4,66,137,.5);
-  box-shadow: inset 0px 1px 0px rgba(4,66,137,0.2);
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
 }
 
 .c0:disabled {
@@ -207,6 +497,79 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
 <button
   className="c0"
   disabled={true}
+/>
+`;
+
+exports[`ButtonPrimary renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  background-color: #2EA44F;
+  border: 1px solid #22863a;
+  box-shadow: 0px 1px 0px rgba(20,70,32,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:hover {
+  background-color: #2C974B;
+  border-color: rgba(27,31,35,0.15);
+}
+
+.c0:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px #94D3A2;
+  background-color: #2C974B;
+}
+
+.c0:active {
+  background-color: #128031;
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  border-color: rgba(27,31,35,0.15);
+}
+
+.c0:disabled {
+  color: rgba(255,255,255,0.50);
+  background-color: #94D3A2;
+  border-color: rgba(34,134,58,0.1);
+}
+
+<button
+  className="c0"
 />
 `;
 
@@ -230,9 +593,10 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
+  text-align: center;
   font-size: 14px;
   color: #fff;
-  background-color: #159739;
+  background-color: #2EA44F;
   border: 1px solid #22863a;
   box-shadow: 0px 1px 0px rgba(20,70,32,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
 }
@@ -250,21 +614,25 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   cursor: default;
 }
 
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
 .c0:hover {
-  background-color: #138934;
-  border-color: #176f2c;
+  background-color: #2C974B;
+  border-color: rgba(27,31,35,0.15);
 }
 
 .c0:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px #94D3A2;
-  background-color: #138934;
+  background-color: #2C974B;
 }
 
 .c0:active {
   background-color: #128031;
-  box-shadow: inset 0px 1px 0px rgba(20,70,32,0.2);
-  border-color: #176f2c;
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  border-color: rgba(27,31,35,0.15);
 }
 
 .c0:disabled {
@@ -276,5 +644,53 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
 <button
   className="c0"
   disabled={true}
+/>
+`;
+
+exports[`ButtonTableList renders consistently 1`] = `
+.c0 {
+  display: inline-block;
+  padding: 0;
+  font-size: 14px;
+  color: #586069;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0:disabled,
+.c0:disabled:hover {
+  color: rgba(#586069,0.5);
+  cursor: default;
+}
+
+.c0:after {
+  display: inline-block;
+  margin-left: 4px;
+  width: 0;
+  height: 0;
+  vertical-align: -2px;
+  content: "";
+  border: 4px solid transparent;
+  border-top-color: currentcolor;
+}
+
+<summary
+  className="c0"
 />
 `;

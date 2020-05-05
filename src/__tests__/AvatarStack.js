@@ -1,6 +1,6 @@
 import React from 'react'
 import AvatarStack from '../AvatarStack'
-import {render} from '../utils/testing'
+import {render, behavesAsComponent} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -26,23 +26,13 @@ const rightAvatarComp = (
 )
 
 describe('Avatar', () => {
-  it('implements common system props', () => {
-    expect(AvatarStack).toImplementSystemProps(COMMON)
-  })
+  behavesAsComponent(AvatarStack, [COMMON], () => avatarComp)
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(avatarComp)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(AvatarStack).toSetDefaultTheme()
-  })
-
-  it('matches snapshot', () => {
-    expect(render(avatarComp)).toMatchSnapshot()
   })
 
   it('respects alignRight props', () => {

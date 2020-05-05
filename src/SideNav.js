@@ -7,13 +7,14 @@ import theme from './theme'
 import elementType from './utils/elementType'
 import Link from './Link'
 import BorderBox from './BorderBox'
+import sx from './sx'
 
 function SideNavBase({variant, className, bordered, children, ...props}) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
   if (!bordered) {
-    props = {...props, border: 'none'}
+    props = {...props, borderWidth: 0}
   }
 
   return (
@@ -24,7 +25,7 @@ function SideNavBase({variant, className, bordered, children, ...props}) {
 }
 
 const SideNav = styled(SideNavBase)`
-  background-color: ${get('colors.gray.0')};
+  background-color: ${get('colors.white')};
 
   ${props =>
     props.bordered &&
@@ -38,6 +39,7 @@ const SideNav = styled(SideNavBase)`
     `}
 
   ${COMMON};
+  ${sx};
 `
 
 SideNav.Link = styled(Link).attrs(props => {
@@ -67,11 +69,21 @@ SideNav.Link = styled(Link).attrs(props => {
     border-bottom: none;
   }
 
+  &:first-child {
+    border-top-right-radius: ${get('radii.2')};
+    border-top-left-radius: ${get('radii.2')};
+  }
+
+  &:last-child {
+    border-bottom-right-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
+  }
+
   ${SideNav}.variant-normal > & {
     color: ${get('colors.gray.6')};
     padding: ${get('space.3')};
     border: 0;
-    border-top: ${get('borders.1')} ${get('colors.gray.2')};
+    border-top: ${get('borderWidths.1')} solid ${get('colors.gray.2')};
 
     &:first-child {
       border-top: 0;
@@ -95,26 +107,16 @@ SideNav.Link = styled(Link).attrs(props => {
       text-decoration: none;
       background-color: ${get('colors.gray.1')};
       outline: none;
-
-      // Bar on the left
-      &::before {
-        background-color: ${get('colors.gray.4')};
-      }
-    }
-
-    &:active {
-      background-color: ${get('colors.white')};
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
       font-weight: ${get('fontWeights.semibold')};
       color: ${get('colors.gray.9')};
-      background-color: ${get('colors.white')};
 
       // Bar on the left
       &::before {
-        background-color: ${get('colors.orange.5')};
+        background-color: ${get('colors.accent')};
       }
     }
   }
@@ -136,6 +138,8 @@ SideNav.Link = styled(Link).attrs(props => {
       font-weight: ${get('fontWeights.semibold')};
     }
   }
+
+  ${sx};
 `
 
 SideNav.defaultProps = {
@@ -149,8 +153,7 @@ SideNav.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['normal', 'lightweight']),
-  ...BorderBox.propTypes,
-  ...COMMON.propTypes
+  ...BorderBox.propTypes
 }
 
 SideNav.Link.defaultProps = {
@@ -165,5 +168,7 @@ SideNav.Link.propTypes = {
   variant: PropTypes.oneOf(['normal', 'full']),
   ...Link.propTypes
 }
+
+SideNav.Link.displayName = 'SideNav.Link'
 
 export default SideNav

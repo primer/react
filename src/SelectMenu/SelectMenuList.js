@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 import theme from '../theme'
 import {COMMON, get} from '../constants'
+import sx from '../sx'
 
 const listStyles = css`
   position: relative;
@@ -10,7 +11,6 @@ const listStyles = css`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: ${get('colors.white')};
-  border-top: ${get('borders.1')} ${get('colors.border.gray')};
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
   @media (hover: hover) {
@@ -33,13 +33,17 @@ const listStyles = css`
 const SelectMenuList = styled.div`
   ${listStyles}
   ${COMMON}
+  ${sx};
 `
 SelectMenuList.defaultProps = {
   theme
 }
 
 SelectMenuList.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuList.displayName = 'SelectMenu.List'
 
 export default SelectMenuList

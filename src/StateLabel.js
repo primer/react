@@ -6,6 +6,7 @@ import {variant} from 'styled-system'
 import theme, {colors} from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
+import sx from './sx'
 
 const octiconMap = {
   issueOpened: IssueOpened,
@@ -67,6 +68,7 @@ const StateLabel = styled(StateLabelBase)`
   border-radius: ${get('radii.3')};
   ${sizeVariant};
   ${COMMON};
+  ${sx};
 `
 
 StateLabel.defaultProps = {
@@ -78,7 +80,8 @@ StateLabel.propTypes = {
   status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged']),
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'large']),
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default StateLabel

@@ -3,6 +3,7 @@ import {maxWidth} from 'styled-system'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 const Truncate = styled('div')`
   ${TYPOGRAPHY}
@@ -14,6 +15,7 @@ const Truncate = styled('div')`
   white-space: nowrap;
   ${maxWidth}
   ${props => (props.expandable ? `&:hover { max-width: 10000px; }` : '')}
+  ${sx};
 `
 
 Truncate.defaultProps = {
@@ -29,6 +31,7 @@ Truncate.propTypes = {
   ...COMMON.propTypes,
   expandable: PropTypes.bool,
   inline: PropTypes.bool,
+  ...sx.propTypes,
   maxWidth: PropTypes.number,
   theme: PropTypes.object,
   title: PropTypes.string.isRequired

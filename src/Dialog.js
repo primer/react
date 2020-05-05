@@ -3,12 +3,11 @@ import {Dialog as ReachDialog} from '@reach/dialog'
 import raw from 'raw.macro'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
-import {space, color} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
 import {X} from '@primer/octicons-react'
 import StyledOcticon from './StyledOcticon'
-import {LAYOUT} from './constants'
+import {COMMON, LAYOUT} from './constants'
 import theme from './theme'
+import sx from './sx'
 import Text from './Text'
 import Flex from './Flex'
 
@@ -26,6 +25,7 @@ export const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   padding: 0 !important;
+  position: relative;
 
   @media screen and (max-width: 750px) {
     width: 100vw !important;
@@ -35,8 +35,8 @@ export const StyledDialog = styled(ReachDialog)`
   }
 
   ${LAYOUT}
-  ${space}
-  ${color}
+  ${COMMON}
+  ${sx};
 `
 
 const UnstyledButton = styled(Flex).attrs({
@@ -45,38 +45,46 @@ const UnstyledButton = styled(Flex).attrs({
   background: none;
   border: none;
   padding: 0;
+
+  position: absolute;
+  top: 16px;
+  right: 16px;
 `
 
-const DialogHeader = styled(Flex).attrs({
-  p: 3,
-  bg: 'gray.1',
-  justifyContent: 'space-between',
-  alignItems: 'center'
-})`
+const DialogHeaderBase = styled(Flex)`
   border-radius: 4px 4px 0px 0px;
   border-bottom: 1px solid #dad5da;
 
   @media screen and (max-width: 750px) {
     border-radius: 0px;
   }
+
+  ${sx};
 `
 
-const Dialog = ({title, children, ...props}) => {
+function DialogHeader({theme, children, ...rest}) {
+  if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
+    children = (
+      <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+        {children}
+      </Text>
+    )
+  }
+
+  return (
+    <DialogHeaderBase theme={theme} p={3} {...rest}>
+      {children}
+    </DialogHeaderBase>
+  )
+}
+
+function Dialog({children, ...props}) {
   return (
     <>
       <StyledDialog {...props}>
-        <DialogHeader>
-          {typeof title === 'string' ? (
-            <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
-              {title}
-            </Text>
-          ) : (
-            title
-          )}
-          <UnstyledButton onClick={props.onDismiss}>
-            <StyledOcticon icon={X} />
-          </UnstyledButton>
-        </DialogHeader>
+        <UnstyledButton onClick={props.onDismiss}>
+          <StyledOcticon icon={X} />
+        </UnstyledButton>
         {children}
       </StyledDialog>
       <ReachGlobalStyle />
@@ -87,14 +95,25 @@ const Dialog = ({title, children, ...props}) => {
 Dialog.defaultProps = {theme}
 
 Dialog.propTypes = {
+  ...COMMON.propTypes,
   ...LAYOUT.propTypes,
-  ...systemPropTypes.space,
-  ...systemPropTypes.color,
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
-  theme: PropTypes.object,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
+  ...sx.propTypes,
+  theme: PropTypes.object
 }
 
+DialogHeader.defaultProps = {
+  backgroundColor: 'gray.1',
+  theme
+}
+
+DialogHeader.propTypes = {
+  ...Flex.propTypes
+}
+
+DialogHeader.displayName = 'Dialog.Header'
+
+Dialog.Header = DialogHeader
 export default Dialog

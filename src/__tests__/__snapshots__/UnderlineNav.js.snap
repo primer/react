@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnderlineNav renders consistently 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-bottom: 1px solid #eaecef;
+}
+
+.c0.UnderlineNav--right {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c0.UnderlineNav--right .UnderlineNav-item {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+.c0.UnderlineNav--right .UnderlineNav-actions {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0.UnderlineNav--full {
+  display: block;
+}
+
+.c0 .UnderlineNav-body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: -1px;
+}
+
+.c0 .UnderlineNav-actions {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+<nav
+  className="c0 UnderlineNav"
+>
+  <div
+    className="UnderlineNav-body"
+  />
+</nav>
+`;

@@ -4,6 +4,7 @@ import {system} from 'styled-system'
 import {COMMON, TYPOGRAPHY, get} from './constants'
 import theme from './theme'
 import elementType from './utils/elementType'
+import sx from './sx'
 
 const buttonStyles = {
   display: 'inline-block',
@@ -34,6 +35,7 @@ const Link = styled.a.attrs(props => ({
   }
   ${props => (props.as === 'button' ? buttonStyles : '')};
   ${TYPOGRAPHY} ${COMMON};
+  ${sx};
 `
 
 Link.defaultProps = {
@@ -47,7 +49,8 @@ Link.propTypes = {
   theme: PropTypes.object,
   underline: PropTypes.bool,
   ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default Link

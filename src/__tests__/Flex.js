@@ -1,26 +1,20 @@
 import React from 'react'
 import Flex from '../Flex'
-import {FLEX} from '../constants'
-import {render} from '../utils/testing'
+import {COMMON, FLEX, LAYOUT} from '../constants'
+import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Flex', () => {
-  it('implements system props', () => {
-    expect(Flex).toImplementSystemProps(FLEX)
-  })
+  behavesAsComponent(Flex, [COMMON, FLEX, LAYOUT])
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Flex />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(Flex).toSetDefaultTheme()
   })
 
   it('gets display: flex by default', () => {
@@ -53,10 +47,6 @@ describe('Flex', () => {
 
   it('respects responsive display', () => {
     expect(render(<Flex display={['flex', 'inline-flex']} />)).toMatchSnapshot()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Flex as="span" />).type).toEqual('span')
   })
 
   it('renders a div by default', () => {
