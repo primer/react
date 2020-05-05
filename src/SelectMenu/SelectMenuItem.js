@@ -20,6 +20,8 @@ export const listItemStyles = css`
   border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.grayLight')};
   color: ${get('colors.text.gray')};
   text-decoration: none;
+  font-size: ${get('fontSizes.0')};
+  width: 100%;
 
   &:hover {
     text-decoration: none;
@@ -97,9 +99,7 @@ const StyledItem = styled.a.attrs(() => ({
   ${sx};
 `
 
-// 'as' is spread out because we don't want users to be able to change the tag. using something
-// other than 'a' will break a11y.
-const SelectMenuItem = ({children, selected, theme, onClick, as, ...rest}) => {
+const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
   const menuContext = useContext(MenuContext)
 
   // close the menu when an item is clicked
