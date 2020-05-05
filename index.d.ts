@@ -358,7 +358,7 @@ declare module '@primer/components' {
 
   export interface StateLabelProps extends CommonProps {
     variant?: 'small' | 'normal'
-    status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged'
+    status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft'
   }
 
   export const StateLabel: React.FunctionComponent<StateLabelProps>
