@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, {keyframes, css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
@@ -68,7 +69,7 @@ const modalWrapperStyles = css`
   @media (min-width: ${get('breakpoints.0')}) {
     position: absolute;
     top: auto;
-    right: auto;
+    right: ${props => (props.align === 'right' ? '0' : 'auto')};
     bottom: auto;
     left: auto;
     padding: 0;
@@ -93,6 +94,7 @@ const SelectMenuModal = ({children, theme, ...rest}) => {
 }
 
 SelectMenuModal.defaultProps = {
+  align: PropTypes.oneOf(['left', 'right']),
   theme
 }
 

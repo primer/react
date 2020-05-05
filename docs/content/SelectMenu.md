@@ -86,12 +86,33 @@ Used to wrap the content in a `SelectMenu`.
 </SelectMenu.Menu>
 ```
 
+### Right-aligned Example
+```jsx live
+<Flex justifyContent="flex-end" as={Relative}>
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal align="right">
+      <SelectMenu.Header>Projects</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+</Flex>
+```
+
 ### System Props
 
 SelectMenu.Modal components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
-SelectMenu.Modal components do not get any additional props besides system props.
+
+| Prop name | Type   | Description                                       |
+| :-------- | :----- | :------------------------------------------------ |
+| align     | String | Use `right` to align the select menu to the right |
 
 
 ## SelectMenu.List
