@@ -1,18 +1,21 @@
+import 'babel-polyfill'
+
+import {render as HTMLRender, cleanup, render} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import {mount, renderRoot} from '../utils/testing'
+
+import Button from '../Button'
+import {COMMON} from '../constants'
 import React from 'react'
 import SelectMenu from '../SelectMenu'
-import Button from '../Button'
-import {mount, renderRoot} from '../utils/testing'
-import {COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
-const BasicSelectMenu = ({onClick, as}) => {
+const BasicSelectMenu = ({onClick, as, align = 'left'}) => {
   return (
     <SelectMenu as={as}>
       <Button as="summary">Projects</Button>
-      <SelectMenu.Modal title="Projects">
+      <SelectMenu.Modal title="Projects" align={align}>
         <SelectMenu.List>
           <SelectMenu.Item selected href="#">
             Primer Components bugs
@@ -122,5 +125,9 @@ describe('SelectMenu', () => {
     const item = component.find("[data-test='menu-item']").first()
     item.simulate('click')
     expect(component.getDOMNode().attributes.open).toBeFalsy()
+  })
+
+  it('right-aligned modal has right: 0px', () => {
+    expect(render(<BasicSelectMenu align="right" />)).toMatchSnapshot()
   })
 })
