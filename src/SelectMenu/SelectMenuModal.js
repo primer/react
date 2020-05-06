@@ -93,11 +93,15 @@ const SelectMenuModal = ({children, theme, ...rest}) => {
   )
 }
 
-SelectMenuModal.defaultProps = {
+SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
-  theme
+  theme: PropTypes.object
 }
 
+SelectMenuModal.defaultProps = {
+  align: 'left',
+  theme
+}
 SelectMenuModal.propTypes = {
   ...COMMON.propTypes
 }
