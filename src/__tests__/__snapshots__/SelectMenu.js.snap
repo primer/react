@@ -1,73 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": .c1 {
-  position: relative;
-  display: inline-block;
-  padding: 6px 16px;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border-radius: 6px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-size: 14px;
-  color: #24292e;
-  background-color: #fafbfc;
-  border: 1px solid rgba(27,31,35,0.12);
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
-}
-
-.c1:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:focus {
-  outline: none;
-}
-
-.c1:disabled {
-  cursor: default;
-}
-
-.c1:disabled svg {
-  opacity: 0.6;
-}
-
-.c1:hover {
-  background-color: #F3F4F6;
-  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
-}
-
-.c1:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
-}
-
-.c1:active {
-  background-color: #edeff2;
-  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
-  border-color: #d1d5da;
-}
-
-.c1:disabled {
-  color: #959da5;
-  background-color: #fafbfc;
-  border-color: #eaecef;
-}
-
 .c6 {
   padding: 4px 16px;
   margin: 0;
@@ -106,6 +39,8 @@ Object {
   color: #586069;
   -webkit-text-decoration: none;
   text-decoration: none;
+  font-size: 12px;
+  width: 100%;
 }
 
 .c5:hover {
@@ -242,6 +177,72 @@ Object {
   display: none;
 }
 
+.c1 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27,31,35,0.12);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:focus {
+  outline: none;
+}
+
+.c1:disabled {
+  cursor: default;
+}
+
+.c1:disabled svg {
+  opacity: 0.6;
+}
+
+.c1:hover {
+  background-color: #F3F4F6;
+  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
+}
+
+.c1:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c1:active {
+  background-color: #edeff2;
+  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
+  border-color: #d1d5da;
+}
+
+.c1:disabled {
+  color: #959da5;
+  background-color: #fafbfc;
+  border-color: #eaecef;
+}
+
 @media (min-width:544px) {
   .c7 {
     padding: 4px 8px;
@@ -321,306 +322,160 @@ Object {
   }
 }
 
-<body>
-    <div>
-      <details
-        class="c0"
-      >
-        <summary
-          class="c1"
-        >
-          Projects
-        </summary>
-        <div
-          class="c2"
-          role="menu"
-          title="Projects"
-        >
-          <div
-            class="c3"
-          >
-            <div
-              class="c4"
-            >
-              <a
-                aria-checked="true"
-                class="c5"
-                href="#"
-                role="menuitemcheckbox"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="SelectMenu-icon SelectMenu-selected-icon"
-                  height="16"
-                  role="img"
-                  style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                  viewBox="0 0 12 16"
-                  width="12"
-                >
-                  <path
-                    d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-                Primer Components bugs
-              </a>
-              <a
-                aria-checked="false"
-                class="c5"
-                data-test="menu-item"
-                href="#"
-                role="menuitemcheckbox"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="SelectMenu-icon SelectMenu-selected-icon"
-                  height="16"
-                  role="img"
-                  style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                  viewBox="0 0 12 16"
-                  width="12"
-                >
-                  <path
-                    d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-                Primer Components roadmap
-              </a>
-              <div
-                class="c6"
-              >
-                stuff
-              </div>
-              <a
-                aria-checked="false"
-                class="c5"
-                href="#"
-                role="menuitemcheckbox"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="SelectMenu-icon SelectMenu-selected-icon"
-                  height="16"
-                  role="img"
-                  style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                  viewBox="0 0 12 16"
-                  width="12"
-                >
-                  <path
-                    d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-                 Project 3
-              </a>
-              <a
-                aria-checked="false"
-                class="c5"
-                href="#"
-                role="menuitemcheckbox"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="SelectMenu-icon SelectMenu-selected-icon"
-                  height="16"
-                  role="img"
-                  style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                  viewBox="0 0 12 16"
-                  width="12"
-                >
-                  <path
-                    d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-                Project 4
-              </a>
-              <footer
-                class="c7"
-              >
-                footer
-              </footer>
-            </div>
-          </div>
-        </div>
-      </details>
-    </div>
-  </body>,
-  "container": <div>
-    <details
-      class="SelectMenu__StyledSelectMenu-sc-12xd8o8-0 ePHbJq"
+<details
+  className="c0"
+  onToggle={[Function]}
+  open={false}
+>
+  <summary
+    className="c1"
+  >
+    Projects
+  </summary>
+  <div
+    className="c2"
+    role="menu"
+    title="Projects"
+  >
+    <div
+      className="c3"
     >
-      <summary
-        class="ButtonBase-sc-7hwhlh-0 Button-sc-14jla3s-0 hfANNf"
-      >
-        Projects
-      </summary>
       <div
-        class="SelectMenuModal__ModalWrapper-fv9zw3-1 eCvDIu"
-        role="menu"
-        title="Projects"
+        className="c4"
       >
-        <div
-          class="SelectMenuModal__Modal-fv9zw3-0 xODSP"
+        <a
+          aria-checked={true}
+          className="c5"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
         >
-          <div
-            class="SelectMenuList-uflcju-0 cbBohN"
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
           >
-            <a
-              aria-checked="true"
-              class="SelectMenuItem__StyledItem-sc-13zu9d-0 gykZwa"
-              href="#"
-              role="menuitemcheckbox"
-            >
-              <svg
-                aria-hidden="true"
-                class="StyledOcticon-sc-7ly0uy-0 kjxdKv SelectMenu-icon SelectMenu-selected-icon"
-                height="16"
-                role="img"
-                style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                viewBox="0 0 12 16"
-                width="12"
-              >
-                <path
-                  d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              Primer Components bugs
-            </a>
-            <a
-              aria-checked="false"
-              class="SelectMenuItem__StyledItem-sc-13zu9d-0 gykZwa"
-              data-test="menu-item"
-              href="#"
-              role="menuitemcheckbox"
-            >
-              <svg
-                aria-hidden="true"
-                class="StyledOcticon-sc-7ly0uy-0 kjxdKv SelectMenu-icon SelectMenu-selected-icon"
-                height="16"
-                role="img"
-                style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                viewBox="0 0 12 16"
-                width="12"
-              >
-                <path
-                  d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              Primer Components roadmap
-            </a>
-            <div
-              class="SelectMenuDivider-hf146n-0 ijQUxC"
-            >
-              stuff
-            </div>
-            <a
-              aria-checked="false"
-              class="SelectMenuItem__StyledItem-sc-13zu9d-0 gykZwa"
-              href="#"
-              role="menuitemcheckbox"
-            >
-              <svg
-                aria-hidden="true"
-                class="StyledOcticon-sc-7ly0uy-0 kjxdKv SelectMenu-icon SelectMenu-selected-icon"
-                height="16"
-                role="img"
-                style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                viewBox="0 0 12 16"
-                width="12"
-              >
-                <path
-                  d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-               Project 3
-            </a>
-            <a
-              aria-checked="false"
-              class="SelectMenuItem__StyledItem-sc-13zu9d-0 gykZwa"
-              href="#"
-              role="menuitemcheckbox"
-            >
-              <svg
-                aria-hidden="true"
-                class="StyledOcticon-sc-7ly0uy-0 kjxdKv SelectMenu-icon SelectMenu-selected-icon"
-                height="16"
-                role="img"
-                style="display: inline-block; fill: currentColor; user-select: none; vertical-align: text-bottom;"
-                viewBox="0 0 12 16"
-                width="12"
-              >
-                <path
-                  d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              Project 4
-            </a>
-            <footer
-              class="SelectMenuFooter-sc-1uzxr7t-0 gHoAZo"
-            >
-              footer
-            </footer>
-          </div>
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+          Primer Components bugs
+        </a>
+        <a
+          aria-checked={false}
+          className="c5"
+          data-test="menu-item"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+          Primer Components roadmap
+        </a>
+        <div
+          className="c6"
+        >
+          stuff
         </div>
+        <a
+          aria-checked={false}
+          className="c5"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+           Project 3
+        </a>
+        <a
+          aria-checked={false}
+          className="c5"
+          href="#"
+          onClick={[Function]}
+          role="menuitemcheckbox"
+        >
+          <svg
+            aria-hidden="true"
+            className="SelectMenu-icon SelectMenu-selected-icon"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "fill": "currentColor",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 12 16"
+            width={12}
+          >
+            <path
+              d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
+              fillRule="evenodd"
+            />
+          </svg>
+          Project 4
+        </a>
+        <footer
+          className="c7"
+        >
+          footer
+        </footer>
       </div>
-    </details>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
+    </div>
+  </div>
+</details>
 `;
