@@ -1,4 +1,5 @@
 import {colors as colorPrimitives, typography} from '@primer/primitives'
+import {lighten, rgba, desaturate} from 'polished'
 
 const {lineHeights} = typography
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
@@ -30,10 +31,23 @@ const colors = {
     success: green[5],
     unknown: gray[4]
   },
+
   border: {
-    grayLight: '#eaecef',
+    blackFade: rgba(black, 0.15),
+    blue: blue[5],
+    blueLight: blue[2],
+    grayLight: lighten(0.03, gray[2]),
     gray: gray[2],
-    grayDark: '#d1d5da'
+    grayDark: gray[3],
+    grayDarker: gray[7],
+    green: green[4],
+    greenLight: desaturate(0.4, green[3]),
+    purple: purple[5],
+    red: red[5],
+    redLight: desaturate(0.6, red[3]),
+    white,
+    whiteFade: rgba(white, 0.15),
+    yellow: desaturate(0.6, yellow[3])
   },
   counter: {
     bg: 'rgba(27, 31, 35, 0.08)'
@@ -86,8 +100,7 @@ const fonts = {
     'Arial',
     'sans-serif',
     'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol'
+    'Segoe UI Emoji'
   ]),
   mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
 }
@@ -99,7 +112,7 @@ const fontWeights = {
   bold: 600
 }
 
-const borders = [0, '1px solid']
+const borderWidths = [0, '1px']
 
 const radii = ['0', '3px', '6px', '100px']
 
@@ -229,6 +242,33 @@ const buttons = {
   }
 }
 
+const flash = {
+  default: {
+    backgroundColor: blue[1],
+    borderColor: 'rgba(4, 66, 137, 0.2)'
+  },
+  success: {
+    backgroundColor: green[1],
+    borderColor: 'rgba(23, 111, 44, 0.2)'
+  },
+  danger: {
+    backgroundColor: '#FFE3E6',
+    borderColor: 'rgba(158, 28, 35, 0.2)'
+  },
+  warning: {
+    backgroundColor: yellow[1],
+    borderColor: 'rgba(176, 136, 0, 0.2)'
+  }
+}
+
+// this has to be separated from the flash object since we have to use an svg selector to style the icon color
+const flashIcon = {
+  default: 'rgba(4, 66, 137, 0.6)',
+  success: 'rgba(23, 111, 44, 0.8)',
+  danger: 'rgba(158, 28, 35, 0.6)',
+  warning: yellow[8]
+}
+
 const popovers = {
   colors: {
     caret: 'rgba(27, 31, 35, 0.15)'
@@ -265,7 +305,7 @@ const pagination = {
 
 const theme = {
   // General
-  borders,
+  borderWidths,
   breakpoints,
   colors,
   fonts,
@@ -280,7 +320,9 @@ const theme = {
   // Components
   buttons,
   pagination,
-  popovers
+  popovers,
+  flash,
+  flashIcon
 }
 
 export default theme

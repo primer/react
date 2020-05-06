@@ -1,14 +1,11 @@
-import 'babel-polyfill'
-
-import {render as HTMLRender, cleanup, render} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import {mount, renderRoot} from '../utils/testing'
-
-import Button from '../Button'
-import {COMMON} from '../constants'
 import React from 'react'
 import SelectMenu from '../SelectMenu'
-
+import Button from '../Button'
+import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX} from '../utils/testing'
+import {COMMON} from '../constants'
+import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 const BasicSelectMenu = ({onClick, as, align = 'left'}) => {
@@ -58,6 +55,18 @@ const MenuWithTabs = ({onClick}) => {
 }
 
 describe('SelectMenu', () => {
+  for (const subComp of ['List', 'Divider', 'Filter', 'Item', 'List', 'Modal', 'Tabs', 'Tab', 'TabPanel', 'Header']) {
+    const Comp = SelectMenu[subComp]
+
+    it('implements the sx prop', () => {
+      expect(Comp).toImplementSxProp()
+    })
+
+    it('sets a valid displayName', () => {
+      expect(Comp.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+    })
+  }
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BasicSelectMenu />)
     const results = await axe(container)
@@ -75,16 +84,6 @@ describe('SelectMenu', () => {
   it('does not allow the "as" prop on SelectMenu', () => {
     const component = mount(<BasicSelectMenu as="span" />)
     expect(component.find('details').length).toEqual(1)
-  })
-
-  it('does not allow the "as" prop on SelectMenu.Item', () => {
-    const component = mount(<BasicSelectMenu as="span" />)
-    expect(
-      component
-        .find("[data-test='menu-item']")
-        .first()
-        .getDOMNode().tagName
-    ).toEqual('A')
   })
 
   it('shows correct initial tab', () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Details from '../Details'
-import {mount} from '../utils/testing'
+import {mount, behavesAsComponent} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,13 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Details', () => {
-  it('implements system props', () => {
-    expect(Details).toImplementSystemProps(COMMON)
-  })
-
-  it('has default theme', () => {
-    expect(Details).toSetDefaultTheme()
-  })
+  behavesAsComponent(Details, [COMMON])
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Details />)

@@ -18,7 +18,7 @@ module.exports = {
       options: {
         alias: {
           '@primer/components': path.resolve(__dirname, '../src'),
-          'styled-components': path.resolve(__dirname, 'node_modules', 'styled-components'),
+          'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
           'react': path.resolve(__dirname, 'node_modules', 'react'),
         }
       }

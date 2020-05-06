@@ -2,7 +2,7 @@ import React from 'react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import theme from '../theme'
-import {getClasses, mount} from './testing'
+import {getClasses, mount, getComputedStyles, render} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
@@ -48,6 +48,42 @@ expect.extend({
     return {
       pass: missing.length === 0,
       message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
+    }
+  },
+
+  toImplementSxProp(Component) {
+    return {
+      pass: !!Component.propTypes.sx,
+      message: () => 'Missing sx propTypes'
+    }
+  },
+
+  toImplementSxBehavior(element) {
+    const mediaKey = '@media (max-width:123px)'
+    const sxPropValue = {
+      [mediaKey]: {
+        color: 'red.5'
+      }
+    }
+
+    const elem = React.cloneElement(element, {sx: sxPropValue})
+    const rendered = render(elem)
+
+    function checkStylesDeep(rendered) {
+      const className = rendered.props.className
+      const styles = getComputedStyles(className)
+      if (styles[mediaKey] && styles[mediaKey].color) {
+        return true
+      } else if (rendered.children) {
+        return rendered.children.some(child => checkStylesDeep(child))
+      } else {
+        return false
+      }
+    }
+
+    return {
+      pass: checkStylesDeep(rendered),
+      message: () => 'sx prop values did not change styles of component nor of any sub-components'
     }
   },
 
