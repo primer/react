@@ -110,9 +110,9 @@ SelectMenu.Modal components get `COMMON` system props. Read our [System Props](/
 
 ### Component Props
 
-| Prop name | Type   | Description                                       |
-| :-------- | :----- | :------------------------------------------------ |
-| align     | String | Use `right` to align the select menu to the right |
+| Prop name | Type   | Default | Description                                       |
+| :-------- | :----- | :------ | ------------------------------------------------- |
+| align     | String | 'left'  | Use `right` to align the select menu to the right |
 
 
 ## SelectMenu.List
