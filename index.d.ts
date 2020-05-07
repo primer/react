@@ -27,14 +27,7 @@ declare module '@primer/components' {
     extends StyledSystem.BordersProps,
       StyledSystem.BoxShadowProps {}
 
-  interface PositionProps
-    extends BaseProps,
-      StyledSystem.PositionProps,
-      StyledSystem.ZIndexProps,
-      StyledSystem.TopProps,
-      StyledSystem.RightProps,
-      StyledSystem.BottomProps,
-      StyledSystem.LeftProps {}
+  interface PositionProps extends StyledSystem.PositionProps {}
 
   export interface BoxProps
     extends BaseProps,
@@ -273,10 +266,7 @@ declare module '@primer/components' {
   }
 
   export interface PositionComponentProps
-    extends PositionProps,
-      CommonProps,
-      LayoutProps,
-      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+    extends PositionProps, BoxProps {}
 
   export const Relative: React.FunctionComponent<PositionComponentProps>
   export const Absolute: React.FunctionComponent<PositionComponentProps>
