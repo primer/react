@@ -1,6 +1,6 @@
 import React from 'react'
-import Breadcrumb from '../Breadcrumbs'
-import {mount, render, rendersClass, behavesAsComponent} from '../utils/testing'
+import {Breadcrumb} from '..'
+import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Breadcrumb', () => {
   behavesAsComponent(Breadcrumb, [COMMON])
+
+  checkExports('Breadcrumb', {
+    default: Breadcrumb
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Breadcrumb />)

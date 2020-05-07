@@ -1,6 +1,6 @@
 import React from 'react'
-import StateLabel from '../StateLabel'
-import {render, behavesAsComponent} from '../utils/testing'
+import {StateLabel} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('StateLabel', () => {
   behavesAsComponent(StateLabel, [COMMON])
+
+  checkExports('StateLabel', {
+    default: StateLabel
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<StateLabel status="issueOpened" />)

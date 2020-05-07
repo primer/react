@@ -1,8 +1,8 @@
 import React from 'react'
 import {Check} from '@primer/octicons-react'
 import {colors} from '../theme'
-import CircleOcticon from '../CircleOcticon'
-import {render, behavesAsComponent} from '../utils/testing'
+import {CircleOcticon} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -11,6 +11,10 @@ expect.extend(toHaveNoViolations)
 
 describe('CircleOcticon', () => {
   behavesAsComponent(CircleOcticon, [COMMON, FLEX, LAYOUT], () => <CircleOcticon icon={Check} />)
+
+  checkExports('CircleOcticon', {
+    default: CircleOcticon
+  })
 
   it('renders a <div> with width and height', () => {
     const result = render(<CircleOcticon icon={Check} size={10} />)

@@ -4,30 +4,40 @@ title: Getting Started
 
 ## Installation
 
-To get started using Primer Components, install the package and its two peer dependencies with your package manager of choice:
+To get started using Primer Components, install the package and its peer dependencies with your package manager of choice:
 
 ```bash
 # with npm
-npm install @primer/components react styled-components
+npm install @primer/components react react-dom styled-components
 
 # with yarn
-yarn add @primer/components react styled-components
+yarn add @primer/components react react-dom styled-components
 ```
 
-You can now start importing Primer Components!
+You can now import Primer Components from the main package module:
 
 ```javascript
 import {Box, Flex} from '@primer/components'
 ```
 
+Alternatively, you can import individual components from the `lib` subfolder:
+
+```javascript
+import Box from '@primer/components/lib/Box'
+import Flex from '@primer/components/lib/Flex'
+```
+
+Importing components individually can reduce bundle sizes if you don't have tree-shaking set up in your app.
+
 ### Peer dependencies
 
 Primer Components ships with a few libraries labeled as peer dependencies. These libraries are separated because they are commonly already installed in the host project and having multiple versions can introduce errors.
 
-Before getting started using Primer Components, make sure that the following libraries are installed in your host project:
+Primer Components requires the following libraries to be installed along with it:
 
 - `styled-components` at version 4.0.0 or higher
 - `react` at versions 16.8.0 or higher
+- `react-dom` at versions 16.8.0 or higher
 
 ## BaseStyles
 
@@ -128,3 +138,7 @@ In your `tsconfig.json`, set the `types` array under the `compilerOptions` like 
 ```
 
 Of course, customize the array based on the `@types/` packages you have installed for your project.
+
+## Silencing warnings
+
+Like React, Primer Components emits warnings to the JavaScript console under certain conditions, like using deprecated components or props. Similar to React, you can silence these warnings by setting the `NODE_ENV` environment variable to `production` during bundling.

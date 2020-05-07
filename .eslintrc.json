@@ -5,6 +5,9 @@
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended"
   ],
+  "globals": {
+    "__DEV__": "readonly"
+  },
   "rules": {
     "import/no-namespace": 0,
     "no-shadow": 0,

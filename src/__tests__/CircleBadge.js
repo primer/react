@@ -1,6 +1,6 @@
 import React from 'react'
-import CircleBadge from '../CircleBadge'
-import {render, mount, behavesAsComponent} from '../utils/testing'
+import {CircleBadge} from '..'
+import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -11,6 +11,10 @@ const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
   behavesAsComponent(CircleBadge, [COMMON], () => <CircleBadge>{imgInput}</CircleBadge>)
+
+  checkExports('CircleBadge', {
+    default: CircleBadge
+  })
 
   describe('CircleBadge.Icon', () => {
     behavesAsComponent(CircleBadge.Icon, [COMMON], () => (

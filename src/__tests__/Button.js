@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonGroup, ButtonTableList} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -11,6 +11,15 @@ function noop() {}
 
 describe('Button', () => {
   behavesAsComponent(Button, [COMMON, LAYOUT])
+
+  checkExports('Button', {
+    default: Button,
+    ButtonPrimary,
+    ButtonDanger,
+    ButtonOutline,
+    ButtonGroup,
+    ButtonTableList
+  })
 
   it('renders a <button>', () => {
     expect(render(<Button />).type).toEqual('button')

@@ -1,5 +1,5 @@
 import React from 'react'
-import FilterList from '../FilterList'
+import {FilterList} from '..'
 import {render, behavesAsComponent} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'

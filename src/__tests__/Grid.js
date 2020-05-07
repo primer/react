@@ -1,7 +1,7 @@
 import React from 'react'
-import Grid from '../Grid'
+import {Grid} from '..'
 import {COMMON, FLEX, LAYOUT, GRID} from '../constants'
-import {render, behavesAsComponent} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Grid', () => {
   behavesAsComponent(Grid, [COMMON, FLEX, LAYOUT, GRID])
+
+  checkExports('Grid', {
+    default: Grid
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Grid />)
