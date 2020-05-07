@@ -20,10 +20,7 @@ exports[`StateLabel renders children 1`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #159739;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 8px 12px;
   font-size: 14px;
 }
 
@@ -75,10 +72,7 @@ exports[`StateLabel renders consistently 1`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #159739;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 8px 12px;
   font-size: 14px;
 }
 
@@ -130,10 +124,7 @@ exports[`StateLabel respects the status prop 1`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #159739;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 8px 12px;
   font-size: 14px;
 }
 
@@ -183,11 +174,8 @@ exports[`StateLabel respects the status prop 2`] = `
   color: #fff;
   text-align: center;
   border-radius: 100px;
-  background-color: #cb2431;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  padding-right: 12px;
+  background-color: #d73a49;
+  padding: 8px 12px;
   font-size: 14px;
 }
 
@@ -238,10 +226,7 @@ exports[`StateLabel respects the status prop 3`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #6f42c1;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 8px 12px;
   font-size: 14px;
 }
 
@@ -292,10 +277,7 @@ exports[`StateLabel respects the variant prop 1`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #159739;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 4px 8px;
   font-size: 12px;
 }
 
@@ -346,10 +328,7 @@ exports[`StateLabel respects the variant prop 2`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #159739;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 8px 12px;
   font-size: 14px;
 }
 
