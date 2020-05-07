@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, LAYOUT, POSITION} from './constants'
+import {POSITION,} from './constants'
+import Box from './Box'
 import theme from './theme'
 import sx from './sx'
 
-const Position = styled.div`
-  ${LAYOUT}
-  ${COMMON}
-  ${POSITION}
+const Position = styled(Box)`
+  ${POSITION};
   ${sx};
 `
 
@@ -17,11 +16,10 @@ Position.defaultProps = {
 }
 
 Position.propTypes = {
-  ...COMMON.propTypes,
-  ...LAYOUT.propTypes,
+  ...Box.propTypes,
   ...POSITION.propTypes,
-  ...sx.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  ...sx.propTypes
 }
 
 function withPosition(position) {
