@@ -6,7 +6,12 @@ Use StateLabel components to show the status of an issue or pull request.
 ## Default example
 
 ```jsx live
-  <StateLabel status="issueOpened">Open</StateLabel>
+<StateLabel status="issueOpened">Open</StateLabel>
+<StateLabel status="issueClosed">Closed</StateLabel>
+<StateLabel status="pullOpened">Open</StateLabel>
+<StateLabel status="pullClosed">Closed</StateLabel>
+<StateLabel status="pullMerged">Merged</StateLabel>
+<StateLabel status="draft">Draft</StateLabel>
 ```
 
 ## System props
@@ -17,5 +22,5 @@ StateLabel components get `COMMON` system props. Read our [System Props](/system
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| small | Boolean | | Used to create a smaller version of the default StateLabel |
-| status | String | | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed` or `pullMerged`.
+| variant | String | 'normal' | a value of `small` or `normal` results in a smaller or larger version of the StateLabel. |
+| status | String | | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed`, `pullMerged`, or `draft`.

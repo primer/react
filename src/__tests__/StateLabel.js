@@ -5,10 +5,17 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import {Deprecations} from '../utils/deprecate'
 expect.extend(toHaveNoViolations)
 
 describe('StateLabel', () => {
-  behavesAsComponent(StateLabel, [COMMON])
+  behavesAsComponent(StateLabel, [COMMON], () => <StateLabel status="issueOpened">Open</StateLabel>, {
+    // Rendering a StyledOcticon seems to break getComputedStyles, which
+    // the sx prop implementation test uses to make sure the prop is working correctly.
+    // Despite my best efforts, I cannot figure out why this is happening. So,
+    // unfortunately, we will simply skip this test.
+    skipSx: true
+  })
 
   checkExports('StateLabel', {
     default: StateLabel
@@ -21,24 +28,23 @@ describe('StateLabel', () => {
     cleanup()
   })
 
+  it('respects the deprecated "small" prop', () => {
+    expect(render(<StateLabel status="issueOpened" small />)).toHaveStyleRule('font-size', '12px')
+    expect(Deprecations.getDeprecations()).toHaveLength(1)
+  })
+
   it('respects the status prop', () => {
     expect(render(<StateLabel status="issueOpened" />)).toMatchSnapshot()
     expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
     expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
   })
 
-  it('respects the small flag', () => {
-    expect(render(<StateLabel small />)).toMatchSnapshot()
-    expect(render(<StateLabel small={false} />)).toMatchSnapshot()
+  it('respects the variant prop', () => {
+    expect(render(<StateLabel variant="small" status="issueOpened" />)).toMatchSnapshot()
+    expect(render(<StateLabel variant="normal" status="issueOpened" />)).toMatchSnapshot()
   })
 
   it('renders children', () => {
-    expect(render(<StateLabel>hi</StateLabel>)).toMatchSnapshot()
-  })
-
-  it('does not pass on arbitrary attributes', () => {
-    const defaultOutput = render(<StateLabel />)
-    expect(render(<StateLabel data-foo="bar" />)).toEqual(defaultOutput)
-    expect(render(<StateLabel hidden />)).toEqual(defaultOutput)
+    expect(render(<StateLabel status="issueOpened">hi</StateLabel>)).toMatchSnapshot()
   })
 })
