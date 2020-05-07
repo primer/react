@@ -21,19 +21,11 @@ const octiconMap = {
 const colorVariants = variant({
   prop: 'status',
   scale: 'stateLabels.status',
-  // https://styled-system.com/variants/#migrating-from-legacy-api
-  variants: {
-    ...theme.stateLabels.status
-  }
 })
 
 const sizeVariants = variant({
   prop: 'variant',
-  scale: 'stateLabels.sizes',
-  // https://styled-system.com/variants/#migrating-from-legacy-api
-  variants: {
-    ...theme.stateLabels.sizes
-  }
+  scale: 'stateLabels.sizes'
 })
 
 const StateLabelBase = styled.span`
