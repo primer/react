@@ -20,7 +20,7 @@ const octiconMap = {
 
 const colorVariants = variant({
   prop: 'status',
-  scale: 'stateLabels.status',
+  scale: 'stateLabels.status'
 })
 
 const sizeVariants = variant({
