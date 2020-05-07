@@ -11,9 +11,9 @@ const namedExports = {
   'react-is': ['isValidElementType']
 }
 
-const formats = ['esm', 'umd'] // 'cjs' ?
+const formats = ['esm', 'umd']
 const plugins = [
-  babel({exclude: 'node_modules/**'}),
+  babel({exclude: 'node_modules/**', runtimeHelpers: true}),
   resolve(),
   commonjs({namedExports}),
   terser(),
@@ -23,8 +23,8 @@ const plugins = [
 export default [
   {
     input: 'src/index.js',
-    plugins,
     external: ['styled-components', 'react', 'react-dom'],
+    plugins,
     output: formats.map(format => ({
       file: `dist/browser.${format}.js`,
       format,

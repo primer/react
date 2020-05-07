@@ -12,7 +12,7 @@ const sharedPlugins = [
   '@babel/plugin-proposal-object-rest-spread'
 ]
 
-const devPlugins = [['@babel/plugin-transform-runtime', {version: '7.9.2', helpers: true}]]
+const runtimePlugins = [['@babel/plugin-transform-runtime', {version: '7.9.2', helpers: true}]]
 
 function makePresets(moduleValue) {
   return [
@@ -24,12 +24,12 @@ function makePresets(moduleValue) {
 module.exports = {
   env: {
     development: {
-      presets: makePresets('commonjs'),
-      plugins: [...sharedPlugins, ...devPlugins, replacementPlugin('development')]
+      presets: makePresets(process.env.BABEL_MODULE || false),
+      plugins: [...sharedPlugins, ...runtimePlugins, replacementPlugin('development')]
     },
     production: {
       presets: makePresets(false),
-      plugins: [...sharedPlugins, replacementPlugin('production')]
+      plugins: [...sharedPlugins, ...runtimePlugins, replacementPlugin('production')]
     },
     test: {
       presets: makePresets('commonjs'),

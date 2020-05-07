@@ -17,17 +17,28 @@ yarn add @primer/components react react-dom styled-components
 You can now import Primer Components from the main package module:
 
 ```javascript
+// using import syntax
 import {Box, Flex} from '@primer/components'
+
+// using require syntax
+const {Box, Flex} = require('@primer/components')
 ```
 
 Alternatively, you can import individual components from the `lib` subfolder:
 
 ```javascript
+// using import syntax
 import Box from '@primer/components/lib/Box'
 import Flex from '@primer/components/lib/Flex'
+
+// using require syntax
+const Box = require('@primer/components/lib/Box')
+const Flex = require('@primer/components/lib/Flex')
 ```
 
-Importing components individually can reduce bundle sizes if you don't have tree-shaking set up in your app.
+Note that the files in the `lib` folder are CommonJS-style modules; if you're using ECMAScript modules (ESM) and a compatible module bundler, importing files individually from `lib` provides no benefit, as unused modules from the ESM build will be removed via tree-shaking. Primer Components has an ESM build specified in its `package.json`, so when using ESM you should always import components from the main entry point (as in the first example, above).
+
+If you're *not* using ESM, importing components individually from the `lib` folder may drastically decrease your final bundle size, since your module bundler will not have to include the entirety of Primer Components in your bundle.
 
 ### Peer dependencies
 
