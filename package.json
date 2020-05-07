@@ -3,15 +3,15 @@
   "version": "19.0.0",
   "description": "Primer react components",
   "main": "lib/index.js",
-  "module": "dist/browser.esm.dev.js",
+  "module": "lib-esm/index.js",
   "typings": "index.d.ts",
   "scripts": {
     "start": "cd docs && yarn run develop",
-    "predist": "rm -rf dist lib",
-    "dist": "yarn dist:rollup:dev && yarn dist:rollup:prod && yarn dist:transpile",
-    "dist:rollup:dev": "cross-env NODE_ENV=development rollup -c",
-    "dist:rollup:prod": "cross-env NODE_ENV=production rollup -c",
-    "dist:transpile": "rm -rf lib && babel src --out-dir lib",
+    "predist": "rm -rf dist",
+    "dist": "yarn dist:rollup && yarn dist:transpile:cjs && yarn dist:transpile:esm",
+    "dist:rollup": "cross-env NODE_ENV=production rollup -c",
+    "dist:transpile:cjs": "rm -rf lib && cross-env BABEL_MODULE=commonjs babel src --out-dir lib",
+    "dist:transpile:esm": "rm -rf lib-esm && babel src --out-dir lib-esm",
     "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
@@ -32,8 +32,10 @@
     "codemods",
     "dist",
     "lib",
+    "lib-esm",
     "index.d.ts",
-    "!lib/__tests__"
+    "!lib/__tests__",
+    "!lib-esm/__tests__"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
@@ -103,14 +105,14 @@
     "styled-components": "4.x || 5.x"
   },
   "actionBundlesize": {
-    "build": "yarn && yarn dist:rollup:prod",
+    "build": "yarn && yarn dist:rollup",
     "files": [
       {
-        "path": "dist/browser.esm.min.js",
+        "path": "dist/browser.esm.js",
         "name": "ESM Build"
       },
       {
-        "path": "dist/browser.umd.min.js",
+        "path": "dist/browser.umd.js",
         "name": "UMD Build"
       }
     ]

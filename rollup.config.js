@@ -12,30 +12,21 @@ const namedExports = {
 }
 
 const formats = ['esm', 'umd'] // 'cjs' ?
-function plugins({minify = false}) {
-  const allPlugins = [
-    babel({exclude: 'node_modules/**', runtimeHelpers: true}),
-    resolve(),
-    commonjs({namedExports}),
-    visualizer({sourcemap: true})
-  ]
-
-  if (minify) {
-    allPlugins.push(terser())
-  }
-
-  return allPlugins
-}
-
-const prod = process.env.NODE_ENV === 'production'
+const plugins = [
+  babel({exclude: 'node_modules/**', runtimeHelpers: true}),
+  resolve(),
+  commonjs({namedExports}),
+  terser(),
+  visualizer({sourcemap: true})
+]
 
 export default [
   {
     input: 'src/index.js',
-    plugins: plugins({minify: prod}),
     external: ['styled-components', 'react', 'react-dom'],
+    plugins,
     output: formats.map(format => ({
-      file: `dist/browser.${format}.${prod ? 'min' : 'dev'}.js`,
+      file: `dist/browser.${format}.js`,
       format,
       sourcemap: true,
       name: 'primer',
