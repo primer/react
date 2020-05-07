@@ -1,7 +1,6 @@
 import React from 'react'
-import LabelGroup from '../LabelGroup'
-import Label from '../Label'
-import {behavesAsComponent} from '../utils/testing'
+import {LabelGroup, Label} from '..'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -18,6 +17,10 @@ const comp = (
 
 describe('LabelGroup', () => {
   behavesAsComponent(LabelGroup, [COMMON], () => comp)
+
+  checkExports('LabelGroup', {
+    default: LabelGroup
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(comp)

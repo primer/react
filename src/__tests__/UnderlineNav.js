@@ -1,6 +1,6 @@
 import React from 'react'
-import UnderlineNav from '../UnderlineNav'
-import {mount, render, rendersClass, behavesAsComponent} from '../utils/testing'
+import {UnderlineNav} from '..'
+import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('UnderlineNav', () => {
   behavesAsComponent(UnderlineNav, [COMMON])
+
+  checkExports('UnderlineNav', {
+    default: UnderlineNav
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<UnderlineNav />)

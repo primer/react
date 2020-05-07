@@ -1,7 +1,7 @@
 import React from 'react'
 import theme, {colors} from '../theme'
-import BorderBox from '../BorderBox'
-import {render, behavesAsComponent} from '../utils/testing'
+import {BorderBox} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {LAYOUT, COMMON, BORDER, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -10,6 +10,10 @@ expect.extend(toHaveNoViolations)
 
 describe('BorderBox', () => {
   behavesAsComponent(BorderBox, [LAYOUT, COMMON, BORDER, FLEX])
+
+  checkExports('BorderBox', {
+    default: BorderBox
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BorderBox />)

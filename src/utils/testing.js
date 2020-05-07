@@ -130,7 +130,7 @@ export function getComputedStyles(className) {
       return false
     }
     try {
-      return div.matches(selector)
+      return node.matches(selector)
     } catch (error) {
       return false
     }
@@ -190,13 +190,15 @@ export function behavesAsComponent(Component, systemPropArray, toRender = null, 
     }
   })
 
-  it('implements the sx prop', () => {
-    expect(Component).toImplementSxProp()
-  })
+  if (!options.skipSx) {
+    it('implements the sx prop', () => {
+      expect(Component).toImplementSxProp()
+    })
 
-  it('implements sx prop behavior', () => {
-    expect(getElement()).toImplementSxBehavior()
-  })
+    it('implements sx prop behavior', () => {
+      expect(getElement()).toImplementSxBehavior()
+    })
+  }
 
   if (!options.skipAs) {
     it('respects the as prop', () => {
@@ -216,5 +218,12 @@ export function behavesAsComponent(Component, systemPropArray, toRender = null, 
 
   it('renders consistently', () => {
     expect(render(getElement())).toMatchSnapshot()
+  })
+}
+
+export function checkExports(path, exports) {
+  it('has declared exports', () => {
+    const mod = require(`../${path}`)
+    expect(mod).toSetExports(exports)
   })
 }

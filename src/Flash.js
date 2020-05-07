@@ -5,7 +5,7 @@ import {variant} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import sx from './sx'
-import deprecate from './utils/deprecate'
+import {useDeprecation} from './utils/deprecate'
 
 const schemeMap = {
   red: 'danger',
@@ -44,14 +44,17 @@ const StyledFlash = styled.div`
 `
 
 const Flash = ({variant, scheme, ...props}) => {
+  const deprecate = useDeprecation({
+    name: 'Flash "scheme" prop',
+    version: '20.0.0',
+    message: 'Use the variant prop instead. See https://primer.style/components/Flash for more details.'
+  })
+
   if (scheme) {
-    deprecate({
-      name: 'The scheme prop',
-      version: '20.0.0',
-      message: 'Use the variant prop instead. See https://primer.style/components/Flash for more details.'
-    })
+    deprecate()
     variant = schemeMap[scheme]
-  } // deprecate 20.0.0
+  }
+
   return <StyledFlash variant={variant} {...props} />
 }
 

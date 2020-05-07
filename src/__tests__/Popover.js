@@ -1,6 +1,6 @@
 import React from 'react'
-import Popover, {CARET_POSITIONS} from '../Popover'
-import {render, behavesAsComponent} from '../utils/testing'
+import {Popover} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {BORDER, COMMON, LAYOUT, POSITION} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -15,6 +15,10 @@ const comp = (
 
 describe('Popover', () => {
   behavesAsComponent(Popover, [COMMON, LAYOUT, POSITION], () => comp)
+
+  checkExports('Popover', {
+    default: Popover
+  })
 
   describe('Popover.Content', () => {
     behavesAsComponent(Popover.Content, [COMMON, LAYOUT, BORDER], () => comp)
@@ -31,7 +35,7 @@ describe('Popover', () => {
     cleanup()
   })
 
-  for (const pos of CARET_POSITIONS) {
+  for (const pos of Popover.CARET_POSITIONS) {
     it(`renders correctly for a caret position of ${pos}`, () => {
       const element = (
         <Popover caret={pos} open>

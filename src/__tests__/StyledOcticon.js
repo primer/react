@@ -1,7 +1,7 @@
 import React from 'react'
 import {X} from '@primer/octicons-react'
-import StyledOcticon from '../StyledOcticon'
-import {behavesAsComponent} from '../utils/testing'
+import {StyledOcticon} from '..'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -10,6 +10,11 @@ expect.extend(toHaveNoViolations)
 
 describe('StyledOcticon', () => {
   behavesAsComponent(StyledOcticon, [COMMON], () => <StyledOcticon icon={X} />)
+
+  checkExports('StyledOcticon', {
+    default: StyledOcticon
+  })
+
   it('implements system props', () => {
     expect(StyledOcticon).toImplementSystemProps(COMMON)
   })

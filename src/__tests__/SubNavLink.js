@@ -1,5 +1,5 @@
 import React from 'react'
-import SubNav from '../SubNav'
+import {SubNav} from '..'
 import {COMMON} from '../constants'
 import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'

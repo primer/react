@@ -1,7 +1,7 @@
 import React from 'react'
-import Truncate from '../Truncate'
+import {Truncate} from '..'
 import {COMMON, TYPOGRAPHY} from '../constants'
-import {render, behavesAsComponent} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Truncate', () => {
   behavesAsComponent(Truncate, [COMMON, TYPOGRAPHY], () => <Truncate title="a-long-branch-name" />)
+
+  checkExports('Truncate', {
+    default: Truncate
+  })
 
   it('renders a <div> by default', () => {
     expect(render(<Truncate title="a-long-branch-name" />).type).toEqual('div')

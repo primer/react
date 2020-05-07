@@ -1,6 +1,6 @@
 import React from 'react'
 import {Heading} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {TYPOGRAPHY, COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -32,6 +32,10 @@ const theme = {
 
 describe('Heading', () => {
   behavesAsComponent(Heading, [COMMON, TYPOGRAPHY])
+
+  checkExports('Heading', {
+    default: Heading
+  })
 
   it('renders <h2> by default', () => {
     expect(render(<Heading />).type).toEqual('h2')

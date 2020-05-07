@@ -4,7 +4,6 @@ import styled, {css} from 'styled-components'
 import classnames from 'classnames'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import elementType from './utils/elementType'
 import Link from './Link'
 import BorderBox from './BorderBox'
 import sx from './sx'
@@ -148,7 +147,7 @@ SideNav.defaultProps = {
 }
 
 SideNav.propTypes = {
-  as: elementType,
+  as: PropTypes.elementType,
   bordered: PropTypes.bool,
   children: PropTypes.node,
   theme: PropTypes.object,

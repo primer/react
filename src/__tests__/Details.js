@@ -1,6 +1,6 @@
 import React from 'react'
-import Details from '../Details'
-import {mount, behavesAsComponent} from '../utils/testing'
+import {Details} from '..'
+import {mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('Details', () => {
   behavesAsComponent(Details, [COMMON])
+
+  checkExports('Details', {
+    default: Details
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Details />)

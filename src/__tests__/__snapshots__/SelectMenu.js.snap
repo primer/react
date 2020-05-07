@@ -1,6 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
+.c1 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27,31,35,0.12);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:focus {
+  outline: none;
+}
+
+.c1:disabled {
+  cursor: default;
+}
+
+.c1:disabled svg {
+  opacity: 0.6;
+}
+
+.c1:hover {
+  background-color: #F3F4F6;
+  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
+}
+
+.c1:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c1:active {
+  background-color: #edeff2;
+  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
+  border-color: #d1d5da;
+}
+
+.c1:disabled {
+  color: #959da5;
+  background-color: #fafbfc;
+  border-color: #eaecef;
+}
+
 .c6 {
   padding: 4px 16px;
   margin: 0;
@@ -175,72 +241,6 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 .c0 > summary::-webkit-details-marker {
   display: none;
-}
-
-.c1 {
-  position: relative;
-  display: inline-block;
-  padding: 6px 16px;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border-radius: 6px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  font-size: 14px;
-  color: #24292e;
-  background-color: #fafbfc;
-  border: 1px solid rgba(27,31,35,0.12);
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
-}
-
-.c1:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:focus {
-  outline: none;
-}
-
-.c1:disabled {
-  cursor: default;
-}
-
-.c1:disabled svg {
-  opacity: 0.6;
-}
-
-.c1:hover {
-  background-color: #F3F4F6;
-  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
-}
-
-.c1:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
-}
-
-.c1:active {
-  background-color: #edeff2;
-  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
-  border-color: #d1d5da;
-}
-
-.c1:disabled {
-  color: #959da5;
-  background-color: #fafbfc;
-  border-color: #eaecef;
 }
 
 @media (min-width:544px) {

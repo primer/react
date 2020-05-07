@@ -21,7 +21,7 @@ const ReachGlobalStyle = createGlobalStyle`
   }
 `
 
-export const StyledDialog = styled(ReachDialog)`
+const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   padding: 0 !important;

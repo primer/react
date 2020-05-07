@@ -5,7 +5,7 @@ import {COMMON, LAYOUT, POSITION} from './constants'
 import theme from './theme'
 import sx from './sx'
 
-export const Position = styled.div`
+const Position = styled.div`
   ${LAYOUT}
   ${COMMON}
   ${POSITION}
@@ -32,6 +32,7 @@ function withPosition(position) {
   return WithPosition
 }
 
+export default Position
 export const Absolute = withPosition('Absolute')
 export const Fixed = withPosition('Fixed')
 export const Relative = withPosition('Relative')

@@ -1,6 +1,6 @@
 import React from 'react'
-import TextInput from '../TextInput'
-import {render, mount, behavesAsComponent} from '../utils/testing'
+import {TextInput} from '..'
+import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,6 +9,10 @@ expect.extend(toHaveNoViolations)
 
 describe('TextInput', () => {
   behavesAsComponent(TextInput, [COMMON], {skipAs: true})
+
+  checkExports('TextInput', {
+    default: TextInput
+  })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<TextInput aria-label="zipcode" name="zipcode" variant="small" />)

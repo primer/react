@@ -1,5 +1,5 @@
 import {css} from 'styled-components'
-import {get} from './constants'
+import {get} from '../constants'
 
 export default css`
   position: relative;
