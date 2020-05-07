@@ -24,7 +24,7 @@ function makePresets(moduleValue) {
 module.exports = {
   env: {
     development: {
-      presets: makePresets(false),
+      presets: makePresets('commonjs'),
       plugins: [...sharedPlugins, ...devPlugins, replacementPlugin('development')]
     },
     production: {

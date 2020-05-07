@@ -3,7 +3,7 @@
   "version": "19.0.0",
   "description": "Primer react components",
   "main": "lib/index.js",
-  "module": "lib/index.js",
+  "module": "dist/browser.esm.js",
   "typings": "index.d.ts",
   "scripts": {
     "start": "cd docs && yarn run develop",
