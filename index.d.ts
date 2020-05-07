@@ -509,216 +509,216 @@ declare module '@primer/components' {
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 }
-declare module '@primer/components/src/Box' {
+declare module '@primer/components/lib/Box' {
   import {Box} from '@primer/components'
   export default Box
 }
 
-declare module '@primer/components/src/Text' {
+declare module '@primer/components/lib/Text' {
   import {Text} from '@primer/components'
   export default Text
 }
 
-declare module '@primer/components/src/Heading' {
+declare module '@primer/components/lib/Heading' {
   import {Heading} from '@primer/components'
   export default Heading
 }
 
-declare module '@primer/components/src/ButtonDanger' {
+declare module '@primer/components/lib/ButtonDanger' {
   import {ButtonDanger} from '@primer/components'
   export default ButtonDanger
 }
 
-declare module '@primer/components/src/ButtonPrimary' {
+declare module '@primer/components/lib/ButtonPrimary' {
   import {ButtonPrimary} from '@primer/components'
   export default ButtonPrimary
 }
 
-declare module '@primer/components/src/ButtonOutline' {
+declare module '@primer/components/lib/ButtonOutline' {
   import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
 }
 
-declare module '@primer/components/src/ButtonTableList' {
+declare module '@primer/components/lib/ButtonTableList' {
   import {ButtonTableList} from '@primer/components'
   export default ButtonTableList
 }
 
-declare module '@primer/components/src/ButtonGroup' {
+declare module '@primer/components/lib/ButtonGroup' {
   import {ButtonGroup} from '@primer/components'
   export default ButtonGroup
 }
 
-declare module '@primer/components/src/Button' {
+declare module '@primer/components/lib/Button' {
   import {Button} from '@primer/components'
   export default Button
 }
 
-declare module '@primer/components/src/Flex' {
+declare module '@primer/components/lib/Flex' {
   import {Flex} from '@primer/components'
   export default Flex
 }
 
-declare module '@primer/components/src/Avatar' {
+declare module '@primer/components/lib/Avatar' {
   import {Avatar} from '@primer/components'
   export default Avatar
 }
 
-declare module '@primer/components/src/Details' {
+declare module '@primer/components/lib/Details' {
   import {Details} from '@primer/components'
   export default Details
 }
 
-declare module '@primer/components/src/BaseStyles' {
+declare module '@primer/components/lib/BaseStyles' {
   import {BaseStyles} from '@primer/components'
   export default BaseStyles
 }
 
-declare module '@primer/components/src/BorderBox' {
+declare module '@primer/components/lib/BorderBox' {
   import {BorderBox} from '@primer/components'
   export default BorderBox
 }
 
-declare module '@primer/components/src/BranchName' {
+declare module '@primer/components/lib/BranchName' {
   import {BranchName} from '@primer/components'
   export default BranchName
 }
-declare module '@primer/components/src/CircleBadge' {
+declare module '@primer/components/lib/CircleBadge' {
   import {CircleBadge} from '@primer/components'
   export default CircleBadge
 }
-declare module '@primer/components/src/CircleOcticon' {
+declare module '@primer/components/lib/CircleOcticon' {
   import {CircleOcticon} from '@primer/components'
   export default CircleOcticon
 }
-declare module '@primer/components/src/StyledOcticon' {
+declare module '@primer/components/lib/StyledOcticon' {
   import {StyledOcticon} from '@primer/components'
   export default StyledOcticon
 }
-declare module '@primer/components/src/Dropdown' {
+declare module '@primer/components/lib/Dropdown' {
   import {Dropdown} from '@primer/components'
   export default Dropdown
 }
-declare module '@primer/components/src/FilterList' {
+declare module '@primer/components/lib/FilterList' {
   import {FilterList} from '@primer/components'
   export default FilterList
 }
-declare module '@primer/components/src/Flash' {
+declare module '@primer/components/lib/Flash' {
   import {Flash} from '@primer/components'
   export default Flash
 }
 
-declare module '@primer/components/src/Grid' {
+declare module '@primer/components/lib/Grid' {
   import {Grid} from '@primer/components'
   export default Grid
 }
 
-declare module '@primer/components/src/CounterLabel' {
+declare module '@primer/components/lib/CounterLabel' {
   import {CounterLabel} from '@primer/components'
   export default CounterLabel
 }
 
-declare module '@primer/components/src/Label' {
+declare module '@primer/components/lib/Label' {
   import {Label} from '@primer/components'
   export default Label
 }
 
-declare module '@primer/components/src/Link' {
+declare module '@primer/components/lib/Link' {
   import {Link} from '@primer/components'
   export default Link
 }
-declare module '@primer/components/src/Pagination' {
+declare module '@primer/components/lib/Pagination' {
   import {Pagination} from '@primer/components'
   export default Pagination
 }
-declare module '@primer/components/src/PointerBox' {
+declare module '@primer/components/lib/PointerBox' {
   import {PointerBox} from '@primer/components'
   export default PointerBox
 }
-declare module '@primer/components/src/Popover' {
+declare module '@primer/components/lib/Popover' {
   import {Popover} from '@primer/components'
   export default Popover
 }
-declare module '@primer/components/src/Relative' {
+declare module '@primer/components/lib/Relative' {
   import {Relative} from '@primer/components'
   export default Relative
 }
-declare module '@primer/components/src/Absolute' {
+declare module '@primer/components/lib/Absolute' {
   import {Absolute} from '@primer/components'
   export default Absolute
 }
-declare module '@primer/components/src/Sticky' {
+declare module '@primer/components/lib/Sticky' {
   import {Sticky} from '@primer/components'
   export default Sticky
 }
-declare module '@primer/components/src/Fixed' {
+declare module '@primer/components/lib/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
 }
 
-declare module '@primer/components/src/SelectMenu' {
+declare module '@primer/components/lib/SelectMenu' {
   import {SelectMenu} from '@primer/components'
   export default SelectMenu
 }
 
-declare module '@primer/components/src/StateLabel' {
+declare module '@primer/components/lib/StateLabel' {
   import {StateLabel} from '@primer/components'
   export default StateLabel
 }
 
-declare module '@primer/components/src/TabNav' {
+declare module '@primer/components/lib/TabNav' {
   import {TabNav} from '@primer/components'
   export default TabNav
 }
-declare module '@primer/components/src/TextInput' {
+declare module '@primer/components/lib/TextInput' {
   import {TextInput} from '@primer/components'
   export default TextInput
 }
-declare module '@primer/components/src/Timeline' {
+declare module '@primer/components/lib/Timeline' {
   import {Timeline} from '@primer/components'
   export default Timeline
 }
-declare module '@primer/components/src/Tooltip' {
+declare module '@primer/components/lib/Tooltip' {
   import {Tooltip} from '@primer/components'
   export default Tooltip
 }
-declare module '@primer/components/src/UnderlineNav' {
+declare module '@primer/components/lib/UnderlineNav' {
   import {UnderlineNav} from '@primer/components'
   export default UnderlineNav
 }
-declare module '@primer/components/src/SideNav' {
+declare module '@primer/components/lib/SideNav' {
   import {SideNav} from '@primer/components'
   export default SideNav
 }
-declare module '@primer/components/src/SubNav' {
+declare module '@primer/components/lib/SubNav' {
   import {SubNav} from '@primer/components'
   export default SubNav
 }
-declare module '@primer/components/src/theme' {
+declare module '@primer/components/lib/theme' {
   import {theme} from '@primer/components'
   export default theme
 }
-declare module '@primer/components/src/Dialog' {
+declare module '@primer/components/lib/Dialog' {
   import {Dialog} from '@primer/components'
   export default Dialog
 }
 
-declare module '@primer/components/src/LabelGroup' {
+declare module '@primer/components/lib/LabelGroup' {
   import {LabelGroup} from '@primer/components'
   export default LabelGroup
 }
 
-declare module '@primer/components/src/ProgressBar' {
+declare module '@primer/components/lib/ProgressBar' {
   import {ProgressBar} from '@primer/components'
   export default ProgressBar
 }
 
-declare module '@primer/components/src/AvatarStack' {
+declare module '@primer/components/lib/AvatarStack' {
   import {AvatarStack} from '@primer/components'
   export default AvatarStack
 }
 
-declare module '@primer/components/src/Breadcrumbs' {
+declare module '@primer/components/lib/Breadcrumbs' {
   import {Breadcrumb} from '@primer/components'
   export default Breadcrumb
 }
