@@ -106,11 +106,11 @@
     "build": "yarn && yarn dist:rollup",
     "files": [
       {
-        "path": "dist/browser.esm.js",
+        "path": "dist/browser.esm.min.js",
         "name": "ESM Build"
       },
       {
-        "path": "dist/browser.umd.js",
+        "path": "dist/browser.umd.min.js",
         "name": "UMD Build"
       }
     ]
