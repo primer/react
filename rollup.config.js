@@ -11,7 +11,7 @@ const namedExports = {
   'react-is': ['isValidElementType']
 }
 
-const formats = ['esm', 'umd'] // 'cjs' ?
+const formats = ['esm', 'umd']
 const plugins = [
   babel({exclude: 'node_modules/**', runtimeHelpers: true}),
   resolve(),
