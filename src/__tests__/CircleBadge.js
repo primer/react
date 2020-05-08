@@ -1,6 +1,6 @@
 import React from 'react'
-import CircleBadge from '../CircleBadge'
-import {render, mount} from '../utils/testing'
+import {CircleBadge} from '..'
+import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -10,10 +10,18 @@ expect.extend(toHaveNoViolations)
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  it('respects "as" prop', () => {
-    const item = render(<CircleBadge as="a" />)
-    expect(item.type).toEqual('a')
-    expect(item).toMatchSnapshot()
+  behavesAsComponent(CircleBadge, [COMMON], () => <CircleBadge>{imgInput}</CircleBadge>)
+
+  checkExports('CircleBadge', {
+    default: CircleBadge
+  })
+
+  describe('CircleBadge.Icon', () => {
+    behavesAsComponent(CircleBadge.Icon, [COMMON], () => (
+      <CircleBadge.Icon>
+        <div />
+      </CircleBadge.Icon>
+    ))
   })
 
   it('should have no axe violations', async () => {
@@ -21,10 +29,6 @@ describe('CircleBadge', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(CircleBadge).toSetDefaultTheme()
   })
 
   it('respects the inline prop', () => {
@@ -37,10 +41,6 @@ describe('CircleBadge', () => {
 
   it('uses the size prop to override the variant prop', () => {
     expect(render(<CircleBadge variant="large" size={20} />)).toMatchSnapshot()
-  })
-
-  it('implements system props', () => {
-    expect(CircleBadge).toImplementSystemProps(COMMON)
   })
 
   it('applies title', () => {

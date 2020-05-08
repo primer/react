@@ -1,20 +1,21 @@
 import React from 'react'
-import SideNav from '../SideNav'
-import {render} from '../utils/testing'
-import {BORDER, COMMON, LAYOUT, TYPOGRAPHY} from '../constants'
+import {SideNav} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {BORDER, COMMON, LAYOUT, FLEX, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
-describe('SideNav and SideNav.Link', () => {
-  it('implements system props', () => {
-    expect(SideNav).toImplementSystemProps(BORDER)
-    expect(SideNav).toImplementSystemProps(LAYOUT)
-    expect(SideNav).toImplementSystemProps(COMMON)
+describe('SideNav', () => {
+  behavesAsComponent(SideNav, [BORDER, LAYOUT, COMMON, FLEX])
 
-    expect(SideNav.Link).toImplementSystemProps(COMMON)
-    expect(SideNav.Link).toImplementSystemProps(TYPOGRAPHY)
+  checkExports('SideNav', {
+    default: SideNav
+  })
+
+  describe('SideNav.Link', () => {
+    behavesAsComponent(SideNav.Link, [COMMON, TYPOGRAPHY])
   })
 
   it('should have no axe violations', async () => {
@@ -29,16 +30,6 @@ describe('SideNav and SideNav.Link', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(SideNav).toSetDefaultTheme()
-    expect(SideNav.Link).toSetDefaultTheme()
-  })
-
-  it('renders with default props', () => {
-    expect(render(<SideNav />)).toMatchSnapshot()
-    expect(render(<SideNav.Link />)).toMatchSnapshot()
   })
 
   it('renders a <nav> and <a>', () => {

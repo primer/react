@@ -1,6 +1,6 @@
 import React from 'react'
-import Caret from '../Caret'
-import {render} from '../utils/testing'
+import {Caret} from '..'
+import {render, checkExports} from '../utils/testing'
 import theme from '../theme'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -10,6 +10,10 @@ expect.extend(toHaveNoViolations)
 describe('Caret', () => {
   it('renders <svg>', () => {
     expect(render(<Caret />).type).toEqual('svg')
+  })
+
+  checkExports('Caret', {
+    default: Caret
   })
 
   it('should have no axe violations', async () => {

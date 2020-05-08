@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog Dialog.Header renders consistently 1`] = `
+.c1 {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #24292e;
+}
+
+.c0 {
+  padding: 16px;
+  background-color: #f6f8fa;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 4px 4px 0px 0px;
+  border-bottom: 1px solid #dad5da;
+}
+
+@media screen and (max-width:750px) {
+  .c0 {
+    border-radius: 0px;
+  }
+}
+
+<div
+  className="c0"
+  display="flex"
+>
+  <span
+    className="c1"
+    color="gray.9"
+    fontFamily="sans-serif"
+    fontSize={1}
+    fontWeight="bold"
+  />
+</div>
+`;

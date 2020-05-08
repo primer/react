@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 // The <details> element is not yet supported in Edge so we have to use a polyfill.
 // We have to check if window is defined before importing the polyfill
@@ -21,6 +22,7 @@ const StyledDetails = styled('details')`
   }
 
   ${COMMON}
+  ${sx};
 `
 function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
@@ -90,7 +92,8 @@ Details.propTypes = {
   overlay: PropTypes.bool,
   render: PropTypes.func,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default Details

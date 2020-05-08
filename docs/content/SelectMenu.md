@@ -86,12 +86,36 @@ Used to wrap the content in a `SelectMenu`.
 </SelectMenu.Menu>
 ```
 
+### Right-aligned modal
+
+Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself. You will need to wrap the SelectMenu in a relatively positioned element for this to work properly.
+
+```jsx live
+<Relative display="flex" justifyContent="flex-end">
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal align="right">
+      <SelectMenu.Header>Projects</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+</Relative>
+```
+
 ### System Props
 
 SelectMenu.Modal components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
-SelectMenu.Modal components do not get any additional props besides system props.
+
+| Prop name | Type   | Default | Description                                       |
+| :-------- | :----- | :------ | ------------------------------------------------- |
+| align     | String | 'left'  | Use `right` to align the select menu to the right |
 
 
 ## SelectMenu.List
@@ -114,10 +138,12 @@ SelectMenu.List components do not get any additional props besides system props.
 
 ## SelectMenu.Item
 
-Individual items in a select menu.
+Individual items in a select menu. SelectMenu.Item renders an anchor tag by default, you'll need to make sure to provide the appropriate `href`. 
+
+You can use a `button` tag instead by utilizing the [`as` prop](/core-concepts#the-as-prop). Be sure to consider [which HTML element is the right choice](https://marcysutton.com/links-vs-buttons-in-modern-web-applications) for your usage of the component. 
 
 ```jsx
-<SelectMenu.Item selected={true}>
+<SelectMenu.Item href="/link/to/thing" selected={true}>
   {/* wraps an individual list item*/}
 </SelectMenu.Item>
 ```

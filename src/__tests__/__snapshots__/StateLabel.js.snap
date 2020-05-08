@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StateLabel renders children 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -10,24 +14,49 @@ exports[`StateLabel renders children 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
+  background-color: #159739;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
   className="c0"
 >
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width={14}
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
   hi
 </span>
 `;
 
-exports[`StateLabel respects the small flag 1`] = `
+exports[`StateLabel renders consistently 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -37,44 +66,42 @@ exports[`StateLabel respects the small flag 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 4px 8px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 12px;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
-}
-
-<span
-  className="c0"
-/>
-`;
-
-exports[`StateLabel respects the small flag 2`] = `
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  background-color: #159739;
   padding: 8px 12px;
-  font-weight: 600;
-  line-height: 16px;
-  color: #fff;
   font-size: 14px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 100px;
 }
 
 <span
   className="c0"
-/>
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width={14}
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
+  Open
+</span>
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
@@ -91,14 +118,14 @@ exports[`StateLabel respects the status prop 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #159739;
   border-radius: 100px;
+  background-color: #159739;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -142,14 +169,14 @@ exports[`StateLabel respects the status prop 2`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #cb2431;
   border-radius: 100px;
+  background-color: #d73a49;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -193,14 +220,14 @@ exports[`StateLabel respects the status prop 3`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #6f42c1;
   border-radius: 100px;
+  background-color: #6f42c1;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -224,6 +251,108 @@ exports[`StateLabel respects the status prop 3`] = `
   >
     <path
       d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 002 .99C.89.99 0 1.89 0 3a2 2 0 001 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 001-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the variant prop 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #159739;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={NaN}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width="1em"
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the variant prop 2`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #159739;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "fill": "currentColor",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 14 16"
+    width={14}
+  >
+    <path
+      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
       fillRule="evenodd"
     />
   </svg>

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
+import sx from './sx'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
 import Box from './Box'
@@ -46,6 +47,7 @@ const Breadcrumb = styled(BreadcrumbBase)`
   justify-content: space-between;
   ${COMMON};
   ${FLEX};
+  ${sx};
 `
 
 Breadcrumb.Item = styled.a.attrs(props => ({
@@ -65,6 +67,7 @@ Breadcrumb.Item = styled.a.attrs(props => ({
     pointer-events: none;
   }
   ${COMMON}
+  ${sx};
 `
 
 Breadcrumb.defaultProps = {
@@ -72,18 +75,24 @@ Breadcrumb.defaultProps = {
 }
 
 Breadcrumb.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+Breadcrumb.displayName = 'Breadcrumb'
 
 Breadcrumb.Item.defaultProps = {
   theme
 }
 
 Breadcrumb.Item.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   href: PropTypes.string,
   selected: PropTypes.bool,
+  ...sx.propTypes,
   ...COMMON.propTypes
 }
+
+Breadcrumb.Item.displayName = 'Breadcrumb.Item'
 
 export default Breadcrumb

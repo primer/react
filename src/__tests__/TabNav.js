@@ -1,6 +1,6 @@
 import React from 'react'
-import TabNav from '../TabNav'
-import {mount, render, rendersClass} from '../utils/testing'
+import {TabNav} from '..'
+import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,8 +8,14 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('TabNav', () => {
-  it('implements system props', () => {
-    expect(TabNav).toImplementSystemProps(COMMON)
+  behavesAsComponent(TabNav, [COMMON])
+
+  checkExports('TabNav', {
+    default: TabNav
+  })
+
+  describe('TabNav.Link', () => {
+    behavesAsComponent(TabNav.Link, [COMMON])
   })
 
   it('should have no axe violations', async () => {
@@ -17,10 +23,6 @@ describe('TabNav', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(TabNav).toSetDefaultTheme()
   })
 
   it('renders a <nav>', () => {

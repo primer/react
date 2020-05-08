@@ -41,7 +41,7 @@ The Position component is a wrapper component that gives the containing componen
 
 ## System props
 
-Position components get `POSITION`, `LAYOUT` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+Position components get `POSITION`, `LAYOUT`, `FLEX, and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
