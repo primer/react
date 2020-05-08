@@ -88,10 +88,10 @@ Used to wrap the content in a `SelectMenu`.
 
 ### Right-aligned modal
 
-Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself.
+Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself. You will need to wrap the SelectMenu in a relatively positioned element for this to work properly.
 
 ```jsx live
-<Flex justifyContent="flex-end" as={Relative}>
+<Relative display="flex" justifyContent="flex-end">
   <SelectMenu>
     <Button as="summary">Projects</Button>
     <SelectMenu.Modal align="right">
@@ -104,7 +104,7 @@ Use the `align='right'` prop to align the modal to the right. Note that this onl
       </SelectMenu.List>
     </SelectMenu.Modal>
   </SelectMenu>
-</Flex>
+</Relative>
 ```
 
 ### System Props
