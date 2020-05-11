@@ -379,7 +379,7 @@ declare module '@primer/components' {
       StyledSystem.MinWidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
-    icon?: React.ReactElement
+    icon?: React.ReactNode
     variant?: 'small' | 'large'
   }
 
