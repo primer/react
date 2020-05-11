@@ -1,6 +1,4 @@
-import {BorderBox, Box, Flex, Grid, Heading, Position, Text, Details, StyledOcticon} from '@primer/components'
-import {ChevronDown, ChevronRight} from '@primer/octicons-react'
-import React from 'react'
+import {BorderBox, Box, Details, Flex, Grid, Heading, Position, Text} from '@primer/components'
 import Head from '@primer/gatsby-theme-doctocat/src/components/head'
 import Header, {HEADER_HEIGHT} from '@primer/gatsby-theme-doctocat/src/components/header'
 import PageFooter from '@primer/gatsby-theme-doctocat/src/components/page-footer'
@@ -8,6 +6,8 @@ import Sidebar from '@primer/gatsby-theme-doctocat/src/components/sidebar'
 import SourceLink from '@primer/gatsby-theme-doctocat/src/components/source-link'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import TableOfContents from '@primer/gatsby-theme-doctocat/src/components/table-of-contents'
+import {ChevronDownIcon, ChevronRightIcon} from '@primer/styled-octicons'
+import React from 'react'
 
 function Layout({children, pageContext}) {
   const {title, description, status, source, additionalContributors = []} = pageContext.frontmatter
@@ -62,7 +62,7 @@ function Layout({children, pageContext}) {
                   {({open}) => (
                     <>
                       <Text as="summary" fontWeight="bold">
-                        <StyledOcticon icon={open ? ChevronDown : ChevronRight} mr={2} />
+                        {open ? <ChevronDownIcon mr={2} /> : <ChevronRightIcon mr={2} />}
                         Table of contents
                       </Text>
                       <Box pt={1}>

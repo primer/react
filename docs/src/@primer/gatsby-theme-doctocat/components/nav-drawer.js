@@ -5,18 +5,18 @@
 // in Doctocat but are in this project. Since the error exists in an area
 // of JSX code where the disable-line comment does not work, we must disable
 // it for the whole file until the problem is fixed upstream.
-import {BorderBox, Flex, Link, StyledOcticon, Text} from '@primer/components'
-import {ChevronDown, ChevronUp, X} from '@primer/octicons-react'
-import {Link as GatsbyLink} from 'gatsby'
-import debounce from 'lodash.debounce'
-import React from 'react'
-import navItems from '@primer/gatsby-theme-doctocat/src/nav.yml'
-import primerNavItems from '@primer/gatsby-theme-doctocat/src/primer-nav.yml'
-import useSiteMetadata from '@primer/gatsby-theme-doctocat/src/use-site-metadata'
+import {BorderBox, Flex, Link, Text} from '@primer/components'
 import DarkButton from '@primer/gatsby-theme-doctocat/src/components/dark-button'
 import Details from '@primer/gatsby-theme-doctocat/src/components/details'
 import Drawer from '@primer/gatsby-theme-doctocat/src/components/drawer'
 import NavItems from '@primer/gatsby-theme-doctocat/src/components/nav-items'
+import navItems from '@primer/gatsby-theme-doctocat/src/nav.yml'
+import primerNavItems from '@primer/gatsby-theme-doctocat/src/primer-nav.yml'
+import useSiteMetadata from '@primer/gatsby-theme-doctocat/src/use-site-metadata'
+import {ChevronDownIcon, ChevronUpIcon, XIcon} from '@primer/styled-octicons'
+import {Link as GatsbyLink} from 'gatsby'
+import debounce from 'lodash.debounce'
+import React from 'react'
 
 export function useNavDrawerState(breakpoint) {
   // Handle string values from themes with units at the end
@@ -64,7 +64,7 @@ function NavDrawer({isOpen, onDismiss}) {
                 Primer
               </Link>
               <DarkButton aria-label="Close" onClick={onDismiss}>
-                <StyledOcticon icon={X} />
+                <XIcon />
               </DarkButton>
             </Flex>
           </BorderBox>
@@ -104,7 +104,7 @@ function PrimerNavItems({items}) {
                 <summary onClick={toggle} style={{cursor: 'pointer'}}>
                   <Flex alignItems="center" justifyContent="space-between">
                     <Text>{item.title}</Text>
-                    <StyledOcticon icon={open ? ChevronUp : ChevronDown} />
+                    {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
                   </Flex>
                 </summary>
                 <Flex flexDirection="column" mt={2}>

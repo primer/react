@@ -1,7 +1,7 @@
-import {BorderBox, Grid, Link, StyledOcticon} from '@primer/components'
-import {Pencil} from '@primer/octicons-react'
-import React from 'react'
+import {BorderBox, Grid, Link} from '@primer/components'
 import Contributors from '@primer/gatsby-theme-doctocat/src/components/contributors'
+import {PencilIcon} from '@primer/styled-octicons'
+import React from 'react'
 
 function PageFooter({editUrl, contributors}) {
   return editUrl || contributors.length > 0 ? (
@@ -9,7 +9,7 @@ function PageFooter({editUrl, contributors}) {
       <Grid gridGap={4}>
         {editUrl ? (
           <Link href={editUrl}>
-            <StyledOcticon icon={Pencil} mr={2} />
+            <PencilIcon mr={2} />
             Edit this page on GitHub
           </Link>
         ) : null}
