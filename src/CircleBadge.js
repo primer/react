@@ -32,22 +32,17 @@ const CircleBadge = styled.div`
   ${sx};
 `
 
-const IconWrapper = styled.span`
+const Icon = ({icon: IconComponent, ...rest}) => {
+  return <IconComponent {...rest} />
+}
+
+CircleBadge.Icon = styled(Icon)`
   max-width: 60% !important;
   height: auto !important;
   max-height: 55% !important;
   ${COMMON};
   ${sx};
 `
-const Icon = ({icon: IconComponent, ...rest}) => {
-  return (
-    <IconWrapper {...rest}>
-      <IconComponent />
-    </IconWrapper>
-  )
-}
-
-CircleBadge.Icon = Icon
 
 CircleBadge.defaultProps = {
   inline: false,

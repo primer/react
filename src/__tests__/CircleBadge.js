@@ -1,10 +1,11 @@
+import {CheckIcon} from '@primer/styled-octicons'
+import {cleanup, render as HTMLRender} from '@testing-library/react'
+import 'babel-polyfill'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {CircleBadge} from '..'
-import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+import {behavesAsComponent, checkExports, mount, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 const imgInput = <img alt="" src="primer.jpg" />
@@ -17,11 +18,7 @@ describe('CircleBadge', () => {
   })
 
   describe('CircleBadge.Icon', () => {
-    behavesAsComponent(CircleBadge.Icon, [COMMON], () => (
-      <CircleBadge.Icon>
-        <div />
-      </CircleBadge.Icon>
-    ))
+    behavesAsComponent(CircleBadge.Icon, [COMMON], () => <CircleBadge.Icon icon={CheckIcon}></CircleBadge.Icon>)
   })
 
   it('should have no axe violations', async () => {
