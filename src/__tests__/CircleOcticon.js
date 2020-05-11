@@ -1,5 +1,5 @@
 import React from 'react'
-import {CheckIcon} from '@primer/styled-octicon'
+import {CheckIcon} from '@primer/styled-octicons'
 import {colors} from '../theme'
 import CircleOcticon from '../CircleOcticon'
 import {render} from '../utils/testing'
