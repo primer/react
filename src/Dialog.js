@@ -1,15 +1,14 @@
-import React from 'react'
-import {Dialog as ReachDialog} from '@reach/dialog'
-import raw from 'raw.macro'
-import styled, {createGlobalStyle} from 'styled-components'
-import PropTypes from 'prop-types'
-import {space, color} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
 import {XIcon} from '@primer/styled-octicons'
-import {LAYOUT} from './constants'
-import theme from './theme'
-import Text from './Text'
+import {Dialog as ReachDialog} from '@reach/dialog'
+import PropTypes from 'prop-types'
+import raw from 'raw.macro'
+import React from 'react'
+import styled, {createGlobalStyle} from 'styled-components'
+import {COMMON, LAYOUT} from './constants'
 import Flex from './Flex'
+import sx from './sx'
+import Text from './Text'
+import theme from './theme'
 
 const reachStyles = raw('@reach/dialog/styles.css')
 
@@ -21,7 +20,7 @@ const ReachGlobalStyle = createGlobalStyle`
   }
 `
 
-export const StyledDialog = styled(ReachDialog)`
+const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   padding: 0 !important;
@@ -35,8 +34,8 @@ export const StyledDialog = styled(ReachDialog)`
   }
 
   ${LAYOUT}
-  ${space}
-  ${color}
+  ${COMMON}
+  ${sx};
 `
 
 const UnstyledButton = styled(Flex).attrs({
@@ -58,6 +57,8 @@ const DialogHeaderBase = styled(Flex)`
   @media screen and (max-width: 750px) {
     border-radius: 0px;
   }
+
+  ${sx};
 `
 
 function DialogHeader({theme, children, ...rest}) {
@@ -76,7 +77,7 @@ function DialogHeader({theme, children, ...rest}) {
   )
 }
 
-const Dialog = ({children, ...props}) => {
+function Dialog({children, ...props}) {
   return (
     <>
       <StyledDialog {...props}>
@@ -93,12 +94,12 @@ const Dialog = ({children, ...props}) => {
 Dialog.defaultProps = {theme}
 
 Dialog.propTypes = {
+  ...COMMON.propTypes,
   ...LAYOUT.propTypes,
-  ...systemPropTypes.space,
-  ...systemPropTypes.color,
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
+  ...sx.propTypes,
   theme: PropTypes.object
 }
 
@@ -110,6 +111,8 @@ DialogHeader.defaultProps = {
 DialogHeader.propTypes = {
   ...Flex.propTypes
 }
+
+DialogHeader.displayName = 'Dialog.Header'
 
 Dialog.Header = DialogHeader
 export default Dialog

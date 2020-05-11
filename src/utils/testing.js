@@ -9,6 +9,8 @@ import {default as defaultTheme} from '../theme'
 
 const readFile = promisify(require('fs').readFile)
 
+export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$/
+
 enzyme.configure({adapter: new Adapter()})
 
 export function mount(component) {
@@ -110,9 +112,16 @@ export function getComputedStyles(className) {
 
   function readMedia(mediaRule) {
     const key = `@media ${mediaRule.media[0]}`
-    const dest = computed[key] || (computed[key] = {})
+    // const dest = computed[key] || (computed[key] = {})
+    const dest = {}
     for (const rule of mediaRule.cssRules) {
       readRule(rule, dest)
+    }
+
+    // Don't add media rule to computed styles
+    // if no styles were actually applied
+    if (Object.keys(dest).length > 0) {
+      computed[key] = dest
     }
   }
 
@@ -121,7 +130,7 @@ export function getComputedStyles(className) {
       return false
     }
     try {
-      return div.matches(selector)
+      return node.matches(selector)
     } catch (error) {
       return false
     }
@@ -161,4 +170,60 @@ export function unloadCSS(path) {
     style.remove()
     return true
   }
+}
+
+// If a component requires certain props or other conditions in order
+// to render without errors, you can pass a `toRender` function that
+// returns an element ready to be rendered.
+export function behavesAsComponent(Component, systemPropArray, toRender = null, options) {
+  if (typeof toRender === 'object' && !options) {
+    options = toRender
+    toRender = null
+  }
+  options = options || {}
+
+  const getElement = () => (toRender ? toRender() : <Component />)
+
+  it('implements system props', () => {
+    for (const systemProps of systemPropArray) {
+      expect(Component).toImplementSystemProps(systemProps)
+    }
+  })
+
+  if (!options.skipSx) {
+    it('implements the sx prop', () => {
+      expect(Component).toImplementSxProp()
+    })
+
+    it('implements sx prop behavior', () => {
+      expect(getElement()).toImplementSxBehavior()
+    })
+  }
+
+  if (!options.skipAs) {
+    it('respects the as prop', () => {
+      const As = React.forwardRef((_props, ref) => <div className="as-component" ref={ref} />)
+      const elem = React.cloneElement(getElement(), {as: As})
+      expect(render(elem)).toEqual(render(<As />))
+    })
+  }
+
+  it('sets a valid displayName', () => {
+    expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+  })
+
+  it('sets the default theme', () => {
+    expect(getElement()).toSetDefaultTheme()
+  })
+
+  it('renders consistently', () => {
+    expect(render(getElement())).toMatchSnapshot()
+  })
+}
+
+export function checkExports(path, exports) {
+  it('has declared exports', () => {
+    const mod = require(`../${path}`)
+    expect(mod).toSetExports(exports)
+  })
 }

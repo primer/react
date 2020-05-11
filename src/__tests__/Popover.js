@@ -1,21 +1,27 @@
 import React from 'react'
-import Popover, {CARET_POSITIONS} from '../Popover'
-import {render} from '../utils/testing'
+import {Popover} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {BORDER, COMMON, LAYOUT, POSITION} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
-describe('Popover and Popover.Content', () => {
-  it('implements system props', () => {
-    expect(Popover).toImplementSystemProps(COMMON)
-    expect(Popover).toImplementSystemProps(LAYOUT)
-    expect(Popover).toImplementSystemProps(POSITION)
+const comp = (
+  <Popover caret="top" open>
+    <Popover.Content>Hello!</Popover.Content>
+  </Popover>
+)
 
-    expect(Popover.Content).toImplementSystemProps(COMMON)
-    expect(Popover.Content).toImplementSystemProps(LAYOUT)
-    expect(Popover.Content).toImplementSystemProps(BORDER)
+describe('Popover', () => {
+  behavesAsComponent(Popover, [COMMON, LAYOUT, POSITION], () => comp)
+
+  checkExports('Popover', {
+    default: Popover
+  })
+
+  describe('Popover.Content', () => {
+    behavesAsComponent(Popover.Content, [COMMON, LAYOUT, BORDER], () => comp)
   })
 
   it('should have no axe violations', async () => {
@@ -29,17 +35,7 @@ describe('Popover and Popover.Content', () => {
     cleanup()
   })
 
-  it('has default theme', () => {
-    expect(Popover).toSetDefaultTheme()
-    expect(Popover.Content).toSetDefaultTheme()
-  })
-
-  it('renders with default props', () => {
-    expect(render(<Popover />)).toMatchSnapshot()
-    expect(render(<Popover.Content />)).toMatchSnapshot()
-  })
-
-  for (const pos of CARET_POSITIONS) {
+  for (const pos of Popover.CARET_POSITIONS) {
     it(`renders correctly for a caret position of ${pos}`, () => {
       const element = (
         <Popover caret={pos} open>

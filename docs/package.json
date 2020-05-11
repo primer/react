@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "cd .. && yarn && cd docs && gatsby build --prefix-paths"
+    "build": "cd .. && yarn && cd docs && cross-env NODE_ENV=production gatsby build --prefix-paths"
   },
   "engines": {
     "node": ">= 10.x"
@@ -23,6 +23,7 @@
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
+    "cross-env": "7.0.2",
     "minipass": "^2.9.0"
   }
 }

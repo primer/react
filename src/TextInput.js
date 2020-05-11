@@ -7,6 +7,7 @@ import styled, {css} from 'styled-components'
 import {variant, width, minWidth, maxWidth} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 const sizeVariants = variant({
   variants: {
@@ -26,7 +27,7 @@ const sizeVariants = variant({
 })
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
-const TextInput = React.forwardRef(({icon: Icon, className, block, disabled, ...rest}, ref) => {
+const TextInput = React.forwardRef(({icon: Icon, className, block, disabled, sx, ...rest}, ref) => {
   // this class is necessary to style FilterSearch, plz no touchy!
   const wrapperClasses = classnames(className, 'TextInput-wrapper')
   const wrapperProps = pick(rest)
@@ -38,6 +39,7 @@ const TextInput = React.forwardRef(({icon: Icon, className, block, disabled, ...
       block={block}
       theme={theme}
       disabled={disabled}
+      sx={sx}
       {...wrapperProps}
     >
       {Icon && <Icon className="TextInput-icon" />}
@@ -110,7 +112,7 @@ const Wrapper = styled.span`
     css`
       display: block;
       width: 100%;
-    `}    
+    `}
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
   @media (min-width: ${get('breakpoints.1')}) {
@@ -121,6 +123,7 @@ const Wrapper = styled.span`
   ${minWidth}
   ${maxWidth}
   ${sizeVariants}
+  ${sx};
 `
 
 TextInput.defaultProps = {
@@ -134,7 +137,10 @@ TextInput.propTypes = {
   minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
+  ...sx.propTypes,
   width: systemPropTypes.layout.width
 }
+
+TextInput.displayName = 'TextInput'
 
 export default TextInput

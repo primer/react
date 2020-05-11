@@ -4,11 +4,12 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
-function UnderlineNavBase({actions, className, align, children, full, label, ...rest}) {
+function UnderlineNavBase({actions, className, align, children, full, label, theme, ...rest}) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
   return (
     <nav className={classes} aria-label={label} {...rest}>
@@ -48,6 +49,7 @@ const UnderlineNav = styled(UnderlineNavBase)`
   }
 
   ${COMMON};
+  ${sx};
 `
 
 UnderlineNav.Link = styled.a.attrs(props => ({
@@ -67,7 +69,7 @@ UnderlineNav.Link = styled.a.attrs(props => ({
   &:focus {
     color: ${get('colors.gray.9')};
     text-decoration: none;
-    border-bottom-color: ${get('colors.accent')};
+    border-bottom-color: ${get('colors.gray.2')};
     transition: 0.2s ease;
 
     .UnderlineNav-octicon {
@@ -83,6 +85,9 @@ UnderlineNav.Link = styled.a.attrs(props => ({
       color: ${get('colors.gray.5')};
     }
   }
+
+  ${COMMON};
+  ${sx};
 `
 
 UnderlineNav.defaultProps = {
@@ -96,7 +101,8 @@ UnderlineNav.propTypes = {
   full: PropTypes.bool,
   label: PropTypes.string,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 UnderlineNav.Link.defaultProps = {
@@ -104,10 +110,13 @@ UnderlineNav.Link.defaultProps = {
 }
 
 UnderlineNav.Link.propTypes = {
-  as: PropTypes.node,
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   href: PropTypes.string,
   selected: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+UnderlineNav.Link.displayName = 'UnderlineNav.Link'
 
 export default UnderlineNav

@@ -69,7 +69,7 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
 
 ```jsx live
 <BorderBox p={3} backgroundColor="gray.0" maxWidth={360}>
-  <BorderBox border="none" borderBottom={1} mb={2} pb={1}>
+  <BorderBox borderWidth={0} borderBottomWidth={1} borderRadius={0} mb={2} pb={1}>
     <Heading as="h5" fontSize={1} color="gray.7">
       Menu
     </Heading>
@@ -133,25 +133,25 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 
 ## System props
 
-`SideNav` components get `COMMON`, `BORDER`, and `LAYOUT` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`SideNav` components get `COMMON`, `BORDER`, `LAYOUT`, and `FLEX` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
 ### SideNav
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'nav' | Sets the HTML tag for the component. |
-| bordered | Boolean | false | Renders the component with a border. |
-| variant | String | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
+| Name     | Type    | Default  | Description                                                                    |
+| :------- | :------ | :------: | :----------------------------------------------------------------------------- |
+| as       | String  |  'nav'   | Sets the HTML tag for the component.                                           |
+| bordered | Boolean |  false   | Renders the component with a border.                                           |
+| variant  | String  | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
 
 ### SideNav.Link
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'a' | Sets the HTML tag for the component. |
-| href      | String  |         | URL to be used for the Link                       |
-| muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
-| selected | Boolean | false | Sets the link as selected, giving it a different style and setting the `aria-current` attribute. |
-| underline | Boolean |  false  | Adds underline to the Link                        |
-| variant | String | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
+| Name      | Type    | Default  | Description                                                                                       |
+| :-------- | :------ | :------: | :------------------------------------------------------------------------------------------------ |
+| as        | String  |   'a'    | Sets the HTML tag for the component.                                                              |
+| href      | String  |          | URL to be used for the Link                                                                       |
+| muted     | Boolean |  false   | Uses light gray for Link color, and blue on hover                                                 |
+| selected  | Boolean |  false   | Sets the link as selected, giving it a different style and setting the `aria-current` attribute.  |
+| underline | Boolean |  false   | Adds underline to the Link                                                                        |
+| variant   | String  | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
