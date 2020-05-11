@@ -35,31 +35,29 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <Text>Text Only</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Avatar
-      size={16}
-      mr={2}
-      src="https://avatars.githubusercontent.com/hubot?s=32"
-    />
+    <Avatar size={16} mr={2} src="https://avatars.githubusercontent.com/hubot?s=32" />
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={ZapIcon} />
+    <HomeIcon mr={2} />
     <Text>With an Octicon</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={DotIcon} color="green.5" />
+    <DotFillIcon color="green.5" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
-    <Label bg='blue.5'>label</Label>
+    <Label bg="blue.5">label</Label>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a counter</Text>
     <CounterLabel>16</CounterLabel>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Heading as="h5" fontSize={1}>A heading</Heading>
+    <Heading as="h5" fontSize={1}>
+      A heading
+    </Heading>
     <Text>and some more content</Text>
   </SideNav.Link>
 </SideNav>
@@ -70,9 +68,11 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
 Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more lightweight version that has items with no borders and are more condensed.
 
 ```jsx live
-<BorderBox p={3} backgroundColor='gray.0' maxWidth={360}>
-  <BorderBox border='none' borderBottom={1} mb={2} pb={1}>
-    <Heading as="h5" fontSize={1} color="gray.7">Menu</Heading>
+<BorderBox p={3} backgroundColor="gray.0" maxWidth={360}>
+  <BorderBox border="none" borderBottom={1} mb={2} pb={1}>
+    <Heading as="h5" fontSize={1} color="gray.7">
+      Menu
+    </Heading>
   </BorderBox>
   <SideNav variant="lightweight">
     <SideNav.Link href="#url">
@@ -96,11 +96,11 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
 ```jsx live
 <SideNav bordered maxWidth={360}>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={PersonIcon} />
+    <PersonIcon mr={2} />
     <Text>Account</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" selected>
-    <StyledOcticon mr={2} size={16} icon={FlameIcon} />
+    <FlameIcon mr={2} />
     <Text>Profile</Text>
   </SideNav.Link>
 
@@ -117,7 +117,7 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
   </SideNav>
 
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={MailIcon} />
+    <MailIcon mr={2} />
     <Text>Emails</Text>
   </SideNav.Link>
 </SideNav>

@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon} from '@primer/octicons-v2-react'
+import {GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon} from '@primer/styled-octicons'
 import theme, {colors} from './theme'
 import {COMMON, get} from './constants'
-import StyledOcticon from './StyledOcticon'
 
 const statusMap = {
   issueClosed: colors.red[6],
@@ -25,9 +24,10 @@ const octiconMap = {
 
 function StateLabelBase({className, status, small = false, children}) {
   const octiconProps = small ? {width: '1em'} : {}
+  const Icon = octiconMap[status]
   return (
     <span className={className}>
-      {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status]} />}
+      {status && <Icon mr={1} {...octiconProps} />}
       {children}
     </span>
   )

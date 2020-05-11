@@ -1,11 +1,10 @@
-import React, {useContext} from 'react'
+import {CheckIcon} from '@primer/styled-octicons'
 import PropTypes from 'prop-types'
+import React, {useContext} from 'react'
 import styled, {css} from 'styled-components'
-import {CheckIcon} from '@primer/octicons-v2-react'
-import {MenuContext} from './SelectMenuContext'
 import {COMMON, get} from '../constants'
-import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
+import {MenuContext} from './SelectMenuContext'
 
 export const listItemStyles = css`
   display: flex;
@@ -111,7 +110,7 @@ const SelectMenuItem = ({children, selected, theme, onClick, as, ...rest}) => {
   }
   return (
     <StyledItem {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
-      <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
+      <CheckIcon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" />
       {children}
     </StyledItem>
   )

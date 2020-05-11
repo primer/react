@@ -37,6 +37,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-v2-react": "0.0.0-be2ea3b",
+    "@primer/styled-octicons": "0.0.0-35511fe",
     "@reach/dialog": "0.3.0",
     "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",

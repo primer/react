@@ -1234,17 +1234,17 @@
     react-is "16.10.2"
     styled-system "5.1.2"
 
-"@primer/gatsby-theme-doctocat@^0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.20.0.tgz#95f7d965ecfa7199ad0e022b1029b9c6b2a793ff"
-  integrity sha512-ltCnDFRT+X3EIT5jI8jsGKeVx7RZTJpqC9Ms1AbtTZ7V6aJ6ocHbY0kSYqWmGu8Juaqy0u3aocoG8u4P66q7QQ==
+"@primer/gatsby-theme-doctocat@0.0.0-66d49bc":
+  version "0.0.0-66d49bc"
+  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.0.0-66d49bc.tgz#972e177eb28d1af937b9388ef59e4abb6305a4ac"
+  integrity sha512-Yi7XCSKN3d/YU2AbbgBRBdiiMHff6MORGyuLr+Ln1ZHL9GgG6nr5IrRWDOalNcCbzc/VrrF8apghvCwGs/Z6EA==
   dependencies:
     "@babel/preset-env" "^7.5.5"
     "@babel/preset-react" "^7.0.0"
     "@mdx-js/mdx" "^1.0.21"
     "@mdx-js/react" "^1.0.21"
     "@primer/components" "^16.1.0"
-    "@primer/octicons-react" "^9.1.1"
+    "@primer/styled-octicons" "^0.0.0-0ccdd71"
     "@styled-system/theme-get" "^5.0.12"
     "@testing-library/jest-dom" "^4.1.0"
     "@testing-library/react" "^9.1.3"
@@ -1288,13 +1288,6 @@
     styled-components "^4.3.2"
     styled-system "^5.0.18"
 
-"@primer/octicons-react@^9.1.1":
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-9.4.0.tgz#19f6ed2eab82e78c2762315d19c7ce1677fcf4ed"
-  integrity sha512-TAPjzQaIrPqI5TpxNKkBTxS7b8Y1v7iMuiN5ZshhSp9GHbdymWKtCXRDk13lo6woDeSn/8tIdZTSerTR3c0bQA==
-  dependencies:
-    prop-types "^15.6.1"
-
 "@primer/octicons-react@^9.2.0":
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-9.3.1.tgz#f38812d387373383d40bb490b56d04eaddfbd5fe"
@@ -1306,6 +1299,11 @@
   version "0.0.0-be2ea3b"
   resolved "https://registry.yarnpkg.com/@primer/octicons-v2-react/-/octicons-v2-react-0.0.0-be2ea3b.tgz#bafb74fa802ca6e677d949741c648e49dac3bbf7"
   integrity sha512-SaSOVzQWrCE8nka0eOVcZOLoifl7kiq4LRJZUWanrXAAs+SsN5D5jJhBqLFYqPv91vwW7HIfupT89YOMxbOHdw==
+
+"@primer/styled-octicons@^0.0.0-0ccdd71":
+  version "0.0.0-44a8bc7"
+  resolved "https://registry.yarnpkg.com/@primer/styled-octicons/-/styled-octicons-0.0.0-44a8bc7.tgz#0f509a21f9dce2fdffa431aa1fc0066e75f3b1c9"
+  integrity sha512-Tkse8+XzDLoyWi6R9wUikqM01FomLGJOAvZYPQfXu5jsFcjw5l67LWWJIHLRIre/RED0RuAoPrzR52SpJmKlAg==
 
 "@reach/component-component@^0.3.0":
   version "0.3.0"
