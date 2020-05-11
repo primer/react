@@ -44,8 +44,7 @@ The default Timeline.Badge color is dark text on a light grey background.
 
 ## Adding color to a Badge
 
-To have color variants, use the `bg` prop on the `Timeline.Badge`. If an icon is being used, set the `color` prop
-of the child `StyledOcticon` if necessary.
+To have color variants, use the `bg` prop on the `Timeline.Badge`. If an icon is being used, set the `color` prop of the icon if necessary.
 
 ```jsx live
 <Timeline>

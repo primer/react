@@ -150,13 +150,6 @@ declare module '@primer/components' {
 
   export const CircleOcticon: React.FunctionComponent<CircleOcticonProps>
 
-  export interface StyledOcticonProps extends CommonProps {
-    size?: number
-    icon: React.ReactNode
-  }
-
-  export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
-
   export interface DropdownProps extends DetailsProps {}
   export interface DropdownItemProps extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
@@ -593,10 +586,7 @@ declare module '@primer/components/src/CircleOcticon' {
   import {CircleOcticon} from '@primer/components'
   export default CircleOcticon
 }
-declare module '@primer/components/src/StyledOcticon' {
-  import {StyledOcticon} from '@primer/components'
-  export default StyledOcticon
-}
+
 declare module '@primer/components/src/Dropdown' {
   import {Dropdown} from '@primer/components'
   export default Dropdown
