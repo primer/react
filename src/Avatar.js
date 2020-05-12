@@ -4,6 +4,7 @@ import {get, COMMON} from './constants'
 import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
+import sx from './sx'
 
 
 function getBorderRadius(props) {
@@ -25,6 +26,7 @@ const Avatar = styled.img.attrs(props => ({
   vertical-align: middle;
   border-radius: ${props => getBorderRadius(props)};
   ${COMMON};
+  ${sx}
 `
 
 Avatar.defaultProps = {

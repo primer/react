@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import sx from './sx'
-import {COMMON} from './constants'
+import {get, COMMON} from './constants'
 import theme from './theme'
 
 const transformChildren = children => {
@@ -19,6 +19,7 @@ const AvatarStackWrapper = styled.span`
   display: flex;
   position: relative;
   height: 20px;
+  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
 
   .AvatarItem {
     &:first-child {
@@ -28,8 +29,6 @@ const AvatarStackWrapper = styled.span`
       display: none;
     }
   }
-  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
-  height: 20px;
 
   &.AvatarStack--two {
     min-width: 30px;
@@ -77,7 +76,7 @@ const AvatarStackBody = styled.span`
     flex-shrink: 0;
     height: 20px;
     width: 20px;
-    box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px ${get('colors.white')};
     margin-left: -11px;
     position: relative;
     overflow: hidden;
@@ -88,10 +87,10 @@ const AvatarStackBody = styled.span`
     width: auto;
     
     .AvatarItem {
-      margin-left: $spacer-1;
+      margin-left: ${get('space.1')};
       opacity: 100%;
       visibility: visible;
-      box-shadow: 0 0 0 4px $white;
+      box-shadow: 0 0 0 4px ${get('colors.white')};
       &:first-child {
         margin-left: 0;
       }
