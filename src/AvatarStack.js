@@ -2,19 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import sx from './sx'
-import {get, COMMON} from './constants'
+import {COMMON} from './constants'
 import theme from './theme'
 
-
-const AvatarItem = styled.img.attrs({
-  className: 'AvatarItem'
-})`
-  z-index: ${props => 10 - props.index};
-`
 const transformChildren = children => {
   return React.Children.map(children, (child, index) => {
     return (
-      <AvatarItem index={index} {...child.props}/>
+      <>
+        {React.cloneElement(child, {className: 'AvatarItem', sx: {zIndex: 10 - index }})}
+      </>
     )
   })
 }
