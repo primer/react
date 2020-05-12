@@ -5,21 +5,69 @@ import sx from './sx'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
+
+const AvatarItem = styled.img.attrs({
+  className: 'AvatarItem'
+})`
+  z-index: ${props => 10 - props.index};
+`
 const transformChildren = children => {
   return React.Children.map(children, (child, index) => {
     return (
-      <>
-        {React.cloneElement(child, {className: 'AvatarItem'})}
-      </>
+      <AvatarItem index={index} {...child.props}/>
     )
   })
 }
 
 const AvatarStackWrapper = styled.span`
-  display: inline-block;
+  display: flex;
   position: relative;
-  min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
+
+  .AvatarItem {
+    &:first-child {
+      margin-left: 0;
+    }
+    &:nth-child(n+4) {
+      display: none;
+    }
+  }
+  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
+  height: 20px;
+
+  &.AvatarStack--two {
+    min-width: 30px;
+    .AvatarItem {
+      &:nth-child(n+3) {
+        display: none;
+      }
+    }
+  }
+  
+  &.AvatarStack--three-plus {
+    min-width: 38px;
+    .AvatarItem {
+      &:nth-child(3) {
+        opacity: ${100 - 3*15}%;
+        margin-left: -17px;
+      }
+      &:nth-child(4) {
+        opacity: ${100 - 4*15}%;
+        margin-left: -17px;
+      }
+      &:nth-child(5) {
+        opacity: ${100 - 5*15}%;
+        margin-left: -17px;
+      }
+      &:nth-child(n+4) {
+        display: block;
+      }
+      &:nth-child(n+6) {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
   ${COMMON}
   ${sx};
 `
@@ -27,117 +75,35 @@ const AvatarStackWrapper = styled.span`
 const AvatarStackBody = styled.span`
   display: flex;
   position: absolute;
-  background: white;
-
-  &:hover {
-    .AvatarItem {
-      margin-right: 3px;
-    }
-
-    .AvatarItem:nth-child(n + 4) {
-      display: flex;
-      opacity: 1;
-    }
-
-    .AvatarItem-more {
-      display: none !important;
-    }
-  }
+  width: 38px;
 
   .AvatarItem {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    width: 20px;
+    flex-shrink: 0;
     height: 20px;
-    box-sizing: content-box;
-    margin-right: -11px;
-    background-color: ${get('colors.white')};
-    border-right: ${get('borderWidths.1')} solid ${get('colors.white')};
-    border-radius: 2px;
-    transition: margin 0.1s ease-in-out;
-
-    &:first-child {
-      z-index: 3;
-    }
-
-    &:last-child {
-      z-index: 1;
-      border-right: 0;
-    }
-
-    img {
-      border-radius: 2px;
-      width: inherit;
-    }
-
-    // Account for 4+ avatars
-    &:nth-child(n + 4) {
-      display: none;
-      opacity: 0;
-    }
+    width: 20px;
+    box-shadow: 0 0 0 1px #fff;
+    margin-left: -11px;
+    position: relative;
+    overflow: hidden;
+    transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, box-shadow 0.1s ease-in-out;
   }
 
-  .AvatarItem-more {
-    z-index: 1;
-    margin-right: 0;
-    background: ${get('colors.gray.1')};
-
-    &::before,
-    &::after {
-      position: absolute;
-      display: block;
-      height: 20px;
-      content: '';
-      border-radius: 2px;
-      outline: ${get('borderWidths.1')} solid ${get('colors.white')};
-    }
-
-    &::before {
-      width: 17px;
-      background: ${get('colors.gray.2')};
-    }
-
-    &::after {
-      width: 14px;
-      background: ${get('colors.gray.3')};
+  &:hover {
+    width: auto;
+    
+    .AvatarItem {
+      margin-left: $spacer-1;
+      opacity: 100%;
+      visibility: visible;
+      box-shadow: 0 0 0 4px $white;
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
-
-  ${props =>
-    props.alignRight &&
-    css`
-      right: 0;
-      flex-direction: row-reverse;
-
-      &:hover .AvatarItem {
-        margin-right: 0;
-        margin-left: 3px;
-      }
-
-      .AvatarItem-more {
-        background: ${get('colors.gray.3')};
-
-        &::before {
-          width: 5px;
-        }
-
-        &::after {
-          background: ${get('colors.gray.1')};
-          width: 2px;
-        }
-      }
-
-      .AvatarItem {
-        margin-right: 0;
-        margin-left: -11px;
-        border-right: 0;
-        border-left: ${get('borderWidths.1')} solid ${get('colors.white')};
-      }
-    `}
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
-  count = children.length
+  const count = children.length
   return (
     <AvatarStackWrapper count={count} className={count === 2 ? 'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : ''} {...rest}>
       <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
