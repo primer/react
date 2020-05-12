@@ -20,8 +20,17 @@ const AvatarStackWrapper = styled.span`
   position: relative;
   height: 20px;
   min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
-
+  
   .AvatarItem {
+    flex-shrink: 0;
+    height: 20px;
+    width: 20px;
+    box-shadow: 0 0 0 1px ${get('colors.white')};
+    margin-left: -11px;
+    position: relative;
+    overflow: hidden;
+    transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, box-shadow 0.1s ease-in-out;
+
     &:first-child {
       margin-left: 0;
     }
@@ -72,23 +81,12 @@ const AvatarStackBody = styled.span`
   position: absolute;
   width: 38px;
 
-  .AvatarItem {
-    flex-shrink: 0;
-    height: 20px;
-    width: 20px;
-    box-shadow: 0 0 0 1px ${get('colors.white')};
-    margin-left: -11px;
-    position: relative;
-    overflow: hidden;
-    transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, box-shadow 0.1s ease-in-out;
-  }
-
   &:hover {
     width: auto;
     
     .AvatarItem {
-      margin-left: ${get('space.1')};
-      opacity: 100%;
+      margin-left: ${get('space.1')}!important;
+      opacity: 100%!important;
       visibility: visible;
       box-shadow: 0 0 0 4px ${get('colors.white')};
       &:first-child {
