@@ -6,11 +6,9 @@ import {get, COMMON} from './constants'
 import theme from './theme'
 
 const transformChildren = children => {
-  const count = children.length
   return React.Children.map(children, (child, index) => {
     return (
       <>
-        {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
         {React.cloneElement(child, {className: 'AvatarItem'})}
       </>
     )
@@ -139,8 +137,9 @@ const AvatarStackBody = styled.span`
     `}
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
+  count = children.length
   return (
-    <AvatarStackWrapper count={children.length} {...rest}>
+    <AvatarStackWrapper count={count} className={count === 2 ? 'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : ''} {...rest}>
       <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
         {transformChildren(children)}
       </AvatarStackBody>
