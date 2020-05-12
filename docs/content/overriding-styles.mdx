@@ -1,0 +1,73 @@
+---
+title: Overriding styles with the sx prop
+---
+
+Our goal with Primer Components is to hit the sweet spot between providing too little and too much styling flexibility; too little and the design system is too rigid, and too much and it becomes too difficult to maintain a consistent style. Our components already support a standard set of [system props](/system-props), but sometimes a component just isn't *quite* flexible enough to look the way you need it to look. For those cases, we provide the `sx` prop.
+
+The `sx` prop allows ad-hoc styling that is still theme aware. Declare the styles you want to apply in camel-cased object notation, and try to use theme values in appropriate CSS properties when possible. If you've passed a custom theme using `ThemeProvider` or a `theme` prop, the `sx` prop will honor the custom theme. For more information on theming in Primer Components, check out [the Primer Theme documentation](/primer-theme).
+
+## When to use the `sx` prop
+
+The `sx` prop provides a lot of power, which means it is an easy tool to abuse. To best make use of it, we recommend following these guidelines:
+
+* Use the `sx` prop for small stylistic changes to components. For more substantial changes, consider abstracting your style changes into your own wrapper component.
+* Use [system props](/system-props) instead of the `sx` prop whenever possible.
+* Avoid nesting and pseudo-selectors in `sx` prop values when possible.
+
+## Basic example
+
+This example demonstrates applying a bottom border to `Heading`, a component that does not receive `BORDER` system props. The `borderBottomWidth` value comes from `theme.borderWidths` and `borderBottomColor` comes from `theme.colors`.
+
+```jsx live
+<Heading pb={2}>Heading</Heading>
+
+<Heading
+  pb={2}
+  sx={{
+    borderBottomWidth: 1,
+    borderBottomColor: 'border.gray',
+    borderBottomStyle: 'solid'
+  }}>
+    Heading with bottom border
+</Heading>
+```
+
+## Responsive values
+
+Just like [values passed to system props](https://styled-system.com/responsive-styles), values in the `sx` prop can be provided as arrays to provide responsive styling.
+
+```jsx live
+<BorderBox
+  p={2}
+  sx={{
+    bg: ['red.1', 'green.1', 'blue.1', 'purple.1', 'yellow.1']
+  }}>
+    Responsive background color
+</BorderBox>
+```
+
+## Nesting, pseudo-classes, and pseudo-elements
+
+The `sx` prop also allows for declaring styles based on media queries, psueudo-classes, and pseudo-elements. This example, though contrived, demonstrates the ability:
+
+```jsx live
+<Box sx={{
+  '> *': {
+    borderWidth: 1,
+    borderColor: 'border.gray',
+    borderStyle: 'solid',
+    borderBottomWidth: 0,
+    padding: 2,
+    ':last-child': {
+      borderBottomWidth: 1
+    },
+    ':hover': {
+      bg: 'gray.1'
+    }
+  }
+}}>
+  <Box>First</Box>
+  <Box>Second</Box>
+  <Box>Third</Box>
+</Box>
+```

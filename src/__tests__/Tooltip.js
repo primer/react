@@ -1,6 +1,6 @@
 import React from 'react'
-import Tooltip from '../Tooltip'
-import {render, renderClasses, rendersClass} from '../utils/testing'
+import {Tooltip} from '..'
+import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,8 +8,10 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Tooltip', () => {
-  it('implements system props', () => {
-    expect(Tooltip).toImplementSystemProps(COMMON)
+  behavesAsComponent(Tooltip, [COMMON])
+
+  checkExports('Tooltip', {
+    default: Tooltip
   })
 
   it('should have no axe violations', async () => {
@@ -17,14 +19,6 @@ describe('Tooltip', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(Tooltip).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<Tooltip as="span" />).type).toEqual('span')
   })
 
   it('renders a <span> with the "tooltipped" class', () => {

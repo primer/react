@@ -1,6 +1,6 @@
 import React from 'react'
 import Pagination from '../../Pagination'
-import {render} from '../../utils/testing'
+import {behavesAsComponent} from '../../utils/testing'
 import {COMMON} from '../../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -11,9 +11,7 @@ const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />
 
 describe('Pagination', () => {
-  it('implements common system props', () => {
-    expect(Pagination).toImplementSystemProps(COMMON)
-  })
+  behavesAsComponent(Pagination, [COMMON], () => comp)
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(comp)
@@ -29,13 +27,5 @@ describe('Pagination', () => {
     })
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(comp).toSetDefaultTheme()
-  })
-
-  it('matches snapshot', () => {
-    expect(render(comp)).toMatchSnapshot()
   })
 })

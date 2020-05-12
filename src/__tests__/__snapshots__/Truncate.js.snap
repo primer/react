@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Truncate renders consistently 1`] = `
+.c0 {
+  display: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: initial;
+  white-space: nowrap;
+  max-width: 125px;
+}
+
+<div
+  className="c0"
+  title="a-long-branch-name"
+/>
+`;

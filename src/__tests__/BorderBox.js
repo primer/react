@@ -1,32 +1,25 @@
 import React from 'react'
 import theme, {colors} from '../theme'
-import BorderBox from '../BorderBox'
-import {render} from '../utils/testing'
-import {LAYOUT, COMMON} from '../constants'
+import {BorderBox} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {LAYOUT, COMMON, BORDER, FLEX} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('BorderBox', () => {
+  behavesAsComponent(BorderBox, [LAYOUT, COMMON, BORDER, FLEX])
+
+  checkExports('BorderBox', {
+    default: BorderBox
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BorderBox />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('implements layout system props', () => {
-    expect(BorderBox).toImplementSystemProps(LAYOUT)
-    expect(BorderBox).toImplementSystemProps(COMMON)
-  })
-
-  it('has default theme', () => {
-    expect(BorderBox).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<BorderBox as="span" />).type).toEqual('span')
   })
 
   it('renders borders', () => {

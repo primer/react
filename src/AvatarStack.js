@@ -1,48 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
+import sx from './sx'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
-function getBorderRadius(props) {
-  if (props.square) {
-    return props.size <= 24 ? '4px' : get('radii.2')(props)
-  } else {
-    return '50%'
-  }
-}
-
-const alignRightStyles = theme => {
-  return `
-    right: 0;
-    flex-direction: row-reverse;
-
-    &:hover .AvatarItem {
-      margin-right: 0;
-      margin-left: 3px;
-    }
-
-    .AvatarItem-more {
-      background: ${get('colors.gray.3')(theme)};
-
-      &::after {
-        background: ${get('colors.gray.1')(theme)};
-        border-radius: ${props => getBorderRadius(props)};
-      }
-    }
-
-    .AvatarItem {
-      margin-right: 0;
-      margin-left: -11px;
-      box-shadow: 0 0 0 1px ${get('colors.white')};
-    }
-  `
-}
-
 const transformChildren = children => {
+  const count = children.length
   return React.Children.map(children, (child, index) => {
     return (
       <>
+        {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
         {React.cloneElement(child, {className: 'AvatarItem'})}
       </>
     )
@@ -52,9 +20,10 @@ const transformChildren = children => {
 const AvatarStackWrapper = styled.span`
   display: inline-block;
   position: relative;
-  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
+  min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
   ${COMMON}
+  ${sx};
 `
 
 const AvatarStackBody = styled.span`
@@ -86,8 +55,8 @@ const AvatarStackBody = styled.span`
     box-sizing: content-box;
     margin-right: -11px;
     background-color: ${get('colors.white')};
-    box-shadow: 0 0 0 1px ${get('colors.white')};
-    border-radius: ${props => getBorderRadius(props)};
+    border-right: ${get('borderWidths.1')} solid ${get('colors.white')};
+    border-radius: 2px;
     transition: margin 0.1s ease-in-out;
 
     &:first-child {
@@ -100,7 +69,7 @@ const AvatarStackBody = styled.span`
     }
 
     img {
-      border-radius: ${props => getBorderRadius(props)};
+      border-radius: 2px;
       width: inherit;
     }
 
@@ -122,8 +91,8 @@ const AvatarStackBody = styled.span`
       display: block;
       height: 20px;
       content: '';
-      border-radius: ${props => getBorderRadius(props)};
-      box-shadow: 0 0 0 1px ${get('colors.white')};
+      border-radius: 2px;
+      outline: ${get('borderWidths.1')} solid ${get('colors.white')};
     }
 
     &::before {
@@ -136,13 +105,43 @@ const AvatarStackBody = styled.span`
       background: ${get('colors.gray.3')};
     }
   }
-  ${props => (props.alignRight ? alignRightStyles(props.theme) : '')}
+
+  ${props =>
+    props.alignRight &&
+    css`
+      right: 0;
+      flex-direction: row-reverse;
+
+      &:hover .AvatarItem {
+        margin-right: 0;
+        margin-left: 3px;
+      }
+
+      .AvatarItem-more {
+        background: ${get('colors.gray.3')};
+
+        &::before {
+          width: 5px;
+        }
+
+        &::after {
+          background: ${get('colors.gray.1')};
+          width: 2px;
+        }
+      }
+
+      .AvatarItem {
+        margin-right: 0;
+        margin-left: -11px;
+        border-right: 0;
+        border-left: ${get('borderWidths.1')} solid ${get('colors.white')};
+      }
+    `}
 `
-const AvatarStack = ({children = [], alignRight, square, ...rest}) => {
-  const count = children.length
+const AvatarStack = ({children = [], alignRight, ...rest}) => {
   return (
-    <AvatarStackWrapper count={count} className={count == 2 ?  'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : ''} {...rest}>
-      <AvatarStackBody alignRight={alignRight} square={square} className="AvatarStackBody">
+    <AvatarStackWrapper count={children.length} {...rest}>
+      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
         {transformChildren(children)}
       </AvatarStackBody>
     </AvatarStackWrapper>
@@ -150,12 +149,12 @@ const AvatarStack = ({children = [], alignRight, square, ...rest}) => {
 }
 
 AvatarStack.defaultProps = {
-  theme,
-  square: false
+  theme
 }
 
 AvatarStack.propTypes = {
   ...COMMON.propTypes,
-  alignRight: PropTypes.bool
+  alignRight: PropTypes.bool,
+  ...sx.propTypes
 }
 export default AvatarStack

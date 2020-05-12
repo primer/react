@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Avatar matches snapshot 1`] = `
+exports[`Avatar renders consistently 1`] = `
 .c0 {
   display: inline-block;
   position: relative;

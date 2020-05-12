@@ -1,5 +1,5 @@
 import {css} from 'styled-components'
-import {get} from './constants'
+import {get} from '../constants'
 
 export default css`
   position: relative;
@@ -14,6 +14,7 @@ export default css`
   border-radius: ${get('radii.2')};
   appearance: none;
   text-decoration: none;
+  text-align: center;
 
   &:hover {
     // needed to override link styles
@@ -26,5 +27,9 @@ export default css`
 
   &:disabled {
     cursor: default;
+  }
+
+  &:disabled svg {
+    opacity: 0.6;
   }
 `

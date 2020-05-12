@@ -28,7 +28,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 
 ## System props
 
-`Button` and `ButtonGroup` components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`Button` and `ButtonGroup` components get `COMMON` and `LAYOUT` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
