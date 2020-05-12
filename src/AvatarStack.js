@@ -40,11 +40,9 @@ const alignRightStyles = theme => {
 }
 
 const transformChildren = children => {
-  const count = children.length
   return React.Children.map(children, (child, index) => {
     return (
       <>
-        {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
         {React.cloneElement(child, {className: 'AvatarItem'})}
       </>
     )
@@ -54,7 +52,7 @@ const transformChildren = children => {
 const AvatarStackWrapper = styled.span`
   display: inline-block;
   position: relative;
-  min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
+  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
   height: 20px;
   ${COMMON}
 `
@@ -141,8 +139,9 @@ const AvatarStackBody = styled.span`
   ${props => (props.alignRight ? alignRightStyles(props.theme) : '')}
 `
 const AvatarStack = ({children = [], alignRight, square, ...rest}) => {
+  const count = children.length
   return (
-    <AvatarStackWrapper count={children.length} {...rest}>
+    <AvatarStackWrapper count={count} className={count == 2 ?  'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : ''} {...rest}>
       <AvatarStackBody alignRight={alignRight} square={square} className="AvatarStackBody">
         {transformChildren(children)}
       </AvatarStackBody>
