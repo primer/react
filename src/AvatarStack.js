@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import sx from './sx'
@@ -72,6 +73,48 @@ const AvatarStackWrapper = styled.span`
       }
     }
   }
+
+  &.AvatarStack--right {
+    justify-content: flex-end;
+    .AvatarItem {
+      margin-left: 0 !important;
+      margin-right: -11px;
+      
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+    
+    .AvatarStackBody {
+      flex-direction: row-reverse;
+      
+      &:hover {
+        .AvatarItem {
+          margin-right: ${get('space.1')}!important;
+          margin-left: 0 !important;
+          
+          &:first-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.AvatarStack--three-plus.AvatarStack--right {
+    .AvatarItem {
+      &:nth-child(3) {
+        margin-right: -17px;
+      }
+      &:nth-child(4) {
+        margin-right: -17px;
+      }
+      &:nth-child(5) {
+        margin-right: -17px;
+      }
+    }
+  }
+
   ${COMMON}
   ${sx};
 `
@@ -97,8 +140,11 @@ const AvatarStackBody = styled.span`
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   const count = children.length
+  const wrapperClassNames = classnames(
+    count === 2 ? 'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : '',
+    alignRight ? 'AvatarStack--right' : '')
   return (
-    <AvatarStackWrapper count={count} className={count === 2 ? 'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : ''} {...rest}>
+    <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
       <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
         {transformChildren(children)}
       </AvatarStackBody>
