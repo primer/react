@@ -101,6 +101,10 @@ declare module '@primer/components' {
 
   export const Avatar: React.FunctionComponent<AvatarProps>
 
+  export interface AvatarPairProps extends PositionComponentProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const AvatarPair: React.FunctionComponent<AvatarPairProps>
+
   export interface BaseStylesProps extends TypographyProps, CommonProps {}
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
@@ -483,8 +487,7 @@ declare module '@primer/components' {
   export const LabelGroup: React.FunctionComponent<LabelGroupProps>
 
   export interface AvatarStackProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
-    alignRight?: boolean,
-    square?: boolean
+    alignRight?: boolean
   }
 
   export const AvatarStack: React.FunctionComponent<AvatarStackProps>
@@ -553,6 +556,11 @@ declare module '@primer/components/lib/Flex' {
 declare module '@primer/components/lib/Avatar' {
   import {Avatar} from '@primer/components'
   export default Avatar
+}
+
+declare module '@primer/components/lib/AvatarPair' {
+  import {AvatarPair} from '@primer/components'
+  export default AvatarPair
 }
 
 declare module '@primer/components/lib/Details' {
