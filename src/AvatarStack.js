@@ -8,7 +8,7 @@ import theme from './theme'
 
 const transformChildren = children => {
   return React.Children.map(children, (child, index) => {
-    return <>{React.cloneElement(child, {className: 'AvatarItem', sx: {zIndex: 10 - index}})}</>
+    return <>{React.cloneElement(child, {className: 'pc-AvatarItem', sx: {zIndex: 10 - index}})}</>
   })
 }
 
@@ -18,7 +18,7 @@ const AvatarStackWrapper = styled.span`
   height: 20px;
   min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
 
-  .AvatarItem {
+  .pc-AvatarItem {
     flex-shrink: 0;
     height: 20px;
     width: 20px;
@@ -37,18 +37,18 @@ const AvatarStackWrapper = styled.span`
     }
   }
 
-  &.AvatarStack--two {
+  &.pc-AvatarStack--two {
     min-width: 30px;
-    .AvatarItem {
+    .pc-AvatarItem {
       &:nth-child(n + 3) {
         display: none;
       }
     }
   }
 
-  &.AvatarStack--three-plus {
+  &.pc-AvatarStack--three-plus {
     min-width: 38px;
-    .AvatarItem {
+    .pc-AvatarItem {
       &:nth-child(3) {
         opacity: ${100 - 3 * 15}%;
         margin-left: -17px;
@@ -71,9 +71,9 @@ const AvatarStackWrapper = styled.span`
     }
   }
 
-  &.AvatarStack--right {
+  &.pc-AvatarStack--right {
     justify-content: flex-end;
-    .AvatarItem {
+    .pc-AvatarItem {
       margin-left: 0 !important;
       margin-right: -11px;
 
@@ -82,11 +82,11 @@ const AvatarStackWrapper = styled.span`
       }
     }
 
-    .AvatarStackBody {
+    .pc-AvatarStackBody {
       flex-direction: row-reverse;
 
       &:hover {
-        .AvatarItem {
+        .pc-AvatarItem {
           margin-right: ${get('space.1')}!important;
           margin-left: 0 !important;
 
@@ -98,8 +98,8 @@ const AvatarStackWrapper = styled.span`
     }
   }
 
-  &.AvatarStack--three-plus.AvatarStack--right {
-    .AvatarItem {
+  &.pc-AvatarStack--three-plus.pc-AvatarStack--right {
+    .pc-AvatarItem {
       &:nth-child(3) {
         margin-right: -17px;
       }
@@ -124,7 +124,7 @@ const AvatarStackBody = styled.span`
   &:hover {
     width: auto;
 
-    .AvatarItem {
+    .pc-AvatarItem {
       margin-left: ${get('space.1')}!important;
       opacity: 100% !important;
       visibility: visible;
@@ -138,12 +138,12 @@ const AvatarStackBody = styled.span`
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   const count = children.length
   const wrapperClassNames = classnames(
-    count === 2 ? 'AvatarStack--two' : count > 2 ? 'AvatarStack--three-plus' : '',
-    alignRight ? 'AvatarStack--right' : ''
+    count === 2 ? 'pc-AvatarStack--two' : count > 2 ? 'pc-AvatarStack--three-plus' : '',
+    alignRight ? 'pc-AvatarStack--right' : ''
   )
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
-      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
+      <AvatarStackBody alignRight={alignRight} className="pc-AvatarStackBody">
         {transformChildren(children)}
       </AvatarStackBody>
     </AvatarStackWrapper>
