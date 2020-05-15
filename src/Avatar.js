@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {get, COMMON} from './constants'
-import {space} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 import sx from './sx'
-
 
 function getBorderRadius(props) {
   if (props.square) {
@@ -40,6 +37,7 @@ Avatar.propTypes = {
   ...COMMON.propTypes,
   size: PropTypes.number,
   square: PropTypes.bool,
+  ...sx.propTypes,
   theme: PropTypes.object
 }
 
