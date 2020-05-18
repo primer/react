@@ -11,7 +11,7 @@
     "node": ">= 10.x"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "0.0.0-66d49bc",
+    "@primer/gatsby-theme-doctocat": "0.21.0",
     "@primer/octicons-v2-react": "0.0.0-be2ea3b",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
