@@ -42,7 +42,6 @@ function Caret(props) {
   const {size, location} = props
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
-  const opp = oppositeEdge[edge].toLowerCase()
 
   const style = {
     pointerEvents: 'none',
@@ -51,7 +50,6 @@ function Caret(props) {
     // if align is set (top|right|bottom|left),
     // then we don't need an offset margin
     [`margin${perp}`]: align ? null : -size,
-    [`margin-${opp}`]: '-1px'
   }
 
   // note: these arrays represent points in the form [x, y]
