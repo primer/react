@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import BorderBox from './BorderBox'
 import Caret from './Caret'
 import theme from './theme'
-import {Relative} from './Position'
 
 function PointerBox(props) {
-  // don't destructure these, just grab them
+  // don't destructure these, just grab them so that they are applied to the caret and the BorderBox
   const {bg, borderColor, borderWidth, borderStyle} = props
   const {caret, children, ...boxProps} = props
   const caretProps = {bg, borderColor, borderWidth, borderStyle, location: caret}
