@@ -164,29 +164,29 @@ The following snippet shows the properties in the theme that control the styling
 {
   // ... rest of theme ...
   pagination: {
-    fontSize,
-    fontWeight,
     borderRadius,
+    spaceBetween,
     colors: {
       normal: {
-        fg,
-        bg,
-        border
+        fg
       },
       disabled: {
         fg,
-        bg,
         border
       },
       hover: {
-        fg,
-        bg,
         border
       },
       selected: {
         fg,
         bg,
         border
+      },
+      active: {
+        border
+      },
+      nextPrevious: {
+        fg
       }
     }
   }
