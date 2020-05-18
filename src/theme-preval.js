@@ -278,29 +278,29 @@ const popovers = {
 }
 
 const pagination = {
-  fontSize: '13px',
-  fontWeight: fontWeights.bold,
-  borderRadius: radii[1],
+  borderRadius: radii[2],
+  spaceBetween: space[1],
   colors: {
     normal: {
-      fg: colors.blue[5],
-      bg: colors.white,
-      border: colors.border.gray
+      fg: colors.gray[9]
     },
     disabled: {
       fg: colors.gray[3],
-      bg: colors.gray[0],
-      border: colors.border.gray
+      border: 'transparent'
     },
     hover: {
-      fg: colors.blue[5],
-      bg: colors.gray[1],
-      border: colors.border.gray
+      border: colors.border.grayLight
     },
     selected: {
       fg: colors.white,
       bg: colors.blue[5],
-      border: colors.blue[5]
+      border: 'transparent'
+    },
+    active: {
+      border: colors.border.grayLight
+    },
+    nextPrevious: {
+      fg: colors.blue[5]
     }
   }
 }
