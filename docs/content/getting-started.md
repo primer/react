@@ -24,7 +24,9 @@ import {Box, Flex} from '@primer/components'
 const {Box, Flex} = require('@primer/components')
 ```
 
-Alternatively, you can import individual components from the `lib` subfolder:
+### Minimizing bundle size
+
+Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake Primer Components, ensuring that no unused code is included in your final bundle. However, if you're not using ESM, you may be able to drastically reduce the size of your final bundle by importing components individually from the `lib` subfolder:
 
 ```javascript
 // using import syntax
@@ -36,9 +38,7 @@ const Box = require('@primer/components/lib/Box')
 const Flex = require('@primer/components/lib/Flex')
 ```
 
-Note that the files in the `lib` folder are CommonJS-style modules; if you're using ECMAScript modules (ESM) and a compatible module bundler, importing files individually from `lib` provides no benefit, as unused modules from the ESM build will be removed via tree-shaking. Primer Components has an ESM build specified in its `package.json`, so when using ESM you should always import components from the main entry point (as in the first example, above).
-
-If you're *not* using ESM, importing components individually from the `lib` folder may drastically decrease your final bundle size, since your module bundler will not have to include the entirety of Primer Components in your bundle.
+Note that the modules in the `lib` folder are CommonJS-style modules; if you're using ECMAScript modules (ESM) and a compatible module bundler, importing files individually from `lib` provides no benefit.
 
 ### Peer dependencies
 
