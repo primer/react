@@ -7,14 +7,13 @@ exports[`Pagination renders consistently 1`] = `
 }
 
 .c2 {
-  position: relative;
-  float: left;
-  padding: 7px 12px;
-  margin-left: -1px;
-  font-size: 13px;
+  display: inline-block;
+  min-width: 32px;
+  padding: 5px 10px;
   font-style: normal;
-  font-weight: 600;
-  color: #0366d6;
+  line-height: 20px;
+  color: #24292e;
+  text-align: center;
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
@@ -22,109 +21,80 @@ exports[`Pagination renders consistently 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background: #fff;
-  border: 1px solid #e1e4e8;
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #d1d5da;
-  cursor: default;
-  background-color: #fafbfc;
-  border-color: #e1e4e8;
-}
-
-.c2:first-child {
-  margin-left: 0;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  margin-right: 4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  -webkit-transition: border-color 0.2s cubic-bezier(0.3,0,0.5,1);
+  transition: border-color 0.2s cubic-bezier(0.3,0,0.5,1);
 }
 
 .c2:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  margin-right: 0;
 }
 
-.c3 {
-  position: relative;
-  float: left;
-  padding: 7px 12px;
-  margin-left: -1px;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 600;
-  color: #0366d6;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background: #fff;
-  border: 1px solid #e1e4e8;
+.c2:hover,
+.c2:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
-  z-index: 3;
+  border-color: #eaecef;
+  outline: 0;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+
+.c2:active {
+  border-color: #eaecef;
+}
+
+.c2[rel='prev'],
+.c2[rel='next'] {
+  color: #0366d6;
+}
+
+.c2[aria-current],
+.c2[aria-current]:hover {
   color: #fff;
   background-color: #0366d6;
-  border-color: #0366d6;
+  border-color: transparent;
 }
 
-.c3:first-child {
-  margin-left: 0;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.c3:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.c4 {
-  position: relative;
-  float: left;
-  padding: 7px 12px;
-  margin-left: -1px;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 600;
-  color: #0366d6;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background: #fff;
-  border: 1px solid #e1e4e8;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:first-child {
-  margin-left: 0;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.c4:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.c4:hover,
-.c4:focus {
-  z-index: 2;
-  color: #0366d6;
-  background-color: #f6f8fa;
-  border-color: #e1e4e8;
+.c2[aria-disabled],
+.c2[aria-disabled]:hover {
+  color: #d1d5da;
+  cursor: default;
+  border-color: transparent;
 }
 
 .c0 {
   margin-top: 20px;
   margin-bottom: 15px;
   text-align: center;
+}
+
+@supports (-webkit-clip-path:polygon(50% 0,100% 50%,50% 100%)) or (clip-path:polygon(50% 0,100% 50%,50% 100%)) {
+  .c2[rel='prev']::before,
+  .c2[rel='next']::after {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    content: '';
+    background-color: currentColor;
+  }
+
+  .c2[rel='prev']::before {
+    margin-right: 4px;
+    -webkit-clip-path: polygon( 9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px );
+    clip-path: polygon( 9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px );
+  }
+
+  .c2[rel='next']::after {
+    margin-left: 4px;
+    -webkit-clip-path: polygon( 6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px );
+    clip-path: polygon( 6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px );
+  }
 }
 
 <nav
@@ -138,20 +108,18 @@ exports[`Pagination renders consistently 1`] = `
     <span
       aria-disabled="true"
       className="c2"
-      disabled={true}
     >
       Previous
     </span>
     <em
       aria-current="page"
-      className="c3"
-      selected={true}
+      className="c2"
     >
       1
     </em>
     <a
       aria-label="Page 2"
-      className="c4"
+      className="c2"
       href="#2"
       onClick={[Function]}
     >
@@ -159,7 +127,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 3"
-      className="c4"
+      className="c2"
       href="#3"
       onClick={[Function]}
     >
@@ -167,7 +135,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 4"
-      className="c4"
+      className="c2"
       href="#4"
       onClick={[Function]}
     >
@@ -175,7 +143,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 5"
-      className="c4"
+      className="c2"
       href="#5"
       onClick={[Function]}
     >
@@ -183,21 +151,21 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 6"
-      className="c4"
+      className="c2"
       href="#6"
       onClick={[Function]}
     >
       6
     </a>
     <span
+      aria-disabled={true}
       className="c2"
-      disabled={true}
     >
       …
     </span>
     <a
       aria-label="Page 10"
-      className="c4"
+      className="c2"
       href="#10"
       onClick={[Function]}
     >
@@ -205,7 +173,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Next Page"
-      className="c4"
+      className="c2"
       href="#2"
       onClick={[Function]}
       rel="next"
