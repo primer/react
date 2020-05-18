@@ -4,13 +4,13 @@ title: Primer Theme
 
 import {theme} from '@primer/components'
 
-Primer Components come with built-in access to our Primer theme. The [theme file](https://github.com/primer/components/blob/master/src/theme.js) contains an object which holds values for common variables such as color, fonts, box shadows, and more. Our theme file pulls many of its color and typography values from [primer-primitives](https://github.com/primer/primer-primitives).
+Primer Components come with built-in access to our Primer theme. The [theme file](https://github.com/primer/components/blob/master/src/theme-preval.js) contains an object which holds values for common variables such as color, fonts, box shadows, and more. Our theme file pulls many of its color and typography values from [primer-primitives](https://github.com/primer/primer-primitives).
 
 Many of our theme keys correspond to system props on our components. For example, if you'd like to set the max width on a `<Box>` set the `maxWidth` prop to `medium`: `<Box maxWidth='medium'>`
 
 In the background, [styled-system](https://github.com/styled-system/styled-system) does the work of finding the `medium` value from `maxWidth` key in the theme file and applying the corresponding CSS.
 
-Our full theme can be found [here](https://github.com/primer/components/blob/master/src/theme.js).
+Our full theme can be found [here](https://github.com/primer/components/blob/master/src/theme-preval.js).
 
 ### Custom Theming
 
