@@ -38,7 +38,7 @@ const Box = require('@primer/components/lib/Box')
 const Flex = require('@primer/components/lib/Flex')
 ```
 
-Note that the modules in the `lib` folder are CommonJS-style modules; if you're using ECMAScript modules (ESM) and a compatible module bundler, importing files individually from `lib` provides no benefit.
+Note that the modules in the `lib` folder are CommonJS-style modules; if you're using ESM and a compatible module bundler, importing files individually from `lib` provides no benefit.
 
 ### Peer dependencies
 
