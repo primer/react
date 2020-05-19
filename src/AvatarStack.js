@@ -137,10 +137,11 @@ const AvatarStackBody = styled.span`
 `
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   const count = children.length
-  const wrapperClassNames = classnames(
-    count === 2 ? 'pc-AvatarStack--two' : count > 2 ? 'pc-AvatarStack--three-plus' : '',
-    alignRight ? 'pc-AvatarStack--right' : ''
-  )
+  const wrapperClassNames = classnames({
+    'pc-AvatarStack--two': count === 2,
+    'pc-AvatarStack--three-plus': count > 2,
+    'pc-AvatarStack--right': alignRight
+  })
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
       <AvatarStackBody alignRight={alignRight} className="pc-AvatarStackBody">
