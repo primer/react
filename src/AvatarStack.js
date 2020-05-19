@@ -8,7 +8,7 @@ import theme from './theme'
 
 const transformChildren = children => {
   return React.Children.map(children, (child, index) => {
-    return <>{React.cloneElement(child, {className: 'pc-AvatarItem', sx: {zIndex: 10 - index}})}</>
+    return React.cloneElement(child, {className: 'pc-AvatarItem', sx: {zIndex: 10 - index}})
   })
 }
 
