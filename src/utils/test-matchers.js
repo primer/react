@@ -59,30 +59,31 @@ expect.extend({
   },
 
   toImplementSxBehavior(element) {
-    const mediaKey = '@media (max-width:123px)'
-    const sxPropValue = {
-      [mediaKey]: {
-        color: 'red.5'
-      }
-    }
-
+    const sxPropValue = {color: 'LemonChiffon'}
     const elem = React.cloneElement(element, {sx: sxPropValue})
     const rendered = render(elem)
 
-    function checkStylesDeep(rendered) {
-      const className = rendered.props ? rendered.props.className : ''
-      const styles = getComputedStyles(className)
-      if (styles[mediaKey] && styles[mediaKey].color) {
+    function checkStyleRuleRecursively(comp) {
+      try {
+        expect(comp).toHaveStyleRule('color', 'LemonChiffon')
         return true
-      } else if (rendered.children) {
-        return rendered.children.some(child => checkStylesDeep(child))
-      } else {
-        return false
+      } catch (err) {
+        // component didn't have style rule, but maybe a child did
+        if (comp.children && Array.isArray(comp.children)) {
+          const childWithStyleRule = comp.children.find(checkStyleRuleRecursively)
+          if (childWithStyleRule) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
       }
     }
 
     return {
-      pass: checkStylesDeep(rendered),
+      pass: checkStyleRuleRecursively(rendered),
       message: () => 'sx prop values did not change styles of component nor of any sub-components'
     }
   },
