@@ -6,12 +6,6 @@ import sx from './sx'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
-const transformChildren = children => {
-  return React.Children.map(children, (child, index) => {
-    return React.cloneElement(child, {className: 'pc-AvatarItem', sx: {zIndex: 10 - index}})
-  })
-}
-
 const AvatarStackWrapper = styled.span`
   display: flex;
   position: relative;
@@ -135,6 +129,16 @@ const AvatarStackBody = styled.span`
     }
   }
 `
+
+const transformChildren = children => {
+  return React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, {
+      className: classnames(child.props.className, 'pc-AvatarItem'),
+      sx: {zIndex: 10 - index, ...child.props.sx}
+    })
+  })
+}
+
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
   const count = children.length
   const wrapperClassNames = classnames({
