@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import sx from './sx'
 import {get, COMMON} from './constants'
 import theme from './theme'
+import {Absolute} from './Position'
 
 const AvatarStackWrapper = styled.span`
   display: flex;
@@ -106,21 +107,12 @@ const AvatarStackWrapper = styled.span`
     }
   }
 
-  ${COMMON}
-  ${sx};
-`
-
-const AvatarStackBody = styled.span`
-  display: flex;
-  position: absolute;
-  width: 38px;
-
-  &:hover {
+  .pc-AvatarStackBody:hover {
     width: auto;
 
     .pc-AvatarItem {
-      margin-left: ${get('space.1')}!important;
-      opacity: 100% !important;
+      margin-left: ${get('space.1')};
+      opacity: 100%;
       visibility: visible;
       box-shadow: 0 0 0 4px ${get('colors.white')};
       &:first-child {
@@ -128,8 +120,10 @@ const AvatarStackBody = styled.span`
       }
     }
   }
-`
 
+  ${COMMON}
+  ${sx};
+`
 const transformChildren = children => {
   return React.Children.map(children, (child, index) => {
     return React.cloneElement(child, {
@@ -148,9 +142,9 @@ const AvatarStack = ({children = [], alignRight, ...rest}) => {
   })
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
-      <AvatarStackBody alignRight={alignRight} className="pc-AvatarStackBody">
+      <Absolute display="flex" width="38px" className="pc-AvatarStackBody">
         {transformChildren(children)}
-      </AvatarStackBody>
+      </Absolute>
     </AvatarStackWrapper>
   )
 }
