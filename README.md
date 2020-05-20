@@ -17,9 +17,6 @@
     <img alt="" src=
   "https://img.shields.io/github/last-commit/primer/components.svg">
   </a>
-  <a aria-label="join us in spectrum" href="https://spectrum.chat/?t=492cd17e-6e41-4e66-9160-2297e245b596">
-    <img alt="" src="https://withspectrum.github.io/badge/badge.svg">
-  </a>
   <a aria-label="license" href="https://github.com/primer/components/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/primer/components.svg" alt="">
   </a>
