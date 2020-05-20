@@ -1,149 +1,150 @@
 import React from 'react'
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import sx from './sx'
 import {get, COMMON} from './constants'
 import theme from './theme'
-
-const transformChildren = children => {
-  const count = children.length
-  return React.Children.map(children, (child, index) => {
-    return (
-      <>
-        {count > 3 && index === 2 && <div className="AvatarItem-more AvatarItem" />}
-        {React.cloneElement(child, {className: 'AvatarItem'})}
-      </>
-    )
-  })
-}
+import {Absolute} from './Position'
 
 const AvatarStackWrapper = styled.span`
-  display: inline-block;
+  display: flex;
   position: relative;
-  min-width: ${props => (props.count === 1 ? '26px' : props.count === 2 ? '36px' : '46px')};
   height: 20px;
+  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
+
+  .pc-AvatarItem {
+    flex-shrink: 0;
+    height: 20px;
+    width: 20px;
+    box-shadow: 0 0 0 1px ${get('colors.white')};
+    margin-left: -11px;
+    position: relative;
+    overflow: hidden;
+    transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
+      box-shadow 0.1s ease-in-out;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  &.pc-AvatarStack--two {
+    min-width: 30px;
+    .pc-AvatarItem {
+      &:nth-child(n + 3) {
+        display: none;
+      }
+    }
+  }
+
+  &.pc-AvatarStack--three-plus {
+    min-width: 38px;
+    .pc-AvatarItem {
+      &:nth-child(3) {
+        opacity: ${100 - 3 * 15}%;
+        margin-left: -17px;
+      }
+      &:nth-child(4) {
+        opacity: ${100 - 4 * 15}%;
+        margin-left: -17px;
+      }
+      &:nth-child(5) {
+        opacity: ${100 - 5 * 15}%;
+        margin-left: -17px;
+      }
+      &:nth-child(n + 4) {
+        display: block;
+      }
+      &:nth-child(n + 6) {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
+
+  &.pc-AvatarStack--right {
+    justify-content: flex-end;
+    .pc-AvatarItem {
+      margin-left: 0 !important;
+      margin-right: -11px;
+
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+
+    .pc-AvatarStackBody {
+      flex-direction: row-reverse;
+
+      &:hover {
+        .pc-AvatarItem {
+          margin-right: ${get('space.1')}!important;
+          margin-left: 0 !important;
+
+          &:first-child {
+            margin-right: 0 !important;
+          }
+        }
+      }
+    }
+  }
+
+  &.pc-AvatarStack--three-plus.pc-AvatarStack--right {
+    .pc-AvatarItem {
+      &:nth-child(3) {
+        margin-right: -17px;
+      }
+      &:nth-child(4) {
+        margin-right: -17px;
+      }
+      &:nth-child(5) {
+        margin-right: -17px;
+      }
+    }
+  }
+
+  .pc-AvatarStackBody:hover {
+    width: auto;
+
+    .pc-AvatarItem {
+      margin-left: ${get('space.1')};
+      opacity: 100%;
+      visibility: visible;
+      box-shadow: 0 0 0 4px ${get('colors.white')};
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
   ${COMMON}
   ${sx};
 `
+const transformChildren = children => {
+  return React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, {
+      className: classnames(child.props.className, 'pc-AvatarItem'),
+      sx: {zIndex: 10 - index, ...child.props.sx}
+    })
+  })
+}
 
-const AvatarStackBody = styled.span`
-  display: flex;
-  position: absolute;
-  background: white;
-
-  &:hover {
-    .AvatarItem {
-      margin-right: 3px;
-    }
-
-    .AvatarItem:nth-child(n + 4) {
-      display: flex;
-      opacity: 1;
-    }
-
-    .AvatarItem-more {
-      display: none !important;
-    }
-  }
-
-  .AvatarItem {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    width: 20px;
-    height: 20px;
-    box-sizing: content-box;
-    margin-right: -11px;
-    background-color: ${get('colors.white')};
-    border-right: ${get('borderWidths.1')} solid ${get('colors.white')};
-    border-radius: 2px;
-    transition: margin 0.1s ease-in-out;
-
-    &:first-child {
-      z-index: 3;
-    }
-
-    &:last-child {
-      z-index: 1;
-      border-right: 0;
-    }
-
-    img {
-      border-radius: 2px;
-      width: inherit;
-    }
-
-    // Account for 4+ avatars
-    &:nth-child(n + 4) {
-      display: none;
-      opacity: 0;
-    }
-  }
-
-  .AvatarItem-more {
-    z-index: 1;
-    margin-right: 0;
-    background: ${get('colors.gray.1')};
-
-    &::before,
-    &::after {
-      position: absolute;
-      display: block;
-      height: 20px;
-      content: '';
-      border-radius: 2px;
-      outline: ${get('borderWidths.1')} solid ${get('colors.white')};
-    }
-
-    &::before {
-      width: 17px;
-      background: ${get('colors.gray.2')};
-    }
-
-    &::after {
-      width: 14px;
-      background: ${get('colors.gray.3')};
-    }
-  }
-
-  ${props =>
-    props.alignRight &&
-    css`
-      right: 0;
-      flex-direction: row-reverse;
-
-      &:hover .AvatarItem {
-        margin-right: 0;
-        margin-left: 3px;
-      }
-
-      .AvatarItem-more {
-        background: ${get('colors.gray.3')};
-
-        &::before {
-          width: 5px;
-        }
-
-        &::after {
-          background: ${get('colors.gray.1')};
-          width: 2px;
-        }
-      }
-
-      .AvatarItem {
-        margin-right: 0;
-        margin-left: -11px;
-        border-right: 0;
-        border-left: ${get('borderWidths.1')} solid ${get('colors.white')};
-      }
-    `}
-`
 const AvatarStack = ({children = [], alignRight, ...rest}) => {
+  const count = children.length
+  const wrapperClassNames = classnames({
+    'pc-AvatarStack--two': count === 2,
+    'pc-AvatarStack--three-plus': count > 2,
+    'pc-AvatarStack--right': alignRight
+  })
   return (
-    <AvatarStackWrapper count={children.length} {...rest}>
-      <AvatarStackBody alignRight={alignRight} className="AvatarStackBody">
+    <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
+      <Absolute display="flex" width="38px" className="pc-AvatarStackBody">
         {transformChildren(children)}
-      </AvatarStackBody>
+      </Absolute>
     </AvatarStackWrapper>
   )
 }

@@ -95,11 +95,15 @@ declare module '@primer/components' {
   export const Button: React.FunctionComponent<ButtonProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
-    isChild?: boolean
     size?: number
+    square?: boolean
   }
 
   export const Avatar: React.FunctionComponent<AvatarProps>
+
+  export interface AvatarPairProps extends PositionComponentProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const AvatarPair: React.FunctionComponent<AvatarPairProps>
 
   export interface BaseStylesProps extends TypographyProps, CommonProps {}
 
@@ -552,6 +556,11 @@ declare module '@primer/components/lib/Flex' {
 declare module '@primer/components/lib/Avatar' {
   import {Avatar} from '@primer/components'
   export default Avatar
+}
+
+declare module '@primer/components/lib/AvatarPair' {
+  import {AvatarPair} from '@primer/components'
+  export default AvatarPair
 }
 
 declare module '@primer/components/lib/Details' {
