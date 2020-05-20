@@ -18,12 +18,10 @@ It can be useful to give the `Popover.Content` element a margin to help align th
     <ButtonPrimary>Hello!</ButtonPrimary>
   </Text>
 
-  <Popover relative open={true}>
-    <Popover.Content mt={2} caret="top">
-      <Heading fontSize={2}>Popover heading</Heading>
-      <Text as="p">Message about this particular piece of UI.</Text>
-      <Button>Got it!</Button>
-    </Popover.Content>
+  <Popover relative open={true} mt="2" caret="top">
+    <Heading fontSize={2}>Popover heading</Heading>
+    <Text as="p">Message about this particular piece of UI.</Text>
+    <Button>Got it!</Button>
   </Popover>
 </Relative>
 ```
@@ -50,12 +48,10 @@ function PopoverDemo(props) {
       </Box>
 
       <Relative pt={4}>
-        <Popover relative open={open}>
-          <Popover.Content caret={pos}>
-            <Heading fontSize={2}><code>{pos}</code> caret</Heading>
-            <Text as="p">Message about this particular piece of UI.</Text>
-            <Button onClick={() => setOpen(false)}>Got it!</Button>
-          </Popover.Content>
+        <Popover relative open={open} caret={pos}>
+          <Heading fontSize={2}><code>{pos}</code> caret</Heading>
+          <Text as="p">Message about this particular piece of UI.</Text>
+          <Button onClick={() => setOpen(false)}>Got it!</Button>
         </Popover>
       </Relative>
     </Box>
