@@ -18,8 +18,8 @@ It can be useful to give the `Popover.Content` element a margin to help align th
     <ButtonPrimary>Hello!</ButtonPrimary>
   </Text>
 
-  <Popover relative open={true} caret="top">
-    <Popover.Content mt={2}>
+  <Popover relative open={true}>
+    <Popover.Content mt={2} caret="top">
       <Heading fontSize={2}>Popover heading</Heading>
       <Text as="p">Message about this particular piece of UI.</Text>
       <Button>Got it!</Button>
@@ -50,8 +50,8 @@ function PopoverDemo(props) {
       </Box>
 
       <Relative pt={4}>
-        <Popover relative open={open} caret={pos}>
-          <Popover.Content>
+        <Popover relative open={open}>
+          <Popover.Content caret={pos}>
             <Heading fontSize={2}><code>{pos}</code> caret</Heading>
             <Text as="p">Message about this particular piece of UI.</Text>
             <Button onClick={() => setOpen(false)}>Got it!</Button>
@@ -95,16 +95,15 @@ render(<PopoverDemo />)
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | as | String | 'div' | Sets the HTML tag for the component. |
-| caret | String | 'top' | Controls the position of the caret. See below for the list of caret positions. |
 | open | Boolean | false | Controls the visibility of the popover. |
 | relative | Boolean | false | Set to true to render the popover using relative positioning. |
-
-#### Caret Positions
-
-The `caret` prop can be one of the following values: `top`, `bottom`, `left`, `right`, `bottom-left`, `bottom-right`, `top-left`, `top-right`, `left-bottom`, `left-top`, `right-bottom`, or `right-top`.
 
 ### Popover.Content
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| as | String | 'div' | Sets the HTML tag for the component. |
+| caret | String | 'top' | Controls the position of the caret. See below for the list of caret positions. |
+
+#### Caret Positions
+
+The `caret` prop can be one of the following values: `top`, `bottom`, `left`, `right`, `bottom-left`, `bottom-right`, `top-left`, `top-right`, `left-bottom`, `left-top`, `right-bottom`, or `right-top`.
