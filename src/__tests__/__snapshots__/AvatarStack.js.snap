@@ -110,7 +110,7 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 
 .c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(3) {
@@ -302,7 +302,7 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 
 .c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(3) {
