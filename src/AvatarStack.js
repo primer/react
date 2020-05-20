@@ -86,7 +86,7 @@ const AvatarStackWrapper = styled.span`
           margin-left: 0 !important;
 
           &:first-child {
-            margin-right: 0!important;
+            margin-right: 0 !important;
           }
         }
       }
