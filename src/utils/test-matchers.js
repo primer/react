@@ -2,7 +2,7 @@ import React from 'react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import theme from '../theme'
-import {getClasses, mount, getComputedStyles, render} from './testing'
+import {getClasses, mount, render} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
