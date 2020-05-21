@@ -5,7 +5,8 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "cd .. && yarn && cd docs && cross-env NODE_ENV=production gatsby build --prefix-paths"
+    "build": "cd .. && yarn && cd docs && cross-env NODE_ENV=production gatsby build --prefix-paths",
+    "deploy": "yarn run build && gh-pages -d public"
   },
   "engines": {
     "node": ">= 10.x"
