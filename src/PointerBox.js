@@ -7,16 +7,14 @@ import {Relative} from './Position'
 
 function PointerBox(props) {
   // don't destructure these, just grab them
-  const {bg, border, borderColor, as} = props
+  const {bg, border, borderColor} = props
   const {caret, children, ...boxProps} = props
   const caretProps = {bg, borderColor, borderWidth: border, location: caret}
   return (
-    <Relative as={as}>
-      <BorderBox {...boxProps}>
-        {children}
-        <Caret {...caretProps} />
-      </BorderBox>
-    </Relative>
+    <BorderBox sx={{position: 'relative'}} {...boxProps}>
+      {children}
+      <Caret {...caretProps} />
+    </BorderBox>
   )
 }
 
