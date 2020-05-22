@@ -1,4 +1,4 @@
-name: Request Deployment
+name: Request Deploys
 
 on:
     pull_request:
