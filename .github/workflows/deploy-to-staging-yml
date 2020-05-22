@@ -40,8 +40,8 @@ jobs:
                   random_suffix="$(openssl rand -hex 16)"
                   current_deployment="${branch_name}-${random_suffix}"
                 fi
-                mkdir -p docs/public/assets/staging/${current_deployment}
-                cp -r dist/storybook/* docs/public/assets/staging/${current_deployment}
+                mkdir -p .gh-deploy/public/assets/staging/${current_deployment}
+                cp -r docs/public/* .gh-deploy/public/assets/staging/${current_deployment}
                 echo "::set-output name=environment_url::https://primer.github.com/components/public/assets/staging/${current_deployment}"
 
             - name: Deploy docs to GitHub Pages
@@ -50,7 +50,7 @@ jobs:
                   allow_empty_commits: false
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_branch: gh-pages
-                  publish_dir: docs/public
+                  publish_dir: .gh-deploy
   
             - name: Report deploy success
               uses: octokit/request-action@v2.x
