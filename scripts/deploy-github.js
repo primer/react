@@ -1,7 +1,7 @@
 const ghpages = require('gh-pages')
 
 ghpages.publish(
-  'docs/public',
+  'public',
   {
     branch: 'master',
     repo: 'https://github.com/primer/components.github.io.git',
