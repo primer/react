@@ -30,7 +30,7 @@ If you're looking for something to work on, a great place to start is our issues
 
 ## Before Getting Started
 
-A common question asked about Primer Components is how to know what should be added to Primer Components and what is best left as a local component in a consuming applcation. Though there are no hard & fast rules about what can and cannot be added to Primer Components, but here are a few things we take into consideration:
+A common question asked about Primer Components is how to know what should be added to Primer Components and what is best left as a local component in a consuming applcation. Though there are no hard & fast rules about what can and cannot be added to Primer Components, here are a few things we take into consideration:
 
 - Is the new feature an existing pattern in Primer CSS or related to UI built at GitHub? Primer Components is first and foremost a library for building UI at GitHub - patterns that aren't currently being used in GitHub UI (either on github.com or in a GitHub owned project outside the monolith) probably shouldn't be added to Primer Components. Exceptions to this could be helper components that don't necessarily render UI but help with the development process (like `Flex`, `Grid`, or `Box`).
 
