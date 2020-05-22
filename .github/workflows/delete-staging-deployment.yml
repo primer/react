@@ -1,0 +1,32 @@
+name: Delete staging deployment
+
+on: delete
+
+jobs:
+    delete-docs-deployment:
+        name: Docs
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+              with:
+                  ref: gh-pages
+
+            - name: Delete stale docs site
+              run: |
+                mkdir -p docs/public/assets/staging
+                cp -r public/assets/staging/* docs/public/assets/staging
+                ref_type=$(jq --raw-output .ref_type $GITHUB_EVENT_PATH)
+                if [ $ref_type = "branch" ]; then
+                  deleted_branch=$(jq --raw-output .ref $GITHUB_EVENT_PATH | cut -d '/' -f 3)
+                  rm -rf docs/public/assets/staging/${deleted_branch}*
+                fi
+            - name: Deploy deletion to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  allow_empty_commits: false
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  keep_files: false
+                  publish_branch: gh-pages
+                  publish_dir: docs/public

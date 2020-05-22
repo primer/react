@@ -1,0 +1,36 @@
+name: Deploy to staging
+
+on: deployment
+
+jobs:
+    deploy-docs:
+        name: Primer Components Docs
+        runs-on: ubuntu-latest
+        if: github.event.action == 'created' && github.event.deployment.environment == 'staging'
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Install Node.js 10.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 10.x
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Install dependencies
+              run: yarn
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build Gatsby
+              run: cd docs && yarn run build
+
+            - name: Deploy docs to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  allow_empty_commits: false
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: docs/public
