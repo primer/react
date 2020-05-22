@@ -1,0 +1,23 @@
+name: 💾 Bundlesize
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  bundlesize:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: 'old'
+          ref: 'master'
+      - uses: actions/checkout@v2
+        with:
+          path: 'new'
+
+      - name: Check Bundle Size Change
+        uses: "BinaryMuse/action-bundlesize@master"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

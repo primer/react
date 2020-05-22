@@ -1,0 +1,9 @@
+.test
+node_modules
+.DS_Store
+coverage/
+dist/
+lib/
+lib-esm/
+public/
+stats.html

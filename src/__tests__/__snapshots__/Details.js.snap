@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Details renders consistently 1`] = `
+.c0 > summary {
+  list-style: none;
+}
+
+.c0 > summary::-webkit-details-marker {
+  display: none;
+}
+
+<details
+  className="c0"
+  onToggle={[Function]}
+  open={false}
+/>
+`;

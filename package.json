@@ -1,0 +1,122 @@
+{
+  "name": "@primer/components",
+  "version": "19.0.0",
+  "description": "Primer react components",
+  "main": "lib/index.js",
+  "module": "lib-esm/index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "start": "cd docs && yarn run develop",
+    "predist": "rm -rf dist",
+    "dist": "yarn dist:rollup && yarn dist:transpile:cjs && yarn dist:transpile:esm",
+    "dist:rollup": "cross-env NODE_ENV=production rollup -c",
+    "dist:transpile:cjs": "rm -rf lib && cross-env BABEL_MODULE=commonjs babel src --out-dir lib",
+    "dist:transpile:esm": "rm -rf lib-esm && babel src --out-dir lib-esm",
+    "prepublishOnly": "yarn run dist",
+    "lint": "eslint src docs/components",
+    "test": "jest -- src",
+    "update-snapshots": "jest -u -- src",
+    "watch": "jest --watch --no-coverage",
+    "playroom:start": "playroom start",
+    "playroom:build": "playroom build",
+    "build": "yarn playroom:build",
+    "deploy": "cd docs && yarn run deploy"
+  },
+  "repository": "primer/components",
+  "keywords": [
+    "react",
+    "components",
+    "library",
+    "design-system"
+  ],
+  "files": [
+    "codemods",
+    "dist",
+    "lib",
+    "lib-esm",
+    "index.d.ts",
+    "!lib/__tests__",
+    "!lib-esm/__tests__"
+  ],
+  "author": "GitHub, Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/helpers": "7.9.2",
+    "@babel/runtime": "7.9.2",
+    "@primer/octicons-react": "^9.6.0",
+    "@primer/primitives": "3.0.0",
+    "@reach/dialog": "0.3.0",
+    "@styled-system/css": "5.1.5",
+    "@styled-system/prop-types": "5.1.2",
+    "@styled-system/props": "5.1.4",
+    "@styled-system/theme-get": "5.1.2",
+    "@testing-library/react": "9.4.0",
+    "@types/styled-components": "^4.4.0",
+    "@types/styled-system": "5.1.2",
+    "babel-plugin-macros": "2.8.0",
+    "babel-polyfill": "6.26.0",
+    "classnames": "^2.2.5",
+    "details-element-polyfill": "2.4.0",
+    "jest-axe": "3.2.0",
+    "polished": "3.5.2",
+    "react": "^16.10.2",
+    "react-is": "16.10.2",
+    "styled-system": "5.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.9.5",
+    "@babel/plugin-transform-runtime": "7.9.0",
+    "@babel/preset-env": "7.9.5",
+    "@babel/preset-react": "7.9.4",
+    "@rollup/plugin-commonjs": "11.1.0",
+    "@rollup/plugin-node-resolve": "7.1.3",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-plugin-add-react-displayname": "0.0.5",
+    "babel-plugin-preval": "5.0.0",
+    "babel-plugin-styled-components": "1.10.7",
+    "babel-plugin-transform-replace-expressions": "0.2.0",
+    "cross-env": "7.0.2",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.15.1",
+    "eslint": "6.5.1",
+    "eslint-plugin-github": "3.4.0",
+    "eslint-plugin-jest": "22.20.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react-hooks": "3.0.0",
+    "gh-pages": "2.2.0",
+    "jest": "25.0.0",
+    "jest-styled-components": "6.3.3",
+    "jscodeshift": "0.6.4",
+    "playroom": "0.15.1",
+    "raw.macro": "0.3.0",
+    "react-dom": "^16.10.2",
+    "react-test-renderer": "16.10.2",
+    "rollup": "2.7.3",
+    "rollup-plugin-babel": "4.4.0",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-terser": "5.3.0",
+    "rollup-plugin-visualizer": "4.0.4",
+    "semver": "7.3.2",
+    "styled-components": "4.4.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "styled-components": "4.x || 5.x"
+  },
+  "actionBundlesize": {
+    "build": "yarn && yarn dist:rollup",
+    "files": [
+      {
+        "path": "dist/browser.esm.js",
+        "name": "ESM Build"
+      },
+      {
+        "path": "dist/browser.umd.js",
+        "name": "UMD Build"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BranchName renders consistently 1`] = `
+.c0 {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  color: rgba(27,31,35,0.6);
+  background-color: #eaf5ff;
+  border-radius: 3px;
+}
+
+<a
+  className="c0"
+/>
+`;
