@@ -51,21 +51,7 @@ Just like [values passed to system props](https://styled-system.com/responsive-s
 The `sx` prop also allows for declaring styles based on media queries, psueudo-classes, and pseudo-elements. This example, though contrived, demonstrates the ability:
 
 ```jsx live
-<Box sx={{
-  '> *': {
-    borderWidth: 1,
-    borderColor: 'border.gray',
-    borderStyle: 'solid',
-    borderBottomWidth: 0,
-    padding: 2,
-    ':last-child': {
-      borderBottomWidth: 1
-    },
-    ':hover': {
-      bg: 'gray.1'
-    }
-  }
-}}>
+<Box>
   <Box>First</Box>
   <Box>Second</Box>
   <Box>Third</Box>
