@@ -24,9 +24,6 @@ jobs:
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Build Gatsby
-              run: cd docs && yarn run build 
-
             - name: Prepare assets for deployment
               id: prepare_assets
               env:
@@ -41,9 +38,9 @@ jobs:
                   current_deployment="${branch_name}-${random_suffix}"
                 fi
                 mkdir -p .gh-deploy/public/assets/staging/${current_deployment}
+                cd docs && STAGING_PATH_PREFIX=public/assets/staging/${current_deployment} yarn run build 
                 cp -r docs/public/* .gh-deploy/public/assets/staging/${current_deployment}
                 echo "::set-output name=environment_url::https://primer.github.com/components/public/assets/staging/${current_deployment}"
-                cd docs && STAGING_PATH_PREFIX="/public/assets/staging/${current_deployment}"
 
             - name: Deploy docs to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
