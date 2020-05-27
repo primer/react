@@ -24,5 +24,5 @@ module.exports = {
       }
     }
   ],
-  pathPrefix: `/components${'/' + {process.env.staging_url}}`
+  pathPrefix: `/components${process.env.STAGING_PATH_PREFIX || ''}`
 }
