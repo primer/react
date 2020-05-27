@@ -1,12 +1,7 @@
-name: Request Deployment
+name: Request Staging Deployment
 
 on:
-    pull_request:
-        branches:
-            - master
-    push:
-        branches:
-            - master
+    [push, pull_request]
 
 jobs:
     request-staging-deployment:
