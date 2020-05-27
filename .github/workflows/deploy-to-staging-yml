@@ -64,7 +64,7 @@ jobs:
                   repo: components
                   deployment_id: ${{ github.event.deployment.id }}
                   state: success
-                  environment_url: ${{ steps.prepare_storybook_assets.outputs.environment_url }}
+                  environment_url: ${{ steps.prepare_assets.outputs.environment_url }}
 
             - name: Report deploy failure
               uses: octokit/request-action@v2.x
