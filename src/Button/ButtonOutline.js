@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import ButtonBase from './ButtonBase'
+import ButtonBase, {systemStyles} from './ButtonBase'
 import {get} from '../constants'
 import theme from '../theme'
 import sx from '../sx'
@@ -35,6 +35,7 @@ const ButtonOutline = styled(ButtonBase)`
     background-color: ${get('buttons.outline.bg.disabled')};
   }
 
+  ${systemStyles}
   ${sx};
 `
 
