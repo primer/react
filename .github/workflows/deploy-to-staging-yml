@@ -38,7 +38,7 @@ jobs:
                   current_deployment="${branch_name}-${random_suffix}"
                 fi
                 mkdir -p .gh-deploy/public/assets/staging/${current_deployment}
-                cd docs && STAGING_PATH_PREFIX=public/assets/staging/${current_deployment} yarn run build
+                cd docs && STAGING_PATH_PREFIX=/public/assets/staging/${current_deployment} yarn run build
                 cd .. && cp -r docs/public/* .gh-deploy/public/assets/staging/${current_deployment}
                 echo "::set-output name=environment_url::https://primer.github.com/components/public/assets/staging/${current_deployment}"
 
