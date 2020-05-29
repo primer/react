@@ -72,7 +72,7 @@ jobs:
               with:
                   route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
                   mediaType: '{"previews": ["flash", "ant-man"]}'
-                  owner: github
-                  repo: memex
+                  owner: primer
+                  repo: components
                   deployment_id: ${{ github.event.deployment.id }}
                   state: failure
