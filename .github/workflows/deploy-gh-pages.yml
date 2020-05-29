@@ -27,6 +27,8 @@ jobs:
             - name: Prepare assets for deployment
               id: prepare_assets
               run: cd docs && yarn run build
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Deploy docs to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
