@@ -3,7 +3,7 @@ name: Request Production Deployment
 on:
     push:
       branches:
-        preview-deploy
+        preview-deploys
 
 jobs:
     request-production-deployment:
