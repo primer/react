@@ -34,8 +34,7 @@ jobs:
                 previous_deployment=$(git ls-tree --name-only origin/gh-pages staging/ | grep -m 1 ${branch_name} | cut -d '/' -f 4)
                 current_deployment=${previous_deployment}
                 if [ -z $current_deployment ]; then
-                  random_suffix="$(openssl rand -hex 16)"
-                  current_deployment="${branch_name}-${random_suffix}"
+                  current_deployment="${branch_name}"
                 fi
                 mkdir -p .gh-deploy/staging/${current_deployment}
                 cd docs && STAGING_PATH_PREFIX=/staging/${current_deployment} yarn run build
