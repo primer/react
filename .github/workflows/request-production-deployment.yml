@@ -3,7 +3,7 @@ name: Request Production Deployment
 on:
     push:
       branches:
-        master
+        preview-deploy
 
 jobs:
     request-production-deployment:
@@ -21,7 +21,7 @@ jobs:
                 mediaType: '{"previews": ["ant-man"]}'
                 owner: primer
                 repo: components
-                ref: 'refs/heads/master'
+                ref: 'refs/heads/preview-deploy'
                 environment: production
                 auto_merge: false
                 required_contexts: '[]'
