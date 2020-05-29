@@ -1,0 +1,28 @@
+name: Request Production Deployment
+
+on:
+    push:
+      branches:
+        master
+
+jobs:
+    request-production-deployment:
+        name: Request production deployment
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Create new production deployment
+            uses: octokit/request-action@v2.x
+            if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
+            env:
+                GITHUB_TOKEN: ${{ secrets.EMPLUMS_STAGING_DEPLOYMENT_TOKEN }}
+            with:
+                route: POST /repos/:owner/:repo/deployments
+                mediaType: '{"previews": ["ant-man"]}'
+                owner: primer
+                repo: components
+                ref: 'refs/heads/master'
+                environment: production
+                auto_merge: false
+                required_contexts: '[]'
+                description: Deployment of Primer Components Docs

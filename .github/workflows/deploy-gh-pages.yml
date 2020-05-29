@@ -1,14 +1,12 @@
 name: Deploy docs to production
 
-on:
-  push:
-    branches:
-      - master
+on: deployment
 
 jobs:
     deploy-docs:
         name: Primer Components Docs
         runs-on: ubuntu-latest
+        if: github.event.action == 'created' && github.event.deployment.environment == 'production'
 
         steps:
             - name: Checkout repository
