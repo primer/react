@@ -34,7 +34,7 @@ jobs:
                   allow_empty_commits: false
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_branch: gh-pages
-                  publish_dir: ./public
+                  publish_dir: docs/public
 
             - name: Report deploy success
               uses: octokit/request-action@v2.x
