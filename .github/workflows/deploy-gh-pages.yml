@@ -1,0 +1,66 @@
+name: Deploy docs to production
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+    deploy-docs:
+        name: Primer Components Docs
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Install Node.js 10.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 10.x
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Install dependencies
+              run: cd docs && yarn
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Prepare assets for deployment
+              id: prepare_assets
+              run: cd docs && yarn run build
+
+            - name: Deploy docs to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  allow_empty_commits: false
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: ./public
+
+            - name: Report deploy success
+              uses: octokit/request-action@v2.x
+              if: success()
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
+                  mediaType: '{"previews": ["flash", "ant-man"]}'
+                  owner: primer
+                  repo: components
+                  deployment_id: ${{ github.event.deployment.id }}
+                  state: success
+                  environment_url: https://primer.github.com/components
+
+            - name: Report deploy failure
+              uses: octokit/request-action@v2.x
+              if: failure() || cancelled()
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
+                  mediaType: '{"previews": ["flash", "ant-man"]}'
+                  owner: github
+                  repo: memex
+                  deployment_id: ${{ github.event.deployment.id }}
+                  state: failure
