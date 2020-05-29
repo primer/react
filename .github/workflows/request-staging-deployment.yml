@@ -1,0 +1,27 @@
+name: Request Staging Deployment
+
+on:
+    [push, pull_request]
+
+jobs:
+    request-staging-deployment:
+        name: Request staging deployment
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Create new staging deployment
+            uses: octokit/request-action@v2.x
+            if: github.event_name == 'pull_request'
+            env:
+                GITHUB_TOKEN: ${{ secrets.EMPLUMS_STAGING_DEPLOYMENT_TOKEN }}
+            with:
+                route: POST /repos/:owner/:repo/deployments
+                mediaType: '{"previews": ["ant-man"]}'
+                owner: primer
+                repo: components
+                ref: 'refs/heads/${{ github.event.pull_request.head.ref }}'
+                environment: staging
+                transient_environment: true
+                auto_merge: false
+                required_contexts: '[]'
+                description: Automated staging deployment of Primer Components Docs

@@ -1,0 +1,78 @@
+name: Deploy to staging
+
+on: deployment
+
+jobs:
+    deploy-docs:
+        name: Primer Components Docs
+        runs-on: ubuntu-latest
+        if: github.event.action == 'created' && github.event.deployment.environment == 'staging'
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Install Node.js 10.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 10.x
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Install dependencies
+              run: cd docs && yarn
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Prepare assets for deployment
+              id: prepare_assets
+              env:
+                 DEPLOYMENT_BRANCH: ${{ github.event.deployment.ref }}
+              run: |
+                git fetch --no-tags --prune --depth=1 origin gh-pages
+                branch_name=$(echo $DEPLOYMENT_BRANCH | cut -d '/' -f 3)
+                previous_deployment=$(git ls-tree --name-only origin/gh-pages public/assets/staging/ | grep -m 1 ${branch_name} | cut -d '/' -f 4)
+                current_deployment=${previous_deployment}
+                if [ -z $current_deployment ]; then
+                  random_suffix="$(openssl rand -hex 16)"
+                  current_deployment="${branch_name}-${random_suffix}"
+                fi
+                mkdir -p .gh-deploy/public/assets/staging/${current_deployment}
+                cd docs && STAGING_PATH_PREFIX=/public/assets/staging/${current_deployment} yarn run build
+                cd .. && cp -r docs/public/* .gh-deploy/public/assets/staging/${current_deployment}
+                echo "::set-output name=environment_url::https://primer.github.com/components/public/assets/staging/${current_deployment}"
+
+            - name: Deploy docs to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  allow_empty_commits: false
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: .gh-deploy
+  
+            - name: Report deploy success
+              uses: octokit/request-action@v2.x
+              if: success()
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
+                  mediaType: '{"previews": ["flash", "ant-man"]}'
+                  owner: primer
+                  repo: components
+                  deployment_id: ${{ github.event.deployment.id }}
+                  state: success
+                  environment_url: ${{ steps.prepare_assets.outputs.environment_url }}
+
+            - name: Report deploy failure
+              uses: octokit/request-action@v2.x
+              if: failure() || cancelled()
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
+                  mediaType: '{"previews": ["flash", "ant-man"]}'
+                  owner: github
+                  repo: memex
+                  deployment_id: ${{ github.event.deployment.id }}
+                  state: failure
