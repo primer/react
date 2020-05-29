@@ -3,7 +3,7 @@ name: Request Production Deployment
 on:
     push:
       branches:
-        preview-deploys
+        master
 
 jobs:
     request-production-deployment:
@@ -13,7 +13,7 @@ jobs:
         steps:
           - name: Create new production deployment
             uses: octokit/request-action@v2.x
-            if: github.event_name == 'push' && github.event.ref == 'refs/heads/preview-deploys'
+            if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
             env:
                 GITHUB_TOKEN: ${{ secrets.EMPLUMS_STAGING_DEPLOYMENT_TOKEN }}
             with:
@@ -21,7 +21,7 @@ jobs:
                 mediaType: '{"previews": ["ant-man"]}'
                 owner: primer
                 repo: components
-                ref: 'refs/heads/preview-deploys'
+                ref: 'refs/heads/master'
                 environment: production
                 auto_merge: false
                 required_contexts: '[]'
