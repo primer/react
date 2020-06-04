@@ -362,10 +362,8 @@ const theme = {
   stateLabels
 }
 
-module.exports = {
-  theme,
-  colors
-}
+
+export default {theme, colors}
 
 function fontStack(fonts) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
