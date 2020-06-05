@@ -27,8 +27,9 @@ const ButtonBase = styled.button.attrs(({disabled, onClick}) => ({
 }))`
   ${buttonBaseStyles}
   ${variants}
-  ${compose(fontSize, COMMON, LAYOUT)}
 `
+
+export const systemStyles = compose(fontSize, COMMON, LAYOUT)
 
 ButtonBase.defaultProps = {
   theme,
