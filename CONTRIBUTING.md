@@ -1,6 +1,7 @@
 # Contribution guidelines
 
 1. [Roadmap](#roadmap)
+2. [Before Getting Started](#before-getting-started)
 2. [Developing Components](#developing-components)
     * [Tools we use](#tools-we-use)
     * [Component patterns](#component-patterns)
@@ -27,6 +28,17 @@
 
 If you're looking for something to work on, a great place to start is our issues labeled [up for grabs](https://github.com/primer/components/issues?q=is%3Aopen+is%3Aissue+label%3A%22up+for+grabs%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Components Roadmap](https://github.com/primer/components/projects/3) to make sure it hasn't already been started on.
 
+## Before Getting Started
+
+A common question asked about Primer Components is how to know what should be added to Primer Components and what is best left as a local component in a consuming applcation. Though there are no hard & fast rules about what can and cannot be added to Primer Components, here are a few things we take into consideration:
+
+- Is the new feature an existing pattern in Primer CSS or related to UI built at GitHub? Primer Components is first and foremost a library for building UI at GitHub - patterns that aren't currently being used in GitHub UI (either on github.com or in a GitHub owned project outside of github.com) probably shouldn't be added to Primer Components. Exceptions to this could be helper components that don't necessarily render UI but help with the development process (like `Flex`, `Grid`, or `Box`).
+
+- Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
+
+**In general, we tend to be pretty excited about 99% of feature proposals and contributions,** but if you'd like to double check before starting work, feel free to leave open an issue in our repo!
+
+
 ## Developing components
 
 We primarily use our documentation site as a workspace to develop new components or make changes to existing components (stay tuned for a better development environment coming soon!).
@@ -52,7 +64,7 @@ Default values for system props can be set in `Component.defaultProps`.
 
 Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-system functions can be spread in the component's prop types declaration (see example below). These need to go *after* any built-in styles that you want to be overridable.
 
- ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/master/src/theme.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
+ ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/master/src/theme-preval.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
 
 Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal and `...sx.propTypes` to the component's `propTypes`.
 

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import sx from '../sx'
 import {get} from '../constants'
 import theme from '../theme'
-import ButtonBase from './ButtonBase'
+import ButtonBase, {systemStyles} from './ButtonBase'
 
 const Button = styled(ButtonBase)`
   color: ${get('buttons.default.color.default')};
@@ -34,6 +34,7 @@ const Button = styled(ButtonBase)`
     border-color: ${get('buttons.default.border.disabled')};
   }
 
+  ${systemStyles}
   ${sx};
 `
 

@@ -49,8 +49,7 @@ function Caret(props) {
     ...getPosition(edge, align, size),
     // if align is set (top|right|bottom|left),
     // then we don't need an offset margin
-    [`margin${perp}`]: align ? null : -size,
-    marginTop: '-1px'
+    [`margin${perp}`]: align ? null : -size
   }
 
   // note: these arrays represent points in the form [x, y]
