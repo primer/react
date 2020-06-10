@@ -21,7 +21,7 @@ There are two ways to change the theme of Primer components:
 1. You can override the entire theme for an entire tree of components using the `<ThemeProvider>` from [styled-components]:
 
     ```javascript
-    import {Block, Button, Text, theme as primer} from '@primer/components'
+    import {Box, Button, Text, theme as primer} from '@primer/components'
     import {ThemeProvider} from 'styled-components'
 
     // a theme with custom spacing and font sizes
@@ -36,9 +36,9 @@ There are two ways to change the theme of Primer components:
 
     export default () => (
       <ThemeProvider theme={theme}>
-        <Block color='bodytext' p={4}>
+        <Box color='bodytext' p={4}>
           <Text fontSize={4}>Hello, world!</Text>
-        </Block>
+        </Box>
       </ThemeProvider>
     )
     ```
