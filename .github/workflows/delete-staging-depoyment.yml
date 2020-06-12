@@ -15,7 +15,7 @@ jobs:
             - name: Delete stale docs site
               run: |
                 mkdir -p .gh-deploy/public/assets/staging
-                cp -r public/assets/staging/* gh-deploy/public/assets/staging
+                cp -r public/assets/staging/* .gh-deploy/public/assets/staging
                 ref_type=$(jq --raw-output .ref_type $GITHUB_EVENT_PATH)
                 if [ $ref_type = "branch" ]; then
                   deleted_branch=$(jq --raw-output .ref $GITHUB_EVENT_PATH | cut -d '/' -f 3)
