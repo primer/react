@@ -18,7 +18,8 @@ jobs:
                 cp -r public/assets/staging/* .gh-deploy/public/assets/staging
                 ref_type=$(jq --raw-output .ref_type $GITHUB_EVENT_PATH)
                 if [ $ref_type = "branch" ]; then
-                  deleted_branch=$(jq --raw-output .ref $GITHUB_EVENT_PATH | cut -d '/' -f 3)
+                  
+                  deleted_branch=$(jq --raw-output .ref $GITHUB_EVENT_PATH | cut -d '/' -f 3-)
                   rm -rf .gh-deploy/public/assets/staging/${deleted_branch}*
                 fi
             - name: Deploy deletion to GitHub Pages
