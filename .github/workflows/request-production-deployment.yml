@@ -13,7 +13,6 @@ jobs:
         steps:
           - name: Create new production deployment
             uses: octokit/request-action@v2.x
-            if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
             env:
                 GITHUB_TOKEN: ${{ secrets.EMPLUMS_STAGING_DEPLOYMENT_TOKEN }}
             with:
