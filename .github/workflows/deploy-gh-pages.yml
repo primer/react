@@ -16,13 +16,9 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: 10.x
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Install dependencies
               run: cd docs && yarn
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Prepare assets for deployment
               id: prepare_assets
