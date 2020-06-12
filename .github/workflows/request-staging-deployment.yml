@@ -1,9 +1,7 @@
 name: Request Staging Deployment
 
 on:
-    push:
-      branches-ignore:
-        master
+    pull_request:
 
 jobs:
     request-staging-deployment:
