@@ -4,7 +4,7 @@ on: deployment
 
 jobs:
     deploy-docs:
-        name: Primer Components Docs
+        name: Primer Components Docss
         runs-on: ubuntu-latest
         if: github.event.action == 'created' && github.event.deployment.environment == 'staging'
 
