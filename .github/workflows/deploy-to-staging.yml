@@ -34,10 +34,12 @@ jobs:
 
             - name: Deploy docs to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
+              env:
+                DEPLOYMENT_BRANCH: ${{ github.event.deployment.ref }}
               with:
                   allow_empty_commits: false
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_branch: gh-pages
+                  publish_branch: gh-pages-${DEPLOYMENT_BRANCH}
                   publish_dir: .gh-deploy
   
             - name: Report deploy success
