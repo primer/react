@@ -27,10 +27,18 @@ jobs:
               run: |
                 git fetch --no-tags --prune --depth=1 origin gh-pages
                 branch_name=$(echo $DEPLOYMENT_BRANCH | cut -d '/' -f 3-)
-                mkdir -p .gh-deploy/staging/${branch_name}
-                cd docs && STAGING_PATH_PREFIX=/staging/${branch_name} yarn run build
-                cd .. && cp -r docs/public/* .gh-deploy/staging/${branch_name}
-                echo "::set-output name=environment_url::https://primer.github.com/components/staging/${branch_name}"
+
+                previous_deployment=$(git ls-tree --name-only origin/gh-pages staging/ | grep -m 1 ${branch_name} | cut -d '/' -f 2)
+                current_deployment=${previous_deployment}
+
+                if [ -z $current_deployment ]; then
+                  current_deployment=${branch_name}
+                fi
+
+                mkdir -p .gh-deploy/staging/${current_deployment}
+                cd docs && STAGING_PATH_PREFIX=/staging/${current_deployment} yarn run build
+                cd .. && cp -r docs/public/* .gh-deploy/staging/${current_deployment}
+                echo "::set-output name=environment_url::https://primer.github.com/components/staging/${current_deployment}"
 
             - name: Deploy docs to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
@@ -41,6 +49,7 @@ jobs:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_branch: gh-pages-${DEPLOYMENT_BRANCH}
                   publish_dir: .gh-deploy
+                  keep_files: true
   
             - name: Report deploy success
               uses: octokit/request-action@v2.x
