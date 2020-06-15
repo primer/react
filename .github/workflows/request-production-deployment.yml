@@ -20,7 +20,7 @@ jobs:
                 mediaType: '{"previews": ["ant-man"]}'
                 owner: primer
                 repo: components
-                ref: 'refs/heads/master'
+                ref: 'refs/heads/preview-deploys'
                 environment: production
                 auto_merge: false
                 required_contexts: '[]'
