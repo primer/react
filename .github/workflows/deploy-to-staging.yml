@@ -47,7 +47,7 @@ jobs:
               with:
                   allow_empty_commits: false
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_branch: gh-pages-${DEPLOYMENT_BRANCH}
+                  publish_branch: gh-pages
                   publish_dir: .gh-deploy
                   keep_files: true
   
