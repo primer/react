@@ -13,8 +13,8 @@ Several additional components exist to provide even more functionality: `SelectM
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
     </SelectMenu.List>
@@ -97,8 +97,8 @@ Use the `align='right'` prop to align the modal to the right. Note that this onl
     <SelectMenu.Modal align="right">
       <SelectMenu.Header>Projects</SelectMenu.Header>
       <SelectMenu.List>
-        <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-        <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
         <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
         <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       </SelectMenu.List>
@@ -168,8 +168,8 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expe
     <SelectMenu.Header>Filter by Project</SelectMenu.Header>
     <SelectMenu.Filter placeholder="Filter projects" value="" aria-label="Filter Projects"/>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
       <SelectMenu.Divider>More Options</SelectMenu.Divider>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
@@ -211,8 +211,8 @@ If you need access to the selected tab state, you can find it in the MenuContext
       <SelectMenu.Tab index={1} tabName="Organization"/>
     </SelectMenu.Tabs>
     <SelectMenu.TabPanel tabName="Repository">
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
     </SelectMenu.TabPanel>
@@ -279,8 +279,8 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
       <SelectMenu.Divider>More Options</SelectMenu.Divider>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
@@ -305,8 +305,8 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
@@ -331,8 +331,8 @@ Use a `SelectMenu.Header` to add a header to the top of the select menu content.
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React Components roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>

@@ -14,8 +14,8 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
       ...loaders.js(),
       test: /\.jsx?$/,
       exclude: modulePath => /node_modules/.test(modulePath),
-      // ...except that we want to run Primer Components through webpack as well.
-      // By default, Gatsby won't use the define plugin we added above on Primer Components.
+      // ...except that we want to run Primer React Components through webpack as well.
+      // By default, Gatsby won't use the define plugin we added above on Primer React Components.
       include: modulePath => /@primer\/components/.test(modulePath)
     }
   ]

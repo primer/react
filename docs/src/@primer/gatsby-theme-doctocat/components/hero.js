@@ -9,7 +9,7 @@ export default function Hero() {
     <Box bg="black" py={6}>
       <Container>
         <Heading color="blue.4" fontSize={7} lineHeight="condensed" pb={3} m={0}>
-          Primer Components
+          Primer React Components
         </Heading>
         <Text as="p" fontFamily="mono" mt={0} mb={2} color="blue.3" fontSize={2}>
           v{version}

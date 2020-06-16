@@ -2,7 +2,7 @@
 title: Core Concepts
 ---
 
-This document aims to discuss some of the core concepts of building with Primer Components.
+This document aims to discuss some of the core concepts of building with Primer React Components.
 
 ## Responsive props
 It's really easy to set different values for most of our component props based on screen size! We take advantage of [styled-system](https://github.com/styled-system/styled-system)'s responsive props API in our components.
@@ -17,7 +17,7 @@ or
 
 ## Providing your own theme
 
-You can provide your own theme to Primer Components! There are a few ways of doing this to varying degrees, checkout the [theme docs](https://primer.style/components/primer-theme) for more information.
+You can provide your own theme to Primer React Components! There are a few ways of doing this to varying degrees, checkout the [theme docs](https://primer.style/components/primer-theme) for more information.
 
 ## The `css` prop
 When push comes to shove and you just _really_ need to add a custom CSS rule, you can do that with the `css` prop. Please don't abuse this :)
@@ -31,7 +31,7 @@ Please note that you will need to have the **[styled-components babel plugin](ht
 
 ## Types of components
 
-We categorize our components into 3 general types. Building block components, pattern components, and helper components. Understanding how these types of components interact with each other can help you better understand how to get the most out of Primer Components.
+We categorize our components into 3 general types. Building block components, pattern components, and helper components. Understanding how these types of components interact with each other can help you better understand how to get the most out of Primer React Components.
 
 - Building Blocks
 
