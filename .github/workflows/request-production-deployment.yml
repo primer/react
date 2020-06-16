@@ -21,6 +21,7 @@ jobs:
                 owner: primer
                 repo: components
                 ref: 'refs/heads/preview-deploys'
+                keep_files: true
                 environment: production
                 auto_merge: false
                 required_contexts: '[]'
