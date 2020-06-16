@@ -33,6 +33,7 @@ jobs:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_branch: gh-pages
                   publish_dir: docs/public
+                  keep_files: true
 
             - name: Report deploy success
               uses: octokit/request-action@v2.x
