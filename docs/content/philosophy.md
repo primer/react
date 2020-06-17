@@ -1,12 +1,12 @@
 ---
-title: Primer React Components Philosophy
+title: Primer React Philosophy
 ---
 
 ## Presentational Components
- We are focusing primarily on presentational components that help standardize common design patterns. Primer React Components don't handle fetching and submitting data to/from APIs. If you would like to handle data in a Primer Component, feel free to create a wrapper around the Primer Component to do so.
+ We are focusing primarily on presentational components that help standardize common design patterns. Primer React components don't handle fetching and submitting data to/from APIs. If you would like to handle data in a Primer Component, feel free to create a wrapper around the Primer Component to do so.
 
 ## Assume that people will break the rules, provide safe ways for them to do so
-While we aim to standardize design in Primer React Components, we also provide some flexibility with constraint-based props. We offer system props via [styled-system](https://github.com/styled-system/styled-system) to allow users of the components to make small customizations, such as color and spacing, using values from the theme. Users also have the option to override the theme with a theme of their own.
+While we aim to standardize design in Primer React, we also provide some flexibility with constraint-based props. We offer system props via [styled-system](https://github.com/styled-system/styled-system) to allow users of the components to make small customizations, such as color and spacing, using values from the theme. Users also have the option to override the theme with a theme of their own.
 
 
 ## Pattern Components vs Helper Components

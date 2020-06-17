@@ -2,8 +2,8 @@ const path = require('path')
 
 module.exports = {
   siteMetadata: {
-    title: 'Primer React Components',
-    shortName: 'React Components',
+    title: 'Primer React',
+    shortName: 'React',
     description: 'React components for the Primer design system'
   },
   plugins: [

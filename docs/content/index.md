@@ -5,9 +5,9 @@ title: Getting Started
 import {HeroLayout} from '@primer/gatsby-theme-doctocat'
 export default HeroLayout
 
-## Primer React Components
+## Primer React
 
-Primer React Components is a React implementation of GitHub's [Primer Design System](https://primer.style/) 🎉
+Primer React is a React implementation of GitHub's [Primer Design System](https://primer.style/) 🎉
 
 ## Principles
 
@@ -20,7 +20,7 @@ Primer React Components is a React implementation of GitHub's [Primer Design Sys
 
 ## Getting started
 
-Check out [our getting started guide](/getting-started) for everything you need to know about installing and using Primer React Components.
+Check out [our getting started guide](/getting-started) for everything you need to know about installing and using Primer React.
 
 ## Local development
 
