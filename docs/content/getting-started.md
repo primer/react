@@ -4,7 +4,7 @@ title: Getting Started
 
 ## Installation
 
-To get started using Primer Components, install the package and its peer dependencies with your package manager of choice:
+To get started using Primer React, install the package and its peer dependencies with your package manager of choice:
 
 ```bash
 # with npm
@@ -14,7 +14,7 @@ npm install @primer/components react react-dom styled-components
 yarn add @primer/components react react-dom styled-components
 ```
 
-You can now import Primer Components from the main package module:
+You can now import Primer React from the main package module:
 
 ```javascript
 // using import syntax
@@ -26,7 +26,7 @@ const {Box, Flex} = require('@primer/components')
 
 ### Minimizing bundle size
 
-Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake Primer Components, ensuring that no unused code is included in your final bundle. However, if you're not using ESM, you may be able to drastically reduce the size of your final bundle by importing components individually from the `lib` subfolder:
+Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake Primer React, ensuring that no unused code is included in your final bundle. However, if you're not using ESM, you may be able to drastically reduce the size of your final bundle by importing components individually from the `lib` subfolder:
 
 ```javascript
 // using import syntax
@@ -42,9 +42,9 @@ Note that the modules in the `lib` folder are CommonJS-style modules; if you're 
 
 ### Peer dependencies
 
-Primer Components ships with a few libraries labeled as peer dependencies. These libraries are separated because they are commonly already installed in the host project and having multiple versions can introduce errors.
+Primer React ships with a few libraries labeled as peer dependencies. These libraries are separated because they are commonly already installed in the host project and having multiple versions can introduce errors.
 
-Primer Components requires the following libraries to be installed along with it:
+Primer React requires the following libraries to be installed along with it:
 
 - `styled-components` at version 4.0.0 or higher
 - `react` at versions 16.8.0 or higher
@@ -122,7 +122,7 @@ If you're rendering React components both server- and client-side, we suggest fo
 
 ## TypeScript
 
-Primer Components includes TypeScript support and ships with its own typings. You will need still need to to install type typings for the peer dependencies if you import those in your own application code.
+Primer React includes TypeScript support and ships with its own typings. You will need still need to to install type typings for the peer dependencies if you import those in your own application code.
 
 Once installed, you can import components and their prop type interfaces from the `@primer/components` package:
 
@@ -152,4 +152,4 @@ Of course, customize the array based on the `@types/` packages you have installe
 
 ## Silencing warnings
 
-Like React, Primer Components emits warnings to the JavaScript console under certain conditions, like using deprecated components or props. Similar to React, you can silence these warnings by setting the `NODE_ENV` environment variable to `production` during bundling.
+Like React, Primer React emits warnings to the JavaScript console under certain conditions, like using deprecated components or props. Similar to React, you can silence these warnings by setting the `NODE_ENV` environment variable to `production` during bundling.
