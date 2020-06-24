@@ -8,10 +8,10 @@ To get started using Primer React, install the package and its peer dependencies
 
 ```bash
 # with npm
-npm install @primer/components react react-dom styled-components
+npm install @primer/components react react-dom styled-components @primer/styled-octicons
 
 # with yarn
-yarn add @primer/components react react-dom styled-components
+yarn add @primer/components react react-dom styled-components @primer/styled-octicons
 ```
 
 You can now import Primer React from the main package module:
@@ -49,6 +49,20 @@ Primer React requires the following libraries to be installed along with it:
 - `styled-components` at version 4.0.0 or higher
 - `react` at versions 16.8.0 or higher
 - `react-dom` at versions 16.8.0 or higher
+- `@primer/styled-octicons` at versions 10.0.0 or higher
+
+### Using Octicons with Primer Components
+In order to avoid version mismatches, `@primer/styled-octicons` is set as a peer dependency. This allows you to decide which version of `@primer/styled-octicons` you'd like to use in your project and makes sure that any Octicons used in other parts of your application match the icons used in Primer React Components.
+
+As mentioned in the previous section on [Peer dependencies](#Peer-dependencies), you'll need to install `@primer/styled-octicons` before getting started with Primer React Components, regardless of whether or not you are using `@primer/styled-octicons` directly. `@primer/styled-octicons` and `@primer/components` are both tree-shaking friendly, so you shouldn't need to worry about dependency bloat.
+
+You can reference the [`@primer/styled-octicons documentation](https://primer.style/octicons/packages/styled-system) for more detail on how to use these components, but in general the `@primer/styled-octicons` components work similar any Primer React component:
+
+```jsx live
+ <AlertIcon color="red.6" mr={2} />
+```
+
+`@primer/styled-octicons` components have access to all [`COMMON`](https://primer.style/components/system-props#system-prop-categories) system props as well as the [`sx`](https://primer.style/components/overriding-styles) prop.
 
 ## BaseStyles
 
