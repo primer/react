@@ -82,7 +82,7 @@ function Dialog({children, theme, ...props}) {
     <>
       <StyledDialog theme={theme} {...props}>
         <UnstyledButton onClick={props.onDismiss}>
-          <XIcon theme={theme}/>
+          <XIcon theme={theme} />
         </UnstyledButton>
         {children}
       </StyledDialog>
