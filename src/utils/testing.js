@@ -72,6 +72,10 @@ export function px(value) {
   return typeof value === 'number' ? `${value}px` : value
 }
 
+export function percent(value) {
+  return typeof value === 'number' ? `${value}%` : value
+}
+
 export function renderStyles(node) {
   const {
     props: {className}
