@@ -42,7 +42,7 @@ const TextInput = React.forwardRef(({icon: Icon, className, block, disabled, sx,
       sx={sx}
       {...wrapperProps}
     >
-      {Icon && <Icon className="TextInput-icon" />}
+      {Icon && <Icon theme={theme} className="TextInput-icon" />}
       <Input ref={ref} disabled={disabled} {...inputProps} />
     </Wrapper>
   )
