@@ -188,7 +188,7 @@ declare module '@primer/components' {
 
   export const Grid: React.FunctionComponent<GridProps>
 
-  export interface LabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+  export interface LabelProps extends CommonProps, StyledSystem.BorderColorProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
     variant?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
@@ -372,7 +372,7 @@ declare module '@primer/components' {
       StyledSystem.MinWidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
-    icon?: React.ReactElement
+    icon?: React.ReactNode
     variant?: 'small' | 'large'
   }
 

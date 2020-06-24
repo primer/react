@@ -123,7 +123,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
       key = 'page-prev'
       content = 'Previous'
       if (page.disabled) {
-        Object.assign(props, {as: 'span', 'aria-disabled': 'true', disabled: true})
+        Object.assign(props, {as: 'span', 'aria-disabled': 'true'})
       } else {
         Object.assign(props, {
           rel: 'prev',
@@ -138,7 +138,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
       key = 'page-next'
       content = 'Next'
       if (page.disabled) {
-        Object.assign(props, {as: 'span', 'aria-disabled': 'true', disabled: true})
+        Object.assign(props, {as: 'span', 'aria-disabled': 'true'})
       } else {
         Object.assign(props, {
           rel: 'next',
@@ -153,7 +153,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
       key = `page-${page.num}`
       content = page.num
       if (page.selected) {
-        Object.assign(props, {as: 'em', 'aria-current': 'page', selected: true})
+        Object.assign(props, {as: 'em', 'aria-current': 'page'})
       } else {
         Object.assign(props, {href: hrefBuilder(page.num), 'aria-label': `Page ${page.num}`, onClick})
       }
@@ -162,7 +162,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
     case 'BREAK': {
       key = `page-${page.num}-break`
       content = '…'
-      Object.assign(props, {as: 'span', disabled: true})
+      Object.assign(props, {as: 'span', 'aria-disabled': true})
     }
   }
 
