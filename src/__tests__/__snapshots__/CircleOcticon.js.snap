@@ -47,11 +47,11 @@ exports[`CircleOcticon renders consistently 1`] = `
       className=""
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z\\"></path>",
+          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M21.03 5.72a.75.75 0 010 1.06l-11.5 11.5a.75.75 0 01-1.072-.012l-5.5-5.75a.75.75 0 111.084-1.036l4.97 5.195L19.97 5.72a.75.75 0 011.06 0z\\"></path>",
         }
       }
       fill="currentColor"
-      height={16}
+      height={32}
       role="img"
       style={
         Object {
@@ -60,8 +60,8 @@ exports[`CircleOcticon renders consistently 1`] = `
           "verticalAlign": "text-bottom",
         }
       }
-      viewBox="0 0 16 16"
-      width={16}
+      viewBox="0 0 24 24"
+      width={32}
     />
   </div>
 </div>
