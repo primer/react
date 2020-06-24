@@ -5,12 +5,12 @@ import theme from './theme'
 import BorderBox from './BorderBox'
 
 function CircleOcticon(props) {
-  const {size, as} = props
+  const {size, as, theme} = props
   const {icon: Icon, bg, as: asProp, ...rest} = props
   return (
     <BorderBox as={as} bg={bg} overflow="hidden" borderWidth={0} size={size} borderRadius="50%">
       <Flex {...rest} alignItems="center" justifyContent="center">
-        <Icon size={size}/>
+        <Icon theme={theme} size={size}/>
       </Flex>
     </BorderBox>
   )

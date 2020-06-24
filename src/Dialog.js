@@ -77,12 +77,12 @@ function DialogHeader({theme, children, ...rest}) {
   )
 }
 
-function Dialog({children, ...props}) {
+function Dialog({children, theme, ...props}) {
   return (
     <>
-      <StyledDialog {...props}>
+      <StyledDialog theme={theme} {...props}>
         <UnstyledButton onClick={props.onDismiss}>
-          <XIcon />
+          <XIcon theme={theme}/>
         </UnstyledButton>
         {children}
       </StyledDialog>

@@ -41,7 +41,7 @@ const StateLabelBase = styled.span`
   ${sx};
 `
 
-function StateLabel({children, small, status, variant, ...rest}) {
+function StateLabel({children, small, status, variant, theme, ...rest}) {
   const deprecate = useDeprecation({
     name: "StateLabel 'small' prop",
     message: "Use variant='small' or variant='normal' instead.",
@@ -56,8 +56,8 @@ function StateLabel({children, small, status, variant, ...rest}) {
   const octiconProps = variant === 'small' ? {width: '1em'} : {}
   const Icon = octiconMap[status] || QuestionIcon
   return (
-    <StateLabelBase {...rest} variant={variant} status={status}>
-      {status && <Icon mr={1} {...octiconProps} />}
+    <StateLabelBase {...rest} theme={theme} variant={variant} status={status}>
+      {status && <Icon mr={1} theme={theme} {...octiconProps} />}
       {children}
     </StateLabelBase>
   )
