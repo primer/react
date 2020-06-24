@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "0.21.0",
-    "@primer/octicons-v2-react": "0.0.0-be2ea3b",
+    "@primer/styled-octicons": "^10.0.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "gatsby": "^2.17.0",

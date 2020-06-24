@@ -23,7 +23,7 @@ const plugins = [
 export default [
   {
     input: 'src/index.js',
-    external: ['styled-components', 'react', 'react-dom'],
+    external: ['styled-components', 'react', 'react-dom', '@primer/styled-octicons'],
     plugins,
     output: formats.map(format => ({
       file: `dist/browser.${format}.js`,

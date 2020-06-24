@@ -2224,10 +2224,10 @@
   resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-3.0.0.tgz#ccfb324b478b2373733535ec49f8de29e238c55d"
   integrity sha512-ISXB43vcA+kg5pmGtGo3lPlHmY5Mg9nLhliePJu3Y5aP7g28TO+9cC99gL240pZHYsO0aVyU26WZwUXn6UIqJQ==
 
-"@primer/styled-octicons@0.0.0-35511fe":
-  version "0.0.0-35511fe"
-  resolved "https://registry.yarnpkg.com/@primer/styled-octicons/-/styled-octicons-0.0.0-35511fe.tgz#b8cc447c38656971397801b634b7ebdab4b10b76"
-  integrity sha512-qAJ8LqwVfPo/yRq/T7j9JVZ2h7M9iOu9JtLeNQsI5CHAIy8i06afa/eJx8egEw2Da5hwNJdb4VW9HJ4pXYyf5g==
+"@primer/styled-octicons@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@primer/styled-octicons/-/styled-octicons-10.0.0.tgz#a4520a98162ad9a9fc80fc0158400cd24e35384d"
+  integrity sha512-dARc+ZCBFgJ5uGi34So3bujJmHie6IWsPh3+iX9tIQtxqH3+lU4MaCHOFX1MJxojaeaQGqFlwe67KN/XcWPRvQ==
   dependencies:
     "@styled-system/css" "^5.1.5"
     "@styled-system/prop-types" "^5.1.5"
