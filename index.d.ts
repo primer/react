@@ -123,7 +123,13 @@ declare module '@primer/components' {
     variant?: 'small' | 'medium' | 'large'
   }
 
-  export const CircleBadge: React.FunctionComponent<CircleBadgeProps>
+  export interface CircleBadgeIconProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    icon: React.ReactNode
+  }
+
+  export const CircleBadge: React.FunctionComponent<CircleBadgeProps> & {
+    Icon: React.FunctionComponent<CircleBadgeIconProps>
+  }
 
   export interface CircleOcticonProps extends CommonProps, FlexProps {
     size?: number
