@@ -51,7 +51,9 @@ Primer React requires the following libraries to be installed along with it:
 - `react-dom` at versions 16.8.0 or higher
 - `@primer/styled-octicons` at versions 10.0.0 or higher
 
-### Using Octicons with Primer Components
+### Using Octicons with Primer React Components
+We use the `@primer/styled-octicons` package for Octicons in the Primer React Components library.
+
 In order to avoid version mismatches, `@primer/styled-octicons` is set as a peer dependency. This allows you to decide which version of `@primer/styled-octicons` you'd like to use in your project and makes sure that any Octicons used in other parts of your application match the icons used in Primer React Components.
 
 As mentioned in the previous section on [Peer dependencies](#Peer-dependencies), you'll need to install `@primer/styled-octicons` before getting started with Primer React Components, regardless of whether or not you are using `@primer/styled-octicons` directly. `@primer/styled-octicons` and `@primer/components` are both tree-shaking friendly, so you shouldn't need to worry about dependency bloat.
