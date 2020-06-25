@@ -6,7 +6,6 @@ import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
 import {variant, width, minWidth, maxWidth} from 'styled-system'
 import {COMMON, get} from './constants'
-import theme from './theme'
 import sx from './sx'
 
 const sizeVariants = variant({
@@ -37,12 +36,11 @@ const TextInput = React.forwardRef(({icon: Icon, className, block, disabled, sx,
       className={wrapperClasses}
       hasIcon={!!Icon}
       block={block}
-      theme={theme}
       disabled={disabled}
       sx={sx}
       {...wrapperProps}
     >
-      {Icon && <Icon theme={theme} className="TextInput-icon" />}
+      {Icon && <Icon className="TextInput-icon" />}
       <Input ref={ref} disabled={disabled} {...inputProps} />
     </Wrapper>
   )
@@ -127,7 +125,6 @@ const Wrapper = styled.span`
 `
 
 TextInput.defaultProps = {
-  theme,
   type: 'text'
 }
 
