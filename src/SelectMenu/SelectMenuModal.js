@@ -87,13 +87,13 @@ const ModalWrapper = styled.div`
   ${sx};
 `
 
-const SelectMenuModal = ({children, theme, ...rest}) => {
+const SelectMenuModal = React.forwardRef(({children, theme, ...rest}, ref) => {
   return (
-    <ModalWrapper theme={theme} {...rest} role="menu">
+    <ModalWrapper theme={theme} {...rest} role="menu" ref={ref}>
       <Modal theme={theme}>{children}</Modal>
     </ModalWrapper>
   )
-}
+})
 
 SelectMenuModal.defaultProps = {
   align: 'left',

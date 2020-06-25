@@ -329,7 +329,7 @@ declare module '@primer/components' {
     Footer: React.FunctionComponent<SelectMenuFooterProps>
     List: React.FunctionComponent<SelectMenuListProps>
     Item: React.FunctionComponent<SelectMenuItemProps>
-    Modal: React.FunctionComponent<SelectMenuModalProps>
+    Modal: React.ForwardRefExoticComponent<SelectMenuModalProps>
     Tabs: React.FunctionComponent<SelectMenuTabsProps>
     Tab: React.FunctionComponent<SelectMenuTabProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
