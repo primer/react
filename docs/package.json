@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "cross-env": "7.0.2",
+    "gatsby-plugin-typescript": "2.4.8",
     "minipass": "^2.9.0"
   }
 }

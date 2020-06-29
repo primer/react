@@ -10,8 +10,11 @@ module.exports = {
     {
       resolve: '@primer/gatsby-theme-doctocat',
       options: {
-        repoRootPath: '..',
-      },
+        repoRootPath: '..'
+      }
+    },
+    {
+      resolve: `gatsby-plugin-typescript`
     },
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -19,7 +22,7 @@ module.exports = {
         alias: {
           '@primer/components': path.resolve(__dirname, '../src'),
           'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
-          'react': path.resolve(__dirname, 'node_modules', 'react'),
+          react: path.resolve(__dirname, 'node_modules', 'react')
         }
       }
     }
