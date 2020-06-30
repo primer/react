@@ -1,0 +1,28 @@
+declare module '@styled-system/prop-types' {
+  import PropTypes from "prop-types"
+
+  export type CSSProp = PropTypes.Requireable<
+    number | string | Array | object
+  >
+
+  type CssPropName =
+  <%_ allPropNames.forEach(function(name) { _%>
+  | "<%- name %>"
+  <%_ }) _%>
+
+  <%_ groups.forEach(function(group) { %>
+  export const <%- group.name %>: {
+    <%_ group.propNames.forEach(function(name) { _%>
+    <%- name %>: <%- interfaceForProp(name) %>,
+    <%_ }) _%>
+  }
+  <% }) %>
+
+  type ThemeColor =
+  <%_ colors.forEach(function(color) { _%>
+  | "<%- color %>"
+  <%_ }) _%>
+
+  type NoThemeValues = "no_theme_values"
+}
+
