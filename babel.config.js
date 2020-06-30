@@ -16,6 +16,7 @@ const runtimePlugins = [['@babel/plugin-transform-runtime', {version: '7.9.2', h
 
 function makePresets(moduleValue) {
   return [
+    '@babel/preset-typescript',
     ['@babel/preset-react', {modules: moduleValue}],
     ['@babel/preset-env', {modules: moduleValue}]
   ]
