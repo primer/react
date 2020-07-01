@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
@@ -31,7 +32,7 @@ const CircleBadge = styled.div`
   ${sx};
 `
 
-CircleBadge.Icon = StyledOcticon
+CircleBadge.Icon = (props) => <StyledOcticon {...props} sx={{height: 'auto', maxWidth: '60%', maxHeight: '55%'}} />
 
 CircleBadge.defaultProps = {
   inline: false,
@@ -53,9 +54,7 @@ CircleBadge.Icon.defaultProps = {
 }
 
 CircleBadge.Icon.propTypes = {
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
+  ...StyledOcticon.propTypes
 }
 
 CircleBadge.Icon.displayName = 'CircleBadge.Icon'
