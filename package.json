@@ -78,6 +78,7 @@
     "@rollup/plugin-commonjs": "11.1.0",
     "@rollup/plugin-node-resolve": "7.1.3",
     "@types/ejs": "3.0.4",
+    "@types/jest": "26.0.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-preval": "5.0.0",
@@ -106,6 +107,7 @@
     "rollup-plugin-visualizer": "4.0.4",
     "semver": "7.3.2",
     "styled-components": "4.4.0",
+    "ts-jest": "26.1.1",
     "ts-node": "8.10.2",
     "typescript": "3.9.5"
   },
@@ -126,5 +128,12 @@
         "name": "UMD Build"
       }
     ]
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*\\.(ts|tsx|js|jsx)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx"]
   }
 }
