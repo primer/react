@@ -3,7 +3,7 @@ import {Dialog as ReachDialog} from '@reach/dialog'
 import raw from 'raw.macro'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
-import {X} from '@primer/octicons-react'
+import {XIcon} from '@primer/octicons-react'
 import StyledOcticon from './StyledOcticon'
 import {COMMON, LAYOUT} from './constants'
 import theme from './theme'
@@ -83,7 +83,7 @@ function Dialog({children, ...props}) {
     <>
       <StyledDialog {...props}>
         <UnstyledButton onClick={props.onDismiss}>
-          <StyledOcticon icon={X} />
+          <StyledOcticon icon={XIcon} />
         </UnstyledButton>
         {children}
       </StyledDialog>

@@ -1,5 +1,5 @@
 import {BorderBox, Flex, Link, StyledOcticon, themeGet} from '@primer/components'
-import {LinkExternal} from '@primer/octicons-react'
+import {LinkExternalIcon} from '@primer/octicons-react'
 import {Link as GatsbyLink} from 'gatsby'
 import preval from 'preval.macro'
 import React from 'react'
@@ -59,7 +59,7 @@ function NavItems({items}) {
           <Link href={repositoryUrl} color="inherit">
             <Flex justifyContent="space-between" alignItems="center">
               GitHub
-              <StyledOcticon icon={LinkExternal} color="gray.7" />
+              <StyledOcticon icon={LinkExternalIcon} color="gray.7" />
             </Flex>
           </Link>
         </BorderBox>

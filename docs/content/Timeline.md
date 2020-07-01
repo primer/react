@@ -10,7 +10,7 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge>
-      <StyledOcticon icon={Flame} />
+      <StyledOcticon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>
       <Link href="#" fontWeight="bold" color="gray.8" mr={1} muted>
@@ -35,7 +35,7 @@ The default Timeline.Badge color is dark text on a light grey background.
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge>
-      <StyledOcticon icon={Flame} />
+      <StyledOcticon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>Default badge color</Timeline.Body>
   </Timeline.Item>
@@ -51,25 +51,25 @@ of the child `StyledOcticon` if necessary.
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge bg="red.5">
-      <StyledOcticon icon={Flame} color="white" />
+      <StyledOcticon icon={FlameIcon} color="white" />
     </Timeline.Badge>
     <Timeline.Body>Red background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
     <Timeline.Badge bg="green.5">
-      <StyledOcticon icon={Flame} color="white" />
+      <StyledOcticon icon={FlameIcon} color="white" />
     </Timeline.Badge>
     <Timeline.Body>Green background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
     <Timeline.Badge bg="purple.5">
-      <StyledOcticon icon={Flame} color="white" />
+      <StyledOcticon icon={FlameIcon} color="white" />
     </Timeline.Badge>
     <Timeline.Body>Purple background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
     <Timeline.Badge bg="blue.5">
-      <StyledOcticon icon={Flame} color="white" />
+      <StyledOcticon icon={FlameIcon} color="white" />
     </Timeline.Badge>
     <Timeline.Body>Blue background to indicate new events below</Timeline.Body>
   </Timeline.Item>
@@ -84,13 +84,13 @@ Timeline has a condensed prop that will reduce the vertical padding and remove t
 <Timeline>
   <Timeline.Item condensed>
     <Timeline.Badge>
-      <StyledOcticon icon={GitCommit} />
+      <StyledOcticon icon={GitCommitIcon} />
     </Timeline.Badge>
     <Timeline.Body>This is the message of a condensed TimelineItem</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item condensed>
     <Timeline.Badge>
-      <StyledOcticon icon={GitCommit} />
+      <StyledOcticon icon={GitCommitIcon} />
     </Timeline.Badge>
     <Timeline.Body>This is the message of a condensed TimelineItem</Timeline.Body>
   </Timeline.Item>
@@ -105,14 +105,14 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge bg="red.5">
-      <StyledOcticon icon={Flame} color="white" />
+      <StyledOcticon icon={FlameIcon} color="white" />
     </Timeline.Badge>
     <Timeline.Body>Red background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Break />
   <Timeline.Item>
     <Timeline.Badge bg="green.5">
-      <StyledOcticon icon={Flame} color="white" />
+      <StyledOcticon icon={FlameIcon} color="white" />
     </Timeline.Badge>
     <Timeline.Body>Green background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>

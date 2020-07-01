@@ -1,5 +1,5 @@
 import {BorderBox, Box, Flex, Grid, Heading, Position, Text, Details, StyledOcticon} from '@primer/components'
-import {ChevronDown, ChevronRight} from '@primer/octicons-react'
+import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import React from 'react'
 import Head from '@primer/gatsby-theme-doctocat/src/components/head'
 import Header, {HEADER_HEIGHT} from '@primer/gatsby-theme-doctocat/src/components/header'
@@ -62,7 +62,7 @@ function Layout({children, pageContext}) {
                   {({open}) => (
                     <>
                       <Text as="summary" fontWeight="bold">
-                        <StyledOcticon icon={open ? ChevronDown : ChevronRight} mr={2} />
+                        <StyledOcticon icon={open ? ChevronDownIcon : ChevronRightIcon} mr={2} />
                         Table of contents
                       </Text>
                       <Box pt={1}>

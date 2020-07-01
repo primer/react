@@ -37,7 +37,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
     <SubNav.Link href="#support">Support</SubNav.Link>
   </SubNav.Links>
 
-  <TextInput type="search" icon={Search} width={320} />
+  <TextInput type="search" icon={SearchIcon} width={320} />
 </SubNav>
 ```
 
@@ -59,7 +59,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-    <TextInput type="search" icon={Search} width={320} />
+    <TextInput type="search" icon={SearchIcon} width={320} />
   </FilteredSearch>
   <SubNav.Links>
     <SubNav.Link href="#home" selected>
