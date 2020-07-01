@@ -31,13 +31,7 @@ const CircleBadge = styled.div`
   ${sx};
 `
 
-CircleBadge.Icon = styled(StyledOcticon)`
-  max-width: 60% !important;
-  height: auto !important;
-  max-height: 55% !important;
-  ${COMMON};
-  ${sx};
-`
+CircleBadge.Icon = StyledOcticon
 
 CircleBadge.defaultProps = {
   inline: false,
