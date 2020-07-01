@@ -6,27 +6,20 @@ import {COMMON} from './constants'
 import theme from './theme'
 import sx from './sx'
 
-const StyledIcon = styled.span`
-  ${COMMON};
-  ${sx};
-`
-
-// size needs to be destructured out here because otherwise it will end up in
-// the styledSystemProps and applied to the wrapper
-const StyledOcticon = ({icon: IconComponent, size, ...rest}) => {
-  const styledSystemProps = pick(rest)
-  // this pretty much just grabs the `aria-label` attribute and forwards it down 
-  // to the actual svg
-  const octiconProps = omit(rest)
+function IconWrapper({icon: IconComponent, className, ...rest}) {
   return (
-    <StyledIcon {...styledSystemProps}>
-      <IconComponent size={size} {...octiconProps} />
-    </StyledIcon>
+    <IconComponent className={className} {...rest}/>
   )
 }
 
+const StyledOcticon = styled(IconWrapper)`
+  ${COMMON}
+  ${sx}
+`
+
 StyledOcticon.defaultProps = {
-  theme
+  theme,
+  size: 16
 }
 
 StyledOcticon.propTypes = {
@@ -37,3 +30,4 @@ StyledOcticon.propTypes = {
 }
 
 export default StyledOcticon
+
