@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
 import {TYPOGRAPHY, COMMON} from './constants'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Text = styled.span`
   ${TYPOGRAPHY};
@@ -17,7 +17,7 @@ Text.defaultProps = {
 Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sxPropTypes,
   theme: PropTypes.object
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 function ItemBase({children, count, theme, ...rest}) {
   return (
@@ -72,7 +72,7 @@ FilterList.propTypes = {
   children: PropTypes.node,
   small: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 FilterList.Item = Item
@@ -89,7 +89,7 @@ FilterList.Item.propTypes = {
   selected: PropTypes.bool,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 FilterList.Item.displayName = 'FilterList.Item'

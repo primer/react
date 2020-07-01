@@ -8,7 +8,7 @@ import Octicon from './StyledOcticon'
 import {variant, width, minWidth, maxWidth} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const sizeVariants = variant({
   variants: {
@@ -138,7 +138,7 @@ TextInput.propTypes = {
   minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sxPropTypes,
   width: systemPropTypes.layout.width
 }
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 import {get} from '../constants'
 import theme from '../theme'
 import ButtonBase, {systemStyles} from './ButtonBase'
@@ -44,7 +44,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Button

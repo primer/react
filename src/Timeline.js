@@ -8,7 +8,7 @@ import React from 'react'
 import {Relative} from './Position'
 import classnames from 'classnames'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Timeline = styled(Flex)`
   flex-direction: column;
@@ -125,7 +125,7 @@ Timeline.propTypes = {
   clipSidebar: PropTypes.bool,
   theme: PropTypes.object,
   ...Flex.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Timeline.Item.defaultProps = {
@@ -137,7 +137,7 @@ Timeline.Item.propTypes = {
   condensed: PropTypes.bool,
   theme: PropTypes.object,
   ...Flex.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Timeline.Item.displayName = 'Timeline.Item'
@@ -150,7 +150,7 @@ Timeline.Badge.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...Flex.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Timeline.Badge.displayName = 'Timeline.Badge'
@@ -163,7 +163,7 @@ Timeline.Body.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...Box.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Timeline.Body.displayName = 'Timeline.Body'
@@ -176,7 +176,7 @@ Timeline.Break.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...Box.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Timeline.Break.displayName = 'Timeline.Break'

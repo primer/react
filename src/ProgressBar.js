@@ -5,7 +5,7 @@ import {layout} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 import theme from './theme'
 import {COMMON, get} from './constants'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Bar = styled.span`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
@@ -48,7 +48,7 @@ ProgressBar.propTypes = {
   barSize: PropTypes.oneOf(['small', 'default', 'large']),
   inline: PropTypes.bool,
   progress: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ...sx.propTypes,
+  ...sxPropTypes,
   theme: PropTypes.object,
   width: systemPropTypes.layout.width
 }

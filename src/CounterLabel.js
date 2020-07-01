@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const colorStyles = ({scheme, ...props}) => {
   return {
@@ -53,7 +53,7 @@ CounterLabel.propTypes = {
   scheme: PropTypes.oneOf(['gray', 'gray-light']),
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default CounterLabel

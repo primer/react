@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {COMMON, LAYOUT, TYPOGRAPHY, get} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const ButtonTableList = styled.summary`
   display: inline-block;
@@ -51,7 +51,7 @@ ButtonTableList.defaultProps = {
 
 ButtonTableList.propTypes = {
   theme: PropTypes.object,
-  ...sx.propTypes,
+  ...sxPropTypes,
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
   ...LAYOUT.propTypes

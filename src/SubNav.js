@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
 import Flex from './Flex'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -114,7 +114,7 @@ SubNav.propTypes = {
   label: PropTypes.string,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SubNav.Link.defaultProps = {
@@ -126,7 +126,7 @@ SubNav.Link.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 SubNav.Link.displayName = 'SubNav.Link'
 

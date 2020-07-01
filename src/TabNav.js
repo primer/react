@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -70,7 +70,7 @@ TabNav.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 TabNav.Link.defaultProps = {
@@ -82,7 +82,7 @@ TabNav.Link.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 TabNav.Link.displayName = 'TabNav.Link'

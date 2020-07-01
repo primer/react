@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import {useDeprecation} from './utils/deprecate'
 
 const schemeMap = {
@@ -69,7 +69,7 @@ Flash.propTypes = {
   scheme: PropTypes.oneOf(Object.keys(schemeMap)), // deprecate 20.0.0
   variant: PropTypes.oneOf(['default', 'warning', 'success', 'danger']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Flash

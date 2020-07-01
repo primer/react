@@ -66,14 +66,14 @@ Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-
 
  ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/master/src/theme-preval.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
 
-Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal and `...sx.propTypes` to the component's `propTypes`.
+Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal and `...sxPropTypes` to the component's `propTypes`.
 
 Here's an example of a basic component written in the style of Primer Components:
 
 ```jsx
 import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
-import sx from './sx
+import sx, {propTypes as sxPropTypes} from './sx
 
 const Component = styled.div`
   // additional styles here
@@ -92,7 +92,7 @@ Component.defaultProps = {
 Component.propTypes = {
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Component
@@ -153,7 +153,7 @@ Adding the `sx` prop is similar to adding system props; import the default expor
 
 ```jsx
 import {COMMON} from './constants'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Component = styled.div`
   // additional styles here
@@ -165,7 +165,7 @@ const Component = styled.div`
 
 Component.propTypes = {
    ...COMMON.propTypes,
-   ...sx.propTypes
+   ...sxPropTypes
 }
 ```
 

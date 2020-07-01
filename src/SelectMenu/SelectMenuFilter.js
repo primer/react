@@ -5,7 +5,7 @@ import {COMMON, get} from '../constants'
 import theme from '../theme'
 import TextInput from '../TextInput'
 import {MenuContext} from './SelectMenuContext'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const StyledForm = styled.form`
   padding: ${get('space.3')};
@@ -45,7 +45,7 @@ SelectMenuFilter.defaultProps = {
 
 SelectMenuFilter.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sxPropTypes,
   value: PropTypes.string
 }
 

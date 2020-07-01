@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 function TooltipBase({direction, children, className, text, noDelay, align, wrap, theme, ...rest}) {
   const classes = classnames(
@@ -267,7 +267,7 @@ Tooltip.propTypes = {
   theme: PropTypes.object,
   wrap: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Tooltip

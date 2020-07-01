@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import {COMMON, FLEX, get} from './constants'
 import theme from './theme'
 import Box from './Box'
@@ -76,7 +76,7 @@ Breadcrumb.defaultProps = {
 
 Breadcrumb.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Breadcrumb.displayName = 'Breadcrumb'
@@ -89,7 +89,7 @@ Breadcrumb.Item.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   href: PropTypes.string,
   selected: PropTypes.bool,
-  ...sx.propTypes,
+  ...sxPropTypes,
   ...COMMON.propTypes
 }
 

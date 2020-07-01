@@ -6,7 +6,7 @@ import {MenuContext} from './SelectMenuContext'
 import {COMMON, get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 export const listItemStyles = css`
   display: flex;
@@ -127,7 +127,7 @@ SelectMenuItem.defaultProps = {
 SelectMenuItem.propTypes = {
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SelectMenuItem.displayName = 'SelectMenu.Item'

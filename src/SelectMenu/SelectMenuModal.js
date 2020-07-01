@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled, {keyframes, css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const animateModal = keyframes`
   0% {
@@ -103,7 +103,7 @@ SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'

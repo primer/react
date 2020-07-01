@@ -4,7 +4,7 @@ import Octicon from '@primer/octicons-react'
 import {COMMON, get} from './constants'
 import isNumeric from './utils/isNumeric'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const variantSizes = {
   small: 56,
@@ -51,7 +51,7 @@ CircleBadge.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 CircleBadge.Icon.defaultProps = {
@@ -61,7 +61,7 @@ CircleBadge.Icon.defaultProps = {
 CircleBadge.Icon.propTypes = {
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 CircleBadge.Icon.displayName = 'CircleBadge.Icon'

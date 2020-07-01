@@ -7,7 +7,7 @@ import {X} from '@primer/octicons-react'
 import StyledOcticon from './StyledOcticon'
 import {COMMON, LAYOUT} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import Text from './Text'
 import Flex from './Flex'
 
@@ -100,7 +100,7 @@ Dialog.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
-  ...sx.propTypes,
+  ...sxPropTypes,
   theme: PropTypes.object
 }
 

@@ -6,7 +6,7 @@ import Details from './Details'
 import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const StyledDetails = styled(Details)`
   position: relative;
@@ -129,7 +129,7 @@ Dropdown.Item = styled.li`
 Dropdown.Menu.propTypes = {
   direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Dropdown.Menu.defaultProps = {
@@ -141,7 +141,7 @@ Dropdown.Menu.displayName = 'Dropdown.Menu'
 Dropdown.Item.defaultProps = {theme}
 Dropdown.Item.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 Dropdown.Item.displayName = 'Dropdown.Item'
 
@@ -154,7 +154,7 @@ Dropdown.Button.displayName = 'Dropdown.Button'
 Dropdown.Caret.defaultProps = {theme}
 Dropdown.Caret.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 Dropdown.Caret.displayName = 'Dropdown.Caret'
 

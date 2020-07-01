@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON, get} from './constants'
 import theme from './theme'
@@ -18,7 +18,7 @@ Heading.defaultProps = {
 
 Heading.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sxPropTypes,
   theme: PropTypes.object,
   ...TYPOGRAPHY.propTypes
 }

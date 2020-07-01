@@ -6,7 +6,7 @@ import {COMMON, get} from './constants'
 import theme from './theme'
 import Link from './Link'
 import BorderBox from './BorderBox'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 function SideNavBase({variant, className, bordered, children, ...props}) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const ButtonGroup = styled(Box)`
   vertical-align: middle;
@@ -54,7 +54,7 @@ ButtonGroup.defaultProps = {
 
 ButtonGroup.propTypes = {
   ...Box.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default ButtonGroup

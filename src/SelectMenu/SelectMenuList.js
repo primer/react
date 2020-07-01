@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 import theme from '../theme'
 import {COMMON, get} from '../constants'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const listStyles = css`
   position: relative;
@@ -41,7 +41,7 @@ SelectMenuList.defaultProps = {
 
 SelectMenuList.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SelectMenuList.displayName = 'SelectMenu.List'

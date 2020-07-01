@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {system} from 'styled-system'
 import {COMMON, TYPOGRAPHY, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const buttonStyles = {
   display: 'inline-block',
@@ -49,7 +49,7 @@ Link.propTypes = {
   underline: PropTypes.bool,
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Link

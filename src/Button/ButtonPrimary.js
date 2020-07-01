@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import ButtonBase, {systemStyles} from './ButtonBase'
 import {get} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const ButtonPrimary = styled(ButtonBase)`
   color: ${get('buttons.primary.color.default')};
@@ -43,7 +43,7 @@ ButtonPrimary.defaultProps = {
 
 ButtonPrimary.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default ButtonPrimary

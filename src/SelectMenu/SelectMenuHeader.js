@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {get, COMMON, TYPOGRAPHY} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
 // SelectMenu.Modal
@@ -50,7 +50,7 @@ SelectMenuHeader.propTypes = {
   theme: PropTypes.object,
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SelectMenuHeader.displayName = 'SelectMenu.Header'

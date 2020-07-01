@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import {get, COMMON} from './constants'
 import theme from './theme'
 
@@ -155,6 +155,6 @@ AvatarStack.defaultProps = {
 AvatarStack.propTypes = {
   ...COMMON.propTypes,
   alignRight: PropTypes.bool,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 export default AvatarStack

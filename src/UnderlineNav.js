@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
@@ -102,7 +102,7 @@ UnderlineNav.propTypes = {
   label: PropTypes.string,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 UnderlineNav.Link.defaultProps = {
@@ -114,7 +114,7 @@ UnderlineNav.Link.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 UnderlineNav.Link.displayName = 'UnderlineNav.Link'

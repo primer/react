@@ -6,7 +6,7 @@ import {variant} from 'styled-system'
 import theme from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import {useDeprecation} from './utils/deprecate'
 
 const octiconMap = {
@@ -74,7 +74,7 @@ StateLabel.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'normal']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default StateLabel

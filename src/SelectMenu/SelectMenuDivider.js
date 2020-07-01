@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 import theme from '../theme'
 import {COMMON, get} from '../constants'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const dividerStyles = css`
   padding: ${get('space.1')} ${get('space.3')};
@@ -25,7 +25,7 @@ SelectMenuDivider.defaultProps = {
 
 SelectMenuDivider.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SelectMenuDivider.displayName = 'SelectMenu.Divider'

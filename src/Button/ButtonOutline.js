@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import ButtonBase, {systemStyles} from './ButtonBase'
 import {get} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const ButtonOutline = styled(ButtonBase)`
   color: ${get('buttons.outline.color.default')};
@@ -45,7 +45,7 @@ ButtonOutline.defaultProps = {
 
 ButtonOutline.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default ButtonOutline

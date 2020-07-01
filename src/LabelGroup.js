@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import theme from './theme'
 import {COMMON, get} from './constants'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const StyledLabelGroup = styled.span`
   ${COMMON}
@@ -23,7 +23,7 @@ LabelGroup.defaultProps = {
 
 LabelGroup.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default LabelGroup

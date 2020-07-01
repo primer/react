@@ -3,7 +3,7 @@ import styled, {css} from 'styled-components'
 import {variant, borderColor} from 'styled-system'
 import theme from './theme'
 import {COMMON, get} from './constants'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
@@ -68,7 +68,7 @@ Label.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large', 'xl']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Label

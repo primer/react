@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {POSITION} from './constants'
 import Box from './Box'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Position = styled(Box)`
   ${POSITION};
@@ -19,7 +19,7 @@ Position.propTypes = {
   ...Box.propTypes,
   ...POSITION.propTypes,
   theme: PropTypes.object,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 function withPosition(position) {

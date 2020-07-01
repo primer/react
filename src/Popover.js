@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import {COMMON, LAYOUT, POSITION, get} from './constants'
 import theme from './theme'
 import BorderBox from './BorderBox'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Popover = styled.div.attrs(({className, caret}) => {
   return {
@@ -230,7 +230,7 @@ Popover.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
   ...POSITION.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Popover.Content.defaultProps = {
@@ -241,7 +241,7 @@ Popover.Content.propTypes = {
   as: PropTypes.elementType,
   theme: PropTypes.object,
   ...BorderBox.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 Popover.Content.displayName = 'Popover.Content'

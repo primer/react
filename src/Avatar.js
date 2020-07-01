@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import {get} from './constants'
 import {space} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
@@ -37,7 +37,7 @@ Avatar.propTypes = {
   size: PropTypes.number,
   src: PropTypes.string,
   ...systemPropTypes.space,
-  ...sx.propTypes,
+  ...sxPropTypes,
   theme: PropTypes.object
 }
 

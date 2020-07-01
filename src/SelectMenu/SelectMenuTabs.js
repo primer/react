@@ -2,7 +2,7 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const tabWrapperStyles = css`
   display: flex;
@@ -43,7 +43,7 @@ SelectMenuTabs.defaultProps = {
 
 SelectMenuTabs.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 SelectMenuTabs.displayName = 'SelectMenu.Tabs'

@@ -3,7 +3,7 @@ import {maxWidth} from 'styled-system'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 const Truncate = styled('div')`
   ${TYPOGRAPHY}
@@ -31,7 +31,7 @@ Truncate.propTypes = {
   ...COMMON.propTypes,
   expandable: PropTypes.bool,
   inline: PropTypes.bool,
-  ...sx.propTypes,
+  ...sxPropTypes,
   maxWidth: PropTypes.number,
   theme: PropTypes.object,
   title: PropTypes.string.isRequired

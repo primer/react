@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 
 // The <details> element is not yet supported in Edge so we have to use a polyfill.
 // We have to check if window is defined before importing the polyfill
@@ -93,7 +93,7 @@ Details.propTypes = {
   render: PropTypes.func,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 export default Details

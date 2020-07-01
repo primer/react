@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import sx from './sx'
+import sx, {propTypes as sxPropTypes} from './sx'
 import theme from './theme'
 import {COMMON, get} from './constants'
 
@@ -23,7 +23,7 @@ BranchName.defaultProps = {
 BranchName.propTypes = {
   href: PropTypes.string,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sxPropTypes,
   theme: PropTypes.object
 }
 

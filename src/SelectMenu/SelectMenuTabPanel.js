@@ -5,7 +5,7 @@ import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 import theme from '../theme'
 import {COMMON, get} from '../constants'
-import sx from '../sx'
+import sx, {propTypes as sxPropTypes} from '../sx'
 
 const TabPanelBase = ({tabName, className, children, ...rest}) => {
   const menuContext = useContext(MenuContext)
@@ -29,7 +29,7 @@ TabPanel.defaultProps = {
 TabPanel.propTypes = {
   tabName: PropTypes.string,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sxPropTypes
 }
 
 TabPanel.displayName = 'SelectMenu.TabPanel'
