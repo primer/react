@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {omit, pick} from '@styled-system/props'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
