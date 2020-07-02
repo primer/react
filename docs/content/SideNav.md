@@ -48,7 +48,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={PrimitiveDotIcon} color="green.5" />
+    <StyledOcticon mr={2} size={16} icon={DotIcon} color="green.5" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
