@@ -1,11 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import sx from './sx'
-import {useDeprecation} from './utils/deprecate'
 
 const schemeMap = {
   red: 'danger',

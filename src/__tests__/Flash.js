@@ -5,7 +5,6 @@ import theme, {colors} from '../theme'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {Deprecations} from '../utils/deprecate'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 

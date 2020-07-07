@@ -7,7 +7,6 @@ import theme from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx from './sx'
-import {useDeprecation} from './utils/deprecate'
 
 const octiconMap = {
   issueOpened: IssueOpened,

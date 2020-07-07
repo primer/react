@@ -5,7 +5,7 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {Deprecations} from '../utils/deprecate'
+
 expect.extend(toHaveNoViolations)
 
 describe('StateLabel', () => {
