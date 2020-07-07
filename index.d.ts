@@ -133,8 +133,10 @@ declare module '@primer/components' {
   export const CircleOcticon: React.FunctionComponent<CircleOcticonProps>
 
   export interface StyledOcticonProps extends CommonProps {
-    size?: number
+    size?: number | 'small' | 'medium' | 'large'
     icon: React.ReactNode
+    verticalAlign: 'middle' | 'text-bottom' | 'top' | 'text-top'
+
   }
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>

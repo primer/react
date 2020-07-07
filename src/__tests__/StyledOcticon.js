@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('StyledOcticon', () => {
-  behavesAsComponent(StyledOcticon, [COMMON], () => <StyledOcticon icon={X} />)
+  behavesAsComponent(StyledOcticon, [COMMON], () => <StyledOcticon icon={XIcon} />)
 
   checkExports('StyledOcticon', {
     default: StyledOcticon
