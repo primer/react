@@ -5,7 +5,6 @@ import theme, {colors} from '../theme'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {Deprecations} from '../utils/deprecate'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
@@ -27,11 +26,6 @@ describe('Flash', () => {
     expect(render(<Flash full />)).toHaveStyleRule('margin-top', '-1px')
     expect(render(<Flash full />)).toHaveStyleRule('border-radius', '0')
     expect(render(<Flash full />)).toHaveStyleRule('border-width', '1px 0px')
-  })
-
-  it('respects the deprecated "scheme" prop', () => {
-    expect(render(<Flash scheme="green" theme={theme} />)).toHaveStyleRule('background-color', colors.green[1])
-    expect(Deprecations.getDeprecations()).toHaveLength(1)
   })
 
   it('respects the "variant" prop', () => {

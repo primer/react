@@ -1,11 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {COMMON, get} from './constants'
 import theme from './theme'
 import sx from './sx'
-import {useDeprecation} from './utils/deprecate'
 
 const schemeMap = {
   red: 'danger',
@@ -20,7 +18,7 @@ const variants = variant({
 
 const getIconColor = (variant, theme) => get(`flashIcon.${variant}`)(theme)
 
-const StyledFlash = styled.div`
+const Flash = styled.div`
   position: relative;
   color: ${get('colors.text.grayDark')};
   padding: ${get('space.3')};
@@ -42,21 +40,6 @@ const StyledFlash = styled.div`
   ${variants}
   ${sx};
 `
-
-const Flash = ({variant, scheme, ...props}) => {
-  const deprecate = useDeprecation({
-    name: 'Flash "scheme" prop',
-    version: '20.0.0',
-    message: 'Use the variant prop instead. See https://primer.style/components/Flash for more details.'
-  })
-
-  if (scheme) {
-    deprecate()
-    variant = schemeMap[scheme]
-  }
-
-  return <StyledFlash variant={variant} {...props} />
-}
 
 Flash.defaultProps = {
   theme,
