@@ -7,7 +7,6 @@ import theme from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx from './sx'
-import {useDeprecation} from './utils/deprecate'
 
 const octiconMap = {
   issueOpened: IssueOpened,
@@ -42,18 +41,7 @@ const StateLabelBase = styled.span`
   ${sx};
 `
 
-function StateLabel({children, small, status, variant, ...rest}) {
-  const deprecate = useDeprecation({
-    name: "StateLabel 'small' prop",
-    message: "Use variant='small' or variant='normal' instead.",
-    version: '20.0.0'
-  })
-
-  if (small) {
-    deprecate()
-    variant = 'small'
-  }
-
+function StateLabel({children, status, variant, ...rest}) {
   const octiconProps = variant === 'small' ? {width: '1em'} : {}
   return (
     <StateLabelBase {...rest} variant={variant} status={status}>
@@ -69,7 +57,6 @@ StateLabel.defaultProps = {
 }
 
 StateLabel.propTypes = {
-  small: PropTypes.bool,
   status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged', 'draft']).isRequired,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'normal']),
