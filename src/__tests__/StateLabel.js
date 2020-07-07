@@ -28,11 +28,6 @@ describe('StateLabel', () => {
     cleanup()
   })
 
-  it('respects the deprecated "small" prop', () => {
-    expect(render(<StateLabel status="issueOpened" small />)).toHaveStyleRule('font-size', '12px')
-    expect(Deprecations.getDeprecations()).toHaveLength(1)
-  })
-
   it('respects the status prop', () => {
     expect(render(<StateLabel status="issueOpened" />)).toMatchSnapshot()
     expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
