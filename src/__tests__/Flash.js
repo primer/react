@@ -29,11 +29,6 @@ describe('Flash', () => {
     expect(render(<Flash full />)).toHaveStyleRule('border-width', '1px 0px')
   })
 
-  it('respects the deprecated "scheme" prop', () => {
-    expect(render(<Flash scheme="green" theme={theme} />)).toHaveStyleRule('background-color', colors.green[1])
-    expect(Deprecations.getDeprecations()).toHaveLength(1)
-  })
-
   it('respects the "variant" prop', () => {
     expect(render(<Flash variant="warning" theme={theme} />)).toHaveStyleRule('background-color', colors.yellow[1])
     expect(render(<Flash variant="danger" theme={theme} />)).toHaveStyleRule('background-color', '#FFE3E6')
