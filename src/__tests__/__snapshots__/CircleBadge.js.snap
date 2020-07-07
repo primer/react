@@ -2,29 +2,32 @@
 
 exports[`CircleBadge CircleBadge.Icon renders consistently 1`] = `
 .c0 {
-  max-width: 60% !important;
-  height: auto !important;
-  max-height: 55% !important;
+  height: auto;
+  max-width: 60%;
+  max-height: 55%;
 }
 
 <svg
   aria-hidden="true"
   className="c0"
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<path fill-rule=\\"evenodd\\" d=\\"M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z\\"></path>",
+    }
+  }
+  fill="currentColor"
   height={16}
   role="img"
   style={
     Object {
       "display": "inline-block",
-      "fill": "currentColor",
       "userSelect": "none",
       "verticalAlign": "text-bottom",
     }
   }
   viewBox="0 0 16 16"
   width={16}
->
-  <div />
-</svg>
+/>
 `;
 
 exports[`CircleBadge renders consistently 1`] = `
