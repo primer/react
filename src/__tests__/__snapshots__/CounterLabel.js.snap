@@ -13,7 +13,7 @@ exports[`CounterLabel renders consistently 1`] = `
 }
 
 .c0:empty {
-  visibility: hidden;
+  display: none;
 }
 
 <span

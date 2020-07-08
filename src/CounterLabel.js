@@ -38,7 +38,7 @@ const CounterLabel = styled.span`
   ${COMMON};
 
   &:empty {
-    visibility: hidden;
+    display: none;
   }
 
   ${sx};
