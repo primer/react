@@ -24,11 +24,10 @@ StyledOcticon.defaultProps = {
 StyledOcticon.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes,
-  icon: PropTypes.element,
+  icon: PropTypes.elementType.isRequired,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['small', 'medium', 'large'])]),
   verticalAlign: PropTypes.oneOf(['middle', 'text-bottom', 'text-top', 'top']),
   theme: PropTypes.object
 }
 
 export default StyledOcticon
-
