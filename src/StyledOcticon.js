@@ -6,9 +6,7 @@ import theme from './theme'
 import sx from './sx'
 
 function IconWrapper({icon: IconComponent, className, ...rest}) {
-  return (
-    <IconComponent className={className} {...rest}/>
-  )
+  return <IconComponent className={className} {...rest} />
 }
 
 const StyledOcticon = styled(IconWrapper)`
@@ -26,8 +24,8 @@ StyledOcticon.propTypes = {
   ...sx.propTypes,
   icon: PropTypes.elementType.isRequired,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['small', 'medium', 'large'])]),
-  verticalAlign: PropTypes.oneOf(['middle', 'text-bottom', 'text-top', 'top']),
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  verticalAlign: PropTypes.oneOf(['middle', 'text-bottom', 'text-top', 'top'])
 }
 
 export default StyledOcticon

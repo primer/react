@@ -32,7 +32,9 @@ const CircleBadge = styled.div`
   ${sx};
 `
 
-CircleBadge.Icon = (props) => <StyledOcticon {...props} sx={Object.assign(props.sx, {height: 'auto', maxWidth: '60%', maxHeight: '55%'})} />
+CircleBadge.Icon = props => (
+  <StyledOcticon {...props} sx={Object.assign(props.sx, {height: 'auto', maxWidth: '60%', maxHeight: '55%'})} />
+)
 
 CircleBadge.defaultProps = {
   inline: false,
