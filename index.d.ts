@@ -3,6 +3,7 @@ declare module '@primer/components' {
   import * as StyledSystem from 'styled-system'
   import {SystemStyleObject} from '@styled-system/css'
   import * as StyledComponents from 'styled-components'
+  import { ReactComponentLike } from 'prop-types';
   import * as History from 'history'
 
   export interface BaseProps extends React.Props<any> {
@@ -127,14 +128,14 @@ declare module '@primer/components' {
 
   export interface CircleOcticonProps extends CommonProps, FlexProps {
     size?: number
-    icon: React.ReactNode
+    icon: ReactComponentLike
   }
 
   export const CircleOcticon: React.FunctionComponent<CircleOcticonProps>
 
   export interface StyledOcticonProps extends CommonProps {
     size?: number | 'small' | 'medium' | 'large'
-    icon: React.ReactNode
+    icon: ReactComponentLike
     verticalAlign: 'middle' | 'text-bottom' | 'top' | 'text-top'
 
   }
