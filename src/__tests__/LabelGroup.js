@@ -16,7 +16,7 @@ const comp = (
 )
 
 describe('LabelGroup', () => {
-  behavesAsComponent(LabelGroup, [COMMON], () => comp)
+  behavesAsComponent(LabelGroup, [COMMON])
 
   checkExports('LabelGroup', {
     default: LabelGroup
