@@ -133,7 +133,7 @@ TextInput.defaultProps = {
 
 TextInput.propTypes = {
   block: PropTypes.bool,
-  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  icon: PropTypes.elementType,
   maxWidth: systemPropTypes.layout.maxWidth,
   minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),

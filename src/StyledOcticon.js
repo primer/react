@@ -22,7 +22,6 @@ StyledOcticon.defaultProps = {
 StyledOcticon.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes,
-  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   icon: PropTypes.elementType.isRequired,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['small', 'medium', 'large'])]),
   theme: PropTypes.object,

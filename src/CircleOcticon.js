@@ -24,7 +24,7 @@ CircleOcticon.defaultProps = {
 
 CircleOcticon.propTypes = {
   ...Flex.propTypes,
-  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  icon: PropTypes.elementType.isRequired,
   size: PropTypes.number,
   theme: PropTypes.object
 }
