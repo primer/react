@@ -1,10 +1,11 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Octicon from '@primer/octicons-react'
 import {COMMON, get} from './constants'
 import isNumeric from './utils/isNumeric'
 import theme from './theme'
 import sx from './sx'
+import StyledOcticon from './StyledOcticon'
 
 const variantSizes = {
   small: 56,
@@ -31,13 +32,9 @@ const CircleBadge = styled.div`
   ${sx};
 `
 
-CircleBadge.Icon = styled(Octicon)`
-  max-width: 60% !important;
-  height: auto !important;
-  max-height: 55% !important;
-  ${COMMON};
-  ${sx};
-`
+CircleBadge.Icon = props => (
+  <StyledOcticon {...props} sx={Object.assign(props.sx, {height: 'auto', maxWidth: '60%', maxHeight: '55%'})} />
+)
 
 CircleBadge.defaultProps = {
   inline: false,
@@ -55,13 +52,12 @@ CircleBadge.propTypes = {
 }
 
 CircleBadge.Icon.defaultProps = {
-  theme
+  theme,
+  sx: {}
 }
 
 CircleBadge.Icon.propTypes = {
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
+  ...StyledOcticon.propTypes
 }
 
 CircleBadge.Icon.displayName = 'CircleBadge.Icon'

@@ -8,8 +8,8 @@ StyledOcticon renders an [Octicon](https://octicons.github.com) with common syst
 ## Default example
 
 ```jsx live
-<StyledOcticon icon={Check} size={32} color="green.5" mr={2} />
-<StyledOcticon icon={X} size={32} color="red.5" />
+<StyledOcticon icon={CheckIcon} size={32} color="green.5" mr={2} />
+<StyledOcticon icon={XIcon} size={32} color="red.5" />
 ```
 
 ## System props
@@ -23,6 +23,6 @@ StyledOcticon passes all of its props except the common system props down to the
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | ariaLabel | String | | Specifies the `aria-label` attribute, which is read verbatim by screen readers |
-| icon | Octicon | | [Octicon component](https://github.com/primer/octicons/tree/master/lib/octicons_react) used in the component |
+| icon | Component | | [Octicon component](https://github.com/primer/octicons/tree/master/lib/octicons_react) used in the component |
 | size | Number | 16 | Sets the uniform `width` and `height` of the SVG element |
 | verticalAlign | String | `text-bottom` | Sets the `vertical-align` CSS property |

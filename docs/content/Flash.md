@@ -19,7 +19,7 @@ Flash components with icons inside of them will automatically set the correct co
 
 ```jsx live
 <Flash variant="success">
-  <StyledOcticon icon={Check}/>
+  <StyledOcticon icon={CheckIcon}/>
   Success!
 </Flash>
 ```
