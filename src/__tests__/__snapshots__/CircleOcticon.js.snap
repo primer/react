@@ -45,24 +45,24 @@ exports[`CircleOcticon renders consistently 1`] = `
     <svg
       aria-hidden="true"
       className="octicon"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M21.03 5.72a.75.75 0 010 1.06l-11.5 11.5a.75.75 0 01-1.072-.012l-5.5-5.75a.75.75 0 111.084-1.036l4.97 5.195L19.97 5.72a.75.75 0 011.06 0z\\"></path>",
+        }
+      }
+      fill="currentColor"
       height={32}
       role="img"
       style={
         Object {
           "display": "inline-block",
-          "fill": "currentColor",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
-      viewBox="0 0 12 16"
-      width={24}
-    >
-      <path
-        d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"
-        fillRule="evenodd"
-      />
-    </svg>
+      viewBox="0 0 24 24"
+      width={32}
+    />
   </div>
 </div>
 `;

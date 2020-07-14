@@ -8,7 +8,7 @@ CircleOcticon renders any Octicon with a circle background. CircleOcticons are m
 ## Default example
 
 ```jsx live
-  <CircleOcticon icon={Check} size={32} bg="green.5" color="white"/>
+  <CircleOcticon icon={CheckIcon} size={32} bg="green.5" color="white"/>
 ```
 
 ## System props

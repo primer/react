@@ -43,12 +43,12 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={Zap} />
+    <StyledOcticon mr={2} size={16} icon={ZapIcon} />
     <Text>With an Octicon</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={PrimitiveDot} color="green.5" />
+    <StyledOcticon mr={2} size={16} icon={DotIcon} color="green.5" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -96,11 +96,11 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
 ```jsx live
 <SideNav bordered maxWidth={360}>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={Person} />
+    <StyledOcticon mr={2} size={16} icon={PersonIcon} />
     <Text>Account</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" selected>
-    <StyledOcticon mr={2} size={16} icon={Octoface} />
+    <StyledOcticon mr={2} size={16} icon={OctofaceIcon} />
     <Text>Profile</Text>
   </SideNav.Link>
 
@@ -117,7 +117,7 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
   </SideNav>
 
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={Mail} />
+    <StyledOcticon mr={2} size={16} icon={MailIcon} />
     <Text>Emails</Text>
   </SideNav.Link>
 </SideNav>

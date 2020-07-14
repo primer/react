@@ -9,62 +9,7 @@ exports[`LabelGroup renders consistently 1`] = `
   margin-right: 0;
 }
 
-.c1 {
-  display: inline-block;
-  font-weight: 400;
-  color: #fff;
-  border-radius: 100px;
-  font-size: 12px;
-  line-height: 20px;
-  padding: 0 8px;
-  background-color: #6a737d;
-}
-
-.c1:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c2 {
-  display: inline-block;
-  font-weight: 400;
-  color: #fff;
-  border-radius: 100px;
-  font-size: 12px;
-  line-height: 20px;
-  padding: 0 8px;
-  background-color: #6a737d;
-  margin-top: -1px;
-  margin-bottom: -1px;
-  color: #586069;
-  border: 1px solid rgba(27,31,35,0.15);
-  box-shadow: none;
-  background-color: #6a737d;
-  background-color: transparent;
-}
-
-.c2:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 <span
   className="c0"
->
-  <span
-    className="c1"
-  >
-    Default label
-  </span>
-  <span
-    className="c1"
-  >
-    Darker gray label
-  </span>
-  <span
-    className="c2"
-  >
-    Default outline label
-  </span>
-</span>
+/>
 `;
