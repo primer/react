@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagehead renders consistently 1`] = `
+.c0 {
+  position: relative;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+<div
+  className="c0"
+/>
+`;

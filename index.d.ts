@@ -213,6 +213,10 @@ declare module '@primer/components' {
 
   export const Link: React.FunctionComponent<LinkProps>
 
+  export interface PageheadProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const Pagehead: React.FunctionComponent<PageheadProps>
+
   export type PaginationHrefBuilder = (page: number) => string
 
   export type PaginationPageChangeCallback = (e: React.MouseEvent, page: number) => void
