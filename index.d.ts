@@ -124,7 +124,11 @@ declare module '@primer/components' {
     variant?: 'small' | 'medium' | 'large'
   }
 
-  export const CircleBadge: React.FunctionComponent<CircleBadgeProps>
+  export interface CircleBadgeIconProps extends StyledOcticonProps {}
+
+  export const CircleBadge: React.FunctionComponent<CircleBadgeProps> & {
+    Icon: React.FunctionComponent<CircleBadgeIconProps>
+  }
 
   export interface CircleOcticonProps extends CommonProps, FlexProps {
     size?: number
@@ -137,7 +141,6 @@ declare module '@primer/components' {
     size?: number | 'small' | 'medium' | 'large'
     icon: ReactComponentLike
     verticalAlign?: 'middle' | 'text-bottom' | 'top' | 'text-top'
-
   }
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
