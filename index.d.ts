@@ -136,7 +136,7 @@ declare module '@primer/components' {
   export interface StyledOcticonProps extends CommonProps {
     size?: number | 'small' | 'medium' | 'large'
     icon: ReactComponentLike
-    verticalAlign: 'middle' | 'text-bottom' | 'top' | 'text-top'
+    verticalAlign?: 'middle' | 'text-bottom' | 'top' | 'text-top'
 
   }
 
