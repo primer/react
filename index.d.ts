@@ -657,6 +657,11 @@ declare module '@primer/components/lib/Fixed' {
   export default Fixed
 }
 
+declare module '@primer/components/lib/Pagehead' {
+  import {Pagehead} from '@primer/components'
+  export default Pagehead
+}
+
 declare module '@primer/components/lib/SelectMenu' {
   import {SelectMenu} from '@primer/components'
   export default SelectMenu
