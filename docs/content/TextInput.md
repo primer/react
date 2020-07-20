@@ -10,7 +10,7 @@ TextInput is a form component to add default styling to the native text input.
 ```jsx live
 <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
 
-<TextInput ml={4} icon={Search} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
+<TextInput ml={4} icon={SearchIcon} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
 
 ## System props

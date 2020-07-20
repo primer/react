@@ -33,7 +33,7 @@ You can also pass any non-text content into the header:
       <Button onClick={() => setIsOpen(true)}>Open</Button>
       <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
         <Dialog.Header>
-          <Octicon icon={Zap} />
+          <ZapIcon />
         </Dialog.Header>
         <Box p={3}>
           <Text fontFamily="sans-serif">Some content</Text>

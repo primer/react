@@ -1,288 +1,385 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Avatar renders consistently 1`] = `
-.c0 {
-  display: inline-block;
-  position: relative;
-  min-width: 46px;
-  height: 20px;
-}
-
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 38px;
   position: absolute;
-  background: white;
 }
 
-.c1:hover .AvatarItem {
-  margin-right: 3px;
-}
-
-.c1:hover .AvatarItem:nth-child(n + 4) {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  opacity: 1;
-}
-
-.c1:hover .AvatarItem-more {
-  display: none !important;
-}
-
-.c1 .AvatarItem {
   position: relative;
-  z-index: 2;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  height: 20px;
+  min-width: 38px;
+}
+
+.c0 .pc-AvatarItem {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 20px;
   width: 20px;
-  height: 20px;
-  box-sizing: content-box;
-  margin-right: -11px;
-  background-color: #fff;
-  border-right: 1px solid #fff;
-  border-radius: 2px;
-  -webkit-transition: margin 0.1s ease-in-out;
-  transition: margin 0.1s ease-in-out;
-}
-
-.c1 .AvatarItem:first-child {
-  z-index: 3;
-}
-
-.c1 .AvatarItem:last-child {
-  z-index: 1;
-  border-right: 0;
-}
-
-.c1 .AvatarItem img {
-  border-radius: 2px;
-  width: inherit;
-}
-
-.c1 .AvatarItem:nth-child(n + 4) {
-  display: none;
-  opacity: 0;
-}
-
-.c1 .AvatarItem-more {
-  z-index: 1;
-  margin-right: 0;
-  background: #f6f8fa;
-}
-
-.c1 .AvatarItem-more::before,
-.c1 .AvatarItem-more::after {
-  position: absolute;
-  display: block;
-  height: 20px;
-  content: '';
-  border-radius: 2px;
-  outline: 1px solid #fff;
-}
-
-.c1 .AvatarItem-more::before {
-  width: 17px;
-  background: #e1e4e8;
-}
-
-.c1 .AvatarItem-more::after {
-  width: 14px;
-  background: #d1d5da;
-}
-
-<span
-  className="c0"
->
-  <span
-    className="c1 AvatarStackBody"
-  >
-    <img
-      alt=""
-      className="AvatarItem"
-      src="https://avatars.githubusercontent.com/primer"
-    />
-    <img
-      alt=""
-      className="AvatarItem"
-      src="https://avatars.githubusercontent.com/github"
-    />
-    <div
-      className="AvatarItem-more AvatarItem"
-    />
-    <img
-      alt=""
-      className="AvatarItem"
-      src="https://avatars.githubusercontent.com/primer"
-    />
-    <img
-      alt=""
-      className="AvatarItem"
-      src="https://avatars.githubusercontent.com/github"
-    />
-  </span>
-</span>
-`;
-
-exports[`Avatar respects alignRight props 1`] = `
-.c0 {
-  display: inline-block;
+  box-shadow: 0 0 0 1px #fff;
+  margin-left: -11px;
   position: relative;
-  min-width: 46px;
-  height: 20px;
+  overflow: hidden;
+  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
 }
 
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  background: white;
-  right: 0;
+.c0 .pc-AvatarItem:first-child {
+  margin-left: 0;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 4) {
+  display: none;
+}
+
+.c0.pc-AvatarStack--two {
+  min-width: 30px;
+}
+
+.c0.pc-AvatarStack--two .pc-AvatarItem:nth-child(n + 3) {
+  display: none;
+}
+
+.c0.pc-AvatarStack--three-plus {
+  min-width: 38px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(3) {
+  opacity: 55%;
+  margin-left: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(4) {
+  opacity: 40%;
+  margin-left: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(5) {
+  opacity: 25%;
+  margin-left: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(n + 4) {
+  display: block;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(n + 6) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.c0.pc-AvatarStack--right {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem {
+  margin-left: 0 !important;
+  margin-right: -11px;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem:first-child {
+  margin-right: 0;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody {
   -webkit-flex-direction: row-reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
 }
 
-.c1:hover .AvatarItem {
-  margin-right: 3px;
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem {
+  margin-right: 4px!important;
+  margin-left: 0 !important;
 }
 
-.c1:hover .AvatarItem:nth-child(n + 4) {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  opacity: 1;
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+  margin-right: 0 !important;
 }
 
-.c1:hover .AvatarItem-more {
-  display: none !important;
+.c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(3) {
+  margin-right: -17px;
 }
 
-.c1 .AvatarItem {
-  position: relative;
-  z-index: 2;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 20px;
-  height: 20px;
-  box-sizing: content-box;
-  margin-right: -11px;
-  background-color: #fff;
-  border-right: 1px solid #fff;
-  border-radius: 2px;
-  -webkit-transition: margin 0.1s ease-in-out;
-  transition: margin 0.1s ease-in-out;
+.c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(4) {
+  margin-right: -17px;
 }
 
-.c1 .AvatarItem:first-child {
-  z-index: 3;
+.c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(5) {
+  margin-right: -17px;
 }
 
-.c1 .AvatarItem:last-child {
-  z-index: 1;
-  border-right: 0;
+.c0 .pc-AvatarStackBody:hover {
+  width: auto;
 }
 
-.c1 .AvatarItem img {
-  border-radius: 2px;
-  width: inherit;
+.c0 .pc-AvatarStackBody:hover .pc-AvatarItem {
+  margin-left: 4px;
+  opacity: 100%;
+  visibility: visible;
+  box-shadow: 0 0 0 4px #fff;
 }
 
-.c1 .AvatarItem:nth-child(n + 4) {
-  display: none;
-  opacity: 0;
-}
-
-.c1 .AvatarItem-more {
-  z-index: 1;
-  margin-right: 0;
-  background: #f6f8fa;
-}
-
-.c1 .AvatarItem-more::before,
-.c1 .AvatarItem-more::after {
-  position: absolute;
-  display: block;
-  height: 20px;
-  content: '';
-  border-radius: 2px;
-  outline: 1px solid #fff;
-}
-
-.c1 .AvatarItem-more::before {
-  width: 17px;
-  background: #e1e4e8;
-}
-
-.c1 .AvatarItem-more::after {
-  width: 14px;
-  background: #d1d5da;
-}
-
-.c1:hover .AvatarItem {
-  margin-right: 0;
-  margin-left: 3px;
-}
-
-.c1 .AvatarItem-more {
-  background: #d1d5da;
-}
-
-.c1 .AvatarItem-more::before {
-  width: 5px;
-}
-
-.c1 .AvatarItem-more::after {
-  background: #f6f8fa;
-  width: 2px;
-}
-
-.c1 .AvatarItem {
-  margin-right: 0;
-  margin-left: -11px;
-  border-right: 0;
-  border-left: 1px solid #fff;
+.c0 .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+  margin-left: 0;
 }
 
 <span
-  className="c0"
+  className="c0 pc-AvatarStack--three-plus"
 >
-  <span
-    className="c1 AvatarStackBody"
+  <div
+    className="c1 pc-AvatarStackBody"
+    display="flex"
+    width="38px"
   >
     <img
       alt=""
-      className="AvatarItem"
+      className="pc-AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
+      sx={
+        Object {
+          "zIndex": 10,
+        }
+      }
     />
     <img
       alt=""
-      className="AvatarItem"
+      className="pc-AvatarItem"
       src="https://avatars.githubusercontent.com/github"
-    />
-    <div
-      className="AvatarItem-more AvatarItem"
+      sx={
+        Object {
+          "zIndex": 9,
+        }
+      }
     />
     <img
       alt=""
-      className="AvatarItem"
+      className="pc-AvatarItem"
       src="https://avatars.githubusercontent.com/primer"
+      sx={
+        Object {
+          "zIndex": 8,
+        }
+      }
     />
     <img
       alt=""
-      className="AvatarItem"
+      className="pc-AvatarItem"
       src="https://avatars.githubusercontent.com/github"
+      sx={
+        Object {
+          "zIndex": 7,
+        }
+      }
     />
-  </span>
+  </div>
+</span>
+`;
+
+exports[`Avatar respects alignRight props 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 38px;
+  position: absolute;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  height: 20px;
+  min-width: 38px;
+}
+
+.c0 .pc-AvatarItem {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 20px;
+  width: 20px;
+  box-shadow: 0 0 0 1px #fff;
+  margin-left: -11px;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+}
+
+.c0 .pc-AvatarItem:first-child {
+  margin-left: 0;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 4) {
+  display: none;
+}
+
+.c0.pc-AvatarStack--two {
+  min-width: 30px;
+}
+
+.c0.pc-AvatarStack--two .pc-AvatarItem:nth-child(n + 3) {
+  display: none;
+}
+
+.c0.pc-AvatarStack--three-plus {
+  min-width: 38px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(3) {
+  opacity: 55%;
+  margin-left: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(4) {
+  opacity: 40%;
+  margin-left: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(5) {
+  opacity: 25%;
+  margin-left: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(n + 4) {
+  display: block;
+}
+
+.c0.pc-AvatarStack--three-plus .pc-AvatarItem:nth-child(n + 6) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.c0.pc-AvatarStack--right {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem {
+  margin-left: 0 !important;
+  margin-right: -11px;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem:first-child {
+  margin-right: 0;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody {
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem {
+  margin-right: 4px!important;
+  margin-left: 0 !important;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+  margin-right: 0 !important;
+}
+
+.c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(3) {
+  margin-right: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(4) {
+  margin-right: -17px;
+}
+
+.c0.pc-AvatarStack--three-plus.pc-AvatarStack--right .pc-AvatarItem:nth-child(5) {
+  margin-right: -17px;
+}
+
+.c0 .pc-AvatarStackBody:hover {
+  width: auto;
+}
+
+.c0 .pc-AvatarStackBody:hover .pc-AvatarItem {
+  margin-left: 4px;
+  opacity: 100%;
+  visibility: visible;
+  box-shadow: 0 0 0 4px #fff;
+}
+
+.c0 .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+  margin-left: 0;
+}
+
+<span
+  className="c0 pc-AvatarStack--three-plus pc-AvatarStack--right"
+>
+  <div
+    className="c1 pc-AvatarStackBody"
+    display="flex"
+    width="38px"
+  >
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+      sx={
+        Object {
+          "zIndex": 10,
+        }
+      }
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+      sx={
+        Object {
+          "zIndex": 9,
+        }
+      }
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+      sx={
+        Object {
+          "zIndex": 8,
+        }
+      }
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+      sx={
+        Object {
+          "zIndex": 7,
+        }
+      }
+    />
+  </div>
 </span>
 `;
