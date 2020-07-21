@@ -24,7 +24,9 @@ declare module '@primer/components' {
     whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
   }
 
-  interface BorderProps extends StyledSystem.BordersProps, StyledSystem.BoxShadowProps {}
+  interface BorderProps
+    extends StyledSystem.BordersProps,
+      StyledSystem.BoxShadowProps {}
 
   interface PositionProps extends StyledSystem.PositionProps {}
 
@@ -53,7 +55,7 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       TypographyProps,
-      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> {}
+      Omit<React.HTMLAttributes<HTMLHeadingElement>, 'color'> { }
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
@@ -147,7 +149,7 @@ declare module '@primer/components' {
   export interface DropdownItemProps extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
-    direction?: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+    direction?: 'ne'| 'e'| 'se'| 's'| 'sw'| 'w'
   }
 
   export interface DropdownButtonProps extends ButtonProps {}
@@ -185,10 +187,6 @@ declare module '@primer/components' {
   export interface FlashProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     full?: boolean
     variant?: 'success' | 'default' | 'warning' | 'danger'
-    /**
-     * @deprecated since version 19.0.0
-     */
-    scheme?: string
   }
 
   export const Flash: React.FunctionComponent<FlashProps>
@@ -199,18 +197,11 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
-  export interface FormGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-
-  export const FormGroup: React.FunctionComponent<FormGroupProps>
-
   export interface GridProps extends BoxProps, StyledSystem.GridProps {}
 
   export const Grid: React.FunctionComponent<GridProps>
 
-  export interface LabelProps
-    extends CommonProps,
-      StyledSystem.BorderColorProps,
-      Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+  export interface LabelProps extends CommonProps, StyledSystem.BorderColorProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     outline?: boolean
     variant?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
@@ -262,38 +253,37 @@ declare module '@primer/components' {
 
   export interface PopoverProps extends CommonProps, LayoutProps, PositionProps {
     caret?:
-      | 'top'
-      | 'bottom'
-      | 'left'
-      | 'right'
-      | 'bottom-left'
-      | 'bottom-right'
-      | 'top-left'
-      | 'top-right'
-      | 'left-bottom'
-      | 'left-top'
-      | 'right-bottom'
-      | 'right-top'
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-right'
+    | 'left-bottom'
+    | 'left-top'
+    | 'right-bottom'
+    | 'right-top'
     open?: boolean
     relative?: boolean
   }
 
-  export interface PopoverContentProps extends BorderBoxProps {}
+  export interface PopoverContentProps extends BorderBoxProps { }
 
   export const Popover: React.FunctionComponent<PopoverProps> & {
     Content: React.FunctionComponent<PopoverContentProps>
   }
 
-  export interface PositionComponentProps extends PositionProps, BoxProps {}
+  export interface PositionComponentProps
+    extends PositionProps, BoxProps {}
 
   export const Relative: React.FunctionComponent<PositionComponentProps>
   export const Absolute: React.FunctionComponent<PositionComponentProps>
   export const Sticky: React.FunctionComponent<PositionComponentProps>
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
-  export interface SelectMenuProps
-    extends Omit<CommonProps, 'as'>,
-      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     initialTab?: string
   }
 
@@ -304,39 +294,31 @@ declare module '@primer/components' {
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   interface SelectMenuItemCommonProps extends CommonProps {
-    selected?: boolean
+    selected?: boolean;
   }
-  interface SelectMenuItemAsButtonProps
-    extends SelectMenuItemCommonProps,
-      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    as?: 'button'
+  interface SelectMenuItemAsButtonProps extends SelectMenuItemCommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+    as?: "button"
   }
-  interface SelectMenuItemAsAnchorProps
-    extends SelectMenuItemCommonProps,
-      Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
-    as?: 'a'
+  interface SelectMenuItemAsAnchorProps extends SelectMenuItemCommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
+    as?: "a"
   }
-  export type SelectMenuItemProps = SelectMenuItemAsButtonProps | SelectMenuItemAsAnchorProps
+  export type SelectMenuItemProps = SelectMenuItemAsButtonProps | SelectMenuItemAsAnchorProps;
 
   export interface SelectMenuFooterProps extends CommonProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface SelectMenuDividerProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export interface SelectMenuHeaderProps
-    extends CommonProps,
-      TypographyProps,
-      Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
+  export interface SelectMenuHeaderProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
   export interface SelectMenuFilterProps extends TextInputProps {
     value: string
   }
 
-  export interface SelectMenuTabsProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface SelectMenuTabsProps extends CommonProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export interface SelectMenuTabProps
-    extends CommonProps,
-      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
-    index: number
+  export interface SelectMenuTabProps extends CommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+    index: number,
     tabName: string
   }
 
@@ -347,10 +329,10 @@ declare module '@primer/components' {
   export const SelectMenu: React.FunctionComponent<SelectMenuProps> & {
     MenuContext: React.Context<{
       selectedTab: string | undefined
-      setSelectedTab: (selectedTab: string | undefined) => void
-      open: boolean | undefined
-      setOpen: (open: boolean | undefined) => void
-      initialTab: string | undefined
+      setSelectedTab: (selectedTab: string | undefined) => void,
+      open: boolean | undefined,
+      setOpen: (open: boolean | undefined) => void,
+      initialTab:  string | undefined
     }>
     Divider: React.FunctionComponent<SelectMenuDividerProps>
     Filter: React.FunctionComponent<SelectMenuFilterProps>
@@ -364,10 +346,7 @@ declare module '@primer/components' {
     Header: React.FunctionComponent<SelectMenuHeaderProps>
   }
 
-  export interface SideNavProps
-    extends CommonProps,
-      BorderBoxProps,
-      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  export interface SideNavProps extends CommonProps, BorderBoxProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     bordered?: boolean
     variant?: 'normal' | 'lightweight'
   }
@@ -751,9 +730,4 @@ declare module '@primer/components/lib/AvatarStack' {
 declare module '@primer/components/lib/Breadcrumbs' {
   import {Breadcrumb} from '@primer/components'
   export default Breadcrumb
-}
-
-declare module '@primer/components/lib/FormGroup' {
-  import {FormGroup} from '@primer/components'
-  export default FormGroup
 }
