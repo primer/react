@@ -3,6 +3,7 @@ declare module '@primer/components' {
   import * as StyledSystem from 'styled-system'
   import {SystemStyleObject} from '@styled-system/css'
   import * as StyledComponents from 'styled-components'
+  import { ReactComponentLike } from 'prop-types';
   import * as History from 'history'
 
   export interface BaseProps extends React.Props<any> {
@@ -93,11 +94,15 @@ declare module '@primer/components' {
   export const Button: React.FunctionComponent<ButtonProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
-    isChild?: boolean
     size?: number
+    square?: boolean
   }
 
   export const Avatar: React.FunctionComponent<AvatarProps>
+
+  export interface AvatarPairProps extends PositionComponentProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const AvatarPair: React.FunctionComponent<AvatarPairProps>
 
   export interface BaseStylesProps extends TypographyProps, CommonProps {}
 
@@ -117,18 +122,23 @@ declare module '@primer/components' {
     variant?: 'small' | 'medium' | 'large'
   }
 
-  export const CircleBadge: React.FunctionComponent<CircleBadgeProps>
+  export interface CircleBadgeIconProps extends StyledOcticonProps {}
+
+  export const CircleBadge: React.FunctionComponent<CircleBadgeProps> & {
+    Icon: React.FunctionComponent<CircleBadgeIconProps>
+  }
 
   export interface CircleOcticonProps extends CommonProps, FlexProps {
     size?: number
-    icon: React.ReactNode
+    icon: ReactComponentLike
   }
 
   export const CircleOcticon: React.FunctionComponent<CircleOcticonProps>
 
   export interface StyledOcticonProps extends CommonProps {
-    size?: number
-    icon: React.ReactNode
+    size?: number | 'small' | 'medium' | 'large'
+    icon: ReactComponentLike
+    verticalAlign?: 'middle' | 'text-bottom' | 'top' | 'text-top'
   }
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
@@ -217,6 +227,10 @@ declare module '@primer/components' {
   }
 
   export const Link: React.FunctionComponent<LinkProps>
+
+  export interface PageheadProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const Pagehead: React.FunctionComponent<PageheadProps>
 
   export type PaginationHrefBuilder = (page: number) => string
 
@@ -372,7 +386,6 @@ declare module '@primer/components' {
   }
 
   export interface StateLabelProps extends CommonProps {
-    small?: boolean
     variant?: 'small' | 'normal'
     status: 'issueOpened' | 'issueClosed' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft'
   }
@@ -396,7 +409,7 @@ declare module '@primer/components' {
       StyledSystem.MinWidthProps,
       Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color' | 'size' | 'width'> {
     block?: boolean
-    icon?: React.ReactNode
+    icon?: ReactComponentLike
     variant?: 'small' | 'large'
   }
 
@@ -571,6 +584,11 @@ declare module '@primer/components/lib/Avatar' {
   export default Avatar
 }
 
+declare module '@primer/components/lib/AvatarPair' {
+  import {AvatarPair} from '@primer/components'
+  export default AvatarPair
+}
+
 declare module '@primer/components/lib/Details' {
   import {Details} from '@primer/components'
   export default Details
@@ -661,6 +679,11 @@ declare module '@primer/components/lib/Sticky' {
 declare module '@primer/components/lib/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
+}
+
+declare module '@primer/components/lib/Pagehead' {
+  import {Pagehead} from '@primer/components'
+  export default Pagehead
 }
 
 declare module '@primer/components/lib/SelectMenu' {

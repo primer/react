@@ -1,5 +1,6 @@
 import React from 'react'
 import {CircleBadge} from '..'
+import {CheckIcon} from '@primer/octicons-react'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -18,7 +19,7 @@ describe('CircleBadge', () => {
 
   describe('CircleBadge.Icon', () => {
     behavesAsComponent(CircleBadge.Icon, [COMMON], () => (
-      <CircleBadge.Icon>
+      <CircleBadge.Icon icon={CheckIcon}>
         <div />
       </CircleBadge.Icon>
     ))
