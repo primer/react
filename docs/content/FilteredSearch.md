@@ -17,7 +17,7 @@ The FilteredSearch component helps style a Dropdown and a TextInput side-by-side
       <Dropdown.Item>Item 3</Dropdown.Item>
     </Dropdown.Menu>
   </Dropdown>
-  <TextInput icon={Search} />
+  <TextInput icon={SearchIcon} />
 </FilteredSearch>
 ```
 

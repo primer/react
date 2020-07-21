@@ -6,7 +6,7 @@ exports[`Avatar renders consistently 1`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 2px;
+  border-radius: 50%;
 }
 
 <img

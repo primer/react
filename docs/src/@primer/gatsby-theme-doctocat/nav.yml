@@ -67,6 +67,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
+    - title: Pagehead
+      url: /Pagehead
     - title: Pagination
       url: /Pagination
     - title: PointerBox

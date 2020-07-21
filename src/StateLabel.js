@@ -1,21 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {GitMerge, GitPullRequest, IssueClosed, IssueOpened, Question} from '@primer/octicons-react'
+import {GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon, QuestionIcon} from '@primer/octicons-react'
 import {variant} from 'styled-system'
 import theme from './theme'
 import {COMMON, get} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx from './sx'
-import {useDeprecation} from './utils/deprecate'
 
 const octiconMap = {
-  issueOpened: IssueOpened,
-  pullOpened: GitPullRequest,
-  issueClosed: IssueClosed,
-  pullClosed: GitPullRequest,
-  pullMerged: GitMerge,
-  draft: GitPullRequest
+  issueOpened: IssueOpenedIcon,
+  pullOpened: GitPullRequestIcon,
+  issueClosed: IssueClosedIcon,
+  pullClosed: GitPullRequestIcon,
+  pullMerged: GitMergeIcon,
+  draft: GitPullRequestIcon
 }
 
 const colorVariants = variant({
@@ -42,22 +41,11 @@ const StateLabelBase = styled.span`
   ${sx};
 `
 
-function StateLabel({children, small, status, variant, ...rest}) {
-  const deprecate = useDeprecation({
-    name: "StateLabel 'small' prop",
-    message: "Use variant='small' or variant='normal' instead.",
-    version: '20.0.0'
-  })
-
-  if (small) {
-    deprecate()
-    variant = 'small'
-  }
-
+function StateLabel({children, status, variant, ...rest}) {
   const octiconProps = variant === 'small' ? {width: '1em'} : {}
   return (
     <StateLabelBase {...rest} variant={variant} status={status}>
-      {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status] || Question} />}
+      {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status] || QuestionIcon} />}
       {children}
     </StateLabelBase>
   )
@@ -69,7 +57,6 @@ StateLabel.defaultProps = {
 }
 
 StateLabel.propTypes = {
-  small: PropTypes.bool,
   status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged', 'draft']).isRequired,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'normal']),

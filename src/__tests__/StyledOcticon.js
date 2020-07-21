@@ -1,5 +1,5 @@
 import React from 'react'
-import {X} from '@primer/octicons-react'
+import {XIcon} from '@primer/octicons-react'
 import {StyledOcticon} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('StyledOcticon', () => {
-  behavesAsComponent(StyledOcticon, [COMMON], () => <StyledOcticon icon={X} />)
+  behavesAsComponent(StyledOcticon, [COMMON], () => <StyledOcticon icon={XIcon} />)
 
   checkExports('StyledOcticon', {
     default: StyledOcticon
@@ -20,7 +20,7 @@ describe('StyledOcticon', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<StyledOcticon icon={X} />)
+    const {container} = HTMLRender(<StyledOcticon icon={XIcon} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
