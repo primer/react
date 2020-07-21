@@ -23,7 +23,6 @@ FormGroup components get `COMMON` system props. Read our [System Props](/system-
 
 ## Component props
 
-| Name    | Type   | Default | Description                                                                            |
-| :------ | :----- | :-----: | :------------------------------------------------------------------------------------- |
-| as      | String |  `div`  | Sets the HTML tag for the component                                                    |
-| variant | String | default | Can be one of `input`, `select`, or `textarea` - sets the form type for the Form Group |
+| Name | Type   | Default | Description                         |
+| :--- | :----- | :-----: | :---------------------------------- |
+| as   | String |  `div`  | Sets the HTML tag for the component |
