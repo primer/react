@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, TYPOGRAPHY} from './constants'
 import theme from './theme'
 import sx from './sx'
 
@@ -17,6 +17,7 @@ FormGroup.Label = styled.label`
   position: static;
   font-size: ${get('fontSize.1')};
   font-weight: ${get('fontWeights.bold')};
+  ${TYPOGRAPHY};
   ${COMMON};
   ${sx};
 `
@@ -25,6 +26,7 @@ FormGroup.Label.defaultProps = {
   theme
 }
 FormGroup.Label.propTypes = {
+  ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
   ...sx.propTypes
 }

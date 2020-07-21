@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormGroup renders consistently 1`] = `
+.c0 {
+  margin: 16px 0;
+  font-weight: 400;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`FormGroup.Label renders consistently 1`] = `
+.c0 {
+  display: block;
+  margin: 0 0 8px;
+  position: static;
+  font-weight: 600;
+}
+
+<label
+  className="c0"
+/>
+`;
