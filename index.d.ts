@@ -199,7 +199,11 @@ declare module '@primer/components' {
 
   export interface FormGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export const FormGroup: React.FunctionComponent<FormGroupProps>
+  export interface FormGroupLabelProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLLabelElement>, 'color'> {}
+  
+  export const FormGroup: React.FunctionComponent<FormGroupProps> & {
+    Label: React.FunctionComponent<FormGroupLabelProps>
+  }
 
   export interface GridProps extends BoxProps, StyledSystem.GridProps {}
 

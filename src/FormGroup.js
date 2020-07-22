@@ -14,8 +14,7 @@ const FormGroup = styled.div`
 FormGroup.Label = styled.label`
   display: block;
   margin: 0 0 ${get('space.2')};
-  position: static;
-  font-size: ${get('fontSize.1')};
+  font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   ${TYPOGRAPHY};
   ${COMMON};

@@ -30,10 +30,6 @@ describe('FormGroup', () => {
 describe('FormGroup.Label', () => {
   behavesAsComponent(FormGroup.Label, [COMMON, TYPOGRAPHY])
 
-  checkExports('FormGroup', {
-    default: FormGroup
-  })
-
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>)
     const results = await axe(container)
