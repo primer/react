@@ -15,7 +15,7 @@ exports[`FormGroup.Label renders consistently 1`] = `
 .c0 {
   display: block;
   margin: 0 0 8px;
-  position: static;
+  font-size: 14px;
   font-weight: 600;
 }
 
