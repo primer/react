@@ -2,7 +2,7 @@ name: 💾 Bundlesize
 on:
   push:
     branches-ignore:
-      - master
+      - main
 
 jobs:
   bundlesize:
@@ -12,12 +12,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: 'old'
-          ref: 'master'
+          ref: 'main'
       - uses: actions/checkout@v2
         with:
           path: 'new'
 
       - name: Check Bundle Size Change
-        uses: "BinaryMuse/action-bundlesize@master"
+        uses: "BinaryMuse/action-bundlesize@main"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
