@@ -12,10 +12,9 @@ jobs:
         run: yarn
 
       - name: Publish to the npm registry
-        uses: "primer/publish@7ca71a0d2b6aa5d7fb1d0905f5669bab1e311feb"
+        uses: "primer/publish@primer/publish@2ee7d87e9ef6a2fc8bdd94de97a19f8ac0bcc05c"
         with:
           args: "-- --unsafe-perm --allow-same-version"
-        with:
           release-branch: "main"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
