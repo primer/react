@@ -2,6 +2,7 @@ name: Primer Components
 on: [push]
 
 jobs:
+
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -12,9 +13,9 @@ jobs:
         run: yarn
 
       - name: Publish to the npm registry
-        uses: "primer/publish@2ee7d87e9ef6a2fc8bdd94de97a19f8ac0bcc05c"
+        uses: "primer/publish@dbf72c725e7eb6309aee73215e4fbcbe2b9c48f8"
         with:
-          args: "-- --unsafe-perm --allow-same-version"
+          npm-args: "--unsafe-perm --allow-same-version"
           release-branch: "main"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
