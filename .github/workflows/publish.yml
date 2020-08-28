@@ -13,7 +13,7 @@ jobs:
         run: yarn
 
       - name: Publish to the npm registry
-        uses: "primer/publish@c6ce1f2fa2e3d23ea4e53c93484cc829778b43cf"
+        uses: "primer/publish@319655ded1952cdfb03f52ca9f0fffdbcb668e10"
         with:
           npm_args: "--unsafe-perm --allow-same-version"
           release_branch: "main"
