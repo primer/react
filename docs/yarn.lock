@@ -1325,10 +1325,10 @@
     style-value-types "^3.1.7"
     tslib "^1.10.0"
 
-"@primer/components@0.0.0-e1ba9f0":
-  version "0.0.0-e1ba9f0"
-  resolved "https://registry.yarnpkg.com/@primer/components/-/components-0.0.0-e1ba9f0.tgz#4c18fa20ba0a91b2f7e277c300f2a06b688739ef"
-  integrity sha512-SWdosZIKM1fxP2uC23gBPxSPgzsFvrIK/zudh/7DFpNkue/S4Os0+R6RUHhKOOZHqmgHpYbugmFeKHRi409KTQ==
+"@primer/components@^20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@primer/components/-/components-20.0.0.tgz#643bd7d719af28d6cdf446909255ee04e9f47014"
+  integrity sha512-OpnBJDB+7Rw8NK7p/UlJx3B6uGjRSVKtbEUAE+BjTYAD5wrjSnWKTgBqnorTzPcmstDAxC6GNtmsukyyk3lMHA==
   dependencies:
     "@babel/helpers" "7.9.2"
     "@babel/runtime" "7.9.2"
@@ -1352,16 +1352,16 @@
     react-is "16.10.2"
     styled-system "5.1.2"
 
-"@primer/gatsby-theme-doctocat@0.0.0-0eaacfc":
-  version "0.0.0-0eaacfc"
-  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.0.0-0eaacfc.tgz#41242ef9e767bb3fb24ffeaa62bbb72e63294ca3"
-  integrity sha512-qjSd8RPJPvnE1KKR918+EY6FhFtKxMSpab00TpdE7fA8DkmmZIPrOJBIvNxx4qlezsTkQp1KptNEJRe12Bj56w==
+"@primer/gatsby-theme-doctocat@0.24.1":
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.24.1.tgz#cc4058b427b5d155d35ec7a7bd081044cf54bb46"
+  integrity sha512-Yln3HFIDItVAHzDbXQTxkDgNEFQCw1SVqged4INZJoU+cKRl+WK0XBAnGpcz3zV5rIFaqtNS2c9Llq8B3uRmCQ==
   dependencies:
     "@babel/preset-env" "^7.5.5"
     "@babel/preset-react" "^7.0.0"
     "@mdx-js/mdx" "^1.0.21"
     "@mdx-js/react" "^1.0.21"
-    "@primer/components" "0.0.0-e1ba9f0"
+    "@primer/components" "^20.0.0"
     "@styled-system/theme-get" "^5.0.12"
     "@testing-library/jest-dom" "^4.1.0"
     "@testing-library/react" "^9.1.3"
