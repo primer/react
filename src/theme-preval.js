@@ -25,6 +25,7 @@ const colors = {
   blackfade50: 'rgba(27, 31, 35, 0.5)',
   whitefade15: 'rgba(255, 255, 255, 0.15)',
   whitefade50: 'rgba(255, 255, 255, 0.50)',
+  whitefade70: 'rgba(255, 255, 255, 0.70)',
   state: {
     error: red[5],
     failure: red[5],
@@ -58,6 +59,7 @@ const colors = {
     hoverBg: '#eaecef'
   },
   text: {
+    white,
     gray: gray[6],
     grayLight: gray[5],
     grayDark: gray[9],
@@ -66,6 +68,7 @@ const colors = {
   bg: {
     gray: gray[1],
     grayLight: gray[0],
+    grayDark: gray[9],
     disabled: '#F3F4F6'
   },
   accent: orange[5],
