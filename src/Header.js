@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import theme from './theme'
 import {get, COMMON, TYPOGRAPHY, BORDER} from './constants'
 import Box from './Box'
+import sx from './sx'
 
 const Header = styled(Box)`
   z-index: 32; /* FIXME: Check z-index*/
@@ -15,8 +16,8 @@ const Header = styled(Box)`
   align-items: center;
   flex-wrap: nowrap;
 
-  ${COMMON};
   ${BORDER};
+  ${sx};
 `
 
 Header.Item = styled(Box)`
@@ -34,7 +35,9 @@ Header.Item = styled(Box)`
 
   ${COMMON};
   ${BORDER};
+  ${sx};
 `
+Header.Item.displayName = 'Header.Item'
 
 Header.Link = styled.a.attrs(props => {
   const isReactRouter = typeof props.to === 'string'
@@ -63,19 +66,40 @@ Header.Link = styled.a.attrs(props => {
 
   ${COMMON};
   ${BORDER};
-  ${TYPOGRAPHY}
+  ${TYPOGRAPHY};
+  ${sx};
 `
+Header.Link.displayName = 'Header.Link'
+
+Header.propTypes = {
+  ...COMMON.propTypes,
+  ...BORDER.propTypes,
+  ...sx.propTypes
+}
 
 Header.defaultProps = {
   theme
 }
 
 Header.Item.propTypes = {
-  full: PropTypes.bool
+  full: PropTypes.bool,
+  ...COMMON.propTypes,
+  ...BORDER.propTypes,
+  ...sx.propTypes
+}
+
+Header.Link.defaultProps = {
+  theme
 }
 
 Header.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
+  href: PropTypes.string,
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...BORDER.propTypes,
+  ...TYPOGRAPHY.propTypes,
+  ...sx.propTypes
 }
 
 export default Header
