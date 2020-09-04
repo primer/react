@@ -1,9 +1,10 @@
 import styled, {css} from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
-import {get} from './constants'
+import {get, COMMON, TYPOGRAPHY, BORDER} from './constants'
+import Box from './Box'
 
-const Header = styled.div`
+const Header = styled(Box)`
   z-index: 32; /* FIXME: Check z-index*/
   display: flex;
   padding: ${get('space.3')};
@@ -13,9 +14,12 @@ const Header = styled.div`
   background-color: ${get('colors.bg.grayDark')};
   align-items: center;
   flex-wrap: nowrap;
+
+  ${COMMON};
+  ${BORDER};
 `
 
-Header.Item = styled.div`
+Header.Item = styled(Box)`
   display: flex;
   margin-right: ${get('space.3')};
   align-self: stretch;
@@ -26,7 +30,10 @@ Header.Item = styled.div`
     props.full &&
     css`
       flex: auto;
-    `}
+    `};
+
+  ${COMMON};
+  ${BORDER};
 `
 
 Header.Link = styled.a.attrs(props => {
@@ -44,6 +51,8 @@ Header.Link = styled.a.attrs(props => {
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  align-items: center;
 
   /* TODO: Add props.selected styles */
 
@@ -51,6 +60,10 @@ Header.Link = styled.a.attrs(props => {
   &:focus {
     color: ${get('colors.whitefade70')};
   }
+
+  ${COMMON};
+  ${BORDER};
+  ${TYPOGRAPHY}
 `
 
 Header.defaultProps = {
