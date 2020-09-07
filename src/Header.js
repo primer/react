@@ -2,11 +2,10 @@ import styled, {css} from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
 import {get, COMMON, TYPOGRAPHY, BORDER} from './constants'
-import Box from './Box'
 import sx from './sx'
 
-const Header = styled(Box)`
-  z-index: 32; /* FIXME: Check z-index*/
+const Header = styled.div`
+  z-index: 32;
   display: flex;
   padding: ${get('space.3')};
   font-size: ${get('fontSizes.1')};
@@ -16,11 +15,12 @@ const Header = styled(Box)`
   align-items: center;
   flex-wrap: nowrap;
 
-  ${BORDER};
+  ${COMMON}
+  ${BORDER}
   ${sx};
 `
 
-Header.Item = styled(Box)`
+Header.Item = styled.div`
   display: flex;
   margin-right: ${get('space.3')};
   align-self: stretch;
@@ -72,12 +72,16 @@ Header.Link = styled.a.attrs(props => {
 Header.Link.displayName = 'Header.Link'
 
 Header.propTypes = {
+  ...sx.propTypes,
   ...COMMON.propTypes,
-  ...BORDER.propTypes,
-  ...sx.propTypes
+  ...BORDER.propTypes
 }
 
 Header.defaultProps = {
+  theme
+}
+
+Header.Item.defaultProps = {
   theme
 }
 
