@@ -28,6 +28,7 @@ exports[`Dropdown.Button renders consistently 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
