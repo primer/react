@@ -16,7 +16,7 @@ jobs:
         uses: "primer/publish@3.0.0"
         with:
           npm_args: "--unsafe-perm --allow-same-version"
-          release_branch: "main"
+          default_branch: "main"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
