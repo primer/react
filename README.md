@@ -13,11 +13,11 @@
   <a aria-label="contributors graph" href="https://github.com/primer/components/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/primer/components.svg">
   </a>
-  <a aria-label="last commit" href="https://github.com/primer/components/commits/master">
+  <a aria-label="last commit" href="https://github.com/primer/components/commits/main">
     <img alt="" src=
   "https://img.shields.io/github/last-commit/primer/components.svg">
   </a>
-  <a aria-label="license" href="https://github.com/primer/components/blob/master/LICENSE">
+  <a aria-label="license" href="https://github.com/primer/components/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/primer/components.svg" alt="">
   </a>
 </p>
@@ -41,8 +41,8 @@ yarn add @primer/components
 
 
 ## Contributing
- We love collaborating with folks inside and outside of GitHub and welcome contributions! 
- 
+ We love collaborating with folks inside and outside of GitHub and welcome contributions!
+
 > 👉 See [the contributing docs](CONTRIBUTING.md) for more info on code style, testing, coverage, and troubleshooting.
 
 
