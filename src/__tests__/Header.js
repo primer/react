@@ -39,7 +39,7 @@ describe('Header', () => {
     cleanup()
   })
 
-  it('renders a <nav> and <a>', () => {
+  it('renders a <div> and <a>', () => {
     expect(render(<Header />).type).toEqual('div')
     expect(render(<Header.Link />).type).toEqual('a')
   })
