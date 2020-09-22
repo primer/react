@@ -10,13 +10,14 @@ import {
   PersonIcon,
   MailIcon,
   GitCommitIcon,
-  FlameIcon
+  FlameIcon,
+  MarkGithubIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 
 export default {
-  ...primerComponents,
   ...doctocatComponents,
+  ...primerComponents,
   State,
   CheckIcon,
   SearchIcon,
@@ -27,5 +28,6 @@ export default {
   PersonIcon,
   MailIcon,
   GitCommitIcon,
-  FlameIcon
+  FlameIcon,
+  MarkGithubIcon
 }
