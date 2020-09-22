@@ -57,8 +57,6 @@ Header.Link = styled.a.attrs(props => {
   display: flex;
   align-items: center;
 
-  /* TODO: Add props.selected styles */
-
   &:hover,
   &:focus {
     color: ${get('colors.whitefade70')};
