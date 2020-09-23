@@ -23,3 +23,7 @@ Please describe how you would like this component to be built. Design systems is
 ## Timeline
 
 Please describe any deadlines or context around prioritization that would be helpful for us to use when building our roadmap.
+
+
+#### What to expect next
+A Design Systems engineer will read through your component proposal and get in touch! We'll gather any additional information needed and set up a Zoom call only if necessary. Once we have all relevant information, we'll add the component to our [Primer React Components Roadmap](https://github.com/primer/components/projects/3). If you opt to build the component yourself, we are happy to help with pairing, brainstorming, etc. Generally, component work requested from internal feature teams receives higher priority over general (non-requested) improvements to the framework.s
