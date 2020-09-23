@@ -215,7 +215,7 @@ declare module '@primer/components' {
   export interface FormGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export interface FormGroupLabelProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLLabelElement>, 'color'> {}
-  
+
   export const FormGroup: React.FunctionComponent<FormGroupProps> & {
     Label: React.FunctionComponent<FormGroupLabelProps>
   }
@@ -477,8 +477,11 @@ declare module '@primer/components' {
     selected?: boolean
   }
 
+  export interface SubNavLinksProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
   export const SubNav: React.FunctionComponent<SubNavProps> & {
-    Link: React.FunctionComponent<SubNavLinkProps>
+    Link: React.FunctionComponent<SubNavLinkProps>,
+    Links: React.FunctionComponent<SubNavLinksProps>
   }
 
   export interface BreadcrumbProps
