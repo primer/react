@@ -71,7 +71,7 @@ This will apply the same `color`, `font-family`, and `line-height` styles to the
 
 ## Theming
 
-Components are styled using Primer's [theme](https://github.com/primer/components/blob/master/src/theme-preval.js) by default, but you can provide your own theme by using [styled-component's](https://styled-components.com/) `<ThemeProvider>`. If you'd like to fully replace the Primer [theme](https://github.com/primer/components/blob/master/src/theme-preval.js) with your custom theme, pass your theme to the `<ThemeProvider>` in the root of your application like so:
+Components are styled using Primer's [theme](https://github.com/primer/components/blob/main/src/theme-preval.js) by default, but you can provide your own theme by using [styled-component's](https://styled-components.com/) `<ThemeProvider>`. If you'd like to fully replace the Primer [theme](https://github.com/primer/components/blob/main/src/theme-preval.js) with your custom theme, pass your theme to the `<ThemeProvider>` in the root of your application like so:
 
 ```jsx
 import {ThemeProvider} from 'styled-components'
