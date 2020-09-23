@@ -30,4 +30,4 @@ To run `@primer/components` locally when adding or updating components:
 2. Install dependencies: `yarn`
 3. Run the dev app: `yarn start`
 
-> 👉 See [the contributing docs](https://github.com/primer/components/blob/master/CONTRIBUTING.md) for more info on code style, testing, and coverage.
+> 👉 See [the contributing docs](https://github.com/primer/components/blob/main/CONTRIBUTING.md) for more info on code style, testing, and coverage.
