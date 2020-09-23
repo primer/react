@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {get} from './constants'
-import {space} from 'styled-system'
-import systemPropTypes from '@styled-system/prop-types'
+import {get, COMMON} from './constants'
 import theme from './theme'
+import sx from './sx'
 
-function borderRadius({size}) {
-  return {
-    borderRadius: size <= 24 ? '2px' : '3px'
+function getBorderRadius(props) {
+  if (props.square) {
+    return props.size <= 24 ? '4px' : '6px'
+  } else {
+    return '50%'
   }
 }
 
@@ -20,21 +21,23 @@ const Avatar = styled.img.attrs(props => ({
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
-  ${borderRadius};
-  ${space};
+  border-radius: ${props => getBorderRadius(props)};
+  ${COMMON};
+  ${sx}
 `
 
 Avatar.defaultProps = {
   theme,
   size: 20,
-  alt: ''
+  alt: '',
+  square: false
 }
 
 Avatar.propTypes = {
-  alt: PropTypes.string.isRequired,
+  ...COMMON.propTypes,
   size: PropTypes.number,
-  src: PropTypes.string,
-  ...systemPropTypes.space,
+  square: PropTypes.bool,
+  ...sx.propTypes,
   theme: PropTypes.object
 }
 

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON} from './constants'
-import theme from './theme'
+import {COMMON, LAYOUT} from '../constants'
+import theme from '../theme'
 import buttonBaseStyles from './ButtonStyles'
-import {compose, variant, layout, fontSize} from 'styled-system'
+import {compose, variant, fontSize} from 'styled-system'
 import systemPropTypes from '@styled-system/prop-types'
 
 const variants = variant({
@@ -27,8 +27,9 @@ const ButtonBase = styled.button.attrs(({disabled, onClick}) => ({
 }))`
   ${buttonBaseStyles}
   ${variants}
-  ${compose(fontSize, COMMON, layout)}
 `
+
+export const systemStyles = compose(fontSize, COMMON, LAYOUT)
 
 ButtonBase.defaultProps = {
   theme,
@@ -36,7 +37,7 @@ ButtonBase.defaultProps = {
 }
 
 ButtonBase.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.elementType]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
   fontSize: systemPropTypes.typography.fontSize,
@@ -44,7 +45,7 @@ ButtonBase.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes,
-  ...systemPropTypes.layout
+  ...LAYOUT.propTypes
 }
 
 export default ButtonBase

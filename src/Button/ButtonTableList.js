@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import {COMMON, LAYOUT, TYPOGRAPHY, get} from './constants'
-import theme from './theme'
+import PropTypes from 'prop-types'
+import {COMMON, LAYOUT, TYPOGRAPHY, get} from '../constants'
+import theme from '../theme'
+import sx from '../sx'
 
 const ButtonTableList = styled.summary`
   display: inline-block;
@@ -40,10 +42,19 @@ const ButtonTableList = styled.summary`
   ${COMMON}
   ${TYPOGRAPHY}
   ${LAYOUT}
+  ${sx};
 `
 
 ButtonTableList.defaultProps = {
   theme
+}
+
+ButtonTableList.propTypes = {
+  theme: PropTypes.object,
+  ...sx.propTypes,
+  ...COMMON.propTypes,
+  ...TYPOGRAPHY.propTypes,
+  ...LAYOUT.propTypes
 }
 
 export default ButtonTableList

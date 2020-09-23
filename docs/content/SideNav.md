@@ -43,12 +43,12 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={Zap} />
+    <StyledOcticon mr={2} size={16} icon={ZapIcon} />
     <Text>With an Octicon</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={PrimitiveDot} color="green.5" />
+    <StyledOcticon mr={2} size={16} icon={DotIcon} color="green.5" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -71,7 +71,7 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
 
 ```jsx live
 <BorderBox p={3} backgroundColor='gray.0' maxWidth={360}>
-  <BorderBox border='none' borderBottom={1} mb={2} pb={1}>
+  <BorderBox borderWidth={0} borderBottomWidth={1} borderRadius={0} mb={2} pb={1}>
     <Heading as="h5" fontSize={1} color="gray.7">Menu</Heading>
   </BorderBox>
   <SideNav variant="lightweight">
@@ -96,11 +96,11 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
 ```jsx live
 <SideNav bordered maxWidth={360}>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={Person} />
+    <StyledOcticon mr={2} size={16} icon={PersonIcon} />
     <Text>Account</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" selected>
-    <StyledOcticon mr={2} size={16} icon={Octoface} />
+    <StyledOcticon mr={2} size={16} icon={OctofaceIcon} />
     <Text>Profile</Text>
   </SideNav.Link>
 
@@ -117,7 +117,7 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
   </SideNav>
 
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={Mail} />
+    <StyledOcticon mr={2} size={16} icon={MailIcon} />
     <Text>Emails</Text>
   </SideNav.Link>
 </SideNav>
@@ -133,7 +133,7 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 
 ## System props
 
-`SideNav` components get `COMMON`, `BORDER`, and `LAYOUT` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`SideNav` components get `COMMON`, `BORDER`, `LAYOUT`, and `FLEX` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

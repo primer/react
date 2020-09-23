@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StyledOcticon matches the snapshot 1`] = `
+exports[`StyledOcticon renders consistently 1`] = `
 <svg
   aria-hidden="true"
   className=""
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+    }
+  }
+  fill="currentColor"
   height={16}
   role="img"
   style={
     Object {
       "display": "inline-block",
-      "fill": "currentColor",
       "userSelect": "none",
       "verticalAlign": "text-bottom",
     }
   }
-  viewBox="0 0 12 16"
-  width={12}
->
-  <path
-    d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"
-    fillRule="evenodd"
-  />
-</svg>
+  viewBox="0 0 16 16"
+  width={16}
+/>
 `;

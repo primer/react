@@ -1,7 +1,8 @@
-name: Primer Components Workflow
+name: Primer Components
 on: [push]
 
 jobs:
+
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -11,16 +12,11 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Lint
-        run: yarn run lint
-
-      - name: Test
-        run: yarn test
-
       - name: Publish to the npm registry
-        uses: "primer/publish@v2.0.0"
+        uses: "primer/publish@3.0.0"
         with:
-          args: "-- --unsafe-perm --allow-same-version"
+          npm_args: "--unsafe-perm --allow-same-version"
+          default_branch: "main"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

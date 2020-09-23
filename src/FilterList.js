@@ -1,13 +1,13 @@
 import React from 'react'
-import nanoid from 'nanoid'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 function ItemBase({children, count, theme, ...rest}) {
   return (
-    <a key={nanoid()} {...rest}>
+    <a {...rest}>
       {count && (
         <span title="results" className="count">
           {count}
@@ -44,7 +44,8 @@ const Item = styled(ItemBase)`
     float: right;
     font-weight: ${get('fontWeights.bold')};
   }
-  ${COMMON}: ;
+  ${COMMON};
+  ${sx};
 `
 
 const FilterListBase = ({children, theme, ...rest}) => {
@@ -58,6 +59,7 @@ const FilterListBase = ({children, theme, ...rest}) => {
 const FilterList = styled(FilterListBase)`
   list-style-type: none;
   ${COMMON};
+  ${sx};
 `
 
 FilterList.defaultProps = {
@@ -69,7 +71,8 @@ FilterList.defaultProps = {
 FilterList.propTypes = {
   children: PropTypes.node,
   small: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 FilterList.Item = Item
@@ -79,13 +82,16 @@ FilterList.Item.defaultProps = {
 }
 
 FilterList.Item.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   children: PropTypes.node,
   className: PropTypes.string,
   count: PropTypes.string,
   selected: PropTypes.bool,
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+FilterList.Item.displayName = 'FilterList.Item'
 
 export default FilterList

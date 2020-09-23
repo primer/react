@@ -4,8 +4,9 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
-function TooltipBase({direction, children, className, text, noDelay, align, wrap, ...rest}) {
+function TooltipBase({direction, children, className, text, noDelay, align, wrap, theme, ...rest}) {
   const classes = classnames(
     className,
     `tooltipped-${direction}`,
@@ -245,6 +246,7 @@ const Tooltip = styled(TooltipBase)`
     left: 10px;
   }
   ${COMMON};
+  ${sx};
 `
 
 Tooltip.alignments = ['left', 'right']
@@ -264,7 +266,8 @@ Tooltip.propTypes = {
   text: PropTypes.string,
   theme: PropTypes.object,
   wrap: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default Tooltip

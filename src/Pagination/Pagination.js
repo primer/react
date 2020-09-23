@@ -1,69 +1,110 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
+import sx from '../sx'
 import {get, COMMON} from '../constants'
 import theme from '../theme'
 import Box from '../Box'
 import {buildPaginationModel, buildComponentData} from './model'
 
 const Page = styled.a`
-  position: relative;
-  float: left;
-  padding: 7px 12px;
-  margin-left: -1px;
-  font-size: ${get('pagination.fontSize')};
+  display: inline-block;
+  min-width: 32px;
+  padding: 5px 10px;
   font-style: normal;
-  font-weight: ${get('pagination.fontWeight')};
+  line-height: 20px;
   color: ${get('pagination.colors.normal.fg')};
+  text-align: center;
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  background: ${get('pagination.colors.normal.bg')};
-  border: ${get('borders.1')} ${get('pagination.colors.normal.border')};
   text-decoration: none;
 
-  &:first-child {
-    margin-left: 0;
-    border-top-left-radius: ${get('pagination.borderRadius')};
-    border-bottom-left-radius: ${get('pagination.borderRadius')};
-  }
+  margin-right: ${get('pagination.spaceBetween')};
 
   &:last-child {
-    border-top-right-radius: ${get('pagination.borderRadius')};
-    border-bottom-right-radius: ${get('pagination.borderRadius')};
+    margin-right: 0;
   }
 
-  ${props =>
-    !props.selected &&
-    !props.disabled &&
-    css`
-      &:hover,
-      &:focus {
-        z-index: 2;
-        color: ${get('pagination.colors.hover.fg')};
-        background-color: ${get('pagination.colors.hover.bg')};
-        border-color: ${get('pagination.colors.hover.border')};
-      }
-    `}
+  border: ${get('borderWidths.1')} solid transparent;
+  border-radius: ${get('pagination.borderRadius')};
+  transition: border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
 
-  ${props =>
-    props.selected &&
-    css`
-      z-index: 3;
-      color: ${get('pagination.colors.selected.fg')};
-      background-color: ${get('pagination.colors.selected.bg')};
-      border-color: ${get('pagination.colors.selected.border')};
-    `}
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    border-color: ${get('pagination.colors.hover.border')};
+    outline: 0;
+    transition-duration: 0.1s;
+  }
 
-  ${props =>
-    props.disabled &&
-    css`
-      color: ${get('pagination.colors.disabled.fg')};
-      cursor: default;
-      background-color: ${get('pagination.colors.disabled.bg')};
-      border-color: ${get('pagination.colors.disabled.border')};
-    `}
+  &:active {
+    border-color: ${get('pagination.colors.active.border')};
+  }
+
+  &[rel='prev'],
+  &[rel='next'] {
+    color: ${get('pagination.colors.nextPrevious.fg')};
+  }
+
+  &[aria-current],
+  &[aria-current]:hover {
+    color: ${get('pagination.colors.selected.fg')};
+    background-color: ${get('pagination.colors.selected.bg')};
+    border-color: ${get('pagination.colors.selected.border')};
+  }
+
+  &[aria-disabled],
+  &[aria-disabled]:hover {
+    color: ${get('pagination.colors.disabled.fg')}; // check
+    cursor: default;
+    border-color: ${get('pagination.colors.disabled.border')};
+  }
+
+  @supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%)) {
+    &[rel='prev']::before,
+    &[rel='next']::after {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      vertical-align: text-bottom;
+      content: '';
+      background-color: currentColor;
+    }
+
+    // chevron-left
+    &[rel='prev']::before {
+      margin-right: ${get('pagination.spaceBetween')};
+      clip-path: polygon(
+        9.8px 12.8px,
+        8.7px 12.8px,
+        4.5px 8.5px,
+        4.5px 7.5px,
+        8.7px 3.2px,
+        9.8px 4.3px,
+        6.1px 8px,
+        9.8px 11.7px,
+        9.8px 12.8px
+      );
+    }
+
+    // chevron-right
+    &[rel='next']::after {
+      margin-left: ${get('pagination.spaceBetween')};
+      clip-path: polygon(
+        6.2px 3.2px,
+        7.3px 3.2px,
+        11.5px 7.5px,
+        11.5px 8.5px,
+        7.3px 12.8px,
+        6.2px 11.7px,
+        9.9px 8px,
+        6.2px 4.3px,
+        6.2px 3.2px
+      );
+    }
+  }
 
   ${COMMON};
 `
@@ -102,6 +143,7 @@ const PaginationContainer = styled.nav`
   margin-top: 20px;
   margin-bottom: 15px;
   text-align: center;
+  ${sx};
 `
 
 function Pagination({
@@ -148,7 +190,8 @@ Pagination.propTypes = {
   pageCount: PropTypes.number.isRequired,
   showPages: PropTypes.bool,
   surroundingPageCount: PropTypes.number,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 Pagination.defaultProps = {

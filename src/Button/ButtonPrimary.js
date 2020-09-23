@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import ButtonBase from './ButtonBase'
-import {get} from './constants'
+import ButtonBase, {systemStyles} from './ButtonBase'
+import {get} from '../constants'
+import theme from '../theme'
+import sx from '../sx'
 
 const ButtonPrimary = styled(ButtonBase)`
   color: ${get('buttons.primary.color.default')};
@@ -30,6 +32,18 @@ const ButtonPrimary = styled(ButtonBase)`
     background-color: ${get('buttons.primary.bg.disabled')};
     border-color: ${get('buttons.primary.border.disabled')};
   }
+
+  ${systemStyles}
+  ${sx};
 `
+
+ButtonPrimary.defaultProps = {
+  theme
+}
+
+ButtonPrimary.propTypes = {
+  ...ButtonBase.propTypes,
+  ...sx.propTypes
+}
 
 export default ButtonPrimary

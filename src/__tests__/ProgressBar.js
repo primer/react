@@ -1,6 +1,6 @@
 import React from 'react'
-import ProgressBar from '../ProgressBar'
-import {render} from '../utils/testing'
+import {ProgressBar} from '..'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,8 +8,10 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('ProgressBar', () => {
-  it('implements system props', () => {
-    expect(ProgressBar).toImplementSystemProps(COMMON)
+  behavesAsComponent(ProgressBar, [COMMON])
+
+  checkExports('ProgressBar', {
+    default: ProgressBar
   })
 
   it('should have no axe violations', async () => {
@@ -17,14 +19,6 @@ describe('ProgressBar', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  it('has default theme', () => {
-    expect(ProgressBar).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<ProgressBar as="span" />).type).toEqual('span')
   })
 
   it('respects the "barSize" prop', () => {

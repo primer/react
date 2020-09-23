@@ -2,7 +2,7 @@
   "name": "primer-components",
   "version": 2,
   "alias": "primer-components.now.sh",
-  "files": [".babelrc", "yarn.lock", "docs", "rollup.config.js", "src", "static"],
+  "files": ["babel.config.js", "yarn.lock", "docs", "rollup.config.js", "src", "static"],
   "routes": [
     {"src": "/playroom(/.*)?", "dest": "$1"},
     {"src": "/components(/.*)?", "dest": "/docs$1"},

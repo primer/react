@@ -13,8 +13,8 @@ Several additional components exist to provide even more functionality: `SelectM
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
     </SelectMenu.List>
@@ -86,12 +86,36 @@ Used to wrap the content in a `SelectMenu`.
 </SelectMenu.Menu>
 ```
 
+### Right-aligned modal
+
+Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself. You will need to wrap the SelectMenu in a relatively positioned element for this to work properly.
+
+```jsx live
+<Relative display="flex" justifyContent="flex-end">
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal align="right">
+      <SelectMenu.Header>Projects</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+</Relative>
+```
+
 ### System Props
 
 SelectMenu.Modal components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
-SelectMenu.Modal components do not get any additional props besides system props.
+
+| Prop name | Type   | Default | Description                                       |
+| :-------- | :----- | :------ | ------------------------------------------------- |
+| align     | String | 'left'  | Use `right` to align the select menu to the right |
 
 
 ## SelectMenu.List
@@ -114,10 +138,12 @@ SelectMenu.List components do not get any additional props besides system props.
 
 ## SelectMenu.Item
 
-Individual items in a select menu.
+Individual items in a select menu. SelectMenu.Item renders an anchor tag by default, you'll need to make sure to provide the appropriate `href`. 
+
+You can use a `button` tag instead by utilizing the [`as` prop](/core-concepts#the-as-prop). Be sure to consider [which HTML element is the right choice](https://marcysutton.com/links-vs-buttons-in-modern-web-applications) for your usage of the component. 
 
 ```jsx
-<SelectMenu.Item selected={true}>
+<SelectMenu.Item href="/link/to/thing" selected={true}>
   {/* wraps an individual list item*/}
 </SelectMenu.Item>
 ```
@@ -142,8 +168,8 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expe
     <SelectMenu.Header>Filter by Project</SelectMenu.Header>
     <SelectMenu.Filter placeholder="Filter projects" value="" aria-label="Filter Projects"/>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
       <SelectMenu.Divider>More Options</SelectMenu.Divider>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
@@ -185,8 +211,8 @@ If you need access to the selected tab state, you can find it in the MenuContext
       <SelectMenu.Tab index={1} tabName="Organization"/>
     </SelectMenu.Tabs>
     <SelectMenu.TabPanel tabName="Repository">
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
     </SelectMenu.TabPanel>
@@ -253,8 +279,8 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
       <SelectMenu.Divider>More Options</SelectMenu.Divider>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
@@ -279,8 +305,8 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
@@ -305,8 +331,8 @@ Use a `SelectMenu.Header` to add a header to the top of the select menu content.
   <SelectMenu.Modal>
     <SelectMenu.Header>Projects</SelectMenu.Header>
     <SelectMenu.List>
-      <SelectMenu.Item href="#">Primer Components bugs</SelectMenu.Item>
-      <SelectMenu.Item href="#">Primer Components roadmap</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+      <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
       <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
       <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
       <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>

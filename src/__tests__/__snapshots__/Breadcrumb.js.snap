@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb renders consistently 1`] = `
+.c1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+<nav
+  aria-label="breadcrumb"
+  className="c0 Breadcrumb"
+>
+  <ol
+    className="c1"
+  />
+</nav>
+`;

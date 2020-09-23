@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, LAYOUT, POSITION} from './constants'
+import {POSITION} from './constants'
+import Box from './Box'
 import theme from './theme'
+import sx from './sx'
 
-export const Position = styled.div`
-  ${LAYOUT}
-  ${COMMON}
-  ${POSITION}
+const Position = styled(Box)`
+  ${POSITION};
+  ${sx};
 `
 
 Position.defaultProps = {
@@ -15,24 +16,25 @@ Position.defaultProps = {
 }
 
 Position.propTypes = {
-  ...COMMON.propTypes,
-  ...LAYOUT.propTypes,
+  ...Box.propTypes,
   ...POSITION.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  ...sx.propTypes
 }
 
 function withPosition(position) {
-  const WithPosition = props => <Position {...props} position={position} />
+  const WithPosition = props => <Position {...props} position={position.toLowerCase()} />
   WithPosition.propTypes = Position.propTypes
   WithPosition.defaultProps = Position.defaultProps
   WithPosition.displayName = `Position.${position}`
   return WithPosition
 }
 
-export const Absolute = withPosition('absolute')
-export const Fixed = withPosition('fixed')
-export const Relative = withPosition('relative')
-export const Sticky = withPosition('sticky')
+export default Position
+export const Absolute = withPosition('Absolute')
+export const Fixed = withPosition('Fixed')
+export const Relative = withPosition('Relative')
+export const Sticky = withPosition('Sticky')
 Sticky.defaultProps = {
   theme,
   top: 0,

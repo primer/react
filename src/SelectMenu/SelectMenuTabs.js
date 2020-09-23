@@ -2,6 +2,7 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 
 const tabWrapperStyles = css`
   display: flex;
@@ -33,6 +34,7 @@ const Tabs = ({children, ...rest}) => {
 const SelectMenuTabs = styled(Tabs)`
   ${tabWrapperStyles}
   ${COMMON}
+  ${sx};
 `
 
 SelectMenuTabs.defaultProps = {
@@ -40,7 +42,10 @@ SelectMenuTabs.defaultProps = {
 }
 
 SelectMenuTabs.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuTabs.displayName = 'SelectMenu.Tabs'
 
 export default SelectMenuTabs

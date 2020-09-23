@@ -1,7 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, {keyframes, css} from 'styled-components'
 import {COMMON, get} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 
 const animateModal = keyframes`
   0% {
@@ -32,7 +34,7 @@ const modalStyles = css`
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
-    border: ${get('borders.1')} ${get('colors.border.grayDark')};
+    border: ${get('borderWidths.1')} solid ${get('colors.border.grayDark')};
     border-radius: ${get('radii.2')};
     box-shadow: 0 1px 5px ${get('colors.blackfade15')} !default;
   }
@@ -68,7 +70,7 @@ const modalWrapperStyles = css`
   @media (min-width: ${get('breakpoints.0')}) {
     position: absolute;
     top: auto;
-    right: auto;
+    right: ${props => (props.align === 'right' ? '0' : 'auto')};
     bottom: auto;
     left: auto;
     padding: 0;
@@ -82,6 +84,7 @@ const Modal = styled.div`
 const ModalWrapper = styled.div`
   ${modalWrapperStyles}
   ${COMMON}
+  ${sx};
 `
 
 const SelectMenuModal = ({children, theme, ...rest}) => {
@@ -93,11 +96,16 @@ const SelectMenuModal = ({children, theme, ...rest}) => {
 }
 
 SelectMenuModal.defaultProps = {
+  align: 'left',
   theme
 }
-
 SelectMenuModal.propTypes = {
-  ...COMMON.propTypes
+  align: PropTypes.oneOf(['left', 'right']),
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuModal.displayName = 'SelectMenu.Modal'
 
 export default SelectMenuModal

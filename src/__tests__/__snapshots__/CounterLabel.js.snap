@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CounterLabel renders consistently 1`] = `
+.c0 {
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 20px;
+  color: #586069;
+  background-color: rgba(27,31,35,0.08);
+}
+
+.c0:empty {
+  display: none;
+}
+
+<span
+  className="c0"
+/>
+`;

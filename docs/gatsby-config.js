@@ -2,8 +2,8 @@ const path = require('path')
 
 module.exports = {
   siteMetadata: {
-    title: 'Primer Components',
-    shortName: 'Components',
+    title: 'Primer React',
+    shortName: 'React',
     description: 'React components for the Primer design system'
   },
   plugins: [
@@ -11,6 +11,7 @@ module.exports = {
       resolve: '@primer/gatsby-theme-doctocat',
       options: {
         repoRootPath: '..',
+        defaultBranch: 'main'
       },
     },
     {
@@ -18,7 +19,7 @@ module.exports = {
       options: {
         alias: {
           '@primer/components': path.resolve(__dirname, '../src'),
-          'styled-components': path.resolve(__dirname, 'node_modules', 'styled-components'),
+          'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
           'react': path.resolve(__dirname, 'node_modules', 'react'),
         }
       }

@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import {get} from './constants'
-import Box from './Box'
+import {get} from '../constants'
+import Box from '../Box'
+import theme from '../theme'
+import sx from '../sx'
 
 const ButtonGroup = styled(Box)`
   vertical-align: middle;
@@ -41,12 +43,18 @@ const ButtonGroup = styled(Box)`
       z-index: 1;
     }
   }
+
+  ${sx};
 `
+
 ButtonGroup.defaultProps = {
-  display: 'inline-block'
+  display: 'inline-block',
+  theme
 }
+
 ButtonGroup.propTypes = {
-  ...Box.propTypes
+  ...Box.propTypes,
+  ...sx.propTypes
 }
 
 export default ButtonGroup

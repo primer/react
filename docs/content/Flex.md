@@ -2,9 +2,9 @@
 title: Flex
 ---
 
-Flex is a component that will allow you to use flexbox properties.
+The `Flex` component behaves the same as the `Box` component except that it has `display: flex` set by default.
 
-*Previously, `Flex.Item` was used for flex item specific properties - we've added all properties to the `Flex` component, but are keeping Flex.Item around for backwards compatibility.*
+*Previously, a `Flex.Item` component was used for flex item specific properties; `Box` now contains all those properties and should be used in its place.*
 
 ## Default example
 
@@ -27,7 +27,6 @@ Flex is a component that will allow you to use flexbox properties.
 ## System props
 
 Flex components get `FLEX`, `COMMON`, and `LAYOUT` system props.
-
 
 Read our [System Props](/system-props) doc page for a full list of available props.
 

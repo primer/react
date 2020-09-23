@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Timeline renders 1`] = `
+exports[`Timeline renders consistently 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -19,6 +23,10 @@ exports[`Timeline renders 1`] = `
 
 exports[`Timeline renders with clipSidebar prop 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -42,24 +50,21 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
 />
 `;
 
-exports[`Timeline.Badge renders 1`] = `
+exports[`Timeline.Badge renders consistently 1`] = `
 .c0 {
   z-index: 1;
   position: relative;
 }
 
 .c1 {
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
+  color: #444d56;
+  background-color: #e1e4e8;
+  margin-right: 8px;
+  margin-left: -15px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-right: 8px;
-  margin-left: -15px;
-  color: #444d56;
-  background-color: #e1e4e8;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -71,6 +76,13 @@ exports[`Timeline.Badge renders 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   border-radius: 50%;
   border: 2px solid #fff;
 }
@@ -89,8 +101,12 @@ exports[`Timeline.Badge renders 1`] = `
 </div>
 `;
 
-exports[`Timeline.Item renders 1`] = `
+exports[`Timeline.Item renders consistently 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -123,6 +139,10 @@ exports[`Timeline.Item renders 1`] = `
 
 exports[`Timeline.Item renders with condensed prop 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

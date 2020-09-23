@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import sx from './sx'
 import theme from './theme'
 import {COMMON, get} from './constants'
 
@@ -12,6 +13,7 @@ const BranchName = styled.a`
   background-color: #eaf5ff;
   border-radius: 3px;
   ${COMMON};
+  ${sx};
 `
 
 BranchName.defaultProps = {
@@ -21,6 +23,7 @@ BranchName.defaultProps = {
 BranchName.propTypes = {
   href: PropTypes.string,
   ...COMMON.propTypes,
+  ...sx.propTypes,
   theme: PropTypes.object
 }
 

@@ -8,7 +8,6 @@ exports[`Caret renders cardinal directions 1`] = `
       "bottom": "100%",
       "left": "50%",
       "marginLeft": -8,
-      "marginTop": "-1px",
       "pointerEvents": "none",
       "position": "absolute",
     }
@@ -26,7 +25,7 @@ exports[`Caret renders cardinal directions 1`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -38,7 +37,7 @@ exports[`Caret renders cardinal directions 2`] = `
   style={
     Object {
       "left": "100%",
-      "marginTop": "-1px",
+      "marginTop": -8,
       "pointerEvents": "none",
       "position": "absolute",
       "top": "50%",
@@ -57,7 +56,7 @@ exports[`Caret renders cardinal directions 2`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -70,7 +69,6 @@ exports[`Caret renders cardinal directions 3`] = `
     Object {
       "left": "50%",
       "marginLeft": -8,
-      "marginTop": "-1px",
       "pointerEvents": "none",
       "position": "absolute",
       "top": "100%",
@@ -89,7 +87,7 @@ exports[`Caret renders cardinal directions 3`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -100,7 +98,7 @@ exports[`Caret renders cardinal directions 4`] = `
   height={16}
   style={
     Object {
-      "marginTop": "-1px",
+      "marginTop": -8,
       "pointerEvents": "none",
       "position": "absolute",
       "right": "100%",
@@ -120,7 +118,7 @@ exports[`Caret renders cardinal directions 4`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -134,7 +132,6 @@ exports[`Caret renders cardinal directions 5`] = `
       "bottom": "100%",
       "left": 8,
       "marginLeft": null,
-      "marginTop": "-1px",
       "pointerEvents": "none",
       "position": "absolute",
     }
@@ -152,7 +149,7 @@ exports[`Caret renders cardinal directions 5`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -165,7 +162,6 @@ exports[`Caret renders cardinal directions 6`] = `
     Object {
       "bottom": "100%",
       "marginLeft": null,
-      "marginTop": "-1px",
       "pointerEvents": "none",
       "position": "absolute",
       "right": 8,
@@ -184,7 +180,7 @@ exports[`Caret renders cardinal directions 6`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -197,7 +193,6 @@ exports[`Caret renders cardinal directions 7`] = `
     Object {
       "left": 8,
       "marginLeft": null,
-      "marginTop": "-1px",
       "pointerEvents": "none",
       "position": "absolute",
       "top": "100%",
@@ -216,7 +211,7 @@ exports[`Caret renders cardinal directions 7`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -228,7 +223,6 @@ exports[`Caret renders cardinal directions 8`] = `
   style={
     Object {
       "marginLeft": null,
-      "marginTop": "-1px",
       "pointerEvents": "none",
       "position": "absolute",
       "right": 8,
@@ -248,7 +242,7 @@ exports[`Caret renders cardinal directions 8`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -259,7 +253,7 @@ exports[`Caret renders cardinal directions 9`] = `
   height={16}
   style={
     Object {
-      "marginTop": "-1px",
+      "marginTop": null,
       "pointerEvents": "none",
       "position": "absolute",
       "right": "100%",
@@ -279,7 +273,7 @@ exports[`Caret renders cardinal directions 9`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -291,7 +285,7 @@ exports[`Caret renders cardinal directions 10`] = `
   style={
     Object {
       "bottom": 8,
-      "marginTop": "-1px",
+      "marginTop": null,
       "pointerEvents": "none",
       "position": "absolute",
       "right": "100%",
@@ -310,7 +304,7 @@ exports[`Caret renders cardinal directions 10`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -322,7 +316,7 @@ exports[`Caret renders cardinal directions 11`] = `
   style={
     Object {
       "left": "100%",
-      "marginTop": "-1px",
+      "marginTop": null,
       "pointerEvents": "none",
       "position": "absolute",
       "top": 8,
@@ -341,7 +335,7 @@ exports[`Caret renders cardinal directions 11`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>
@@ -354,7 +348,7 @@ exports[`Caret renders cardinal directions 12`] = `
     Object {
       "bottom": 8,
       "left": "100%",
-      "marginTop": "-1px",
+      "marginTop": null,
       "pointerEvents": "none",
       "position": "absolute",
     }
@@ -372,7 +366,7 @@ exports[`Caret renders cardinal directions 12`] = `
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#e1e4e8"
-      strokeWidth={1}
+      strokeWidth="1px"
     />
   </g>
 </svg>

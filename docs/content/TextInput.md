@@ -10,7 +10,7 @@ TextInput is a form component to add default styling to the native text input.
 ```jsx live
 <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
 
-<TextInput ml={4} icon={Search} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
+<TextInput ml={4} icon={SearchIcon} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
 
 ## System props
@@ -29,4 +29,4 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
 | width | String or Number | | Set the width of the input |
 | maxWidth | String or Number or [Array](https://styled-system.com/guides/array-props) | | Set the maximum width of the input |
 | minWidth | String or Number or [Array](https://styled-system.com/guides/array-props) | | Set the minimum width of the input |
-| icon | Node (pass Octicon react component) | | Icon to be used inside of input. Positioned on the right edge. | 
+| icon | Node (pass Octicon react component) | | Icon to be used inside of input. Positioned on the left edge. | 

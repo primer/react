@@ -1,12 +1,19 @@
 import React from 'react'
 import {PointerBox} from '..'
-import {render} from '../utils/testing'
+import {COMMON, LAYOUT, BORDER, FLEX} from '../constants'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('PointerBox', () => {
+  behavesAsComponent(PointerBox, [COMMON, LAYOUT, BORDER, FLEX])
+
+  checkExports('PointerBox', {
+    default: PointerBox
+  })
+
   it('renders a <Caret> in <BorderBox> with relative positioning', () => {
     expect(render(<PointerBox />)).toMatchSnapshot()
   })
@@ -24,13 +31,5 @@ describe('PointerBox', () => {
 
   it('passes the "bg" prop to both <BorderBox> and <Caret>', () => {
     expect(render(<PointerBox bg="red.5" />)).toMatchSnapshot()
-  })
-
-  it('has default theme', () => {
-    expect(PointerBox).toSetDefaultTheme()
-  })
-
-  it('respects the "as" prop', () => {
-    expect(render(<PointerBox as="span" />).type).toEqual('span')
   })
 })

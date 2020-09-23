@@ -1,6 +1,6 @@
 import React from 'react'
-import Breadcrumb from '../Breadcrumbs'
-import {mount, render, rendersClass} from '../utils/testing'
+import {Breadcrumb} from '..'
+import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,12 +8,10 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumb', () => {
-  it('implements system props', () => {
-    expect(Breadcrumb).toImplementSystemProps(COMMON)
-  })
+  behavesAsComponent(Breadcrumb, [COMMON])
 
-  it('has default theme', () => {
-    expect(Breadcrumb).toSetDefaultTheme()
+  checkExports('Breadcrumb', {
+    default: Breadcrumb
   })
 
   it('should have no axe violations', async () => {

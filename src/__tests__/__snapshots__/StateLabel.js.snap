@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StateLabel renders children 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -10,24 +14,49 @@ exports[`StateLabel renders children 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
+  background-color: #159739;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
   className="c0"
 >
+  <svg
+    aria-hidden="true"
+    className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
   hi
 </span>
 `;
 
-exports[`StateLabel respects the small flag 1`] = `
+exports[`StateLabel renders consistently 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -37,44 +66,42 @@ exports[`StateLabel respects the small flag 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 4px 8px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 12px;
   text-align: center;
-  background-color: #6a737d;
   border-radius: 100px;
-}
-
-<span
-  className="c0"
-/>
-`;
-
-exports[`StateLabel respects the small flag 2`] = `
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  background-color: #159739;
   padding: 8px 12px;
-  font-weight: 600;
-  line-height: 16px;
-  color: #fff;
   font-size: 14px;
-  text-align: center;
-  background-color: #6a737d;
-  border-radius: 100px;
 }
 
 <span
   className="c0"
-/>
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
+  Open
+</span>
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
@@ -91,14 +118,14 @@ exports[`StateLabel respects the status prop 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #159739;
   border-radius: 100px;
+  background-color: #159739;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -107,24 +134,24 @@ exports[`StateLabel respects the status prop 1`] = `
   <svg
     aria-hidden="true"
     className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
     height={16}
     role="img"
     style={
       Object {
         "display": "inline-block",
-        "fill": "currentColor",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
     }
-    viewBox="0 0 14 16"
-    width={14}
-  >
-    <path
-      d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"
-      fillRule="evenodd"
-    />
-  </svg>
+    viewBox="0 0 16 16"
+    width={16}
+  />
 </span>
 `;
 
@@ -142,14 +169,14 @@ exports[`StateLabel respects the status prop 2`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #cb2431;
   border-radius: 100px;
+  background-color: #d73a49;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -158,24 +185,24 @@ exports[`StateLabel respects the status prop 2`] = `
   <svg
     aria-hidden="true"
     className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z\\"></path>",
+      }
+    }
+    fill="currentColor"
     height={16}
     role="img"
     style={
       Object {
         "display": "inline-block",
-        "fill": "currentColor",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
     }
     viewBox="0 0 16 16"
     width={16}
-  >
-    <path
-      d="M7 10h2v2H7v-2zm2-6H7v5h2V4zm1.5 1.5l-1 1L12 9l4-4.5-1-1L12 7l-1.5-1.5zM8 13.7A5.71 5.71 0 012.3 8c0-3.14 2.56-5.7 5.7-5.7 1.83 0 3.45.88 4.5 2.2l.92-.92A6.947 6.947 0 008 1C4.14 1 1 4.14 1 8s3.14 7 7 7 7-3.14 7-7l-1.52 1.52c-.66 2.41-2.86 4.19-5.48 4.19v-.01z"
-      fillRule="evenodd"
-    />
-  </svg>
+  />
 </span>
 `;
 
@@ -193,14 +220,14 @@ exports[`StateLabel respects the status prop 3`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 12px;
   font-weight: 600;
   line-height: 16px;
   color: #fff;
-  font-size: 14px;
   text-align: center;
-  background-color: #6f42c1;
   border-radius: 100px;
+  background-color: #6f42c1;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 <span
@@ -209,23 +236,125 @@ exports[`StateLabel respects the status prop 3`] = `
   <svg
     aria-hidden="true"
     className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
     height={16}
     role="img"
     style={
       Object {
         "display": "inline-block",
-        "fill": "currentColor",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
     }
-    viewBox="0 0 12 16"
-    width={12}
-  >
-    <path
-      d="M10 7c-.73 0-1.38.41-1.73 1.02V8C7.22 7.98 6 7.64 5.14 6.98c-.75-.58-1.5-1.61-1.89-2.44A1.993 1.993 0 002 .99C.89.99 0 1.89 0 3a2 2 0 001 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2a1.993 1.993 0 001-3.72V7.67c.67.7 1.44 1.27 2.3 1.69.86.42 2.03.63 2.97.64v-.02c.36.61 1 1.02 1.73 1.02 1.11 0 2-.89 2-2 0-1.11-.89-2-2-2zm-6.8 6c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm8 6c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"
-      fillRule="evenodd"
-    />
-  </svg>
+    viewBox="0 0 16 16"
+    width={16}
+  />
+</span>
+`;
+
+exports[`StateLabel respects the variant prop 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #159739;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
+</span>
+`;
+
+exports[`StateLabel respects the variant prop 2`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #159739;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
 </span>
 `;

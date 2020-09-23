@@ -1,11 +1,12 @@
 import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
-import {Check} from '@primer/octicons-react'
+import {CheckIcon} from '@primer/octicons-react'
 import {MenuContext} from './SelectMenuContext'
 import {COMMON, get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
+import sx from '../sx'
 
 export const listItemStyles = css`
   display: flex;
@@ -16,9 +17,11 @@ export const listItemStyles = css`
   cursor: pointer;
   background-color: ${get('colors.white')};
   border: 0;
-  border-bottom: ${get('borders.1')} ${get('colors.border.grayLight')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.grayLight')};
   color: ${get('colors.text.gray')};
   text-decoration: none;
+  font-size: ${get('fontSizes.0')};
+  width: 100%;
 
   &:hover {
     text-decoration: none;
@@ -93,11 +96,10 @@ const StyledItem = styled.a.attrs(() => ({
 }))`
   ${listItemStyles}
   ${COMMON}
+  ${sx};
 `
 
-// 'as' is spread out because we don't want users to be able to change the tag. using something
-// other than 'a' will break a11y.
-const SelectMenuItem = ({children, selected, theme, onClick, as, ...rest}) => {
+const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
   const menuContext = useContext(MenuContext)
 
   // close the menu when an item is clicked
@@ -111,7 +113,7 @@ const SelectMenuItem = ({children, selected, theme, onClick, as, ...rest}) => {
   }
   return (
     <StyledItem {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
-      <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={Check} />
+      <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
       {children}
     </StyledItem>
   )
@@ -124,7 +126,10 @@ SelectMenuItem.defaultProps = {
 
 SelectMenuItem.propTypes = {
   selected: PropTypes.bool,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
+
+SelectMenuItem.displayName = 'SelectMenu.Item'
 
 export default SelectMenuItem

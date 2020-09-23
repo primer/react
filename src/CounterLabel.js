@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get} from './constants'
 import theme from './theme'
+import sx from './sx'
 
 const colorStyles = ({scheme, ...props}) => {
   return {
@@ -37,8 +38,10 @@ const CounterLabel = styled.span`
   ${COMMON};
 
   &:empty {
-    visibility: hidden;
+    display: none;
   }
+
+  ${sx};
 `
 
 CounterLabel.defaultProps = {
@@ -49,7 +52,8 @@ CounterLabel.propTypes = {
   children: PropTypes.node,
   scheme: PropTypes.oneOf(['gray', 'gray-light']),
   theme: PropTypes.object,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
+  ...sx.propTypes
 }
 
 export default CounterLabel

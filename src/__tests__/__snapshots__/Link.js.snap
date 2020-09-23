@@ -51,7 +51,7 @@ exports[`Link passes href down to link element 1`] = `
 />
 `;
 
-exports[`Link renders without any props 1`] = `
+exports[`Link renders consistently 1`] = `
 .c0 {
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -126,12 +126,4 @@ exports[`Link respects hoverColor prop 1`] = `
   className="c0"
   color="blue.5"
 />
-`;
-
-exports[`Link respects the "as" prop with non-string component types 1`] = `
-<a
-  className="example-link"
->
-  Example
-</a>
 `;

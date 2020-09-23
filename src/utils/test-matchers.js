@@ -2,7 +2,7 @@ import React from 'react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import theme from '../theme'
-import {getClasses, mount} from './testing'
+import {getClasses, mount, getComputedStyles, render} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
@@ -51,6 +51,42 @@ expect.extend({
     }
   },
 
+  toImplementSxProp(Component) {
+    return {
+      pass: !!Component.propTypes.sx,
+      message: () => 'Missing sx propTypes'
+    }
+  },
+
+  toImplementSxBehavior(element) {
+    const mediaKey = '@media (max-width:123px)'
+    const sxPropValue = {
+      [mediaKey]: {
+        color: 'red.5'
+      }
+    }
+
+    const elem = React.cloneElement(element, {sx: sxPropValue})
+    const rendered = render(elem)
+
+    function checkStylesDeep(rendered) {
+      const className = rendered.props ? rendered.props.className : ''
+      const styles = getComputedStyles(className)
+      if (styles[mediaKey] && styles[mediaKey].color) {
+        return true
+      } else if (rendered.children) {
+        return rendered.children.some(child => checkStylesDeep(child))
+      } else {
+        return false
+      }
+    }
+
+    return {
+      pass: checkStylesDeep(rendered),
+      message: () => 'sx prop values did not change styles of component nor of any sub-components'
+    }
+  },
+
   toSetDefaultTheme(Component) {
     let comp
     if (Component.type) {
@@ -63,6 +99,48 @@ expect.extend({
     return {
       pass,
       message: () => 'default theme is not set'
+    }
+  },
+
+  toSetExports(mod, expectedExports) {
+    if (!Object.keys(expectedExports).includes('default')) {
+      return {
+        pass: false,
+        message: () => "You must specify the module's default export"
+      }
+    }
+
+    const seen = new Set()
+    for (const exp of Object.keys(expectedExports)) {
+      seen.add(exp)
+      if (mod[exp] !== expectedExports[exp]) {
+        if (!mod[exp] && !expectedExports[exp]) {
+          continue
+        }
+
+        return {
+          pass: false,
+          message: () => `Module exported a different value from key '${exp}' than expected`
+        }
+      }
+    }
+
+    for (const exp of Object.keys(mod)) {
+      if (seen.has(exp)) {
+        continue
+      }
+
+      if (mod[exp] !== expectedExports[exp]) {
+        return {
+          pass: false,
+          message: () => `Module exported an unexpected value from key '${exp}'`
+        }
+      }
+    }
+
+    return {
+      pass: true,
+      message: () => ''
     }
   }
 })

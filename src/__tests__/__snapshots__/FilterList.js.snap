@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterList renders consistently 1`] = `
+.c0 {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+<ul
+  className="c0"
+  m={0}
+  p={0}
+/>
+`;
