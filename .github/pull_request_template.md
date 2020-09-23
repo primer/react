@@ -15,4 +15,4 @@ Please provide before/after screenshots for any visual changes
 - [ ] Tested in Edge
 
 
-Take a look at the [What we look for in reviews](https://github.com/primer/components/blob/master/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs.
+Take a look at the [What we look for in reviews](https://github.com/primer/components/blob/main/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs.

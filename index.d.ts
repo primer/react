@@ -51,6 +51,21 @@ declare module '@primer/components' {
 
   export const Text: React.FunctionComponent<TextProps>
 
+  export interface HeaderProps
+    extends BaseProps,
+      CommonProps,
+      BorderProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> { }
+  export interface HeaderItemProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    full?: boolean;
+  }
+  export interface HeaderLinkProps extends CommonProps, BorderProps, TypographyProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {}
+
+  export const Header: React.FunctionComponent<HeaderProps> & {
+    Item: React.FunctionComponent<HeaderItemProps>
+    Link: React.FunctionComponent<HeaderLinkProps>
+  }
+
   export interface HeadingProps
     extends BaseProps,
       CommonProps,
@@ -516,6 +531,11 @@ declare module '@primer/components/lib/Box' {
 declare module '@primer/components/lib/Text' {
   import {Text} from '@primer/components'
   export default Text
+}
+
+declare module '@primer/components/lib/Header' {
+  import {Header} from '@primer/components'
+  export default Header
 }
 
 declare module '@primer/components/lib/Heading' {

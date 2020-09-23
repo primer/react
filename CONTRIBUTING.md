@@ -64,7 +64,7 @@ Default values for system props can be set in `Component.defaultProps`.
 
 Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-system functions can be spread in the component's prop types declaration (see example below). These need to go *after* any built-in styles that you want to be overridable.
 
- ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/master/src/theme-preval.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
+ ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/main/src/theme-preval.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
 
 Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal and `...sx.propTypes` to the component's `propTypes`.
 
@@ -249,9 +249,9 @@ If everything looks great, the design systems team member will approve the pull 
 
 ### Deploying
 
-All of our documentation sites use the [Now integration](https://github.com/organizations/primer/settings/installations/1007619) to deploy documentation changes whenever code is merged into master. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `now` bot. This will include a link to the preview site for your branch.
+All of our documentation sites use the [Now integration](https://github.com/organizations/primer/settings/installations/1007619) to deploy documentation changes whenever code is merged into main. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `now` bot. This will include a link to the preview site for your branch.
 
-Once you merge your branch into master, any changes to the docs will automatically deploy. No further action is necessary.
+Once you merge your branch into main, any changes to the docs will automatically deploy. No further action is necessary.
 
 ### Path aliasing
 
