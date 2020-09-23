@@ -212,6 +212,14 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
+  export interface FormGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface FormGroupLabelProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLLabelElement>, 'color'> {}
+  
+  export const FormGroup: React.FunctionComponent<FormGroupProps> & {
+    Label: React.FunctionComponent<FormGroupLabelProps>
+  }
+
   export interface GridProps extends BoxProps, StyledSystem.GridProps {}
 
   export const Grid: React.FunctionComponent<GridProps>
@@ -750,4 +758,9 @@ declare module '@primer/components/lib/AvatarStack' {
 declare module '@primer/components/lib/Breadcrumbs' {
   import {Breadcrumb} from '@primer/components'
   export default Breadcrumb
+}
+
+declare module '@primer/components/lib/FormGroup' {
+  import {FormGroup} from '@primer/components'
+  export default FormGroup
 }
