@@ -47,7 +47,7 @@ The `Dropdown` element is built to also let you manage the open state and toggle
     const handleClickOutside = () => setOpen(false)
 
     return (
-      <Dropdown open={open} onToggle={handleToggle} onClickOutside={handleClickOutside}>
+      <Dropdown open={open} onToggle={handleToggle} onClickOutside={handleClickOutside} overlay={true}>
         <Dropdown.Button>Dropdown</Dropdown.Button>
         <Dropdown.Menu direction='sw'>
           <Dropdown.Item>Item 1</Dropdown.Item>

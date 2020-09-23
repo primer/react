@@ -1525,7 +1525,6 @@
     react "^16.10.2"
     react-is "16.10.2"
     styled-system "5.1.2"
-
 "@primer/gatsby-theme-doctocat@^0.25.3":
   version "0.25.3"
   resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.25.3.tgz#9ca4003bc030a093f1d86c5ba46c3e3fc224332a"
