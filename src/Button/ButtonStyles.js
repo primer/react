@@ -5,6 +5,7 @@ export default css`
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: ${get('fontWeights.bold')};
   line-height: 20px;
   white-space: nowrap;

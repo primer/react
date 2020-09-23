@@ -5,6 +5,7 @@ exports[`Button renders consistently 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -77,6 +78,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -150,6 +152,7 @@ exports[`ButtonDanger renders consistently 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -225,6 +228,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -354,6 +358,7 @@ exports[`ButtonOutline renders consistently 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -429,6 +434,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -505,6 +511,7 @@ exports[`ButtonPrimary renders consistently 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -578,6 +585,7 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
