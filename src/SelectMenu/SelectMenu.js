@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import sx from '../sx'
@@ -51,7 +51,9 @@ const StyledSelectMenu = styled.details`
 `
 
 // 'as' is spread out because we don't want users to be able to change the tag.
-const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, ref) => {
+const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwardedRef) => {
+  const backupRef = useRef()
+  const ref = forwardedRef ?? backupRef
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [open, setOpen] = useState(false)
   const menuProviderValues = {
