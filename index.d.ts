@@ -307,7 +307,8 @@ declare module '@primer/components' {
   export const Fixed: React.FunctionComponent<PositionComponentProps>
 
   export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-    initialTab?: string
+    initialTab?: string,
+    ref?: HTMLDetailsElement
   }
 
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
