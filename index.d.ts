@@ -308,7 +308,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     initialTab?: string
-    ref?: HTMLDetailsElement
+    ref?: React.RefObject<HTMLElement>
   }
 
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -414,7 +414,7 @@ declare module '@primer/components' {
     block?: boolean
     icon?: ReactComponentLike
     variant?: 'small' | 'large'
-    ref?: HTMLSpanElement
+    ref?: React.RefObject<HTMLElement>
   }
 
   export const TextInput: React.FunctionComponent<TextInputProps>
