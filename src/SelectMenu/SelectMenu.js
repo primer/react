@@ -51,8 +51,7 @@ const StyledSelectMenu = styled.details`
 `
 
 // 'as' is spread out because we don't want users to be able to change the tag.
-const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwardedRef) => {
-  const ref = forwardedRef || useRef(null)
+const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, ref) => {
   const [selectedTab, setSelectedTab] = useState(initialTab)
   const [open, setOpen] = useState(false)
   const menuProviderValues = {
