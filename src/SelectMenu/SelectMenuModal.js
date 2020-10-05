@@ -29,14 +29,14 @@ const modalStyles = css`
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {
-    width: '300px';
+    width: 300px;
     height: auto;
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
     border: ${get('borderWidths.1')} solid ${get('colors.border.grayDark')};
     border-radius: ${get('radii.2')};
-    box-shadow: 0 1px 5px ${get('colors.blackfade15')} !default;
+    box-shadow: 0 1px 5px ${get('colors.blackfade15')};
   }
 `
 
