@@ -55,8 +55,12 @@
       url: /Flash
     - title: Flex
       url: /Flex
+    - title: FormGroup
+      url: /FormGroup
     - title: Grid
       url: /Grid
+    - title: Header
+      url: /Header
     - title: Heading
       url: /Heading
     - title: Label

@@ -5,6 +5,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   position: relative;
   display: inline-block;
   padding: 6px 16px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -294,14 +295,14 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 @media (min-width:544px) {
   .c3 {
-    width: '300px';
+    width: 300px;
     height: auto;
     max-height: 350px;
     margin: 4px 0 16px 0;
     font-size: 12px;
     border: 1px solid #d1d5da;
     border-radius: 6px;
-    box-shadow: 0 1px 5px rgba(27,31,35,0.15) !default;
+    box-shadow: 0 1px 5px rgba(27,31,35,0.15);
   }
 }
 

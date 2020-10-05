@@ -51,6 +51,21 @@ declare module '@primer/components' {
 
   export const Text: React.FunctionComponent<TextProps>
 
+  export interface HeaderProps
+    extends BaseProps,
+      CommonProps,
+      BorderProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> { }
+  export interface HeaderItemProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+    full?: boolean;
+  }
+  export interface HeaderLinkProps extends CommonProps, BorderProps, TypographyProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {}
+
+  export const Header: React.FunctionComponent<HeaderProps> & {
+    Item: React.FunctionComponent<HeaderItemProps>
+    Link: React.FunctionComponent<HeaderLinkProps>
+  }
+
   export interface HeadingProps
     extends BaseProps,
       CommonProps,
@@ -197,6 +212,14 @@ declare module '@primer/components' {
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
 
+  export interface FormGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export interface FormGroupLabelProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLLabelElement>, 'color'> {}
+
+  export const FormGroup: React.FunctionComponent<FormGroupProps> & {
+    Label: React.FunctionComponent<FormGroupLabelProps>
+  }
+
   export interface GridProps extends BoxProps, StyledSystem.GridProps {}
 
   export const Grid: React.FunctionComponent<GridProps>
@@ -285,6 +308,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     initialTab?: string
+    ref?: React.RefObject<HTMLDetailsElement> | null
   }
 
   export interface SelectMenuModalProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -390,6 +414,7 @@ declare module '@primer/components' {
     block?: boolean
     icon?: ReactComponentLike
     variant?: 'small' | 'large'
+    ref?: React.RefObject<HTMLInputElement> | null
   }
 
   export const TextInput: React.FunctionComponent<TextInputProps>
@@ -454,8 +479,11 @@ declare module '@primer/components' {
     selected?: boolean
   }
 
+  export interface SubNavLinksProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
   export const SubNav: React.FunctionComponent<SubNavProps> & {
-    Link: React.FunctionComponent<SubNavLinkProps>
+    Link: React.FunctionComponent<SubNavLinkProps>,
+    Links: React.FunctionComponent<SubNavLinksProps>
   }
 
   export interface BreadcrumbProps
@@ -516,6 +544,11 @@ declare module '@primer/components/lib/Box' {
 declare module '@primer/components/lib/Text' {
   import {Text} from '@primer/components'
   export default Text
+}
+
+declare module '@primer/components/lib/Header' {
+  import {Header} from '@primer/components'
+  export default Header
 }
 
 declare module '@primer/components/lib/Heading' {
@@ -730,4 +763,9 @@ declare module '@primer/components/lib/AvatarStack' {
 declare module '@primer/components/lib/Breadcrumbs' {
   import {Breadcrumb} from '@primer/components'
   export default Breadcrumb
+}
+
+declare module '@primer/components/lib/FormGroup' {
+  import {FormGroup} from '@primer/components'
+  export default FormGroup
 }
