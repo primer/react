@@ -79,7 +79,7 @@ const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwar
   )
 })
 
-SelectMenu.displayName = "SelectMenu"
+SelectMenu.displayName = 'SelectMenu'
 SelectMenu.MenuContext = MenuContext
 SelectMenu.List = SelectMenuList
 SelectMenu.Divider = SelectMenuDivider
