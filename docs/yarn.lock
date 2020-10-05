@@ -1525,16 +1525,18 @@
     react "^16.10.2"
     react-is "16.10.2"
     styled-system "5.1.2"
-"@primer/gatsby-theme-doctocat@^0.25.3":
-  version "0.25.3"
-  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-0.25.3.tgz#9ca4003bc030a093f1d86c5ba46c3e3fc224332a"
-  integrity sha512-gbX/v7t/OyrNnt9mbiuyOYajJtEnNSJNOQUcRfLhzT0qxIQhM0X7uszxDQIEmACU/xBuDMghISnRxDC87Zxubw==
+
+"@primer/gatsby-theme-doctocat@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@primer/gatsby-theme-doctocat/-/gatsby-theme-doctocat-1.1.0.tgz#f9edcbe796f2da10158a238f3dd9ed05c6b85634"
+  integrity sha512-mWxmIGSYJZGPnWBEeB+EnOriL/p+xh2XWTBhuJrX8Q4x6Kx9L46KZIYCZt+5cHKTNSzGsU645bBkyS4vItZCrQ==
   dependencies:
     "@babel/preset-env" "^7.5.5"
     "@babel/preset-react" "^7.0.0"
     "@mdx-js/mdx" "^1.0.21"
     "@mdx-js/react" "^1.0.21"
     "@primer/components" "^20.0.0"
+    "@primer/octicons-react" "^11.0.0"
     "@styled-system/theme-get" "^5.0.12"
     "@testing-library/jest-dom" "^4.1.0"
     "@testing-library/react" "^9.1.3"
@@ -1583,6 +1585,11 @@
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-10.1.0.tgz#6d2b980582f6d917043dd8fd873039e71d8b7242"
   integrity sha512-WjIaetTaf4x66xxaG/gxwsWRL2JYG33n8CfeR/L134YcX2zl9TPps9crLzI2f3rxjOdKZgVFBoUh94Cim4Fflw==
+
+"@primer/octicons-react@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-11.0.0.tgz#8171177a55d944c9e6b491c43f2957e86191cfa5"
+  integrity sha512-lHEoFVhTyyjxIDJJgVQBJGsEU4BywFbpHuBPDM8jpqYszGcYaV3zCLWNCUaQgLfzl3lRBUXc+pMrzT5qRXLftg==
 
 "@primer/primitives@3.0.0":
   version "3.0.0"
