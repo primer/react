@@ -91,7 +91,9 @@ const ModalWrapper = styled.div`
 const SelectMenuModal = ({children, theme, width, ...rest}) => {
   return (
     <ModalWrapper theme={theme} {...rest} role="menu">
-      <Modal theme={theme} width={width}>{children}</Modal>
+      <Modal theme={theme} width={width}>
+        {children}
+      </Modal>
     </ModalWrapper>
   )
 }
@@ -105,7 +107,7 @@ SelectMenuModal.defaultProps = {
 SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
-  width: PropTypes.oneOfType['string', 'number'],
+  width: PropTypes.oneOfType[('string', 'number')],
   ...COMMON.propTypes,
   ...sx.propTypes
 }
