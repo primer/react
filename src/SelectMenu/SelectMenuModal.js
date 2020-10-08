@@ -105,6 +105,7 @@ SelectMenuModal.defaultProps = {
 SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
+  width: PropTypes.oneOfType['string', 'number'],
   ...COMMON.propTypes,
   ...sx.propTypes
 }
