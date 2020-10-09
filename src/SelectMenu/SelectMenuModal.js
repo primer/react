@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {keyframes, css} from 'styled-components'
 import {COMMON, get} from '../constants'
+import {width} from 'styled-system'
 import theme from '../theme'
 import sx from '../sx'
 
@@ -29,7 +30,6 @@ const modalStyles = css`
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {
-    width: 300px;
     height: auto;
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
@@ -79,6 +79,7 @@ const modalWrapperStyles = css`
 
 const Modal = styled.div`
   ${modalStyles}
+  ${width}
 `
 
 const ModalWrapper = styled.div`
@@ -87,21 +88,26 @@ const ModalWrapper = styled.div`
   ${sx};
 `
 
-const SelectMenuModal = ({children, theme, ...rest}) => {
+const SelectMenuModal = ({children, theme, width, ...rest}) => {
   return (
     <ModalWrapper theme={theme} {...rest} role="menu">
-      <Modal theme={theme}>{children}</Modal>
+      <Modal theme={theme} width={width}>
+        {children}
+      </Modal>
     </ModalWrapper>
   )
 }
 
 SelectMenuModal.defaultProps = {
   align: 'left',
-  theme
+  theme,
+  width: '300px'
 }
+
 SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
+  width: PropTypes.oneOfType[('string', 'number')],
   ...COMMON.propTypes,
   ...sx.propTypes
 }

@@ -188,6 +188,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   box-shadow: 0 1px 5px rgba(27,31,35,0.15);
   -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
+  width: 300px;
 }
 
 .c2 {
@@ -295,7 +296,6 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 @media (min-width:544px) {
   .c3 {
-    width: 300px;
     height: auto;
     max-height: 350px;
     margin: 4px 0 16px 0;
@@ -340,6 +340,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   >
     <div
       className="c3"
+      width="300px"
     >
       <div
         className="c4"
