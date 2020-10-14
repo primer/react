@@ -15,6 +15,7 @@ import SelectMenuTabs from './SelectMenuTabs'
 import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
+import SelectMenuLoadingAnimation from './SelectMenuLoadingAnimation'
 import useKeyboardNav from './hooks/useKeyboardNav'
 
 const wrapperStyles = `
@@ -92,6 +93,7 @@ SelectMenu.Tabs = SelectMenuTabs
 SelectMenu.Tab = SelectMenuTab
 SelectMenu.TabPanel = SelectMenuTabPanel
 SelectMenu.Header = SelectMenuHeader
+SelectMenu.LoadingAnimation = SelectMenuLoadingAnimation
 
 SelectMenu.defaultProps = {
   theme

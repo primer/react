@@ -5,7 +5,6 @@ import {COMMON, get} from '../constants'
 import {width} from 'styled-system'
 import theme from '../theme'
 import sx from '../sx'
-import LoadingAnimation from './LoadingAnimation'
 
 const animateModal = keyframes`
   0% {
@@ -94,7 +93,6 @@ const SelectMenuModal = ({children, theme, width, loading, ...rest}) => {
     <ModalWrapper theme={theme} {...rest} role="menu">
       <Modal theme={theme} width={width}>
         {children}
-        {loading && <LoadingAnimation/>}
       </Modal>
     </ModalWrapper>
   )

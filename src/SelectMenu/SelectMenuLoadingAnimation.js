@@ -2,7 +2,7 @@ import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import StyledOcticon from '../StyledOcticon'
 import {OctofaceIcon} from '@primer/octicons-react'
-import {get} from '../constants'
+import {get, COMMON} from '../constants'
 
 const pulseKeyframes = keyframes`
   0% {
@@ -24,14 +24,19 @@ const Animation = styled.div`
   animation-duration: 2s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  ${COMMON}
 `
 
-const LoadingAnimation = () => {
+const SelectMenuLoadingAnimation = (props) => {
   return (
-    <Animation>
+    <Animation {...props}>
       <StyledOcticon size={32} icon={OctofaceIcon}/>
     </Animation>
   )
 }
 
-export default LoadingAnimation
+SelectMenuLoadingAnimation.propTypes = {
+  ...COMMON.propTypes
+}
+
+export default SelectMenuLoadingAnimation
