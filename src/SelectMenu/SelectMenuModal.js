@@ -5,6 +5,7 @@ import {COMMON, get} from '../constants'
 import {width} from 'styled-system'
 import theme from '../theme'
 import sx from '../sx'
+import LoadingAnimation from './LoadingAnimation'
 
 const animateModal = keyframes`
   0% {
@@ -88,11 +89,11 @@ const ModalWrapper = styled.div`
   ${sx};
 `
 
-const SelectMenuModal = ({children, theme, width, ...rest}) => {
+const SelectMenuModal = ({children, theme, width, loading, ...rest}) => {
   return (
     <ModalWrapper theme={theme} {...rest} role="menu">
       <Modal theme={theme} width={width}>
-        {children}
+        {loading ? <LoadingAnimation/> : children}
       </Modal>
     </ModalWrapper>
   )
@@ -101,12 +102,14 @@ const SelectMenuModal = ({children, theme, width, ...rest}) => {
 SelectMenuModal.defaultProps = {
   align: 'left',
   theme,
-  width: '300px'
+  width: '300px',
+  loading: false
 }
 
 SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
+  loading: PropTypes.bool,
   width: PropTypes.oneOfType[('string', 'number')],
   ...COMMON.propTypes,
   ...sx.propTypes

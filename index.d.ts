@@ -312,7 +312,8 @@ declare module '@primer/components' {
   }
 
   export interface SelectMenuModalProps extends CommonProps, StyledSystem.WidthProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
-    align?: 'left' | 'right'
+    align?: 'left' | 'right',
+    loading?: boolean
   }
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
