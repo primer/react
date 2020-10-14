@@ -101,7 +101,7 @@ const SelectMenuModal = ({children, theme, width, ...rest}) => {
 SelectMenuModal.defaultProps = {
   align: 'left',
   theme,
-  width: '300px',
+  width: '300px'
 }
 
 SelectMenuModal.propTypes = {
