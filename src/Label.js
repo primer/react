@@ -44,7 +44,7 @@ const sizeVariant = variant({
 
 const Label = styled('span')`
   display: inline-block;
-  font-weight: ${get('fontWeights.normal')};
+  font-weight: ${get('fontWeights.semibold')};
   color: ${get('colors.white')};
   border-radius: ${get('radii.3')};
   &:hover {
