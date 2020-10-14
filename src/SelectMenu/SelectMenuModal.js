@@ -93,7 +93,8 @@ const SelectMenuModal = ({children, theme, width, loading, ...rest}) => {
   return (
     <ModalWrapper theme={theme} {...rest} role="menu">
       <Modal theme={theme} width={width}>
-        {loading ? <LoadingAnimation/> : children}
+        {children}
+        {loading && <LoadingAnimation/>}
       </Modal>
     </ModalWrapper>
   )
