@@ -375,7 +375,7 @@ Use a `SelectMenu.LoadingAnimation` to add a loading animation inside of the Sel
 
 ### System Props
 
-SelectMenu.Header components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+SelectMenu.LoadingAnimation components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
-SelectMenu.Header components do not get any additional props besides system props.
+SelectMenu.LoadingAnimation components do not get any additional props besides system props.
