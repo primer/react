@@ -88,7 +88,7 @@ const ModalWrapper = styled.div`
   ${sx};
 `
 
-const SelectMenuModal = ({children, theme, width, loading, ...rest}) => {
+const SelectMenuModal = ({children, theme, width, ...rest}) => {
   return (
     <ModalWrapper theme={theme} {...rest} role="menu">
       <Modal theme={theme} width={width}>
@@ -102,13 +102,11 @@ SelectMenuModal.defaultProps = {
   align: 'left',
   theme,
   width: '300px',
-  loading: false
 }
 
 SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
-  loading: PropTypes.bool,
   width: PropTypes.oneOfType[('string', 'number')],
   ...COMMON.propTypes,
   ...sx.propTypes
