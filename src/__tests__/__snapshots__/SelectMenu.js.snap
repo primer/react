@@ -107,6 +107,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 12px;
+  font-family: inherit;
   width: 100%;
 }
 
