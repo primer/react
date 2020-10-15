@@ -8,6 +8,11 @@ const GlobalStyle = createGlobalStyle`
   * { box-sizing: border-box; }
   body { margin: 0; }
   table { border-collapse: collapse; }
+  input, select, textarea, button {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
 `
 const Base = props => {
   const {color, lineHeight, fontFamily, theme, ...rest} = props
