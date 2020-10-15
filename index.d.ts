@@ -317,6 +317,8 @@ declare module '@primer/components' {
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
+  export interface SelectMenuLoadingAnimationProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
   interface SelectMenuItemCommonProps extends CommonProps {
     selected?: boolean;
   }
@@ -368,6 +370,7 @@ declare module '@primer/components' {
     Tab: React.FunctionComponent<SelectMenuTabProps>
     TabPanel: React.FunctionComponent<SelectMenuTabPanelProps>
     Header: React.FunctionComponent<SelectMenuHeaderProps>
+    LoadingAnimation: React.FunctionComponent<SelectMenuLoadingAnimationProps>
   }
 
   export interface SideNavProps extends CommonProps, BorderBoxProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {

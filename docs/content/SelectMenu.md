@@ -348,3 +348,34 @@ SelectMenu.Header components get `COMMON` system props. Read our [System Props](
 
 ### Component Props
 SelectMenu.Header components do not get any additional props besides system props.
+
+## SelectMenu.LoadingAnimation
+Use a `SelectMenu.LoadingAnimation` to add a loading animation inside of the SelectMenu.
+
+**Note**:  You will need to handle showing/hiding the appropriate modal content for your application during the loading state. We recommend always showing the `SelectMenu.Filter` and `SelectMenu.Header`  (if used) and hiding the rest of the modal content during the loading state.
+
+```jsx live
+<SelectMenu>
+  <Button as="summary">Projects</Button>
+  <SelectMenu.Modal>
+    <SelectMenu.Header>Projects</SelectMenu.Header>
+    <SelectMenu.Filter placeholder="Filter projects" value="" aria-label="Filter Projects"/>
+    {true ? <SelectMenu.LoadingAnimation/> :
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#"> Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+        <SelectMenu.Footer>Use ⌥ + click/return to exclude labels.</SelectMenu.Footer>
+      </SelectMenu.List>
+    }
+  </SelectMenu.Modal>
+</SelectMenu>
+```
+
+### System Props
+
+SelectMenu.LoadingAnimation components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+### Component Props
+SelectMenu.LoadingAnimation components do not get any additional props besides system props.

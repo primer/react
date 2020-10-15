@@ -21,6 +21,7 @@ export const listItemStyles = css`
   color: ${get('colors.text.gray')};
   text-decoration: none;
   font-size: ${get('fontSizes.0')};
+  font-family: inherit; // needed if user uses a "button" tag
   width: 100%;
 
   &:hover {
