@@ -1,5 +1,5 @@
 ---
-name: Primer React Components bug report
+name: Bug report
 about: Create a report to help us improve Primer React Components
 
 ---
