@@ -11,6 +11,10 @@ const SuccessIcon = <StyledOcticon icon={CheckCircleIcon} color="blue.3"/>
 const WarningIcon = <StyledOcticon icon={AlertIcon} color="blue.3" />
 const ErrorIcon = <StyledOcticon icon={StopIcon} color="red.4" />
 
+const CloseButton = styled.button`
+// reset styles here
+`
+
 const stateMap = {
   default: DefaultIcon,
   success: SuccessIcon,
