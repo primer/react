@@ -1,8 +1,9 @@
-import React from 'react'
+import {COMMON, get} from '../constants'
 import styled, {keyframes} from 'styled-components'
-import StyledOcticon from '../StyledOcticon'
+
 import {OctofaceIcon} from '@primer/octicons-react'
-import {get, COMMON} from '../constants'
+import React from 'react'
+import StyledOcticon from '../StyledOcticon'
 
 const pulseKeyframes = keyframes`
   0% {

@@ -93,6 +93,8 @@
       url: /SubNav
     - title: TabNav
       url: /TabNav
+    - title: Toast
+      url: /Toast
     - title: Text
       url: /Text
     - title: TextInput
