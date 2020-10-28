@@ -20,10 +20,10 @@ const stateMap = {
   loading: ErrorIcon
 }
 
-const Toast = forwardRef(({state, onCloseClick, children}) => {
+const Toast = forwardRef(({type, onCloseClick, children}, ref) => {
   return (
     <BorderBox p={3} bg="gray.9" borderRadius={2} borderWidth="0" display="flex" alignItems="center">
-      {stateMap[state]}
+      {stateMap[type]}
       <Flex color="text.white" px={2} flex="1">
         {children}
       </Flex>
@@ -33,11 +33,11 @@ const Toast = forwardRef(({state, onCloseClick, children}) => {
 })
 
 Toast.defaultProps = {
-  state: 'default'
+ type: 'default'
 }
 
 Toast.propTypes = {
-  state: PropTypes.oneOf[('default', 'success', 'warning', 'error', 'loading')]
+  type: PropTypes.oneOf(['default', 'success', 'warning', 'error', 'loading'])
 }
 
 export default Toast

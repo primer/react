@@ -4,8 +4,8 @@ import Toast from './Toast'
 const ToastContainer = ({toasts, removeToast}) => {
   return (
     <>
-      {toasts.map((toast) => {
-        return <Toast key={toast.id} onCloseClick={removeToast(toast.id)} state={toast.state}>{toast.message}</Toast>
+      {toasts && toasts.map((toast) => {
+        return <Toast key={toast.id} onCloseClick={() => removeToast(toast.id)} type={toast.type}>{toast.message}</Toast>
       })}
     </>
   )

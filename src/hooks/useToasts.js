@@ -1,11 +1,12 @@
-import {useState} from 'react'
-import uuid from 'uuid'
+import {useEffect, useState} from 'react'
 
-export const useToasts = () => {
+import {nanoid} from 'nanoid'
+
+const useToasts = () => {
     const [toasts, setToasts] = useState([])
 
     const addToast = (freshToast) => {
-      setToasts([{id: uuid(), ...freshToast}, ...toasts])
+      setToasts([{id: nanoid(), ...freshToast}, ...toasts])
     }
 
     const removeToast = (id) => {
@@ -18,3 +19,5 @@ export const useToasts = () => {
 
     return {toasts, addToast, removeToast}
 }
+
+export default useToasts

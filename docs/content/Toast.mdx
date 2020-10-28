@@ -2,24 +2,26 @@
 title: Toast
 ---
 
-```jsx live
+```javascript live noinline
 const DemoComponent = () => {
-  const toaster = useToast();
+  const toaster = useToasts();
 
   const handleAddToastClick = () => {
     toaster.addToast({
       message: 'Details successfully saved!',
-      state: 'success'
+      type: 'success'
     })
   }
 
   return (
     <>
       <Button onClick={handleAddToastClick}>Add a toast</Button>
-      <ToastContainer {...toaster/>
+      <ToastContainer {...toaster}/>
     </>
   )
 }
+
+render(<DemoComponent/>)
 ```
 
 ## System props
