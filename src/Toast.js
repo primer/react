@@ -1,7 +1,8 @@
 import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon} from '@primer/octicons-react'
 import React, {forwardRef} from 'react'
+import styled, {keyframes} from 'styled-components'
 
-import BorderBox from './BorderBox'
+import {CSSTransitionGroup} from 'react-transition-group';
 import CloseButton from './CloseButton'
 import Flex from './Flex'
 import PropTypes from 'prop-types'
@@ -22,15 +23,53 @@ const stateMap = {
   loading: ErrorIcon
 }
 
+const toastEnter = keyframes`
+  from {
+    transform: translateX(-400px);
+  }
+  to {
+    transform: translateX(0);
+  }
+`
+
+const toastLeave = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-460px);
+  }
+`
+
+const StyledToast = styled.div.attrs(props => ({
+  role: "status"
+}))`
+  box-shadow: ${get("toasts.boxShadow")};
+  padding: ${get("space.3")};
+  background-color: ${get("toasts.bg")};
+  border-radius: ${get("radii.2")};
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  animation-name: ${toastEnter};
+  animation-duration: 300ms;
+
+  .toastAnimation-leave {
+    animation-name: ${toastLeave};
+    animation-duration: 300ms;
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+`
+
 const Toast = forwardRef(({type, onCloseClick, theme: ProvidedTheme, children}, ref) => {
   return (
-    <BorderBox boxShadow={get("toasts.boxShadow")(ProvidedTheme)} p={3} bg={get("toasts.bg")(ProvidedTheme)} borderRadius={2} borderWidth="0" display="flex" alignItems="center" maxWidth="400px">
-      {stateMap[type]}
-      <Flex color="text.white" px={2} flex="1">
-        {children}
-      </Flex>
-      <CloseButton onClick={onCloseClick} />
-    </BorderBox>
+    <StyledToast>
+        {stateMap[type]}
+        <Flex color="text.white" px={2} flex="1">
+          {children}
+        </Flex>
+        <CloseButton onClick={onCloseClick} />
+    </StyledToast>
   )
 })
 
