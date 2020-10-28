@@ -32,6 +32,10 @@ const Toast = forwardRef(({state, onCloseClick, children}) => {
   )
 })
 
+Toast.defaultProps = {
+  state: 'default'
+}
+
 Toast.propTypes = {
   state: PropTypes.oneOf[('default', 'success', 'warning', 'error', 'loading')]
 }
