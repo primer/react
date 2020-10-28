@@ -14,6 +14,8 @@ const useToasts = () => {
     }
 
     const removeToast = (id) => {
+      // animate the removal of the toast somehow
+     // maybe store refs in the toast state and add a class here to the ref?! :sob-blood:
       setToasts(toasts.filter(toast => toast.id !== id))
     }
 
