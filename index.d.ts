@@ -110,6 +110,12 @@ declare module '@primer/components' {
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
+  export interface CloseButtonProps
+    extends BorderBoxProps,
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {}
+
+  export const CloseButton: React.FunctionComponent<CloseButtonProps>
+
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     size?: number
     square?: boolean
@@ -422,6 +428,15 @@ declare module '@primer/components' {
 
   export const TextInput: React.FunctionComponent<TextInputProps>
 
+  export interface ToastProps
+    extends CommonProps,
+      Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
+        state?: 'default' | 'success' | 'warning' | 'error' | 'loading'
+        onCloseClick: (event: MouseEvent) => void
+      }
+
+  export const Toast: React.FunctionComponent<ToastProps>
+
   export interface TooltipProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     align?: 'left' | 'right'
     direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
@@ -589,6 +604,11 @@ declare module '@primer/components/lib/Button' {
   export default Button
 }
 
+declare module '@primer/components/lib/CloseButton' {
+  import {CloseButton} from '@primer/components'
+  export default CloseButton
+}
+
 declare module '@primer/components/lib/Flex' {
   import {Flex} from '@primer/components'
   export default Flex
@@ -722,6 +742,10 @@ declare module '@primer/components/lib/TextInput' {
 declare module '@primer/components/lib/Timeline' {
   import {Timeline} from '@primer/components'
   export default Timeline
+}
+declare module '@primer/components/lib/Toast' {
+  import {Toast} from '@primer/components'
+  export default Toast
 }
 declare module '@primer/components/lib/Tooltip' {
   import {Tooltip} from '@primer/components'
