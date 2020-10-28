@@ -54,21 +54,27 @@ const StyledToast = styled.div.attrs(props => ({
   animation-name: ${toastEnter};
   animation-duration: 300ms;
 
-  .toastAnimation-leave {
+  &.toastAnimation-leave {
     animation-name: ${toastLeave};
     animation-duration: 300ms;
-    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);;
   }
 `
 
-const Toast = forwardRef(({type, onCloseClick, theme: ProvidedTheme, children}, ref) => {
+const Toast = forwardRef(({type, onCloseClick, theme, children}, ref) => {
+  const animateRef = React.createRef()
+  const closeHandler = () => {
+    window.setTimeout(onCloseClick, 300)
+    animateRef.current.classList.add('toastAnimation-leave');
+  }
+
   return (
-    <StyledToast>
-        {stateMap[type]}
-        <Flex color="text.white" px={2} flex="1">
-          {children}
-        </Flex>
-        <CloseButton onClick={onCloseClick} />
+    <StyledToast ref={animateRef}>
+      {stateMap[type]}
+      <Flex color="text.white" px={2} flex="1">
+        {children}
+      </Flex>
+      <CloseButton onClick={closeHandler} />
     </StyledToast>
   )
 })
