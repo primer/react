@@ -6,7 +6,11 @@ const useToasts = () => {
     const [toasts, setToasts] = useState([])
 
     const addToast = (freshToast) => {
-      setToasts([{id: nanoid(), ...freshToast}, ...toasts])
+      const toastId = nanoid()
+      if (freshToast.autoDismiss) {
+        window.setTimeout(removeToast, 5000, toastId)
+      }
+      setToasts([{id: toastId, ...freshToast}, ...toasts])
     }
 
     const removeToast = (id) => {

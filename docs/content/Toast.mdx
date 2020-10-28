@@ -9,6 +9,7 @@ const DemoComponent = () => {
   const handleAddToastClick = () => {
     toaster.addToast({
       message: 'Details successfully saved!',
+      autoDismiss: true,
       type: 'success'
     })
   }
