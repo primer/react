@@ -3,11 +3,23 @@ title: Toast
 ---
 
 ```jsx live
-<Toast state="error">stuff</Toast>
-<Toast state="success"/>
-<Toast state="loading"/>
-<Toast state="default"/>
-<Toast state="warning"/>
+const DemoComponent = () => {
+  const toaster = useToast();
+
+  const handleAddToastClick = () => {
+    toaster.addToast({
+      message: 'Details successfully saved!',
+      state: 'success'
+    })
+  }
+
+  return (
+    <>
+      <Button onClick={handleAddToastClick}>Add a toast</Button>
+      <ToastContainer {...toaster/>
+    </>
+  )
+}
 ```
 
 ## System props

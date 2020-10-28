@@ -9,6 +9,9 @@ export {default as Flex} from './Flex'
 export {default as Grid} from './Grid'
 export {default as Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
+// Hooks
+export {default as useToasts} from './hooks/useToasts'
+
 // Components
 export {default as Avatar} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
@@ -44,6 +47,7 @@ export {default as StyledOcticon} from './StyledOcticon'
 export {default as SubNav} from './SubNav'
 export {default as TabNav} from './TabNav'
 export {default as Toast} from './Toast'
+export {default as ToastContainer} from './ToastContainer'
 export {default as TextInput} from './TextInput'
 export {default as Text} from './Text'
 export {default as Timeline} from './Timeline'
