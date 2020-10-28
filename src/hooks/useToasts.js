@@ -10,11 +10,7 @@ const useToasts = () => {
     }
 
     const removeToast = (id) => {
-      setToasts(oldToasts => {
-        oldToasts.filter(toast => {
-          return toast.id !== id
-        })
-      })
+      setToasts(toasts.filter(toast => toast.id !== id))
     }
 
     return {toasts, addToast, removeToast}
