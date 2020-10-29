@@ -1,25 +1,34 @@
-import {useEffect, useState} from 'react'
-
 import {nanoid} from 'nanoid'
+import {useState} from 'react'
 
 const useToasts = () => {
     const [toasts, setToasts] = useState([])
 
     const addToast = (freshToast) => {
       const toastId = nanoid()
-      if (freshToast.autoDismiss) {
-        window.setTimeout(removeToast, 5000, toastId)
-      }
-      setToasts([{id: toastId, ...freshToast}, ...toasts])
+      let timeoutId;
+      // if (freshToast.autoDismiss) {
+      //   timeoutId = window.setTimeout(startRemovingToast, 5000, toastId)
+      // }
+      setToasts([{id: toastId, timeoutId: timeoutId, show: true, ...freshToast}, ...toasts])
+    }
+
+    const startRemovingToast = (id) => {
+      const oldToasts = toasts.filter(toast => toast.id !== id)
+      const updatedToast = toasts.find(toast => toast.id === id)
+      setToasts([{...updatedToast, show: false}, ...oldToasts])
     }
 
     const removeToast = (id) => {
-      // animate the removal of the toast somehow
-     // maybe store refs in the toast state and add a class here to the ref?! :sob-blood:
-      setToasts(toasts.filter(toast => toast.id !== id))
+      setToasts(toasts.filter(toast => {
+        if (toast.id === id && toast.timeoutId) {
+          window.clearTimeout(toast.timeoutId)
+        }
+        return toast.id !== id
+      }))
     }
 
-    return {toasts, addToast, removeToast}
+    return {toasts, addToast, removeToast, startRemovingToast}
 }
 
 export default useToasts

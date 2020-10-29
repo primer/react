@@ -61,6 +61,7 @@
     "polished": "3.5.2",
     "react": "^16.10.2",
     "react-is": "16.10.2",
+    "react-transition-group": "4.4.1",
     "styled-system": "5.1.2"
   },
   "devDependencies": {

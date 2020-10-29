@@ -2,7 +2,7 @@ import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon} from '@primer/octicons-r
 import React, {forwardRef} from 'react'
 import styled, {keyframes} from 'styled-components'
 
-import {CSSTransitionGroup} from 'react-transition-group';
+import {CSSTransition} from 'react-transition-group'
 import CloseButton from './CloseButton'
 import Flex from './Flex'
 import PropTypes from 'prop-types'
@@ -53,29 +53,29 @@ const StyledToast = styled.div.attrs(props => ({
   max-width: 400px;
   animation-name: ${toastEnter};
   animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  margin-top: ${get('space.1')};
 
-  &.toastAnimation-leave {
+  &.toast-exit-active {
     animation-name: ${toastLeave};
     animation-duration: 300ms;
     animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);;
   }
 `
 
-const Toast = forwardRef(({type, onCloseClick, theme, children}, ref) => {
-  const animateRef = React.createRef()
-  const closeHandler = () => {
-    window.setTimeout(onCloseClick, 300)
-    animateRef.current.classList.add('toastAnimation-leave');
-  }
-
+const Toast = forwardRef(({type, show, id, removeToast, startRemovingToast, theme, children}, ref) => {
+  console.log("rerender", show)
   return (
-    <StyledToast ref={animateRef}>
-      {stateMap[type]}
-      <Flex color="text.white" px={2} flex="1">
-        {children}
-      </Flex>
-      <CloseButton onClick={closeHandler} />
-    </StyledToast>
+    <CSSTransition in={show} timeout={300} classNames="toast" unmountOnExit onExited={() => removeToast(id)}>
+      <StyledToast>
+        {stateMap[type]}
+        <Flex color="text.white" px={2} flex="1">
+          {children}
+        </Flex>
+        <CloseButton onClick={() => startRemovingToast(id)} />
+      </StyledToast>
+    </CSSTransition>
+
   )
 })
 

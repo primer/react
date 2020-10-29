@@ -1,11 +1,12 @@
 import React from 'react'
 import Toast from './Toast'
 
-const ToastContainer = ({toasts, removeToast}) => {
+const ToastContainer = ({toasts, startRemovingToast, removeToast}) => {
   return (
     <>
       {toasts && toasts.map((toast) => {
-        return <Toast key={toast.id} onCloseClick={() => removeToast(toast.id)} type={toast.type}>{toast.message}</Toast>
+        console.log(toasts)
+        return <Toast key={toast.id} id={toast.id} startRemovingToast={startRemovingToast} removeToast={removeToast} type={toast.type} show={toast.show}>{toast.message}</Toast>
       })}
     </>
   )

@@ -8,7 +8,7 @@ const DemoComponent = () => {
 
   const handleAddToastClick = () => {
     toaster.addToast({
-      message: 'Details successfully saved!',
+      message: Math.random(),
       autoDismiss: true,
       type: 'success'
     })
@@ -17,7 +17,9 @@ const DemoComponent = () => {
   return (
     <>
       <Button onClick={handleAddToastClick}>Add a toast</Button>
-      <ToastContainer {...toaster}/>
+      <Absolute bottom={4} left={4}>
+        <ToastContainer {...toaster}/>
+      </Absolute>
     </>
   )
 }
