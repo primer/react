@@ -14,7 +14,6 @@ const useToasts = (config) => {
       setToasts(currentToasts => {
         let newToasts = currentToasts
         if (toastLimit && currentToasts.length === toastLimit) {
-          debugger;
           const lastToast = currentToasts[currentToasts.length - 1]
           newToasts = currentToasts.filter(toast => toast.id !== lastToast.id)
         }
