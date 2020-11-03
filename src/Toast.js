@@ -32,7 +32,9 @@ const StyledToast = styled.div.attrs(props => ({
   display: flex;
   align-items: center;
   max-width: 400px;
-  }
+  position: fixed;
+  bottom: 0;
+  left; 0;
 `
 
 const Toast = forwardRef(({type, id, removeToast, theme, children}, ref) => {

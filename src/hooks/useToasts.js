@@ -11,17 +11,13 @@ const useToasts = (config) => {
       if (autoDismiss) {
         timeoutId = window.setTimeout(removeToast, 5000, toastId, freshToast.message)
       }
-      setToasts(currentToasts => {
-        let newToasts = currentToasts
-        if (toastLimit && currentToasts.length === toastLimit) {
-          const lastToast = currentToasts[currentToasts.length - 1]
-          newToasts = currentToasts.filter(toast => toast.id !== lastToast.id)
-        }
-        return [{id: toastId, timeoutId: timeoutId, ...freshToast}, ...newToasts]
-      })
+      setToasts([{id: toastId, timeoutId: timeoutId, ...freshToast}])
     }
 
     const removeToast = (id, message) => {
+      // technically you could just replace the entire state because we're only allowing
+      // one toast at a time, but i wrote this so that if we want to allow more than one
+      // at a time in the future we don't have to update this function - @emplums
       setToasts(currentToasts =>
         currentToasts.filter(toast => {
           if (autoDismiss && toast.id === id && toast.timeoutId) {
