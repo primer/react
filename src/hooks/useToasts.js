@@ -6,17 +6,19 @@ const useToasts = () => {
 
     const addToast = (freshToast) => {
       const toastId = nanoid()
-      const timeoutId = window.setTimeout(removeToast, 5000, toastId)
+      const timeoutId = window.setTimeout(removeToast, 5000, toastId, freshToast.message)
       setToasts([{id: toastId, timeoutId: timeoutId, ...freshToast}, ...toasts])
     }
 
-    const removeToast = (id) => {
-      setToasts(toasts.filter(toast => {
-        if (toast.id === id && toast.timeoutId) {
-          window.clearTimeout(toast.timeoutId);
-        }
-        return toast.id !== id
-      }))
+    const removeToast = (id, message) => {
+      setToasts(currentToasts =>
+        currentToasts.filter(toast => {
+          if (toast.id === id && toast.timeoutId) {
+            window.clearTimeout(toast.timeoutId);
+          }
+          return toast.id !== id
+        })
+      )
     }
 
     return {toasts, addToast, removeToast}

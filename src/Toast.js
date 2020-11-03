@@ -42,7 +42,7 @@ const Toast = forwardRef(({type, id, removeToast, theme, children}, ref) => {
       <Flex color="text.white" px={2} flex="1">
         {children}
       </Flex>
-      <CloseButton onClick={() => removeToast(id)} />
+      <CloseButton onClick={removeToast} />
     </StyledToast>
   )
 })

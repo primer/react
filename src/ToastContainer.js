@@ -3,7 +3,7 @@ import {animated, useTransition} from 'react-spring'
 import React from 'react'
 import Toast from './Toast'
 
-const ToastContainer = ({toasts, startRemovingToast, removeToast}) => {
+const ToastContainer = ({toasts, removeToast}) => {
   const animatedToasts = useTransition(toasts, toast => toast.id, {
     from: { transform: 'translateX(-400px)' },
     enter: { transform: 'translateX(0)' },
@@ -12,10 +12,9 @@ const ToastContainer = ({toasts, startRemovingToast, removeToast}) => {
   return (
     <>
       {animatedToasts && animatedToasts.map(({item: toast, props, key}) => {
-        debugger;
         return (
           <animated.div key={key} style={props} >
-            <Toast key={toast.id} id={toast.id} removeToast={removeToast} type={toast.type}>{toast.message}</Toast>
+            <Toast key={toast.id} id={toast.id} removeToast={() => removeToast(toast.id)} type={toast.type}>{toast.message}</Toast>
           </animated.div>
         )
       })}
