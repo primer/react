@@ -11,7 +11,15 @@ const useToasts = (config) => {
       if (autoDismiss) {
         timeoutId = window.setTimeout(removeToast, 5000, toastId, freshToast.message)
       }
-      setToasts([{id: toastId, timeoutId: timeoutId, ...freshToast}, ...toasts])
+      setToasts(currentToasts => {
+        let newToasts = currentToasts
+        if (toastLimit && currentToasts.length === toastLimit) {
+          debugger;
+          const lastToast = currentToasts[currentToasts.length - 1]
+          newToasts = currentToasts.filter(toast => toast.id !== lastToast.id)
+        }
+        return [{id: toastId, timeoutId: timeoutId, ...freshToast}, ...newToasts]
+      })
     }
 
     const removeToast = (id, message) => {
