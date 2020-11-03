@@ -22,19 +22,24 @@ const stateMap = {
   loading: ErrorIcon
 }
 
+
 const StyledToast = styled.div.attrs(props => ({
   role: "status"
 }))`
+  position: fixed;
+  display: flex;
+  gap: 8px;
   box-shadow: ${get("toasts.boxShadow")};
   padding: ${get("space.3")};
   background-color: ${get("toasts.bg")};
   border-radius: ${get("radii.2")};
-  display: flex;
   align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
   max-width: 400px;
-  position: fixed;
+
   bottom: 0;
-  left; 0;
+  left: 0;
 `
 
 const Toast = forwardRef(({type, id, removeToast, theme, children}, ref) => {

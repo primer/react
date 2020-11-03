@@ -1,8 +1,7 @@
 import {nanoid} from 'nanoid'
 import {useState} from 'react'
 
-const useToasts = (config) => {
-    const {autoDismiss, toastLimit} = config
+const useToasts = (autoDismiss) => {
     const [toasts, setToasts] = useState([])
 
     const addToast = (freshToast) => {
