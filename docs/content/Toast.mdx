@@ -4,12 +4,12 @@ title: Toast
 
 ```javascript live noinline
 const DemoComponent = () => {
-  const toaster = useToasts();
+  const toasts = useToasts({autoDismiss: true, toastLimit: 1});
   const states = ['success', 'default', 'warning', 'error', 'loading']
   const messages = ['hello!', 'oopsies', 'try again plz', 'nice job!']
 
   const handleAddToastClick = () => {
-    toaster.addToast({
+    toasts.addToast({
       message: messages[Math.floor(Math.random() * Math.floor(4))],
       autoDismiss: true,
       type: states[Math.floor(Math.random() * Math.floor(5))]
@@ -20,7 +20,7 @@ const DemoComponent = () => {
     <>
       <Button onClick={handleAddToastClick}>Add a toast</Button>
       <Absolute bottom={4} left={4}>
-        <ToastContainer {...toaster}/>
+        <ToastContainer {...toasts}/>
       </Absolute>
     </>
   )
