@@ -4,7 +4,7 @@ function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
 }
 
-const sharedPlugins = ['macros', 'preval', 'add-react-displayname', 'babel-plugin-styled-components']
+const sharedPlugins = ['macros', 'preval', 'add-react-displayname', 'babel-plugin-styled-components', '@babel/plugin-proposal-nullish-coalescing-operator']
 
 const runtimePlugins = [['@babel/plugin-transform-runtime', {version: '7.9.2', helpers: true}]]
 
