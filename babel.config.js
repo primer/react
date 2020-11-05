@@ -9,10 +9,7 @@ const sharedPlugins = ['macros', 'preval', 'add-react-displayname', 'babel-plugi
 const runtimePlugins = [['@babel/plugin-transform-runtime', {version: '7.9.2', helpers: true}]]
 
 function makePresets(moduleValue) {
-  return [
-    ['@babel/preset-react', {modules: moduleValue}],
-    ['@babel/preset-env', {modules: moduleValue}]
-  ]
+  return [['@babel/preset-react', {modules: moduleValue}]]
 }
 
 module.exports = {
