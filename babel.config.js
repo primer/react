@@ -22,7 +22,7 @@ module.exports = {
     },
     test: {
       presets: makePresets('commonjs'),
-      plugins: [...sharedPlugins, replacementPlugin('test')]
+      plugins: [...sharedPlugins, ['@babel/plugin-transform-modules-commonjs'], replacementPlugin('test')]
     }
   }
 }
