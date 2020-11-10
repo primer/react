@@ -24,6 +24,14 @@ import {Box, Flex} from '@primer/components'
 const {Box, Flex} = require('@primer/components')
 ```
 
+### Polyfills & Browser Support
+
+Primer React supports the current versions of [Chrome](https://www.google.com/chrome/), [Firefox](http://www.mozilla.org/firefox/), [Safari](http://www.apple.com/safari/), and [Microsoft Edge](https://www.microsoft.com/en-us/windows/microsoft-edge), as well as the [Firefox Extended Support Release](https://www.mozilla.org/en-US/firefox/organizations/). This is in-line with [GitHub's Browser Support](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/supported-browsers).
+
+Primer React does not transform code to support older ECMAScript versions, such as ES5, and it uses ECMAScript features such as `Object.assign`, as well as syntax features such as native classes and Object destructuring and spreading.
+
+Environments that Primer React is used in should have all the necessary polyfills to comply with the latest code standards, as Primer React will not ship with these. Additionally, as Primer React does not transform code to support older versions, it may be necessary for projects to transform this code if support for older browsers (such as Edge 18) is needed.
+
 ### Minimizing bundle size
 
 Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake Primer React, ensuring that no unused code is included in your final bundle. However, if you're not using ESM, you may be able to drastically reduce the size of your final bundle by importing components individually from the `lib` subfolder:
