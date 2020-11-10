@@ -43,7 +43,7 @@ A common question asked about Primer Components is how to know what should be ad
 
 We primarily use our documentation site as a workspace to develop new components or make changes to existing components (stay tuned for a better development environment coming soon!).
 
-Before running the documentation site locally you'll need to install packages and make sure you've got the [Gatsby cli](https://www.gatsbyjs.com/docs/gatsby-cli/) installed:
+Before running the documentation site locally you'll need to install packages and make sure you've got the [Gatsby cli](https://www.gatsbyjs.com/docs/gatsby-cli/) installed on your machine:
 
 ```sh
 yarn && yarn global add gatsby-cli
