@@ -2041,6 +2041,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@github/details-dialog-element@3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@github/details-dialog-element/-/details-dialog-element-3.1.2.tgz#61f6595c71d786b1a77fbbe79db4c0b9a224fc80"
+  integrity sha512-kUz7VYKmgOtlAo96TVeXSq5bKDS/3Wm0SZt4UetJK2CcG0/wsx/Eif/fHx1HYEwVsa7FnrB/kCzby0JE8R88zQ==
+
 "@jest/console@^25.0.0":
   version "25.0.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-25.0.0.tgz#9fe19cbff9acf848ded867bb92b15e38c4f4b540"

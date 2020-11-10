@@ -1,6 +1,4 @@
 import React from 'react'
-import {Dialog as ReachDialog} from '@reach/dialog'
-import raw from 'raw.macro'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
 import {XIcon} from '@primer/octicons-react'
@@ -11,17 +9,7 @@ import sx from './sx'
 import Text from './Text'
 import Flex from './Flex'
 
-const reachStyles = raw('@reach/dialog/styles.css')
-
-const ReachGlobalStyle = createGlobalStyle`
-  ${reachStyles}
-
-  [data-reach-dialog-overlay] {
-    z-index: 1000002; /* Higher than the Dropdown and Tooltip */
-  }
-`
-
-const StyledDialog = styled(ReachDialog)`
+const StyledWrapper = styled.div`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
   padding: 0 !important;
@@ -76,19 +64,19 @@ function DialogHeader({theme, children, ...rest}) {
       {children}
     </DialogHeaderBase>
   )
-}
+
 
 function Dialog({children, ...props}) {
+  React.useEffect(() => {
+    import('@github/details-dialog-element')
+  }, [])
   return (
-    <>
-      <StyledDialog {...props}>
-        <UnstyledButton onClick={props.onDismiss}>
-          <StyledOcticon icon={XIcon} />
-        </UnstyledButton>
-        {children}
-      </StyledDialog>
-      <ReachGlobalStyle />
-    </>
+    <details-dialog>
+      <UnstyledButton onClick={props.onDismiss}>
+        <StyledOcticon icon={XIcon} />
+      </UnstyledButton>
+      {children}
+    </details-dialog>
   )
 }
 
