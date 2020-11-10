@@ -43,7 +43,13 @@ A common question asked about Primer Components is how to know what should be ad
 
 We primarily use our documentation site as a workspace to develop new components or make changes to existing components (stay tuned for a better development environment coming soon!).
 
-To get the documentation site running locally run the following in your terminal:
+Before running the documentation site locally you'll need to install packages and make sure you've got the [Gatsby cli](https://www.gatsbyjs.com/docs/gatsby-cli/) installed:
+
+```sh
+yarn && yarn global add gatsby-cli
+```
+
+Then run the following to start up the site:
 
 ```sh
 yarn start
