@@ -9,24 +9,6 @@ import sx from './sx'
 import Text from './Text'
 import Flex from './Flex'
 
-const StyledWrapper = styled.div`
-  box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
-  border-radius: 4px;
-  padding: 0 !important;
-  position: relative;
-
-  @media screen and (max-width: 750px) {
-    width: 100vw !important;
-    margin: 0 !important;
-    border-radius: 0;
-    height: 100vh;
-  }
-
-  ${LAYOUT}
-  ${COMMON}
-  ${sx};
-`
-
 const UnstyledButton = styled(Flex).attrs({
   as: 'button'
 })`
@@ -64,7 +46,33 @@ function DialogHeader({theme, children, ...rest}) {
       {children}
     </DialogHeaderBase>
   )
+}
 
+const DialogWrapper = styled.div`
+  box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
+  background: white;
+  border-radius: 4px;
+  padding: 0 !important;
+  position: fixed;
+  margin: 10vh auto;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999999999;
+  max-height: 80vh;
+  max-width: 90vw;
+
+  @media screen and (max-width: 750px) {
+    width: 100vw !important;
+    margin: 0 !important;
+    border-radius: 0;
+    height: 100vh;
+  }
+
+  ${LAYOUT};
+  ${COMMON};
+  ${sx};
+`
 
 function Dialog({children, ...props}) {
   React.useEffect(() => {
@@ -72,10 +80,12 @@ function Dialog({children, ...props}) {
   }, [])
   return (
     <details-dialog>
-      <UnstyledButton onClick={props.onDismiss}>
-        <StyledOcticon icon={XIcon} />
-      </UnstyledButton>
-      {children}
+      <DialogWrapper>
+          <UnstyledButton onClick={props.onDismiss} data-close-dialog>
+            <StyledOcticon icon={XIcon} />
+          </UnstyledButton>
+          {children}
+      </DialogWrapper>
     </details-dialog>
   )
 }
@@ -104,4 +114,5 @@ DialogHeader.propTypes = {
 DialogHeader.displayName = 'Dialog.Header'
 
 Dialog.Header = DialogHeader
+
 export default Dialog

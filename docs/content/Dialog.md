@@ -10,7 +10,7 @@ The dialog component is used for all modals. It renders on top of the rest of th
 
 ```jsx live
   <details>
-    <Button as="summary" onClick={() => setIsOpen(true)}>Open</Button>
+    <Button as="summary">Open</Button>
     <Dialog>
       <Dialog.Header>Title</Dialog.Header>
       <Box p={3}>
@@ -24,21 +24,17 @@ The dialog component is used for all modals. It renders on top of the rest of th
 You can also pass any non-text content into the header:
 
 ```jsx live
-<State default={false}>
-  {([isOpen, setIsOpen]) => (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open</Button>
-      <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
-        <Dialog.Header>
-          <ZapIcon />
-        </Dialog.Header>
-        <Box p={3}>
-          <Text fontFamily="sans-serif">Some content</Text>
-        </Box>
-      </Dialog>
-    </>
-  )}
-</State>
+<details>
+  <Button>Open</Button>
+  <Dialog>
+    <Dialog.Header>
+      <ZapIcon />
+    </Dialog.Header>
+    <Box p={3}>
+      <Text fontFamily="sans-serif">Some content</Text>
+    </Box>
+  </Dialog>
+</details>
 ```
 
 ## System props
