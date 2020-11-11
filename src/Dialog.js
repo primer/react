@@ -81,10 +81,10 @@ function Dialog({children, ...props}) {
   return (
     <details-dialog>
       <DialogWrapper>
-          <UnstyledButton onClick={props.onDismiss} data-close-dialog>
-            <StyledOcticon icon={XIcon} />
-          </UnstyledButton>
-          {children}
+        <UnstyledButton onClick={props.onDismiss} data-close-dialog>
+          <StyledOcticon icon={XIcon} />
+        </UnstyledButton>
+        {children}
       </DialogWrapper>
     </details-dialog>
   )
