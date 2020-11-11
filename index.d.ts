@@ -507,7 +507,7 @@ declare module '@primer/components' {
   export const theme: {[key: string]: any}
   export const themeGet: (key: any) => any
 
-  export interface DialogProps extends CommonProps {
+  export interface DialogProps extends CommonProps, LayoutProps {
     isOpen: boolean
     onDismiss: () => unknown
   }
