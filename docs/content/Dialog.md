@@ -1,6 +1,7 @@
 ---
 title: Dialog
 ---
+
 import State from '../components/State'
 import {Button, Dialog, Box, Text} from '@primer/components'
 
@@ -9,16 +10,15 @@ The dialog component is used for all modals. It renders on top of the rest of th
 **Note:** You'll need to manage the `isOpen` state in a wrapper component of your own. For documentation purposes only we've created a mock `State` to handle this, but you should handle the state in the component you consume `Dialog` in or in a wrapper component.
 
 ```jsx live
-  <details>
-    <Button as="summary">Open</Button>
-    <Dialog>
-      <Dialog.Header>Title</Dialog.Header>
-      <Box p={3}>
-        <Text fontFamily="sans-serif">Some content</Text>
-      </Box>
-    </Dialog>
-  </details>
-
+<Details>
+  <Button as="summary">Open</Button>
+  <Dialog>
+    <Dialog.Header>Title</Dialog.Header>
+    <Box p={3}>
+      <Text fontFamily="sans-serif">Some content</Text>
+    </Box>
+  </Dialog>
+</Details>
 ```
 
 You can also pass any non-text content into the header:
