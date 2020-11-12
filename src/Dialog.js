@@ -24,18 +24,18 @@ const ReachGlobalStyle = createGlobalStyle`
 const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
-  padding: 0 !important;
+  padding: 0;
   position: relative;
 
   @media screen and (max-width: 750px) {
-    width: 100vw !important;
-    margin: 0 !important;
+    width: 100vw;
+    margin: 0;
     border-radius: 0;
     height: 100vh;
   }
 
-  ${LAYOUT}
-  ${COMMON}
+  ${LAYOUT};
+  ${COMMON};
   ${sx};
 `
 

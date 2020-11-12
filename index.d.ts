@@ -59,7 +59,7 @@ declare module '@primer/components' {
   export interface HeaderItemProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     full?: boolean;
   }
-  export interface HeaderLinkProps extends CommonProps, BorderProps, TypographyProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {}
+  export interface HeaderLinkProps extends CommonProps, BorderProps, TypographyProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {}
 
   export const Header: React.FunctionComponent<HeaderProps> & {
     Item: React.FunctionComponent<HeaderItemProps>
@@ -381,8 +381,7 @@ declare module '@primer/components' {
   export interface SideNavLinkProps
     extends CommonProps,
       TypographyProps,
-      LinkProps,
-      Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+      LinkProps {
     selected?: boolean
     variant?: 'normal' | 'full'
   }
@@ -507,7 +506,7 @@ declare module '@primer/components' {
   export const theme: {[key: string]: any}
   export const themeGet: (key: any) => any
 
-  export interface DialogProps extends CommonProps {
+  export interface DialogProps extends CommonProps, LayoutProps {
     isOpen: boolean
     onDismiss: () => unknown
   }
