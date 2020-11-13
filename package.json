@@ -51,7 +51,6 @@
     "@types/styled-components": "^4.4.0",
     "@types/styled-system": "5.1.2",
     "classnames": "^2.2.5",
-    "details-element-polyfill": "2.4.0",
     "polished": "3.5.2",
     "react": "^16.10.2",
     "react-is": "16.10.2",
