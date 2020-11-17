@@ -84,6 +84,7 @@ declare module '@primer/components' {
     open?: boolean
     onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
     onClickOutside?: (event: MouseEvent) => void
+    ref?: React.RefObject<HTMLDetailsElement> | null
   }
 
   export const Details: React.FunctionComponent<DetailsProps>

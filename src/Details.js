@@ -28,57 +28,63 @@ function getRenderer(children) {
   return typeof children === 'function' ? children : () => children
 }
 
-function Details({
-  children,
-  overlay,
-  render = getRenderer(children),
-  open: userOpen,
-  onClickOutside,
-  onToggle,
-  defaultOpen = false,
-  ...rest
-}) {
-  const [internalOpen, setInternalOpen] = useState(defaultOpen)
-  const ref = useRef(null)
-  // only use internal open state if user doesn't provide a value for the open prop
-  const open = typeof userOpen !== 'undefined' ? userOpen : internalOpen
+const Details = React.forwardRef(
+  (
+    {
+      children,
+      overlay,
+      render = getRenderer(children),
+      open: userOpen,
+      onClickOutside,
+      onToggle,
+      defaultOpen = false,
+      ...rest
+    },
+    forwardedRef
+  ) => {
+    const [internalOpen, setInternalOpen] = useState(defaultOpen)
+    const backupRef = useRef(null)
+    const ref = forwardedRef ?? backupRef
+    // only use internal open state if user doesn't provide a value for the open prop
+    const open = typeof userOpen !== 'undefined' ? userOpen : internalOpen
 
-  const onClickOutsideInternal = useCallback(
-    event => {
-      if (event.target.closest('details') !== ref.current) {
-        onClickOutside && onClickOutside(event)
-        if (!event.defaultPrevented) {
-          setInternalOpen(false)
+    const onClickOutsideInternal = useCallback(
+      event => {
+        if (event.target.closest('details') !== ref.current) {
+          onClickOutside && onClickOutside(event)
+          if (!event.defaultPrevented) {
+            setInternalOpen(false)
+          }
+        }
+      },
+      [ref, onClickOutside, setInternalOpen]
+    )
+
+    // handles the overlay behavior - closing the menu when clicking outside of it
+    useEffect(() => {
+      if (open && overlay) {
+        document.addEventListener('click', onClickOutsideInternal)
+        return () => {
+          document.removeEventListener('click', onClickOutsideInternal)
         }
       }
-    },
-    [ref, onClickOutside, setInternalOpen]
-  )
+    }, [open, overlay, onClickOutsideInternal])
 
-  // handles the overlay behavior - closing the menu when clicking outside of it
-  useEffect(() => {
-    if (open && overlay) {
-      document.addEventListener('click', onClickOutsideInternal)
-      return () => {
-        document.removeEventListener('click', onClickOutsideInternal)
+    function handleToggle(e) {
+      onToggle && onToggle(e)
+
+      if (!e.defaultPrevented) {
+        setInternalOpen(e.target.open)
       }
     }
-  }, [open, overlay, onClickOutsideInternal])
 
-  function handleToggle(e) {
-    onToggle && onToggle(e)
-
-    if (!e.defaultPrevented) {
-      setInternalOpen(e.target.open)
-    }
+    return (
+      <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay}>
+        {render({open})}
+      </StyledDetails>
+    )
   }
-
-  return (
-    <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay}>
-      {render({open})}
-    </StyledDetails>
-  )
-}
+)
 
 Details.defaultProps = {
   theme,
