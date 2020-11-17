@@ -69,3 +69,4 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 | open | Boolean | | Use the open prop if you'd like to manage the open state |
 | onToggle | Function | | Called whenever user clicks on `summary` element. If you are controlling your own `open` state this will be the only function called on click, otherwise it's called before the internal `handleToggle` function.|
 | onClickOutside | Function | | Function to call whenever user clicks outside of the Details component. This is optional and only necessary if you are controlling your own `open` state. |
+| ref | React ref | | ref to pass down to Details component |
