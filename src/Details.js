@@ -1,9 +1,11 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import React, {useState, useEffect, useCallback, useRef, createContext} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON} from './constants'
 import theme from './theme'
 import sx from './sx'
+
+const DetailsContext = createContext()
 
 // The <details> element is not yet supported in Edge so we have to use a polyfill.
 // We have to check if window is defined before importing the polyfill
@@ -24,67 +26,51 @@ const StyledDetails = styled('details')`
   ${COMMON}
   ${sx};
 `
-function getRenderer(children) {
-  return typeof children === 'function' ? children : () => children
-}
 
-const Details = React.forwardRef(
-  (
-    {
-      children,
-      overlay,
-      render = getRenderer(children),
-      open: userOpen,
-      onClickOutside,
-      onToggle,
-      defaultOpen = false,
-      ...rest
-    },
-    forwardedRef
-  ) => {
-    const [internalOpen, setInternalOpen] = useState(defaultOpen)
-    const backupRef = useRef(null)
-    const ref = forwardedRef ?? backupRef
-    // only use internal open state if user doesn't provide a value for the open prop
-    const open = typeof userOpen !== 'undefined' ? userOpen : internalOpen
+export const Details = React.forwardRef(({overlay, onClickOutside, defaultOpen = false, ...rest}, forwardedRef) => {
+  const [open, setOpen] = useState(defaultOpen)
+  const backupRef = useRef(null)
+  const ref = forwardedRef ?? backupRef
 
-    const onClickOutsideInternal = useCallback(
-      event => {
-        if (event.target.closest('details') !== ref.current) {
-          onClickOutside && onClickOutside(event)
-          if (!event.defaultPrevented) {
-            setInternalOpen(false)
-          }
-        }
-      },
-      [ref, onClickOutside, setInternalOpen]
-    )
+  const contextProviderValues = {
+    open,
+    setOpen
+  }
 
-    // handles the overlay behavior - closing the menu when clicking outside of it
-    useEffect(() => {
-      if (open && overlay) {
-        document.addEventListener('click', onClickOutsideInternal)
-        return () => {
-          document.removeEventListener('click', onClickOutsideInternal)
+  const onClickOutsideInternal = useCallback(
+    event => {
+      if (event.target.closest('details') !== ref.current) {
+        onClickOutside && onClickOutside(event)
+        if (!event.defaultPrevented) {
+          setOpen(false)
         }
       }
-    }, [open, overlay, onClickOutsideInternal])
+    },
+    [ref, onClickOutside, setOpen]
+  )
 
-    function handleToggle(e) {
-      onToggle && onToggle(e)
-
-      if (!e.defaultPrevented) {
-        setInternalOpen(e.target.open)
+  // handles the overlay behavior - closing the menu when clicking outside of it
+  useEffect(() => {
+    if (open && overlay) {
+      document.addEventListener('click', onClickOutsideInternal)
+      return () => {
+        document.removeEventListener('click', onClickOutsideInternal)
       }
     }
+  }, [open, overlay, onClickOutsideInternal])
 
-    return (
-      <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay}>
-        {render({open})}
-      </StyledDetails>
-    )
+  function handleToggle(e) {
+    if (!e.defaultPrevented) {
+      setOpen(e.target.open)
+    }
   }
-)
+
+  return (
+    <DetailsContext.Provider value={contextProviderValues}>
+      <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay} />
+    </DetailsContext.Provider>
+  )
+})
 
 Details.defaultProps = {
   theme,
@@ -101,5 +87,3 @@ Details.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes
 }
-
-export default Details

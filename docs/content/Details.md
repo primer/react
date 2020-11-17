@@ -35,25 +35,31 @@ The render function gets an object with the `open` render prop to allow you to c
 </Details>
 ```
 
-## Manage the open state manually
-The `Details` element is built to also let you manage the open state and toggle functionality if necessary. Just provide values to the `open` and `onToggle` props.
+## Details.Context
+Details.Context is a [context object](https://reactjs.org/docs/context.html#reactcreatecontext) that exposes some helpful state values to be used via [`React.useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext) in consuming applications.  Details.Context can only be used in components that are already wrapped in a `Details` as `Details` contains the [context provider](https://reactjs.org/docs/context.html#contextprovider).
 
-**Note:** The `overlay` prop will not function automatically if you chose to provide your own `open` state. You'll need to implement this yourself. You can use the `onClickOutside` prop to implement and customize this behavior.
+`Details.Context` contains the `open` and `setOpen` values which can be used to conditionally update UI based on the open state of the dropdown:
 
-```jsx live
-<State default={false}>
-  {([open, setOpen]) => {
-    const handleToggle = (e) => setOpen(e.target.open)
-    const handleClickOutside = () => setOpen(false)
+### Example Usage
+```jsx
+import {Details, Button} from `@primer/components`
+import React, {useContext} from 'react'
 
-    return (
-      <Details open={open} onToggle={handleToggle} onClickOutside={handleClickOutside} overlay>
-        <Button as="summary">Click me</Button>
-        <p>This should show and hide</p>
-      </Details>
-    )
-  }}
-</State>
+const MyDetails = () => {
+  <Details>
+    <MyButton as="summary" />
+    content
+  </Details>
+}
+
+// note that we can only use the context in components that are already wrapped by Details (and thus the Context.Provider)
+const MyButton = () => {
+  const detailsContext = useContext(Details.Context);
+
+  return (
+    <Button as="summary">{detailsContext.open ? 'Open' : 'Closed'}</Button>
+  )
+}
 ```
 
 ## System props
