@@ -77,16 +77,18 @@ declare module '@primer/components' {
   type DetailsRenderFunction = (args: {open: boolean}) => React.ReactElement
 
   export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
-    render?: DetailsRenderFunction
-    children?: DetailsRenderFunction | React.ReactNode
     defaultOpen?: boolean
     overlay?: boolean
-    open?: boolean
     onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
     ref?: React.RefObject<HTMLDetailsElement> | null
   }
 
-  export const Details: React.FunctionComponent<DetailsProps>
+  export const Details: React.FunctionComponent<DetailsProps> & {
+    Context: React.Context<{
+      open: boolean | undefined,
+      setOpen: (open: boolean | undefined) => void,
+    }>
+  }
 
   export interface ButtonProps
     extends BaseProps,
