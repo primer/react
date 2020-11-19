@@ -5,7 +5,7 @@ import {COMMON} from './constants'
 import theme from './theme'
 import sx from './sx'
 
-export const DetailsContext = createContext()
+const DetailsContext = createContext()
 
 const StyledDetails = styled.details`
   & > summary {
@@ -19,7 +19,7 @@ const StyledDetails = styled.details`
   ${sx};
 `
 
-export const Details = React.forwardRef(({overlay, onClickOutside, defaultOpen = false, ...rest}, forwardedRef) => {
+const Details = React.forwardRef(({overlay, defaultOpen = false, ...rest}, forwardedRef) => {
   const [open, setOpen] = useState(defaultOpen)
   const backupRef = useRef(null)
   const ref = forwardedRef ?? backupRef
@@ -29,7 +29,7 @@ export const Details = React.forwardRef(({overlay, onClickOutside, defaultOpen =
     setOpen
   }
 
-  const onClickOutsideInternal = useCallback(
+  const onClickOutside = useCallback(
     event => {
       if (event.target.closest('details') !== ref.current) {
         onClickOutside && onClickOutside(event)
@@ -38,18 +38,18 @@ export const Details = React.forwardRef(({overlay, onClickOutside, defaultOpen =
         }
       }
     },
-    [ref, onClickOutside, setOpen]
+    [ref, setOpen]
   )
 
   // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
     if (open && overlay) {
-      document.addEventListener('click', onClickOutsideInternal)
+      document.addEventListener('click', onClickOutside)
       return () => {
-        document.removeEventListener('click', onClickOutsideInternal)
+        document.removeEventListener('click', onClickOutside)
       }
     }
-  }, [open, overlay, onClickOutsideInternal])
+  }, [open, overlay, onClickOutside])
 
   const handleToggle = e => {
     if (!e.defaultPrevented) {
@@ -79,3 +79,7 @@ Details.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes
 }
+
+Details.Context = DetailsContext
+
+export default Details
