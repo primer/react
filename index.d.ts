@@ -238,6 +238,7 @@ declare module '@primer/components' {
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     muted?: boolean
     underline?: boolean
+    hoverColor?: string
   }
 
   export const Link: React.FunctionComponent<LinkProps>
