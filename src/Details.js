@@ -5,7 +5,7 @@ import {COMMON} from './constants'
 import theme from './theme'
 import sx from './sx'
 
-const DetailsContext = createContext()
+export const DetailsContext = createContext()
 
 const StyledDetails = styled.details`
   & > summary {
@@ -51,7 +51,7 @@ export const Details = React.forwardRef(({overlay, onClickOutside, defaultOpen =
     }
   }, [open, overlay, onClickOutsideInternal])
 
-  function handleToggle(e) {
+  const handleToggle = e => {
     if (!e.defaultPrevented) {
       setOpen(e.target.open)
     }
@@ -59,7 +59,7 @@ export const Details = React.forwardRef(({overlay, onClickOutside, defaultOpen =
 
   return (
     <DetailsContext.Provider value={contextProviderValues}>
-      <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} overlay={overlay} />
+      <StyledDetails {...rest} ref={ref} open={open} onToggle={handleToggle} />
     </DetailsContext.Provider>
   )
 })
