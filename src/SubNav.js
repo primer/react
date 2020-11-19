@@ -54,11 +54,11 @@ SubNav.Link = styled.a.attrs(props => ({
 }))`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};
-  min-height: 34px; // copied from TextInput, but should be a variable.
-  font-weight: ${get('fontWeights.bold')};
+  min-height: 34px;
+  font-weight: ${get('fontWeights.semibold')};
   font-size: ${get('fontSizes.1')};
-  line-height: ${get('lineHeights.default')};
-  color: ${get('colors.gray.6')};
+  line-height: 20px;
+  color: ${get('colors.gray.9')};
   text-align: center;
   text-decoration: none;
   border-top: 1px solid ${get('colors.gray.2')};
