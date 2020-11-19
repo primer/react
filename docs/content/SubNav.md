@@ -46,7 +46,8 @@ This ensures that the NavLink gets `activeClassName='selected'`
 ```jsx live
 <SubNav aria-label="Main">
   <FilteredSearch>
-    <Dropdown title="Filter">
+    <Dropdown>
+      <Dropdown.Button>Filter</Dropdown.Button>
       <Dropdown.Menu direction="sw">
         <Dropdown.Item>
           <a href="#">Item 1</a>

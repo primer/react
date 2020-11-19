@@ -101,7 +101,6 @@ Dropdown.Item = styled.li`
     color: ${get('colors.gray.9')};
     text-decoration: none;
     display: block;
-    padding: ${get('space.1')} 10px ${get('space.1')} 15px;
     overflow: hidden;
     color: ${get('colors.gray.9')};
     text-overflow: ellipsis;

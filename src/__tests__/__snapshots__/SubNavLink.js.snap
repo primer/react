@@ -4,11 +4,11 @@ exports[`SubNav.Link renders consistently 1`] = `
 .c0 {
   padding-left: 16px;
   padding-right: 16px;
-  min-height: 34px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
-  line-height: 1.5;
-  color: #586069;
+  line-height: 20px;
+  min-height: 34px;
+  color: #24292e;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -69,11 +69,11 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
 .c0 {
   padding-left: 16px;
   padding-right: 16px;
-  min-height: 34px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
-  line-height: 1.5;
-  color: #586069;
+  line-height: 20px;
+  min-height: 34px;
+  color: #24292e;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
