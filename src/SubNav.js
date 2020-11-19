@@ -54,10 +54,10 @@ SubNav.Link = styled.a.attrs(props => ({
 }))`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};
-  min-height: 34px;
   font-weight: ${get('fontWeights.semibold')};
   font-size: ${get('fontSizes.1')};
-  line-height: 20px;
+  line-height: 20px; //custom value for SubNav
+  min-height: 34px; //custom value for SubNav
   color: ${get('colors.gray.9')};
   text-align: center;
   text-decoration: none;
