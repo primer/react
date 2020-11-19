@@ -46,7 +46,7 @@ const SubNav = styled(SubNavBase)`
   ${sx};
 `
 
-SubNav.Links = Flex
+SubNav.Links = props => <Flex {...props} />
 
 SubNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
