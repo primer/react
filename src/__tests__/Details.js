@@ -27,7 +27,11 @@ describe('Details', () => {
     not the case in the browser. Leaving this test disabled for now.
    */
   it.skip('Can be toggled', () => {
-    const wrapper = mount(<Details><summary>button</summary>}</Details>)
+    const wrapper = mount(
+      <Details>
+        <summary>button</summary>}
+      </Details>
+    )
 
     const dom = wrapper.getDOMNode()
     const summary = wrapper.find('summary')
