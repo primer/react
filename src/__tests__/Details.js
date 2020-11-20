@@ -1,5 +1,5 @@
-import React from 'react'
-import {Details} from '..'
+import React, {useContext} from 'react'
+import {Details, Button} from '..'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -54,7 +54,57 @@ describe('Details', () => {
     document.body.click()
 
     const dom = wrapper.getDOMNode()
+
+    expect(dom.hasAttribute('open')).toEqual(false)
+
+    wrapper.unmount()
+  })
+
+  it('Accurately passes down open state', () => {
+    const MyButton = () => {
+      const detailsContext = useContext(Details.Context)
+      return <Button as="summary">{detailsContext.open ? 'Open' : 'Closed'}</Button>
+    }
+    const wrapper = mount(
+      <Details>
+        <MyButton />
+      </Details>
+    )
+
+    document.body.click()
+
+    const dom = wrapper.getDOMNode()
     const summary = wrapper.find('summary')
+    expect(summary.text()).toEqual('Closed')
+
+    expect(dom.hasAttribute('open')).toEqual(false)
+
+    wrapper.unmount()
+  })
+
+  it('Allows context to manipulate state', () => {
+    const MyButton = () => {
+      const detailsContext = useContext(Details.Context)
+      return <Button as="summary">{detailsContext.open ? 'Open' : 'Closed'}</Button>
+    }
+
+    const CloseButton = () => {
+      const detailsContext = useContext(Details.Context)
+      return <Button onClick={detailsContext.setOpen(false)} />
+    }
+
+    const wrapper = mount(
+      <Details>
+        <MyButton />
+        <CloseButton />
+      </Details>
+    )
+
+    wrapper.find(CloseButton).simulate('click')
+
+    const dom = wrapper.getDOMNode()
+    const summary = wrapper.find('summary')
+    expect(summary.text()).toEqual('Closed')
 
     expect(dom.hasAttribute('open')).toEqual(false)
 
