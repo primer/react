@@ -64,6 +64,8 @@ const Details = React.forwardRef(({overlay, defaultOpen = false, ...rest}, forwa
   )
 })
 
+Details.displayName = 'Details'
+
 Details.defaultProps = {
   theme,
   overlay: false
