@@ -1,5 +1,5 @@
-import React, {useContext} from 'react'
-import {Details, useDetails, Button} from '..'
+import React from 'react'
+import {Details, useDetails, Button, ButtonPrimary, Box} from '..'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -19,37 +19,6 @@ describe('Details', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-
-  /*The way that Enzyme handles simulated events is not 1:1 with how the browser handles the same events.
-    Because of that, this test is pretty much impossible to implement. When the toggle function
-    fires in the test, the native `details` open state has already been updated, which is
-    not the case in the browser. Leaving this test disabled for now.
-   */
-  it.skip('Can be toggled without the hook', () => {
-    const wrapper = mount(
-      <Details>
-        <summary>button</summary>}
-      </Details>
-    )
-
-    const dom = wrapper.getDOMNode()
-    const summary = wrapper.find('summary')
-    const details = wrapper.find('details')
-
-    expect(dom.hasAttribute('open')).toEqual(false)
-
-    details.simulate('toggle')
-
-    wrapper.update()
-    expect(dom.hasAttribute('open')).toEqual(true)
-
-    details.simulate('toggle')
-
-    wrapper.update()
-    expect(dom.hasAttribute('open')).toEqual(false)
-
-    summary.simulate('click')
   })
 
   it('Toggles when you click outside', () => {
@@ -99,7 +68,7 @@ describe('Details', () => {
   it('Can manipulate state with setOpen', () => {
     const CloseButton = props => <Button {...props} />
     const Component = () => {
-      const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true})
+      const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
         <Details {...getDetailsProps}>
           <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
@@ -121,25 +90,25 @@ describe('Details', () => {
     wrapper.unmount()
   })
 
-  it.skip('Does not toggle or prevent click events when you click inside', () => {
-    const wrapper = mount(
-      <Details open>
-        <summary>hi</summary>
-        <div>content</div>
-      </Details>
-    )
+  it('Does not toggle when you click inside', () => {
+    const Component = () => {
+      const {getDetailsProps} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
+      return (
+        <Details {...getDetailsProps}>
+          <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+          <Box>
+            <ButtonPrimary>hi</ButtonPrimary>
+          </Box>
+        </Details>
+      )
+    }
 
-    document.body.click()
+    const wrapper = mount(<Component />)
+    const summary = wrapper.find('summary')
 
-    const dom = wrapper.getDOMNode()
-    const content = dom.querySelector('div')
+    wrapper.find(ButtonPrimary).simulate('click')
 
-    let clickEvent
-    content.addEventListener('click', event => (clickEvent = event))
-    content.click()
-
-    expect(dom.hasAttribute('open')).toEqual(true)
-    expect(clickEvent.defaultPrevented).toBe(false)
+    expect(summary.text()).toEqual('Open')
 
     wrapper.unmount()
   })
