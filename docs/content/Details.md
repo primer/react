@@ -45,7 +45,7 @@ import React, {useContext} from 'react'
 
 const MyDetails = () => {
   <Details>
-    <MyButton as="summary" />
+    <MyButton />
     content
   </Details>
 }
