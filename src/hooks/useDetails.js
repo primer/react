@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState, useRef} from 'react'
 
-function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}) {
+function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside} = {}) {
   const [open, setOpen] = useState(defaultOpen)
   const backupRef = useRef(null)
   const customRef = ref ?? backupRef
