@@ -12,7 +12,6 @@ You are responsible for rendering your own `<summary>`. To style your summary el
 ```jsx live
 <State>
   {([]) => {
-    const ref = React.useRef()
     const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true})
     return (
       <Details {...getDetailsProps()}>
