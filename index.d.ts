@@ -75,7 +75,11 @@ declare module '@primer/components' {
   export const Heading: React.FunctionComponent<HeadingProps>
 
 
-  export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {}
+  export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
+    onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    open: boolean
+    ref: React.RefObject<HTMLDetailsElement>
+  }
 
   export const Details: React.FunctionComponent<DetailsProps>
 
