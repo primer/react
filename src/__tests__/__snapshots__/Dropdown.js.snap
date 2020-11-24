@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+}
+
 .c0 > summary {
   list-style: none;
 }
@@ -9,15 +14,8 @@ exports[`Dropdown renders consistently 1`] = `
   display: none;
 }
 
-.c1 {
-  position: relative;
-  display: inline-block;
-}
-
 <details
-  className="c0 c1"
-  onToggle={[Function]}
-  open={false}
+  className="c0"
 >
   Hello!
 </details>

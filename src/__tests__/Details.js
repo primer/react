@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Details, Button} from '..'
+import {Details, useDetails, Button} from '..'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -26,7 +26,7 @@ describe('Details', () => {
     fires in the test, the native `details` open state has already been updated, which is
     not the case in the browser. Leaving this test disabled for now.
    */
-  it.skip('Can be toggled', () => {
+  it.skip('Can be toggled without the hook', () => {
     const wrapper = mount(
       <Details>
         <summary>button</summary>}
@@ -53,7 +53,16 @@ describe('Details', () => {
   })
 
   it('Toggles when you click outside', () => {
-    const wrapper = mount(<Details><summary>button</summary></Details>)
+    const Component = () => {
+      const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
+      return (
+        <Details {...getDetailsProps}>
+          <summary>hi</summary>
+        </Details>
+      )
+    }
+
+    const wrapper = mount(<Component />)
 
     document.body.click()
 
@@ -65,15 +74,16 @@ describe('Details', () => {
   })
 
   it('Accurately passes down open state', () => {
-    const MyButton = () => {
-      const detailsContext = useContext(Details.Context)
-      return <Button as="summary">{detailsContext.open ? 'Open' : 'Closed'}</Button>
+    const Component = () => {
+      const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
+      return (
+        <Details {...getDetailsProps}>
+          <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+        </Details>
+      )
     }
-    const wrapper = mount(
-      <Details>
-        <MyButton />
-      </Details>
-    )
+
+    const wrapper = mount(<Component />)
 
     document.body.click()
 
@@ -86,23 +96,19 @@ describe('Details', () => {
     wrapper.unmount()
   })
 
-  it('Allows context to manipulate state', () => {
-    const MyButton = () => {
-      const detailsContext = useContext(Details.Context)
-      return <Button as="summary">{detailsContext.open ? 'Open' : 'Closed'}</Button>
+  it('Can manipulate state with setOpen', () => {
+    const CloseButton = props => <Button {...props} />
+    const Component = () => {
+      const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true})
+      return (
+        <Details {...getDetailsProps}>
+          <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+          <CloseButton onClick={() => setOpen(false)} />
+        </Details>
+      )
     }
 
-    const CloseButton = () => {
-      const detailsContext = useContext(Details.Context)
-      return <Button onClick={detailsContext.setOpen(false)} />
-    }
-
-    const wrapper = mount(
-      <Details>
-        <MyButton />
-        <CloseButton />
-      </Details>
-    )
+    const wrapper = mount(<Component />)
 
     wrapper.find(CloseButton).simulate('click')
 
