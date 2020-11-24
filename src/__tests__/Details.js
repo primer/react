@@ -53,7 +53,7 @@ describe('Details', () => {
   })
 
   it('Toggles when you click outside', () => {
-    const wrapper = mount(<Details>{<summary>button</summary>}</Details>)
+    const wrapper = mount(<Details><summary>button</summary></Details>)
 
     document.body.click()
 
