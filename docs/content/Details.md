@@ -10,15 +10,16 @@ The Details component is an HTML `<details>` element without native browser styl
 You are responsible for rendering your own `<summary>`. To style your summary element like a [Button](./Button), you can use the `as` prop:
 
 ```jsx live
-
 <State>
   {([]) => {
     const ref = React.useRef()
-    const {getDetailsProps} = useDetails({overlay: true, defaultOpen: true})
-
+    const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true})
+    return (
       <Details {...getDetailsProps()}>
-        <Button as="summary">hi</Button>
-        content
+        <Button as="summary">{open ? 'open' : 'closed'}</Button>
+        Are you sure you want to delete this issue?
+        <Button onClick={() => setOpen(false)}>Cancel</Button>
+        <ButtonDanger onClick={() => setOpen(false)}>Delete</ButtonDanger>
       </Details>
     )
   }}
@@ -42,35 +43,7 @@ Details components get `COMMON` system props. Read our [System Props](/system-pr
 | ref | React ref | | ref to pass down to Details component |
 
 
-## Details.Context
-Details.Context is a [context object](https://reactjs.org/docs/context.html#reactcreatecontext) that exposes some helpful state values to be used via [`React.useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext) in consuming applications.  Details/Context can only be used in components that are already wrapped in a `Details` as `Details` contains the [context provider](https://reactjs.org/docs/context.html#contextprovider).
 
-`Details.Context` contains the `open` and `setOpen` values which can be used to conditionally update UI based on the open state of the dropdown or set up useEffects to trigger some actions when the `open` state changes.
-
-### Example Usage
-
-```jsx
-import {Details, Button, useDetails} from `@primer/components`
-import React, {useContext, useRef} from 'react'
-
-const MyDetails = () => {
-  const ref = useRef()
-  const {getDetailsProps} = useDetails(ref, overlay, defaultOpen)
-  <Details {...getDetailsProps()}>
-    <MyButton />
-    content
-  </Details>
-}
-
-// note that we can only use the context in components that are already wrapped by Details (and thus the Context.Provider)
-const MyButton = () => {
-  const detailsContext = useContext(Details.Context);
-
-  return (
-    <Button as="summary">{detailsContext.open ? 'Open' : 'Closed'}</Button>
-  )
-}
-```
 
 ### Values available on Details.Context
 | Name | Type | Description |

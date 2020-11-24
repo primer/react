@@ -81,7 +81,7 @@ declare module '@primer/components' {
 
   export interface UseDetailsProps {
     defaultOpen?: boolean
-    overlay?: boolean
+    closeOnOutsideClick?: boolean
     onClickOutside?: (event: React.MouseEvent ) => void
     ref?: React.RefObject<HTMLDetailsElement> | null
   }
