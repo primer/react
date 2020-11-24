@@ -2,22 +2,31 @@
 title: Details
 ---
 
+import {useContext, useRef} from 'react'
+import {useDetails} from '@primer/components'
+
 The Details component is an HTML `<details>` element without native browser styling that as exposes a [context object]((https://reactjs.org/docs/hooks-reference.html#usecontext) to expose the `open` state and `setOpen` function to update that state.
 
 You are responsible for rendering your own `<summary>`. To style your summary element like a [Button](./Button), you can use the `as` prop:
 
-```jsx
-<Button as="summary">Summary text</Button>
+```jsx live
+
+<State>
+  {([]) => {
+    const ref = React.useRef()
+    const {getDetailsProps} = useDetails({overlay: true, defaultOpen: true})
+    return (
+      <Details {...getDetailsProps()}>
+        <Button as="summary">hi</Button>
+        content
+      </Details>
+    )
+  }}
+</State>
+
 ```
 
 ## With static children
-```jsx live
-<Details>
-  <Button as="summary">Click me</Button>
-  <p>This should show and hide</p>
-</Details>
-
-```
 
 ## System props
 
@@ -39,12 +48,15 @@ Details.Context is a [context object](https://reactjs.org/docs/context.html#reac
 `Details.Context` contains the `open` and `setOpen` values which can be used to conditionally update UI based on the open state of the dropdown or set up useEffects to trigger some actions when the `open` state changes.
 
 ### Example Usage
+
 ```jsx
-import {Details, Button} from `@primer/components`
-import React, {useContext} from 'react'
+import {Details, Button, useDetails} from `@primer/components`
+import React, {useContext, useRef} from 'react'
 
 const MyDetails = () => {
-  <Details>
+  const ref = useRef()
+  const {getDetailsProps} = useDetails(ref, overlay, defaultOpen)
+  <Details {...getDetailsProps()}>
     <MyButton />
     content
   </Details>
