@@ -15,7 +15,7 @@ You are responsible for rendering your own `<summary>`. To style your summary el
   {([]) => {
     const ref = React.useRef()
     const {getDetailsProps} = useDetails({overlay: true, defaultOpen: true})
-    return (
+
       <Details {...getDetailsProps()}>
         <Button as="summary">hi</Button>
         content
