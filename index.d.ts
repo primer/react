@@ -90,7 +90,7 @@ declare module '@primer/components' {
     ref?: React.RefObject<HTMLDetailsElement> | null
   }
 
-  export const useDetails: (props: UseDetailsProps) => {
+  export const useDetails: (props?: UseDetailsProps) => {
     getDetailsProps: () => {
       onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
       open: boolean
