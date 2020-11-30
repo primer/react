@@ -18,7 +18,15 @@ export {default as AvatarPair} from './AvatarPair'
 export {default as AvatarStack} from './AvatarStack'
 export {default as BranchName} from './BranchName'
 export {default as Breadcrumb} from './Breadcrumb'
-export {default as Button, ButtonDanger, ButtonOutline, ButtonPrimary, ButtonTableList, ButtonGroup} from './Button'
+export {
+  default as Button,
+  ButtonDanger,
+  ButtonOutline,
+  ButtonPrimary,
+  ButtonInvisible,
+  ButtonTableList,
+  ButtonGroup
+} from './Button'
 export {default as Caret} from './Caret'
 export {default as CircleBadge} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'

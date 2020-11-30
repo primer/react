@@ -118,6 +118,7 @@ declare module '@primer/components' {
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const ButtonInvisible: React.FunctionComponent<ButtonProps>
   export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
@@ -585,6 +586,11 @@ declare module '@primer/components/lib/ButtonPrimary' {
 declare module '@primer/components/lib/ButtonOutline' {
   import {ButtonOutline} from '@primer/components'
   export default ButtonOutline
+}
+
+declare module '@primer/components/lib/ButtonInvisible' {
+  import {ButtonInvisible} from '@primer/components'
+  export default ButtonInvisible
 }
 
 declare module '@primer/components/lib/ButtonTableList' {

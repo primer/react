@@ -353,6 +353,139 @@ exports[`ButtonGroup renders consistently 1`] = `
 />
 `;
 
+exports[`ButtonInvisible renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #0366d6;
+  border: 1px solid #e1e4e8;
+  background-color: #fafbfc;
+  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:hover {
+  color: #fff;
+  background-color: #0366d6;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+}
+
+.c0:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c0:active {
+  color: #fff;
+  background-color: #035fc7;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+}
+
+.c0:disabled {
+  color: #959da5;
+  border-color: #e1e4e8;
+  background-color: #F3F4F6;
+}
+
+<button
+  className="c0"
+/>
+`;
+
+exports[`ButtonInvisible renders correct disabled styles 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #0366d6;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:disabled {
+  color: #959da5;
+}
+
+<button
+  className="c0"
+  disabled={true}
+/>
+`;
+
 exports[`ButtonOutline renders consistently 1`] = `
 .c0 {
   position: relative;
