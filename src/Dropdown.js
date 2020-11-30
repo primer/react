@@ -15,7 +15,7 @@ const StyledDetails = styled(Details)`
 
 const Dropdown = ({children, className, ...rest}) => {
   return (
-    <StyledDetails overlay className={className} {...rest}>
+    <StyledDetails closeOnOutsideClick className={className} {...rest}>
       {children}
     </StyledDetails>
   )

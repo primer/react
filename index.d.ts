@@ -74,19 +74,31 @@ declare module '@primer/components' {
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
-  type DetailsRenderFunction = (args: {open: boolean}) => React.ReactElement
 
   export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
-    render?: DetailsRenderFunction
-    children?: DetailsRenderFunction | React.ReactNode
-    defaultOpen?: boolean
-    overlay?: boolean
-    open?: boolean
-    onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
-    onClickOutside?: (event: MouseEvent) => void
+    onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    open: boolean
+    ref: React.RefObject<HTMLDetailsElement>
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
+
+  export interface UseDetailsProps {
+    defaultOpen?: boolean
+    closeOnOutsideClick?: boolean
+    onClickOutside?: (event: React.MouseEvent ) => void
+    ref?: React.RefObject<HTMLDetailsElement> | null
+  }
+
+  export const useDetails: (props?: UseDetailsProps) => {
+    getDetailsProps: () => {
+      onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+      open: boolean
+      ref: React.RefObject<HTMLDetailsElement>
+    }
+    open: boolean
+    setOpen: (open: boolean) => void
+  }
 
   export interface ButtonProps
     extends BaseProps,
@@ -608,6 +620,11 @@ declare module '@primer/components/lib/AvatarPair' {
 declare module '@primer/components/lib/Details' {
   import {Details} from '@primer/components'
   export default Details
+}
+
+declare module '@primer/components/lib/hooks/useDetails' {
+  import {useDetails} from '@primer/components'
+  export default useDetails
 }
 
 declare module '@primer/components/lib/BaseStyles' {

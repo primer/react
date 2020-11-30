@@ -1,71 +1,104 @@
 ---
-title: Details
+title: Details & useDetails hook
 ---
 
-The Details component is an HTML `<details>` element without native browser styling that optionally uses the [render props pattern](https://reactjs.org/docs/render-props.html) to pass its state to child components.
+`Details` is a styled `details` element for use with the `useDetails` hook. The `useDetails` hook returns the `open` state, a `setOpen` function to manually change the open state, and **`getDetailsProps` which must be spread onto your `Details` element in order for `Details` to get receive the proper behaviors provided by the hook**. See Kent Dodd's article on this pattern [here](https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters).
 
-You are responsible for rendering your own `<summary>`. To style your summary element like a [Button](./Button), you can use the `as` prop:
+The `useDetails` hook also takes a few configuration options as parameters which are noted in the table below.
 
-```jsx
-<Button as="summary">Summary text</Button>
-```
 
-## With static children
-```jsx live
-<Details>
-  <Button as="summary">Click me</Button>
-  <p>This should show and hide</p>
-</Details>
+You must use a `summary` element as your `Details` trigger button. To style your summary element like a [Button](./Button), you can use the `as` prop (see example below).
 
-```
-
-## With children as a function
-The render function gets an object with the `open` render prop to allow you to conditionally update UI based on the open state of the dropdown:
+It's also possible to use the `useDetails` hook with components other than the Primer `Details`, such as a custom `Details` or `Modal` wrapper in your consuming application. All that matters is that the outer element is a `details` and it contains a `summary` for the button that opens and closes the component, and that `getDetailsProps` is properly spread onto the component rendering your `details` element.
 
 ```jsx live
-<Details>
-  {({open}) => (
-    <>
-      <Button as="summary">
-        {open ? 'Hide' : 'Show'}
-      </Button>
-      <p>This should show and hide</p>
-    </>
-  )}
-</Details>
-```
-
-## Manage the open state manually
-The `Details` element is built to also let you manage the open state and toggle functionality if necessary. Just provide values to the `open` and `onToggle` props.
-
-**Note:** The `overlay` prop will not function automatically if you chose to provide your own `open` state. You'll need to implement this yourself. You can use the `onClickOutside` prop to implement and customize this behavior.
-
-```jsx live
-<State default={false}>
-  {([open, setOpen]) => {
-    const handleToggle = (e) => setOpen(e.target.open)
-    const handleClickOutside = () => setOpen(false)
-
+<State>
+  {([]) => {
+    const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
     return (
-      <Details open={open} onToggle={handleToggle} onClickOutside={handleClickOutside} overlay>
-        <Button as="summary">Click me</Button>
-        <p>This should show and hide</p>
+      <Details {...getDetailsProps()}>
+        <Button as="summary">Hello</Button>
+        This is some content
+      </Details>
+    )
+  }}
+</State>
+
+```
+
+You can use the `open` state returned from the hook to conditionally render content:
+```jsx live
+<State>
+  {([]) => {
+    const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
+    return (
+      <Details {...getDetailsProps()}>
+        <Button as="summary">{open ? 'open' : 'close'}</Button>
+        This is some content
+      </Details>
+    )
+  }}
+</State>
+
+```
+
+You can also manually show/hide the content using the `setOpen` function returned from the hook. This can be useful if you have action items in the content of the component such as confirmation buttons:
+
+```jsx live
+<State>
+  {([]) => {
+    const {getDetailsProps, setOpen} = useDetails({closeOnOutsideClick: true})
+    return (
+      <Details {...getDetailsProps()}>
+        <Button as="summary">Delete item</Button>
+        Are you sure?
+        <ButtonDanger onClick={() => setOpen(false)}>Yes I'm sure</ButtonDanger>
+      </Details>
+    )
+  }}
+</State>
+
+```
+
+In previous versions of Primer React Components, we allowed users to pass in a custom `onToggle` function. You can do this now by overriding the `onToggle` function returned in `getDetailsProps`. Please note that in most cases, you'll want the hook's handling of  `onToggle` to be run as well, so that the internal state is properly updated. To do this, manually call the `onToggle` handler returned from `useDetails` before executing your custom `onToggle` code.
+
+
+```jsx live
+<State>
+  {([]) => {
+    const {getDetailsProps, open, setOpen} = useDetails({closeOnOutsideClick: true})
+    const {onToggle, ...detailsProps} = getDetailsProps()
+    const customToggle = (e) => {
+      onToggle(e)
+      window.alert('hi')
+    }
+    return (
+      <Details {...detailsProps} onToggle={customToggle}>
+        <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+        Hello World
       </Details>
     )
   }}
 </State>
 ```
 
-## System props
+
+## `Details` System props
 
 Details components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
-## Component props
+## `useDetails` hook configuration options
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | defaultOpen | Boolean | | Sets the initial open/closed state |
-| overlay | Boolean | false | Sets whether or not element will close when user clicks outside of it |
-| open | Boolean | | Use the open prop if you'd like to manage the open state |
-| onToggle | Function | | Called whenever user clicks on `summary` element. If you are controlling your own `open` state this will be the only function called on click, otherwise it's called before the internal `handleToggle` function.|
-| onClickOutside | Function | | Function to call whenever user clicks outside of the Details component. This is optional and only necessary if you are controlling your own `open` state. |
+| closeOnOutsideClick | Boolean | false | Sets whether or not element will close when the user clicks outside of it |
+| ref | React ref | | optional ref to pass down to Details component |
+
+
+### Values returned by the `useDetails` hook
+| Name | Type | Description |
+| :- | :- | :- |
+| open | string | Whether or not Details is currently open |
+| setOpen | function | Used to manually change the open state of the Details component |
+| getDetailsProps | Object | Contains an `onToggle` function, the `ref` to pass down to `Details` and the `open` attribute. In most cases, you won't need to interact with any of these values directly, but if you'd like to override any of these yourself you may.

@@ -9,6 +9,9 @@ export {default as Flex} from './Flex'
 export {default as Grid} from './Grid'
 export {default as Position, Absolute, Fixed, Relative, Sticky} from './Position'
 
+// Hooks
+export {default as useDetails} from './hooks/useDetails'
+
 // Components
 export {default as Avatar} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
