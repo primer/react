@@ -622,7 +622,7 @@ declare module '@primer/components/lib/Details' {
   export default Details
 }
 
-declare module '@primer/components/lib/useDetails' {
+declare module '@primer/components/lib/hooks/useDetails' {
   import {useDetails} from '@primer/components'
   export default useDetails
 }
