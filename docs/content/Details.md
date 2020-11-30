@@ -60,18 +60,22 @@ You can also manually show/hide the content using the `setOpen` function returne
 
 ```
 
-In previous versions of Primer React Components, we allowed users to pass in a custom `onToggle` function. You can do this now by overriding the `onToggle` function returned in `getDetailsProps`:
+In previous versions of Primer React Components, we allowed users to pass in a custom `onToggle` function. You can do this now by overriding the `onToggle` function returned in `getDetailsProps`. Please note that in most cases, you'll want the hook's handling of  `onToggle` to be run as well, so that the internal state is properly updated. To do this, manually call the `onToggle` handler returned from `useDetails` before executing your custom `onToggle` code.
 
 
 ```jsx live
 <State>
   {([]) => {
-    const {getDetailsProps, setOpen} = useDetails({closeOnOutsideClick: true})
+    const {getDetailsProps, open, setOpen} = useDetails({closeOnOutsideClick: true})
+    const {onToggle, ...detailsProps} = getDetailsProps()
+    const customToggle = (e) => {
+      onToggle(e)
+      window.alert('hi')
+    }
     return (
-      <Details {...getDetailsProps()} onToggle={() => window.alert('hi')}>
-        <Button as="summary">Delete item</Button>
-        Are you sure?
-        <ButtonDanger onClick={() => setOpen(false)}>Yes I'm sure</ButtonDanger>
+      <Details {...detailsProps} onToggle={customToggle}>
+        <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+        Hello World
       </Details>
     )
   }}
