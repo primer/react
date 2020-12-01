@@ -15,7 +15,7 @@ describe('Dropdown', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Dropdown title="open" />)
+    const {container} = HTMLRender(<Dropdown />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()

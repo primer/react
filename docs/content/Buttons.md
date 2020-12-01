@@ -16,6 +16,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 <ButtonDanger>Button Danger</ButtonDanger>
 <ButtonOutline>Button Outline</ButtonOutline>
 <ButtonPrimary>Button Primary</ButtonPrimary>
+<ButtonInvisible>Button Invisible</ButtonInvisible>
 
 <ButtonGroup display='block' my={2}>
   <Button>Button</Button>

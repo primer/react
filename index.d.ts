@@ -59,7 +59,7 @@ declare module '@primer/components' {
   export interface HeaderItemProps extends CommonProps, BorderProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     full?: boolean;
   }
-  export interface HeaderLinkProps extends CommonProps, BorderProps, TypographyProps, Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {}
+  export interface HeaderLinkProps extends CommonProps, BorderProps, TypographyProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {}
 
   export const Header: React.FunctionComponent<HeaderProps> & {
     Item: React.FunctionComponent<HeaderItemProps>
@@ -74,19 +74,31 @@ declare module '@primer/components' {
 
   export const Heading: React.FunctionComponent<HeadingProps>
 
-  type DetailsRenderFunction = (args: {open: boolean}) => React.ReactElement
 
   export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
-    render?: DetailsRenderFunction
-    children?: DetailsRenderFunction | React.ReactNode
-    defaultOpen?: boolean
-    overlay?: boolean
-    open?: boolean
-    onToggle?: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
-    onClickOutside?: (event: MouseEvent) => void
+    onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+    open: boolean
+    ref: React.RefObject<HTMLDetailsElement>
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
+
+  export interface UseDetailsProps {
+    defaultOpen?: boolean
+    closeOnOutsideClick?: boolean
+    onClickOutside?: (event: React.MouseEvent ) => void
+    ref?: React.RefObject<HTMLDetailsElement> | null
+  }
+
+  export const useDetails: (props?: UseDetailsProps) => {
+    getDetailsProps: () => {
+      onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
+      open: boolean
+      ref: React.RefObject<HTMLDetailsElement>
+    }
+    open: boolean
+    setOpen: (open: boolean) => void
+  }
 
   export interface ButtonProps
     extends BaseProps,
@@ -106,6 +118,7 @@ declare module '@primer/components' {
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
+  export const ButtonInvisible: React.FunctionComponent<ButtonProps>
   export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
@@ -238,6 +251,7 @@ declare module '@primer/components' {
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     muted?: boolean
     underline?: boolean
+    hoverColor?: string
   }
 
   export const Link: React.FunctionComponent<LinkProps>
@@ -313,6 +327,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuModalProps extends CommonProps, StyledSystem.WidthProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     align?: 'left' | 'right'
+    ref?: React.RefObject<HTMLDivElement> | null
   }
 
   export interface SelectMenuListProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
@@ -381,8 +396,7 @@ declare module '@primer/components' {
   export interface SideNavLinkProps
     extends CommonProps,
       TypographyProps,
-      LinkProps,
-      Omit<React.HTMLAttributes<HTMLAnchorElement>, 'color'> {
+      LinkProps {
     selected?: boolean
     variant?: 'normal' | 'full'
   }
@@ -507,7 +521,7 @@ declare module '@primer/components' {
   export const theme: {[key: string]: any}
   export const themeGet: (key: any) => any
 
-  export interface DialogProps extends CommonProps {
+  export interface DialogProps extends CommonProps, LayoutProps {
     isOpen: boolean
     onDismiss: () => unknown
   }
@@ -574,6 +588,11 @@ declare module '@primer/components/lib/ButtonOutline' {
   export default ButtonOutline
 }
 
+declare module '@primer/components/lib/ButtonInvisible' {
+  import {ButtonInvisible} from '@primer/components'
+  export default ButtonInvisible
+}
+
 declare module '@primer/components/lib/ButtonTableList' {
   import {ButtonTableList} from '@primer/components'
   export default ButtonTableList
@@ -607,6 +626,11 @@ declare module '@primer/components/lib/AvatarPair' {
 declare module '@primer/components/lib/Details' {
   import {Details} from '@primer/components'
   export default Details
+}
+
+declare module '@primer/components/lib/hooks/useDetails' {
+  import {useDetails} from '@primer/components'
+  export default useDetails
 }
 
 declare module '@primer/components/lib/BaseStyles' {
