@@ -91,7 +91,7 @@ function DialogHeader({theme, children, ...rest}) {
 function Dialog({children, ...props}) {
   return (
     <>
-      <StyledDialog {...props}>
+      <StyledDialog {...props} role="dialog">
         <UnstyledButton onClick={props.onDismiss}>
           <StyledOcticon icon={XIcon} />
         </UnstyledButton>
