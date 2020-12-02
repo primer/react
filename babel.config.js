@@ -4,20 +4,23 @@ function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
 }
 
-const sharedPlugins = ['macros', 'preval', 'add-react-displayname', 'babel-plugin-styled-components', '@babel/plugin-proposal-nullish-coalescing-operator']
+const sharedPlugins = [
+  'macros',
+  'preval',
+  'add-react-displayname',
+  'babel-plugin-styled-components',
+  '@babel/plugin-proposal-nullish-coalescing-operator'
+]
 
 function makePresets(moduleValue) {
-  return [
-    ['@babel/preset-react', {modules: moduleValue}],
-    ['@babel/preset-env', {modules: moduleValue}]
-  ]
+  return [['@babel/preset-react', {modules: moduleValue}]]
 }
 
 module.exports = {
   env: {
     development: {
       presets: makePresets(process.env.BABEL_MODULE || false),
-      plugins: [...sharedPlugins, replacementPlugin('development')]
+      plugins: [...sharedPlugins, ['@babel/plugin-transform-modules-commonjs'], replacementPlugin('development')]
     },
     production: {
       presets: makePresets(false),
