@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "22.0.1",
+  "version": "22.0.2",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -84,7 +84,6 @@
     "jest-styled-components": "6.3.3",
     "jscodeshift": "0.6.4",
     "playroom": "0.15.1",
-    "raw.macro": "0.3.0",
     "react-dom": "^16.10.2",
     "react-test-renderer": "16.10.2",
     "rollup": "2.33.1",
