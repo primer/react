@@ -3357,7 +3357,7 @@ babel-plugin-jest-hoist@^25.0.0:
   dependencies:
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-macros@2.8.0, babel-plugin-macros@^2.1.0, babel-plugin-macros@^2.8.0:
+babel-plugin-macros@2.8.0, babel-plugin-macros@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-macros/-/babel-plugin-macros-2.8.0.tgz#0f958a7cc6556b1e65344465d99111a1e5e10138"
   integrity sha512-SEP5kJpfGYqYKpBrj5XU3ahw5p5GOHJ0U5ssOSQ/WBVdwkD2Dzlce95exQTs3jOVWPPKLBN2rlEWkCK7dSmLvg==
@@ -9283,13 +9283,6 @@ raw-body@2.4.0:
     http-errors "1.7.2"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
-
-raw.macro@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/raw.macro/-/raw.macro-0.3.0.tgz#b62391c5c7a77fd5673b688ac031ba0c5cbff1dc"
-  integrity sha512-VGX8RNUyZ7cZDa4dM8tvysaqryMSQRPbZqmTKKIur2uaGbpmG9Jj9CAY3ndpO8J3RMu0zf2K0JvIwbYMS29TOQ==
-  dependencies:
-    babel-plugin-macros "^2.1.0"
 
 re-resizable@^6.1.1:
   version "6.2.0"
