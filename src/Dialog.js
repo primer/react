@@ -11,6 +11,11 @@ import Text from './Text'
 import Flex from './Flex'
 
 const ReachGlobalStyle = createGlobalStyle`
+  // silences error regarding importing @reach/dialog styles
+  :root {
+    --reach-dialog: 1;
+  }
+
   [data-reach-dialog-overlay] {
     background: hsla(0, 0%, 0%, 0.33);
     position: fixed;
