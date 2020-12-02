@@ -14,7 +14,11 @@ module.exports = {
   env: {
     development: {
       presets: makePresets(process.env.BABEL_MODULE || false),
-      plugins: [...sharedPlugins, replacementPlugin('development')]
+      plugins: [
+        ...(process.env.BABEL_MODULE === 'commonjs' ? ['@babel/plugin-transform-modules-commonjs'] : []),
+        ...sharedPlugins,
+        replacementPlugin('development')
+      ]
     },
     production: {
       presets: makePresets(false),
