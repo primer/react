@@ -7,7 +7,10 @@ function replacementPlugin(env) {
 const sharedPlugins = ['macros', 'preval', 'add-react-displayname', 'babel-plugin-styled-components', '@babel/plugin-proposal-nullish-coalescing-operator']
 
 function makePresets(moduleValue) {
-  return [['@babel/preset-react', {modules: moduleValue}]]
+  return [
+    ['@babel/preset-react', {modules: moduleValue}],
+    ['@babel/preset-env', {modules: moduleValue}]
+  ]
 }
 
 module.exports = {
