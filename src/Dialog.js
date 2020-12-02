@@ -21,15 +21,18 @@ const ReachGlobalStyle = createGlobalStyle`
   }
 `
 
+/* !important's below are needed to override reach styles */
+/* can be removed when we remove ReachDialog */
+
 const StyledDialog = styled(ReachDialog)`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: 4px;
-  padding: 0;
+  padding: 0 !important;
   position: relative;
 
   @media screen and (max-width: 750px) {
-    width: 100vw;
-    margin: 0;
+    width: 100vw !important;
+    margin: 0 !important;
     border-radius: 0;
     height: 100vh;
   }
