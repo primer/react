@@ -46,7 +46,7 @@ We primarily use our documentation site as a workspace to develop new components
 Before running the documentation site locally, you'll need to install packages in the root and `docs` directories:
 
 ```shell
-yarn && cd docs; yarn 
+yarn && cd docs && yarn 
 
 Then run the following to start up the site:
 
