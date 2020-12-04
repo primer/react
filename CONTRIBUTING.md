@@ -48,7 +48,7 @@ Before running the documentation site locally, you'll need to install packages i
 ```shell
 yarn && cd docs && yarn 
 
-Then run the following to start up the site:
+Then navgiate back to the root folder and run the following to start up the site:
 
 ```sh
 yarn start
