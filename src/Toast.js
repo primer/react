@@ -1,5 +1,5 @@
 import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon} from '@primer/octicons-react'
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useRef, useEffect} from 'react'
 import styled from 'styled-components'
 
 import CloseButton from './CloseButton'
@@ -36,17 +36,40 @@ const StyledToast = styled.div.attrs(() => ({
   box-sizing: border-box;
   overflow: hidden;
   max-width: 400px;
-
-  bottom: 0;
-  left: 0;
+  bottom: ${get('space.4')};
+  left: ${get('space.4')};
 `
 
-const Toast = forwardRef(({type, removeToast, children, ...rest}, ref) => {
+const ToastAction = (ref, action) => {
+  return (
+    <button ref={ref} onClick={action.handleOnClick}>
+      {action.text}
+    </button>
+  )
+}
+
+const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref) => {
+  const callToActionRef = useRef()
+
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.ctrlKey && event.altKey && event.key === 't') {
+        callToActionRef.current.focus()
+        cancelAutoDismiss(toast)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('click', handleKeyDown)
+    }
+  }, [cancelAutoDismiss, toast])
+
   return (
     <StyledToast {...rest} ref={ref}>
-      {stateMap[type]}
+      {stateMap[toast.type]}
       <Flex color="text.white" px={2} flex="1">
-        {children}
+        {toast.message}
+        {toast.action && <ToastAction ref={callToActionRef} action={toast.action} />}
       </Flex>
       <CloseButton onClick={removeToast} />
     </StyledToast>

@@ -11,16 +11,15 @@ const DemoComponent = () => {
   const handleAddToastClick = () => {
     toasts.addToast({
       message: messages[Math.floor(Math.random() * Math.floor(4))],
-      type: states[Math.floor(Math.random() * Math.floor(5))]
+      type: states[Math.floor(Math.random() * Math.floor(5))],
+      action: {text: 'Undo', handleOnClick: () => window.alert('hi')}
     })
   }
 
   return (
     <>
       <Button onClick={handleAddToastClick}>Add a toast</Button>
-      <Absolute bottom={4} left={4}>
-        <ToastContainer {...toasts}/>
-      </Absolute>
+      <ToastContainer {...toasts}/>
     </>
   )
 }

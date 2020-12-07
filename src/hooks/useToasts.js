@@ -8,9 +8,13 @@ const useToasts = ({autoDismiss, timeout = 5000}) => {
     const toastId = nanoid()
     let timeoutId
     if (autoDismiss) {
-      timeoutId = window.setTimeout(removeToast, timeout, toastId, freshToast.message)
+      timeoutId = window.setTimeout(removeToast, timeout, toastId)
     }
     setToasts([{id: toastId, timeoutId, ...freshToast}])
+  }
+
+  const cancelAutoDismiss = toast => {
+    window.clearTimeout(toast.timeoutId)
   }
 
   const removeToast = id => {
@@ -27,7 +31,7 @@ const useToasts = ({autoDismiss, timeout = 5000}) => {
     )
   }
 
-  return {toasts, addToast, removeToast}
+  return {toasts, addToast, removeToast, cancelAutoDismiss}
 }
 
 export default useToasts
