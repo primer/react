@@ -4,7 +4,7 @@ title: Toast
 
 ```javascript live noinline
 const DemoComponent = () => {
-  const toasts = useToasts();
+  const toasts = useToasts({autoDismiss: true});
   const states = ['success', 'default', 'warning', 'error', 'loading']
   const messages = ['hello!', 'oopsies', 'try again plz', 'nice job!']
 
