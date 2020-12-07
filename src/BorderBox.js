@@ -15,14 +15,14 @@ BorderBox.defaultProps = {
   borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: 'gray.2',
-  borderRadius: 2
+  borderRadius: 2,
 }
 
 BorderBox.propTypes = {
   ...Box.propTypes,
   ...BORDER.propTypes,
   ...sx.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 
 export default BorderBox

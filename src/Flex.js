@@ -6,11 +6,11 @@ const Flex = styled(Box)``
 
 Flex.defaultProps = {
   theme,
-  display: 'flex'
+  display: 'flex',
 }
 
 Flex.propTypes = {
-  ...Box.propTypes
+  ...Box.propTypes,
 }
 
 export default Flex

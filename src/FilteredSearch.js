@@ -23,12 +23,12 @@ const FilteredSearch = styled.div`
 `
 
 FilteredSearch.defaultProps = {
-  theme
+  theme,
 }
 
 FilteredSearch.propTypes = {
   ...COMMON.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 
 export default FilteredSearch

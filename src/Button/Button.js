@@ -39,12 +39,12 @@ const Button = styled(ButtonBase)`
 `
 
 Button.defaultProps = {
-  theme
+  theme,
 }
 
 Button.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default Button

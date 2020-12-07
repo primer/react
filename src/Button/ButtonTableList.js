@@ -35,7 +35,7 @@ const ButtonTableList = styled.summary`
     width: 0;
     height: 0;
     vertical-align: -2px;
-    content: "";
+    content: '';
     border: 4px solid transparent;
     border-top-color: currentcolor;
   }
@@ -46,7 +46,7 @@ const ButtonTableList = styled.summary`
 `
 
 ButtonTableList.defaultProps = {
-  theme
+  theme,
 }
 
 ButtonTableList.propTypes = {
@@ -54,7 +54,7 @@ ButtonTableList.propTypes = {
   ...sx.propTypes,
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
-  ...LAYOUT.propTypes
+  ...LAYOUT.propTypes,
 }
 
 export default ButtonTableList

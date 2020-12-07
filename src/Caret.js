@@ -7,14 +7,14 @@ const oppositeEdge = {
   top: 'Bottom',
   right: 'Left',
   bottom: 'Top',
-  left: 'Right'
+  left: 'Right',
 }
 
 const perpendicularEdge = {
   top: 'Left',
   right: 'Top',
   bottom: 'Left',
-  left: 'Top'
+  left: 'Top',
 }
 
 function getEdgeAlign(location) {
@@ -27,7 +27,7 @@ function getPosition(edge, align, spacing) {
   const perp = perpendicularEdge[edge].toLowerCase()
   return {
     [opposite]: '100%',
-    [align || perp]: align ? spacing : '50%'
+    [align || perp]: align ? spacing : '50%',
   }
 }
 
@@ -49,7 +49,7 @@ function Caret(props) {
     ...getPosition(edge, align, size),
     // if align is set (top|right|bottom|left),
     // then we don't need an offset margin
-    [`margin${perp}`]: align ? null : -size
+    [`margin${perp}`]: align ? null : -size,
   }
 
   // note: these arrays represent points in the form [x, y]
@@ -67,7 +67,7 @@ function Caret(props) {
     top: `translate(${[size, size * 2]}) rotate(180)`,
     right: `translate(${[0, size]}) rotate(-90)`,
     bottom: `translate(${[size, 0]})`,
-    left: `translate(${[size * 2, size]}) rotate(90)`
+    left: `translate(${[size * 2, size]}) rotate(90)`,
   }[edge]
 
   return (
@@ -92,7 +92,7 @@ Caret.locations = [
   'bottom-right',
   'left',
   'left-top',
-  'left-bottom'
+  'left-bottom',
 ]
 
 Caret.defaultProps = {
@@ -101,7 +101,7 @@ Caret.defaultProps = {
   borderWidth: 1,
   location: 'bottom',
   size: 8,
-  theme
+  theme,
 }
 
 Caret.propTypes = {
@@ -113,7 +113,7 @@ Caret.propTypes = {
   borderColor: PropTypes.string,
   borderWidth: PropTypes.number,
   size: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations)
+  location: PropTypes.oneOf(Caret.locations),
   /* eslint-enable */
 }
 

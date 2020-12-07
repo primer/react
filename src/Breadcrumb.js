@@ -32,7 +32,7 @@ const Wrapper = styled.li`
 
 const BreadcrumbBase = ({className, children, theme, ...rest}) => {
   const classes = classnames(className, 'Breadcrumb')
-  const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
+  const wrappedChildren = React.Children.map(children, (child) => <Wrapper theme={theme}>{child}</Wrapper>)
   return (
     <nav className={classes} aria-label="breadcrumb" {...rest}>
       <Box as="ol" my={0} pl={0}>
@@ -50,10 +50,10 @@ const Breadcrumb = styled(BreadcrumbBase)`
   ${sx};
 `
 
-Breadcrumb.Item = styled.a.attrs(props => ({
+Breadcrumb.Item = styled.a.attrs((props) => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(props.selected && SELECTED_CLASS, props.className),
-  'aria-current': props.selected ? 'page' : null
+  'aria-current': props.selected ? 'page' : null,
 }))`
   color: ${get('colors.blue.5')};
   display: inline-block;
@@ -71,18 +71,18 @@ Breadcrumb.Item = styled.a.attrs(props => ({
 `
 
 Breadcrumb.defaultProps = {
-  theme
+  theme,
 }
 
 Breadcrumb.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 Breadcrumb.displayName = 'Breadcrumb'
 
 Breadcrumb.Item.defaultProps = {
-  theme
+  theme,
 }
 
 Breadcrumb.Item.propTypes = {
@@ -90,7 +90,7 @@ Breadcrumb.Item.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...sx.propTypes,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
 }
 
 Breadcrumb.Item.displayName = 'Breadcrumb.Item'

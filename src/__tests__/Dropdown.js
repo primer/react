@@ -11,7 +11,7 @@ describe('Dropdown', () => {
   behavesAsComponent(Dropdown, [COMMON], () => <Dropdown>Hello!</Dropdown>)
 
   checkExports('Dropdown', {
-    default: Dropdown
+    default: Dropdown,
   })
 
   it('should have no axe violations', async () => {

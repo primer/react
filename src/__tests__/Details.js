@@ -11,7 +11,7 @@ describe('Details', () => {
   behavesAsComponent(Details, [COMMON])
 
   checkExports('Details', {
-    default: Details
+    default: Details,
   })
 
   it('should have no axe violations', async () => {
@@ -66,7 +66,7 @@ describe('Details', () => {
   })
 
   it('Can manipulate state with setOpen', () => {
-    const CloseButton = props => <Button {...props} />
+    const CloseButton = (props) => <Button {...props} />
     const Component = () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (

@@ -25,7 +25,7 @@ export {
   ButtonPrimary,
   ButtonInvisible,
   ButtonTableList,
-  ButtonGroup
+  ButtonGroup,
 } from './Button'
 export {default as Caret} from './Caret'
 export {default as CircleBadge} from './CircleBadge'

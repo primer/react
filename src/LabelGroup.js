@@ -18,12 +18,12 @@ const StyledLabelGroup = styled.span`
 const LabelGroup = ({children, ...rest}) => <StyledLabelGroup {...rest}>{children}</StyledLabelGroup>
 
 LabelGroup.defaultProps = {
-  theme
+  theme,
 }
 
 LabelGroup.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default LabelGroup

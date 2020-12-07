@@ -18,7 +18,7 @@ Box.propTypes = {
   ...FLEX.propTypes,
   ...LAYOUT.propTypes,
   ...sx.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 
 export default Box

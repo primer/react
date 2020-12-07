@@ -43,14 +43,14 @@ const SelectMenuHeader = ({children, theme, ...rest}) => {
 }
 
 SelectMenuHeader.defaultProps = {
-  theme
+  theme,
 }
 
 SelectMenuHeader.propTypes = {
   theme: PropTypes.object,
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SelectMenuHeader.displayName = 'SelectMenu.Header'
