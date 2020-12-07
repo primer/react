@@ -41,7 +41,7 @@
       url: /CircleOcticon
     - title: CounterLabel
       url: /CounterLabel
-    - title: Details
+    - title: Details & useDetails
       url: /Details
     - title: Dialog
       url: /Dialog

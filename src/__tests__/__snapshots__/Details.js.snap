@@ -11,7 +11,5 @@ exports[`Details renders consistently 1`] = `
 
 <details
   className="c0"
-  onToggle={[Function]}
-  open={false}
 />
 `;

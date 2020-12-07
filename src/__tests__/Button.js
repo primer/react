@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonGroup, ButtonTableList} from '..'
+import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonInvisible, ButtonGroup, ButtonTableList} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -17,6 +17,7 @@ describe('Button', () => {
     ButtonPrimary,
     ButtonDanger,
     ButtonOutline,
+    ButtonInvisible,
     ButtonGroup,
     ButtonTableList
   })
@@ -91,6 +92,19 @@ describe('ButtonOutline', () => {
 
   it('renders correct disabled styles', () => {
     const item = render(<ButtonOutline disabled />)
+    expect(item).toMatchSnapshot()
+  })
+})
+
+describe('ButtonInvisible', () => {
+  behavesAsComponent(ButtonOutline, [COMMON, LAYOUT])
+
+  it('renders a <button> by default', () => {
+    expect(render(<ButtonInvisible />).type).toEqual('button')
+  })
+
+  it('renders correct disabled styles', () => {
+    const item = render(<ButtonInvisible disabled />)
     expect(item).toMatchSnapshot()
   })
 })

@@ -43,6 +43,7 @@ Link.defaultProps = {
 
 Link.propTypes = {
   as: PropTypes.elementType,
+  hoverColor: PropTypes.string,
   href: PropTypes.string,
   muted: PropTypes.bool,
   theme: PropTypes.object,

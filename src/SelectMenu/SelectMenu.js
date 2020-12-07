@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import sx from '../sx'
@@ -19,18 +19,6 @@ import SelectMenuLoadingAnimation from './SelectMenuLoadingAnimation'
 import useKeyboardNav from './hooks/useKeyboardNav'
 
 const wrapperStyles = `
-  &[open] > summary::before {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 80;
-    display: block;
-    cursor: default;
-    content: ' ';
-    background: transparent;
-  }
   // Remove marker added by the display: list-item browser default
   > summary {
     list-style: none;
@@ -64,6 +52,27 @@ const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwar
     open,
     initialTab
   }
+
+  const onClickOutside = useCallback(
+    event => {
+      if (event.target.closest('details') !== ref.current) {
+        if (!event.defaultPrevented) {
+          setOpen(false)
+        }
+      }
+    },
+    [ref, setOpen]
+  )
+
+  // handles the overlay behavior - closing the menu when clicking outside of it
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('click', onClickOutside)
+      return () => {
+        document.removeEventListener('click', onClickOutside)
+      }
+    }
+  }, [open, onClickOutside])
 
   function toggle(event) {
     setOpen(event.target.open)

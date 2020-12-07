@@ -38,7 +38,8 @@ SelectMenu components get `COMMON` system props. Read our [System Props](/system
 ### Component Props
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| initialTab | String | | If using the `SelectMenu.Tabs` component, you can use this prop to change the tab shown on open. By default, the first tab will be used.
+| initialTab | String | | If using the `SelectMenu.Tabs` component, you can use this prop to change the tab shown on open. By default, the first tab will be used. |
+| ref | React ref | | ref to pass down to SelectMenu component |
 
 ## SelectMenu.MenuContext
 SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.html#reactcreatecontext) that exposes some helpful state values to be used via [`React.useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext) in consuming applications.  SelectMenu.MenuContext can only be used in components that are already wrapped in a `SelectMenu` as `SelectMenu` contains the [context provider](https://reactjs.org/docs/context.html#contextprovider).
