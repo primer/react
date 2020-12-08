@@ -8,7 +8,7 @@ const DemoComponent = () => {
   const states = ['success', 'default', 'warning', 'error', 'loading']
   const messages = ['hello!', 'oopsies', 'try again plz', 'nice job!']
 
-  const handleAddToastClick = () => {
+const handleAddToastClick = () => {
     addToast({
       message: messages[Math.floor(Math.random() * Math.floor(4))],
       type: states[Math.floor(Math.random() * Math.floor(5))],
