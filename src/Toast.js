@@ -119,7 +119,7 @@ const Toast = forwardRef(({toast, startRemovingToast, removeToast, cancelAutoDis
           </ToastAction>
         )}
       </Flex>
-      <CloseButton onClick={() => removeToast(toast.id)} />
+      <CloseButton onClick={() => startRemovingToast(toast.id)} />
     </StyledToast>
   )
 })
