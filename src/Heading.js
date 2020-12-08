@@ -8,7 +8,8 @@ const Heading = styled.h2`
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.5')};
   margin: 0;
-  ${TYPOGRAPHY} ${COMMON};
+  ${TYPOGRAPHY};
+  ${COMMON};
   ${sx};
 `
 
