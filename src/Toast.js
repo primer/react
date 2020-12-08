@@ -70,13 +70,18 @@ const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref)
     }
   }, [callToActionRef, cancelAutoDismiss, toast])
 
+  const handleActionClick = () => {
+    toast.action.handleOnClick()
+    removeToast(toast.id)
+  }
+
   return (
     <StyledToast {...rest} ref={ref} role="alert">
       {stateMap[toast.type]}
       <Flex color="text.white" px={2} flex="1">
         {toast.message}
         {toast.action && (
-          <ToastAction ref={callToActionRef} onClick={toast.action.handleOnClick} aria-label={toast.action.ariaLabel}>
+          <ToastAction ref={callToActionRef} onClick={handleActionClick} aria-label={toast.action.ariaLabel}>
             {toast.action.text}
           </ToastAction>
         )}
