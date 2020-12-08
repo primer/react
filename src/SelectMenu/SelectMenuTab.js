@@ -53,7 +53,7 @@ const StyledTab = styled.button`
 
 const SelectMenuTab = ({tabName, index, className, onClick, ...rest}) => {
   const menuContext = useContext(MenuContext)
-  const handleClick = e => {
+  const handleClick = (e) => {
     // if consumer has attached an onClick event, call it
     onClick && onClick(e)
     if (!e.defaultPrevented) {
@@ -84,7 +84,7 @@ const SelectMenuTab = ({tabName, index, className, onClick, ...rest}) => {
 }
 
 SelectMenuTab.defaultProps = {
-  theme
+  theme,
 }
 
 SelectMenuTab.propTypes = {
@@ -92,7 +92,7 @@ SelectMenuTab.propTypes = {
   onClick: PropTypes.func,
   tabName: PropTypes.string,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SelectMenuTab.displayName = 'SelectMenu.Tab'

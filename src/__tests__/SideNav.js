@@ -11,7 +11,7 @@ describe('SideNav', () => {
   behavesAsComponent(SideNav, [BORDER, LAYOUT, COMMON, FLEX])
 
   checkExports('SideNav', {
-    default: SideNav
+    default: SideNav,
   })
 
   describe('SideNav.Link', () => {

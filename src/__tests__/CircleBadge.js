@@ -14,7 +14,7 @@ describe('CircleBadge', () => {
   behavesAsComponent(CircleBadge, [COMMON], () => <CircleBadge>{imgInput}</CircleBadge>)
 
   checkExports('CircleBadge', {
-    default: CircleBadge
+    default: CircleBadge,
   })
 
   describe('CircleBadge.Icon', () => {

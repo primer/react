@@ -19,7 +19,7 @@ describe('Button', () => {
     ButtonOutline,
     ButtonInvisible,
     ButtonGroup,
-    ButtonTableList
+    ButtonTableList,
   })
 
   it('renders a <button>', () => {

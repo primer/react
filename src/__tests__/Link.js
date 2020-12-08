@@ -11,7 +11,7 @@ describe('Link', () => {
   behavesAsComponent(Link, [COMMON, TYPOGRAPHY])
 
   checkExports('Link', {
-    default: Link
+    default: Link,
   })
 
   it('should have no axe violations', async () => {

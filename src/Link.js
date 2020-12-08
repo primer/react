@@ -14,31 +14,31 @@ const buttonStyles = {
   userSelect: 'none',
   backgroundColor: 'transparent',
   border: '0',
-  appearance: 'none'
+  appearance: 'none',
 }
 
 const hoverColor = system({
   hoverColor: {
     property: 'color',
-    scale: 'colors'
-  }
+    scale: 'colors',
+  },
 })
 
-const Link = styled.a.attrs(props => ({
-  color: props.color ? props.color : props.muted ? 'gray.6' : 'blue.5'
+const Link = styled.a.attrs((props) => ({
+  color: props.color ? props.color : props.muted ? 'gray.6' : 'blue.5',
 }))`
-  text-decoration: ${props => (props.underline ? 'underline' : 'none')};
+  text-decoration: ${(props) => (props.underline ? 'underline' : 'none')};
   &:hover {
-    text-decoration: ${props => (props.muted ? 'none' : 'underline')};
-    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.blue.5')(theme)}` : '')};
+    text-decoration: ${(props) => (props.muted ? 'none' : 'underline')};
+    ${(props) => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.blue.5')(theme)}` : '')};
   }
-  ${props => (props.as === 'button' ? buttonStyles : '')};
+  ${(props) => (props.as === 'button' ? buttonStyles : '')};
   ${TYPOGRAPHY} ${COMMON};
   ${sx};
 `
 
 Link.defaultProps = {
-  theme
+  theme,
 }
 
 Link.propTypes = {
@@ -50,7 +50,7 @@ Link.propTypes = {
   underline: PropTypes.bool,
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default Link

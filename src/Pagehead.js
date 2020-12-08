@@ -15,13 +15,13 @@ const Pagehead = styled.div`
 `
 
 Pagehead.defaultProps = {
-  theme
+  theme,
 }
 
 Pagehead.propTypes = {
   children: PropTypes.node,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default Pagehead

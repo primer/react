@@ -40,13 +40,13 @@ function SelectMenuFilter({theme, value, sx, ...rest}) {
 }
 
 SelectMenuFilter.defaultProps = {
-  theme
+  theme,
 }
 
 SelectMenuFilter.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes,
-  value: PropTypes.string
+  value: PropTypes.string,
 }
 
 SelectMenuFilter.displayName = 'SelectMenu.Filter'
