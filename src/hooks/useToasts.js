@@ -1,7 +1,7 @@
 import {nanoid} from 'nanoid'
 import {useState} from 'react'
 
-const useToasts = ({autoDismiss, timeout = 5000}) => {
+const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
   const [toasts, setToasts] = useState([])
 
   const addToast = (freshToast) => {
