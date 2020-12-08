@@ -130,7 +130,11 @@ Toast.defaultProps = {
 }
 
 Toast.propTypes = {
-  type: PropTypes.oneOf(['default', 'success', 'warning', 'error', 'loading']),
+  cancelAutoDismiss: PropTypes.func,
+  className: PropTypes.string,
+  removeToast: PropTypes.func,
+  startRemovingToast: PropTypes.func,
+  toast: PropTypes.object,
 }
 
 export default Toast
