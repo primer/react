@@ -10,7 +10,7 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     if (autoDismiss) {
       timeoutId = window.setTimeout(removeToast, timeout, toastId)
     }
-    setToasts([{id: toastId, timeoutId, ...freshToast}])
+    setToasts([{id: toastId, timeoutId, ...freshToast, className: 'toast-enter'}])
   }
 
   const cancelAutoDismiss = (toast) => {
@@ -18,9 +18,13 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
   }
 
   const removeToast = (id) => {
-    // technically you could just replace the entire state because we're only allowing
-    // one toast at a time, but i wrote this so that if we want to allow more than one
-    // at a time in the future we don't have to update this function - @emplums
+    // find the toast to remove and add the `toast-leave` class name
+    // then after the animation runs, remove the toast
+    setToasts((prevState) => prevState.map((toast) => (toast.id === id ? {...toast, className: 'toast-leave'} : toast)))
+    setTimeout(removeToastFromState, 8000, id)
+  }
+
+  const removeToastFromState = (id) => {
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => {
         if (autoDismiss && toast.id === id && toast.timeoutId) {

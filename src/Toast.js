@@ -1,6 +1,6 @@
 import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon} from '@primer/octicons-react'
 import React, {forwardRef, useRef, useEffect} from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
 import CloseButton from './CloseButton'
 import Flex from './Flex'
@@ -22,6 +22,25 @@ const stateMap = {
   loading: ErrorIcon,
 }
 
+const toastEnter = keyframes`
+  from {
+    transform: translateX(-400px);
+  }
+  to {
+    transform: translateX(0);
+  }
+`
+
+const toastLeave = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-460px);
+  }
+
+`
+
 const StyledToast = styled.div.attrs(() => ({
   role: 'status',
 }))`
@@ -38,6 +57,12 @@ const StyledToast = styled.div.attrs(() => ({
   max-width: 400px;
   bottom: ${get('space.4')};
   left: ${get('space.4')};
+
+  animation: ${toastEnter} 300ms cubic-bezier(0.25, 1, 0.5, 1);
+
+  &.toast-leave {
+    animation: ${toastLeave} 300ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  }
 `
 
 const ToastAction = styled.button`
