@@ -79,8 +79,10 @@ const ToastAction = styled.button`
   }
 `
 
-const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref) => {
+const Toast = forwardRef(({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...rest}, ref) => {
   const callToActionRef = useRef()
+  const backupRef = useRef(null)
+  const customRef = ref ?? backupRef
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -97,11 +99,17 @@ const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref)
 
   const handleActionClick = () => {
     toast.action.handleOnClick()
-    removeToast(toast.id)
+    startRemovingToast(toast.id)
+  }
+
+  const handleOnAnimationEnd = (e) => {
+    if (e.currentTarget.className.includes('toast-leave')) {
+      removeToast(toast.id)
+    }
   }
 
   return (
-    <StyledToast {...rest} ref={ref} role="alert">
+    <StyledToast {...rest} ref={customRef} onAnimationEnd={handleOnAnimationEnd} role="alert">
       {stateMap[toast.type]}
       <Flex color="text.white" px={2} flex="1">
         {toast.message}

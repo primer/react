@@ -8,7 +8,7 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     const toastId = nanoid()
     let timeoutId
     if (autoDismiss) {
-      timeoutId = window.setTimeout(removeToast, timeout, toastId)
+      timeoutId = window.setTimeout(startRemovingToast, timeout, toastId)
     }
     setToasts([{id: toastId, timeoutId, ...freshToast, className: 'toast-enter'}])
   }
@@ -17,14 +17,13 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     window.clearTimeout(toast.timeoutId)
   }
 
-  const removeToast = (id) => {
+  const startRemovingToast = (id) => {
     // find the toast to remove and add the `toast-leave` class name
     // then after the animation runs, remove the toast
     setToasts((prevState) => prevState.map((toast) => (toast.id === id ? {...toast, className: 'toast-leave'} : toast)))
-    setTimeout(removeToastFromState, 8000, id)
   }
 
-  const removeToastFromState = (id) => {
+  const removeToast = (id) => {
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => {
         if (autoDismiss && toast.id === id && toast.timeoutId) {
@@ -35,7 +34,7 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     )
   }
 
-  return {addToast, toastProps: {toasts, removeToast, cancelAutoDismiss}}
+  return {addToast, toastProps: {toasts, removeToast, startRemovingToast, cancelAutoDismiss}}
 }
 
 export default useToasts
