@@ -249,7 +249,7 @@ const buttons = {
 
 const toasts = {
   boxShadow: '0px 4px 12px rgba(27, 31, 35, 0.15)',
-  bg: gray[9]
+  bg: gray[9],
 }
 
 const flash = {

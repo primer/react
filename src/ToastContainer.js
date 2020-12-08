@@ -6,14 +6,7 @@ const ToastContainer = ({toasts, ...rest}) => {
     <>
       {toasts &&
         toasts.map((toast) => {
-          return (
-            <Toast
-              key={toast.id}
-              id={toast.id}
-              toast={toast}
-              {...rest}
-            />
-          )
+          return <Toast key={toast.id} id={toast.id} toast={toast} {...rest} />
         })}
     </>
   )
