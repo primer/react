@@ -12,7 +12,7 @@ const DemoComponent = () => {
     toasts.addToast({
       message: messages[Math.floor(Math.random() * Math.floor(4))],
       type: states[Math.floor(Math.random() * Math.floor(5))],
-      action: {text: 'Undo', handleOnClick: () => window.alert('hi')}
+      action: {text: 'Undo', handleOnClick: () => window.alert('hi'), ariaLabel: "Undo approval"}
     })
   }
 

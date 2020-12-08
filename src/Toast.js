@@ -19,11 +19,11 @@ const stateMap = {
   success: SuccessIcon,
   warning: WarningIcon,
   error: ErrorIcon,
-  loading: ErrorIcon
+  loading: ErrorIcon,
 }
 
 const StyledToast = styled.div.attrs(() => ({
-  role: 'status'
+  role: 'status',
 }))`
   position: fixed;
   display: flex;
@@ -40,20 +40,26 @@ const StyledToast = styled.div.attrs(() => ({
   left: ${get('space.4')};
 `
 
-const ToastAction = (ref, action) => {
-  return (
-    <button ref={ref} onClick={action.handleOnClick}>
-      {action.text}
-    </button>
-  )
-}
+const ToastAction = styled.button`
+  background-color: transparent;
+  border: none;
+  font-weight: ${get('fontWeights.bold')};
+  margin-left: ${get('space.2')};
+  color: ${get('colors.blue.3')};
+  font-size: ${get('fontSizes.1')};
+  font-family: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
 
 const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref) => {
   const callToActionRef = useRef()
 
   useEffect(() => {
-    const handleKeyDown = event => {
-      if (event.ctrlKey && event.altKey && event.key === 't') {
+    const handleKeyDown = (event) => {
+      if (callToActionRef.current && event.ctrlKey && event.key === 't') {
         callToActionRef.current.focus()
         cancelAutoDismiss(toast)
       }
@@ -62,14 +68,18 @@ const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref)
     return () => {
       document.removeEventListener('click', handleKeyDown)
     }
-  }, [cancelAutoDismiss, toast])
+  }, [callToActionRef, cancelAutoDismiss, toast])
 
   return (
-    <StyledToast {...rest} ref={ref}>
+    <StyledToast {...rest} ref={ref} role="alert">
       {stateMap[toast.type]}
       <Flex color="text.white" px={2} flex="1">
         {toast.message}
-        {toast.action && <ToastAction ref={callToActionRef} action={toast.action} />}
+        {toast.action && (
+          <ToastAction ref={callToActionRef} onClick={toast.action.handleOnClick} aria-label={toast.action.ariaLabel}>
+            {toast.action.text}
+          </ToastAction>
+        )}
       </Flex>
       <CloseButton onClick={removeToast} />
     </StyledToast>
@@ -78,11 +88,11 @@ const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref)
 
 Toast.defaultProps = {
   type: 'default',
-  theme
+  theme,
 }
 
 Toast.propTypes = {
-  type: PropTypes.oneOf(['default', 'success', 'warning', 'error', 'loading'])
+  type: PropTypes.oneOf(['default', 'success', 'warning', 'error', 'loading']),
 }
 
 export default Toast

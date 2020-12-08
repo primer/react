@@ -1,11 +1,11 @@
-import BorderBox from './BorderBox'
+import ButtonInvisible from './Button/ButtonInvisible'
 import React from 'react'
 import {XIcon} from '@primer/octicons-react'
 
-const CloseButton = props => (
-  <BorderBox borderWidth="0" bg="none" color="text.white" sx={{cursor: 'pointer'}} {...props}>
+const CloseButton = (props) => (
+  <ButtonInvisible aria-label="Close" color="text.white" p={0} {...props}>
     <XIcon />
-  </BorderBox>
+  </ButtonInvisible>
 )
 
 export default CloseButton

@@ -5,7 +5,7 @@ const ToastContainer = ({toasts, removeToast, cancelAutoDismiss}) => {
   return (
     <>
       {toasts &&
-        toasts.map(toast => {
+        toasts.map((toast) => {
           return (
             <Toast
               key={toast.id}
