@@ -11,7 +11,7 @@ describe('FormGroup', () => {
   behavesAsComponent(FormGroup, [COMMON])
 
   checkExports('FormGroup', {
-    default: FormGroup
+    default: FormGroup,
   })
 
   it('should have no axe violations', async () => {

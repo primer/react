@@ -93,7 +93,7 @@ export const listItemStyles = css`
 `
 
 const StyledItem = styled.a.attrs(() => ({
-  role: 'menuitemcheckbox'
+  role: 'menuitemcheckbox',
 }))`
   ${listItemStyles}
   ${COMMON}
@@ -105,7 +105,7 @@ const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
 
   // close the menu when an item is clicked
   // this can be overriden if the user provides a `onClick` prop and prevents default in it
-  const handleClick = e => {
+  const handleClick = (e) => {
     onClick && onClick(e)
 
     if (!e.defaultPrevented) {
@@ -122,13 +122,13 @@ const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
 
 SelectMenuItem.defaultProps = {
   theme,
-  selected: false
+  selected: false,
 }
 
 SelectMenuItem.propTypes = {
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SelectMenuItem.displayName = 'SelectMenu.Item'

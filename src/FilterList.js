@@ -21,12 +21,12 @@ function ItemBase({children, count, theme, ...rest}) {
 const Item = styled(ItemBase)`
   position: relative;
   display: block;
-  padding: ${props => (props.small ? `${get('space.1')(props)} 10px` : `${get('space.2')(props)} 11px`)};
-  margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
+  padding: ${(props) => (props.small ? `${get('space.1')(props)} 10px` : `${get('space.2')(props)} 11px`)};
+  margin: ${(props) => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')};
-  color: ${props => (props.selected ? get('colors.white') : get('colors.gray.6'))};
-  background-color: ${props => (props.selected ? get('colors.blue.5') : '')}!important;
+  color: ${(props) => (props.selected ? get('colors.white') : get('colors.gray.6'))};
+  background-color: ${(props) => (props.selected ? get('colors.blue.5') : '')}!important;
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -49,7 +49,7 @@ const Item = styled(ItemBase)`
 `
 
 const FilterListBase = ({children, theme, ...rest}) => {
-  const items = React.Children.map(children, child => {
+  const items = React.Children.map(children, (child) => {
     return <li>{child}</li>
   })
 
@@ -65,20 +65,20 @@ const FilterList = styled(FilterListBase)`
 FilterList.defaultProps = {
   theme,
   m: 0,
-  p: 0
+  p: 0,
 }
 
 FilterList.propTypes = {
   children: PropTypes.node,
   small: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 FilterList.Item = Item
 
 FilterList.Item.defaultProps = {
-  theme
+  theme,
 }
 
 FilterList.Item.propTypes = {
@@ -89,7 +89,7 @@ FilterList.Item.propTypes = {
   selected: PropTypes.bool,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 FilterList.Item.displayName = 'FilterList.Item'

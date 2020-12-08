@@ -17,7 +17,7 @@ describe('Popover', () => {
   behavesAsComponent(Popover, [COMMON, LAYOUT, POSITION], () => comp)
 
   checkExports('Popover', {
-    default: Popover
+    default: Popover,
   })
 
   describe('Popover.Content', () => {

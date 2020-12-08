@@ -11,7 +11,7 @@ const colorStyles = ({scheme, ...props}) => {
         ? get('colors.gray.9')(props)
         : scheme === 'gray'
         ? get('colors.white')(props)
-        : get('colors.gray.6')(props)
+        : get('colors.gray.6')(props),
   }
 }
 
@@ -22,7 +22,7 @@ const bgStyles = ({scheme, ...props}) => {
         ? get('colors.blackfade15')(props)
         : scheme === 'gray'
         ? get('colors.gray.5')(props)
-        : get('colors.counter.bg')(props)
+        : get('colors.counter.bg')(props),
   }
 }
 
@@ -45,7 +45,7 @@ const CounterLabel = styled.span`
 `
 
 CounterLabel.defaultProps = {
-  theme
+  theme,
 }
 
 CounterLabel.propTypes = {
@@ -53,7 +53,7 @@ CounterLabel.propTypes = {
   scheme: PropTypes.oneOf(['gray', 'gray-light']),
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default CounterLabel

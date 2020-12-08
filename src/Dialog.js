@@ -50,7 +50,7 @@ const StyledDialog = styled(ReachDialog)`
 `
 
 const UnstyledButton = styled(Flex).attrs({
-  as: 'button'
+  as: 'button',
 })`
   background: none;
   border: none;
@@ -73,7 +73,7 @@ const DialogHeaderBase = styled(Flex)`
 `
 
 function DialogHeader({theme, children, ...rest}) {
-  if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
+  if (React.Children.toArray(children).every((ch) => typeof ch === 'string')) {
     children = (
       <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
         {children}
@@ -111,16 +111,16 @@ Dialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
   ...sx.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 
 DialogHeader.defaultProps = {
   backgroundColor: 'gray.1',
-  theme
+  theme,
 }
 
 DialogHeader.propTypes = {
-  ...Flex.propTypes
+  ...Flex.propTypes,
 }
 
 DialogHeader.displayName = 'Dialog.Header'

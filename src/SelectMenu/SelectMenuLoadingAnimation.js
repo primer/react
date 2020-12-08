@@ -28,7 +28,7 @@ const Animation = styled.div`
   ${COMMON}
 `
 
-const SelectMenuLoadingAnimation = props => {
+const SelectMenuLoadingAnimation = (props) => {
   return (
     <Animation {...props}>
       <StyledOcticon size={32} icon={OctofaceIcon} />
@@ -37,7 +37,7 @@ const SelectMenuLoadingAnimation = props => {
 }
 
 SelectMenuLoadingAnimation.propTypes = {
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
 }
 
 export default SelectMenuLoadingAnimation

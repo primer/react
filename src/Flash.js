@@ -9,11 +9,11 @@ const schemeMap = {
   red: 'danger',
   blue: 'default',
   yellow: 'warning',
-  green: 'success'
+  green: 'success',
 }
 
 const variants = variant({
-  scale: 'flash'
+  scale: 'flash',
 })
 
 const getIconColor = (variant, theme) => get(`flashIcon.${variant}`)(theme)
@@ -23,16 +23,16 @@ const Flash = styled.div`
   color: ${get('colors.text.grayDark')};
   padding: ${get('space.3')};
   border-style: solid;
-  border-width: ${props => (props.full ? '1px 0px' : '1px')};
-  border-radius: ${props => (props.full ? '0' : get('radii.2'))};
-  margin-top: ${props => (props.full ? '-1px' : '0')};
+  border-width: ${(props) => (props.full ? '1px 0px' : '1px')};
+  border-radius: ${(props) => (props.full ? '0' : get('radii.2'))};
+  margin-top: ${(props) => (props.full ? '-1px' : '0')};
 
   p:last-child {
     margin-bottom: 0;
   }
 
   svg {
-    color: ${props => getIconColor(props.variant, props.theme)};
+    color: ${(props) => getIconColor(props.variant, props.theme)};
     margin-right: ${get('space.2')};
   }
 
@@ -43,7 +43,7 @@ const Flash = styled.div`
 
 Flash.defaultProps = {
   theme,
-  variant: 'default'
+  variant: 'default',
 }
 
 Flash.propTypes = {
@@ -52,7 +52,7 @@ Flash.propTypes = {
   scheme: PropTypes.oneOf(Object.keys(schemeMap)), // deprecate 20.0.0
   variant: PropTypes.oneOf(['default', 'warning', 'success', 'danger']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default Flash

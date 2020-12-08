@@ -6,31 +6,31 @@ import {theme} from '@primer/components'
 
 const {get: getKey, compose, system} = styledSystem
 
-export const get = key => themeGet(key, getKey(theme, key))
+export const get = (key) => themeGet(key, getKey(theme, key))
 
 const whiteSpace = system({
   whiteSpace: {
     property: 'whiteSpace',
-    cssProperty: 'whiteSpace'
-  }
+    cssProperty: 'whiteSpace',
+  },
 })
 
 export const TYPOGRAPHY = compose(styledSystem.typography, whiteSpace)
 
 TYPOGRAPHY.propTypes = {
   ...systemPropTypes.typography,
-  whiteSpace: PropTypes.oneOf(['normal', 'nowrap', 'pre-wrap', 'pre', 'pre-line'])
+  whiteSpace: PropTypes.oneOf(['normal', 'nowrap', 'pre-wrap', 'pre', 'pre-line']),
 }
 
 export const COMMON = compose(styledSystem.space, styledSystem.color, styledSystem.display)
 COMMON.propTypes = {
   ...systemPropTypes.space,
-  ...systemPropTypes.color
+  ...systemPropTypes.color,
 }
 export const BORDER = compose(styledSystem.border, styledSystem.shadow)
 BORDER.propTypes = {
   ...systemPropTypes.border,
-  ...systemPropTypes.shadow
+  ...systemPropTypes.shadow,
 }
 
 // these are 1:1 with styled-system's API now,

@@ -22,12 +22,12 @@ FormGroup.Label = styled.label`
 `
 
 FormGroup.Label.defaultProps = {
-  theme
+  theme,
 }
 FormGroup.Label.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 FormGroup.Label.displayName = 'FormGroup.Label'
 
@@ -35,7 +35,7 @@ FormGroup.defaultProps = {theme}
 FormGroup.propTypes = {
   children: PropTypes.node,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default FormGroup

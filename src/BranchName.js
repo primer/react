@@ -17,14 +17,14 @@ const BranchName = styled.a`
 `
 
 BranchName.defaultProps = {
-  theme
+  theme,
 }
 
 BranchName.propTypes = {
   href: PropTypes.string,
   ...COMMON.propTypes,
   ...sx.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 
 export default BranchName
