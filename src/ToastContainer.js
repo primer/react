@@ -1,7 +1,7 @@
 import React from 'react'
 import Toast from './Toast'
 
-const ToastContainer = ({toasts, removeToast, cancelAutoDismiss}) => {
+const ToastContainer = ({toasts, ...rest}) => {
   return (
     <>
       {toasts &&
@@ -11,8 +11,7 @@ const ToastContainer = ({toasts, removeToast, cancelAutoDismiss}) => {
               key={toast.id}
               id={toast.id}
               toast={toast}
-              removeToast={() => removeToast(toast.id)}
-              cancelAutoDismiss={cancelAutoDismiss}
+              {...rest}
             />
           )
         })}

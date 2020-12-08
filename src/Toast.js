@@ -81,7 +81,7 @@ const Toast = forwardRef(({toast, removeToast, cancelAutoDismiss, ...rest}, ref)
           </ToastAction>
         )}
       </Flex>
-      <CloseButton onClick={removeToast} />
+      <CloseButton onClick={() => removeToast(toast.id)} />
     </StyledToast>
   )
 })
