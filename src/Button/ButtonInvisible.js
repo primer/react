@@ -15,6 +15,10 @@ const ButtonInvisible = styled(ButtonBase)`
     color: ${get('buttons.default.color.disabled')};
   }
 
+  &:focus {
+    box-shadow: ${get('buttons.default.shadow.focus')};
+  }
+
   ${systemStyles}
   ${sx};
 `
