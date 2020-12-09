@@ -1,20 +1,31 @@
-import React from 'react'
+import React, {createContext} from 'react'
 import PropTypes from 'prop-types'
 import Toast from './Toast'
 import Box from './Box'
 import theme from './theme'
+import useToasts from './hooks/useToasts'
+
+const ToastContext = createContext()
 
 const ToastContainer = (props) => {
-  const {toasts, removeToast, startRemovingToast, cancelAutoDismiss, ...rest} = props
-  const toastProps = {removeToast, startRemovingToast, cancelAutoDismiss}
+  const {autoDismiss, timeout, ...rest} = props
+  const {addToast, getToastProps} = useToasts({autoDismiss, timeout})
+  const {toasts, ...toastProps} = getToastProps()
+
   return (
-    <Box {...rest}>
-      {toasts &&
-        toasts.map((toast) => {
-          return <Toast key={toast.id} className={toast.className} toast={toast} {...toastProps} />
-        })}
-    </Box>
+    <ToastContext.Provider value={addToast}>
+      <Box {...rest}>
+        {toasts &&
+          toasts.map((toast) => {
+            return <Toast key={toast.id} className={toast.className} toast={toast} {...toastProps} />
+          })}
+      </Box>
+    </ToastContext.Provider>
   )
+}
+
+ToastContainer.Context = {
+  addToast: PropTypes.func,
 }
 
 ToastContainer.defaultProps = {
@@ -23,9 +34,7 @@ ToastContainer.defaultProps = {
 
 ToastContainer.propTypes = {
   ...Box.propTypes,
-  cancelAutoDismiss: PropTypes.func,
-  removeToast: PropTypes.func,
-  startRemovingToast: PropTypes.func,
-  toasts: PropTypes.object,
+  autoDismiss: PropTypes.bool,
+  timeout: PropTypes.number,
 }
 export default ToastContainer

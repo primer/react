@@ -3,29 +3,41 @@ title: Toast
 ---
 
 ```javascript live noinline
-const DemoComponent = () => {
-  const {addToast, getToastProps} = useToasts({autoDismiss: true});
+const AppComponent = () => {
   const states = ['success', 'default', 'warning', 'error']
   const messages = ['hello!', 'oopsies', 'try again plz', 'nice job!']
 
-const handleAddToastClick = () => {
-    addToast({
+
+
+  return (
+    <ToastContainer autoDismiss={false}>
+      // can't access Toast context here because we're in the same function as the context provider
+      <CustomComponent />
+    </ToastContainer>
+  )
+}
+
+
+// in another file
+import {ToastContext} from '@primer/components'
+
+const CustomComponent = () => {
+  const toastContext = useContext(ToastContext)
+
+  const handleAddToastClick = () => {
+    toastContext.addToast({
       message: messages[Math.floor(Math.random() * Math.floor(4))],
       type: states[Math.floor(Math.random() * Math.floor(5))],
       onToastDismiss: () => window.alert('toast has left the building'),
       action: {text: 'Undo', handleOnClick: () => window.alert('hi'), ariaLabel: "Undo approval"}
     })
   }
-
   return (
-    <>
-      <Button onClick={handleAddToastClick}>Add a toast</Button>
-      <ToastContainer {...getToastProps()}/>
-    </>
+    <Button onClick={}
   )
 }
 
-render(<DemoComponent/>)
+render(<AppComponent/>)
 ```
 
 ## `useToasts` hook configuration options

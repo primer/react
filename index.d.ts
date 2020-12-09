@@ -481,32 +481,15 @@ declare module '@primer/components' {
     onToastDismiss?: () => void
   }
 
-
-  export interface ToastItem extends AddToastOptions {
-    id: string
-    timeoutId: string
-    className?: string
-  }
-
-  export interface ToastProps {
-    removeToast: (id: string) => void
-    startRemovingToast: (id: string, dismiss?: boolean) => void
-    cancelAutoDismiss: (id: string) => void
-    toasts: ToastItem[]
-  }
-
-  export interface ToastContainerProps extends CommonProps, LayoutProps, ToastProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
-
-  export const ToastContainer: React.FunctionComponent<ToastContainerProps>
-
-  export interface UseToastsProps {
+  export interface ToastContainerProps extends CommonProps, LayoutProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     autoDismiss?: boolean
     timeout?: number
   }
 
-  export const useToasts: (useToastProps?: UseToastsProps ) => {
-    addToast: (addToastProps: AddToastProps) => void
-    getToastProps: () => ToastProps
+  export const ToastContainer: React.FunctionComponent<ToastContainerProps> & {
+    Context: React.Context<{
+      addToast: (addToastProps: AddToastProps) => void
+    }>
   }
 
   export interface UnderlineNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
