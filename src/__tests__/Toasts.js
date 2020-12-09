@@ -1,6 +1,6 @@
 import React from 'react'
-import {ToastContainer, useToast} from '..'
-import {mount, behavesAsComponent, checkExports} from '../utils/testing'
+import {ToastContainer} from '..'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
