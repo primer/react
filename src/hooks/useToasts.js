@@ -44,7 +44,10 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     )
   }
 
-  return {addToast, toastProps: {toasts, removeToast, startRemovingToast, cancelAutoDismiss}}
+  const getToastProps = () => {
+    return {toasts, removeToast, startRemovingToast, cancelAutoDismiss}
+  }
+  return {addToast, getToastProps}
 }
 
 export default useToasts

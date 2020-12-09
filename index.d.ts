@@ -477,6 +477,47 @@ declare module '@primer/components' {
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
 
+  export interface ToastAction {
+    text: string
+    handleOnClick: () => void
+    ariaLabel: string
+  }
+  export interface ToastObject {
+    id: string
+    timeoutId: string
+    className?: string
+    message: string
+    type: 'success' | 'default' | 'warning' | 'error' | 'loading'
+    action?: ToastAction
+
+  }
+  export interface ToastProps {
+    removeToast: (id: string) => void
+    startRemovingToast: (id: string) => void
+    cancelAutoDismiss: (id: string) => void
+    toasts: ToastObject[]
+  }
+
+  export interface CreateToastObject {
+    message: string
+    type: 'success' | 'default' | 'warning' | 'error' | 'loading'
+    action: ToastAction
+
+  }
+  export interface ToastContainerProps extends CommonProps, LayoutProps, ToastProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export const ToastContainer: React.FunctionComponent<ToastContainerProps>
+
+  export interface UseToastsArgs {
+    autoDismiss?: boolean
+    timeout?: number
+  }
+
+  export const useToasts: (args?: UseToastsArgs) => {
+    addToast: (args: CreateToastObject) => void
+    getToastProps: () => ToastProps
+  }
+
   export interface UnderlineNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     actions?: React.ReactNode
     align?: 'right'
@@ -791,6 +832,17 @@ declare module '@primer/components/lib/theme' {
   import {theme} from '@primer/components'
   export default theme
 }
+
+declare module '@primer/components/lib/ToastContainer' {
+  import {ToastContainer} from '@primer/components'
+  export default ToastContainer
+}
+
+declare module '@primer/components/lib/hooks/useToasts' {
+  import {useToasts} from '@primer/components'
+  export default useToasts
+}
+
 declare module '@primer/components/lib/Dialog' {
   import {Dialog} from '@primer/components'
   export default Dialog

@@ -4,7 +4,7 @@ title: Toast
 
 ```javascript live noinline
 const DemoComponent = () => {
-  const {addToast, toastProps} = useToasts({autoDismiss: true});
+  const {addToast, getToastProps} = useToasts({autoDismiss: true});
   const states = ['success', 'default', 'warning', 'error', 'loading']
   const messages = ['hello!', 'oopsies', 'try again plz', 'nice job!']
 
@@ -19,7 +19,7 @@ const handleAddToastClick = () => {
   return (
     <>
       <Button onClick={handleAddToastClick}>Add a toast</Button>
-      <ToastContainer {...toastProps}/>
+      <ToastContainer {...getToastProps()}/>
     </>
   )
 }
