@@ -442,15 +442,6 @@ declare module '@primer/components' {
 
   export const TextInput: React.FunctionComponent<TextInputProps>
 
-  export interface ToastProps
-    extends CommonProps,
-      Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
-        state?: 'default' | 'success' | 'warning' | 'error' | 'loading'
-        onCloseClick: (event: MouseEvent) => void
-      }
-
-  export const Toast: React.FunctionComponent<ToastProps>
-
   export interface TooltipProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
     align?: 'left' | 'right'
     direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
@@ -482,15 +473,21 @@ declare module '@primer/components' {
     handleOnClick: () => void
     ariaLabel: string
   }
-  export interface ToastObject {
+
+  export interface CreateToastObject {
+    message: string
+    type: 'success' | 'default' | 'warning' | 'error'
+    action: ToastAction
+    onToastLeave?: () => void
+  }
+
+
+  export interface ToastObject extends CreateToastObject {
     id: string
     timeoutId: string
     className?: string
-    message: string
-    type: 'success' | 'default' | 'warning' | 'error' | 'loading'
-    action?: ToastAction
-
   }
+
   export interface ToastProps {
     removeToast: (id: string) => void
     startRemovingToast: (id: string) => void
@@ -498,12 +495,6 @@ declare module '@primer/components' {
     toasts: ToastObject[]
   }
 
-  export interface CreateToastObject {
-    message: string
-    type: 'success' | 'default' | 'warning' | 'error' | 'loading'
-    action: ToastAction
-
-  }
   export interface ToastContainerProps extends CommonProps, LayoutProps, ToastProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const ToastContainer: React.FunctionComponent<ToastContainerProps>
@@ -807,10 +798,6 @@ declare module '@primer/components/lib/TextInput' {
 declare module '@primer/components/lib/Timeline' {
   import {Timeline} from '@primer/components'
   export default Timeline
-}
-declare module '@primer/components/lib/Toast' {
-  import {Toast} from '@primer/components'
-  export default Toast
 }
 declare module '@primer/components/lib/Tooltip' {
   import {Tooltip} from '@primer/components'

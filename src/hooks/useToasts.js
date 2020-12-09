@@ -34,14 +34,20 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
   }
 
   const removeToast = (id) => {
+    let currentToast
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => {
         if (autoDismiss && toast.id === id && toast.timeoutId) {
           window.clearTimeout(toast.timeoutId)
         }
+        if (toast.id === id) {
+          currentToast = toast
+        }
         return toast.id !== id
       })
     )
+
+    currentToast.onToastLeave && currentToast.onToastLeave()
   }
 
   const getToastProps = () => {

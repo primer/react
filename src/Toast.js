@@ -20,7 +20,6 @@ const stateMap = {
   success: SuccessIcon,
   warning: WarningIcon,
   error: ErrorIcon,
-  loading: ErrorIcon,
 }
 
 const toastEnter = keyframes`
