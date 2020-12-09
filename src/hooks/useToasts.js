@@ -1,6 +1,8 @@
 import {nanoid} from 'nanoid'
 import {useState} from 'react'
 
+export const TOAST_ANIMATION_LENGTH = 300
+
 const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
   const [toasts, setToasts] = useState([])
 
@@ -10,7 +12,14 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     if (autoDismiss) {
       timeoutId = window.setTimeout(startRemovingToast, timeout, toastId)
     }
-    setToasts([{id: toastId, timeoutId, ...freshToast, className: 'toast-enter'}])
+    const newToast = {id: toastId, timeoutId, ...freshToast}
+    // if there's already a toast on the page, wait for it to animate out before
+    // adding a new toast
+    if (toasts.length > 0) {
+      startRemovingToast(toasts[0].id)
+      return setTimeout(setToasts, TOAST_ANIMATION_LENGTH, [newToast])
+    }
+    setToasts([newToast])
   }
 
   const cancelAutoDismiss = (toast) => {

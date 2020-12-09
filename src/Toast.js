@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import StyledOcticon from './StyledOcticon'
 import {get} from './constants'
 import theme from './theme'
+import {TOAST_ANIMATION_LENGTH} from './useToasts'
 
 const DefaultIcon = <StyledOcticon icon={InfoIcon} color="blue.3" />
 const SuccessIcon = <StyledOcticon icon={CheckCircleIcon} color="green.3" />
@@ -58,10 +59,10 @@ const StyledToast = styled.div.attrs(() => ({
   bottom: ${get('space.4')};
   left: ${get('space.4')};
 
-  animation: ${toastEnter} 300ms cubic-bezier(0.25, 1, 0.5, 1);
+  animation: ${toastEnter} ${TOAST_ANIMATION_LENGTH} cubic-bezier(0.25, 1, 0.5, 1);
 
   &.toast-leave {
-    animation: ${toastLeave} 300ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+    animation: ${toastLeave} ${TOAST_ANIMATION_LENGTH} 300ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
   }
 `
 
