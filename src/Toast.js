@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import StyledOcticon from './StyledOcticon'
 import {get} from './constants'
 import theme from './theme'
-import {TOAST_ANIMATION_LENGTH} from './useToasts'
+import {TOAST_ANIMATION_LENGTH} from './hooks/useToasts'
 
 const DefaultIcon = <StyledOcticon icon={InfoIcon} color="blue.3" />
 const SuccessIcon = <StyledOcticon icon={CheckCircleIcon} color="green.3" />
@@ -59,10 +59,10 @@ const StyledToast = styled.div.attrs(() => ({
   bottom: ${get('space.4')};
   left: ${get('space.4')};
 
-  animation: ${toastEnter} ${TOAST_ANIMATION_LENGTH} cubic-bezier(0.25, 1, 0.5, 1);
+  animation: ${toastEnter} ${TOAST_ANIMATION_LENGTH}ms cubic-bezier(0.25, 1, 0.5, 1);
 
   &.toast-leave {
-    animation: ${toastLeave} ${TOAST_ANIMATION_LENGTH} 300ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+    animation: ${toastLeave} ${TOAST_ANIMATION_LENGTH}ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
   }
 `
 
@@ -103,14 +103,9 @@ const Toast = forwardRef(({toast, startRemovingToast, removeToast, cancelAutoDis
     startRemovingToast(toast.id)
   }
 
-  const handleOnAnimationEnd = (e) => {
-    if (e.currentTarget.className.includes('toast-leave')) {
-      removeToast(toast.id)
-    }
-  }
 
   return (
-    <StyledToast {...rest} ref={customRef} onAnimationEnd={handleOnAnimationEnd} role="alert">
+    <StyledToast {...rest} ref={customRef} role="alert">
       {stateMap[toast.type]}
       <Flex color="text.white" px={2} flex="1">
         {toast.message}
