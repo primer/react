@@ -12,7 +12,7 @@ const handleAddToastClick = () => {
     addToast({
       message: messages[Math.floor(Math.random() * Math.floor(4))],
       type: states[Math.floor(Math.random() * Math.floor(5))],
-      onToastLeave: () => window.alert('toast has left the building'),
+      onToastDismiss: () => window.alert('toast has left the building'),
       action: {text: 'Undo', handleOnClick: () => window.alert('hi'), ariaLabel: "Undo approval"}
     })
   }
@@ -28,7 +28,35 @@ const handleAddToastClick = () => {
 render(<DemoComponent/>)
 ```
 
-## System props
+## `useToasts` hook configuration options
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| autoDismiss | Boolean | true | Set to false to keep Toast on page indefinitely |
+| timeout | number | 5000 | Sets how long to leave a Toast on the page. Please aim for at least 500ms per word. |
 
 
-## Component props
+### Values returned by the `useToasts` hook
+| Name | Type | Description |
+| :- | :- | :- |
+| addToast | function| Function that can be used to add a Toast to the page. See below for more details about this function's arguments |
+| getToastProps | function | Returns an object with necessary props for Toast behaviors to work. Contains a list of the currently visible Toasts `toasts`, `removeToast`, `startRemovingToast` and `cancelAutoDismiss` In most cases, you won't need to interact with any of these values directly, but if you'd like to override any of these yourself or use them inside your application, please proceed with caution. |
+
+
+## addToast arguments
+
+| Name | Type | Description |
+| :- | :- | :- |
+| message | string | Message to display inside of toast |
+| type| string | One of `success`, `default`, `warning` or `error` |
+| onToastDismiss | function | Pass a function you'd like to be called whenever the Toast is dismissed. This only gets called when the toast leaves the page automatically or the user clicks the close button. This does not get called after a user clicks an action button. |
+| action | Object | Used to create an action link inside the Toast. See the below table for configuration options. |
+
+## `action` objects
+
+| Name | Type | Description |
+| :- | :- | :- |
+| text | string | Action button text |
+| href | string | If an `href` is provided, the action will be structured as a link. You cannot provide a `handleOnClick` and an `href` |
+| handleOnClick | function | Function to call when user clicks action |
+| ariaLabel | string | Used if you'd like to provide more context for the action button. |
