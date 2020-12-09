@@ -474,7 +474,7 @@ declare module '@primer/components' {
     ariaLabel: string
   }
 
-  export interface CreateToastObject {
+  export interface AddToastProps {
     message: string
     type: 'success' | 'default' | 'warning' | 'error'
     action: ToastAction
@@ -482,7 +482,7 @@ declare module '@primer/components' {
   }
 
 
-  export interface ToastObject extends CreateToastObject {
+  export interface ToastItem extends AddToastOptions {
     id: string
     timeoutId: string
     className?: string
@@ -492,20 +492,20 @@ declare module '@primer/components' {
     removeToast: (id: string) => void
     startRemovingToast: (id: string, dismiss?: boolean) => void
     cancelAutoDismiss: (id: string) => void
-    toasts: ToastObject[]
+    toasts: ToastItem[]
   }
 
   export interface ToastContainerProps extends CommonProps, LayoutProps, ToastProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   export const ToastContainer: React.FunctionComponent<ToastContainerProps>
 
-  export interface UseToastsArgs {
+  export interface UseToastsProps {
     autoDismiss?: boolean
     timeout?: number
   }
 
-  export const useToasts: (args?: UseToastsArgs) => {
-    addToast: (args: CreateToastObject) => void
+  export const useToasts: (useToastProps?: UseToastsProps ) => {
+    addToast: (addToastProps: AddToastProps) => void
     getToastProps: () => ToastProps
   }
 
