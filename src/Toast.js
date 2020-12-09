@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import StyledOcticon from './StyledOcticon'
 import {get} from './constants'
 import theme from './theme'
-import {TOAST_ANIMATION_LENGTH} from './hooks/useToasts'
+import {TOAST_ANIMATION_LENGTH} from './hooks/useToastsInternal'
 
 const DefaultIcon = <StyledOcticon icon={InfoIcon} color="blue.3" />
 const SuccessIcon = <StyledOcticon icon={CheckCircleIcon} color="green.3" />

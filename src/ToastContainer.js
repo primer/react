@@ -1,12 +1,12 @@
 import React, {createContext} from 'react'
 import PropTypes from 'prop-types'
 import Toast from './Toast'
-import useToasts from './hooks/useToasts'
+import useToastsInternal from './hooks/useToastsInternal'
 
-const ToastContext = createContext()
+export const ToastContext = createContext()
 
 const ToastContainer = (props) => {
-  const {addToast, getToastProps} = useToasts(props)
+  const {addToast, getToastProps} = useToastsInternal(props)
   const {toasts, ...toastProps} = getToastProps()
 
   return (
@@ -20,10 +20,9 @@ const ToastContainer = (props) => {
   )
 }
 
-ToastContainer.Context = ToastContext
-
 ToastContainer.propTypes = {
   autoDismiss: PropTypes.bool,
   timeout: PropTypes.number,
 }
+
 export default ToastContainer

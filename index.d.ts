@@ -486,10 +486,10 @@ declare module '@primer/components' {
     timeout?: number
   }
 
-  export const ToastContainer: React.FunctionComponent<ToastContainerProps> & {
-    Context: React.Context<{
-      addToast: (addToastProps: AddToastProps) => void
-    }>
+  export const ToastContainer: React.FunctionComponent<ToastContainerProps>
+
+  export const useToasts: () => {
+    addToast: (addToastProps: AddToastProps) => void
   }
 
   export interface UnderlineNavProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
