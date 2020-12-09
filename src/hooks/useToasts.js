@@ -10,13 +10,13 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     const toastId = nanoid()
     let timeoutId
     if (autoDismiss) {
-      timeoutId = window.setTimeout(startRemovingToast, timeout, toastId)
+      timeoutId = window.setTimeout(startRemovingToast, timeout, toastId, true)
     }
     const newToast = {id: toastId, timeoutId, ...freshToast}
     // if there's already a toast on the page, wait for it to animate out before
     // adding a new toast
     if (toasts.length > 0) {
-      startRemovingToast(toasts[0].id)
+      startRemovingToast(toasts[0].id, true)
       return setTimeout(setToasts, TOAST_ANIMATION_LENGTH, [newToast])
     }
     setToasts([newToast])
@@ -26,14 +26,14 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     window.clearTimeout(toast.timeoutId)
   }
 
-  const startRemovingToast = (id) => {
+  const startRemovingToast = (id, dismiss) => {
     // find the toast to remove and add the `toast-leave` class name
     // after the animation is run, the onAnimationEnd handler in Toast.js calls removeToast
     setToasts((prevState) => prevState.map((toast) => (toast.id === id ? {...toast, className: 'toast-leave'} : toast)))
-    setTimeout(removeToast, TOAST_ANIMATION_LENGTH, id)
+    setTimeout(removeToast, TOAST_ANIMATION_LENGTH, id, dismiss)
   }
 
-  const removeToast = (id) => {
+  const removeToast = (id, dismiss) => {
     let currentToast
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => {
@@ -46,8 +46,9 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
         return toast.id !== id
       })
     )
-
-    currentToast.onToastLeave && currentToast.onToastLeave()
+    if (currentToast.onToastDismiss && dismiss) {
+      currentToast.onToastDismiss()
+    }
   }
 
   const getToastProps = () => {

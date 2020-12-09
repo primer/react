@@ -3,6 +3,7 @@ import React, {useRef, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 
 import CloseButton from './CloseButton'
+import Link from './Link'
 import Flex from './Flex'
 import PropTypes from 'prop-types'
 import StyledOcticon from './StyledOcticon'
@@ -73,6 +74,7 @@ const ToastAction = styled.button`
   color: ${get('colors.blue.3')};
   font-size: ${get('fontSizes.1')};
   font-family: inherit;
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;
@@ -97,7 +99,7 @@ const Toast = ({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...re
 
   const handleActionClick = () => {
     toast.action.handleOnClick()
-    startRemovingToast(toast.id)
+    startRemovingToast(toast.id, false)
   }
 
   return (
@@ -106,7 +108,13 @@ const Toast = ({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...re
       <Flex color="text.white" px={2} flex="1">
         {toast.message}
         {toast.action && (
-          <ToastAction ref={callToActionRef} onClick={handleActionClick} aria-label={toast.action.ariaLabel}>
+          <ToastAction
+            as={toast.action.href ? 'a' : 'button'}
+            href={toast.action.href}
+            ref={callToActionRef}
+            onClick={handleActionClick}
+            aria-label={toast.action.ariaLabel}
+          >
             {toast.action.text}
           </ToastAction>
         )}
