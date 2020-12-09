@@ -1,5 +1,5 @@
 import {AlertIcon, CheckCircleIcon, InfoIcon, StopIcon} from '@primer/octicons-react'
-import React, {forwardRef, useRef, useEffect} from 'react'
+import React, {useRef, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 
 import CloseButton from './CloseButton'
@@ -80,10 +80,8 @@ const ToastAction = styled.button`
   }
 `
 
-const Toast = forwardRef(({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...rest}, ref) => {
+const Toast = ({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...rest}) => {
   const callToActionRef = useRef()
-  const backupRef = useRef(null)
-  const customRef = ref ?? backupRef
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -103,9 +101,8 @@ const Toast = forwardRef(({toast, startRemovingToast, removeToast, cancelAutoDis
     startRemovingToast(toast.id)
   }
 
-
   return (
-    <StyledToast {...rest} ref={customRef} role="alert">
+    <StyledToast {...rest} role="alert">
       {stateMap[toast.type]}
       <Flex color="text.white" px={2} flex="1">
         {toast.message}
@@ -118,7 +115,7 @@ const Toast = forwardRef(({toast, startRemovingToast, removeToast, cancelAutoDis
       <CloseButton onClick={() => startRemovingToast(toast.id)} />
     </StyledToast>
   )
-})
+}
 
 Toast.defaultProps = {
   type: 'default',
