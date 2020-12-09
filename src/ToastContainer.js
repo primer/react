@@ -20,9 +20,7 @@ const ToastContainer = (props) => {
   )
 }
 
-ToastContainer.Context = {
-  addToast: PropTypes.func,
-}
+ToastContainer.Context = ToastContext
 
 ToastContainer.propTypes = {
   autoDismiss: PropTypes.bool,
