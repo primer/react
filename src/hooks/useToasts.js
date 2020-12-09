@@ -26,7 +26,7 @@ const useToasts = ({autoDismiss = true, timeout = 5000} = {}) => {
     window.clearTimeout(toast.timeoutId)
   }
 
-  const startRemovingToast = (id, dismiss) => {
+  const startRemovingToast = (id, dismiss = true) => {
     // find the toast to remove and add the `toast-leave` class name
     // after the animation is run, the onAnimationEnd handler in Toast.js calls removeToast
     setToasts((prevState) => prevState.map((toast) => (toast.id === id ? {...toast, className: 'toast-leave'} : toast)))

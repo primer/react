@@ -478,7 +478,7 @@ declare module '@primer/components' {
     message: string
     type: 'success' | 'default' | 'warning' | 'error'
     action: ToastAction
-    onToastLeave?: () => void
+    onToastDismiss?: () => void
   }
 
 
@@ -490,7 +490,7 @@ declare module '@primer/components' {
 
   export interface ToastProps {
     removeToast: (id: string) => void
-    startRemovingToast: (id: string) => void
+    startRemovingToast: (id: string, dismiss?: boolean) => void
     cancelAutoDismiss: (id: string) => void
     toasts: ToastObject[]
   }

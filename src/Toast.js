@@ -112,7 +112,7 @@ const Toast = ({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...re
           </ToastAction>
         )}
       </Flex>
-      <CloseButton onClick={() => startRemovingToast(toast.id)} />
+      <CloseButton onClick={() => startRemovingToast(toast.id, true)} />
     </StyledToast>
   )
 }
