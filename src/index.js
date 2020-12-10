@@ -31,6 +31,7 @@ export {
 export {default as Caret} from './Caret'
 export {default as CircleBadge} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'
+export {default as CloseButton} from './CloseButton'
 export {default as CounterLabel} from './CounterLabel'
 export {default as Details} from './Details'
 export {default as Dialog} from './Dialog'
