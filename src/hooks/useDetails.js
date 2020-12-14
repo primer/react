@@ -20,7 +20,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside} = {}
   // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
     if (open && closeOnOutsideClick) {
-      document.addEventListener('click', onClickOutsideInternal)
+      document.addEventListener('click', onClickOutsideInternal, {capture: true})
       return () => {
         document.removeEventListener('click', onClickOutsideInternal)
       }
