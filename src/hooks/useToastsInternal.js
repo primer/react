@@ -8,16 +8,18 @@ const useToastsInternal = ({autoDismiss = true, timeout = 5000} = {}) => {
 
   const addToast = (freshToast) => {
     const toastId = nanoid()
-    let timeoutId
+    let timeoutId = 0
     if (autoDismiss) {
-      timeoutId = window.setTimeout(startRemovingToast, timeout, toastId, true)
+      timeoutId = window.setTimeout(startRemovingToast, timeout, toastId)
     }
     const newToast = {id: toastId, timeoutId, ...freshToast}
     // if there's already a toast on the page, wait for it to animate out before
     // adding a new toast
     if (toasts.length > 0) {
-      startRemovingToast(toasts[0].id, true)
-      return setTimeout(setToasts, TOAST_ANIMATION_LENGTH, [newToast])
+      const firstToast = toasts[0]
+      startRemovingToast(firstToast.id)
+      setTimeout(setToasts, TOAST_ANIMATION_LENGTH, [newToast])
+      return
     }
     setToasts([newToast])
   }
@@ -26,28 +28,26 @@ const useToastsInternal = ({autoDismiss = true, timeout = 5000} = {}) => {
     window.clearTimeout(toast.timeoutId)
   }
 
-  const startRemovingToast = (id, dismiss = true) => {
-    // find the toast to remove and add the `toast-leave` class name
-    // after the animation is run, the onAnimationEnd handler in Toast.js calls removeToast
+  // find the toast to remove and add the `toast-leave` class name
+  // after the animation is run, the onAnimationEnd handler in Toast.js calls removeToast
+  const startRemovingToast = (id) => {
     setToasts((prevState) => prevState.map((toast) => (toast.id === id ? {...toast, className: 'toast-leave'} : toast)))
-    setTimeout(removeToast, TOAST_ANIMATION_LENGTH, id, dismiss)
+    setTimeout(removeToast, TOAST_ANIMATION_LENGTH, id)
   }
-
-  const removeToast = (id, dismiss) => {
-    let currentToast
+  const findToastById = (id) => toasts.find((toast) => toast.id === id)
+  const removeToast = (id) => {
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => {
         if (autoDismiss && toast.id === id && toast.timeoutId) {
           window.clearTimeout(toast.timeoutId)
         }
-        if (toast.id === id) {
-          currentToast = toast
-        }
         return toast.id !== id
       })
     )
-    if (currentToast.onToastDismiss && dismiss) {
-      currentToast.onToastDismiss()
+
+    const currentToast = findToastById(id)
+    if (currentToast?.onDismiss) {
+      currentToast.onDismiss()
     }
   }
 

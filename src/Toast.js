@@ -3,8 +3,7 @@ import React, {useRef, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 
 import CloseButton from './CloseButton'
-import Link from './Link'
-import Flex from './Flex'
+import Text from './Text'
 import PropTypes from 'prop-types'
 import StyledOcticon from './StyledOcticon'
 import {get} from './constants'
@@ -74,45 +73,53 @@ const ToastAction = styled.button`
   color: ${get('colors.blue.3')};
   font-size: ${get('fontSizes.1')};
   font-family: inherit;
+  outline: none;
+  padding: 0;
 
   &:hover {
     text-decoration: underline;
   }
+
+  &:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(139, 148, 158, 0.3);
+  }
 `
 
-const Toast = ({toast, startRemovingToast, removeToast, cancelAutoDismiss, ...rest}) => {
-  const callToActionRef = useRef()
+const Toast = (props) => {
+  const {toast, startRemovingToast, cancelAutoDismiss} = props
+  const callToActionRef = useRef(null)
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (callToActionRef.current && event.ctrlKey && event.key === 't') {
-        callToActionRef.current.focus()
+      if (event.ctrlKey && event.key === 't') {
+        callToActionRef.current?.focus()
         cancelAutoDismiss(toast)
       }
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => {
-      document.removeEventListener('click', handleKeyDown)
+      document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [callToActionRef, cancelAutoDismiss, toast])
+  })
 
   const handleActionClick = () => {
-    toast.action.handleOnClick()
-    startRemovingToast(toast.id, false)
+    toast.action?.handleOnClick()
+    startRemovingToast(toast.id)
   }
 
   return (
-    <StyledToast {...rest} role="alert">
+    <StyledToast role="status" className={toast.className}>
       {stateMap[toast.type]}
-      <Flex color="text.white" px={2} flex="1">
+      <Text fontSize={1} color="white">
         {toast.message}
-        {toast.action && (
-          <ToastAction ref={callToActionRef} onClick={handleActionClick} aria-label={toast.action.ariaLabel}>
-            {toast.action.text}
-          </ToastAction>
-        )}
-      </Flex>
-      <CloseButton onClick={() => startRemovingToast(toast.id, true)} />
+      </Text>
+      {toast.action && (
+        <ToastAction ref={callToActionRef} onClick={handleActionClick}>
+          {toast.action.text}
+        </ToastAction>
+      )}
+      <CloseButton onClick={() => startRemovingToast(toast.id)} />
     </StyledToast>
   )
 }
@@ -125,7 +132,6 @@ Toast.defaultProps = {
 Toast.propTypes = {
   cancelAutoDismiss: PropTypes.func,
   className: PropTypes.string,
-  removeToast: PropTypes.func,
   startRemovingToast: PropTypes.func,
   toast: PropTypes.object,
 }

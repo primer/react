@@ -469,16 +469,29 @@ declare module '@primer/components' {
   export const Tooltip: React.FunctionComponent<TooltipProps>
 
   export interface ToastAction {
-    text: string
-    handleOnClick: () => void
-    ariaLabel: string
+    text: string;
+    handleOnClick: () => void;
+}
+
+
+  export interface ToastItem extends IAddToastProps {
+      id: string;
+      timeoutId: number;
+      className?: string;
   }
 
   export interface AddToastProps {
     message: string
     type: 'success' | 'default' | 'warning' | 'error'
-    action: ToastAction
-    onToastDismiss?: () => void
+    action?: ToastAction
+    onDismiss?: () => void
+  }
+
+  export interface ToastComponentProps {
+    removeToast: (id: string) => void;
+    startRemovingToast: (id: string) => void;
+    cancelAutoDismiss: (toast: IToastItem) => void;
+    toast: IToastItem;
   }
 
   export interface ToastContainerProps extends CommonProps, LayoutProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
