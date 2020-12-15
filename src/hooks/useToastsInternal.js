@@ -8,7 +8,7 @@ const useToastsInternal = ({autoDismiss = true, timeout = 5000} = {}) => {
 
   const addToast = (freshToast) => {
     const toastId = nanoid()
-    let timeoutId = 0
+    let timeoutId
     if (autoDismiss) {
       timeoutId = window.setTimeout(startRemovingToast, timeout, toastId)
     }
@@ -46,7 +46,7 @@ const useToastsInternal = ({autoDismiss = true, timeout = 5000} = {}) => {
     )
 
     const currentToast = findToastById(id)
-    if (currentToast?.onDismiss) {
+    if (currentToast && currentToast.onDismiss) {
       currentToast.onDismiss()
     }
   }

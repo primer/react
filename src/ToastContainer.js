@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {createContext} from 'react'
 import Toast from './Toast'
-import useToastsInternal from './useToastsInternal'
+import useToastsInternal from './hooks/useToastsInternal'
 
 export const ToastContext = createContext()
 

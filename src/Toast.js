@@ -92,8 +92,8 @@ const Toast = (props) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.ctrlKey && event.key === 't') {
-        callToActionRef.current?.focus()
+      if (callToActionRef.current && event.ctrlKey && event.key === 't') {
+        callToActionRef.current.focus()
         cancelAutoDismiss(toast)
       }
     }
@@ -104,7 +104,7 @@ const Toast = (props) => {
   })
 
   const handleActionClick = () => {
-    toast.action?.handleOnClick()
+    toast.action.handleOnClick()
     startRemovingToast(toast.id)
   }
 
