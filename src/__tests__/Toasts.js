@@ -1,38 +1,95 @@
 import React from 'react'
-import {ToastContainer} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-expect.extend(toHaveNoViolations)
+import ToastContainer from '../ToastContainer'
+import {render, cleanup, screen} from '@testing-library/react'
+import {renderHook, act} from '@testing-library/react-hooks'
+import useToastsInternal from '../hooks/useToastsInternal'
 
-describe('Toasts', () => {
-  behavesAsComponent(ToastContainer, [COMMON])
+jest.useFakeTimers()
 
-  checkExports('ToastContainer', {
-    default: ToastContainer,
-  })
+describe('Toast', () => {
+  it('Renders a toast on the page when it is added by the hook', () => {
+    render(<ToastContainer />)
+    const {result} = renderHook(() => useToastsInternal())
+    act(() => {
+      result.current.addToast({
+        message: 'Changes Saved',
+        type: 'success',
+      })
+    })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<ToastContainer />)
-    const results = await axe(container)
-    expect(results).toHaveNoViolations()
+    expect(screen.getByRole('status')).toHaveTextContent('Changes Saved')
     cleanup()
   })
-
-  it.skip('Adds a toast to the container with addToast from the hook', () => {})
-
-  it.skip('Adds only one toast at a time to the container', () => {})
-
-  it.skip('Respects autodismiss: false', () => {})
-
-  it.skip('Respects custom timing prop', () => {})
-
-  it.skip('Focuses the action item when pressing control + t', () => {})
 
   it.skip('Prevents dismissing the toast when focused inside of it', () => {})
 
   it.skip('Adds an action item to the toast', () => {})
 
   it.skip('Adds only one action item to the toast', () => {})
+})
+
+describe('useToastsInternal', () => {
+  it('Adds a toast to the container with addToast from the hook', () => {
+    const {result} = renderHook(() => useToastsInternal())
+    expect(result.current.getToastProps().toasts).toEqual([])
+
+    act(() => {
+      result.current.addToast({
+        message: 'Changes Saved',
+        type: 'success',
+      })
+    })
+
+    expect(result.current.getToastProps().toasts.length).toEqual(1)
+  })
+
+  it('Adds only one toast at a time to the container', () => {
+    const {result} = renderHook(() => useToastsInternal())
+    expect(result.current.getToastProps().toasts).toEqual([])
+
+    act(() => {
+      result.current.addToast({
+        message: 'Changes Saved',
+        type: 'success',
+      })
+    })
+
+    expect(result.current.getToastProps().toasts.length).toEqual(1)
+
+    act(() => {
+      result.current.addToast({
+        message: 'Changes Saved',
+        type: 'success',
+      })
+    })
+
+    expect(result.current.getToastProps().toasts.length).toEqual(1)
+  })
+
+  it('Respects autodismiss: false', () => {
+    const {result} = renderHook(() => useToastsInternal({autoDismiss: false}))
+
+    act(() => {
+      result.current.addToast({
+        message: 'Changes Saved',
+        type: 'success',
+      })
+    })
+
+    expect(result.current.getToastProps().toasts[0].timeoutId).toEqual(undefined)
+  })
+
+  it('Adds timeout to new toasts by default', () => {
+    const {result} = renderHook(() => useToastsInternal())
+
+    act(() => {
+      result.current.addToast({
+        message: 'Changes Saved',
+        type: 'success',
+      })
+    })
+
+    expect(result.current.getToastProps().toasts[0].timeoutId).not.toBeNull()
+  })
 })
