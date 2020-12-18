@@ -55,6 +55,8 @@ const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwar
 
   const onClickOutside = useCallback(
     (event) => {
+      debugger
+      console.log("stuff")
       if (!ref.current.contains(event.target)) {
         if (!event.defaultPrevented) {
           setOpen(false)
@@ -79,7 +81,7 @@ const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwar
   }
 
   useKeyboardNav(ref, open, setOpen)
-
+  console.log('select menu')
   return (
     <MenuContext.Provider value={menuProviderValues}>
       <StyledSelectMenu ref={ref} {...rest} open={open} onToggle={toggle}>
