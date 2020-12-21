@@ -71,12 +71,12 @@ const SelectMenu = React.forwardRef(({children, onClickOutside, initialTab, as, 
   // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
     if (open) {
-      document.addEventListener('click', onClickOutside, {capture: true})
+      document.addEventListener('click', onClickOutsideInternal, {capture: true})
       return () => {
-        document.removeEventListener('click', onClickOutside)
+        document.removeEventListener('click', onClickOutsideInternal)
       }
     }
-  }, [open, onClickOutside])
+  }, [open, onClickOutsideInternal])
 
   function toggle(event) {
     setOpen(event.target.open)
