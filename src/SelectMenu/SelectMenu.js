@@ -55,6 +55,8 @@ const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwar
 
   const onClickOutside = useCallback(
     (event) => {
+      debugger;
+      console.log("PRC on click outside")
       if (!ref.current.contains(event.target)) {
         if (!event.defaultPrevented) {
           setOpen(false)
