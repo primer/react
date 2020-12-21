@@ -322,6 +322,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuProps extends Omit<CommonProps, 'as'>, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     initialTab?: string
+    onClickOutside?: (event: React.MouseEvent ) => void
     ref?: React.RefObject<HTMLDetailsElement> | null
   }
 
