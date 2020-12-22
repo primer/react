@@ -324,6 +324,7 @@ declare module '@primer/components' {
     initialTab?: string
     onClickOutside?: (event: React.MouseEvent ) => void
     ref?: React.RefObject<HTMLDetailsElement> | null
+    modalRef?: React.RefObject<HTMLDivElement> | null
   }
 
   export interface SelectMenuModalProps extends CommonProps, StyledSystem.WidthProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
