@@ -25,6 +25,7 @@ export {
   ButtonPrimary,
   ButtonInvisible,
   ButtonTableList,
+  ButtonClose,
   ButtonGroup,
 } from './Button'
 export {default as Caret} from './Caret'
@@ -43,6 +44,7 @@ export {default as Heading} from './Heading'
 export {default as LabelGroup} from './LabelGroup'
 export {default as Label} from './Label'
 export {default as Link} from './Link'
+export {default as Modal} from './Modal'
 export {default as Pagehead} from './Pagehead'
 export {default as Pagination} from './Pagination'
 export {default as PointerBox} from './PointerBox'
