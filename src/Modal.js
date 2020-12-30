@@ -12,10 +12,15 @@ import useModal from './hooks/useModal'
 const StyledDialog = styled.div`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: ${get('radii.2')};
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 80vh;
+  z-index: 999;
+  margin: 10vh auto;
   background-color: ${get('colors.white')};
-  width: 100%;
-  margin: 100%;
+  width: ${(props) => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
   outline: none;
 
   @media screen and (max-width: 750px) {
@@ -57,14 +62,34 @@ function ModalHeader({theme, children, ...rest}) {
   )
 }
 
+const Overlay = styled.span`
+  &:before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: block;
+    cursor: default;
+    content: ' ';
+    background: transparent;
+    z-index: 99;
+    background: rgba(27, 31, 35, 0.5);
+  }
+`
+
 function Modal({children, dismiss, open, ...props}) {
   const modalRef = useRef(null)
   const {modalProps} = useModal({modalRef, dismiss, open})
   return open ? (
-    <StyledDialog ref={modalRef} role="dialog" {...props} {...modalProps}>
-      <ButtonClose onClick={() => dismiss()} />
-      {children}
-    </StyledDialog>
+    <>
+      <Overlay />
+      <StyledDialog ref={modalRef} role="dialog" {...props} {...modalProps}>
+        <ButtonClose onClick={() => dismiss()} />
+        {children}
+      </StyledDialog>
+    </>
   ) : null
 }
 
@@ -73,10 +98,12 @@ Modal.defaultProps = {theme}
 Modal.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
+  narrow: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   ...sx.propTypes,
   theme: PropTypes.object,
+  wide: PropTypes.bool,
 }
 
 ModalHeader.defaultProps = {
