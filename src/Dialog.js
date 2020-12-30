@@ -105,10 +105,12 @@ Dialog.defaultProps = {theme}
 Dialog.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
+  initialFocusRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({current: PropTypes.any})]),
   isOpen: PropTypes.bool.isRequired,
   narrow: PropTypes.bool,
   onDismiss: PropTypes.func.isRequired,
   ...sx.propTypes,
+  returnFocusRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({current: PropTypes.any})]),
   theme: PropTypes.object,
   wide: PropTypes.bool,
 }
