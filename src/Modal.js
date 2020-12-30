@@ -81,11 +81,11 @@ const Overlay = styled.span`
 
 function Modal({children, dismiss, open, ...props}) {
   const modalRef = useRef(null)
-  const {modalProps} = useModal({modalRef, dismiss, open})
+  const {getModalProps} = useModal({modalRef, dismiss, open})
   return open ? (
     <>
       <Overlay />
-      <StyledDialog ref={modalRef} role="dialog" {...props} {...modalProps}>
+      <StyledDialog ref={modalRef} role="dialog" {...props} {...getModalProps()}>
         <ButtonClose onClick={() => dismiss()} />
         {children}
       </StyledDialog>
@@ -98,8 +98,8 @@ Modal.defaultProps = {theme}
 Modal.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
+  dismiss: PropTypes.func.isRequired,
   narrow: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   ...sx.propTypes,
   theme: PropTypes.object,

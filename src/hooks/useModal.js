@@ -20,10 +20,11 @@ function useModal({modalRef, open, dismiss} = {}) {
     }
   }, [open, onClickOutside])
 
-  const getFocusableItem = (movement) => {
+  const getFocusableItem = (e, movement) => {
     if (modalRef && modalRef.current) {
-      const items = Array.from(modalRef.current?.querySelectorAll('*').filter(focusable))
+      const items = Array.from(modalRef.current?.querySelectorAll('*')).filter(focusable)
       if (items.length === 0) return
+      e.preventDefault()
 
       const focusedElement = document.activeElement
       const index = items.indexOf(focusedElement)
@@ -43,7 +44,7 @@ function useModal({modalRef, open, dismiss} = {}) {
 
   const handleTab = (e) => {
     const movement = e.shiftKey ? -1 : 1
-    getFocusableItem(movement).focus()
+    getFocusableItem(e, movement).focus()
   }
 
   const onKeyDown = (event) => {
@@ -62,7 +63,7 @@ function useModal({modalRef, open, dismiss} = {}) {
     return {onKeyDown}
   }
 
-  return [getModalProps]
+  return {getModalProps}
 }
 
 export default useModal
