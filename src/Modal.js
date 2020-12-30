@@ -86,7 +86,7 @@ function Modal({children, dismiss, open, ...props}) {
     <>
       <Overlay />
       <StyledDialog ref={modalRef} role="dialog" {...props} {...getModalProps()}>
-        <ButtonClose onClick={() => dismiss()} />
+        <ButtonClose onClick={() => dismiss()} sx={{position: 'absolute', top: '16px', right: '16px'}} />
         {children}
       </StyledDialog>
     </>
