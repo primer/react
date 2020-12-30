@@ -1,5 +1,6 @@
-import {get, COMMON, LAYOUT} from '../constants'
+import {COMMON, LAYOUT} from '../constants'
 import theme from '../theme'
+import sx from '../sx'
 import {XIcon} from '@primer/octicons-react'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -17,6 +18,7 @@ const StyledButton = styled.button`
   }
   ${COMMON};
   ${LAYOUT};
+  ${sx};
 `
 
 const ButtonClose = (props) => (
@@ -34,6 +36,7 @@ ButtonClose.propTypes = {
   onClick: PropTypes.func,
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
+  ...sx.propTypes,
 }
 
 export default ButtonClose
