@@ -79,16 +79,21 @@ const Overlay = styled.span`
   }
 `
 
-const Dialog = forwardRef(({children, onDismiss, isOpen, ...props}, forwardedRef) => {
+const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
   const backupRef = useRef(null)
   const modalRef = forwardedRef ?? backupRef
+  const closeButtonRef = useRef(null)
 
-  const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen})
+  const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen, initialFocusRef, closeButtonRef, returnFocusRef})
   return isOpen ? (
     <>
       <Overlay />
       <StyledDialog ref={modalRef} role="dialog" {...props} {...getDialogProps()}>
-        <ButtonClose onClick={() => onDismiss()} sx={{position: 'absolute', top: '16px', right: '16px'}} />
+        <ButtonClose
+          ref={closeButtonRef}
+          onClick={() => onDismiss()}
+          sx={{position: 'absolute', top: '16px', right: '16px'}}
+        />
         {children}
       </StyledDialog>
     </>
