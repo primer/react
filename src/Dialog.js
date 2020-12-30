@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, forwardRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, LAYOUT, get} from './constants'
@@ -79,8 +79,10 @@ const Overlay = styled.span`
   }
 `
 
-function Dialog({children, onDismiss, isOpen, ...props}) {
-  const modalRef = useRef(null)
+const Dialog = forwardRef(({children, onDismiss, isOpen, ...props}, forwardedRef) => {
+  const backupRef = useRef(null)
+  const modalRef = forwardedRef ?? backupRef
+
   const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen})
   return isOpen ? (
     <>
@@ -91,7 +93,7 @@ function Dialog({children, onDismiss, isOpen, ...props}) {
       </StyledDialog>
     </>
   ) : null
-}
+})
 
 Dialog.defaultProps = {theme}
 

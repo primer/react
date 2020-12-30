@@ -531,6 +531,7 @@ declare module '@primer/components' {
   export interface DialogProps extends CommonProps, LayoutProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     isOpen: boolean
     onDismiss: () => unknown
+    ref?: React.RefObject<HTMLDivElement>
   }
 
   export interface DialogHeaderProps extends FlexProps {}
