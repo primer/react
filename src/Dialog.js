@@ -116,7 +116,7 @@ DialogHeader.propTypes = {
 }
 
 DialogHeader.displayName = 'Dialog.Header'
-Dialog.displayName = "Dialog"
+Dialog.displayName = 'Dialog'
 
 Dialog.Header = DialogHeader
 export default Dialog
