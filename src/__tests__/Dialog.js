@@ -1,10 +1,10 @@
-import React from 'react'
-import {Dialog, Box, Text} from '..'
+import React, {useState} from 'react'
+import {Dialog, Box, Text, Button} from '..'
 import {COMMON, FLEX, LAYOUT} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender, cleanup, act} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, mount, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 const comp = (
@@ -36,5 +36,67 @@ describe('Dialog', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
+  })
+
+  it('Focuses the close button when opened', () => {
+    const Component = () => {
+      const [isOpen, setIsOpen] = useState(true)
+      return (
+        <>
+          <Button onClick={() => setIsOpen(true)}>{isOpen ? 'Open' : 'Closed'}</Button>
+          <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} aria-labelledby="header">
+            <Dialog.Header id="header">Title</Dialog.Header>
+            <Box p={3}>
+              <Text fontFamily="sans-serif">Some content</Text>
+            </Box>
+          </Dialog>
+        </>
+      )
+    }
+
+    const wrapper = mount(<Component />)
+
+    const button = wrapper.find(Button)
+
+    act(() => {
+      button.simulate('click')
+    })
+
+    expect(getByLabelTest("dialog-close-button")).toHaveFocus();
+  })
+
+  it('Toggles when you click outside', () => {
+    const Component = () => {
+      const [isOpen, setIsOpen] = useState(true)
+      return (
+        <>
+          <Button onClick={() => setIsOpen(true)}>{isOpen ? 'Open' : 'Closed'}</Button>
+          <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} aria-labelledby="header">
+            <Dialog.Header id="header">Title</Dialog.Header>
+            <Box p={3}>
+              <Text fontFamily="sans-serif">Some content</Text>
+            </Box>
+          </Dialog>
+        </>
+      )
+    }
+
+    const wrapper = mount(<Component />)
+
+    const button = wrapper.find(Button)
+
+    act(() => {
+      button.simulate('click')
+    })
+
+    expect(button.text()).toEqual('Open')
+
+    act(() => {
+      document.body.click()
+    })
+
+    expect(button.text()).toEqual('Closed')
+
+    wrapper.unmount()
   })
 })
