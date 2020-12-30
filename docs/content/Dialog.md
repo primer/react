@@ -2,7 +2,6 @@
 title: Dialog
 ---
 import State from '../components/State'
-import {Button, Dialog, Box, Text} from '@primer/components'
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
@@ -19,6 +18,26 @@ The dialog component is used for all modals. It renders on top of the rest of th
           <Text fontFamily="sans-serif">Some content</Text>
         </Box>
       </Dialog>
+    </>
+  )}
+</State>
+```
+
+MODAL STUFFP
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open</Button>
+      <Modal open={isOpen} dismiss={() => setIsOpen(false)}>
+        <Box p={3}>
+          <Text fontFamily="sans-serif">Some content</Text>
+        </Box>
+        <Button>hi</Button>
+        <ButtonPrimary>hi</ButtonPrimary>
+        <ButtonDanger>hi</ButtonDanger>
+      </Modal>
     </>
   )}
 </State>
