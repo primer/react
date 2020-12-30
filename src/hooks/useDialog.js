@@ -12,7 +12,7 @@ function useDialog({modalRef, isOpen, onDismiss} = {}) {
 
   // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
-    if (open) {
+    if (isOpen) {
       document.addEventListener('click', onClickOutside)
       return () => {
         document.removeEventListener('click', onClickOutside)
