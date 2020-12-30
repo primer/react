@@ -119,7 +119,9 @@ declare module '@primer/components' {
     extends BaseProps,
       CommonProps,
       LayoutProps,
-      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {}
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+        ref?: React.RefObject<HTMLButtonElement> | null
+      }
 
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
