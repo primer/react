@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from 'react'
 
-function useDialog({modalRef, isOpen, onDismiss} = {}) {
+function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef, returnFocusRef} = {}) {
   const onClickOutside = useCallback(
     (e) => {
       if (modalRef && modalRef.current && !modalRef.current.contains(e.target)) {
@@ -10,7 +10,6 @@ function useDialog({modalRef, isOpen, onDismiss} = {}) {
     [onDismiss, modalRef]
   )
 
-  // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('click', onClickOutside)
@@ -19,6 +18,18 @@ function useDialog({modalRef, isOpen, onDismiss} = {}) {
       }
     }
   }, [isOpen, onClickOutside])
+
+  useEffect(() => {
+    if (isOpen) {
+      if (initialFocusRef && initialFocusRef.current) {
+        initialFocusRef.current.focus()
+      } else if (closeButtonRef && closeButtonRef.current) {
+        closeButtonRef.current.focus()
+      }
+    } else if (returnFocusRef && returnFocusRef.current) {
+      returnFocusRef.current.focus()
+    }
+  }, [isOpen, initialFocusRef, closeButtonRef, returnFocusRef])
 
   const getFocusableItem = (e, movement) => {
     if (modalRef && modalRef.current) {
