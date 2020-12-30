@@ -15,7 +15,7 @@ A few considerations must be made to ensure your use of the `Dialog` component i
 
 - Always be sure to provide either `aria-labelledby` or `aria-label` to your `Dialog` component. In most cases you should use `aria-labelledby` and pass it the `id` of your `Dialog.Header`. If there is no text in your header, or you chose not to use a header, you can use `aria-label` to describe the purpose of the `Dialog`.
 
-- Be sure to pass a ref to return the focus back to once the `Dialog` closes via the `returnFocusRef` prop. In most cases this should be the element that opened the Dialog. If you choose to manage focus within your application, you can omit the `returnFocusProp` to bypass Primer React Components from manging focus when the `Dialog` closes.
+- Be sure to pass a ref to return the focus back to once the `Dialog` closes via the `returnFocusRef` prop. In most cases this should be the element that opened the Dialog. If you decide to manage focus within your application and want to bypass Primer React Components from doing so when the `Dialog` closes, you can omit the `returnFocusProp`.
 
 ### Examples
 
