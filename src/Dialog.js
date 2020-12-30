@@ -82,7 +82,7 @@ const Overlay = styled.span`
 function Dialog({children, onDismiss, isOpen, ...props}) {
   const modalRef = useRef(null)
   const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen})
-  return open ? (
+  return isOpen ? (
     <>
       <Overlay />
       <StyledDialog ref={modalRef} role="dialog" {...props} {...getDialogProps()}>
@@ -116,7 +116,7 @@ DialogHeader.propTypes = {
 }
 
 DialogHeader.displayName = 'Dialog.Header'
+Dialog.displayName = "Dialog"
 
 Dialog.Header = DialogHeader
 export default Dialog
-

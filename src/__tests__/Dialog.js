@@ -8,8 +8,8 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 const comp = (
-  <Dialog isOpen onDismiss={() => null}>
-    <Dialog.Header>Title</Dialog.Header>
+  <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
+    <Dialog.Header id="header">Title</Dialog.Header>
     <Box p={3}>
       <Text fontFamily="sans-serif">Some content</Text>
     </Box>
@@ -17,10 +17,8 @@ const comp = (
 )
 
 describe('Dialog', () => {
-  // @reach/dialog does a bunch of stuff with the DOM,
-  // making the standard suite of tests very hard to implement
-  //
-  // behavesAsComponent(Dialog, [COMMON, LAYOUT], () => comp)
+  // because Dialog returns a React fragment the as and sx tests fail always, so they are skipped
+  behavesAsComponent(Dialog, [COMMON, LAYOUT], () => comp, {skipAs: true, skipSx: true})
 
   checkExports('Dialog', {
     default: Dialog,

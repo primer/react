@@ -22,7 +22,7 @@ function useDialog({modalRef, isOpen, onDismiss} = {}) {
 
   const getFocusableItem = (e, movement) => {
     if (modalRef && modalRef.current) {
-      const items = Array.from(modalRef.current?.querySelectorAll('*')).filter(focusable)
+      const items = Array.from(modalRef.current.querySelectorAll('*')).filter(focusable)
       if (items.length === 0) return
       e.preventDefault()
 
