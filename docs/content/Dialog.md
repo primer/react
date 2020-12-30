@@ -23,25 +23,6 @@ The dialog component is used for all modals. It renders on top of the rest of th
 </State>
 ```
 
-MODAL STUFFP
-
-```jsx live
-<State default={false}>
-  {([isOpen, setIsOpen]) => (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open</Button>
-      <Modal open={isOpen} dismiss={() => setIsOpen(false)}>
-        <Box p={3}>
-          <Text fontFamily="sans-serif">Some content</Text>
-        </Box>
-        <Button>hi</Button>
-        <ButtonPrimary>hi</ButtonPrimary>
-        <ButtonDanger>hi</ButtonDanger>
-      </Modal>
-    </>
-  )}
-</State>
-```
 
 You can also pass any non-text content into the header:
 

@@ -1,40 +1,26 @@
-import React from 'react'
-import {Dialog as ReachDialog} from '@reach/dialog'
-import styled, {createGlobalStyle} from 'styled-components'
+import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
-import {XIcon} from '@primer/octicons-react'
-import StyledOcticon from './StyledOcticon'
+import styled from 'styled-components'
 import {COMMON, LAYOUT, get} from './constants'
 import theme from './theme'
 import sx from './sx'
 import Text from './Text'
 import Flex from './Flex'
+import ButtonClose from './Button/ButtonClose'
+import useDialog from './hooks/useDialog'
 
-const ReachGlobalStyle = createGlobalStyle`
-  // silences error regarding importing @reach/dialog styles
-  :root {
-    --reach-dialog: 1;
-  }
-
-  [data-reach-dialog-overlay] {
-    background: hsla(0, 0%, 0%, 0.33);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: auto;
-    z-index: 1000002; /* Higher than the Dropdown and Tooltip */
-  }
-`
-
-const StyledDialog = styled(ReachDialog)`
+const StyledDialog = styled.div`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: ${get('radii.2')};
-  position: relative;
-  background-color: ${get('colors.white')};
-  width: 50vw;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 80vh;
+  z-index: 999;
   margin: 10vh auto;
+  background-color: ${get('colors.white')};
+  width: ${(props) => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
   outline: none;
 
   @media screen and (max-width: 750px) {
@@ -47,18 +33,6 @@ const StyledDialog = styled(ReachDialog)`
   ${LAYOUT};
   ${COMMON};
   ${sx};
-`
-
-const UnstyledButton = styled(Flex).attrs({
-  as: 'button',
-})`
-  background: none;
-  border: none;
-  padding: 0;
-
-  position: absolute;
-  top: 16px;
-  right: 16px;
 `
 
 const DialogHeaderBase = styled(Flex)`
@@ -88,18 +62,35 @@ function DialogHeader({theme, children, ...rest}) {
   )
 }
 
-function Dialog({children, ...props}) {
-  return (
+const Overlay = styled.span`
+  &:before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: block;
+    cursor: default;
+    content: ' ';
+    background: transparent;
+    z-index: 99;
+    background: rgba(27, 31, 35, 0.5);
+  }
+`
+
+function Dialog({children, onDismiss, isOpen, ...props}) {
+  const modalRef = useRef(null)
+  const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen})
+  return open ? (
     <>
-      <StyledDialog role="dialog" {...props}>
-        <UnstyledButton onClick={props.onDismiss}>
-          <StyledOcticon icon={XIcon} />
-        </UnstyledButton>
+      <Overlay />
+      <StyledDialog ref={modalRef} role="dialog" {...props} {...getDialogProps()}>
+        <ButtonClose onClick={() => onDismiss()} sx={{position: 'absolute', top: '16px', right: '16px'}} />
         {children}
       </StyledDialog>
-      <ReachGlobalStyle />
     </>
-  )
+  ) : null
 }
 
 Dialog.defaultProps = {theme}
@@ -107,11 +98,12 @@ Dialog.defaultProps = {theme}
 Dialog.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
-  children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  narrow: PropTypes.bool,
   onDismiss: PropTypes.func.isRequired,
   ...sx.propTypes,
   theme: PropTypes.object,
+  wide: PropTypes.bool,
 }
 
 DialogHeader.defaultProps = {
@@ -127,3 +119,4 @@ DialogHeader.displayName = 'Dialog.Header'
 
 Dialog.Header = DialogHeader
 export default Dialog
+

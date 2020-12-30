@@ -1,13 +1,13 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect} from 'react'
 
-function useModal({modalRef, open, dismiss} = {}) {
+function useDialog({modalRef, isOpen, onDismiss} = {}) {
   const onClickOutside = useCallback(
     (e) => {
       if (modalRef && modalRef.current && !modalRef.current.contains(e.target)) {
-        dismiss()
+        onDismiss()
       }
     },
-    [dismiss, modalRef]
+    [onDismiss, modalRef]
   )
 
   // handles the overlay behavior - closing the menu when clicking outside of it
@@ -18,7 +18,7 @@ function useModal({modalRef, open, dismiss} = {}) {
         document.removeEventListener('click', onClickOutside)
       }
     }
-  }, [open, onClickOutside])
+  }, [isOpen, onClickOutside])
 
   const getFocusableItem = (e, movement) => {
     if (modalRef && modalRef.current) {
@@ -53,17 +53,17 @@ function useModal({modalRef, open, dismiss} = {}) {
         handleTab(event)
         break
       case 'Escape':
-        dismiss()
+        onDismiss()
         event.stopPropagation()
         break
     }
   }
 
-  const getModalProps = () => {
+  const getDialogProps = () => {
     return {onKeyDown}
   }
 
-  return {getModalProps}
+  return {getDialogProps}
 }
 
-export default useModal
+export default useDialog
