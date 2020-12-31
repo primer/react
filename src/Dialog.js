@@ -88,7 +88,7 @@ const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, return
   return isOpen ? (
     <>
       <Overlay />
-      <StyledDialog ref={modalRef} role="dialog" {...props} {...getDialogProps()}>
+      <StyledDialog ref={modalRef} role="dialog" aria-modal="true" {...props} {...getDialogProps()}>
         <ButtonClose
           ref={closeButtonRef}
           onClick={() => onDismiss()}
