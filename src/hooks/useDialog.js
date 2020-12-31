@@ -5,9 +5,12 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
     (e) => {
       if (modalRef && modalRef.current && !modalRef.current.contains(e.target)) {
         onDismiss()
+        if (returnFocusRef && returnFocusRef.current) {
+          returnFocusRef.current.focus()
+        }
       }
     },
-    [onDismiss, modalRef]
+    [onDismiss, modalRef, returnFocusRef]
   )
 
   useEffect(() => {
@@ -26,8 +29,6 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
       } else if (closeButtonRef && closeButtonRef.current) {
         closeButtonRef.current.focus()
       }
-    } else if (returnFocusRef && returnFocusRef.current) {
-      returnFocusRef.current.focus()
     }
   }, [isOpen, initialFocusRef, closeButtonRef, returnFocusRef])
 
@@ -65,6 +66,9 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
         break
       case 'Escape':
         onDismiss()
+        if (returnFocusRef && returnFocusRef.current) {
+          returnFocusRef.current.focus()
+        }
         event.stopPropagation()
         break
     }
