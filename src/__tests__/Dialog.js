@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text, Button} from '..'
 import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup, act, screen, waitFor, fireEvent} from '@testing-library/react'
@@ -18,10 +18,18 @@ const comp = (
 
 const Component = () => {
   const [isOpen, setIsOpen] = useState(true)
+  const returnFocusRef = useRef(null)
   return (
     <div>
-      <Button onClick={() => setIsOpen(true)}>Show Dialog</Button>
-      <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} aria-labelledby="header">
+      <Button data-testid="trigger-button" ref={returnFocusRef} onClick={() => setIsOpen(true)}>
+        Show Dialog
+      </Button>
+      <Dialog
+        returnFocusRef={returnFocusRef}
+        isOpen={isOpen}
+        onDismiss={() => setIsOpen(false)}
+        aria-labelledby="header"
+      >
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
           <Box p={3}>
@@ -30,6 +38,36 @@ const Component = () => {
         </div>
       </Dialog>
     </div>
+  )
+}
+
+const ClosedDialog = () => {
+  return (
+    <Dialog isOpen={false} onDismiss={() => null} aria-labelledby="header">
+      <div data-testid="inner">
+        <Dialog.Header id="header">Title</Dialog.Header>
+        <Box p={3}>
+          <Text fontFamily="sans-serif">Some content</Text>
+        </Box>
+      </div>
+    </Dialog>
+  )
+}
+
+const DialogWithCustomFocusRef = () => {
+  const buttonRef = useRef(null)
+  return (
+    <Dialog isOpen initialFocusRef={buttonRef} onDismiss={() => null} aria-labelledby="header">
+      <div data-testid="inner">
+        <Dialog.Header id="header">Title</Dialog.Header>
+        <Box p={3}>
+          <Text fontFamily="sans-serif">Some content</Text>
+          <button data-testid="inner-button" ref={buttonRef}>
+            hi
+          </button>
+        </Box>
+      </div>
+    </Dialog>
   )
 }
 
@@ -64,6 +102,51 @@ describe('Dialog', () => {
     })
 
     expect(queryByTestId('inner')).toBeNull()
+
+    cleanup()
+  })
+
+  it('Renders dialog when isOpen is true', async () => {
+    const {getByTestId} = HTMLRender(<Component />)
+
+    expect(getByTestId('inner')).toBeTruthy()
+
+    cleanup()
+  })
+
+  it('Does not render dialog when isOpen is false', async () => {
+    const {queryByTestId} = HTMLRender(<ClosedDialog />)
+
+    expect(queryByTestId('inner')).toBeNull()
+
+    cleanup()
+  })
+
+  it('Focuses close button when Dialog is opened', async () => {
+    const {getByLabelText} = HTMLRender(<Component />)
+    const closeButton = getByLabelText('Close')
+    expect(document.activeElement).toEqual(closeButton)
+    cleanup()
+  })
+
+  it('Focuses custom ref when Dialog is opened', async () => {
+    const {getByTestId} = HTMLRender(<DialogWithCustomFocusRef />)
+    const innerButton = getByTestId('inner-button')
+    expect(document.activeElement).toEqual(innerButton)
+    cleanup()
+  })
+
+  it('Returns focus to returnFocusRef', async () => {
+    const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)
+
+    expect(getByTestId('inner')).toBeTruthy()
+    act(() => {
+      fireEvent.click(getByLabelText('Close'))
+    })
+
+    expect(queryByTestId('inner')).toBeNull()
+    const triggerButton = getByTestId('trigger-button')
+    expect(document.activeElement).toEqual(triggerButton)
 
     cleanup()
   })
