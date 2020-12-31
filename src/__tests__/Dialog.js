@@ -1,10 +1,10 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text, Button} from '..'
 import {COMMON, FLEX, LAYOUT} from '../constants'
-import {render as HTMLRender, cleanup, act, screen, waitFor, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {behavesAsComponent, mount, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 const comp = (
