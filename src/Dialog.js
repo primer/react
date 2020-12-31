@@ -84,6 +84,13 @@ const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, return
   const modalRef = forwardedRef ?? backupRef
   const closeButtonRef = useRef(null)
 
+  const onCloseClick = () => {
+    onDismiss()
+    if (returnFocusRef && returnFocusRef.current) {
+      returnFocusRef.current.focus()
+    }
+  }
+
   const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen, initialFocusRef, closeButtonRef, returnFocusRef})
   return isOpen ? (
     <>
@@ -91,7 +98,7 @@ const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, return
       <StyledDialog ref={modalRef} role="dialog" aria-modal="true" {...props} {...getDialogProps()}>
         <ButtonClose
           ref={closeButtonRef}
-          onClick={() => onDismiss()}
+          onClick={onCloseClick}
           sx={{position: 'absolute', top: '16px', right: '16px'}}
         />
         {children}

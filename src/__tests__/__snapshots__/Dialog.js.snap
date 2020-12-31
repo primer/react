@@ -142,6 +142,7 @@ Array [
 
 <div
     aria-labelledby="header"
+    aria-modal="true"
     className="c0"
     onKeyDown={[Function]}
     role="dialog"
