@@ -11,7 +11,7 @@ function focusable(el) {
 function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef, returnFocusRef} = {}) {
   const onClickOutside = useCallback(
     (e) => {
-      if (modalRef && modalRef.current && !modalRef.current.contains(e.target)) {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
         onDismiss()
         if (returnFocusRef && returnFocusRef.current) {
           returnFocusRef.current.focus()
@@ -65,20 +65,23 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
     [getFocusableItem]
   )
 
-  const onKeyDown = useCallback((event) => {
-    switch (event.key) {
-      case 'Tab':
-        handleTab(event)
-        break
-      case 'Escape':
-        onDismiss()
-        if (returnFocusRef && returnFocusRef.current) {
-          returnFocusRef.current.focus()
-        }
-        event.stopPropagation()
-        break
-    }
-  }, [handleTab, onDismiss, returnFocusRef])
+  const onKeyDown = useCallback(
+    (event) => {
+      switch (event.key) {
+        case 'Tab':
+          handleTab(event)
+          break
+        case 'Escape':
+          onDismiss()
+          if (returnFocusRef && returnFocusRef.current) {
+            returnFocusRef.current.focus()
+          }
+          event.stopPropagation()
+          break
+      }
+    },
+    [handleTab, onDismiss, returnFocusRef]
+  )
 
   const getDialogProps = () => {
     return {onKeyDown}
