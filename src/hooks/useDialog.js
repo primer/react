@@ -8,17 +8,14 @@ function focusable(el) {
   return el.tabIndex >= 0 && !el.disabled && visible(el)
 }
 
-function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef, returnFocusRef} = {}) {
+function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef} = {}) {
   const onClickOutside = useCallback(
     (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
         onDismiss()
-        if (returnFocusRef && returnFocusRef.current) {
-          returnFocusRef.current.focus()
-        }
       }
     },
-    [onDismiss, modalRef, returnFocusRef]
+    [onDismiss, modalRef]
   )
 
   useEffect(() => {
@@ -38,7 +35,7 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
         closeButtonRef.current.focus()
       }
     }
-  }, [isOpen, initialFocusRef, closeButtonRef, returnFocusRef])
+  }, [isOpen, initialFocusRef, closeButtonRef])
 
   const getFocusableItem = useCallback(
     (e, movement) => {
@@ -73,14 +70,11 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
           break
         case 'Escape':
           onDismiss()
-          if (returnFocusRef && returnFocusRef.current) {
-            returnFocusRef.current.focus()
-          }
           event.stopPropagation()
           break
       }
     },
-    [handleTab, onDismiss, returnFocusRef]
+    [handleTab, onDismiss]
   )
 
   const getDialogProps = () => {

@@ -91,7 +91,14 @@ const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, return
     }
   }
 
-  const {getDialogProps} = useDialog({modalRef, onDismiss, isOpen, initialFocusRef, closeButtonRef, returnFocusRef})
+  const {getDialogProps} = useDialog({
+    modalRef,
+    onDismiss: onCloseClick,
+    isOpen,
+    initialFocusRef,
+    closeButtonRef,
+    returnFocusRef,
+  })
   return isOpen ? (
     <>
       <Overlay />
