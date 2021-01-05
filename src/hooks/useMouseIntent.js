@@ -1,7 +1,7 @@
 /* adapted from: https://github.com/github/github/blob/a959c0d15c29b98c49b881f520c5947fe24eecb9/app/assets/modules/github/behaviors/button-outline.ts */
 import {useEffect} from 'react'
 
-function useMouseIntent() {
+const useMouseIntent = () => {
   useEffect(() => {
     let lastActiveElement = null
     let currentInputIsMouse = false

@@ -2,6 +2,7 @@ import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
 import {TYPOGRAPHY, COMMON} from './constants'
+import useMouseIntent from './hooks/useMouseIntent'
 import theme from './theme'
 
 const GlobalStyle = createGlobalStyle`
@@ -27,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
 `
 const Base = props => {
   const {color, lineHeight, fontFamily, theme, ...rest} = props
+  useMouseIntent()
   return (
     <div {...rest}>
       <GlobalStyle />
