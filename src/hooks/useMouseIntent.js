@@ -12,26 +12,28 @@ function useMouseIntent() {
         document.body.classList.toggle('intent-mouse', currentInputIsMouse)
       }
     }
-    // Use mousedown event to make sure outline is remove for holding and dragging
-    document.addEventListener(
-      'mousedown',
-      function() {
-        currentInputIsMouse = true
-        if (lastActiveElement === document.activeElement) setClass()
-      },
-      {capture: true}
-    )
 
-    document.addEventListener(
-      'keydown',
-      function() {
-        currentInputIsMouse = false
-      },
-      {capture: true}
-    )
+    function onKeyDown() {
+      currentInputIsMouse = false
+    }
+
+    function onMouseDown() {
+      currentInputIsMouse = true
+      if (lastActiveElement === document.activeElement) setClass()
+    }
+    // Use mousedown event to make sure outline is remove for holding and dragging
+    document.addEventListener('mousedown', onMouseDown, {capture: true})
+
+    document.addEventListener('keydown', onKeyDown, {capture: true})
 
     document.addEventListener('focusin', setClass, {capture: true})
-  })
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown, {capture: true})
+      document.removeEventListener('focusin', setClass, {capture: true})
+      document.removeEventListener('mousedown', onMouseDown, {capture: true})
+    }
+  }, [])
 }
 
 export default useMouseIntent
