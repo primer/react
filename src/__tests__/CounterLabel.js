@@ -12,7 +12,7 @@ describe('CounterLabel', () => {
   behavesAsComponent(CounterLabel, [COMMON])
 
   checkExports('CounterLabel', {
-    default: CounterLabel
+    default: CounterLabel,
   })
 
   it('renders a <span>', () => {

@@ -10,20 +10,20 @@ const variants = variant({
   variants: {
     small: {
       p: '4px 12px',
-      fontSize: 0
+      fontSize: 0,
     },
     medium: {
-      fontSize: 1
+      fontSize: 1,
     },
     large: {
       fontSize: 2,
-      p: '10px 20px'
-    }
-  }
+      p: '10px 20px',
+    },
+  },
 })
 
 const ButtonBase = styled.button.attrs(({disabled, onClick}) => ({
-  onClick: disabled ? undefined : onClick
+  onClick: disabled ? undefined : onClick,
 }))`
   ${buttonBaseStyles}
   ${variants}
@@ -33,7 +33,7 @@ export const systemStyles = compose(fontSize, COMMON, LAYOUT)
 
 ButtonBase.defaultProps = {
   theme,
-  variant: 'medium'
+  variant: 'medium',
 }
 
 ButtonBase.propTypes = {
@@ -45,7 +45,7 @@ ButtonBase.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes,
-  ...LAYOUT.propTypes
+  ...LAYOUT.propTypes,
 }
 
 export default ButtonBase

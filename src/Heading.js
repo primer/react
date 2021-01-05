@@ -8,19 +8,20 @@ const Heading = styled.h2`
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.5')};
   margin: 0;
-  ${TYPOGRAPHY} ${COMMON};
+  ${TYPOGRAPHY};
+  ${COMMON};
   ${sx};
 `
 
 Heading.defaultProps = {
-  theme
+  theme,
 }
 
 Heading.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes,
   theme: PropTypes.object,
-  ...TYPOGRAPHY.propTypes
+  ...TYPOGRAPHY.propTypes,
 }
 
 export default Heading

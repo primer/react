@@ -40,12 +40,12 @@ const ButtonOutline = styled(ButtonBase)`
 `
 
 ButtonOutline.defaultProps = {
-  theme
+  theme,
 }
 
 ButtonOutline.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default ButtonOutline

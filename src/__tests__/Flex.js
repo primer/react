@@ -11,7 +11,7 @@ describe('Flex', () => {
   behavesAsComponent(Flex, [COMMON, FLEX, LAYOUT])
 
   checkExports('Flex', {
-    default: Flex
+    default: Flex,
   })
 
   it('should have no axe violations', async () => {

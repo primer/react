@@ -11,7 +11,7 @@ describe('UnderlineNav', () => {
   behavesAsComponent(UnderlineNav, [COMMON])
 
   checkExports('UnderlineNav', {
-    default: UnderlineNav
+    default: UnderlineNav,
   })
 
   it('should have no axe violations', async () => {

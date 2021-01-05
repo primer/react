@@ -3,7 +3,7 @@ import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {ThemeProvider} from 'styled-components'
 import {default as defaultTheme} from '../theme'
 
@@ -52,7 +52,7 @@ export function renderRoot(component) {
  */
 export function renderClasses(component) {
   const {
-    props: {className}
+    props: {className},
   } = render(component)
   return className ? className.trim().split(' ') : []
 }
@@ -78,7 +78,7 @@ export function percent(value) {
 
 export function renderStyles(node) {
   const {
-    props: {className}
+    props: {className},
   } = render(node)
   return getComputedStyles(className)
 }
@@ -159,7 +159,7 @@ export function getClasses(node) {
 }
 
 export function loadCSS(path) {
-  return readFile(require.resolve(path), 'utf8').then(css => {
+  return readFile(require.resolve(path), 'utf8').then((css) => {
     const style = document.createElement('style')
     style.setAttribute('data-path', path)
     style.textContent = css

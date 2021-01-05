@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
 `
-const Base = props => {
+const Base = (props) => {
   const {color, lineHeight, fontFamily, theme, ...rest} = props
   useMouseIntent()
   return (
@@ -44,12 +44,12 @@ BaseStyles.defaultProps = {
   color: 'gray.9',
   fontFamily: 'normal',
   lineHeight: 'default',
-  theme
+  theme,
 }
 
 BaseStyles.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 export default BaseStyles

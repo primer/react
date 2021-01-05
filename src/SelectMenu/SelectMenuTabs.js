@@ -38,12 +38,12 @@ const SelectMenuTabs = styled(Tabs)`
 `
 
 SelectMenuTabs.defaultProps = {
-  theme
+  theme,
 }
 
 SelectMenuTabs.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SelectMenuTabs.displayName = 'SelectMenu.Tabs'

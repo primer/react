@@ -8,22 +8,22 @@ import {COMMON, get} from './constants'
 import sx from './sx'
 
 const Bar = styled.span`
-  width: ${props => (props.progress ? `${props.progress}%` : 0)};
+  width: ${(props) => (props.progress ? `${props.progress}%` : 0)};
   ${COMMON}
 `
 
 const sizeMap = {
   small: '5px',
   large: '10px',
-  default: '8px'
+  default: '8px',
 }
 
 const ProgressContainer = styled.span`
-  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
+  display: ${(props) => (props.inline ? 'inline-flex' : 'flex')};
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
   border-radius: ${get('radii.1')};
-  height: ${props => sizeMap[props.barSize]};
+  height: ${(props) => sizeMap[props.barSize]};
   ${COMMON}
   ${layout.width}
   ${sx};
@@ -40,7 +40,7 @@ const ProgressBar = ({progress, bg, theme, ...rest}) => {
 ProgressBar.defaultProps = {
   bg: 'green.5',
   barSize: 'default',
-  theme
+  theme,
 }
 
 ProgressBar.propTypes = {
@@ -50,7 +50,7 @@ ProgressBar.propTypes = {
   progress: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ...sx.propTypes,
   theme: PropTypes.object,
-  width: systemPropTypes.layout.width
+  width: systemPropTypes.layout.width,
 }
 
 export default ProgressBar

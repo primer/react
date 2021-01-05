@@ -11,7 +11,7 @@ describe('Label', () => {
   behavesAsComponent(Label, [COMMON])
 
   checkExports('Label', {
-    default: Label
+    default: Label,
   })
 
   it('renders a <span>', () => {
