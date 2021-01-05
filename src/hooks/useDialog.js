@@ -40,28 +40,32 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
     }
   }, [isOpen, initialFocusRef, closeButtonRef, returnFocusRef])
 
-  const getFocusableItem = (e, movement) => {
-    if (modalRef && modalRef.current) {
-      const items = Array.from(modalRef.current.querySelectorAll('*')).filter(focusable)
-      if (items.length === 0) return
-      e.preventDefault()
+  const getFocusableItem = useCallback(
+    (e, movement) => {
+      if (modalRef && modalRef.current) {
+        const items = Array.from(modalRef.current.querySelectorAll('*')).filter(focusable)
+        if (items.length === 0) return
+        e.preventDefault()
 
-      const focusedElement = document.activeElement
-      const index = items.indexOf(focusedElement)
-      const offsetIndex = index + movement
-      const fallbackIndex = movement === 1 ? 0 : items.length - 1
-      return items[offsetIndex] || items[fallbackIndex]
-    }
-  }
+        const focusedElement = document.activeElement
+        const index = items.indexOf(focusedElement)
+        const offsetIndex = index + movement
+        const fallbackIndex = movement === 1 ? 0 : items.length - 1
+        return items[offsetIndex] || items[fallbackIndex]
+      }
+    },
+    [modalRef]
+  )
 
+  const handleTab = useCallback(
+    (e) => {
+      const movement = e.shiftKey ? -1 : 1
+      getFocusableItem(e, movement).focus()
+    },
+    [getFocusableItem]
+  )
 
-
-  const handleTab = (e) => {
-    const movement = e.shiftKey ? -1 : 1
-    getFocusableItem(e, movement).focus()
-  }
-
-  const onKeyDown = (event) => {
+  const onKeyDown = useCallback((event) => {
     switch (event.key) {
       case 'Tab':
         handleTab(event)
@@ -74,7 +78,7 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
         event.stopPropagation()
         break
     }
-  }
+  }, [handleTab, onDismiss, returnFocusRef])
 
   const getDialogProps = () => {
     return {onKeyDown}
