@@ -6,7 +6,7 @@ import {getClasses, mount, getComputedStyles, render} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
-const stringify = d => JSON.stringify(d, null, '  ')
+const stringify = (d) => JSON.stringify(d, null, '  ')
 
 /**
  * These are props that styled-system aliases for backwards compatibility.
@@ -18,8 +18,8 @@ const ALIAS_PROP_TYPES = ['w', 'align', 'justify', 'wrap']
 expect.extend({
   toMatchKeys(obj, values) {
     return {
-      pass: Object.keys(values).every(key => this.equals(obj[key], values[key])),
-      message: () => `Expected ${stringify(obj)} to have matching keys: ${stringify(values)}`
+      pass: Object.keys(values).every((key) => this.equals(obj[key], values[key])),
+      message: () => `Expected ${stringify(obj)} to have matching keys: ${stringify(values)}`,
     }
   },
 
@@ -28,33 +28,35 @@ expect.extend({
     const pass = classes.includes(klass)
     return {
       pass,
-      message: () => `expected ${stringify(classes)} to include: ${stringify(klass)}`
+      message: () => `expected ${stringify(classes)} to include: ${stringify(klass)}`,
     }
   },
 
   toHaveClasses(node, klasses, only = false) {
     const classes = getClasses(node)
-    const pass = only ? this.equals(classes.sort(), klasses.sort()) : klasses.every(klass => classes.includes(klass))
+    const pass = only ? this.equals(classes.sort(), klasses.sort()) : klasses.every((klass) => classes.includes(klass))
     return {
       pass,
-      message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`
+      message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`,
     }
   },
 
   toImplementSystemProps(Component, propNames) {
     const propKeys = new Set(Object.keys(Component.propTypes))
     const expectedPropKeys = Object.keys(propNames.propTypes)
-    const missing = expectedPropKeys.filter(key => !propKeys.has(key)).filter(key => !ALIAS_PROP_TYPES.includes(key))
+    const missing = expectedPropKeys
+      .filter((key) => !propKeys.has(key))
+      .filter((key) => !ALIAS_PROP_TYPES.includes(key))
     return {
       pass: missing.length === 0,
-      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
+      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`,
     }
   },
 
   toImplementSxProp(Component) {
     return {
       pass: !!Component.propTypes.sx,
-      message: () => 'Missing sx propTypes'
+      message: () => 'Missing sx propTypes',
     }
   },
 
@@ -62,8 +64,8 @@ expect.extend({
     const mediaKey = '@media (max-width:123px)'
     const sxPropValue = {
       [mediaKey]: {
-        color: 'red.5'
-      }
+        color: 'red.5',
+      },
     }
 
     const elem = React.cloneElement(element, {sx: sxPropValue})
@@ -75,7 +77,7 @@ expect.extend({
       if (styles[mediaKey] && styles[mediaKey].color) {
         return true
       } else if (rendered.children) {
-        return rendered.children.some(child => checkStylesDeep(child))
+        return rendered.children.some((child) => checkStylesDeep(child))
       } else {
         return false
       }
@@ -83,7 +85,7 @@ expect.extend({
 
     return {
       pass: checkStylesDeep(rendered),
-      message: () => 'sx prop values did not change styles of component nor of any sub-components'
+      message: () => 'sx prop values did not change styles of component nor of any sub-components',
     }
   },
 
@@ -98,7 +100,7 @@ expect.extend({
     const pass = this.equals(wrapper.prop('theme'), theme)
     return {
       pass,
-      message: () => 'default theme is not set'
+      message: () => 'default theme is not set',
     }
   },
 
@@ -106,7 +108,7 @@ expect.extend({
     if (!Object.keys(expectedExports).includes('default')) {
       return {
         pass: false,
-        message: () => "You must specify the module's default export"
+        message: () => "You must specify the module's default export",
       }
     }
 
@@ -120,7 +122,7 @@ expect.extend({
 
         return {
           pass: false,
-          message: () => `Module exported a different value from key '${exp}' than expected`
+          message: () => `Module exported a different value from key '${exp}' than expected`,
         }
       }
     }
@@ -133,14 +135,14 @@ expect.extend({
       if (mod[exp] !== expectedExports[exp]) {
         return {
           pass: false,
-          message: () => `Module exported an unexpected value from key '${exp}'`
+          message: () => `Module exported an unexpected value from key '${exp}'`,
         }
       }
     }
 
     return {
       pass: true,
-      message: () => ''
+      message: () => '',
     }
-  }
+  },
 })

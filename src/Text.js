@@ -11,14 +11,14 @@ const Text = styled.span`
 `
 
 Text.defaultProps = {
-  theme
+  theme,
 }
 
 Text.propTypes = {
   ...TYPOGRAPHY.propTypes,
   ...COMMON.propTypes,
   ...sx.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 }
 
 export default Text

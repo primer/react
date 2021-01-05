@@ -12,7 +12,7 @@ describe('Box', () => {
   behavesAsComponent(Box, [COMMON, LAYOUT, FLEX])
 
   checkExports('Box', {
-    default: Box
+    default: Box,
   })
 
   it('should have no axe violations', async () => {

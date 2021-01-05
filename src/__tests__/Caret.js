@@ -13,7 +13,7 @@ describe('Caret', () => {
   })
 
   checkExports('Caret', {
-    default: Caret
+    default: Caret,
   })
 
   it('should have no axe violations', async () => {

@@ -14,17 +14,17 @@ const octiconMap = {
   issueClosed: IssueClosedIcon,
   pullClosed: GitPullRequestIcon,
   pullMerged: GitMergeIcon,
-  draft: GitPullRequestIcon
+  draft: GitPullRequestIcon,
 }
 
 const colorVariants = variant({
   prop: 'status',
-  scale: 'stateLabels.status'
+  scale: 'stateLabels.status',
 })
 
 const sizeVariants = variant({
   prop: 'variant',
-  scale: 'stateLabels.sizes'
+  scale: 'stateLabels.sizes',
 })
 
 const StateLabelBase = styled.span`
@@ -53,7 +53,7 @@ function StateLabel({children, status, variant, ...rest}) {
 
 StateLabel.defaultProps = {
   theme,
-  variant: 'normal'
+  variant: 'normal',
 }
 
 StateLabel.propTypes = {
@@ -61,7 +61,7 @@ StateLabel.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'normal']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 export default StateLabel

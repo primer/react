@@ -23,7 +23,7 @@ describe('Dialog', () => {
   // behavesAsComponent(Dialog, [COMMON, LAYOUT], () => comp)
 
   checkExports('Dialog', {
-    default: Dialog
+    default: Dialog,
   })
 
   describe('Dialog.Header', () => {

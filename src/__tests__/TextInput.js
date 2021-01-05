@@ -11,7 +11,7 @@ describe('TextInput', () => {
   behavesAsComponent(TextInput, [COMMON], {skipAs: true})
 
   checkExports('TextInput', {
-    default: TextInput
+    default: TextInput,
   })
 
   it('should have no axe violations', async () => {

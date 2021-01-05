@@ -15,7 +15,7 @@ const StyledDetails = styled(Details)`
 
 const Dropdown = ({children, className, ...rest}) => {
   return (
-    <StyledDetails overlay className={className} {...rest}>
+    <StyledDetails closeOnOutsideClick className={className} {...rest}>
       {children}
     </StyledDetails>
   )
@@ -85,7 +85,7 @@ Dropdown.Menu = styled.ul`
   > ul {
     list-style: none;
   }
-  ${props => (props.direction ? getDirectionStyles(props.theme, props.direction) : '')};
+  ${(props) => (props.direction ? getDirectionStyles(props.theme, props.direction) : '')};
   ${COMMON};
   ${sx};
 `
@@ -101,7 +101,6 @@ Dropdown.Item = styled.li`
     color: ${get('colors.gray.9')};
     text-decoration: none;
     display: block;
-    padding: ${get('space.1')} 10px ${get('space.1')} 15px;
     overflow: hidden;
     color: ${get('colors.gray.9')};
     text-overflow: ellipsis;
@@ -129,39 +128,39 @@ Dropdown.Item = styled.li`
 Dropdown.Menu.propTypes = {
   direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 Dropdown.Menu.defaultProps = {
   direction: 'sw',
-  theme
+  theme,
 }
 Dropdown.Menu.displayName = 'Dropdown.Menu'
 
 Dropdown.Item.defaultProps = {theme}
 Dropdown.Item.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 Dropdown.Item.displayName = 'Dropdown.Item'
 
 Dropdown.Button.defaultProps = {theme, ...Button.defaultProps}
 Dropdown.Button.propTypes = {
-  ...Button.propTypes
+  ...Button.propTypes,
 }
 Dropdown.Button.displayName = 'Dropdown.Button'
 
 Dropdown.Caret.defaultProps = {theme}
 Dropdown.Caret.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 Dropdown.Caret.displayName = 'Dropdown.Caret'
 
 Dropdown.defaultProps = {theme, ...Details.defaultProps}
 Dropdown.propTypes = {
   ...Details.propTypes,
-  ...COMMON.propTypes
+  ...COMMON.propTypes,
 }
 
 export default Dropdown

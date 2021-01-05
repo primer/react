@@ -20,12 +20,12 @@ const SelectMenuDivider = styled.div`
 `
 
 SelectMenuDivider.defaultProps = {
-  theme
+  theme,
 }
 
 SelectMenuDivider.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SelectMenuDivider.displayName = 'SelectMenu.Divider'

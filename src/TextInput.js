@@ -16,14 +16,14 @@ const sizeVariants = variant({
       px: 2,
       py: '3px',
       fontSize: 0,
-      lineHeight: '20px'
+      lineHeight: '20px',
     },
     large: {
       px: 2,
       py: '10px',
-      fontSize: 3
-    }
-  }
+      fontSize: 3,
+    },
+  },
 })
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
@@ -75,7 +75,7 @@ const Wrapper = styled.span`
   outline: none;
   box-shadow: ${get('shadows.formControl')};
 
-  ${props => {
+  ${(props) => {
     if (props.hasIcon) {
       return css`
         padding: 0;
@@ -99,7 +99,7 @@ const Wrapper = styled.span`
     box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
   }
 
-  ${props =>
+  ${(props) =>
     props.disabled &&
     css`
      background-color: ${get('colors.bg.disabled')};
@@ -107,7 +107,7 @@ const Wrapper = styled.span`
     }
   `}
 
-  ${props =>
+  ${(props) =>
     props.block &&
     css`
       display: block;
@@ -128,7 +128,7 @@ const Wrapper = styled.span`
 
 TextInput.defaultProps = {
   theme,
-  type: 'text'
+  type: 'text',
 }
 
 TextInput.propTypes = {
@@ -139,7 +139,7 @@ TextInput.propTypes = {
   variant: PropTypes.oneOf(['small', 'large']),
   ...COMMON.propTypes,
   ...sx.propTypes,
-  width: systemPropTypes.layout.width
+  width: systemPropTypes.layout.width,
 }
 
 TextInput.displayName = 'TextInput'

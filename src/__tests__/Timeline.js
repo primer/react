@@ -13,7 +13,7 @@ describe('Timeline', () => {
   behavesAsComponent(Timeline, [COMMON, FLEX, LAYOUT])
 
   checkExports('Timeline', {
-    default: Timeline
+    default: Timeline,
   })
 
   it('should have no axe violations', async () => {

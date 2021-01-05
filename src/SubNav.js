@@ -46,19 +46,19 @@ const SubNav = styled(SubNavBase)`
   ${sx};
 `
 
-SubNav.Links = Flex
+SubNav.Links = (props) => <Flex {...props} />
 
-SubNav.Link = styled.a.attrs(props => ({
+SubNav.Link = styled.a.attrs((props) => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};
-  min-height: 34px; // copied from TextInput, but should be a variable.
-  font-weight: ${get('fontWeights.bold')};
+  font-weight: ${get('fontWeights.semibold')};
   font-size: ${get('fontSizes.1')};
-  line-height: ${get('lineHeights.default')};
-  color: ${get('colors.gray.6')};
+  line-height: 20px; //custom value for SubNav
+  min-height: 34px; //custom value for SubNav
+  color: ${get('colors.gray.9')};
   text-align: center;
   text-decoration: none;
   border-top: 1px solid ${get('colors.gray.2')};
@@ -103,7 +103,7 @@ SubNav.Link = styled.a.attrs(props => ({
 `
 
 SubNav.defaultProps = {
-  theme
+  theme,
 }
 
 SubNav.propTypes = {
@@ -114,11 +114,11 @@ SubNav.propTypes = {
   label: PropTypes.string,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SubNav.Link.defaultProps = {
-  theme
+  theme,
 }
 
 SubNav.Link.propTypes = {
@@ -126,12 +126,12 @@ SubNav.Link.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 SubNav.Link.displayName = 'SubNav.Link'
 
 SubNav.Links.propTypes = {
-  ...Flex.propTypes
+  ...Flex.propTypes,
 }
 SubNav.Links.displayName = 'SubNav.Links'
 

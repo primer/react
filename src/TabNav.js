@@ -31,9 +31,9 @@ const TabNav = styled(TabNavBase)`
   ${sx};
 `
 
-TabNav.Link = styled.a.attrs(props => ({
+TabNav.Link = styled.a.attrs((props) => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
@@ -63,18 +63,18 @@ TabNav.Link = styled.a.attrs(props => ({
 `
 
 TabNav.defaultProps = {
-  theme
+  theme,
 }
 
 TabNav.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 TabNav.Link.defaultProps = {
-  theme
+  theme,
 }
 
 TabNav.Link.propTypes = {
@@ -82,7 +82,7 @@ TabNav.Link.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 TabNav.Link.displayName = 'TabNav.Link'

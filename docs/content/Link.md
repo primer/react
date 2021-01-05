@@ -28,3 +28,4 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 | muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
 | underline | Boolean |  false  | Adds underline to the Link                        |
 | as        | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary'       |
+| hoverColor        | String  |    | Color used when hovering over link      |

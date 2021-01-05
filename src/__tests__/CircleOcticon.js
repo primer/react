@@ -13,7 +13,7 @@ describe('CircleOcticon', () => {
   behavesAsComponent(CircleOcticon, [COMMON, FLEX, LAYOUT], () => <CircleOcticon icon={CheckIcon} />)
 
   checkExports('CircleOcticon', {
-    default: CircleOcticon
+    default: CircleOcticon,
   })
 
   it('renders a <div> with width and height', () => {

@@ -11,7 +11,7 @@ describe('Tooltip', () => {
   behavesAsComponent(Tooltip, [COMMON])
 
   checkExports('Tooltip', {
-    default: Tooltip
+    default: Tooltip,
   })
 
   it('should have no axe violations', async () => {

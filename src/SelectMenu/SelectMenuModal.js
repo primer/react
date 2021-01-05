@@ -17,10 +17,10 @@ const modalStyles = css`
   position: relative;
   z-index: 99; // Needs to be higher than .details-overlay's z-index: 80.
   display: flex;
-  ${props => (props.filter ? 'height: 80%' : '')};
-  max-height: ${props => (props.filter ? 'none' : '66%')};
+  ${(props) => (props.filter ? 'height: 80%' : '')};
+  max-height: ${(props) => (props.filter ? 'none' : '66%')};
   margin: auto 0;
-  ${props => (props.filter ? 'margin-top: 0' : '')};
+  ${(props) => (props.filter ? 'margin-top: 0' : '')};
   overflow: hidden; // Enables border radius on scrollable child elements
   pointer-events: auto;
   flex-direction: column;
@@ -70,7 +70,7 @@ const modalWrapperStyles = css`
   @media (min-width: ${get('breakpoints.0')}) {
     position: absolute;
     top: auto;
-    right: ${props => (props.align === 'right' ? '0' : 'auto')};
+    right: ${(props) => (props.align === 'right' ? '0' : 'auto')};
     bottom: auto;
     left: auto;
     padding: 0;
@@ -87,29 +87,28 @@ const ModalWrapper = styled.div`
   ${COMMON}
   ${sx};
 `
-
-const SelectMenuModal = ({children, theme, width, ...rest}) => {
+const SelectMenuModal = React.forwardRef(({children, theme, width, ...rest}, forwardedRef) => {
   return (
-    <ModalWrapper theme={theme} {...rest} role="menu">
+    <ModalWrapper theme={theme} {...rest} role="menu" ref={forwardedRef}>
       <Modal theme={theme} width={width}>
         {children}
       </Modal>
     </ModalWrapper>
   )
-}
+})
 
 SelectMenuModal.defaultProps = {
   align: 'left',
   theme,
-  width: '300px'
+  width: '300px',
 }
 
 SelectMenuModal.propTypes = {
   align: PropTypes.oneOf(['left', 'right']),
   theme: PropTypes.object,
-  width: PropTypes.oneOfType[('string', 'number')],
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ...COMMON.propTypes,
-  ...sx.propTypes
+  ...sx.propTypes,
 }
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'
