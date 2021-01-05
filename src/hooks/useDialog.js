@@ -1,5 +1,13 @@
 import {useCallback, useEffect} from 'react'
 
+function visible(el) {
+  return !el.hidden && (!el.type || el.type !== 'hidden') && (el.offsetWidth > 0 || el.offsetHeight > 0)
+}
+
+function focusable(el) {
+  return el.tabIndex >= 0 && !el.disabled && visible(el)
+}
+
 function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef, returnFocusRef} = {}) {
   const onClickOutside = useCallback(
     (e) => {
@@ -46,13 +54,7 @@ function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef
     }
   }
 
-  function visible(el) {
-    return !el.hidden && (!el.type || el.type !== 'hidden') && (el.offsetWidth > 0 || el.offsetHeight > 0)
-  }
 
-  const focusable = (el) => {
-    return el.tabIndex >= 0 && !el.disabled && visible(el)
-  }
 
   const handleTab = (e) => {
     const movement = e.shiftKey ? -1 : 1
