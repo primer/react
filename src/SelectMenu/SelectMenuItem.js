@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useRef, forwardRef} from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import {CheckIcon} from '@primer/octicons-react'
@@ -100,8 +100,10 @@ const StyledItem = styled.a.attrs(() => ({
   ${sx};
 `
 
-const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
+const SelectMenuItem = forwardRef(({children, selected, theme, onClick, ...rest}, forwardedRef) => {
   const menuContext = useContext(MenuContext)
+  const backupRef = useRef(null)
+  const itemRef = forwardedRef ?? backupRef
 
   // close the menu when an item is clicked
   // this can be overriden if the user provides a `onClick` prop and prevents default in it
@@ -113,12 +115,12 @@ const SelectMenuItem = ({children, selected, theme, onClick, ...rest}) => {
     }
   }
   return (
-    <StyledItem {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
+    <StyledItem ref={itemRef} {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
       <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
       {children}
     </StyledItem>
   )
-}
+})
 
 SelectMenuItem.defaultProps = {
   theme,
