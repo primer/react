@@ -336,7 +336,7 @@ declare module '@primer/components' {
 
   interface SelectMenuItemCommonProps extends CommonProps {
     selected?: boolean
-    ref?: React.RefObject<HTMLAnchorElement> | React.RefObject<HTMLDivElement> | null
+    ref?: React.RefObject<HTMLAnchorElement> | React.RefObject<HTMLButtonElement> | null
   }
   interface SelectMenuItemAsButtonProps extends SelectMenuItemCommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     as?: "button"
