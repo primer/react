@@ -353,6 +353,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuFilterProps extends TextInputProps {
     value: string
+    ref?: React.RefObject<HTMLInputElement> | null
   }
 
   export interface SelectMenuTabsProps extends CommonProps,

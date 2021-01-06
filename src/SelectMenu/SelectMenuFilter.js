@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useEffect} from 'react'
+import React, {useRef, useContext, forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {COMMON, get} from '../constants'
@@ -21,8 +21,9 @@ const StyledForm = styled.form`
   ${sx};
 `
 
-function SelectMenuFilter({theme, value, sx, ...rest}) {
+const SelectMenuFilter = forwardRef(({theme, value, sx, ...rest}, forwardedRef) => {
   const inputRef = useRef(null)
+  const ref = forwardedRef ?? inputRef
   const {open} = useContext(MenuContext)
 
   // puts focus on the filter input when the menu is opened
@@ -34,10 +35,10 @@ function SelectMenuFilter({theme, value, sx, ...rest}) {
 
   return (
     <StyledForm theme={theme} sx={sx}>
-      <TextInput theme={theme} ref={inputRef} width="100%" block value={value} {...rest} />
+      <TextInput theme={theme} ref={ref} width="100%" block value={value} {...rest} />
     </StyledForm>
   )
-}
+})
 
 SelectMenuFilter.defaultProps = {
   theme,
