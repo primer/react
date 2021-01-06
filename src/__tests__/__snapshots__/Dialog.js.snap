@@ -146,6 +146,7 @@ Array [
     className="c0"
     onKeyDown={[Function]}
     role="dialog"
+    tabIndex={-1}
   >
     <button
       aria-label="Close"
