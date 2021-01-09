@@ -15,7 +15,7 @@ const plugins = [
 
 export default [
   {
-    input: 'src/index.js',
+    input: 'src/index.ts',
     external: ['styled-components', 'react', 'react-dom'],
     plugins,
     output: formats.map(format => ({
