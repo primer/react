@@ -1,4 +1,5 @@
 {
+  "parser": "@babel/eslint-parser",
   "extends": [
     "plugin:github/es6",
     "plugin:github/react",
