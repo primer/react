@@ -8,10 +8,11 @@
   "scripts": {
     "start": "cd docs && yarn run develop",
     "predist": "rm -rf dist",
-    "dist": "yarn dist:rollup && yarn dist:transpile:cjs && yarn dist:transpile:esm",
+    "dist": "yarn dist:rollup && yarn dist:transpile:cjs && yarn dist:transpile:esm && yarn dist:types",
     "dist:rollup": "cross-env NODE_ENV=production rollup -c",
     "dist:transpile:cjs": "rm -rf lib && cross-env BABEL_MODULE=commonjs babel src --out-dir lib --extensions '.js,.ts,.jsx,.tsx'",
     "dist:transpile:esm": "rm -rf lib-esm && babel src --out-dir lib-esm --extensions '.js,.ts,.jsx,.tsx'",
+    "dist:types": "rm -rf types && tsc",
     "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
@@ -34,6 +35,7 @@
     "lib",
     "lib-esm",
     "index.d.ts",
+    "types",
     "!lib/__tests__",
     "!lib-esm/__tests__"
   ],
@@ -94,7 +96,8 @@
     "rollup-plugin-terser": "5.3.0",
     "rollup-plugin-visualizer": "4.0.4",
     "semver": "7.3.2",
-    "styled-components": "4.4.0"
+    "styled-components": "4.4.0",
+    "typescript": "4.1.3"
   },
   "peerDependencies": {
     "react": "^16.8.0",
