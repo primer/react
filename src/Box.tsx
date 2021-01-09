@@ -4,7 +4,7 @@ import {COMMON, CommonProps, FLEX, FlexProps, LAYOUT, LayoutProps} from './const
 import sx, {SxProp} from './sx'
 import theme from './theme'
 
-interface BoxProps extends CommonProps, FlexProps, LayoutProps, SxProp {}
+export interface BoxProps extends CommonProps, FlexProps, LayoutProps, SxProp {}
 
 const Box = styled.div<BoxProps>`
   ${COMMON}
