@@ -1,10 +1,12 @@
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import sx from './sx'
-import {COMMON, FLEX, LAYOUT} from './constants'
+import styled from 'styled-components'
+import {COMMON, CommonProps, FLEX, FlexProps, LAYOUT, LayoutProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
 
-const Box = styled.div`
+interface BoxProps extends CommonProps, FlexProps, LayoutProps, SxProp {}
+
+const Box = styled.div<BoxProps>`
   ${COMMON}
   ${FLEX}
   ${LAYOUT}
