@@ -6,7 +6,8 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
   config.plugins.push(plugins.define(defines[process.env.NODE_ENV || 'development']))
 
   config.module.rules = [
-    ...config.module.rules,
+    // ...config.module.rules,
+    ...config.module.rules.filter((rule) => String(rule.test) !== String(/\.tsx?$/)),
     // Create a custom configuration.
     {
       // The new configuration is based off the original...
