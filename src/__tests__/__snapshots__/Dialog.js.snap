@@ -82,6 +82,10 @@ Array [
   box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
+.c1:active {
+  color: #24292e;
+}
+
 .c3 {
   font-size: 14px;
   font-weight: 600;

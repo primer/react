@@ -245,6 +245,14 @@ const buttons = {
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)',
     },
   },
+  close: {
+    color: {
+      default: colors.text.grayDark
+    },
+    shadow: {
+      focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
+    }
+  }
 }
 
 const flash = {

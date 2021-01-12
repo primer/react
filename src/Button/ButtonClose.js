@@ -14,7 +14,11 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:focus {
-    box-shadow: ${get('buttons.default.shadow.focus')};
+    box-shadow: ${get('buttons.close.shadow.focus')};
+  }
+
+  &:active {
+    color: ${get('buttons.close.color.default')};
   }
   ${COMMON};
   ${LAYOUT};
