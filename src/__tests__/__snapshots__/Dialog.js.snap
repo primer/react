@@ -79,7 +79,7 @@ Array [
 }
 
 .c1:focus {
-  box-shadow: 0 0 0 3px rgba(139,148,158,0.3);
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 .c3 {
