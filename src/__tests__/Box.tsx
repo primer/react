@@ -1,11 +1,11 @@
+import {cleanup, render as HTMLRender} from '@testing-library/react'
+import 'babel-polyfill'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Box} from '..'
+import {COMMON, FLEX, LAYOUT} from '../constants'
 import theme from '../theme'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {LAYOUT, COMMON, FLEX} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
