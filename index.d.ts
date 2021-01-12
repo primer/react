@@ -1,3 +1,5 @@
+import PrimerBox, {BoxProps as PrimerBoxProps} from './types/Box'
+
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
@@ -30,14 +32,9 @@ declare module '@primer/components' {
 
   interface PositionProps extends StyledSystem.PositionProps {}
 
-  export interface BoxProps
-    extends BaseProps,
-      CommonProps,
-      LayoutProps,
-      StyledSystem.FlexboxProps,
-      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+  export interface BoxProps extends PrimerBoxProps {}
 
-  export const Box: React.FunctionComponent<BoxProps>
+  export const Box: typeof PrimerBox
 
   interface FlexProps extends BoxProps {}
 
