@@ -7,6 +7,7 @@ module.exports = {
     description: 'React components for the Primer design system'
   },
   plugins: [
+    'gatsby-plugin-typescript',
     {
       resolve: '@primer/gatsby-theme-doctocat',
       options: {
