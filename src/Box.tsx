@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import {COMMON, CommonProps, FLEX, FlexProps, LAYOUT, LayoutProps} from './constants'
 import sx, {SxProp} from './sx'
 import theme from './theme'
+import {StyledComponentProps} from './utils/types'
 
-export interface BoxProps extends CommonProps, FlexProps, LayoutProps, SxProp {}
+export interface BoxProps extends CommonProps, FlexProps, LayoutProps, SxProp, StyledComponentProps {}
 
-const Box = styled.div<BoxProps>`
+const Box: React.FC<BoxProps> = styled.div`
   ${COMMON}
   ${FLEX}
   ${LAYOUT}
