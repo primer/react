@@ -5,7 +5,13 @@ import sx, {SxProp} from './sx'
 import theme from './theme'
 import {StyledComponentProps} from './utils/types'
 
-export interface BoxProps extends CommonProps, FlexProps, LayoutProps, SxProp, StyledComponentProps {}
+export interface BoxProps
+  extends CommonProps,
+    FlexProps,
+    LayoutProps,
+    SxProp,
+    StyledComponentProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
 const Box: React.FC<BoxProps> = styled.div`
   ${COMMON}
