@@ -100,6 +100,8 @@ declare module '@primer/components' {
     setOpen: (open: boolean) => void
   }
 
+  export const useMouseIntent: () => void
+
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
@@ -650,6 +652,11 @@ declare module '@primer/components/lib/Details' {
 declare module '@primer/components/lib/hooks/useDetails' {
   import {useDetails} from '@primer/components'
   export default useDetails
+}
+
+declare module '@primer/components/lib/hooks/useMouseIntent' {
+  import {useMouseIntent} from '@primer/components'
+  export default useMouseIntent
 }
 
 declare module '@primer/components/lib/BaseStyles' {
