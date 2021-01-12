@@ -1,4 +1,4 @@
-import {COMMON, LAYOUT} from '../constants'
+import {COMMON, LAYOUT, get} from '../constants'
 import theme from '../theme'
 import sx from '../sx'
 import {XIcon} from '@primer/octicons-react'
@@ -14,7 +14,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:focus {
-    box-shadow: 0 0 0 3px rgba(139, 148, 158, 0.3);
+    box-shadow: ${get('buttons.default.shadow.focus')};
   }
   ${COMMON};
   ${LAYOUT};
