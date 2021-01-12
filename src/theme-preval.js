@@ -247,12 +247,12 @@ const buttons = {
   },
   close: {
     color: {
-      default: colors.text.grayDark
+      default: colors.text.grayDark,
     },
     shadow: {
-      focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
-    }
-  }
+      focus: '0 0 0 3px rgba(3, 102, 214, 0.3)',
+    },
+  },
 }
 
 const flash = {
