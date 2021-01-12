@@ -26,6 +26,7 @@ export {
   ButtonPrimary,
   ButtonInvisible,
   ButtonTableList,
+  ButtonClose,
   ButtonGroup,
 } from './Button'
 export {default as Caret} from './Caret'

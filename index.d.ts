@@ -117,6 +117,14 @@ declare module '@primer/components' {
       LayoutProps,
       Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
+  export interface ButtonCloseProps
+    extends BaseProps,
+      CommonProps,
+      LayoutProps,
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+        ref?: React.RefObject<HTMLButtonElement> | null
+      }
+
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
@@ -124,6 +132,7 @@ declare module '@primer/components' {
   export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
+  export const ButtonClose: React.FunctionComponent<ButtonCloseProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     size?: number
@@ -526,6 +535,11 @@ declare module '@primer/components' {
   export interface DialogProps extends CommonProps, LayoutProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     isOpen: boolean
     onDismiss: () => unknown
+    narrow?: boolean
+    wide?: boolean
+    ref?: React.RefObject<HTMLDivElement>
+    initialFocusRef?: React.RefObject<HTMLElement>
+    returnFocusRef?: React.RefObject<HTMLElement>
   }
 
   export interface DialogHeaderProps extends FlexProps {}
@@ -573,6 +587,11 @@ declare module '@primer/components/lib/Header' {
 declare module '@primer/components/lib/Heading' {
   import {Heading} from '@primer/components'
   export default Heading
+}
+
+declare module '@primer/components/lib/ButtonClose' {
+  import {ButtonClose} from '@primer/components'
+  export default ButtonClose
 }
 
 declare module '@primer/components/lib/ButtonDanger' {
