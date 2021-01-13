@@ -347,13 +347,14 @@ declare module '@primer/components' {
 
   interface SelectMenuItemCommonProps extends CommonProps {
     selected?: boolean
-    ref?: React.ForwardedRef<HTMLAnchorElement> | React.ForwardedRef<HTMLButtonElement> | null
   }
   interface SelectMenuItemAsButtonProps extends SelectMenuItemCommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     as?: "button"
+    ref?: React.ForwardedRef<HTMLButtonElement> | null
   }
   interface SelectMenuItemAsAnchorProps extends SelectMenuItemCommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     as?: "a"
+    ref?: React.ForwardedRef<HTMLAnchorElement> | null
   }
   export type SelectMenuItemProps = SelectMenuItemAsButtonProps | SelectMenuItemAsAnchorProps;
 
