@@ -32,11 +32,18 @@ declare module '@primer/components' {
 
   interface PositionProps extends StyledSystem.PositionProps {}
 
-  export interface BoxProps extends PrimerBoxProps {}
+  export interface LegacyBoxProps
+    extends BaseProps,
+      CommonProps,
+      LayoutProps,
+      StyledSystem.FlexboxProps,
+      Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
+
+  export type BoxProps = PrimerBoxProps
 
   export const Box: typeof PrimerBox
 
-  interface FlexProps extends BoxProps {}
+  interface FlexProps extends LegacyBoxProps {}
 
   export const Flex: React.FunctionComponent<FlexProps>
 
@@ -117,7 +124,7 @@ declare module '@primer/components' {
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
   export const ButtonInvisible: React.FunctionComponent<ButtonProps>
   export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
-  export const ButtonGroup: React.FunctionComponent<BoxProps>
+  export const ButtonGroup: React.FunctionComponent<LegacyBoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
@@ -135,7 +142,7 @@ declare module '@primer/components' {
 
   export const BaseStyles: React.FunctionComponent<BaseStylesProps>
 
-  export interface BorderBoxProps extends BorderProps, BoxProps {}
+  export interface BorderBoxProps extends BorderProps, LegacyBoxProps {}
 
   export const BorderBox: React.FunctionComponent<BorderBoxProps>
 
@@ -230,7 +237,7 @@ declare module '@primer/components' {
     Label: React.FunctionComponent<FormGroupLabelProps>
   }
 
-  export interface GridProps extends BoxProps, StyledSystem.GridProps {}
+  export interface GridProps extends LegacyBoxProps, StyledSystem.GridProps {}
 
   export const Grid: React.FunctionComponent<GridProps>
 
@@ -309,8 +316,7 @@ declare module '@primer/components' {
     Content: React.FunctionComponent<PopoverContentProps>
   }
 
-  export interface PositionComponentProps
-    extends PositionProps, BoxProps {}
+  export interface PositionComponentProps extends PositionProps, LegacyBoxProps {}
 
   export const Relative: React.FunctionComponent<PositionComponentProps>
   export const Absolute: React.FunctionComponent<PositionComponentProps>
@@ -453,8 +459,8 @@ declare module '@primer/components' {
   export const Timeline: React.FunctionComponent<TimelineProps> & {
     Item: React.FunctionComponent<TimelineItemProps>
     Badge: React.FunctionComponent<TimelineBadgeProps>
-    Body: React.FunctionComponent<BoxProps>
-    Break: React.FunctionComponent<BoxProps>
+    Body: React.FunctionComponent<LegacyBoxProps>
+    Break: React.FunctionComponent<LegacyBoxProps>
   }
 
   export const Tooltip: React.FunctionComponent<TooltipProps>
