@@ -346,7 +346,8 @@ declare module '@primer/components' {
   export interface SelectMenuLoadingAnimationProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   interface SelectMenuItemCommonProps extends CommonProps {
-    selected?: boolean;
+    selected?: boolean
+    ref?: React.RefObject<HTMLAnchorElement> | React.RefObject<HTMLButtonElement> | null
   }
   interface SelectMenuItemAsButtonProps extends SelectMenuItemCommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     as?: "button"
@@ -364,6 +365,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuFilterProps extends TextInputProps {
     value: string
+    ref?: React.RefObject<HTMLInputElement> | null
   }
 
   export interface SelectMenuTabsProps extends CommonProps,
