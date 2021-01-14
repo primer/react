@@ -18,7 +18,10 @@ export const get = (key: string) => themeGet(key, getKey(theme, key))
 
 export const COMMON: StyleFn = compose(styledSystem.space, styledSystem.color, styledSystem.display)
 
-export interface CommonProps extends styledSystem.ColorProps, styledSystem.SpaceProps, styledSystem.DisplayProps {}
+export interface SystemCommonProps
+  extends styledSystem.ColorProps,
+    styledSystem.SpaceProps,
+    styledSystem.DisplayProps {}
 
 COMMON.propTypes = {
   ...systemPropTypes.space,
@@ -36,7 +39,7 @@ const whiteSpace = system({
 
 export const TYPOGRAPHY: StyleFn = compose(styledSystem.typography, whiteSpace)
 
-export interface TypographyProps extends styledSystem.TypographyProps {
+export interface SystemTypographyProps extends styledSystem.TypographyProps {
   whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line'
 }
 
@@ -49,7 +52,7 @@ TYPOGRAPHY.propTypes = {
 
 export const BORDER: StyleFn = compose(styledSystem.border, styledSystem.shadow)
 
-export interface BorderProps extends styledSystem.BorderProps, styledSystem.ShadowProps {}
+export interface SystemBorderProps extends styledSystem.BorderProps, styledSystem.ShadowProps {}
 
 BORDER.propTypes = {
   ...systemPropTypes.border,
@@ -60,7 +63,7 @@ BORDER.propTypes = {
 
 export const LAYOUT: StyleFn = styledSystem.layout
 
-export interface LayoutProps extends styledSystem.LayoutProps {}
+export interface SystemLayoutProps extends styledSystem.LayoutProps {}
 
 LAYOUT.propTypes = systemPropTypes.layout
 
@@ -68,7 +71,7 @@ LAYOUT.propTypes = systemPropTypes.layout
 
 export const POSITION: StyleFn = styledSystem.position
 
-export interface PositionProps extends styledSystem.PositionProps {}
+export interface SystemPositionProps extends styledSystem.PositionProps {}
 
 POSITION.propTypes = systemPropTypes.position
 
@@ -76,7 +79,7 @@ POSITION.propTypes = systemPropTypes.position
 
 export const FLEX: StyleFn = styledSystem.flexbox
 
-export interface FlexProps extends styledSystem.FlexboxProps {}
+export interface SystemFlexProps extends styledSystem.FlexboxProps {}
 
 FLEX.propTypes = systemPropTypes.flexbox
 
@@ -84,6 +87,6 @@ FLEX.propTypes = systemPropTypes.flexbox
 
 export const GRID: StyleFn = styledSystem.grid
 
-export interface GridProps extends styledSystem.GridProps {}
+export interface SystemGridProps extends styledSystem.GridProps {}
 
 GRID.propTypes = systemPropTypes.grid

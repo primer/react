@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, CommonProps, FLEX, FlexProps, LAYOUT, LayoutProps} from './constants'
+import {COMMON, SystemCommonProps, FLEX, SystemFlexProps, LAYOUT, SystemLayoutProps} from './constants'
 import sx, {SxProp} from './sx'
 import theme from './theme'
 
-const Box = styled.div<CommonProps & FlexProps & LayoutProps & SxProp>`
+const Box = styled.div<SystemCommonProps & SystemFlexProps & SystemLayoutProps & SxProp>`
   ${COMMON}
   ${FLEX}
   ${LAYOUT}
