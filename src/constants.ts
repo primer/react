@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-ignore @styled-system/prop-types does not provide type definitions
 import systemPropTypes from '@styled-system/prop-types'
 import {themeGet} from '@styled-system/theme-get'
 import PropTypes from 'prop-types'
