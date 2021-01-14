@@ -1,5 +1,14 @@
 import React from 'react'
-import {Button, ButtonPrimary, ButtonDanger, ButtonOutline, ButtonInvisible, ButtonGroup, ButtonTableList} from '..'
+import {
+  Button,
+  ButtonPrimary,
+  ButtonClose,
+  ButtonDanger,
+  ButtonOutline,
+  ButtonInvisible,
+  ButtonGroup,
+  ButtonTableList,
+} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -20,6 +29,7 @@ describe('Button', () => {
     ButtonInvisible,
     ButtonGroup,
     ButtonTableList,
+    ButtonClose,
   })
 
   it('renders a <button>', () => {

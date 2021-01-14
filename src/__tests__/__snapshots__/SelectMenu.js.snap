@@ -52,7 +52,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 .c1:focus {
-  border-color: transparent;
+  border-color: rgba(27,31,35,0.15);
   box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 

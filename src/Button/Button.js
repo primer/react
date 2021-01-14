@@ -18,7 +18,7 @@ const Button = styled(ButtonBase)`
 
   // focus must come before :active so that the active box shadow overrides
   &:focus {
-    border-color: transparent;
+    border-color: rgba(27, 31, 35, 0.15);
     box-shadow: ${get('buttons.default.shadow.focus')};
   }
 

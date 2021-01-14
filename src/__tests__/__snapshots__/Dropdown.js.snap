@@ -73,7 +73,7 @@ exports[`Dropdown.Button renders consistently 1`] = `
 }
 
 .c0:focus {
-  border-color: transparent;
+  border-color: rgba(27,31,35,0.15);
   box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
