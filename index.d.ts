@@ -100,6 +100,8 @@ declare module '@primer/components' {
     setOpen: (open: boolean) => void
   }
 
+  export const useMouseIntent: () => void
+
   export interface ButtonProps
     extends BaseProps,
       CommonProps,
@@ -115,6 +117,14 @@ declare module '@primer/components' {
       LayoutProps,
       Omit<React.HTMLAttributes<HTMLElement>, 'color'> {}
 
+  export interface ButtonCloseProps
+    extends BaseProps,
+      CommonProps,
+      LayoutProps,
+      Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+        ref?: React.RefObject<HTMLButtonElement> | null
+      }
+
   export const ButtonPrimary: React.FunctionComponent<ButtonProps>
   export const ButtonOutline: React.FunctionComponent<ButtonProps>
   export const ButtonDanger: React.FunctionComponent<ButtonProps>
@@ -122,6 +132,7 @@ declare module '@primer/components' {
   export const ButtonTableList: React.FunctionComponent<ButtonTableListProps>
   export const ButtonGroup: React.FunctionComponent<BoxProps>
   export const Button: React.FunctionComponent<ButtonProps>
+  export const ButtonClose: React.FunctionComponent<ButtonCloseProps>
 
   export interface AvatarProps extends CommonProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'color'> {
     size?: number
@@ -335,13 +346,15 @@ declare module '@primer/components' {
   export interface SelectMenuLoadingAnimationProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
   interface SelectMenuItemCommonProps extends CommonProps {
-    selected?: boolean;
+    selected?: boolean
   }
   interface SelectMenuItemAsButtonProps extends SelectMenuItemCommonProps, Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
     as?: "button"
+    ref?: React.ForwardedRef<HTMLButtonElement> | null
   }
   interface SelectMenuItemAsAnchorProps extends SelectMenuItemCommonProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'color'> {
     as?: "a"
+    ref?: React.ForwardedRef<HTMLAnchorElement> | null
   }
   export type SelectMenuItemProps = SelectMenuItemAsButtonProps | SelectMenuItemAsAnchorProps;
 
@@ -353,6 +366,7 @@ declare module '@primer/components' {
 
   export interface SelectMenuFilterProps extends TextInputProps {
     value: string
+    ref?: React.RefObject<HTMLInputElement> | null
   }
 
   export interface SelectMenuTabsProps extends CommonProps,
@@ -524,6 +538,11 @@ declare module '@primer/components' {
   export interface DialogProps extends CommonProps, LayoutProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     isOpen: boolean
     onDismiss: () => unknown
+    narrow?: boolean
+    wide?: boolean
+    ref?: React.RefObject<HTMLDivElement>
+    initialFocusRef?: React.RefObject<HTMLElement>
+    returnFocusRef?: React.RefObject<HTMLElement>
   }
 
   export interface DialogHeaderProps extends FlexProps {}
@@ -571,6 +590,11 @@ declare module '@primer/components/lib/Header' {
 declare module '@primer/components/lib/Heading' {
   import {Heading} from '@primer/components'
   export default Heading
+}
+
+declare module '@primer/components/lib/ButtonClose' {
+  import {ButtonClose} from '@primer/components'
+  export default ButtonClose
 }
 
 declare module '@primer/components/lib/ButtonDanger' {
@@ -631,6 +655,11 @@ declare module '@primer/components/lib/Details' {
 declare module '@primer/components/lib/hooks/useDetails' {
   import {useDetails} from '@primer/components'
   export default useDetails
+}
+
+declare module '@primer/components/lib/hooks/useMouseIntent' {
+  import {useMouseIntent} from '@primer/components'
+  export default useMouseIntent
 }
 
 declare module '@primer/components/lib/BaseStyles' {

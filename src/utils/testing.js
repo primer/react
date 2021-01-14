@@ -3,7 +3,7 @@ import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {ThemeProvider} from 'styled-components'
 import {default as defaultTheme} from '../theme'
 

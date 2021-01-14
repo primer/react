@@ -42,3 +42,168 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
   />
 </div>
 `;
+
+exports[`Dialog renders consistently 1`] = `
+Array [
+  .c0:before {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 80;
+  display: block;
+  cursor: default;
+  content: ' ';
+  background: transparent;
+  z-index: 99;
+  background: rgba(27,31,35,0.5);
+}
+
+<span
+    className="c0"
+  />,
+  .c4 {
+  padding: 16px;
+}
+
+.c1 {
+  border: none;
+  padding: 0;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.c1:focus {
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c1:active {
+  color: #24292e;
+}
+
+.c3 {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #24292e;
+}
+
+.c5 {
+  font-family: sans-serif;
+}
+
+.c0 {
+  box-shadow: 0px 4px 32px rgba(0,0,0,0.35);
+  border-radius: 6px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  max-height: 80vh;
+  z-index: 999;
+  margin: 10vh auto;
+  background-color: #fff;
+  width: 440px;
+  outline: none;
+}
+
+.c2 {
+  padding: 16px;
+  background-color: #f6f8fa;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 4px 4px 0px 0px;
+  border-bottom: 1px solid #dad5da;
+}
+
+@media screen and (max-width:750px) {
+  .c0 {
+    width: 100vw;
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width:750px) {
+  .c2 {
+    border-radius: 0px;
+  }
+}
+
+<div
+    aria-labelledby="header"
+    aria-modal="true"
+    className="c0"
+    onKeyDown={[Function]}
+    role="dialog"
+    tabIndex={-1}
+  >
+    <button
+      aria-label="Close"
+      className="c1"
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={16}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={16}
+      />
+    </button>
+    <div
+      className="c2"
+      display="flex"
+      id="header"
+    >
+      <span
+        className="c3"
+        color="gray.9"
+        fontFamily="sans-serif"
+        fontSize={1}
+        fontWeight="bold"
+      >
+        Title
+      </span>
+    </div>
+    <div
+      className="c4"
+    >
+      <span
+        className="c5"
+        fontFamily="sans-serif"
+      >
+        Some content
+      </span>
+    </div>
+  </div>,
+]
+`;
