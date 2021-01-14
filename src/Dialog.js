@@ -81,6 +81,7 @@ const Overlay = styled.span`
 
 const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
   const backupRef = useRef(null)
+  const overlayRef = useRef(null)
   const modalRef = forwardedRef ?? backupRef
   const closeButtonRef = useRef(null)
 
@@ -98,10 +99,11 @@ const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, return
     initialFocusRef,
     closeButtonRef,
     returnFocusRef,
+    overlayRef,
   })
   return isOpen ? (
     <>
-      <Overlay />
+      <Overlay ref={overlayRef} />
       <StyledDialog tabIndex={-1} ref={modalRef} role="dialog" aria-modal="true" {...props} {...getDialogProps()}>
         <ButtonClose
           ref={closeButtonRef}

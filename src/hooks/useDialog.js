@@ -8,14 +8,19 @@ function focusable(el) {
   return el.tabIndex >= 0 && !el.disabled && visible(el)
 }
 
-function useDialog({modalRef, isOpen, onDismiss, initialFocusRef, closeButtonRef} = {}) {
+function useDialog({modalRef, overlayRef, isOpen, onDismiss, initialFocusRef, closeButtonRef} = {}) {
   const onClickOutside = useCallback(
     (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
+      if (
+        modalRef.current &&
+        overlayRef.current &&
+        !modalRef.current.contains(e.target) &&
+        overlayRef.current.contains(e.target)
+      ) {
         onDismiss()
       }
     },
-    [onDismiss, modalRef]
+    [onDismiss, modalRef, overlayRef]
   )
 
   useEffect(() => {
