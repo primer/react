@@ -70,7 +70,7 @@ describe('SelectMenu', () => {
     })
   }
 
-  it.only('List has a tabIndex of 0', () => {
+  it('List has a tabIndex of 0', () => {
     expect(render(<SelectMenu.List />).props['tabIndex']).toEqual(0)
   })
 
