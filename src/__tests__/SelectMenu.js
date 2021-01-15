@@ -70,12 +70,17 @@ describe('SelectMenu', () => {
     })
   }
 
+  it.only('List has a tabIndex of 0', () => {
+    expect(render(<SelectMenu.List />).props['tabIndex']).toEqual(0)
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BasicSelectMenu />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
   })
+
   it('implements system props', () => {
     expect(SelectMenu).toImplementSystemProps(COMMON)
   })

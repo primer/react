@@ -37,6 +37,7 @@ const SelectMenuList = styled.div`
 `
 SelectMenuList.defaultProps = {
   theme,
+  tabIndex: 0,
 }
 
 SelectMenuList.propTypes = {
