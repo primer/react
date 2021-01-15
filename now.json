@@ -3,7 +3,6 @@
   "version": 2,
   "alias": "primer-components.now.sh",
   "routes": [
-    {"src": "/playroom(/.*)?", "dest": "$1"},
     {"src": "/components(/.*)?", "dest": "/docs$1"},
     {
       "src": "/",
@@ -14,11 +13,6 @@
   "builds": [
     {
       "src": "docs/package.json",
-      "use": "@now/static-build",
-      "config": {"distDir": "public"}
-    },
-    {
-      "src": "package.json",
       "use": "@now/static-build",
       "config": {"distDir": "public"}
     }

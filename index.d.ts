@@ -323,8 +323,7 @@ declare module '@primer/components' {
     Content: React.FunctionComponent<PopoverContentProps>
   }
 
-  export interface PositionComponentProps
-    extends PositionProps, BoxProps {}
+  export interface PositionComponentProps extends PositionProps, BoxProps {}
 
   export const Relative: React.FunctionComponent<PositionComponentProps>
   export const Absolute: React.FunctionComponent<PositionComponentProps>

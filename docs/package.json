@@ -17,6 +17,7 @@
     "@styled-system/theme-get": "^5.1.0",
     "gatsby": "2.27.5",
     "gatsby-plugin-alias-imports": "^1.0.5",
+    "gatsby-plugin-typescript": "2.10.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
