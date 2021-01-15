@@ -34,7 +34,6 @@
     "lib",
     "lib-esm",
     "index.d.ts",
-    "types",
     "!lib/__tests__",
     "!lib-esm/__tests__"
   ],
