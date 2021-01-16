@@ -1,20 +1,33 @@
 {
   "parser": "@babel/eslint-parser",
   "extends": [
-    "plugin:github/es6",
-    "plugin:github/react",
+    "plugin:github/recommended",
+    "plugin:github/browser",
+    "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended"
   ],
   "globals": {
     "__DEV__": "readonly"
   },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
   "rules": {
+    "react/prop-types": 0,
+    "react/display-name": 0,
     "import/no-namespace": 0,
     "no-shadow": 0,
-    "no-unused-vars": ["error", {
-      "ignoreRestSiblings": true
-    }],
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
     "eslint-comments/no-use": 0,
     "react-hooks/exhaustive-deps": "error",
     "jsx-a11y/label-has-for": [
