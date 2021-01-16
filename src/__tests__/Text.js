@@ -12,7 +12,7 @@ describe('Text', () => {
   behavesAsComponent(Text, [COMMON, TYPOGRAPHY])
 
   checkExports('Text', {
-    default: Text,
+    default: Text
   })
 
   it('renders a <span> by default', () => {
@@ -36,8 +36,8 @@ describe('Text', () => {
     expect(renderStyles(<Text fontSize={[1, 2]} />)).toEqual({
       'font-size': px(theme.fontSizes[1]),
       [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
-        'font-size': px(theme.fontSizes[2]),
-      },
+        'font-size': px(theme.fontSizes[2])
+      }
     })
   })
 
@@ -45,8 +45,8 @@ describe('Text', () => {
     expect(renderStyles(<Text lineHeight={['condensed', 'default']} />)).toEqual({
       'line-height': String(theme.lineHeights.condensed),
       [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
-        'line-height': String(theme.lineHeights.default),
-      },
+        'line-height': String(theme.lineHeights.default)
+      }
     })
   })
 

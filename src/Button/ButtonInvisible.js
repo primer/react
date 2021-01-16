@@ -20,12 +20,12 @@ const ButtonInvisible = styled(ButtonBase)`
 `
 
 ButtonInvisible.defaultProps = {
-  theme,
+  theme
 }
 
 ButtonInvisible.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default ButtonInvisible

@@ -3,7 +3,7 @@ import {useEffect, useCallback} from 'react'
 // adapted from details-menu web component https://github.com/github/details-menu-element
 function useKeyboardNav(details, open, setOpen) {
   const handleKeyDown = useCallback(
-    (event) => {
+    event => {
       const closeDetails = () => {
         setOpen(false)
         const summary = details.current.querySelector('summary')
@@ -12,7 +12,7 @@ function useKeyboardNav(details, open, setOpen) {
       const openDetails = () => {
         setOpen(true)
       }
-      const focusItem = (next) => {
+      const focusItem = next => {
         const options = Array.from(
           details.current.querySelectorAll(
             '[role^="menuitem"]:not([hidden]):not([disabled]):not([aria-disabled="true"])'
@@ -25,7 +25,7 @@ function useKeyboardNav(details, open, setOpen) {
         return found || def
       }
 
-      const isMenuItem = (el) => {
+      const isMenuItem = el => {
         const role = el.getAttribute('role')
         return role === 'menuitem' || role === 'menuitemcheckbox' || role === 'menuitemradio'
       }

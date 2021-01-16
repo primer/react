@@ -38,12 +38,12 @@ const ButtonPrimary = styled(ButtonBase)`
 `
 
 ButtonPrimary.defaultProps = {
-  theme,
+  theme
 }
 
 ButtonPrimary.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default ButtonPrimary

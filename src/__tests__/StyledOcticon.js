@@ -12,7 +12,7 @@ describe('StyledOcticon', () => {
   behavesAsComponent(StyledOcticon, [COMMON], () => <StyledOcticon icon={XIcon} />)
 
   checkExports('StyledOcticon', {
-    default: StyledOcticon,
+    default: StyledOcticon
   })
 
   it('implements system props', () => {

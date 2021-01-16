@@ -3,7 +3,7 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
 
   if (showPages) {
     const pageNums = []
-    const addPage = (n) => {
+    const addPage = n => {
       if (n >= 1 && n <= pageCount) {
         pageNums.push(n)
       }
@@ -65,13 +65,13 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
           // we need to add a break
           pages.push({
             type: 'BREAK',
-            num: 1,
+            num: 1
           })
         }
         pages.push({
           type: 'NUM',
           num,
-          selected,
+          selected
         })
       } else {
         const last = sorted[idx - 1]
@@ -80,18 +80,18 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
           pages.push({
             type: 'NUM',
             num,
-            selected,
+            selected
           })
         } else {
           // We skipped some, so add a break
           pages.push({
             type: 'BREAK',
-            num: num - 1,
+            num: num - 1
           })
           pages.push({
             type: 'NUM',
             num,
-            selected,
+            selected
           })
         }
       }
@@ -103,7 +103,7 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
       // so we need an additional break
       pages.push({
         type: 'BREAK',
-        num: pageCount,
+        num: pageCount
       })
     }
   }
@@ -129,7 +129,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
           rel: 'prev',
           href: hrefBuilder(page.num),
           'aria-label': 'Previous Page',
-          onClick,
+          onClick
         })
       }
       break
@@ -144,7 +144,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
           rel: 'next',
           href: hrefBuilder(page.num),
           'aria-label': 'Next Page',
-          onClick,
+          onClick
         })
       }
       break

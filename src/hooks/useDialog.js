@@ -10,7 +10,7 @@ function focusable(el) {
 
 function useDialog({modalRef, overlayRef, isOpen, onDismiss, initialFocusRef, closeButtonRef} = {}) {
   const onClickOutside = useCallback(
-    (e) => {
+    e => {
       if (
         modalRef.current &&
         overlayRef.current &&
@@ -60,7 +60,7 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss, initialFocusRef, cl
   )
 
   const handleTab = useCallback(
-    (e) => {
+    e => {
       const movement = e.shiftKey ? -1 : 1
       getFocusableItem(e, movement).focus()
     },
@@ -68,7 +68,7 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss, initialFocusRef, cl
   )
 
   const onKeyDown = useCallback(
-    (event) => {
+    event => {
       switch (event.key) {
         case 'Tab':
           handleTab(event)

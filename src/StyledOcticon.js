@@ -16,7 +16,7 @@ const StyledOcticon = styled(IconWrapper)`
 
 StyledOcticon.defaultProps = {
   theme,
-  size: 16,
+  size: 16
 }
 
 StyledOcticon.propTypes = {
@@ -25,7 +25,7 @@ StyledOcticon.propTypes = {
   icon: PropTypes.elementType.isRequired,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['small', 'medium', 'large'])]),
   theme: PropTypes.object,
-  verticalAlign: PropTypes.oneOf(['middle', 'text-bottom', 'text-top', 'top']),
+  verticalAlign: PropTypes.oneOf(['middle', 'text-bottom', 'text-top', 'top'])
 }
 
 export default StyledOcticon

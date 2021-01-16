@@ -27,7 +27,7 @@ Header.Item = styled.div`
   align-items: center;
   flex-wrap: nowrap;
 
-  ${(props) =>
+  ${props =>
     props.full &&
     css`
       flex: auto;
@@ -39,7 +39,7 @@ Header.Item = styled.div`
 `
 Header.Item.displayName = 'Header.Item'
 
-Header.Link = styled.a.attrs((props) => {
+Header.Link = styled.a.attrs(props => {
   const isReactRouter = typeof props.to === 'string'
   if (isReactRouter) {
     // according to their docs, NavLink supports aria-current:
@@ -72,26 +72,26 @@ Header.Link.displayName = 'Header.Link'
 Header.propTypes = {
   ...sx.propTypes,
   ...COMMON.propTypes,
-  ...BORDER.propTypes,
+  ...BORDER.propTypes
 }
 
 Header.defaultProps = {
-  theme,
+  theme
 }
 
 Header.Item.defaultProps = {
-  theme,
+  theme
 }
 
 Header.Item.propTypes = {
   full: PropTypes.bool,
   ...COMMON.propTypes,
   ...BORDER.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 Header.Link.defaultProps = {
-  theme,
+  theme
 }
 
 Header.Link.propTypes = {
@@ -101,7 +101,7 @@ Header.Link.propTypes = {
   ...COMMON.propTypes,
   ...BORDER.propTypes,
   ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default Header

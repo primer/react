@@ -7,7 +7,7 @@ import {
   ButtonOutline,
   ButtonInvisible,
   ButtonGroup,
-  ButtonTableList,
+  ButtonTableList
 } from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
@@ -29,7 +29,7 @@ describe('Button', () => {
     ButtonInvisible,
     ButtonGroup,
     ButtonTableList,
-    ButtonClose,
+    ButtonClose
   })
 
   it('renders a <button>', () => {

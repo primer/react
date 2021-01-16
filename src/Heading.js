@@ -14,14 +14,14 @@ const Heading = styled.h2`
 `
 
 Heading.defaultProps = {
-  theme,
+  theme
 }
 
 Heading.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes,
   theme: PropTypes.object,
-  ...TYPOGRAPHY.propTypes,
+  ...TYPOGRAPHY.propTypes
 }
 
 export default Heading

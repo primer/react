@@ -46,7 +46,7 @@ const ButtonTableList = styled.summary`
 `
 
 ButtonTableList.defaultProps = {
-  theme,
+  theme
 }
 
 ButtonTableList.propTypes = {
@@ -54,7 +54,7 @@ ButtonTableList.propTypes = {
   ...sx.propTypes,
   ...COMMON.propTypes,
   ...TYPOGRAPHY.propTypes,
-  ...LAYOUT.propTypes,
+  ...LAYOUT.propTypes
 }
 
 export default ButtonTableList

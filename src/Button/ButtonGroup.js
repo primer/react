@@ -49,12 +49,12 @@ const ButtonGroup = styled(Box)`
 
 ButtonGroup.defaultProps = {
   display: 'inline-block',
-  theme,
+  theme
 }
 
 ButtonGroup.propTypes = {
   ...Box.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default ButtonGroup

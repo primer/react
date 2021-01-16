@@ -119,7 +119,7 @@ const getDirectionStyles = (theme, direction) => {
         top: -14px;
         left: 10px;
       }
-    `,
+    `
   }
   return map[direction]
 }

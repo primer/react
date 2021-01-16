@@ -16,7 +16,7 @@ describe('position components', () => {
       Absolute,
       Fixed,
       Relative,
-      Sticky,
+      Sticky
     })
 
     it('should have no axe violations', async () => {

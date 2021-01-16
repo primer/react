@@ -28,7 +28,7 @@ describe.skip('SomeComponent', () => {
   it('renders "x" prop into styles', () => {
     // use the .toMatchKeys() to test a subset of the rendered styles
     expect(renderStyles(<SomeComponent scheme="green" />)).toMatchKeys({
-      'background-color': colors.green[5],
+      'background-color': colors.green[5]
     })
 
     // or use .toEqual() if:
@@ -36,11 +36,11 @@ describe.skip('SomeComponent', () => {
     // * you know the other ("base") styles that your component should
     //   render, and you can spread them into the result
     const defaultStyles = {
-      color: colors.bodytext,
+      color: colors.bodytext
     }
     expect(renderStyles(<SomeComponent scheme="green" />)).toEqual({
       ...defaultStyles,
-      'background-color': colors.green[5],
+      'background-color': colors.green[5]
     })
   })
 })

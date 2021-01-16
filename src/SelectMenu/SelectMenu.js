@@ -50,11 +50,11 @@ const SelectMenu = React.forwardRef(({children, initialTab, as, ...rest}, forwar
     setSelectedTab,
     setOpen,
     open,
-    initialTab,
+    initialTab
   }
 
   const onClickOutside = useCallback(
-    (event) => {
+    event => {
       if (ref.current && !ref.current.contains(event.target)) {
         if (!event.defaultPrevented) {
           setOpen(false)
@@ -105,13 +105,13 @@ SelectMenu.Header = SelectMenuHeader
 SelectMenu.LoadingAnimation = SelectMenuLoadingAnimation
 
 SelectMenu.defaultProps = {
-  theme,
+  theme
 }
 
 SelectMenu.propTypes = {
   initialTab: PropTypes.string,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default SelectMenu

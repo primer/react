@@ -40,12 +40,12 @@ const ButtonDanger = styled(ButtonBase)`
 `
 
 ButtonDanger.defaultProps = {
-  theme,
+  theme
 }
 
 ButtonDanger.propTypes = {
   ...ButtonBase.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default ButtonDanger

@@ -11,7 +11,7 @@ describe('Breadcrumb', () => {
   behavesAsComponent(Breadcrumb, [COMMON])
 
   checkExports('Breadcrumb', {
-    default: Breadcrumb,
+    default: Breadcrumb
   })
 
   it('should have no axe violations', async () => {

@@ -29,7 +29,7 @@ describe('Avatar', () => {
   behavesAsComponent(AvatarStack, [COMMON], () => avatarComp)
 
   checkExports('AvatarStack', {
-    default: AvatarStack,
+    default: AvatarStack
   })
 
   it('should have no axe violations', async () => {

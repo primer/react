@@ -11,7 +11,7 @@ describe('PointerBox', () => {
   behavesAsComponent(PointerBox, [COMMON, LAYOUT, BORDER, FLEX])
 
   checkExports('PointerBox', {
-    default: PointerBox,
+    default: PointerBox
   })
 
   it('renders a <Caret> in <BorderBox> with relative positioning', () => {
