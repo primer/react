@@ -23,13 +23,13 @@ const TabPanel = styled(TabPanelBase)`
 `
 
 TabPanel.defaultProps = {
-  theme,
+  theme
 }
 
 TabPanel.propTypes = {
   tabName: PropTypes.string,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 TabPanel.displayName = 'SelectMenu.TabPanel'

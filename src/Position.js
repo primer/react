@@ -12,18 +12,18 @@ const Position = styled(Box)`
 `
 
 Position.defaultProps = {
-  theme,
+  theme
 }
 
 Position.propTypes = {
   ...Box.propTypes,
   ...POSITION.propTypes,
   theme: PropTypes.object,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 function withPosition(position) {
-  const WithPosition = (props) => <Position {...props} position={position.toLowerCase()} />
+  const WithPosition = props => <Position {...props} position={position.toLowerCase()} />
   WithPosition.propTypes = Position.propTypes
   WithPosition.defaultProps = Position.defaultProps
   WithPosition.displayName = `Position.${position}`
@@ -38,5 +38,5 @@ export const Sticky = withPosition('Sticky')
 Sticky.defaultProps = {
   theme,
   top: 0,
-  zIndex: 1,
+  zIndex: 1
 }

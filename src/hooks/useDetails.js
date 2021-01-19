@@ -6,7 +6,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside} = {}
   const customRef = ref ?? backupRef
 
   const onClickOutsideInternal = useCallback(
-    (event) => {
+    event => {
       if (event.target.closest('details') !== customRef.current) {
         onClickOutside && onClickOutside(event)
         if (!event.defaultPrevented) {
@@ -27,7 +27,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside} = {}
     }
   }, [open, closeOnOutsideClick, onClickOutsideInternal])
 
-  const handleToggle = (e) => {
+  const handleToggle = e => {
     if (!e.defaultPrevented) {
       setOpen(e.target.open)
     }

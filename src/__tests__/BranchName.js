@@ -11,7 +11,7 @@ describe('BranchName', () => {
   behavesAsComponent(BranchName, [COMMON])
 
   checkExports('BranchName', {
-    default: BranchName,
+    default: BranchName
   })
 
   it('should have no axe violations', async () => {

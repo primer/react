@@ -52,9 +52,9 @@ const UnderlineNav = styled(UnderlineNavBase)`
   ${sx};
 `
 
-UnderlineNav.Link = styled.a.attrs((props) => ({
+UnderlineNav.Link = styled.a.attrs(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
 }))`
   padding: ${get('space.3')} ${get('space.2')};
   margin-right: ${get('space.3')};
@@ -91,7 +91,7 @@ UnderlineNav.Link = styled.a.attrs((props) => ({
 `
 
 UnderlineNav.defaultProps = {
-  theme,
+  theme
 }
 
 UnderlineNav.propTypes = {
@@ -102,11 +102,11 @@ UnderlineNav.propTypes = {
   label: PropTypes.string,
   theme: PropTypes.object,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 UnderlineNav.Link.defaultProps = {
-  theme,
+  theme
 }
 
 UnderlineNav.Link.propTypes = {
@@ -114,7 +114,7 @@ UnderlineNav.Link.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 UnderlineNav.Link.displayName = 'UnderlineNav.Link'

@@ -117,16 +117,16 @@ function usePaginationPages({
   hrefBuilder,
   marginPageCount,
   showPages,
-  surroundingPageCount,
+  surroundingPageCount
 }) {
-  const pageChange = React.useCallback((n) => (e) => onPageChange(e, n), [onPageChange])
+  const pageChange = React.useCallback(n => e => onPageChange(e, n), [onPageChange])
 
   const model = React.useMemo(() => {
     return buildPaginationModel(pageCount, currentPage, showPages, marginPageCount, surroundingPageCount)
   }, [pageCount, currentPage, showPages, marginPageCount, surroundingPageCount])
 
   const children = React.useMemo(() => {
-    return model.map((page) => {
+    return model.map(page => {
       const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
       return (
         <Page {...props} key={key} theme={theme}>
@@ -165,7 +165,7 @@ function Pagination({
     hrefBuilder,
     marginPageCount,
     showPages,
-    surroundingPageCount,
+    surroundingPageCount
   })
   return (
     <PaginationContainer aria-label="Pagination" {...rest} theme={theme}>
@@ -191,7 +191,7 @@ Pagination.propTypes = {
   showPages: PropTypes.bool,
   surroundingPageCount: PropTypes.number,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 Pagination.defaultProps = {
@@ -200,7 +200,7 @@ Pagination.defaultProps = {
   onPageChange: noop,
   showPages: true,
   surroundingPageCount: 2,
-  theme,
+  theme
 }
 
 export default Pagination

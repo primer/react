@@ -18,12 +18,12 @@ const Details = styled.details`
 Details.displayName = 'Details'
 
 Details.defaultProps = {
-  theme,
+  theme
 }
 
 Details.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default Details

@@ -26,7 +26,7 @@ function SideNavBase({variant, className, bordered, children, ...props}) {
 const SideNav = styled(SideNavBase)`
   background-color: ${get('colors.white')};
 
-  ${(props) =>
+  ${props =>
     props.bordered &&
     css`
       // Remove duplicate borders from nested SideNavs
@@ -41,7 +41,7 @@ const SideNav = styled(SideNavBase)`
   ${sx};
 `
 
-SideNav.Link = styled(Link).attrs((props) => {
+SideNav.Link = styled(Link).attrs(props => {
   const isReactRouter = typeof props.to === 'string'
   if (isReactRouter || props.selected) {
     // according to their docs, NavLink supports aria-current:
@@ -53,7 +53,7 @@ SideNav.Link = styled(Link).attrs((props) => {
 })`
   position: relative;
   display: block;
-  ${(props) =>
+  ${props =>
     props.variant === 'full' &&
     css`
       display: flex;
@@ -143,7 +143,7 @@ SideNav.Link = styled(Link).attrs((props) => {
 
 SideNav.defaultProps = {
   theme,
-  variant: 'normal',
+  variant: 'normal'
 }
 
 SideNav.propTypes = {
@@ -152,12 +152,12 @@ SideNav.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['normal', 'lightweight']),
-  ...BorderBox.propTypes,
+  ...BorderBox.propTypes
 }
 
 SideNav.Link.defaultProps = {
   theme,
-  variant: 'normal',
+  variant: 'normal'
 }
 
 SideNav.Link.propTypes = {
@@ -165,7 +165,7 @@ SideNav.Link.propTypes = {
   selected: PropTypes.bool,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['normal', 'full']),
-  ...Link.propTypes,
+  ...Link.propTypes
 }
 
 SideNav.Link.displayName = 'SideNav.Link'

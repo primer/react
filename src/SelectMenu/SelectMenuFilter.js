@@ -41,13 +41,13 @@ const SelectMenuFilter = forwardRef(({theme, value, sx, ...rest}, forwardedRef) 
 })
 
 SelectMenuFilter.defaultProps = {
-  theme,
+  theme
 }
 
 SelectMenuFilter.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes,
-  value: PropTypes.string,
+  value: PropTypes.string
 }
 
 SelectMenuFilter.displayName = 'SelectMenu.Filter'

@@ -11,7 +11,7 @@ describe('ProgressBar', () => {
   behavesAsComponent(ProgressBar, [COMMON])
 
   checkExports('ProgressBar', {
-    default: ProgressBar,
+    default: ProgressBar
   })
 
   it('should have no axe violations', async () => {

@@ -55,7 +55,7 @@ const MenuWithTabs = ({onClick}) => {
 
 describe('SelectMenu', () => {
   checkExports('SelectMenu', {
-    default: SelectMenu,
+    default: SelectMenu
   })
 
   for (const subComp of ['List', 'Divider', 'Filter', 'Item', 'List', 'Modal', 'Tabs', 'Tab', 'TabPanel', 'Header']) {

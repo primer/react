@@ -34,7 +34,7 @@ const ButtonClose = forwardRef((props, ref) => {
 })
 
 ButtonClose.defaultProps = {
-  theme,
+  theme
 }
 
 ButtonClose.propTypes = {
@@ -42,7 +42,7 @@ ButtonClose.propTypes = {
   onClick: PropTypes.func,
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default ButtonClose

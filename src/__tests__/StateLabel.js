@@ -14,11 +14,11 @@ describe('StateLabel', () => {
     // the sx prop implementation test uses to make sure the prop is working correctly.
     // Despite my best efforts, I cannot figure out why this is happening. So,
     // unfortunately, we will simply skip this test.
-    skipSx: true,
+    skipSx: true
   })
 
   checkExports('StateLabel', {
-    default: StateLabel,
+    default: StateLabel
   })
 
   it('should have no axe violations', async () => {
