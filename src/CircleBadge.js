@@ -10,19 +10,19 @@ import StyledOcticon from './StyledOcticon'
 const variantSizes = {
   small: 56,
   medium: 96,
-  large: 128,
+  large: 128
 }
 
 const sizeStyles = ({size, variant}) => {
   const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
     width: calc,
-    height: calc,
+    height: calc
   }
 }
 
 const CircleBadge = styled.div`
-  display: ${(props) => (props.inline ? 'inline-flex' : 'flex')};
+  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.white')};
@@ -32,14 +32,14 @@ const CircleBadge = styled.div`
   ${sx};
 `
 
-CircleBadge.Icon = (props) => (
+CircleBadge.Icon = props => (
   <StyledOcticon {...props} sx={Object.assign(props.sx, {height: 'auto', maxWidth: '60%', maxHeight: '55%'})} />
 )
 
 CircleBadge.defaultProps = {
   inline: false,
   theme,
-  variant: 'medium',
+  variant: 'medium'
 }
 
 CircleBadge.propTypes = {
@@ -48,16 +48,16 @@ CircleBadge.propTypes = {
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['small', 'medium', 'large']),
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 CircleBadge.Icon.defaultProps = {
   theme,
-  sx: {},
+  sx: {}
 }
 
 CircleBadge.Icon.propTypes = {
-  ...StyledOcticon.propTypes,
+  ...StyledOcticon.propTypes
 }
 
 CircleBadge.Icon.displayName = 'CircleBadge.Icon'

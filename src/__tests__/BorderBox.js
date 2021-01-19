@@ -12,7 +12,7 @@ describe('BorderBox', () => {
   behavesAsComponent(BorderBox, [LAYOUT, COMMON, BORDER, FLEX])
 
   checkExports('BorderBox', {
-    default: BorderBox,
+    default: BorderBox
   })
 
   it('should have no axe violations', async () => {

@@ -8,12 +8,12 @@ import sx from './sx'
 
 const Popover = styled.div.attrs(({className, caret}) => {
   return {
-    className: classnames(className, `caret-pos--${caret}`),
+    className: classnames(className, `caret-pos--${caret}`)
   }
 })`
-  position: ${(props) => (props.relative ? 'relative' : 'absolute')};
+  position: ${props => (props.relative ? 'relative' : 'absolute')};
   z-index: 100;
-  display: ${(props) => (props.open ? 'block' : 'none')};
+  display: ${props => (props.open ? 'block' : 'none')};
 
   ${COMMON};
   ${LAYOUT};
@@ -213,12 +213,12 @@ Popover.CARET_POSITIONS = [
   'left-bottom',
   'left-top',
   'right-bottom',
-  'right-top',
+  'right-top'
 ]
 
 Popover.defaultProps = {
   caret: 'top',
-  theme,
+  theme
 }
 
 Popover.propTypes = {
@@ -230,18 +230,18 @@ Popover.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes,
   ...POSITION.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 Popover.Content.defaultProps = {
-  theme,
+  theme
 }
 
 Popover.Content.propTypes = {
   as: PropTypes.elementType,
   theme: PropTypes.object,
   ...BorderBox.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 Popover.Content.displayName = 'Popover.Content'

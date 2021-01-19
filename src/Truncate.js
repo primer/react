@@ -8,13 +8,13 @@ import sx from './sx'
 const Truncate = styled('div')`
   ${TYPOGRAPHY}
   ${COMMON}
-  display: ${(props) => (props.inline ? 'inline-block' : 'inherit')};
+  display: ${props => (props.inline ? 'inline-block' : 'inherit')};
   overflow: hidden;
   text-overflow: ellipsis;
-  vertical-align: ${(props) => (props.inline ? 'top' : 'initial')};
+  vertical-align: ${props => (props.inline ? 'top' : 'initial')};
   white-space: nowrap;
   ${maxWidth}
-  ${(props) => (props.expandable ? `&:hover { max-width: 10000px; }` : '')}
+  ${props => (props.expandable ? `&:hover { max-width: 10000px; }` : '')}
   ${sx};
 `
 
@@ -23,7 +23,7 @@ Truncate.defaultProps = {
   expandable: false,
   inline: false,
   maxWidth: 125,
-  theme,
+  theme
 }
 
 Truncate.propTypes = {
@@ -34,7 +34,7 @@ Truncate.propTypes = {
   ...sx.propTypes,
   maxWidth: PropTypes.number,
   theme: PropTypes.object,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default Truncate

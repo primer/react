@@ -255,7 +255,7 @@ Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
 Tooltip.defaultProps = {
   theme,
-  direction: 'n',
+  direction: 'n'
 }
 
 Tooltip.propTypes = {
@@ -267,7 +267,7 @@ Tooltip.propTypes = {
   theme: PropTypes.object,
   wrap: PropTypes.bool,
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 export default Tooltip

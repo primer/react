@@ -12,7 +12,7 @@ describe('Avatar', () => {
   behavesAsComponent(Avatar, [{propTypes: systemPropTypes.space}])
 
   checkExports('Avatar', {
-    default: Avatar,
+    default: Avatar
   })
 
   it('should have no axe violations', async () => {

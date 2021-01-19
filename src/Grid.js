@@ -9,12 +9,12 @@ const Grid = styled(Box)`
 
 Grid.defaultProps = {
   theme,
-  display: 'grid',
+  display: 'grid'
 }
 
 Grid.propTypes = {
   ...Box.propTypes,
-  ...GRID.propTypes,
+  ...GRID.propTypes
 }
 
 export default Grid

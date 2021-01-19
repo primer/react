@@ -12,7 +12,7 @@ describe('Flash', () => {
   behavesAsComponent(Flash, [COMMON])
 
   checkExports('Flash', {
-    default: Flash,
+    default: Flash
   })
 
   it('should have no axe violations', async () => {

@@ -11,7 +11,7 @@ describe('Grid', () => {
   behavesAsComponent(Grid, [COMMON, FLEX, LAYOUT, GRID])
 
   checkExports('Grid', {
-    default: Grid,
+    default: Grid
   })
 
   it('should have no axe violations', async () => {

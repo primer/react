@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param, jsdoc/require-returns, jsdoc/require-description-complete-sentence, jsdoc/match-description */
 import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
@@ -52,7 +51,7 @@ export function renderRoot(component) {
  */
 export function renderClasses(component) {
   const {
-    props: {className},
+    props: {className}
   } = render(component)
   return className ? className.trim().split(' ') : []
 }
@@ -78,7 +77,7 @@ export function percent(value) {
 
 export function renderStyles(node) {
   const {
-    props: {className},
+    props: {className}
   } = render(node)
   return getComputedStyles(className)
 }
@@ -158,14 +157,13 @@ export function getClasses(node) {
   return className ? className.trim().split(/ +/) : []
 }
 
-export function loadCSS(path) {
-  return readFile(require.resolve(path), 'utf8').then((css) => {
-    const style = document.createElement('style')
-    style.setAttribute('data-path', path)
-    style.textContent = css
-    document.head.appendChild(style)
-    return style
-  })
+export async function loadCSS(path) {
+  const css = await readFile(require.resolve(path), 'utf8')
+  const style = document.createElement('style')
+  style.setAttribute('data-path', path)
+  style.textContent = css
+  document.head.appendChild(style)
+  return style
 }
 
 export function unloadCSS(path) {

@@ -11,7 +11,7 @@ const AvatarStackWrapper = styled.span`
   display: flex;
   position: relative;
   height: 20px;
-  min-width: ${(props) => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
+  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
 
   .pc-AvatarItem {
     flex-shrink: 0;
@@ -124,11 +124,11 @@ const AvatarStackWrapper = styled.span`
   ${COMMON}
   ${sx};
 `
-const transformChildren = (children) => {
+const transformChildren = children => {
   return React.Children.map(children, (child, index) => {
     return React.cloneElement(child, {
       className: classnames(child.props.className, 'pc-AvatarItem'),
-      sx: {zIndex: 10 - index, ...child.props.sx},
+      sx: {zIndex: 10 - index, ...child.props.sx}
     })
   })
 }
@@ -138,7 +138,7 @@ const AvatarStack = ({children = [], alignRight, ...rest}) => {
   const wrapperClassNames = classnames({
     'pc-AvatarStack--two': count === 2,
     'pc-AvatarStack--three-plus': count > 2,
-    'pc-AvatarStack--right': alignRight,
+    'pc-AvatarStack--right': alignRight
   })
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
@@ -150,12 +150,12 @@ const AvatarStack = ({children = [], alignRight, ...rest}) => {
 }
 
 AvatarStack.defaultProps = {
-  theme,
+  theme
 }
 
 AvatarStack.propTypes = {
   ...COMMON.propTypes,
   alignRight: PropTypes.bool,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 export default AvatarStack

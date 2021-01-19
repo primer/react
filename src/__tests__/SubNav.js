@@ -11,7 +11,7 @@ describe('SubNav', () => {
   behavesAsComponent(SubNav, [COMMON])
 
   checkExports('SubNav', {
-    default: SubNav,
+    default: SubNav
   })
 
   it('should have no axe violations', async () => {

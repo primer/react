@@ -23,12 +23,12 @@ const SelectMenuFooter = styled.footer`
 `
 
 SelectMenuFooter.defaultProps = {
-  theme,
+  theme
 }
 
 SelectMenuFooter.propTypes = {
   ...COMMON.propTypes,
-  ...sx.propTypes,
+  ...sx.propTypes
 }
 
 SelectMenuFooter.displayName = 'SelectMenu.Footer'

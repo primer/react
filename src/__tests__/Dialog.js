@@ -76,7 +76,7 @@ describe('Dialog', () => {
   behavesAsComponent(Dialog, [COMMON, LAYOUT], () => comp, {skipAs: true, skipSx: true})
 
   checkExports('Dialog', {
-    default: Dialog,
+    default: Dialog
   })
 
   describe('Dialog.Header', () => {

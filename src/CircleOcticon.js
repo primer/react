@@ -19,14 +19,14 @@ function CircleOcticon(props) {
 CircleOcticon.defaultProps = {
   theme,
   ...Flex.defaultProps,
-  size: 32,
+  size: 32
 }
 
 CircleOcticon.propTypes = {
   ...Flex.propTypes,
   icon: PropTypes.elementType.isRequired,
   size: PropTypes.number,
-  theme: PropTypes.object,
+  theme: PropTypes.object
 }
 
 export default CircleOcticon

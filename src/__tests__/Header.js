@@ -11,7 +11,7 @@ describe('Header', () => {
   behavesAsComponent(Header, [COMMON, BORDER])
 
   checkExports('Header', {
-    default: Header,
+    default: Header
   })
 
   describe('Header.Item', () => {

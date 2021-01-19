@@ -20,7 +20,7 @@ const StyledDialog = styled.div`
   z-index: 999;
   margin: 10vh auto;
   background-color: ${get('colors.white')};
-  width: ${(props) => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
+  width: ${props => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
   outline: none;
 
   @media screen and (max-width: 750px) {
@@ -47,7 +47,7 @@ const DialogHeaderBase = styled(Flex)`
 `
 
 function DialogHeader({theme, children, ...rest}) {
-  if (React.Children.toArray(children).every((ch) => typeof ch === 'string')) {
+  if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
       <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
         {children}
@@ -99,7 +99,7 @@ const Dialog = forwardRef(({children, onDismiss, isOpen, initialFocusRef, return
     initialFocusRef,
     closeButtonRef,
     returnFocusRef,
-    overlayRef,
+    overlayRef
   })
   return isOpen ? (
     <>
@@ -128,16 +128,16 @@ Dialog.propTypes = {
   ...sx.propTypes,
   returnFocusRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({current: PropTypes.any})]),
   theme: PropTypes.object,
-  wide: PropTypes.bool,
+  wide: PropTypes.bool
 }
 
 DialogHeader.defaultProps = {
   backgroundColor: 'gray.1',
-  theme,
+  theme
 }
 
 DialogHeader.propTypes = {
-  ...Flex.propTypes,
+  ...Flex.propTypes
 }
 
 DialogHeader.displayName = 'Dialog.Header'
