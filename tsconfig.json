@@ -15,6 +15,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["**/__tests__/**"]
+  "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.tsx"]
 }
