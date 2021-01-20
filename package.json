@@ -70,6 +70,7 @@
     "@testing-library/react": "11.2.2",
     "@testing-library/user-event": "12.6.0",
     "@types/jest": "26.0.20",
+    "@types/jest-axe": "3.5.1",
     "@wojtekmaj/enzyme-adapter-react-17": "0.3.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
