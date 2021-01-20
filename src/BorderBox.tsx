@@ -3,9 +3,9 @@ import sx from './sx'
 import PropTypes from 'prop-types'
 import Box from './Box'
 import theme from './theme'
-import {BORDER} from './constants'
+import {BORDER, SystemBorderProps} from './constants'
 
-const BorderBox = styled(Box)`
+const BorderBox = styled(Box)<SystemBorderProps>`
   ${BORDER};
   ${sx};
 `
@@ -25,4 +25,5 @@ BorderBox.propTypes = {
   theme: PropTypes.object
 }
 
+export type BorderBoxProps = React.ComponentProps<typeof BorderBox>
 export default BorderBox
