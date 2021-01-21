@@ -12,7 +12,6 @@
     "dist:transpile:cjs": "rm -rf lib && cross-env BABEL_MODULE=commonjs babel src --out-dir lib --extensions '.js,.ts,.jsx,.tsx'",
     "dist:transpile:esm": "rm -rf lib-esm && babel src --out-dir lib-esm --extensions '.js,.ts,.jsx,.tsx'",
     "dist:types": "rm -rf types && tsc",
-    "prepublishOnly": "yarn run dist",
     "lint": "eslint src docs/components",
     "test": "jest -- src",
     "update-snapshots": "jest -u -- src",
