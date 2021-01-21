@@ -1,10 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
+import {COMMON, get, SystemCommonProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import {COMMON, get} from './constants'
-import sx from './sx'
 
-const StyledLabelGroup = styled.span`
+const LabelGroup = styled.span<SystemCommonProps & SxProp>`
   ${COMMON}
   & * {
     margin-right: ${get('space.1')};
@@ -15,8 +14,6 @@ const StyledLabelGroup = styled.span`
   ${sx};
 `
 
-const LabelGroup = ({children, ...rest}) => <StyledLabelGroup {...rest}>{children}</StyledLabelGroup>
-
 LabelGroup.defaultProps = {
   theme
 }
@@ -26,4 +23,5 @@ LabelGroup.propTypes = {
   ...sx.propTypes
 }
 
+export type LabelGroupProps = React.ComponentProps<typeof LabelGroup>
 export default LabelGroup
