@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Migrate BranchName to TypeScript
+Migrate `BranchName` to TypeScript
