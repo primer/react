@@ -19,6 +19,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Build
+        run: yarn dist
+
       - name: Test
         run: yarn test
 
