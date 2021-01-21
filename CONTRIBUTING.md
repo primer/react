@@ -264,9 +264,17 @@ This site is served as a subdirectory of [primer.style] using a [path alias](htt
 
 ### Publishing
 
-We use a custom GitHub Actions to handle all of our processes relating to publishing to NPM. This includes release candidates, canary releases, and publishing the final release.
+We use [changesets](https://github.com/atlassian/changesets) to managing versioning, publishing, and release notes. Here's how it works:
 
-The [publish GitHub Action](https://github.com/primer/publish) will automatically publish a canary release for each commit to a branch. If the branch is prefixed with `release-` it will publish a release candidate. To find the canary release or release candidate, navigate to the PR and find the `publish` check in the merge box. Clicking on the `details` link for the check will navigate you to the unpkg page for that canary release/release candidate. For more documentation on our publish GitHub Action and workflows, please refer to the [`@primer/publish` repo](https://github.com/primer/publish).
+#### Using changesets to prepare and publish a release
+
+1. When creating a new PR, changeset-bot will remind you to add a changeset if your change should trigger a new version number for the package.
+2. To create a new changeset on your local machine, run `yarn changeset` and answer the prompts. If you are introducing multiple features in the PR, add a separate changeset for each.
+3. Push your new changes along with the changeset file to your PR; changeset-bot will show that there are valid changesets in the PR.
+4. When the PR is ready, merge it to the main branch.
+5. The changeset action will automatically create a new PR that bumps the version number appropriately, creates or updates `CHANGELOG.md`, and shows the release notes that will be used in the GitHub Release notes.
+6. If you want to release more features, merge them into the main branch and changesets will update the release PR. Note that it does this via force-pushing, so you should not edit the release PR yourself.
+7. When you're ready to release, merge the release PR into the main branch and changesets will publish the new version to npm and create a GitHub Release.
 
 ## Troubleshooting
 
