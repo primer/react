@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
