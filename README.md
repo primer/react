@@ -39,6 +39,8 @@ npm install @primer/components
 yarn add @primer/components
 ```
 
+## Roadmap
+You can track our roadmap progress in the [Roadmap Project Board](https://github.com/primer/components/projects/3) and see more detail in the [quartly planning Discussions](https://github.com/primer/components/discussions?discussions_q=%5BRoadmap%5D)
 
 ## Contributing
  We love collaborating with folks inside and outside of GitHub and welcome contributions!
