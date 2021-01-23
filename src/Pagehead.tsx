@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import sx from './sx'
 
-const Pagehead = styled.div`
+const Pagehead = styled.div<SystemCommonProps & SxProp>`
   position: relative;
   padding-top: ${get('space.4')};
   padding-bottom: ${get('space.4')};
@@ -24,4 +24,5 @@ Pagehead.propTypes = {
   ...sx.propTypes
 }
 
+export type PageheadProps = React.ComponentProps<typeof Pagehead>
 export default Pagehead
