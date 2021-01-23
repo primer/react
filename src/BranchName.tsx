@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import sx from './sx'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
 
-const BranchName = styled.a`
+const BranchName = styled.a<SystemCommonProps & SxProp>`
   display: inline-block;
   padding: 2px 6px;
   font-size: ${get('fontSizes.0')};
@@ -27,4 +27,5 @@ BranchName.propTypes = {
   theme: PropTypes.object
 }
 
+export type BranchNameProps = React.ComponentProps<typeof BranchName>
 export default BranchName
