@@ -89,9 +89,9 @@ Some of our GitHub custom elements such as details-dialog and details-menu make 
 Building behaviors in React Hooks gives us the ability to provide things like state and state change hooks to the consumer of the component. This allows the user to build on additional behaviors to the component based on the state or other variables provided to the component consumer. Doing the same with custom elements would require listening to events on the document[^3] and reacting to them. This is certainly do-able, but goes against some of the foundational principles of React (reacting to changes in the DOM vs changes in React state).
 
 ### Organizational Overhead
-GitHub’s custom elements are all managed in different repos which introduces more maintenance overhead.
-Reacting to changes will take a bit more time, as we’ll need to wait for changes to be made to the custom elements until we can update Primer React Components (versus having behavior Hooks in PRC that we can update at our leisure).
-Engineers who want to contribute to Primer React Components to build new components and behaviors would need to be familiar with both custom elements and React, two very different paradigms, and context switch between the two.
+- GitHub’s custom elements are all managed in different repos which introduces more maintenance overhead.
+- Reacting to changes will take a bit more time, as we’ll need to wait for changes to be made to the custom elements until we can update Primer React Components (versus having behavior Hooks in PRC that we can update at our leisure).
+- Engineers who want to contribute to Primer React Components to build new components and behaviors would need to be familiar with both custom elements and React, two very different paradigms, and context switch between the two.
 
 ### Other
 - The custom element & web component API progress slower than React due to changes needing to go through the whatwq standards process.
