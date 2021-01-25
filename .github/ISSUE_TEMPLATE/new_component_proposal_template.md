@@ -1,3 +1,9 @@
+---
+name: Component Proposal
+about: Propose a new component
+
+---
+
 ## Description
 Please describe the proposed component as thoroughly as possible - including Figma links for design, screenshots, historical context, any required functionality, optional/nice to have functionality, proposed component API design, etc. The more detail the better!
 

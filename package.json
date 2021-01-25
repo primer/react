@@ -47,7 +47,7 @@
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
     "@types/styled-components": "^4.4.0",
-    "@types/styled-system": "5.1.2",
+    "@types/styled-system": "5.1.10",
     "@types/styled-system__css": "5.0.14",
     "@types/styled-system__theme-get": "5.0.1",
     "classnames": "^2.2.5",
