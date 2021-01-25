@@ -2,6 +2,7 @@
 
 1. [Roadmap](#roadmap)
 2. [Before Getting Started](#before-getting-started)
+2. [Discussing non-public features or products](#discussing-non-public-features-or-products)
 2. [Developing Components](#developing-components)
     * [Tools we use](#tools-we-use)
     * [Component patterns](#component-patterns)
@@ -38,6 +39,10 @@ A common question asked about Primer Components is how to know what should be ad
 
 **In general, we tend to be pretty excited about 99% of feature proposals and contributions!** If you would like to get started with a component proposal, open an issue using the [component proposal template](https://github.com/primer/components/issues/new?template=new-component-proposal.md).
 
+## Discussing non-public features or products
+
+As this is a public repo, please be careful not to include details or screenshots from unreleased GitHub products or features. In most cases, a good bug report, feature request, or pull request should be able to describe the work without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Design Systems repo](https://github.com/github/design-systems/issues/new/choose) and link to it in your issue or pull request.
+
 
 ## Developing components
 
@@ -46,7 +51,7 @@ We primarily use our documentation site as a workspace to develop new components
 Before running the documentation site locally, you'll need to install packages in the root and `docs` directories:
 
 ```shell
-yarn && cd docs && yarn 
+yarn && cd docs && yarn
 
 Then navgiate back to the root folder and run the following to start up the site:
 
