@@ -22,7 +22,7 @@ De-duplication is not our highest or only priority. Attempts at de-duplication m
 ## Findings
 
 ### Developer Experience Regressions
-- Rendering custom elementMs in SSR applications is a bit tricky and requires a third party framework such as [@skatejs/ssr](https://github.com/skatejs/skatejs/tree/master/packages/ssr). This is a hit to developer experience because it would require consumers of PRC to set up the service, PRC won’t work right out of the box (in applications using SSR, such as all of our Doctocat sites) without it if we use custom elements in the library.
+- Rendering custom elements in SSR applications is a bit tricky and requires a third party framework such as [@skatejs/ssr](https://github.com/skatejs/skatejs/tree/master/packages/ssr). This is a hit to developer experience because it would require consumers of PRC to set up the service, PRC won’t work right out of the box (in applications using SSR, such as all of our Doctocat sites) without it if we use custom elements in the library.
 
 - You cannot style custom elements with styled-components[^1]. This means that if a component wants to use a custom element to get behaviors and you also want to style that component, you must use another wrapper div to apply styles. This feels awkward and introduces unnecessary markup to the DOM.
 
