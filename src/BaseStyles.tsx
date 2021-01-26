@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import PropTypes from 'prop-types'
-import {TYPOGRAPHY, COMMON} from './constants'
+import {TYPOGRAPHY, COMMON, SystemTypographyProps, SystemCommonProps} from './constants'
 import useMouseIntent from './hooks/useMouseIntent'
 import theme from './theme'
 
@@ -26,19 +26,24 @@ const GlobalStyle = createGlobalStyle`
   }
 
 `
-const Base = props => {
+
+const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
+  ${TYPOGRAPHY};
+  ${COMMON};
+`
+
+export type BaseStylesProps = React.ComponentProps<typeof Base>
+
+const BaseStyles: React.FC<BaseStylesProps> = props => {
   const {color, lineHeight, fontFamily, theme, ...rest} = props
   useMouseIntent()
   return (
-    <div {...rest}>
+    <Base {...rest}>
       <GlobalStyle />
       {props.children}
-    </div>
+    </Base>
   )
 }
-const BaseStyles = styled(Base)`
-  ${TYPOGRAPHY} ${COMMON};
-`
 
 BaseStyles.defaultProps = {
   color: 'gray.9',
@@ -52,4 +57,5 @@ BaseStyles.propTypes = {
   ...COMMON.propTypes,
   theme: PropTypes.object
 }
+
 export default BaseStyles
