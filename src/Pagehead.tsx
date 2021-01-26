@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const Pagehead = styled.div<SystemCommonProps & SxProp>`
   position: relative;
@@ -24,5 +25,5 @@ Pagehead.propTypes = {
   ...sx.propTypes
 }
 
-export type PageheadProps = React.ComponentProps<typeof Pagehead>
+export type PageheadProps = ComponentProps<typeof Pagehead>
 export default Pagehead

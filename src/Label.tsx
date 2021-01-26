@@ -4,6 +4,7 @@ import {borderColor, BorderColorProps, variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
@@ -82,5 +83,5 @@ Label.propTypes = {
   ...sx.propTypes
 }
 
-export type LabelProps = React.ComponentProps<typeof Label>
+export type LabelProps = ComponentProps<typeof Label>
 export default Label
