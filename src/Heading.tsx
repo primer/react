@@ -1,8 +1,9 @@
-import styled from 'styled-components'
-import sx, {SxProp} from './sx'
 import PropTypes from 'prop-types'
-import {TYPOGRAPHY, COMMON, get, SystemTypographyProps, SystemCommonProps} from './constants'
+import styled from 'styled-components'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const Heading = styled.h2<SystemTypographyProps & SystemCommonProps & SxProp>`
   font-weight: ${get('fontWeights.bold')};
@@ -24,5 +25,5 @@ Heading.propTypes = {
   ...TYPOGRAPHY.propTypes
 }
 
-export type HeadingProps = React.ComponentProps<typeof Heading>
+export type HeadingProps = ComponentProps<typeof Heading>
 export default Heading
