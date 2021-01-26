@@ -1,12 +1,6 @@
 {
-  "parser": "@babel/eslint-parser",
-  "extends": [
-    "plugin:github/recommended",
-    "plugin:github/browser",
-    "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:react-hooks/recommended"
-  ],
+  "parser": "@typescript-eslint/parser",
+  "extends": ["plugin:react/recommended", "plugin:jsx-a11y/recommended", "plugin:react-hooks/recommended"],
   "globals": {
     "__DEV__": "readonly"
   },
@@ -17,24 +11,29 @@
     "jest": true,
     "node": true
   },
+  // rules which apply to JS, TS, etc.
   "rules": {
     "react/prop-types": 0,
     "react/display-name": 0,
     "import/no-namespace": 0,
     "no-shadow": 0,
-    "no-unused-vars": [
-      "error",
-      {
-        "ignoreRestSiblings": true
-      }
-    ],
     "eslint-comments/no-use": 0,
     "react-hooks/exhaustive-deps": "error",
-    "jsx-a11y/label-has-for": [
-      2,
-      {
-        "components": []
+    "jsx-a11y/label-has-for": [2, {"components": []}]
+  },
+  "overrides": [
+    // rules which apply only to JS
+    {
+      "files": ["**/*.js", "**/*.jsx"],
+      "extends": ["plugin:github/recommended", "plugin:github/browser"],
+      "rules": {
+        "no-unused-vars": ["error", {"ignoreRestSiblings": true}]
       }
-    ]
-  }
+    },
+    // rules which apply only to TS
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    }
+  ]
 }
