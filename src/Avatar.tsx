@@ -5,14 +5,14 @@ import theme from './theme'
 import sx, {SxProp} from './sx'
 
 interface AvatarCustomProps {
-  size: number,
-  square: boolean,
-  alt: string
+  size?: number,
+  square?: boolean,
+  alt?: string
 }
 
-function getBorderRadius(props: { size: number, square: boolean }) {
-  if (props.square) {
-    return props.size <= 24 ? '4px' : '6px'
+function getBorderRadius({ size, square }: { size?: number, square?: boolean }) {
+  if (square) {
+    return (size && size <= 24) ? '4px' : '6px'
   } else {
     return '50%'
   }
