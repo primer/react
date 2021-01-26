@@ -7,6 +7,9 @@ about: Create a report to help us improve Primer React Components
 **Describe the bug**
 A clear and concise description of what the bug is.
 
+**Note:** As this is a public repo, please be careful not to include details or screenshots from unreleased GitHub products or features. In most cases, a good bug report should be able to describe the new component without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Design Systems repo](https://github.com/github/design-systems/issues/new/choose) and link to it here.
+
+
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
