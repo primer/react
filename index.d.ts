@@ -238,7 +238,9 @@ declare module '@primer/components' {
 
   export interface FormGroupProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export interface FormGroupLabelProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLLabelElement>, 'color'> {}
+  export interface FormGroupLabelProps extends CommonProps, TypographyProps, Omit<React.HTMLAttributes<HTMLLabelElement>, 'color'> {
+    htmlFor?: string
+  }
 
   export const FormGroup: React.FunctionComponent<FormGroupProps> & {
     Label: React.FunctionComponent<FormGroupLabelProps>
