@@ -1,15 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON} from './constants'
+import {COMMON, SystemCommonProps} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import {IconProps} from '@primer/octicons-react'
+import {ComponentProps} from './utils/types'
 
-function IconWrapper({icon: IconComponent, className, ...rest}) {
-  return <IconComponent className={className} {...rest} />
+type OcticonProps = {icon: React.ElementType} & IconProps
+
+function Octicon({icon: IconComponent, ...rest}: OcticonProps) {
+  return <IconComponent {...rest} />
 }
 
-const StyledOcticon = styled(IconWrapper)`
+const StyledOcticon = styled(Octicon)<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx}
 `
@@ -28,4 +32,5 @@ StyledOcticon.propTypes = {
   verticalAlign: PropTypes.oneOf(['middle', 'text-bottom', 'text-top', 'top'])
 }
 
+export type StyledOcticonProps = ComponentProps<typeof StyledOcticon>
 export default StyledOcticon

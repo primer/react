@@ -15,10 +15,6 @@ describe('StyledOcticon', () => {
     default: StyledOcticon
   })
 
-  it('implements system props', () => {
-    expect(StyledOcticon).toImplementSystemProps(COMMON)
-  })
-
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<StyledOcticon icon={XIcon} />)
     const results = await axe(container)
