@@ -7,16 +7,18 @@ about: Propose a new component
 ## Description
 Please describe the proposed component as thoroughly as possible - including Figma links for design, screenshots, historical context, any required functionality, optional/nice to have functionality, proposed component API design, etc. The more detail the better!
 
+**Note:** As this is a public repo, please be careful not to include details about GitHub products or features that have not been released. In most cases, a good component proposal should be able to describe the new component without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Design Systems repo](https://github.com/github/design-systems/issues/new/choose) and link to it here.
+
 ### Design
 - [ ] Design is finalized. Link to mockups/prototypes:
 - [ ] Design is being finalized by feature team. Link to any in progress mockups:
 - [ ] Assistance requested in finalizing design
 
 ### Component API
-Optional: If you have an idea of the intended component structure, please describe here. This can include what props will be available, if there will be any nested components or subcomponents, how this component might interact with other components, any Hooks that will need to be built, etc.
+Optional: If you have an idea of the intended component structure, please describe here. This can include what props will be available, if there will be any nested components or subcomponents, how this component might interact with other components, any behavior Hooks that will need to be built, etc.
 
-### Use cases
-Describe where the component will be used
+### Usage
+Describe how the component should be used, and/or link to usage guidelines.
 
 ## Implementation
 Please describe how you would like this component to be built. Design systems is happy to help with the implementation of new components (as time/roadmap allows) but also recognizes that sometimes feature teams prefer to implement components themselves.
