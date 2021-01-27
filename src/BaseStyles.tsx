@@ -35,12 +35,12 @@ const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
 export type BaseStylesProps = ComponentProps<typeof Base>
 
 function BaseStyles(props: BaseStylesProps) {
-  const {color, lineHeight, fontFamily, theme, ...rest} = props
+  const {children, ...rest} = props
   useMouseIntent()
   return (
     <Base {...rest}>
       <GlobalStyle />
-      {props.children}
+      {children}
     </Base>
   )
 }
