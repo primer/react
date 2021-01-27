@@ -20,14 +20,14 @@ const sizeMap = {
   default: '8px'
 }
 
-const ProgressContainer = styled.span<
-  {
-    inline?: boolean
-    barSize?: keyof typeof sizeMap
-  } & WidthProps &
-    SystemCommonProps &
-    SxProp
->`
+type StyledProgressContainerProps = {
+  inline?: boolean
+  barSize?: keyof typeof sizeMap
+} & WidthProps &
+  SystemCommonProps &
+  SxProp
+
+const ProgressContainer = styled.span<StyledProgressContainerProps>`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
