@@ -11,13 +11,15 @@
     "jest": true,
     "node": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   // rules which apply to JS, TS, etc.
   "rules": {
     "react/prop-types": 0,
     "react/display-name": 0,
-    "import/no-namespace": 0,
-    "no-shadow": 0,
-    "eslint-comments/no-use": 0,
     "react-hooks/exhaustive-deps": "error",
     "jsx-a11y/label-has-for": [2, {"components": []}]
   },
@@ -27,6 +29,9 @@
       "files": ["**/*.js", "**/*.jsx"],
       "extends": ["plugin:github/recommended", "plugin:github/browser"],
       "rules": {
+        "eslint-comments/no-use": 0,
+        "import/no-namespace": 0,
+        "no-shadow": 0,
         "no-unused-vars": ["error", {"ignoreRestSiblings": true}]
       }
     },
