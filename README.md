@@ -40,7 +40,7 @@ yarn add @primer/components
 ```
 
 ## Roadmap
-You can track our roadmap progress in the [Roadmap Project Board](https://github.com/primer/components/projects/3) and see more detail in the [quarterly planning Discussions](https://github.com/primer/components/discussions?discussions_q=%5BRoadmap%5D)
+You can track our roadmap progress in the [Roadmap Project Board](https://github.com/primer/components/projects/3), see more detail in the [quarterly planning Discussions](https://github.com/primer/components/discussions?discussions_q=%5BRoadmap%5D), and find a list of all the current epic tracking issues [here](https://github.com/primer/components/discussions/997).
 
 ## Contributing
  We love collaborating with folks inside and outside of GitHub and welcome contributions!
