@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
-import PropTypes from 'prop-types'
-import {TYPOGRAPHY, COMMON, SystemTypographyProps, SystemCommonProps} from './constants'
-import theme from './theme'
+import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
+import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledTruncateProps = {
