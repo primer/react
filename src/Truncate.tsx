@@ -1,11 +1,21 @@
 import styled from 'styled-components'
-import {maxWidth} from 'styled-system'
+import {maxWidth, MaxWidthProps} from 'styled-system'
 import PropTypes from 'prop-types'
-import {TYPOGRAPHY, COMMON} from './constants'
+import {TYPOGRAPHY, COMMON, SystemTypographyProps, SystemCommonProps} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
-const Truncate = styled('div')`
+type StyledTruncateProps = {
+  title: string
+  inline?: boolean
+  expandable?: boolean
+} & MaxWidthProps &
+  SystemTypographyProps &
+  SystemCommonProps &
+  SxProp
+
+const Truncate = styled.div<StyledTruncateProps>`
   ${TYPOGRAPHY}
   ${COMMON}
   display: ${props => (props.inline ? 'inline-block' : 'inherit')};
@@ -19,7 +29,6 @@ const Truncate = styled('div')`
 `
 
 Truncate.defaultProps = {
-  as: 'div',
   expandable: false,
   inline: false,
   maxWidth: 125,
@@ -37,4 +46,5 @@ Truncate.propTypes = {
   title: PropTypes.string.isRequired
 }
 
+export type TruncateProps = ComponentProps<typeof Truncate>
 export default Truncate
