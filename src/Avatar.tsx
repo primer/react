@@ -1,28 +1,28 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
-import theme from './theme'
 import sx, {SxProp} from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
-interface AvatarCustomProps {
-  size?: number,
-  square?: boolean,
-  alt?: string
-}
+type StyledAvatarProps = {
+  size?: number
+  square?: boolean
+} & SystemCommonProps &
+  SxProp
 
-function getBorderRadius({ size, square }: { size?: number, square?: boolean }) {
+function getBorderRadius({size, square}: StyledAvatarProps) {
   if (square) {
-    return (size && size <= 24) ? '4px' : '6px'
+    return size && size <= 24 ? '4px' : '6px'
   } else {
     return '50%'
   }
 }
 
-const Avatar = styled.img.attrs((props: AvatarCustomProps) => ({
+const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
   height: props.size,
-  width: props.size,
-  alt: props.alt
-}))<AvatarCustomProps & SystemCommonProps & SxProp>`
+  width: props.size
+}))<StyledAvatarProps>`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${get('lineHeights.condensedUltra')};
@@ -47,5 +47,5 @@ Avatar.propTypes = {
   theme: PropTypes.object
 }
 
-export type AvatarProps = React.ComponentProps<typeof Avatar>
+export type AvatarProps = ComponentProps<typeof Avatar>
 export default Avatar
