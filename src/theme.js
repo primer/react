@@ -1,5 +1,4 @@
-const themeExport = require('./theme-preval')
-const {theme, colors} = themeExport
+import {theme, colors} from './theme-preval'
 
 export default theme
 export {colors}
