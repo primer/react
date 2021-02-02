@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Migrate `LabelGroup` to TypeScript
+Migrate `Flash` to TypeScript
