@@ -1,24 +1,21 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
 import theme from './theme'
-import sx from './sx'
-
-const schemeMap = {
-  red: 'danger',
-  blue: 'default',
-  yellow: 'warning',
-  green: 'success'
-}
+import sx, {SxProp} from './sx'
 
 const variants = variant({
   scale: 'flash'
 })
 
-const getIconColor = (variant, theme) => get(`flashIcon.${variant}`)(theme)
-
-const Flash = styled.div`
+const Flash = styled.div<
+  {
+    variant?: 'default' | 'warning' | 'success' | 'danger'
+    full?: boolean
+  } & SystemCommonProps &
+    SxProp
+>`
   position: relative;
   color: ${get('colors.text.grayDark')};
   padding: ${get('space.3')};
@@ -32,12 +29,12 @@ const Flash = styled.div`
   }
 
   svg {
-    color: ${props => getIconColor(props.variant, props.theme)};
+    color: ${props => get(`flashIcon.${props.variant}`)(props.theme)};
     margin-right: ${get('space.2')};
   }
 
   ${COMMON};
-  ${variants}
+  ${variants};
   ${sx};
 `
 
@@ -49,7 +46,6 @@ Flash.defaultProps = {
 Flash.propTypes = {
   children: PropTypes.node,
   full: PropTypes.bool,
-  scheme: PropTypes.oneOf(Object.keys(schemeMap)), // deprecate 20.0.0
   variant: PropTypes.oneOf(['default', 'warning', 'success', 'danger']),
   ...COMMON.propTypes,
   ...sx.propTypes
