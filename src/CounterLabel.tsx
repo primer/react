@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import sx from './sx'
+import {ComponentProps} from './utils/types'
 
-const colorStyles = ({scheme, ...props}) => {
+type StyledCounterLabelProps = {
+  scheme?: 'gray' | 'gray-light'
+} & SystemCommonProps &
+  SxProp
+
+const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     color:
       scheme === 'gray-light'
@@ -15,7 +21,7 @@ const colorStyles = ({scheme, ...props}) => {
   }
 }
 
-const bgStyles = ({scheme, ...props}) => {
+const bgStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     backgroundColor:
       scheme === 'gray-light'
@@ -26,7 +32,7 @@ const bgStyles = ({scheme, ...props}) => {
   }
 }
 
-const CounterLabel = styled.span`
+const CounterLabel = styled.span<StyledCounterLabelProps>`
   display: inline-block;
   padding: 2px 5px;
   font-size: ${get('fontSizes.0')};
@@ -56,4 +62,5 @@ CounterLabel.propTypes = {
   ...sx.propTypes
 }
 
+export type CounterLabelProps = ComponentProps<typeof CounterLabel>
 export default CounterLabel
