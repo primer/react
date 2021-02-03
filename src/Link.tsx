@@ -8,7 +8,6 @@ import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledLinkProps = {
-  as?: any
   hoverColor?: string
   muted?: boolean
   underline?: boolean
@@ -35,19 +34,29 @@ const hoverColor = system({
   }
 })
 
-const Link = styled.a.attrs<StyledLinkProps>(({color, muted}) => ({
-  color: color ? color : muted ? 'gray.6' : 'blue.5'
-}))<StyledLinkProps>`
-  text-decoration: ${({underline}) => (underline ? 'underline' : 'none')};
+const Link = styled.a<StyledLinkProps>`
+  color: ${props => (props.muted ? get('colors.gray.6')(props) : get('colors.blue.5')(props))};
+  text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
-    text-decoration: ${({underline}) => (underline ? 'underline' : 'none')};
-    ${({hoverColor, muted}) => (hoverColor ? hoverColor : muted ? `color: ${get('colors.blue.5')(theme)}` : '')};
+    text-decoration: ${props => (props.muted ? 'none' : 'underline')};
+    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.blue.5')(props)}` : '')};
   }
-  ${({as}) => (as === 'button' ? buttonStyles : '')};
+  &:is(button) {
+    display: inline-block;
+    padding: 0;
+    font-size: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 0;
+    appearance: none;
+  }
   ${TYPOGRAPHY};
   ${COMMON};
   ${sx};
 `
+
 Link.defaultProps = {
   theme
 }
