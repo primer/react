@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Migrate `Pagehead` to TypeScript
+Upgrade Octicons to 11.3.0

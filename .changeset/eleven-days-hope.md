@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Migrate `Label` to TypeScript
+Migrate `Truncate` to TypeScript
