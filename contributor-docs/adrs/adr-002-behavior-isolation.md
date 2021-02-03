@@ -108,7 +108,7 @@ Building behaviors in React Hooks gives us the ability to provide things like st
   - This is probably the biggest risk we face, but moving to custom elements isn’t necessarily the only or best solution. We should explore other ways of detecting divergence such as integration tests.
 
 ## Providing Behaviors through Vanilla JavaScript
-A simpler method of isolating component behaviors is to implement them in vanilla JavaScript (or TypeScript). This way, they can be shared betwee React Components and Web Components. Both types of consumers would need to hook up the vanilla behavior to the component(s) that use(s) them.
+A simpler method of isolating component behaviors is to implement them in vanilla JavaScript (or TypeScript). This way, they can be shared between React Components and Web Components. Both types of consumers would need to hook up the vanilla behavior to the component(s) that use(s) them.
 
 In some cases, this strategy is very straightforward. When a behavior can be made to have no dependencies other than the DOM, it is easy to isolate and consume in various frameworks. Behaviors that have effects on interactions/events, shared state, and component styles will be more difficult to isolate in this manner.
 
