@@ -1,10 +1,10 @@
+import {cleanup, render as HTMLRender} from '@testing-library/react'
+import 'babel-polyfill'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Breadcrumb} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
 import {COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+import {behavesAsComponent, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumb.Item', () => {
@@ -26,9 +26,7 @@ describe('Breadcrumb.Item', () => {
   })
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Mock = jest.fn(() => <div />)
-    render(<Breadcrumb.Item as={Mock} to="#" />)
-    expect(Mock.mock.calls[0][0].to).toEqual('#')
-    expect(Mock.mock.calls[0][0].activeClassName).toEqual('selected')
+    const Link = ({theme, ...props}: any) => <div {...props} />
+    expect(render(<Breadcrumb.Item as={Link} to="#" />)).toMatchSnapshot()
   })
 })
