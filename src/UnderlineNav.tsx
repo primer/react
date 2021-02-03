@@ -1,25 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import sx from './sx'
+import {ComponentProps} from './utils/types'
+import * as History from 'history'
 
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
-function UnderlineNavBase({actions, className, align, children, full, label, theme, ...rest}) {
-  const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
-  return (
-    <nav className={classes} aria-label={label} {...rest}>
-      <div className="UnderlineNav-body">{children}</div>
-      {actions && <div className="UnderlineNav-actions">{actions}</div>}
-    </nav>
-  )
-}
-
-const UnderlineNav = styled(UnderlineNavBase)`
+const UnderlineNavBase = styled.nav`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #eaecef;
@@ -52,10 +44,33 @@ const UnderlineNav = styled(UnderlineNavBase)`
   ${sx};
 `
 
-UnderlineNav.Link = styled.a.attrs(props => ({
+export type UnderlineNavProps = {
+  actions?: React.ReactNode
+  align?: 'right'
+  full?: boolean
+  label?: string
+} & ComponentProps<typeof UnderlineNavBase>
+
+function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
+  const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
+  return (
+    <UnderlineNavBase className={classes} aria-label={label} theme={theme} {...rest}>
+      <div className="UnderlineNav-body">{children}</div>
+      {actions && <div className="UnderlineNav-actions">{actions}</div>}
+    </UnderlineNavBase>
+  )
+}
+
+type StyledUnderlineNavLinkProps = {
+  to?: History.LocationDescriptor
+  selected?: boolean
+} & SystemCommonProps &
+  SxProp
+
+const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
-}))`
+}))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};
   margin-right: ${get('space.3')};
   font-size: ${get('fontSizes.1')};
@@ -105,18 +120,18 @@ UnderlineNav.propTypes = {
   ...sx.propTypes
 }
 
-UnderlineNav.Link.defaultProps = {
+UnderlineNavLink.defaultProps = {
   theme
 }
 
-UnderlineNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
+UnderlineNavLink.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
   ...sx.propTypes
 }
 
-UnderlineNav.Link.displayName = 'UnderlineNav.Link'
+UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
-export default UnderlineNav
+export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
+export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

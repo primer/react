@@ -26,9 +26,7 @@ describe('UnderlineNav.Link', () => {
   })
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Mock = jest.fn(() => <div />)
-    render(<UnderlineNav.Link as={Mock} to="#" />)
-    expect(Mock.mock.calls[0][0].to).toEqual('#')
-    expect(Mock.mock.calls[0][0].activeClassName).toEqual('selected')
+    const Link = ({theme, ...props}: any) => <div {...props} />
+    expect(render(<UnderlineNav.Link as={Link} to="#" />)).toMatchSnapshot()
   })
 })
