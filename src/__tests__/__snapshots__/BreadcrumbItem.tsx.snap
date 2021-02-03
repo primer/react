@@ -19,7 +19,8 @@ exports[`Breadcrumb.Item adds activeClassName={SELECTED_CLASS} when it gets a "t
   pointer-events: none;
 }
 
-<a
+<div
+  activeClassName="selected"
   aria-current={null}
   className="c0"
   to="#"
