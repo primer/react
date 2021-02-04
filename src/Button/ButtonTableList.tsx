@@ -1,10 +1,20 @@
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import {COMMON, LAYOUT, TYPOGRAPHY, get} from '../constants'
+import {
+  COMMON,
+  LAYOUT,
+  TYPOGRAPHY,
+  get,
+  SystemCommonProps,
+  SystemLayoutProps,
+  SystemTypographyProps
+} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
-const ButtonTableList = styled.summary`
+type ButtonTableListInternalProps = SystemCommonProps & SystemTypographyProps & SystemLayoutProps & SxProp
+
+export const ButtonTableList = styled.summary<ButtonTableListInternalProps>`
   display: inline-block;
   padding: 0;
   font-size: ${get('fontSizes.1')};
@@ -49,12 +59,4 @@ ButtonTableList.defaultProps = {
   theme
 }
 
-ButtonTableList.propTypes = {
-  theme: PropTypes.object,
-  ...sx.propTypes,
-  ...COMMON.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  ...LAYOUT.propTypes
-}
-
-export default ButtonTableList
+export type ButtonTableListProps = ComponentProps<typeof ButtonTableList>
