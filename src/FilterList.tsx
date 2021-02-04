@@ -1,24 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
-function ItemBase({children, count, theme, ...rest}) {
-  return (
-    <a {...rest}>
-      {count && (
-        <span title="results" className="count">
-          {count}
-        </span>
-      )}
-      {children}
-    </a>
-  )
+const FilterListBase = styled.ul<SystemCommonProps & SxProp>`
+  list-style-type: none;
+  ${COMMON};
+  ${sx};
+`
+
+export type FilterListProps = ComponentProps<typeof FilterListBase>
+
+const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps>) => {
+  const items = React.Children.map(children, child => {
+    return <li>{child}</li>
+  })
+
+  return <FilterListBase {...rest}>{items}</FilterListBase>
 }
 
-const Item = styled(ItemBase)`
+type StyledFilterListItemBaseProps = {
+  small?: boolean
+  selected?: boolean
+} & SystemCommonProps &
+  SxProp
+
+const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   position: relative;
   display: block;
   padding: ${props => (props.small ? `${get('space.1')(props)} 10px` : `${get('space.2')(props)} 11px`)};
@@ -48,19 +58,20 @@ const Item = styled(ItemBase)`
   ${sx};
 `
 
-const FilterListBase = ({children, theme, ...rest}) => {
-  const items = React.Children.map(children, child => {
-    return <li>{child}</li>
-  })
+export type FilterListItemProps = {count?: number} & ComponentProps<typeof FilterListItemBase>
 
-  return <ul {...rest}>{items}</ul>
+function FilterListItem({children, count, ...rest}: React.PropsWithChildren<FilterListItemProps>) {
+  return (
+    <FilterListItemBase {...rest}>
+      {count && (
+        <span title="results" className="count">
+          {count}
+        </span>
+      )}
+      {children}
+    </FilterListItemBase>
+  )
 }
-
-const FilterList = styled(FilterListBase)`
-  list-style-type: none;
-  ${COMMON};
-  ${sx};
-`
 
 FilterList.defaultProps = {
   theme,
@@ -75,13 +86,11 @@ FilterList.propTypes = {
   ...sx.propTypes
 }
 
-FilterList.Item = Item
-
-FilterList.Item.defaultProps = {
+FilterListItem.defaultProps = {
   theme
 }
 
-FilterList.Item.propTypes = {
+FilterListItem.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   children: PropTypes.node,
   className: PropTypes.string,
@@ -92,6 +101,6 @@ FilterList.Item.propTypes = {
   ...sx.propTypes
 }
 
-FilterList.Item.displayName = 'FilterList.Item'
+FilterListItem.displayName = 'FilterList.Item'
 
-export default FilterList
+export default Object.assign(FilterList, {Item: FilterListItem})
