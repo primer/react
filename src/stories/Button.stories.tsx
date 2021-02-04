@@ -1,38 +1,68 @@
-import React from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import React from 'react'
+import {Meta} from '@storybook/react'
 
-import { Button, ButtonProps } from './Button';
+import {
+  BaseStyles,
+  Button,
+  ButtonClose,
+  ButtonDanger,
+  ButtonGroup,
+  ButtonInvisible,
+  ButtonOutline,
+  ButtonPrimary,
+  ButtonTableList
+} from '..'
+import {ButtonStyleProps} from 'styled-system'
 
 export default {
-  title: 'Example/Button',
+  title: 'Composite components/Button',
   component: Button,
+  decorators: [
+    Story => {
+      return (
+        <BaseStyles>
+          <Story />
+        </BaseStyles>
+      )
+    }
+  ],
   argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} as Meta;
+    variant: {
+      control: {
+        type: 'radio',
+        options: ['small', 'medium', 'large']
+      }
+    }
+  }
+} as Meta
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+export const defaultButton = (args: ButtonStyleProps) => <Button {...args}>Default Button</Button>
+export const dangerButton = (args: ButtonStyleProps) => <ButtonDanger {...args}>Danger Button</ButtonDanger>
+export const outlineButton = (args: ButtonStyleProps) => <ButtonOutline {...args}>Outline Button</ButtonOutline>
+export const primaryButton = (args: ButtonStyleProps) => <ButtonPrimary {...args}>Primary Button</ButtonPrimary>
+export const invisibleButton = (args: ButtonStyleProps) => <ButtonInvisible {...args}>Invisible Button</ButtonInvisible>
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button',
-};
+export const closeButton = (args: ButtonStyleProps) => (
+  // @ts-expect-error Are types for ButtonClose wrong?
+  <ButtonClose {...args} onClick={() => alert('button clicked.')} />
+)
+export const buttonGroup = (args: ButtonStyleProps) => (
+  <ButtonGroup display="block" my={2}>
+    <Button {...args}>Button 1</Button>
+    <Button {...args}>Button 2</Button>
+    <Button {...args}>Button 3</Button>
+  </ButtonGroup>
+)
+export const buttonTableList = (args: ButtonStyleProps) => (
+  <ButtonTableList {...args}>Button Table List</ButtonTableList>
+)
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-};
+defaultButton.args = {variant: 'medium'}
+dangerButton.args = {variant: 'medium'}
+outlineButton.args = {variant: 'medium'}
+primaryButton.args = {variant: 'medium'}
+invisibleButton.args = {variant: 'medium'}
+closeButton.args = {variant: 'medium'}
+buttonGroup.args = {variant: 'medium'}
+buttonTableList.args = {variant: 'medium'}
