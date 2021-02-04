@@ -26,7 +26,7 @@ describe('FilterList.Item', () => {
   })
 
   it('respects "count" prop', () => {
-    const CountMock = render(<FilterList.Item count="400" />).children.pop()
+    const CountMock = render(<FilterList.Item count={400} />).children.pop()
     expect(CountMock.type).toEqual('span')
   })
 })
