@@ -25,63 +25,13 @@ De-duplication is not our highest or only priority. Attempts at de-duplication m
 ### Findings
 
 #### Developer Experience Regressions
-- Rendering custom elements in SSR applications is a bit tricky and requires a third party framework such as [@skatejs/ssr](https://github.com/skatejs/skatejs/tree/master/packages/ssr). This is a hit to developer experience because it would require consumers of PRC to set up the service, PRC won’t work right out of the box (in applications using SSR, such as all of our Doctocat sites) without it if we use custom elements in the library.
+- Custom elements rendering their own subtrees (ShadowDOM) requires polyfills for as-yet implemented specifications. This means PRC will accumulate added complexity if we were to implement Custom Elements with ShadowDOM.
 
-- You cannot style custom elements with styled-components[^1]. This means that if a component wants to use a custom element to get behaviors and you also want to style that component, you must use another wrapper div to apply styles. This feels awkward and introduces unnecessary markup to the DOM.
+- Implementing Custom Elements in PRC will require a division of client side and server side code, as Custom Elements should only be executed in a browser environment. Currently PRC is "isomorphic" - in that the code can be executed anywhere that React can be, which includes NodeJS server runtimes, as well as the client side. While not insurmountable this does mean PRC will accumulate added complexity, which likely will be surfaced to the user.
 
-```jsx
-export const ClipboardCopy = () => {
- return <clipboard-copy for="span">Copy button</clipboard-copy>;
-};
+- While it's possible to add server side libraries to enable Custom Elements to be rendered on the Server, this adds more complexity and is antithetical to the usage patterns of Custom Elements.
 
-// passing a custom element to styled components results in no styles being applied
-const StyledClipboardCopy = styled(ClipboardCopy)`
- background-color: red;
-`;
-
-const App = () => {
- return (
-   <ThemeProvider theme={theme}>
-     <BaseStyles className="App">
-       <StyledClipboardCopy for=”span” />
-       <span id="span">Content from span tag.</span>
-     </BaseStyles>
-   </ThemeProvider>
- );
-};
-
-```
-
-
-
-View in CodeSandbox: https://codesandbox.io/s/demo-styling-custom-element-g973d?file=/src/index.tsx:285-599
-
-Instead you would have to do something like this:
-
-```jsx
-const ClipboardCopy = () => {
-  return <clipboard-copy for="span">Copybutton</clipboard-copy>;
-};
-
-const StyledClipboardCopyWrapper = styled.span`
-  background-color: red;
-`;
-
-const App = () => {
-  return (
-   <>
-    <StyledClipboardCopyWrapper>
-     <ClipboardCopy />
-    </StyledClipboardCopyWrapper>
-    <span id="span">Content from span tag.</span>
-  </>
- );
-};
-```
-
-View in CodeSandbox: https://codesandbox.io/s/demo-styling-custom-element-2-xt9g9?file=/src/index.tsx
-
-This also means we would need to be careful to never export a component with a custom element as the top level node.
+- As of this writing, you cannot style custom elements with styled-components[^1]. This means that if a component wants to use a custom element to get behaviors and you also want to style that component, you must use another wrapper div to apply styles. This is a bug in styled-components and should be fixed in the next release.
 
 #### Incompatibility with some React tools
 Some of our GitHub custom elements such as details-dialog and details-menu make assumptions about the DOM tree. For example, details-dialog expects a `details` element to wrap the custom element and uses this assumption[^2] to determine whether or not clicks are happening inside or outside of the dialog and closes the dialog if the click happened outside of the dialog. This makes sense in most cases and is a nice way of enforcing proper usage of the details element, but breaks down when used with [React Portals](https://reactjs.org/docs/portals.html) which are often used to ensure menus are displayed correctly in cases where a parent has an overflow: hidden applied to it, or incompatible z-index.
@@ -91,7 +41,10 @@ Building behaviors in React Hooks gives us the ability to provide things like st
 
 #### Organizational Overhead
 - GitHub’s custom elements are all managed in different repos which introduces more maintenance overhead.
-- Reacting to changes will take a bit more time, as we’ll need to wait for changes to be made to the custom elements until we can update Primer React Components (versus having behavior Hooks in PRC that we can update at our leisure).
+  - You'd need to npm link while developing if you want to test changes out with the presentational components themselves instead of making changes and seeing updates instantly. npm link usually doesn't work well with hot module reloading either.
+  - You'd need to draft & publish releases to both libraries every time you want to update the behavior
+  - If the behaviors are shared between .com and PRC you'd need to do careful testing in both environments to make sure that changes don't create any regressions. That greatly widens the context that engineers need to keep in mind every time a change is made.
+- Reacting to changes will take a bit more time, as we’ll need to orchestrate releases between custom elements and Primer React Components - as opposed to having behaviors already present in PRC which can be versioned in lockstep.
 - Engineers who want to contribute to Primer React Components to build new components and behaviors would need to be familiar with both custom elements and React, two very different paradigms, and context switch between the two.
 
 #### Other
@@ -103,7 +56,8 @@ Building behaviors in React Hooks gives us the ability to provide things like st
 - We decide not to invest further in React at GitHub and have wasted time we could have spent building more custom elements.
   - This seems unlikely as there seems to be clear consensus that we will continue to build more and more highly interactive products.
 - The React library is abandoned and becomes obsolete
-  - This is a risk with any technology that we may use, seems highly unlikely in the near term, and is also a risk for custom elements.
+  - This is a risk with any technology that we may use, seems highly unlikely in the near term.
+  - While also a possibility for Custom Elements, the track record demonstrates deprecations of Web APIs is extremely rare and has a long deprecation path.
 - Behaviors in .com using custom elements and behaviors in PRC diverge, leading to an inconsistent experience
   - This is probably the biggest risk we face, but moving to custom elements isn’t necessarily the only or best solution. We should explore other ways of detecting divergence such as integration tests.
 
