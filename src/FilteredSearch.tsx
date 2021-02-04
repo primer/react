@@ -1,9 +1,11 @@
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import {COMMON, get, SystemCommonProps} from './constants'
 import theme from './theme'
-import {COMMON, get} from './constants'
+import {ComponentProps} from './utils/types'
+import sx, {SxProp} from './sx'
 
-const FilteredSearch = styled.div`
+const FilteredSearch = styled.div<SystemCommonProps & SxProp>`
   ${COMMON};
   display: flex;
   align-items: stretch;
@@ -20,6 +22,8 @@ const FilteredSearch = styled.div`
     border-bottom-right-radius: ${get('radii.2')};
     z-index: 1; // Allows the focus outline to show on top of the dropdown.
   }
+
+  ${sx}
 `
 
 FilteredSearch.defaultProps = {
@@ -28,7 +32,9 @@ FilteredSearch.defaultProps = {
 
 FilteredSearch.propTypes = {
   ...COMMON.propTypes,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  ...sx.propTypes
 }
 
+export type FilteredSearchProps = ComponentProps<typeof FilteredSearch>
 export default FilteredSearch
