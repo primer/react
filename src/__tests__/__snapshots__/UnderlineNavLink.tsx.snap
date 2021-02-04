@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UnderlineNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `
+.c0 {
+  padding: 16px 8px;
+  margin-right: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #586069;
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:hover,
+.c0:focus {
+  color: #24292e;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-bottom-color: #e1e4e8;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+
+.c0:hover .UnderlineNav-octicon,
+.c0:focus .UnderlineNav-octicon {
+  color: #6a737d;
+}
+
+.c0.selected {
+  color: #24292e;
+  border-bottom-color: #f66a0a;
+}
+
+.c0.selected .UnderlineNav-octicon {
+  color: #6a737d;
+}
+
+<div
+  activeClassName="selected"
+  className="c0 UnderlineNav-item"
+  to="#"
+/>
+`;
+
 exports[`UnderlineNav.Link renders consistently 1`] = `
 .c0 {
   padding: 16px 8px;
