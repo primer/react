@@ -1,13 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import {layout} from 'styled-system'
+// @ts-ignore @styled-system/prop-types does not provide type definitions
 import systemPropTypes from '@styled-system/prop-types'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styled from 'styled-components'
+import {width, WidthProps} from 'styled-system'
+import {COMMON, get, SystemCommonProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import {COMMON, get} from './constants'
-import sx from './sx'
+import {ComponentProps} from './utils/types'
 
-const Bar = styled.span`
+const Bar = styled.span<{progress?: string | number} & SystemCommonProps>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
   ${COMMON}
 `
@@ -18,18 +20,27 @@ const sizeMap = {
   default: '8px'
 }
 
-const ProgressContainer = styled.span`
+type StyledProgressContainerProps = {
+  inline?: boolean
+  barSize?: keyof typeof sizeMap
+} & WidthProps &
+  SystemCommonProps &
+  SxProp
+
+const ProgressContainer = styled.span<StyledProgressContainerProps>`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   overflow: hidden;
   background-color: ${get('colors.gray.2')};
   border-radius: ${get('radii.1')};
-  height: ${props => sizeMap[props.barSize]};
+  height: ${props => sizeMap[props.barSize || 'default']};
   ${COMMON}
-  ${layout.width}
+  ${width}
   ${sx};
 `
 
-const ProgressBar = ({progress, bg, theme, ...rest}) => {
+export type ProgressBarProps = ComponentProps<typeof ProgressContainer> & ComponentProps<typeof Bar>
+
+function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
   return (
     <ProgressContainer theme={theme} {...rest}>
       <Bar progress={progress} bg={bg} theme={theme} />
