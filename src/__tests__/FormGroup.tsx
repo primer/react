@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormGroup, TextInput} from '..'
+import {FormGroup} from '..'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -18,7 +18,7 @@ describe('FormGroup', () => {
     const {container} = HTMLRender(
       <FormGroup>
         <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
-        <TextInput id="example-text" value="Example Value" />
+        <input id="example-text" value="Example Value" />
       </FormGroup>
     )
     const results = await axe(container)
