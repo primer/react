@@ -1,11 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import * as History from 'history'
+import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
-import sx from './sx'
-import {COMMON, FLEX, get} from './constants'
-import theme from './theme'
 import Box from './Box'
+import {COMMON, FLEX, get, SystemCommonProps, SystemFlexProps} from './constants'
+import sx, {SxProp} from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const SELECTED_CLASS = 'selected'
 
@@ -30,19 +32,7 @@ const Wrapper = styled.li`
   }
 `
 
-const BreadcrumbBase = ({className, children, theme, ...rest}) => {
-  const classes = classnames(className, 'Breadcrumb')
-  const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
-  return (
-    <nav className={classes} aria-label="breadcrumb" {...rest}>
-      <Box as="ol" my={0} pl={0}>
-        {wrappedChildren}
-      </Box>
-    </nav>
-  )
-}
-
-const Breadcrumb = styled(BreadcrumbBase)`
+const BreadcrumbBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
   display: flex;
   justify-content: space-between;
   ${COMMON};
@@ -50,11 +40,31 @@ const Breadcrumb = styled(BreadcrumbBase)`
   ${sx};
 `
 
-Breadcrumb.Item = styled.a.attrs(props => ({
+export type BreadcrumbProps = ComponentProps<typeof BreadcrumbBase>
+
+function Breadcrumb({className, children, theme, ...rest}: React.PropsWithChildren<BreadcrumbProps>) {
+  const classes = classnames(className, 'Breadcrumb')
+  const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
+  return (
+    <BreadcrumbBase className={classes} aria-label="breadcrumb" theme={theme} {...rest}>
+      <Box as="ol" my={0} pl={0}>
+        {wrappedChildren}
+      </Box>
+    </BreadcrumbBase>
+  )
+}
+
+type StyledBreadcrumbItemProps = {
+  to?: History.LocationDescriptor
+  selected?: boolean
+} & SystemCommonProps &
+  SxProp
+
+const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null
-}))`
+}))<StyledBreadcrumbItemProps>`
   color: ${get('colors.blue.5')};
   display: inline-block;
   font-size: ${get('fontSizes.1')};
@@ -81,18 +91,18 @@ Breadcrumb.propTypes = {
 
 Breadcrumb.displayName = 'Breadcrumb'
 
-Breadcrumb.Item.defaultProps = {
+BreadcrumbItem.defaultProps = {
   theme
 }
 
-Breadcrumb.Item.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
+BreadcrumbItem.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...sx.propTypes,
   ...COMMON.propTypes
 }
 
-Breadcrumb.Item.displayName = 'Breadcrumb.Item'
+BreadcrumbItem.displayName = 'Breadcrumb.Item'
 
-export default Breadcrumb
+export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbItem>
+export default Object.assign(Breadcrumb, {Item: BreadcrumbItem})
