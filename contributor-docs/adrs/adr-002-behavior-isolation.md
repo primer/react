@@ -1,4 +1,4 @@
-# Custom element usage in Primer React Components ADR
+# Isolating Behaviors through Custom Elements and Vanilla JavaScript
 
 ## Status
 
@@ -12,16 +12,19 @@
 - November 27th 2019: [Styling custom elements with styled components](https://github.slack.com/archives/CMZ4DC9BL/p1574883198055600)
 - June 9th 2020: [Discussion in Slack about using skatejs for SSR](https://github.slack.com/archives/C0ER2LCG2/p1591707104461300)
 - November 10th 2020: [Replace dialog with details-dialog](https://github.com/primer/components/issues/907)
+- January 27th 2021: [Guidelines for authoring behaviors](https://github.com/primer/components/pull/992)
+- February 1st 2021: [Example of a vanilla JS behavior & accompanying hook](https://github.com/T-Hugs/components/commit/105c3a191681381377f5aa193cb241a2189db8a6)
 
-## Context
+## Providing Behaviors via Custom Elements
+### Context
 Throughout the last few years folks from the Design Infrastructure, Web Systems & UI Platform teams have discussed the idea of using custom elements for behaviors in Primer React Components. The main goal of using custom elements in PRC is to be able to author behaviors once and reuse them in any framework. Several experiments have been conducted which are listed above.
 
-## Assumptions
+### Assumptions
 De-duplication is not our highest or only priority. Attempts at de-duplication must be weighed against changes to the maintainer, developer, and customer experience.
 
-## Findings
+### Findings
 
-### Developer Experience Regressions
+#### Developer Experience Regressions
 - Rendering custom elements in SSR applications is a bit tricky and requires a third party framework such as [@skatejs/ssr](https://github.com/skatejs/skatejs/tree/master/packages/ssr). This is a hit to developer experience because it would require consumers of PRC to set up the service, PRC won’t work right out of the box (in applications using SSR, such as all of our Doctocat sites) without it if we use custom elements in the library.
 
 - You cannot style custom elements with styled-components[^1]. This means that if a component wants to use a custom element to get behaviors and you also want to style that component, you must use another wrapper div to apply styles. This feels awkward and introduces unnecessary markup to the DOM.
@@ -76,27 +79,25 @@ const App = () => {
 };
 ```
 
-
-
 View in CodeSandbox: https://codesandbox.io/s/demo-styling-custom-element-2-xt9g9?file=/src/index.tsx
 
 This also means we would need to be careful to never export a component with a custom element as the top level node.
 
-### Incompatibility with some React tools
+#### Incompatibility with some React tools
 Some of our GitHub custom elements such as details-dialog and details-menu make assumptions about the DOM tree. For example, details-dialog expects a `details` element to wrap the custom element and uses this assumption[^2] to determine whether or not clicks are happening inside or outside of the dialog and closes the dialog if the click happened outside of the dialog. This makes sense in most cases and is a nice way of enforcing proper usage of the details element, but breaks down when used with [React Portals](https://reactjs.org/docs/portals.html) which are often used to ensure menus are displayed correctly in cases where a parent has an overflow: hidden applied to it, or incompatible z-index.
 
-### Extensibility
+#### Extensibility
 Building behaviors in React Hooks gives us the ability to provide things like state and state change hooks to the consumer of the component. This allows the user to build on additional behaviors to the component based on the state or other variables provided to the component consumer. Doing the same with custom elements would require listening to events on the document[^3] and reacting to them. This is certainly do-able, but goes against some of the foundational principles of React (reacting to changes in the DOM vs changes in React state).
 
-### Organizational Overhead
+#### Organizational Overhead
 - GitHub’s custom elements are all managed in different repos which introduces more maintenance overhead.
 - Reacting to changes will take a bit more time, as we’ll need to wait for changes to be made to the custom elements until we can update Primer React Components (versus having behavior Hooks in PRC that we can update at our leisure).
 - Engineers who want to contribute to Primer React Components to build new components and behaviors would need to be familiar with both custom elements and React, two very different paradigms, and context switch between the two.
 
-### Other
+#### Other
 - The custom element & web component API progress slower than React due to changes needing to go through the whatwq standards process.
 
-### Risks of not switching to custom elements for behaviors
+#### Risks of not switching to custom elements for behaviors
 - We spend extra time building behaviors in React that have already been built in our [custom elements library](https://github.github.io/web-systems-documentation/#custom-elements).
   - There are currently 19 behaviors/components listed on the custom elements documentation site. Several of these we have already implemented in React in either PRC, Doctocat, or other React applications at GitHub which can be upstreamed (details-dialog, details-menu, clipboard-copy, text-expander, autocomplete, task-list via drag and drop hooks, tab-container, text-expander).
 - We decide not to invest further in React at GitHub and have wasted time we could have spent building more custom elements.
@@ -106,9 +107,28 @@ Building behaviors in React Hooks gives us the ability to provide things like st
 - Behaviors in .com using custom elements and behaviors in PRC diverge, leading to an inconsistent experience
   - This is probably the biggest risk we face, but moving to custom elements isn’t necessarily the only or best solution. We should explore other ways of detecting divergence such as integration tests.
 
-### Decision
+## Providing Behaviors through Vanilla JavaScript
+A simpler method of isolating component behaviors is to implement them in vanilla JavaScript (or TypeScript). This way, they can be shared between React Components and Web Components. Both types of consumers would need to hook up the vanilla behavior to the component(s) that use(s) them.
+
+In some cases, this strategy is very straightforward. When a behavior can be made to have no dependencies other than the DOM, it is easy to isolate and consume in various frameworks. Behaviors that have effects on interactions/events, shared state, and component styles will be more difficult to isolate in this manner.
+
+### Interactions and Events
+Many user interactions rely on DOM events, such as `click`, `keypress`, and `focus`. React's event system is _not_ the same as the native DOM event system. React implements a [SyntheticEvent](https://reactjs.org/docs/events.html) that wraps native events. Working with both `SyntheticEvent`s and native events simultaneously is significant additional complexity for maintainers and consumers. However, vanilla JavaScript must operate only using native events. This makes isolating behaviors that automatically hook up event listeners to DOM elements difficult to achieve, and the resulting simultaneous usage of native events and `SyntheticEvent` has the potential to degrade both the maintainer's and the consumer's developer experience using Primer Components.
+
+### Shared State
+There are countless ways to manage state in a web application. React has its own ecosystem of state management strategies and libraries (in addition to its own primitive constructs for state management). Since there is no standard state management pattern in vanilla JavaScript, introducing such a pattern would add a new layer of complexity to the component behavior API.
+
+### Component Styles
+Since Primer Components uses styled-components to manage CSS styles, any behaviors that affect styles should be doing so with styled-components. Any vanilla JavaScript behaviors that affect styles will add complexity by introducing a second mechanism for applying styles, since they will not be able to use styled-components.
+
+## Decision
+### Custom Elements
 Due to the challenges listed above and our priorities listed in the [Assumptions](#assumptions) section, we are not investing time in building out behaviors with custom elements in our Primer React Components library. Instead, we should spend time expanding coverage using React Hooks and focus on finding other approaches for making sure implementation of behaviors in our different stacks are consistent (such as integration tests).
 
+### Vanilla JavaScript Behaviors
+Some behaviors can be implemented as vanilla JavaScript without introducing additional complexity to Primer Components or its consumers. In cases where this is possible, behaviors will be implemented with no dependencies except the DOM and consumed within React Hooks to provide their functionality to Primer Components.
+
+In general, *portions of behaviors* that affect or rely on **user interactions and events**, **shared state**, or **CSS styles** should be kept in React Hooks. Parts of the behavior that can be implemented in isolation of these concepts should be built with no dependency on React or other libraries.
 
 [^1]: https://codesandbox.io/s/demo-styling-custom-element-g973d?file=/src/index.tsx
 [^2]: https://github.com/github/details-dialog-element/blob/main/src/index.ts#L195
