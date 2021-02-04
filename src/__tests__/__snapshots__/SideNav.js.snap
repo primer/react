@@ -2,9 +2,9 @@
 
 exports[`SideNav SideNav.Link renders consistently 1`] = `
 .c0 {
+  color: #0366d6;
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #0366d6;
   position: relative;
   display: block;
   width: 100%;
@@ -15,6 +15,23 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 .c0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c0:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .c0 > .c1 {
@@ -94,7 +111,6 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 <a
   className="c0"
-  color="blue.5"
 />
 `;
 
