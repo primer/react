@@ -30,7 +30,7 @@ type ButtonBaseInternalProps = {
   SystemLayoutProps &
   SxProp
 
-const ButtonBase = styled.button.attrs<ButtonBaseInternalProps>(({disabled, onClick}) => ({
+export const ButtonBase = styled.button.attrs<ButtonBaseInternalProps>(({disabled, onClick}) => ({
   onClick: disabled ? undefined : onClick
 }))<ButtonBaseInternalProps>`
   ${buttonBaseStyles}
@@ -43,4 +43,3 @@ ButtonBase.defaultProps = {
 }
 
 export type ButtonBaseProps = ComponentProps<typeof ButtonBase>
-export default ButtonBase

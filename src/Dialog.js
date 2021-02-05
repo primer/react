@@ -6,7 +6,7 @@ import theme from './theme'
 import sx from './sx'
 import Text from './Text'
 import Flex from './Flex'
-import ButtonClose from './Button/ButtonClose'
+import {ButtonClose} from './Button/ButtonClose'
 import useDialog from './hooks/useDialog'
 
 const StyledDialog = styled.div`
