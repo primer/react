@@ -2,6 +2,7 @@ import styled, {css} from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
 import {BORDER, COMMON, get, SystemCommonProps, SystemTypographyProps, SystemBorderProps, TYPOGRAPHY} from './constants'
+import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
 
 type StyledHeaderItemProps = SystemCommonProps & SxProp & {full?: boolean}
@@ -108,4 +109,5 @@ HeaderLink.defaultProps = {
   theme
 }
 
+export type HeaderProps = ComponentProps<typeof Header>
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})
