@@ -1,10 +1,14 @@
 import styled, {css} from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
-import {get, COMMON, TYPOGRAPHY, BORDER} from './constants'
-import sx from './sx'
+import {BORDER, COMMON, get, SystemCommonProps, SystemTypographyProps, SystemBorderProps, TYPOGRAPHY} from './constants'
+import sx, {SxProp} from './sx'
 
-const Header = styled.div`
+type StyledHeaderItemProps = SystemCommonProps & SxProp & {full?: boolean}
+type StyledHeaderProps = SystemCommonProps & SxProp
+type StyledHeaderLinkProps = SystemCommonProps & SxProp & SystemTypographyProps & SystemBorderProps & {to?: boolean}
+
+const Header = styled.div<StyledHeaderProps>`
   z-index: 32;
   display: flex;
   padding: ${get('space.3')};
@@ -19,16 +23,15 @@ const Header = styled.div`
   ${BORDER}
   ${sx};
 `
-
-Header.Item = styled.div`
+const HeaderItem = styled.div<StyledHeaderItemProps>`
   display: flex;
   margin-right: ${get('space.3')};
   align-self: stretch;
   align-items: center;
   flex-wrap: nowrap;
 
-  ${props =>
-    props.full &&
+  ${({full}) =>
+    full &&
     css`
       flex: auto;
     `};
@@ -37,10 +40,21 @@ Header.Item = styled.div`
   ${BORDER};
   ${sx};
 `
-Header.Item.displayName = 'Header.Item'
+HeaderItem.displayName = 'Header.Item'
 
-Header.Link = styled.a.attrs(props => {
-  const isReactRouter = typeof props.to === 'string'
+HeaderItem.defaultProps = {
+  theme
+}
+
+HeaderItem.propTypes = {
+  full: PropTypes.bool,
+  ...COMMON.propTypes,
+  ...BORDER.propTypes,
+  ...sx.propTypes
+}
+
+const HeaderLink = styled.a.attrs(({to}: StyledHeaderLinkProps) => {
+  const isReactRouter = typeof to === 'string'
   if (isReactRouter) {
     // according to their docs, NavLink supports aria-current:
     // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
@@ -67,7 +81,20 @@ Header.Link = styled.a.attrs(props => {
   ${TYPOGRAPHY};
   ${sx};
 `
-Header.Link.displayName = 'Header.Link'
+HeaderLink.displayName = 'Header.Link'
+
+HeaderLink.defaultProps = {
+  theme
+}
+
+HeaderLink.propTypes = {
+  href: PropTypes.string,
+  theme: PropTypes.object,
+  ...COMMON.propTypes,
+  ...BORDER.propTypes,
+  ...TYPOGRAPHY.propTypes,
+  ...sx.propTypes
+}
 
 Header.propTypes = {
   ...sx.propTypes,
@@ -79,29 +106,4 @@ Header.defaultProps = {
   theme
 }
 
-Header.Item.defaultProps = {
-  theme
-}
-
-Header.Item.propTypes = {
-  full: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes,
-  ...sx.propTypes
-}
-
-Header.Link.defaultProps = {
-  theme
-}
-
-Header.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
-  href: PropTypes.string,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
-}
-
-export default Header
+export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})
