@@ -40,18 +40,8 @@ const HeaderItem = styled.div<StyledHeaderItemProps>`
   ${BORDER};
   ${sx};
 `
+
 HeaderItem.displayName = 'Header.Item'
-
-HeaderItem.defaultProps = {
-  theme
-}
-
-HeaderItem.propTypes = {
-  full: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes,
-  ...sx.propTypes
-}
 
 const HeaderLink = styled.a.attrs(({to}: StyledHeaderLinkProps) => {
   const isReactRouter = typeof to === 'string'
@@ -81,9 +71,27 @@ const HeaderLink = styled.a.attrs(({to}: StyledHeaderLinkProps) => {
   ${TYPOGRAPHY};
   ${sx};
 `
+
 HeaderLink.displayName = 'Header.Link'
 
-HeaderLink.defaultProps = {
+Header.propTypes = {
+  ...sx.propTypes,
+  ...COMMON.propTypes,
+  ...BORDER.propTypes
+}
+
+Header.defaultProps = {
+  theme
+}
+
+HeaderItem.propTypes = {
+  full: PropTypes.bool,
+  ...COMMON.propTypes,
+  ...BORDER.propTypes,
+  ...sx.propTypes
+}
+
+HeaderItem.defaultProps = {
   theme
 }
 
@@ -96,13 +104,7 @@ HeaderLink.propTypes = {
   ...sx.propTypes
 }
 
-Header.propTypes = {
-  ...sx.propTypes,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes
-}
-
-Header.defaultProps = {
+HeaderLink.defaultProps = {
   theme
 }
 
