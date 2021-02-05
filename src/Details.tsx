@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import {COMMON} from './constants'
 import theme from './theme'
-import sx from './sx'
+import {COMMON, SystemCommonProps} from './constants'
+import {ComponentProps} from './utils/types'
+import sx, {SxProp} from './sx'
 
-const Details = styled.details`
+const Details = styled.details<SystemCommonProps & SxProp>`
   & > summary {
     list-style: none;
   }
@@ -26,4 +27,5 @@ Details.propTypes = {
   ...sx.propTypes
 }
 
+export type DetailsProps = ComponentProps<typeof Details>
 export default Details

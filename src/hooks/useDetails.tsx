@@ -1,13 +1,23 @@
 import {useCallback, useEffect, useState, useRef} from 'react'
 
-function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside} = {}) {
+type useDetailsParameters = {
+  ref?: {current: HTMLElement}
+  closeOnOutsideClick?: boolean
+  defaultOpen?: boolean
+  onClickOutside?: Function
+}
+
+function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: useDetailsParameters) {
   const [open, setOpen] = useState(defaultOpen)
   const backupRef = useRef(null)
   const customRef = ref ?? backupRef
 
   const onClickOutsideInternal = useCallback(
-    event => {
-      if (event.target.closest('details') !== customRef.current) {
+    (event: MouseEvent) => {
+      const {current} = customRef
+      const eventTarget = event.target as HTMLElement
+      const closest = eventTarget.closest('details') as HTMLDetailsElement
+      if (closest !== current) {
         onClickOutside && onClickOutside(event)
         if (!event.defaultPrevented) {
           setOpen(false)
@@ -27,9 +37,10 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside} = {}
     }
   }, [open, closeOnOutsideClick, onClickOutsideInternal])
 
-  const handleToggle = e => {
+  const handleToggle = (e: Event) => {
     if (!e.defaultPrevented) {
-      setOpen(e.target.open)
+      const eventTarget = e.target as HTMLDetailsElement
+      setOpen(eventTarget.open)
     }
   }
 
