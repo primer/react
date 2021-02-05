@@ -1,4 +1,3 @@
-// @ts-ignore @styled-system/prop-types does not provide type definitions
 import systemPropTypes from '@styled-system/prop-types'
 import PropTypes from 'prop-types'
 import React from 'react'

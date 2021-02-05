@@ -2,13 +2,14 @@ import {COMMON, LAYOUT, get, SystemLayoutProps, SystemCommonProps} from '../cons
 import defaultTheme from '../theme'
 import sx, {SxProp} from '../sx'
 import {XIcon} from '@primer/octicons-react'
+import PropTypes from 'prop-types'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {ComponentProps} from '../utils/types'
 
-type StyledButtonInternalProps = SystemCommonProps & SystemLayoutProps & SxProp
+type StyledButtonProps = SystemCommonProps & SystemLayoutProps & SxProp
 
-const StyledButton = styled.button<StyledButtonInternalProps>`
+const StyledButton = styled.button<StyledButtonProps>`
   border: none;
   padding: 0;
   background: transparent;
@@ -27,14 +28,23 @@ const StyledButton = styled.button<StyledButtonInternalProps>`
   ${sx};
 `
 
-export type StyledButtonProps = ComponentProps<typeof StyledButton>
+const ButtonClose = forwardRef<HTMLButtonElement, ComponentProps<typeof StyledButton>>(
+  ({theme = defaultTheme, ...props}, ref) => {
+    return (
+      <StyledButton ref={ref} aria-label="Close" {...{theme, ...props}}>
+        <XIcon />
+      </StyledButton>
+    )
+  }
+)
 
-export const ButtonClose = forwardRef<HTMLButtonElement, StyledButtonProps>(({theme = defaultTheme, ...props}, ref) => {
-  return (
-    <StyledButton ref={ref} aria-label="Close" {...{theme, ...props}}>
-      <XIcon />
-    </StyledButton>
-  )
-})
+ButtonClose.propTypes = {
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+  ...COMMON.propTypes,
+  ...LAYOUT.propTypes,
+  ...sx.propTypes
+}
 
 export type ButtonCloseProps = ComponentProps<typeof ButtonClose>
+export default ButtonClose

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {ButtonBase, ButtonBaseProps, systemStyles} from './ButtonBase'
+import ButtonBase, {ButtonBaseProps, systemStyles} from './ButtonBase'
 import {get} from '../constants'
 import theme from '../theme'
 import sx from '../sx'
@@ -42,4 +42,10 @@ ButtonPrimary.defaultProps = {
   theme
 }
 
+ButtonPrimary.propTypes = {
+  ...ButtonBase.propTypes,
+  ...sx.propTypes
+}
+
 export type ButtonPrimaryProps = ComponentProps<typeof ButtonPrimary>
+export default ButtonPrimary
