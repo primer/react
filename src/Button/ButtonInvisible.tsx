@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import sx from '../sx'
 import {get} from '../constants'
 import theme from '../theme'
-import ButtonBase, {systemStyles} from './ButtonBase'
+import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 import {ComponentProps} from '../utils/types'
 
-const ButtonInvisible = styled(ButtonBase)`
+const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps>`
   color: ${get('colors.blue.5')};
   background-color: transparent;
   border: 0;
@@ -16,8 +16,7 @@ const ButtonInvisible = styled(ButtonBase)`
     color: ${get('buttons.default.color.disabled')};
   }
 
-  ${systemStyles}
-  ${sx};
+  ${buttonSystemProps};
 `
 
 ButtonInvisible.defaultProps = {

@@ -5,12 +5,13 @@ import {COMMON, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants
 import theme from '../theme'
 import buttonBaseStyles from './ButtonStyles'
 import {compose, variant, fontSize} from 'styled-system'
-import {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import systemPropTypes from '@styled-system/prop-types'
 import {FontSizeProps} from 'styled-system'
+import sx, {SxProp} from '../sx'
 
-export const systemStyles = compose(fontSize, COMMON, LAYOUT)
+export const buttonSystemProps = compose(fontSize, COMMON, LAYOUT, sx)
+export type ButtonSystemProps = FontSizeProps & SystemCommonProps & SystemLayoutProps & SxProp
 
 const variants = variant({
   variants: {
@@ -30,11 +31,8 @@ const variants = variant({
 
 type StyledButtonBaseProps = {
   as?: 'button' | 'a' | 'summary' | 'input' | string | React.ReactType
-  fontSize?: FontSizeProps['fontSize']
   variant?: 'small' | 'medium' | 'large'
-} & SystemCommonProps &
-  SystemLayoutProps &
-  SxProp
+} & FontSizeProps
 
 const ButtonBase = styled.button.attrs<StyledButtonBaseProps>(({disabled, onClick}) => ({
   onClick: disabled ? undefined : onClick
