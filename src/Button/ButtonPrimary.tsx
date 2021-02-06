@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import ButtonBase, {ButtonBaseProps, systemStyles} from './ButtonBase'
+import ButtonBase, {systemStyles} from './ButtonBase'
 import {get} from '../constants'
 import theme from '../theme'
 import sx from '../sx'
 import {ComponentProps} from '../utils/types'
 
-export const ButtonPrimary = styled(ButtonBase)<ButtonBaseProps>`
+export const ButtonPrimary = styled(ButtonBase)`
   color: ${get('buttons.primary.color.default')};
   background-color: ${get('buttons.primary.bg.default')};
   border: 1px solid ${get('buttons.primary.border.default')};
