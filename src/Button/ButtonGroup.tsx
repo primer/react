@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import {get} from '../constants'
-import Box, {BoxProps} from '../Box'
+import Box from '../Box'
 import theme from '../theme'
 import sx from '../sx'
 import {ComponentProps} from '../utils/types'
 
-const ButtonGroup = styled(Box)<BoxProps>`
+const ButtonGroup = styled(Box)`
   vertical-align: middle;
 
   && > * {
