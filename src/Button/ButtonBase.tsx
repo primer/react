@@ -8,10 +8,9 @@ import {compose, variant, fontSize} from 'styled-system'
 import {ComponentProps} from '../utils/types'
 import systemPropTypes from '@styled-system/prop-types'
 import {FontSizeProps} from 'styled-system'
-import sx, {SxProp} from '../sx'
 
-export const buttonSystemProps = compose(fontSize, COMMON, LAYOUT, sx)
-export type ButtonSystemProps = FontSizeProps & SystemCommonProps & SystemLayoutProps & SxProp
+export const buttonSystemProps = compose(fontSize, COMMON, LAYOUT)
+export type ButtonSystemProps = FontSizeProps & SystemCommonProps & SystemLayoutProps
 
 const variants = variant({
   variants: {
