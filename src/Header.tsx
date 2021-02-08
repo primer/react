@@ -5,7 +5,7 @@ import {BORDER, COMMON, get, SystemCommonProps, SystemTypographyProps, SystemBor
 import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
 
-type StyledHeaderItemProps = SystemCommonProps & SxProp & {full?: boolean}
+type StyledHeaderItemProps = {full?: boolean} & SystemCommonProps & SxProp 
 type StyledHeaderProps = SystemCommonProps & SxProp
 type StyledHeaderLinkProps = SystemCommonProps & SxProp & SystemTypographyProps & SystemBorderProps & {to?: boolean}
 
