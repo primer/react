@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Migrate `Header` component to TypeScript
+Migrate `Header` to TypeScript
