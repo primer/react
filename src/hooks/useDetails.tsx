@@ -4,7 +4,7 @@ type UseDetailsParameters = {
   ref?: React.RefObject<HTMLElement>
   closeOnOutsideClick?: boolean
   defaultOpen?: boolean
-  onClickOutside?: Function
+  onClickOutside?: (event: MouseEvent) => void
 }
 
 function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: useDetailsParameters) {
