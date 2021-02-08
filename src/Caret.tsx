@@ -67,15 +67,6 @@ function Caret(props: CaretProps) {
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
 
-  const style = {
-    pointerEvents: 'none',
-    position: 'absolute',
-    ...getPosition(edge, align, size),
-    // if align is set (top|right|bottom|left),
-    // then we don't need an offset margin
-    [`margin${perp}`]: align ? null : -size
-  }
-
   // note: these arrays represent points in the form [x, y]
   const a = [-size, 0]
   const b = [0, size]
@@ -95,7 +86,18 @@ function Caret(props: CaretProps) {
   }[edge]
 
   return (
-    <svg width={size * 2} height={size * 2} style={style}>
+    <svg
+      width={size * 2}
+      height={size * 2}
+      style={{
+        pointerEvents: 'none',
+        position: 'absolute',
+        ...getPosition(edge, align, size),
+        // if align is set (top|right|bottom|left),
+        // then we don't need an offset margin
+        [`margin${perp}`]: align ? null : -size
+      }}
+    >
       <g transform={transform}>
         <path d={triangle} fill={bg} />
         <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
