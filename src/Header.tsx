@@ -4,10 +4,14 @@ import theme from './theme'
 import {BORDER, COMMON, get, SystemCommonProps, SystemTypographyProps, SystemBorderProps, TYPOGRAPHY} from './constants'
 import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
+import * as History from 'history'
 
-type StyledHeaderItemProps = {full?: boolean} & SystemCommonProps & SxProp 
+type StyledHeaderItemProps = {full?: boolean} & SystemCommonProps & SxProp
 type StyledHeaderProps = SystemBorderProps & SystemCommonProps & SxProp
-type StyledHeaderLinkProps = SystemCommonProps & SxProp & SystemTypographyProps & SystemBorderProps & {to?: boolean}
+type StyledHeaderLinkProps = {to?: History.LocationDescriptor} & SystemCommonProps &
+  SxProp &
+  SystemTypographyProps &
+  SystemBorderProps
 
 const Header = styled.div<StyledHeaderProps>`
   z-index: 32;
@@ -44,7 +48,7 @@ const HeaderItem = styled.div<StyledHeaderItemProps>`
 
 HeaderItem.displayName = 'Header.Item'
 
-const HeaderLink = styled.a.attrs(({to}: StyledHeaderLinkProps) => {
+const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
   const isReactRouter = typeof to === 'string'
   if (isReactRouter) {
     // according to their docs, NavLink supports aria-current:
@@ -53,7 +57,7 @@ const HeaderLink = styled.a.attrs(({to}: StyledHeaderLinkProps) => {
   } else {
     return {}
   }
-})`
+})<StyledHeaderLinkProps>`
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.white')};
   white-space: nowrap;
