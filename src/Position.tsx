@@ -7,7 +7,9 @@ import sx from './sx'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
 
-const Position = styled(Box)<SystemPositionProps>`
+type StyledPositionProps = {as?: React.ElementType} & SystemPositionProps
+
+const Position = styled(Box)<StyledPositionProps>`
   ${POSITION};
   ${sx};
 `
