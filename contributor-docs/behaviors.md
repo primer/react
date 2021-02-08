@@ -92,7 +92,7 @@ As a library, there is a need to balance the YAGNI Principle with building a lib
 * As mentioned above, behaviors should have sensible defaults but powerful configuration. Behaviors are configured via arguments passed to the hook.
 * When possible, a hook should be able to be called with zero arguments to get all the defaults.
 * Each argument that is required should have an individual parameter on the hook function.
-* Optional arguments (i.e. “settings”) should be provided via a strongly settings object as the last argument to a hook function.
+* Optional arguments (i.e. “settings”) should be provided via a strongly typed settings object as the last argument to a hook function.
 
 ### Return value of behavior hooks
 
@@ -129,4 +129,3 @@ There are no restrictions on return values of generic behavior hooks. In fact, s
 * Whenever possible, test your changes in another application that makes heavy use of Primer Components.
 * You may even want to build and “marinate” your component in another application before merging a change to Primer Components.
 * Build the component, start using it in the application, and see how the component API feels. This approach works best for engineers at GitHub already working on a product written in React.
-
