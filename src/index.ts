@@ -28,7 +28,7 @@ export {
   ButtonInvisible,
   ButtonTableList,
   ButtonClose,
-  ButtonGroup,
+  ButtonGroup
 } from './Button'
 export {default as Caret} from './Caret'
 export {default as CircleBadge} from './CircleBadge'
@@ -50,6 +50,7 @@ export {default as Pagehead} from './Pagehead'
 export {default as Pagination} from './Pagination'
 export {default as PointerBox} from './PointerBox'
 export {default as Popover} from './Popover'
+export {default as Portal, PortalProps, registerPortalRoot} from './Portal'
 export {default as ProgressBar} from './ProgressBar'
 export {default as SelectMenu} from './SelectMenu'
 export {default as SideNav} from './SideNav'
