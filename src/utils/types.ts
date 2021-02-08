@@ -10,3 +10,8 @@ export type ComponentProps<T> = T extends React.ComponentType<infer Props>
     ? Props
     : never
   : never
+
+export type StyledComponentProps = {
+  as?: React.ElementType
+  theme?: any
+}
