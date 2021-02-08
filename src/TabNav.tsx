@@ -11,7 +11,7 @@ import * as History from 'history'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-const TabNavParent = styled.nav`
+const TabNavParent = styled.nav<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx}
 `
@@ -45,6 +45,7 @@ const TabNav = styled(TabNavBase)`
   ${COMMON};
   ${sx};
 `
+
 type StyledTabNavLinkProps = {to?: History.LocationDescriptor; selected?: boolean} & SystemCommonProps &
   SxProp &
   SystemTypographyProps
