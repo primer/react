@@ -110,4 +110,6 @@ HeaderLink.defaultProps = {
 }
 
 export type HeaderProps = ComponentProps<typeof Header>
+export type HeaderLinkProps = ComponentProps<typeof HeaderLink>
+export type HeaderItemProps = ComponentProps<typeof HeaderItem>
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})
