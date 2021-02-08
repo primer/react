@@ -66,7 +66,7 @@ All behaviors should be implemented as [React Hooks](https://reactjs.org/docs/ho
 
 Component behaviors should be relatively brief. A component behavior should build a component's experience through the combination of several configured generic behaviors.
 
-Example: The Dialog Component uses a `usePopover` behavior. The `usePopover` behavior in turn may call generic behaviors such as `usePosition` (to position the popover on the screen), `useClickAway` (to set up an event handler for clicking outside of the dialog), and `useFocusTrap` (to prevent focus from leaving the dialog while it is being shown).
+Example: The Dialog component uses a `usePopover` behavior. The `usePopover` behavior in turn may call generic behaviors such as `usePosition` (to position the popover on the screen), `useClickAway` (to set up an event handler for clicking outside of the dialog), and `useFocusTrap` (to prevent focus from leaving the dialog while it is being shown).
 
 ### Component implementation
 
