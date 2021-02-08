@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState, useRef} from 'react'
 
-type useDetailsParameters = {
+type UseDetailsParameters = {
   ref?: React.RefObject<HTMLElement>
   closeOnOutsideClick?: boolean
   defaultOpen?: boolean
