@@ -4,10 +4,11 @@ import classnames from 'classnames'
 import systemPropTypes from '@styled-system/prop-types'
 import {omit, pick} from '@styled-system/props'
 import styled, {css} from 'styled-components'
-import {variant, width, minWidth, maxWidth} from 'styled-system'
-import {COMMON, get} from './constants'
+import {variant, width, minWidth, maxWidth, MaxWidthProps, WidthProps, MinWidthProps} from 'styled-system'
+import {COMMON, get, SystemCommonProps} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const sizeVariants = variant({
   variants: {
@@ -26,28 +27,6 @@ const sizeVariants = variant({
   }
 })
 
-// using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
-const TextInput = React.forwardRef(({icon: IconComponent, className, block, disabled, sx, ...rest}, ref) => {
-  // this class is necessary to style FilterSearch, plz no touchy!
-  const wrapperClasses = classnames(className, 'TextInput-wrapper')
-  const wrapperProps = pick(rest)
-  const inputProps = omit(rest)
-  return (
-    <Wrapper
-      className={wrapperClasses}
-      hasIcon={!!IconComponent}
-      block={block}
-      theme={theme}
-      disabled={disabled}
-      sx={sx}
-      {...wrapperProps}
-    >
-      {IconComponent && <IconComponent className="TextInput-icon" />}
-      <Input ref={ref} disabled={disabled} {...inputProps} />
-    </Wrapper>
-  )
-})
-
 const Input = styled.input`
   border: 0;
   font-size: inherit;
@@ -60,7 +39,18 @@ const Input = styled.input`
   }
 `
 
-const Wrapper = styled.span`
+type StyledWrapperProps = {
+  disabled?: boolean
+  hasIcon?: boolean
+  block?: boolean
+  variant?: 'small' | 'large'
+} & SystemCommonProps &
+  WidthProps &
+  MinWidthProps &
+  MaxWidthProps &
+  SxProp
+
+const Wrapper = styled.span<StyledWrapperProps>`
   display: inline-flex;
   align-items: stretch;
   min-height: 34px;
@@ -126,6 +116,33 @@ const Wrapper = styled.span`
   ${sx};
 `
 
+type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>} & ComponentProps<typeof Wrapper> &
+  ComponentProps<typeof Input>
+
+// using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
+const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
+  ({icon: IconComponent, className, block, disabled, sx, ...rest}, ref) => {
+    // this class is necessary to style FilterSearch, plz no touchy!
+    const wrapperClasses = classnames(className, 'TextInput-wrapper')
+    const wrapperProps = pick(rest)
+    const inputProps = omit(rest)
+    return (
+      <Wrapper
+        className={wrapperClasses}
+        hasIcon={!!IconComponent}
+        block={block}
+        theme={theme}
+        disabled={disabled}
+        sx={sx}
+        {...wrapperProps}
+      >
+        {IconComponent && <IconComponent className="TextInput-icon" />}
+        <Input ref={ref} disabled={disabled} {...inputProps} />
+      </Wrapper>
+    )
+  }
+)
+
 TextInput.defaultProps = {
   theme,
   type: 'text'
@@ -133,7 +150,7 @@ TextInput.defaultProps = {
 
 TextInput.propTypes = {
   block: PropTypes.bool,
-  icon: PropTypes.elementType,
+  icon: PropTypes.any,
   maxWidth: systemPropTypes.layout.maxWidth,
   minWidth: systemPropTypes.layout.minWidth,
   variant: PropTypes.oneOf(['small', 'large']),
@@ -144,4 +161,5 @@ TextInput.propTypes = {
 
 TextInput.displayName = 'TextInput'
 
+export type TextInputProps = ComponentProps<typeof TextInput>
 export default TextInput
