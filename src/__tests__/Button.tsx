@@ -16,6 +16,7 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 
 describe('Button', () => {
