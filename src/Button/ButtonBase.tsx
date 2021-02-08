@@ -1,10 +1,16 @@
+import {WeakValidationMap} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {COMMON, LAYOUT} from '../constants'
+import {COMMON, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants'
 import theme from '../theme'
 import buttonBaseStyles from './ButtonStyles'
 import {compose, variant, fontSize} from 'styled-system'
+import {ComponentProps} from '../utils/types'
 import systemPropTypes from '@styled-system/prop-types'
+import {FontSizeProps} from 'styled-system'
+
+export const buttonSystemProps = compose(fontSize, COMMON, LAYOUT)
+export type ButtonSystemProps = FontSizeProps & SystemCommonProps & SystemLayoutProps
 
 const variants = variant({
   variants: {
@@ -22,21 +28,24 @@ const variants = variant({
   }
 })
 
-const ButtonBase = styled.button.attrs(({disabled, onClick}) => ({
+type StyledButtonBaseProps = {
+  as?: 'button' | 'a' | 'summary' | 'input' | string | React.ReactType
+  variant?: 'small' | 'medium' | 'large'
+} & FontSizeProps
+
+const ButtonBase = styled.button.attrs<StyledButtonBaseProps>(({disabled, onClick}) => ({
   onClick: disabled ? undefined : onClick
-}))`
+}))<StyledButtonBaseProps>`
   ${buttonBaseStyles}
   ${variants}
 `
-
-export const systemStyles = compose(fontSize, COMMON, LAYOUT)
 
 ButtonBase.defaultProps = {
   theme,
   variant: 'medium'
 }
 
-ButtonBase.propTypes = {
+const propTypes: WeakValidationMap<ButtonBaseProps> = {
   as: PropTypes.oneOfType([PropTypes.oneOf(['button', 'a', 'summary', 'input']), PropTypes.elementType]),
   children: PropTypes.node,
   disabled: PropTypes.bool,
@@ -47,5 +56,7 @@ ButtonBase.propTypes = {
   ...COMMON.propTypes,
   ...LAYOUT.propTypes
 }
+ButtonBase.propTypes = propTypes
 
+export type ButtonBaseProps = ComponentProps<typeof ButtonBase>
 export default ButtonBase
