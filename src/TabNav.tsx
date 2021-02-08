@@ -46,7 +46,10 @@ const TabNav = styled(TabNavBase)`
   ${sx};
 `
 
-type StyledTabNavLinkProps = {to?: History.LocationDescriptor; selected?: boolean} & SystemCommonProps &
+type StyledTabNavLinkProps = {
+  to?: History.LocationDescriptor
+  selected?: boolean
+} & SystemCommonProps &
   SxProp &
   SystemTypographyProps
 
