@@ -18,11 +18,7 @@ describe('CircleBadge', () => {
   })
 
   describe('CircleBadge.Icon', () => {
-    behavesAsComponent(CircleBadge.Icon, [COMMON], () => (
-      <CircleBadge.Icon icon={CheckIcon}>
-        <div />
-      </CircleBadge.Icon>
-    ))
+    behavesAsComponent(CircleBadge.Icon, [COMMON], () => <CircleBadge.Icon icon={CheckIcon} />)
   })
 
   it('should have no axe violations', async () => {
