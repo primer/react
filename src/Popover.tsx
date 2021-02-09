@@ -231,7 +231,7 @@ Popover.defaultProps = {
 }
 
 Popover.propTypes = {
-  caret: PropTypes.string,
+  caret: PropTypes.any,
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
