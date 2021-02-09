@@ -11,29 +11,7 @@ import * as History from 'history'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-const TabNavParent = styled.nav<SystemCommonProps & SxProp>`
-  ${COMMON}
-  ${sx}
-`
-
-type TabNavBaseProps = {
-  actions?: Array<any>
-  full?: boolean
-  align?: string
-} & ComponentProps<typeof TabNavParent> &
-  SystemCommonProps &
-  SxProp
-
-function TabNavBase({actions, className, align, children, full, theme, ...rest}: TabNavBaseProps) {
-  const classes = classnames(className, 'TabNav')
-  return (
-    <TabNavParent className={classes} {...rest}>
-      <div className="TabNav-body">{children}</div>
-    </TabNavParent>
-  )
-}
-
-const TabNav = styled(TabNavBase)`
+const TabNavBase = styled.nav<SystemCommonProps & SxProp>`
   display: flex;
   border-bottom: 1px solid ${get('colors.border.gray')};
 
@@ -42,9 +20,20 @@ const TabNav = styled(TabNavBase)`
     margin-bottom: -1px;
   }
 
-  ${COMMON};
-  ${sx};
+  ${COMMON}
+  ${sx}
 `
+
+export type TabNavProps = ComponentProps<typeof TabNavBase>
+
+function TabNav({className, children, ...rest}: TabNavProps) {
+  const classes = classnames(className, 'TabNav')
+  return (
+    <TabNavBase className={classes} {...rest}>
+      <div className="TabNav-body">{children}</div>
+    </TabNavBase>
+  )
+}
 
 type StyledTabNavLinkProps = {
   to?: History.LocationDescriptor
@@ -108,6 +97,5 @@ TabNavLink.propTypes = {
 
 TabNavLink.displayName = 'TabNav.Link'
 
-export type TabNavProps = ComponentProps<typeof TabNav>
 export type TabNavLinkProps = ComponentProps<typeof TabNavLink>
 export default Object.assign(TabNav, {Link: TabNavLink})
