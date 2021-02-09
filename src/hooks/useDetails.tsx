@@ -7,7 +7,7 @@ type UseDetailsParameters = {
   onClickOutside?: (event: MouseEvent) => void
 }
 
-function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: useDetailsParameters) {
+function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: UseDetailsParameters) {
   const [open, setOpen] = useState(defaultOpen)
   const backupRef = useRef(null)
   const customRef = ref ?? backupRef
