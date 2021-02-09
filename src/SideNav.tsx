@@ -2,13 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import classnames from 'classnames'
-import {COMMON, get} from './constants'
-import theme from './theme'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
 import Link from './Link'
 import BorderBox from './BorderBox'
-import sx from './sx'
+import {ComponentProps} from './utils/types'
+import theme from './theme'
+import sx, {SxProp} from './sx'
+import * as History from 'history'
 
-function SideNavBase({variant, className, bordered, children, ...props}) {
+type StyledSideNavBaseProps = {
+  variant?: 'lightweight' | 'normal'
+  bordered?: boolean
+} & ComponentProps<typeof BorderBox>
+
+function SideNavBase({variant, className, bordered, children, ...props}: StyledSideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
@@ -23,7 +30,7 @@ function SideNavBase({variant, className, bordered, children, ...props}) {
   )
 }
 
-const SideNav = styled(SideNavBase)`
+const SideNav = styled(SideNavBase)<StyledSideNavBaseProps>`
   background-color: ${get('colors.white')};
 
   ${props =>
@@ -40,8 +47,15 @@ const SideNav = styled(SideNavBase)`
   ${COMMON};
   ${sx};
 `
+type StyledSideNavLinkProps = {
+  to?: History.LocationDescriptor
+  selected?: boolean
+  variant?: 'full' | 'normal'
+} & SystemCommonProps &
+  SxProp &
+  SystemTypographyProps
 
-SideNav.Link = styled(Link).attrs(props => {
+const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   const isReactRouter = typeof props.to === 'string'
   if (isReactRouter || props.selected) {
     // according to their docs, NavLink supports aria-current:
@@ -50,7 +64,7 @@ SideNav.Link = styled(Link).attrs(props => {
   } else {
     return {}
   }
-})`
+})<StyledSideNavLinkProps>`
   position: relative;
   display: block;
   ${props =>
@@ -147,7 +161,6 @@ SideNav.defaultProps = {
 }
 
 SideNav.propTypes = {
-  as: PropTypes.elementType,
   bordered: PropTypes.bool,
   children: PropTypes.node,
   theme: PropTypes.object,
@@ -155,19 +168,21 @@ SideNav.propTypes = {
   ...BorderBox.propTypes
 }
 
-SideNav.Link.defaultProps = {
+SideNavLink.defaultProps = {
   theme,
   variant: 'normal'
 }
 
-SideNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+SideNavLink.propTypes = {
   selected: PropTypes.bool,
   theme: PropTypes.object,
   variant: PropTypes.oneOf(['normal', 'full']),
   ...Link.propTypes
 }
 
-SideNav.Link.displayName = 'SideNav.Link'
+SideNavLink.displayName = 'SideNav.Link'
 
-export default SideNav
+export type SideNavProps = ComponentProps<typeof SideNav>
+export type SideNavLinksProps = ComponentProps<typeof SideNavLink>
+
+export default Object.assign(SideNav, {Link: SideNavLink})
