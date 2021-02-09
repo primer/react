@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {Relative} from './Position'
+import {Relative, RelativeProps} from './Position'
 import Avatar from './Avatar'
 import theme from './theme'
 
@@ -11,8 +11,12 @@ const ChildAvatar = styled(Avatar)`
   bottom: -9%;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
 `
-const AvatarPair = ({children, ...rest}) => {
+
+export type AvatarPairProps = RelativeProps
+
+const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
+    if (!React.isValidElement(child)) return child
     return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar bg="white" {...child.props} size={20} />
   })
   return (
