@@ -4,7 +4,14 @@ import {COMMON, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
 
-const Details = styled.details<SystemCommonProps & SxProp>`
+type StyledDetailsProps = {
+  ref?: React.RefObject<HTMLElement>
+  onToggle?: (event: Event) => void
+  open?: boolean
+} & SystemCommonProps &
+  SxProp
+
+const Details = styled.details<StyledDetailsProps>`
   & > summary {
     list-style: none;
   }
