@@ -1,0 +1,32 @@
+---
+title: useSafeTimeout
+---
+
+`useSafeTimeout` is a utility Hook that allows you to safely call `setTimeout` and `clearTimeout` within a component, ensuring that all timeouts are cleared when the component unmounts.
+
+
+### Usage
+
+```jsx live
+<State>
+  {([]) => {
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    let timeoutId = null
+
+    const handleOnClick = () => {
+      timeoutId = safeSetTimeout(() => window.alert('hello!'), 5000)
+    }
+
+    const cancelTimeout = () => {
+      safeClearTimeout(timeoutId)
+    }
+
+    return (
+      <>
+        <Button onClick={handleOnClick}>Click me</Button>
+        <Button onClick={cancelTimeout}>Cancel Timeout</Button>
+      </>
+    )
+  }}
+</State>
+```
