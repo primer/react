@@ -1,5 +1,5 @@
 import React from 'react'
-import {Tooltip} from '..'
+import Tooltip, {TooltipProps} from '../Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -33,7 +33,9 @@ describe('Tooltip', () => {
 
   it('respects the "direction" prop', () => {
     for (const direction of Tooltip.directions) {
-      expect(rendersClass(<Tooltip direction={direction} />, `tooltipped-${direction}`)).toBe(true)
+      expect(
+        rendersClass(<Tooltip direction={direction as TooltipProps['direction']} />, `tooltipped-${direction}`)
+      ).toBe(true)
     }
   })
 
