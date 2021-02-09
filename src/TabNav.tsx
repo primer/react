@@ -2,23 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, SystemCommonProps, SystemTypographyProps, get} from './constants'
+import {ComponentProps} from './utils/types'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import * as History from 'history'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-function TabNavBase({actions, className, align, children, full, theme, ...rest}) {
-  const classes = classnames(className, 'TabNav')
-  return (
-    <nav className={classes} {...rest}>
-      <div className="TabNav-body">{children}</div>
-    </nav>
-  )
-}
-
-const TabNav = styled(TabNavBase)`
+const TabNavBase = styled.nav<SystemCommonProps & SxProp>`
   display: flex;
   border-bottom: 1px solid ${get('colors.border.gray')};
 
@@ -27,14 +20,32 @@ const TabNav = styled(TabNavBase)`
     margin-bottom: -1px;
   }
 
-  ${COMMON};
-  ${sx};
+  ${COMMON}
+  ${sx}
 `
 
-TabNav.Link = styled.a.attrs(props => ({
+export type TabNavProps = ComponentProps<typeof TabNavBase>
+
+function TabNav({className, children, ...rest}: TabNavProps) {
+  const classes = classnames(className, 'TabNav')
+  return (
+    <TabNavBase className={classes} {...rest}>
+      <div className="TabNav-body">{children}</div>
+    </TabNavBase>
+  )
+}
+
+type StyledTabNavLinkProps = {
+  to?: History.LocationDescriptor
+  selected?: boolean
+} & SystemCommonProps &
+  SxProp &
+  SystemTypographyProps
+
+const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
-}))`
+}))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
@@ -73,18 +84,18 @@ TabNav.propTypes = {
   ...sx.propTypes
 }
 
-TabNav.Link.defaultProps = {
+TabNavLink.defaultProps = {
   theme
 }
 
-TabNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
+TabNavLink.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
   ...sx.propTypes
 }
 
-TabNav.Link.displayName = 'TabNav.Link'
+TabNavLink.displayName = 'TabNav.Link'
 
-export default TabNav
+export type TabNavLinkProps = ComponentProps<typeof TabNavLink>
+export default Object.assign(TabNav, {Link: TabNavLink})
