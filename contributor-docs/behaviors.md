@@ -77,9 +77,9 @@ Component implementation is [discussed elsewhere](https://github.com/primer/comp
 * Component implementations should be as clean as possible, mostly consisting of the JSX tree definition that the component renders.
 * Component props and, in some circumstances, context values, should serve as arguments to component behavior hooks.
 
-### [YAGNI Principle](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)
+### Balancing API surface with supported scenarios
 
-As a library, there is a need to balance the YAGNI Principle with building a library that functions for a wide range of use cases. Each component and behavior will implement features on a case-by-base basis. When you are adding a feature that seems too specific, _generalize_ it. Can you account for multiple use cases by implementing a single feature? Can you take a single use case and identify a feature that would enable this use case along with others?
+The [YAGNI Principle](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) cautions developers against building out functionality that isn't presently needed, but as a library, Primer Components should carefully balance the API surface area with building a library that functions for a wide range of use cases. Since it is difficult to define a quantitative test to determine whether or not a component or a behavior should support a certain scenario, there will be some subjectivity when it comes to choosing to build certain features. When adding a feature that seems too specific, try to _generalize_ it. Can multiple use cases be accounted for by implementing a single generalized feature? Can a known needed use case be extrapolated into a feature that supports that use case along with other use cases that are not yet known to be needed? If so, use these considerations when designing your APIs.
 
 ### Sensible defaults, powerful configuration, and last-resort "escape hatches"
 
