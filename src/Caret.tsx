@@ -54,7 +54,7 @@ const getBorderWidth = style({prop: 'borderWidth', key: 'borderWidths', scale: [
 export type CaretProps = {
   bg?: string
   borderColor?: string
-  borderWidth?: string
+  borderWidth?: string | number
   size?: number
   location?: Location
 }
