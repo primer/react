@@ -12,7 +12,7 @@ export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$
 
 enzyme.configure({adapter: new Adapter()})
 
-export function mount(component) {
+export function mount(component: React.ReactElement) {
   return enzyme.mount(component)
 }
 
@@ -27,8 +27,8 @@ export function mount(component) {
  * expect(render(<Foo />)).toEqual(render(<div foo='bar' />))
  * ```
  */
-export function render(component) {
-  return renderer.create(component).toJSON()
+export function render(component: React.ReactElement) {
+  return renderer.create(component).toJSON() as renderer.ReactTestRendererJSON
 }
 
 /**
@@ -36,7 +36,7 @@ export function render(component) {
  * using react-test-renderer and return the root node
  * ```
  */
-export function renderRoot(component) {
+export function renderRoot(component: React.ReactElement) {
   return renderer.create(component).root
 }
 
@@ -49,7 +49,7 @@ export function renderRoot(component) {
  *   .toEqual(['a', 'b'])
  * ```
  */
-export function renderClasses(component) {
+export function renderClasses(component: React.ReactElement): string {
   const {
     props: {className}
   } = render(component)
@@ -59,30 +59,30 @@ export function renderClasses(component) {
 /**
  * Returns true if a node renders with a single class.
  */
-export function rendersClass(node, klass) {
+export function rendersClass(node: React.ReactElement, klass: string): boolean  {
   return renderClasses(node).includes(klass)
 }
 
-export function renderWithTheme(node, theme = defaultTheme) {
+export function renderWithTheme(node: React.ReactElement, theme = defaultTheme): renderer.ReactTestRendererJSON {
   return render(<ThemeProvider theme={theme}>{node}</ThemeProvider>)
 }
 
-export function px(value) {
+export function px(value: number | string): string {
   return typeof value === 'number' ? `${value}px` : value
 }
 
-export function percent(value) {
+export function percent(value: number | string): string {
   return typeof value === 'number' ? `${value}%` : value
 }
 
-export function renderStyles(node) {
+export function renderStyles(node: React.ReactElement) {
   const {
     props: {className}
   } = render(node)
   return getComputedStyles(className)
 }
 
-export function getComputedStyles(className) {
+export function getComputedStyles(className: string) {
   const div = document.createElement('div')
   div.className = className
 
@@ -101,7 +101,7 @@ export function getComputedStyles(className) {
 
   return computed
 
-  function readRule(rule, dest) {
+  function readRule(rule: CSSRule, dest: Computed) {
     if (matchesSafe(div, rule.selectorText)) {
       const {style} = rule
       for (let i = 0; i < style.length; i++) {
@@ -128,7 +128,7 @@ export function getComputedStyles(className) {
     }
   }
 
-  function matchesSafe(node, selector) {
+  function matchesSafe(node: React.ReactElement, selector) {
     if (!selector) {
       return false
     }
@@ -144,15 +144,15 @@ export function getComputedStyles(className) {
  * This provides a layer of compatibility between the render() function from
  * react-test-renderer and Enzyme's mount()
  */
-export function getProps(node) {
+export function getProps(node: React.ReactElement) {
   return typeof node.props === 'function' ? node.props() : node.props
 }
 
-export function getClassName(node) {
+export function getClassName(node: React.ReactElement) {
   return getProps(node).className
 }
 
-export function getClasses(node) {
+export function getClasses(node: React.ReactElement) {
   const className = getClassName(node)
   return className ? className.trim().split(/ +/) : []
 }
