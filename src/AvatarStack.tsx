@@ -2,12 +2,18 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import sx from './sx'
-import {get, COMMON} from './constants'
+import sx, {SxProp} from './sx'
+import {get, COMMON, SystemCommonProps} from './constants'
 import theme from './theme'
 import {Absolute} from './Position'
+import {ComponentProps} from './utils/types'
 
-const AvatarStackWrapper = styled.span`
+type StyledAvatarStackWrapperProps = {
+  count?: number
+} & SystemCommonProps &
+  SxProp
+
+const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   display: flex;
   position: relative;
   height: 20px;
@@ -124,8 +130,9 @@ const AvatarStackWrapper = styled.span`
   ${COMMON}
   ${sx};
 `
-const transformChildren = children => {
+const transformChildren = (children: React.ReactNode) => {
   return React.Children.map(children, (child, index) => {
+    if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       className: classnames(child.props.className, 'pc-AvatarItem'),
       sx: {zIndex: 10 - index, ...child.props.sx}
@@ -133,8 +140,12 @@ const transformChildren = children => {
   })
 }
 
-const AvatarStack = ({children = [], alignRight, ...rest}) => {
-  const count = children.length
+export type AvatarStackProps = {
+  alignRight?: boolean
+} & ComponentProps<typeof AvatarStackWrapper>
+
+const AvatarStack = ({children, alignRight, ...rest}: AvatarStackProps) => {
+  const count = React.Children.count(children)
   const wrapperClassNames = classnames({
     'pc-AvatarStack--two': count === 2,
     'pc-AvatarStack--three-plus': count > 2,
@@ -158,4 +169,5 @@ AvatarStack.propTypes = {
   alignRight: PropTypes.bool,
   ...sx.propTypes
 }
+
 export default AvatarStack
