@@ -2,26 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
-function TooltipBase({direction, children, className, text, noDelay, align, wrap, theme, ...rest}) {
-  const classes = classnames(
-    className,
-    `tooltipped-${direction}`,
-    align && `tooltipped-align-${align}-2`,
-    noDelay && 'tooltipped-no-delay',
-    wrap && 'tooltipped-multiline'
-  )
-  return (
-    <span aria-label={text} {...rest} className={classes}>
-      {children}
-    </span>
-  )
-}
-
-const Tooltip = styled(TooltipBase)`
+const TooltipBase = styled.span<SystemCommonProps & SxProp>`
   position: relative;
 
   &::before {
@@ -249,13 +235,34 @@ const Tooltip = styled(TooltipBase)`
   ${sx};
 `
 
+export type TooltipProps = {
+  direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+  text?: string
+  noDelay?: boolean
+  align?: 'left' | 'right'
+  wrap?: boolean
+} & ComponentProps<typeof TooltipBase>
+
+function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, ...rest}: TooltipProps) {
+  const classes = classnames(
+    className,
+    `tooltipped-${direction}`,
+    align && `tooltipped-align-${align}-2`,
+    noDelay && 'tooltipped-no-delay',
+    wrap && 'tooltipped-multiline'
+  )
+  return (
+    <TooltipBase aria-label={text} {...rest} className={classes}>
+      {children}
+    </TooltipBase>
+  )
+}
 Tooltip.alignments = ['left', 'right']
 
 Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
 Tooltip.defaultProps = {
-  theme,
-  direction: 'n'
+  theme
 }
 
 Tooltip.propTypes = {
