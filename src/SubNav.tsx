@@ -13,7 +13,7 @@ import {
 } from './constants'
 import {ComponentProps} from './utils/types'
 import theme from './theme'
-import Flex from './Flex'
+import Flex, {FlexProps} from './Flex'
 import sx, {SxProp} from './sx'
 import * as History from 'history'
 
@@ -63,7 +63,7 @@ function SubNav({actions, className, children, label, theme, ...rest}: StyledSub
   )
 }
 
-const SubNavLinks = (props: SystemFlexProps & SystemCommonProps & SxProp) => <Flex {...props} />
+const SubNavLinks = (props: FlexProps) => <Flex {...props} />
 
 type StyledSubNavLinkProps = {
   to?: History.LocationDescriptor
