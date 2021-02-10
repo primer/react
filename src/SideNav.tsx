@@ -10,12 +10,12 @@ import theme from './theme'
 import sx, {SxProp} from './sx'
 import * as History from 'history'
 
-type StyledSideNavBaseProps = {
+type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'
   bordered?: boolean
 } & ComponentProps<typeof BorderBox>
 
-function SideNavBase({variant, className, bordered, children, ...props}: StyledSideNavBaseProps) {
+function SideNavBase({variant, className, bordered, children, ...props}: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
@@ -30,7 +30,7 @@ function SideNavBase({variant, className, bordered, children, ...props}: StyledS
   )
 }
 
-const SideNav = styled(SideNavBase)<StyledSideNavBaseProps>`
+const SideNav = styled(SideNavBase)`
   background-color: ${get('colors.white')};
 
   ${props =>
@@ -51,9 +51,7 @@ type StyledSideNavLinkProps = {
   to?: History.LocationDescriptor
   selected?: boolean
   variant?: 'full' | 'normal'
-} & SystemCommonProps &
-  SxProp &
-  SystemTypographyProps
+}
 
 const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   const isReactRouter = typeof props.to === 'string'
