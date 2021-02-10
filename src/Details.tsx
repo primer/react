@@ -5,8 +5,6 @@ import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
 
 type StyledDetailsProps = {
-  ref?: React.RefObject<HTMLElement>
-  onToggle?: (event: Event) => void
   open?: boolean
 } & SystemCommonProps &
   SxProp
