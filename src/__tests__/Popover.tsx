@@ -1,5 +1,5 @@
 import React from 'react'
-import {Popover} from '..'
+import Popover, {PopoverProps} from '../Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {BORDER, COMMON, LAYOUT, POSITION} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -35,7 +35,22 @@ describe('Popover', () => {
     cleanup()
   })
 
-  for (const pos of Popover.CARET_POSITIONS) {
+  const CARET_POSITIONS: PopoverProps['caret'][] = [
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'bottom-left',
+    'bottom-right',
+    'top-left',
+    'top-right',
+    'left-bottom',
+    'left-top',
+    'right-bottom',
+    'right-top'
+  ]
+
+  for (const pos of CARET_POSITIONS) {
     it(`renders correctly for a caret position of ${pos}`, () => {
       const element = (
         <Popover caret={pos} open>

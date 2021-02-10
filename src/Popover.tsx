@@ -1,16 +1,40 @@
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import classnames from 'classnames'
-import {COMMON, LAYOUT, POSITION, get} from './constants'
-import theme from './theme'
 import BorderBox from './BorderBox'
-import sx from './sx'
+import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
+import sx, {SxProp} from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
-const Popover = styled.div.attrs(({className, caret}) => {
+type CaretPosition =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-left'
+  | 'top-right'
+  | 'left-bottom'
+  | 'left-top'
+  | 'right-bottom'
+  | 'right-top'
+
+type StyledPopoverProps = {
+  caret?: CaretPosition
+  relative?: boolean
+  open?: boolean
+} & SystemCommonProps &
+  SystemLayoutProps &
+  SystemPositionProps &
+  SxProp
+
+const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
   return {
     className: classnames(className, `caret-pos--${caret}`)
   }
-})`
+})<StyledPopoverProps>`
   position: ${props => (props.relative ? 'relative' : 'absolute')};
   z-index: 100;
   display: ${props => (props.open ? 'block' : 'none')};
@@ -21,7 +45,7 @@ const Popover = styled.div.attrs(({className, caret}) => {
   ${sx};
 `
 
-Popover.Content = styled(BorderBox)`
+const PopoverContent = styled(BorderBox)`
   position: relative;
   width: 232px;
   margin-right: auto;
@@ -201,29 +225,13 @@ Popover.Content = styled(BorderBox)`
   ${sx};
 `
 
-Popover.CARET_POSITIONS = [
-  'top',
-  'bottom',
-  'left',
-  'right',
-  'bottom-left',
-  'bottom-right',
-  'top-left',
-  'top-right',
-  'left-bottom',
-  'left-top',
-  'right-bottom',
-  'right-top'
-]
-
 Popover.defaultProps = {
   caret: 'top',
   theme
 }
 
 Popover.propTypes = {
-  as: PropTypes.elementType,
-  caret: PropTypes.oneOf(Popover.CARET_POSITIONS),
+  caret: PropTypes.any,
   open: PropTypes.bool,
   relative: PropTypes.bool,
   theme: PropTypes.object,
@@ -233,17 +241,18 @@ Popover.propTypes = {
   ...sx.propTypes
 }
 
-Popover.Content.defaultProps = {
+PopoverContent.defaultProps = {
   theme
 }
 
-Popover.Content.propTypes = {
-  as: PropTypes.elementType,
+PopoverContent.propTypes = {
   theme: PropTypes.object,
   ...BorderBox.propTypes,
   ...sx.propTypes
 }
 
-Popover.Content.displayName = 'Popover.Content'
+PopoverContent.displayName = 'Popover.Content'
 
-export default Popover
+export type PopoverProps = ComponentProps<typeof Popover>
+export type PopoverContentProps = ComponentProps<typeof PopoverContent>
+export default Object.assign(Popover, {Content: PopoverContent})
