@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('BranchName', () => {
-  behavesAsComponent(BranchName, [COMMON])
+  behavesAsComponent({Component: BranchName, systemPropArray: [COMMON]})
 
   checkExports('BranchName', {
     default: BranchName

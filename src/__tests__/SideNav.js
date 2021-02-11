@@ -8,14 +8,14 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SideNav', () => {
-  behavesAsComponent(SideNav, [BORDER, LAYOUT, COMMON, FLEX])
+  behavesAsComponent({Component: SideNav, systemPropArray: [BORDER, LAYOUT, COMMON, FLEX]})
 
   checkExports('SideNav', {
     default: SideNav
   })
 
   describe('SideNav.Link', () => {
-    behavesAsComponent(SideNav.Link, [COMMON, TYPOGRAPHY])
+    behavesAsComponent({Component: SideNav.Link, systemPropArray: [COMMON, TYPOGRAPHY]})
   })
 
   it('should have no axe violations', async () => {

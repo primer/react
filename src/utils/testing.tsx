@@ -249,7 +249,7 @@ export function behavesAsComponent({Component, systemPropArray, toRender, option
   })
 }
 
-export function checkExports(path: string, exports: Record<string, string>): void {
+export function checkExports(path: string, exports: Record<any, any>): void {
   it('has declared exports', () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const mod = require(`../${path}`)

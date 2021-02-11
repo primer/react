@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumb', () => {
-  behavesAsComponent(Breadcrumb, [COMMON])
+  behavesAsComponent({Component: Breadcrumb, systemPropArray: [COMMON]})
 
   checkExports('Breadcrumb', {
     default: Breadcrumb
