@@ -1,10 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import BorderBox from './BorderBox'
-import Caret from './Caret'
+import BorderBox, {BorderBoxProps} from './BorderBox'
+import Caret, {CaretProps} from './Caret'
 import theme from './theme'
 
-function PointerBox(props) {
+export type PointerBoxProps = {
+  caret?: CaretProps['location']
+  bg?: CaretProps['bg']
+  borderColor?: CaretProps['borderColor']
+  border?: CaretProps['borderWidth']
+} & BorderBoxProps
+
+function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
   const {bg, border, borderColor} = props
   const {caret, children, ...boxProps} = props
