@@ -100,12 +100,9 @@ declare module '@primer/components' {
     setOpen: (open: boolean) => void
   }
 
-  type SetTimeout = (handler: TimerHandler, timeout?: number, ...args: any[]) => number
-  type ClearTimeout = (id: number) => void
-
   export const useSafeTimeout: () => {
-    safeSetTimeout: SetTimeout,
-    safeClearTimeout: ClearTimeout
+    safeSetTimeout: typeof window.setTimeout,
+    safeClearTimeout: typeof window.clearTimeout
   }
 
   export const useMouseIntent: () => void
