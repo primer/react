@@ -5,6 +5,7 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import { ReactTestRendererJSON } from 'react-test-renderer'
 expect.extend(toHaveNoViolations)
 
 describe('FilterList.Item', () => {
@@ -26,7 +27,9 @@ describe('FilterList.Item', () => {
   })
 
   it('respects "count" prop', () => {
-    const CountMock = render(<FilterList.Item count={400} />).children.pop()
-    expect(CountMock.type).toEqual('span')
+    const CountMock = render(<FilterList.Item count={400} />)?.children?.pop()
+    if( CountMock && CountMock instanceof object) {
+      expect(CountMock.type).toEqual('span')
+    }
   })
 })

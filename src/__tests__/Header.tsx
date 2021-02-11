@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Header', () => {
-  behavesAsComponent({Component: Header, systemPropArray: [COMMON, BORDER})
+  behavesAsComponent({Component: Header, systemPropArray: [COMMON, BORDER]})
 
   checkExports('Header', {
     default: Header
