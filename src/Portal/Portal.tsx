@@ -29,7 +29,12 @@ function ensureDefaultPortal() {
     if (!(defaultPortalContainer instanceof Element)) {
       defaultPortalContainer = document.createElement('div')
       defaultPortalContainer.setAttribute('id', PRIMER_PORTAL_ROOT_ID)
-      document.body.appendChild(defaultPortalContainer)
+      const suitablePortalRoot = document.querySelector("[data-portal-root]");
+      if (suitablePortalRoot) {
+        suitablePortalRoot.appendChild(defaultPortalContainer);
+      } else {
+        document.body.appendChild(defaultPortalContainer)
+      }
     }
     portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME] = defaultPortalContainer
   }
