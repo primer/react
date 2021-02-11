@@ -12,8 +12,12 @@ const portalRootRegistry: {[key: string]: Element} = {}
  * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
  * If name is not specified, registers the default portal root.
  */
-export function registerPortalRoot(root: Element, name?: string): void {
-  portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME] = root
+export function registerPortalRoot(root: Element | undefined, name?: string): void {
+  if (root instanceof Element) {
+    portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME] = root
+  } else {
+    delete portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME];
+  }
 }
 
 // Ensures that a default portal root exists and is registered. If a DOM element exists
