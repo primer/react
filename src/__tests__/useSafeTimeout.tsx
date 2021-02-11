@@ -11,7 +11,7 @@ test('should call callback after time', async () => {
 
 test('should clear timeouts', async () => {
   jest.useFakeTimers();
-  const { result} = renderHook(() => useSafeTimeout())
+  const { result } = renderHook(() => useSafeTimeout())
   const mockFunction = jest.fn()
   let timeoutId = null
   timeoutId = result.current.safeSetTimeout(mockFunction, 300)
