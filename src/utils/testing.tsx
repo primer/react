@@ -201,7 +201,7 @@ interface IOptions {
 }
 
 interface IBehavesAsComponent {
-  Component: React.FunctionComponent,
+  Component: React.FunctionComponent<any>,
   systemPropArray: any[],
   toRender?: () => React.ReactElement,
   options?: IOptions
