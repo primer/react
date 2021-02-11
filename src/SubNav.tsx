@@ -2,25 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import {COMMON, FLEX, get} from './constants'
+import {COMMON, FLEX, get, SystemFlexProps, SystemCommonProps, SystemBorderProps} from './constants'
+import {ComponentProps} from './utils/types'
 import theme from './theme'
-import Flex from './Flex'
-import sx from './sx'
+import Flex, {FlexProps} from './Flex'
+import sx, {SxProp} from './sx'
+import * as History from 'history'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
 
-function SubNavBase({actions, className, children, label, theme, ...rest}) {
-  const classes = classnames(className, 'SubNav')
-  return (
-    <nav className={classes} aria-label={label} {...rest}>
-      <div className="SubNav-body">{children}</div>
-      {actions && <div className="SubNav-actions">{actions}</div>}
-    </nav>
-  )
-}
-
-const SubNav = styled(SubNavBase)`
+const SubNavBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
   display: flex;
   justify-content: space-between;
 
@@ -46,12 +38,40 @@ const SubNav = styled(SubNavBase)`
   ${sx};
 `
 
-SubNav.Links = props => <Flex {...props} />
+export type SubNavProps = {
+  actions?: React.ReactNode
+  align?: 'right'
+  full?: boolean
+  label?: string
+} & ComponentProps<typeof SubNavBase>
 
-SubNav.Link = styled.a.attrs(props => ({
+function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
+  const classes = classnames(className, 'SubNav')
+  return (
+    <SubNavBase className={classes} aria-label={label} {...rest}>
+      <div className="SubNav-body">{children}</div>
+      {actions && <div className="SubNav-actions">{actions}</div>}
+    </SubNavBase>
+  )
+}
+
+export type SubNavLinksProps = FlexProps
+
+function SubNavLinks(props: SubNavLinksProps) {
+  return <Flex {...props} />
+}
+
+type StyledSubNavLinkProps = {
+  to?: History.LocationDescriptor
+  selected?: boolean
+} & SystemCommonProps &
+  SxProp &
+  SystemBorderProps
+
+const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
-}))`
+}))<StyledSubNavLinkProps>`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};
   font-weight: ${get('fontWeights.semibold')};
@@ -117,22 +137,24 @@ SubNav.propTypes = {
   ...sx.propTypes
 }
 
-SubNav.Link.defaultProps = {
+SubNavLink.defaultProps = {
   theme
 }
 
-SubNav.Link.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
+SubNavLink.propTypes = {
   href: PropTypes.string,
   selected: PropTypes.bool,
   ...COMMON.propTypes,
   ...sx.propTypes
 }
-SubNav.Link.displayName = 'SubNav.Link'
 
-SubNav.Links.propTypes = {
+SubNavLink.displayName = 'SubNav.Link'
+
+SubNavLinks.propTypes = {
   ...Flex.propTypes
 }
-SubNav.Links.displayName = 'SubNav.Links'
 
-export default SubNav
+SubNavLinks.displayName = 'SubNav.Links'
+
+export type SubNavLinkProps = ComponentProps<typeof SubNavLink>
+export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks})
