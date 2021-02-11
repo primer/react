@@ -4,9 +4,7 @@ import {COMMON, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
 
-type StyledDetailsProps = {
-} & SystemCommonProps &
-  SxProp
+type StyledDetailsProps = SystemCommonProps & SxProp
 
 const Details = styled.details<StyledDetailsProps>`
   & > summary {
