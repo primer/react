@@ -38,14 +38,14 @@ const SubNavBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
   ${sx};
 `
 
-type StyledSubNavProps = {
+export type SubNavProps = {
   actions?: React.ReactNode
   align?: 'right'
   full?: boolean
   label?: string
 } & ComponentProps<typeof SubNavBase>
 
-function SubNav({actions, className, children, label, theme, ...rest}: StyledSubNavProps) {
+function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   const classes = classnames(className, 'SubNav')
   return (
     <SubNavBase className={classes} aria-label={label} {...rest}>
@@ -150,7 +150,6 @@ SubNavLinks.propTypes = {
 }
 SubNavLinks.displayName = 'SubNav.Links'
 
-export type SubNavProps = ComponentProps<typeof SubNavLink>
 export type SubNavLinkProps = ComponentProps<typeof SubNavLink>
 export type SubNavLinksProps = ComponentProps<typeof SubNavLinks>
 
