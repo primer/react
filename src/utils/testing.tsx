@@ -178,7 +178,13 @@ export function unloadCSS(path: string) {
 // If a component requires certain props or other conditions in order
 // to render without errors, you can pass a `toRender` function that
 // returns an element ready to be rendered.
-export function behavesAsComponent(Component: React.ReactElement, systemPropArray: any[], toRender = null, options) {
+
+
+interface IOptions {
+  skipAs?: boolean
+  skipSx?: boolean
+}
+export function behavesAsComponent(Component: React.ReactElement, systemPropArray: any[], toRender = null, options?: IOptions) {
   if (typeof toRender === 'object' && !options) {
     options = toRender
     toRender = null
