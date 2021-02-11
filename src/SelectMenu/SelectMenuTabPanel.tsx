@@ -7,20 +7,20 @@ import theme from '../theme'
 import {COMMON, get} from '../constants'
 import sx from '../sx'
 
-const TabPanelBase = ({tabName, className, children, ...rest}) => {
-  const menuContext = useContext(MenuContext)
-  return (
-    <div role="tabpanel" className={className} hidden={menuContext.selectedTab !== tabName} {...rest}>
-      <SelectMenuList>{children}</SelectMenuList>
-    </div>
-  )
-}
-
-const TabPanel = styled(TabPanelBase)`
+const TabPanelBase = styled.div`
   border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
   ${COMMON}
   ${sx};
 `
+
+const TabPanel = ({tabName, className, children, ...rest}) => {
+  const menuContext = useContext(MenuContext)
+  return (
+    <TabPanelBase role="tabpanel" className={className} hidden={menuContext.selectedTab !== tabName} {...rest}>
+      <SelectMenuList>{children}</SelectMenuList>
+    </TabPanelBase>
+  )
+}
 
 TabPanel.defaultProps = {
   theme
