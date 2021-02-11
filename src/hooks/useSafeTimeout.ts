@@ -1,14 +1,11 @@
 import {useCallback, useEffect, useRef} from 'react'
 
-type SetTimeout = (handler: TimerHandler, timeout?: number, ...args: any[]) => number
-type ClearTimeout = (id: number) => void
-
 /**
  * Safely call `setTimeout` and `clearTimeout` within a component.
  *
  * This hook ensures that all timeouts are cleared when the component unmounts.
  */
-export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClearTimeout: ClearTimeout} {
+export default function useSafeTimeout(): {safeSetTimeout: typeof window.setTimeout; safeClearTimeout: typeof window.clearTimeout} {
   const timers = useRef<Record<string, number>>({})
 
   const safeSetTimeout = useCallback((handler: TimerHandler, timeout?: number | undefined, ...args: any[]): number => {
