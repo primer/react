@@ -3,6 +3,22 @@ import PropTypes from 'prop-types'
 import {style} from 'styled-system'
 import theme from './theme'
 
+type Location =
+  | 'top'
+  | 'top-left'
+  | 'top-right'
+  | 'right'
+  | 'right-top'
+  | 'right-bottom'
+  | 'bottom'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'left'
+  | 'left-top'
+  | 'left-bottom'
+
+type Alignment = 'top' | 'right' | 'bottom' | 'left'
+
 const oppositeEdge = {
   top: 'Bottom',
   right: 'Left',
@@ -17,12 +33,12 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
-function getEdgeAlign(location) {
+function getEdgeAlign(location: Location): Alignment[] {
   const [edge, align] = location.split('-')
-  return [edge, align]
+  return [edge as Alignment, align as Alignment]
 }
 
-function getPosition(edge, align, spacing) {
+function getPosition(edge: Alignment, align: Alignment, spacing: number) {
   const opposite = oppositeEdge[edge].toLowerCase()
   const perp = perpendicularEdge[edge].toLowerCase()
   return {
@@ -35,22 +51,21 @@ const getBg = style({prop: 'bg', key: 'colors'})
 const getBorderColor = style({prop: 'borderColor', key: 'colors'})
 const getBorderWidth = style({prop: 'borderWidth', key: 'borderWidths', scale: [0, 1]})
 
-function Caret(props) {
+export type CaretProps = {
+  bg?: string
+  borderColor?: string
+  borderWidth?: string | number
+  size?: number
+  location?: Location
+}
+
+function Caret(props: CaretProps) {
   const {bg} = getBg(props)
   const {borderColor} = getBorderColor(props)
   const {borderWidth} = getBorderWidth(props)
-  const {size, location} = props
+  const {size = 8, location = 'bottom'} = props
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
-
-  const style = {
-    pointerEvents: 'none',
-    position: 'absolute',
-    ...getPosition(edge, align, size),
-    // if align is set (top|right|bottom|left),
-    // then we don't need an offset margin
-    [`margin${perp}`]: align ? null : -size
-  }
 
   // note: these arrays represent points in the form [x, y]
   const a = [-size, 0]
@@ -71,7 +86,18 @@ function Caret(props) {
   }[edge]
 
   return (
-    <svg width={size * 2} height={size * 2} style={style}>
+    <svg
+      width={size * 2}
+      height={size * 2}
+      style={{
+        pointerEvents: 'none',
+        position: 'absolute',
+        ...getPosition(edge, align, size),
+        // if align is set (top|right|bottom|left),
+        // then we don't need an offset margin
+        [`margin${perp}`]: align ? null : -size
+      }}
+    >
       <g transform={transform}>
         <path d={triangle} fill={bg} />
         <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
@@ -99,8 +125,6 @@ Caret.defaultProps = {
   bg: 'white',
   borderColor: 'gray.2',
   borderWidth: 1,
-  location: 'bottom',
-  size: 8,
   theme
 }
 
