@@ -33,9 +33,7 @@ describe('FilterList.Item', () => {
   })
 
   it('respects "count" prop', () => {
-    const CountMock = render(<FilterList.Item count={400} />).children?.pop()
-    if (isReactNodeJSON(CountMock)) {
-      expect(CountMock.type).toEqual('span')
-    }
+    const {getByText} = HTMLRender(<FilterList.Item count={400} />)
+    expect(getByText("400")).toBeTruthy()
   })
 })
