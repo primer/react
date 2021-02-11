@@ -4,40 +4,21 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, Portal, registerPortalRoot} from '..'
 
-let renderedOnce = false
 export default {
   title: 'Generic behaviors/Portal',
   component: Portal,
   decorators: [
     Story => {
-      React.useEffect(() => {
-        if (renderedOnce) {
-          window.location.reload()
-        } else {
-          renderedOnce = true
-        }
-      })
+      // Since portal roots are registered globally, we need this line so that each storybook
+      // story works in isolation.
+      registerPortalRoot(undefined)
       return (
         <BaseStyles>
-          <Box>
-            <em>
-              Note: Because Portal registers portal roots globally, we must <strong>refresh the page</strong> after
-              switching between Portal stories. This should happen automatically.
-            </em>
-          </Box>
           <Story />
         </BaseStyles>
       )
     }
-  ],
-  argTypes: {
-    variant: {
-      control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
-    }
-  }
+  ]
 } as Meta
 
 export const defaultPortal = () => (
