@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb.Item adds activeClassName={SELECTED_CLASS} when it gets a "to" prop 1`] = `
+.c0 {
+  color: #0366d6;
+  display: inline-block;
+  font-size: 14px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0.selected {
+  color: #444d56;
+  pointer-events: none;
+}
+
+<div
+  activeClassName="selected"
+  aria-current={null}
+  className="c0"
+  to="#"
+/>
+`;
+
+exports[`Breadcrumb.Item renders consistently 1`] = `
+.c0 {
+  color: #0366d6;
+  display: inline-block;
+  font-size: 14px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0.selected {
+  color: #444d56;
+  pointer-events: none;
+}
+
+<a
+  aria-current={null}
+  className="c0"
+/>
+`;
+
+exports[`Breadcrumb.Item respects the "selected" prop 1`] = `
+.c0 {
+  color: #0366d6;
+  display: inline-block;
+  font-size: 14px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0.selected {
+  color: #444d56;
+  pointer-events: none;
+}
+
+<a
+  aria-current="page"
+  className="c0 selected"
+  selected={true}
+/>
+`;
