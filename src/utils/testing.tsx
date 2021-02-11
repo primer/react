@@ -6,6 +6,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {ThemeProvider} from 'styled-components'
 import {default as defaultTheme} from '../theme'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const readFile = promisify(require('fs').readFile)
 
 export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$/
@@ -14,6 +15,19 @@ enzyme.configure({adapter: new Adapter()})
 
 export function mount(component: React.ReactElement) {
   return enzyme.mount(component)
+}
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toImplementSystemProps: (systemProps: any) => boolean
+      toImplementSxProp: () => boolean
+      toImplementSxBehavior: () => boolean
+      toSetDefaultTheme: () => boolean
+      toSetExports: (exports: Record<string, string>) => boolean
+    }
+  }
 }
 
 /**
@@ -132,6 +146,7 @@ export function getComputedStyles(className: string): Record<string, string> {
     for (const rule of mediaRule.cssRules) {
       if (rule instanceof CSSStyleRule) {
         readRule(rule, dest)
+      }
     }
 
     // Don't add media rule to computed styles
@@ -184,11 +199,15 @@ interface IOptions {
   skipAs?: boolean
   skipSx?: boolean
 }
-export function behavesAsComponent(Component: React.ReactElement, systemPropArray: any[], toRender = null, options?: IOptions) {
-  if (typeof toRender === 'object' && !options) {
-    options = toRender
-    toRender = null
-  }
+
+interface IBehavesAsComponent {
+  Component: React.FunctionComponent,
+  systemPropArray: any[],
+  toRender?: () => React.ReactElement,
+  options?: IOptions
+}
+
+export function behavesAsComponent({Component, systemPropArray, toRender, options}: IBehavesAsComponent) {
   options = options || {}
 
   const getElement = () => (toRender ? toRender() : <Component />)
@@ -211,7 +230,7 @@ export function behavesAsComponent(Component: React.ReactElement, systemPropArra
 
   if (!options.skipAs) {
     it('respects the as prop', () => {
-      const As = React.forwardRef((_props, ref) => <div className="as-component" ref={ref} />)
+      const As = React.forwardRef<HTMLDivElement>((_props, ref) => <div className="as-component" ref={ref} />)
       const elem = React.cloneElement(getElement(), {as: As})
       expect(render(elem)).toEqual(render(<As />))
     })
@@ -230,8 +249,9 @@ export function behavesAsComponent(Component: React.ReactElement, systemPropArra
   })
 }
 
-export function checkExports(path, exports) {
+export function checkExports(path: string, exports: Record<string, string>): void {
   it('has declared exports', () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const mod = require(`../${path}`)
     expect(mod).toSetExports(exports)
   })
