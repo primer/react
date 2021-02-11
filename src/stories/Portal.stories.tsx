@@ -29,7 +29,7 @@ export const defaultPortal = () => (
       <Box bg="green.2" p={3}>
         Inner container
         <Portal>
-          Portaled content rendered at document root, even outside of <code>&lt;BaseStyles&gt;</code>.
+          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.
         </Portal>
       </Box>
     </Box>
@@ -98,7 +98,7 @@ export const MultiplePortalRoots: React.FC<Record<string, never>> = () => {
               <Portal containerName="outer">Portaled content rendered at the outer container.</Portal>
               <Portal containerName="inner">Portaled content rendered at the end of the inner container.</Portal>
               <Portal>
-                Portaled content rendered at document root, even outside of <code>&lt;BaseStyles&gt;</code>.
+                Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.
               </Portal>
             </>
           )}

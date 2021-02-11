@@ -38,7 +38,7 @@ function BaseStyles(props: BaseStylesProps) {
   const {children, ...rest} = props
   useMouseIntent()
   return (
-    <Base {...rest}>
+    <Base {...rest} data-portal-root>
       <GlobalStyle />
       {children}
     </Base>
