@@ -4,7 +4,6 @@ import {behavesAsComponent} from '../../utils/testing'
 import {COMMON} from '../../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 const reqProps = {pageCount: 10, currentPage: 1}

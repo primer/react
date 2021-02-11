@@ -3,7 +3,6 @@ import {Dialog, Box, Text, Button} from '..'
 import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 

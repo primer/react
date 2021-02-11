@@ -1,5 +1,4 @@
 import {cleanup, render as HTMLRender} from '@testing-library/react'
-import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Box} from '..'
@@ -12,7 +11,7 @@ describe('Box', () => {
   behavesAsComponent(Box, [COMMON, LAYOUT, FLEX])
 
   checkExports('Box', {
-    default: Box,
+    default: Box
   })
 
   it('should have no axe violations', async () => {

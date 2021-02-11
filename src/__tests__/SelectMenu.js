@@ -4,7 +4,6 @@ import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} f
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 const BasicSelectMenu = ({onClick, as, align = 'left'}) => {

@@ -1,5 +1,3 @@
-import 'babel-polyfill'
-
 import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'

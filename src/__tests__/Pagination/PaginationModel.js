@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import {buildPaginationModel} from '../../Pagination/model'
 
 function first(array, count = 1) {
