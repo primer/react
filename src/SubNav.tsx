@@ -55,7 +55,11 @@ function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   )
 }
 
-const SubNavLinks = (props: FlexProps) => <Flex {...props} />
+export type SubNavLinksProps = FlexProps
+
+function SubNavLinks(props: SubNavLinksProps) {
+  return <Flex {...props} />
+}
 
 type StyledSubNavLinkProps = {
   to?: History.LocationDescriptor
@@ -143,14 +147,14 @@ SubNavLink.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes
 }
+
 SubNavLink.displayName = 'SubNav.Link'
 
 SubNavLinks.propTypes = {
   ...Flex.propTypes
 }
+
 SubNavLinks.displayName = 'SubNav.Links'
 
 export type SubNavLinkProps = ComponentProps<typeof SubNavLink>
-export type SubNavLinksProps = ComponentProps<typeof SubNavLinks>
-
 export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks})
