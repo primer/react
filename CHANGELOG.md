@@ -1,5 +1,43 @@
 # @primer/components
 
+## 23.0.4
+
+### Patch Changes
+
+- [`8de64e95`](https://github.com/primer/components/commit/8de64e9588dd4c545f7eca3a13d74d5f860e2b0e) [#1029](https://github.com/primer/components/pull/1029) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `TabNav` to TypeScript
+
+* [`16aeca6b`](https://github.com/primer/components/commit/16aeca6bb37f1724037cd83db580eee69c473332) [#1032](https://github.com/primer/components/pull/1032) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `AvatarStack` to TypeScript
+
+- [`4070310a`](https://github.com/primer/components/commit/4070310a334d8d37c5a1277f11298ef675ed1465) [#1026](https://github.com/primer/components/pull/1026) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `Details` to TypeScript
+
+* [`8f483bd9`](https://github.com/primer/components/commit/8f483bd94bb9a09ca88e3f2a116c4396404627c3) [#1042](https://github.com/primer/components/pull/1042) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `PointerBox` to TypeScript
+
+- [`c5d2b657`](https://github.com/primer/components/commit/c5d2b65725c7e584412430fd3156875b8e1714d8) [#1035](https://github.com/primer/components/pull/1035) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `CircleBadge` to TypeScript
+
+* [`3fcdf25f`](https://github.com/primer/components/commit/3fcdf25fc7c2def336dec4f5b34f518b2dbff903) [#1040](https://github.com/primer/components/pull/1040) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `SideNav` to TypeScript
+
+- [`ff02c038`](https://github.com/primer/components/commit/ff02c038cdeef9cbeb8d050b3c5a951ccdbb9574) [#1033](https://github.com/primer/components/pull/1033) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `Tooltip` to TypeScript
+
+* [`0d62f260`](https://github.com/primer/components/commit/0d62f260672453a7509173b5b6d02778cf73a3e8) [#1030](https://github.com/primer/components/pull/1030) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `Caret` to TypeScript
+
+- [`d1785f4c`](https://github.com/primer/components/commit/d1785f4cd312eff66f4a0b897aaf22aff11441bc) [#1038](https://github.com/primer/components/pull/1038) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `SubNav` to TypeScript
+
+* [`058e7919`](https://github.com/primer/components/commit/058e791936399b1e08c31bfa18c772015da587c7) [#1036](https://github.com/primer/components/pull/1036) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `CircleOcticon` to TypeScript
+
+- [`9b71bf38`](https://github.com/primer/components/commit/9b71bf387aad9f3cd3802594fd3cccc473b46661) [#998](https://github.com/primer/components/pull/998) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `Position` to TypeScript
+
+* [`b2ac3010`](https://github.com/primer/components/commit/b2ac301092e37a319ddc10440f929425da066f69) [#1037](https://github.com/primer/components/pull/1037) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `Timeline` to TypeScript
+
+- [`ef25d019`](https://github.com/primer/components/commit/ef25d01961d20fd590dd3abcef10c87fd26135be) [#1031](https://github.com/primer/components/pull/1031) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `AvatarPair` to TypeScript
+
+* [`62f45a12`](https://github.com/primer/components/commit/62f45a12fbd87d18adbc611a6410734f9fd16ab9) [#1028](https://github.com/primer/components/pull/1028) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `TextInput` to TypeScript
+
+- [`a4dce5da`](https://github.com/primer/components/commit/a4dce5daecdf65ce2ea8e55f962e5843b2b10e26) [#1017](https://github.com/primer/components/pull/1017) Thanks [@smockle](https://github.com/smockle)! - Migrate button components to TypeScript
+
+* [`cc36e6b4`](https://github.com/primer/components/commit/cc36e6b410600994d46af864cec7b83314a6987c) [#1034](https://github.com/primer/components/pull/1034) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `Popover` to TypeScript
+
+- [`11340814`](https://github.com/primer/components/commit/113408140bef3d47a023925aa975273e264959ac) [#1020](https://github.com/primer/components/pull/1020) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `Header` to TypeScript
+
 ## 23.0.3
 
 ### Patch Changes

@@ -1,16 +1,16 @@
-import {COMMON, get} from './constants'
-import styled, {css} from 'styled-components'
-
-import Box from './Box'
-import Flex from './Flex'
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled, {css} from 'styled-components'
+import Box from './Box'
+import {COMMON, get} from './constants'
+import Flex, {FlexProps} from './Flex'
 import {Relative} from './Position'
-import classnames from 'classnames'
-import theme from './theme'
 import sx from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
-const Timeline = styled(Flex)`
+const Timeline = styled(Flex)<{clipSidebar?: boolean}>`
   flex-direction: column;
   ${props =>
     props.clipSidebar &&
@@ -27,9 +27,11 @@ const Timeline = styled(Flex)`
   ${sx};
 `
 
-Timeline.Item = styled(Flex).attrs(props => ({
+type StyledTimelineItemProps = {condensed?: boolean}
+
+const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)
-}))`
+}))<StyledTimelineItemProps>`
   position: relative;
   padding: ${get('space.3')} 0;
   margin-left: ${get('space.3')};
@@ -67,7 +69,9 @@ Timeline.Item = styled(Flex).attrs(props => ({
   ${sx};
 `
 
-Timeline.Badge = props => {
+export type TimelineBadgeProps = FlexProps
+
+const TimelineBadge = (props: TimelineBadgeProps) => {
   return (
     <Relative zIndex={1}>
       <Flex
@@ -94,7 +98,7 @@ Timeline.Badge = props => {
   )
 }
 
-Timeline.Body = styled(Box)`
+const TimelineBody = styled(Box)`
   min-width: 0;
   max-width: 100%;
   margin-top: ${get('space.1')};
@@ -104,7 +108,7 @@ Timeline.Body = styled(Box)`
   ${sx};
 `
 
-Timeline.Break = styled(Relative)`
+const TimelineBreak = styled(Relative)`
   z-index: 1;
   height: 24px;
   margin: 0;
@@ -128,11 +132,11 @@ Timeline.propTypes = {
   ...sx.propTypes
 }
 
-Timeline.Item.defaultProps = {
+TimelineItem.defaultProps = {
   theme
 }
 
-Timeline.Item.propTypes = {
+TimelineItem.propTypes = {
   children: PropTypes.node,
   condensed: PropTypes.bool,
   theme: PropTypes.object,
@@ -140,45 +144,54 @@ Timeline.Item.propTypes = {
   ...sx.propTypes
 }
 
-Timeline.Item.displayName = 'Timeline.Item'
+TimelineItem.displayName = 'Timeline.Item'
 
-Timeline.Badge.defaultProps = {
+TimelineBadge.defaultProps = {
   theme
 }
 
-Timeline.Badge.propTypes = {
+TimelineBadge.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...Flex.propTypes,
   ...sx.propTypes
 }
 
-Timeline.Badge.displayName = 'Timeline.Badge'
+TimelineBadge.displayName = 'Timeline.Badge'
 
-Timeline.Body.defaultProps = {
+TimelineBody.defaultProps = {
   theme
 }
 
-Timeline.Body.propTypes = {
+TimelineBody.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...Box.propTypes,
   ...sx.propTypes
 }
 
-Timeline.Body.displayName = 'Timeline.Body'
+TimelineBody.displayName = 'Timeline.Body'
 
-Timeline.Break.defaultProps = {
+TimelineBreak.defaultProps = {
   theme
 }
 
-Timeline.Break.propTypes = {
+TimelineBreak.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.object,
   ...Box.propTypes,
   ...sx.propTypes
 }
 
-Timeline.Break.displayName = 'Timeline.Break'
+TimelineBreak.displayName = 'Timeline.Break'
 
-export default Timeline
+export type TimelineProps = ComponentProps<typeof Timeline>
+export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
+export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
+export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
+export default Object.assign(Timeline, {
+  Item: TimelineItem,
+  Badge: TimelineBadge,
+  Body: TimelineBody,
+  Break: TimelineBreak
+})
