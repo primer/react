@@ -75,33 +75,45 @@ export function percent(value: number | string): string {
   return typeof value === 'number' ? `${value}%` : value
 }
 
-export function renderStyles(node: React.ReactElement) {
+export function renderStyles(node: React.ReactElement): any {
   const {
     props: {className}
   } = render(node)
   return getComputedStyles(className)
 }
 
-export function getComputedStyles(className: string) {
+export function getComputedStyles(className: string): Record<string, string> {
   const div = document.createElement('div')
   div.className = className
 
-  const computed = {}
+  const computed = {} as any
   for (const sheet of document.styleSheets) {
+    // CSSRulesLists assumes every rule is a CSSRule, not a CSSStyleRule
     for (const rule of sheet.cssRules) {
-      if (rule.type === 1) {
-        readRule(rule, computed)
-      } else if (rule.type === 4) {
+      if (rule instanceof CSSMediaRule) {
         readMedia(rule)
-      } else {
+      } else if (rule instanceof CSSStyleRule) {
+          readRule(rule, computed)
+        } else {
         // console.warn('rule.type =', rule.type)
       }
     }
   }
 
-  return computed
+    return computed
 
-  function readRule(rule: CSSRule, dest: Computed) {
+  function matchesSafe(node: HTMLDivElement, selector: string) {
+    if (!selector) {
+      return false
+    }
+    try {
+      return node.matches(selector)
+    } catch (error) {
+      return false
+    }
+  }
+
+  function readRule(rule: CSSStyleRule, dest: any) {
     if (matchesSafe(div, rule.selectorText)) {
       const {style} = rule
       for (let i = 0; i < style.length; i++) {
@@ -113,12 +125,13 @@ export function getComputedStyles(className: string) {
     }
   }
 
-  function readMedia(mediaRule) {
+  function readMedia(mediaRule: CSSMediaRule) {
     const key = `@media ${mediaRule.media[0]}`
     // const dest = computed[key] || (computed[key] = {})
     const dest = {}
     for (const rule of mediaRule.cssRules) {
-      readRule(rule, dest)
+      if (rule instanceof CSSStyleRule) {
+        readRule(rule, dest)
     }
 
     // Don't add media rule to computed styles
@@ -127,19 +140,7 @@ export function getComputedStyles(className: string) {
       computed[key] = dest
     }
   }
-
-  function matchesSafe(node: React.ReactElement, selector) {
-    if (!selector) {
-      return false
-    }
-    try {
-      return node.matches(selector)
-    } catch (error) {
-      return false
-    }
-  }
 }
-
 /**
  * This provides a layer of compatibility between the render() function from
  * react-test-renderer and Enzyme's mount()
@@ -157,7 +158,7 @@ export function getClasses(node: React.ReactElement) {
   return className ? className.trim().split(/ +/) : []
 }
 
-export async function loadCSS(path) {
+export async function loadCSS(path: string) {
   const css = await readFile(require.resolve(path), 'utf8')
   const style = document.createElement('style')
   style.setAttribute('data-path', path)
@@ -166,7 +167,7 @@ export async function loadCSS(path) {
   return style
 }
 
-export function unloadCSS(path) {
+export function unloadCSS(path: string) {
   const style = document.querySelector(`style[data-path="${path}"]`)
   if (style) {
     style.remove()
@@ -177,7 +178,7 @@ export function unloadCSS(path) {
 // If a component requires certain props or other conditions in order
 // to render without errors, you can pass a `toRender` function that
 // returns an element ready to be rendered.
-export function behavesAsComponent(Component, systemPropArray, toRender = null, options) {
+export function behavesAsComponent(Component: React.ReactElement, systemPropArray: any[], toRender = null, options) {
   if (typeof toRender === 'object' && !options) {
     options = toRender
     toRender = null
