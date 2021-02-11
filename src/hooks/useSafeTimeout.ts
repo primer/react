@@ -9,17 +9,17 @@ type ClearTimeout = (id: number) => void
  * This hook ensures that all timeouts are cleared when the component unmounts.
  */
 export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClearTimeout: ClearTimeout} {
-  const timers = useRef<Record<string, number>>({})
+  const timers = useRef<Set<number>>(new Set<number>())
 
   const safeSetTimeout = useCallback((handler: TimerHandler, timeout?: number | undefined, ...args: any[]): number => {
     const id = window.setTimeout(handler, timeout, ...args)
-    timers.current[id] = id
+    timers.current.add(id)
     return id
   }, [])
 
   const safeClearTimeout = useCallback((id: number) => {
-    clearTimeout(timers.current[id])
-    delete timers.current[id]
+    clearTimeout(id)
+    timers.current.delete(id)
   }, [])
 
   useEffect(() => {
