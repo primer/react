@@ -1,6 +1,6 @@
 import React from 'react'
 import {SideNav} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, behavesAsComponent, mount, checkExports} from '../utils/testing'
 import {BORDER, COMMON, LAYOUT, FLEX, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -50,10 +50,8 @@ describe('SideNav', () => {
         </SideNav.Link>
       </SideNav>
     )
-    const rendered = render(elem)
-    const [link1, link2] = rendered.children
-    expect(link1.props['aria-current']).toBeUndefined()
-    expect(link2.props['aria-current']).toEqual('page')
+    const wrapper = mount(elem);
+    expect(wrapper.find('[aria-current="page"]').text()).toEqual("Two")
   })
 
   it('sets different styles for SideNavs with the lightweight variant', () => {
@@ -61,21 +59,5 @@ describe('SideNav', () => {
     const lightweight = render(<SideNav variant="lightweight" />)
     expect(regular.props.className).toEqual(expect.stringContaining('variant-normal'))
     expect(lightweight.props.className).toEqual(expect.stringContaining('variant-lightweight'))
-  })
-
-  it('sets different styles for SideNav.Links with the full variant', () => {
-    const elem = (
-      <SideNav>
-        <SideNav.Link href="#one">One</SideNav.Link>
-        <SideNav.Link href="#two">Two</SideNav.Link>
-        <SideNav.Link href="#three" variant="full">
-          Three
-        </SideNav.Link>
-      </SideNav>
-    )
-    const rendered = render(elem)
-    const [link1, link2, link3] = rendered.children
-    expect(link1.props.className).toEqual(link2.props.className)
-    expect(link1.props.className).not.toEqual(link3.props.className)
   })
 })
