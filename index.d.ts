@@ -76,7 +76,6 @@ declare module '@primer/components' {
 
 
   export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
-    open?: boolean
     ref?: React.RefObject<HTMLDetailsElement>
   }
 

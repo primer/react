@@ -5,7 +5,6 @@ import {ComponentProps} from './utils/types'
 import sx, {SxProp} from './sx'
 
 type StyledDetailsProps = {
-  open?: boolean
 } & SystemCommonProps &
   SxProp
 
