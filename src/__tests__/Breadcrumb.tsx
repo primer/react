@@ -28,12 +28,4 @@ describe('Breadcrumb', () => {
   it('adds the Breadcrumb class', () => {
     expect(rendersClass(<Breadcrumb />, 'Breadcrumb')).toEqual(true)
   })
-
-  it('wraps its children in an li', () => {
-    const children = <Breadcrumb.Item>yo</Breadcrumb.Item>
-    const wrapper = mount(<Breadcrumb>{children}</Breadcrumb>)
-    const list = wrapper.find('ol')
-    expect(list.exists()).toEqual(true)
-    expect(render(list.childAt(0)).type).toEqual('li')
-  })
 })
