@@ -8,6 +8,12 @@ import 'babel-polyfill'
 import { ReactTestRendererJSON } from 'react-test-renderer'
 expect.extend(toHaveNoViolations)
 
+
+function isReactNodeJSON(item: string | ReactTestRendererJSON | undefined): item is ReactTestRendererJSON {
+  return (item as ReactTestRendererJSON).type !== undefined;
+}
+
+
 describe('FilterList.Item', () => {
   behavesAsComponent({Component: FilterList.Item, systemPropArray: [COMMON]})
 
@@ -28,7 +34,7 @@ describe('FilterList.Item', () => {
 
   it('respects "count" prop', () => {
     const CountMock = render(<FilterList.Item count={400} />)?.children?.pop()
-    if( CountMock && CountMock instanceof object) {
+    if (isReactNodeJSON(CountMock)) {
       expect(CountMock.type).toEqual('span')
     }
   })
