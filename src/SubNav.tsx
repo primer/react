@@ -2,15 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import {
-  COMMON,
-  FLEX,
-  get,
-  SystemFlexProps,
-  SystemCommonProps,
-  SystemTypographyProps,
-  SystemBorderProps
-} from './constants'
+import {COMMON, FLEX, get, SystemFlexProps, SystemCommonProps, SystemBorderProps} from './constants'
 import {ComponentProps} from './utils/types'
 import theme from './theme'
 import Flex, {FlexProps} from './Flex'
@@ -70,7 +62,6 @@ type StyledSubNavLinkProps = {
   selected?: boolean
 } & SystemCommonProps &
   SxProp &
-  SystemTypographyProps &
   SystemBorderProps
 
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
