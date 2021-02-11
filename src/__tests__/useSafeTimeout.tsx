@@ -13,8 +13,7 @@ test('should clear timeouts', async () => {
   jest.useFakeTimers();
   const { result } = renderHook(() => useSafeTimeout())
   const mockFunction = jest.fn()
-  let timeoutId = null
-  timeoutId = result.current.safeSetTimeout(mockFunction, 300)
+  const timeoutId = result.current.safeSetTimeout(mockFunction, 300)
   result.current.safeClearTimeout(timeoutId)
   expect(clearTimeout).toHaveBeenCalledTimes(1);
   expect(clearTimeout).toHaveBeenLastCalledWith(timeoutId);
