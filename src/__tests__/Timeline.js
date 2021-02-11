@@ -29,7 +29,7 @@ describe('Timeline', () => {
 })
 
 describe('Timeline.Item', () => {
-  behavesAsComponent({Component: Timeline.Item, systemPropArray:[COMMON, FLEX, LAYOUT]})
+  behavesAsComponent({Component: Timeline.Item, systemPropArray: [COMMON, FLEX, LAYOUT]})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Item />)
@@ -48,7 +48,7 @@ describe('Timeline.Item', () => {
 })
 
 describe('Timeline.Badge', () => {
-  behavesAsComponent({Component: Timeline.Badge, systemPropArray:[COMMON, LAYOUT], options: {skipAs: true}})
+  behavesAsComponent({Component: Timeline.Badge, systemPropArray: [COMMON, LAYOUT], options: {skipAs: true}})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Badge />)
