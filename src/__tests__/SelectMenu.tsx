@@ -5,9 +5,32 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../SelectMenu'
 expect.extend(toHaveNoViolations)
 
-const BasicSelectMenu = ({onClick, as, align = 'left'}) => {
+// TODO: Remove this after https://github.com/primer/components/pull/1041 is merged
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toImplementSystemProps: (systemProps: any) => boolean
+      toImplementSxProp: () => boolean
+      toImplementSxBehavior: () => boolean
+      toSetDefaultTheme: () => boolean
+      toSetExports: (exports: Record<string, string>) => boolean
+    }
+  }
+}
+
+const BasicSelectMenu = ({
+  onClick,
+  as,
+  align = 'left'
+}: {
+  onClick?: SelectMenuItemProps['onClick']
+  as?: any
+  align?: SelectMenuModalProps['align']
+}) => {
   return (
     <SelectMenu as={as}>
       <Button as="summary">Projects</Button>
@@ -29,7 +52,7 @@ const BasicSelectMenu = ({onClick, as, align = 'left'}) => {
   )
 }
 
-const MenuWithTabs = ({onClick}) => {
+const MenuWithTabs = ({onClick}: {onClick?: SelectMenuTabProps['onClick']}) => {
   return (
     <SelectMenu initialTab="Organization">
       <Button as="summary">Projects</Button>
@@ -58,9 +81,18 @@ describe('SelectMenu', () => {
     default: SelectMenu
   })
 
-  for (const subComp of ['List', 'Divider', 'Filter', 'Item', 'List', 'Modal', 'Tabs', 'Tab', 'TabPanel', 'Header']) {
-    const Comp = SelectMenu[subComp]
-
+  for (const Comp of [
+    SelectMenu.List,
+    SelectMenu.Divider,
+    SelectMenu.Filter,
+    SelectMenu.Item,
+    SelectMenu.List,
+    SelectMenu.Modal,
+    SelectMenu.Tabs,
+    SelectMenu.Tab,
+    SelectMenu.TabPanel,
+    SelectMenu.Header
+  ]) {
     it('implements the sx prop', () => {
       expect(Comp).toImplementSxProp()
     })

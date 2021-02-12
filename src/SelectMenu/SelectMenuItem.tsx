@@ -102,6 +102,7 @@ const StyledItem = styled.a.attrs(() => ({
 `
 
 type SelectMenuItemInteralProps = {
+  as?: React.ElementType
   selected?: boolean
 } & ComponentProps<typeof StyledItem>
 
