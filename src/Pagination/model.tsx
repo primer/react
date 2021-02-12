@@ -1,5 +1,3 @@
-import {MouseEventHandler} from 'react'
-
 export function buildPaginationModel(
   pageCount: number,
   currentPage: number,
