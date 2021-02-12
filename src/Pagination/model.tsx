@@ -131,7 +131,7 @@ type PageType = {
 export function buildComponentData(
   page: PageType,
   hrefBuilder: (n: number) => string,
-  onClick: (e: MouseEventHandler) => void
+  onClick: (e: React.MouseEvent) => void
 ) {
   const props = {}
   let content = ''
