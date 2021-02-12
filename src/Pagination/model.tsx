@@ -1,9 +1,17 @@
-export function buildPaginationModel(pageCount, currentPage, showPages, marginPageCount, surroundingPageCount) {
+import {MouseEventHandler} from 'react'
+
+export function buildPaginationModel(
+  pageCount: number,
+  currentPage: number,
+  showPages: boolean,
+  marginPageCount: number,
+  surroundingPageCount: number
+) {
   const pages = []
 
   if (showPages) {
-    const pageNums = []
-    const addPage = n => {
+    const pageNums: Array<number> = []
+    const addPage = (n: number) => {
       if (n >= 1 && n <= pageCount) {
         pageNums.push(n)
       }
@@ -113,7 +121,18 @@ export function buildPaginationModel(pageCount, currentPage, showPages, marginPa
   return [prev, ...pages, next]
 }
 
-export function buildComponentData(page, hrefBuilder, onClick) {
+type PageType = {
+  type: string
+  num: number
+  disabled?: boolean
+  selected?: boolean
+}
+
+export function buildComponentData(
+  page: PageType,
+  hrefBuilder: (n: number) => string,
+  onClick: (e: MouseEventHandler) => void
+) {
   const props = {}
   let content = ''
   let key = ''
@@ -151,7 +170,7 @@ export function buildComponentData(page, hrefBuilder, onClick) {
     }
     case 'NUM': {
       key = `page-${page.num}`
-      content = page.num
+      content = String(page.num)
       if (page.selected) {
         Object.assign(props, {as: 'em', 'aria-current': 'page'})
       } else {
