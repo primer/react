@@ -4,16 +4,21 @@ import styled from 'styled-components'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 import theme from '../theme'
-import {COMMON, get} from '../constants'
-import sx from '../sx'
+import {COMMON, get, SystemCommonProps} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
-const TabPanelBase = styled.div`
+const TabPanelBase = styled.div<SystemCommonProps & SxProp>`
   border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
   ${COMMON}
   ${sx};
 `
 
-const TabPanel = ({tabName, className, children, ...rest}) => {
+export type SelectMenuTabPanelProps = {
+  tabName?: string
+} & ComponentProps<typeof TabPanelBase>
+
+const TabPanel = ({tabName, className, children, ...rest}: SelectMenuTabPanelProps) => {
   const menuContext = useContext(MenuContext)
   return (
     <TabPanelBase role="tabpanel" className={className} hidden={menuContext.selectedTab !== tabName} {...rest}>

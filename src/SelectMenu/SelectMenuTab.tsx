@@ -54,20 +54,20 @@ const StyledTab = styled.button<SystemCommonProps & SxProp>`
 
 export type SelectMenuTabProps = {tabName?: string; index?: number} & ComponentProps<typeof StyledTab>
 
-const SelectMenuTab = ({tabName, index, className, onClick, ...rest}: SelectMenuTabProps) => {
+const SelectMenuTab = ({tabName = '', index, className, onClick, ...rest}: SelectMenuTabProps) => {
   const menuContext = useContext(MenuContext)
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // if consumer has attached an onClick event, call it
     onClick && onClick(e)
     if (!e.defaultPrevented) {
-      menuContext.setSelectedTab(tabName)
+      menuContext.setSelectedTab?.(tabName)
     }
   }
 
   // if no tab is selected when the component renders, show the first tab
   useEffect(() => {
     if (!menuContext.selectedTab && index === 0) {
-      menuContext.setSelectedTab(tabName)
+      menuContext.setSelectedTab?.(tabName)
     }
   }, [index, menuContext, tabName])
 

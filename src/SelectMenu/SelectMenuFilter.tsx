@@ -5,7 +5,7 @@ import {COMMON, get, SystemCommonProps} from '../constants'
 import theme from '../theme'
 import TextInput, {TextInputProps} from '../TextInput'
 import {MenuContext} from './SelectMenuContext'
-import sx from '../sx'
+import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
 const StyledForm = styled.form<SystemCommonProps & SxProp>`
@@ -28,14 +28,14 @@ type SelectMenuFilterInternalProps = {
 
 const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalProps>(
   ({theme, value, sx, ...rest}, forwardedRef) => {
-    const inputRef = useRef(null)
+    const inputRef = useRef<HTMLInputElement>(null)
     const ref = forwardedRef ?? inputRef
     const {open} = useContext(MenuContext)
 
     // puts focus on the filter input when the menu is opened
     useEffect(() => {
       if (open) {
-        inputRef.current.focus()
+        inputRef.current?.focus()
       }
     }, [open])
 

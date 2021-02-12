@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import {CheckIcon} from '@primer/octicons-react'
 import {MenuContext} from './SelectMenuContext'
-import {COMMON, get} from '../constants'
+import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 export const listItemStyles = css`
   display: flex;
@@ -94,33 +95,39 @@ export const listItemStyles = css`
 
 const StyledItem = styled.a.attrs(() => ({
   role: 'menuitemcheckbox'
-}))`
+}))<SystemCommonProps & SxProp>`
   ${listItemStyles}
   ${COMMON}
   ${sx};
 `
 
-const SelectMenuItem = forwardRef(({children, selected, theme, onClick, ...rest}, forwardedRef) => {
-  const menuContext = useContext(MenuContext)
-  const backupRef = useRef(null)
-  const itemRef = forwardedRef ?? backupRef
+type SelectMenuItemInteralProps = {
+  selected?: boolean
+} & ComponentProps<typeof StyledItem>
 
-  // close the menu when an item is clicked
-  // this can be overriden if the user provides a `onClick` prop and prevents default in it
-  const handleClick = e => {
-    onClick && onClick(e)
+const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>(
+  ({children, selected, theme, onClick, ...rest}, forwardedRef) => {
+    const menuContext = useContext(MenuContext)
+    const backupRef = useRef<HTMLAnchorElement>(null)
+    const itemRef = forwardedRef ?? backupRef
 
-    if (!e.defaultPrevented) {
-      menuContext.setOpen(false)
+    // close the menu when an item is clicked
+    // this can be overriden if the user provides a `onClick` prop and prevents default in it
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      onClick && onClick(e)
+
+      if (!e.defaultPrevented) {
+        menuContext.setOpen?.(false)
+      }
     }
+    return (
+      <StyledItem ref={itemRef} {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
+        <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
+        {children}
+      </StyledItem>
+    )
   }
-  return (
-    <StyledItem ref={itemRef} {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
-      <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
-      {children}
-    </StyledItem>
-  )
-})
+)
 
 SelectMenuItem.defaultProps = {
   theme,
@@ -135,4 +142,5 @@ SelectMenuItem.propTypes = {
 
 SelectMenuItem.displayName = 'SelectMenu.Item'
 
+export type SelectMenuItemProps = ComponentProps<typeof SelectMenuItem>
 export default SelectMenuItem

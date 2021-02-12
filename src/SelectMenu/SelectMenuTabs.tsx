@@ -1,8 +1,9 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
-import {COMMON, get} from '../constants'
+import {COMMON, get, SystemCommonProps} from '../constants'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const tabWrapperStyles = css`
   display: flex;
@@ -23,19 +24,21 @@ const tabWrapperStyles = css`
   }
 `
 
-const Tabs = ({children, ...rest}) => {
+const SelectMenuTabsBase = styled.div<SystemCommonProps & SxProp>`
+  ${tabWrapperStyles}
+  ${COMMON}
+  ${sx};
+`
+
+export type SelectMenuTabsProps = ComponentProps<typeof SelectMenuTabsBase>
+
+const SelectMenuTabs = ({children, ...rest}: SelectMenuTabsProps) => {
   return (
     <div role="tablist" {...rest}>
       {children}
     </div>
   )
 }
-
-const SelectMenuTabs = styled(Tabs)`
-  ${tabWrapperStyles}
-  ${COMMON}
-  ${sx};
-`
 
 SelectMenuTabs.defaultProps = {
   theme
