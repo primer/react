@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import sx from '../sx'
 import {get, COMMON} from '../constants'
+import {ComponentProps} from '../utils/types'
 import theme from '../theme'
 import Box from '../Box'
 import {buildPaginationModel, buildComponentData} from './model'
@@ -225,4 +226,5 @@ Pagination.defaultProps = {
   theme
 }
 
+export type PaginationProps = ComponentProps<typeof Pagination>
 export default Pagination
