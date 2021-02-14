@@ -30,6 +30,7 @@ const sizeVariants = variant({
 const Input = styled.input`
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
