@@ -1,4 +1,4 @@
-import { renderHook} from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
 test('should call callback after time', async () => {
