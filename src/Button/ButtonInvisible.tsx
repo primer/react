@@ -17,7 +17,6 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
   }
 
   &:focus {
-    border-color: rgba(27, 31, 35, 0.15);
     box-shadow: ${get('buttons.default.shadow.focus')};
   }
 
