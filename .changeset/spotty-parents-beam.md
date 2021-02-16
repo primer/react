@@ -1,5 +1,5 @@
 ---
-"@primer/components": patch
+"@primer/components": minor
 ---
 
 Adds new `useSafeTimeout` helper Hook
