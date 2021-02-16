@@ -9,12 +9,18 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
   color: ${get('colors.blue.5')};
   background-color: transparent;
   border: 0;
-  border-radius: 0;
+  border-radius: ${get('radii.2')};
   box-shadow: none;
 
   &:disabled {
     color: ${get('buttons.default.color.disabled')};
   }
+
+  &:focus {
+    border-color: rgba(27, 31, 35, 0.15);
+    box-shadow: ${get('buttons.default.shadow.focus')};
+  }
+
 
   ${buttonSystemProps};
   ${sx}
