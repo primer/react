@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SubNav.Link', () => {
-  behavesAsComponent(SubNav.Link, [COMMON])
+  behavesAsComponent({Component: SubNav.Link, systemPropArray: [COMMON]})
 
   it('renders an <a> by default', () => {
     expect(render(<SubNav.Link />).type).toEqual('a')

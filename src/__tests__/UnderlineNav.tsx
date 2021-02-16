@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('UnderlineNav', () => {
-  behavesAsComponent(UnderlineNav, [COMMON])
+  behavesAsComponent({Component: UnderlineNav, systemPropArray:[COMMON]})
 
   checkExports('UnderlineNav', {
     default: UnderlineNav

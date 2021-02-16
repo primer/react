@@ -18,7 +18,10 @@
 
     - title: Overriding Styles
       url: /overriding-styles
-
+- title: Hooks
+  children:
+    - title: useSafeTimeout
+      url: /useSafeTimeout
 - title: Components
   children:
     - title: Avatar

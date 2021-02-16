@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Pagehead', () => {
-  behavesAsComponent(Pagehead, [COMMON])
+  behavesAsComponent({Component: Pagehead, systemPropArray: [COMMON]})
 
   checkExports('Pagehead', {
     default: Pagehead

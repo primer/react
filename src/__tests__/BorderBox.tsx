@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('BorderBox', () => {
-  behavesAsComponent(BorderBox, [LAYOUT, COMMON, BORDER, FLEX])
+  behavesAsComponent({Component: BorderBox, systemPropArray: [LAYOUT, COMMON, BORDER, FLEX]})
 
   checkExports('BorderBox', {
     default: BorderBox

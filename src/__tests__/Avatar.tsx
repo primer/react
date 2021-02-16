@@ -9,7 +9,7 @@ import {COMMON} from '../constants'
 expect.extend(toHaveNoViolations)
 
 describe('Avatar', () => {
-  behavesAsComponent(Avatar, [COMMON])
+  behavesAsComponent({Component: Avatar, systemPropArray: [COMMON]})
 
   checkExports('Avatar', {
     default: Avatar

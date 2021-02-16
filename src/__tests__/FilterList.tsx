@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FilterList', () => {
-  behavesAsComponent(FilterList, [COMMON])
+  behavesAsComponent({Component: FilterList, systemPropArray: [COMMON]})
 
   checkExports('FilterList', {
     default: FilterList
@@ -23,9 +23,5 @@ describe('FilterList', () => {
 
   it('renders a <ul>', () => {
     expect(render(<FilterList />).type).toEqual('ul')
-  })
-
-  it('wraps children in <li>', () => {
-    expect(render(<FilterList>Hello</FilterList>).children.pop().type).toEqual('li')
   })
 })

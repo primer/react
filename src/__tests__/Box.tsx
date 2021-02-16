@@ -9,7 +9,7 @@ import {behavesAsComponent, checkExports, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
-  behavesAsComponent(Box, [COMMON, LAYOUT, FLEX])
+  behavesAsComponent({Component: Box, systemPropArray: [COMMON, LAYOUT, FLEX]})
 
   checkExports('Box', {
     default: Box,

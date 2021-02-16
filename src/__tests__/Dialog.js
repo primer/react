@@ -73,14 +73,19 @@ const DialogWithCustomFocusRef = () => {
 
 describe('Dialog', () => {
   // because Dialog returns a React fragment the as and sx tests fail always, so they are skipped
-  behavesAsComponent(Dialog, [COMMON, LAYOUT], () => comp, {skipAs: true, skipSx: true})
+  behavesAsComponent({
+    Component: Dialog,
+    systemPropArray: [COMMON, LAYOUT],
+    toRender: () => comp,
+    options: {skipAs: true, skipSx: true}
+  })
 
   checkExports('Dialog', {
     default: Dialog
   })
 
   describe('Dialog.Header', () => {
-    behavesAsComponent(Dialog.Header, [COMMON, FLEX, LAYOUT])
+    behavesAsComponent({Component: Dialog.Header, systemPropArray: [COMMON, FLEX, LAYOUT]})
   })
 
   it('should have no axe violations', async () => {

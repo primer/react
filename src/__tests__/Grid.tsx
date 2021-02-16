@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Grid', () => {
-  behavesAsComponent(Grid, [COMMON, FLEX, LAYOUT, GRID])
+  behavesAsComponent({Component: Grid, systemPropArray: [COMMON, FLEX, LAYOUT, GRID]})
 
   checkExports('Grid', {
     default: Grid

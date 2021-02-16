@@ -5,10 +5,12 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import { ReactTestRendererJSON } from 'react-test-renderer'
 expect.extend(toHaveNoViolations)
 
+
 describe('FilterList.Item', () => {
-  behavesAsComponent(FilterList.Item, [COMMON])
+  behavesAsComponent({Component: FilterList.Item, systemPropArray: [COMMON]})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilterList.Item>stuff</FilterList.Item>)
@@ -26,7 +28,7 @@ describe('FilterList.Item', () => {
   })
 
   it('respects "count" prop', () => {
-    const CountMock = render(<FilterList.Item count={400} />).children.pop()
-    expect(CountMock.type).toEqual('span')
+    const {getByText} = HTMLRender(<FilterList.Item count={400} />)
+    expect(getByText("400")).toBeTruthy()
   })
 })

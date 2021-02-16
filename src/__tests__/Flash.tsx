@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Flash', () => {
-  behavesAsComponent(Flash, [COMMON])
+  behavesAsComponent({Component: Flash, systemPropArray: [COMMON]})
 
   checkExports('Flash', {
     default: Flash
