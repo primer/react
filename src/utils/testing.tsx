@@ -195,19 +195,19 @@ export function unloadCSS(path: string) {
 // returns an element ready to be rendered.
 
 
-interface IOptions {
+interface Options {
   skipAs?: boolean
   skipSx?: boolean
 }
 
-interface IBehavesAsComponent {
+interface BehavesAsComponent {
   Component: React.FunctionComponent<any>,
   systemPropArray: any[],
   toRender?: () => React.ReactElement,
-  options?: IOptions
+  options?: Options
 }
 
-export function behavesAsComponent({Component, systemPropArray, toRender, options}: IBehavesAsComponent) {
+export function behavesAsComponent({Component, systemPropArray, toRender, options}: BehavesAsComponent) {
   options = options || {}
 
   const getElement = () => (toRender ? toRender() : <Component />)
