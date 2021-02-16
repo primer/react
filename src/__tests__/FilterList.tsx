@@ -24,8 +24,4 @@ describe('FilterList', () => {
   it('renders a <ul>', () => {
     expect(render(<FilterList />).type).toEqual('ul')
   })
-
-  // it.skip('wraps children in <li>', () => {
-  //   expect(render(<FilterList>Hello</FilterList>).children.pop().type)?.toEqual('li')
-  // })
 })
