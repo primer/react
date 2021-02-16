@@ -73,6 +73,7 @@ Array [
   background: transparent;
   outline: none;
   cursor: pointer;
+  border-radius: 6px;
   position: absolute;
   top: 16px;
   right: 16px;

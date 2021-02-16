@@ -4,6 +4,7 @@ exports[`TextInput renders 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
@@ -74,6 +75,7 @@ exports[`TextInput renders block 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
@@ -146,6 +148,7 @@ exports[`TextInput renders consistently 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
@@ -215,6 +218,7 @@ exports[`TextInput renders large 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
@@ -290,6 +294,7 @@ exports[`TextInput renders small 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;
@@ -367,6 +372,7 @@ exports[`TextInput should render a password input 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
+  font-family: inherit;
   background-color: transparent;
   -webkit-appearance: none;
   color: inherit;

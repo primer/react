@@ -455,7 +455,7 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   color: #0366d6;
   background-color: transparent;
   border: 0;
-  border-radius: 0;
+  border-radius: 6px;
   box-shadow: none;
 }
 
@@ -478,6 +478,11 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
 
 .c0:disabled {
   color: #959da5;
+}
+
+.c0:focus {
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 <button
