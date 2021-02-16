@@ -41,7 +41,7 @@ declare global {
  * expect(render(<Foo />)).toEqual(render(<div foo='bar' />))
  * ```
  */
-export function render(component: React.ReactElement){
+export function render(component: React.ReactElement) {
   return renderer.create(component).toJSON() as renderer.ReactTestRendererJSON
 }
 
