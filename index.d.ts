@@ -100,6 +100,11 @@ declare module '@primer/components' {
     setOpen: (open: boolean) => void
   }
 
+  export const useSafeTimeout: () => {
+    safeSetTimeout: typeof window.setTimeout,
+    safeClearTimeout: typeof window.clearTimeout
+  }
+
   export const useMouseIntent: () => void
 
   export interface ButtonProps
@@ -661,6 +666,11 @@ declare module '@primer/components/lib/hooks/useDetails' {
 declare module '@primer/components/lib/hooks/useMouseIntent' {
   import {useMouseIntent} from '@primer/components'
   export default useMouseIntent
+}
+
+declare module '@primer/components/lib/hooks/useMouseSafeTimeout' {
+  import {useSafeTimeout} from '@primer/components'
+  export default useSafeTimeout
 }
 
 declare module '@primer/components/lib/BaseStyles' {

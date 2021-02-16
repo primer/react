@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Dropdown', () => {
-  behavesAsComponent(Dropdown, [COMMON], () => <Dropdown>Hello!</Dropdown>)
+  behavesAsComponent({Component: Dropdown, systemPropArray: [COMMON], toRender: () => <Dropdown>Hello!</Dropdown>})
 
   checkExports('Dropdown', {
     default: Dropdown
@@ -23,23 +23,35 @@ describe('Dropdown', () => {
 })
 
 describe('Dropdown.Item', () => {
-  behavesAsComponent(Dropdown.Item, [COMMON], () => <Dropdown.Item>Hello!</Dropdown.Item>)
+  behavesAsComponent({
+    Component: Dropdown.Item,
+    systemPropArray: [COMMON],
+    toRender: () => <Dropdown.Item>Hello!</Dropdown.Item>
+  })
 })
 
 describe('Dropdown.Button', () => {
-  behavesAsComponent(Dropdown.Button, [COMMON], () => <Dropdown.Button>Hello!</Dropdown.Button>)
+  behavesAsComponent({
+    Component: Dropdown.Button,
+    systemPropArray: [COMMON],
+    toRender: () => <Dropdown.Button>Hello!</Dropdown.Button>
+  })
 })
 
 describe('Dropdown.Caret', () => {
-  behavesAsComponent(Dropdown.Caret, [COMMON])
+  behavesAsComponent({Component: Dropdown.Caret, systemPropArray: [COMMON]})
 })
 
 describe('Dropdown.Menu', () => {
-  behavesAsComponent(Dropdown.Menu, [COMMON], () => (
-    <Dropdown.Menu>
-      <li key="a">1</li>
-      <li key="b">2</li>
-      <li key="c">3</li>
-    </Dropdown.Menu>
-  ))
+  behavesAsComponent({
+    Component: Dropdown.Menu,
+    systemPropArray: [COMMON],
+    toRender: () => (
+      <Dropdown.Menu>
+        <li key="a">1</li>
+        <li key="b">2</li>
+        <li key="c">3</li>
+      </Dropdown.Menu>
+    )
+  })
 })

@@ -20,7 +20,7 @@ expect.extend(toHaveNoViolations)
 function noop() {}
 
 describe('Button', () => {
-  behavesAsComponent(Button, [COMMON, LAYOUT])
+  behavesAsComponent({Component: Button, systemPropArray: [COMMON, LAYOUT]})
 
   checkExports('Button', {
     default: Button,
@@ -69,7 +69,7 @@ describe('Button', () => {
 })
 
 describe('ButtonPrimary', () => {
-  behavesAsComponent(ButtonPrimary, [COMMON, LAYOUT])
+  behavesAsComponent({Component: ButtonPrimary, systemPropArray: [COMMON, LAYOUT]})
 
   it('renders a <button>', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
@@ -82,7 +82,7 @@ describe('ButtonPrimary', () => {
 })
 
 describe('ButtonDanger', () => {
-  behavesAsComponent(ButtonDanger, [COMMON, LAYOUT])
+  behavesAsComponent({Component: ButtonDanger, systemPropArray: [COMMON, LAYOUT]})
 
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
@@ -95,7 +95,7 @@ describe('ButtonDanger', () => {
 })
 
 describe('ButtonOutline', () => {
-  behavesAsComponent(ButtonOutline, [COMMON, LAYOUT])
+  behavesAsComponent({Component: ButtonOutline, systemPropArray: [COMMON, LAYOUT]})
 
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
@@ -108,7 +108,7 @@ describe('ButtonOutline', () => {
 })
 
 describe('ButtonInvisible', () => {
-  behavesAsComponent(ButtonOutline, [COMMON, LAYOUT])
+  behavesAsComponent({Component: ButtonOutline, systemPropArray: [COMMON, LAYOUT]})
 
   it('renders a <button> by default', () => {
     expect(render(<ButtonInvisible />).type).toEqual('button')
@@ -121,9 +121,9 @@ describe('ButtonInvisible', () => {
 })
 
 describe('ButtonGroup', () => {
-  behavesAsComponent(ButtonGroup, [COMMON, FLEX, LAYOUT])
+  behavesAsComponent({Component: ButtonGroup, systemPropArray: [COMMON, FLEX, LAYOUT]})
 })
 
 describe('ButtonTableList', () => {
-  behavesAsComponent(ButtonTableList, [COMMON, TYPOGRAPHY, LAYOUT])
+  behavesAsComponent({Component: ButtonTableList, systemPropArray: [COMMON, TYPOGRAPHY, LAYOUT]})
 })

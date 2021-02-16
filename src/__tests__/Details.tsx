@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Details', () => {
-  behavesAsComponent(Details, [COMMON])
+  behavesAsComponent({Component: Details, systemPropArray: [COMMON]})
 
   checkExports('Details', {
     default: Details

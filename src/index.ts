@@ -12,6 +12,7 @@ export {default as Position, Absolute, Fixed, Relative, Sticky} from './Position
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
 export {default as useMouseIntent} from './hooks/useMouseIntent'
+export {default as useSafeTimeout} from './hooks/useSafeTimeout'
 
 // Components
 export {default as Avatar} from './Avatar'

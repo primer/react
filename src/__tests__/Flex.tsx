@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Flex', () => {
-  behavesAsComponent(Flex, [COMMON, FLEX, LAYOUT])
+  behavesAsComponent({Component: Flex, systemPropArray: [COMMON, FLEX, LAYOUT]})
 
   checkExports('Flex', {
     default: Flex
