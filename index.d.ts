@@ -76,9 +76,7 @@ declare module '@primer/components' {
 
 
   export interface DetailsProps extends CommonProps, Omit<React.DetailsHTMLAttributes<HTMLDetailsElement>, 'color'> {
-    onToggle: (event: React.SyntheticEvent<HTMLDetailsElement>) => void
-    open: boolean
-    ref: React.RefObject<HTMLDetailsElement>
+    ref?: React.RefObject<HTMLDetailsElement>
   }
 
   export const Details: React.FunctionComponent<DetailsProps>
@@ -189,7 +187,6 @@ declare module '@primer/components' {
 
   export const StyledOcticon: React.FunctionComponent<StyledOcticonProps>
 
-  export interface DropdownProps extends DetailsProps {}
   export interface DropdownItemProps extends CommonProps, Omit<React.HTMLAttributes<HTMLLIElement>, 'color'> {}
 
   export interface DropdownMenuProps extends CommonProps, Omit<React.HTMLAttributes<HTMLUListElement>, 'color'> {
@@ -200,7 +197,7 @@ declare module '@primer/components' {
 
   export interface DropdownCaretProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
-  export const Dropdown: React.FunctionComponent<DropdownProps> & {
+  export const Dropdown: React.FunctionComponent<DetailsProps> & {
     Menu: React.FunctionComponent<DropdownMenuProps>
     Item: React.FunctionComponent<DropdownItemProps>
     Button: React.FunctionComponent<DropdownButtonProps>
