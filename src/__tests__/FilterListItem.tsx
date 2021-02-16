@@ -9,11 +9,6 @@ import { ReactTestRendererJSON } from 'react-test-renderer'
 expect.extend(toHaveNoViolations)
 
 
-function isReactNodeJSON(item: string | ReactTestRendererJSON | undefined): item is ReactTestRendererJSON {
-  return (item as ReactTestRendererJSON).type !== undefined;
-}
-
-
 describe('FilterList.Item', () => {
   behavesAsComponent({Component: FilterList.Item, systemPropArray: [COMMON]})
 
