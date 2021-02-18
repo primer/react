@@ -158,7 +158,7 @@ const PaginationContainer = styled.nav`
   ${sx};
 `
 
-type PaginationParameters = {
+export type PaginationProps = {
   theme: object
   pageCount: number
   currentPage: number
@@ -179,7 +179,7 @@ function Pagination({
   showPages = true,
   surroundingPageCount = 2,
   ...rest
-}: PaginationParameters) {
+}: PaginationProps) {
   const pageElements = usePaginationPages({
     theme,
     pageCount,
@@ -226,5 +226,4 @@ Pagination.defaultProps = {
   theme
 }
 
-export type PaginationProps = ComponentProps<typeof Pagination>
 export default Pagination
