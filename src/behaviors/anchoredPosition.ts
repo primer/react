@@ -257,21 +257,33 @@ function shouldRecalculatePosition(
   }
 }
 
+/**
+ * Returns the nearest proper HTMLElement parent of `element` whose
+ * position is not "static", or document.body, whichever is closer
+ */
+function getPositionedParent(element: Element) {
+  let parentNode = element.parentNode
+  while (parentNode != undefined) {
+    if (parentNode instanceof HTMLElement && getComputedStyle(parentNode).position !== "static") {
+      return parentNode
+    }
+    parentNode = parentNode.parentNode
+  }
+  return document.body
+}
+
 function _getAnchoredPosition(
   floatingElement: Element,
   anchorRect: DOMRect,
   {side, align, preventOverflow, anchorOffset, alignmentOffset}: PositionSettings
 ): {top: number; left: number} {
+  const positionedParent = getPositionedParent(floatingElement)
+  const parentRect = positionedParent.getBoundingClientRect()
   const elementRect = floatingElement.getBoundingClientRect()
 
-  let pos = calculatePosition(
-    elementRect,
-    {top: anchorRect.top, left: anchorRect.left, right: anchorRect.right, bottom: anchorRect.bottom},
-    side,
-    align,
-    anchorOffset,
-    alignmentOffset
-  )
+  let pos = calculatePosition(elementRect, anchorRect, side, align, anchorOffset, alignmentOffset)
+  pos.top -= parentRect.top
+  pos.left -= parentRect.left
 
   // Handle screen overflow
   if (preventOverflow) {
@@ -281,8 +293,8 @@ function _getAnchoredPosition(
       let prevSide = side
       const containerDimensions = {
         // @todo allow custom container dimensions
-        width: Math.max(document.body.scrollWidth, window.innerWidth),
-        height: Math.max(document.body.scrollHeight, window.innerHeight)
+        width: parentRect.width, // Math.max(document.body.scrollWidth, window.innerWidth),
+        height: parentRect.height //Math.max(document.body.scrollHeight, window.innerHeight)
       }
 
       while (
@@ -301,6 +313,8 @@ function _getAnchoredPosition(
           anchorOffset,
           alignmentOffset
         )
+        pos.top -= parentRect.top
+        pos.left -= parentRect.left
       }
     }
     // At this point we've flipped the position if applicable. Now just nudge until it's on-screen.
@@ -315,13 +329,14 @@ function _getAnchoredPosition(
     // say that overflowing the bottom of the screen is acceptable since it is
     // likely to be able to scroll.
     if (alternateOrder && positionAttempt < alternateOrder.length) {
-      if (pos.top + elementRect.height > window.innerHeight) {
-        pos.top = window.innerHeight - elementRect.height
+      if (pos.top + elementRect.height > parentRect.height) {
+        pos.top = parentRect.height - elementRect.height
       }
     }
-    if (pos.left + elementRect.width > window.innerWidth) {
-      pos.left = window.innerWidth - elementRect.width
+    if (pos.left + elementRect.width > parentRect.width) {
+      pos.left = parentRect.width - elementRect.width
     }
   }
+  // Adjust for a positioned parent
   return pos
 }
