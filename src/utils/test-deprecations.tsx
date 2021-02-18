@@ -1,5 +1,5 @@
 import semver from 'semver'
-import {Deprecations} from '../utils/deprecate'
+import {Deprecations} from './deprecate'
 
 const ourVersion = require('../../package.json').version
 

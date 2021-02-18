@@ -2,11 +2,13 @@ import React from 'react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import theme from '../theme'
+import {ReactTestRendererJSON, ReactTestRendererNode} from 'react-test-renderer'
 import {getClasses, mount, getComputedStyles, render} from './testing'
+import {Nullish} from '@testing-library/react'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
-const stringify = d => JSON.stringify(d, null, '  ')
+const stringify = (d: object) => JSON.stringify(d, null, '  ')
 
 /**
  * These are props that styled-system aliases for backwards compatibility.
@@ -34,7 +36,9 @@ expect.extend({
 
   toHaveClasses(node, klasses, only = false) {
     const classes = getClasses(node)
-    const pass = only ? this.equals(classes.sort(), klasses.sort()) : klasses.every(klass => classes.includes(klass))
+    const pass = only
+      ? this.equals(classes.sort(), klasses.sort())
+      : klasses.every((klass: Array<string>) => classes.includes(klass))
     return {
       pass,
       message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`
@@ -69,13 +73,14 @@ expect.extend({
     const elem = React.cloneElement(element, {sx: sxPropValue})
     const rendered = render(elem)
 
-    function checkStylesDeep(rendered) {
-      const className = rendered.props ? rendered.props.className : ''
+    function checkStylesDeep(rendered: ReactTestRendererJSON): boolean {
+      const className = rendered?.props ? rendered.props.className : ''
       const styles = getComputedStyles(className)
-      if (styles[mediaKey] && styles[mediaKey].color) {
+      const mediaStyles = styles[mediaKey] as Nullish<Record<string, string>>
+      if (mediaStyles && mediaStyles.color) {
         return true
       } else if (rendered.children) {
-        return rendered.children.some(child => checkStylesDeep(child))
+        return rendered.children.some((child: ReactTestRendererNode) => checkStylesDeep(child as ReactTestRendererJSON))
       } else {
         return false
       }

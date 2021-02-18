@@ -1,16 +1,17 @@
 /* eslint-disable no-console */
 import {useRef, useCallback} from 'react'
+declare var __DEV__: boolean
+
+type DeprecationType = {name: string; message: string; version: string}
 
 const noop = () => {}
 // eslint-disable-next-line import/no-mutable-exports
-let deprecate = null
+let deprecate: ({name, message, version}: DeprecationType) => void | (() => void) = noop
 
 if (__DEV__) {
-  deprecate = ({name, message, version}) => {
+  deprecate = ({name, message, version}: DeprecationType) => {
     Deprecations.deprecate({name, message, version})
   }
-} else {
-  deprecate = noop
 }
 
 export {deprecate}
@@ -19,7 +20,7 @@ export {deprecate}
 let useDeprecation = null
 
 if (__DEV__) {
-  useDeprecation = ({name, message, version}) => {
+  useDeprecation = ({name, message, version}: DeprecationType) => {
     const ref = useRef(false)
     const logDeprecation = useCallback(() => {
       if (!ref.current) {
@@ -39,6 +40,9 @@ if (__DEV__) {
 export {useDeprecation}
 
 export class Deprecations {
+  static instance: Deprecations | null = null
+  deprecations: Array<DeprecationType>
+
   static get() {
     if (!Deprecations.instance) {
       Deprecations.instance = new Deprecations()
@@ -51,7 +55,7 @@ export class Deprecations {
     this.deprecations = []
   }
 
-  static deprecate({name, message, version}) {
+  static deprecate({name, message, version}: DeprecationType) {
     const msg = `WARNING! ${name} is deprecated and will be removed in version ${version}. ${message}`
     console.warn(msg)
 
