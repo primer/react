@@ -1,5 +1,6 @@
 import React from 'react'
 import {Details, useDetails, Button, ButtonPrimary, Box} from '..'
+import {ButtonProps} from '../Button/Button'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -25,7 +26,7 @@ describe('Details', () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
       return (
-        <Details {...getDetailsProps}>
+        <Details {...getDetailsProps()}>
           <summary>hi</summary>
         </Details>
       )
@@ -46,7 +47,7 @@ describe('Details', () => {
     const Component = () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
       return (
-        <Details {...getDetailsProps}>
+        <Details {...getDetailsProps()}>
           <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
         </Details>
       )
@@ -66,11 +67,11 @@ describe('Details', () => {
   })
 
   it('Can manipulate state with setOpen', () => {
-    const CloseButton = props => <Button {...props} />
+    const CloseButton = (props: ButtonProps) => <Button {...props} />
     const Component = () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
-        <Details {...getDetailsProps}>
+        <Details {...getDetailsProps()}>
           <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
           <CloseButton onClick={() => setOpen(false)} />
         </Details>
@@ -92,9 +93,9 @@ describe('Details', () => {
 
   it('Does not toggle when you click inside', () => {
     const Component = () => {
-      const {getDetailsProps} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
+      const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
-        <Details {...getDetailsProps}>
+        <Details {...getDetailsProps()}>
           <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
           <Box>
             <ButtonPrimary>hi</ButtonPrimary>
