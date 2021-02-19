@@ -1,12 +1,10 @@
-// @preval
-
-const {colors: colorPrimitives, typography} = require('@primer/primitives')
-const {lighten, rgba, desaturate} = require('polished')
+import {colors as colorPrimitives, typography} from '@primer/primitives'
+import {lighten, rgba, desaturate} from 'polished'
 
 const {lineHeights} = typography
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
 // General
-const colors = {
+export const colors = {
   bodytext: gray[9],
   black,
   white,
@@ -350,7 +348,7 @@ const stateLabels = {
   }
 }
 
-const theme = {
+export const theme = {
   // General
   borderWidths,
   breakpoints,
@@ -373,11 +371,6 @@ const theme = {
   stateLabels
 }
 
-module.exports = {
-  theme,
-  colors
-}
-
-function fontStack(fonts) {
+function fontStack(fonts: string[]) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
 }
