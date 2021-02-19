@@ -73,7 +73,7 @@ export function renderClasses(component: React.ReactElement): string {
 /**
  * Returns true if a node renders with a single class.
  */
-export function rendersClass(node: React.ReactElement, klass: string): boolean  {
+export function rendersClass(node: React.ReactElement, klass: string): boolean {
   return renderClasses(node).includes(klass)
 }
 
@@ -96,7 +96,7 @@ export function renderStyles(node: React.ReactElement): any {
   return getComputedStyles(className)
 }
 
-export function getComputedStyles(className: string): Record<string, string> {
+export function getComputedStyles(className: string): Record<string, string | Record<string, string>> {
   const div = document.createElement('div')
   div.className = className
 
@@ -107,14 +107,14 @@ export function getComputedStyles(className: string): Record<string, string> {
       if (rule instanceof CSSMediaRule) {
         readMedia(rule)
       } else if (rule instanceof CSSStyleRule) {
-          readRule(rule, computed)
-        } else {
+        readRule(rule, computed)
+      } else {
         // console.warn('rule.type =', rule.type)
       }
     }
   }
 
-    return computed
+  return computed
 
   function matchesSafe(node: HTMLDivElement, selector: string) {
     if (!selector) {
@@ -194,16 +194,15 @@ export function unloadCSS(path: string) {
 // to render without errors, you can pass a `toRender` function that
 // returns an element ready to be rendered.
 
-
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
 }
 
 interface BehavesAsComponent {
-  Component: React.FunctionComponent<any>,
-  systemPropArray: any[],
-  toRender?: () => React.ReactElement,
+  Component: React.ComponentType<any>
+  systemPropArray: any[]
+  toRender?: () => React.ReactElement
   options?: Options
 }
 
