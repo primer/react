@@ -1,20 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Button from './Button'
-import Details from './Details'
+import Button, {ButtonProps} from './Button'
+import Details, {DetailsProps} from './Details'
 import useDetails from './hooks/useDetails'
-import {COMMON, get} from './constants'
+import {COMMON, get, SystemCommonProps} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
-import sx from './sx'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const StyledDetails = styled(Details)`
   position: relative;
   display: inline-block;
 `
 
-const Dropdown = ({children, className, ...rest}) => {
+export type DropdownProps = DetailsProps
+
+const Dropdown = ({children, className, ...rest}: DropdownProps) => {
   const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
   return (
     <StyledDetails className={className} {...getDetailsProps()} {...rest}>
@@ -23,16 +26,18 @@ const Dropdown = ({children, className, ...rest}) => {
   )
 }
 
-Dropdown.Button = ({children, ...rest}) => {
+export type DropdownButtonProps = ButtonProps
+
+const DropdownButton = ({children, ...rest}: DropdownButtonProps) => {
   return (
     <Button as="summary" aria-haspopup="true" {...rest}>
       {children}
-      <Dropdown.Caret />
+      <DropdownCaret />
     </Button>
   )
 }
 
-Dropdown.Caret = styled.div`
+const DropdownCaret = styled.div<SystemCommonProps & SxProp>`
   border: 4px solid transparent;
   margin-left: 12px;
   border-top-color: currentcolor;
@@ -46,7 +51,12 @@ Dropdown.Caret = styled.div`
   ${sx};
 `
 
-Dropdown.Menu = styled.ul`
+type StyledDropdownMenuProps = {
+  direction?: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+} & SystemCommonProps &
+  SxProp
+
+const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   background-clip: padding-box;
   background-color: ${get('colors.white')};
   border: 1px solid rgba(27, 31, 35, 0.15);
@@ -92,7 +102,7 @@ Dropdown.Menu = styled.ul`
   ${sx};
 `
 
-Dropdown.Item = styled.li`
+const DropdownItem = styled.li`
   display: block;
   padding: ${get('space.1')} 10px ${get('space.1')} 15px;
   overflow: hidden;
@@ -127,37 +137,37 @@ Dropdown.Item = styled.li`
   ${sx};
 `
 
-Dropdown.Menu.propTypes = {
+DropdownMenu.propTypes = {
   direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
   ...COMMON.propTypes,
   ...sx.propTypes
 }
 
-Dropdown.Menu.defaultProps = {
+DropdownMenu.defaultProps = {
   direction: 'sw',
   theme
 }
-Dropdown.Menu.displayName = 'Dropdown.Menu'
+DropdownMenu.displayName = 'Dropdown.Menu'
 
-Dropdown.Item.defaultProps = {theme}
-Dropdown.Item.propTypes = {
+DropdownItem.defaultProps = {theme}
+DropdownItem.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes
 }
-Dropdown.Item.displayName = 'Dropdown.Item'
+DropdownItem.displayName = 'Dropdown.Item'
 
-Dropdown.Button.defaultProps = {theme, ...Button.defaultProps}
-Dropdown.Button.propTypes = {
+DropdownButton.defaultProps = {theme, ...Button.defaultProps}
+DropdownButton.propTypes = {
   ...Button.propTypes
 }
-Dropdown.Button.displayName = 'Dropdown.Button'
+DropdownButton.displayName = 'Dropdown.Button'
 
-Dropdown.Caret.defaultProps = {theme}
-Dropdown.Caret.propTypes = {
+DropdownCaret.defaultProps = {theme}
+DropdownCaret.propTypes = {
   ...COMMON.propTypes,
   ...sx.propTypes
 }
-Dropdown.Caret.displayName = 'Dropdown.Caret'
+DropdownCaret.displayName = 'Dropdown.Caret'
 
 Dropdown.defaultProps = {theme, ...Details.defaultProps}
 Dropdown.propTypes = {
@@ -165,4 +175,12 @@ Dropdown.propTypes = {
   ...COMMON.propTypes
 }
 
-export default Dropdown
+export type DropdownCaretProps = ComponentProps<typeof DropdownCaret>
+export type DropdownMenuProps = ComponentProps<typeof DropdownMenu>
+export type DropdownItemProps = ComponentProps<typeof DropdownItem>
+export default Object.assign(Dropdown, {
+  Caret: DropdownCaret,
+  Menu: DropdownMenu,
+  Item: DropdownItem,
+  Button: DropdownButton
+})

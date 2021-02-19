@@ -1,6 +1,6 @@
 import {get} from './constants'
 
-const getDirectionStyles = (theme, direction) => {
+const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w') => {
   const map = {
     w: `
       top: 0;
