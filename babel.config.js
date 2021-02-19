@@ -4,7 +4,14 @@ function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
 }
 
-const sharedPlugins = ['macros', 'preval', 'add-react-displayname', 'babel-plugin-styled-components', '@babel/plugin-proposal-nullish-coalescing-operator']
+const sharedPlugins = [
+  'macros',
+  'preval',
+  'add-react-displayname',
+  'babel-plugin-styled-components',
+  '@babel/plugin-proposal-nullish-coalescing-operator',
+  '@babel/plugin-proposal-optional-chaining'
+]
 
 function makePresets(moduleValue) {
   return ['@babel/preset-typescript', ['@babel/preset-react', {modules: moduleValue}]]

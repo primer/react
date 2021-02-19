@@ -2,7 +2,8 @@ import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import StyledOcticon from '../StyledOcticon'
 import {OctofaceIcon} from '@primer/octicons-react'
-import {get, COMMON} from '../constants'
+import {get, COMMON, SystemCommonProps} from '../constants'
+import {ComponentProps} from '../utils/types'
 
 const pulseKeyframes = keyframes`
   0% {
@@ -16,7 +17,7 @@ const pulseKeyframes = keyframes`
   }
 `
 
-const Animation = styled.div`
+const Animation = styled.div<SystemCommonProps>`
   padding: ${get('space.6')} ${get('space.4')};
   text-align: center;
   background-color: ${get('colors.white')};
@@ -27,7 +28,9 @@ const Animation = styled.div`
   ${COMMON}
 `
 
-const SelectMenuLoadingAnimation = props => {
+export type SelectMenuLoadingAnimationProps = ComponentProps<typeof Animation>
+
+const SelectMenuLoadingAnimation = (props: SelectMenuLoadingAnimationProps) => {
   return (
     <Animation {...props}>
       <StyledOcticon size={32} icon={OctofaceIcon} />

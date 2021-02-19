@@ -1,10 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, {keyframes, css} from 'styled-components'
-import {COMMON, get} from '../constants'
-import {width} from 'styled-system'
+import {COMMON, get, SystemCommonProps} from '../constants'
+import {width, WidthProps} from 'styled-system'
 import theme from '../theme'
-import sx from '../sx'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
+
+type StyledModalProps = {
+  filter?: boolean
+} & WidthProps
+
+type StyledModalWrapperProps = {
+  align?: 'left' | 'right'
+} & SystemCommonProps &
+  SxProp
 
 const animateModal = keyframes`
   0% {
@@ -13,7 +23,7 @@ const animateModal = keyframes`
   }
 `
 
-const modalStyles = css`
+const modalStyles = css<StyledModalProps>`
   position: relative;
   z-index: 99; // Needs to be higher than .details-overlay's z-index: 80.
   display: flex;
@@ -40,7 +50,7 @@ const modalStyles = css`
   }
 `
 
-const modalWrapperStyles = css`
+const modalWrapperStyles = css<StyledModalWrapperProps>`
   position: fixed;
   top: 0;
   right: 0;
@@ -77,25 +87,30 @@ const modalWrapperStyles = css`
   }
 `
 
-const Modal = styled.div`
+const Modal = styled.div<StyledModalProps>`
   ${modalStyles}
   ${width}
 `
 
-const ModalWrapper = styled.div`
+const ModalWrapper = styled.div<StyledModalWrapperProps>`
   ${modalWrapperStyles}
   ${COMMON}
   ${sx};
 `
-const SelectMenuModal = React.forwardRef(({children, theme, width, ...rest}, forwardedRef) => {
-  return (
-    <ModalWrapper theme={theme} {...rest} role="menu" ref={forwardedRef}>
-      <Modal theme={theme} width={width}>
-        {children}
-      </Modal>
-    </ModalWrapper>
-  )
-})
+
+type SelectMenuModalInternalProps = Pick<StyledModalProps, 'width'> & ComponentProps<typeof ModalWrapper>
+
+const SelectMenuModal = React.forwardRef<HTMLDivElement, SelectMenuModalInternalProps>(
+  ({children, theme, width, ...rest}, forwardedRef) => {
+    return (
+      <ModalWrapper theme={theme} {...rest} role="menu" ref={forwardedRef}>
+        <Modal theme={theme} width={width}>
+          {children}
+        </Modal>
+      </ModalWrapper>
+    )
+  }
+)
 
 SelectMenuModal.defaultProps = {
   align: 'left',
@@ -113,4 +128,5 @@ SelectMenuModal.propTypes = {
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'
 
+export type SelectMenuModalProps = ComponentProps<typeof SelectMenuModal>
 export default SelectMenuModal
