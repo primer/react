@@ -200,7 +200,7 @@ interface Options {
 }
 
 interface BehavesAsComponent {
-  Component: React.FunctionComponent<any>
+  Component: React.ComponentType<any>
   systemPropArray: any[]
   toRender?: () => React.ReactElement
   options?: Options
