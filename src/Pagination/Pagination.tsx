@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import sx from '../sx'
 import {get, COMMON} from '../constants'
+import {ComponentProps} from '../utils/types'
 import theme from '../theme'
 import Box from '../Box'
 import {buildPaginationModel, buildComponentData} from './model'
@@ -109,6 +110,17 @@ const Page = styled.a`
   ${COMMON};
 `
 
+type UsePaginationPagesParameters = {
+  theme?: object // set to theme type once /src/theme.js is converted
+  pageCount: number
+  currentPage: number
+  onPageChange: (e: React.MouseEvent, n: number) => void
+  hrefBuilder: (n: number) => string
+  marginPageCount: number
+  showPages?: boolean
+  surroundingPageCount: number
+}
+
 function usePaginationPages({
   theme,
   pageCount,
@@ -118,11 +130,11 @@ function usePaginationPages({
   marginPageCount,
   showPages,
   surroundingPageCount
-}) {
-  const pageChange = React.useCallback(n => e => onPageChange(e, n), [onPageChange])
+}: UsePaginationPagesParameters) {
+  const pageChange = React.useCallback(n => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
   const model = React.useMemo(() => {
-    return buildPaginationModel(pageCount, currentPage, showPages, marginPageCount, surroundingPageCount)
+    return buildPaginationModel(pageCount, currentPage, !!showPages, marginPageCount, surroundingPageCount)
   }, [pageCount, currentPage, showPages, marginPageCount, surroundingPageCount])
 
   const children = React.useMemo(() => {
@@ -146,17 +158,28 @@ const PaginationContainer = styled.nav`
   ${sx};
 `
 
+export type PaginationProps = {
+  theme: object
+  pageCount: number
+  currentPage: number
+  onPageChange?: (e: React.MouseEvent, n: number) => void
+  hrefBuilder?: (n: number) => string
+  marginPageCount: number
+  showPages?: boolean
+  surroundingPageCount?: number
+}
+
 function Pagination({
   theme,
   pageCount,
   currentPage,
-  onPageChange,
-  hrefBuilder,
-  marginPageCount,
-  showPages,
-  surroundingPageCount,
+  onPageChange = noop,
+  hrefBuilder = defaultHrefBuilder,
+  marginPageCount = 1,
+  showPages = true,
+  surroundingPageCount = 2,
   ...rest
-}) {
+}: PaginationProps) {
   const pageElements = usePaginationPages({
     theme,
     pageCount,
@@ -176,7 +199,7 @@ function Pagination({
   )
 }
 
-function defaultHrefBuilder(pageNum) {
+function defaultHrefBuilder(pageNum: number) {
   return `#${pageNum}`
 }
 
