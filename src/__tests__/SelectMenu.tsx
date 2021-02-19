@@ -8,20 +8,6 @@ import 'babel-polyfill'
 import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../SelectMenu'
 expect.extend(toHaveNoViolations)
 
-// TODO: Remove this after https://github.com/primer/components/pull/1041 is merged
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace jest {
-    interface Matchers<R> {
-      toImplementSystemProps: (systemProps: any) => boolean
-      toImplementSxProp: () => boolean
-      toImplementSxBehavior: () => boolean
-      toSetDefaultTheme: () => boolean
-      toSetExports: (exports: Record<string, string>) => boolean
-    }
-  }
-}
-
 const BasicSelectMenu = ({
   onClick,
   as,
@@ -130,7 +116,7 @@ describe('SelectMenu', () => {
     const component = mount(<MenuWithTabs />)
     const tab = component.find("[data-test='repo-tab']").first()
     tab.simulate('click')
-    expect(tab.getDOMNode().attributes['aria-selected']).toBeTruthy()
+    expect(tab.getDOMNode().attributes.getNamedItem('aria-selected')).toBeTruthy()
   })
 
   it('selected items have aria-checked', () => {
@@ -158,7 +144,7 @@ describe('SelectMenu', () => {
     const component = mount(<BasicSelectMenu />)
     const item = component.find("[data-test='menu-item']").first()
     item.simulate('click')
-    expect(component.getDOMNode().attributes.open).toBeFalsy()
+    expect(component.getDOMNode().attributes.getNamedItem('open')).toBeFalsy()
   })
 
   it('right-aligned modal has right: 0px', () => {
