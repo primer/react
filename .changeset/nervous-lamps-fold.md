@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Add ButtonInvisible focus styles
+Migrate `Pagination` to TypeScript

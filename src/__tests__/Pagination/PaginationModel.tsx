@@ -1,12 +1,12 @@
 import 'babel-polyfill'
 import {buildPaginationModel} from '../../Pagination/model'
 
-function first(array, count = 1) {
+function first(array: Array<any>, count = 1) {
   const slice = array.slice(0, count)
   return count === 1 ? slice[0] : slice
 }
 
-function last(array, count = 1) {
+function last(array: Array<any>, count = 1) {
   const len = array.length
   const slice = array.slice(len - count, len)
   return count === 1 ? slice[0] : slice

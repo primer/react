@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-- Fixed Dropdown & Details types.
+Migrate `SelectMenu` to TypeScript
