@@ -34,9 +34,9 @@ export type SelectMenuTabsProps = ComponentProps<typeof SelectMenuTabsBase>
 
 const SelectMenuTabs = ({children, ...rest}: SelectMenuTabsProps) => {
   return (
-    <div role="tablist" {...rest}>
+    <SelectMenuTabsBase role="tablist" {...rest}>
       {children}
-    </div>
+    </SelectMenuTabsBase>
   )
 }
 
