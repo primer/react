@@ -94,7 +94,7 @@ FilterListItem.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   children: PropTypes.node,
   className: PropTypes.string,
-  count: PropTypes.string,
+  count: PropTypes.number,
   selected: PropTypes.bool,
   theme: PropTypes.object,
   ...COMMON.propTypes,

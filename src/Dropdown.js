@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Button from './Button'
 import Details from './Details'
+import useDetails from './hooks/useDetails'
 import {COMMON, get} from './constants'
 import getDirectionStyles from './DropdownStyles'
 import theme from './theme'
@@ -14,8 +15,9 @@ const StyledDetails = styled(Details)`
 `
 
 const Dropdown = ({children, className, ...rest}) => {
+  const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
   return (
-    <StyledDetails closeOnOutsideClick className={className} {...rest}>
+    <StyledDetails className={className} {...getDetailsProps()} {...rest}>
       {children}
     </StyledDetails>
   )

@@ -15,6 +15,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   background: transparent;
   outline: none;
   cursor: pointer;
+  border-radius: ${get('radii.2')};
 
   &:focus {
     box-shadow: ${get('buttons.close.shadow.focus')};

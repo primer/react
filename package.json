@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "23.0.3",
+  "version": "23.1.0",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -78,7 +78,9 @@
     "@storybook/react": "^6.1.17",
     "@testing-library/dom": "7.29.0",
     "@testing-library/react": "11.2.2",
+    "@testing-library/react-hooks": "5.0.3",
     "@testing-library/user-event": "12.6.0",
+    "@types/enzyme": "3.10.8",
     "@types/jest": "26.0.20",
     "@types/jest-axe": "3.5.1",
     "@typescript-eslint/eslint-plugin": "4.14.1",

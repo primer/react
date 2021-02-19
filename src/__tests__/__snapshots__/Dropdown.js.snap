@@ -16,6 +16,7 @@ exports[`Dropdown renders consistently 1`] = `
 
 <details
   className="c0"
+  onToggle={[Function]}
 >
   Hello!
 </details>

@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Truncate', () => {
-  behavesAsComponent(Truncate, [COMMON, TYPOGRAPHY], () => <Truncate title="a-long-branch-name" />)
+  behavesAsComponent({Component: Truncate, systemPropArray: [COMMON, TYPOGRAPHY], toRender: () => <Truncate title="a-long-branch-name" />})
 
   checkExports('Truncate', {
     default: Truncate

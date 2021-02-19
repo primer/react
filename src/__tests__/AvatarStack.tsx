@@ -26,7 +26,7 @@ const rightAvatarComp = (
 )
 
 describe('Avatar', () => {
-  behavesAsComponent(AvatarStack, [COMMON], () => avatarComp)
+  behavesAsComponent({Component: AvatarStack, systemPropArray: [COMMON], toRender: () => avatarComp})
 
   checkExports('AvatarStack', {
     default: AvatarStack

@@ -31,7 +31,7 @@ const theme = {
 }
 
 describe('Heading', () => {
-  behavesAsComponent(Heading, [COMMON, TYPOGRAPHY])
+  behavesAsComponent({Component: Heading, systemPropArray: [COMMON, TYPOGRAPHY]})
 
   checkExports('Heading', {
     default: Heading

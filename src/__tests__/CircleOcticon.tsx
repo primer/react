@@ -10,7 +10,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('CircleOcticon', () => {
-  behavesAsComponent(CircleOcticon, [COMMON, FLEX, LAYOUT], () => <CircleOcticon icon={CheckIcon} />)
+  behavesAsComponent({Component: CircleOcticon, systemPropArray: [COMMON, FLEX, LAYOUT], toRender: () => <CircleOcticon icon={CheckIcon} />})
 
   checkExports('CircleOcticon', {
     default: CircleOcticon
