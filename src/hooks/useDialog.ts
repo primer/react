@@ -18,6 +18,7 @@ type UseDialogParameters = {
   onDismiss?: () => void
   initialFocusRef?: React.RefObject<HTMLElement>
   closeButtonRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement>
 }
 
 function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocusRef, closeButtonRef}: UseDialogParameters) {
@@ -74,7 +75,7 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocus
   )
 
   const handleTab = useCallback(
-    (e: KeyboardEvent) => {
+    (e) => {
       const movement = e.shiftKey ? -1 : 1
       const focusableItem = getFocusableItem(e, movement)
       if (!focusableItem) { return }
@@ -85,7 +86,7 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocus
   )
 
   const onKeyDown = useCallback(
-    (event: KeyboardEvent) => {
+    (event) => {
       switch (event.key) {
         case 'Tab':
           handleTab(event)

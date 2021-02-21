@@ -12,19 +12,19 @@ import useDialog from './hooks/useDialog'
 
 const noop = () => null
 
-type StyledDialogProps = {
+type StyledDialogBaseProps = {
   isOpen?: boolean
   narrow?: boolean
   wide?: boolean
   onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLElement>
-  returnFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLDivElement>
+  returnFocusRef?: React.RefObject<HTMLDivElement>
   modalRef?: React.ForwardedRef<HTMLElement>
 } & SystemLayoutProps &
   SystemCommonProps &
   SxProp
 
-const StyledDialog = styled.div<StyledDialogProps>`
+const DialogBase = styled.div<StyledDialogBaseProps>`
   box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
   border-radius: ${get('radii.2')};
   position: fixed;
@@ -49,6 +49,8 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${COMMON};
   ${sx};
 `
+
+export type DialogBaseProps = ComponentProps<typeof DialogBase>
 
 const DialogHeaderBase = styled(Flex)<SxProp>`
   border-radius: 4px 4px 0px 0px;
@@ -94,21 +96,14 @@ const Overlay = styled.span`
   }
 `
 
-const Dialog = forwardRef(
+const Dialog = forwardRef<HTMLElement, DialogBaseProps>(
   (
-    {
-      children,
-      onDismiss = noop,
-      isOpen,
-      initialFocusRef,
-      returnFocusRef,
-      ...props
-    }: React.PropsWithChildren<StyledDialogProps>,
+    {children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}: DialogBaseProps,
     forwardedRef: React.ForwardedRef<HTMLElement>
   ) => {
-    const backupRef = useRef(null)
+    const backupRef = useRef(null) as React.RefObject<null>
     const overlayRef = useRef(null)
-    const modalRef = forwardedRef ?? backupRef
+    const modalRef = (forwardedRef as React.RefObject<HTMLDivElement>) ?? backupRef
     const closeButtonRef = useRef(null)
 
     const onCloseClick = () => {
@@ -130,14 +125,14 @@ const Dialog = forwardRef(
     return isOpen ? (
       <>
         <Overlay ref={overlayRef} />
-        <StyledDialog tabIndex={-1} ref={modalRef} role="dialog" aria-modal="true" {...props} {...getDialogProps()}>
+        <DialogBase tabIndex={-1} ref={modalRef} role="dialog" aria-modal="true" {...props} {...getDialogProps()}>
           <ButtonClose
             ref={closeButtonRef}
             onClick={onCloseClick}
             sx={{position: 'absolute', top: '16px', right: '16px'}}
           />
           {children}
-        </StyledDialog>
+        </DialogBase>
       </>
     ) : null
   }
