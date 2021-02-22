@@ -1,5 +1,23 @@
 # @primer/components
 
+## 23.1.0
+
+### Minor Changes
+
+- [`e0432b35`](https://github.com/primer/components/commit/e0432b35f152031be8e4a0830df5d228d7b14832) [#1041](https://github.com/primer/components/pull/1041) Thanks [@emplums](https://github.com/emplums)! - Adds new `useSafeTimeout` helper Hook
+
+### Patch Changes
+
+- [`eaf57cf5`](https://github.com/primer/components/commit/eaf57cf514da106f9bd1b4de01f5fc037a84fa23) [#1054](https://github.com/primer/components/pull/1054) Thanks [@emplums](https://github.com/emplums)! - Fix border radius on ButtonClose
+
+* [`57eba0da`](https://github.com/primer/components/commit/57eba0da8fea003d00fce781d05ac581616de391) [#1054](https://github.com/primer/components/pull/1054) Thanks [@emplums](https://github.com/emplums)! - Add ButtonInvisible focus styles
+
+- [`e2c90dba`](https://github.com/primer/components/commit/e2c90dba38976c280f44544cd7bf5cbbc8816ee3) [#1049](https://github.com/primer/components/pull/1049) Thanks [@eintxaurtieta](https://github.com/eintxaurtieta)! - Added font-family:inherit to TextInput
+
+* [`be82a500`](https://github.com/primer/components/commit/be82a50033e8392c2dd80f56df9f398397f45379) [#1046](https://github.com/primer/components/pull/1046) Thanks [@emplums](https://github.com/emplums)! - - Fixed Dropdown & Details types.
+
+- [`7c4c726c`](https://github.com/primer/components/commit/7c4c726c822fafc524e9b6928a7f9d413e1a7bc8) [#1046](https://github.com/primer/components/pull/1046) Thanks [@emplums](https://github.com/emplums)! - - Added useDetails behavior back to Dropdown
+
 ## 23.0.4
 
 ### Patch Changes
