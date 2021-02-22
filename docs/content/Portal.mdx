@@ -8,6 +8,7 @@ Portals allow you to create a separation between the logical React component hie
 This Portal component will render all children into the portal root DOM node instead of as children of this Portal's parent DOM element. This is useful for breaking out of the current stacking context. For example, popup menus and tool tips may need to render on top of (read: covering up) other UI. The best way to guarantee this is to add these elements to top-level DOM, such as directly on document.body. These elements can then be moved to the correct location using absolute positioning.
 
 ## Customizing the portal root
+
 By default, Primer will create a portal root for you as a child of the closest `<BaseStyles>` element, or `document.body` of none is found. If you would like to specify your own portal root, there are two options:
 
 1. Before rendering a `<Portal>` for the first time, ensure that an element exists with id `__primerPortalRoot__`. If that exists, it will be used as the default portal root.
