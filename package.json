@@ -4,7 +4,7 @@
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
-  "typings": "index.d.ts",
+  "typings": "types/index.d.ts",
   "scripts": {
     "start": "cd docs && yarn run develop",
     "dist": "concurrently yarn:dist:*",
@@ -35,9 +35,10 @@
     "dist",
     "lib",
     "lib-esm",
-    "index.d.ts",
+    "types",
     "!lib/__tests__",
-    "!lib-esm/__tests__"
+    "!lib-esm/__tests__",
+    "!types/__tests__"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
