@@ -16,7 +16,7 @@ export function registerPortalRoot(root: Element | undefined, name?: string): vo
   if (root instanceof Element) {
     portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME] = root
   } else {
-    delete portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME];
+    delete portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME]
   }
 }
 
@@ -29,9 +29,9 @@ function ensureDefaultPortal() {
     if (!(defaultPortalContainer instanceof Element)) {
       defaultPortalContainer = document.createElement('div')
       defaultPortalContainer.setAttribute('id', PRIMER_PORTAL_ROOT_ID)
-      const suitablePortalRoot = document.querySelector("[data-portal-root]");
+      const suitablePortalRoot = document.querySelector('[data-portal-root]')
       if (suitablePortalRoot) {
-        suitablePortalRoot.appendChild(defaultPortalContainer);
+        suitablePortalRoot.appendChild(defaultPortalContainer)
       } else {
         document.body.appendChild(defaultPortalContainer)
       }
@@ -61,7 +61,7 @@ export interface PortalProps {
 export const Portal: React.FC<PortalProps> = ({children, onMount, containerName: _containerName}) => {
   const elementRef = React.useRef(document.createElement('div'))
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     let containerName = _containerName
     if (containerName == undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
