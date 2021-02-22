@@ -1,14 +1,27 @@
 import {useCallback, useEffect} from 'react'
 
-function visible(el) {
+const noop = () => null
+
+function visible(el: HTMLInputElement) {
   return !el.hidden && (!el.type || el.type !== 'hidden') && (el.offsetWidth > 0 || el.offsetHeight > 0)
 }
 
-function focusable(el) {
-  return el.tabIndex >= 0 && !el.disabled && visible(el)
+function focusable(el: Element) {
+  const inputEl = el as HTMLInputElement
+  return inputEl.tabIndex >= 0 && !inputEl.disabled && visible(inputEl)
 }
 
-function useDialog({modalRef, overlayRef, isOpen, onDismiss, initialFocusRef, closeButtonRef} = {}) {
+type UseDialogParameters = {
+  modalRef: React.RefObject<HTMLDivElement>
+  overlayRef: React.RefObject<HTMLDivElement>
+  isOpen?: boolean
+  onDismiss?: () => void
+  initialFocusRef?: React.RefObject<HTMLDivElement>
+  closeButtonRef?: React.RefObject<HTMLDivElement>
+  returnFocusRef?: React.RefObject<HTMLDivElement>
+}
+
+function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocusRef, closeButtonRef}: UseDialogParameters) {
   const onClickOutside = useCallback(
     e => {
       if (
@@ -43,32 +56,37 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss, initialFocusRef, cl
   }, [isOpen, initialFocusRef, closeButtonRef])
 
   const getFocusableItem = useCallback(
-    (e, movement) => {
+    (e: Event, movement: number) => {
       if (modalRef && modalRef.current) {
         const items = Array.from(modalRef.current.querySelectorAll('*')).filter(focusable)
         if (items.length === 0) return
         e.preventDefault()
-
         const focusedElement = document.activeElement
+        if (!focusedElement) { return }
+
         const index = items.indexOf(focusedElement)
         const offsetIndex = index + movement
         const fallbackIndex = movement === 1 ? 0 : items.length - 1
-        return items[offsetIndex] || items[fallbackIndex]
+        const focusableItem = items[offsetIndex] || items[fallbackIndex]
+        return focusableItem as HTMLElement
       }
     },
     [modalRef]
   )
 
   const handleTab = useCallback(
-    e => {
+    (e) => {
       const movement = e.shiftKey ? -1 : 1
-      getFocusableItem(e, movement).focus()
+      const focusableItem = getFocusableItem(e, movement)
+      if (!focusableItem) { return }
+
+      focusableItem.focus()
     },
     [getFocusableItem]
   )
 
   const onKeyDown = useCallback(
-    event => {
+    (event) => {
       switch (event.key) {
         case 'Tab':
           handleTab(event)
