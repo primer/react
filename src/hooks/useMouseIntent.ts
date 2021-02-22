@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 
 const useMouseIntent = () => {
   useEffect(() => {
-    let lastActiveElement = null
+    let lastActiveElement: Element | null = null
     let currentInputIsMouse = false
 
     function setClass() {
