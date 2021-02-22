@@ -10,6 +10,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 
 .c0 {
   padding: 16px;
+  background-color: #f6f8fa;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -116,6 +117,7 @@ Array [
 
 .c2 {
   padding: 16px;
+  background-color: #f6f8fa;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

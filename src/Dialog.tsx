@@ -13,13 +13,8 @@ import useDialog from './hooks/useDialog'
 const noop = () => null
 
 type StyledDialogBaseProps = {
-  isOpen?: boolean
   narrow?: boolean
   wide?: boolean
-  onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLDivElement>
-  returnFocusRef?: React.RefObject<HTMLDivElement>
-  modalRef?: React.ForwardedRef<HTMLElement>
 } & SystemLayoutProps &
   SystemCommonProps &
   SxProp
@@ -50,8 +45,6 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   ${sx};
 `
 
-export type DialogBaseProps = ComponentProps<typeof DialogBase>
-
 const DialogHeaderBase = styled(Flex)<SxProp>`
   border-radius: 4px 4px 0px 0px;
   border-bottom: 1px solid #dad5da;
@@ -63,6 +56,7 @@ const DialogHeaderBase = styled(Flex)<SxProp>`
   ${sx};
 `
 export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
+
 function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
@@ -73,7 +67,7 @@ function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: Di
   }
 
   return (
-    <DialogHeaderBase theme={theme} p={3} {...rest}>
+    <DialogHeaderBase theme={theme} p={3} backgroundColor={backgroundColor} {...rest}>
       {children}
     </DialogHeaderBase>
   )
@@ -96,12 +90,20 @@ const Overlay = styled.span`
   }
 `
 
-const Dialog = forwardRef<HTMLElement, DialogBaseProps>(
+type InternalDialogProps = {
+  isOpen?: boolean
+  onDismiss?: () => void
+  initialFocusRef?: React.RefObject<HTMLDivElement>
+  returnFocusRef?: React.RefObject<HTMLDivElement>
+  modalRef?: React.ForwardedRef<HTMLElement>
+} & ComponentProps<typeof DialogBase>
+
+const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
   (
-    {children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}: DialogBaseProps,
+    {children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props},
     forwardedRef: React.ForwardedRef<HTMLElement>
   ) => {
-    const backupRef = useRef(null) as React.RefObject<null>
+    const backupRef = useRef(null)
     const overlayRef = useRef(null)
     const modalRef = (forwardedRef as React.RefObject<HTMLDivElement>) ?? backupRef
     const closeButtonRef = useRef(null)
