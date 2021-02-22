@@ -75,7 +75,12 @@ describe('Portal', () => {
   })
 
   it('renders into multiple custom portal roots (named)', () => {
-    const portalRootJSX = <main><div id="myPortalRoot1"></div><div id="myPortalRoot2"></div></main>
+    const portalRootJSX = (
+      <main>
+        <div id="myPortalRoot1"></div>
+        <div id="myPortalRoot2"></div>
+      </main>
+    )
     let {baseElement} = render(portalRootJSX)
     const fancyPortalRoot1 = baseElement.querySelector('#myPortalRoot1')
     const fancyPortalRoot2 = baseElement.querySelector('#myPortalRoot2')
@@ -104,6 +109,4 @@ describe('Portal', () => {
 
     baseElement.innerHTML = ''
   })
-
-  it('renders into the correct root (default root and custom named root)', () => {})
 })
