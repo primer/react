@@ -350,12 +350,13 @@ const stateLabels = {
 }
 
 const primerPrimitivesColors = splitCompoundColor(primitives.colors.light)
+const mergedColors = deepmerge(colors, primerPrimitivesColors)
 
 export const theme = {
   // General
   borderWidths,
   breakpoints,
-  colors: deepmerge(colors, primerPrimitivesColors),
+  colors: mergedColors,
   fonts,
   fontSizes,
   fontWeights,
@@ -382,9 +383,9 @@ function splitCompoundColor(o: { [key: string]: any }) {
   const newObject: { [key: string]: any } = {}
   Object.keys(o).forEach(function(key: string) {
     const value: any | undefined = o[key];
-    if (typeof value === "string" && value.match(/[0-9.]+ [0-9.]+ [0-9.]+ [0-9.]+(em|px) rgb[a]?\(.*\)/)) {
-      newObject[key] = value.replace(/rgb[a]?\(.*\)/g, '')
-      newObject[key+"Color"] = value.replace(/[0-9.]+(em|px|) [0-9.]+(em|px|) [0-9.]+(em|px|) [0-9.]+(em|px|)/g, '')
+    if (typeof value === "string" && value.match(/(inset\s|)[0-9.\s]?(em|px|) [0-9.\s]?(em|px|)[0-9.\s]?(em|px|)[0-9.\s]?(em|px|) rgb[a]?\(.*\)/)) {
+      newObject[key] = value.replace(/rgb[a]?\(.*\)/g, '').trim()
+      newObject[key+"Color"] = value.replace(/(inset\s|)[0-9.\s]?(em|px|) [0-9.\s]?(em|px|)[0-9.\s]?(em|px|)[0-9.\s]?(em|px|)/g, '').trim()
     } else if (typeof value === "object") {
       newObject[key] = splitCompoundColor(value)
     } else {
