@@ -15,7 +15,21 @@ export default {
         </BaseStyles>
       )
     }
-  ]
+  ],
+  argTypes: {
+    width: {
+      control: {
+        type: 'select',
+        options: ['sm', 'md', 'lg', 'xl', 'auto']
+      }
+    },
+    height: {
+      control: {
+        type: 'select',
+        options: ['sm', 'md', 'auto']
+      }
+    }
+  }
 } as Meta
 
 export const DefaultOverlay = () => {
@@ -25,7 +39,7 @@ export const DefaultOverlay = () => {
       <Button onClick={() => setIsOpen(true)}>
         open overlay
       </Button>
-      {isOpen && <Overlay> content</Overlay>}
+      {isOpen && <Overlay width="sm"> content!!</Overlay>}
     </>
   )
 }
