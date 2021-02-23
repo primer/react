@@ -1,8 +1,9 @@
-import {colors as colorPrimitives, typography} from '@primer/primitives'
+import primitives from '@primer/primitives'
 import {lighten, rgba, desaturate} from 'polished'
+import deepmerge from 'deepmerge'
 
-const {lineHeights} = typography
-const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
+const {lineHeight: lineHeights} = primitives.typography.normal
+const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.auto
 // General
 export const colors = {
   bodytext: gray[9],
@@ -348,11 +349,13 @@ const stateLabels = {
   }
 }
 
+const primerPrimitivesColors = splitCompoundColor(primitives.colors.light)
+
 export const theme = {
   // General
   borderWidths,
   breakpoints,
-  colors,
+  colors: deepmerge(colors, primerPrimitivesColors),
   fonts,
   fontSizes,
   fontWeights,
@@ -373,4 +376,20 @@ export const theme = {
 
 function fontStack(fonts: string[]) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
+}
+
+function splitCompoundColor(o: { [key: string]: any }) {
+  const newObject: { [key: string]: any } = {}
+  Object.keys(o).forEach(function(key: string) {
+    const value: any | undefined = o[key];
+    if (typeof value === "string" && value.match(/[0-9.]+ [0-9.]+ [0-9.]+ [0-9.]+(em|px) rgb[a]?\(.*\)/)) {
+      newObject[key] = value.replace(/rgb[a]?\(.*\)/g, '')
+      newObject[key+"Color"] = value.replace(/[0-9.]+(em|px|) [0-9.]+(em|px|) [0-9.]+(em|px|) [0-9.]+(em|px|)/g, '')
+    } else if (typeof value === "object") {
+      newObject[key] = splitCompoundColor(value)
+    } else {
+      newObject[key] = value
+    }
+  })
+  return newObject;
 }

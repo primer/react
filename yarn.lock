@@ -1836,10 +1836,10 @@
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-11.3.0.tgz#794641d95ff5749a9438a2e0c201956b2a377b60"
   integrity sha512-4sVhkrBKuj3h+PFw69yOyO/l3nQB/mm95V+Kz7LRSlIrbZr6hZarZD5Ft4ewdONPROkIHQM/6KSK90+OAimxsQ==
 
-"@primer/primitives@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-3.0.0.tgz#ccfb324b478b2373733535ec49f8de29e238c55d"
-  integrity sha512-ISXB43vcA+kg5pmGtGo3lPlHmY5Mg9nLhliePJu3Y5aP7g28TO+9cC99gL240pZHYsO0aVyU26WZwUXn6UIqJQ==
+"@primer/primitives@0.0.0-20211167520":
+  version "0.0.0-20211167520"
+  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-0.0.0-20211167520.tgz#6403c36970d20ce3d72e8d2489c0ee7aae11f3e0"
+  integrity sha512-TlsLN1CEN80NqyO+oKP+NHL05cKGVHt0wUoEk9ZKjjmPfGhkJUVC8MxS+8r8+iLOLso5ujZcd31b12az4bRbIw==
 
 "@reach/router@^1.3.3":
   version "1.3.4"
