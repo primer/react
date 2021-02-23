@@ -181,6 +181,6 @@ SideNavLink.propTypes = {
 SideNavLink.displayName = 'SideNav.Link'
 
 export type SideNavProps = ComponentProps<typeof SideNav>
-export type SideNavLinksProps = ComponentProps<typeof SideNavLink>
+export type SideNavLinkProps = ComponentProps<typeof SideNavLink>
 
 export default Object.assign(SideNav, {Link: SideNavLink})

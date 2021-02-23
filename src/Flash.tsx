@@ -4,6 +4,7 @@ import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import theme from './theme'
 import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const variants = variant({
   scale: 'flash'
@@ -51,4 +52,5 @@ Flash.propTypes = {
   ...sx.propTypes
 }
 
+export type FlashProps = ComponentProps<typeof Flash>
 export default Flash
