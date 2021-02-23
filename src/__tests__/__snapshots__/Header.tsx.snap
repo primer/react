@@ -27,7 +27,7 @@ exports[`Header Header.Item renders consistently 1`] = `
 exports[`Header Header.Link renders consistently 1`] = `
 .c0 {
   font-weight: 600;
-  color: #fff;
+  color: #ffffff;
   white-space: nowrap;
   cursor: pointer;
   -webkit-text-decoration: none;
