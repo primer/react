@@ -3,7 +3,7 @@ import {lighten, rgba, desaturate} from 'polished'
 import deepmerge from 'deepmerge'
 
 const {lineHeight: lineHeights} = primitives.typography.normal
-const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.auto
+const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.scale
 // General
 export const colors = {
   bodytext: gray[9],
@@ -349,10 +349,8 @@ const stateLabels = {
   }
 }
 
-const primerPrimitivesColors = splitCompoundColor(primitives.colors.light)
-const mergedColors = deepmerge(colors, primerPrimitivesColors)
-
-console.log(primerPrimitivesColors)
+const functionalColors = splitCompoundColor(primitives.colors.light)
+const mergedColors = deepmerge(colors, functionalColors)
 
 export const theme = {
   // General
