@@ -1,12 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import styled from 'styled-components'
-import {COMMON, SystemCommonProps, SystemTypographyProps, get} from './constants'
-import {ComponentProps} from './utils/types'
-import theme from './theme'
-import sx, {SxProp} from './sx'
 import * as History from 'history'
+import React from 'react'
+import styled from 'styled-components'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
+import sx, {SxProp} from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -73,27 +72,9 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   ${sx};
 `
 
-TabNav.defaultProps = {
-  theme
-}
+TabNav.defaultProps = {theme}
 
-TabNav.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-TabNavLink.defaultProps = {
-  theme
-}
-
-TabNavLink.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+TabNavLink.defaultProps = {theme}
 
 TabNavLink.displayName = 'TabNav.Link'
 

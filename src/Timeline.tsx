@@ -1,5 +1,4 @@
 import classnames from 'classnames'
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import Box from './Box'
@@ -120,69 +119,18 @@ const TimelineBreak = styled(Relative)`
   ${sx};
 `
 
-Timeline.defaultProps = {
-  theme
-}
+Timeline.defaultProps = {theme}
 
-Timeline.propTypes = {
-  children: PropTypes.node,
-  clipSidebar: PropTypes.bool,
-  theme: PropTypes.object,
-  ...Flex.propTypes,
-  ...sx.propTypes
-}
-
-TimelineItem.defaultProps = {
-  theme
-}
-
-TimelineItem.propTypes = {
-  children: PropTypes.node,
-  condensed: PropTypes.bool,
-  theme: PropTypes.object,
-  ...Flex.propTypes,
-  ...sx.propTypes
-}
-
+TimelineItem.defaultProps = {theme}
 TimelineItem.displayName = 'Timeline.Item'
 
-TimelineBadge.defaultProps = {
-  theme
-}
-
-TimelineBadge.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  ...Flex.propTypes,
-  ...sx.propTypes
-}
-
+TimelineBadge.defaultProps = {theme}
 TimelineBadge.displayName = 'Timeline.Badge'
 
-TimelineBody.defaultProps = {
-  theme
-}
-
-TimelineBody.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  ...Box.propTypes,
-  ...sx.propTypes
-}
-
+TimelineBody.defaultProps = {theme}
 TimelineBody.displayName = 'Timeline.Body'
 
-TimelineBreak.defaultProps = {
-  theme
-}
-
-TimelineBreak.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  ...Box.propTypes,
-  ...sx.propTypes
-}
-
+TimelineBreak.defaultProps = {theme}
 TimelineBreak.displayName = 'Timeline.Break'
 
 export type TimelineProps = ComponentProps<typeof Timeline>

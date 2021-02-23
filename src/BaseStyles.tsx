@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
@@ -50,12 +49,6 @@ BaseStyles.defaultProps = {
   fontFamily: 'normal',
   lineHeight: 'default',
   theme
-}
-
-BaseStyles.propTypes = {
-  ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes,
-  theme: PropTypes.object
 }
 
 export default BaseStyles

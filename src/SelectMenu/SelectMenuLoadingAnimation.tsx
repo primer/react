@@ -38,8 +38,4 @@ const SelectMenuLoadingAnimation = (props: SelectMenuLoadingAnimationProps) => {
   )
 }
 
-SelectMenuLoadingAnimation.propTypes = {
-  ...COMMON.propTypes
-}
-
 export default SelectMenuLoadingAnimation

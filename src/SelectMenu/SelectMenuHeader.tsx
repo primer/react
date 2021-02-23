@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import {get, COMMON, TYPOGRAPHY, SystemCommonProps, SystemTypographyProps} from '../constants'
-import theme from '../theme'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
 import sx, {SxProp} from '../sx'
+import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
@@ -46,16 +45,7 @@ const SelectMenuHeader = ({children, theme, ...rest}: SelectMenuHeaderProps) => 
   )
 }
 
-SelectMenuHeader.defaultProps = {
-  theme
-}
-
-SelectMenuHeader.propTypes = {
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
-}
+SelectMenuHeader.defaultProps = {theme}
 
 SelectMenuHeader.displayName = 'SelectMenu.Header'
 

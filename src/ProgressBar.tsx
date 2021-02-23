@@ -53,14 +53,4 @@ ProgressBar.defaultProps = {
   theme
 }
 
-ProgressBar.propTypes = {
-  ...COMMON.propTypes,
-  barSize: PropTypes.oneOf(['small', 'default', 'large']),
-  inline: PropTypes.bool,
-  progress: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ...sx.propTypes,
-  theme: PropTypes.object,
-  width: systemPropTypes.layout.width
-}
-
 export default ProgressBar

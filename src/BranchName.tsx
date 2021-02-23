@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
@@ -19,13 +18,6 @@ const BranchName = styled.a<SystemCommonProps & SxProp>`
 
 BranchName.defaultProps = {
   theme
-}
-
-BranchName.propTypes = {
-  href: PropTypes.string,
-  ...COMMON.propTypes,
-  ...sx.propTypes,
-  theme: PropTypes.object
 }
 
 export type BranchNameProps = ComponentProps<typeof BranchName>

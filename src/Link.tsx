@@ -1,8 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {system} from 'styled-system'
-import {COMMON, TYPOGRAPHY, get, SystemCommonProps, SystemTypographyProps} from './constants'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
@@ -59,17 +57,6 @@ const Link = styled.a<StyledLinkProps>`
 
 Link.defaultProps = {
   theme
-}
-
-Link.propTypes = {
-  hoverColor: PropTypes.string,
-  href: PropTypes.string,
-  muted: PropTypes.bool,
-  theme: PropTypes.object,
-  underline: PropTypes.bool,
-  ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 export type LinkProps = ComponentProps<typeof Link>
