@@ -39,7 +39,7 @@ export {
   ButtonInvisible,
   ButtonTableList,
   ButtonClose,
-  ButtonGroup,
+  ButtonGroup
 } from './Button'
 export type {
   ButtonProps,
@@ -91,6 +91,8 @@ export {default as PointerBox} from './PointerBox'
 export type {PointerBoxProps} from './PointerBox'
 export {default as Popover} from './Popover'
 export type {PopoverProps, PopoverContentProps} from './Popover'
+export {default as Portal, registerPortalRoot} from './Portal'
+export type {PortalProps} from './Portal'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as SelectMenu} from './SelectMenu'
