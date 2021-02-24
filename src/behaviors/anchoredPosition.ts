@@ -89,15 +89,6 @@ export interface PositionSettings {
   preventOverflow: boolean
 }
 
-// Default settings to position a floating element
-const positionDefaults: PositionSettings = {
-  side: 'outside-bottom',
-  align: 'first',
-  anchorOffset: 8,
-  alignmentOffset: 0,
-  preventOverflow: true
-}
-
 // For each outside anchor position, list the order of alternate positions to try in
 // the event that the original position overflows. See comment on `preventOverflow`
 // for a more detailed description.
@@ -108,22 +99,17 @@ const alternateOrders: Partial<Record<AnchorSide, [AnchorSide, AnchorSide, Ancho
   'outside-right': ['outside-left', 'outside-bottom', 'outside-top', 'outside-bottom']
 }
 
-interface WidthAndHeight {
+interface Size {
   width: number
   height: number
 }
 
-interface TopAndLeft {
+interface Position {
   top: number
   left: number
 }
 
-interface BoxPosition {
-  top: number
-  right: number
-  bottom: number
-  left: number
-}
+interface BoxPosition extends Size, Position {}
 
 /**
  * Given a floating element and an anchor element, return coordinates for the
@@ -139,34 +125,34 @@ interface BoxPosition {
  * @returns {top: number, left: number} coordinates for the floating element
  */
 function calculatePosition(
-  elementDimensions: WidthAndHeight,
+  elementDimensions: Size,
   anchorPosition: BoxPosition,
   side: AnchorSide,
   align: AnchoredPositionAlign,
   anchorOffset: number,
   alignmentOffset: number
 ) {
-  const anchorWidth = anchorPosition.right - anchorPosition.left
-  const anchorHeight = anchorPosition.bottom - anchorPosition.top
+  const anchorRight = anchorPosition.left + anchorPosition.width
+  const anchorBottom = anchorPosition.top + anchorPosition.height
   let top = -1
   let left = -1
   if (side === 'outside-top') {
     top = anchorPosition.top - anchorOffset - elementDimensions.height
   } else if (side === 'outside-bottom') {
-    top = anchorPosition.bottom + anchorOffset
+    top = anchorBottom + anchorOffset
   } else if (side === 'outside-left') {
     left = anchorPosition.left - anchorOffset - elementDimensions.width
   } else if (side === 'outside-right') {
-    left = anchorPosition.right + anchorOffset
+    left = anchorRight + anchorOffset
   }
 
   if (side === 'outside-top' || side === 'outside-bottom') {
     if (align === 'first') {
       left = anchorPosition.left + alignmentOffset
     } else if (align === 'center') {
-      left = anchorPosition.left - (elementDimensions.width - anchorWidth) / 2 + alignmentOffset
+      left = anchorPosition.left - (elementDimensions.width - anchorPosition.width) / 2 + alignmentOffset
     } else if (align === 'last') {
-      left = anchorPosition.right - elementDimensions.width - alignmentOffset
+      left = anchorRight - elementDimensions.width - alignmentOffset
     }
   }
 
@@ -174,39 +160,39 @@ function calculatePosition(
     if (align === 'first') {
       top = anchorPosition.top + alignmentOffset
     } else if (align === 'center') {
-      top = anchorPosition.top - (elementDimensions.height - anchorHeight) / 2 + alignmentOffset
+      top = anchorPosition.top - (elementDimensions.height - anchorPosition.height) / 2 + alignmentOffset
     } else if (align === 'last') {
-      top = anchorPosition.bottom - elementDimensions.height - alignmentOffset
+      top = anchorBottom - elementDimensions.height - alignmentOffset
     }
   }
 
   if (side === 'inside-top') {
     top = anchorPosition.top + anchorOffset
   } else if (side === 'inside-bottom') {
-    top = anchorPosition.bottom - anchorOffset - elementDimensions.height
+    top = anchorBottom - anchorOffset - elementDimensions.height
   } else if (side === 'inside-left') {
     left = anchorPosition.left + anchorOffset
   } else if (side === 'inside-right') {
-    left = anchorPosition.right - anchorOffset - elementDimensions.width
+    left = anchorRight - anchorOffset - elementDimensions.width
   } else if (side === 'inside-center') {
-    left = (anchorPosition.right + anchorPosition.left) / 2 - elementDimensions.width / 2 + anchorOffset
+    left = (anchorRight + anchorPosition.left) / 2 - elementDimensions.width / 2 + anchorOffset
   }
 
   if (side === 'inside-top' || side === 'inside-bottom') {
     if (align === 'first') {
       left = anchorPosition.left + alignmentOffset
     } else if (align === 'center') {
-      left = anchorPosition.left - (elementDimensions.width - anchorWidth) / 2 + alignmentOffset
+      left = anchorPosition.left - (elementDimensions.width - anchorPosition.width) / 2 + alignmentOffset
     } else if (align === 'last') {
-      left = anchorPosition.right - elementDimensions.width - alignmentOffset
+      left = anchorRight - elementDimensions.width - alignmentOffset
     }
   } else if (side === 'inside-left' || side === 'inside-right' || side === 'inside-center') {
     if (align === 'first') {
       top = anchorPosition.top + alignmentOffset
     } else if (align === 'center') {
-      top = anchorPosition.top - (elementDimensions.height - anchorHeight) / 2 + alignmentOffset
+      top = anchorPosition.top - (elementDimensions.height - anchorPosition.height) / 2 + alignmentOffset
     } else if (align === 'last') {
-      top = anchorPosition.bottom - elementDimensions.height - alignmentOffset
+      top = anchorBottom - elementDimensions.height - alignmentOffset
     }
   }
 
@@ -228,27 +214,35 @@ export function getAnchoredPosition(
   anchorElement: Element | DOMRect,
   settings: Partial<PositionSettings> = {}
 ): {top: number; left: number} {
-  const side = settings.side ?? positionDefaults.side
-  const align = settings.align ?? positionDefaults.align
-  return _getAnchoredPosition(
-    floatingElement,
+  const parentElement = getPositionedParent(floatingElement)
+  const parentRect = parentElement.getBoundingClientRect()
+  const parentStyle = getComputedStyle(parentElement)
+  const [parentTop, parentLeft, parentRight, parentBottom] = [
+    parentStyle.borderTopWidth,
+    parentStyle.borderLeftWidth,
+    parentStyle.borderRightWidth,
+    parentStyle.borderBottomWidth
+  ].map(v => parseInt(v, 10) || 0)
+  const parentViewport = {
+    top: parentRect.top + parentTop,
+    left: parentRect.left + parentLeft,
+    width: parentRect.width - parentLeft - parentRight,
+    height: parentRect.height - parentTop - parentBottom
+  } as BoxPosition
+  const _settings = getDefaultSettings(settings)
+  return pureCalculateAnchoredPosition(
+    parentViewport,
+    floatingElement.getBoundingClientRect(),
     anchorElement instanceof Element ? anchorElement.getBoundingClientRect() : anchorElement,
-    {
-      side,
-      align,
-      // offsets always default to 0 if their respective side/alignment is centered
-      anchorOffset: settings.anchorOffset ?? (side === 'inside-center' ? 0 : positionDefaults.anchorOffset),
-      alignmentOffset: settings.alignmentOffset ?? (align === 'center' ? 0 : positionDefaults.alignmentOffset),
-      preventOverflow: settings.preventOverflow ?? positionDefaults.preventOverflow
-    }
+    _settings
   )
 }
 
 function shouldRecalculatePosition(
   side: AnchorSide,
-  currentPos: TopAndLeft,
-  containerDimensions: WidthAndHeight,
-  elementDimensions: WidthAndHeight
+  currentPos: Position,
+  containerDimensions: Size,
+  elementDimensions: Size
 ) {
   if (side === 'outside-top' || side === 'outside-bottom') {
     return currentPos.top < 0 || currentPos.top + elementDimensions.height > containerDimensions.height
@@ -264,7 +258,7 @@ function shouldRecalculatePosition(
 function getPositionedParent(element: Element) {
   let parentNode = element.parentNode
   while (parentNode != undefined) {
-    if (parentNode instanceof HTMLElement && getComputedStyle(parentNode).position !== "static") {
+    if (parentNode instanceof HTMLElement && getComputedStyle(parentNode).position !== 'static') {
       return parentNode
     }
     parentNode = parentNode.parentNode
@@ -272,16 +266,59 @@ function getPositionedParent(element: Element) {
   return document.body
 }
 
-function _getAnchoredPosition(
-  floatingElement: Element,
-  anchorRect: DOMRect,
+// Default settings to position a floating element
+const positionDefaults: PositionSettings = {
+  side: 'outside-bottom',
+  align: 'first',
+
+  // note: the following default is not applied if side === "inside-center"
+  anchorOffset: 4,
+
+  // note: the following default is only applied if side starts with "inside"
+  // and align is not center
+  alignmentOffset: 4,
+
+  preventOverflow: true
+}
+
+/**
+ * Compute a full PositionSettings object from the given partial PositionSettings object
+ * by filling in with defaults where applicable.
+ * @param settings Partial settings - any omissions will be defaulted
+ */
+function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionSettings {
+  const side = settings.side ?? positionDefaults.side
+  const align = settings.align ?? positionDefaults.align
+  return {
+    side,
+    align,
+    // offsets always default to 0 if their respective side/alignment is centered
+    anchorOffset: settings.anchorOffset ?? (side === 'inside-center' ? 0 : positionDefaults.anchorOffset),
+    alignmentOffset:
+      settings.alignmentOffset ??
+      (align !== 'center' && side.startsWith('inside') ? positionDefaults.alignmentOffset : 0),
+    preventOverflow: settings.preventOverflow ?? positionDefaults.preventOverflow
+  }
+}
+
+/**
+ * Note: This is a pure function with no dependency on DOM APIs (other than DOMRect). Do not
+ * use this function unless you need a DOM-free, low-level implementaiton. Instead, use
+ * `getAnchoredPosition`. Position settings not defaulted.
+ * @see getAnchoredPosition
+ * @see getDefaultSettings
+ * @param parentRect BoxPosition for the closest positioned proper parent of the floating element
+ * @param floatingRect WidthAndHeight for the floating element
+ * @param anchorRect BoxPosition for the anchor element
+ * @param PositionSettings to customize the calculated position for the floating element.
+ */
+function pureCalculateAnchoredPosition(
+  parentRect: BoxPosition,
+  floatingRect: Size,
+  anchorRect: BoxPosition,
   {side, align, preventOverflow, anchorOffset, alignmentOffset}: PositionSettings
 ): {top: number; left: number} {
-  const positionedParent = getPositionedParent(floatingElement)
-  const parentRect = positionedParent.getBoundingClientRect()
-  const elementRect = floatingElement.getBoundingClientRect()
-
-  let pos = calculatePosition(elementRect, anchorRect, side, align, anchorOffset, alignmentOffset)
+  let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
   pos.top -= parentRect.top
   pos.left -= parentRect.left
 
@@ -299,20 +336,13 @@ function _getAnchoredPosition(
 
       while (
         positionAttempt < alternateOrder.length &&
-        shouldRecalculatePosition(prevSide, pos, containerDimensions, elementRect)
+        shouldRecalculatePosition(prevSide, pos, containerDimensions, floatingRect)
       ) {
         const nextSide = alternateOrder[positionAttempt++]
         prevSide = nextSide
 
         // If we have cut off in the same dimension as the "side" option, try flipping to the opposite side.
-        pos = calculatePosition(
-          elementRect,
-          {top: anchorRect.top, left: anchorRect.left, right: anchorRect.right, bottom: anchorRect.bottom},
-          nextSide,
-          align,
-          anchorOffset,
-          alignmentOffset
-        )
+        pos = calculatePosition(floatingRect, anchorRect, nextSide, align, anchorOffset, alignmentOffset)
         pos.top -= parentRect.top
         pos.left -= parentRect.left
       }
@@ -329,12 +359,12 @@ function _getAnchoredPosition(
     // say that overflowing the bottom of the screen is acceptable since it is
     // likely to be able to scroll.
     if (alternateOrder && positionAttempt < alternateOrder.length) {
-      if (pos.top + elementRect.height > parentRect.height) {
-        pos.top = parentRect.height - elementRect.height
+      if (pos.top + floatingRect.height > parentRect.height) {
+        pos.top = parentRect.height - floatingRect.height
       }
     }
-    if (pos.left + elementRect.width > parentRect.width) {
-      pos.left = parentRect.width - elementRect.width
+    if (pos.left + floatingRect.width > parentRect.width) {
+      pos.left = parentRect.width - floatingRect.width
     }
   }
   // Adjust for a positioned parent
