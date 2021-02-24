@@ -5,6 +5,8 @@ import React, { useEffect } from 'react'
  * or hook as a prop. However, due to the `rules-of-hooks`, we cannot conditionally make a call to `React.useRef`
  * only in the situations where the ref is not provided as a prop.
  * This hook aims to encapsulate that logic, so the consumer doesn't need to be concerned with violating `rules-of-hooks`.
+ *
+ * This hook also handles the case where the forwarded ref is a callback ref. See https://medium.com/@jacobwarduk/how-to-correctly-use-preventdefault-stoppropagation-or-return-false-on-events-6c4e3f31aedb
  * @param providedRef The ref to use - if undefined, will use the ref from a call to React.useRef
  * @type TRef The type of the RefObject which should be created.
  */
