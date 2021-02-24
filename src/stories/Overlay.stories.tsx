@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Overlay, Button} from '..'
@@ -34,12 +34,13 @@ export default {
 
 export const DefaultOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && <Overlay width="sm"> content!!</Overlay>}
+      {isOpen && <Overlay triggerRef={buttonRef} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm"> content!!</Overlay>}
     </>
   )
 }

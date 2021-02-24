@@ -2,29 +2,32 @@ import React, {useEffect, useCallback} from 'react'
 
 
 export type UseOnOutsideClickParameters = {
-  insideRefs: React.RefObject<HTMLElement>[]
-  outsideRefs: React.RefObject<HTMLElement>[]
+  overlayRef: React.RefObject<HTMLDivElement>
+  triggerRef: React.RefObject<HTMLElement>
   isOpen: boolean
   onClickOutside: (e: MouseEvent) => void
 }
 
 
-const wasOutside = (insideRefs: React.RefObject<HTMLElement>[], e: MouseEvent) => {
-  let wasOutside = true;
-  insideRefs.forEach(ref => {
-    if (ref.current?.contains(e.target as Node)) {
-      wasOutside = false;
+const shouldCallClickHandler = (triggerRef: React.RefObject<HTMLElement>, overlayRef: React.RefObject<HTMLDivElement>, e: MouseEvent) => {
+  let shouldCallHandler = true
+
+    if (overlayRef && 'current' in overlayRef && overlayRef.current?.contains(e.target as Node)) {
+      shouldCallHandler = false
+    } else if (triggerRef && triggerRef.current?.contains(e.target as Node)) {
+      shouldCallHandler = false
     }
-  })
-  return wasOutside
+
+  return shouldCallHandler
 }
-export  const useOnOutsideClick = ({insideRefs, isOpen, onClickOutside}: UseOnOutsideClickParameters) => {
+
+
+export const useOnOutsideClick = ({overlayRef, triggerRef, isOpen, onClickOutside}: UseOnOutsideClickParameters) => {
   const onOutsideClickInternal = useCallback(
     (e: MouseEvent) => {
-      if (wasOutside(insideRefs, e)) {
-        onClickOutside(e)
-      }
-    }, [onClickOutside, insideRefs]
+      if (!shouldCallClickHandler(triggerRef, overlayRef, e)) return
+      onClickOutside(e)
+    }, [onClickOutside, overlayRef, triggerRef]
   )
 
   useEffect(() => {

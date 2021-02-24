@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import {get} from './constants'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
-import {useCloseOnOutsideClick, useProvidedRefOrCreate} from './hooks'
+import {useOnOutsideClick, useProvidedRefOrCreate} from './hooks'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -52,17 +52,18 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
 
 export type OverlayProps = {
   insideRefs?: React.RefObject<HTMLElement>[]
+  triggerRef: React.RefObject<HTMLElement>
   isOpen: boolean
   onClickOutside: (e: MouseEvent) => void
 } & ComponentProps<typeof StyledOverlay>
 
-const Overlay = forwardRef<HTMLElement, OverlayProps>(
+const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   (
-    {insideRefs, isOpen, onClickOutside, ...rest},
-    forwardedRef: React.ForwardedRef<HTMLElement>
+    {isOpen, onClickOutside, triggerRef, ...rest},
+    forwardedRef
   ) => {
-    const overlayRef = useProvidedRefOrCreate<React.ForwardedRef<HTMLDivElement>>(forwardedRef)
-    useCloseOnOutsideClick(insideRefs, isOpen, onClickOutside)
+    const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef)
+    useOnOutsideClick({overlayRef, triggerRef, isOpen, onClickOutside})
     return (
       <StyledOverlay ref={overlayRef} {...rest}/>
     )

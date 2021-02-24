@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 /**
  * There are some situations where we only want to create a new ref if one is not provided to a component
@@ -9,7 +9,16 @@ import React from 'react'
  * @type TRef The type of the RefObject which should be created.
  */
 
-export function useProvidedRefOrCreate<TRef>(providedRef?: React.RefObject<TRef>) {
-  const createdRef = React.useRef<TRef>(null)
-  return providedRef ?? createdRef
+export function useProvidedRefOrCreate<TRef>(providedRef?: React.ForwardedRef<TRef> | null) {
+  const createdRef = React.useRef<TRef | null>(null)
+
+  useEffect(() => {
+    if (!providedRef) return
+    if (typeof providedRef === 'function') {
+      providedRef(createdRef.current ?? null)
+    } else {
+      providedRef.current = createdRef.current ?? null
+    }
+  })
+  return createdRef
 }
