@@ -62,10 +62,9 @@ const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     {isOpen, onClickOutside, triggerRef, ...rest},
     forwardedRef
   ) => {
-    const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef)
-    useOverlay({overlayRef, triggerRef, onClickOutside, isOpen})
+    const overlayProps = useOverlay({forwardedRef, triggerRef, onClickOutside, isOpen})
     return (
-      <StyledOverlay ref={overlayRef} {...rest}/>
+      <StyledOverlay {...overlayProps} {...rest}/>
     )
 })
 
