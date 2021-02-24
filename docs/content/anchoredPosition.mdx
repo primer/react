@@ -8,6 +8,10 @@ At a high level, the `getAnchoredPosition` routine will attempt to find the most
 
 Settings for this routine allow the user to customize several aspects of this calculation. See **PositionSettings** below for a detailed description of these settings.
 
+### Floating element container
+
+The anchored position calculation is based on the floating element's closest _positioned_ ancestor. In other words, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`. This element should be large—big enough to accommodate the floating element and have plenty of space to be moved around. It may be a good idea to ensure that this container element _also_ contains the anchor element and is scrollable. This will ensure that when scrolled, the anchor and floating element will move together.
+
 ### Usage
 
 ```ts
@@ -17,8 +21,8 @@ const settings = {
   alignmentOffset: 10,
   anchorOffset: -10
 } as Partial<PositionSettings>
-const float = document.getElementById("floatingElement")
-const anchor = document.getElementById("anchorElement")
+const float = document.getElementById('floatingElement')
+const anchor = document.getElementById('anchorElement')
 const {top, left} = getAnchoredPosition(float, anchor, settings)
 float.style.top = `${top}px`
 float.style.left = `${left}px`
