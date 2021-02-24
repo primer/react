@@ -1,7 +1,7 @@
 export type AnchoredPositionAlign = 'first' | 'center' | 'last'
 
 // When prettier supports template literal types...
-// export type SuperSide = `${'inside' | 'outside'}-${'top' | 'bottom' | 'right' | 'left'}` | 'inside-center'
+// export type AnchorSide = `${'inside' | 'outside'}-${'top' | 'bottom' | 'right' | 'left'}` | 'inside-center'
 export type AnchorSide =
   | 'inside-top'
   | 'inside-bottom'
@@ -112,6 +112,162 @@ interface Position {
 interface BoxPosition extends Size, Position {}
 
 /**
+ * Given a floating element and an anchor element, return coordinates for the top-left
+ * of the floating element in order to absolutely position it such that it appears
+ * near the anchor element.
+ *
+ * @param floatingElement Element intended to be positioned near or within an anchor
+ * @param anchorElement The element to serve as the position anchor
+ * @param settings Settings to determine the rules for positioning the floating element
+ * @returns {top: number, left: number} coordinates for the floating element
+ */
+export function getAnchoredPosition(
+  floatingElement: Element,
+  anchorElement: Element | DOMRect,
+  settings: Partial<PositionSettings> = {}
+): {top: number; left: number} {
+  const parentElement = getPositionedParent(floatingElement)
+  const parentRect = parentElement.getBoundingClientRect()
+  const parentStyle = getComputedStyle(parentElement)
+  const [parentTop, parentLeft, parentRight, parentBottom] = [
+    parentStyle.borderTopWidth,
+    parentStyle.borderLeftWidth,
+    parentStyle.borderRightWidth,
+    parentStyle.borderBottomWidth
+  ].map(v => parseInt(v, 10) || 0)
+
+  const parentViewport = {
+    top: parentRect.top + parentTop,
+    left: parentRect.left + parentLeft,
+    width: parentRect.width - parentLeft - parentRight,
+    height: parentRect.height - parentTop - parentBottom
+  } as BoxPosition
+
+  return pureCalculateAnchoredPosition(
+    parentViewport,
+    floatingElement.getBoundingClientRect(),
+    anchorElement instanceof Element ? anchorElement.getBoundingClientRect() : anchorElement,
+    getDefaultSettings(settings)
+  )
+}
+
+/**
+ * Returns the nearest proper HTMLElement parent of `element` whose
+ * position is not "static", or document.body, whichever is closer
+ */
+function getPositionedParent(element: Element) {
+  let parentNode = element.parentNode
+  while (parentNode != undefined) {
+    if (parentNode instanceof HTMLElement && getComputedStyle(parentNode).position !== 'static') {
+      return parentNode
+    }
+    parentNode = parentNode.parentNode
+  }
+  return document.body
+}
+
+// Default settings to position a floating element
+const positionDefaults: PositionSettings = {
+  side: 'outside-bottom',
+  align: 'first',
+
+  // note: the following default is not applied if side === "inside-center"
+  anchorOffset: 4,
+
+  // note: the following default is only applied if side starts with "inside"
+  // and align is not center
+  alignmentOffset: 4,
+
+  preventOverflow: true
+}
+
+/**
+ * Compute a full PositionSettings object from the given partial PositionSettings object
+ * by filling in with defaults where applicable.
+ * @param settings Partial settings - any omissions will be defaulted
+ */
+function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionSettings {
+  const side = settings.side ?? positionDefaults.side
+  const align = settings.align ?? positionDefaults.align
+  return {
+    side,
+    align,
+    // offsets always default to 0 if their respective side/alignment is centered
+    anchorOffset: settings.anchorOffset ?? (side === 'inside-center' ? 0 : positionDefaults.anchorOffset),
+    alignmentOffset:
+      settings.alignmentOffset ??
+      (align !== 'center' && side.startsWith('inside') ? positionDefaults.alignmentOffset : 0),
+    preventOverflow: settings.preventOverflow ?? positionDefaults.preventOverflow
+  }
+}
+
+/**
+ * Note: This is a pure function with no dependency on DOM APIs.
+ * @see getAnchoredPosition
+ * @see getDefaultSettings
+ * @param parentRect BoxPosition for the closest positioned proper parent of the floating element
+ * @param floatingRect WidthAndHeight for the floating element
+ * @param anchorRect BoxPosition for the anchor element
+ * @param PositionSettings to customize the calculated position for the floating element.
+ */
+function pureCalculateAnchoredPosition(
+  parentRect: BoxPosition,
+  floatingRect: Size,
+  anchorRect: BoxPosition,
+  {side, align, preventOverflow, anchorOffset, alignmentOffset}: PositionSettings
+): {top: number; left: number} {
+  let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
+  pos.top -= parentRect.top
+  pos.left -= parentRect.left
+
+  // Handle screen overflow
+  if (preventOverflow) {
+    const alternateOrder = alternateOrders[side]
+    let positionAttempt = 0
+    if (alternateOrder) {
+      let prevSide = side
+      const containerDimensions = {
+        width: parentRect.width,
+        height: parentRect.height
+      }
+
+      // Try all the alternate sides until one does not overflow
+      while (
+        positionAttempt < alternateOrder.length &&
+        shouldRecalculatePosition(prevSide, pos, containerDimensions, floatingRect)
+      ) {
+        const nextSide = alternateOrder[positionAttempt++]
+        prevSide = nextSide
+
+        // If we have cut off in the same dimension as the "side" option, try flipping to the opposite side.
+        pos = calculatePosition(floatingRect, anchorRect, nextSide, align, anchorOffset, alignmentOffset)
+        pos.top -= parentRect.top
+        pos.left -= parentRect.left
+      }
+    }
+    // At this point we've flipped the position if applicable. Now just nudge until it's on-screen.
+    if (pos.top < 0) {
+      pos.top = 0
+    }
+    if (pos.left < 0) {
+      pos.left = 0
+    }
+    if (pos.left + floatingRect.width > parentRect.width) {
+      pos.left = parentRect.width - floatingRect.width
+    }
+    // If we have exhausted all possible positions and none of them worked, we
+    // say that overflowing the bottom of the screen is acceptable since it is
+    // likely to be able to scroll.
+    if (alternateOrder && positionAttempt < alternateOrder.length) {
+      if (pos.top + floatingRect.height > parentRect.height) {
+        pos.top = parentRect.height - floatingRect.height
+      }
+    }
+  }
+  return pos
+}
+
+/**
  * Given a floating element and an anchor element, return coordinates for the
  * top-left of the floating element in order to absolutely position it such
  * that it appears near the anchor element.
@@ -200,44 +356,12 @@ function calculatePosition(
 }
 
 /**
- * Given a floating element and an anchor element, return coordinates for the top-left
- * of the floating element in order to absolutely position it such that it appears
- * near the anchor element.
- *
- * @param floatingElement Element intended to be positioned near or within an anchor
- * @param anchorElement The element to serve as the position anchor
- * @param settings Settings to determine the rules for positioning the floating element
- * @returns {top: number, left: number} coordinates for the floating element
+ * Determines if there is an overflow
+ * @param side 
+ * @param currentPos 
+ * @param containerDimensions 
+ * @param elementDimensions 
  */
-export function getAnchoredPosition(
-  floatingElement: Element,
-  anchorElement: Element | DOMRect,
-  settings: Partial<PositionSettings> = {}
-): {top: number; left: number} {
-  const parentElement = getPositionedParent(floatingElement)
-  const parentRect = parentElement.getBoundingClientRect()
-  const parentStyle = getComputedStyle(parentElement)
-  const [parentTop, parentLeft, parentRight, parentBottom] = [
-    parentStyle.borderTopWidth,
-    parentStyle.borderLeftWidth,
-    parentStyle.borderRightWidth,
-    parentStyle.borderBottomWidth
-  ].map(v => parseInt(v, 10) || 0)
-  const parentViewport = {
-    top: parentRect.top + parentTop,
-    left: parentRect.left + parentLeft,
-    width: parentRect.width - parentLeft - parentRight,
-    height: parentRect.height - parentTop - parentBottom
-  } as BoxPosition
-  const _settings = getDefaultSettings(settings)
-  return pureCalculateAnchoredPosition(
-    parentViewport,
-    floatingElement.getBoundingClientRect(),
-    anchorElement instanceof Element ? anchorElement.getBoundingClientRect() : anchorElement,
-    _settings
-  )
-}
-
 function shouldRecalculatePosition(
   side: AnchorSide,
   currentPos: Position,
@@ -249,124 +373,4 @@ function shouldRecalculatePosition(
   } else {
     return currentPos.left < 0 || currentPos.left + elementDimensions.width > containerDimensions.width
   }
-}
-
-/**
- * Returns the nearest proper HTMLElement parent of `element` whose
- * position is not "static", or document.body, whichever is closer
- */
-function getPositionedParent(element: Element) {
-  let parentNode = element.parentNode
-  while (parentNode != undefined) {
-    if (parentNode instanceof HTMLElement && getComputedStyle(parentNode).position !== 'static') {
-      return parentNode
-    }
-    parentNode = parentNode.parentNode
-  }
-  return document.body
-}
-
-// Default settings to position a floating element
-const positionDefaults: PositionSettings = {
-  side: 'outside-bottom',
-  align: 'first',
-
-  // note: the following default is not applied if side === "inside-center"
-  anchorOffset: 4,
-
-  // note: the following default is only applied if side starts with "inside"
-  // and align is not center
-  alignmentOffset: 4,
-
-  preventOverflow: true
-}
-
-/**
- * Compute a full PositionSettings object from the given partial PositionSettings object
- * by filling in with defaults where applicable.
- * @param settings Partial settings - any omissions will be defaulted
- */
-function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionSettings {
-  const side = settings.side ?? positionDefaults.side
-  const align = settings.align ?? positionDefaults.align
-  return {
-    side,
-    align,
-    // offsets always default to 0 if their respective side/alignment is centered
-    anchorOffset: settings.anchorOffset ?? (side === 'inside-center' ? 0 : positionDefaults.anchorOffset),
-    alignmentOffset:
-      settings.alignmentOffset ??
-      (align !== 'center' && side.startsWith('inside') ? positionDefaults.alignmentOffset : 0),
-    preventOverflow: settings.preventOverflow ?? positionDefaults.preventOverflow
-  }
-}
-
-/**
- * Note: This is a pure function with no dependency on DOM APIs (other than DOMRect). Do not
- * use this function unless you need a DOM-free, low-level implementaiton. Instead, use
- * `getAnchoredPosition`. Position settings not defaulted.
- * @see getAnchoredPosition
- * @see getDefaultSettings
- * @param parentRect BoxPosition for the closest positioned proper parent of the floating element
- * @param floatingRect WidthAndHeight for the floating element
- * @param anchorRect BoxPosition for the anchor element
- * @param PositionSettings to customize the calculated position for the floating element.
- */
-function pureCalculateAnchoredPosition(
-  parentRect: BoxPosition,
-  floatingRect: Size,
-  anchorRect: BoxPosition,
-  {side, align, preventOverflow, anchorOffset, alignmentOffset}: PositionSettings
-): {top: number; left: number} {
-  let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
-  pos.top -= parentRect.top
-  pos.left -= parentRect.left
-
-  // Handle screen overflow
-  if (preventOverflow) {
-    const alternateOrder = alternateOrders[side]
-    let positionAttempt = 0
-    if (alternateOrder) {
-      let prevSide = side
-      const containerDimensions = {
-        // @todo allow custom container dimensions
-        width: parentRect.width, // Math.max(document.body.scrollWidth, window.innerWidth),
-        height: parentRect.height //Math.max(document.body.scrollHeight, window.innerHeight)
-      }
-
-      while (
-        positionAttempt < alternateOrder.length &&
-        shouldRecalculatePosition(prevSide, pos, containerDimensions, floatingRect)
-      ) {
-        const nextSide = alternateOrder[positionAttempt++]
-        prevSide = nextSide
-
-        // If we have cut off in the same dimension as the "side" option, try flipping to the opposite side.
-        pos = calculatePosition(floatingRect, anchorRect, nextSide, align, anchorOffset, alignmentOffset)
-        pos.top -= parentRect.top
-        pos.left -= parentRect.left
-      }
-    }
-    // At this point we've flipped the position if applicable. Now just nudge until it's on-screen.
-    if (pos.top < 0) {
-      pos.top = 0
-    }
-    if (pos.left < 0) {
-      pos.left = 0
-    }
-
-    // If we have exhausted all possible positions and none of them worked, we
-    // say that overflowing the bottom of the screen is acceptable since it is
-    // likely to be able to scroll.
-    if (alternateOrder && positionAttempt < alternateOrder.length) {
-      if (pos.top + floatingRect.height > parentRect.height) {
-        pos.top = parentRect.height - floatingRect.height
-      }
-    }
-    if (pos.left + floatingRect.width > parentRect.width) {
-      pos.left = parentRect.width - floatingRect.width
-    }
-  }
-  // Adjust for a positioned parent
-  return pos
 }

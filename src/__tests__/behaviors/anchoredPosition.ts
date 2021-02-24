@@ -52,10 +52,10 @@ function createVirtualDOM(
 
 describe('getAnchoredPosition', () => {
   it('returns the correct position in the default case with no overflow', () => {
-    const parentElement = makeDOMRect(20, 20, 500, 500)
-    const anchorElement = makeDOMRect(300, 200, 50, 50)
-    const floatingElement = makeDOMRect(-9999, -9999, 100, 100)
-    const {float, anchor} = createVirtualDOM(parentElement, anchorElement, floatingElement)
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
     const settings: Partial<PositionSettings> = {anchorOffset: 4}
 
     const {top, left} = getAnchoredPosition(float, anchor, settings)
@@ -65,10 +65,10 @@ describe('getAnchoredPosition', () => {
   })
 
   it('returns the correct position for different outside side settings with no overflow', () => {
-    const parentElement = makeDOMRect(20, 20, 500, 500)
-    const anchorElement = makeDOMRect(300, 200, 50, 50)
-    const floatingElement = makeDOMRect(-9999, -9999, 100, 100)
-    const {float, anchor} = createVirtualDOM(parentElement, anchorElement, floatingElement)
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
     const settings: Partial<PositionSettings> = {}
     let top = 0
     let left = 0
@@ -76,30 +76,30 @@ describe('getAnchoredPosition', () => {
     // should be the same calculation as the default settings test above
     settings.side = 'outside-bottom'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(234) // anchorElement.top + anchorElement.height + (settings.anchorOffset ?? 4) - parentElement.top
-    expect(left).toEqual(280) // anchorElement.left - parentElement.left
+    expect(top).toEqual(234) // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(280) // anchorRect.left - parentRect.left
 
     settings.side = 'outside-left'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(180) // anchorElement.top - parentElement.top
-    expect(left).toEqual(176) // anchorElement.left - floatingElement.width - (settings.anchorOffset ?? 4) - parentElement.left
+    expect(top).toEqual(180) // anchorRect.top - parentRect.top
+    expect(left).toEqual(176) // anchorRect.left - floatingRect.width - (settings.anchorOffset ?? 4) - parentRect.left
 
     settings.side = 'outside-right'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(180) // anchorElement.top - parentElement.top
-    expect(left).toEqual(334) // anchorElement.left + anchorElement.width + (settings.anchorOffset ?? 4) - parentElement.left
+    expect(top).toEqual(180) // anchorRect.top - parentRect.top
+    expect(left).toEqual(334) // anchorRect.left + anchorRect.width + (settings.anchorOffset ?? 4) - parentRect.left
 
     settings.side = 'outside-top'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(76) // anchorElement.top - floatingElement.height - (settings.anchorOffset ?? 4) - parentElement.top
-    expect(left).toEqual(280) // anchorElement.left - parentElement.left
+    expect(top).toEqual(76) // anchorRect.top - floatingRect.height - (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(280) // anchorRect.left - parentRect.left
   })
 
   it('returns the correct position for different inside side settings', () => {
-    const parentElement = makeDOMRect(20, 20, 500, 500)
-    const anchorElement = makeDOMRect(300, 200, 50, 50)
-    const floatingElement = makeDOMRect(-9999, -9999, 100, 100)
-    const {float, anchor} = createVirtualDOM(parentElement, anchorElement, floatingElement)
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
     const settings: Partial<PositionSettings> = {}
     let top = 0
     let left = 0
@@ -107,77 +107,171 @@ describe('getAnchoredPosition', () => {
     settings.side = 'inside-bottom'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
 
-    // anchorElement.top + anchorElement.height - (settings.anchorOffset ?? 4) - floatingElement.height - parentElement.top
+    // anchorRect.top + anchorRect.height - (settings.anchorOffset ?? 4) - floatingRect.height - parentRect.top
     expect(top).toEqual(126)
-    // anchorElement.left + (settings.alignmentOffset ?? 4) - parentElement.left
+    // anchorRect.left + (settings.alignmentOffset ?? 4) - parentRect.left
     expect(left).toEqual(284)
 
     settings.side = 'inside-left'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(184) // anchorElement.top + (settings.alignmentOffset ?? 4) - parentElement.top
-    expect(left).toEqual(284) // anchorElement.left + (settings.anchorOffset ?? 4) - parentElement.left
+    expect(top).toEqual(184) // anchorRect.top + (settings.alignmentOffset ?? 4) - parentRect.top
+    expect(left).toEqual(284) // anchorRect.left + (settings.anchorOffset ?? 4) - parentRect.left
 
     settings.side = 'inside-right'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
 
-    // anchorElement.top + (settings.alignmentOffset ?? 4) - parentElement.top
+    // anchorRect.top + (settings.alignmentOffset ?? 4) - parentRect.top
     expect(top).toEqual(184)
-    // anchorElement.left + anchorElement.width - (settings.anchorOffset ?? 4) - floatingElement.width - parentElement.left
+    // anchorRect.left + anchorRect.width - (settings.anchorOffset ?? 4) - floatingRect.width - parentRect.left
     expect(left).toEqual(226)
 
     // almost the same as inside-left, with the exception of offsets
     settings.side = 'inside-top'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(184) // anchorElement.top + (settings.anchorOffset ?? 4) - parentElement.top
-    expect(left).toEqual(284) // anchorElement.left + (settings.alignmentOffset ?? 4) - parentElement.left
+    expect(top).toEqual(184) // anchorRect.top + (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(284) // anchorRect.left + (settings.alignmentOffset ?? 4) - parentRect.left
 
     settings.side = 'inside-center'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(184) // anchorElement.top + (settings.alignmentOffset ?? 4) - parentElement.top
-    expect(left).toEqual(255) // anchorElement.left + anchorElement.width / 2 - floatingElement.width / 2 - parentElement.left
+    expect(top).toEqual(184) // anchorRect.top + (settings.alignmentOffset ?? 4) - parentRect.top
+    expect(left).toEqual(255) // anchorRect.left + anchorRect.width / 2 - floatingRect.width / 2 - parentRect.left
+  })
+
+  it('returns the correct position inside centering along both axes', () => {
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
+    const settings: Partial<PositionSettings> = {side: 'inside-center', align: 'center'}
+
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+
+    expect(top).toEqual(155) // anchorRect.top + anchorRect.height / 2 - floatingRect.height / 2 - parentRect.top
+    expect(left).toEqual(255) // anchorRect.left + anchorRect.width / 2 - floatingRect.width / 2 - parentRect.left
   })
 
   it('returns the correct position for different alignment settings with no overflow', () => {
-    const parentElement = makeDOMRect(20, 20, 500, 500)
-    const anchorElement = makeDOMRect(300, 200, 50, 50)
-    const floatingElement = makeDOMRect(-9999, -9999, 100, 100)
-    const {float, anchor} = createVirtualDOM(parentElement, anchorElement, floatingElement)
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
     const settings: Partial<PositionSettings> = {}
     let top = 0
     let left = 0
 
     settings.align = 'first'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
-    expect(top).toEqual(234) // anchorElement.top + anchorElement.height + (settings.anchorOffset ?? 4) - parentElement.top
-    expect(left).toEqual(280) // anchorElement.left + (settings.alignmentOffset ?? 0) - parentElement.left
+    expect(top).toEqual(234) // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(280) // anchorRect.left + (settings.alignmentOffset ?? 0) - parentRect.left
 
     settings.align = 'center'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
 
-    // anchorElement.top + anchorElement.height + (settings.anchorOffset ?? 4) - parentElement.top
+    // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
     expect(top).toEqual(234)
-    // anchorElement.left + anchorElement.width / 2 - floatingElement.width / 2 + (settings.anchorOffset ?? 0) - parentElement.left
+    // anchorRect.left + anchorRect.width / 2 - floatingRect.width / 2 + (settings.anchorOffset ?? 0) - parentRect.left
     expect(left).toEqual(255)
 
     settings.align = 'last'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
 
-    // anchorElement.top + anchorElement.height + (settings.anchorOffset ?? 4) - parentElement.top
+    // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
     expect(top).toEqual(234)
-    // anchorElement.left + anchorElement.width - floatingElement.width - (settings.alignmentOffset ?? 0) - parentElement.left
+    // anchorRect.left + anchorRect.width - floatingRect.width - (settings.alignmentOffset ?? 0) - parentRect.left
     expect(left).toEqual(230)
   })
 
   it('properly flips to the opposite side if the calculated position overflows along the same axis', () => {
-    const parentElement = makeDOMRect(20, 20, 500, 500)
-    const anchorElement = makeDOMRect(300, 400, 50, 50)
-    const floatingElement = makeDOMRect(-9999, -9999, 100, 100)
-    const {float, anchor} = createVirtualDOM(parentElement, anchorElement, floatingElement)
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 400, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
     const settings: Partial<PositionSettings> = {}
-    
+
     const {top, left} = getAnchoredPosition(float, anchor, settings)
 
-    expect(top).toEqual(anchorElement.top - floatingElement.height - (settings.anchorOffset ?? 4) - parentElement.top) // anchorElement.top - floatingElement.height - (settings.anchorOffset ?? 4) - parentElement.top
-    expect(left).toEqual(anchorElement.left - parentElement.left) // anchorElement.left - parentElement.left
+    expect(top).toEqual(276) // anchorRect.top - floatingRect.height - (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(280) // anchorRect.left - parentRect.left
+  })
+
+  it('properly moves to an adjacent side if overflow happens along side edge and flipped edge', () => {
+    const parentRect = makeDOMRect(20, 20, 500, 200)
+    const anchorRect = makeDOMRect(300, 100, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
+    const settings: Partial<PositionSettings> = {}
+
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+
+    expect(top).toEqual(80) // anchorRect.top - parentRect.top
+    expect(left).toEqual(334) // anchorRect.left + anchorRect.width + (settings.anchorOffset ?? 4) - parentRect.left
+  })
+
+  it('properly adjusts the position using an alignment offset if overflow happens along the alignment edge', () => {
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 400, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
+    const settings: Partial<PositionSettings> = {}
+
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+
+    expect(top).toEqual(234) // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(100) // parentRect.width - floatingRect.width
+  })
+
+  it('properly calculates the position that needs to be flipped and offset-adjusted', () => {
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(300, 400, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 400, 100)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
+    const settings: Partial<PositionSettings> = {}
+
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+
+    expect(top).toEqual(276) // anchorRect.top - floatingRect.height - (settings.anchorOffset ?? 4) - parentRect.top
+    expect(left).toEqual(100) // parentRect.width - floatingRect.width
+  })
+
+  it('properly calculates the outside position with many simultaneous settings interactions (stress test)', () => {
+    const parentRect = makeDOMRect(20, 20, 200, 500)
+    const anchorRect = makeDOMRect(95, 295, 100, 200)
+    const floatingRect = makeDOMRect(NaN, NaN, 175, 200)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
+    const settings: Partial<PositionSettings> = {
+      side: 'outside-right',
+      align: 'center',
+      alignmentOffset: 10,
+      anchorOffset: -10
+    }
+
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+
+    // expect to try right, left, and bottom before ending on top
+    expect(top).toEqual(85) // anchorRect.top - floatingRect.height - (settings.anchorOffset ?? 4) - parentRect.top
+
+    // expect center alignment to run against edge, so ignored. Also causes alignment offset to be ignored.
+    expect(left).toEqual(25) // parentRect.width - floatingRect.width
+  })
+
+  it('properly calculates the inside position with many simultaneous settings interactions (stress test)', () => {
+    const parentRect = makeDOMRect(20, 20, 500, 500)
+    const anchorRect = makeDOMRect(100, 100, 300, 300)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 200)
+    const {float, anchor} = createVirtualDOM(parentRect, anchorRect, floatingRect)
+    const settings: Partial<PositionSettings> = {
+      side: 'inside-right',
+      align: 'center',
+      alignmentOffset: 10,
+      anchorOffset: -10
+    }
+
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+
+    // anchorRect.top + anchorRect.height / 2 - floatingRect.height / 2 + (settings.alignmentOffset ?? 4) - parentRect.top
+    expect(top).toEqual(140)
+
+    // anchorRect.left + anchorRect.width - floatingRect.width - (settings.anchorOffset ?? 4) - parentRect.left
+    expect(left).toEqual(290)
   })
 })
