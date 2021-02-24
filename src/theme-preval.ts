@@ -1,6 +1,8 @@
 import primitives from '@primer/primitives'
 import {lighten, rgba, desaturate} from 'polished'
 import deepmerge from 'deepmerge'
+import {isEmpty, isObject} from 'lodash'
+import chroma from 'chroma-js'
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.scale
@@ -349,14 +351,11 @@ const stateLabels = {
   }
 }
 
-const {scale: _excludeScaleColors, ...functionalColors} = shadowFilter(primitives.colors.light, false)
-const {scale: _excludeScaleShadows, auto: _excludeAuto, ...functionalShadows} = shadowFilter(primitives.colors.light, true)
+const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, (value: any) => isColorValue(value))
+const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, (value: any) => isShadowValue(value))
 
-const filteredShadows = recursivelyFilterEmptyObjects(functionalShadows)
-const filteredColors = recursivelyFilterEmptyObjects(functionalColors)
-
-const mergedColors = deepmerge(colors, filteredColors)
-const mergedShadows = deepmerge(shadows, filteredShadows)
+const mergedColors = deepmerge(colors, functionalColors)
+const mergedShadows = deepmerge(shadows, functionalShadows)
 
 export const theme = {
   // General
@@ -385,69 +384,35 @@ function fontStack(fonts: string[]) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
 }
 
-// The following few methods are data wrangling to split apart shadow values from non-shadow values
-// and also ensure the resulting objects don't contain empty objects from filtering
-// These methods are a temporary measure until we push these changes upstream to primer primitives
+// the following methods are a temporary measure for splitting shadow values out from the colors object.
+// eventually, we will push these structural changes upstream to primer/primitives so this data manipulation
+// is not needed.
 
-function shadowFilter(o: { [key: string]: any }, filterShadow: boolean) {
-  const newObject: { [key: string]: any } = {}
-  Object.keys(o).forEach(function(key: string) {
-    const value: any | undefined = o[key];
-    if (typeof value == "object" && !Array.isArray(value)) {
-      newObject[key] = shadowFilter(value, filterShadow)
-    } else if (typeof value === "string" && value.match(/(inset\s|)([0-9.empx\s]+){1,4}rgb[a]?\(.*\)/)) {
-      // this is a shadow value
-      if (filterShadow) {
-        newObject[key] = value
-      }
-    } else if (typeof value === "string") {
-      // this is any other non shadow string value
-      if (!filterShadow) {
-        newObject[key] = value
-      }
-    } else {
-      newObject[key] = value
-    }
-  })
-  return newObject;
+export function isShadowValue(value: any) { 
+  return typeof value === "string" && /(inset\s|)([0-9.empx\s]+){1,4}rgb[a]?\(.*\)/.test(value)
 }
 
-function recursivelyFilterEmptyObjects(o: { [key: string]: any }) {
-  const newObject: { [key: string]: any } = {}
-  Object.keys(o).forEach(function(key: string) {
-    const value: any | undefined = o[key];
-    if (typeof value == "object" && !Array.isArray(value)) {
-      if (isObjectRecursivelyPresent(value)) {
-        newObject[key] = value
-      } else {
-        const filteredChild = recursivelyFilterEmptyObjects(value)
-        if (Object.keys(filteredChild).length > 0) {
-          newObject[key] = filteredChild
-        }
-      }
-    } else {
-      newObject[key] = value
-    }
-  })
-  return newObject;
+export function isColorValue(value: any) {
+  return chroma.valid(value)
 }
 
-function isObjectRecursivelyPresent(o: { [key: string]: any }) {
-  const presenceValues: boolean[] = []
-  if (Object.keys(o).length === 0) { return false }
-  Object.keys(o).forEach(function(key: string) {
-    const value: any | undefined = o[key];
-    if (typeof value === 'object' && !Array.isArray(value)) {
-      if (Object.keys(value).length === 0) {
-        presenceValues.push(false)
-      } else {
-        const isRecursivelyPresent = isObjectRecursivelyPresent(value)
-        presenceValues.push(isRecursivelyPresent)
+export function filterObject(obj: { [key: string]: any }, predicate: (value: any) => boolean) {
+  if (Array.isArray(obj)) {
+    return obj.filter(predicate)
+  }
+  
+  return Object.entries(obj).reduce((acc: { [key: string]: any }, [key, value]) => {
+    if (isObject(value)) {
+      const result = filterObject(value, predicate)
+      
+      // Don't include empty objects or arrays
+      if (!isEmpty(result)) {
+        acc[key] = result
       }
-    } else {
-      presenceValues.push(true)
+    } else if (predicate(value)) {
+      acc[key] = value
     }
-  })
-
-  return presenceValues.every(p=>p)
+    
+    return acc
+  }, {})
 }
