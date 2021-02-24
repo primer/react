@@ -45,3 +45,32 @@ If we try all four sides and get clipped each time, settle for overflowing and u
 
 \* If `side` is set to `"inside-center"`, this defaults to `0` instead of `4`.
 \** If using outside positioning, or if `align` is set to `"center"`, this defaults to `0` instead of `4`.
+
+## useAnchoredPosition hook
+
+The `useAnchoredPosition` hook is used to provide anchored positioning data for React components. The hook returns refs that must be added to the anchor and floating elements, and a `position` object containing `top` and `left`. It is the responsibility of the consumer to apply the top and left styles to the floating element in question.
+
+### Usage
+
+```jsx
+export const UseAnchoredPosition = () => {
+  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({side: 'outside-bottom', align: 'center'})
+  return (
+    <div>
+      <Position
+        position="absolute"
+        top={position?.top ?? 0}
+        left={position?.left ?? 0}
+        width={150}
+        height={150}
+        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      >
+        Floating element
+      </Position>
+      <BorderBox width={400} height={75} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
+        Anchor Element
+      </BorderBox>
+    </div>
+  )
+}
+```
