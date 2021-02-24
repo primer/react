@@ -38,6 +38,7 @@ float.style.left = `${left}px`
 | preventOverflow | boolean | true | If true, when the above settings result in rendering the floating element wholly or partially off-screen, attempt to adjust the settings to prevent this. Only applies to "outside" positioning.<br /><br />First, attempt to flip to the opposite edge of the anchor if the floating element is getting clipped in that direction. If flipping results in a similar clipping, try moving to the adjacent sides.<br /><br />Once we find a side that does not clip the overlay in its own dimension, check the rest of the sides to see if we need to adjust the alignment offset to fit in other dimensions.<br /><br />If we try all four sides and get clipped each time, settle for overflowing and use the "bottom" side, since the ability to scroll is most likely in this direction. |
 
 \* If `side` is set to `"inside-center"`, this defaults to `0` instead of `4`.
+
 \** If using outside positioning, or if `align` is set to `"center"`, this defaults to `0` instead of `4`.
 
 ## useAnchoredPosition hook
