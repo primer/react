@@ -1,13 +1,16 @@
-import primitives from '@primer/primitives'
-import {lighten, rgba, desaturate} from 'polished'
-import deepmerge from 'deepmerge'
-import {isEmpty, isObject} from 'lodash'
-import chroma from 'chroma-js'
+// @preval
+// This file needs to be a JavaScript file using CommonJS to be compatiable with preval
+
+const {default: primitives} = require('@primer/primitives')
+const {lighten, rgba, desaturate} = require('polished')
+const deepmerge = require('deepmerge')
+const {filterObject, isShadowValue, isColorValue, fontStack} = require('./utils/theme')
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.scale
+
 // General
-export const colors = {
+const colors = {
   bodytext: gray[9],
   black,
   white,
@@ -35,7 +38,6 @@ export const colors = {
     success: green[5],
     unknown: gray[4]
   },
-
   border: {
     blackFade: rgba(black, 0.15),
     blue: blue[5],
@@ -91,7 +93,7 @@ export const colors = {
     pink: pink[4],
     pinkText: pink[6],
     purple: purple[4],
-    purpleText: [5]
+    purpleText: purple[5]
   }
 }
 
@@ -351,13 +353,17 @@ const stateLabels = {
   }
 }
 
-const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, (value: any) => isColorValue(value))
-const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, (value: any) => isShadowValue(value))
+const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, value =>
+  isColorValue(value)
+)
+const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, value =>
+  isShadowValue(value)
+)
 
 const mergedColors = deepmerge(colors, functionalColors)
 const mergedShadows = deepmerge(shadows, functionalShadows)
 
-export const theme = {
+const theme = {
   // General
   borderWidths,
   breakpoints,
@@ -380,39 +386,7 @@ export const theme = {
   stateLabels
 }
 
-function fontStack(fonts: string[]) {
-  return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
-}
-
-// the following methods are a temporary measure for splitting shadow values out from the colors object.
-// eventually, we will push these structural changes upstream to primer/primitives so this data manipulation
-// is not needed.
-
-export function isShadowValue(value: any) { 
-  return typeof value === "string" && /(inset\s|)([0-9.empx\s]+){1,4}rgb[a]?\(.*\)/.test(value)
-}
-
-export function isColorValue(value: any) {
-  return chroma.valid(value)
-}
-
-export function filterObject(obj: { [key: string]: any }, predicate: (value: any) => boolean) {
-  if (Array.isArray(obj)) {
-    return obj.filter(predicate)
-  }
-  
-  return Object.entries(obj).reduce((acc: { [key: string]: any }, [key, value]) => {
-    if (isObject(value)) {
-      const result = filterObject(value, predicate)
-      
-      // Don't include empty objects or arrays
-      if (!isEmpty(result)) {
-        acc[key] = result
-      }
-    } else if (predicate(value)) {
-      acc[key] = value
-    }
-    
-    return acc
-  }, {})
+module.exports = {
+  theme,
+  colors
 }
