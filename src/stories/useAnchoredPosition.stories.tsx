@@ -26,7 +26,7 @@ const BorderedPosition = styled(Position)`
 export const UseAnchoredPosition = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({side: 'outside-bottom', align: 'center'})
   return (
-    <div>
+    <Position position="absolute" top={0} bottom={0} left={0} right={0}>
       <BorderedPosition
         position="absolute"
         top={position?.top ?? 0}
@@ -40,6 +40,6 @@ export const UseAnchoredPosition = () => {
       <BorderBox width={400} height={75} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
         Anchor Element
       </BorderBox>
-    </div>
+    </Position>
   )
 }
