@@ -38,7 +38,10 @@
     // rules which apply only to TS
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "extends": ["plugin:@typescript-eslint/recommended"]
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["warn", {"argsIgnorePattern": "^_"}]
+      }
     }
   ]
 }
