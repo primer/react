@@ -40,7 +40,7 @@ export const DefaultOverlay = () => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && <Overlay triggerRef={buttonRef} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm"> content!!</Overlay>}
+      {isOpen && <Overlay triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm"> content!!</Overlay>}
     </>
   )
 }

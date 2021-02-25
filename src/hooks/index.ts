@@ -1,3 +1,5 @@
 export {useOnOutsideClick} from './useOnOutsideClick'
-export type {UseOnOutsideClickParameters} from './useOnOutsideClick'
+export type {UseOnOutsideClickProps} from './useOnOutsideClick'
 export {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+export {useOnEscapePress} from './useOnEscapePress'
+export type {UseOnEscapePressProps} from './useOnEscapePress'

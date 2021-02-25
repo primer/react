@@ -1,8 +1,8 @@
 import React, {useEffect, useCallback} from 'react'
 
-type TouchOrMouseEvent = MouseEvent | TouchEvent
+export type TouchOrMouseEvent = MouseEvent | TouchEvent
 
-export type UseOnOutsideClickParameters = {
+export type UseOnOutsideClickProps = {
   overlayRef: React.RefObject<HTMLDivElement>
   triggerRef: React.RefObject<HTMLElement>
   isOpen: boolean
@@ -28,7 +28,7 @@ const shouldCallClickHandler = (triggerRef: React.RefObject<HTMLElement>, overla
 }
 
 
-export const useOnOutsideClick = ({overlayRef, triggerRef, isOpen, onClickOutside}: UseOnOutsideClickParameters): void => {
+export const useOnOutsideClick = ({overlayRef, triggerRef, isOpen, onClickOutside}: UseOnOutsideClickProps): void => {
   const onOutsideClickInternal = useCallback(
     (e: TouchOrMouseEvent) => {
       if (!shouldCallClickHandler(triggerRef, overlayRef, e)) return
