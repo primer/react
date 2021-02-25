@@ -12,6 +12,10 @@ Settings for this routine allow the user to customize several aspects of this ca
 
 The anchored position calculation is based on the floating element's closest _positioned_ ancestor. In other words, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`. This element should be large—big enough to accommodate the floating element and have plenty of space to be moved around. It may be a good idea to ensure that this container element _also_ contains the anchor element and is scrollable. This will ensure that when scrolled, the anchor and floating element will move together.
 
+### Demo
+
+See [this CodePen](https://codepen.io/team/GitHub/pen/OJbPKNZ) for a demo of `useAnchoredPosition`.
+
 ### Usage
 
 ```ts
