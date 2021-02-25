@@ -1,11 +1,11 @@
 import {useOnOutsideClick, useProvidedRefOrCreate} from './index'
-
+import {TouchOrMouseEvent} from './useOnOutsideClick'
 
 export type UseOverlayProps = {
   forwardedRef: React.ForwardedRef<HTMLDivElement>
   triggerRef: React.RefObject<HTMLElement>
   isOpen: boolean
-  onClickOutside: (e: MouseEvent) => void
+  onClickOutside: (e: TouchOrMouseEvent) => void
 }
 
 export type OverlayReturnProps = {
