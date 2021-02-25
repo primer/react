@@ -11,7 +11,7 @@ import React, { useEffect } from 'react'
  * @type TRef The type of the RefObject which should be created.
  */
 
-export function useProvidedRefOrCreate<TRef>(providedRef?: React.ForwardedRef<TRef> | null): React.RefObject<TRef> {
+export function useProvidedRefOrCreate<TRef>(providedRef?: React.ForwardedRef<TRef> | null): React.RefObject<TRef> | React.ForwardedRef<TRef> {
   const createdRef = React.useRef<TRef | null>(null)
   const overlayRef = providedRef ?? createdRef
   return overlayRef
