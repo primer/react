@@ -25,11 +25,6 @@ describe('TabNav', () => {
     cleanup()
   })
 
-  it('renders a <nav>', () => {
-    expect(render(<TabNav />).type).toEqual('nav')
-  })
-
-
   it('sets aria-label appropriately', () => {
     expect(render(<TabNav aria-label="foo" />).props['aria-label']).toEqual('foo')
   })
