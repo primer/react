@@ -25,7 +25,7 @@ exports[`Tooltip renders consistently 1`] = `
   padding: 0.5em 0.75em;
   font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
-  color: #fff;
+  color: #ffffff;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;

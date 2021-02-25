@@ -110,7 +110,7 @@ Array [
   max-height: 80vh;
   z-index: 999;
   margin: 10vh auto;
-  background-color: #fff;
+  background-color: #ffffff;
   width: 440px;
   outline: none;
 }

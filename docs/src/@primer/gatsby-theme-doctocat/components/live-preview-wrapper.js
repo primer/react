@@ -5,9 +5,9 @@ import React from 'react'
 // This is useful for applying global styles.
 function LivePreviewWrapper({children}) {
   return (
-    <BaseStyles>
-      <Box p={3}>{children}</Box>
-    </BaseStyles>
+    <Box width="100%" p={3}>
+      <BaseStyles>{children}</BaseStyles>
+    </Box>
   )
 }
 

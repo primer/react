@@ -84,7 +84,7 @@ exports[`Timeline.Badge renders consistently 1`] = `
   display: -ms-flexbox;
   display: flex;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid #ffffff;
 }
 
 <div
@@ -178,7 +178,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   margin-top: 8px;
   margin-bottom: 8px;
   color: #959da5;
-  background-color: #fff;
+  background-color: #ffffff;
   border: 0;
 }
 
