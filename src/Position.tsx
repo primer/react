@@ -7,9 +7,7 @@ import sx from './sx'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
 
-type StyledPositionProps = {as?: React.ElementType} & SystemPositionProps
-
-const Position = styled(Box)<StyledPositionProps>`
+const Position = styled(Box)<SystemPositionProps>`
   ${POSITION};
   ${sx};
 `
@@ -29,7 +27,7 @@ export type PositionProps = ComponentProps<typeof Position>
 export default Position
 
 // Absolute
-export type AbsoluteProps = Omit<PositionProps, 'position'>
+export type AbsoluteProps = PositionProps
 export function Absolute(props: AbsoluteProps) {
   return <Position {...props} position="absolute" />
 }
@@ -37,7 +35,7 @@ Absolute.defaultProps = Position.defaultProps
 Absolute.propTypes = Position.propTypes
 
 // Fixed
-export type FixedProps = Omit<PositionProps, 'position'>
+export type FixedProps = PositionProps
 export function Fixed(props: AbsoluteProps) {
   return <Position {...props} position="fixed" />
 }
@@ -45,7 +43,7 @@ Fixed.defaultProps = Position.defaultProps
 Fixed.propTypes = Position.propTypes
 
 // Relative
-export type RelativeProps = Omit<PositionProps, 'position'>
+export type RelativeProps = PositionProps
 export function Relative(props: RelativeProps) {
   return <Position {...props} position="relative" />
 }
@@ -53,7 +51,7 @@ Relative.defaultProps = Position.defaultProps
 Relative.propTypes = Position.propTypes
 
 // Sticky
-export type StickyProps = Omit<PositionProps, 'position'>
+export type StickyProps = PositionProps
 export function Sticky(props: StickyProps) {
   return <Position {...props} position="sticky" />
 }

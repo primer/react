@@ -42,7 +42,6 @@ const StyledSelectMenu = styled.details<SystemCommonProps & SxProp>`
 
 type SelectMenuInternalProps = {
   initialTab?: string
-  as?: React.ReactElement
 } & ComponentProps<typeof StyledSelectMenu>
 
 // 'as' is spread out because we don't want users to be able to change the tag.

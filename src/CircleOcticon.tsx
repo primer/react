@@ -6,7 +6,6 @@ import BorderBox from './BorderBox'
 import {IconProps} from '@primer/octicons-react'
 
 export type CircleOcticonProps = {
-  as?: React.ElementType
   size?: number
   icon: React.ComponentType<{size?: IconProps['size']}>
 } & FlexProps
