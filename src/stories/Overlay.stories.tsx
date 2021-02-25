@@ -2,7 +2,7 @@
 import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Overlay, Button} from '..'
+import {BaseStyles, Overlay, Button, Box, ButtonDanger} from '..'
 
 export default {
   title: 'Internal components/Overlay',
@@ -28,6 +28,31 @@ export default {
         type: 'select',
         options: ['sm', 'md', 'auto']
       }
+    },
+    triggerRef: {
+      control: {
+        type: 'text',
+      }
+    },
+    isOpen: {
+      control: {
+        type: 'boolean',
+      }
+    },
+    returnRef: {
+      control: {
+        type: 'text'
+      }
+    },
+    onClickOutside: {
+      control: {
+        type: 'text'
+      }
+    },
+    onEscape: {
+      control: {
+        type: 'text'
+      }
     }
   }
 } as Meta
@@ -41,7 +66,14 @@ export const DefaultOverlay = () => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && <Overlay returnRef={buttonRef} triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm"> content!!</Overlay>}
+      {isOpen &&
+        <Overlay returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
+          <Box p={4}>
+            <Box>hello!</Box>
+            <ButtonDanger>No thanks</ButtonDanger>
+            <Button>Yes please</Button>
+          </Box>
+        </Overlay>}
     </>
   )
 }
