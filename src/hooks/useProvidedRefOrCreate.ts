@@ -13,14 +13,6 @@ import React, { useEffect } from 'react'
 
 export function useProvidedRefOrCreate<TRef>(providedRef?: React.ForwardedRef<TRef> | null): React.RefObject<TRef> {
   const createdRef = React.useRef<TRef | null>(null)
-
-  useEffect(() => {
-    if (!providedRef) return
-    if (typeof providedRef === 'function') {
-      providedRef(createdRef.current ?? null)
-    } else {
-      providedRef.current = createdRef.current ?? null
-    }
-  })
-  return createdRef
+  const overlayRef = providedRef ?? createdRef
+  return overlayRef
 }

@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import React, { forwardRef, useRef } from 'react'
+import React from 'react'
 import {get} from './constants'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
@@ -87,16 +87,15 @@ export type OverlayProps = {
   onEscape: (e: KeyboardEvent) => void
 } & ComponentProps<typeof StyledOverlay>
 
-const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
+export const Overlay =
   (
-    {isOpen, onClickOutside, returnRef, triggerRef, onEscape, ...rest},
-    forwardedRef
+    {isOpen, onClickOutside, returnRef, triggerRef, onEscape, ...rest}: OverlayProps
   ) => {
-    const overlayProps = useOverlay({forwardedRef, returnRef, onEscape, triggerRef, onClickOutside, isOpen})
+    const overlayProps = useOverlay({returnRef, onEscape, triggerRef, onClickOutside, isOpen})
     return (
       <StyledOverlay {...overlayProps} {...rest}/>
     )
-})
+}
 
 Overlay.defaultProps = {
   theme,
@@ -104,5 +103,3 @@ Overlay.defaultProps = {
   mobileVariant: 'bottomSheet',
   width: 'auto'
 }
-
-export default Overlay
