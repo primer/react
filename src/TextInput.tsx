@@ -44,6 +44,7 @@ type StyledWrapperProps = {
   disabled?: boolean
   hasIcon?: boolean
   block?: boolean
+  contrast?: boolean
   variant?: 'small' | 'large'
 } & SystemCommonProps &
   WidthProps &
@@ -91,6 +92,14 @@ const Wrapper = styled.span<StyledWrapperProps>`
   }
 
   ${props =>
+    props.contrast &&
+    css`
+     background-color: ${get('colors.gray.0')};
+    }
+  `}
+
+
+  ${props =>
     props.disabled &&
     css`
      background-color: ${get('colors.bg.disabled')};
@@ -122,7 +131,7 @@ type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>}
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({icon: IconComponent, className, block, disabled, sx, ...rest}, ref) => {
+  ({icon: IconComponent, contrast, className, block, disabled, sx, ...rest}, ref) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const wrapperProps = pick(rest)
@@ -134,6 +143,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         block={block}
         theme={theme}
         disabled={disabled}
+        contrast={contrast}
         sx={sx}
         {...wrapperProps}
       >
