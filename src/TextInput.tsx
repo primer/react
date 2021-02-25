@@ -95,7 +95,6 @@ const Wrapper = styled.span<StyledWrapperProps>`
     props.contrast &&
     css`
      background-color: ${get('colors.gray.0')};
-    }
   `}
 
 
@@ -103,8 +102,7 @@ const Wrapper = styled.span<StyledWrapperProps>`
     props.disabled &&
     css`
      background-color: ${get('colors.bg.disabled')};
-     box-shadow: ${get('shadows.formControlDisabled')}
-    }
+     box-shadow: ${get('shadows.formControlDisabled')};
   `}
 
   ${props =>
