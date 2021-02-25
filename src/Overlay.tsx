@@ -11,7 +11,6 @@ type StyledOverlayProps = {
   height?: keyof typeof heightMap
 }
 
-/* TODO should we allow custom heights/widths? */
 
 const heightMap = {
   'sm': '480px',
