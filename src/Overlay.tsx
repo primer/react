@@ -81,17 +81,18 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
 
 export type OverlayProps = {
   triggerRef: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement>
   isOpen: boolean
   returnRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
 } & ComponentProps<typeof StyledOverlay>
 
-export const Overlay =
+const Overlay =
   (
-    {isOpen, onClickOutside, returnRef, triggerRef, onEscape, ...rest}: OverlayProps
+    {isOpen, onClickOutside, initialFocusRef, returnRef, triggerRef, onEscape, ...rest}: OverlayProps
   ) => {
-    const overlayProps = useOverlay({returnRef, onEscape, triggerRef, onClickOutside, isOpen})
+    const overlayProps = useOverlay({returnRef, onEscape, triggerRef, onClickOutside, initialFocusRef, isOpen})
     return (
       <StyledOverlay {...overlayProps} {...rest}/>
     )
@@ -103,3 +104,5 @@ Overlay.defaultProps = {
   mobileVariant: 'bottomSheet',
   width: 'auto'
 }
+
+export default Overlay

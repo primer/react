@@ -58,18 +58,18 @@ export default {
 export const DefaultOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  console.log(isOpen)
+  const yesButtonRef = useRef<HTMLButtonElement>(null)
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen &&
-        <Overlay returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
+        <Overlay initialFocusRef={yesButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
           <Box p={4}>
             <Box>hello!</Box>
             <ButtonDanger>No thanks</ButtonDanger>
-            <Button>Yes please</Button>
+            <Button ref={yesButtonRef}>Yes please</Button>
           </Box>
         </Overlay>}
     </>
