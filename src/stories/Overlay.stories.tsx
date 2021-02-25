@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
+import styled from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Box, ButtonDanger} from '..'
+import {BaseStyles, Overlay, Button, Box, Flex, ButtonDanger} from '..'
 
 export default {
   title: 'Internal components/Overlay',
@@ -57,6 +58,18 @@ export default {
   }
 } as Meta
 
+const DummyItem = styled.div`
+  border-radius: 6px;
+  font-weight: 400;
+  padding: 6px 8px;
+  font-weight: 400;
+  margin: 0;
+  font-size: 14px;
+  &:hover {
+    background: #f0f3f5;
+  }
+`
+
 export const DefaultOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -68,11 +81,13 @@ export const DefaultOverlay = () => {
       </Button>
       {isOpen &&
         <Overlay initialFocusRef={yesButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
-          <Box p={4}>
-            <Box>hello!</Box>
-            <ButtonDanger>No thanks</ButtonDanger>
-            <Button ref={yesButtonRef}>Yes please</Button>
-          </Box>
+          <Flex flexDirection="column" p={2}>
+            <DummyItem>Copy link</DummyItem>
+            <DummyItem>Quote reply</DummyItem>
+            <DummyItem>Reference in new issue</DummyItem>
+            <DummyItem>Edit</DummyItem>
+            <DummyItem>Delete</DummyItem>
+          </Flex>
         </Overlay>}
     </>
   )
