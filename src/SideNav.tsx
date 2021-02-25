@@ -90,10 +90,10 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   }
 
   ${SideNav}.variant-normal > & {
-    color: ${get('colors.gray.6')};
+    color: ${get('colors.text.secondary')};
     padding: ${get('space.3')};
     border: 0;
-    border-top: ${get('borderWidths.1')} solid ${get('colors.gray.2')};
+    border-top: ${get('borderWidths.1')} solid ${get('colors.border.primary')};
 
     &:first-child {
       border-top: 0;
@@ -113,38 +113,38 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:hover,
     &:focus {
-      color: ${get('colors.gray.9')};
+      color: ${get('colors.text.primary')};
       text-decoration: none;
-      background-color: ${get('colors.gray.1')};
+      background-color: ${get('colors.bg.canvasInset')};
       outline: none;
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
       font-weight: ${get('fontWeights.semibold')};
-      color: ${get('colors.gray.9')};
+      color: ${get('colors.text.primary')};
 
       // Bar on the left
       &::before {
-        background-color: ${get('colors.accent')};
+        background-color: ${get('colors.sidenav.borderActive')};
       }
     }
   }
 
   ${SideNav}.variant-lightweight > & {
     padding: ${get('space.1')} 0;
-    color: ${get('colors.blue.5')};
+    color: ${get('colors.text.link')};
 
     &:hover,
     &:focus {
-      color: ${get('colors.gray.9')};
+      color: ${get('colors.text.primary')};
       text-decoration: none;
       outline: none;
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      color: ${get('colors.gray.9')};
+      color: ${get('colors.text.primary')};
       font-weight: ${get('fontWeights.semibold')};
     }
   }

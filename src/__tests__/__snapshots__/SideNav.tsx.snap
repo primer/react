@@ -87,7 +87,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 .c1.variant-normal > .c0[aria-current='page']::before,
 .c1.variant-normal > .c0[aria-selected='true']::before {
-  background-color: #f66a0a;
+  background-color: #f9826c;
 }
 
 .c1.variant-lightweight > .c0 {
