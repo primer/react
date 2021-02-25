@@ -10,7 +10,9 @@ export default {
   decorators: [
     Story => {
       return (
-        <Story />
+        <BaseStyles>
+          <Story />
+        </BaseStyles>
       )
     }
   ],
