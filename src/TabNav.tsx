@@ -12,7 +12,6 @@ const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
 const TabNavBase = styled.div<SystemCommonProps & SxProp>`
-  margin-bottom: 16px;
   margin-top: 0;
   border-bottom: 1px solid ${get('colors.border.gray')};
   ${COMMON}
