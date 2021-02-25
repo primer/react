@@ -55,7 +55,7 @@ exports[`Pagination renders consistently 1`] = `
 
 .c2[aria-current],
 .c2[aria-current]:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #0366d6;
   border-color: transparent;
 }
