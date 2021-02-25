@@ -35,12 +35,13 @@ export default {
 export const DefaultOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  console.log(isOpen)
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && <Overlay triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm"> content!!</Overlay>}
+      {isOpen && <Overlay returnRef={buttonRef} triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm"> content!!</Overlay>}
     </>
   )
 }

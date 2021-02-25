@@ -53,16 +53,17 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
 export type OverlayProps = {
   triggerRef: React.RefObject<HTMLElement>
   isOpen: boolean
+  returnRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
 } & ComponentProps<typeof StyledOverlay>
 
 const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   (
-    {isOpen, onClickOutside, triggerRef, onEscape, ...rest},
+    {isOpen, onClickOutside, returnRef, triggerRef, onEscape, ...rest},
     forwardedRef
   ) => {
-    const overlayProps = useOverlay({forwardedRef, onEscape, triggerRef, onClickOutside, isOpen})
+    const overlayProps = useOverlay({forwardedRef, returnRef, onEscape, triggerRef, onClickOutside, isOpen})
     return (
       <StyledOverlay {...overlayProps} {...rest}/>
     )
