@@ -11,26 +11,26 @@ import * as History from 'history'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-const TabNavBase = styled.nav<SystemCommonProps & SxProp>`
-  display: flex;
+const TabNavBase = styled.div<SystemCommonProps & SxProp>`
+  margin-bottom: 16px;
+  margin-top: 0;
   border-bottom: 1px solid ${get('colors.border.gray')};
-
-  .TabNav-body {
-    display: flex;
-    margin-bottom: -1px;
-  }
-
   ${COMMON}
   ${sx}
 `
 
+const TabNavBody = styled.nav`
+  display: flex;
+  margin-bottom: -1px;
+  overflow: auto;
+`
+
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
-function TabNav({className, children, ...rest}: TabNavProps) {
-  const classes = classnames(className, 'TabNav')
+function TabNav({children, ...rest}: TabNavProps) {
   return (
-    <TabNavBase className={classes} {...rest}>
-      <div className="TabNav-body">{children}</div>
+    <TabNavBase {...rest}>
+      <TabNavBody>{children}</TabNavBody>
     </TabNavBase>
   )
 }
