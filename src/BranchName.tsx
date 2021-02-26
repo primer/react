@@ -10,9 +10,9 @@ const BranchName = styled.a<SystemCommonProps & SxProp>`
   padding: 2px 6px;
   font-size: ${get('fontSizes.0')};
   font-family: ${get('fonts.mono')};
-  color: rgba(27, 31, 35, 0.6);
-  background-color: #eaf5ff;
-  border-radius: 3px;
+  color: ${get('colors.branchName.text')};
+  background-color: ${get('colors.branchName.bg')};
+  border-radius: ${get('radii.2')};
   ${COMMON};
   ${sx};
 `
