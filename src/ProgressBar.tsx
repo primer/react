@@ -29,7 +29,7 @@ type StyledProgressContainerProps = {
 const ProgressContainer = styled.span<StyledProgressContainerProps>`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   overflow: hidden;
-  background-color: ${get('colors.bg.secondary')};
+  background-color: ${get('colors.border.primary')};
   border-radius: ${get('radii.1')};
   height: ${props => sizeMap[props.barSize || 'default']};
   ${COMMON}
@@ -47,8 +47,9 @@ function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
   )
 }
 
+
 ProgressBar.defaultProps = {
-  bg: 'colors.state.success',
+  bg: 'state.success',
   barSize: 'default',
   theme
 }
