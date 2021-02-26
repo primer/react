@@ -33,6 +33,7 @@ float.style.left = `${left}px`
 ```
 ### PositionSettings
 `PositionSettings` is an object with the following interface
+
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | side | AnchorSide | "outside-bottom" | Sets the side of the anchor element that the floating element should be pinned to. This side is given by a string starting with either "inside" or "outside", followed by a hyphen, followed by either "top", "right", "bottom", or "left". Additionally, "inside-center" is an allowed value.<br /><br />The first part of this string, "inside" or "outside", determines whether the floating element should be attempted to be placed "inside" the anchor element or "outside" of it. Using "inside" is useful for making it appear that the anchor _contains_ the floating element, and it can be used for implementing a dialog that is centered on the screen. The "outside" value is more common and can be used for tooltips, popovers, menus, etc.<br /><br />The second part of this string determines the _edge_ on the anchor element that the floating element will be anchored to. If side is "inside-center", then the floating element will be centered in the X-direction (while align is used to position it in the Y-direction). |
