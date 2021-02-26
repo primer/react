@@ -25,23 +25,7 @@ describe('TabNav', () => {
     cleanup()
   })
 
-  it('renders a <nav>', () => {
-    expect(render(<TabNav />).type).toEqual('nav')
-  })
-
-  it('adds the TabNav class', () => {
-    expect(rendersClass(<TabNav />, 'TabNav')).toEqual(true)
-  })
-
   it('sets aria-label appropriately', () => {
     expect(render(<TabNav aria-label="foo" />).props['aria-label']).toEqual('foo')
-  })
-
-  it('wraps its children in an "TabNav-body" div', () => {
-    const children = <b>children</b>
-    const wrapper = mount(<TabNav>{children}</TabNav>)
-    const body = wrapper.find('.TabNav-body')
-    expect(body.exists()).toEqual(true)
-    expect(body.childAt(0).type()).toEqual('b')
   })
 })

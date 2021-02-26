@@ -35,26 +35,24 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 
 exports[`TabNav renders consistently 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  margin-top: 0;
   border-bottom: 1px solid #e1e4e8;
 }
 
-.c0 .TabNav-body {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: -1px;
+  overflow: auto;
 }
 
-<nav
-  className="c0 TabNav"
+<div
+  className="c0"
 >
-  <div
-    className="TabNav-body"
+  <nav
+    className="c1"
   />
-</nav>
+</div>
 `;
