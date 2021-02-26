@@ -70,9 +70,9 @@ export interface PositionSettings {
   alignmentOffset: number
 
   /**
-   * If true, when the above settings result in rendering the floating element
-   * wholly or partially off-screen, attempt to adjust the settings to prevent
-   * this. Only applies to "outside" positioning.
+   * If false, when the above settings result in rendering the floating element
+   * wholly or partially outside of the bounds of the containing element, attempt 
+   * to adjust the settings to prevent this. Only applies to "outside" positioning.
    *
    * First, attempt to flip to the opposite edge of the anchor if the floating
    * element is getting clipped in that direction. If flipping results in a
@@ -86,11 +86,11 @@ export interface PositionSettings {
    * and use the "bottom" side, since the ability to scroll is most likely in
    * this direction.
    */
-  preventOverflow: boolean
+  allowOutOfBounds: boolean
 }
 
 // For each outside anchor position, list the order of alternate positions to try in
-// the event that the original position overflows. See comment on `preventOverflow`
+// the event that the original position overflows. See comment on `allowOutOfBounds`
 // for a more detailed description.
 const alternateOrders: Partial<Record<AnchorSide, [AnchorSide, AnchorSide, AnchorSide, AnchorSide]>> = {
   'outside-top': ['outside-bottom', 'outside-right', 'outside-left', 'outside-bottom'],
@@ -178,7 +178,7 @@ const positionDefaults: PositionSettings = {
   // and align is not center
   alignmentOffset: 4,
 
-  preventOverflow: true
+  allowOutOfBounds: false
 }
 
 /**
@@ -197,7 +197,7 @@ function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionS
     alignmentOffset:
       settings.alignmentOffset ??
       (align !== 'center' && side.startsWith('inside') ? positionDefaults.alignmentOffset : 0),
-    preventOverflow: settings.preventOverflow ?? positionDefaults.preventOverflow
+    allowOutOfBounds: settings.allowOutOfBounds ?? positionDefaults.allowOutOfBounds
   }
 }
 
@@ -214,14 +214,14 @@ function pureCalculateAnchoredPosition(
   parentRect: BoxPosition,
   floatingRect: Size,
   anchorRect: BoxPosition,
-  {side, align, preventOverflow, anchorOffset, alignmentOffset}: PositionSettings
+  {side, align, allowOutOfBounds, anchorOffset, alignmentOffset}: PositionSettings
 ): {top: number; left: number} {
   let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
   pos.top -= parentRect.top
   pos.left -= parentRect.left
 
   // Handle screen overflow
-  if (preventOverflow) {
+  if (!allowOutOfBounds) {
     const alternateOrder = alternateOrders[side]
     let positionAttempt = 0
     if (alternateOrder) {

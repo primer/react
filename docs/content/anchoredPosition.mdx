@@ -46,9 +46,21 @@ float.style.left = `${left}px`
 
 \** If using outside positioning, or if `align` is set to `"center"`, this defaults to `0` instead of `4`.
 
+### A note on performance
+
+Every time `getAnchoredPosition` is called, it causes a [reflow](https://developers.google.com/speed/docs/insights/browser-reflow) because it needs to query the rendering engine for the positions of 3 elements: the anchor element, the floating element, and the closest ancestor of the floating element that is _positioned_. Therefore, this function should not be called until it is needed (e.g. an overlay-style menu is invoked and displayed).
+
 ## useAnchoredPosition hook
 
 The `useAnchoredPosition` hook is used to provide anchored positioning data for React components. The hook returns refs that must be added to the anchor and floating elements, and a `position` object containing `top` and `left`. This position is tracked as state, so the component will re-render whenever it changes. It is the responsibility of the consumer to apply the top and left styles to the floating element in question.
+
+### Using your own refs
+
+The `useAnchoredPosition` hook will return two refs for the anchor element and the floating element, which must be added to their respective JSX. If you would like to use your own refs, you can pass them into the hook as part of the settings object (see the interface below).
+
+### Recalculating position
+
+Like other hooks such as `useCallback` and `useEffect`, this hook takes a dependencies array. If defined, the position will only be recalulated when one of the dependencies in this array changes. Otherwise, the position will be calculated when the component is first mounted, but never again.
 
 ### Usage
 
@@ -74,3 +86,11 @@ export const UseAnchoredPosition = () => {
   )
 }
 ```
+
+### UseAnchoredPositionSettings
+`UseAnchoredPositionSettings` is an object with an interface that extends `PositionSettings` (see above). Additionally, it adds the following properties:
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| floatingElementRef | React.RefObject | undefined | If provided, this will be the ref used to access the element that will be used for the floating element. Its size measurements are needed by the underlying `useAnchoredPosition` routine. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the floating element's JSX. |
+| anchorElementRef | React.RefObject | undefined | If provided, this will be the ref used to access the element that will be used for the anchor element. Its position and size measurements are needed by the underlying `useAnchoredPosition` routine. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the anchor element's JSX. |

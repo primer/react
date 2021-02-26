@@ -32,7 +32,7 @@ export function useAnchoredPosition(
       setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies)
+  }, dependencies ?? [])
   return {
     floatingElementRef,
     anchorElementRef,

@@ -53,7 +53,7 @@ export default {
     alignmentOffset: {
       control: {type: 'range', min: -100, max: 100}
     },
-    preventOverflow: {
+    allowOutOfBounds: {
       control: {type: 'boolean'}
     }
   }
@@ -91,7 +91,7 @@ export const UseAnchoredPosition = (args: any) => {
       align: args.anchorAlignment ?? 'first',
       anchorOffset: args.anchorOffset && (parseInt(args.anchorOffset, 10) ?? undefined),
       alignmentOffset: args.alignmentOffset && (parseInt(args.alignmentOffset, 10) ?? undefined),
-      preventOverflow: args.preventOverflow ?? undefined
+      allowOutOfBounds: args.allowOutOfBounds ?? undefined
     },
     [args]
   )
@@ -118,7 +118,7 @@ export const UseAnchoredPosition = (args: any) => {
     </Position>
   )
 }
-export const CenteredOnScreen = (args: any) => {
+export const CenteredOnScreen = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({
     side: 'inside-center',
     align: 'center'
@@ -167,7 +167,8 @@ const Main = styled('main')`
 
 /*
 
-There are a few "gotchas" to take note of from this example.
+There are a few "gotchas" to take note of from this example. See the
+documentation for more info.
 
 1. The portal's root (<Main> in this example) needs to be large enough
    to include ANY space that the overlay might need to take. By default,
@@ -179,10 +180,9 @@ There are a few "gotchas" to take note of from this example.
    prevent showing a single frame of the overlay being positioned at
    (0, 0).
 
-
 */
 
-export const WithPortal = (args: any) => {
+export const WithPortal = () => {
   const [showMenu, setShowMenu] = React.useState(false)
   const mainRef = React.useRef<HTMLElement>(null)
 
