@@ -48,7 +48,7 @@ function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
 }
 
 ProgressBar.defaultProps = {
-  bg: 'colors.bg.success',
+  bg: 'colors.state.success',
   barSize: 'default',
   theme
 }
