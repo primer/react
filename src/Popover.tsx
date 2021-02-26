@@ -51,7 +51,7 @@ const PopoverContent = styled(BorderBox)`
   margin-right: auto;
   margin-left: auto;
   padding: ${get('space.4')};
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.canvas')};
 
   ${COMMON};
   ${LAYOUT};
@@ -76,7 +76,7 @@ const PopoverContent = styled(BorderBox)`
     top: -14px;
     margin-left: -${get('space.2')};
     border: 7px solid transparent; // todo: solid
-    border-bottom-color: ${get('colors.white')};
+    border-bottom-color: ${get('colors.border.inverse')};
   }
 
   // Bottom-oriented carets
@@ -97,7 +97,7 @@ const PopoverContent = styled(BorderBox)`
     &::after {
       bottom: -14px;
       // stylelint-disable-next-line primer/borders
-      border-top-color: ${get('colors.white')};
+      border-top-color: ${get('colors.border.inverse')};
     }
   }
 
@@ -176,7 +176,7 @@ const PopoverContent = styled(BorderBox)`
     &::after {
       right: -14px;
       // stylelint-disable-next-line primer/borders
-      border-left-color: ${get('colors.white')};
+      border-left-color: ${get('colors.border.inverse')};
     }
   }
 
@@ -192,7 +192,7 @@ const PopoverContent = styled(BorderBox)`
     &::after {
       left: -14px;
       // stylelint-disable-next-line primer/borders
-      border-right-color: ${get('colors.white')};
+      border-right-color: ${get('colors.border.inverse')};
     }
   }
 
