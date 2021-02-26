@@ -122,8 +122,8 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: 'white',
-  borderColor: 'gray.2',
+  bg: 'colors.bg.canvas',
+  borderColor: 'border.primary',
   borderWidth: 1,
   theme
 }
