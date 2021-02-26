@@ -14,7 +14,7 @@ const SELECTED_CLASS = 'selected'
 const UnderlineNavBase = styled.nav`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid ${get('colors.border.secondary')};
   &.UnderlineNav--right {
     justify-content: flex-end;
 
@@ -75,29 +75,29 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   margin-right: ${get('space.3')};
   font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.default')};
-  color: ${get('colors.gray.6')};
+  color: ${get('colors.underlinenav.text')};
   text-align: center;
   border-bottom: 2px solid transparent;
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: ${get('colors.gray.9')};
+    color: ${get('colors.underlinenav.textHover')};
     text-decoration: none;
-    border-bottom-color: ${get('colors.gray.2')};
+    border-bottom-color: ${get('colors.border.tertiary')};
     transition: 0.2s ease;
 
     .UnderlineNav-octicon {
-      color: ${get('colors.gray.5')};
+      color: ${get('colors.text.tertiary')};
     }
   }
 
   &.selected {
-    color: ${get('colors.gray.9')};
-    border-bottom-color: ${get('colors.accent')};
+    color: ${get('colors.underlinenav.textActive')};
+    border-bottom-color: ${get('colors.underlinenav.borderActive')};
 
     .UnderlineNav-octicon {
-      color: ${get('colors.gray.5')};
+      color: ${get('colors.underlinenav.iconActive')};
     }
   }
 
