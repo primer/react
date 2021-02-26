@@ -57,7 +57,7 @@ exports[`Timeline.Badge renders consistently 1`] = `
 }
 
 .c1 {
-  color: #444d56;
+  color: #586069;
   background-color: #e1e4e8;
   margin-right: 8px;
   margin-left: -15px;
@@ -92,7 +92,7 @@ exports[`Timeline.Badge renders consistently 1`] = `
 >
   <div
     className="c1 TimelineItem-Badge"
-    color="gray.7"
+    color="icon.secondary"
     display="flex"
     height="32px"
     overflow="hidden"
@@ -128,7 +128,7 @@ exports[`Timeline.Item renders consistently 1`] = `
   display: block;
   width: 2px;
   content: '';
-  background-color: #e1e4e8;
+  background-color: #eaecef;
 }
 
 <div
@@ -166,7 +166,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   display: block;
   width: 2px;
   content: '';
-  background-color: #e1e4e8;
+  background-color: #eaecef;
 }
 
 .c0:last-child {
