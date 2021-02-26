@@ -10,7 +10,7 @@ const Pagehead = styled.div<SystemCommonProps & SxProp>`
   padding-top: ${get('space.4')};
   padding-bottom: ${get('space.4')};
   margin-bottom: ${get('space.4')};
-  border-bottom: 1px solid ${get('colors.border.gray')};
+  border-bottom: 1px solid ${get('colors.input.border')};
   ${COMMON};
   ${sx};
 `
