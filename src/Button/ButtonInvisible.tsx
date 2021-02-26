@@ -12,11 +12,11 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
   box-shadow: none;
 
   &:disabled {
-    color: ${get('buttons.default.color.disabled')};
+    color: ${get('colors.text.disabled')};
   }
 
   &:focus {
-    box-shadow: ${get('buttons.default.shadow.focus')};
+    box-shadow: ${get('shadows.btn.focusShadow')};
   }
 
   ${buttonSystemProps};
