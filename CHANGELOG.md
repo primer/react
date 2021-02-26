@@ -1,5 +1,11 @@
 # @primer/components
 
+## 23.2.1
+
+### Patch Changes
+
+- [`a42162c0`](https://github.com/primer/components/commit/a42162c011fa3718a32124b79aecfe306f358298) [#1087](https://github.com/primer/components/pull/1087) Thanks [@emplums](https://github.com/emplums)! - Fix up styles in TabNav allowing for items positioned on the right end of TabNav
+
 ## 23.2.0
 
 ### Minor Changes
