@@ -38,7 +38,7 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: ${get('colors.white')};
+  color: ${get('colors.bg.primary')};
   text-align: center;
   border-radius: ${get('radii.3')};
   ${colorVariants};
