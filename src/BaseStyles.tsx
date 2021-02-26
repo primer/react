@@ -46,7 +46,7 @@ function BaseStyles(props: BaseStylesProps) {
 }
 
 BaseStyles.defaultProps = {
-  color: 'gray.9',
+  color: 'text.primary',
   fontFamily: 'normal',
   lineHeight: 'default',
   theme
