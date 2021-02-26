@@ -35,6 +35,7 @@ const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
   position: relative;
   padding: ${get('space.3')} 0;
   margin-left: ${get('space.3')};
+
   &::before {
     position: absolute;
     top: 0;
@@ -43,7 +44,7 @@ const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
     display: block;
     width: 2px;
     content: '';
-    background-color: ${get('colors.gray.2')};
+    background-color: ${get('colors.border.secondary')};
   }
 
   ${props =>
@@ -59,8 +60,8 @@ const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
         height: 16px;
         margin-top: ${get('space.2')};
         margin-bottom: ${get('space.2')};
-        color: ${get('colors.gray.4')};
-        background-color: ${get('colors.white')};
+        color: ${get('colors.icon.tertiary')};
+        background-color: ${get('colors.bg.canvas')};
         border: 0;
       }
     `}
@@ -79,11 +80,11 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
         flexShrink={0}
         css={`
           border-radius: 50%;
-          border: 2px solid ${get('colors.white')};
+          border: 2px solid ${get('colors.bg.canvas')};
         `}
         overflow="hidden"
-        color="gray.7"
-        bg="gray.2"
+        color="icon.secondary"
+        bg="timeline.badgeBg"
         width="32px"
         height="32px"
         mr={2}
@@ -102,7 +103,7 @@ const TimelineBody = styled(Box)`
   min-width: 0;
   max-width: 100%;
   margin-top: ${get('space.1')};
-  color: ${get('colors.gray.7')};
+  color: ${get('colors.timeline.text')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
   ${sx};
@@ -114,9 +115,9 @@ const TimelineBreak = styled(Relative)`
   margin: 0;
   margin-bottom: -${get('space.3')};
   margin-left: 0;
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.canvas')};
   border: 0;
-  border-top: ${get('space.1')} solid ${get('colors.gray.2')};
+  border-top: ${get('space.1')} solid ${get('colors.border.primary')};
   ${sx};
 `
 
