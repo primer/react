@@ -17,7 +17,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   display: inline-block;
   padding: 0;
   font-size: ${get('fontSizes.1')};
-  color: ${get('colors.gray.6')};
+  color: ${get('colors.text.secondary')};
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -33,7 +33,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   &:disabled {
     &,
     &:hover {
-      color: rgba(${get('colors.gray.6')}, 0.5);
+      color: rgba(${get('colors.text.secondary')}, 0.5);
       cursor: default;
     }
   }
