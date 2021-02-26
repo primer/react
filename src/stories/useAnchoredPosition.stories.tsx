@@ -84,6 +84,7 @@ const Anchor = styled(Position)`
   padding: ${get('space.3')};
 `
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UseAnchoredPosition = (args: any) => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
     {
