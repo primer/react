@@ -39,7 +39,7 @@ const Link = styled.a<StyledLinkProps>`
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
-    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.text.secondary')(props)}` : '')};
+    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.text.link')(props)}` : '')};
   }
   &:is(button) {
     display: inline-block;
