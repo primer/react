@@ -22,7 +22,7 @@ type CaretPosition =
   | 'right-top'
 
 type StyledPopoverProps = {
-  caret?: CaretPosition
+  caret?: CaretPosition1
   relative?: boolean
   open?: boolean
 } & SystemCommonProps &
@@ -69,7 +69,7 @@ const PopoverContent = styled(BorderBox)`
     top: -${get('space.3')};
     margin-left: -9px;
     border: ${get('space.2')} solid transparent; // TODO: solid?
-    border-bottom-color: ${get('popovers.colors.caret')};
+    border-bottom-color: ${get('colors.border.overlay')};
   }
 
   &::after {
@@ -91,7 +91,7 @@ const PopoverContent = styled(BorderBox)`
 
     &::before {
       bottom: -${get('space.3')};
-      border-top-color: ${get('popovers.colors.caret')};
+      border-top-color: ${get('colors.border.overlay')};
     }
 
     &::after {
@@ -170,7 +170,7 @@ const PopoverContent = styled(BorderBox)`
   ${Popover}.caret-pos--right-bottom & {
     &::before {
       right: -${get('space.3')};
-      border-left-color: ${get('popovers.colors.caret')};
+      border-left-color: ${get('colors.border.overlay')};
     }
 
     &::after {
@@ -186,7 +186,7 @@ const PopoverContent = styled(BorderBox)`
   ${Popover}.caret-pos--left-bottom & {
     &::before {
       left: -${get('space.3')};
-      border-right-color: ${get('popovers.colors.caret')};
+      border-right-color: ${get('colors.border.overlay')};
     }
 
     &::after {
