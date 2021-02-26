@@ -1,4 +1,5 @@
 export * from './ActionList'
+export * from './ActionListItem'
 export * from './ActionListSection'
 export * from './ActionListSectionDivider'
 export * from './ActionListSectionHeader'

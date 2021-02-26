@@ -9,8 +9,7 @@ export interface ActionListSectionHeaderProps extends React.ComponentPropsWithou
   auxiliaryText?: string
 }
 
-/** Styles used by all variants. */
-const sharedStyles: SystemStyleObject = {
+const baseStyles: SystemStyleObject = {
   padding: `${(s32 - s20) / 2}px ${s8}px`,
   fontSize: '12px',
   fontWeight: 'bold',
@@ -40,7 +39,7 @@ export function ActionListSectionHeader({
     <StyledDiv
       role="heading"
       sx={{
-        ...sharedStyles,
+        ...baseStyles,
         ...(variant === 'filled' && filledVariantStyles)
       }}
       {...props}

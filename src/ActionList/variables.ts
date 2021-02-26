@@ -1,3 +1,7 @@
+// expanded from src/support/variables/misc.scss
+
+export const borderRadius2 = '6px'
+
 // expanded from src/support/variables/layout.scss
 // adds 12px to the scale as of https://github.com/github/design-systems/issues/992
 //
