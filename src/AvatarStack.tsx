@@ -1,11 +1,10 @@
-import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from './sx'
-import {get, COMMON, SystemCommonProps} from './constants'
-import theme from './theme'
+import {COMMON, get, SystemCommonProps} from './constants'
 import {Absolute} from './Position'
+import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 type StyledAvatarStackWrapperProps = {
@@ -158,10 +157,6 @@ const AvatarStack = ({children, alignRight, ...rest}: AvatarStackProps) => {
       </Absolute>
     </AvatarStackWrapper>
   )
-}
-
-AvatarStack.defaultProps = {
-  theme
 }
 
 AvatarStack.propTypes = {
