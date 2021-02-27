@@ -22,7 +22,7 @@ type CaretPosition =
   | 'right-top'
 
 type StyledPopoverProps = {
-  caret?: CaretPosition1
+  caret?: CaretPosition
   relative?: boolean
   open?: boolean
 } & SystemCommonProps &
