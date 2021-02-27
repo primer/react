@@ -32,7 +32,7 @@ exports[`Popover Popover.Content renders consistently 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -56,7 +56,7 @@ exports[`Popover Popover.Content renders consistently 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -149,7 +149,7 @@ exports[`Popover Popover.Content renders consistently 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -163,7 +163,7 @@ exports[`Popover Popover.Content renders consistently 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -241,7 +241,7 @@ exports[`Popover renders consistently 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -265,7 +265,7 @@ exports[`Popover renders consistently 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -358,7 +358,7 @@ exports[`Popover renders consistently 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -372,7 +372,7 @@ exports[`Popover renders consistently 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -450,7 +450,7 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -474,7 +474,7 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -567,7 +567,7 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -581,7 +581,7 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -659,7 +659,7 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -683,7 +683,7 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -776,7 +776,7 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -790,7 +790,7 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -868,7 +868,7 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -892,7 +892,7 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -985,7 +985,7 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -999,7 +999,7 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1077,7 +1077,7 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1101,7 +1101,7 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1194,7 +1194,7 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1208,7 +1208,7 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1286,7 +1286,7 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1310,7 +1310,7 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1403,7 +1403,7 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1417,7 +1417,7 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1495,7 +1495,7 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1519,7 +1519,7 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1612,7 +1612,7 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1626,7 +1626,7 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1704,7 +1704,7 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1728,7 +1728,7 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -1821,7 +1821,7 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -1835,7 +1835,7 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -1913,7 +1913,7 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -1937,7 +1937,7 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2030,7 +2030,7 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2044,7 +2044,7 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2122,7 +2122,7 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -2146,7 +2146,7 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2239,7 +2239,7 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2253,7 +2253,7 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2331,7 +2331,7 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -2355,7 +2355,7 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2448,7 +2448,7 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2462,7 +2462,7 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2540,7 +2540,7 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -2564,7 +2564,7 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2657,7 +2657,7 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2671,7 +2671,7 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
@@ -2749,7 +2749,7 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
@@ -2773,7 +2773,7 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
@@ -2866,7 +2866,7 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
@@ -2880,7 +2880,7 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
