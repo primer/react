@@ -24,7 +24,6 @@ declare global {
       toImplementSystemProps: (systemProps: any) => boolean
       toImplementSxProp: () => boolean
       toImplementSxBehavior: () => boolean
-      toSetDefaultTheme: () => boolean
       toSetExports: (exports: Record<string, string>) => boolean
     }
   }
@@ -237,10 +236,6 @@ export function behavesAsComponent({Component, systemPropArray, toRender, option
 
   it('sets a valid displayName', () => {
     expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
-  })
-
-  it('sets the default theme', () => {
-    expect(getElement()).toSetDefaultTheme()
   })
 
   it('renders consistently', () => {
