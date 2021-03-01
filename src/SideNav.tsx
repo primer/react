@@ -30,7 +30,7 @@ function SideNavBase({variant, className, bordered, children, ...props}: SideNav
 }
 
 const SideNav = styled(SideNavBase)`
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.secondary')};
 
   ${props =>
     props.bordered &&
@@ -90,10 +90,10 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   }
 
   ${SideNav}.variant-normal > & {
-    color: ${get('colors.text.secondary')};
+    color: ${get('colors.text.primary')};
     padding: ${get('space.3')};
     border: 0;
-    border-top: ${get('borderWidths.1')} solid ${get('colors.border.primary')};
+    border-top: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
 
     &:first-child {
       border-top: 0;
@@ -113,16 +113,14 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:hover,
     &:focus {
-      color: ${get('colors.text.primary')};
       text-decoration: none;
-      background-color: ${get('colors.bg.canvasInset')};
+      background-color: ${get('colors.state.hover.secondaryBg')};
       outline: none;
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      font-weight: ${get('fontWeights.semibold')};
-      color: ${get('colors.text.primary')};
+      background-color: ${get('colors.sidenav.selectedBg')};
 
       // Bar on the left
       &::before {
@@ -153,12 +151,12 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 `
 
 SideNav.defaultProps = {
-  theme,
+  // theme,
   variant: 'normal'
 }
 
 SideNavLink.defaultProps = {
-  theme,
+  // theme,
   variant: 'normal'
 }
 
