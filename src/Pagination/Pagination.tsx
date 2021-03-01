@@ -156,7 +156,7 @@ const PaginationContainer = styled.nav`
 `
 
 export type PaginationProps = {
-  theme: object
+  theme?: object
   pageCount: number
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
