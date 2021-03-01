@@ -2,13 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
 // SelectMenu.Modal
 
 const SelectMenuTitle = styled.h3`
+  color: ${get('colors.text.primary')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
@@ -23,7 +23,7 @@ const StyledHeader = styled.header<SystemTypographyProps & SystemCommonProps & S
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
   padding: ${get('space.3')};
-  border-bottom: ${get('borderWidths')} solid ${get('colors.border.secondary')};
+  border-bottom: ${get('borderWidths')} solid ${get('colors.selectMenu.borderSecondary')};
   ${COMMON}
   ${TYPOGRAPHY}
 
@@ -44,8 +44,6 @@ const SelectMenuHeader = ({children, theme, ...rest}: SelectMenuHeaderProps) => 
     </StyledHeader>
   )
 }
-
-SelectMenuHeader.defaultProps = {theme}
 
 SelectMenuHeader.displayName = 'SelectMenu.Header'
 

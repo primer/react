@@ -4,7 +4,6 @@ import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
@@ -15,9 +14,9 @@ export const listItemStyles = css`
   overflow: hidden;
   text-align: left;
   cursor: pointer;
-  background-color: ${get('colors.bg.canvas')};
+  background-color: ${get('colors.bg.overlay')};
   border: 0;
-  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
   color: ${get('colors.text.secondary')};
   text-decoration: none;
   font-size: ${get('fontSizes.0')};
@@ -70,7 +69,7 @@ export const listItemStyles = css`
     &:hover,
     &:active,
     &:focus {
-      background-color: ${get('colors.bg.tertiary')};
+      background-color: ${get('colors.state.hover.secondaryBg')};
     }
   }
 
@@ -88,7 +87,7 @@ export const listItemStyles = css`
     // iOS Safari
     // :active would work if ontouchstart is added to the button
     // Instead this tweaks the "native" highlight color
-    -webkit-tap-highlight-color: ${get('colors.text.primary')};
+    -webkit-tap-highlight-color: ${get('colors.selectMenu.tapHighlight')};
   }
 `
 
@@ -130,7 +129,6 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
 )
 
 SelectMenuItem.defaultProps = {
-  theme,
   selected: false
 }
 

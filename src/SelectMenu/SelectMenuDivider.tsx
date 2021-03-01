@@ -1,5 +1,4 @@
 import styled, {css} from 'styled-components'
-import theme from '../theme'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
@@ -11,7 +10,7 @@ const dividerStyles = css`
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.tertiary')};
   background-color: ${get('colors.bg.tertiary')};
-  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
 `
 
 const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`
@@ -19,8 +18,6 @@ const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx};
 `
-
-SelectMenuDivider.defaultProps = {theme}
 
 SelectMenuDivider.displayName = 'SelectMenu.Divider'
 

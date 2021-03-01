@@ -2,13 +2,12 @@ import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 
 const TabPanelBase = styled.div<SystemCommonProps & SxProp>`
-  border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
   ${COMMON}
   ${sx};
 `
@@ -24,10 +23,6 @@ const TabPanel = ({tabName, className, children, ...rest}: SelectMenuTabPanelPro
       <SelectMenuList>{children}</SelectMenuList>
     </TabPanelBase>
   )
-}
-
-TabPanel.defaultProps = {
-  theme
 }
 
 TabPanel.displayName = 'SelectMenu.TabPanel'

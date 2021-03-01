@@ -3,7 +3,6 @@ import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 type StyledModalProps = {
@@ -33,9 +32,9 @@ const modalStyles = css<StyledModalProps>`
   overflow: hidden; // Enables border radius on scrollable child elements
   pointer-events: auto;
   flex-direction: column;
-  background-color: ${get('colors.bg.canvas')};
+  background-color: ${get('colors.bg.overlay')};
   border-radius: ${get('radii.2')};
-  box-shadow: 0 1px 5px rgba(27, 31, 35, 0.15);
+  box-shadow: ${get('shadows.small')};
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {
@@ -43,9 +42,9 @@ const modalStyles = css<StyledModalProps>`
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
-    border: ${get('borderWidths.1')} solid ${get('colors.border.tertiary')};
+    border: ${get('borderWidths.1')} solid ${get('colors.border.overlay')};
     border-radius: ${get('radii.2')};
-    box-shadow: 0 1px 5px ${get('colors.blackfade15')};
+    box-shadow: ${get('shadows.shadow.small')};
   }
 `
 
@@ -69,7 +68,7 @@ const modalWrapperStyles = css<StyledModalWrapperProps>`
     left: 0;
     pointer-events: none;
     content: '';
-    background-color: ${get('colors.blackfade50')};
+    background-color: ${get('colors.selectMenu.backdropBg')};
 
     @media (min-width: ${get('breakpoints.0')}) {
       display: none;
@@ -113,7 +112,6 @@ const SelectMenuModal = React.forwardRef<HTMLDivElement, SelectMenuModalInternal
 
 SelectMenuModal.defaultProps = {
   align: 'left',
-  theme,
   width: '300px'
 }
 
