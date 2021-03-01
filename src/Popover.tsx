@@ -50,7 +50,7 @@ const PopoverContent = styled(BorderBox)`
   margin-right: auto;
   margin-left: auto;
   padding: ${get('space.4')};
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.overlay')};
 
   ${COMMON};
   ${LAYOUT};
@@ -68,14 +68,14 @@ const PopoverContent = styled(BorderBox)`
     top: -${get('space.3')};
     margin-left: -9px;
     border: ${get('space.2')} solid transparent; // TODO: solid?
-    border-bottom-color: ${get('popovers.colors.caret')};
+    border-bottom-color: ${get('colors.border.overlay')};
   }
 
   &::after {
     top: -14px;
     margin-left: -${get('space.2')};
     border: 7px solid transparent; // todo: solid
-    border-bottom-color: ${get('colors.white')};
+    border-bottom-color: ${get('colors.bg.overlay')};
   }
 
   // Bottom-oriented carets
@@ -90,13 +90,13 @@ const PopoverContent = styled(BorderBox)`
 
     &::before {
       bottom: -${get('space.3')};
-      border-top-color: ${get('popovers.colors.caret')};
+      border-top-color: ${get('colors.border.overlay')};
     }
 
     &::after {
       bottom: -14px;
       // stylelint-disable-next-line primer/borders
-      border-top-color: ${get('colors.white')};
+      border-top-color: ${get('colors.bg.overlay')};
     }
   }
 
@@ -169,13 +169,13 @@ const PopoverContent = styled(BorderBox)`
   ${Popover}.caret-pos--right-bottom & {
     &::before {
       right: -${get('space.3')};
-      border-left-color: ${get('popovers.colors.caret')};
+      border-left-color: ${get('colors.border.overlay')};
     }
 
     &::after {
       right: -14px;
       // stylelint-disable-next-line primer/borders
-      border-left-color: ${get('colors.white')};
+      border-left-color: ${get('colors.bg.overlay')};
     }
   }
 
@@ -185,13 +185,13 @@ const PopoverContent = styled(BorderBox)`
   ${Popover}.caret-pos--left-bottom & {
     &::before {
       left: -${get('space.3')};
-      border-right-color: ${get('popovers.colors.caret')};
+      border-right-color: ${get('colors.border.overlay')};
     }
 
     &::after {
       left: -14px;
       // stylelint-disable-next-line primer/borders
-      border-right-color: ${get('colors.white')};
+      border-right-color: ${get('colors.bg.overlay')};
     }
   }
 
