@@ -30,6 +30,21 @@ export default {
     }
   ],
   argTypes: {
+    as: {
+      table: {
+        disable: true
+      }
+    },
+    theme: {
+      table: {
+        disable: true
+      }
+    },
+    sx: {
+      table: {
+        disable: true
+      }
+    },
     variant: {
       control: {
         type: 'radio',

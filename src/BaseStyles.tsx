@@ -37,7 +37,7 @@ function BaseStyles(props: BaseStylesProps) {
   const {children, ...rest} = props
   useMouseIntent()
   return (
-    <Base {...rest}>
+    <Base {...rest} data-portal-root>
       <GlobalStyle />
       {children}
     </Base>
@@ -45,7 +45,7 @@ function BaseStyles(props: BaseStylesProps) {
 }
 
 BaseStyles.defaultProps = {
-  color: 'gray.9',
+  color: 'text.primary',
   fontFamily: 'normal',
   lineHeight: 'default',
   theme

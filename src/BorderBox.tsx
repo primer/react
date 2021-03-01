@@ -14,7 +14,7 @@ BorderBox.defaultProps = {
   theme,
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: 'gray.2',
+  borderColor: 'border.primary',
   borderRadius: 2
 }
 

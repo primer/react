@@ -154,7 +154,7 @@ exports[`Dropdown.Item renders consistently 1`] = `
 
 .c0:focus,
 .c0 a:focus {
-  color: #fff;
+  color: #ffffff;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #0366d6;
@@ -162,7 +162,7 @@ exports[`Dropdown.Item renders consistently 1`] = `
 
 .c0:hover,
 .c0:hover a {
-  color: #fff;
+  color: #ffffff;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #0366d6;
@@ -179,7 +179,7 @@ exports[`Dropdown.Item renders consistently 1`] = `
 exports[`Dropdown.Menu renders consistently 1`] = `
 .c0 {
   background-clip: padding-box;
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid rgba(27,31,35,0.15);
   border-radius: 6px;
   box-shadow: 0 3px 12px rgba(27,31,35,0.15);
@@ -214,7 +214,7 @@ exports[`Dropdown.Menu renders consistently 1`] = `
 
 .c0::after {
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0 > ul {

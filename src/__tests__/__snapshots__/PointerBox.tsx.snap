@@ -76,7 +76,7 @@ exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#fff"
+        fill="#ffffff"
       />
       <path
         d="M-8,0L0,8L8,0"
@@ -120,7 +120,7 @@ exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#fff"
+        fill="#ffffff"
       />
       <path
         d="M-8,0L0,8L8,0"
@@ -164,7 +164,7 @@ exports[`PointerBox renders consistently 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#fff"
+        fill="#ffffff"
       />
       <path
         d="M-8,0L0,8L8,0"

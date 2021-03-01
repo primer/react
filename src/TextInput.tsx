@@ -42,6 +42,7 @@ type StyledWrapperProps = {
   disabled?: boolean
   hasIcon?: boolean
   block?: boolean
+  contrast?: boolean
   variant?: 'small' | 'large'
 } & SystemCommonProps &
   WidthProps &
@@ -55,14 +56,14 @@ const Wrapper = styled.span<StyledWrapperProps>`
   min-height: 34px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
-  color: ${get('colors.gray.9')};
+  color: ${get('colors.text.primary')};
   vertical-align: middle;
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
-  border: 1px solid ${get('colors.border.gray')};
+  border: 1px solid ${get('colors.input.border')};
   border-radius: ${get('radii.2')};
   outline: none;
-  box-shadow: ${get('shadows.formControl')};
+  box-shadow: ${get('shadows.shadow.inset')};
 
   ${props => {
     if (props.hasIcon) {
@@ -78,23 +79,30 @@ const Wrapper = styled.span<StyledWrapperProps>`
 
   .TextInput-icon {
     align-self: center;
-    color: ${get('colors.gray.4')};
+    color: ${get('colors.icon.tertiary')};
     margin: 0 ${get('space.2')};
     flex-shrink: 0;
   }
 
   &:focus-within {
-    border-color: ${get('colors.blue.4')};
-    box-shadow: ${get('shadows.formControl')}, ${get('shadows.formControlFocus')};
+    border-color: ${get('colors.state.focus.border')};
+    box-shadow: ${get('shadows.state.focus.shadow')};
   }
+
+  ${props =>
+    props.contrast &&
+    css`
+      background-color: ${get('colors.input.contrastBg')};
+    `}
+
 
   ${props =>
     props.disabled &&
     css`
-     background-color: ${get('colors.bg.disabled')};
-     box-shadow: ${get('shadows.formControlDisabled')}
-    }
-  `}
+      color: ${get('colors.text.secondary')};
+      background-color: ${get('colors.input.disabledBg')};
+      border-color: ${get('colors.input.disabledBorder')};
+    `}
 
   ${props =>
     props.block &&
@@ -120,7 +128,7 @@ type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>}
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({icon: IconComponent, className, block, disabled, sx, ...rest}, ref) => {
+  ({icon: IconComponent, contrast, className, block, disabled, sx, ...rest}, ref) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const wrapperProps = pick(rest)
@@ -132,6 +140,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         block={block}
         theme={theme}
         disabled={disabled}
+        contrast={contrast}
         sx={sx}
         {...wrapperProps}
       >
