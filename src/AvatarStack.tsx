@@ -1,17 +1,9 @@
 import classnames from 'classnames'
-<<<<<<< HEAD
-import PropTypes from 'prop-types'
-=======
->>>>>>> origin/main
 import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import {Absolute} from './Position'
 import sx, {SxProp} from './sx'
-<<<<<<< HEAD
-=======
-import theme from './theme'
->>>>>>> origin/main
 import {ComponentProps} from './utils/types'
 
 type StyledAvatarStackWrapperProps = {
