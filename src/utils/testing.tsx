@@ -38,8 +38,10 @@ declare global {
  * expect(render(<Foo />)).toEqual(render(<div foo='bar' />))
  * ```
  */
-export function render(component: React.ReactElement) {
-  return renderer.create(component).toJSON() as renderer.ReactTestRendererJSON
+export function render(component: React.ReactElement, theme = defaultTheme) {
+  return renderer
+    .create(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
+    .toJSON() as renderer.ReactTestRendererJSON
 }
 
 /**
@@ -72,10 +74,6 @@ export function renderClasses(component: React.ReactElement): string {
  */
 export function rendersClass(node: React.ReactElement, klass: string): boolean {
   return renderClasses(node).includes(klass)
-}
-
-export function renderWithTheme(node: React.ReactElement, theme = defaultTheme): renderer.ReactTestRendererJSON {
-  return render(<ThemeProvider theme={theme}>{node}</ThemeProvider>)
 }
 
 export function px(value: number | string): string {
