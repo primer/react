@@ -45,7 +45,6 @@
     "@primer/octicons-react": "^11.3.0",
     "@primer/primitives": "0.0.0-20211167520",
     "@styled-system/css": "5.1.5",
-    "@styled-system/prop-types": "5.1.2",
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
     "@types/history": "4.7.8",

@@ -1,23 +1,22 @@
-import React, {useRef, useState, useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import sx, {SxProp} from '../sx'
 import {COMMON, SystemCommonProps} from '../constants'
+import sx, {SxProp} from '../sx'
 import theme from '../theme'
+import {ComponentProps} from '../utils/types'
+import useKeyboardNav from './hooks/useKeyboardNav'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
 import SelectMenuFooter from './SelectMenuFooter'
+import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuItem from './SelectMenuItem'
 import SelectMenuList from './SelectMenuList'
+import SelectMenuLoadingAnimation from './SelectMenuLoadingAnimation'
 import SelectMenuModal from './SelectMenuModal'
-import SelectMenuTabs from './SelectMenuTabs'
-import SelectMenuHeader from './SelectMenuHeader'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
-import SelectMenuLoadingAnimation from './SelectMenuLoadingAnimation'
-import useKeyboardNav from './hooks/useKeyboardNav'
-import {ComponentProps} from '../utils/types'
+import SelectMenuTabs from './SelectMenuTabs'
 
 const wrapperStyles = `
   // Remove marker added by the display: list-item browser default
@@ -99,28 +98,20 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
 
 SelectMenu.displayName = 'SelectMenu'
 
-SelectMenu.defaultProps = {
-  theme
-}
-
-SelectMenu.propTypes = {
-  initialTab: PropTypes.string,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+SelectMenu.defaultProps = {theme}
 
 export type SelectMenuProps = ComponentProps<typeof SelectMenu>
-export type {SelectMenuDividerProps} from './SelectMenuDivider'
-export type {SelectMenuFilterProps} from './SelectMenuFilter'
-export type {SelectMenuFooterProps} from './SelectMenuFooter'
-export type {SelectMenuItemProps} from './SelectMenuItem'
-export type {SelectMenuListProps} from './SelectMenuList'
-export type {SelectMenuModalProps} from './SelectMenuModal'
-export type {SelectMenuTabsProps} from './SelectMenuTabs'
-export type {SelectMenuHeaderProps} from './SelectMenuHeader'
-export type {SelectMenuTabProps} from './SelectMenuTab'
-export type {SelectMenuTabPanelProps} from './SelectMenuTabPanel'
-export type {SelectMenuLoadingAnimationProps} from './SelectMenuLoadingAnimation'
+export type { SelectMenuDividerProps } from './SelectMenuDivider'
+export type { SelectMenuFilterProps } from './SelectMenuFilter'
+export type { SelectMenuFooterProps } from './SelectMenuFooter'
+export type { SelectMenuHeaderProps } from './SelectMenuHeader'
+export type { SelectMenuItemProps } from './SelectMenuItem'
+export type { SelectMenuListProps } from './SelectMenuList'
+export type { SelectMenuLoadingAnimationProps } from './SelectMenuLoadingAnimation'
+export type { SelectMenuModalProps } from './SelectMenuModal'
+export type { SelectMenuTabProps } from './SelectMenuTab'
+export type { SelectMenuTabPanelProps } from './SelectMenuTabPanel'
+export type { SelectMenuTabsProps } from './SelectMenuTabs'
 export default Object.assign(SelectMenu, {
   MenuContext: MenuContext,
   List: SelectMenuList,

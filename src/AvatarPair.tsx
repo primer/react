@@ -28,8 +28,4 @@ const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
 // styled() changes this
 AvatarPair.displayName = 'AvatarPair'
 
-AvatarPair.propTypes = {
-  ...Relative.propTypes
-}
-
 export default AvatarPair

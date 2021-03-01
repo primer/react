@@ -1,12 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import sx from '../sx'
-import {get, COMMON} from '../constants'
-import {ComponentProps} from '../utils/types'
-import theme from '../theme'
 import Box from '../Box'
-import {buildPaginationModel, buildComponentData} from './model'
+import {COMMON, get} from '../constants'
+import sx from '../sx'
+import theme from '../theme'
+import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
   display: inline-block;
@@ -204,18 +202,6 @@ function defaultHrefBuilder(pageNum: number) {
 }
 
 function noop() {}
-
-Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  hrefBuilder: PropTypes.func,
-  marginPageCount: PropTypes.number,
-  onPageChange: PropTypes.func,
-  pageCount: PropTypes.number.isRequired,
-  showPages: PropTypes.bool,
-  surroundingPageCount: PropTypes.number,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
 
 Pagination.defaultProps = {
   hrefBuilder: defaultHrefBuilder,

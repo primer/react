@@ -21,8 +21,6 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
-      toImplementSystemProps: (systemProps: any) => boolean
-      toImplementSxProp: () => boolean
       toImplementSxBehavior: () => boolean
       toSetExports: (exports: Record<string, string>) => boolean
     }
@@ -210,17 +208,7 @@ export function behavesAsComponent({Component, systemPropArray, toRender, option
 
   const getElement = () => (toRender ? toRender() : <Component />)
 
-  it('implements system props', () => {
-    for (const systemProps of systemPropArray) {
-      expect(Component).toImplementSystemProps(systemProps)
-    }
-  })
-
   if (!options.skipSx) {
-    it('implements the sx prop', () => {
-      expect(Component).toImplementSxProp()
-    })
-
     it('implements sx prop behavior', () => {
       expect(getElement()).toImplementSxBehavior()
     })

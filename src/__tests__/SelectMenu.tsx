@@ -79,10 +79,6 @@ describe('SelectMenu', () => {
     SelectMenu.TabPanel,
     SelectMenu.Header
   ]) {
-    it('implements the sx prop', () => {
-      expect(Comp).toImplementSxProp()
-    })
-
     it('sets a valid displayName', () => {
       expect(Comp.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
     })
@@ -93,9 +89,6 @@ describe('SelectMenu', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-  it('implements system props', () => {
-    expect(SelectMenu).toImplementSystemProps(COMMON)
   })
 
   it('does not allow the "as" prop on SelectMenu', () => {

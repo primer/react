@@ -44,23 +44,6 @@ expect.extend({
     }
   },
 
-  toImplementSystemProps(Component, propNames) {
-    const propKeys = new Set(Object.keys(Component.propTypes))
-    const expectedPropKeys = Object.keys(propNames.propTypes)
-    const missing = expectedPropKeys.filter(key => !propKeys.has(key)).filter(key => !ALIAS_PROP_TYPES.includes(key))
-    return {
-      pass: missing.length === 0,
-      message: () => `Missing prop${missing.length === 1 ? '' : 's'}: ${stringify(missing)}`
-    }
-  },
-
-  toImplementSxProp(Component) {
-    return {
-      pass: !!Component.propTypes.sx,
-      message: () => 'Missing sx propTypes'
-    }
-  },
-
   toImplementSxBehavior(element) {
     const mediaKey = '@media (max-width:123px)'
     const sxPropValue = {
