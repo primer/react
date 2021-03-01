@@ -1,14 +1,13 @@
-import React, {useRef, forwardRef} from 'react'
-import PropTypes from 'prop-types'
+import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
-import {COMMON, LAYOUT, SystemCommonProps, SystemLayoutProps, get} from './constants'
-import {ComponentProps} from './utils/types'
-import theme from './theme'
+import ButtonClose from './Button/ButtonClose'
+import {COMMON, get, LAYOUT, SystemCommonProps, SystemLayoutProps} from './constants'
+import Flex from './Flex'
+import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
-import Flex from './Flex'
-import ButtonClose from './Button/ButtonClose'
-import useDialog from './hooks/useDialog'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const noop = () => null
 
@@ -142,23 +141,9 @@ const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
 
 Dialog.defaultProps = {theme}
 
-Dialog.propTypes = {
-  ...COMMON.propTypes,
-  ...LAYOUT.propTypes,
-  isOpen: PropTypes.bool.isRequired,
-  narrow: PropTypes.bool,
-  onDismiss: PropTypes.func.isRequired,
-  ...sx.propTypes,
-  wide: PropTypes.bool
-}
-
 DialogHeader.defaultProps = {
   backgroundColor: 'gray.1',
   theme
-}
-
-DialogHeader.propTypes = {
-  ...Flex.propTypes
 }
 
 DialogHeader.displayName = 'Dialog.Header'

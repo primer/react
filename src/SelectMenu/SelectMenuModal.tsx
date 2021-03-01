@@ -1,10 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled, {keyframes, css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
-import theme from '../theme'
+import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
+import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 type StyledModalProps = {
@@ -116,14 +115,6 @@ SelectMenuModal.defaultProps = {
   align: 'left',
   theme,
   width: '300px'
-}
-
-SelectMenuModal.propTypes = {
-  align: PropTypes.oneOf(['left', 'right']),
-  theme: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'

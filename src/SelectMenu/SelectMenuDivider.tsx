@@ -20,14 +20,7 @@ const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-SelectMenuDivider.defaultProps = {
-  theme
-}
-
-SelectMenuDivider.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+SelectMenuDivider.defaultProps = {theme}
 
 SelectMenuDivider.displayName = 'SelectMenu.Divider'
 

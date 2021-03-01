@@ -1,13 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import * as History from 'history'
+import React from 'react'
 import styled from 'styled-components'
-import {COMMON, FLEX, get, SystemFlexProps, SystemCommonProps, SystemBorderProps} from './constants'
-import {ComponentProps} from './utils/types'
-import theme from './theme'
+import {COMMON, FLEX, get, SystemBorderProps, SystemCommonProps, SystemFlexProps} from './constants'
 import Flex, {FlexProps} from './Flex'
 import sx, {SxProp} from './sx'
-import * as History from 'history'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -122,37 +121,11 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   ${sx};
 `
 
-SubNav.defaultProps = {
-  theme
-}
+SubNav.defaultProps = {theme}
 
-SubNav.propTypes = {
-  actions: PropTypes.node,
-  align: PropTypes.oneOf(['right']),
-  children: PropTypes.node,
-  full: PropTypes.bool,
-  label: PropTypes.string,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-SubNavLink.defaultProps = {
-  theme
-}
-
-SubNavLink.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+SubNavLink.defaultProps = {theme}
 
 SubNavLink.displayName = 'SubNav.Link'
-
-SubNavLinks.propTypes = {
-  ...Flex.propTypes
-}
 
 SubNavLinks.displayName = 'SubNav.Links'
 

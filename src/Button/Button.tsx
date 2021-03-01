@@ -39,14 +39,7 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   ${sx};
 `
 
-Button.defaultProps = {
-  theme
-}
-
-Button.propTypes = {
-  ...ButtonBase.propTypes,
-  ...sx.propTypes
-}
+Button.defaultProps = {theme}
 
 export type ButtonProps = ComponentProps<typeof Button>
 export default Button

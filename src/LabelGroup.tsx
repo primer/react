@@ -19,10 +19,5 @@ LabelGroup.defaultProps = {
   theme
 }
 
-LabelGroup.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
 export type LabelGroupProps = ComponentProps<typeof LabelGroup>
 export default LabelGroup

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import Avatar from './Avatar'
@@ -31,9 +30,5 @@ const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
 AvatarPair.displayName = 'AvatarPair'
 
 AvatarPair.defaultProps = {theme}
-AvatarPair.propTypes = {
-  ...Relative.propTypes,
-  theme: PropTypes.object
-}
 
 export default AvatarPair

@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
-import theme from './theme'
 import sx, {SxProp} from './sx'
+import theme from './theme'
 
 const variants = variant({
   scale: 'flash'
@@ -41,14 +40,6 @@ const Flash = styled.div<
 Flash.defaultProps = {
   theme,
   variant: 'default'
-}
-
-Flash.propTypes = {
-  children: PropTypes.node,
-  full: PropTypes.bool,
-  variant: PropTypes.oneOf(['default', 'warning', 'success', 'danger']),
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 export default Flash

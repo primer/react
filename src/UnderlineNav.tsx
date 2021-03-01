@@ -1,12 +1,11 @@
 import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import * as History from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
-import * as History from 'history'
 
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
@@ -105,31 +104,9 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   ${sx};
 `
 
-UnderlineNav.defaultProps = {
-  theme
-}
+UnderlineNav.defaultProps = {theme}
 
-UnderlineNav.propTypes = {
-  actions: PropTypes.node,
-  align: PropTypes.oneOf(['right']),
-  children: PropTypes.node,
-  full: PropTypes.bool,
-  label: PropTypes.string,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-UnderlineNavLink.defaultProps = {
-  theme
-}
-
-UnderlineNavLink.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+UnderlineNavLink.defaultProps = {theme}
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 

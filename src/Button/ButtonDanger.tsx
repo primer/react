@@ -44,10 +44,5 @@ ButtonDanger.defaultProps = {
   theme
 }
 
-ButtonDanger.propTypes = {
-  ...ButtonBase.propTypes,
-  ...sx.propTypes
-}
-
 export type ButtonDangerProps = ComponentProps<typeof ButtonDanger>
 export default ButtonDanger

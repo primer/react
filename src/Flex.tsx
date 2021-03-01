@@ -10,9 +10,5 @@ Flex.defaultProps = {
   display: 'flex'
 }
 
-Flex.propTypes = {
-  ...Box.propTypes
-}
-
 export type FlexProps = ComponentProps<typeof Flex>
 export default Flex

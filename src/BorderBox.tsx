@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Box from './Box'
 import {BORDER, SystemBorderProps} from './constants'
@@ -17,13 +16,6 @@ BorderBox.defaultProps = {
   borderStyle: 'solid',
   borderColor: 'border.primary',
   borderRadius: 2
-}
-
-BorderBox.propTypes = {
-  ...Box.propTypes,
-  ...BORDER.propTypes,
-  ...sx.propTypes,
-  theme: PropTypes.object
 }
 
 export type BorderBoxProps = ComponentProps<typeof BorderBox>

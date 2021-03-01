@@ -36,14 +36,7 @@ const SelectMenuList = styled.div<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx};
 `
-SelectMenuList.defaultProps = {
-  theme
-}
-
-SelectMenuList.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+SelectMenuList.defaultProps = {theme}
 
 SelectMenuList.displayName = 'SelectMenu.List'
 

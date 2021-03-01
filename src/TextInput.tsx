@@ -1,13 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import systemPropTypes from '@styled-system/prop-types'
 import {omit, pick} from '@styled-system/props'
+import classnames from 'classnames'
+import React from 'react'
 import styled, {css} from 'styled-components'
-import {variant, width, minWidth, maxWidth, MaxWidthProps, WidthProps, MinWidthProps} from 'styled-system'
+import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
-import theme from './theme'
 import sx, {SxProp} from './sx'
+import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const sizeVariants = variant({
@@ -156,17 +154,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
 TextInput.defaultProps = {
   theme,
   type: 'text'
-}
-
-TextInput.propTypes = {
-  block: PropTypes.bool,
-  icon: PropTypes.any,
-  maxWidth: systemPropTypes.layout.maxWidth,
-  minWidth: systemPropTypes.layout.minWidth,
-  variant: PropTypes.oneOf(['small', 'large']),
-  ...COMMON.propTypes,
-  ...sx.propTypes,
-  width: systemPropTypes.layout.width
 }
 
 TextInput.displayName = 'TextInput'
