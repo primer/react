@@ -10,7 +10,7 @@ import {MenuContext} from './SelectMenuContext'
 const StyledForm = styled.form<SystemCommonProps & SxProp>`
   padding: ${get('space.3')};
   margin: 0;
-  border-top: ${get('borderWidths.1')} solid ${get('colors.border.select-menu-border-secondary')};
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
   background-color: ${get('colors.bg.canvas')};
   ${COMMON};
 

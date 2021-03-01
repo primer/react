@@ -11,7 +11,7 @@ const dividerStyles = css`
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.tertiary')};
   background-color: ${get('colors.bg.tertiary')};
-  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.select-menu-border-secondary')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
 `
 
 const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`

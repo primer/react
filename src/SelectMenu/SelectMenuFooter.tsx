@@ -10,7 +10,7 @@ const footerStyles = css`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.text.tertiary')};
   text-align: center;
-  border-top: ${get('borderWidths.1')} solid ${get('colors.border.select-menu-border-secondary')};
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding: ${get('space.1')} ${get('space.2')};
