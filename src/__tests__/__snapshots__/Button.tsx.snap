@@ -25,8 +25,8 @@ exports[`Button renders consistently 1`] = `
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
-  border: 1px solid rgba(27,31,35,0.12);
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
+  border: 1px solid rgba(27,31,35,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -47,8 +47,9 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:hover {
-  background-color: #F3F4F6;
-  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
+  background-color: #f3f4f6;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:focus {
@@ -58,14 +59,14 @@ exports[`Button renders consistently 1`] = `
 
 .c0:active {
   background-color: #edeff2;
-  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
-  border-color: #d1d5da;
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
+  border-color: rgba(27,31,35,0.15);
 }
 
 .c0:disabled {
   color: #959da5;
   background-color: #fafbfc;
-  border-color: #eaecef;
+  border-color: rgba(27,31,35,0.15);
 }
 
 <button
@@ -98,8 +99,8 @@ exports[`Button respects the "disabled" prop 1`] = `
   font-size: 14px;
   color: #24292e;
   background-color: #fafbfc;
-  border: 1px solid rgba(27,31,35,0.12);
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.04),inset 0px 2px 0px rgba(255,255,255,0.25);
+  border: 1px solid rgba(27,31,35,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -120,8 +121,9 @@ exports[`Button respects the "disabled" prop 1`] = `
 }
 
 .c0:hover {
-  background-color: #F3F4F6;
-  box-shadow: 0px 1px 0px rgba(209,213,218,0.2),inset 0px 2px 0px rgba(255,255,255,0.1);
+  background-color: #f3f4f6;
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:focus {
@@ -131,14 +133,14 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0:active {
   background-color: #edeff2;
-  box-shadow: inset 0px 2px 0px rgba(149,157,165,0.1);
-  border-color: #d1d5da;
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
+  border-color: rgba(27,31,35,0.15);
 }
 
 .c0:disabled {
   color: #959da5;
   background-color: #fafbfc;
-  border-color: #eaecef;
+  border-color: rgba(27,31,35,0.15);
 }
 
 <button
