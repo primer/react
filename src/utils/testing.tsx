@@ -21,8 +21,6 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
-      toImplementSystemProps: (systemProps: any) => boolean
-      toImplementSxProp: () => boolean
       toImplementSxBehavior: () => boolean
       toSetDefaultTheme: () => boolean
       toSetExports: (exports: Record<string, string>) => boolean
