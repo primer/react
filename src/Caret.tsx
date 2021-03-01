@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {get} from './constants'
 import {style} from 'styled-system'
 import theme from './theme'
 
