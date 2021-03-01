@@ -1,13 +1,12 @@
-import React, {useContext, useRef, forwardRef} from 'react'
-import PropTypes from 'prop-types'
-import styled, {css} from 'styled-components'
 import {CheckIcon} from '@primer/octicons-react'
-import {MenuContext} from './SelectMenuContext'
+import React, {forwardRef, useContext, useRef} from 'react'
+import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
-import theme from '../theme'
 import sx, {SxProp} from '../sx'
+import theme from '../theme'
 import {ComponentProps} from '../utils/types'
+import {MenuContext} from './SelectMenuContext'
 
 export const listItemStyles = css`
   display: flex;
@@ -133,12 +132,6 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
 SelectMenuItem.defaultProps = {
   theme,
   selected: false
-}
-
-SelectMenuItem.propTypes = {
-  selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 SelectMenuItem.displayName = 'SelectMenu.Item'

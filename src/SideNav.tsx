@@ -1,14 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled, {css} from 'styled-components'
 import classnames from 'classnames'
-import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
-import Link from './Link'
-import BorderBox from './BorderBox'
-import {ComponentProps} from './utils/types'
-import theme from './theme'
-import sx, {SxProp} from './sx'
 import * as History from 'history'
+import React from 'react'
+import styled, {css} from 'styled-components'
+import BorderBox from './BorderBox'
+import {COMMON, get} from './constants'
+import Link from './Link'
+import sx from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'
@@ -158,24 +157,9 @@ SideNav.defaultProps = {
   variant: 'normal'
 }
 
-SideNav.propTypes = {
-  bordered: PropTypes.bool,
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['normal', 'lightweight']),
-  ...BorderBox.propTypes
-}
-
 SideNavLink.defaultProps = {
   theme,
   variant: 'normal'
-}
-
-SideNavLink.propTypes = {
-  selected: PropTypes.bool,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['normal', 'full']),
-  ...Link.propTypes
 }
 
 SideNavLink.displayName = 'SideNav.Link'

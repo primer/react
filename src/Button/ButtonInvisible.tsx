@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
 import {get} from '../constants'
+import sx, {SxProp} from '../sx'
 import theme from '../theme'
-import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 import {ComponentProps} from '../utils/types'
+import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   color: ${get('colors.blue.5')};
@@ -20,18 +20,12 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
     box-shadow: ${get('buttons.default.shadow.focus')};
   }
 
-
   ${buttonSystemProps};
   ${sx}
 `
 
 ButtonInvisible.defaultProps = {
   theme
-}
-
-ButtonInvisible.propTypes = {
-  ...ButtonBase.propTypes,
-  ...sx.propTypes
 }
 
 export type ButtonInvisibleProps = ComponentProps<typeof ButtonInvisible>

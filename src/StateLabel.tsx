@@ -1,13 +1,12 @@
-import { GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon, QuestionIcon } from '@primer/octicons-react'
-import PropTypes from 'prop-types'
+import {GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon, QuestionIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
-import { variant } from 'styled-system'
-import { COMMON, get, SystemCommonProps } from './constants'
+import {variant} from 'styled-system'
+import {COMMON, get, SystemCommonProps} from './constants'
 import StyledOcticon from './StyledOcticon'
-import sx, { SxProp } from './sx'
+import sx, {SxProp} from './sx'
 import theme from './theme'
-import { ComponentProps } from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,
@@ -29,7 +28,10 @@ const sizeVariants = variant({
 })
 
 type StyledStateLabelBaseProps = {
-  variant?: 'small' | 'normal'; status?: keyof typeof octiconMap} & SystemCommonProps & SxProp
+  variant?: 'small' | 'normal'
+  status?: keyof typeof octiconMap
+} & SystemCommonProps &
+  SxProp
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   display: inline-flex;
@@ -60,14 +62,6 @@ function StateLabel({children, status, variant, ...rest}: StateLabelProps) {
 StateLabel.defaultProps = {
   theme,
   variant: 'normal'
-}
-
-StateLabel.propTypes = {
-  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged', 'draft']).isRequired,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['small', 'normal']),
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 export default StateLabel

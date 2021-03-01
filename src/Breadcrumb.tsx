@@ -1,6 +1,5 @@
 import classnames from 'classnames'
 import * as History from 'history'
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
@@ -84,22 +83,10 @@ Breadcrumb.defaultProps = {
   theme
 }
 
-Breadcrumb.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
 Breadcrumb.displayName = 'Breadcrumb'
 
 BreadcrumbItem.defaultProps = {
   theme
-}
-
-BreadcrumbItem.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...sx.propTypes,
-  ...COMMON.propTypes
 }
 
 BreadcrumbItem.displayName = 'Breadcrumb.Item'

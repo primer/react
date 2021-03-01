@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
@@ -33,17 +32,6 @@ Truncate.defaultProps = {
   inline: false,
   maxWidth: 125,
   theme
-}
-
-Truncate.propTypes = {
-  ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes,
-  expandable: PropTypes.bool,
-  inline: PropTypes.bool,
-  ...sx.propTypes,
-  maxWidth: PropTypes.number,
-  theme: PropTypes.object,
-  title: PropTypes.string.isRequired
 }
 
 export type TruncateProps = ComponentProps<typeof Truncate>

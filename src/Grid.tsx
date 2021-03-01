@@ -13,10 +13,5 @@ Grid.defaultProps = {
   display: 'grid'
 }
 
-Grid.propTypes = {
-  ...Box.propTypes,
-  ...GRID.propTypes
-}
-
 export type GridProps = ComponentProps<typeof Grid>
 export default Grid

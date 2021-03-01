@@ -1,5 +1,4 @@
 import classnames from 'classnames'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import BorderBox from './BorderBox'
 import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
@@ -230,25 +229,8 @@ Popover.defaultProps = {
   theme
 }
 
-Popover.propTypes = {
-  caret: PropTypes.any,
-  open: PropTypes.bool,
-  relative: PropTypes.bool,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...LAYOUT.propTypes,
-  ...POSITION.propTypes,
-  ...sx.propTypes
-}
-
 PopoverContent.defaultProps = {
   theme
-}
-
-PopoverContent.propTypes = {
-  theme: PropTypes.object,
-  ...BorderBox.propTypes,
-  ...sx.propTypes
 }
 
 PopoverContent.displayName = 'Popover.Content'

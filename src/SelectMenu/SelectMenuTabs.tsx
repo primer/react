@@ -40,14 +40,7 @@ const SelectMenuTabs = ({children, ...rest}: SelectMenuTabsProps) => {
   )
 }
 
-SelectMenuTabs.defaultProps = {
-  theme
-}
-
-SelectMenuTabs.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+SelectMenuTabs.defaultProps = {theme}
 
 SelectMenuTabs.displayName = 'SelectMenu.Tabs'
 

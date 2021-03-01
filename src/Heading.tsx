@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
@@ -16,13 +15,6 @@ const Heading = styled.h2<SystemTypographyProps & SystemCommonProps & SxProp>`
 
 Heading.defaultProps = {
   theme
-}
-
-Heading.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes,
-  theme: PropTypes.object,
-  ...TYPOGRAPHY.propTypes
 }
 
 export type HeadingProps = ComponentProps<typeof Heading>
