@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Box from '../Box'
 import {COMMON, get} from '../constants'
 import sx from '../sx'
-import theme from '../theme'
 import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
@@ -208,8 +207,7 @@ Pagination.defaultProps = {
   marginPageCount: 1,
   onPageChange: noop,
   showPages: true,
-  surroundingPageCount: 2,
-  theme
+  surroundingPageCount: 2
 }
 
 export default Pagination

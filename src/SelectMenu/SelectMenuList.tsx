@@ -1,7 +1,6 @@
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 const listStyles = css`
@@ -36,7 +35,6 @@ const SelectMenuList = styled.div<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx};
 `
-SelectMenuList.defaultProps = {theme}
 
 SelectMenuList.displayName = 'SelectMenu.List'
 

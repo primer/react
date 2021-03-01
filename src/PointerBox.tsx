@@ -1,7 +1,6 @@
 import React from 'react'
 import BorderBox, {BorderBoxProps} from './BorderBox'
 import Caret, {CaretProps} from './Caret'
-import theme from './theme'
 
 export type PointerBoxProps = {
   caret?: CaretProps['location']
@@ -22,7 +21,5 @@ function PointerBox(props: PointerBoxProps) {
     </BorderBox>
   )
 }
-
-PointerBox.defaultProps = {theme}
 
 export default PointerBox

@@ -6,7 +6,6 @@ import Flex from './Flex'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const noop = () => null
@@ -139,11 +138,8 @@ const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
   }
 )
 
-Dialog.defaultProps = {theme}
-
 DialogHeader.defaultProps = {
-  backgroundColor: 'gray.1',
-  theme
+  backgroundColor: 'gray.1'
 }
 
 DialogHeader.displayName = 'Dialog.Header'

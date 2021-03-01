@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 
 const variants = variant({
   scale: 'flash'
@@ -38,7 +37,6 @@ const Flash = styled.div<
 `
 
 Flash.defaultProps = {
-  theme,
   variant: 'default'
 }
 

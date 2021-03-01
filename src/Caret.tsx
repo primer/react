@@ -1,6 +1,5 @@
 import React from 'react'
 import {style} from 'styled-system'
-import theme from './theme'
 
 type Location =
   | 'top'
@@ -123,8 +122,7 @@ Caret.locations = [
 Caret.defaultProps = {
   bg: 'bg.canvas',
   borderColor: 'border.primary',
-  borderWidth: 1,
-  theme
+  borderWidth: 1
 }
 
 export default Caret

@@ -2,7 +2,6 @@ import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import useMouseIntent from './hooks/useMouseIntent'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const GlobalStyle = createGlobalStyle`
@@ -47,8 +46,7 @@ function BaseStyles(props: BaseStylesProps) {
 BaseStyles.defaultProps = {
   color: 'text.primary',
   fontFamily: 'normal',
-  lineHeight: 'default',
-  theme
+  lineHeight: 'default'
 }
 
 export default BaseStyles

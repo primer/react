@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 const ButtonGroup = styled(Box)`
@@ -49,8 +48,7 @@ const ButtonGroup = styled(Box)`
 `
 
 ButtonGroup.defaultProps = {
-  display: 'inline-block',
-  theme
+  display: 'inline-block'
 }
 
 export type ButtonGroupProps = ComponentProps<typeof ButtonGroup>

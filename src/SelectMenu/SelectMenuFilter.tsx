@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
 import TextInput, {TextInputProps} from '../TextInput'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
@@ -46,9 +45,6 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
   }
 )
 
-SelectMenuFilter.defaultProps = {
-  theme
-}
 SelectMenuFilter.displayName = 'SelectMenu.Filter'
 
 export type SelectMenuFilterProps = ComponentProps<typeof SelectMenuFilter>

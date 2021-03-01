@@ -6,7 +6,6 @@ import Details, {DetailsProps} from './Details'
 import getDirectionStyles from './DropdownStyles'
 import useDetails from './hooks/useDetails'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const StyledDetails = styled(Details)`
@@ -136,22 +135,17 @@ const DropdownItem = styled.li`
   ${sx};
 `
 
-DropdownMenu.defaultProps = {
-  direction: 'sw',
-  theme
-}
+DropdownMenu.defaultProps = {direction: 'sw'}
 DropdownMenu.displayName = 'Dropdown.Menu'
 
-DropdownItem.defaultProps = {theme}
 DropdownItem.displayName = 'Dropdown.Item'
 
-DropdownButton.defaultProps = {theme, ...Button.defaultProps}
+DropdownButton.defaultProps = {...Button.defaultProps}
 DropdownButton.displayName = 'Dropdown.Button'
 
-DropdownCaret.defaultProps = {theme}
 DropdownCaret.displayName = 'Dropdown.Caret'
 
-Dropdown.defaultProps = {theme, ...Details.defaultProps}
+Dropdown.defaultProps = {...Details.defaultProps}
 
 export type DropdownCaretProps = ComponentProps<typeof DropdownCaret>
 export type DropdownMenuProps = ComponentProps<typeof DropdownMenu>

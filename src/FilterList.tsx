@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const FilterListBase = styled.ul<SystemCommonProps & SxProp>`
@@ -73,13 +72,8 @@ function FilterListItem({children, count, ...rest}: React.PropsWithChildren<Filt
 }
 
 FilterList.defaultProps = {
-  theme,
   m: 0,
   p: 0
-}
-
-FilterListItem.defaultProps = {
-  theme
 }
 
 FilterListItem.displayName = 'FilterList.Item'

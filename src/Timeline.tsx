@@ -6,7 +6,6 @@ import {COMMON, get} from './constants'
 import Flex, {FlexProps} from './Flex'
 import {Relative} from './Position'
 import sx from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const Timeline = styled(Flex)<{clipSidebar?: boolean}>`
@@ -120,18 +119,12 @@ const TimelineBreak = styled(Relative)`
   ${sx};
 `
 
-Timeline.defaultProps = {theme}
-
-TimelineItem.defaultProps = {theme}
 TimelineItem.displayName = 'Timeline.Item'
 
-TimelineBadge.defaultProps = {theme}
 TimelineBadge.displayName = 'Timeline.Badge'
 
-TimelineBody.defaultProps = {theme}
 TimelineBody.displayName = 'Timeline.Body'
 
-TimelineBreak.defaultProps = {theme}
 TimelineBreak.displayName = 'Timeline.Break'
 
 export type TimelineProps = ComponentProps<typeof Timeline>

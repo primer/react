@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {system} from 'styled-system'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledLinkProps = {
@@ -54,10 +53,6 @@ const Link = styled.a<StyledLinkProps>`
   ${COMMON};
   ${sx};
 `
-
-Link.defaultProps = {
-  theme
-}
 
 export type LinkProps = ComponentProps<typeof Link>
 export default Link
