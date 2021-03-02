@@ -15,7 +15,7 @@ const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
         ? get('colors.counter.text')(props)
         : scheme === 'gray'
         ? get('colors.counter.primary.text')(props)
-        : get('colors.text.secondary.text')(props)
+        : get('colors.counter.text')(props)
   }
 }
 
