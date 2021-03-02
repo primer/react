@@ -12,10 +12,10 @@ const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     color:
       scheme === 'gray-light'
-        ? get('colors.gray.9')(props)
+        ? get('colors.counter.text')(props)
         : scheme === 'gray'
-        ? get('colors.white')(props)
-        : get('colors.gray.6')(props)
+        ? get('colors.counter.primary.text')(props)
+        : get('colors.text.secondary.text')(props)
   }
 }
 
@@ -23,9 +23,9 @@ const bgStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     backgroundColor:
       scheme === 'gray-light'
-        ? get('colors.blackfade15')(props)
+        ? get('colors.counter.bg')(props)
         : scheme === 'gray'
-        ? get('colors.gray.5')(props)
+        ? get('colors.counter.primary.bg')(props)
         : get('colors.counter.bg')(props)
   }
 }
