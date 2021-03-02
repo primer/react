@@ -34,7 +34,7 @@ exports[`TextInput renders 1`] = `
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
   padding: 6px 12px;
 }
 
@@ -50,8 +50,8 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #2188ff;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 @media (min-width:768px) {
@@ -105,7 +105,7 @@ exports[`TextInput renders block 1`] = `
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
   padding: 6px 12px;
   display: block;
   width: 100%;
@@ -123,8 +123,8 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #2188ff;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 @media (min-width:768px) {
@@ -178,7 +178,7 @@ exports[`TextInput renders consistently 1`] = `
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
   padding: 6px 12px;
 }
 
@@ -194,8 +194,8 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #2188ff;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 @media (min-width:768px) {
@@ -248,7 +248,7 @@ exports[`TextInput renders large 1`] = `
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
   padding: 6px 12px;
   padding-left: 8px;
   padding-right: 8px;
@@ -269,8 +269,8 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #2188ff;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 @media (min-width:768px) {
@@ -324,7 +324,7 @@ exports[`TextInput renders small 1`] = `
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
   padding: 6px 12px;
   min-height: 28px;
   padding-left: 8px;
@@ -347,8 +347,8 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #2188ff;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 @media (min-width:768px) {
@@ -402,7 +402,7 @@ exports[`TextInput should render a password input 1`] = `
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
   padding: 6px 12px;
 }
 
@@ -418,8 +418,8 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #2188ff;
-  box-shadow: inset 0px 2px 0px rgba(225,228,232,0.2),rgba(3,102,214,0.3) 0px 0px 0px 0.2em;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
 @media (min-width:768px) {

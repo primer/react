@@ -1,9 +1,8 @@
+import {IconProps} from '@primer/octicons-react'
 import React from 'react'
-import PropTypes from 'prop-types'
+import BorderBox from './BorderBox'
 import Flex, {FlexProps} from './Flex'
 import theme from './theme'
-import BorderBox from './BorderBox'
-import {IconProps} from '@primer/octicons-react'
 
 export type CircleOcticonProps = {
   as?: React.ElementType
@@ -27,13 +26,6 @@ CircleOcticon.defaultProps = {
   theme,
   ...Flex.defaultProps,
   size: 32
-}
-
-CircleOcticon.propTypes = {
-  ...Flex.propTypes,
-  icon: PropTypes.elementType.isRequired,
-  size: PropTypes.number,
-  theme: PropTypes.object
 }
 
 export default CircleOcticon

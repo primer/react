@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {style} from 'styled-system'
 import theme from './theme'
 
@@ -122,18 +121,10 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: 'white',
-  borderColor: 'gray.2',
+  bg: 'bg.canvas',
+  borderColor: 'border.primary',
   borderWidth: 1,
   theme
-}
-
-Caret.propTypes = {
-  bg: PropTypes.string,
-  borderColor: PropTypes.string,
-  borderWidth: PropTypes.number,
-  size: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations)
 }
 
 export default Caret

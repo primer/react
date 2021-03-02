@@ -61,7 +61,7 @@ import React, {useContext} from 'react'
 
 const MyMenu = () => {
   <SelectMenu>
-    <MyButton as="summary" />
+    <MyButton />
     <SelectMenu.Modal>
       content
     </SelectMenu.Modal>

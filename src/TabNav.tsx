@@ -1,36 +1,34 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import styled from 'styled-components'
-import {COMMON, SystemCommonProps, SystemTypographyProps, get} from './constants'
-import {ComponentProps} from './utils/types'
-import theme from './theme'
-import sx, {SxProp} from './sx'
 import * as History from 'history'
+import React from 'react'
+import styled from 'styled-components'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
+import sx, {SxProp} from './sx'
+import theme from './theme'
+import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-const TabNavBase = styled.nav<SystemCommonProps & SxProp>`
-  display: flex;
+const TabNavBase = styled.div<SystemCommonProps & SxProp>`
+  margin-top: 0;
   border-bottom: 1px solid ${get('colors.border.gray')};
-
-  .TabNav-body {
-    display: flex;
-    margin-bottom: -1px;
-  }
-
   ${COMMON}
   ${sx}
 `
 
+const TabNavBody = styled.nav`
+  display: flex;
+  margin-bottom: -1px;
+  overflow: auto;
+`
+
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
-function TabNav({className, children, ...rest}: TabNavProps) {
-  const classes = classnames(className, 'TabNav')
+function TabNav({children, ...rest}: TabNavProps) {
   return (
-    <TabNavBase className={classes} {...rest}>
-      <div className="TabNav-body">{children}</div>
+    <TabNavBase {...rest}>
+      <TabNavBody>{children}</TabNavBody>
     </TabNavBase>
   )
 }
@@ -73,27 +71,9 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   ${sx};
 `
 
-TabNav.defaultProps = {
-  theme
-}
+TabNav.defaultProps = {theme}
 
-TabNav.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-TabNavLink.defaultProps = {
-  theme
-}
-
-TabNavLink.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+TabNavLink.defaultProps = {theme}
 
 TabNavLink.displayName = 'TabNav.Link'
 

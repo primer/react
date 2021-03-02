@@ -23,14 +23,7 @@ const SelectMenuFooter = styled.footer<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-SelectMenuFooter.defaultProps = {
-  theme
-}
-
-SelectMenuFooter.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+SelectMenuFooter.defaultProps = {theme}
 
 SelectMenuFooter.displayName = 'SelectMenu.Footer'
 

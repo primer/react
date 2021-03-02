@@ -1,11 +1,10 @@
-import React from 'react'
 import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from './sx'
-import {get, COMMON, SystemCommonProps} from './constants'
-import theme from './theme'
+import {COMMON, get, SystemCommonProps} from './constants'
 import {Absolute} from './Position'
+import sx, {SxProp} from './sx'
+import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledAvatarStackWrapperProps = {
@@ -23,7 +22,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     flex-shrink: 0;
     height: 20px;
     width: 20px;
-    box-shadow: 0 0 0 1px ${get('colors.white')};
+    box-shadow: 0 0 0 1px ${get('colors.bg.canvas')};
     margin-left: -11px;
     position: relative;
     overflow: hidden;
@@ -120,7 +119,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
       margin-left: ${get('space.1')};
       opacity: 100%;
       visibility: visible;
-      box-shadow: 0 0 0 4px ${get('colors.white')};
+      box-shadow: 0 0 0 4px ${get('colors.bg.canvas')};
       &:first-child {
         margin-left: 0;
       }
@@ -162,12 +161,6 @@ const AvatarStack = ({children, alignRight, ...rest}: AvatarStackProps) => {
 
 AvatarStack.defaultProps = {
   theme
-}
-
-AvatarStack.propTypes = {
-  ...COMMON.propTypes,
-  alignRight: PropTypes.bool,
-  ...sx.propTypes
 }
 
 export default AvatarStack
