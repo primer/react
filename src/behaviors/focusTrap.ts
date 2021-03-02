@@ -3,7 +3,7 @@ import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListene
 
 eventListenerSignalPolyfill()
 
-export function focusTrap(container: Element, signal: AbortSignal): void {
+export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
   const focusable = queryFocusable(container)
 
   document.addEventListener(

@@ -14,23 +14,16 @@ export function useFocusTrap(
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
 
-  console.log('hook!')
-
   React.useEffect(() => {
-    console.log('effect!')
     if (containerRef.current instanceof HTMLElement) {
-      console.log('instance!')
       if (!disabled) {
         abortController.current = new AbortController()
         focusTrap(containerRef.current, abortController.current.signal)
-        console.log('trapping!')
         return () => {
           abortController.current?.abort()
-          console.log('aborted (unmounted)')
         }
       } else {
         abortController.current?.abort()
-        console.log('aborted (disabled)')
       }
     }
   }, [containerRef, disabled])

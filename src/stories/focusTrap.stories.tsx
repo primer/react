@@ -40,6 +40,7 @@ export const FocusTrap = () => {
   }, [spaceListener])
 
   return (
+
     <Flex flexDirection="column" alignItems="flex-start">
       <Button>Apple</Button>
       <Button>Banana</Button>
