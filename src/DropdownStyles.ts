@@ -15,7 +15,7 @@ const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw
         right: -16px;
         left: auto;
         border-color: transparent;
-        border-left-color: ${get('colors.fade.fg15')(theme)};
+        border-left-color: ${get('colors.border.overlay')(theme)};
       }
 
       &::after {
@@ -23,7 +23,7 @@ const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw
         right: -14px;
         left: auto;
         border-color: transparent;
-        border-left-color: ${get('colors.border.inverse')(theme)};
+        border-left-color: ${get('colors.border.overlay')(theme)};
       }
     `,
     e: `
@@ -37,14 +37,14 @@ const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw
         top: 10px;
         left: -16px;
         border-color: transparent;
-        border-right-color: ${get('colors.fade.fg15')(theme)};
+        border-right-color: ${get('colors.border.overlay')(theme)};
       }
 
       &::after {
         top: 11px;
         left: -14px;
         border-color: transparent;
-        border-right-color: ${get('colors.border.inverse')(theme)};
+        border-right-color: ${get('colors.border.overlay')(theme)};
       }
     `,
     ne: `
@@ -62,7 +62,7 @@ const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw
       &::before {
         bottom: -8px;
         left: 9px;
-        border-top: 8px solid ${get('colors.fade.fg15')(theme)};
+        border-top: 8px solid ${get('colors.border.overlay')(theme)};
         border-bottom: 0;
         border-left: 8px solid transparent;
       }
@@ -70,7 +70,7 @@ const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw
       &::after {
         bottom: -7px;
         left: 10px;
-        border-top: 7px solid ${get('colors.border.inverse')(theme)};
+        border-top: 7px solid ${get('colors.border.overlay')(theme)};
         border-right: 7px solid transparent;
         border-bottom: 0;
         border-left: 7px solid transparent;
