@@ -19,12 +19,54 @@ const octiconMap = {
 
 const colorVariants = variant({
   prop: 'status',
-  scale: 'stateLabels.status'
+  scale: 'stateLabels.status',
+  variants: {
+    issueClosed: {
+      backgroundColor: 'prState.closed.bg',
+      color: 'prState.closed.text',
+      border: 'prState.closed.border'
+    },
+    pullClosed: {
+      backgroundColor: 'prState.closed.bg',
+      color: 'prState.closed.text',
+      border: 'prState.closed.border'
+    },
+    pullMerged: {
+      backgroundColor: 'prState.merged.bg',
+      color: 'prState.merged.text',
+      border: 'prState.merged.border'
+    },
+    issueOpened: {
+      backgroundColor: 'prState.open.bg',
+      color: 'prState.open.text',
+      border: 'prState.open.border'
+    },
+    pullOpened: {
+      backgroundColor: 'prState.open.bg',
+      color: 'prState.open.text',
+      border: 'prState.open.border'
+    },
+    draft: {
+      backgroundColor: 'prState.draft.bg',
+      color: 'prState.draft.text',
+      border: 'prState.draft.border'
+    }
+  }
 })
 
 const sizeVariants = variant({
   prop: 'variant',
-  scale: 'stateLabels.sizes'
+  scale: 'stateLabels.sizes',
+  variants: {
+    small: {
+      padding: '4px 8px',
+      fontSize: '12px'
+    },
+    normal: {
+      padding: `8px 12px`,
+      fontSize: '14px'
+    }
+  }
 })
 
 type StyledStateLabelBaseProps = {

@@ -19,7 +19,9 @@ exports[`StateLabel renders children 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #159739;
+  background-color: #28a745;
+  color: #ffffff;
+  border: prState.open.border;
   padding: 8px 12px;
   font-size: 14px;
 }
@@ -71,7 +73,9 @@ exports[`StateLabel renders consistently 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #159739;
+  background-color: #28a745;
+  color: #ffffff;
+  border: prState.open.border;
   padding: 8px 12px;
   font-size: 14px;
 }
@@ -123,7 +127,9 @@ exports[`StateLabel respects the status prop 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #159739;
+  background-color: #28a745;
+  color: #ffffff;
+  border: prState.open.border;
   padding: 8px 12px;
   font-size: 14px;
 }
@@ -175,6 +181,8 @@ exports[`StateLabel respects the status prop 2`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #d73a49;
+  color: #ffffff;
+  border: prState.closed.border;
   padding: 8px 12px;
   font-size: 14px;
 }
@@ -226,6 +234,8 @@ exports[`StateLabel respects the status prop 3`] = `
   text-align: center;
   border-radius: 100px;
   background-color: #6f42c1;
+  color: #ffffff;
+  border: prState.merged.border;
   padding: 8px 12px;
   font-size: 14px;
 }
@@ -276,7 +286,9 @@ exports[`StateLabel respects the variant prop 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #159739;
+  background-color: #28a745;
+  color: #ffffff;
+  border: prState.open.border;
   padding: 4px 8px;
   font-size: 12px;
 }
@@ -327,7 +339,9 @@ exports[`StateLabel respects the variant prop 2`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #159739;
+  background-color: #28a745;
+  color: #ffffff;
+  border: prState.open.border;
   padding: 8px 12px;
   font-size: 14px;
 }
