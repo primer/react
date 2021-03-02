@@ -170,10 +170,10 @@ exports[`ButtonDanger renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #cb2431;
-  border: 1px solid #e1e4e8;
+  color: #d73a49;
+  border: 1px solid rgba(27,31,35,0.15);
   background-color: #fafbfc;
-  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04);
 }
 
 .c0:hover {
@@ -197,25 +197,21 @@ exports[`ButtonDanger renders consistently 1`] = `
   color: #ffffff;
   background-color: #cb2431;
   border-color: rgba(27,31,35,0.15);
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.1);
 }
 
 .c0:focus {
   border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(203,36,49,0.4);
 }
 
 .c0:active {
   color: #ffffff;
-  background-color: #be222e;
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
-  border-color: rgba(27,31,35,0.15);
+  background-color: #d42d3d;
+  box-shadow: inset 0 1px 0 rgba(134,24,29,0.2);
 }
 
 .c0:disabled {
-  color: rgba(203,36,49,.5);
-  background-color: #F3F4F6;
-  border: 1px solid #e1e4e8;
+  color: rgba(215,58,73,0.5);
 }
 
 <button
@@ -246,10 +242,10 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #cb2431;
-  border: 1px solid #e1e4e8;
+  color: #d73a49;
+  border: 1px solid rgba(27,31,35,0.15);
   background-color: #fafbfc;
-  box-shadow: 0px 1px 0px rgba(149,157,165,0.1),inset 0px 2px 0px rgba(255,255,255,0.25);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04);
 }
 
 .c0:hover {
@@ -273,25 +269,21 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   color: #ffffff;
   background-color: #cb2431;
   border-color: rgba(27,31,35,0.15);
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.1);
 }
 
 .c0:focus {
   border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(203,36,49,0.4);
 }
 
 .c0:active {
   color: #ffffff;
-  background-color: #be222e;
-  box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
-  border-color: rgba(27,31,35,0.15);
+  background-color: #d42d3d;
+  box-shadow: inset 0 1px 0 rgba(134,24,29,0.2);
 }
 
 .c0:disabled {
-  color: rgba(203,36,49,.5);
-  background-color: #F3F4F6;
-  border: 1px solid #e1e4e8;
+  color: rgba(215,58,73,0.5);
 }
 
 <button
