@@ -58,7 +58,7 @@ export const CustomPortalRootByRegistration: React.FC<Record<string, never>> = (
       registerPortalRoot(outerContainerRef.current)
       setMounted(true)
     }
-  }, [outerContainerRef])
+  }, [])
   return (
     <>
       Root position
