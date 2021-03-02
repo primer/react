@@ -191,7 +191,7 @@ export const WithPortal = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
-      align: 'first'
+      align: 'start'
     },
     [showMenu]
   )

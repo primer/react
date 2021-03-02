@@ -159,7 +159,7 @@ describe('getAnchoredPosition', () => {
     let top = 0
     let left = 0
 
-    settings.align = 'first'
+    settings.align = 'start'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
     expect(top).toEqual(234) // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
     expect(left).toEqual(280) // anchorRect.left + (settings.alignmentOffset ?? 0) - parentRect.left
@@ -172,7 +172,7 @@ describe('getAnchoredPosition', () => {
     // anchorRect.left + anchorRect.width / 2 - floatingRect.width / 2 + (settings.anchorOffset ?? 0) - parentRect.left
     expect(left).toEqual(255)
 
-    settings.align = 'last'
+    settings.align = 'end'
     ;({top, left} = getAnchoredPosition(float, anchor, settings))
 
     // anchorRect.top + anchorRect.height + (settings.anchorOffset ?? 4) - parentRect.top
