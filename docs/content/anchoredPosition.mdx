@@ -4,13 +4,32 @@ title: Anchored Position Behavior
 
 The `getAnchoredPosition` behavior and `useAnchoredPosition` hook are used to calculate the position of a "floating" element that is anchored to another DOM element. This is useful for implementing overlay UI, such as dialogs, popovers, tooltips, toasts, and dropdown-style menus.
 
-At a high level, the `getAnchoredPosition` routine will attempt to find the most suitable position for the floating element based on the passed-in settings, its containing element, and the size and position of the anchor element. Specifically, the calculated position should try to ensure that the floating element, when positioned at the calculated coordinates, does not overflow or underflow the container's bounding box.
+At a high level, the `getAnchoredPosition` algorithm will attempt to find the most suitable position for the floating element based on the passed-in settings, its containing element, and the size and position of the anchor element. Specifically, the calculated position should try to ensure that the floating element, when positioned at the calculated coordinates, does not overflow or underflow the container's bounding box.
 
-Settings for this routine allow the user to customize several aspects of this calculation. See **PositionSettings** below for a detailed description of these settings.
+Settings for this behavior allow the user to customize several aspects of this calculation. See **PositionSettings** below for a detailed description of these settings.
 
-### Floating element container
+### Positioning algorithm
 
-The anchored position calculation is based on the floating element's closest _positioned_ ancestor. In other words, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`. This element should be large—big enough to accommodate the floating element and have plenty of space to be moved around. It may be a good idea to ensure that this container element _also_ contains the anchor element and is scrollable. This will ensure that when scrolled, the anchor and floating element will move together.
+When calculating the position of the floating element, the algorithm relies on different measurements from three separate elements:
+
+1. The floating element's width and height
+2. The anchor element's x/y position and its width and height
+3. The floating element container's x/y position, width and heigh, and border sizes
+
+The public API only asks for the first two elements; the floating element's container is discovered via DOM traversal.
+
+#### Finding the floating element's container
+
+The returned anchored position calculation is relative to the floating element's closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. To find this ancestor, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`. This element should be large—big enough to accommodate the floating element and have plenty of space to be moved around. It may be a good idea to ensure that this container element _also_ contains the anchor element and is scrollable. This will ensure that when scrolled, the anchor and floating element will move together.
+
+#### Positioning and overflow
+
+With the positions and sizes of the above DOM elements, the algorithm calculates the (x, y) coordinate for the floating element. Then, it checks to see if, based on the floating element's size, if it would overflow the bounds of the container. If it would, it does one of two things:
+
+A) If the overflow happens in the same direction as the anchor side (e.g. side is 'outside-bottom' and the overflowing portion of the floating element is the bottom), try to find a different side, recalculate the position, and check for overflow again. If we check all four sides and don't find one that fits, revert to the bottom side, in hopes that a scrollbar might appear.
+B) Otherwise, adjust the alignment offest so that the floating element can stay inside the container's bounds.
+
+For a more in-depth explanation of the positioning settings, see `PositionSettings` below.
 
 ### Demo
 
@@ -31,24 +50,54 @@ const {top, left} = getAnchoredPosition(float, anchor, settings)
 float.style.top = `${top}px`
 float.style.left = `${left}px`
 ```
-### PositionSettings
+
+### API
+
+The `getAnchoredPosition` function takes the following arguments.
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| floatingElement | `Element` | | This is an Element that is currently rendered on the page. `getAnchoredPosition` needs to be able to measure this element's `width` and `height`. |
+| anchorElement | `Element` | | This is an Element that the floating element will be "anchored" to. In other words, the calculated position of the floating element will be based on this element's position and size. |
+| settings | `PositionSettings` | `{}` | Settings to customize the positioning algorithm. See below for a description of each setting. |
+
+#### PositionSettings
 `PositionSettings` is an object with the following interface
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| side | AnchorSide | "outside-bottom" | Sets the side of the anchor element that the floating element should be pinned to. This side is given by a string starting with either "inside" or "outside", followed by a hyphen, followed by either "top", "right", "bottom", or "left". Additionally, "inside-center" is an allowed value.<br /><br />The first part of this string, "inside" or "outside", determines whether the floating element should be attempted to be placed "inside" the anchor element or "outside" of it. Using "inside" is useful for making it appear that the anchor _contains_ the floating element, and it can be used for implementing a dialog that is centered on the screen. The "outside" value is more common and can be used for tooltips, popovers, menus, etc.<br /><br />The second part of this string determines the _edge_ on the anchor element that the floating element will be anchored to. If side is "inside-center", then the floating element will be centered in the X-direction (while `align` is used to position it in the Y-direction). |
-| align | AnchoredPositionAlign | "first" | Determines how the floating element should align with the anchor element. If set to "first", the floating element's first edge (top or left) will align with the anchor element's first edge. If set to "center", the floating element will be centered along the axis of the anchor edge. If set to "last", the floating element's last edge will align with the anchor element's last edge. |
-| anchorOffset | number | 4* | The number of pixels between the anchor edge and the floating element. Positive values move the floating element farther from the anchor element (for outside positioning) or further inside the anchor element (for inside positioning). Negative values have the opposite effect. |
-| alignmentOffset | number | 4** | An additional offset, in pixels, to move the floating element from the aligning edge. Positive values move the floating element in the direction of center-alignment. Negative values move the floating element away from center-alignment. When align is "center", positive offsets move the floating element right (top or bottom anchor side) or down (left or right anchor side). |
-| preventOverflow | boolean | true | If true, when the above settings result in rendering the floating element wholly or partially off-screen, attempt to adjust the settings to prevent this. Only applies to "outside" positioning.<br /><br />First, attempt to flip to the opposite edge of the anchor if the floating element is getting clipped in that direction. If flipping results in a similar clipping, try moving to the adjacent sides.<br /><br />Once we find a side that does not clip the overlay in its own dimension, check the rest of the sides to see if we need to adjust the alignment offset to fit in other dimensions.<br /><br />If we try all four sides and get clipped each time, settle for overflowing and use the "bottom" side, since the ability to scroll is most likely in this direction. |
+| side | `AnchorSide` | `"outside-bottom"` | Sets the side of the anchor element that the floating element should be pinned to. This side is given by a string starting with either "inside" or "outside", followed by a hyphen, followed by either "top", "right", "bottom", or "left". Additionally, "inside-center" is an allowed value.<br /><br />The first part of this string, "inside" or "outside", determines whether the floating element should be attempted to be placed "inside" the anchor element or "outside" of it. Using "inside" is useful for making it appear that the anchor _contains_ the floating element, and it can be used for implementing a dialog that is centered on the screen. The "outside" value is more common and can be used for tooltips, popovers, menus, etc.<br /><br />The second part of this string determines the _edge_ on the anchor element that the floating element will be anchored to. If side is "inside-center", then the floating element will be centered in the X-direction (while `align` is used to position it in the Y-direction). |
+| align | `AnchorAlignment` | `"start"` | Determines how the floating element should align with the anchor element. If set to "start", the floating element's first edge (top or left) will align with the anchor element's first edge. If set to "center", the floating element will be centered along the axis of the anchor edge. If set to "end", the floating element's last edge will align with the anchor element's last edge. |
+| anchorOffset | `number` | `4`* | The number of pixels between the anchor edge and the floating element. Positive values move the floating element farther from the anchor element (for outside positioning) or further inside the anchor element (for inside positioning). Negative values have the opposite effect. |
+| alignmentOffset | `number` | `4`** | An additional offset, in pixels, to move the floating element from the aligning edge. Positive values move the floating element in the direction of center-alignment. Negative values move the floating element away from center-alignment. When align is "center", positive offsets move the floating element right (top or bottom anchor side) or down (left or right anchor side). |
+| allowOutOfBounds | `boolean` | `false` | If false, when the above settings result in rendering the floating element wholly or partially off-screen, attempt to adjust the settings to prevent this. Only applies to "outside" positioning.<br /><br />First, attempt to flip to the opposite edge of the anchor if the floating element is getting clipped in that direction. If flipping results in a similar clipping, try moving to the adjacent sides.<br /><br />Once we find a side that does not clip the overlay in its own dimension, check the rest of the sides to see if we need to adjust the alignment offset to fit in other dimensions.<br /><br />If we try all four sides and get clipped each time, settle for overflowing and use the "bottom" side, since the ability to scroll is most likely in this direction. |
 
 \* If `side` is set to `"inside-center"`, this defaults to `0` instead of `4`.
 
 \** If using outside positioning, or if `align` is set to `"center"`, this defaults to `0` instead of `4`.
 
+#### AnchorSide
+
+`AnchorSide` can be any of the following strings:
+
+`'inside-top'`, `'inside-bottom'`, `'inside-left'`, `'inside-right'`, `'inside-center'`, `'outside-top'`, `'outside-bottom'`, `'outside-left'`, `'outside-right'`
+
+#### AnchorAlignment
+
+`AnchorAlignment` can be any of the following strings:
+
+`'start'`, `'center'`, `'end'`
+
+### Best practices
+
+As discussed above, the positioning algorithm needs to first measure the size of three different elements. Therefore, all three of these elements (anchor element, floating element, and the floating element's closest positioned container) must be rendered at the time `getAnchoredPosition` is called. Use these tips to get the best results:
+
+1. To avoid a frame where the floating element is rendered at the `(0, 0)` position, give it a style of `visibility: hidden` until its position is returned at set. This allows the element to be measured without showing up on the page.
+2. When checking for overflow, the positioning algorithm checks that the floating element at its calculated coordinates completely fits within its closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. Therefore, such a container should completely fill _its_ parent container without relying on automatic sizing or overflow.
+
 ### A note on performance
 
-Every time `getAnchoredPosition` is called, it causes a [reflow](https://developers.google.com/speed/docs/insights/browser-reflow) because it needs to query the rendering engine for the positions of 3 elements: the anchor element, the floating element, and the closest ancestor of the floating element that is _positioned_. Therefore, this function should not be called until it is needed (e.g. an overlay-style menu is invoked and displayed).
+Every time `getAnchoredPosition` is called, it causes a [reflow](https://developers.google.com/speed/docs/insights/browser-reflow) because it needs to query the rendering engine for the positions of 3 elements: the anchor element, the floating element, and the closest ancestor of the floating element that is [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning). Therefore, this function should not be called until it is needed (e.g. an overlay-style menu is invoked and displayed).
 
 ## useAnchoredPosition hook
 
@@ -92,5 +141,5 @@ export const UseAnchoredPosition = () => {
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| floatingElementRef | React.RefObject | undefined | If provided, this will be the ref used to access the element that will be used for the floating element. Its size measurements are needed by the underlying `useAnchoredPosition` routine. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the floating element's JSX. |
-| anchorElementRef | React.RefObject | undefined | If provided, this will be the ref used to access the element that will be used for the anchor element. Its position and size measurements are needed by the underlying `useAnchoredPosition` routine. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the anchor element's JSX. |
+| floatingElementRef | React.RefObject | undefined | If provided, this will be the ref used to access the element that will be used for the floating element. Its size measurements are needed by the underlying `useAnchoredPosition` behavior. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the floating element's JSX. |
+| anchorElementRef | React.RefObject | undefined | If provided, this will be the ref used to access the element that will be used for the anchor element. Its position and size measurements are needed by the underlying `useAnchoredPosition` behavior. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the anchor element's JSX. |

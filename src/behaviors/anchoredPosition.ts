@@ -1,4 +1,4 @@
-export type AnchoredPositionAlign = 'first' | 'center' | 'last'
+export type AnchorAlignment = 'start' | 'center' | 'end'
 
 // When prettier supports template literal types...
 // export type AnchorSide = `${'inside' | 'outside'}-${'top' | 'bottom' | 'right' | 'left'}` | 'inside-center'
@@ -41,12 +41,12 @@ export interface PositionSettings {
 
   /**
    * Determines how the floating element should align with the anchor element. If
-   * set to "first", the floating element's first edge (top or left) will align
+   * set to "start", the floating element's first edge (top or left) will align
    * with the anchor element's first edge. If set to "center", the floating
-   * element will be centered along the axis of the anchor edge. If set to "last",
+   * element will be centered along the axis of the anchor edge. If set to "end",
    * the floating element's last edge will align with the anchor element's last edge.
    */
-  align: AnchoredPositionAlign
+  align: AnchorAlignment
 
   /**
    * The number of pixels between the anchor edge and the floating element.
@@ -169,7 +169,7 @@ function getPositionedParent(element: Element) {
 // Default settings to position a floating element
 const positionDefaults: PositionSettings = {
   side: 'outside-bottom',
-  align: 'first',
+  align: 'start',
 
   // note: the following default is not applied if side === "inside-center"
   anchorOffset: 4,
@@ -284,7 +284,7 @@ function calculatePosition(
   elementDimensions: Size,
   anchorPosition: BoxPosition,
   side: AnchorSide,
-  align: AnchoredPositionAlign,
+  align: AnchorAlignment,
   anchorOffset: number,
   alignmentOffset: number
 ) {
@@ -303,21 +303,21 @@ function calculatePosition(
   }
 
   if (side === 'outside-top' || side === 'outside-bottom') {
-    if (align === 'first') {
+    if (align === 'start') {
       left = anchorPosition.left + alignmentOffset
     } else if (align === 'center') {
       left = anchorPosition.left - (elementDimensions.width - anchorPosition.width) / 2 + alignmentOffset
-    } else if (align === 'last') {
+    } else if (align === 'end') {
       left = anchorRight - elementDimensions.width - alignmentOffset
     }
   }
 
   if (side === 'outside-left' || side === 'outside-right') {
-    if (align === 'first') {
+    if (align === 'start') {
       top = anchorPosition.top + alignmentOffset
     } else if (align === 'center') {
       top = anchorPosition.top - (elementDimensions.height - anchorPosition.height) / 2 + alignmentOffset
-    } else if (align === 'last') {
+    } else if (align === 'end') {
       top = anchorBottom - elementDimensions.height - alignmentOffset
     }
   }
@@ -335,19 +335,19 @@ function calculatePosition(
   }
 
   if (side === 'inside-top' || side === 'inside-bottom') {
-    if (align === 'first') {
+    if (align === 'start') {
       left = anchorPosition.left + alignmentOffset
     } else if (align === 'center') {
       left = anchorPosition.left - (elementDimensions.width - anchorPosition.width) / 2 + alignmentOffset
-    } else if (align === 'last') {
+    } else if (align === 'end') {
       left = anchorRight - elementDimensions.width - alignmentOffset
     }
   } else if (side === 'inside-left' || side === 'inside-right' || side === 'inside-center') {
-    if (align === 'first') {
+    if (align === 'start') {
       top = anchorPosition.top + alignmentOffset
     } else if (align === 'center') {
       top = anchorPosition.top - (elementDimensions.height - anchorPosition.height) / 2 + alignmentOffset
-    } else if (align === 'last') {
+    } else if (align === 'end') {
       top = anchorBottom - elementDimensions.height - alignmentOffset
     }
   }
