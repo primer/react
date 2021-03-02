@@ -16,7 +16,7 @@ const Wrapper = styled.li`
   &::after {
     padding-right: 0.5em;
     padding-left: 0.5em;
-    color: ${get('colors.gray.2')};
+    color: ${get('colors.text.disabled')};
     font-size: ${get('fontSizes.1')};
     content: '/';
   }
@@ -63,7 +63,7 @@ const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
   className: classnames(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null
 }))<StyledBreadcrumbItemProps>`
-  color: ${get('colors.blue.5')};
+  color: ${get('colors.text.link')};
   display: inline-block;
   font-size: ${get('fontSizes.1')};
   text-decoration: none;
@@ -71,7 +71,7 @@ const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
     text-decoration: underline;
   }
   &.selected {
-    color: ${get('colors.gray.7')};
+    color: ${get('colors.text.primary')};
     pointer-events: none;
   }
   ${COMMON}
