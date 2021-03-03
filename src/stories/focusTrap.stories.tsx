@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useEffect} from 'react'
 import {Meta} from '@storybook/react'
+import {ThemeProvider} from 'styled-components'
 
-import {BaseStyles, BorderBox, Button} from '..'
+import {BaseStyles, BorderBox, Button, theme} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Flex from '../Flex'
 
@@ -11,9 +12,11 @@ export default {
   decorators: [
     Story => {
       return (
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
+        </ThemeProvider>
       )
     }
   ]
@@ -40,13 +43,12 @@ export const FocusTrap = () => {
   }, [spaceListener])
 
   return (
-
     <Flex flexDirection="column" alignItems="flex-start">
       <Button>Apple</Button>
       <Button>Banana</Button>
       <Button>Cantaloupe</Button>
       <BorderBox ref={containerProps.ref as React.RefObject<HTMLDivElement>} m={4} p={4}>
-        <h3>Trap zone! Press SPACE to {trapEnabled ? "deactivate" : "activate"}.</h3>
+        <h3>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</h3>
         <Flex flexDirection="column" alignItems="flex-start">
           <Button>Durian</Button>
           <Button>Elderberry</Button>
@@ -63,11 +65,15 @@ export const FocusTrap = () => {
 export const MultipleFocusTraps = () => {
   const [trapEnabled1, setTrapEnabled1] = React.useState(false)
   const [trapEnabled2, setTrapEnabled2] = React.useState(false)
+
+  console.log(`trap1enabled: ${trapEnabled1}, trap2enabled: ${trapEnabled2}`)
+
   const {containerProps: containerProps1} = useFocusTrap({disabled: !trapEnabled1})
   const {containerProps: containerProps2} = useFocusTrap({disabled: !trapEnabled2})
 
   const keyListener = React.useCallback(
     event => {
+      console.log("key pressed..." + event.key);
       if (event.key === '1') {
         setTrapEnabled1(!trapEnabled1)
       }
@@ -79,20 +85,23 @@ export const MultipleFocusTraps = () => {
   )
 
   useEffect(() => {
-    document.addEventListener('keypress', keyListener)
+    console.log("Adding event listener")
+    document.addEventListener('keydown', keyListener, {capture: true})
     return () => {
-      document.removeEventListener('keypress', keyListener)
+      console.log("listener removed")
+      document.removeEventListener('keydown', keyListener, {capture: true})
     }
   }, [keyListener])
 
   return (
-
     <Flex flexDirection="column" alignItems="flex-start">
       <Button>Apple</Button>
       <Button>Banana</Button>
       <Button>Cantaloupe</Button>
-      <BorderBox ref={containerProps1.ref as React.RefObject<HTMLDivElement>} m={4} p={4}>
-        <h3>Trap zone! Press SPACE to {trapEnabled1 ? "deactivate" : "activate"}.</h3>
+      <BorderBox ref={containerProps1.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
+        <h3>
+          Trap zone! Press <code>1</code> to {trapEnabled1 ? 'deactivate' : 'activate'}.
+        </h3>
         <Flex flexDirection="column" alignItems="flex-start">
           <Button>Durian</Button>
           <Button>Elderberry</Button>
@@ -102,8 +111,10 @@ export const MultipleFocusTraps = () => {
       <Button>Grapefruit</Button>
       <Button>Honeydew</Button>
       <Button>Jackfruit</Button>
-      <BorderBox ref={containerProps2.ref as React.RefObject<HTMLDivElement>} m={4} p={4}>
-        <h3>Trap zone! Press SPACE to {trapEnabled2 ? "deactivate" : "activate"}.</h3>
+      <BorderBox ref={containerProps2.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
+        <h3>
+          Trap zone! Press <code>2</code> to {trapEnabled2 ? 'deactivate' : 'activate'}.
+        </h3>
         <Flex flexDirection="column" alignItems="flex-start">
           <Button>Kiwi</Button>
           <Button>Lemon</Button>

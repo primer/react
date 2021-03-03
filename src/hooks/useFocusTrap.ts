@@ -1,5 +1,6 @@
 import React from 'react'
 import {focusTrap} from '../behaviors/focusTrap'
+import { useProvidedRefOrCreate } from './useProvidedRefOrCreate'
 
 interface FocusTrapHookSettings {
   containerRef?: React.RefObject<HTMLElement>
@@ -8,8 +9,7 @@ interface FocusTrapHookSettings {
 
 export function useFocusTrap(
   settings?: FocusTrapHookSettings
-): {containerProps: {ref: React.MutableRefObject<HTMLElement | undefined>}} {
-  // const containerRef = React.useRef<HTMLElement>()
+): {containerProps: {ref: React.RefObject<HTMLElement>}} {
   const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()

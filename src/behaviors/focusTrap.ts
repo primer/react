@@ -13,6 +13,7 @@ const suspendedTrapStack: FocusTrapMetadata[] = []
 let activeTrap: FocusTrapMetadata | undefined = undefined
 
 export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
+  container.style.backgroundColor = '#9FE2BF'
   function ensureTrapFocus(focusedElement: EventTarget | null) {
     if (focusedElement instanceof HTMLElement) {
       if (container.contains(focusedElement)) {
@@ -22,7 +23,9 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
         if (lastFocusedChild && lastFocusedChild.tabIndex !== -1) {
           lastFocusedChild.focus()
         } else {
-          iterateFocusableElements(container).next()?.value.focus()
+          iterateFocusableElements(container)
+            .next()
+            ?.value.focus()
         }
       }
     }
@@ -34,8 +37,11 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
   const controller = new AbortController()
   signal.addEventListener('abort', () => {
     controller.abort()
-    activeTrap = undefined;
-    const trapToReactivate = suspendedTrapStack.pop();
+    if (activeTrap) {
+      activeTrap.container.style.backgroundColor = '#FF7F50'
+    }
+    activeTrap = undefined
+    const trapToReactivate = suspendedTrapStack.pop()
     if (trapToReactivate) {
       focusTrap(trapToReactivate.container, trapToReactivate.originalSignal)
     }
