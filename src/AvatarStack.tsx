@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import {Absolute} from './Position'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledAvatarStackWrapperProps = {
@@ -157,10 +156,6 @@ const AvatarStack = ({children, alignRight, ...rest}: AvatarStackProps) => {
       </Absolute>
     </AvatarStackWrapper>
   )
-}
-
-AvatarStack.defaultProps = {
-  theme
 }
 
 export default AvatarStack

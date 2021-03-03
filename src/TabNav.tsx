@@ -4,7 +4,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'TabNav-item'
@@ -70,10 +69,6 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   ${COMMON};
   ${sx};
 `
-
-TabNav.defaultProps = {theme}
-
-TabNavLink.defaultProps = {theme}
 
 TabNavLink.displayName = 'TabNav.Link'
 

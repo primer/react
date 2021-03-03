@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
-import theme from '../theme'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -39,8 +38,6 @@ const SelectMenuTabs = ({children, ...rest}: SelectMenuTabsProps) => {
     </SelectMenuTabsBase>
   )
 }
-
-SelectMenuTabs.defaultProps = {theme}
 
 SelectMenuTabs.displayName = 'SelectMenu.Tabs'
 

@@ -5,7 +5,6 @@ import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const sizeVariants = variant({
@@ -128,7 +127,7 @@ type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>}
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({icon: IconComponent, contrast, className, block, disabled, sx, ...rest}, ref) => {
+  ({icon: IconComponent, contrast, className, block, disabled, theme, sx, ...rest}, ref) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const wrapperProps = pick(rest)
@@ -152,7 +151,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
 )
 
 TextInput.defaultProps = {
-  theme,
   type: 'text'
 }
 

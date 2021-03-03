@@ -3,7 +3,6 @@ import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 type StyledModalProps = {
@@ -113,7 +112,6 @@ const SelectMenuModal = React.forwardRef<HTMLDivElement, SelectMenuModalInternal
 
 SelectMenuModal.defaultProps = {
   align: 'left',
-  theme,
   width: '300px'
 }
 

@@ -6,7 +6,6 @@ import BorderBox from './BorderBox'
 import {COMMON, get} from './constants'
 import Link from './Link'
 import sx from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type SideNavBaseProps = {
@@ -153,12 +152,10 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 `
 
 SideNav.defaultProps = {
-  theme,
   variant: 'normal'
 }
 
 SideNavLink.defaultProps = {
-  theme,
   variant: 'normal'
 }
 
