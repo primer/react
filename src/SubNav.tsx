@@ -99,7 +99,7 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   &:hover,
   &:focus {
     text-decoration: none;
-    background-color: ${get('colors.bg.canvasInset')};
+    background-color: ${get('colors.bg.tertiary')};
     transition: 0.2s ease;
 
     .SubNav-octicon {
@@ -108,11 +108,11 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   }
 
   &.selected {
-    color: ${get('colors.text.inverse')};
-    background-color: ${get('colors.bg.infoInverse')};
-    border: 0;
+    color: ${get('colors.state.selected.primaryText')};
+    background-color: ${get('colors.state.selected.primaryBg')};
+    border-color: ${get('colors.state.selected.primaryBorder')};
     .SubNav-octicon {
-      color: ${get('colors.icon.secondary')};
+      color: ${get('colors.state.selected.primaryText')};
     }
   }
 
