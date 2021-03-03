@@ -139,8 +139,7 @@ const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
 )
 
 DialogHeader.defaultProps = {
-  backgroundColor: 'bg.canvasInset',
-  theme
+  backgroundColor: 'bg.canvasInset'
 }
 
 DialogHeader.propTypes = {
