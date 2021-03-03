@@ -27,7 +27,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   ${sx};
 `
 
-const ButtonClose = forwardRef<HTMLButtonElement, ComponentProps<typeof StyledButton>>(props, ref) => {
+const ButtonClose = forwardRef<HTMLButtonElement, ComponentProps<typeof StyledButton>>((props, ref) => {
   return (
     <StyledButton ref={ref} aria-label="Close" {...props}>
       <XIcon />
