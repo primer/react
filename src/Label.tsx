@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled, {css} from 'styled-components'
 import {borderColor, BorderColorProps, variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
@@ -72,15 +71,6 @@ Label.defaultProps = {
   theme,
   bg: 'gray.5',
   variant: 'medium'
-}
-
-Label.propTypes = {
-  dropshadow: PropTypes.bool,
-  outline: PropTypes.bool,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['small', 'medium', 'large', 'xl']),
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 export type LabelProps = ComponentProps<typeof Label>

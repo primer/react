@@ -100,7 +100,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   overflow: hidden;
   text-align: left;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #ffffff;
   border: 0;
   border-bottom: 1px solid #eaecef;
   color: #586069;
@@ -166,7 +166,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -184,7 +184,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 6px;
   box-shadow: 0 1px 5px rgba(27,31,35,0.15);
   -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;

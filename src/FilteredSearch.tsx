@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
+import sx, {SxProp} from './sx'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
-import sx, {SxProp} from './sx'
 
 const FilteredSearch = styled.div<SystemCommonProps & SxProp>`
   ${COMMON};
@@ -28,12 +27,6 @@ const FilteredSearch = styled.div<SystemCommonProps & SxProp>`
 
 FilteredSearch.defaultProps = {
   theme
-}
-
-FilteredSearch.propTypes = {
-  ...COMMON.propTypes,
-  theme: PropTypes.object,
-  ...sx.propTypes
 }
 
 export type FilteredSearchProps = ComponentProps<typeof FilteredSearch>

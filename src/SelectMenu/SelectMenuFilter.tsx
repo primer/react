@@ -1,12 +1,11 @@
-import React, {useRef, useContext, forwardRef, useEffect} from 'react'
+import React, {forwardRef, useContext, useEffect, useRef} from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import {COMMON, get, SystemCommonProps} from '../constants'
-import theme from '../theme'
-import TextInput, {TextInputProps} from '../TextInput'
-import {MenuContext} from './SelectMenuContext'
 import sx, {SxProp} from '../sx'
+import TextInput, {TextInputProps} from '../TextInput'
+import theme from '../theme'
 import {ComponentProps} from '../utils/types'
+import {MenuContext} from './SelectMenuContext'
 
 const StyledForm = styled.form<SystemCommonProps & SxProp>`
   padding: ${get('space.3')};
@@ -50,13 +49,6 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
 SelectMenuFilter.defaultProps = {
   theme
 }
-
-SelectMenuFilter.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes,
-  value: PropTypes.string
-}
-
 SelectMenuFilter.displayName = 'SelectMenu.Filter'
 
 export type SelectMenuFilterProps = ComponentProps<typeof SelectMenuFilter>

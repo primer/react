@@ -1,10 +1,16 @@
-import {colors as colorPrimitives, typography} from '@primer/primitives'
-import {lighten, rgba, desaturate} from 'polished'
+// @preval
+// This file needs to be a JavaScript file using CommonJS to be compatiable with preval
 
-const {lineHeights} = typography
-const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = colorPrimitives
+const {default: primitives} = require('@primer/primitives')
+const {lighten, rgba, desaturate} = require('polished')
+const deepmerge = require('deepmerge')
+const {filterObject, isShadowValue, isColorValue, fontStack} = require('./utils/theme')
+
+const {lineHeight: lineHeights} = primitives.typography.normal
+const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.scale
+
 // General
-export const colors = {
+const colors = {
   bodytext: gray[9],
   black,
   white,
@@ -32,7 +38,6 @@ export const colors = {
     success: green[5],
     unknown: gray[4]
   },
-
   border: {
     blackFade: rgba(black, 0.15),
     blue: blue[5],
@@ -88,7 +93,7 @@ export const colors = {
     pink: pink[4],
     pinkText: pink[6],
     purple: purple[4],
-    purpleText: [5]
+    purpleText: purple[5]
   }
 }
 
@@ -360,18 +365,28 @@ const stateLabels = {
   }
 }
 
-export const theme = {
+const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, value =>
+  isColorValue(value)
+)
+const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, value =>
+  isShadowValue(value)
+)
+
+const mergedColors = deepmerge(colors, functionalColors)
+const mergedShadows = deepmerge(shadows, functionalShadows)
+
+const theme = {
   // General
   animation,
   borderWidths,
   breakpoints,
-  colors,
+  colors: mergedColors,
   fonts,
   fontSizes,
   fontWeights,
   lineHeights,
   radii,
-  shadows,
+  shadows: mergedShadows,
   sizes,
   space,
 
@@ -385,6 +400,7 @@ export const theme = {
   stateLabels
 }
 
-function fontStack(fonts: string[]) {
-  return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
+module.exports = {
+  theme,
+  colors
 }

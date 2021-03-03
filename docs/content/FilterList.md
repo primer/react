@@ -27,8 +27,6 @@ FilterList components get `COMMON` system props. Read our [System Props](/system
 #### FilterList
 
 `FilterList` does not get any additional props other than the system props mentioned above.
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
 
 #### FilterList.Item
 

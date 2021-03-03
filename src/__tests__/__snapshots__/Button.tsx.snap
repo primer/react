@@ -194,7 +194,7 @@ exports[`ButtonDanger renders consistently 1`] = `
 }
 
 .c0:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #cb2431;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -206,7 +206,7 @@ exports[`ButtonDanger renders consistently 1`] = `
 }
 
 .c0:active {
-  color: #fff;
+  color: #ffffff;
   background-color: #be222e;
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
   border-color: rgba(27,31,35,0.15);
@@ -270,7 +270,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 }
 
 .c0:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #cb2431;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -282,7 +282,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 }
 
 .c0:active {
-  color: #fff;
+  color: #ffffff;
   background-color: #be222e;
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
   border-color: rgba(27,31,35,0.15);
@@ -400,7 +400,7 @@ exports[`ButtonInvisible renders consistently 1`] = `
 }
 
 .c0:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #0366d6;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -412,7 +412,7 @@ exports[`ButtonInvisible renders consistently 1`] = `
 }
 
 .c0:active {
-  color: #fff;
+  color: #ffffff;
   background-color: #035fc7;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -537,7 +537,7 @@ exports[`ButtonOutline renders consistently 1`] = `
 }
 
 .c0:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #0366d6;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -549,7 +549,7 @@ exports[`ButtonOutline renders consistently 1`] = `
 }
 
 .c0:active {
-  color: #fff;
+  color: #ffffff;
   background-color: #035fc7;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -613,7 +613,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
 }
 
 .c0:hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #0366d6;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -625,7 +625,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
 }
 
 .c0:active {
-  color: #fff;
+  color: #ffffff;
   background-color: #035fc7;
   border-color: rgba(27,31,35,0.15);
   box-shadow: 0px 1px 0px rgba(27,31,35,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -666,7 +666,7 @@ exports[`ButtonPrimary renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #fff;
+  color: #ffffff;
   background-color: #2EA44F;
   border: 1px solid #22863a;
   box-shadow: 0px 1px 0px rgba(20,70,32,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);
@@ -740,7 +740,7 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #fff;
+  color: #ffffff;
   background-color: #2EA44F;
   border: 1px solid #22863a;
   box-shadow: 0px 1px 0px rgba(20,70,32,0.1),inset 0px 2px 0px rgba(255,255,255,0.03);

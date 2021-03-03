@@ -1,10 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
-import theme from './theme'
 import sx, {SxProp} from './sx'
+import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const TooltipBase = styled.span<SystemCommonProps & SxProp>`
@@ -30,7 +29,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
     padding: 0.5em 0.75em;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.white')};
+    color: ${get('colors.tooltip.text')};
     text-align: center;
     text-decoration: none;
     text-shadow: none;
@@ -40,7 +39,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
     white-space: pre;
     pointer-events: none;
     content: attr(aria-label);
-    background: ${get('colors.black')};
+    background: ${get('colors.tooltip.bg')};
     border-radius: ${get('radii.1')};
     opacity: 0;
   }
@@ -103,7 +102,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       right: 50%;
       bottom: -7px;
       margin-right: -6px;
-      border-bottom-color: ${get('colors.black')};
+      border-bottom-color: ${get('colors.tooltip.bg')};
     }
   }
 
@@ -134,7 +133,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       right: 50%;
       bottom: auto;
       margin-right: -6px;
-      border-top-color: ${get('colors.black')};
+      border-top-color: ${get('colors.tooltip.bg')};
     }
   }
 
@@ -170,7 +169,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       bottom: 50%;
       left: -7px;
       margin-top: -6px;
-      border-left-color: ${get('colors.black')};
+      border-left-color: ${get('colors.tooltip.bg')};
     }
   }
 
@@ -188,7 +187,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       right: -7px;
       bottom: 50%;
       margin-top: -6px;
-      border-right-color: ${get('colors.black')};
+      border-right-color: ${get('colors.tooltip.bg')};
     }
   }
 
@@ -261,20 +260,6 @@ Tooltip.alignments = ['left', 'right']
 
 Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
-Tooltip.defaultProps = {
-  theme
-}
-
-Tooltip.propTypes = {
-  align: PropTypes.oneOf(Tooltip.alignments),
-  children: PropTypes.node,
-  direction: PropTypes.oneOf(Tooltip.directions),
-  noDelay: PropTypes.bool,
-  text: PropTypes.string,
-  theme: PropTypes.object,
-  wrap: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
+Tooltip.defaultProps = {theme}
 
 export default Tooltip

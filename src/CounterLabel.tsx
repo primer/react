@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
@@ -52,14 +51,6 @@ const CounterLabel = styled.span<StyledCounterLabelProps>`
 
 CounterLabel.defaultProps = {
   theme
-}
-
-CounterLabel.propTypes = {
-  children: PropTypes.node,
-  scheme: PropTypes.oneOf(['gray', 'gray-light']),
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 export type CounterLabelProps = ComponentProps<typeof CounterLabel>

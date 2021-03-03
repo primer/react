@@ -1,12 +1,11 @@
-import React, {useContext, useEffect} from 'react'
 import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
-import {MenuContext} from './SelectMenuContext'
-import {get, COMMON, SystemCommonProps} from '../constants'
-import theme from '../theme'
+import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
+import theme from '../theme'
 import {ComponentProps} from '../utils/types'
+import {MenuContext} from './SelectMenuContext'
 
 const tabStyles = css`
   flex: 1;
@@ -88,14 +87,6 @@ const SelectMenuTab = ({tabName = '', index, className, onClick, ...rest}: Selec
 
 SelectMenuTab.defaultProps = {
   theme
-}
-
-SelectMenuTab.propTypes = {
-  index: PropTypes.number,
-  onClick: PropTypes.func,
-  tabName: PropTypes.string,
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 SelectMenuTab.displayName = 'SelectMenu.Tab'

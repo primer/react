@@ -1,4 +1,4 @@
-import {theme, colors} from /* preval */ './theme-preval'
+import {theme, colors} from './theme-preval'
 
 export default theme
 export {colors}
