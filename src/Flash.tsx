@@ -3,8 +3,37 @@ import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 
+const variantAliases = {
+  default: 'info',
+  info: 'info',
+  warning: 'warn',
+  danger: 'error',
+  success: 'success'
+}
+
 const variants = variant({
-  scale: 'flash'
+  variants: {
+    default: {
+      color: 'alert.info.text',
+      backgroundColor: 'alert.info.bg',
+      borderColor: 'alert.success.border'
+    },
+    success: {
+      color: 'alert.success.text',
+      backgroundColor: 'alert.success.bg',
+      borderColor: 'alert.success.border'
+    },
+    danger: {
+      color: 'alert.error.text',
+      backgroundColor: 'alert.error.bg',
+      borderColor: 'alert.error.border'
+    },
+    warning: {
+      color: 'alert.warn.text',
+      backgroundColor: 'alert.warn.bg',
+      borderColor: 'alert.warn.border'
+    }
+  }
 })
 
 const Flash = styled.div<
@@ -15,7 +44,7 @@ const Flash = styled.div<
     SxProp
 >`
   position: relative;
-  color: ${get('colors.text.grayDark')};
+  color: ${get('colors.text.primary')};
   padding: ${get('space.3')};
   border-style: solid;
   border-width: ${props => (props.full ? '1px 0px' : '1px')};
@@ -27,7 +56,7 @@ const Flash = styled.div<
   }
 
   svg {
-    color: ${props => get(`flashIcon.${props.variant}`)(props.theme)};
+    color: ${props => get(`colors.alert.${variantAliases[props.variant || 'default']}.icon`)(props.theme)};
     margin-right: ${get('space.2')};
   }
 
