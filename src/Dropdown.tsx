@@ -140,12 +140,12 @@ DropdownMenu.displayName = 'Dropdown.Menu'
 
 DropdownItem.displayName = 'Dropdown.Item'
 
-DropdownButton.defaultProps = {...Button.defaultProps}
+DropdownButton.defaultProps = Button.defaultProps
 DropdownButton.displayName = 'Dropdown.Button'
 
 DropdownCaret.displayName = 'Dropdown.Caret'
 
-Dropdown.defaultProps = {...Details.defaultProps}
+Dropdown.defaultProps = Details.defaultProps
 
 export type DropdownCaretProps = ComponentProps<typeof DropdownCaret>
 export type DropdownMenuProps = ComponentProps<typeof DropdownMenu>
