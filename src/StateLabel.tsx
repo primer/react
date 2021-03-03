@@ -22,32 +22,32 @@ const colorVariants = variant({
     issueClosed: {
       backgroundColor: 'prState.closed.bg',
       color: 'prState.closed.text',
-      border: 'prState.closed.border'
+      borderColor: 'prState.closed.border'
     },
     pullClosed: {
       backgroundColor: 'prState.closed.bg',
       color: 'prState.closed.text',
-      border: 'prState.closed.border'
+      borderColor: 'prState.closed.border'
     },
     pullMerged: {
       backgroundColor: 'prState.merged.bg',
       color: 'prState.merged.text',
-      border: 'prState.merged.border'
+      borderColor: 'prState.merged.border'
     },
     issueOpened: {
       backgroundColor: 'prState.open.bg',
       color: 'prState.open.text',
-      border: 'prState.open.border'
+      borderColor: 'prState.open.border'
     },
     pullOpened: {
       backgroundColor: 'prState.open.bg',
       color: 'prState.open.text',
-      border: 'prState.open.border'
+      borderColor: 'prState.open.border'
     },
     draft: {
       backgroundColor: 'prState.draft.bg',
       color: 'prState.draft.text',
-      border: 'prState.draft.border'
+      borderColor: 'prState.draft.border'
     }
   }
 })
@@ -56,12 +56,14 @@ const sizeVariants = variant({
   prop: 'variant',
   variants: {
     small: {
-      padding: '4px 8px',
-      fontSize: '12px'
+      paddingX: 2,
+      paddingY: 1,
+      fontSize: 0
     },
     normal: {
-      padding: `8px 12px`,
-      fontSize: '14px'
+      paddingX: '12px',
+      paddingY: 2,
+      fontSize: 1
     }
   }
 })
@@ -75,11 +77,13 @@ type StyledStateLabelBaseProps = {
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   display: inline-flex;
   align-items: center;
-  font-weight: 600;
+  font-weight: ${get('fontWeights.bold')};
   line-height: 16px;
   color: ${get('colors.bg.primary')};
   text-align: center;
   border-radius: ${get('radii.3')};
+  border-width: 1px;
+  border-style: solid;
   ${colorVariants};
   ${sizeVariants};
   ${COMMON};
