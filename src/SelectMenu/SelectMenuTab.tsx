@@ -3,7 +3,6 @@ import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
@@ -83,10 +82,6 @@ const SelectMenuTab = ({tabName = '', index, className, onClick, ...rest}: Selec
       {tabName}
     </StyledTab>
   )
-}
-
-SelectMenuTab.defaultProps = {
-  theme
 }
 
 SelectMenuTab.displayName = 'SelectMenu.Tab'

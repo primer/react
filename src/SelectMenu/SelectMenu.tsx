@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import useKeyboardNav from './hooks/useKeyboardNav'
 import {MenuContext} from './SelectMenuContext'
@@ -98,7 +97,6 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
 
 SelectMenu.displayName = 'SelectMenu'
 
-SelectMenu.defaultProps = {theme}
 
 export type SelectMenuProps = ComponentProps<typeof SelectMenu>
 export type { SelectMenuDividerProps } from './SelectMenuDivider'

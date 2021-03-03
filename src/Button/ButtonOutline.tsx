@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
@@ -39,10 +38,6 @@ const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & S
   ${buttonSystemProps};
   ${sx};
 `
-
-ButtonOutline.defaultProps = {
-  theme
-}
 
 export type ButtonOutlineProps = ComponentProps<typeof ButtonOutline>
 export default ButtonOutline

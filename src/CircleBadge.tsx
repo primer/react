@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import isNumeric from './utils/isNumeric'
 import {ComponentProps} from './utils/types'
 
@@ -46,12 +45,7 @@ const CircleBadgeIcon = styled(StyledOcticon)`
 `
 
 CircleBadge.defaultProps = {
-  inline: false,
-  theme
-}
-
-CircleBadgeIcon.defaultProps = {
-  theme
+  inline: false
 }
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'

@@ -1,6 +1,5 @@
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
-import theme from '../theme'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -22,8 +21,6 @@ const SelectMenuFooter = styled.footer<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx};
 `
-
-SelectMenuFooter.defaultProps = {theme}
 
 SelectMenuFooter.displayName = 'SelectMenu.Footer'
 
