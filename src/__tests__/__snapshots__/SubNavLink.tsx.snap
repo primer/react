@@ -53,11 +53,11 @@ exports[`SubNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" p
 .c0.selected {
   color: #ffffff;
   background-color: #0366d6;
-  border: 0;
+  border-color: #0366d6;
 }
 
 .c0.selected .SubNav-octicon {
-  color: #586069;
+  color: #ffffff;
 }
 
 <div
@@ -120,11 +120,11 @@ exports[`SubNav.Link renders consistently 1`] = `
 .c0.selected {
   color: #ffffff;
   background-color: #0366d6;
-  border: 0;
+  border-color: #0366d6;
 }
 
 .c0.selected .SubNav-octicon {
-  color: #586069;
+  color: #ffffff;
 }
 
 <a
@@ -185,11 +185,11 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
 .c0.selected {
   color: #ffffff;
   background-color: #0366d6;
-  border: 0;
+  border-color: #0366d6;
 }
 
 .c0.selected .SubNav-octicon {
-  color: #586069;
+  color: #ffffff;
 }
 
 <a
