@@ -100,7 +100,6 @@ If you'd like to fully replace the Primer [theme](https://github.com/primer/comp
 
 ```jsx
 import {ThemeProvider} from 'styled-components'
-import {theme} from '@primer/components'
 const theme = { ... }
 
 const App = (props) => {
