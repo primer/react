@@ -11,7 +11,7 @@ const SELECTED_CLASS = 'selected'
 
 const TabNavBase = styled.div<SystemCommonProps & SxProp>`
   margin-top: 0;
-  border-bottom: 1px solid ${get('colors.border.gray')};
+  border-bottom: 1px solid ${get('colors.border.primary')};
   ${COMMON}
   ${sx}
 `
@@ -46,7 +46,7 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
-  color: ${get('colors.black')};
+  color: ${get('colors.text.primary')};
   text-decoration: none;
   background-color: transparent;
   border: 1px solid transparent;
@@ -54,16 +54,16 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
 
   &:hover,
   &:focus {
-    color: ${get('colors.text.grayDark')};
+    color: ${get('colors.text.primary')};
     text-decoration: none;
   }
 
   &.selected {
-    color: ${get('colors.text.grayDark')};
-    border-color: ${get('colors.border.gray')};
+    color: ${get('colors.text.primary')};
+    border-color: ${get('colors.border.primary')};
     border-top-right-radius: ${get('radii.2')};
     border-top-left-radius: ${get('radii.2')};
-    background-color: ${get('colors.white')};
+    background-color: ${get('colors.bg.canvas')};
   }
 
   ${COMMON};
