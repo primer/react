@@ -1,5 +1,4 @@
 import styled, {css} from 'styled-components'
-import theme from '../theme'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
@@ -19,8 +18,6 @@ const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`
   ${COMMON}
   ${sx};
 `
-
-SelectMenuDivider.defaultProps = {theme}
 
 SelectMenuDivider.displayName = 'SelectMenu.Divider'
 

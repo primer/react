@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
@@ -44,8 +43,6 @@ const SelectMenuHeader = ({children, theme, ...rest}: SelectMenuHeaderProps) => 
     </StyledHeader>
   )
 }
-
-SelectMenuHeader.defaultProps = {theme}
 
 SelectMenuHeader.displayName = 'SelectMenu.Header'
 

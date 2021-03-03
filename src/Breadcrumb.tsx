@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import Box from './Box'
 import {COMMON, FLEX, get, SystemCommonProps, SystemFlexProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const SELECTED_CLASS = 'selected'
@@ -79,15 +78,7 @@ const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
   ${sx};
 `
 
-Breadcrumb.defaultProps = {
-  theme
-}
-
 Breadcrumb.displayName = 'Breadcrumb'
-
-BreadcrumbItem.defaultProps = {
-  theme
-}
 
 BreadcrumbItem.displayName = 'Breadcrumb.Item'
 

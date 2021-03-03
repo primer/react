@@ -2,7 +2,6 @@ import styled, {css} from 'styled-components'
 import {borderColor, BorderColorProps, variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const outlineStyles = css`
@@ -68,7 +67,6 @@ const Label = styled.span<
 `
 
 Label.defaultProps = {
-  theme,
   bg: 'gray.5',
   variant: 'medium'
 }

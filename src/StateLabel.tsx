@@ -5,7 +5,6 @@ import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const octiconMap = {
@@ -102,7 +101,6 @@ function StateLabel({children, status, variant, ...rest}: StateLabelProps) {
 }
 
 StateLabel.defaultProps = {
-  theme,
   variant: 'normal'
 }
 

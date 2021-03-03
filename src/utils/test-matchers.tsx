@@ -1,10 +1,9 @@
-import React from 'react'
+import {Nullish} from '@testing-library/react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
-import theme from '../theme'
+import React from 'react'
 import {ReactTestRendererJSON, ReactTestRendererNode} from 'react-test-renderer'
-import {getClasses, mount, getComputedStyles, render} from './testing'
-import {Nullish} from '@testing-library/react'
+import {getClasses, getComputedStyles, render} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
@@ -72,21 +71,6 @@ expect.extend({
     return {
       pass: checkStylesDeep(rendered),
       message: () => 'sx prop values did not change styles of component nor of any sub-components'
-    }
-  },
-
-  toSetDefaultTheme(Component) {
-    let comp
-    if (Component.type) {
-      comp = Component
-    } else {
-      comp = <Component />
-    }
-    const wrapper = mount(comp)
-    const pass = this.equals(wrapper.prop('theme'), theme)
-    return {
-      pass,
-      message: () => 'default theme is not set'
     }
   },
 

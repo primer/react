@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledAvatarProps = {
@@ -32,7 +31,6 @@ const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
 `
 
 Avatar.defaultProps = {
-  theme,
   size: 20,
   alt: '',
   square: false

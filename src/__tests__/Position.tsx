@@ -30,10 +30,6 @@ describe('position components', () => {
       expect(render(<Absolute />)).toHaveStyleRule('position', 'absolute')
     })
 
-    it('cannot override position', () => {
-      expect(render(<Absolute position="relative" />)).toHaveStyleRule('position', 'absolute')
-    })
-
     it('can render other components with the as prop', () => {
       const result = render(<Absolute as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'absolute')
@@ -60,10 +56,6 @@ describe('position components', () => {
       expect(render(<Fixed />)).toHaveStyleRule('position', 'fixed')
     })
 
-    it('cannot override position', () => {
-      expect(render(<Fixed position="relative" />)).toHaveStyleRule('position', 'fixed')
-    })
-
     it('can render other components with the as prop', () => {
       const result = render(<Fixed as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'fixed')
@@ -86,10 +78,6 @@ describe('position components', () => {
       expect(render(<Relative />)).toHaveStyleRule('position', 'relative')
     })
 
-    it('cannot override position', () => {
-      expect(render(<Relative position="absolute" />)).toHaveStyleRule('position', 'relative')
-    })
-
     it('can render other components with the as prop', () => {
       const result = render(<Relative as={BorderBox} />)
       expect(result).toHaveStyleRule('position', 'relative')
@@ -110,10 +98,6 @@ describe('position components', () => {
 
     it('sets position: sticky', () => {
       expect(render(<Sticky />)).toHaveStyleRule('position', 'sticky')
-    })
-
-    it('cannot override position', () => {
-      expect(render(<Sticky position="absolute" />)).toHaveStyleRule('position', 'sticky')
     })
 
     it('can render other components with the as prop', () => {

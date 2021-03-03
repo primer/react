@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import {COMMON, FLEX, get, SystemBorderProps, SystemCommonProps, SystemFlexProps} from './constants'
 import Flex, {FlexProps} from './Flex'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'SubNav-item'
@@ -120,10 +119,6 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   ${COMMON};
   ${sx};
 `
-
-SubNav.defaultProps = {theme}
-
-SubNavLink.defaultProps = {theme}
 
 SubNavLink.displayName = 'SubNav.Link'
 

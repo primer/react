@@ -91,10 +91,6 @@ describe('SelectMenu', () => {
     cleanup()
   })
 
-  it('has default theme', () => {
-    expect(SelectMenu).toSetDefaultTheme()
-  })
-
   it('does not allow the "as" prop on SelectMenu', () => {
     const component = mount(<BasicSelectMenu as="span" />)
     expect(component.find('details').length).toEqual(1)

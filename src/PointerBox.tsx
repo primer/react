@@ -1,7 +1,6 @@
 import React from 'react'
 import BorderBox, {BorderBoxProps} from './BorderBox'
 import Caret, {CaretProps} from './Caret'
-import theme from './theme'
 
 export type PointerBoxProps = {
   caret?: CaretProps['location']
@@ -12,9 +11,15 @@ export type PointerBoxProps = {
 
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
-  const {bg, border, borderColor} = props
+  const {bg, border, borderColor, theme} = props
   const {caret, children, ...boxProps} = props
-  const caretProps = {bg, borderColor, borderWidth: border, location: caret}
+  const caretProps = {
+    bg,
+    borderColor,
+    borderWidth: border,
+    location: caret,
+    theme
+  }
   return (
     <BorderBox sx={{position: 'relative'}} {...boxProps}>
       {children}
@@ -22,7 +27,5 @@ function PointerBox(props: PointerBoxProps) {
     </BorderBox>
   )
 }
-
-PointerBox.defaultProps = {theme}
 
 export default PointerBox

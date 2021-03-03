@@ -4,7 +4,6 @@ import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
@@ -130,7 +129,6 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
 )
 
 SelectMenuItem.defaultProps = {
-  theme,
   selected: false
 }
 
