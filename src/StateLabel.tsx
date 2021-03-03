@@ -18,7 +18,6 @@ const octiconMap = {
 
 const colorVariants = variant({
   prop: 'status',
-  scale: 'stateLabels.status',
   variants: {
     issueClosed: {
       backgroundColor: 'prState.closed.bg',
@@ -55,7 +54,6 @@ const colorVariants = variant({
 
 const sizeVariants = variant({
   prop: 'variant',
-  scale: 'stateLabels.sizes',
   variants: {
     small: {
       padding: '4px 8px',
