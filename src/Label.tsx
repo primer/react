@@ -67,7 +67,6 @@ const Label = styled.span<
 `
 
 Label.defaultProps = {
-  theme,
   bg: 'label.primary.border',
   variant: 'medium'
 }
