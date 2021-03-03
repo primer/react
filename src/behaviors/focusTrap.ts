@@ -1,36 +1,65 @@
-import {queryFocusable} from './domUtils'
+import {iterateFocusableElements} from './domUtils'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 
 eventListenerSignalPolyfill()
 
+interface FocusTrapMetadata {
+  container: HTMLElement
+  controller: AbortController
+  originalSignal: AbortSignal
+}
+
+const suspendedTrapStack: FocusTrapMetadata[] = []
+let activeTrap: FocusTrapMetadata | undefined = undefined
+
 export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
-  const focusable = queryFocusable(container)
+  function ensureTrapFocus(focusedElement: EventTarget | null) {
+    if (focusedElement instanceof HTMLElement) {
+      if (container.contains(focusedElement)) {
+        // If a child of the trap zone was focused, remember it
+        lastFocusedChild = focusedElement
+      } else {
+        if (lastFocusedChild && lastFocusedChild.tabIndex !== -1) {
+          lastFocusedChild.focus()
+        } else {
+          iterateFocusableElements(container).next()?.value.focus()
+        }
+      }
+    }
+  }
+  let lastFocusedChild: HTMLElement | undefined = undefined
+
+  // @todo If AbortController.prototype.follow is ever implemented, that could replace
+  // the next few lines. @see https://github.com/whatwg/dom/issues/920
+  const controller = new AbortController()
+  signal.addEventListener('abort', () => {
+    controller.abort()
+    activeTrap = undefined;
+    const trapToReactivate = suspendedTrapStack.pop();
+    if (trapToReactivate) {
+      focusTrap(trapToReactivate.container, trapToReactivate.originalSignal)
+    }
+  })
+
+  if (activeTrap) {
+    suspendedTrapStack.push(activeTrap)
+    activeTrap.controller.abort()
+  }
 
   document.addEventListener(
     'focusin',
     (event: FocusEvent) => {
-      if (event.target instanceof Node) {
-        const nodeComparison = container.compareDocumentPosition(event.target)
-
-        if ((nodeComparison & Node.DOCUMENT_POSITION_CONTAINED_BY) === 0) {
-          // Only act if the newly focused element is outside the container
-          if (nodeComparison & Node.DOCUMENT_POSITION_PRECEDING) {
-            // The focused Element is before the container
-            focusable[0].focus()
-          } else if (nodeComparison & Node.DOCUMENT_POSITION_FOLLOWING) {
-            // The focused Element is after the container
-            focusable[focusable.length - 1].focus()
-          } else {
-            // Unsure! Maybe the container is not attached to #document? Do nothing.
-          }
-        }
-      }
+      ensureTrapFocus(event.target)
     },
-    {signal} as AddEventListenerOptions
+    {signal: controller.signal} as AddEventListenerOptions
   )
 
   // focus the first element
-  if (!container.contains(document.activeElement)) {
-    focusable[0].focus()
+  ensureTrapFocus(document.activeElement)
+
+  activeTrap = {
+    container,
+    controller,
+    originalSignal: signal
   }
 }

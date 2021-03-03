@@ -1,14 +1,11 @@
-const FOCUSABLE_SELECTOR = [
-  'a[href]:not([disabled])',
-  'button:not([disabled])',
-  'textarea:not([disabled])',
-  'input[type="text"]:not([disabled])',
-  'input[type="radio"]:not([disabled])',
-  'input[type="checkbox"]:not([disabled])',
-  'select:not([disabled])',
-  '[tabindex]:not([tabindex="-1"])'
-].join(', ')
-
-export function queryFocusable(container: Element): NodeListOf<HTMLElement> {
-  return container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+export function* iterateFocusableElements(container: Element): Generator<HTMLElement> {
+  const iterator = document.createNodeIterator(container, NodeFilter.SHOW_ELEMENT, {
+    acceptNode: node =>
+      node instanceof HTMLElement && node.tabIndex === -1 ? NodeFilter.FILTER_SKIP : NodeFilter.FILTER_ACCEPT
+  })
+  let nextNode: HTMLElement | null = iterator.nextNode() as HTMLElement
+  while (nextNode) {
+    yield nextNode
+    nextNode = iterator.nextNode() as HTMLElement | null
+  }
 }

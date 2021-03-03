@@ -9,8 +9,8 @@ interface FocusTrapHookSettings {
 export function useFocusTrap(
   settings?: FocusTrapHookSettings
 ): {containerProps: {ref: React.MutableRefObject<HTMLElement | undefined>}} {
-  const containerRef = React.useRef<HTMLElement>()
-  // const containerRef = useProvidedRefOrCreate(settings?.containerRef)
+  // const containerRef = React.useRef<HTMLElement>()
+  const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
 
