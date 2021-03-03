@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledCounterLabelProps = {
@@ -48,10 +47,6 @@ const CounterLabel = styled.span<StyledCounterLabelProps>`
 
   ${sx};
 `
-
-CounterLabel.defaultProps = {
-  theme
-}
 
 export type CounterLabelProps = ComponentProps<typeof CounterLabel>
 export default CounterLabel

@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import Box from './Box'
 import {BORDER, SystemBorderProps} from './constants'
 import sx from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const BorderBox = styled(Box)<SystemBorderProps>`
@@ -11,7 +10,6 @@ const BorderBox = styled(Box)<SystemBorderProps>`
 `
 
 BorderBox.defaultProps = {
-  theme,
   borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: 'border.primary',

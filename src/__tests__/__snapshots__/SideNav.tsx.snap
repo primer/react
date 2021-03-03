@@ -49,10 +49,10 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 }
 
 .c1.variant-normal > .c0 {
-  color: #586069;
+  color: #24292e;
   padding: 16px;
   border: 0;
-  border-top: 1px solid #e1e4e8;
+  border-top: 1px solid #eaecef;
 }
 
 .c1.variant-normal > .c0:first-child {
@@ -72,7 +72,6 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 .c1.variant-normal > .c0:hover,
 .c1.variant-normal > .c0:focus {
-  color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #f6f8fa;
@@ -81,13 +80,12 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 .c1.variant-normal > .c0[aria-current='page'],
 .c1.variant-normal > .c0[aria-selected='true'] {
-  font-weight: 500;
-  color: #24292e;
+  background-color: #ffffff;
 }
 
 .c1.variant-normal > .c0[aria-current='page']::before,
 .c1.variant-normal > .c0[aria-selected='true']::before {
-  background-color: #f66a0a;
+  background-color: #f9826c;
 }
 
 .c1.variant-lightweight > .c0 {
@@ -123,7 +121,7 @@ exports[`SideNav renders consistently 1`] = `
 }
 
 .c1 {
-  background-color: #ffffff;
+  background-color: #fafbfc;
 }
 
 <nav

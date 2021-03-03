@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Avatar from './Avatar'
 import {get} from './constants'
 import {Relative, RelativeProps} from './Position'
-import theme from './theme'
 
 const ChildAvatar = styled(Avatar)`
   position: absolute;
@@ -28,7 +27,5 @@ const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
 
 // styled() changes this
 AvatarPair.displayName = 'AvatarPair'
-
-AvatarPair.defaultProps = {theme}
 
 export default AvatarPair

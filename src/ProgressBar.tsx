@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const Bar = styled.span<{progress?: string | number} & SystemCommonProps>`
@@ -45,11 +44,9 @@ function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
   )
 }
 
-
 ProgressBar.defaultProps = {
   bg: 'state.success',
-  barSize: 'default',
-  theme
+  barSize: 'default'
 }
 
 export default ProgressBar

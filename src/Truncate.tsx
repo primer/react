@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type StyledTruncateProps = {
@@ -30,8 +29,7 @@ const Truncate = styled.div<StyledTruncateProps>`
 Truncate.defaultProps = {
   expandable: false,
   inline: false,
-  maxWidth: 125,
-  theme
+  maxWidth: 125
 }
 
 export type TruncateProps = ComponentProps<typeof Truncate>
