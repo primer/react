@@ -11,11 +11,11 @@ const tabStyles = css`
   padding: ${get('space.2')} ${get('space.3')};
   font-size: ${get('fontSizes.0')};
   font-weight: 500;
-  color: ${get('colors.gray.5')};
+  color: ${get('colors.text.tertiary')};
   text-align: center;
-  background-color: ${get('colors.gray.1')};
+  background-color: transparent;
   border: 0;
-  box-shadow: inset 0 -1px 0 ${get('colors.border.gray')};
+  box-shadow: inset 0 -1px 0 ${get('colors.selectMenu.borderSecondary')};
 
   @media (min-width: ${get('breakpoints.0')}) {
     flex: none;
@@ -24,23 +24,22 @@ const tabStyles = css`
     border-bottom-width: 0;
     border-top-left-radius: ${get('radii.2')};
     border-top-right-radius: ${get('radii.2')};
-    background-color: ${get('colors.white')};
   }
 
   &[aria-selected='true'] {
     z-index: 1; // Keeps box-shadow visible when hovering
-    color: ${get('colors.gray.9')};
-    background-color: ${get('colors.white')};
-    box-shadow: 0 0 0 1px ${get('colors.border.gray')};
+    color: ${get('colors.text-primary')};
+    background-color: ${get('colors.bg.overlay')};
+    box-shadow: 0 0 0 1px ${get('colors.selectMenu.borderSecondary')};
 
     @media (min-width: ${get('breakpoints.0')}) {
-      border-color: ${get('colors.border.gray')};
+      border-color: ${get('colors.selectMenu.borderSecondary')};
       box-shadow: none;
     }
   }
 
   &:focus {
-    background-color: #dbedff;
+    background-color: ${get('colors.state.hover.secondaryBg')};
   }
 `
 

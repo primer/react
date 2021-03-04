@@ -9,8 +9,8 @@ import {MenuContext} from './SelectMenuContext'
 const StyledForm = styled.form<SystemCommonProps & SxProp>`
   padding: ${get('space.3')};
   margin: 0;
-  border-top: ${get('borderWidths.1')} solid ${get('colors.border.gray')};
-  background-color: ${get('colors.white')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
+  background-color: ${get('colors.bg.overlay')};
   ${COMMON};
 
   @media (min-width: ${get('breakpoints.0')}) {
@@ -39,7 +39,7 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
 
     return (
       <StyledForm theme={theme} sx={sx}>
-        <TextInput theme={theme} ref={ref} width="100%" block value={value} {...rest} />
+        <TextInput theme={theme} ref={ref} width="100%" block value={value} contrast {...rest} />
       </StyledForm>
     )
   }
