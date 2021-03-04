@@ -19,8 +19,11 @@ exports[`Flash renders consistently 1`] = `
 }
 
 .c0 svg {
-  color: rgba(4,66,137,0.6);
   margin-right: 8px;
+}
+
+.c0 svg {
+  color: rgba(4,66,137,0.6);
 }
 
 <div

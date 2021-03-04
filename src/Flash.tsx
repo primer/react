@@ -3,14 +3,6 @@ import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 
-const variantAliases = {
-  default: 'info',
-  info: 'info',
-  warning: 'warn',
-  danger: 'error',
-  success: 'success'
-}
-
 const variants = variant({
   variants: {
     default: {
@@ -68,7 +60,6 @@ const Flash = styled.div<
   }
 
   svg {
-    color: ${props => get(`colors.alert.${variantAliases[props.variant || 'default']}.icon`)(props.theme)};
     margin-right: ${get('space.2')};
   }
 
