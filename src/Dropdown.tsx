@@ -56,10 +56,10 @@ type StyledDropdownMenuProps = {
 
 const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   background-clip: padding-box;
-  background-color: ${get('colors.white')};
-  border: 1px solid rgba(27, 31, 35, 0.15);
+  background-color: ${get('colors.bg.overlay')};
+  border: 1px solid ${get('colors.border.overlay')};
   border-radius: ${get('radii.2')};
-  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+  box-shadow: ${get('shadows.dropdown.shadow')};
   left: 0;
   list-style: none;
   margin-top: 2px;
@@ -83,12 +83,12 @@ const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
 
   &::before {
     border: 8px solid transparent;
-    border-bottom-color: ${get('colors.blackfade15')};
+    border-bottom-color: ${get('colors.bg.overlay')};
   }
 
   &::after {
     border: 7px solid transparent;
-    border-bottom-color: ${get('colors.white')};
+    border-bottom-color: ${get('colors.bg.overlay')};
   }
 
   // stylelint-disable-next-line selector-max-type
@@ -104,11 +104,11 @@ const DropdownItem = styled.li`
   display: block;
   padding: ${get('space.1')} 10px ${get('space.1')} 15px;
   overflow: hidden;
-  color: ${get('colors.gray.9')};
+  color: ${get('colors.text.primary')};
   text-overflow: ellipsis;
   white-space: nowrap;
   a {
-    color: ${get('colors.gray.9')};
+    color: ${get('colors.text.primary')};
     text-decoration: none;
     display: block;
     overflow: hidden;
@@ -119,16 +119,16 @@ const DropdownItem = styled.li`
 
   &:focus,
   a:focus {
-    color: ${get('colors.white')};
+    color: ${get('colors.state.hover.primaryText')};
     text-decoration: none;
-    background-color: ${get('colors.blue.5')};
+    background-color: ${get('colors.state.hover.primaryBg')};
   }
 
   &:hover,
   &:hover a {
-    color: ${get('colors.white')};
+    color: ${get('colors.state.hover.primaryText')};
     text-decoration: none;
-    background-color: ${get('colors.blue.5')};
+    background-color: ${get('colors.state.hover.primaryBg')};
     outline: none;
   }
   ${COMMON};
