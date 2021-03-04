@@ -44,7 +44,7 @@ exports[`Header Header.Link renders consistently 1`] = `
 
 .c0:hover,
 .c0:focus {
-  color: rgba(255,255,255,0.70);
+  color: rgba(255,255,255,0.7);
 }
 
 <a
@@ -62,7 +62,7 @@ exports[`Header renders consistently 1`] = `
   padding: 16px;
   font-size: 14px;
   line-height: 1.5;
-  color: rgba(255,255,255,0.70);
+  color: rgba(255,255,255,0.7);
   background-color: #24292e;
   -webkit-align-items: center;
   -webkit-box-align: center;
