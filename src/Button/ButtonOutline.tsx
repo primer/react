@@ -19,7 +19,7 @@ const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & S
   // focus must come before :active so that the active box shadow overrides
   &:focus {
     border-color: ${get('colors.btn.outline.focusBorder')};
-    box-shadow: ${get('shadows..btn.outline.focusShadow')};
+    box-shadow: ${get('shadows.btn.outline.focusShadow')};
   }
 
   &:active {
