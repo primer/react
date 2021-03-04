@@ -18,7 +18,7 @@ const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & Sx
   }
   // focus must come before :active so that the active box shadow overrides
   &:focus {
-    border-color: transparent;
+    border-color: ${get('btn.danger.focusBorder')};
     box-shadow: ${get('colors.btn.danger.focusShadow')};
   }
 
@@ -26,13 +26,13 @@ const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & Sx
     color: ${get('colors.btn.danger.selectedText')};
     background-color: ${get('colors.btn.danger.selectedBg')};
     box-shadow: ${get('shadows.btn.danger.selectedShadow')};
-    border-color: ${get('shadows.btn.danger.selectedBorder')};
+    border-color: ${get('colors.btn.danger.selectedBorder')};
   }
 
   &:disabled {
     color: ${get('colors.btn.danger.disabledText')};
-    background-color: ${get('buttons.danger.disabledBg')};
-    border: ${get('buttons.danger.disabledBorder')};
+    background-color: ${get('colors.btn.danger.disabledBg')};
+    border: ${get('colors.btn.danger.disabledBorder')};
   }
 
   ${buttonSystemProps};

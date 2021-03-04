@@ -14,13 +14,14 @@ const StyledButton = styled.button<StyledButtonProps>`
   outline: none;
   cursor: pointer;
   border-radius: ${get('radii.2')};
+  color: ${get('colors.text.secondary')};
 
   &:focus {
-    box-shadow: ${get('shadows.btn.shadow')};
+    box-shadow: ${get('shadows.btn.focusShadow')};
   }
 
-  &:active {
-    color: ${get('colors.btn.text')};
+  &:hover {
+    color: ${get('colors.text.link')};
   }
   ${COMMON};
   ${LAYOUT};
