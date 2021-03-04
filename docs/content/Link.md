@@ -2,7 +2,7 @@
 title: Link
 ---
 
-The Link component styles anchor tags with default blue styling and hover text decoration. `Link` is used for destinations, or moving from one page to another.
+The Link component styles anchor tags with default hyperlink color cues and hover text decoration. `Link` is used for destinations, or moving from one page to another.
 
 In special cases where you'd like a `<button>` styled like a `Link`, use `<Link as='button'>`. Make sure to provide a click handler with `onClick`.
 
@@ -22,10 +22,10 @@ Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Pro
 
 ## Component props
 
-| Name      | Type    | Default | Description                                       |
-| :-------- | :------ | :-----: | :------------------------------------------------ |
-| href      | String  |         | URL to be used for the Link                       |
-| muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
-| underline | Boolean |  false  | Adds underline to the Link                        |
-| as        | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary'       |
-| hoverColor        | String  |    | Color used when hovering over link      |
+| Name       | Type    | Default | Description                                                                     |
+| :--------- | :------ | :-----: | :------------------------------------------------------------------------------ |
+| href       | String  |         | URL to be used for the Link                                                     |
+| muted      | Boolean |  false  | Uses a less prominent shade for Link color, and the default link shade on hover |
+| underline  | Boolean |  false  | Adds underline to the Link                                                      |
+| as         | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary'                                     |
+| hoverColor | String  |         | Color used when hovering over link                                              |
