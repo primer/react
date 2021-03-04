@@ -319,6 +319,40 @@ const pagination = {
   }
 }
 
+const stateLabels = {
+  sizes: {
+    small: {
+      padding: `${space[1]} ${space[2]}`,
+      fontSize: fontSizes[0]
+    },
+    normal: {
+      padding: `${space[2]} 12px`,
+      fontSize: fontSizes[1]
+    }
+  },
+
+  status: {
+    issueClosed: {
+      backgroundColor: red[5]
+    },
+    pullClosed: {
+      backgroundColor: red[5]
+    },
+    pullMerged: {
+      backgroundColor: purple[5]
+    },
+    issueOpened: {
+      backgroundColor: '#159739' // custom green
+    },
+    pullOpened: {
+      backgroundColor: '#159739' // custom green
+    },
+    draft: {
+      backgroundColor: gray[5]
+    }
+  }
+}
+
 const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, value =>
   isColorValue(value)
 )
@@ -348,7 +382,8 @@ const theme = {
   pagination,
   popovers,
   flash,
-  flashIcon
+  flashIcon,
+  stateLabels
 }
 
 module.exports = {
