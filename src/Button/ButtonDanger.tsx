@@ -5,34 +5,34 @@ import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
-  color: ${get('buttons.danger.color.default')};
-  border: 1px solid ${get('buttons.danger.border.default')};
-  background-color: ${get('buttons.danger.bg.default')};
-  box-shadow: ${get('buttons.danger.shadow.default')};
+  color: ${get('colors.btn.danger.text')};
+  border: 1px solid ${get('colors.btn.border')};
+  background-color: ${get('colors.btn.bg')};
+  box-shadow: ${get('shadows.btn.shadow')};
 
   &:hover {
-    color: ${get('buttons.danger.color.hover')};
-    background-color: ${get('buttons.danger.bg.hover')};
-    border-color: ${get('buttons.danger.border.hover')};
-    box-shadow: ${get('buttons.danger.shadow.hover')};
+    color: ${get('colors.btn.danger.hoverText')};
+    background-color: ${get('colors.btn.danger.hoverBg')};
+    border-color: ${get('colors.btn.danger.hoverBorder')};
+    box-shadow: ${get('shadows.btn.danger.hoverShadow')};
   }
   // focus must come before :active so that the active box shadow overrides
   &:focus {
-    border-color: transparent;
-    box-shadow: ${get('buttons.danger.shadow.focus')};
+    border-color: ${get('colors.btn.danger.focusBorder')};
+    box-shadow: ${get('shadows.btn.danger.focusShadow')};
   }
 
   &:active {
-    color: ${get('buttons.danger.color.active')};
-    background-color: ${get('buttons.danger.bg.active')};
-    box-shadow: ${get('buttons.danger.shadow.active')};
-    border-color: ${get('buttons.danger.border.active')};
+    color: ${get('colors.btn.danger.selectedText')};
+    background-color: ${get('colors.btn.danger.selectedBg')};
+    box-shadow: ${get('shadows.btn.danger.selectedShadow')};
+    border-color: ${get('colors.btn.danger.selectedBorder')};
   }
 
   &:disabled {
-    color: ${get('buttons.danger.color.disabled')};
-    background-color: ${get('buttons.danger.bg.disabled')};
-    border: 1px solid ${get('buttons.danger.border.default')};
+    color: ${get('colors.btn.danger.disabledText')};
+    background-color: ${get('colors.btn.danger.disabledBg')};
+    border-color: ${get('colors.btn.danger.disabledBorder')};
   }
 
   ${buttonSystemProps};
