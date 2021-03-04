@@ -8,6 +8,7 @@ import {ComponentProps} from '../utils/types'
 // SelectMenu.Modal
 
 const SelectMenuTitle = styled.h3`
+  color: ${get('colors.text.primary')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
@@ -22,7 +23,7 @@ const StyledHeader = styled.header<SystemTypographyProps & SystemCommonProps & S
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
   padding: ${get('space.3')};
-  border-bottom: ${get('borderWidths')} solid ${get('colors.border.gray')};
+  border-bottom: ${get('borderWidths')} solid ${get('colors.selectMenu.borderSecondary')};
   ${COMMON}
   ${TYPOGRAPHY}
 
