@@ -2,9 +2,9 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ButtonPrimary, Position} from '..'
+import {BaseStyles, Box, ButtonPrimary, Position, theme} from '..'
 import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
-import styled from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
 import {get} from '../constants'
 import {AnchorSide} from '../behaviors/anchoredPosition'
 import Portal, {registerPortalRoot} from '../Portal'
@@ -15,7 +15,11 @@ export default {
     // Note: For some reason, if you use <BaseStyles><Story /></BaseStyles>,
     // the component gets unmounted from the root every time a control changes!
     Story => {
-      return <BaseStyles>{Story()}</BaseStyles>
+      return (
+        <ThemeProvider theme={theme}>
+          <BaseStyles>{Story()}</BaseStyles>
+        </ThemeProvider>
+      )
     }
   ],
   argTypes: {
@@ -229,7 +233,7 @@ export const WithPortal = () => {
                 left={position?.left ?? 0}
                 width={250}
                 height={400}
-                sx={{visibility: position ? "visible" : "hidden"}}
+                sx={{visibility: position ? 'visible' : 'hidden'}}
               >
                 An un-constrained overlay!
               </Float>
@@ -239,7 +243,9 @@ export const WithPortal = () => {
       </Nav>
       <Box sx={{flexGrow: 1}} p={3}>
         <h1>The body!</h1>
-        <p><em>Note: The controls below have no effect in this story.</em></p>
+        <p>
+          <em>Note: The controls below have no effect in this story.</em>
+        </p>
       </Box>
     </Main>
   )

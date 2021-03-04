@@ -83,7 +83,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   font-size: 12px;
   color: #6a737d;
   text-align: center;
-  border-top: 1px solid #e1e4e8;
+  border-top: 1px solid #eaecef;
 }
 
 .c5 {
@@ -185,7 +185,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+  box-shadow: 0 1px 0 rgba(149,157,165,0.1);
   -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   width: 300px;
@@ -256,7 +256,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 @media (hover:none) {
   .c5 {
-    -webkit-tap-highlight-color: rgba(#d1d5da,0.5);
+    -webkit-tap-highlight-color: rgba(209,213,218,0.5);
   }
 
   .c5:focus,
@@ -272,7 +272,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
   .c4 .SelectMenuTab:not([aria-checked='true']):hover {
     color: #24292e;
-    background-color: #e1e4e8;
+    background-color: #f6f8fa;
   }
 
   .c4 .SelectMenuTab:not([aria-checked='true']):active {
@@ -287,9 +287,9 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
     max-height: 350px;
     margin: 4px 0 16px 0;
     font-size: 12px;
-    border: 1px solid #d1d5da;
+    border: 1px solid #e1e4e8;
     border-radius: 6px;
-    box-shadow: 0 1px 5px rgba(27,31,35,0.15);
+    box-shadow: 0 1px 0 rgba(27,31,35,0.04);
   }
 }
 

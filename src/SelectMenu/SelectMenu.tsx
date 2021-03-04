@@ -97,7 +97,6 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
 
 SelectMenu.displayName = 'SelectMenu'
 
-
 export type SelectMenuProps = ComponentProps<typeof SelectMenu>
 export type { SelectMenuDividerProps } from './SelectMenuDivider'
 export type { SelectMenuFilterProps } from './SelectMenuFilter'
