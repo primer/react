@@ -11,7 +11,7 @@ const Page = styled.a`
   padding: 5px 10px;
   font-style: normal;
   line-height: 20px;
-  color: ${get('pagination.colors.normal.fg')};
+  color: ${get('colors.text.primary')};
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -19,45 +19,45 @@ const Page = styled.a`
   user-select: none;
   text-decoration: none;
 
-  margin-right: ${get('pagination.spaceBetween')};
+  margin-right: ${get('space.1')};
 
   &:last-child {
     margin-right: 0;
   }
 
   border: ${get('borderWidths.1')} solid transparent;
-  border-radius: ${get('pagination.borderRadius')};
+  border-radius: ${get('radii.2')};
   transition: border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
 
   &:hover,
   &:focus {
     text-decoration: none;
-    border-color: ${get('pagination.colors.hover.border')};
+    border-color: ${get('colors.border.primary')};
     outline: 0;
     transition-duration: 0.1s;
   }
 
   &:active {
-    border-color: ${get('pagination.colors.active.border')};
+    border-color: ${get('colors.border.secondary')};
   }
 
   &[rel='prev'],
   &[rel='next'] {
-    color: ${get('pagination.colors.nextPrevious.fg')};
+    color: ${get('colors.text.link')};
   }
 
   &[aria-current],
   &[aria-current]:hover {
-    color: ${get('pagination.colors.selected.fg')};
-    background-color: ${get('pagination.colors.selected.bg')};
-    border-color: ${get('pagination.colors.selected.border')};
+    color: ${get('colors.state.selected.primaryText')};
+    background-color: ${get('colors.state.selected.primaryBg')};
+    border-color: transparent;
   }
 
   &[aria-disabled],
   &[aria-disabled]:hover {
-    color: ${get('pagination.colors.disabled.fg')}; // check
+    color: ${get('colors.text.disabled')}; // check
     cursor: default;
-    border-color: ${get('pagination.colors.disabled.border')};
+    border-color: transparent;
   }
 
   @supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%)) {
@@ -73,7 +73,7 @@ const Page = styled.a`
 
     // chevron-left
     &[rel='prev']::before {
-      margin-right: ${get('pagination.spaceBetween')};
+      margin-right: ${get('space.1')};
       clip-path: polygon(
         9.8px 12.8px,
         8.7px 12.8px,
@@ -89,7 +89,7 @@ const Page = styled.a`
 
     // chevron-right
     &[rel='next']::after {
-      margin-left: ${get('pagination.spaceBetween')};
+      margin-left: ${get('space.1')};
       clip-path: polygon(
         6.2px 3.2px,
         7.3px 3.2px,
