@@ -7,7 +7,7 @@ PointerBox is a [BorderBox](./BorderBox) component with a caret added to it.
 ## Default example
 
 ```jsx live
-<PointerBox m={4} p={2} minHeight={100} bg="green.1" borderColor="green.5">
+<PointerBox m={4} p={2} minHeight={100} bg="bg.success" borderColor="border.success">
   PointerBox
 </PointerBox>
 ```
@@ -18,10 +18,15 @@ function PointerBoxDemo(props) {
 
   return (
     <Box>
-      <Heading as="h3" fontSize={3}>Caret Position</Heading>
+      <Heading as="h3" fontSize={3}>
+        Caret Position
+      </Heading>
       <CaretSelector current={pos} onChange={setPos} />
       <Relative pt={4}>
-        <PointerBox m={4} p={2} minHeight={100} bg="green.1" borderColor="green.5" caret={pos}> Content </PointerBox>
+        <PointerBox m={4} p={2} minHeight={100} bg="bg.success" borderColor="border.success" caret={pos}>
+          {' '}
+          Content{' '}
+        </PointerBox>
       </Relative>
     </Box>
   )
@@ -29,15 +34,31 @@ function PointerBoxDemo(props) {
 
 function CaretSelector(props) {
   const choices = [
-    'top',         'bottom',      'left',         'right',
-    'left-bottom', 'left-top',    'right-bottom', 'right-top',
-    'top-left',    'bottom-left', 'top-right',    'bottom-right'
-  ].map((dir) => (
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'left-bottom',
+    'left-top',
+    'right-bottom',
+    'right-top',
+    'top-left',
+    'bottom-left',
+    'top-right',
+    'bottom-right'
+  ].map(dir => (
     <label>
-      <input key={dir} type='radio' name='caret' value={dir}
-        checked={dir === props.current} onChange={() => props.onChange(dir)} /> {dir}
+      <input
+        key={dir}
+        type="radio"
+        name="caret"
+        value={dir}
+        checked={dir === props.current}
+        onChange={() => props.onChange(dir)}
+      />{' '}
+      {dir}
     </label>
-))
+  ))
 
   return (
     <Grid gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
@@ -55,6 +76,6 @@ PointerBox components get `COMMON`, `LAYOUT`, `BORDER`, and `FLEX` system props.
 
 ## Component props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| caret | String | bottom | Sets the location of the caret. The format is `[edge]-[position on edge]`. For example, `right-top` will position the caret on the top of the right edge of the box. Use `top`, `right`, `bottom`, or `left` to position a caret in the center of that edge. |
+| Name  | Type   | Default | Description                                                                                                                                                                                                                                                  |
+| :---- | :----- | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| caret | String | bottom  | Sets the location of the caret. The format is `[edge]-[position on edge]`. For example, `right-top` will position the caret on the top of the right edge of the box. Use `top`, `right`, `bottom`, or `left` to position a caret in the center of that edge. |
