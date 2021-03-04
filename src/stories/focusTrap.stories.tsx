@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useEffect} from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from 'styled-components'
+import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
 
 import {BaseStyles, BorderBox, Button, theme} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Flex from '../Flex'
+import {themeGet} from '@styled-system/theme-get'
 
 export default {
   title: 'Hooks/useFocusTrap',
@@ -21,6 +22,24 @@ export default {
     }
   ]
 } as Meta
+
+// NOTE: the below styles are solely intended as a visual aid for
+// this Storybook story, but they're not recommended for a real site!
+const HelperGlobalStyling = createGlobalStyle`
+  *:focus {
+    outline: 2px solid ${themeGet('colors.blue.3')} !important;
+  }
+  [data-focus-trap='active'] {
+    background-color: ${themeGet("colors.green.2")}
+  }
+  [data-focus-trap='suspended'] {
+    background-color: ${themeGet("colors.yellow.2")}
+  }
+`
+
+const MarginButton = styled(Button)`
+  margin: ${themeGet("space.1")} 0;
+`
 
 export const FocusTrap = () => {
   const [trapEnabled, setTrapEnabled] = React.useState(false)
@@ -43,22 +62,25 @@ export const FocusTrap = () => {
   }, [spaceListener])
 
   return (
-    <Flex flexDirection="column" alignItems="flex-start">
-      <Button>Apple</Button>
-      <Button>Banana</Button>
-      <Button>Cantaloupe</Button>
-      <BorderBox ref={containerProps.ref as React.RefObject<HTMLDivElement>} m={4} p={4}>
-        <h3>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</h3>
-        <Flex flexDirection="column" alignItems="flex-start">
-          <Button>Durian</Button>
-          <Button>Elderberry</Button>
-          <Button>Fig</Button>
-        </Flex>
-      </BorderBox>
-      <Button>Grapefruit</Button>
-      <Button>Honeydew</Button>
-      <Button>Jackfruit</Button>
-    </Flex>
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start">
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <BorderBox borderColor="gray.5" ref={containerProps.ref as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Grapefruit</MarginButton>
+        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+      </Flex>
+    </>
   )
 }
 
@@ -66,14 +88,11 @@ export const MultipleFocusTraps = () => {
   const [trapEnabled1, setTrapEnabled1] = React.useState(false)
   const [trapEnabled2, setTrapEnabled2] = React.useState(false)
 
-  console.log(`trap1enabled: ${trapEnabled1}, trap2enabled: ${trapEnabled2}`)
-
   const {containerProps: containerProps1} = useFocusTrap({disabled: !trapEnabled1})
   const {containerProps: containerProps2} = useFocusTrap({disabled: !trapEnabled2})
 
   const keyListener = React.useCallback(
     event => {
-      console.log("key pressed..." + event.key);
       if (event.key === '1') {
         setTrapEnabled1(!trapEnabled1)
       }
@@ -85,45 +104,46 @@ export const MultipleFocusTraps = () => {
   )
 
   useEffect(() => {
-    console.log("Adding event listener")
     document.addEventListener('keydown', keyListener, {capture: true})
     return () => {
-      console.log("listener removed")
       document.removeEventListener('keydown', keyListener, {capture: true})
     }
   }, [keyListener])
 
   return (
-    <Flex flexDirection="column" alignItems="flex-start">
-      <Button>Apple</Button>
-      <Button>Banana</Button>
-      <Button>Cantaloupe</Button>
-      <BorderBox ref={containerProps1.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
-        <h3>
-          Trap zone! Press <code>1</code> to {trapEnabled1 ? 'deactivate' : 'activate'}.
-        </h3>
-        <Flex flexDirection="column" alignItems="flex-start">
-          <Button>Durian</Button>
-          <Button>Elderberry</Button>
-          <Button>Fig</Button>
-        </Flex>
-      </BorderBox>
-      <Button>Grapefruit</Button>
-      <Button>Honeydew</Button>
-      <Button>Jackfruit</Button>
-      <BorderBox ref={containerProps2.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
-        <h3>
-          Trap zone! Press <code>2</code> to {trapEnabled2 ? 'deactivate' : 'activate'}.
-        </h3>
-        <Flex flexDirection="column" alignItems="flex-start">
-          <Button>Kiwi</Button>
-          <Button>Lemon</Button>
-          <Button>Mango</Button>
-        </Flex>
-      </BorderBox>
-      <Button>Nectarine</Button>
-      <Button>Orange</Button>
-      <Button>Peach</Button>
-    </Flex>
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start">
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <BorderBox borderColor="gray.5" ref={containerProps1.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
+          <strong>
+            Trap zone! Press <code>1</code> to toggle.
+          </strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Grapefruit</MarginButton>
+        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+        <BorderBox borderColor="gray.5" ref={containerProps2.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
+          <strong>
+            Trap zone! Press <code>2</code> to toggle.
+          </strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <MarginButton>Kiwi</MarginButton>
+            <MarginButton>Lemon</MarginButton>
+            <MarginButton>Mango</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Nectarine</MarginButton>
+        <MarginButton>Orange</MarginButton>
+        <MarginButton>Peach</MarginButton>
+      </Flex>
+    </>
   )
 }

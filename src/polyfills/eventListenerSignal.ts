@@ -27,10 +27,8 @@ function monkeyPatch() {
     if (
       typeof optionsOrCapture === 'object' &&
       'signal' in optionsOrCapture &&
-      // @ts-expect-error until `signal` is added to the AddEventListenerOptions interface
       optionsOrCapture.signal instanceof AbortSignal
     ) {
-      // @ts-expect-error until `signal` is added to the AddEventListenerOptions interface
       originalAddEventListener.call(optionsOrCapture.signal, 'abort', () => {
         this.removeEventListener(name, originalCallback, optionsOrCapture)
       })
@@ -43,5 +41,11 @@ export function polyfill(): void {
   if (!featureSupported()) {
     monkeyPatch()
     signalSupported = true
+  }
+}
+
+declare global {
+  interface AddEventListenerOptions {
+    signal?: AbortSignal
   }
 }
