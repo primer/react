@@ -44,7 +44,7 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
 `
 
 const DialogHeaderBase = styled(Flex)<SxProp>`
-  border-radius: 4px 4px 0px 0px;
+  border-radius: ${get('radii.2')} ${get('radii.2')} 0px 0px;
   border-bottom: 1px solid ${get('colors.border.primary')};
 
   @media screen and (max-width: 750px) {
