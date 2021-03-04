@@ -12,4 +12,4 @@ export type ComponentProps<
 // TODO explain
 export type ComponentPropsWithAs<
   T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
-> = ComponentProps<T> & {as?: React.ElementType}
+> = ComponentProps<T> & {as?: any}
