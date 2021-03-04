@@ -19,7 +19,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 4px 4px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #e1e4e8;
 }
 
@@ -127,7 +127,7 @@ Array [
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 4px 4px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #e1e4e8;
 }
 
