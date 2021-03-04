@@ -17,7 +17,7 @@ exports[`Popover Popover.Content renders consistently 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -32,14 +32,14 @@ exports[`Popover Popover.Content renders consistently 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -56,14 +56,14 @@ exports[`Popover Popover.Content renders consistently 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -149,28 +149,28 @@ exports[`Popover Popover.Content renders consistently 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -226,7 +226,7 @@ exports[`Popover renders consistently 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -241,14 +241,14 @@ exports[`Popover renders consistently 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -265,14 +265,14 @@ exports[`Popover renders consistently 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -358,28 +358,28 @@ exports[`Popover renders consistently 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -435,7 +435,7 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -450,14 +450,14 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -474,14 +474,14 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -567,28 +567,28 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -612,6 +612,161 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -644,7 +799,7 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -659,14 +814,14 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -683,14 +838,14 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -776,28 +931,28 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -821,6 +976,161 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -853,7 +1163,7 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -868,14 +1178,14 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -892,14 +1202,14 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -985,28 +1295,28 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -1030,6 +1340,161 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -1062,7 +1527,7 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -1077,14 +1542,14 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -1101,14 +1566,14 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -1194,28 +1659,28 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -1239,6 +1704,161 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -1271,7 +1891,7 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -1286,14 +1906,14 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -1310,14 +1930,14 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -1403,28 +2023,28 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -1448,6 +2068,161 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -1480,7 +2255,7 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -1495,14 +2270,14 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -1519,14 +2294,14 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -1612,28 +2387,28 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -1657,6 +2432,161 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -1689,7 +2619,7 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -1704,14 +2634,14 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -1728,14 +2658,14 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -1821,28 +2751,28 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -1866,6 +2796,161 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -1898,7 +2983,7 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -1913,14 +2998,14 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -1937,14 +3022,14 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -2030,28 +3115,28 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -2075,6 +3160,161 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -2107,7 +3347,7 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -2122,14 +3362,14 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -2146,14 +3386,14 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -2239,28 +3479,28 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -2284,6 +3524,161 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -2316,7 +3711,7 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -2331,14 +3726,14 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -2355,14 +3750,14 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -2448,28 +3843,28 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -2493,6 +3888,161 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -2525,7 +4075,7 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -2540,14 +4090,14 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -2564,14 +4114,14 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -2657,28 +4207,28 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -2702,6 +4252,161 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 
@@ -2734,7 +4439,7 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
   margin-right: auto;
   margin-left: auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .c2::before,
@@ -2749,14 +4454,14 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
   top: -16px;
   margin-left: -9px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #e1e4e8;
 }
 
 .c2::after {
   top: -14px;
   margin-left: -8px;
   border: 7px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffffff;
 }
 
 .c0.caret-pos--bottom .c2::before,
@@ -2773,14 +4478,14 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--bottom-right .c2::before,
 .c0.caret-pos--bottom-left .c2::before {
   bottom: -16px;
-  border-top-color: rgba(27,31,35,0.15);
+  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c2::after,
 .c0.caret-pos--bottom-right .c2::after,
 .c0.caret-pos--bottom-left .c2::after {
   bottom: -14px;
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c2,
@@ -2866,28 +4571,28 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--right-top .c2::before,
 .c0.caret-pos--right-bottom .c2::before {
   right: -16px;
-  border-left-color: rgba(27,31,35,0.15);
+  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c2::after,
 .c0.caret-pos--right-top .c2::after,
 .c0.caret-pos--right-bottom .c2::after {
   right: -14px;
-  border-left-color: #fff;
+  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c2::before,
 .c0.caret-pos--left-top .c2::before,
 .c0.caret-pos--left-bottom .c2::before {
   left: -16px;
-  border-right-color: rgba(27,31,35,0.15);
+  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c2::after,
 .c0.caret-pos--left-top .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
   left: -14px;
-  border-right-color: #fff;
+  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c2::before,
@@ -2911,6 +4616,161 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 
 .c0.caret-pos--right-bottom .c2::after,
 .c0.caret-pos--left-bottom .c2::after {
+  bottom: calc(16px + 1px);
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  top: auto;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--bottom .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--bottom-left .c3::before {
+  bottom: -16px;
+  border-top-color: #e1e4e8;
+}
+
+.c0.caret-pos--bottom .c3::after,
+.c0.caret-pos--bottom-right .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  bottom: -14px;
+  border-top-color: #ffffff;
+}
+
+.c0.caret-pos--top-right .c3,
+.c0.caret-pos--bottom-right .c3 {
+  right: -9px;
+  margin-right: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before,
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  left: auto;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-right .c3::before,
+.c0.caret-pos--bottom-right .c3::before {
+  right: 20px;
+}
+
+.c0.caret-pos--top-right .c3::after,
+.c0.caret-pos--bottom-right .c3::after {
+  right: 21px;
+}
+
+.c0.caret-pos--top-left .c3,
+.c0.caret-pos--bottom-left .c3 {
+  left: -9px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::before,
+.c0.caret-pos--bottom-left .c3::before,
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: 24px;
+  margin-left: 0;
+}
+
+.c0.caret-pos--top-left .c3::after,
+.c0.caret-pos--bottom-left .c3::after {
+  left: calc(24px + 1px);
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: 50%;
+  left: auto;
+  margin-left: 0;
+  border-bottom-color: transparent;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  margin-top: calc((8px + 1px) * -1);
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  margin-top: -8px;
+}
+
+.c0.caret-pos--right .c3::before,
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--right-bottom .c3::before {
+  right: -16px;
+  border-left-color: #e1e4e8;
+}
+
+.c0.caret-pos--right .c3::after,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--right-bottom .c3::after {
+  right: -14px;
+  border-left-color: #ffffff;
+}
+
+.c0.caret-pos--left .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  left: -16px;
+  border-right-color: #e1e4e8;
+}
+
+.c0.caret-pos--left .c3::after,
+.c0.caret-pos--left-top .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  left: -14px;
+  border-right-color: #ffffff;
+}
+
+.c0.caret-pos--right-top .c3::before,
+.c0.caret-pos--left-top .c3::before,
+.c0.caret-pos--right-top .c3::after,
+.c0.caret-pos--left-top .c3::after {
+  top: 24px;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before,
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
+  top: auto;
+}
+
+.c0.caret-pos--right-bottom .c3::before,
+.c0.caret-pos--left-bottom .c3::before {
+  bottom: 16px;
+}
+
+.c0.caret-pos--right-bottom .c3::after,
+.c0.caret-pos--left-bottom .c3::after {
   bottom: calc(16px + 1px);
 }
 

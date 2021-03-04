@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
 import {Meta} from '@storybook/react'
+import {ThemeProvider} from 'styled-components'
 
-import {BaseStyles, Box} from '..'
+import {BaseStyles, Box, theme} from '..'
 import Portal, {registerPortalRoot} from '../Portal'
 
 export default {
@@ -14,9 +15,11 @@ export default {
       // story works in isolation.
       registerPortalRoot(undefined)
       return (
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
+        </ThemeProvider>
       )
     }
   ]
@@ -58,7 +61,7 @@ export const CustomPortalRootByRegistration: React.FC<Record<string, never>> = (
       registerPortalRoot(outerContainerRef.current)
       setMounted(true)
     }
-  }, [outerContainerRef])
+  }, [])
   return (
     <>
       Root position

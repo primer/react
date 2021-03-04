@@ -2,28 +2,27 @@
 
 1. [Roadmap](#roadmap)
 2. [Before Getting Started](#before-getting-started)
-2. [Discussing non-public features or products](#discussing-non-public-features-or-products)
-2. [Developing Components](#developing-components)
-    * [Tools we use](#tools-we-use)
-    * [Component patterns](#component-patterns)
-    * [Adding default theme](#adding-default-theme)
-    * [Adding system props](#adding-system-props)
-    * [Adding the sx prop](#adding-the-sx-prop)
-    * [Linting](#linting)
-    * [Testing](#testing)
-    * [TypeScript support](#typescript-support)
-    * [Additional resources](#additional-resources)
-3. [Writing documentation](#writing-documentation)
-4. [Creating a pull request](#creating-a-pull-request)
-    * [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
-    * [What we look for in reviews](#what-we-look-for-in-reviews)
-5. [Deploying & publishing](#deploying-and-publishing)
-    * [Deploying](#deploying)
-    * [Path aliasing](#path-aliasing)
-    * [Publishing](#publishing)
-6. [Troubleshooting](#troubleshooting)
-7. [Glossary](#glossary)
-    * [System Props](#system-props)
+3. [Discussing non-public features or products](#discussing-non-public-features-or-products)
+4. [Developing Components](#developing-components)
+   - [Tools we use](#tools-we-use)
+   - [Component patterns](#component-patterns)
+   - [Adding system props](#adding-system-props)
+   - [Adding the sx prop](#adding-the-sx-prop)
+   - [Linting](#linting)
+   - [Testing](#testing)
+   - [TypeScript support](#typescript-support)
+   - [Additional resources](#additional-resources)
+5. [Writing documentation](#writing-documentation)
+6. [Creating a pull request](#creating-a-pull-request)
+   - [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
+   - [What we look for in reviews](#what-we-look-for-in-reviews)
+7. [Deploying & publishing](#deploying-and-publishing)
+   - [Deploying](#deploying)
+   - [Path aliasing](#path-aliasing)
+   - [Publishing](#publishing)
+8. [Troubleshooting](#troubleshooting)
+9. [Glossary](#glossary)
+   - [System Props](#system-props)
 
 ## Roadmap
 
@@ -42,7 +41,6 @@ A common question asked about Primer Components is how to know what should be ad
 ## Discussing non-public features or products
 
 As this is a public repo, please be careful not to include details or screenshots from unreleased GitHub products or features. In most cases, a good bug report, feature request, or pull request should be able to describe the work without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Design Systems repo](https://github.com/github/design-systems/issues/new/choose) and link to it in your issue or pull request.
-
 
 ## Developing components
 
@@ -73,17 +71,14 @@ With a couple of exceptions, all components should be created with the `styled` 
 
 Default values for system props can be set in `Component.defaultProps`.
 
-Prop Types from system props such as `COMMON` or `TYPOGRAPHY` as well as styled-system functions can be spread in the component's prop types declaration (see example below). These need to go *after* any built-in styles that you want to be overridable.
+⚠️ **Do not set the default `theme` prop! This can sometimes override the theme provided by the ThemeProvider and cause unexpected theming issues.**
 
- ⚠️ **Make sure to always set the default `theme` prop to our [theme](https://github.com/primer/components/blob/main/src/theme-preval.js)! This allows consumers of our components to access our theme values without a ThemeProvider.**
-
-Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal and `...sx.propTypes` to the component's `propTypes`.
+Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal.
 
 Here's an example of a basic component written in the style of Primer Components:
 
 ```jsx
 import {TYPOGRAPHY, COMMON} from './constants'
-import theme from './theme'
 import sx from './sx
 
 const Component = styled.div`
@@ -95,33 +90,11 @@ const Component = styled.div`
 `
 
 Component.defaultProps = {
-  theme, // make sure to always set the default theme!
   m: 0,
   fontSize: 5,
 }
 
-Component.propTypes = {
-  ...COMMON.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
-}
-
 export default Component
-```
-
-### Adding default theme
-
-Each component needs access to our default Primer Theme, so that users of the component can access theme values easily in their consuming applications.
-
-To add the default theme to a component, import the theme and assign it to the component's defaultProps object:
-
-```jsx
-import theme from './theme'
-
-Component.defaultProps = {
-  theme, // make sure to always set the default theme!
-}
-
 ```
 
 ### Adding system props
@@ -130,12 +103,12 @@ Each component should have access to the appropriate system props. Every compone
 
 Categories of system props are exported from `src/constants.js`:
 
-* `COMMON` includes color and spacing (margin and padding) props
-* `TYPOGRAPHY` includes font family, font weight, and line-height props
-* `POSITION` includes positioning props
-* `FLEX` includes flexbox props
-* `BORDER` includes border and box-shadow props
-* `GRID` includes grid props
+- `COMMON` includes color and spacing (margin and padding) props
+- `TYPOGRAPHY` includes font family, font weight, and line-height props
+- `POSITION` includes positioning props
+- `FLEX` includes flexbox props
+- `BORDER` includes border and box-shadow props
+- `GRID` includes grid props
 
 To give the component access to a group of system props, import the system prop function from `./constants` and include the system prop function in your styled-component like so:
 
@@ -146,21 +119,15 @@ const Component = styled.div`
   // additional styles here
   ${COMMON};
 `
-
-// don't forget to also add it to your prop type declaration!
-
-Component.propTypes = {
-   ...COMMON.propTypes
-}
 ```
 
-Remember that the system prop function inside your style declaration needs to go *after* any built-in styles you want to be overridable.
+Remember that the system prop function inside your style declaration needs to go _after_ any built-in styles you want to be overridable.
 
 ### Adding the `sx` prop
 
 Each component should provide access to a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
 
-Adding the `sx` prop is similar to adding system props; import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the *very end* of your style definition.**
+Adding the `sx` prop is similar to adding system props; import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
 ```jsx
 import {COMMON} from './constants'
@@ -171,13 +138,6 @@ const Component = styled.div`
   ${COMMON};
   ${sx};
 `
-
-// don't forget to also add it to your prop type declaration!
-
-Component.propTypes = {
-   ...COMMON.propTypes,
-   ...sx.propTypes
-}
 ```
 
 ### Linting
@@ -221,11 +181,11 @@ Whenever adding new components or modifying the props of an existing component, 
 
 ### Additional resources
 
-* [Primer Components Philosophy](https://primer.style/components/philosophy)
-* [Primer Components Core Concepts](https://primer.style/components/core-concepts)
-* [Primer Components System Props](https://primer.style/components/system-props)
-* [Styled Components docs](https://styled-components.com/)
-* [Styled System docs](https://styled-system.com/)
+- [Primer Components Philosophy](https://primer.style/components/philosophy)
+- [Primer Components Core Concepts](https://primer.style/components/core-concepts)
+- [Primer Components System Props](https://primer.style/components/system-props)
+- [Styled Components docs](https://styled-components.com/)
+- [Styled System docs](https://styled-system.com/)
 
 ## Writing documentation
 
@@ -243,16 +203,15 @@ After opening a pull request, a member of the design systems team will add the a
 
 ### What we look for in reviews
 
-* If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Components!)
-* Does the component follow our [Primer Components code style](#component-patterns)?
-* Does the component use theme values for most CSS values?
-* Does the component have access to the [default theme](#adding-default-theme)?
-* Does the component have the [correct system props implemented](#adding-system-props)?
-* Is the component API intuitive?
-* Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
-* Is the component documented accurately?
-* Does the component have appropriate tests?
-* Does the pull request increase the bundle size significantly?
+- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Components!)
+- Does the component follow our [Primer Components code style](#component-patterns)?
+- Does the component use theme values for most CSS values?
+- Does the component have the [correct system props implemented](#adding-system-props)?
+- Is the component API intuitive?
+- Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
+- Is the component documented accurately?
+- Does the component have appropriate tests?
+- Does the pull request increase the bundle size significantly?
 
 If everything looks great, the design systems team member will approve the pull request and merge when appropriate. Minor and patch changes are released frequently, and we try to bundle up breaking changes and avoid shipping major versions too often. If your pull request is time-sensitive, please let a design systems team member know. You do not need to worry about merging pull requests on your own, we'll take care of that for you :)
 
@@ -286,7 +245,7 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 
 **`yarn start` fails with an error like `gatsby: command not found`**
 
-Make sure to run `yarn` from inside the `docs/` subfolder *as well as* the root folder.
+Make sure to run `yarn` from inside the `docs/` subfolder _as well as_ the root folder.
 
 ** `yarn start` fails with a different error**
 
@@ -306,19 +265,10 @@ const SpaceDiv = styled.div`
 `
 ```
 
-System props come with `propTypes` that can be mixed into your own with ES6 [spread syntax]:
-
-```jsx
-SpaceDiv.propTypes = {
-  stellar: PropTypes.bool,
-  ...space.propTypes
-}
-```
-
 [classnames]: https://www.npmjs.com/package/classnames
 [spread syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 [styled-system]: https://styled-system.com
 [table]: https://jxnblk.com/styled-system/table
 [npx]: https://www.npmjs.com/package/npx
-[Now]: https://zeit.co/now
+[now]: https://zeit.co/now
 [primer.style]: https://primer.style

@@ -1,5 +1,35 @@
 # @primer/components
 
+## 23.2.1
+
+### Patch Changes
+
+- [`a42162c0`](https://github.com/primer/components/commit/a42162c011fa3718a32124b79aecfe306f358298) [#1087](https://github.com/primer/components/pull/1087) Thanks [@emplums](https://github.com/emplums)! - Fix up styles in TabNav allowing for items positioned on the right end of TabNav
+
+## 23.2.0
+
+### Minor Changes
+
+- [`b273f1f9`](https://github.com/primer/components/commit/b273f1f95fcb3e2224414d6a0be124e29701d439) [#1083](https://github.com/primer/components/pull/1083) Thanks [@emplums](https://github.com/emplums)! - Adds a `contrast` prop to TextInput
+
+### Patch Changes
+
+- [`c50b9f93`](https://github.com/primer/components/commit/c50b9f93402e7898b2a30f6f7fd0159ed40a8e86) [#1059](https://github.com/primer/components/pull/1059) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `Dropdown` to TypeScript
+
+* [`681799fd`](https://github.com/primer/components/commit/681799fd996537f56b15169ce8ac801e68aff41b) [#1066](https://github.com/primer/components/pull/1066) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `useMouseIntent` to TypeScript
+
+- [`eaeb2389`](https://github.com/primer/components/commit/eaeb2389738c1c366e41ddb7795b03c865359034) [#1055](https://github.com/primer/components/pull/1055) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `utils` to TypeScript
+
+* [`106eb85e`](https://github.com/primer/components/commit/106eb85e969fa9ece03a789b1175346e8d53cb83) [#1060](https://github.com/primer/components/pull/1060) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `Dialog` to TypeScript
+
+- [`f11e6ac6`](https://github.com/primer/components/commit/f11e6ac67ff675137e672a33d445678fd3b64b3a) [#1048](https://github.com/primer/components/pull/1048) Thanks [@colebemis](https://github.com/colebemis)! - Migrate `SelectMenu` to TypeScript
+
+* [`bb635a50`](https://github.com/primer/components/commit/bb635a5094baf6821e45a7a03c6582989ee86fd5) [#1058](https://github.com/primer/components/pull/1058) Thanks [@colebemis](https://github.com/colebemis)! - Migrate theme to TypeScript
+
+- [`fabca94e`](https://github.com/primer/components/commit/fabca94ebc3b5429b5c541aeaac6eb508fd5f182) [#1047](https://github.com/primer/components/pull/1047) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Migrate `Pagination` to TypeScript
+
+* [`c868bc96`](https://github.com/primer/components/commit/c868bc9613cb32d6fc0de009c75abdaa20c1bcdb) [#1074](https://github.com/primer/components/pull/1074) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Add functional color variables from Primer Primitives to theme object
+
 ## 23.1.0
 
 ### Minor Changes

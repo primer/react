@@ -1,12 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Button, {ButtonProps} from './Button'
-import Details, {DetailsProps} from './Details'
-import useDetails from './hooks/useDetails'
 import {COMMON, get, SystemCommonProps} from './constants'
+import Details, {DetailsProps} from './Details'
 import getDirectionStyles from './DropdownStyles'
-import theme from './theme'
+import useDetails from './hooks/useDetails'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -137,43 +135,17 @@ const DropdownItem = styled.li`
   ${sx};
 `
 
-DropdownMenu.propTypes = {
-  direction: PropTypes.oneOf(['ne', 'e', 'se', 's', 'sw', 'w']),
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-DropdownMenu.defaultProps = {
-  direction: 'sw',
-  theme
-}
+DropdownMenu.defaultProps = {direction: 'sw'}
 DropdownMenu.displayName = 'Dropdown.Menu'
 
-DropdownItem.defaultProps = {theme}
-DropdownItem.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
 DropdownItem.displayName = 'Dropdown.Item'
 
-DropdownButton.defaultProps = {theme, ...Button.defaultProps}
-DropdownButton.propTypes = {
-  ...Button.propTypes
-}
+DropdownButton.defaultProps = Button.defaultProps
 DropdownButton.displayName = 'Dropdown.Button'
 
-DropdownCaret.defaultProps = {theme}
-DropdownCaret.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
 DropdownCaret.displayName = 'Dropdown.Caret'
 
-Dropdown.defaultProps = {theme, ...Details.defaultProps}
-Dropdown.propTypes = {
-  ...Details.propTypes,
-  ...COMMON.propTypes
-}
+Dropdown.defaultProps = Details.defaultProps
 
 export type DropdownCaretProps = ComponentProps<typeof DropdownCaret>
 export type DropdownMenuProps = ComponentProps<typeof DropdownMenu>

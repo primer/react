@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import {ThemeContext} from 'styled-components'
 import {style} from 'styled-system'
-import theme from './theme'
 
 type Location =
   | 'top'
@@ -57,12 +56,15 @@ export type CaretProps = {
   borderWidth?: string | number
   size?: number
   location?: Location
+  theme?: any
 }
 
 function Caret(props: CaretProps) {
-  const {bg} = getBg(props)
-  const {borderColor} = getBorderColor(props)
-  const {borderWidth} = getBorderWidth(props)
+  const theme = React.useContext(ThemeContext)
+  const propsWithTheme = {...props, theme: props.theme ?? theme}
+  const {bg} = getBg(propsWithTheme)
+  const {borderColor} = getBorderColor(propsWithTheme)
+  const {borderWidth} = getBorderWidth(propsWithTheme)
   const {size = 8, location = 'bottom'} = props
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
@@ -122,18 +124,9 @@ Caret.locations = [
 ]
 
 Caret.defaultProps = {
-  bg: 'white',
-  borderColor: 'gray.2',
-  borderWidth: 1,
-  theme
-}
-
-Caret.propTypes = {
-  bg: PropTypes.string,
-  borderColor: PropTypes.string,
-  borderWidth: PropTypes.number,
-  size: PropTypes.number,
-  location: PropTypes.oneOf(Caret.locations)
+  bg: 'bg.canvas',
+  borderColor: 'border.primary',
+  borderWidth: 1
 }
 
 export default Caret

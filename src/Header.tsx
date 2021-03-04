@@ -1,10 +1,8 @@
-import styled, {css} from 'styled-components'
-import PropTypes from 'prop-types'
-import theme from './theme'
-import {BORDER, COMMON, get, SystemCommonProps, SystemTypographyProps, SystemBorderProps, TYPOGRAPHY} from './constants'
-import {ComponentProps} from './utils/types'
-import sx, {SxProp} from './sx'
 import * as History from 'history'
+import styled, {css} from 'styled-components'
+import {BORDER, COMMON, get, SystemBorderProps, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 type StyledHeaderItemProps = {full?: boolean} & SystemCommonProps & SxProp
 type StyledHeaderProps = SystemBorderProps & SystemCommonProps & SxProp
@@ -19,8 +17,8 @@ const Header = styled.div<StyledHeaderProps>`
   padding: ${get('space.3')};
   font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.default')};
-  color: ${get('colors.whitefade70')};
-  background-color: ${get('colors.bg.grayDark')};
+  color: ${get('colors.header.text')};
+  background-color: ${get('colors.header.bg')};
   align-items: center;
   flex-wrap: nowrap;
 
@@ -59,7 +57,7 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
   }
 })<StyledHeaderLinkProps>`
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.text.white')};
+  color: ${get('colors.header.logo')};
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
@@ -68,7 +66,7 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
 
   &:hover,
   &:focus {
-    color: ${get('colors.whitefade70')};
+    color: ${get('colors.header.text')};
   }
 
   ${COMMON};
@@ -78,40 +76,6 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
 `
 
 HeaderLink.displayName = 'Header.Link'
-
-Header.propTypes = {
-  ...sx.propTypes,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes
-}
-
-Header.defaultProps = {
-  theme
-}
-
-HeaderItem.propTypes = {
-  full: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes,
-  ...sx.propTypes
-}
-
-HeaderItem.defaultProps = {
-  theme
-}
-
-HeaderLink.propTypes = {
-  href: PropTypes.string,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...BORDER.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
-}
-
-HeaderLink.defaultProps = {
-  theme
-}
 
 export type HeaderProps = ComponentProps<typeof Header>
 export type HeaderLinkProps = ComponentProps<typeof HeaderLink>

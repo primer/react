@@ -74,6 +74,7 @@ Array [
   outline: none;
   cursor: pointer;
   border-radius: 6px;
+  color: #586069;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -83,8 +84,8 @@ Array [
   box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
-.c1:active {
-  color: #24292e;
+.c1:hover {
+  color: #0366d6;
 }
 
 .c3 {
@@ -110,7 +111,7 @@ Array [
   max-height: 80vh;
   z-index: 999;
   margin: 10vh auto;
-  background-color: #fff;
+  background-color: #ffffff;
   width: 440px;
   outline: none;
 }

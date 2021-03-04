@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import useMouseIntent from './hooks/useMouseIntent'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const GlobalStyle = createGlobalStyle`
@@ -46,16 +44,9 @@ function BaseStyles(props: BaseStylesProps) {
 }
 
 BaseStyles.defaultProps = {
-  color: 'gray.9',
+  color: 'text.primary',
   fontFamily: 'normal',
-  lineHeight: 'default',
-  theme
-}
-
-BaseStyles.propTypes = {
-  ...TYPOGRAPHY.propTypes,
-  ...COMMON.propTypes,
-  theme: PropTypes.object
+  lineHeight: 'default'
 }
 
 export default BaseStyles

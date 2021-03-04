@@ -1,12 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import sx from '../sx'
-import {get, COMMON} from '../constants'
-import {ComponentProps} from '../utils/types'
-import theme from '../theme'
 import Box from '../Box'
-import {buildPaginationModel, buildComponentData} from './model'
+import {COMMON, get} from '../constants'
+import sx from '../sx'
+import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
   display: inline-block;
@@ -159,7 +156,7 @@ const PaginationContainer = styled.nav`
 `
 
 export type PaginationProps = {
-  theme: object
+  theme?: object
   pageCount: number
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
@@ -205,25 +202,12 @@ function defaultHrefBuilder(pageNum: number) {
 
 function noop() {}
 
-Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  hrefBuilder: PropTypes.func,
-  marginPageCount: PropTypes.number,
-  onPageChange: PropTypes.func,
-  pageCount: PropTypes.number.isRequired,
-  showPages: PropTypes.bool,
-  surroundingPageCount: PropTypes.number,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
 Pagination.defaultProps = {
   hrefBuilder: defaultHrefBuilder,
   marginPageCount: 1,
   onPageChange: noop,
   showPages: true,
-  surroundingPageCount: 2,
-  theme
+  surroundingPageCount: 2
 }
 
 export default Pagination
