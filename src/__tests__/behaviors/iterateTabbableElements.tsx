@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 
 import React from 'react'
-import {iterateFocusableElements} from '../../utils/iterateFocusable'
+import {iterateTabbableElements} from '../../utils/iterateTabbable'
 import {render} from '@testing-library/react'
 
 it('Should iterate through focusable elements only', () => {
@@ -23,7 +23,7 @@ it('Should iterate through focusable elements only', () => {
     </div>
   )
 
-  const focusable = Array.from(iterateFocusableElements(container))
+  const focusable = Array.from(iterateTabbableElements(container))
   expect(focusable.length).toEqual(5)
   expect(focusable[0].tagName.toLowerCase()).toEqual('textarea')
   expect(focusable[1].tagName.toLowerCase()).toEqual('input')
@@ -51,7 +51,7 @@ it('Should iterate through focusable elements in reverse', () => {
     </div>
   )
 
-  const focusable = Array.from(iterateFocusableElements(container, true))
+  const focusable = Array.from(iterateTabbableElements(container, {reverse: true}))
   expect(focusable.length).toEqual(5)
   expect(focusable[0].tagName.toLowerCase()).toEqual('a')
   expect(focusable[0].getAttribute('href')).toEqual('#yah')
