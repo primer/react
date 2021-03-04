@@ -70,17 +70,16 @@ const DummyItem = styled.div`
   }
 `
 
-export const DefaultOverlay = () => {
+export const DropdownOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const yesButtonRef = useRef<HTMLButtonElement>(null)
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen &&
-        <Overlay initialFocusRef={yesButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
+        <Overlay returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
           <Flex flexDirection="column" p={2}>
             <DummyItem>Copy link</DummyItem>
             <DummyItem>Quote reply</DummyItem>
@@ -92,3 +91,23 @@ export const DefaultOverlay = () => {
     </>
   )
 }
+
+export const DialogOverlay = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const yesButtonRef = useRef<HTMLButtonElement>(null)
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        open overlay
+      </Button>
+      <Overlay initialFocusRef={yesButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} isOpen={isOpen} width="sm">
+        <Flex flexDirection="column" p={2}>
+          <Button ref={yesButtonRef}>yes</Button>
+          <Button>no</Button>
+        </Flex>
+      </Overlay>
+    </>
+  )
+}
+
