@@ -20,7 +20,7 @@ const pulseKeyframes = keyframes`
 const Animation = styled.div<SystemCommonProps>`
   padding: ${get('space.6')} ${get('space.4')};
   text-align: center;
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.overlay')};
   animation-name: ${pulseKeyframes};
   animation-duration: 2s;
   animation-timing-function: linear;
@@ -36,10 +36,6 @@ const SelectMenuLoadingAnimation = (props: SelectMenuLoadingAnimationProps) => {
       <StyledOcticon size={32} icon={OctofaceIcon} />
     </Animation>
   )
-}
-
-SelectMenuLoadingAnimation.propTypes = {
-  ...COMMON.propTypes
 }
 
 export default SelectMenuLoadingAnimation

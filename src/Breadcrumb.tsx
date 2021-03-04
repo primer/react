@@ -1,12 +1,10 @@
 import classnames from 'classnames'
 import * as History from 'history'
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
 import {COMMON, FLEX, get, SystemCommonProps, SystemFlexProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const SELECTED_CLASS = 'selected'
@@ -80,27 +78,7 @@ const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
   ${sx};
 `
 
-Breadcrumb.defaultProps = {
-  theme
-}
-
-Breadcrumb.propTypes = {
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
 Breadcrumb.displayName = 'Breadcrumb'
-
-BreadcrumbItem.defaultProps = {
-  theme
-}
-
-BreadcrumbItem.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...sx.propTypes,
-  ...COMMON.propTypes
-}
 
 BreadcrumbItem.displayName = 'Breadcrumb.Item'
 

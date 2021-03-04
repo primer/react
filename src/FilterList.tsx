@@ -1,8 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
-import theme from './theme'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -74,31 +72,8 @@ function FilterListItem({children, count, ...rest}: React.PropsWithChildren<Filt
 }
 
 FilterList.defaultProps = {
-  theme,
   m: 0,
   p: 0
-}
-
-FilterList.propTypes = {
-  children: PropTypes.node,
-  small: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-FilterListItem.defaultProps = {
-  theme
-}
-
-FilterListItem.propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
-  children: PropTypes.node,
-  className: PropTypes.string,
-  count: PropTypes.number,
-  selected: PropTypes.bool,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 FilterListItem.displayName = 'FilterList.Item'

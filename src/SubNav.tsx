@@ -1,13 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import * as History from 'history'
+import React from 'react'
 import styled from 'styled-components'
-import {COMMON, FLEX, get, SystemFlexProps, SystemCommonProps, SystemBorderProps} from './constants'
-import {ComponentProps} from './utils/types'
-import theme from './theme'
+import {COMMON, FLEX, get, SystemBorderProps, SystemCommonProps, SystemFlexProps} from './constants'
 import Flex, {FlexProps} from './Flex'
 import sx, {SxProp} from './sx'
-import * as History from 'history'
+import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -78,19 +76,19 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   font-size: ${get('fontSizes.1')};
   line-height: 20px; //custom value for SubNav
   min-height: 34px; //custom value for SubNav
-  color: ${get('colors.gray.9')};
+  color: ${get('colors.text.primary')};
   text-align: center;
   text-decoration: none;
-  border-top: 1px solid ${get('colors.gray.2')};
-  border-bottom: 1px solid ${get('colors.gray.2')};
-  border-right: 1px solid ${get('colors.gray.2')};
+  border-top: 1px solid ${get('colors.border.primary')};
+  border-bottom: 1px solid ${get('colors.border.primary')};
+  border-right: 1px solid ${get('colors.border.primary')};
   display: flex;
   align-items: center;
 
   &:first-of-type {
     border-top-left-radius: ${get('radii.2')};
     border-bottom-left-radius: ${get('radii.2')};
-    border-left: 1px solid ${get('colors.gray.2')};
+    border-left: 1px solid ${get('colors.border.primary')};
   }
 
   &:last-of-type {
@@ -101,20 +99,20 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   &:hover,
   &:focus {
     text-decoration: none;
-    background-color: ${get('colors.gray.1')};
+    background-color: ${get('colors.bg.tertiary')};
     transition: 0.2s ease;
 
     .SubNav-octicon {
-      color: ${get('colors.gray.5')};
+      color: ${get('colors.icon.secondary')};
     }
   }
 
   &.selected {
-    color: ${get('colors.white')};
-    background-color: ${get('colors.blue.5')};
-    border: 0;
+    color: ${get('colors.state.selected.primaryText')};
+    background-color: ${get('colors.state.selected.primaryBg')};
+    border-color: ${get('colors.state.selected.primaryBorder')};
     .SubNav-octicon {
-      color: ${get('colors.gray.5')};
+      color: ${get('colors.state.selected.primaryText')};
     }
   }
 
@@ -122,37 +120,7 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   ${sx};
 `
 
-SubNav.defaultProps = {
-  theme
-}
-
-SubNav.propTypes = {
-  actions: PropTypes.node,
-  align: PropTypes.oneOf(['right']),
-  children: PropTypes.node,
-  full: PropTypes.bool,
-  label: PropTypes.string,
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
-SubNavLink.defaultProps = {
-  theme
-}
-
-SubNavLink.propTypes = {
-  href: PropTypes.string,
-  selected: PropTypes.bool,
-  ...COMMON.propTypes,
-  ...sx.propTypes
-}
-
 SubNavLink.displayName = 'SubNav.Link'
-
-SubNavLinks.propTypes = {
-  ...Flex.propTypes
-}
 
 SubNavLinks.displayName = 'SubNav.Links'
 

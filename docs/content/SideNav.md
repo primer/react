@@ -70,9 +70,11 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
 Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more lightweight version that has items with no borders and are more condensed.
 
 ```jsx live
-<BorderBox p={3} backgroundColor='gray.0' maxWidth={360}>
+<BorderBox p={3} backgroundColor="bg.secondary" maxWidth={360}>
   <BorderBox borderWidth={0} borderBottomWidth={1} borderRadius={0} mb={2} pb={1}>
-    <Heading as="h5" fontSize={1} color="gray.7">Menu</Heading>
+    <Heading as="h5" fontSize={1} color="text.secondary">
+      Menu
+    </Heading>
   </BorderBox>
   <SideNav variant="lightweight">
     <SideNav.Link href="#url">

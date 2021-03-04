@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import {get, COMMON, TYPOGRAPHY, SystemCommonProps, SystemTypographyProps} from '../constants'
-import theme from '../theme'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -10,6 +8,7 @@ import {ComponentProps} from '../utils/types'
 // SelectMenu.Modal
 
 const SelectMenuTitle = styled.h3`
+  color: ${get('colors.text.primary')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
@@ -24,7 +23,7 @@ const StyledHeader = styled.header<SystemTypographyProps & SystemCommonProps & S
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
   padding: ${get('space.3')};
-  border-bottom: ${get('borderWidths')} solid ${get('colors.border.gray')};
+  border-bottom: ${get('borderWidths')} solid ${get('colors.selectMenu.borderSecondary')};
   ${COMMON}
   ${TYPOGRAPHY}
 
@@ -44,17 +43,6 @@ const SelectMenuHeader = ({children, theme, ...rest}: SelectMenuHeaderProps) => 
       <SelectMenuTitle theme={theme}>{children}</SelectMenuTitle>
     </StyledHeader>
   )
-}
-
-SelectMenuHeader.defaultProps = {
-  theme
-}
-
-SelectMenuHeader.propTypes = {
-  theme: PropTypes.object,
-  ...COMMON.propTypes,
-  ...TYPOGRAPHY.propTypes,
-  ...sx.propTypes
 }
 
 SelectMenuHeader.displayName = 'SelectMenu.Header'

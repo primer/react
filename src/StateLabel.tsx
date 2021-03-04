@@ -1,13 +1,11 @@
-import { GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon, QuestionIcon } from '@primer/octicons-react'
-import PropTypes from 'prop-types'
+import {GitMergeIcon, GitPullRequestIcon, IssueClosedIcon, IssueOpenedIcon, QuestionIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
-import { variant } from 'styled-system'
-import { COMMON, get, SystemCommonProps } from './constants'
+import {variant} from 'styled-system'
+import {COMMON, get, SystemCommonProps} from './constants'
 import StyledOcticon from './StyledOcticon'
-import sx, { SxProp } from './sx'
-import theme from './theme'
-import { ComponentProps } from './utils/types'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,
@@ -20,25 +18,72 @@ const octiconMap = {
 
 const colorVariants = variant({
   prop: 'status',
-  scale: 'stateLabels.status'
+  variants: {
+    issueClosed: {
+      backgroundColor: 'prState.closed.bg',
+      color: 'prState.closed.text',
+      borderColor: 'prState.closed.border'
+    },
+    pullClosed: {
+      backgroundColor: 'prState.closed.bg',
+      color: 'prState.closed.text',
+      borderColor: 'prState.closed.border'
+    },
+    pullMerged: {
+      backgroundColor: 'prState.merged.bg',
+      color: 'prState.merged.text',
+      borderColor: 'prState.merged.border'
+    },
+    issueOpened: {
+      backgroundColor: 'prState.open.bg',
+      color: 'prState.open.text',
+      borderColor: 'prState.open.border'
+    },
+    pullOpened: {
+      backgroundColor: 'prState.open.bg',
+      color: 'prState.open.text',
+      borderColor: 'prState.open.border'
+    },
+    draft: {
+      backgroundColor: 'prState.draft.bg',
+      color: 'prState.draft.text',
+      borderColor: 'prState.draft.border'
+    }
+  }
 })
 
 const sizeVariants = variant({
   prop: 'variant',
-  scale: 'stateLabels.sizes'
+  variants: {
+    small: {
+      paddingX: 2,
+      paddingY: 1,
+      fontSize: 0
+    },
+    normal: {
+      paddingX: '12px',
+      paddingY: 2,
+      fontSize: 1
+    }
+  }
 })
 
 type StyledStateLabelBaseProps = {
-  variant?: 'small' | 'normal'; status?: keyof typeof octiconMap} & SystemCommonProps & SxProp
+  variant?: 'small' | 'normal'
+  status?: keyof typeof octiconMap
+} & SystemCommonProps &
+  SxProp
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   display: inline-flex;
   align-items: center;
-  font-weight: 600;
+  font-weight: ${get('fontWeights.bold')};
   line-height: 16px;
-  color: ${get('colors.white')};
+  color: ${get('colors.bg.primary')};
   text-align: center;
   border-radius: ${get('radii.3')};
+  border-width: 1px;
+  border-style: solid;
   ${colorVariants};
   ${sizeVariants};
   ${COMMON};
@@ -58,16 +103,7 @@ function StateLabel({children, status, variant, ...rest}: StateLabelProps) {
 }
 
 StateLabel.defaultProps = {
-  theme,
   variant: 'normal'
-}
-
-StateLabel.propTypes = {
-  status: PropTypes.oneOf(['issueOpened', 'pullOpened', 'issueClosed', 'pullClosed', 'pullMerged', 'draft']).isRequired,
-  theme: PropTypes.object,
-  variant: PropTypes.oneOf(['small', 'normal']),
-  ...COMMON.propTypes,
-  ...sx.propTypes
 }
 
 export default StateLabel

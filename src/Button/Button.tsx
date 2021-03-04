@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
 import {get} from '../constants'
-import theme from '../theme'
-import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
+import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
+import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   color: ${get('buttons.default.color.default')};
@@ -38,15 +37,6 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   ${buttonSystemProps};
   ${sx};
 `
-
-Button.defaultProps = {
-  theme
-}
-
-Button.propTypes = {
-  ...ButtonBase.propTypes,
-  ...sx.propTypes
-}
 
 export type ButtonProps = ComponentProps<typeof Button>
 export default Button

@@ -1,11 +1,8 @@
-import systemPropTypes from '@styled-system/prop-types'
-import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const Bar = styled.span<{progress?: string | number} & SystemCommonProps>`
@@ -29,7 +26,7 @@ type StyledProgressContainerProps = {
 const ProgressContainer = styled.span<StyledProgressContainerProps>`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   overflow: hidden;
-  background-color: ${get('colors.gray.2')};
+  background-color: ${get('colors.border.primary')};
   border-radius: ${get('radii.1')};
   height: ${props => sizeMap[props.barSize || 'default']};
   ${COMMON}
@@ -48,19 +45,8 @@ function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
 }
 
 ProgressBar.defaultProps = {
-  bg: 'green.5',
-  barSize: 'default',
-  theme
-}
-
-ProgressBar.propTypes = {
-  ...COMMON.propTypes,
-  barSize: PropTypes.oneOf(['small', 'default', 'large']),
-  inline: PropTypes.bool,
-  progress: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ...sx.propTypes,
-  theme: PropTypes.object,
-  width: systemPropTypes.layout.width
+  bg: 'state.success',
+  barSize: 'default'
 }
 
 export default ProgressBar
