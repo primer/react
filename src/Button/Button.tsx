@@ -13,7 +13,6 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   &:hover {
     background-color: ${get('colors.btn.hoverBg')};
     border-color: ${get('colors.btn.hoverBorder')};
-    box-shadow: ${get('shadows.btn.focusShadow')}, ${get('shadows.btn.insetShadow')};
   }
 
   // focus must come before :active so that the active box shadow overrides
@@ -25,7 +24,6 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   &:active {
     background-color: ${get('colors.btn.selectedBg')};
     box-shadow: ${get('shadows.btn.shadowActive')};
-    border-color: ${get('colors.btn.border')};
   }
 
   &:disabled {
