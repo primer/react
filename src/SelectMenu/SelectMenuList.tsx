@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 
 const listStyles = css`
   position: relative;
@@ -38,5 +38,5 @@ const SelectMenuList = styled.div<SystemCommonProps & SxProp>`
 
 SelectMenuList.displayName = 'SelectMenu.List'
 
-export type SelectMenuListProps = ComponentProps<typeof SelectMenuList>
+export type SelectMenuListProps = ComponentPropsWithAs<typeof SelectMenuList>
 export default SelectMenuList

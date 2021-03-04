@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const BranchName = styled.a<SystemCommonProps & SxProp>`
   display: inline-block;
@@ -15,5 +15,5 @@ const BranchName = styled.a<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type BranchNameProps = ComponentProps<typeof BranchName>
+export type BranchNameProps = ComponentPropsWithAs<typeof BranchName>
 export default BranchName

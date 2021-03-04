@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {compose, fontSize, FontSizeProps, variant} from 'styled-system'
 import {COMMON, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 import buttonBaseStyles from './ButtonStyles'
 
 export const buttonSystemProps = compose(fontSize, COMMON, LAYOUT)
@@ -38,5 +38,5 @@ ButtonBase.defaultProps = {
   variant: 'medium'
 }
 
-export type ButtonBaseProps = ComponentProps<typeof ButtonBase>
+export type ButtonBaseProps = ComponentPropsWithAs<typeof ButtonBase>
 export default ButtonBase

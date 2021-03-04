@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
 export const listItemStyles = css`
@@ -101,7 +101,7 @@ const StyledItem = styled.a.attrs(() => ({
 
 type SelectMenuItemInteralProps = {
   selected?: boolean
-} & ComponentProps<typeof StyledItem>
+} & ComponentPropsWithAs<typeof StyledItem>
 
 const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>(
   ({children, selected, theme, onClick, ...rest}, forwardedRef) => {
@@ -133,5 +133,5 @@ SelectMenuItem.defaultProps = {
 
 SelectMenuItem.displayName = 'SelectMenu.Item'
 
-export type SelectMenuItemProps = ComponentProps<typeof SelectMenuItem>
+export type SelectMenuItemProps = ComponentPropsWithAs<typeof SelectMenuItem>
 export default SelectMenuItem

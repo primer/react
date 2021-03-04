@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const Pagehead = styled.div<SystemCommonProps & SxProp>`
   position: relative;
@@ -13,5 +13,5 @@ const Pagehead = styled.div<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type PageheadProps = ComponentProps<typeof Pagehead>
+export type PageheadProps = ComponentPropsWithAs<typeof Pagehead>
 export default Pagehead

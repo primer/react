@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import {Absolute} from './Position'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
@@ -140,7 +140,7 @@ const transformChildren = (children: React.ReactNode) => {
 
 export type AvatarStackProps = {
   alignRight?: boolean
-} & ComponentProps<typeof AvatarStackWrapper>
+} & ComponentPropsWithAs<typeof AvatarStackWrapper>
 
 const AvatarStack = ({children, alignRight, ...rest}: AvatarStackProps) => {
   const count = React.Children.count(children)

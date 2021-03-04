@@ -6,7 +6,7 @@ import {COMMON, get} from './constants'
 import Flex, {FlexProps} from './Flex'
 import {Relative} from './Position'
 import sx from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const Timeline = styled(Flex)<{clipSidebar?: boolean}>`
   flex-direction: column;
@@ -127,10 +127,10 @@ TimelineBody.displayName = 'Timeline.Body'
 
 TimelineBreak.displayName = 'Timeline.Break'
 
-export type TimelineProps = ComponentProps<typeof Timeline>
-export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
-export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
-export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
+export type TimelineProps = ComponentPropsWithAs<typeof Timeline>
+export type TimelineItemsProps = ComponentPropsWithAs<typeof TimelineItem>
+export type TimelineBodyProps = ComponentPropsWithAs<typeof TimelineBody>
+export type TimelineBreakProps = ComponentPropsWithAs<typeof TimelineBreak>
 export default Object.assign(Timeline, {
   Item: TimelineItem,
   Badge: TimelineBadge,

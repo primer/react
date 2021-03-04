@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 
@@ -14,7 +14,7 @@ const TabPanelBase = styled.div<SystemCommonProps & SxProp>`
 
 export type SelectMenuTabPanelProps = {
   tabName?: string
-} & ComponentProps<typeof TabPanelBase>
+} & ComponentPropsWithAs<typeof TabPanelBase>
 
 const TabPanel = ({tabName, className, children, ...rest}: SelectMenuTabPanelProps) => {
   const menuContext = useContext(MenuContext)

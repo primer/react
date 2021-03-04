@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
 // SelectMenu.Modal
@@ -35,7 +35,7 @@ const StyledHeader = styled.header<SystemTypographyProps & SystemCommonProps & S
   ${sx};
 `
 
-export type SelectMenuHeaderProps = ComponentProps<typeof StyledHeader>
+export type SelectMenuHeaderProps = ComponentPropsWithAs<typeof StyledHeader>
 
 const SelectMenuHeader = ({children, theme, ...rest}: SelectMenuHeaderProps) => {
   return (

@@ -2,7 +2,7 @@ import * as History from 'history'
 import styled, {css} from 'styled-components'
 import {BORDER, COMMON, get, SystemBorderProps, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 type StyledHeaderItemProps = {full?: boolean} & SystemCommonProps & SxProp
 type StyledHeaderProps = SystemBorderProps & SystemCommonProps & SxProp
@@ -77,7 +77,7 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
 
 HeaderLink.displayName = 'Header.Link'
 
-export type HeaderProps = ComponentProps<typeof Header>
-export type HeaderLinkProps = ComponentProps<typeof HeaderLink>
-export type HeaderItemProps = ComponentProps<typeof HeaderItem>
+export type HeaderProps = ComponentPropsWithAs<typeof Header>
+export type HeaderLinkProps = ComponentPropsWithAs<typeof HeaderLink>
+export type HeaderItemProps = ComponentPropsWithAs<typeof HeaderItem>
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})

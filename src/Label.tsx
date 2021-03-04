@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 import {borderColor, BorderColorProps, variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
@@ -71,5 +71,5 @@ Label.defaultProps = {
   variant: 'medium'
 }
 
-export type LabelProps = ComponentProps<typeof Label>
+export type LabelProps = ComponentPropsWithAs<typeof Label>
 export default Label

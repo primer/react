@@ -6,12 +6,12 @@ import BorderBox from './BorderBox'
 import {COMMON, get} from './constants'
 import Link from './Link'
 import sx from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'
   bordered?: boolean
-} & ComponentProps<typeof BorderBox>
+} & ComponentPropsWithAs<typeof BorderBox>
 
 function SideNavBase({variant, className, bordered, children, ...props}: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
@@ -159,7 +159,7 @@ SideNavLink.defaultProps = {
 
 SideNavLink.displayName = 'SideNav.Link'
 
-export type SideNavProps = ComponentProps<typeof SideNav>
-export type SideNavLinkProps = ComponentProps<typeof SideNavLink>
+export type SideNavProps = ComponentPropsWithAs<typeof SideNav>
+export type SideNavLinkProps = ComponentPropsWithAs<typeof SideNavLink>
 
 export default Object.assign(SideNav, {Link: SideNavLink})

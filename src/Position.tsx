@@ -3,14 +3,14 @@ import styled from 'styled-components'
 import Box from './Box'
 import {POSITION, SystemPositionProps} from './constants'
 import sx from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const Position = styled(Box)<SystemPositionProps>`
   ${POSITION};
   ${sx};
 `
 
-export type PositionProps = ComponentProps<typeof Position>
+export type PositionProps = ComponentPropsWithAs<typeof Position>
 export default Position
 
 // Absolute

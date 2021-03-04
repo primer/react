@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 
 const footerStyles = css`
   margin-top: -1px;
@@ -24,5 +24,5 @@ const SelectMenuFooter = styled.footer<SystemCommonProps & SxProp>`
 
 SelectMenuFooter.displayName = 'SelectMenu.Footer'
 
-export type SelectMenuFooterProps = ComponentProps<typeof SelectMenuFooter>
+export type SelectMenuFooterProps = ComponentPropsWithAs<typeof SelectMenuFooter>
 export default SelectMenuFooter

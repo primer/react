@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {system} from 'styled-system'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 type StyledLinkProps = {
   hoverColor?: string
@@ -54,5 +54,5 @@ const Link = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-export type LinkProps = ComponentProps<typeof Link>
+export type LinkProps = ComponentPropsWithAs<typeof Link>
 export default Link

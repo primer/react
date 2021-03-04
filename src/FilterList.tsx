@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const FilterListBase = styled.ul<SystemCommonProps & SxProp>`
   list-style-type: none;
@@ -10,7 +10,7 @@ const FilterListBase = styled.ul<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type FilterListProps = ComponentProps<typeof FilterListBase>
+export type FilterListProps = ComponentPropsWithAs<typeof FilterListBase>
 
 const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps>) => {
   const items = React.Children.map(children, child => {
@@ -56,7 +56,7 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   ${sx};
 `
 
-export type FilterListItemProps = {count?: number} & ComponentProps<typeof FilterListItemBase>
+export type FilterListItemProps = {count?: number} & ComponentPropsWithAs<typeof FilterListItemBase>
 
 function FilterListItem({children, count, ...rest}: React.PropsWithChildren<FilterListItemProps>) {
   return (

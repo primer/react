@@ -5,7 +5,7 @@ import {variant} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,
@@ -90,7 +90,7 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   ${sx};
 `
 
-export type StateLabelProps = ComponentProps<typeof StateLabelBase>
+export type StateLabelProps = ComponentPropsWithAs<typeof StateLabelBase>
 
 function StateLabel({children, status, variant, ...rest}: StateLabelProps) {
   const octiconProps = variant === 'small' ? {width: '1em'} : {}

@@ -3,7 +3,7 @@ import styled, {keyframes} from 'styled-components'
 import StyledOcticon from '../StyledOcticon'
 import {OctofaceIcon} from '@primer/octicons-react'
 import {get, COMMON, SystemCommonProps} from '../constants'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 
 const pulseKeyframes = keyframes`
   0% {
@@ -28,7 +28,7 @@ const Animation = styled.div<SystemCommonProps>`
   ${COMMON}
 `
 
-export type SelectMenuLoadingAnimationProps = ComponentProps<typeof Animation>
+export type SelectMenuLoadingAnimationProps = ComponentPropsWithAs<typeof Animation>
 
 const SelectMenuLoadingAnimation = (props: SelectMenuLoadingAnimationProps) => {
   return (

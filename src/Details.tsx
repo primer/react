@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 type StyledDetailsProps = SystemCommonProps & SxProp
 
@@ -19,5 +19,5 @@ const Details = styled.details<StyledDetailsProps>`
 
 Details.displayName = 'Details'
 
-export type DetailsProps = ComponentProps<typeof Details>
+export type DetailsProps = ComponentPropsWithAs<typeof Details>
 export default Details

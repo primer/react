@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -22,9 +22,9 @@ const TabNavBody = styled.nav`
   overflow: auto;
 `
 
-export type TabNavProps = ComponentProps<typeof TabNavBase>
+export type TabNavProps = ComponentPropsWithAs<typeof TabNavBase>
 
-function TabNav({children, "aria-label": ariaLabel, ...rest}: TabNavProps) {
+function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   return (
     <TabNavBase {...rest}>
       <TabNavBody aria-label={ariaLabel}>{children}</TabNavBody>
@@ -72,5 +72,5 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
 
 TabNavLink.displayName = 'TabNav.Link'
 
-export type TabNavLinkProps = ComponentProps<typeof TabNavLink>
+export type TabNavLinkProps = ComponentPropsWithAs<typeof TabNavLink>
 export default Object.assign(TabNav, {Link: TabNavLink})

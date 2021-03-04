@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {COMMON, FLEX, get, SystemBorderProps, SystemCommonProps, SystemFlexProps} from './constants'
 import Flex, {FlexProps} from './Flex'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
@@ -41,7 +41,7 @@ export type SubNavProps = {
   align?: 'right'
   full?: boolean
   label?: string
-} & ComponentProps<typeof SubNavBase>
+} & ComponentPropsWithAs<typeof SubNavBase>
 
 function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   const classes = classnames(className, 'SubNav')
@@ -124,5 +124,5 @@ SubNavLink.displayName = 'SubNav.Link'
 
 SubNavLinks.displayName = 'SubNav.Links'
 
-export type SubNavLinkProps = ComponentProps<typeof SubNavLink>
+export type SubNavLinkProps = ComponentPropsWithAs<typeof SubNavLink>
 export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks})

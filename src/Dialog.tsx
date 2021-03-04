@@ -6,7 +6,7 @@ import Flex from './Flex'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const noop = () => null
 
@@ -53,7 +53,7 @@ const DialogHeaderBase = styled(Flex)<SxProp>`
 
   ${sx};
 `
-export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
+export type DialogHeaderProps = ComponentPropsWithAs<typeof DialogHeaderBase>
 
 function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
@@ -94,7 +94,7 @@ type InternalDialogProps = {
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef?: React.RefObject<HTMLElement>
   modalRef?: React.ForwardedRef<HTMLElement>
-} & ComponentProps<typeof DialogBase>
+} & ComponentPropsWithAs<typeof DialogBase>
 
 const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
   (
@@ -145,5 +145,5 @@ DialogHeader.defaultProps = {
 DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'
 
-export type DialogProps = ComponentProps<typeof Dialog>
+export type DialogProps = ComponentPropsWithAs<typeof Dialog>
 export default Object.assign(Dialog, {Header: DialogHeader})

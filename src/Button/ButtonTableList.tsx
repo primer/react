@@ -9,7 +9,7 @@ import {
   TYPOGRAPHY
 } from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentPropsWithAs} from '../utils/types'
 
 type StyledButtonTableListProps = SystemCommonProps & SystemTypographyProps & SystemLayoutProps & SxProp
 
@@ -54,5 +54,5 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   ${sx};
 `
 
-export type ButtonTableListProps = ComponentProps<typeof ButtonTableList>
+export type ButtonTableListProps = ComponentPropsWithAs<typeof ButtonTableList>
 export default ButtonTableList

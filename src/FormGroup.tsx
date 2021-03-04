@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentPropsWithAs} from './utils/types'
 
 const FormGroup = styled.div<SystemCommonProps & SxProp>`
   margin: ${get('space.3')} 0;
@@ -22,6 +22,6 @@ const FormGroupLabel = styled.label<SystemTypographyProps & SystemCommonProps & 
 
 FormGroupLabel.displayName = 'FormGroup.Label'
 
-export type FormGroupProps = ComponentProps<typeof FormGroup>
-export type FormGroupLabelProps = ComponentProps<typeof FormGroupLabel>
+export type FormGroupProps = ComponentPropsWithAs<typeof FormGroup>
+export type FormGroupLabelProps = ComponentPropsWithAs<typeof FormGroupLabel>
 export default Object.assign(FormGroup, {Label: FormGroupLabel})
