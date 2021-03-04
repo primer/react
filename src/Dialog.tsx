@@ -27,7 +27,7 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   max-height: 80vh;
   z-index: 999;
   margin: 10vh auto;
-  background-color: ${get('colors.bg.canvas')};
+  background-color: ${get('colors.bg.primary')};
   width: ${props => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
   outline: none;
 
@@ -139,7 +139,7 @@ const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
 )
 
 DialogHeader.defaultProps = {
-  backgroundColor: 'bg.canvasInset'
+  backgroundColor: 'bg.tertiary'
 }
 
 DialogHeader.propTypes = {
