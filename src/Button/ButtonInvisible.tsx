@@ -5,7 +5,7 @@ import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
-  color: ${get('colors.blue.5')};
+  color: ${get('colors.text.link')};
   background-color: transparent;
   border: 0;
   border-radius: ${get('radii.2')};
