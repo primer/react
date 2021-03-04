@@ -17,8 +17,8 @@ const Header = styled.div<StyledHeaderProps>`
   padding: ${get('space.3')};
   font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.default')};
-  color: ${get('colors.whitefade70')};
-  background-color: ${get('colors.bg.grayDark')};
+  color: ${get('colors.header.text')};
+  background-color: ${get('colors.header.bg')};
   align-items: center;
   flex-wrap: nowrap;
 
@@ -57,7 +57,7 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
   }
 })<StyledHeaderLinkProps>`
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.text.white')};
+  color: ${get('colors.header.logo')};
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
@@ -66,7 +66,7 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
 
   &:hover,
   &:focus {
-    color: ${get('colors.whitefade70')};
+    color: ${get('colors.header.text')};
   }
 
   ${COMMON};
