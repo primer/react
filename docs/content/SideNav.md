@@ -35,11 +35,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <Text>Text Only</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Avatar
-      size={16}
-      mr={2}
-      src="https://avatars.githubusercontent.com/hubot?s=32"
-    />
+    <Avatar size={16} mr={2} src="https://avatars.githubusercontent.com/hubot?s=32" />
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
@@ -48,18 +44,20 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={DotIcon} color="green.5" />
+    <StyledOcticon mr={2} size={16} icon={DotIcon} color="icon.success" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
-    <Label bg='blue.5'>label</Label>
+    <Label bg="label.info.border">label</Label>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a counter</Text>
     <CounterLabel>16</CounterLabel>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Heading as="h5" fontSize={1}>A heading</Heading>
+    <Heading as="h5" fontSize={1}>
+      A heading
+    </Heading>
     <Text>and some more content</Text>
   </SideNav.Link>
 </SideNav>
@@ -106,7 +104,7 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
     <Text>Profile</Text>
   </SideNav.Link>
 
-  <SideNav bordered variant="lightweight" py={3} pl={6} backgroundColor="white">
+  <SideNav bordered variant="lightweight" py={3} pl={6} backgroundColor="sidenav.selectedBg">
     <SideNav.Link href="#url" selected>
       <Text>Sub item 1</Text>
     </SideNav.Link>
@@ -141,19 +139,19 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 
 ### SideNav
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'nav' | Sets the HTML tag for the component. |
-| bordered | Boolean | false | Renders the component with a border. |
-| variant | String | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
+| Name     | Type    | Default  | Description                                                                    |
+| :------- | :------ | :------: | :----------------------------------------------------------------------------- |
+| as       | String  |  'nav'   | Sets the HTML tag for the component.                                           |
+| bordered | Boolean |  false   | Renders the component with a border.                                           |
+| variant  | String  | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
 
 ### SideNav.Link
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'a' | Sets the HTML tag for the component. |
-| href      | String  |         | URL to be used for the Link                       |
-| muted     | Boolean |  false  | Uses light gray for Link color, and blue on hover |
-| selected | Boolean | false | Sets the link as selected, giving it a different style and setting the `aria-current` attribute. |
-| underline | Boolean |  false  | Adds underline to the Link                        |
-| variant | String | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
+| Name      | Type    | Default  | Description                                                                                       |
+| :-------- | :------ | :------: | :------------------------------------------------------------------------------------------------ |
+| as        | String  |   'a'    | Sets the HTML tag for the component.                                                              |
+| href      | String  |          | URL to be used for the Link                                                                       |
+| muted     | Boolean |  false   | Uses a less prominent shade for Link color, and the default link shade on hover                   |
+| selected  | Boolean |  false   | Sets the link as selected, giving it a different style and setting the `aria-current` attribute.  |
+| underline | Boolean |  false   | Adds underline to the Link                                                                        |
+| variant   | String  | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
