@@ -39,7 +39,7 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
 
     return (
       <StyledForm theme={theme} sx={sx}>
-        <TextInput theme={theme} ref={ref} width="100%" block value={value} {...rest} />
+        <TextInput theme={theme} ref={ref} width="100%" block value={value} contrast {...rest} />
       </StyledForm>
     )
   }
