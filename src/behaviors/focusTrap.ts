@@ -1,4 +1,4 @@
-import {iterateFocusableElements} from './domUtils'
+import {iterateFocusableElements} from '../utils/iterateFocusable'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 
 eventListenerSignalPolyfill()
