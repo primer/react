@@ -71,7 +71,6 @@ exports[`Dropdown.Button renders consistently 1`] = `
 .c0:hover {
   background-color: #f3f4f6;
   border-color: rgba(27,31,35,0.15);
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:focus {
@@ -82,7 +81,6 @@ exports[`Dropdown.Button renders consistently 1`] = `
 .c0:active {
   background-color: #edeff2;
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
-  border-color: rgba(27,31,35,0.15);
 }
 
 .c0:disabled {
