@@ -19,8 +19,8 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 4px 4px 0px 0px;
-  border-bottom: 1px solid #dad5da;
+  border-radius: 6px 6px 0px 0px;
+  border-bottom: 1px solid #e1e4e8;
 }
 
 @media screen and (max-width:750px) {
@@ -35,7 +35,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 >
   <span
     className="c1"
-    color="gray.9"
+    color="text.primary"
     fontFamily="sans-serif"
     fontSize={1}
     fontWeight="bold"
@@ -74,6 +74,7 @@ Array [
   outline: none;
   cursor: pointer;
   border-radius: 6px;
+  color: #586069;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -83,8 +84,8 @@ Array [
   box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
 }
 
-.c1:active {
-  color: #24292e;
+.c1:hover {
+  color: #0366d6;
 }
 
 .c3 {
@@ -99,7 +100,7 @@ Array [
 }
 
 .c0 {
-  box-shadow: 0px 4px 32px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 24px rgba(149,157,165,0.2);
   border-radius: 6px;
   position: fixed;
   top: 0;
@@ -126,8 +127,8 @@ Array [
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 4px 4px 0px 0px;
-  border-bottom: 1px solid #dad5da;
+  border-radius: 6px 6px 0px 0px;
+  border-bottom: 1px solid #e1e4e8;
 }
 
 @media screen and (max-width:750px) {
@@ -187,7 +188,7 @@ Array [
     >
       <span
         className="c3"
-        color="gray.9"
+        color="text.primary"
         fontFamily="sans-serif"
         fontSize={1}
         fontWeight="bold"

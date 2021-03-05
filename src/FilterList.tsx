@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const FilterListBase = styled.ul<SystemCommonProps & SxProp>`
@@ -34,8 +33,8 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')};
-  color: ${props => (props.selected ? get('colors.white') : get('colors.gray.6'))};
-  background-color: ${props => (props.selected ? get('colors.blue.5') : '')}!important;
+  color: ${props => (props.selected ? get('colors.state.selected.primaryText') : get('colors.text.secondary'))};
+  background-color: ${props => (props.selected ? get('colors.state.selected.primaryBg') : '')}!important;
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -43,11 +42,11 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   border-radius: ${get('radii.1')};
   &:hover {
     text-decoration: none;
-    background-color: ${get('colors.filterList.hoverBg')};
+    background-color: ${get('colors.bg.tertiary')};
   }
   &:active {
-    color: ${get('colors.white')};
-    background-color: ${get('colors.blue.5')};
+    color: ${get('colors.state.selected.primaryText')};
+    background-color: ${get('colors.state.selected.primaryBg')};
   }
   .count {
     float: right;
@@ -73,13 +72,8 @@ function FilterListItem({children, count, ...rest}: React.PropsWithChildren<Filt
 }
 
 FilterList.defaultProps = {
-  theme,
   m: 0,
   p: 0
-}
-
-FilterListItem.defaultProps = {
-  theme
 }
 
 FilterListItem.displayName = 'FilterList.Item'

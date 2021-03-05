@@ -4,7 +4,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'UnderlineNav-item'
@@ -103,10 +102,6 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   ${COMMON};
   ${sx};
 `
-
-UnderlineNav.defaultProps = {theme}
-
-UnderlineNavLink.defaultProps = {theme}
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 

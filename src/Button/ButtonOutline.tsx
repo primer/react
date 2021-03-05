@@ -1,48 +1,43 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
-  color: ${get('buttons.outline.color.default')};
-  border: 1px solid ${get('buttons.outline.border.default')};
-  background-color: ${get('buttons.outline.bg.default')};
-  box-shadow: ${get('buttons.outline.shadow.default')};
+  color: ${get('colors.btn.outline.text')};
+  border: 1px solid ${get('colors.btn.border')};
+  background-color: ${get('colors.btn.bg')};
+  box-shadow: ${get('shadows.btn.shadow')};
 
   &:hover {
-    color: ${get('buttons.outline.color.hover')};
-    background-color: ${get('buttons.outline.bg.hover')};
-    border-color: ${get('buttons.outline.border.hover')};
-    box-shadow: ${get('buttons.outline.shadow.hover')};
+    color: ${get('colors.btn.outline.hoverText')};
+    background-color: ${get('colors.btn.outline.hoverBg')};
+    border-color: ${get('colors.btn.outline.hoverBorder')};
+    box-shadow: ${get('shadows.btn.outline.hoverShadow')};
   }
   // focus must come before :active so that the active box shadow overrides
   &:focus {
-    border-color: transparent;
-    box-shadow: ${get('buttons.outline.shadow.focus')};
+    border-color: ${get('colors.btn.outline.focusBorder')};
+    box-shadow: ${get('shadows.btn.outline.focusShadow')};
   }
 
   &:active {
-    color: ${get('buttons.outline.color.active')};
-    background-color: ${get('buttons.outline.bg.active')};
-    border-color: ${get('buttons.outline.border.active')};
-    box-shadow: ${get('buttons.outline.shadow.active')};
+    color: ${get('colors.btn.outline.selectedText')};
+    background-color: ${get('colors.btn.outline.selectedBg')};
+    box-shadow: ${get('shadows.btn.outline.selectedShadow')};
+    border-color: ${get('colors.btn.outline.selectedBorder')};
   }
 
   &:disabled {
-    color: ${get('buttons.outline.color.disabled')};
-    border-color: ${get('buttons.outline.border.default')};
-    background-color: ${get('buttons.outline.bg.disabled')};
+    color: ${get('colors.btn.outline.disabledText')};
+    background-color: ${get('colors.btn.outline.disabledBg')};
+    border-color: ${get('colors.btn.border')};
   }
 
   ${buttonSystemProps};
   ${sx};
 `
-
-ButtonOutline.defaultProps = {
-  theme
-}
 
 export type ButtonOutlineProps = ComponentProps<typeof ButtonOutline>
 export default ButtonOutline

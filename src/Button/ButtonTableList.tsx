@@ -9,7 +9,6 @@ import {
   TYPOGRAPHY
 } from '../constants'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 
 type StyledButtonTableListProps = SystemCommonProps & SystemTypographyProps & SystemLayoutProps & SxProp
@@ -18,7 +17,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   display: inline-block;
   padding: 0;
   font-size: ${get('fontSizes.1')};
-  color: ${get('colors.gray.6')};
+  color: ${get('colors.text.secondary')};
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -34,7 +33,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   &:disabled {
     &,
     &:hover {
-      color: rgba(${get('colors.gray.6')}, 0.5);
+      color: rgba(${get('colors.text.secondary')}, 0.5);
       cursor: default;
     }
   }
@@ -54,8 +53,6 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   ${LAYOUT}
   ${sx};
 `
-
-ButtonTableList.defaultProps = {theme}
 
 export type ButtonTableListProps = ComponentProps<typeof ButtonTableList>
 export default ButtonTableList

@@ -38,7 +38,7 @@ exports[`Pagination renders consistently 1`] = `
 .c2:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-color: #eaecef;
+  border-color: #e1e4e8;
   outline: 0;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
@@ -62,7 +62,7 @@ exports[`Pagination renders consistently 1`] = `
 
 .c2[aria-disabled],
 .c2[aria-disabled]:hover {
-  color: #d1d5da;
+  color: #959da5;
   cursor: default;
   border-color: transparent;
 }

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const FormGroup = styled.div<SystemCommonProps & SxProp>`
@@ -10,8 +9,6 @@ const FormGroup = styled.div<SystemCommonProps & SxProp>`
   ${COMMON};
   ${sx};
 `
-
-FormGroup.defaultProps = {theme}
 
 const FormGroupLabel = styled.label<SystemTypographyProps & SystemCommonProps & SxProp>`
   display: block;
@@ -24,10 +21,6 @@ const FormGroupLabel = styled.label<SystemTypographyProps & SystemCommonProps & 
 `
 
 FormGroupLabel.displayName = 'FormGroup.Label'
-
-FormGroupLabel.defaultProps = {
-  theme
-}
 
 export type FormGroupProps = ComponentProps<typeof FormGroup>
 export type FormGroupLabelProps = ComponentProps<typeof FormGroupLabel>

@@ -4,7 +4,6 @@ import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
@@ -15,10 +14,10 @@ export const listItemStyles = css`
   overflow: hidden;
   text-align: left;
   cursor: pointer;
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.overlay')};
   border: 0;
-  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.grayLight')};
-  color: ${get('colors.text.gray')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
+  color: ${get('colors.text.secondary')};
   text-decoration: none;
   font-size: ${get('fontSizes.0')};
   font-family: inherit; // needed if user uses a "button" tag
@@ -55,7 +54,7 @@ export const listItemStyles = css`
   // selected items
   &[aria-checked='true'] {
     font-weight: 500;
-    color: ${get('colors.gray.9')};
+    color: ${get('colors.text.primary')};
 
     .SelectMenu-selected-icon {
       visibility: visible;
@@ -70,7 +69,7 @@ export const listItemStyles = css`
     &:hover,
     &:active,
     &:focus {
-      background-color: ${get('colors.bg.gray')};
+      background-color: ${get('colors.state.hover.secondaryBg')};
     }
   }
 
@@ -82,13 +81,13 @@ export const listItemStyles = css`
     // Android
     &:focus,
     &:active {
-      background-color: ${get('colors.bg.grayLight')};
+      background-color: ${get('colors.bg.secondary')};
     }
 
     // iOS Safari
     // :active would work if ontouchstart is added to the button
     // Instead this tweaks the "native" highlight color
-    -webkit-tap-highlight-color: rgba(${get('colors.gray.3')}, 0.5);
+    -webkit-tap-highlight-color: ${get('colors.selectMenu.tapHighlight')};
   }
 `
 
@@ -130,7 +129,6 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
 )
 
 SelectMenuItem.defaultProps = {
-  theme,
   selected: false
 }
 

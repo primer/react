@@ -6,7 +6,6 @@ import Flex from './Flex'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const noop = () => null
@@ -19,7 +18,7 @@ type StyledDialogBaseProps = {
   SxProp
 
 const DialogBase = styled.div<StyledDialogBaseProps>`
-  box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.35);
+  box-shadow: ${get('shadows.shadow.large')};
   border-radius: ${get('radii.2')};
   position: fixed;
   top: 0;
@@ -28,7 +27,7 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   max-height: 80vh;
   z-index: 999;
   margin: 10vh auto;
-  background-color: ${get('colors.white')};
+  background-color: ${get('colors.bg.primary')};
   width: ${props => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
   outline: none;
 
@@ -45,8 +44,8 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
 `
 
 const DialogHeaderBase = styled(Flex)<SxProp>`
-  border-radius: 4px 4px 0px 0px;
-  border-bottom: 1px solid #dad5da;
+  border-radius: ${get('radii.2')} ${get('radii.2')} 0px 0px;
+  border-bottom: 1px solid ${get('colors.border.primary')};
 
   @media screen and (max-width: 750px) {
     border-radius: 0px;
@@ -59,7 +58,7 @@ export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
-      <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+      <Text theme={theme} color="text.primary" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
         {children}
       </Text>
     )
@@ -85,7 +84,7 @@ const Overlay = styled.span`
     content: ' ';
     background: transparent;
     z-index: 99;
-    background: rgba(27, 31, 35, 0.5);
+    background: ${get('colors.fade.black50')};
   }
 `
 
@@ -139,11 +138,12 @@ const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
   }
 )
 
-Dialog.defaultProps = {theme}
-
 DialogHeader.defaultProps = {
-  backgroundColor: 'gray.1',
-  theme
+  backgroundColor: 'bg.tertiary'
+}
+
+DialogHeader.propTypes = {
+  ...Flex.propTypes
 }
 
 DialogHeader.displayName = 'Dialog.Header'

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {compose, fontSize, FontSizeProps, variant} from 'styled-system'
 import {COMMON, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants'
-import theme from '../theme'
 import {ComponentProps} from '../utils/types'
 import buttonBaseStyles from './ButtonStyles'
 
@@ -37,7 +36,6 @@ const ButtonBase = styled.button.attrs<StyledButtonBaseProps>(({disabled, onClic
 `
 
 ButtonBase.defaultProps = {
-  theme,
   variant: 'medium'
 }
 

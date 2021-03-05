@@ -1,7 +1,7 @@
 import React from 'react'
 import {Flash} from '..'
 import {COMMON} from '../constants'
-import theme, {colors} from '../theme'
+import theme from '../theme'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -29,9 +29,18 @@ describe('Flash', () => {
   })
 
   it('respects the "variant" prop', () => {
-    expect(render(<Flash variant="warning" theme={theme} />)).toHaveStyleRule('background-color', colors.yellow[1])
-    expect(render(<Flash variant="danger" theme={theme} />)).toHaveStyleRule('background-color', '#FFE3E6')
-    expect(render(<Flash variant="success" theme={theme} />)).toHaveStyleRule('background-color', colors.green[1])
-    expect(render(<Flash theme={theme} />)).toHaveStyleRule('background-color', colors.blue[1])
+    expect(render(<Flash variant="warning" theme={theme} />)).toHaveStyleRule(
+      'background-color',
+      theme.colors.alert.warn.bg
+    )
+    expect(render(<Flash variant="danger" theme={theme} />)).toHaveStyleRule(
+      'background-color',
+      theme.colors.alert.error.bg
+    )
+    expect(render(<Flash variant="success" theme={theme} />)).toHaveStyleRule(
+      'background-color',
+      theme.colors.alert.success.bg
+    )
+    expect(render(<Flash theme={theme} />)).toHaveStyleRule('background-color', theme.colors.alert.info.bg)
   })
 })

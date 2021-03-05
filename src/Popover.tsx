@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import BorderBox from './BorderBox'
 import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 type CaretPosition =
@@ -225,12 +224,7 @@ const PopoverContent = styled(BorderBox)`
 `
 
 Popover.defaultProps = {
-  caret: 'top',
-  theme
-}
-
-PopoverContent.defaultProps = {
-  theme
+  caret: 'top'
 }
 
 PopoverContent.displayName = 'Popover.Content'

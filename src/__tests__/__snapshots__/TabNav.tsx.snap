@@ -5,7 +5,7 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
   padding: 8px 12px;
   font-size: 14px;
   line-height: 20px;
-  color: #1b1f23;
+  color: #24292e;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: transparent;

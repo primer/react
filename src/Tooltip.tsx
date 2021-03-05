@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import theme from './theme'
 import {ComponentProps} from './utils/types'
 
 const TooltipBase = styled.span<SystemCommonProps & SxProp>`
@@ -256,10 +255,9 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     </TooltipBase>
   )
 }
+
 Tooltip.alignments = ['left', 'right']
 
 Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
-
-Tooltip.defaultProps = {theme}
 
 export default Tooltip
