@@ -5,7 +5,6 @@ export type TouchOrMouseEvent = MouseEvent | TouchEvent
 export type UseOnOutsideClickProps = {
   overlayRef: React.RefObject<HTMLDivElement>
   triggerRef: React.RefObject<HTMLElement>
-  isOpen: boolean
   onClickOutside: (e: TouchOrMouseEvent) => void
 }
 
@@ -28,7 +27,7 @@ const shouldCallClickHandler = (triggerRef: React.RefObject<HTMLElement>, overla
 }
 
 
-export const useOnOutsideClick = ({overlayRef, triggerRef, isOpen, onClickOutside}: UseOnOutsideClickProps): void => {
+export const useOnOutsideClick = ({overlayRef, triggerRef, onClickOutside}: UseOnOutsideClickProps): void => {
   const onOutsideClickInternal = useCallback(
     (e: TouchOrMouseEvent) => {
       if (!shouldCallClickHandler(triggerRef, overlayRef, e)) return
@@ -37,13 +36,11 @@ export const useOnOutsideClick = ({overlayRef, triggerRef, isOpen, onClickOutsid
   )
 
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('mousedown', onOutsideClickInternal)
-      document.addEventListener('touchstart', onOutsideClickInternal)
-      return () => {
-        document.removeEventListener('mousedown', onOutsideClickInternal)
-        document.removeEventListener('touchstart', onOutsideClickInternal)
-      }
+    document.addEventListener('mousedown', onOutsideClickInternal)
+    document.addEventListener('touchstart', onOutsideClickInternal)
+    return () => {
+      document.removeEventListener('mousedown', onOutsideClickInternal)
+      document.removeEventListener('touchstart', onOutsideClickInternal)
     }
-  }, [isOpen, onOutsideClickInternal])
+  }, [onOutsideClickInternal])
 }

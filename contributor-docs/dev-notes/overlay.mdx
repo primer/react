@@ -7,6 +7,12 @@
 
 
 - think through whether or not to forward refs on Overlay
+- I'm not sure how we should handle showing/hiding the overlay content based on the isOpen state. Things we have to consider:
+
+- We should avoid calling the overlay hooks if we aren't going to render the overlay.
+- But we can't return null before calling the overlay hook because that violates the rules of hooks
+- If we conditionally render the overlay in the consuming component, the overlay has no knowledge of when the overlay is not open, so we can't do stuff like return focus
+
 
 ## useOnOutsideClick
 

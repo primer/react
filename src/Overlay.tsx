@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import {get} from './constants'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
@@ -82,7 +82,6 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
 export type OverlayProps = {
   triggerRef: React.RefObject<HTMLElement>
   initialFocusRef?: React.RefObject<HTMLElement>
-  isOpen: boolean
   returnRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
@@ -90,12 +89,10 @@ export type OverlayProps = {
 
 const Overlay =
   (
-    {isOpen, onClickOutside, initialFocusRef, returnRef, triggerRef, onEscape, ...rest}: OverlayProps
-  ) => {
-    const overlayProps = useOverlay({returnRef, onEscape, triggerRef, onClickOutside, initialFocusRef, isOpen})
-    return (
-      <StyledOverlay {...overlayProps} {...rest}/>
-    )
+    {onClickOutside, initialFocusRef, returnRef, triggerRef, onEscape, ...rest}: OverlayProps
+  ): ReactElement | null => {
+    const overlayProps = useOverlay({returnRef, onEscape, triggerRef, onClickOutside, initialFocusRef})
+    return <StyledOverlay {...overlayProps} {...rest}/>
 }
 
 Overlay.defaultProps = {

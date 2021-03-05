@@ -1,18 +1,20 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {initialFocus} from '../behaviors/initialFocus'
-import { useProvidedRefOrCreate } from './useProvidedRefOrCreate'
 
 
-type InitialFocusProps = {
+export type UseInitialFocusProps = {
   initialFocusRef?: React.RefObject<HTMLElement>,
   containerRef: React.RefObject<HTMLElement>
-  isOpen: boolean
+  returnRef: React.RefObject<HTMLElement>
 }
 
-export function useInitialFocus({initialFocusRef, containerRef, isOpen}: InitialFocusProps) {
+export function useInitialFocus({initialFocusRef, returnRef, containerRef}: UseInitialFocusProps): void {
   const focusElement = initialFocusRef ? initialFocusRef.current : null
-  const containerElement = useProvidedRefOrCreate(containerRef)
+  const returnFocus = returnRef.current
   useEffect(() => {
-    initialFocus({initialFocusElement: focusElement, containerElement, isOpen})
-  }, [isOpen, initialFocusRef, containerRef])
+    initialFocus({initialFocusElement: focusElement, containerElement: containerRef.current})
+    return function() {
+      returnFocus?.focus()
+    }
+  }, [focusElement, returnFocus, containerRef])
 }

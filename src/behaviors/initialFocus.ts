@@ -1,8 +1,9 @@
 export type UseInitialFocusProps = {
   initialFocusElement?: HTMLElement | null
-  containerElement: HTMLElement
-  isOpen: boolean
+  containerElement: HTMLElement | null
 }
+
+// note: I had to pass | null in to the element types because useProvidedRefOrCreate could return a ref that doesn't have current on it. I'm not sure if this is the correct approach or not
 
 
 function visible(el: HTMLInputElement) {
@@ -23,10 +24,10 @@ function getFirstFocusableItem(containerElement: HTMLElement){
   return firstItem as HTMLElement
 }
 
-export function initialFocus({initialFocusElement, containerElement, isOpen}: UseInitialFocusProps)  {
-  if (isOpen && initialFocusElement) {
+export function initialFocus({initialFocusElement, containerElement}: UseInitialFocusProps): void  {
+  if (initialFocusElement) {
     initialFocusElement.focus()
-  } else {
+  } else if (containerElement instanceof HTMLElement) {
     const firstItem = getFirstFocusableItem(containerElement)
     firstItem ? firstItem.focus() : null
   }
