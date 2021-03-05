@@ -1,6 +1,6 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
-import {colors} from '../theme'
+import theme, {colors} from '../theme'
 import {CircleOcticon} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT} from '../constants'
@@ -10,7 +10,11 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('CircleOcticon', () => {
-  behavesAsComponent({Component: CircleOcticon, systemPropArray: [COMMON, FLEX, LAYOUT], toRender: () => <CircleOcticon icon={CheckIcon} />})
+  behavesAsComponent({
+    Component: CircleOcticon,
+    systemPropArray: [COMMON, FLEX, LAYOUT],
+    toRender: () => <CircleOcticon icon={CheckIcon} />
+  })
 
   checkExports('CircleOcticon', {
     default: CircleOcticon
@@ -34,7 +38,10 @@ describe('CircleOcticon', () => {
   })
 
   it('respects the bg prop', () => {
-    expect(render(<CircleOcticon icon={CheckIcon} bg="red.5" />)).toHaveStyleRule('background-color', colors.red[5])
+    expect(render(<CircleOcticon icon={CheckIcon} bg="bg.danger" />)).toHaveStyleRule(
+      'background-color',
+      theme.colors.bg.danger
+    )
   })
 
   it('has a default size', () => {
