@@ -37,6 +37,7 @@ export function ActionListSectionHeader({
 }: ActionListSectionHeaderProps): JSX.Element {
   return (
     <StyledDiv
+      data-component="ActionListSectionHeader"
       role="heading"
       sx={{
         ...baseStyles,

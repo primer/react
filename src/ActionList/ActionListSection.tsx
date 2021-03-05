@@ -5,5 +5,5 @@ export interface ActionListSectionProps extends React.ComponentPropsWithoutRef<'
 }
 
 export function ActionListSection(props: ActionListSectionProps): JSX.Element {
-  return <div {...props} />
+  return <div data-component="ActionListSection" {...props} />
 }

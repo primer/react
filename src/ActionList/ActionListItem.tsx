@@ -2,7 +2,19 @@ import type {IconProps} from '@primer/octicons-react'
 import type {SystemStyleObject} from '@styled-system/css'
 import React from 'react'
 import {StyledDiv} from './StyledDiv'
-import {borderRadius2} from './variables'
+import {StyledSpan} from './StyledSpan'
+import {
+  borderRadius2,
+  s6,
+  s8,
+  s16,
+  s20,
+  actionListItemHoverBg,
+  actionListItemDangerHoverBg,
+  textSecondary,
+  textDanger,
+  textSmall
+} from './variables'
 
 export interface ActionListItemProps extends React.ComponentPropsWithoutRef<'div'> {
   text: string
@@ -14,45 +26,76 @@ export interface ActionListItemProps extends React.ComponentPropsWithoutRef<'div
   variant?: 'default' | 'singleSelection' | 'multiSelection' | 'danger' | 'static'
 }
 
-const baseStyles: SystemStyleObject = {
-  position: 'relative',
+function baseStyles({variant}: {variant: ActionListItemProps['variant']}): SystemStyleObject {
+  return {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'start',
+    borderRadius: borderRadius2,
+    fontWeight: 'normal',
+    color: variant === 'danger' ? textDanger : 'inherit',
+    textDecoration: 'none',
+    border: 'none',
+    background: 'none',
+    textAlign: 'start',
+    margin: 0,
+    padding: `${s6}px ${s8}px`,
+
+    '@media (hover: hover) and (pointer: fine)': {
+      ':hover': {
+        background: variant === 'danger' ? actionListItemDangerHoverBg : actionListItemHoverBg,
+        cursor: 'pointer'
+      }
+    }
+  }
+}
+
+function textContainerStyles({
+  descriptionVariant
+}: {
+  descriptionVariant: ActionListItemProps['descriptionVariant']
+}): SystemStyleObject {
+  return {flexDirection: descriptionVariant === 'inline' ? 'row' : 'column'}
+}
+
+const leadingVisualStyles: SystemStyleObject = {
+  width: `${s16}px`,
+  height: `${s20}px`,
   display: 'flex',
-  alignItems: 'start',
-  borderRadius: borderRadius2,
-  fontWeight: 'normal',
-  color: 'inherit',
-  textDecoration: 'none',
-  border: 'none',
-  background: 'none',
-  textAlign: 'start',
-  margin: 0
+  flexDirection: 'column',
+  justifyContent: 'center',
+  marginRight: `${s8}px`,
+
+  svg: {
+    fill: textSecondary,
+    fontSize: textSmall
+  }
 }
 
-const inlineDescriptionStyles: SystemStyleObject = {
-  flexDirection: 'row'
-}
-
-const blockDescriptionStyles: SystemStyleObject = {
-  flexDirection: 'column'
+const descriptionStyles: SystemStyleObject = {
+  color: textSecondary
 }
 
 export function ActionListItem({
   text,
   description,
   descriptionVariant = 'inline',
+  leadingVisual: LeadingVisual,
   size: _size = 'small',
+  variant = 'default',
   ...props
 }: ActionListItemProps): JSX.Element {
   return (
-    <StyledDiv
-      sx={{
-        ...baseStyles,
-        ...(descriptionVariant === 'inline' ? inlineDescriptionStyles : blockDescriptionStyles)
-      }}
-      {...props}
-    >
-      <div>{text}</div>
-      {description && <div>{description}</div>}
+    <StyledDiv data-component="ActionListItem" sx={baseStyles({variant})} {...props}>
+      {LeadingVisual && (
+        <StyledSpan sx={leadingVisualStyles}>
+          <LeadingVisual />
+        </StyledSpan>
+      )}
+      <StyledDiv sx={textContainerStyles({descriptionVariant})}>
+        <div>{text}</div>
+        {description && <StyledDiv sx={descriptionStyles}>{description}</StyledDiv>}
+      </StyledDiv>
     </StyledDiv>
   )
 }
