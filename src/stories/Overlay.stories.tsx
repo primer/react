@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Box, Flex, ButtonDanger} from '..'
+import {BaseStyles, Overlay, Button, theme, Flex} from '..'
 
 export default {
   title: 'Internal components/Overlay',
@@ -11,9 +11,12 @@ export default {
   decorators: [
     Story => {
       return (
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
+        </ThemeProvider>
+
       )
     }
   ],
@@ -53,15 +56,22 @@ export default {
   }
 } as Meta
 
-const DummyItem = styled.div`
+const DummyItem = styled.button`
   border-radius: 6px;
   font-weight: 400;
   padding: 6px 8px;
   font-weight: 400;
+  text-align: left;
   margin: 0;
   font-size: 14px;
+  background: none;
+  border: none;
   &:hover {
     background: #f0f3f5;
+  }
+
+  &:focus{
+    background: red;
   }
 `
 
