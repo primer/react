@@ -4,19 +4,22 @@
     - title: Getting Started
       url: /getting-started
 
-    - title: Primer Theme
-      url: /primer-theme
+    - title: Theming
+      url: /theming
 
-    - title: System Props
+    - title: Theme reference
+      url: /theme-reference
+
+    - title: System props
       url: /system-props
 
-    - title: Core Concepts
+    - title: Core concepts
       url: /core-concepts
 
     - title: Philosophy
       url: /philosophy
 
-    - title: Overriding Styles
+    - title: Overriding styles
       url: /overriding-styles
 - title: Hooks
   children:

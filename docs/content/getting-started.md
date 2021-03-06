@@ -58,6 +58,24 @@ Primer React requires the following libraries to be installed along with it:
 - `react` at versions 16.8.0 or higher
 - `react-dom` at versions 16.8.0 or higher
 
+## ThemeProvider
+
+For Primer React to work correctly, you must add `ThemeProvider` to the root of your application:
+
+```jsx
+import {ThemeProvider} from '@primer/components'
+
+function App() {
+  return (
+    <ThemeProvider>
+      <div>...</div>
+    </ThemeProvider>
+  )
+}
+```
+
+See [Theming](/theming) for more details.
+
 ## BaseStyles
 
 In order to set baseline color, font-family, and line-heights across your project, you will need to establish base Primer styles for your app by wrapping all of your Primer components in `<BaseStyles>` at the root of your app:
@@ -77,69 +95,6 @@ export default const MyApp = () => (
 
 This will apply the same `color`, `font-family`, and `line-height` styles to the `<body>` as [Primer CSS's base styles](https://github.com/primer/css/blob/master/src/base/base.scss#L15-L20).
 
-## Theming
-
-For Primer Components to render correcly, you must pass the Primer theme to a [styled-components](<(https://styled-components.com/)>) `<ThemeProvider>` at the root of your application:
-
-```jsx
-import {ThemeProvider} from 'styled-components'
-import {theme} from '@primer/components'
-
-const App = props => {
-  return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <div>your app here</div>
-      </ThemeProvider>
-    </div>
-  )
-}
-```
-
-If you'd like to fully replace the Primer [theme](https://github.com/primer/components/blob/main/src/theme-preval.js) with your custom theme, pass your theme to the `<ThemeProvider>` instead:
-
-```jsx
-import {ThemeProvider} from 'styled-components'
-const theme = { ... }
-
-const App = (props) => {
-  return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <div>your app here</div>
-      </ThemeProvider>
-    </div>
-  )
-}
-```
-
-If you'd like to merge the Primer theme with your theme, you can do so by importing the Primer theme and then merging the themes using a library like [deepmerge](https://www.npmjs.com/package/deepmerge):
-
-```jsx
-import {ThemeProvider} from 'styled-components'
-import {theme} from '@primer/components'
-import deepmerge from 'deepmerge'
-
-const customTheme = { ... }
-const newTheme = deepmerge(theme, customTheme, {
-  // overwrite arrays instead of concatenating
-  arrayMerge: (_dest, source) => source
-})
-
-
-const App = (props) => {
-  return (
-    <div>
-      <ThemeProvider theme={deepmerge(theme, )}>
-        <div>your app here</div>
-      </ThemeProvider>
-    </div>
-  )
-}
-```
-
-Note that using `Object.assign` to merge themes will only create a shallow merge. This means that if both themes have a `color` object, the _entire_ `color` object will be replaced with the new `color` object, instead of only replacing duplicate values from the original theme's color object. If you want to merge sub-values, be sure to use a deep-merging strategy.
-
 ## Static CSS rendering
 
 If you're rendering React components both server- and client-side, we suggest following [styled-component's server-side rendering instructions](https://www.styled-components.com/docs/advanced#server-side-rendering) to avoid the flash of unstyled content for server-rendered components.
@@ -156,7 +111,7 @@ import {BorderBox, BorderBoxProps} from '@primer/components'
 
 ### Fixing "Duplicate identifier 'FormData'"
 
-Ever since `@types/styled-components` version `14.1.19`, it has had a dependency on both `@types/react` and `@types/react-native`. Unfortunately, those declarations clash; for more information, see [issue 33311](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311) and [issue 33015](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015) in the DefinitelyTyped repo.
+Ever since `@types/styled-components` version `4.1.19`, it has had a dependency on both `@types/react` and `@types/react-native`. Unfortunately, those declarations clash; for more information, see [issue 33311](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311) and [issue 33015](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015) in the DefinitelyTyped repo.
 
 You may run into this conflict even if you're not importing anything from `react-native` or don't have it installed. This is because some package managers hoist packages to the top-level `node_modules` folder, and the TypeScript compiler automatically includes types from all folders in `node_modules/@types` by default.
 
