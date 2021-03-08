@@ -1,20 +1,18 @@
-import React, {useRef, useState} from 'react'
-import {fireEvent, render, waitFor} from '@testing-library/react'
-import {Overlay, Flex, Button} from '../..'
-import {useInitialFocus} from '../../hooks/useInitialFocus'
-import { colorStyle } from 'styled-system'
+import React, {useRef} from 'react'
+import {render, waitFor} from '@testing-library/react'
+import {useOpenAndCloseFocus} from '../../hooks/useOpenAndCloseFocus'
 
 const Component = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const returnRef = useRef<HTMLButtonElement>(null)
   const noButtonRef = useRef<HTMLButtonElement>(null)
-  useInitialFocus({containerRef, initialFocusRef: noButtonRef, returnRef})
+  useOpenAndCloseFocus({containerRef, initialFocusRef: noButtonRef, returnRef})
   return (
     <>
       <button ref={returnRef}>trigger</button>
       <div ref={containerRef}>
-          <Button>yes</Button>
-          <Button ref={noButtonRef}>no</Button>
+          <button>yes</button>
+          <button ref={noButtonRef}>no</button>
       </div>
     </>
   )
@@ -23,15 +21,15 @@ const Component = () => {
 const ComponentTwo = () => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  useInitialFocus({containerRef, returnRef: buttonRef})
+  useOpenAndCloseFocus({containerRef, returnRef: buttonRef})
   return (
     <>
-      <Button ref={buttonRef}>
+      <button ref={buttonRef}>
         button trigger
-      </Button>
+      </button>
       <div ref={containerRef}>
-          <Button>yes</Button>
-          <Button>no</Button>
+          <button>yes</button>
+          <button>no</button>
       </div>
     </>
   )
