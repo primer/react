@@ -23,7 +23,10 @@ describe('BorderBox', () => {
   })
 
   it('renders borders', () => {
-    expect(render(<BorderBox borderColor="border.success" />)).toHaveStyleRule('border-color', colors.border.success)
+    expect(render(<BorderBox borderColor="border.success" />)).toHaveStyleRule(
+      'border-color',
+      theme.colors.border.success
+    )
     expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')
   })
 
