@@ -44,13 +44,8 @@ const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
-
-const {scale: _excludeScaleColors, ...colors} = filterObject(primitives.colors.light, value =>
-  isColorValue(value)
-)
-const {scale: _excludeScaleShadows, ...shadows} = filterObject(primitives.colors.light, value =>
-  isShadowValue(value)
-)
+const {scale: _excludeScaleColors, ...colors} = filterObject(primitives.colors.light, value => isColorValue(value))
+const {scale: _excludeScaleShadows, ...shadows} = filterObject(primitives.colors.light, value => isShadowValue(value))
 
 // this is a small hack that is a temporary stop gap.
 // this file must be in vanilla JS to work with preval
@@ -59,8 +54,8 @@ const {scale: _excludeScaleShadows, ...shadows} = filterObject(primitives.colors
 // shallow merging primitives objects back in restores the
 // structural inferences and ultimately gets overrideen with
 // the filtered values.
-const typedColors = {...primitives.colors.light, ...colors};
-const typedShadows = {...primitives.colors.light, ...shadows};
+const typedColors = {...primitives.colors.light, ...colors}
+const typedShadows = {...primitives.colors.light, ...shadows}
 // ---------
 
 const theme = {
@@ -75,7 +70,7 @@ const theme = {
   radii,
   shadows: typedShadows,
   sizes,
-  space,
+  space
 }
 
 module.exports = {
