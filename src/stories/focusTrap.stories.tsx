@@ -109,7 +109,7 @@ export const CustomInitialFocus = () => {
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start">
         <Flash mb={3}>
-          This story is the same as the `Focus Trap` story, except when the trap zone is activated, the
+          This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
           &lquo;Elderberry&rquo; button will receive the initial focus (if the trap zone container does not already have
           focus).
         </Flash>

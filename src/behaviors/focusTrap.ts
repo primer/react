@@ -75,6 +75,7 @@ export function focusTrap(
         if (lastFocusedChild && lastFocusedChild.tabIndex !== -1) {
           lastFocusedChild.focus()
         } else {
+          // eslint-disable-next-line @typescript-eslint/no-extra-semi
           ;(initialFocus ?? firstFocusableChild)?.focus()
         }
       }
@@ -129,6 +130,7 @@ export function focusTrap(
     tryReactivate()
   })
 
+  // Prevent focus leaving the trap container
   document.addEventListener(
     'focusin',
     (event: FocusEvent) => {
