@@ -9,15 +9,17 @@ The Box component serves as a wrapper component for most layout related needs. U
 ```jsx live live
 <Box>
   Box can be used to create both{' '}
-  <Box as="span" bg="bg.success">
+  <Box as="span" color="text.inverse" bg="bg.successInverse">
     inline
   </Box>{' '}
   and
-  <Box bg="bg.danger">block-level elements,</Box>
-  <Box bg="bg.warning" width={[1, 1, 1 / 2]}>
+  <Box color="text.inverse" bg="bg.dangerInverse">
+    block-level elements,
+  </Box>
+  <Box color="text.inverse" bg="bg.warningInverse" width={[1, 1, 1 / 2]}>
     elements with fixed or responsive width and height,
   </Box>
-  <Box bg="bg.info" p={4} mt={2}>
+  <Box color="text.inverse" bg="bg.infoInverse" p={4} mt={2}>
     and more!
   </Box>
 </Box>
