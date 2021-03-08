@@ -189,9 +189,7 @@ function Pagination({
   })
   return (
     <PaginationContainer aria-label="Pagination" {...rest} theme={theme}>
-      <Box display="inline-block" theme={theme}>
-        {pageElements}
-      </Box>
+      <Box display="inline-block">{pageElements}</Box>
     </PaginationContainer>
   )
 }

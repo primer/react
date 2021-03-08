@@ -1,12 +1,15 @@
 import styled from 'styled-components'
-import Box from './Box'
-import {ComponentProps} from './utils/types'
+import Box, {BoxProps} from './Box'
+import {ForwardRefComponent, IntrinsicElement} from './utils/polymorphic'
 
-const Flex = styled(Box)``
+export type FlexProps = BoxProps
+
+type FlexComponent = ForwardRefComponent<IntrinsicElement<typeof Box>, FlexProps>
+
+const Flex = styled(Box)`` as FlexComponent
 
 Flex.defaultProps = {
   display: 'flex'
 }
 
-export type FlexProps = ComponentProps<typeof Flex>
 export default Flex

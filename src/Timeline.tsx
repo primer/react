@@ -70,7 +70,7 @@ const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
 
 export type TimelineBadgeProps = FlexProps
 
-const TimelineBadge = (props: TimelineBadgeProps) => {
+const TimelineBadge = (props: TimelineBadgeProps & React.ComponentPropsWithoutRef<'div'>) => {
   return (
     <Relative zIndex={1}>
       <Flex

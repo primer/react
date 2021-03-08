@@ -11,14 +11,14 @@ export type PointerBoxProps = {
 
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
-  const {bg, border, borderColor, theme} = props
+  const {bg, border, borderColor} = props
   const {caret, children, ...boxProps} = props
   const caretProps = {
     bg,
     borderColor,
     borderWidth: border,
-    location: caret,
-    theme
+    location: caret
+    // theme
   }
   return (
     <BorderBox sx={{position: 'relative'}} {...boxProps}>

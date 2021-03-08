@@ -1,13 +1,17 @@
 import styled from 'styled-components'
-import Box from './Box'
+import Box, {BoxProps} from './Box'
 import {BORDER, SystemBorderProps} from './constants'
 import sx from './sx'
-import {ComponentProps} from './utils/types'
+import {ForwardRefComponent, IntrinsicElement} from './utils/polymorphic'
 
-const BorderBox = styled(Box)<SystemBorderProps>`
+export type BorderBoxProps = BoxProps & SystemBorderProps
+
+type BorderBoxComponent = ForwardRefComponent<IntrinsicElement<typeof Box>, BorderBoxProps>
+
+const BorderBox = styled(Box)<BorderBoxProps>`
   ${BORDER};
   ${sx};
-`
+` as BorderBoxComponent
 
 BorderBox.defaultProps = {
   borderWidth: '1px',
@@ -16,5 +20,5 @@ BorderBox.defaultProps = {
   borderRadius: 2
 }
 
-export type BorderBoxProps = ComponentProps<typeof BorderBox>
+// export type BorderBoxProps = ComponentProps<typeof BorderBox>
 export default BorderBox

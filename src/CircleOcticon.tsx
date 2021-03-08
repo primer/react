@@ -1,25 +1,25 @@
 import {IconProps} from '@primer/octicons-react'
 import React from 'react'
-import BorderBox from './BorderBox'
 import Flex, {FlexProps} from './Flex'
 
 export type CircleOcticonProps = {
-  as?: React.ElementType
+  // as?: React.ElementType
   size?: number
   icon: React.ComponentType<{size?: IconProps['size']}>
 } & FlexProps
 
 // type CircleOcticonComponent = {}
 
-function CircleOcticon(props: CircleOcticonProps) {
-  const {size, as} = props
-  const {icon: IconComponent, bg, ...rest} = props
+function CircleOcticon({icon: IconComponent, size, ...props}: CircleOcticonProps) {
   return (
-    <BorderBox as={as} bg={bg} overflow="hidden" borderWidth={0} size={size} borderRadius="50%">
-      <Flex {...rest} alignItems="center" justifyContent="center">
-        <IconComponent size={size} />
-      </Flex>
-    </BorderBox>
+    <Flex
+      {...props}
+      alignItems="center"
+      justifyContent="center"
+      sx={{overflow: 'hidden', borderRadius: '50%', width: size, height: size, ...props.sx}}
+    >
+      <IconComponent size={size} />
+    </Flex>
   )
 }
 

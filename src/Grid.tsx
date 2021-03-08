@@ -1,15 +1,18 @@
 import styled from 'styled-components'
-import Box from './Box'
+import Box, {BoxProps} from './Box'
 import {GRID, SystemGridProps} from './constants'
-import {ComponentProps} from './utils/types'
+import {ForwardRefComponent, IntrinsicElement} from './utils/polymorphic'
 
-const Grid = styled(Box)<SystemGridProps>`
+export type GridProps = BoxProps & SystemGridProps
+
+type GridComponent = ForwardRefComponent<IntrinsicElement<typeof Box>, GridProps>
+
+const Grid = styled(Box)<GridProps>`
   ${GRID};
-`
+` as GridComponent
 
 Grid.defaultProps = {
   display: 'grid'
 }
 
-export type GridProps = ComponentProps<typeof Grid>
 export default Grid

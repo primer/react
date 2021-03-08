@@ -2,11 +2,12 @@ import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
 import ButtonClose from './Button/ButtonClose'
 import {COMMON, get, LAYOUT, SystemCommonProps, SystemLayoutProps} from './constants'
-import Flex from './Flex'
+import Flex, {FlexProps} from './Flex'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
 import {ComponentProps} from './utils/types'
+import {ForwardRefComponent, IntrinsicElement} from './utils/polymorphic'
 
 const noop = () => null
 
@@ -43,7 +44,11 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   ${sx};
 `
 
-const DialogHeaderBase = styled(Flex)<SxProp>`
+export type DialogHeaderBaseProps = FlexProps
+
+type DialogHeaderBaseComponent = ForwardRefComponent<IntrinsicElement<typeof Flex>, DialogHeaderBaseProps>
+
+const DialogHeaderBase = styled(Flex)<FlexProps>`
   border-radius: 4px 4px 0px 0px;
   border-bottom: 1px solid #dad5da;
 
@@ -52,20 +57,21 @@ const DialogHeaderBase = styled(Flex)<SxProp>`
   }
 
   ${sx};
-`
+` as DialogHeaderBaseComponent
+
 export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 
-function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
+function DialogHeader({children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
-      <Text theme={theme} color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+      <Text color="gray.9" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
         {children}
       </Text>
     )
   }
 
   return (
-    <DialogHeaderBase theme={theme} p={3} backgroundColor={backgroundColor} {...rest}>
+    <DialogHeaderBase p={3} backgroundColor={backgroundColor} {...rest}>
       {children}
     </DialogHeaderBase>
   )

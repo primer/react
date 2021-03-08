@@ -2,16 +2,6 @@
 
 exports[`CircleOcticon renders consistently 1`] = `
 .c0 {
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
-  border-width: 0;
-  border-radius: 50%;
-  border-style: solid;
-  border-color: #e1e4e8;
-}
-
-.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -28,41 +18,36 @@ exports[`CircleOcticon renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  overflow: hidden;
+  border-radius: 50%;
   width: 32px;
   height: 32px;
 }
 
 <div
   className="c0"
-  overflow="hidden"
-  size={32}
+  display="flex"
 >
-  <div
-    className="c1"
-    display="flex"
-    size={32}
-  >
-    <svg
-      aria-hidden="true"
-      className="octicon"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M21.03 5.72a.75.75 0 010 1.06l-11.5 11.5a.75.75 0 01-1.072-.012l-5.5-5.75a.75.75 0 111.084-1.036l4.97 5.195L19.97 5.72a.75.75 0 011.06 0z\\"></path>",
-        }
+  <svg
+    aria-hidden="true"
+    className="octicon"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M21.03 5.72a.75.75 0 010 1.06l-11.5 11.5a.75.75 0 01-1.072-.012l-5.5-5.75a.75.75 0 111.084-1.036l4.97 5.195L19.97 5.72a.75.75 0 011.06 0z\\"></path>",
       }
-      fill="currentColor"
-      height={32}
-      role="img"
-      style={
-        Object {
-          "display": "inline-block",
-          "userSelect": "none",
-          "verticalAlign": "text-bottom",
-        }
+    }
+    fill="currentColor"
+    height={32}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
       }
-      viewBox="0 0 24 24"
-      width={32}
-    />
-  </div>
+    }
+    viewBox="0 0 24 24"
+    width={32}
+  />
 </div>
 `;

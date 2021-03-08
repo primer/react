@@ -12,7 +12,7 @@ describe('Box', () => {
   behavesAsComponent({Component: Box, systemPropArray: [COMMON, LAYOUT, FLEX]})
 
   checkExports('Box', {
-    default: Box,
+    default: Box
   })
 
   it('should have no axe violations', async () => {
@@ -23,21 +23,21 @@ describe('Box', () => {
   })
 
   it('renders margin', () => {
-    expect(render(<Box m={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box m={1} />)).toMatchSnapshot()
+    expect(render(<Box m={[0, 1, 2, 3]} />)).toMatchSnapshot()
+    expect(render(<Box m={[1, 1, 1, 3]} />)).toMatchSnapshot()
   })
 
   it('renders padding', () => {
-    expect(render(<Box p={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box p={1} />)).toMatchSnapshot()
+    expect(render(<Box p={[0, 1, 2, 3]} />)).toMatchSnapshot()
+    expect(render(<Box p={[1, 1, 1, 3]} />)).toMatchSnapshot()
   })
 
   it('respects display', () => {
     expect(render(<Box display="inline" />)).toMatchSnapshot()
     expect(render(<Box display="inline-block" />)).toMatchSnapshot()
     expect(render(<Box display="none" />)).toMatchSnapshot()
-    expect(render(<Box display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box display={['none', 'none', 'block']} />)).toMatchSnapshot()
   })
 })

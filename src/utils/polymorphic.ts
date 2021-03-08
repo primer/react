@@ -3,14 +3,15 @@ import React from 'react'
 /* -------------------------------------------------------------------------------------------------
  * Utility types
  * -----------------------------------------------------------------------------------------------*/
-export type Merge<P1 = {}, P2 = {}> = Omit<P1, keyof P2> & P2
+export type Merge<P1 = Record<string, unknown>, P2 = Record<string, unknown>> = Omit<P1, keyof P2> & P2
 
-export type MergeProps<E, P = {}> = P & Merge<E extends React.ElementType ? React.ComponentPropsWithRef<E> : never, P>
+export type MergeProps<E, P = Record<string, unknown>> = P &
+  Merge<E extends React.ElementType ? React.ComponentPropsWithRef<E> : never, P>
 
 /**
  * Infers the OwnProps if E is a ForwardRefExoticComponentWithAs
  */
-export type OwnProps<E> = E extends ForwardRefComponent<any, infer P> ? P : {}
+export type OwnProps<E> = E extends ForwardRefComponent<any, infer P> ? P : Record<string, unknown>
 
 /**
  * Infers the JSX.IntrinsicElement if E is a ForwardRefExoticComponentWithAs
@@ -25,7 +26,7 @@ export type NarrowIntrinsic<E> = E extends keyof JSX.IntrinsicElements ? E : nev
 
 export interface ForwardRefComponent<
   IntrinsicElementString,
-  OwnProps = {}
+  OwnProps = Record<string, unknown>
   /**
    * Extends original type to ensure built in React types play nice
    * with polymorphic components still e.g. `React.ElementRef` etc.
