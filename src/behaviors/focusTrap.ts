@@ -6,6 +6,7 @@ eventListenerSignalPolyfill()
 interface FocusTrapMetadata {
   container: HTMLElement
   controller: AbortController
+  initialFocus?: HTMLElement
   originalSignal: AbortSignal
 }
 
@@ -15,7 +16,7 @@ let activeTrap: FocusTrapMetadata | undefined = undefined
 function tryReactivate() {
   const trapToReactivate = suspendedTrapStack.pop()
   if (trapToReactivate) {
-    focusTrap(trapToReactivate.container, trapToReactivate.originalSignal)
+    focusTrap(trapToReactivate.container, trapToReactivate.initialFocus, trapToReactivate.originalSignal)
   }
 }
 
@@ -39,7 +40,28 @@ function getFocusableChild(container: HTMLElement, lastChild = false) {
   return iterateTabbableElements(container, {reverse: lastChild, strict: true}).next().value
 }
 
-export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
+/**
+ * Traps focus within the given container.
+ * @param container The container in which to trap focus
+ * @returns AbortController - call `.abort()` to disable the focus trap
+ */
+export function focusTrap(container: HTMLElement, initialFocus?: HTMLElement): AbortController
+
+/**
+ * Traps focus within the given container.
+ * @param container The container in which to trap focus
+ * @param abortSignal An AbortSignal to control the focus trap.
+ */
+export function focusTrap(container: HTMLElement, initialFocus: HTMLElement | undefined, abortSignal: AbortSignal): void
+export function focusTrap(
+  container: HTMLElement,
+  initialFocus?: HTMLElement,
+  abortSignal?: AbortSignal
+): AbortController | void {
+  // Set up an abort controller if a signal was not passed in
+  const controller = new AbortController()
+  const signal = abortSignal ?? controller.signal
+
   container.setAttribute('data-focus-trap', 'active')
   let lastFocusedChild: HTMLElement | undefined = undefined
   const firstFocusableChild = getFocusableChild(container)
@@ -53,7 +75,7 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
         if (lastFocusedChild && lastFocusedChild.tabIndex !== -1) {
           lastFocusedChild.focus()
         } else {
-          firstFocusableChild?.focus()
+          ;(initialFocus ?? firstFocusableChild)?.focus()
         }
       }
     }
@@ -121,6 +143,7 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
   activeTrap = {
     container,
     controller: wrappingController,
+    initialFocus,
     originalSignal: signal
   }
 
@@ -129,5 +152,8 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
   const suspendedTrapIndex = suspendedTrapStack.findIndex(t => t.container === container)
   if (suspendedTrapIndex >= 0) {
     suspendedTrapStack.splice(suspendedTrapIndex, 1)
+  }
+  if (!abortSignal) {
+    return controller
   }
 }
