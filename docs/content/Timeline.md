@@ -67,12 +67,6 @@ of the child `StyledOcticon` if necessary.
     </Timeline.Badge>
     <Timeline.Body>Background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
-  <Timeline.Item>
-    <Timeline.Badge bg="icon.info">
-      <StyledOcticon icon={FlameIcon} color="text.inverse" />
-    </Timeline.Badge>
-    <Timeline.Body>Background to indicate new events below</Timeline.Body>
-  </Timeline.Item>
 </Timeline>
 ```
 
