@@ -4,9 +4,12 @@ import BorderBox from './BorderBox'
 import Flex, {FlexProps} from './Flex'
 
 export type CircleOcticonProps = {
+  as?: React.ElementType
   size?: number
   icon: React.ComponentType<{size?: IconProps['size']}>
 } & FlexProps
+
+// type CircleOcticonComponent = {}
 
 function CircleOcticon(props: CircleOcticonProps) {
   const {size, as} = props

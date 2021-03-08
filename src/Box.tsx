@@ -1,14 +1,19 @@
 import styled from 'styled-components'
 import {COMMON, FLEX, LAYOUT, SystemCommonProps, SystemFlexProps, SystemLayoutProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ForwardRefComponent} from './utils/polymorphic'
 
-const Box = styled.div<SystemCommonProps & SystemFlexProps & SystemLayoutProps & SxProp>`
+const defaultElement = 'div'
+
+export type BoxProps = SystemCommonProps & SystemFlexProps & SystemLayoutProps & SxProp
+
+// type BoxComponent = ForwardRefComponent<typeof defaultElement, BoxProps>
+
+const Box = styled.div<BoxProps>`
   ${COMMON}
   ${FLEX}
   ${LAYOUT}
   ${sx};
 `
 
-export type BoxProps = ComponentProps<typeof Box>
 export default Box

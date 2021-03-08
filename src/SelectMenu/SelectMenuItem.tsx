@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ForwardRefComponent} from '../utils/polymorphic'
 import {MenuContext} from './SelectMenuContext'
 
 export const listItemStyles = css`
@@ -91,20 +91,28 @@ export const listItemStyles = css`
   }
 `
 
-const StyledItem = styled.a.attrs(() => ({
-  role: 'menuitemcheckbox'
-}))<SystemCommonProps & SxProp>`
+const styledItemDefaultElement = 'a'
+
+type StyledItemProps = SystemCommonProps & SxProp
+
+type StyledItemComponent = ForwardRefComponent<typeof styledItemDefaultElement, StyledItemProps>
+
+const StyledItem = styled(styledItemDefaultElement)<StyledItemProps>`
   ${listItemStyles}
   ${COMMON}
-  ${sx};
-`
+  ${sx}
+` as StyledItemComponent
 
-type SelectMenuItemInteralProps = {
+const selectMenuItemDefaultElement = 'a'
+
+export type SelectMenuItemProps = StyledItemProps & {
   selected?: boolean
-} & ComponentProps<typeof StyledItem>
+}
 
-const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>(
-  ({children, selected, theme, onClick, ...rest}, forwardedRef) => {
+type SelectMenuItemComponent = ForwardRefComponent<typeof selectMenuItemDefaultElement, SelectMenuItemProps>
+
+const SelectMenuItem = forwardRef(
+  ({as = selectMenuItemDefaultElement, children, selected = false, onClick, ...rest}, forwardedRef) => {
     const menuContext = useContext(MenuContext)
     const backupRef = useRef<HTMLAnchorElement>(null)
     const itemRef = forwardedRef ?? backupRef
@@ -118,20 +126,16 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
         menuContext.setOpen?.(false)
       }
     }
+
     return (
-      <StyledItem ref={itemRef} {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
-        <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
+      <StyledItem as={as} ref={itemRef} role="menuitemcheckbox" {...rest} onClick={handleClick} aria-checked={selected}>
+        <StyledOcticon className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
         {children}
       </StyledItem>
     )
   }
-)
-
-SelectMenuItem.defaultProps = {
-  selected: false
-}
+) as SelectMenuItemComponent
 
 SelectMenuItem.displayName = 'SelectMenu.Item'
 
-export type SelectMenuItemProps = ComponentProps<typeof SelectMenuItem>
 export default SelectMenuItem

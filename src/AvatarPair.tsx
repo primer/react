@@ -13,7 +13,7 @@ const ChildAvatar = styled(Avatar)`
 
 export type AvatarPairProps = RelativeProps
 
-const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
+const AvatarPair = ({children, ...rest}: React.PropsWithChildren<AvatarPairProps>) => {
   const avatars = React.Children.map(children, (child, i) => {
     if (!React.isValidElement(child)) return child
     return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar bg="bg.canvas" {...child.props} size={20} />

@@ -39,6 +39,7 @@ const StyledSelectMenu = styled.details<SystemCommonProps & SxProp>`
 `
 
 type SelectMenuInternalProps = {
+  as?: React.ElementType
   initialTab?: string
 } & ComponentProps<typeof StyledSelectMenu>
 

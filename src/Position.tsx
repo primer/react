@@ -1,39 +1,62 @@
 import React from 'react'
 import styled from 'styled-components'
-import Box from './Box'
+import Box, {BoxProps} from './Box'
 import {POSITION, SystemPositionProps} from './constants'
 import sx from './sx'
-import {ComponentProps} from './utils/types'
+import {ForwardRefComponent, IntrinsicElement} from './utils/polymorphic'
 
-const Position = styled(Box)<SystemPositionProps>`
+const defaultElement = 'div'
+
+export type PositionProps = BoxProps & SystemPositionProps
+
+// TODO: get default element of box
+type PositionComponent = ForwardRefComponent<typeof defaultElement, PositionProps>
+
+const Position = styled(Box)<PositionProps>`
   ${POSITION};
   ${sx};
-`
+` as PositionComponent
 
-export type PositionProps = ComponentProps<typeof Position>
 export default Position
 
 // Absolute
-export type AbsoluteProps = PositionProps
-export function Absolute(props: AbsoluteProps) {
-  return <Position {...props} position="absolute" />
-}
+
+export type AbsoluteProps = Omit<PositionProps, 'position'>
+
+type AbsoluteComponent = ForwardRefComponent<typeof defaultElement, AbsoluteProps>
+
+export const Absolute = React.forwardRef(({as = defaultElement, ...props}, ref) => {
+  return <Position as={as} ref={ref} {...props} position="absolute" />
+}) as AbsoluteComponent
 
 // Fixed
-export type FixedProps = PositionProps
-export function Fixed(props: AbsoluteProps) {
-  return <Position {...props} position="fixed" />
-}
+
+export type FixedProps = Omit<PositionProps, 'position'>
+
+type FixedComponent = ForwardRefComponent<typeof defaultElement, FixedProps>
+
+export const Fixed = React.forwardRef(({as = defaultElement, ...props}, ref) => {
+  return <Position as={as} ref={ref} {...props} position="fixed" />
+}) as FixedComponent
 
 // Relative
-export type RelativeProps = PositionProps
-export function Relative(props: RelativeProps) {
-  return <Position {...props} position="relative" />
-}
+
+export type RelativeProps = Omit<PositionProps, 'position'>
+
+type RelativeComponent = ForwardRefComponent<typeof defaultElement, RelativeProps>
+
+export const Relative = React.forwardRef(({as = defaultElement, ...props}, ref) => {
+  return <Position as={as} ref={ref} {...props} position="relative" />
+}) as RelativeComponent
 
 // Sticky
-export type StickyProps = PositionProps
-export function Sticky(props: StickyProps) {
-  return <Position {...props} position="sticky" />
-}
+
+export type StickyProps = Omit<PositionProps, 'position'>
+
+type StickyComponent = ForwardRefComponent<typeof defaultElement, StickyProps>
+
+export const Sticky = React.forwardRef(({as = defaultElement, ...props}, ref) => {
+  return <Position as={as} ref={ref} {...props} position="sticky" />
+}) as StickyComponent
+
 Sticky.defaultProps = {top: 0, zIndex: 1}
