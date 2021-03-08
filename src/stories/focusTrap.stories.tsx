@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
 
-import {BaseStyles, BorderBox, Button, theme} from '..'
+import {BaseStyles, BorderBox, Button, Flash, Text, theme} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
@@ -30,15 +30,15 @@ const HelperGlobalStyling = createGlobalStyle`
     outline: 2px solid ${themeGet('colors.blue.3')} !important;
   }
   [data-focus-trap='active'] {
-    background-color: ${themeGet("colors.green.2")}
+    background-color: ${themeGet('colors.green.2')}
   }
   [data-focus-trap='suspended'] {
-    background-color: ${themeGet("colors.yellow.2")}
+    background-color: ${themeGet('colors.yellow.2')}
   }
 `
 
 const MarginButton = styled(Button)`
-  margin: ${themeGet("space.1")} 0;
+  margin: ${themeGet('space.1')} 0;
 `
 
 export const FocusTrap = () => {
@@ -114,12 +114,33 @@ export const MultipleFocusTraps = () => {
     <>
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start">
+        <Flash mb={3}>
+          This story demonstrates the global nature of focus traps. When a focus trap is enabled, if there is already an
+          active focus trap, it becomes suspended and pushed onto a stack. Once the newly-active focus trap is disabled,
+          the most recently-suspended trap will reactivate. Suspended focus traps can be disabled, causing them to be
+          removed from the stack of suspended traps.
+        </Flash>
+        <BorderBox p={2} mb={3}>
+          Legend
+          <Flex flexDirection="row">
+            <BorderBox width={40} height={22} mr={2} borderColor="gray.5"></BorderBox>
+            <Text> - Inactive</Text>
+          </Flex>
+          <Flex flexDirection="row">
+            <BorderBox width={40} height={22} mr={2} borderColor="gray.5" backgroundColor="yellow.2"></BorderBox>
+            <Text> - Suspended</Text>
+          </Flex>
+          <Flex flexDirection="row">
+            <BorderBox width={40} height={22} mr={2} borderColor="gray.5" backgroundColor="green.2"></BorderBox>
+            <Text> - Active</Text>
+          </Flex>
+        </BorderBox>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerProps1.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
           <strong>
-            Trap zone! Press <code>1</code> to toggle.
+            Trap zone ({trapEnabled1 ? "enabled" : "disabled"})! Press <code>1</code> to toggle.
           </strong>
           <Flex flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
@@ -132,7 +153,7 @@ export const MultipleFocusTraps = () => {
         <MarginButton>Jackfruit</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerProps2.ref as React.RefObject<HTMLDivElement>} m={2} p={2}>
           <strong>
-            Trap zone! Press <code>2</code> to toggle.
+            Trap zone ({trapEnabled2 ? "enabled" : "disabled"})! Press <code>2</code> to toggle.
           </strong>
           <Flex flexDirection="column" alignItems="flex-start">
             <MarginButton>Kiwi</MarginButton>

@@ -1,4 +1,4 @@
-import {iterateFocusableElements} from '../utils/iterateFocusable'
+import {iterateTabbableElements} from '../utils/iterateTabbable'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 
 eventListenerSignalPolyfill()
@@ -36,11 +36,11 @@ function followSignal(signal: AbortSignal): AbortController {
  * @param lastChild
  */
 function getFocusableChild(container: HTMLElement, lastChild = false) {
-  return iterateFocusableElements(container, lastChild).next().value
+  return iterateTabbableElements(container, {reverse: lastChild, strict: true}).next().value
 }
 
 export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
-  container.setAttribute("data-focus-trap", "active");
+  container.setAttribute('data-focus-trap', 'active')
   let lastFocusedChild: HTMLElement | undefined = undefined
   const firstFocusableChild = getFocusableChild(container)
   const lastFocusableChild = getFocusableChild(container, true)
@@ -87,7 +87,7 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
 
   if (activeTrap) {
     const suspendedTrap = activeTrap
-    activeTrap.container.setAttribute("data-focus-trap", "suspended");
+    activeTrap.container.setAttribute('data-focus-trap', 'suspended')
     activeTrap.controller.abort()
     suspendedTrapStack.push(suspendedTrap)
   }
@@ -99,7 +99,11 @@ export function focusTrap(container: HTMLElement, signal: AbortSignal): void {
 
   // Only when user-canceled
   signal.addEventListener('abort', () => {
-    container.removeAttribute("data-focus-trap");
+    container.removeAttribute('data-focus-trap')
+    const suspendedTrapIndex = suspendedTrapStack.findIndex(t => t.container === container)
+    if (suspendedTrapIndex >= 0) {
+      suspendedTrapStack.splice(suspendedTrapIndex, 1)
+    }
     tryReactivate()
   })
 
