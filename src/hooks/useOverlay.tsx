@@ -1,4 +1,4 @@
-import {useOnOutsideClick, useInitialFocus, useOnEscapePress} from './index'
+import {useOnOutsideClick, useOpenAndCloseFocus, useOnEscapePress} from './index'
 import {TouchOrMouseEvent} from './useOnOutsideClick'
 import {useRef} from 'react'
 
@@ -17,7 +17,7 @@ export type OverlayReturnProps = {
 
 export const useOverlay = ({returnRef, initialFocusRef, onEscape, triggerRef, onClickOutside}: UseOverlayProps): OverlayReturnProps => {
   const overlayRef = useRef<HTMLDivElement>(null)
-  useInitialFocus({containerRef: overlayRef, returnRef, initialFocusRef})
+  useOpenAndCloseFocus({containerRef: overlayRef, returnRef, initialFocusRef})
   useOnOutsideClick({overlayRef, triggerRef, onClickOutside})
   useOnEscapePress({onEscape})
   return {ref: overlayRef}
