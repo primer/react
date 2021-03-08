@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import {compose, fontSize, FontSizeProps, variant} from 'styled-system'
 import {COMMON, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants'
+import {ForwardRefComponent} from '../utils/polymorphic'
 import {ComponentProps} from '../utils/types'
 import buttonBaseStyles from './ButtonStyles'
 
@@ -23,20 +24,24 @@ const variants = variant({
   }
 })
 
-type StyledButtonBaseProps = {
+const defaultElement = 'button'
+
+export type ButtonBaseProps = {
   variant?: 'small' | 'medium' | 'large'
 } & FontSizeProps
 
-const ButtonBase = styled.button.attrs<StyledButtonBaseProps>(({disabled, onClick}) => ({
+type ButtonBaseComponent = ForwardRefComponent<typeof defaultElement, ButtonBaseProps>
+
+const ButtonBase = styled(defaultElement).attrs<ButtonBaseProps>(({disabled, onClick}) => ({
   onClick: disabled ? undefined : onClick
-}))<StyledButtonBaseProps>`
+}))<ButtonBaseProps>`
   ${buttonBaseStyles}
   ${variants}
-`
+` as ButtonBaseComponent
 
 ButtonBase.defaultProps = {
   variant: 'medium'
 }
 
-export type ButtonBaseProps = ComponentProps<typeof ButtonBase>
+// export type ButtonBaseProps = ComponentProps<typeof ButtonBase>
 export default ButtonBase

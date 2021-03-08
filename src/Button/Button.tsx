@@ -1,10 +1,14 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ForwardRefComponent, IntrinsicElement} from '../utils/polymorphic'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
-const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
+export type ButtonProps = ButtonBaseProps & ButtonSystemProps & SxProp
+
+type ButtonComponent = ForwardRefComponent<IntrinsicElement<typeof ButtonBase>, ButtonProps>
+
+const Button = styled(ButtonBase)<ButtonProps>`
   color: ${get('buttons.default.color.default')};
   background-color: ${get('buttons.default.bg.default')};
   border: 1px solid ${get('buttons.default.border.default')};
@@ -36,7 +40,7 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
 
   ${buttonSystemProps};
   ${sx};
-`
+` as ButtonComponent
 
-export type ButtonProps = ComponentProps<typeof Button>
+// export type ButtonProps = ComponentProps<typeof Button>
 export default Button

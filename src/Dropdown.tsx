@@ -26,7 +26,7 @@ const Dropdown = ({children, className, ...rest}: DropdownProps) => {
 
 export type DropdownButtonProps = ButtonProps
 
-const DropdownButton = ({children, ...rest}: DropdownButtonProps) => {
+const DropdownButton = ({children, ...rest}: React.PropsWithChildren<DropdownButtonProps>) => {
   return (
     <Button as="summary" aria-haspopup="true" {...rest}>
       {children}
