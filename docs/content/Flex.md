@@ -11,13 +11,13 @@ _Previously, a `Flex.Item` component was used for flex item specific properties;
 ```jsx live
 <BorderBox width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
-    <Box p={3} bg="bg.info">
+    <Box p={3} color="text.inverse" bg="bg.infoInverse">
       Item 1
     </Box>
-    <Box p={3} bg="bg.warning">
+    <Box p={3} color="text.inverse" bg="bg.warningInverse">
       Item 2
     </Box>
-    <Box p={3} bg="bg.danger">
+    <Box p={3} color="text.inverse" bg="bg.dangerInverse">
       Item 3
     </Box>
   </Flex>
