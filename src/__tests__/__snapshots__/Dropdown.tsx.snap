@@ -179,9 +179,9 @@ exports[`Dropdown.Menu renders consistently 1`] = `
 .c0 {
   background-clip: padding-box;
   background-color: #ffffff;
-  border: 1px solid rgba(27,31,35,0.15);
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
-  box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+  box-shadow: 0 8px 24px rgba(149,157,165,0.2);
   left: 0;
   list-style: none;
   margin-top: 2px;
@@ -208,7 +208,7 @@ exports[`Dropdown.Menu renders consistently 1`] = `
 
 .c0::before {
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,0.15);
+  border-bottom-color: #ffffff;
 }
 
 .c0::after {
