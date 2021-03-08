@@ -48,7 +48,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
-    <Label bg="label.info.border">label</Label>
+    <Label outline>label</Label>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a counter</Text>

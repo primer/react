@@ -9,7 +9,7 @@ The LabelGroup component is used to add commonly used margins and wrapping for g
 ```jsx live
 <LabelGroup>
   <Label>Default label</Label>
-  <Label bg="prState.closed.bg">Label with background indicating a closed PR state</Label>
+  <Label color="prState.closed.text" bg="prState.closed.bg">Label with background indicating a closed PR state</Label>
   <Label outline>Default outline label</Label>
 </LabelGroup>
 ```
