@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
 import TextInput, {TextInputProps} from '../TextInput'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
 const StyledForm = styled.form<SystemCommonProps & SxProp>`
@@ -47,5 +47,5 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
 
 SelectMenuFilter.displayName = 'SelectMenu.Filter'
 
-export type SelectMenuFilterProps = ComponentPropsWithAs<typeof SelectMenuFilter>
+export type SelectMenuFilterProps = ComponentProps<typeof SelectMenuFilter>
 export default SelectMenuFilter

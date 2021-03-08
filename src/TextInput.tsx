@@ -5,7 +5,7 @@ import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const sizeVariants = variant({
   variants: {
@@ -122,10 +122,8 @@ const Wrapper = styled.span<StyledWrapperProps>`
   ${sx};
 `
 
-type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>} & ComponentPropsWithAs<
-  typeof Wrapper
-> &
-  ComponentPropsWithAs<typeof Input>
+type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>} & ComponentProps<typeof Wrapper> &
+  ComponentProps<typeof Input>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
@@ -158,5 +156,5 @@ TextInput.defaultProps = {
 
 TextInput.displayName = 'TextInput'
 
-export type TextInputProps = ComponentPropsWithAs<typeof TextInput>
+export type TextInputProps = ComponentProps<typeof TextInput>
 export default TextInput

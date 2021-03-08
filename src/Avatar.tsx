@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 type StyledAvatarProps = {
   size?: number
@@ -36,5 +36,5 @@ Avatar.defaultProps = {
   square: false
 }
 
-export type AvatarProps = ComponentPropsWithAs<typeof Avatar>
+export type AvatarProps = ComponentProps<typeof Avatar>
 export default Avatar

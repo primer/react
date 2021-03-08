@@ -3,7 +3,7 @@ import {COMMON, get, SystemCommonProps} from './constants'
 import StyledOcticon from './StyledOcticon'
 import sx, {SxProp} from './sx'
 import isNumeric from './utils/isNumeric'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const variantSizes = {
   small: 56,
@@ -50,6 +50,6 @@ CircleBadge.defaultProps = {
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 
-export type CircleBadgeProps = ComponentPropsWithAs<typeof CircleBadge>
-export type CircleBadgeIconProps = ComponentPropsWithAs<typeof CircleBadgeIcon>
+export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
+export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
 export default Object.assign(CircleBadge, {Icon: CircleBadgeIcon})

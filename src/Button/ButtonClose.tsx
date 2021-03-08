@@ -3,7 +3,7 @@ import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {COMMON, get, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 
 type StyledButtonProps = SystemCommonProps & SystemLayoutProps & SxProp
 
@@ -27,7 +27,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   ${sx};
 `
 
-const ButtonClose = forwardRef<HTMLButtonElement, ComponentPropsWithAs<typeof StyledButton>>((props, ref) => {
+const ButtonClose = forwardRef<HTMLButtonElement, ComponentProps<typeof StyledButton>>((props, ref) => {
   return (
     <StyledButton ref={ref} aria-label="Close" {...props}>
       <XIcon />
@@ -35,5 +35,5 @@ const ButtonClose = forwardRef<HTMLButtonElement, ComponentPropsWithAs<typeof St
   )
 })
 
-export type ButtonCloseProps = ComponentPropsWithAs<typeof ButtonClose>
+export type ButtonCloseProps = ComponentProps<typeof ButtonClose>
 export default ButtonClose

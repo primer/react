@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Box from './Box'
 import {COMMON, FLEX, get, SystemCommonProps, SystemFlexProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const SELECTED_CLASS = 'selected'
 
@@ -38,7 +38,7 @@ const BreadcrumbBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type BreadcrumbProps = ComponentPropsWithAs<typeof BreadcrumbBase>
+export type BreadcrumbProps = ComponentProps<typeof BreadcrumbBase>
 
 function Breadcrumb({className, children, theme, ...rest}: React.PropsWithChildren<BreadcrumbProps>) {
   const classes = classnames(className, 'Breadcrumb')
@@ -82,5 +82,5 @@ Breadcrumb.displayName = 'Breadcrumb'
 
 BreadcrumbItem.displayName = 'Breadcrumb.Item'
 
-export type BreadcrumbItemProps = ComponentPropsWithAs<typeof BreadcrumbItem>
+export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbItem>
 export default Object.assign(Breadcrumb, {Item: BreadcrumbItem})

@@ -3,7 +3,7 @@ import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 
 type StyledModalProps = {
   filter?: boolean
@@ -96,7 +96,7 @@ const ModalWrapper = styled.div<StyledModalWrapperProps>`
   ${sx};
 `
 
-type SelectMenuModalInternalProps = Pick<StyledModalProps, 'width'> & ComponentPropsWithAs<typeof ModalWrapper>
+type SelectMenuModalInternalProps = Pick<StyledModalProps, 'width'> & ComponentProps<typeof ModalWrapper>
 
 const SelectMenuModal = React.forwardRef<HTMLDivElement, SelectMenuModalInternalProps>(
   ({children, theme, width, ...rest}, forwardedRef) => {
@@ -117,5 +117,5 @@ SelectMenuModal.defaultProps = {
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'
 
-export type SelectMenuModalProps = ComponentPropsWithAs<typeof SelectMenuModal>
+export type SelectMenuModalProps = ComponentProps<typeof SelectMenuModal>
 export default SelectMenuModal

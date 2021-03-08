@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const Bar = styled.span<{progress?: string | number} & SystemCommonProps>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
@@ -34,7 +34,7 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = ComponentPropsWithAs<typeof ProgressContainer> & ComponentPropsWithAs<typeof Bar>
+export type ProgressBarProps = ComponentProps<typeof ProgressContainer> & ComponentProps<typeof Bar>
 
 function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
   return (

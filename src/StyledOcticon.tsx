@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 type OcticonProps = {icon: React.ElementType} & IconProps
 
@@ -20,5 +20,5 @@ StyledOcticon.defaultProps = {
   size: 16
 }
 
-export type StyledOcticonProps = ComponentPropsWithAs<typeof StyledOcticon>
+export type StyledOcticonProps = ComponentProps<typeof StyledOcticon>
 export default StyledOcticon

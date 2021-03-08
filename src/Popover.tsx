@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import BorderBox from './BorderBox'
 import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 type CaretPosition =
   | 'top'
@@ -229,6 +229,6 @@ Popover.defaultProps = {
 
 PopoverContent.displayName = 'Popover.Content'
 
-export type PopoverProps = ComponentPropsWithAs<typeof Popover>
-export type PopoverContentProps = ComponentPropsWithAs<typeof PopoverContent>
+export type PopoverProps = ComponentProps<typeof Popover>
+export type PopoverContentProps = ComponentProps<typeof PopoverContent>
 export default Object.assign(Popover, {Content: PopoverContent})

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
@@ -23,5 +23,5 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
   ${sx}
 `
 
-export type ButtonInvisibleProps = ComponentPropsWithAs<typeof ButtonInvisible>
+export type ButtonInvisibleProps = ComponentProps<typeof ButtonInvisible>
 export default ButtonInvisible

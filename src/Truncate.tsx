@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 type StyledTruncateProps = {
   title: string
@@ -32,5 +32,5 @@ Truncate.defaultProps = {
   maxWidth: 125
 }
 
-export type TruncateProps = ComponentPropsWithAs<typeof Truncate>
+export type TruncateProps = ComponentProps<typeof Truncate>
 export default Truncate

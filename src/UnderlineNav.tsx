@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
@@ -47,7 +47,7 @@ export type UnderlineNavProps = {
   align?: 'right'
   full?: boolean
   label?: string
-} & ComponentPropsWithAs<typeof UnderlineNavBase>
+} & ComponentProps<typeof UnderlineNavBase>
 
 function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
   const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
@@ -105,5 +105,5 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
-export type UnderlineNavLinkProps = ComponentPropsWithAs<typeof UnderlineNavLink>
+export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
 export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

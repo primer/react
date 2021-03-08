@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const TooltipBase = styled.span<SystemCommonProps & SxProp>`
   position: relative;
@@ -239,7 +239,7 @@ export type TooltipProps = {
   noDelay?: boolean
   align?: 'left' | 'right'
   wrap?: boolean
-} & ComponentPropsWithAs<typeof TooltipBase>
+} & ComponentProps<typeof TooltipBase>
 
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, ...rest}: TooltipProps) {
   const classes = classnames(

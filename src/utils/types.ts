@@ -9,7 +9,6 @@ export type ComponentProps<
   T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
 > = T extends React.ComponentType<infer Props> ? (Props extends object ? Props : never) : never
 
-// TODO explain
-export type ComponentPropsWithAs<
-  T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
-> = ComponentProps<T> & {as?: any}
+// export type ComponentPropsWithAs<
+//   T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+// > = ComponentProps<T> & {as?: any}

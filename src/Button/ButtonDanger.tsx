@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
 const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
@@ -39,5 +39,5 @@ const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & Sx
   ${sx};
 `
 
-export type ButtonDangerProps = ComponentPropsWithAs<typeof ButtonDanger>
+export type ButtonDangerProps = ComponentProps<typeof ButtonDanger>
 export default ButtonDanger

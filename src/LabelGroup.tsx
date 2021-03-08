@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const LabelGroup = styled.span<SystemCommonProps & SxProp>`
   ${COMMON}
@@ -14,5 +14,5 @@ const LabelGroup = styled.span<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type LabelGroupProps = ComponentPropsWithAs<typeof LabelGroup>
+export type LabelGroupProps = ComponentProps<typeof LabelGroup>
 export default LabelGroup

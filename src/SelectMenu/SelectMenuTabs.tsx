@@ -2,7 +2,7 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 
 const tabWrapperStyles = css`
   display: flex;
@@ -29,7 +29,7 @@ const SelectMenuTabsBase = styled.div<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type SelectMenuTabsProps = ComponentPropsWithAs<typeof SelectMenuTabsBase>
+export type SelectMenuTabsProps = ComponentProps<typeof SelectMenuTabsBase>
 
 const SelectMenuTabs = ({children, ...rest}: SelectMenuTabsProps) => {
   return (

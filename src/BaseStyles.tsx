@@ -2,7 +2,7 @@ import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import useMouseIntent from './hooks/useMouseIntent'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const GlobalStyle = createGlobalStyle`
   * { box-sizing: border-box; }
@@ -30,7 +30,7 @@ const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
   ${COMMON};
 `
 
-export type BaseStylesProps = ComponentPropsWithAs<typeof Base>
+export type BaseStylesProps = ComponentProps<typeof Base>
 
 function BaseStyles(props: BaseStylesProps) {
   const {children, ...rest} = props

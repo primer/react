@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 import useKeyboardNav from './hooks/useKeyboardNav'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
@@ -40,7 +40,7 @@ const StyledSelectMenu = styled.details<SystemCommonProps & SxProp>`
 
 type SelectMenuInternalProps = {
   initialTab?: string
-} & ComponentPropsWithAs<typeof StyledSelectMenu>
+} & ComponentProps<typeof StyledSelectMenu>
 
 // 'as' is spread out because we don't want users to be able to change the tag.
 const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
@@ -96,7 +96,7 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
 
 SelectMenu.displayName = 'SelectMenu'
 
-export type SelectMenuProps = ComponentPropsWithAs<typeof SelectMenu>
+export type SelectMenuProps = ComponentProps<typeof SelectMenu>
 export type { SelectMenuDividerProps } from './SelectMenuDivider'
 export type { SelectMenuFilterProps } from './SelectMenuFilter'
 export type { SelectMenuFooterProps } from './SelectMenuFooter'

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, FLEX, LAYOUT, SystemCommonProps, SystemFlexProps, SystemLayoutProps} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const Box = styled.div<SystemCommonProps & SystemFlexProps & SystemLayoutProps & SxProp>`
   ${COMMON}
@@ -10,5 +10,5 @@ const Box = styled.div<SystemCommonProps & SystemFlexProps & SystemLayoutProps &
   ${sx};
 `
 
-export type BoxProps = ComponentPropsWithAs<typeof Box>
+export type BoxProps = ComponentProps<typeof Box>
 export default Box

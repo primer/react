@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {COMMON, get, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentPropsWithAs} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
 const tabStyles = css`
@@ -49,7 +49,7 @@ const StyledTab = styled.button<SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type SelectMenuTabProps = {tabName?: string; index?: number} & ComponentPropsWithAs<typeof StyledTab>
+export type SelectMenuTabProps = {tabName?: string; index?: number} & ComponentProps<typeof StyledTab>
 
 const SelectMenuTab = ({tabName = '', index, className, onClick, ...rest}: SelectMenuTabProps) => {
   const menuContext = useContext(MenuContext)

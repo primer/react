@@ -6,7 +6,7 @@ import Details, {DetailsProps} from './Details'
 import getDirectionStyles from './DropdownStyles'
 import useDetails from './hooks/useDetails'
 import sx, {SxProp} from './sx'
-import {ComponentPropsWithAs} from './utils/types'
+import {ComponentProps} from './utils/types'
 
 const StyledDetails = styled(Details)`
   position: relative;
@@ -147,9 +147,9 @@ DropdownCaret.displayName = 'Dropdown.Caret'
 
 Dropdown.defaultProps = Details.defaultProps
 
-export type DropdownCaretProps = ComponentPropsWithAs<typeof DropdownCaret>
-export type DropdownMenuProps = ComponentPropsWithAs<typeof DropdownMenu>
-export type DropdownItemProps = ComponentPropsWithAs<typeof DropdownItem>
+export type DropdownCaretProps = ComponentProps<typeof DropdownCaret>
+export type DropdownMenuProps = ComponentProps<typeof DropdownMenu>
+export type DropdownItemProps = ComponentProps<typeof DropdownItem>
 export default Object.assign(Dropdown, {
   Caret: DropdownCaret,
   Menu: DropdownMenu,
