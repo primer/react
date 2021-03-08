@@ -84,7 +84,7 @@ export const DropdownOverlay = () => {
         open overlay
       </Button>
       {isOpen &&
-        <Overlay returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} width="sm">
+        <Overlay returnRef={buttonRef} height="auto" ignoreClickRefs={[buttonRef]} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} width="sm">
           <Flex flexDirection="column" p={2}>
             <DummyItem>Copy link</DummyItem>
             <DummyItem>Quote reply</DummyItem>
@@ -107,7 +107,7 @@ export const DialogOverlay = () => {
         open overlay
       </Button>
       {isOpen &&
-        <Overlay initialFocusRef={noButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} width="sm">
+        <Overlay initialFocusRef={noButtonRef} returnRef={buttonRef} height="auto" ignoreClickRefs={[buttonRef]} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} width="sm">
           <Flex flexDirection="column" p={2}>
             <Button >yes</Button>
             <Button ref={noButtonRef}>no</Button>

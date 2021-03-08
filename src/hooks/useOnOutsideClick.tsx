@@ -3,36 +3,48 @@ import React, {useEffect, useCallback} from 'react'
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 
 export type UseOnOutsideClickProps = {
-  overlayRef: React.RefObject<HTMLDivElement>
-  triggerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLDivElement>
+  ignoreClickRefs?: React.RefObject<HTMLElement> []
   onClickOutside: (e: TouchOrMouseEvent) => void
 }
 
+type ShouldCallClickHandlerProps = {
+  ignoreClickRefs?: React.RefObject<HTMLElement> []
+  containerRef: React.RefObject<HTMLDivElement>
+  e: TouchOrMouseEvent
+}
 
-
-const shouldCallClickHandler = (triggerRef: React.RefObject<HTMLElement>, overlayRef: React.RefObject<HTMLDivElement>, e: TouchOrMouseEvent) => {
+const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallClickHandlerProps) : boolean => {
   let shouldCallHandler = true
-  // only call click handler when primary button is pressed
+
+  // don't call click handler if the mouse event was triggered by an auxiliary button (right click/wheel button/etc)
   if (e instanceof MouseEvent && e.button > 0) {
     shouldCallHandler = false
   }
 
-    if (overlayRef && 'current' in overlayRef && overlayRef.current?.contains(e.target as Node)) {
-      shouldCallHandler = false
-    } else if (triggerRef && triggerRef.current?.contains(e.target as Node)) {
-      shouldCallHandler = false
+  // don't call handler if the click happened inside of the container
+  if (containerRef && 'current' in containerRef && containerRef.current?.contains(e.target as Node)) {
+    shouldCallHandler = false
+  // don't call handler if click happened on an ignored ref
+  } else if (ignoreClickRefs) {
+    for(const ignoreRef of ignoreClickRefs) {
+      if(ignoreRef && ignoreRef.current?.contains(e.target as Node)) {
+        shouldCallHandler = false
+        // if we encounter one, break early, we don't need to go through the rest
+        break
+      }
     }
-
+  }
   return shouldCallHandler
 }
 
 
-export const useOnOutsideClick = ({overlayRef, triggerRef, onClickOutside}: UseOnOutsideClickProps): void => {
+export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickProps): void => {
   const onOutsideClickInternal = useCallback(
     (e: TouchOrMouseEvent) => {
-      if (!shouldCallClickHandler(triggerRef, overlayRef, e)) return
+      if (!shouldCallClickHandler({ignoreClickRefs, containerRef, e})) return
       onClickOutside(e)
-    }, [onClickOutside, overlayRef, triggerRef]
+    }, [onClickOutside, containerRef, ignoreClickRefs]
   )
 
   useEffect(() => {
