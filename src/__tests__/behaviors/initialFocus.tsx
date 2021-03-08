@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button} from '../..'
 import {render} from '@testing-library/react'
 import { initialFocus } from '../../behaviors/initialFocus'
 

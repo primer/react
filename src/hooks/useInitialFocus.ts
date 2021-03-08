@@ -9,12 +9,12 @@ export type UseInitialFocusProps = {
 }
 
 export function useInitialFocus({initialFocusRef, returnRef, containerRef}: UseInitialFocusProps): void {
-  const focusElement = initialFocusRef ? initialFocusRef.current : null
-  const returnFocus = returnRef.current
   useEffect(() => {
+    const focusElement = initialFocusRef ? initialFocusRef.current : null
+    const returnFocus = returnRef.current
     initialFocus({initialFocusElement: focusElement, containerElement: containerRef.current})
     return function() {
       returnFocus?.focus()
     }
-  }, [focusElement, returnFocus, containerRef])
+  }, [initialFocusRef, returnRef, containerRef])
 }

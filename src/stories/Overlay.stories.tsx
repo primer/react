@@ -100,17 +100,17 @@ export const DropdownOverlay = () => {
 export const DialogOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const yesButtonRef = useRef<HTMLButtonElement>(null)
+  const noButtonRef = useRef<HTMLButtonElement>(null)
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen &&
-        <Overlay initialFocusRef={yesButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} width="sm">
+        <Overlay initialFocusRef={noButtonRef} returnRef={buttonRef} height="auto" triggerRef={buttonRef} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)} width="sm">
           <Flex flexDirection="column" p={2}>
-            <Button ref={yesButtonRef}>yes</Button>
-            <Button>no</Button>
+            <Button >yes</Button>
+            <Button ref={noButtonRef}>no</Button>
           </Flex>
         </Overlay>
       }
