@@ -1,8 +1,8 @@
 import type {IconProps} from '@primer/octicons-react'
 import type {SystemStyleObject} from '@styled-system/css'
 import React from 'react'
-import {StyledDiv} from './StyledDiv'
-import {StyledSpan} from './StyledSpan'
+import {StyledDiv} from './private/StyledDiv'
+import {StyledSpan} from './private/StyledSpan'
 import {
   borderRadius2,
   s6,
@@ -14,9 +14,9 @@ import {
   textSecondary,
   textDanger,
   textSmall
-} from './variables'
+} from './private/variables'
 
-export interface ActionListItemProps extends React.ComponentPropsWithoutRef<'div'> {
+interface ItemPropsBase {
   text: string
   description?: string
   descriptionVariant?: 'inline' | 'block'
@@ -25,8 +25,12 @@ export interface ActionListItemProps extends React.ComponentPropsWithoutRef<'div
   size?: 'small' | 'medium' | 'large'
   variant?: 'default' | 'singleSelection' | 'multiSelection' | 'danger' | 'static'
 }
+interface ItemPropsWithRenderItem extends Partial<ItemPropsBase> {
+  renderItem: (props: ItemProps) => JSX.Element
+}
+export type ItemProps = ItemPropsBase | ItemPropsWithRenderItem
 
-function baseStyles({variant}: {variant: ActionListItemProps['variant']}): SystemStyleObject {
+function baseStyles({variant}: {variant: ItemProps['variant']}): SystemStyleObject {
   return {
     position: 'relative',
     display: 'flex',
@@ -53,7 +57,7 @@ function baseStyles({variant}: {variant: ActionListItemProps['variant']}): Syste
 function textContainerStyles({
   descriptionVariant
 }: {
-  descriptionVariant: ActionListItemProps['descriptionVariant']
+  descriptionVariant: ItemProps['descriptionVariant']
 }): SystemStyleObject {
   return {flexDirection: descriptionVariant === 'inline' ? 'row' : 'column'}
 }
@@ -76,7 +80,7 @@ const descriptionStyles: SystemStyleObject = {
   color: textSecondary
 }
 
-export function ActionListItem({
+export function Item({
   text,
   description,
   descriptionVariant = 'inline',
@@ -84,9 +88,9 @@ export function ActionListItem({
   size: _size = 'small',
   variant = 'default',
   ...props
-}: ActionListItemProps): JSX.Element {
+}: ItemProps): JSX.Element {
   return (
-    <StyledDiv data-component="ActionListItem" sx={baseStyles({variant})} {...props}>
+    <StyledDiv data-component="ActionList.Item" sx={baseStyles({variant})} {...props}>
       {LeadingVisual && (
         <StyledSpan sx={leadingVisualStyles}>
           <LeadingVisual />

@@ -1,11 +1,9 @@
 import React from 'react'
 import type {SystemStyleObject} from '@styled-system/css'
-import {actionListItemDivider, s16, s8} from './variables'
-import {StyledDiv} from './StyledDiv'
+import {actionListItemDivider, s16, s8} from './private/variables'
+import {StyledDiv} from './private/StyledDiv'
 
-export interface ActionListSectionDividerProps extends React.ComponentPropsWithoutRef<'div'> {
-  [key: string]: unknown
-}
+export interface DividerProps {}
 
 const actionListSectionDividerStyles: SystemStyleObject = {
   position: 'relative',
@@ -27,6 +25,7 @@ const actionListSectionDividerStyles: SystemStyleObject = {
   }
 }
 
-export function ActionListSectionDivider(props: ActionListSectionDividerProps): JSX.Element {
-  return <StyledDiv data-component="ActionListSectionDivider" sx={actionListSectionDividerStyles} {...props} />
+export function Divider(props?: DividerProps): JSX.Element {
+  return <StyledDiv data-component="ActionList.Divider" sx={actionListSectionDividerStyles} {...props} />
 }
+Divider.renderItem = Divider

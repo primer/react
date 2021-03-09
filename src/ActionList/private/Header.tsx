@@ -3,7 +3,7 @@ import {StyledDiv} from './StyledDiv'
 import {s8, s20, s32, gray100, gray200, textSecondary} from './variables'
 import type {SystemStyleObject} from '@styled-system/css'
 
-export interface ActionListSectionHeaderProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
   variant: 'subtle' | 'filled'
   title: string
   auxiliaryText?: string
@@ -28,16 +28,10 @@ const filledVariantStyles: SystemStyleObject = {
   }
 }
 
-export function ActionListSectionHeader({
-  variant,
-  title,
-  auxiliaryText,
-  children: _children,
-  ...props
-}: ActionListSectionHeaderProps): JSX.Element {
+export function Header({variant, title, auxiliaryText, children: _children, ...props}: HeaderProps): JSX.Element {
   return (
     <StyledDiv
-      data-component="ActionListSectionHeader"
+      data-component="ActionList.Header"
       role="heading"
       sx={{
         ...baseStyles,
