@@ -4,20 +4,20 @@ title: Flex
 
 The `Flex` component behaves the same as the `Box` component except that it has `display: flex` set by default.
 
-*Previously, a `Flex.Item` component was used for flex item specific properties; `Box` now contains all those properties and should be used in its place.*
+_Previously, a `Flex.Item` component was used for flex item specific properties; `Box` now contains all those properties and should be used in its place._
 
 ## Default example
 
 ```jsx live
 <BorderBox width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
-    <Box p={3} bg="blue.5">
+    <Box p={3} color="text.inverse" bg="bg.infoInverse">
       Item 1
     </Box>
-    <Box p={3} bg="green.5">
+    <Box p={3} color="text.inverse" bg="bg.warningInverse">
       Item 2
     </Box>
-    <Box p={3} bg="yellow.5">
+    <Box p={3} color="text.inverse" bg="bg.dangerInverse">
       Item 3
     </Box>
   </Flex>
