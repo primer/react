@@ -15,12 +15,14 @@ import React from 'react'
 import {ThemeProvider} from 'styled-components'
 import {theme} from '..'
 import {ActionList as _ActionList} from '../ActionList'
-import {Header as _Header} from '../ActionList/private/Header'
+import {AlternativeList as Alternative} from '../ActionList/private/AlternativeList'
+import {Header} from '../ActionList/private/Header'
 import {StyledDiv} from '../ActionList/private/StyledDiv'
 import BaseStyles from '../BaseStyles'
 
 const ActionList = Object.assign(_ActionList, {
-  Header: _Header
+  Header,
+  Alternative
 })
 
 const meta: Meta = {
@@ -52,7 +54,7 @@ function ErsatzOverlay(props: React.ComponentPropsWithoutRef<'div'>): JSX.Elemen
   return <StyledDiv sx={ersatzOverlayStyles} {...props} />
 }
 
-export function Actions(): JSX.Element {
+export function ActionsStory(): JSX.Element {
   return (
     <>
       <h1>Actions</h1>
@@ -78,8 +80,9 @@ export function Actions(): JSX.Element {
     </>
   )
 }
+ActionsStory.storyName = 'Actions'
 
-export function SimpleList(): JSX.Element {
+export function SimpleListStory(): JSX.Element {
   return (
     <>
       <h1>Simple List</h1>
@@ -97,8 +100,9 @@ export function SimpleList(): JSX.Element {
     </>
   )
 }
+SimpleListStory.storyName = 'Simple List'
 
-export function ComplexList(): JSX.Element {
+export function ComplexListStory(): JSX.Element {
   return (
     <>
       <h1>Complex List</h1>
@@ -153,8 +157,63 @@ export function ComplexList(): JSX.Element {
     </>
   )
 }
+ComplexListStory.storyName = 'Complex List'
 
-export function Header(): JSX.Element {
+export function AlternativeListStory(): JSX.Element {
+  return (
+    <>
+      <h1>Alternative List</h1>
+      <ErsatzOverlay>
+        <ActionList.Alternative
+          items={[
+            {leadingVisual: TypographyIcon, text: 'Rename', groupId: 0},
+            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: 0},
+            {leadingVisual: SearchIcon, text: 'repo:github/memex,github/github', groupId: 1},
+            {
+              leadingVisual: NoteIcon,
+              text: 'Table',
+              description: 'Information-dense table optimized for operations across teams',
+              descriptionVariant: 'block',
+              groupId: 2
+            },
+            {
+              leadingVisual: ProjectIcon,
+              text: 'Board',
+              description: 'Kanban-style board focused on visual states',
+              descriptionVariant: 'block',
+              groupId: 2
+            },
+            {leadingVisual: FilterIcon, text: 'Save sort and filters to current view', groupId: 3},
+            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: 3},
+            {leadingVisual: GearIcon, text: 'View settings', groupId: 4}
+          ]}
+          groups={[
+            {groupId: 0},
+            {
+              groupId: 1,
+              header: {
+                title: 'Live query',
+                variant: 'subtle'
+              }
+            },
+            {
+              groupId: 2,
+              header: {
+                title: 'Layout',
+                variant: 'subtle'
+              }
+            },
+            {groupId: 3},
+            {groupId: 4}
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+AlternativeListStory.storyName = 'Alternative List'
+
+export function HeaderStory(): JSX.Element {
   return (
     <>
       <h1>Header</h1>
@@ -165,3 +224,4 @@ export function Header(): JSX.Element {
     </>
   )
 }
+HeaderStory.storyName = 'Header'
