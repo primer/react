@@ -30,15 +30,18 @@ describe('CounterLabel', () => {
 
   it('respects the primary "scheme" prop', () => {
     const p = primitives
-    expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule('color', theme.colors.counter.primary.text.trim())
+    expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
+      'color',
+      theme.colors.counter?.primary.text.trim()
+    )
     expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
       'background-color',
-      theme.colors.counter.primary.bg.trim()
+      theme.colors.counter?.primary.bg.trim()
     )
   })
 
   it('respects the secondary "scheme" prop', () => {
-    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule('color', theme.colors.counter.text.trim())
-    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule('background-color', theme.colors.counter.bg)
+    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule('color', theme.colors.counter?.text.trim())
+    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule('background-color', theme.colors.counter?.bg)
   })
 })

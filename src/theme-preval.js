@@ -47,16 +47,20 @@ const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px'
 const {scale: _excludeScaleColors, ...colors} = filterObject(primitives.colors.light, value => isColorValue(value))
 const {scale: _excludeScaleShadows, ...shadows} = filterObject(primitives.colors.light, value => isShadowValue(value))
 
-// this is a small hack that is a temporary stop gap.
-// this file must be in vanilla JS to work with preval
+// This file must be in vanilla JS to work with preval
 // but our temporary filter utils make it impossible for
-// our TypeScript to properly infer const object structure.
-// shallow merging primitives objects back in restores the
-// structural inferences and ultimately gets overrideen with
-// the filtered values.
-const typedColors = {...primitives.colors.light, ...colors}
-const typedShadows = {...primitives.colors.light, ...shadows}
-// ---------
+// our TypeScript to properly infer const object structure
+// so we need to use JSDoc comments.
+
+/**
+ * @type Partial<typeof primitives.colors.light>
+ */
+const typedColors = colors
+
+/**
+ * @type Partial<typeof primitives.colors.light>
+ */
+const typedShadows = shadows
 
 const theme = {
   // General
@@ -74,6 +78,5 @@ const theme = {
 }
 
 module.exports = {
-  theme,
-  colors
+  theme
 }
