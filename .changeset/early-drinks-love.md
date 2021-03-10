@@ -1,5 +1,5 @@
 ---
-'@primer/components': minor
+'@primer/components': major
 ---
 
 Removes deprecated presentational theme variables in favor of _functional variables_ for styling components that are consistent across multiple themes.
