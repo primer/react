@@ -1,7 +1,7 @@
 export {default as theme} from './theme'
 export {get as themeGet} from './constants'
 export {default as BaseStyles} from './BaseStyles'
-export {default as ThemeProvider, useColorScheme} from './ThemeProvider'
+export {default as ThemeProvider, useTheme} from './ThemeProvider'
 
 // Layout
 export {default as BorderBox} from './BorderBox'

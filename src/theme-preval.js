@@ -355,6 +355,7 @@ const stateLabels = {
 
 const {colors: lightColors, shadows: lightShadows} = partitionColors(primitives.colors.light)
 const {colors: darkColors, shadows: darkShadows} = partitionColors(primitives.colors.dark)
+const {colors: darkDimmedColors, shadows: darkDimmedShadows} = partitionColors(primitives.colors.dark_dimmed)
 
 const mergedColors = deepmerge(colors, omitScale(lightColors))
 const mergedShadows = deepmerge(shadows, omitScale(lightShadows))
@@ -366,7 +367,8 @@ const theme = {
   colors: {
     ...mergedColors,
     schemes: {
-      dark: omitScale(darkColors)
+      dark: omitScale(darkColors),
+      dark_dimmed: omitScale(darkDimmedColors)
     }
   },
   fonts,
@@ -377,7 +379,8 @@ const theme = {
   shadows: {
     ...mergedShadows,
     schemes: {
-      dark: omitScale(darkShadows)
+      dark: omitScale(darkShadows),
+      dark_dimmed: omitScale(darkDimmedShadows)
     }
   },
   sizes,

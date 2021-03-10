@@ -184,7 +184,7 @@ Use the `useColorScheme` hook to switch the color scheme:
 
 ```javascript live noinline
 function Example() {
-  const [colorScheme, setColorScheme] = useColorScheme()
+  const [colorScheme, setColorScheme] = useTheme()
   return (
     <div>
       <Button onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}>
