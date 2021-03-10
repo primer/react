@@ -4,7 +4,7 @@
 const {default: primitives} = require('@primer/primitives')
 const {lighten, rgba, desaturate} = require('polished')
 const deepmerge = require('deepmerge')
-const {filterObject, isShadowValue, isColorValue, fontStack} = require('./utils/theme')
+const {fontStack, partitionColors, omitScale} = require('./utils/theme')
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.scale
@@ -353,27 +353,33 @@ const stateLabels = {
   }
 }
 
-const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, value =>
-  isColorValue(value)
-)
-const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, value =>
-  isShadowValue(value)
-)
+const {colors: lightColors, shadows: lightShadows} = partitionColors(primitives.colors.light)
+const {colors: darkColors, shadows: darkShadows} = partitionColors(primitives.colors.dark)
 
-const mergedColors = deepmerge(colors, functionalColors)
-const mergedShadows = deepmerge(shadows, functionalShadows)
+const mergedColors = deepmerge(colors, omitScale(lightColors))
+const mergedShadows = deepmerge(shadows, omitScale(lightShadows))
 
 const theme = {
   // General
   borderWidths,
   breakpoints,
-  colors: mergedColors,
+  colors: {
+    ...mergedColors,
+    schemes: {
+      dark: omitScale(darkColors)
+    }
+  },
   fonts,
   fontSizes,
   fontWeights,
   lineHeights,
   radii,
-  shadows: mergedShadows,
+  shadows: {
+    ...mergedShadows,
+    schemes: {
+      dark: omitScale(darkShadows)
+    }
+  },
   sizes,
   space,
 

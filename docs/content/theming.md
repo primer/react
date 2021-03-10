@@ -182,17 +182,19 @@ function App() {
 
 Use the `useColorScheme` hook to switch the color scheme:
 
-```jsx
+```javascript live noinline
 function Example() {
   const [colorScheme, setColorScheme] = useColorScheme()
   return (
     <div>
-      <button onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}>
+      <Button onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}>
         Activate {colorScheme === 'light' ? 'dark' : 'light'} color scheme
-      </button>
+      </Button>
     </div>
   )
 }
+
+render(Example)
 ```
 
 ### Creating local color scheme variables
