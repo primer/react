@@ -58,7 +58,7 @@ If the `signal` argument is omitted, `focusTrap()` will return an `AbortControll
 
 ### A note on performance
 
-When focus trap is activated, it must perform [reflow](https://developers.google.com/speed/docs/insights/browser-reflow) to discover focusable elements. Use caution not to rapidly enable and enable focus traps.
+When focus trap is activated, it must perform [reflow](https://developers.google.com/speed/docs/insights/browser-reflow) to discover focusable elements. Use caution not to rapidly enable and disable focus traps.
 
 ## useFocusTrap hook
 
@@ -71,7 +71,7 @@ The focus trap can be disabled in two ways:
 
 ### Using your own refs
 
-The `useFocusTrap` hook will return two refs for the focus trap container and the element to receive initial focus, which must be added to their respective JSX. If you would like to use your own refs, you can pass them into the hook as part of the settings object (see the interface below).
+If you would like to use your own refs, you can pass them into the hook as part of the settings object (see the interface below).
 
 ### Usage
 

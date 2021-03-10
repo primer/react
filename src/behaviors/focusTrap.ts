@@ -1,4 +1,4 @@
-import {iterateTabbableElements} from '../utils/iterateTabbable'
+import {isTabbable, iterateTabbableElements} from '../utils/iterateTabbable'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 
 eventListenerSignalPolyfill()
@@ -66,20 +66,32 @@ export function focusTrap(
   let lastFocusedChild: HTMLElement | undefined = undefined
   const firstFocusableChild = getFocusableChild(container)
   const lastFocusableChild = getFocusableChild(container, true)
-  function ensureTrapZoneHasFocus(focusedElement: EventTarget | null) {
+
+  // Ensure focus remains in the trap zone by checking that a given recently-focused
+  // element is inside the trap zone. If it isn't, redirect focus to a suitable
+  // element within the trap zone. If need to redirect focus and a suitable element
+  // is not found, return false.
+  function ensureTrapZoneHasFocus(focusedElement: EventTarget | null): boolean {
     if (focusedElement instanceof HTMLElement) {
       if (container.contains(focusedElement)) {
         // If a child of the trap zone was focused, remember it
         lastFocusedChild = focusedElement
+        return true
       } else {
-        if (lastFocusedChild && lastFocusedChild.tabIndex !== -1) {
+        if (lastFocusedChild && isTabbable(lastFocusedChild)) {
           lastFocusedChild.focus()
+          return true
         } else {
           // eslint-disable-next-line @typescript-eslint/no-extra-semi
-          ;(initialFocus ?? firstFocusableChild)?.focus()
+          const toFocus = initialFocus ?? firstFocusableChild
+          if (toFocus) {
+            toFocus.focus()
+            return true
+          }
         }
       }
     }
+    return false
   }
 
   const wrappingController = followSignal(signal)
@@ -134,7 +146,11 @@ export function focusTrap(
   document.addEventListener(
     'focusin',
     (event: FocusEvent) => {
-      ensureTrapZoneHasFocus(event.target)
+      if (!ensureTrapZoneHasFocus(event.target)) {
+        // Couldn't find a suitable element to focus, so assume that the trap zone UI
+        // has been hidden or removed - clean up the listeners.
+        wrappingController.abort()
+      }
     },
     {signal: wrappingController.signal}
   )

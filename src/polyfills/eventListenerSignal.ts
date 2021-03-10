@@ -1,3 +1,14 @@
+/*
+
+This file polyfills the following: https://github.com/whatwg/dom/issues/911
+Once all targeted browsers support this DOM feature, this polyfill can be deleted.
+
+This allows users to pass an AbortSignal to a call to addEventListener as part of the
+AddEventListenerOptions object. When the signal is aborted, the event listener is
+removed.
+
+*/
+
 let signalSupported = false
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}

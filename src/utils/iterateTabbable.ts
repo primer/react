@@ -57,7 +57,15 @@ export function* iterateTabbableElements(
  * @param strict
  */
 export function isTabbable(elem: HTMLElement, strict = false): boolean {
-  // Always tabbable if tabindex is explicitly 0 or higher
+  // If it's a disabled form element, it cannot be focused, period.
+  const disabledAttrInert =
+    ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'OPTGROUP', 'OPTION', 'FIELDSET'].includes(elem.tagName) &&
+    (elem as HTMLElement & {disabled: boolean}).disabled
+  if (disabledAttrInert) {
+    return false
+  }
+
+  // Otherwise, tabbable when tabindex is explicitly 0 or higher
   const tabIndexAttribute = elem.getAttribute('tabindex')
   if (tabIndexAttribute != null && parseInt(tabIndexAttribute, 10) >= 0) {
     return true
@@ -65,9 +73,6 @@ export function isTabbable(elem: HTMLElement, strict = false): boolean {
 
   // Any of the below criteria render the element _not_ tabbable
   const tabIndexInert = elem.tabIndex < 0
-  const disabledAttrInert =
-    ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'OPTGROUP', 'OPTION', 'FIELDSET'].includes(elem.tagName) &&
-    (elem as HTMLElement & {disabled: boolean}).disabled
   const hiddenInert = elem.hidden
   const hiddenInputInert = elem instanceof HTMLInputElement && elem.type === 'hidden'
   const noHrefInert = elem instanceof HTMLAnchorElement && elem.getAttribute('href') == null
