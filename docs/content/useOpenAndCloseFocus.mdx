@@ -1,4 +1,3 @@
-
 ---
 title: useOpenAndCloseFocus
 ---
@@ -7,26 +6,37 @@ title: useOpenAndCloseFocus
 
 If no ref is passed to `inititalFocusRef` , the hook focuses the first focusable element inside of the container.
 
+
 ### Usage
 
-```jsx live
-<State>
-  {([isOpen, setIsOpen]) => {
-    const containerRef = useRef(null)
-    const returnRef = useRef(null)
-    useOpenAndCloseFocus({containerRef, returnRef, initialFocusRef: buttonTwo})
+```javascript live noinline
+const Overlay = ({returnRef, initialFocusRef, children}) => {
+  const containerRef = React.useRef(null)
+  useOpenAndCloseFocus({containerRef, returnRef, initialFocusRef})
+  return (
+    <Box height="200px" ref={containerRef}>
+      {children}
+    </Box>
+  )
+}
 
-    return (
-      <Button ref={returnRef} onClick={() => setIsOpen(!isOpen)}>show/hide</Button>
+function Component() {
+  const returnRef = React.useRef(null)
+  const initialFocusRef = React.useRef(null)
+  const [isOpen, setIsOpen] = React.useState(false)
+  return (
+    <Box sx={{'*': { ':focus' : { backgroundColor: 'red.5'}}}}>
+      <Button ref={returnRef} onClick={() => setIsOpen(!isOpen)}>toggle</Button>
       {isOpen &&
-        <Box ref={containerRef}>
-          <Button>Click me</Button>
-          <Button ref={buttonTwo}>Cancel timeout</Button>
-        </Box>
-      }
-    )
-  }}
-</State>
+        <Overlay returnRef={returnRef} initialFocusRef={initialFocusRef}>
+          <Button>Button One</Button>
+          <Button ref={initialFocusRef}>Button Two</Button>
+        </Overlay>}
+    </Box>
+  )
+}
+
+render(<Component/>)
 ```
 
 
