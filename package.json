@@ -21,7 +21,7 @@
     "build": "yarn playroom:build",
     "release": "yarn dist && changeset publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -c .storybook -o public"
   },
   "repository": "primer/components",
   "keywords": [
