@@ -4,6 +4,7 @@
   "alias": "primer-components.now.sh",
   "routes": [
     {"src": "/components(/.*)?", "dest": "/docs$1"},
+    {"src": "/components/storybook(/.*)?", "dest": "/public/storybook"},
     {
       "src": "/",
       "status": 301,
