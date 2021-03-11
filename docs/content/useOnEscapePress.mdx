@@ -1,0 +1,41 @@
+---
+title: useOnEscapePress
+---
+
+`useOnEscapePress` is a simple utility hooks that calls a user provided function when the `Escape` key is pressed.
+
+### Usage
+
+```javascript live noinline
+const OverlayDemo = ({onEscape, children}) => {
+  useOnEscapePress({onEscape})
+  return (
+    <Box height="200px">
+      {children}
+    </Box>
+  )
+}
+
+function DemoComponent() {
+  const [isOpen, setIsOpen] = React.useState(false)
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>toggle</Button>
+      {isOpen &&
+        <OverlayDemo onEscape={() => setIsOpen(false)}>
+          <Button>Button One</Button>
+          <Button>Button Two</Button>
+        </OverlayDemo>}
+    </>
+  )
+}
+
+render(<DemoComponent/>)
+```
+
+
+#### useOnEscapePress settings
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| onEscapePress | `function` | | Function to call when user presses the Escape key |

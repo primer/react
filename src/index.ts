@@ -15,6 +15,7 @@ export {default as useMouseIntent} from './hooks/useMouseIntent'
 export {default as useSafeTimeout} from './hooks/useSafeTimeout'
 export {useOnOutsideClick} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
+export {useOnEscapePress} from './hooks/useOnEscapePress'
 
 // Components
 export {default as Avatar} from './Avatar'

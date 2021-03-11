@@ -26,6 +26,8 @@
       url: /useOnOutsideClick
     - title: useOpenAndCloseFocus
       url: /useOpenAndCloseFocus
+    - title: useOnEscapePress
+      url: /useOnEscapePress
 - title: Components
   children:
     - title: Avatar
