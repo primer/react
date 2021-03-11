@@ -22,6 +22,10 @@
   children:
     - title: useSafeTimeout
       url: /useSafeTimeout
+    - title: useOnOutsideClick
+      url: /useOnOutsideClick
+    - title: useOpenAndCloseFocus
+      url: /useOpenAndCloseFocus
 - title: Components
   children:
     - title: Avatar
