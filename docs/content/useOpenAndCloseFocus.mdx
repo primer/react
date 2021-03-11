@@ -1,0 +1,39 @@
+
+---
+title: useOpenAndCloseFocus
+---
+
+`useOpenAndCloseFocus` is a utility Hook that manages focusing an element when a component is first mounted, and returns focus to an element on the page when that component unmounts.
+
+If no ref is passed to `inititalFocusRef` , the hook focuses the first focusable element inside of the container.
+
+### Usage
+
+```jsx live
+<State>
+  {([isOpen, setIsOpen]) => {
+    const containerRef = useRef(null)
+    const returnRef = useRef(null)
+    useOpenAndCloseFocus({containerRef, returnRef, initialFocusRef: buttonTwo})
+
+    return (
+      <Button ref={returnRef} onClick={() => setIsOpen(!isOpen)}>show/hide</Button>
+      {isOpen &&
+        <Box ref={containerRef}>
+          <Button>Click me</Button>
+          <Button ref={buttonTwo}>Cancel timeout</Button>
+        </Box>
+      }
+    )
+  }}
+</State>
+```
+
+
+#### useOpenAndCloseFocus settings
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| initialFocusRef | `React.RefObject` | | Optional. The element to focus when the container is mounted on the page. |
+| returnRef | `React.RefObject` | | Required. The element to focus when the container is unmounted. |
+| containerRef | `React.RefObject` | | Required. A ref for the containing element. |
