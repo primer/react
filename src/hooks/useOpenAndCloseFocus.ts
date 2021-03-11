@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {initialFocus} from '../behaviors/initialFocus'
+import { iterateTabbableElements } from "../utils/iterateTabbable"
 
 
 export type UseOpenAndCloseFocusProps = {
@@ -10,11 +10,14 @@ export type UseOpenAndCloseFocusProps = {
 
 export function useOpenAndCloseFocus({initialFocusRef, returnRef, containerRef}: UseOpenAndCloseFocusProps): void {
   useEffect(() => {
-    const focusElement = initialFocusRef ? initialFocusRef.current : null
-    const returnFocus = returnRef.current
-    initialFocus({initialFocusElement: focusElement, containerElement: containerRef.current})
+    if (initialFocusRef && initialFocusRef.current) {
+      initialFocusRef.current.focus()
+    } else if (containerRef && containerRef.current) {
+      const firstItem = iterateTabbableElements(containerRef.current).next().value
+      firstItem?.focus()
+    }
     return function() {
-      returnFocus?.focus()
+      returnRef?.current?.focus()
     }
   }, [initialFocusRef, returnRef, containerRef])
 }
