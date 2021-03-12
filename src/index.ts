@@ -16,6 +16,7 @@ export {default as useSafeTimeout} from './hooks/useSafeTimeout'
 export {useOnOutsideClick} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
+export {useOverlay} from './hooks/useOverlay'
 
 // Components
 export {default as Avatar} from './Avatar'

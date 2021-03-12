@@ -10,9 +10,9 @@ If no ref is passed to `inititalFocusRef` , the hook focuses the first focusable
 ### Usage
 
 ```javascript live noinline
-const Overlay = ({returnRef, initialFocusRef, children}) => {
+const Overlay = ({returnFocusRef, initialFocusRef, children}) => {
   const containerRef = React.useRef(null)
-  useOpenAndCloseFocus({containerRef, returnRef, initialFocusRef})
+  useOpenAndCloseFocus({containerRef, returnFocusRef, initialFocusRef})
   return (
     <Box height="200px" ref={containerRef}>
       {children}
@@ -21,14 +21,14 @@ const Overlay = ({returnRef, initialFocusRef, children}) => {
 }
 
 function Component() {
-  const returnRef = React.useRef(null)
+  const returnFocusRef = React.useRef(null)
   const initialFocusRef = React.useRef(null)
   const [isOpen, setIsOpen] = React.useState(false)
   return (
     <Box sx={{'*': { ':focus' : { backgroundColor: 'red.5'}}}}>
-      <Button ref={returnRef} onClick={() => setIsOpen(!isOpen)}>toggle</Button>
+      <Button ref={returnFocusRef} onClick={() => setIsOpen(!isOpen)}>toggle</Button>
       {isOpen &&
-        <Overlay returnRef={returnRef} initialFocusRef={initialFocusRef}>
+        <Overlay returnFocusRef={returnFocusRef} initialFocusRef={initialFocusRef}>
           <Button>Button One</Button>
           <Button ref={initialFocusRef}>Button Two</Button>
         </Overlay>}
@@ -45,5 +45,5 @@ render(<Component/>)
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | initialFocusRef | `React.RefObject` | | Optional. The element to focus when the container is mounted on the page. |
-| returnRef | `React.RefObject` | | Required. The element to focus when the container is unmounted. |
+| returnFocusRef | `React.RefObject` | | Required. The element to focus when the container is unmounted. |
 | containerRef | `React.RefObject` | | Required. A ref for the containing element. |

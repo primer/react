@@ -4,12 +4,12 @@ import {useOpenAndCloseFocus} from '../../hooks/useOpenAndCloseFocus'
 
 const Component = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const returnRef = useRef<HTMLButtonElement>(null)
+  const returnFocusRef = useRef<HTMLButtonElement>(null)
   const noButtonRef = useRef<HTMLButtonElement>(null)
-  useOpenAndCloseFocus({containerRef, initialFocusRef: noButtonRef, returnRef})
+  useOpenAndCloseFocus({containerRef, initialFocusRef: noButtonRef, returnFocusRef})
   return (
     <>
-      <button ref={returnRef}>trigger</button>
+      <button ref={returnFocusRef}>trigger</button>
       <div ref={containerRef}>
           <button>yes</button>
           <button ref={noButtonRef}>no</button>
@@ -21,7 +21,7 @@ const Component = () => {
 const ComponentTwo = () => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  useOpenAndCloseFocus({containerRef, returnRef: buttonRef})
+  useOpenAndCloseFocus({containerRef, returnFocusRef: buttonRef})
   return (
     <>
       <button ref={buttonRef}>

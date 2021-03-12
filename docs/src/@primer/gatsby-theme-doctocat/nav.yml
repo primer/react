@@ -28,6 +28,8 @@
       url: /useOpenAndCloseFocus
     - title: useOnEscapePress
       url: /useOnEscapePress
+    - title: useOverlay
+      url: /useOverlay
 - title: Components
   children:
     - title: Avatar

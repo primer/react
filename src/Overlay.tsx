@@ -52,16 +52,16 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
 export type OverlayProps = {
   ignoreClickRefs: React.RefObject<HTMLElement> []
   initialFocusRef?: React.RefObject<HTMLElement>
-  returnRef: React.RefObject<HTMLElement>
+  returnFocusRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
 } & ComponentProps<typeof StyledOverlay>
 
 const Overlay =
   (
-    {onClickOutside, initialFocusRef, returnRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
+    {onClickOutside, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
   ): ReactElement | null => {
-    const overlayProps = useOverlay({returnRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
+    const overlayProps = useOverlay({returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
     return <StyledOverlay {...overlayProps} {...rest}/>
 }
 

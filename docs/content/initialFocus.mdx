@@ -13,11 +13,11 @@ If no ref is passed to `inititalFocusRef` , the hook focuses the first focusable
 <State>
   {([isOpen, setIsOpen]) => {
     const containerRef = useRef(null)
-    const returnRef = useRef(null)
-    useOpenAndCloseFocus({containerRef, returnRef, initialFocusRef: buttonTwo})
+    const returnFocusRef = useRef(null)
+    useOpenAndCloseFocus({containerRef, returnFocusRef, initialFocusRef: buttonTwo})
 
     return (
-      <Button ref={returnRef} onClick={() => setIsOpen(!isOpen)}>show/hide</Button>
+      <Button ref={returnFocusRef} onClick={() => setIsOpen(!isOpen)}>show/hide</Button>
       {isOpen &&
         <Box ref={containerRef}>
           <Button>Click me</Button>
@@ -35,5 +35,5 @@ If no ref is passed to `inititalFocusRef` , the hook focuses the first focusable
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | initialFocusRef | `React.RefObject` | | Optional. The element to focus when the container is mounted on the page. |
-| returnRef | `React.RefObject` | | Required. The element to focus when the container is unmounted. |
+| returnFocusRef | `React.RefObject` | | Required. The element to focus when the container is unmounted. |
 | containerRef | `React.RefObject` | | Required. A ref for the containing element. |
