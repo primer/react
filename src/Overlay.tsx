@@ -1,7 +1,6 @@
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import React, { ReactElement } from 'react'
-import {get} from './constants'
-import theme from './theme'
+import {get, COMMON} from './constants'
 import {ComponentProps} from './utils/types'
 import {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 import { useOverlay } from './hooks/useOverlay'
@@ -47,6 +46,7 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
       opacity: 1;
     }
   }
+  ${COMMON};
 `
 
 export type OverlayProps = {
@@ -66,7 +66,6 @@ const Overlay =
 }
 
 Overlay.defaultProps = {
-  theme,
   height: 'auto',
   width: 'auto'
 }

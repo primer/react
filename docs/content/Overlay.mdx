@@ -2,7 +2,15 @@
 title: Overlay
 ---
 
-The `Overlay` component
+The `Overlay` component handles all behaviors needed by overlay UIs as well as the common styles that all overlays should have. `Overlay` is the base component for many of our overlay-type components.
+
+Behaviors include:
+
+- Trapping focus
+- Calling a user provided function when the user presses `Escape`
+- Calling a user provided function when the user clicks outside of the container
+- Focusing the either a user provided element, or the first focusable element in the container when it is opened.
+- Returning focus to an element when container is closed
 
 ## Default example
 
@@ -36,7 +44,7 @@ render(<Demo/>)
 
 ## System props
 
-Pagehead components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+`Overlay` gets `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
@@ -47,3 +55,5 @@ Pagehead components get `COMMON` system props. Read our [System Props](/system-p
 | returnFocusRef  | `React.RefObject` |  | Required. Ref for the element to focus when the `Overlay` is closed.  |
 | onClickOutside  | `function` |  | Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.  |
 | onEscape  | `function` |  | Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.  |
+| width  | `'sm', 'md', 'lg', 'xl', 'auto'` |  | Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `sm` corresponds to `256px`, `md` corresponds to `320px`, `lg` corresponds to `480px`, and `xl` corresponds to `640px`.  |
+| height  | `'sm', 'md', 'auto'` |  | Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `sm` corresponds to `480px` and `md` corresponds to `640px`.  |
