@@ -2,7 +2,7 @@
 title: Overlay
 ---
 
-The `Overlay` component handles all behaviors needed by overlay UIs as well as the common styles that all overlays should have. `Overlay` is the base component for many of our overlay-type components.
+An `Overlay` is a flexible floating surface, used to display transient content such as menus, selection options, dialogs, and more. Overlays use shadows to express elevation. The `Overlay` component handles all behaviors needed by overlay UIs as well as the common styles that all overlays should have. `Overlay` is the base component for many of our overlay-type components.
 
 Behaviors include:
 
@@ -12,22 +12,32 @@ Behaviors include:
 - Focusing the either a user provided element, or the first focusable element in the container when it is opened.
 - Returning focus to an element when container is closed
 
+
+Because `Overlay` is rendered inside of a `Portal`, it's important to use `useAnchoredPosition` to correctly position your `Overlay` component.
+
 ## Default example
 
 ```javascript live noinline
 const Demo = () => {
   // you must manage your own open state
   const [isOpen, setIsOpen] = React.useState(false)
-  const buttonRef = React.useRef(null)
   const noButtonRef = React.useRef(null)
+  const triggerRef = React.useRef(null)
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={triggerRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {/* be sure to conditionally render the Overlay. This helps with performance and is required. */}
       {isOpen &&
-        <Overlay initialFocusRef={noButtonRef} returnFocusRef={buttonRef} ignoreClickRefs={[buttonRef]} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)}>
+        <Overlay
+          triggerRef={triggerRef}
+          initialFocusRef={noButtonRef}
+          returnFocusRef={triggerRef}
+          ignoreClickRefs={[triggerRef]}
+          onEscape={() => setIsOpen(!isOpen)}
+          onClickOutside={() => setIsOpen(false)}
+        >
           <Flex flexDirection="column" p={2}>
             <Button >yes</Button>
             <Button ref={noButtonRef}>no</Button>

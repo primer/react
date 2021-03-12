@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import React, { ReactElement } from 'react'
-import {get, COMMON} from './constants'
+import React, {ReactElement} from 'react'
+import {get, COMMON, POSITION} from './constants'
 import {ComponentProps} from './utils/types'
-import {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
-import { useOverlay } from './hooks/useOverlay'
+import { useOverlay, AnchoredPositionHookSettings, TouchOrMouseEvent } from './hooks'
+import Portal from './Portal'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -47,22 +47,30 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
     }
   }
   ${COMMON};
+  ${POSITION};
 `
 
 export type OverlayProps = {
   ignoreClickRefs: React.RefObject<HTMLElement> []
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
+  triggerRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
+  positionSettings?: AnchoredPositionHookSettings
+  positionDeps?: React.DependencyList
 } & ComponentProps<typeof StyledOverlay>
 
 const Overlay =
   (
-    {onClickOutside, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
-  ): ReactElement | null => {
-    const overlayProps = useOverlay({returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
-    return <StyledOverlay {...overlayProps} {...rest}/>
+    {onClickOutside, positionSettings, positionDeps, triggerRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
+  ) : ReactElement => {
+    const overlayProps = useOverlay({triggerRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
+    return (
+      <Portal>
+        <StyledOverlay {...overlayProps} {...rest}/>
+      </Portal>
+    )
 }
 
 Overlay.defaultProps = {
