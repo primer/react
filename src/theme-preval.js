@@ -357,7 +357,14 @@ const {colors: lightColors, shadows: lightShadows} = partitionColors(primitives.
 const {colors: darkColors, shadows: darkShadows} = partitionColors(primitives.colors.dark)
 const {colors: darkDimmedColors, shadows: darkDimmedShadows} = partitionColors(primitives.colors['dark_dimmed'])
 
+/**
+ * @type typeof colors & Partial<typeof primitives.colors.light>
+ */
 const mergedColors = deepmerge(colors, omitScale(lightColors))
+
+/**
+ * @type typeof colors & Partial<typeof primitives.shadows.light>
+ */
 const mergedShadows = deepmerge(shadows, omitScale(lightShadows))
 
 const theme = {
