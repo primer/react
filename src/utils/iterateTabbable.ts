@@ -23,7 +23,7 @@ export interface IterateTabbableOptions {
 export function* iterateTabbableElements(
   container: Element,
   options: IterateTabbableOptions = {}
-): Generator<HTMLElement, undefined, never> {
+): Generator<HTMLElement, undefined, undefined> {
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
     acceptNode: node =>
       node instanceof HTMLElement && isTabbable(node, options.strict ?? false)

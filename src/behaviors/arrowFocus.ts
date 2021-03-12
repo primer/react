@@ -59,10 +59,10 @@ export const KeyBits = {
   WASD: 0,
   ALL: 0
 }
-;(KeyBits.ArrowAll = KeyBits.ArrowHorizontal | KeyBits.ArrowVertical),
-  (KeyBits.HJKL = KeyBits.JK | KeyBits.HL),
-  (KeyBits.WASD = KeyBits.WS | KeyBits.AD),
-  (KeyBits.ALL = KeyBits.ArrowAll | KeyBits.HJKL | KeyBits.HomeAndEnd | KeyBits.PageUpDown | KeyBits.WASD | KeyBits.TAB)
+KeyBits.ArrowAll = KeyBits.ArrowHorizontal | KeyBits.ArrowVertical
+KeyBits.HJKL = KeyBits.JK | KeyBits.HL
+KeyBits.WASD = KeyBits.WS | KeyBits.AD
+KeyBits.ALL = KeyBits.ArrowAll | KeyBits.HJKL | KeyBits.HomeAndEnd | KeyBits.PageUpDown | KeyBits.WASD | KeyBits.TAB
 
 const KEY_TO_BIT = {
   ArrowLeft: 0b00000001,
@@ -200,8 +200,8 @@ function getDirection(keyboardEvent: KeyboardEvent) {
  * 5. When in a text input or textarea, left should only move focus if the cursor is at the beginning of the input
  * 6. When in a text input or textarea, right should only move focus if the cursor is at the end of the input
  * 7. When in a textarea, up and down should only move focus if cursor is at the beginning or end, respectively.
- * @param keyboardEvent 
- * @param activeElement 
+ * @param keyboardEvent
+ * @param activeElement
  */
 function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: Element | null) {
   const key = keyboardEvent.key
@@ -221,9 +221,12 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
   }
 
   // Since down arrow normally opens a select, and regular characters change the selection, ignore those
-  // Maybe: Allow Ctrl as the escape hatch for down arrow? Can't be Alt since this is a common gesture for
+  // Maybe: Allow Cmd/Ctrl as the escape hatch for down arrow? Can't be Alt since this is a common gesture for
   //        opening the dropdown on Windows.
-  if (isSelect && ((key === 'ArrowDown' && !keyboardEvent.ctrlKey) || keyLength === 1)) {
+  if (
+    isSelect &&
+    ((key === 'ArrowDown' && !(isMacOS() ? keyboardEvent.metaKey : keyboardEvent.ctrlKey)) || keyLength === 1)
+  ) {
     return true
   }
 
@@ -235,22 +238,23 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
   if (isTextInput) {
     const textInput = activeElement as HTMLInputElement | HTMLTextAreaElement
     const cursorAtStart = textInput.selectionStart === 0 && textInput.selectionEnd === 0
-    const cursorAtEnd = textInput.selectionStart === textInput.value.length && textInput.selectionEnd === textInput.value.length
+    const cursorAtEnd =
+      textInput.selectionStart === textInput.value.length && textInput.selectionEnd === textInput.value.length
 
     // When in a text area or text input, only move focus left/right if at beginning/end of the field
-    if (key === "ArrowLeft" && !cursorAtStart) {
+    if (key === 'ArrowLeft' && !cursorAtStart) {
       return true
     }
-    if (key === "ArrowRight" && !cursorAtEnd) {
+    if (key === 'ArrowRight' && !cursorAtEnd) {
       return true
     }
 
     // When in a text area, only move focus up/down if at beginning/end of the field
-    if (textInput instanceof HTMLElement) {
-      if (key === "ArrowUp" && !cursorAtStart) {
+    if (textInput instanceof HTMLTextAreaElement) {
+      if (key === 'ArrowUp' && !cursorAtStart) {
         return true
       }
-      if (key === "ArrowDown" && !cursorAtEnd) {
+      if (key === 'ArrowDown' && !cursorAtEnd) {
         return true
       }
     }
@@ -260,31 +264,12 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
 }
 
 export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions): AbortController {
-  const tabbableElements = Array.from(iterateTabbableElements(container))
+  const tabbableElements: HTMLElement[] = []
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
   const bindKeys =
     options?.bindKeys ?? (options?.getNextFocusable ? KeyBits.ArrowAll : KeyBits.ArrowVertical) | KeyBits.HomeAndEnd
   const circular = options?.circular ?? false
   const focusInStrategy = options?.focusInStrategy ?? 'previous'
-
-  function beginFocusManagement(element: HTMLElement) {
-    // Set tabindex="-1" on all tabbable elements, but save the original
-    // value in case we need to disable the behavior
-    if (!savedTabIndex.has(element)) {
-      savedTabIndex.set(element, element.getAttribute('tabindex'))
-    }
-    element.setAttribute('tabindex', '-1')
-
-    allSeenTabbableElements.add(element)
-  }
-
-  function endFocusManagement(element: HTMLElement) {
-    const tabbableElementIndex = tabbableElements.findIndex(e => e === element)
-    if (tabbableElementIndex >= 0) {
-      tabbableElements.splice(tabbableElementIndex, 1)
-    }
-    savedTabIndex.delete(element)
-  }
 
   // We are going to keep track of all tabbable elements we've encountered. This will be
   // necessary if one of these elements is removed from the container and subsequently
@@ -292,12 +277,45 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   // re-enters the container, we will not otherwise recognize it as a tabbable element.
   // This implementation makes the assumption that once something is identified as a
   // tabbable element, it will always be a tabbable element.
-  const allSeenTabbableElements = new WeakSet<HTMLElement>(tabbableElements)
+  const allSeenTabbableElements = new WeakSet<HTMLElement>()
+
+  function beginFocusManagement(...elements: HTMLElement[]) {
+    if (elements.length === 0) {
+      return
+    }
+    // Insert all elements atomically. Assume that all passed elements are well-ordered.
+    const insertIndex = tabbableElements.findIndex(e => (e.compareDocumentPosition(elements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0)
+    console.log("insert index: " + insertIndex)
+    tabbableElements.splice(insertIndex === -1 ? tabbableElements.length : insertIndex, 0, ...elements)
+    for (const element of elements) {
+      // Set tabindex="-1" on all tabbable elements, but save the original
+      // value in case we need to disable the behavior
+      if (!savedTabIndex.has(element)) {
+        savedTabIndex.set(element, element.getAttribute('tabindex'))
+      }
+      element.setAttribute('tabindex', '-1')
+
+      allSeenTabbableElements.add(element)
+    }
+  }
+
+  function endFocusManagement(element: HTMLElement) {
+    const tabbableElementIndex = tabbableElements.findIndex(e => e === element)
+    if (tabbableElementIndex >= 0) {
+      tabbableElements.splice(tabbableElementIndex, 1)
+
+      // If removing the last-focused element, set tabindex=0 to the first element in the list.
+      if (element.getAttribute("tabindex") === "0" && tabbableElements.length > 0) {
+        tabbableElements[0].setAttribute("tabindex", "0")
+        currentFocusedElement = tabbableElements[0]
+        currentFocusedIndex = 0
+      }
+    }
+    savedTabIndex.delete(element)
+  }
 
   // Take all tabbable elements within container under management
-  for (const elem of tabbableElements) {
-    beginFocusManagement(elem)
-  }
+  beginFocusManagement(...iterateTabbableElements(container))
 
   // Open the first tabbable element for tabbing
   tabbableElements[0].setAttribute('tabindex', '0')
@@ -330,43 +348,67 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   let currentFocusedIndex = 0
   let currentFocusedElement: HTMLElement = tabbableElements[0]
 
+  let elementIndexFocusedByClick: number | undefined = undefined
+  container.addEventListener(
+    'mousedown',
+    event => {
+      // Since focusin is only called when focus changes, we need to make sure the clicked
+      // element isn't already focused.
+      if (event.target instanceof HTMLElement && event.target !== document.activeElement) {
+        elementIndexFocusedByClick = tabbableElements.findIndex(e => e === event.target)
+      }
+    },
+    {signal}
+  )
+
   // This is called whenever focus enters the container
   container.addEventListener(
     'focusin',
     event => {
       if (event.target instanceof HTMLElement) {
-        // Set tab indexes and internal state based on the focus handling strategy
-        if (focusInStrategy === 'previous') {
-          currentFocusedElement.setAttribute('tabindex', '-1')
-          event.target.setAttribute('tabindex', '0')
-        } else if (focusInStrategy === 'first') {
-          if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
-            currentFocusedIndex = 0
-          }
-        } else if (typeof focusInStrategy === 'function') {
-          if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
-            const elementToFocus = focusInStrategy(event.relatedTarget)
-            const requestedFocusElementIndex = tabbableElements.findIndex(e => e === elementToFocus)
-            if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
-              currentFocusedIndex = requestedFocusElementIndex
-
-              // Since we are calling focus() this handler will run again synchronously. Therefore,
-              // we don't want to let this invocation finish since it will clobber the value of
-              // currentFocusedElement.
-              elementToFocus.focus()
-              return
-            } else {
-              // Should we warn here?
-              console.warn('Element requested is not a known focusable element.')
+        // If a click initiated the focus movement, we always want to set our internal state
+        // to reflect the clicked element as the currently focused one.
+        if (elementIndexFocusedByClick != undefined) {
+          if (elementIndexFocusedByClick >= 0) {
+            if (tabbableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
+              currentFocusedElement.setAttribute('tabindex', '-1')
+              tabbableElements[elementIndexFocusedByClick].setAttribute('tabindex', '0')
             }
-          } else {
-            console.log('current', currentFocusedElement)
-            console.log('next', event.target)
+            currentFocusedIndex = elementIndexFocusedByClick
+          }
+          elementIndexFocusedByClick = undefined
+        } else {
+          // Set tab indexes and internal state based on the focus handling strategy
+          if (focusInStrategy === 'previous') {
             currentFocusedElement.setAttribute('tabindex', '-1')
             event.target.setAttribute('tabindex', '0')
+          } else if (focusInStrategy === 'first') {
+            if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
+              currentFocusedIndex = 0
+            }
+          } else if (typeof focusInStrategy === 'function') {
+            if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
+              const elementToFocus = focusInStrategy(event.relatedTarget)
+              const requestedFocusElementIndex = tabbableElements.findIndex(e => e === elementToFocus)
+              if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
+                currentFocusedIndex = requestedFocusElementIndex
+
+                // Since we are calling focus() this handler will run again synchronously. Therefore,
+                // we don't want to let this invocation finish since it will clobber the value of
+                // currentFocusedElement.
+                elementToFocus.focus()
+                return
+              } else {
+                // Should we warn here?
+                console.warn('Element requested is not a known focusable element.')
+              }
+            } else {
+              currentFocusedElement.setAttribute('tabindex', '-1')
+              event.target.setAttribute('tabindex', '0')
+            }
           }
         }
-        console.log('Setting current focused element to', event.target)
+
         currentFocusedElement = event.target
       }
     },
@@ -374,7 +416,6 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   )
 
   // Handles keypresses only when the container has active focus
-  // @todo handle inputs
   container.addEventListener(
     'keydown',
     event => {
@@ -382,15 +423,18 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
         const keyBit = KEY_TO_BIT[event.key as keyof typeof KEY_TO_BIT]
 
         // Check if the pressed key (keyBit) is one that is being used for focus (bindKeys)
-        if (!event.defaultPrevented && (keyBit & bindKeys) > 0 && !shouldIgnoreFocusHandling(event, document.activeElement)) {
+        if (
+          !event.defaultPrevented &&
+          (keyBit & bindKeys) > 0 &&
+          !shouldIgnoreFocusHandling(event, document.activeElement)
+        ) {
           const isMac = isMacOS()
 
           // These conditions decide if we should move focus to the first/last element in the container
           const toEnd =
             event.key === 'Home' ||
             event.key === 'End' ||
-            (isMac && event.metaKey) ||
-            (!isMac && event.ctrlKey) ||
+            (event.key !== 'Tab' && ((isMac && event.metaKey) || (!isMac && event.ctrlKey))) ||
             event.key === 'PageUp' ||
             event.key === 'PageDown'
 
@@ -419,14 +463,15 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
               }
             }
             if (currentFocusedIndex < 0) {
-              if (circular) {
+              // Tab should never cause focus to circle. Use focusTrap for that behavior.
+              if (circular && event.key !== 'Tab') {
                 currentFocusedIndex = tabbableElements.length - 1
               } else {
                 currentFocusedIndex = 0
               }
             }
             if (currentFocusedIndex >= tabbableElements.length) {
-              if (circular) {
+              if (circular && event.key !== 'Tab') {
                 currentFocusedIndex = 0
               } else {
                 currentFocusedIndex = tabbableElements.length - 1
@@ -439,7 +484,11 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
           if (nextElementToFocus) {
             nextElementToFocus.focus()
           }
-          event.preventDefault()
+          // Tab should always allow escaping from this container, so only
+          // preventDefault if tab key press already resulted in a focus movement
+          if (event.key !== 'Tab' || nextElementToFocus) {
+            event.preventDefault()
+          }
         }
       }
     },
