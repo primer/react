@@ -22,19 +22,19 @@ const Demo = () => {
   // you must manage your own open state
   const [isOpen, setIsOpen] = React.useState(false)
   const noButtonRef = React.useRef(null)
-  const triggerRef = React.useRef(null)
+  const anchorRef = React.useRef(null)
   return (
     <>
-      <Button ref={triggerRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={anchorRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {/* be sure to conditionally render the Overlay. This helps with performance and is required. */}
       {isOpen &&
         <Overlay
-          triggerRef={triggerRef}
+          anchorRef={anchorRef}
           initialFocusRef={noButtonRef}
-          returnFocusRef={triggerRef}
-          ignoreClickRefs={[triggerRef]}
+          returnFocusRef={anchorRef}
+          ignoreClickRefs={[anchorRef]}
           onEscape={() => setIsOpen(!isOpen)}
           onClickOutside={() => setIsOpen(false)}
         >
@@ -62,6 +62,7 @@ render(<Demo/>)
 | :--- | :----- | :-----: | :---------------------------------- |
 | ignoreClickRefs   | `React.RefObject []` |  | Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice. |
 | inititalFocusRef  | `React.RefObject` |  | Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.  |
+| anchorRef | `React.RefObject` |  | Required. Element the `Overlay` should be anchored to. |
 | returnFocusRef  | `React.RefObject` |  | Required. Ref for the element to focus when the `Overlay` is closed.  |
 | onClickOutside  | `function` |  | Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.  |
 | onEscape  | `function` |  | Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.  |

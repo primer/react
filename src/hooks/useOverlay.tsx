@@ -9,7 +9,7 @@ export type UseOverlayProps = {
   returnFocusRef: React.RefObject<HTMLElement>
   onEscape: (e: KeyboardEvent) => void
   onClickOutside: (e: TouchOrMouseEvent) => void
-  triggerRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement>
   positionDeps?: React.DependencyList
   positionSettings?: AnchoredPositionHookSettings
 }
@@ -21,9 +21,9 @@ export type OverlayReturnProps = {
 }
 
 
-export const useOverlay = ({triggerRef, positionSettings = {}, positionDeps, returnFocusRef, initialFocusRef, onEscape, ignoreClickRefs, onClickOutside}: UseOverlayProps): OverlayReturnProps => {
+export const useOverlay = ({anchorRef, positionSettings = {}, positionDeps, returnFocusRef, initialFocusRef, onEscape, ignoreClickRefs, onClickOutside}: UseOverlayProps): OverlayReturnProps => {
   const overlayRef = useRef<HTMLDivElement>(null)
-  positionSettings.anchorElementRef = triggerRef
+  positionSettings.anchorElementRef = anchorRef
   positionSettings.floatingElementRef = overlayRef
   useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef})
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})

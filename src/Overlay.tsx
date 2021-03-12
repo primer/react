@@ -54,7 +54,7 @@ export type OverlayProps = {
   ignoreClickRefs: React.RefObject<HTMLElement> []
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
-  triggerRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   positionSettings?: AnchoredPositionHookSettings
@@ -63,9 +63,9 @@ export type OverlayProps = {
 
 const Overlay =
   (
-    {onClickOutside, positionSettings, positionDeps, triggerRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
+    {onClickOutside, positionSettings, positionDeps, anchorRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
   ) : ReactElement => {
-    const overlayProps = useOverlay({triggerRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
+    const overlayProps = useOverlay({anchorRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
     return (
       <Portal>
         <StyledOverlay {...overlayProps} {...rest}/>
