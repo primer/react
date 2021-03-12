@@ -16,7 +16,7 @@ import {
   textSmall
 } from './private/variables'
 
-interface ItemPropsBase {
+interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
   text: string
   description?: string
   descriptionVariant?: 'inline' | 'block'

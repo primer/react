@@ -15,14 +15,12 @@ import React from 'react'
 import {ThemeProvider} from 'styled-components'
 import {theme} from '..'
 import {ActionList as _ActionList} from '../ActionList'
-import {AlternativeList as Alternative} from '../ActionList/private/AlternativeList'
 import {Header} from '../ActionList/private/Header'
 import {StyledDiv} from '../ActionList/private/StyledDiv'
 import BaseStyles from '../BaseStyles'
 
 const ActionList = Object.assign(_ActionList, {
-  Header,
-  Alternative
+  Header
 })
 
 const meta: Meta = {
@@ -108,67 +106,22 @@ export function ComplexListStory(): JSX.Element {
       <h1>Complex List</h1>
       <ErsatzOverlay>
         <ActionList
-          groups={[
-            {
-              items: [
-                {leadingVisual: TypographyIcon, text: 'Rename'},
-                {leadingVisual: VersionsIcon, text: 'Duplicate'}
-              ]
-            },
-            {
-              header: {
-                title: 'Live query',
-                variant: 'subtle'
-              },
-              items: [{leadingVisual: SearchIcon, text: 'repo:github/memex,github/github'}]
-            },
-            {
-              header: {
-                title: 'Layout',
-                variant: 'subtle'
-              },
-              items: [
-                {
-                  leadingVisual: NoteIcon,
-                  text: 'Table',
-                  description: 'Information-dense table optimized for operations across teams',
-                  descriptionVariant: 'block'
-                },
-                {
-                  leadingVisual: ProjectIcon,
-                  text: 'Board',
-                  description: 'Kanban-style board focused on visual states',
-                  descriptionVariant: 'block'
-                }
-              ]
-            },
-            {
-              items: [
-                {leadingVisual: FilterIcon, text: 'Save sort and filters to current view'},
-                {leadingVisual: FilterIcon, text: 'Save sort and filters to new view'}
-              ]
-            },
-            {
-              items: [{leadingVisual: GearIcon, text: 'View settings'}]
-            }
+          groupMetadata={[
+            {groupId: 0},
+            {groupId: 1, header: {title: 'Live query', variant: 'subtle'}},
+            {groupId: 2, header: {title: 'Layout', variant: 'subtle'}},
+            {groupId: 3, renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: 4}
           ]}
-        />
-      </ErsatzOverlay>
-    </>
-  )
-}
-ComplexListStory.storyName = 'Complex List'
-
-export function AlternativeListStory(): JSX.Element {
-  return (
-    <>
-      <h1>Alternative List</h1>
-      <ErsatzOverlay>
-        <ActionList.Alternative
           items={[
             {leadingVisual: TypographyIcon, text: 'Rename', groupId: 0},
             {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: 0},
-            {leadingVisual: SearchIcon, text: 'repo:github/memex,github/github', groupId: 1},
+            {
+              leadingVisual: SearchIcon,
+              text: 'repo:github/memex,github/github',
+              groupId: 1,
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
+            },
             {
               leadingVisual: NoteIcon,
               text: 'Table',
@@ -183,35 +136,20 @@ export function AlternativeListStory(): JSX.Element {
               descriptionVariant: 'block',
               groupId: 2
             },
-            {leadingVisual: FilterIcon, text: 'Save sort and filters to current view', groupId: 3},
+            {
+              leadingVisual: FilterIcon,
+              text: 'Save sort and filters to current view',
+              groupId: 3
+            },
             {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: 3},
             {leadingVisual: GearIcon, text: 'View settings', groupId: 4}
-          ]}
-          groups={[
-            {groupId: 0},
-            {
-              groupId: 1,
-              header: {
-                title: 'Live query',
-                variant: 'subtle'
-              }
-            },
-            {
-              groupId: 2,
-              header: {
-                title: 'Layout',
-                variant: 'subtle'
-              }
-            },
-            {groupId: 3},
-            {groupId: 4}
           ]}
         />
       </ErsatzOverlay>
     </>
   )
 }
-AlternativeListStory.storyName = 'Alternative List'
+ComplexListStory.storyName = 'Complex List'
 
 export function HeaderStory(): JSX.Element {
   return (
