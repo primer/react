@@ -2,17 +2,17 @@
 title: useOnEscapePress
 ---
 
-`useOverlay` calls all of the relevant behavior Hooks that all Overlay components & composite components should have.
+`useOverlay` calls all of the relevant behavior Hooks that all Overlay components & composite components should have and returns a ref to be passed down to the overlay's container.
 
 These behaviors include:
 
 - Trapping focus
-- Calling a callback function when the user presses `Escape`
-- Calling a callback function when the user clicks outside of the `Overlay`
-- Focusing the either a user provided element, or the first focusable element in the `Overlay` when it is opened.
-- Returning focus to an element when `Overlay` is closed
+- Calling a user provided function when the user presses `Escape`
+- Calling a user provided function when the user clicks outside of the container
+- Focusing the either a user provided element, or the first focusable element in the container when it is opened.
+- Returning focus to an element when container is closed
 
-**Note:** `useOverlay` and `Overlay` do not manage the open state of the `Overlay`. We leave control of the state up to the user.
+**Note:** `useOverlay` and `Overlay` do not manage the open state of the overlay. We leave control of the open state up to the user. All behaviors are built with the assumption that the overlay will not be rendered on the page & fully unmounted when it is not visible. See the examples for details on how to conditionally render a component in JSX.
 
 ### Usage
 
