@@ -182,6 +182,83 @@ export interface ArrowFocusOptions {
   focusInStrategy?: 'first' | 'previous' | ((previousFocusedElement: Element) => HTMLElement | undefined)
 }
 
+function getDirection(keyboardEvent: KeyboardEvent) {
+  const direction = KEY_TO_DIRECTION[keyboardEvent.key as keyof typeof KEY_TO_DIRECTION]
+  if (keyboardEvent.key === 'Tab' && keyboardEvent.shiftKey) {
+    return 'previous'
+  }
+  return direction
+}
+
+/**
+ * There are some situations where we do not want various keys to affect focus. This function
+ * checks for those situations.
+ * 1. Home and End should not move focus when a text input or textarea is active
+ * 2. Keys that would normally type characters into an input or navigate a select element should be ignored
+ * 3. The down arrow should not move focus when a select is active since that normally invokes the dropdown (?)
+ * 4. Page Up and Page Down within a textarea should not have any effect
+ * 5. When in a text input or textarea, left should only move focus if the cursor is at the beginning of the input
+ * 6. When in a text input or textarea, right should only move focus if the cursor is at the end of the input
+ * 7. When in a textarea, up and down should only move focus if cursor is at the beginning or end, respectively.
+ * @param keyboardEvent 
+ * @param activeElement 
+ */
+function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: Element | null) {
+  const key = keyboardEvent.key
+
+  // Get the number of characters in `key`, accounting for double-wide UTF-16 chars
+  const keyLength = [...key].length
+
+  const isTextInput =
+    (activeElement instanceof HTMLInputElement && activeElement.type === 'text') ||
+    activeElement instanceof HTMLTextAreaElement
+  const isSelect = activeElement instanceof HTMLSelectElement
+
+  // If we would normally type a character into an input, ignore
+  // Also, Home and End keys should never affect focus when in a text input
+  if (isTextInput && (keyLength === 1 || key === 'Home' || key === 'End')) {
+    return true
+  }
+
+  // Since down arrow normally opens a select, and regular characters change the selection, ignore those
+  // Maybe: Allow Ctrl as the escape hatch for down arrow? Can't be Alt since this is a common gesture for
+  //        opening the dropdown on Windows.
+  if (isSelect && ((key === 'ArrowDown' && !keyboardEvent.ctrlKey) || keyLength === 1)) {
+    return true
+  }
+
+  // Ignore page up and page down for textareas
+  if (activeElement instanceof HTMLTextAreaElement && (key === 'PageUp' || key === 'PageDown')) {
+    return true
+  }
+
+  if (isTextInput) {
+    const textInput = activeElement as HTMLInputElement | HTMLTextAreaElement
+    const cursorAtStart = textInput.selectionStart === 0 && textInput.selectionEnd === 0
+    const cursorAtEnd = textInput.selectionStart === textInput.value.length && textInput.selectionEnd === textInput.value.length
+
+    // When in a text area or text input, only move focus left/right if at beginning/end of the field
+    if (key === "ArrowLeft" && !cursorAtStart) {
+      return true
+    }
+    if (key === "ArrowRight" && !cursorAtEnd) {
+      return true
+    }
+
+    // When in a text area, only move focus up/down if at beginning/end of the field
+    if (textInput instanceof HTMLElement) {
+      if (key === "ArrowUp" && !cursorAtStart) {
+        return true
+      }
+      if (key === "ArrowDown" && !cursorAtEnd) {
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
 export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions): AbortController {
   const tabbableElements = Array.from(iterateTabbableElements(container))
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
@@ -283,13 +360,13 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
               console.warn('Element requested is not a known focusable element.')
             }
           } else {
-            console.log("current", currentFocusedElement)
-            console.log("next", event.target)
+            console.log('current', currentFocusedElement)
+            console.log('next', event.target)
             currentFocusedElement.setAttribute('tabindex', '-1')
             event.target.setAttribute('tabindex', '0')
           }
         }
-        console.log("Setting current focused element to", event.target)
+        console.log('Setting current focused element to', event.target)
         currentFocusedElement = event.target
       }
     },
@@ -305,7 +382,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
         const keyBit = KEY_TO_BIT[event.key as keyof typeof KEY_TO_BIT]
 
         // Check if the pressed key (keyBit) is one that is being used for focus (bindKeys)
-        if (!event.defaultPrevented && (keyBit & bindKeys) > 0) {
+        if (!event.defaultPrevented && (keyBit & bindKeys) > 0 && !shouldIgnoreFocusHandling(event, document.activeElement)) {
           const isMac = isMacOS()
 
           // These conditions decide if we should move focus to the first/last element in the container
@@ -318,10 +395,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
             event.key === 'PageDown'
 
           // Moving forward or backward?
-          let direction = KEY_TO_DIRECTION[event.key as keyof typeof KEY_TO_DIRECTION]
-          if (event.key === 'Tab' && event.shiftKey) {
-            direction = 'previous'
-          }
+          const direction = getDirection(event)
 
           let nextElementToFocus: HTMLElement | undefined = undefined
 
