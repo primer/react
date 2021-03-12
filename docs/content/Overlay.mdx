@@ -1,0 +1,49 @@
+---
+title: Overlay
+---
+
+The `Overlay` component
+
+## Default example
+
+```javascript live noinline
+const Demo = () => {
+  // you must manage your own open state
+  const [isOpen, setIsOpen] = React.useState(false)
+  const buttonRef = React.useRef(null)
+  const noButtonRef = React.useRef(null)
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        open overlay
+      </Button>
+      {/* be sure to conditionally render the Overlay. This helps with performance and is required. */}
+      {isOpen &&
+        <Overlay initialFocusRef={noButtonRef} returnFocusRef={buttonRef} ignoreClickRefs={[buttonRef]} onEscape={() => setIsOpen(!isOpen)} onClickOutside={() => setIsOpen(false)}>
+          <Flex flexDirection="column" p={2}>
+            <Button >yes</Button>
+            <Button ref={noButtonRef}>no</Button>
+          </Flex>
+        </Overlay>
+      }
+
+    </>
+  )
+}
+
+render(<Demo/>)
+```
+
+## System props
+
+Pagehead components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+| Name | Type   | Default | Description                         |
+| :--- | :----- | :-----: | :---------------------------------- |
+| ignoreClickRefs   | `React.RefObject []` |  | Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice. |
+| inititalFocusRef  | `React.RefObject` |  | Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.  |
+| returnFocusRef  | `React.RefObject` |  | Required. Ref for the element to focus when the `Overlay` is closed.  |
+| onClickOutside  | `function` |  | Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.  |
+| onEscape  | `function` |  | Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.  |
