@@ -61,7 +61,7 @@ export type OverlayProps = {
   onEscape: (e: KeyboardEvent) => void
   positionSettings?: AnchoredPositionHookSettings
   positionDeps?: React.DependencyList
-} & ComponentProps<typeof StyledOverlay>
+} & Omit<ComponentProps<typeof StyledOverlay>, "visibility">
 
 const Overlay =
   (

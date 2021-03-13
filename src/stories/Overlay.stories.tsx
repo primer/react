@@ -3,7 +3,7 @@ import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, Relative, theme, Position, Flex} from '..'
+import {BaseStyles, Overlay, Button, Text, ButtonDanger, Absolute, theme, Position, Flex} from '..'
 
 export default {
   title: 'Internal components/Overlay',
@@ -79,8 +79,8 @@ export const DropdownOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   return (
-    <Relative>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+    <>
+      <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen &&
@@ -102,7 +102,7 @@ export const DropdownOverlay = () => {
           </Flex>
         </Overlay>
       }
-    </Relative>
+    </>
   )
 }
 
