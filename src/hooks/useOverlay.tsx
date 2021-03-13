@@ -16,8 +16,7 @@ export type UseOverlayProps = {
 
 export type OverlayReturnProps = {
   ref: React.RefObject<HTMLDivElement>
-  top?: number | undefined
-  left?: number | undefined
+  position: {top: number; left: number} | undefined
 }
 
 
@@ -29,5 +28,5 @@ export const useOverlay = ({anchorRef, positionSettings = {}, positionDeps, retu
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
   useOnEscapePress({onEscape})
   const {position} = useAnchoredPosition(positionSettings, positionDeps)
-  return {ref: overlayRef, ...position}
+  return {ref: overlayRef, position}
 }

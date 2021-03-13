@@ -8,6 +8,7 @@ import Portal from './Portal'
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
+  visibility: 'visible' | 'hidden'
 }
 
 const heightMap = {
@@ -46,6 +47,7 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
       opacity: 1;
     }
   }
+  visibility: ${props => props.visibility};
   ${COMMON};
   ${POSITION};
 `
@@ -65,10 +67,10 @@ const Overlay =
   (
     {onClickOutside, positionSettings, positionDeps, anchorRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
   ) : ReactElement => {
-    const overlayProps = useOverlay({anchorRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
+    const {position, ...overlayRest} = useOverlay({anchorRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
     return (
       <Portal>
-        <StyledOverlay {...overlayProps} {...rest}/>
+        <StyledOverlay {...overlayRest} {...position} {...rest} visibility={position ? 'visible' : 'hidden'}/>
       </Portal>
     )
 }
