@@ -2,8 +2,7 @@
 title: BranchName
 ---
 
-
-BranchName is a label-type component rendered as an `<a>` tag by default with monospace font and blue background.
+BranchName is a label-type component rendered as an `<a>` tag by default with monospace font.
 
 ## Default example
 
@@ -17,7 +16,7 @@ BranchName components get `COMMON` system props. Read our [System Props](/system
 
 ## Component props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | `<a>` | sets the HTML tag for the component |
-| href | String | | a URL to link the component to |
+| Name | Type   | Default | Description                         |
+| :--- | :----- | :-----: | :---------------------------------- |
+| as   | String |  `<a>`  | sets the HTML tag for the component |
+| href | String |         | a URL to link the component to      |
