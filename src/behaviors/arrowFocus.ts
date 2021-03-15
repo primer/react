@@ -164,6 +164,33 @@ export interface ArrowFocusOptions {
   abortSignal?: AbortSignal
 
   /**
+   * If activeDescendantOptions.controllingElement is supplied, do not move focus or alter
+   * `tabindex` on any element. Instead, manage `aria-activedescendant`, `aria-selected`,
+   * and `aria-controls` according to the ARIA best practices guidelines.
+   * @see https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant
+   *
+   * The given `controllingElement` will be given an `aria-controls` attribute that
+   * references the ID of the `container`. Additionally, it will be given an
+   * `aria-activedescendant` attribute that references the ID of the currently-active
+   * descendant.
+   */
+  activeDescendantOptions?: {
+    /**
+     * The element that will retain focus as other elements become active.
+     */
+    controllingElement: HTMLElement
+
+    /**
+     * Called each time the active descendant changes.
+     */
+    onActiveDescendantChanged?: (
+      newActiveDescendant: HTMLElement,
+      previousActiveDescendant: HTMLElement,
+      event: KeyboardEvent
+    ) => void
+  }
+
+  /**
    * This option allows customization of the behavior that determines which of the
    * focusable elements should be focused when focus enters the container via the Tab key.
    *
@@ -206,7 +233,10 @@ function getDirection(keyboardEvent: KeyboardEvent) {
 function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: Element | null) {
   const key = keyboardEvent.key
 
-  // Get the number of characters in `key`, accounting for double-wide UTF-16 chars
+  // Get the number of characters in `key`, accounting for double-wide UTF-16 chars. If keyLength
+  // is 1, we can assume it's a "printable" character. Otherwise it's likely a control character.
+  // One exception is the Tab key, which is technically printable, but browsers generally assign
+  // its function to move focus rather than type a <TAB> character.
   const keyLength = [...key].length
 
   const isTextInput =
@@ -284,8 +314,10 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
       return
     }
     // Insert all elements atomically. Assume that all passed elements are well-ordered.
-    const insertIndex = tabbableElements.findIndex(e => (e.compareDocumentPosition(elements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0)
-    console.log("insert index: " + insertIndex)
+    const insertIndex = tabbableElements.findIndex(
+      e => (e.compareDocumentPosition(elements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0
+    )
+    console.log('insert index: ' + insertIndex)
     tabbableElements.splice(insertIndex === -1 ? tabbableElements.length : insertIndex, 0, ...elements)
     for (const element of elements) {
       // Set tabindex="-1" on all tabbable elements, but save the original
@@ -305,8 +337,8 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
       tabbableElements.splice(tabbableElementIndex, 1)
 
       // If removing the last-focused element, set tabindex=0 to the first element in the list.
-      if (element.getAttribute("tabindex") === "0" && tabbableElements.length > 0) {
-        tabbableElements[0].setAttribute("tabindex", "0")
+      if (element.getAttribute('tabindex') === '0' && tabbableElements.length > 0) {
+        tabbableElements[0].setAttribute('tabindex', '0')
         currentFocusedElement = tabbableElements[0]
         currentFocusedIndex = 0
       }
@@ -383,8 +415,18 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
             currentFocusedElement.setAttribute('tabindex', '-1')
             event.target.setAttribute('tabindex', '0')
           } else if (focusInStrategy === 'first') {
-            if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
+            if (
+              event.relatedTarget instanceof Element &&
+              !container.contains(event.relatedTarget) &&
+              event.target !== tabbableElements[0]
+            ) {
+              // Regardless of the previously focused element, if we're coming from outside the
+              // container, put focus onto the first element.
               currentFocusedIndex = 0
+              tabbableElements[0].focus()
+            } else {
+              currentFocusedElement.setAttribute('tabindex', '-1')
+              event.target.setAttribute('tabindex', '0')
             }
           } else if (typeof focusInStrategy === 'function') {
             if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
