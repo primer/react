@@ -27,7 +27,7 @@ const widthMap = {
 
 const StyledOverlay  = styled.div<StyledOverlayProps>`
   background-color: ${get('overlay.bg')};
-  box-shadow: ${get('overlay.popover.boxShadow')};
+  box-shadow: ${get('overlay.boxShadow')};
   position: absolute;
   min-width: 192px;
   max-width: 480px;

@@ -292,9 +292,7 @@ const flashIcon = {
 const overlay = {
   borderRadius: '12px',
   bg: white,
-  popover: {
-    boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2)'
-  }
+  boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2)'
 }
 
 const popovers = {
