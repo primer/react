@@ -6,14 +6,13 @@ An `Overlay` is a flexible floating surface, used to display transient content s
 
 Behaviors include:
 
+- Rendering the overlay in a React Portal so that it always renders on top of other content on the page
+- Positioning the overlay according to passed in settings, using our context-aware positioning algorithms
 - Trapping focus
 - Calling a user provided function when the user presses `Escape`
 - Calling a user provided function when the user clicks outside of the container
-- Focusing the either a user provided element, or the first focusable element in the container when it is opened.
+- Focusing either an user provided element, or the first focusable element in the container when it is opened
 - Returning focus to an element when container is closed
-
-
-Because `Overlay` is rendered inside of a `Portal`, it's important to use `useAnchoredPosition` to correctly position your `Overlay` component.
 
 ## Default example
 
