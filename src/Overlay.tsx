@@ -29,7 +29,6 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
   background-color: ${get('overlay.bg')};
   box-shadow: ${get('overlay.popover.boxShadow')};
   position: absolute;
-  z-index: 100;
   min-width: 192px;
   max-width: 480px;
   height: ${props => heightMap[props.height || 'auto']};
