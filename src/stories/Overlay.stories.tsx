@@ -12,9 +12,12 @@ export default {
     Story => {
       return (
         <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
+          <Absolute top={0} right={0} bottom={0} left={0}>
+            <BaseStyles>
+              <Story />
+            </BaseStyles>
+          </Absolute>
+
         </ThemeProvider>
 
       )
