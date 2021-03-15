@@ -22,41 +22,7 @@ export default {
 
       )
     }
-  ],
-  argTypes: {
-    width: {
-      control: {
-        type: 'select',
-        options: ['sm', 'md', 'lg', 'xl', 'auto']
-      }
-    },
-    height: {
-      control: {
-        type: 'select',
-        options: ['sm', 'md', 'auto']
-      }
-    },
-    triggerRef: {
-      control: {
-        type: 'text',
-      }
-    },
-    returnFocusRef: {
-      control: {
-        type: 'text'
-      }
-    },
-    onClickOutside: {
-      control: {
-        type: 'text'
-      }
-    },
-    onEscape: {
-      control: {
-        type: 'text'
-      }
-    }
-  }
+  ]
 } as Meta
 
 const DummyItem = styled.button`
