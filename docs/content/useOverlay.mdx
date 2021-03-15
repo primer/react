@@ -1,11 +1,12 @@
 ---
-title: useOnEscapePress
+title: useOverlay
 ---
 
-`useOverlay` calls all of the relevant behavior Hooks that all Overlay components & composite components should have and returns a ref to be passed down to the overlay's container.
+`useOverlay` calls all of the relevant behavior Hooks that all `Overlay` components & composite components should have and returns a ref to be passed down to the overlay's container.
 
 These behaviors include:
 
+- Correctly positioning the component based on the values provided to `positionSettings` and `positionDeps`.
 - Trapping focus
 - Calling a user provided function when the user presses `Escape`
 - Calling a user provided function when the user clicks outside of the container
