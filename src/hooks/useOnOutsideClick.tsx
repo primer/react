@@ -42,8 +42,9 @@ const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallCl
 export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickProps): void => {
   const onOutsideClickInternal = useCallback(
     (e: TouchOrMouseEvent) => {
-      if (!shouldCallClickHandler({ignoreClickRefs, containerRef, e})) return
-      onClickOutside(e)
+      if (shouldCallClickHandler({ignoreClickRefs, containerRef, e})){
+        onClickOutside(e)
+      }
     }, [onClickOutside, containerRef, ignoreClickRefs]
   )
 
