@@ -300,6 +300,8 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     options?.bindKeys ?? (options?.getNextFocusable ? KeyBits.ArrowAll : KeyBits.ArrowVertical) | KeyBits.HomeAndEnd
   const circular = options?.circular ?? false
   const focusInStrategy = options?.focusInStrategy ?? 'previous'
+  const activeDescendantControl = options?.activeDescendantOptions?.controllingElement
+  const activeDescendantCallback = options?.activeDescendantOptions?.onActiveDescendantChanged
 
   // We are going to keep track of all tabbable elements we've encountered. This will be
   // necessary if one of these elements is removed from the container and subsequently
@@ -331,6 +333,13 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     }
   }
 
+  function updateTabIndex(from?: HTMLElement, to?: HTMLElement) {
+    if (!activeDescendantControl) {
+      from?.setAttribute("tabindex", "-1")
+      to?.setAttribute("tabindex", "0")
+    }
+  }
+
   function endFocusManagement(element: HTMLElement) {
     const tabbableElementIndex = tabbableElements.findIndex(e => e === element)
     if (tabbableElementIndex >= 0) {
@@ -338,7 +347,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
 
       // If removing the last-focused element, set tabindex=0 to the first element in the list.
       if (element.getAttribute('tabindex') === '0' && tabbableElements.length > 0) {
-        tabbableElements[0].setAttribute('tabindex', '0')
+        updateTabIndex(undefined, tabbableElements[0])
         currentFocusedElement = tabbableElements[0]
         currentFocusedIndex = 0
       }
@@ -350,7 +359,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   beginFocusManagement(...iterateTabbableElements(container))
 
   // Open the first tabbable element for tabbing
-  tabbableElements[0].setAttribute('tabindex', '0')
+  updateTabIndex(undefined, tabbableElements[0])
 
   // If the DOM structure of the container changes, make sure we keep our state up-to-date
   // with respect to the focusable elements cache and its order
@@ -403,8 +412,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
         if (elementIndexFocusedByClick != undefined) {
           if (elementIndexFocusedByClick >= 0) {
             if (tabbableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
-              currentFocusedElement.setAttribute('tabindex', '-1')
-              tabbableElements[elementIndexFocusedByClick].setAttribute('tabindex', '0')
+              updateTabIndex(currentFocusedElement, tabbableElements[elementIndexFocusedByClick])
             }
             currentFocusedIndex = elementIndexFocusedByClick
           }
@@ -412,8 +420,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
         } else {
           // Set tab indexes and internal state based on the focus handling strategy
           if (focusInStrategy === 'previous') {
-            currentFocusedElement.setAttribute('tabindex', '-1')
-            event.target.setAttribute('tabindex', '0')
+            updateTabIndex(currentFocusedElement, event.target)
           } else if (focusInStrategy === 'first') {
             if (
               event.relatedTarget instanceof Element &&
@@ -425,8 +432,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
               currentFocusedIndex = 0
               tabbableElements[0].focus()
             } else {
-              currentFocusedElement.setAttribute('tabindex', '-1')
-              event.target.setAttribute('tabindex', '0')
+              updateTabIndex(currentFocusedElement, event.target)
             }
           } else if (typeof focusInStrategy === 'function') {
             if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
@@ -445,8 +451,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
                 console.warn('Element requested is not a known focusable element.')
               }
             } else {
-              currentFocusedElement.setAttribute('tabindex', '-1')
-              event.target.setAttribute('tabindex', '0')
+              updateTabIndex(currentFocusedElement, event.target)
             }
           }
         }
