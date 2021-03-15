@@ -14,6 +14,13 @@ Behaviors include:
 - Focusing either  user provided element, or the first focusable element in the container when it is opened
 - Returning focus to an element when container is closed
 
+## Accessibility considerations
+
+- The `Overlay` must either have:
+   - A value set for the `aria-labelledby` attribute that refers to a visible title.
+   - An  `aria-label` attribute
+- If the `Overlay` should also have a longer description, use `aria-describedby`
+
 ## Default example
 
 ```javascript live noinline
@@ -36,8 +43,10 @@ const Demo = () => {
           ignoreClickRefs={[anchorRef]}
           onEscape={() => setIsOpen(!isOpen)}
           onClickOutside={() => setIsOpen(false)}
+          aria-labelledby="title"
         >
           <Flex flexDirection="column" p={2}>
+            <Text id="title">Are you sure you would like to delete this item?</Text>
             <Button >yes</Button>
             <Button ref={noButtonRef}>no</Button>
           </Flex>

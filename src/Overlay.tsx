@@ -70,7 +70,14 @@ const Overlay =
     const {position, ...overlayRest} = useOverlay({anchorRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
     return (
       <Portal>
-        <StyledOverlay {...overlayRest} {...position} {...rest} visibility={position ? 'visible' : 'hidden'}/>
+        <StyledOverlay
+          {...overlayRest}
+          {...position}
+          {...rest}
+          visibility={position ? 'visible' : 'hidden'}
+          aria-modal="true"
+          role={rest.role ? rest.role : 'dialog'}
+        />
       </Portal>
     )
 }
