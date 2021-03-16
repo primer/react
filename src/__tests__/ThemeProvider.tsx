@@ -183,6 +183,30 @@ it('updates when colorMode prop changes', async () => {
   )
 })
 
+it('updates when dayScheme prop changes', async () => {
+  function App() {
+    const [dayScheme, setDayScheme] = React.useState('light')
+    return (
+      <ThemeProvider theme={exampleTheme} dayScheme={dayScheme}>
+        <Text color="text">{dayScheme}</Text>
+        <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>Toggle</button>
+      </ThemeProvider>
+    )
+  }
+
+  render(<App />)
+
+  // starts in day mode (light scheme)
+  expect(screen.getByText('light')).toHaveStyleRule('color', 'black')
+
+  screen.getByRole('button').click()
+
+  await waitFor(() =>
+    // clicking the toggle button enables night mode (dark scheme)
+    expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray')
+  )
+})
+
 it('inherits colorMode from parent', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="night">
@@ -193,6 +217,18 @@ it('inherits colorMode from parent', () => {
   )
 
   expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+})
+
+it('inherits dayScheme from parent', () => {
+  render(
+    <ThemeProvider theme={exampleTheme} dayScheme="dark_dimmed">
+      <ThemeProvider colorMode="day">
+        <Text color="text">Hello</Text>
+      </ThemeProvider>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
 })
 
 describe('setColorMode', () => {
@@ -206,6 +242,30 @@ describe('setColorMode', () => {
       <ThemeProvider theme={exampleTheme} colorMode="day">
         <Text color="text">Hello</Text>
         <ToggleMode />
+      </ThemeProvider>
+    )
+
+    // starts in day mode (light scheme)
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+
+    screen.getByRole('button').click()
+
+    // clicking the toggle button enables night mode (dark scheme)
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  })
+})
+
+describe('setDayScheme', () => {
+  it('changes the day scheme', () => {
+    function ToggleDayScheme() {
+      const {dayScheme, setDayScheme} = useTheme()
+      return <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark' : 'light')}>Toggle</button>
+    }
+
+    render(
+      <ThemeProvider theme={exampleTheme} colorMode="day">
+        <Text color="text">Hello</Text>
+        <ToggleDayScheme />
       </ThemeProvider>
     )
 

@@ -22,36 +22,47 @@ export type ThemeProviderProps = {
 const ThemeContext = React.createContext<{
   theme?: Theme
   colorMode?: ColorModeWithAuto
+  dayScheme?: string
   setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
+  setDayScheme: React.Dispatch<React.SetStateAction<string>>
 }>({
-  setColorMode: () => {}
+  setColorMode: () => {},
+  setDayScheme: () => {}
 })
 
-function ThemeProvider({dayScheme, nightScheme, children, ...props}: ThemeProviderProps) {
+function ThemeProvider({nightScheme, children, ...props}: ThemeProviderProps) {
   // Get fallback values from parent ThemeProvider (if exists)
-  const {theme: fallbackTheme, colorMode: fallbackColorMode} = useTheme()
+  const {theme: fallbackTheme, colorMode: fallbackColorMode, dayScheme: fallbackDayScheme} = useTheme()
 
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
   const [colorMode, setColorMode] = React.useState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
+  const [dayScheme, setDayScheme] = React.useState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
 
   const systemColorMode = useSystemColorMode()
 
-  const colorScheme = getColorScheme(
-    colorMode,
-    dayScheme ?? defaultDayScheme,
-    nightScheme ?? defaultNightScheme,
-    systemColorMode
-  )
+  const colorScheme = getColorScheme(colorMode, dayScheme, nightScheme ?? defaultNightScheme, systemColorMode)
 
   const resolvedTheme = applyColorScheme(theme, colorScheme)
 
-  // Update colorMode if colorMode prop changes
+  // Update state if props change
   React.useEffect(() => {
     setColorMode(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   }, [props.colorMode])
 
+  React.useEffect(() => {
+    setDayScheme(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
+  }, [props.dayScheme])
+
   return (
-    <ThemeContext.Provider value={{theme, colorMode, setColorMode}}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        colorMode,
+        dayScheme,
+        setColorMode,
+        setDayScheme
+      }}
+    >
       <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
     </ThemeContext.Provider>
   )
