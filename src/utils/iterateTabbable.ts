@@ -57,19 +57,34 @@ export function* iterateTabbableElements(
  * @param strict
  */
 export function isTabbable(elem: HTMLElement, strict = false): boolean {
+  // If it's a disabled form element, it cannot be focused, period.
+  const disabledAttrInert =
+    ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'OPTGROUP', 'OPTION', 'FIELDSET'].includes(elem.tagName) &&
+    (elem as HTMLElement & {disabled: boolean}).disabled
+  if (disabledAttrInert) {
+    return false
+  }
+
+  // Otherwise, tabbable when tabindex is explicitly 0 or higher
+  const tabIndexAttribute = elem.getAttribute('tabindex')
+  if (tabIndexAttribute != null && parseInt(tabIndexAttribute, 10) >= 0) {
+    return true
+  }
+
+  // Any of the below criteria render the element _not_ tabbable
   const tabIndexInert = elem.tabIndex < 0
-  const disabledAttrInert = elem.getAttribute('disabled') != null
   const hiddenInert = elem.hidden
   const hiddenInputInert = elem instanceof HTMLInputElement && elem.type === 'hidden'
+  const noHrefInert = elem instanceof HTMLAnchorElement && elem.getAttribute('href') == null
 
-  if (tabIndexInert || disabledAttrInert || hiddenInert || hiddenInputInert) {
+  if (tabIndexInert || disabledAttrInert || hiddenInert || hiddenInputInert || noHrefInert) {
     return false
   }
 
   if (strict) {
     const sizeInert = elem.offsetWidth === 0 || elem.offsetHeight === 0
-    const visibilityInert = getComputedStyle(elem).visibility === 'hidden'
-    const clientRectsInert = elem.getClientRects().length === 0;
+    const visibilityInert = ['hidden', 'collapse'].includes(getComputedStyle(elem).visibility)
+    const clientRectsInert = elem.getClientRects().length === 0
     if (sizeInert || visibilityInert || clientRectsInert) {
       return false
     }
