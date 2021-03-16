@@ -13,13 +13,13 @@ The Timeline.Item component is used to display items on a vertical timeline, con
       <StyledOcticon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>
-      <Link href="#" fontWeight="bold" color="gray.8" mr={1} muted>
+      <Link href="#" fontWeight="bold" color="text.primary" mr={1} muted>
         Monalisa
       </Link>
-      created one <Link href="#" fontWeight="bold" color="gray.8" mr={1} muted>
+      created one <Link href="#" fontWeight="bold" color="text.primary" mr={1} muted>
         hot potato
       </Link>
-      <Link href="#" color="gray.7" muted>
+      <Link href="#" color="timeline.text" muted>
         Just now
       </Link>
     </Timeline.Body>
@@ -50,28 +50,22 @@ of the child `StyledOcticon` if necessary.
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge bg="red.5">
-      <StyledOcticon icon={FlameIcon} color="white" />
+    <Timeline.Badge bg="prState.closed.bg">
+      <StyledOcticon icon={FlameIcon} color="prState.closed.text" />
     </Timeline.Badge>
-    <Timeline.Body>Red background used when closed events occur</Timeline.Body>
+    <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge bg="green.5">
-      <StyledOcticon icon={FlameIcon} color="white" />
+    <Timeline.Badge bg="prState.open.bg">
+      <StyledOcticon icon={FlameIcon} color="prState.open.text" />
     </Timeline.Badge>
-    <Timeline.Body>Green background when opened or passed events occur</Timeline.Body>
+    <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge bg="purple.5">
-      <StyledOcticon icon={FlameIcon} color="white" />
+    <Timeline.Badge bg="prState.merged.bg">
+      <StyledOcticon icon={FlameIcon} color="prState.merged.text" />
     </Timeline.Badge>
-    <Timeline.Body>Purple background used when pull requests are merged</Timeline.Body>
-  </Timeline.Item>
-  <Timeline.Item>
-    <Timeline.Badge bg="blue.5">
-      <StyledOcticon icon={FlameIcon} color="white" />
-    </Timeline.Badge>
-    <Timeline.Body>Blue background to indicate new events below</Timeline.Body>
+    <Timeline.Body>Background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
 </Timeline>
 ```
@@ -104,17 +98,17 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge bg="red.5">
-      <StyledOcticon icon={FlameIcon} color="white" />
+    <Timeline.Badge bg="prState.closed.bg">
+      <StyledOcticon icon={FlameIcon} color="prState.closed.text" />
     </Timeline.Badge>
-    <Timeline.Body>Red background used when closed events occur</Timeline.Body>
+    <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Break />
   <Timeline.Item>
-    <Timeline.Badge bg="green.5">
-      <StyledOcticon icon={FlameIcon} color="white" />
+    <Timeline.Badge bg="prState.open.bg">
+      <StyledOcticon icon={FlameIcon} color="prState.open.text" />
     </Timeline.Badge>
-    <Timeline.Body>Green background when opened or passed events occur</Timeline.Body>
+    <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
 </Timeline>
 ```
