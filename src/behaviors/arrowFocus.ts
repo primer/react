@@ -305,6 +305,17 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
   return false
 }
 
+const subscriptions: ((activeElement: HTMLElement) => void)[] = []
+function notifyActiveElement(element: HTMLElement) {
+  for (const subscription of subscriptions) {
+    subscription(element)
+  }
+}
+
+function subscribeToActiveElementChanges(callback: (activeElement: HTMLElement) => void) {
+  subscriptions.push(callback)
+}
+
 export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions): AbortController {
   const tabbableElements: HTMLElement[] = []
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
@@ -336,6 +347,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     }
     currentFocusedElement = to
     activeDescendantControl?.setAttribute('aria-activedescendant', to.id)
+    notifyActiveElement(to)
 
     activeDescendantCallback?.(to, from)
   }
@@ -345,6 +357,9 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     activeDescendantSuspended = true
     activeDescendantCallback?.(undefined, currentFocusedElement)
     currentFocusedElement = undefined
+    if (focusInStrategy === "first") {
+      currentFocusedIndex = 0
+    }
   }
 
   function beginFocusManagement(...elements: HTMLElement[]) {
@@ -356,7 +371,6 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     const insertIndex = tabbableElements.findIndex(
       e => (e.compareDocumentPosition(filteredElements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0
     )
-    console.log('insert index: ' + insertIndex)
     tabbableElements.splice(insertIndex === -1 ? tabbableElements.length : insertIndex, 0, ...filteredElements)
     for (const element of filteredElements) {
       // Set tabindex="-1" on all tabbable elements, but save the original
@@ -371,7 +385,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   }
 
   function endFocusManagement(element: HTMLElement) {
-    const tabbableElementIndex = tabbableElements.findIndex(e => e === element)
+    const tabbableElementIndex = tabbableElements.indexOf(element)
     if (tabbableElementIndex >= 0) {
       tabbableElements.splice(tabbableElementIndex, 1)
 
@@ -388,7 +402,20 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   // Take all tabbable elements within container under management
   beginFocusManagement(...iterateFocusableElements(container))
 
-  console.log(tabbableElements)
+  // If multiple arrow focus behaviors have overlapping DOM, we need to know about
+  // any changes that result from others so that the "previous" active element
+  // stays consistent.
+  subscribeToActiveElementChanges((activeElement: HTMLElement) => {
+    if (focusInStrategy === "previous") {
+      const tabbableElementIndex = tabbableElements.indexOf(activeElement)
+      if (tabbableElementIndex >= 0) {
+        const nextFocusedElement = tabbableElements[tabbableElementIndex]
+        const previousFocusedElement = tabbableElements[currentFocusedIndex]
+        updateTabIndex(previousFocusedElement, nextFocusedElement)
+        currentFocusedIndex = tabbableElementIndex
+      }
+    }
+  })
 
   // Open the first tabbable element for tabbing
   updateTabIndex(undefined, tabbableElements[0])
@@ -431,80 +458,82 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
       // Since focusin is only called when focus changes, we need to make sure the clicked
       // element isn't already focused.
       if (event.target instanceof HTMLElement && event.target !== document.activeElement) {
-        elementIndexFocusedByClick = tabbableElements.findIndex(e => e === event.target)
+        elementIndexFocusedByClick = tabbableElements.indexOf(event.target)
       }
     },
     {signal}
   )
 
   // This is called whenever focus enters the container
-  container.addEventListener(
-    'focusin',
-    event => {
-      if (event.target instanceof HTMLElement) {
-        // If a click initiated the focus movement, we always want to set our internal state
-        // to reflect the clicked element as the currently focused one.
-        if (elementIndexFocusedByClick != undefined) {
-          if (elementIndexFocusedByClick >= 0) {
-            if (tabbableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
-              updateTabIndex(currentFocusedElement, tabbableElements[elementIndexFocusedByClick])
-            }
-            currentFocusedIndex = elementIndexFocusedByClick
-          }
-          elementIndexFocusedByClick = undefined
-        } else {
-          // Set tab indexes and internal state based on the focus handling strategy
-          if (focusInStrategy === 'previous') {
-            updateTabIndex(currentFocusedElement, event.target)
-          } else if (focusInStrategy === 'first') {
-            if (
-              event.relatedTarget instanceof Element &&
-              !container.contains(event.relatedTarget) &&
-              event.target !== tabbableElements[0]
-            ) {
-              // Regardless of the previously focused element, if we're coming from outside the
-              // container, put focus onto the first element.
-              currentFocusedIndex = 0
-              tabbableElements[0].focus()
-            } else {
-              updateTabIndex(currentFocusedElement, event.target)
-            }
-          } else if (typeof focusInStrategy === 'function') {
-            if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
-              const elementToFocus = focusInStrategy(event.relatedTarget)
-              const requestedFocusElementIndex = tabbableElements.findIndex(e => e === elementToFocus)
-              if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
-                currentFocusedIndex = requestedFocusElementIndex
-
-                // Since we are calling focus() this handler will run again synchronously. Therefore,
-                // we don't want to let this invocation finish since it will clobber the value of
-                // currentFocusedElement.
-                elementToFocus.focus()
-                return
-              } else {
-                // Should we warn here?
-                console.warn('Element requested is not a known focusable element.')
+  if (!activeDescendantControl) {
+    container.addEventListener(
+      'focusin',
+      event => {
+        if (event.target instanceof HTMLElement) {
+          // If a click initiated the focus movement, we always want to set our internal state
+          // to reflect the clicked element as the currently focused one.
+          if (elementIndexFocusedByClick != undefined) {
+            if (elementIndexFocusedByClick >= 0) {
+              if (tabbableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
+                updateTabIndex(currentFocusedElement, tabbableElements[elementIndexFocusedByClick])
               }
-            } else {
+              currentFocusedIndex = elementIndexFocusedByClick
+            }
+            elementIndexFocusedByClick = undefined
+          } else {
+            // Set tab indexes and internal state based on the focus handling strategy
+            if (focusInStrategy === 'previous') {
               updateTabIndex(currentFocusedElement, event.target)
+            } else if (focusInStrategy === 'first') {
+              if (
+                event.relatedTarget instanceof Element &&
+                !container.contains(event.relatedTarget) &&
+                event.target !== tabbableElements[0]
+              ) {
+                // Regardless of the previously focused element, if we're coming from outside the
+                // container, put focus onto the first element.
+                currentFocusedIndex = 0
+                tabbableElements[0].focus()
+              } else {
+                updateTabIndex(currentFocusedElement, event.target)
+              }
+            } else if (typeof focusInStrategy === 'function') {
+              if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
+                const elementToFocus = focusInStrategy(event.relatedTarget)
+                const requestedFocusElementIndex = elementToFocus ? tabbableElements.indexOf(elementToFocus) : -1
+                if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
+                  currentFocusedIndex = requestedFocusElementIndex
+  
+                  // Since we are calling focus() this handler will run again synchronously. Therefore,
+                  // we don't want to let this invocation finish since it will clobber the value of
+                  // currentFocusedElement.
+                  elementToFocus.focus()
+                  return
+                } else {
+                  // Should we warn here?
+                  console.warn('Element requested is not a known focusable element.')
+                }
+              } else {
+                updateTabIndex(currentFocusedElement, event.target)
+              }
             }
           }
+          notifyActiveElement(event.target)
+          currentFocusedElement = event.target
         }
+      },
+      {signal}
+    )
+  }
 
-        currentFocusedElement = event.target
-      }
-    },
-    {signal}
-  )
-
-  // Handles keypresses only when the container has active focus
   const keyboardEventRecipient = activeDescendantControl ?? container
+
+  // "keydown" is the event that triggers DOM focus change, so that is what we use here
   keyboardEventRecipient.addEventListener(
     'keydown',
     event => {
       if (event.key in KEY_TO_DIRECTION) {
         const keyBit = KEY_TO_BIT[event.key as keyof typeof KEY_TO_BIT]
-
         // Check if the pressed key (keyBit) is one that is being used for focus (bindKeys)
         if (
           !event.defaultPrevented &&
@@ -577,12 +606,8 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
               }
             }
           }
-
           if (nextElementToFocus) {
             if (activeDescendantControl) {
-              console.log('Current focused index: ' + currentFocusedIndex)
-              console.log("Current", currentFocusedElement)
-              console.log("next", nextElementToFocus)
               setActiveDescendant(currentFocusedElement, nextElementToFocus)
             } else {
               nextElementToFocus.focus()
@@ -594,6 +619,10 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
             event.preventDefault()
           }
         }
+      }
+
+      if (event.key === "Escape" && !activeDescendantSuspended && activeDescendantControl) {
+        suspendActiveDescendant()
       }
     },
     {signal}
