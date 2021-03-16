@@ -3,9 +3,9 @@ import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge' // TODO: review dependency
 
-const DEFAULT_COLOR_MODE = 'day'
-const DEFAULT_DAY_SCHEME = 'light'
-const DEFAULT_NIGHT_SCHEME = 'dark'
+const defaultColorMode = 'day'
+const defaultDayScheme = 'light'
+const defaultNightScheme = 'dark'
 
 type Theme = any
 type ColorMode = 'day' | 'night'
@@ -20,33 +20,37 @@ export type ThemeProviderProps = {
 }
 
 const ThemeContext = React.createContext<{
-  colorMode: ColorModeWithAuto
+  theme?: Theme
+  colorMode?: ColorModeWithAuto
   setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
 }>({
-  colorMode: DEFAULT_COLOR_MODE,
   setColorMode: () => {}
 })
 
-function ThemeProvider({theme = defaultTheme, dayScheme, nightScheme, children, ...props}: ThemeProviderProps) {
-  const [colorMode, setColorMode] = React.useState(props.colorMode ?? DEFAULT_COLOR_MODE)
+function ThemeProvider({dayScheme, nightScheme, children, ...props}: ThemeProviderProps) {
+  // Get fallback values from parent ThemeProvider (if exists)
+  const {theme: fallbackTheme} = useTheme()
+
+  const theme = props.theme ?? fallbackTheme ?? defaultTheme
+  const [colorMode, setColorMode] = React.useState(props.colorMode ?? defaultColorMode)
 
   const systemColorMode = useSystemColorMode()
 
   const colorScheme = getColorScheme(
     colorMode,
-    dayScheme ?? DEFAULT_DAY_SCHEME,
-    nightScheme ?? DEFAULT_NIGHT_SCHEME,
+    dayScheme ?? defaultDayScheme,
+    nightScheme ?? defaultNightScheme,
     systemColorMode
   )
 
   const resolvedTheme = applyColorScheme(theme, colorScheme)
 
   React.useEffect(() => {
-    setColorMode(props.colorMode ?? DEFAULT_COLOR_MODE)
+    setColorMode(props.colorMode ?? defaultColorMode)
   }, [props.colorMode])
 
   return (
-    <ThemeContext.Provider value={{colorMode, setColorMode}}>
+    <ThemeContext.Provider value={{theme, colorMode, setColorMode}}>
       <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
     </ThemeContext.Provider>
   )

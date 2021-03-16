@@ -19,6 +19,29 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
+const exampleTheme = {
+  colors: {
+    text: '#f00'
+  },
+  colorSchemes: {
+    light: {
+      colors: {
+        text: 'black'
+      }
+    },
+    dark: {
+      colors: {
+        text: 'white'
+      }
+    },
+    dark_dimmed: {
+      colors: {
+        text: 'gray'
+      }
+    }
+  }
+}
+
 it('respects theme prop', () => {
   const theme = {
     colors: {
@@ -51,159 +74,66 @@ it('has default theme', () => {
   expect(screen.getByText('Hello')).toMatchSnapshot()
 })
 
-it('defaults to light color scheme', () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      }
-    }
-  }
-
+it('inherits theme from parent', () => {
   render(
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={exampleTheme}>
+      <ThemeProvider>
+        <Text color="text">Hello</Text>
+      </ThemeProvider>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+})
+
+it('defaults to light color scheme', () => {
+  render(
+    <ThemeProvider theme={exampleTheme}>
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
 })
 
 it('defaults to dark color scheme in night mode', () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      }
-    }
-  }
-
   render(
-    <ThemeProvider theme={theme} colorMode="night">
+    <ThemeProvider theme={exampleTheme} colorMode="night">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#0f0')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
 })
 
 it('respects nightScheme prop', () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      },
-      dark_dimmed: {
-        colors: {
-          text: '#ff0'
-        }
-      }
-    }
-  }
-
   render(
-    <ThemeProvider theme={theme} colorMode="night" nightScheme="dark_dimmed">
+    <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#ff0')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
 })
 
 it('respects dayScheme prop', () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      },
-      dark_dimmed: {
-        colors: {
-          text: '#ff0'
-        }
-      }
-    }
-  }
-
   render(
-    <ThemeProvider theme={theme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
+    <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#0f0')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
 })
 
 it('works in auto mode', () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      },
-      dark_dimmed: {
-        colors: {
-          text: '#ff0'
-        }
-      }
-    }
-  }
-
   render(
-    <ThemeProvider theme={theme} colorMode="auto">
+    <ThemeProvider theme={exampleTheme} colorMode="auto">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
 })
 
 it('works in auto mode (dark)', () => {
@@ -218,101 +148,32 @@ it('works in auto mode (dark)', () => {
     dispatchEvent: jest.fn()
   }))
 
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      },
-      dark_dimmed: {
-        colors: {
-          text: '#ff0'
-        }
-      }
-    }
-  }
-
   render(
-    <ThemeProvider theme={theme} colorMode="auto">
+    <ThemeProvider theme={exampleTheme} colorMode="auto">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#0f0')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
 
   matchMediaSpy.mockRestore()
 })
 
 it('works in auto mode', () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      },
-      dark_dimmed: {
-        colors: {
-          text: '#ff0'
-        }
-      }
-    }
-  }
-
   render(
-    <ThemeProvider theme={theme} colorMode="auto">
+    <ThemeProvider theme={exampleTheme} colorMode="auto">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
 })
 
 it('updates when colorMode prop changes', async () => {
-  const theme = {
-    colors: {
-      text: '#f00'
-    },
-    colorSchemes: {
-      light: {
-        colors: {
-          text: '#00f'
-        }
-      },
-      dark: {
-        colors: {
-          text: '#0f0'
-        }
-      },
-      dark_dimmed: {
-        colors: {
-          text: '#ff0'
-        }
-      }
-    }
-  }
-
   function App() {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
-      <ThemeProvider theme={theme} colorMode={colorMode}>
+      <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
         <Text color="text">{colorMode}</Text>
         <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
       </ThemeProvider>
@@ -322,59 +183,36 @@ it('updates when colorMode prop changes', async () => {
   render(<App />)
 
   // starts in day mode (light scheme)
-  expect(screen.getByText('day')).toHaveStyleRule('color', '#00f')
+  expect(screen.getByText('day')).toHaveStyleRule('color', 'black')
 
   screen.getByRole('button').click()
 
   await waitFor(() =>
     // clicking the toggle button enables night mode (dark scheme)
-    expect(screen.getByText('night')).toHaveStyleRule('color', '#0f0')
+    expect(screen.getByText('night')).toHaveStyleRule('color', 'white')
   )
 })
 
 describe('setColorMode', () => {
   it('changes the color mode', () => {
-    const theme = {
-      colors: {
-        text: '#f00'
-      },
-      colorSchemes: {
-        light: {
-          colors: {
-            text: '#00f'
-          }
-        },
-        dark: {
-          colors: {
-            text: '#0f0'
-          }
-        },
-        dark_dimmed: {
-          colors: {
-            text: '#ff0'
-          }
-        }
-      }
-    }
-
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
     }
 
     render(
-      <ThemeProvider theme={theme} colorMode="day">
+      <ThemeProvider theme={exampleTheme} colorMode="day">
         <Text color="text">Hello</Text>
         <ToggleMode />
       </ThemeProvider>
     )
 
     // starts in day mode (light scheme)
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
 
     screen.getByRole('button').click()
 
     // clicking the toggle button enables night mode (dark scheme)
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', '#0f0')
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
   })
 })
