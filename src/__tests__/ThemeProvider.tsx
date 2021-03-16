@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider, Text, useTheme} from '..'
 import 'jest-styled-components'
@@ -283,6 +283,53 @@ it('works in auto mode', () => {
   )
 
   expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+})
+
+it('updates when colorMode prop changes', async () => {
+  const theme = {
+    colors: {
+      text: '#f00'
+    },
+    colorSchemes: {
+      light: {
+        colors: {
+          text: '#00f'
+        }
+      },
+      dark: {
+        colors: {
+          text: '#0f0'
+        }
+      },
+      dark_dimmed: {
+        colors: {
+          text: '#ff0'
+        }
+      }
+    }
+  }
+
+  function App() {
+    const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
+    return (
+      <ThemeProvider theme={theme} colorMode={colorMode}>
+        <Text color="text">{colorMode}</Text>
+        <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+      </ThemeProvider>
+    )
+  }
+
+  render(<App />)
+
+  // starts in day mode (light scheme)
+  expect(screen.getByText('day')).toHaveStyleRule('color', '#00f')
+
+  screen.getByRole('button').click()
+
+  await waitFor(() =>
+    // clicking the toggle button enables night mode (dark scheme)
+    expect(screen.getByText('night')).toHaveStyleRule('color', '#0f0')
+  )
 })
 
 describe('setColorMode', () => {

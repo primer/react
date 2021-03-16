@@ -41,6 +41,10 @@ function ThemeProvider({theme = defaultTheme, dayScheme, nightScheme, children, 
 
   const resolvedTheme = applyColorScheme(theme, colorScheme)
 
+  React.useEffect(() => {
+    setColorMode(props.colorMode ?? DEFAULT_COLOR_MODE)
+  }, [props.colorMode])
+
   return (
     <ThemeContext.Provider value={{colorMode, setColorMode}}>
       <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
