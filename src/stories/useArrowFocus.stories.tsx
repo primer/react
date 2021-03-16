@@ -298,7 +298,7 @@ export const SpecialSituations = () => {
     if (vContainerRef.current && hContainerRef.current) {
       const vController = arrowFocus(vContainerRef.current, {
         bindKeys:
-          KeyBits.ArrowVertical | KeyBits.JK | KeyBits.WS | KeyBits.TAB | KeyBits.PageUpDown | KeyBits.HomeAndEnd
+          KeyBits.ArrowVertical | KeyBits.JK | KeyBits.WS | KeyBits.Tab | KeyBits.PageUpDown | KeyBits.HomeAndEnd
       })
       const hController = arrowFocus(hContainerRef.current, {
         circular: true,
@@ -397,7 +397,7 @@ export const ChangingSubtree = () => {
 
   const buttons: JSX.Element[] = []
   for (let i = 0; i < buttonCount; ++i) {
-    buttons.push(<MarginButton key={"button"+i}>{i + 1}</MarginButton>)
+    buttons.push(<MarginButton key={'button' + i}>{i + 1}</MarginButton>)
   }
 
   return (
@@ -423,6 +423,89 @@ export const ChangingSubtree = () => {
           <MarginButton onClick={removeButton}>Remove Button</MarginButton>
           <MarginButton onClick={addButton}>Add Button</MarginButton>
         </Flex>
+      </Flex>
+    </>
+  )
+}
+
+export const ActiveDescendant = () => {
+  const containerRef = useRef<HTMLElement>()
+  const controllingElementRef = useRef<HTMLElement>()
+  const [lastKey, setLastKey] = useState('none')
+
+  useEffect(() => {
+    if (containerRef.current && controllingElementRef.current) {
+      const adController = arrowFocus(containerRef.current, {
+        bindKeys: KeyBits.ArrowVertical,
+        activeDescendantOptions: {
+          controllingElement: controllingElementRef.current,
+          onActiveDescendantChanged: (current, previous) => {
+            if (current) {
+              current.style.outline = '2px solid blue'
+            }
+            if (previous) {
+              previous.style.outline = ''
+            }
+          }
+        },
+        focusableElementFilter: elem => elem instanceof HTMLButtonElement
+      })
+      const focusController = arrowFocus(containerRef.current, {
+        bindKeys: KeyBits.ArrowVertical
+      })
+      return () => {
+        adController.abort()
+        focusController.abort()
+      }
+    }
+  }, [containerRef])
+
+  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    setLastKey(event.key)
+  }, [])
+
+  return (
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
+        <Flash mb={3}>
+          This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
+          active element. Below, you can focus the input box then use the up/down arrow keys to change the active
+          descendant (dark blue outline). Furthermore, this story shows how to simulataneously set up a regular arrow
+          key focus treatment on the buttons. This pattern is used in a select menu with a filter box.
+        </Flash>
+        <Absolute right={5} top={2}>
+          Last key pressed: {lastKey}
+        </Absolute>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <BorderBox borderColor="gray.5" m={4} p={4}>
+          <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <input
+              ref={controllingElementRef as React.RefObject<HTMLInputElement>}
+              type="text"
+              defaultValue="Focus remains here."
+              aria-controls="list"
+            />
+            <Flex
+              id="list"
+              tabIndex={0}
+              flexDirection="column"
+              alignItems="flex-start"
+              ref={containerRef as React.RefObject<HTMLDivElement>}
+            >
+              <MarginButton>Durian</MarginButton>
+              <MarginButton>Elderberry</MarginButton>
+              <MarginButton>Fig</MarginButton>
+              <MarginButton>Grapefruit</MarginButton>
+            </Flex>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+        <MarginButton>Kiwi</MarginButton>
       </Flex>
     </>
   )

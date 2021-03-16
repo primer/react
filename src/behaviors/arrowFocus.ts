@@ -1,6 +1,7 @@
-import {isTabbable, iterateTabbableElements} from '../utils/iterateTabbable'
+import {isFocusable, iterateFocusableElements} from '../utils/iterateFocusableElements'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 import {isMacOS} from '../utils/userAgent'
+import {uniqueId} from '../utils/uniqueId'
 
 eventListenerSignalPolyfill()
 
@@ -51,18 +52,18 @@ export const KeyBits = {
   AD: 0b001000000,
 
   // The Tab key (next)
-  TAB: 0b010000000,
+  Tab: 0b010000000,
 
   // These are set below
   ArrowAll: 0,
   HJKL: 0,
   WASD: 0,
-  ALL: 0
+  All: 0
 }
 KeyBits.ArrowAll = KeyBits.ArrowHorizontal | KeyBits.ArrowVertical
 KeyBits.HJKL = KeyBits.JK | KeyBits.HL
 KeyBits.WASD = KeyBits.WS | KeyBits.AD
-KeyBits.ALL = KeyBits.ArrowAll | KeyBits.HJKL | KeyBits.HomeAndEnd | KeyBits.PageUpDown | KeyBits.WASD | KeyBits.TAB
+KeyBits.All = KeyBits.ArrowAll | KeyBits.HJKL | KeyBits.HomeAndEnd | KeyBits.PageUpDown | KeyBits.WASD | KeyBits.Tab
 
 const KEY_TO_BIT = {
   ArrowLeft: 0b00000001,
@@ -139,6 +140,16 @@ export interface ArrowFocusOptions {
   ) => HTMLElement | undefined
 
   /**
+   * Called to decide if a focusable element is allowed to participate in the arrow
+   * key focus behavior.
+   *
+   * By default, all focusable elements within the given container will participate
+   * in the arrow key focus behavior. If you need to withold some elements from
+   * particpation, implement this callback to return false for those elements.
+   */
+  focusableElementFilter?: (element: HTMLElement) => boolean
+
+  /**
    * Bit flags that identify keys that will be bound to. Each available key either
    * moves focus to the "next" element or the "previous" element, so it is best
    * to only bind the keys that make sense to move focus in your UI. Use the `KeyBits`
@@ -181,12 +192,13 @@ export interface ArrowFocusOptions {
     controllingElement: HTMLElement
 
     /**
-     * Called each time the active descendant changes.
+     * Called each time the active descendant changes. Note that either of the parameters
+     * may be undefined, e.g. when an element in the container first becomes active, or
+     * when the controlling element becomes unfocused.
      */
     onActiveDescendantChanged?: (
-      newActiveDescendant: HTMLElement,
-      previousActiveDescendant: HTMLElement,
-      event: KeyboardEvent
+      newActiveDescendant: HTMLElement | undefined,
+      previousActiveDescendant: HTMLElement | undefined
     ) => void
   }
 
@@ -311,17 +323,35 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   // tabbable element, it will always be a tabbable element.
   const allSeenTabbableElements = new WeakSet<HTMLElement>()
 
+  function updateTabIndex(from?: HTMLElement, to?: HTMLElement) {
+    if (!activeDescendantControl) {
+      from?.setAttribute('tabindex', '-1')
+      to?.setAttribute('tabindex', '0')
+    }
+  }
+
+  function setActiveDescendant(from: HTMLElement | undefined, to: HTMLElement) {
+    if (!to.id) {
+      to.setAttribute('id', uniqueId())
+    }
+    currentFocusedElement = to
+    activeDescendantControl?.setAttribute('aria-activedescendant', to.id)
+
+    activeDescendantCallback?.(to, from)
+  }
+
   function beginFocusManagement(...elements: HTMLElement[]) {
-    if (elements.length === 0) {
+    const filteredElements = elements.filter(e => options?.focusableElementFilter?.(e) ?? true)
+    if (filteredElements.length === 0) {
       return
     }
     // Insert all elements atomically. Assume that all passed elements are well-ordered.
     const insertIndex = tabbableElements.findIndex(
-      e => (e.compareDocumentPosition(elements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0
+      e => (e.compareDocumentPosition(filteredElements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0
     )
     console.log('insert index: ' + insertIndex)
-    tabbableElements.splice(insertIndex === -1 ? tabbableElements.length : insertIndex, 0, ...elements)
-    for (const element of elements) {
+    tabbableElements.splice(insertIndex === -1 ? tabbableElements.length : insertIndex, 0, ...filteredElements)
+    for (const element of filteredElements) {
       // Set tabindex="-1" on all tabbable elements, but save the original
       // value in case we need to disable the behavior
       if (!savedTabIndex.has(element)) {
@@ -330,13 +360,6 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
       element.setAttribute('tabindex', '-1')
 
       allSeenTabbableElements.add(element)
-    }
-  }
-
-  function updateTabIndex(from?: HTMLElement, to?: HTMLElement) {
-    if (!activeDescendantControl) {
-      from?.setAttribute("tabindex", "-1")
-      to?.setAttribute("tabindex", "0")
     }
   }
 
@@ -356,7 +379,9 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   }
 
   // Take all tabbable elements within container under management
-  beginFocusManagement(...iterateTabbableElements(container))
+  beginFocusManagement(...iterateFocusableElements(container))
+
+  console.log(tabbableElements)
 
   // Open the first tabbable element for tabbing
   updateTabIndex(undefined, tabbableElements[0])
@@ -366,7 +391,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   const observer = new MutationObserver(mutations => {
     for (const mutation of mutations) {
       for (const addedNode of mutation.addedNodes) {
-        if (addedNode instanceof HTMLElement && (isTabbable(addedNode) || allSeenTabbableElements.has(addedNode))) {
+        if (addedNode instanceof HTMLElement && (isFocusable(addedNode) || allSeenTabbableElements.has(addedNode))) {
           beginFocusManagement(addedNode)
         }
       }
@@ -386,8 +411,10 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   const controller = new AbortController()
   const signal = options?.abortSignal ?? controller.signal
 
-  let currentFocusedIndex = 0
-  let currentFocusedElement: HTMLElement = tabbableElements[0]
+  // When using activedescendant focusing, the first focus-in is caused by our listeners
+  // meaning we have to approach zero. This is safe since we clamp the value before using it.
+  let currentFocusedIndex = activeDescendantControl ? -1 : 0
+  let currentFocusedElement = activeDescendantControl ? undefined : tabbableElements[0]
 
   let elementIndexFocusedByClick: number | undefined = undefined
   container.addEventListener(
@@ -463,7 +490,8 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   )
 
   // Handles keypresses only when the container has active focus
-  container.addEventListener(
+  const keyboardEventRecipient = activeDescendantControl ?? container
+  keyboardEventRecipient.addEventListener(
     'keydown',
     event => {
       if (event.key in KEY_TO_DIRECTION) {
@@ -529,7 +557,12 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
             }
           }
           if (nextElementToFocus) {
-            nextElementToFocus.focus()
+            if (activeDescendantControl) {
+              console.log('Current focused index: ' + currentFocusedIndex)
+              setActiveDescendant(currentFocusedElement, nextElementToFocus)
+            } else {
+              nextElementToFocus.focus()
+            }
           }
           // Tab should always allow escaping from this container, so only
           // preventDefault if tab key press already resulted in a focus movement
@@ -541,5 +574,10 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     },
     {signal}
   )
+  if (activeDescendantControl) {
+    activeDescendantControl.addEventListener('focusout', () => {
+      activeDescendantCallback?.(undefined, currentFocusedElement)
+    })
+  }
   return controller
 }

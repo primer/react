@@ -1,4 +1,4 @@
-import {iterateTabbableElements} from '../utils/iterateTabbable'
+import {iterateFocusableElements} from '../utils/iterateFocusableElements'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 
 eventListenerSignalPolyfill()
@@ -37,7 +37,7 @@ function followSignal(signal: AbortSignal): AbortController {
  * @param lastChild
  */
 function getFocusableChild(container: HTMLElement, lastChild = false) {
-  return iterateTabbableElements(container, {reverse: lastChild, strict: true}).next().value
+  return iterateFocusableElements(container, {reverse: lastChild, strict: true, onlyTabbable: true}).next().value
 }
 
 /**

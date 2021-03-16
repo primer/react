@@ -3,12 +3,6 @@ import React from 'react'
 import {fireEvent, render} from '@testing-library/react'
 import {focusTrap} from '../../behaviors/focusTrap'
 
-async function nextTick() {
-  return new Promise(resolve => {
-    process.nextTick(resolve)
-  })
-}
-
 it('Should initially focus the first focusable element when activated', () => {
   const {container} = render(
     <div>
