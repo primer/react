@@ -20,19 +20,57 @@ export type ThemeProviderProps = {
 }
 
 function ThemeProvider({theme = defaultTheme, colorMode, dayScheme, nightScheme, children}: ThemeProviderProps) {
+  const systemColorMode = useSystemColorMode()
   const colorScheme = getColorScheme(
     colorMode ?? DEFAULT_COLOR_MODE,
     dayScheme ?? DEFAULT_DAY_SCHEME,
-    nightScheme ?? DEFAULT_NIGHT_SCHEME
+    nightScheme ?? DEFAULT_NIGHT_SCHEME,
+    systemColorMode
   )
   const resolvedTheme = applyColorScheme(theme, colorScheme)
   return <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
 }
 
-function getColorScheme(colorMode: ColorModeWithAuto, dayScheme: string, nightScheme: string) {
+function useSystemColorMode() {
+  const [systemColorMode, setSystemColorMode] = React.useState(getSystemColorMode)
+
+  React.useEffect(() => {
+    const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
+
+    function handleChange(event: MediaQueryListEvent) {
+      const isNight = event.matches
+      const systemColorMode = isNight ? 'night' : 'day'
+      setSystemColorMode(systemColorMode)
+    }
+
+    // TODO: look into browser support
+    media?.addEventListener('change', handleChange)
+
+    return function cleanup() {
+      media?.removeEventListener('change', handleChange)
+    }
+  }, [])
+
+  return systemColorMode
+}
+
+function getSystemColorMode(): ColorMode {
+  if (window?.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+    return 'night'
+  }
+
+  return 'day'
+}
+
+function getColorScheme(
+  colorMode: ColorModeWithAuto,
+  dayScheme: string,
+  nightScheme: string,
+  systemColorMode: ColorMode
+) {
   switch (colorMode) {
     case 'auto':
-      return dayScheme // TODO: implement auto mode
+      return systemColorMode === 'day' ? dayScheme : nightScheme
     case 'day':
       return dayScheme
     case 'night':
