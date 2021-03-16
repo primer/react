@@ -340,6 +340,13 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     activeDescendantCallback?.(to, from)
   }
 
+  function suspendActiveDescendant() {
+    activeDescendantControl?.removeAttribute('aria-activedescendant')
+    activeDescendantSuspended = true
+    activeDescendantCallback?.(undefined, currentFocusedElement)
+    currentFocusedElement = undefined
+  }
+
   function beginFocusManagement(...elements: HTMLElement[]) {
     const filteredElements = elements.filter(e => options?.focusableElementFilter?.(e) ?? true)
     if (filteredElements.length === 0) {
@@ -413,7 +420,8 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
 
   // When using activedescendant focusing, the first focus-in is caused by our listeners
   // meaning we have to approach zero. This is safe since we clamp the value before using it.
-  let currentFocusedIndex = activeDescendantControl ? -1 : 0
+  let currentFocusedIndex = 0
+  let activeDescendantSuspended = activeDescendantControl ? true : false
   let currentFocusedElement = activeDescendantControl ? undefined : tabbableElements[0]
 
   let elementIndexFocusedByClick: number | undefined = undefined
@@ -518,47 +526,63 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
 
           let nextElementToFocus: HTMLElement | undefined = undefined
 
-          // If there is a custom function that retrieves the next focusable element, try calling that first.
-          if (options?.getNextFocusable) {
-            nextElementToFocus = options.getNextFocusable(direction, toEnd, document.activeElement ?? undefined, event)
+          if (activeDescendantSuspended) {
+            activeDescendantSuspended = false
+            nextElementToFocus = tabbableElements[currentFocusedIndex]
+          } else {
+            // If there is a custom function that retrieves the next focusable element, try calling that first.
+            if (options?.getNextFocusable) {
+              nextElementToFocus = options.getNextFocusable(
+                direction,
+                toEnd,
+                document.activeElement ?? undefined,
+                event
+              )
+            }
+            if (!nextElementToFocus) {
+              const lastFocusedIndex = currentFocusedIndex
+              if (direction === 'previous') {
+                if (toEnd) {
+                  currentFocusedIndex = 0
+                } else {
+                  currentFocusedIndex -= 1
+                }
+              } else if (direction === 'next') {
+                if (toEnd) {
+                  currentFocusedIndex = tabbableElements.length - 1
+                } else {
+                  currentFocusedIndex += 1
+                }
+              }
+              if (currentFocusedIndex < 0) {
+                // Tab should never cause focus to circle. Use focusTrap for that behavior.
+                if (circular && event.key !== 'Tab') {
+                  currentFocusedIndex = tabbableElements.length - 1
+                } else {
+                  if (activeDescendantControl) {
+                    suspendActiveDescendant()
+                  }
+                  currentFocusedIndex = 0
+                }
+              }
+              if (currentFocusedIndex >= tabbableElements.length) {
+                if (circular && event.key !== 'Tab') {
+                  currentFocusedIndex = 0
+                } else {
+                  currentFocusedIndex = tabbableElements.length - 1
+                }
+              }
+              if (lastFocusedIndex !== currentFocusedIndex) {
+                nextElementToFocus = tabbableElements[currentFocusedIndex]
+              }
+            }
           }
-          if (!nextElementToFocus) {
-            const lastFocusedIndex = currentFocusedIndex
-            if (direction === 'previous') {
-              if (toEnd) {
-                currentFocusedIndex = 0
-              } else {
-                currentFocusedIndex -= 1
-              }
-            } else if (direction === 'next') {
-              if (toEnd) {
-                currentFocusedIndex = tabbableElements.length - 1
-              } else {
-                currentFocusedIndex += 1
-              }
-            }
-            if (currentFocusedIndex < 0) {
-              // Tab should never cause focus to circle. Use focusTrap for that behavior.
-              if (circular && event.key !== 'Tab') {
-                currentFocusedIndex = tabbableElements.length - 1
-              } else {
-                currentFocusedIndex = 0
-              }
-            }
-            if (currentFocusedIndex >= tabbableElements.length) {
-              if (circular && event.key !== 'Tab') {
-                currentFocusedIndex = 0
-              } else {
-                currentFocusedIndex = tabbableElements.length - 1
-              }
-            }
-            if (lastFocusedIndex !== currentFocusedIndex) {
-              nextElementToFocus = tabbableElements[currentFocusedIndex]
-            }
-          }
+
           if (nextElementToFocus) {
             if (activeDescendantControl) {
               console.log('Current focused index: ' + currentFocusedIndex)
+              console.log("Current", currentFocusedElement)
+              console.log("next", nextElementToFocus)
               setActiveDescendant(currentFocusedElement, nextElementToFocus)
             } else {
               nextElementToFocus.focus()
@@ -576,7 +600,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   )
   if (activeDescendantControl) {
     activeDescendantControl.addEventListener('focusout', () => {
-      activeDescendantCallback?.(undefined, currentFocusedElement)
+      suspendActiveDescendant()
     })
   }
   return controller

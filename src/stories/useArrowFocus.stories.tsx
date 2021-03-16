@@ -451,7 +451,15 @@ export const ActiveDescendant = () => {
         focusableElementFilter: elem => elem instanceof HTMLButtonElement
       })
       const focusController = arrowFocus(containerRef.current, {
-        bindKeys: KeyBits.ArrowVertical
+        bindKeys: KeyBits.ArrowVertical,
+
+        // This is simply a quality-of-life improvement: when the container itself is focused, we
+        // want to allow the up-arrow to move focus to the above text box (controlling element)
+        getNextFocusable: (direction, toEnd, from) => {
+          if (direction === 'previous' && !toEnd && from && from === containerRef.current) {
+            return controllingElementRef.current
+          }
+        }
       })
       return () => {
         adController.abort()
