@@ -159,16 +159,6 @@ it('works in auto mode (dark)', () => {
   matchMediaSpy.mockRestore()
 })
 
-it('works in auto mode', () => {
-  render(
-    <ThemeProvider theme={exampleTheme} colorMode="auto">
-      <Text color="text">Hello</Text>
-    </ThemeProvider>
-  )
-
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
-})
-
 it('updates when colorMode prop changes', async () => {
   function App() {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
@@ -191,6 +181,18 @@ it('updates when colorMode prop changes', async () => {
     // clicking the toggle button enables night mode (dark scheme)
     expect(screen.getByText('night')).toHaveStyleRule('color', 'white')
   )
+})
+
+it('inherits colorMode from parent', () => {
+  render(
+    <ThemeProvider theme={exampleTheme} colorMode="night">
+      <ThemeProvider>
+        <Text color="text">Hello</Text>
+      </ThemeProvider>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
 })
 
 describe('setColorMode', () => {

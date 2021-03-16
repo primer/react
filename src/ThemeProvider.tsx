@@ -29,10 +29,10 @@ const ThemeContext = React.createContext<{
 
 function ThemeProvider({dayScheme, nightScheme, children, ...props}: ThemeProviderProps) {
   // Get fallback values from parent ThemeProvider (if exists)
-  const {theme: fallbackTheme} = useTheme()
+  const {theme: fallbackTheme, colorMode: fallbackColorMode} = useTheme()
 
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
-  const [colorMode, setColorMode] = React.useState(props.colorMode ?? defaultColorMode)
+  const [colorMode, setColorMode] = React.useState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
 
   const systemColorMode = useSystemColorMode()
 
@@ -45,8 +45,9 @@ function ThemeProvider({dayScheme, nightScheme, children, ...props}: ThemeProvid
 
   const resolvedTheme = applyColorScheme(theme, colorScheme)
 
+  // Update colorMode if colorMode prop changes
   React.useEffect(() => {
-    setColorMode(props.colorMode ?? defaultColorMode)
+    setColorMode(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   }, [props.colorMode])
 
   return (
