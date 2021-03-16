@@ -19,16 +19,37 @@ export type ThemeProviderProps = {
   children: React.ReactNode
 }
 
-function ThemeProvider({theme = defaultTheme, colorMode, dayScheme, nightScheme, children}: ThemeProviderProps) {
+const ThemeContext = React.createContext<{
+  colorMode: ColorModeWithAuto
+  setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
+}>({
+  colorMode: DEFAULT_COLOR_MODE,
+  setColorMode: () => {}
+})
+
+function ThemeProvider({theme = defaultTheme, dayScheme, nightScheme, children, ...props}: ThemeProviderProps) {
+  const [colorMode, setColorMode] = React.useState(props.colorMode ?? DEFAULT_COLOR_MODE)
+
   const systemColorMode = useSystemColorMode()
+
   const colorScheme = getColorScheme(
-    colorMode ?? DEFAULT_COLOR_MODE,
+    colorMode,
     dayScheme ?? DEFAULT_DAY_SCHEME,
     nightScheme ?? DEFAULT_NIGHT_SCHEME,
     systemColorMode
   )
+
   const resolvedTheme = applyColorScheme(theme, colorScheme)
-  return <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
+
+  return (
+    <ThemeContext.Provider value={{colorMode, setColorMode}}>
+      <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
+    </ThemeContext.Provider>
+  )
+}
+
+export function useTheme() {
+  return React.useContext(ThemeContext)
 }
 
 function useSystemColorMode() {
@@ -55,7 +76,7 @@ function useSystemColorMode() {
 }
 
 function getSystemColorMode(): ColorMode {
-  if (window?.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+  if (window?.matchMedia?.('(prefers-color-scheme: dark)')?.matches) {
     return 'night'
   }
 

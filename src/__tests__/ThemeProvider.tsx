@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
-import {ThemeProvider, Text} from '..'
+import {ThemeProvider, Text, useTheme} from '..'
 import 'jest-styled-components'
 
 // window.matchMedia() is not implmented by JSDOM so we have to create a mock:
@@ -208,7 +208,7 @@ it('works in auto mode', () => {
 
 it('works in auto mode (dark)', () => {
   const matchMediaSpy = jest.spyOn(window, 'matchMedia').mockImplementation(query => ({
-    matches: query === '(prefers-color-scheme: dark)', // enable dark mode
+    matches: true, // enable dark mode
     media: query,
     onchange: null,
     addListener: jest.fn(), // deprecated
@@ -250,4 +250,84 @@ it('works in auto mode (dark)', () => {
   expect(screen.getByText('Hello')).toHaveStyleRule('color', '#0f0')
 
   matchMediaSpy.mockRestore()
+})
+
+it('works in auto mode', () => {
+  const theme = {
+    colors: {
+      text: '#f00'
+    },
+    colorSchemes: {
+      light: {
+        colors: {
+          text: '#00f'
+        }
+      },
+      dark: {
+        colors: {
+          text: '#0f0'
+        }
+      },
+      dark_dimmed: {
+        colors: {
+          text: '#ff0'
+        }
+      }
+    }
+  }
+
+  render(
+    <ThemeProvider theme={theme} colorMode="auto">
+      <Text color="text">Hello</Text>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+})
+
+describe('setColorMode', () => {
+  it('changes the color mode', () => {
+    const theme = {
+      colors: {
+        text: '#f00'
+      },
+      colorSchemes: {
+        light: {
+          colors: {
+            text: '#00f'
+          }
+        },
+        dark: {
+          colors: {
+            text: '#0f0'
+          }
+        },
+        dark_dimmed: {
+          colors: {
+            text: '#ff0'
+          }
+        }
+      }
+    }
+
+    function ToggleMode() {
+      const {colorMode, setColorMode} = useTheme()
+      return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+    }
+
+    render(
+      <ThemeProvider theme={theme} colorMode="day">
+        <Text color="text">Hello</Text>
+        <ToggleMode />
+      </ThemeProvider>
+    )
+
+    // starts in day mode (light scheme)
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', '#00f')
+
+    screen.getByRole('button').click()
+
+    // clicking the toggle button enables night mode (dark scheme)
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', '#0f0')
+  })
 })
