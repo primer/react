@@ -1,7 +1,7 @@
 import React from 'react'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
-import deepmerge from 'deepmerge' // TODO: review dependency
+import deepmerge from 'deepmerge'
 
 const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
@@ -51,8 +51,8 @@ function ThemeProvider({children, ...props}: ThemeProviderProps) {
   const [nightScheme, setNightScheme] = React.useState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
   const resolvedColorMode = resolveColorMode(colorMode, systemColorMode)
-  const colorScheme = getColorScheme(resolvedColorMode, dayScheme, nightScheme)
-  const resolvedTheme = applyColorScheme(theme, colorScheme)
+  const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
+  const resolvedTheme = React.useMemo(() => applyColorScheme(theme, colorScheme), [theme, colorScheme])
 
   // Update state if props change
   React.useEffect(() => {
@@ -135,7 +135,7 @@ function resolveColorMode(colorMode: ColorModeWithAuto, systemColorMode: ColorMo
   }
 }
 
-function getColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme: string) {
+function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme: string) {
   switch (colorMode) {
     case 'day':
       return dayScheme
