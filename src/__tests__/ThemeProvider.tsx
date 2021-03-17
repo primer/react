@@ -1,7 +1,7 @@
 import {render, screen, waitFor} from '@testing-library/react'
-import React from 'react'
-import {ThemeProvider, Text, useTheme} from '..'
 import 'jest-styled-components'
+import React from 'react'
+import {Text, ThemeProvider, useColorSchemeVar, useTheme} from '..'
 
 // window.matchMedia() is not implmented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -336,5 +336,63 @@ describe('setNightScheme', () => {
 
     // clicking the toggle button sets night scheme to dark_dimmed
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+  })
+})
+
+describe('useColorSchemeVar', () => {
+  it('updates value when scheme changes', () => {
+    function ToggleMode() {
+      const {colorMode, setColorMode} = useTheme()
+      return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+    }
+
+    function CustomBg() {
+      const customBg = useColorSchemeVar({
+        light: 'red',
+        dark: 'blue',
+        dark_dimmed: 'green'
+      })
+
+      return <Text bg={customBg}>Hello</Text>
+    }
+
+    render(
+      <ThemeProvider theme={exampleTheme} nightScheme="dark_dimmed">
+        <CustomBg />
+        <ToggleMode />
+      </ThemeProvider>
+    )
+
+    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'red')
+
+    screen.getByRole('button').click()
+
+    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'green')
+  })
+
+  it('supports fallback value', () => {
+    function ToggleMode() {
+      const {colorMode, setColorMode} = useTheme()
+      return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+    }
+
+    function CustomBg() {
+      const customBg = useColorSchemeVar({dark: 'blue'}, 'red')
+
+      return <Text bg={customBg}>Hello</Text>
+    }
+
+    render(
+      <ThemeProvider theme={exampleTheme}>
+        <CustomBg />
+        <ToggleMode />
+      </ThemeProvider>
+    )
+
+    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'red')
+
+    screen.getByRole('button').click()
+
+    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'blue')
   })
 })

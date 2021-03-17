@@ -21,6 +21,7 @@ export type ThemeProviderProps = {
 
 const ThemeContext = React.createContext<{
   theme?: Theme
+  colorScheme?: string
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
@@ -68,6 +69,7 @@ function ThemeProvider({children, ...props}: ThemeProviderProps) {
     <ThemeContext.Provider
       value={{
         theme,
+        colorScheme,
         colorMode,
         dayScheme,
         nightScheme,
@@ -83,6 +85,11 @@ function ThemeProvider({children, ...props}: ThemeProviderProps) {
 
 export function useTheme() {
   return React.useContext(ThemeContext)
+}
+
+export function useColorSchemeVar(values: Record<string, string>, fallback?: string) {
+  const {colorScheme = ''} = useTheme()
+  return values[colorScheme] ?? fallback
 }
 
 function useSystemColorMode() {
