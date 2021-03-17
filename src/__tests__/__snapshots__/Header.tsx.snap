@@ -60,7 +60,7 @@ exports[`Header renders consistently 1`] = `
   display: -ms-flexbox;
   display: flex;
   padding: 16px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: rgba(255,255,255,0.7);
   background-color: #24292e;

@@ -9,7 +9,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   display: block;
   width: 100%;
   text-align: left;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .c0:hover {

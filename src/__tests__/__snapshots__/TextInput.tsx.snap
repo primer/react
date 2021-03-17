@@ -25,7 +25,7 @@ exports[`TextInput renders 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
@@ -56,7 +56,7 @@ exports[`TextInput renders 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 
@@ -96,7 +96,7 @@ exports[`TextInput renders block 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
@@ -129,7 +129,7 @@ exports[`TextInput renders block 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 
@@ -169,7 +169,7 @@ exports[`TextInput renders consistently 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
@@ -200,7 +200,7 @@ exports[`TextInput renders consistently 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 
@@ -239,7 +239,7 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
@@ -254,7 +254,7 @@ exports[`TextInput renders large 1`] = `
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .c0 .TextInput-icon {
@@ -275,7 +275,7 @@ exports[`TextInput renders large 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 
@@ -315,7 +315,7 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
@@ -331,7 +331,7 @@ exports[`TextInput renders small 1`] = `
   padding-right: 8px;
   padding-top: 3px;
   padding-bottom: 3px;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 20px;
 }
 
@@ -353,7 +353,7 @@ exports[`TextInput renders small 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 
@@ -393,7 +393,7 @@ exports[`TextInput should render a password input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 34px;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   color: #24292e;
   vertical-align: middle;
@@ -424,7 +424,7 @@ exports[`TextInput should render a password input 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 

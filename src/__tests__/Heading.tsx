@@ -7,12 +7,23 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
+const baseFontSize = 16
+
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
   colors: {
     green: ['#010', '#020', '#030', '#040', '#050', '#060']
   },
-  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
+  fontSizes: [
+    `${12 / baseFontSize}rem`,
+    `${14 / baseFontSize}rem`,
+    `${16 / baseFontSize}rem`,
+    `${20 / baseFontSize}rem`,
+    `${24 / baseFontSize}rem`,
+    `${32 / baseFontSize}rem`,
+    `${40 / baseFontSize}rem`,
+    `${48 / baseFontSize}rem`
+  ],
   fonts: {
     normal: 'Helvetica,sans-serif',
     mono: 'Consolas,monospace'

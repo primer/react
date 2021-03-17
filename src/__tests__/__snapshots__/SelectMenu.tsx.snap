@@ -22,7 +22,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #24292e;
   background-color: #fafbfc;
   border: 1px solid rgba(27,31,35,0.15);
@@ -70,7 +70,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 .c6 {
   padding: 4px 16px;
   margin: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #6a737d;
   background-color: #f6f8fa;
@@ -80,7 +80,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 .c7 {
   margin-top: -1px;
   padding: 8px 16px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #6a737d;
   text-align: center;
   border-top: 1px solid #eaecef;
@@ -105,7 +105,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   color: #586069;
   -webkit-text-decoration: none;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-family: inherit;
   width: 100%;
 }
@@ -286,7 +286,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
     height: auto;
     max-height: 350px;
     margin: 4px 0 16px 0;
-    font-size: 12px;
+    font-size: 0.75rem;
     border: 1px solid #e1e4e8;
     border-radius: 6px;
     box-shadow: 0 1px 0 rgba(27,31,35,0.04);

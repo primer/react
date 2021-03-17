@@ -59,8 +59,8 @@ describe('Button', () => {
   })
 
   it('respects the "variant" prop', () => {
-    expect(render(<Button variant="small" />)).toHaveStyleRule('font-size', '12px')
-    expect(render(<Button variant="large" />)).toHaveStyleRule('font-size', '16px')
+    expect(render(<Button variant="small" />)).toHaveStyleRule('font-size', '0.75rem')
+    expect(render(<Button variant="large" />)).toHaveStyleRule('font-size', '1rem')
   })
 
   it('respects the "fontSize" prop over the "variant" prop', () => {

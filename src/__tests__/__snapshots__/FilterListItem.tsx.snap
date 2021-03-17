@@ -7,7 +7,7 @@ exports[`FilterList.Item renders consistently 1`] = `
   padding: 8px 11px;
   margin: 0 0 5px 0;
   overflow: hidden;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #586069;
   background-color: !important;
   -webkit-text-decoration: none;
@@ -46,7 +46,7 @@ exports[`FilterList.Item respects the "selected" prop 1`] = `
   padding: 8px 11px;
   margin: 0 0 5px 0;
   overflow: hidden;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #ffffff;
   background-color: #0366d6!important;
   -webkit-text-decoration: none;

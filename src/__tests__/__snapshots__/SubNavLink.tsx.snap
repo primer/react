@@ -5,7 +5,7 @@ exports[`SubNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" p
   padding-left: 16px;
   padding-right: 16px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   min-height: 34px;
   color: #24292e;
@@ -72,7 +72,7 @@ exports[`SubNav.Link renders consistently 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   min-height: 34px;
   color: #24292e;
@@ -137,7 +137,7 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   min-height: 34px;
   color: #24292e;

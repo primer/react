@@ -2,7 +2,7 @@
 
 exports[`Dialog Dialog.Header renders consistently 1`] = `
 .c1 {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   font-family: sans-serif;
   color: #24292e;
@@ -89,7 +89,7 @@ Array [
 }
 
 .c3 {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   font-family: sans-serif;
   color: #24292e;

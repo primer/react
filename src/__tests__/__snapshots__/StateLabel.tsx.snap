@@ -28,7 +28,7 @@ exports[`StateLabel renders children 1`] = `
   padding-right: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 <span
@@ -87,7 +87,7 @@ exports[`StateLabel renders consistently 1`] = `
   padding-right: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 <span
@@ -146,7 +146,7 @@ exports[`StateLabel respects the status prop 1`] = `
   padding-right: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 <span
@@ -204,7 +204,7 @@ exports[`StateLabel respects the status prop 2`] = `
   padding-right: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 <span
@@ -262,7 +262,7 @@ exports[`StateLabel respects the status prop 3`] = `
   padding-right: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 <span
@@ -320,7 +320,7 @@ exports[`StateLabel respects the variant prop 1`] = `
   padding-right: 8px;
   padding-top: 4px;
   padding-bottom: 4px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 <span
@@ -378,7 +378,7 @@ exports[`StateLabel respects the variant prop 2`] = `
   padding-right: 12px;
   padding-top: 8px;
   padding-bottom: 8px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 <span

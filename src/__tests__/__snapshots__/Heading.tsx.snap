@@ -3,7 +3,7 @@
 exports[`Heading renders consistently 1`] = `
 .c0 {
   font-weight: 600;
-  font-size: 32px;
+  font-size: 2rem;
   margin: 0;
 }
 
