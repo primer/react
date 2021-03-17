@@ -1,4 +1,3 @@
-
 import {useEffect, useCallback} from 'react'
 
 export type UseOnEscapePressProps = {
@@ -11,7 +10,8 @@ export const useOnEscapePress = ({onEscape}: UseOnEscapePressProps): void => {
       if (e.key === 'Escape' && !e.defaultPrevented) {
         onEscape(e)
       }
-    }, [onEscape]
+    },
+    [onEscape]
   )
   useEffect(() => {
     document.addEventListener('keydown', handleEscape)

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, {ReactElement} from 'react'
 import {get, COMMON, POSITION} from './constants'
 import {ComponentProps} from './utils/types'
-import { useOverlay, AnchoredPositionHookSettings, TouchOrMouseEvent } from './hooks'
+import {useOverlay, AnchoredPositionHookSettings, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 
 type StyledOverlayProps = {
@@ -12,21 +12,21 @@ type StyledOverlayProps = {
 }
 
 const heightMap = {
-  'sm': '480px',
-  'md': '640px',
-  'auto': 'auto'
+  sm: '480px',
+  md: '640px',
+  auto: 'auto'
 }
 
 const widthMap = {
-  'sm': '256px',
-  'md': '320px',
-  'lg': '480px',
-  'xl': '640px',
-  'auto': 'auto'
+  sm: '256px',
+  md: '320px',
+  lg: '480px',
+  xl: '640px',
+  auto: 'auto'
 }
 
 /*TODO replace with shadow functional color variable when it's shipped to primer/primitives*/
-const StyledOverlay  = styled.div<StyledOverlayProps>`
+const StyledOverlay = styled.div<StyledOverlayProps>`
   background-color: ${get('colors.bg.overlay')};
   box-shadow: ${get('overlay.boxShadow')};
   position: absolute;
@@ -53,7 +53,7 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
 `
 
 export type OverlayProps = {
-  ignoreClickRefs: React.RefObject<HTMLElement> []
+  ignoreClickRefs: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
   anchorRef: React.RefObject<HTMLElement>
@@ -61,27 +61,44 @@ export type OverlayProps = {
   onEscape: (e: KeyboardEvent) => void
   positionSettings?: AnchoredPositionHookSettings
   positionDeps?: React.DependencyList
-} & Omit<ComponentProps<typeof StyledOverlay>, "visibility">
+} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility'>
 
 // omit positions props
 
-const Overlay =
-  (
-    {onClickOutside, role= 'dialog', positionSettings, positionDeps, anchorRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
-  ) : ReactElement => {
-    const {position, ...overlayRest} = useOverlay({anchorRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
-    return (
-      <Portal>
-        <StyledOverlay
-          {...overlayRest}
-          {...position}
-          visibility={position ? 'visible' : 'hidden'}
-          aria-modal="true"
-          role={role}
-          {...rest}
-        />
-      </Portal>
-    )
+const Overlay = ({
+  onClickOutside,
+  role = 'dialog',
+  positionSettings,
+  positionDeps,
+  anchorRef,
+  initialFocusRef,
+  returnFocusRef,
+  ignoreClickRefs,
+  onEscape,
+  ...rest
+}: OverlayProps): ReactElement => {
+  const {position, ...overlayRest} = useOverlay({
+    anchorRef,
+    positionSettings,
+    positionDeps,
+    returnFocusRef,
+    onEscape,
+    ignoreClickRefs,
+    onClickOutside,
+    initialFocusRef
+  })
+  return (
+    <Portal>
+      <StyledOverlay
+        {...overlayRest}
+        {...position}
+        visibility={position ? 'visible' : 'hidden'}
+        aria-modal="true"
+        role={role}
+        {...rest}
+      />
+    </Portal>
+  )
 }
 
 Overlay.defaultProps = {

@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
-import { iterateTabbableElements } from "../utils/iterateTabbable"
-
+import React, {useEffect} from 'react'
+import {iterateTabbableElements} from '../utils/iterateTabbable'
 
 export type UseOpenAndCloseFocusProps = {
-  initialFocusRef?: React.RefObject<HTMLElement>,
+  initialFocusRef?: React.RefObject<HTMLElement>
   containerRef: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
 }

@@ -11,8 +11,8 @@ const Component = () => {
     <>
       <button ref={returnFocusRef}>trigger</button>
       <div ref={containerRef}>
-          <button>yes</button>
-          <button ref={noButtonRef}>no</button>
+        <button>yes</button>
+        <button ref={noButtonRef}>no</button>
       </div>
     </>
   )
@@ -24,26 +24,24 @@ const ComponentTwo = () => {
   useOpenAndCloseFocus({containerRef, returnFocusRef: buttonRef})
   return (
     <>
-      <button ref={buttonRef}>
-        button trigger
-      </button>
+      <button ref={buttonRef}>button trigger</button>
       <div ref={containerRef}>
-          <button>yes</button>
-          <button>no</button>
+        <button>yes</button>
+        <button>no</button>
       </div>
     </>
   )
 }
 
 it('should focus element passed into function', async () => {
-  const {getByText} =  render(<Component />)
+  const {getByText} = render(<Component />)
   await waitFor(() => getByText('no'))
   const noButton = getByText('no')
   expect(document.activeElement).toEqual(noButton)
 })
 
 it('should focus first element when nothing is passed', async () => {
-  const {getByText} =  render(<ComponentTwo />)
+  const {getByText} = render(<ComponentTwo />)
   await waitFor(() => getByText('yes'))
   const yesButton = getByText('yes')
   expect(document.activeElement).toEqual(yesButton)

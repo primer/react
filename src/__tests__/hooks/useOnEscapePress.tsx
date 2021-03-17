@@ -6,12 +6,10 @@ it('should call function when user presses escape', () => {
   const functionToCall = jest.fn()
   const Component = () => {
     useOnEscapePress({onEscape: functionToCall})
-    return (
-      <div>content</div>
-    )
+    return <div>content</div>
   }
 
-  const {getByText} = render(<Component/>)
+  const {getByText} = render(<Component />)
   const domNode = getByText('content')
   fireEvent.keyDown(domNode, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
   expect(functionToCall).toHaveBeenCalledTimes(1)

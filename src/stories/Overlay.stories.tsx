@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
 
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, Position, Flex} from '..'
 
@@ -16,7 +16,6 @@ export default {
             <Story />
           </BaseStyles>
         </ThemeProvider>
-
       )
     }
   ]
@@ -36,7 +35,7 @@ const DummyItem = styled.button`
     background: #f0f3f5;
   }
 
-  &:focus{
+  &:focus {
     background: red;
   }
 `
@@ -49,7 +48,7 @@ export const DropdownOverlay = () => {
       <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen &&
+      {isOpen && (
         <Overlay
           anchorRef={buttonRef}
           returnFocusRef={buttonRef}
@@ -67,7 +66,7 @@ export const DropdownOverlay = () => {
             <DummyItem>Delete</DummyItem>
           </Flex>
         </Overlay>
-      }
+      )}
     </>
   )
 }
@@ -83,25 +82,26 @@ export const DialogOverlay = () => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen &&
-          <Overlay
-            positionSettings={{side: 'inside-center', align: 'center'}}
-            anchorRef={anchorRef}
-            initialFocusRef={confirmButtonRef}
-            returnFocusRef={buttonRef}
-            ignoreClickRefs={[buttonRef]}
-            onEscape={closeOverlay}
-            onClickOutside={closeOverlay}
-            width="sm"
-          >
-            <Flex flexDirection="column" p={2}>
-              <Text>Are you sure?</Text>
-              <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
-              <Button onClick={closeOverlay} ref={confirmButtonRef}>Confirm</Button>
-            </Flex>
-          </Overlay>
-      }
+      {isOpen && (
+        <Overlay
+          positionSettings={{side: 'inside-center', align: 'center'}}
+          anchorRef={anchorRef}
+          initialFocusRef={confirmButtonRef}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          onEscape={closeOverlay}
+          onClickOutside={closeOverlay}
+          width="sm"
+        >
+          <Flex flexDirection="column" p={2}>
+            <Text>Are you sure?</Text>
+            <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
+            <Button onClick={closeOverlay} ref={confirmButtonRef}>
+              Confirm
+            </Button>
+          </Flex>
+        </Overlay>
+      )}
     </Position>
   )
 }
-

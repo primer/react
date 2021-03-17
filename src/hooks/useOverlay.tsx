@@ -4,7 +4,7 @@ import {AnchoredPositionHookSettings, useAnchoredPosition} from './useAnchoredPo
 import {useRef} from 'react'
 
 export type UseOverlayProps = {
-  ignoreClickRefs: React.RefObject<HTMLElement> []
+  ignoreClickRefs: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
   onEscape: (e: KeyboardEvent) => void
@@ -19,8 +19,16 @@ export type OverlayReturnProps = {
   position: {top: number; left: number} | undefined
 }
 
-
-export const useOverlay = ({anchorRef, positionSettings = {}, positionDeps, returnFocusRef, initialFocusRef, onEscape, ignoreClickRefs, onClickOutside}: UseOverlayProps): OverlayReturnProps => {
+export const useOverlay = ({
+  anchorRef,
+  positionSettings = {},
+  positionDeps,
+  returnFocusRef,
+  initialFocusRef,
+  onEscape,
+  ignoreClickRefs,
+  onClickOutside
+}: UseOverlayProps): OverlayReturnProps => {
   const overlayRef = useRef<HTMLDivElement>(null)
   positionSettings.anchorElementRef = anchorRef
   positionSettings.floatingElementRef = overlayRef
