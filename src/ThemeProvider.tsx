@@ -70,7 +70,7 @@ function ThemeProvider({children, ...props}: ThemeProviderProps) {
   return (
     <ThemeContext.Provider
       value={{
-        theme,
+        theme: resolvedTheme,
         colorScheme,
         colorMode,
         resolvedColorMode,
