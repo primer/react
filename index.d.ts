@@ -605,11 +605,33 @@ declare module '@primer/components' {
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 
+  type Theme = any
+  type ColorMode = 'day' | 'night'
+  type ColorModeWithAuto = ColorMode | 'auto'
+
   export interface ThemeProviderProps {
-    initialColorScheme?: string
+    theme?: Theme
+    colorMode?: ColorModeWithAuto
+    dayScheme?: string
+    nightScheme?: string
+    children: React.ReactNode
   }
 
   export const ThemeProvider: React.FunctionComponent<ThemeProviderProps>
+
+  export const useTheme: () => {
+    theme?: Theme
+    colorScheme?: string
+    colorMode?: ColorModeWithAuto
+    resolvedColorMode?: ColorMode
+    dayScheme?: string
+    nightScheme?: string
+    setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
+    setDayScheme: React.Dispatch<React.SetStateAction<string>>
+    setNightScheme: React.Dispatch<React.SetStateAction<string>>
+  }
+
+  export const useColorSchemeVar: (values: Record<string, string>, fallback?: string) => string
 }
 declare module '@primer/components/lib/Box' {
   import {Box} from '@primer/components'
