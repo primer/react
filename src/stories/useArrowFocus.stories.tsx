@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
 
 import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme} from '..'
-import {arrowFocus, Direction, KeyBits} from '../behaviors/arrowFocus'
+import {Direction, KeyBits} from '../behaviors/arrowFocus'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
 import {useArrowFocus} from '../hooks/useArrowFocus'
@@ -36,14 +36,49 @@ const MarginButton = styled(Button)`
   margin: ${themeGet('space.1')};
 `
 
-export const ArrowFocus = () => {
+export const BasicArrowFocus = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef: vContainerRef} = useArrowFocus()
-  const {containerRef: hContainerRef} = useArrowFocus({
+  const {containerRef} = useArrowFocus()
+
+  return (
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
+        <Absolute right={5} top={2}>
+          Last key pressed: {lastKey}
+        </Absolute>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>Use Up Arrow, Down Arrow, Home, and End to move focus within this box.</strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Kiwi</MarginButton>
+        <MarginButton>Lemon</MarginButton>
+        <MarginButton>Mango</MarginButton>
+      </Flex>
+    </>
+  )
+}
+
+export const CircularHorizontal = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
+  const [lastKey, setLastKey] = useState('none')
+  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    setLastKey(event.key)
+  }, [])
+
+  const {containerRef} = useArrowFocus({
     circular: true,
     bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd
   })
@@ -58,15 +93,7 @@ export const ArrowFocus = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <BorderBox borderColor="gray.5" ref={vContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
-          <strong>Use Up Arrow, Down Arrow, Home, and End to move focus within this box.</strong>
-          <Flex flexDirection="column" alignItems="flex-start">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-          </Flex>
-        </BorderBox>
-        <BorderBox borderColor="gray.5" ref={hContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
 
           <Flex flexDirection="row" alignItems="flex-start">
@@ -93,6 +120,7 @@ function getSiblingIndex(element: Element) {
 }
 
 export const CustomFocusMovement = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
@@ -185,6 +213,7 @@ export const CustomFocusMovement = () => {
 }
 
 export const FocusInStrategy = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
@@ -256,6 +285,7 @@ export const FocusInStrategy = () => {
 }
 
 export const SpecialSituations = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
@@ -319,6 +349,7 @@ export const SpecialSituations = () => {
 }
 
 export const ChangingSubtree = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
@@ -369,6 +400,7 @@ export const ChangingSubtree = () => {
 }
 
 export const ActiveDescendant = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
