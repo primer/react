@@ -71,7 +71,7 @@ render(<Demo/>)
 | positionSettings | See the [`PositionSettings interface`]() section of the `anchoredPosition` docs | | Optional. Settings used to position the `Overlay`. If none are provided, `Overlay` is positioned on the bottom right of the `anchorRef`. |
 | positionDeps | `React.DependencyList` | | Optional. If defined, the position of the `Overlay` will only be recalulated when one of the dependencies in this array changes. |
 | ignoreClickRefs   | `React.RefObject []` |  | Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice. |
-| inititalFocusRef  | `React.RefObject` |  | Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.  |
+| initialFocusRef  | `React.RefObject` |  | Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.  |
 | anchorRef | `React.RefObject` |  | Required. Element the `Overlay` should be anchored to. |
 | returnFocusRef  | `React.RefObject` |  | Required. Ref for the element to focus when the `Overlay` is closed.  |
 | onClickOutside  | `function` |  | Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.  |
