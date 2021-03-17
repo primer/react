@@ -60,7 +60,7 @@ Primer React requires the following libraries to be installed along with it:
 
 ## ThemeProvider
 
-For Primer React to work correctly, you must add `ThemeProvider` to the root of your application:
+For Primer React to work correctly and accurately apply color schemes, you must add `ThemeProvider` to the root of your application:
 
 ```jsx
 import {ThemeProvider} from '@primer/components'
@@ -74,7 +74,7 @@ function App() {
 }
 ```
 
-See [Theming](/theming) for more details.
+See [Theming](/theming) for more details on advanced configuration, color schemes, and overriding theme values.
 
 ## BaseStyles
 
