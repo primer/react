@@ -31,16 +31,19 @@ describe('Flash', () => {
   it('respects the "variant" prop', () => {
     expect(render(<Flash variant="warning" theme={theme} />)).toHaveStyleRule(
       'background-color',
-      theme.colors.alert?.warn.bg
+      theme.colorSchemes.light.colors.alert?.warn.bg
     )
     expect(render(<Flash variant="danger" theme={theme} />)).toHaveStyleRule(
       'background-color',
-      theme.colors.alert?.error.bg
+      theme.colorSchemes.light.colors.alert?.error.bg
     )
     expect(render(<Flash variant="success" theme={theme} />)).toHaveStyleRule(
       'background-color',
-      theme.colors.alert?.success.bg
+      theme.colorSchemes.light.colors.alert?.success.bg
     )
-    expect(render(<Flash theme={theme} />)).toHaveStyleRule('background-color', theme.colors.alert?.info.bg)
+    expect(render(<Flash theme={theme} />)).toHaveStyleRule(
+      'background-color',
+      theme.colorSchemes.light.colors.alert?.info.bg
+    )
   })
 })
