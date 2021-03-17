@@ -29,12 +29,6 @@ const HelperGlobalStyling = createGlobalStyle`
   *:focus {
     outline: 2px solid ${themeGet('colors.blue.3')} !important;
   }
-  [data-focus-trap='active'] {
-    background-color: ${themeGet('colors.green.2')}
-  }
-  [data-focus-trap='suspended'] {
-    background-color: ${themeGet('colors.yellow.2')}
-  }
 `
 
 const MarginButton = styled(Button)`
@@ -441,7 +435,7 @@ export const ActiveDescendant = () => {
           controllingElement: controllingElementRef.current,
           onActiveDescendantChanged: (current, previous) => {
             if (current) {
-              current.style.outline = '2px solid blue'
+              current.style.outline = `2px solid ${theme.colors["blue"][3]}`
             }
             if (previous) {
               previous.style.outline = ''
