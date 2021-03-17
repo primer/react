@@ -7,13 +7,13 @@ export interface ArrowFocusHookSettings extends Omit<ArrowFocusSettings, 'active
    * Optional ref for the container that holds all elements participating in arrow key focus.
    * If one is not passed, we will create one for you and return it from the hook.
    */
-  containerRef?: React.RefObject<HTMLElement>
+  containerRef?: React.RefObject<HTMLElement | undefined>
 
   /**
    * If using the "active descendant" focus pattern, pass `true` or a ref to the controlling
    * element. If a ref object is not passed, we will create one for you.
    */
-  activeDescendantFocus?: boolean | React.RefObject<HTMLElement>
+  activeDescendantFocus?: boolean | React.RefObject<HTMLElement | undefined>
 }
 
 export function useArrowFocus(

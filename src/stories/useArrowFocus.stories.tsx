@@ -7,7 +7,7 @@ import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme} from '..'
 import {arrowFocus, Direction, KeyBits} from '../behaviors/arrowFocus'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
-import { useArrowFocus } from '../hooks/useArrowFocus'
+import {useArrowFocus} from '../hooks/useArrowFocus'
 
 export default {
   title: 'Hooks/useArrowFocus',
@@ -43,7 +43,10 @@ export const ArrowFocus = () => {
   }, [])
 
   const {containerRef: vContainerRef} = useArrowFocus()
-  const {containerRef: hContainerRef} = useArrowFocus({circular: true, bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd})
+  const {containerRef: hContainerRef} = useArrowFocus({
+    circular: true,
+    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd
+  })
 
   return (
     <>
@@ -90,8 +93,12 @@ function getSiblingIndex(element: Element) {
 }
 
 export const CustomFocusMovement = () => {
-  const containerRef = useRef<HTMLElement>()
   const [lastKey, setLastKey] = useState('none')
+  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    setLastKey(event.key)
+  }, [])
+
+  const containerRef = useRef<HTMLElement>()
 
   const getNextFocusable = useCallback(
     (
@@ -141,20 +148,7 @@ export const CustomFocusMovement = () => {
     [containerRef]
   )
 
-  useEffect(() => {
-    if (containerRef.current) {
-      const controller = arrowFocus(containerRef.current, {
-        getNextFocusable
-      })
-      return () => {
-        controller.abort()
-      }
-    }
-  }, [containerRef, getNextFocusable])
-
-  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
-    setLastKey(event.key)
-  }, [])
+  useArrowFocus({containerRef, getNextFocusable})
 
   return (
     <>
@@ -191,11 +185,22 @@ export const CustomFocusMovement = () => {
 }
 
 export const FocusInStrategy = () => {
-  const firstContainerRef = useRef<HTMLElement>()
-  const prevContainerRef = useRef<HTMLElement>()
-  const customContainerRef = useRef<HTMLElement>()
   const [lastKey, setLastKey] = useState('none')
+  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    setLastKey(event.key)
+  }, [])
 
+  const {containerRef: firstContainerRef} = useArrowFocus({
+    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
+    focusInStrategy: 'first'
+  })
+
+  const {containerRef: prevContainerRef} = useArrowFocus({
+    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
+    focusInStrategy: 'previous'
+  })
+
+  const customContainerRef = useRef<HTMLElement>()
   const customStrategy = React.useCallback(() => {
     if (customContainerRef.current) {
       const buttons = Array.from(customContainerRef.current.querySelectorAll('button'))
@@ -203,31 +208,11 @@ export const FocusInStrategy = () => {
     }
   }, [customContainerRef])
 
-  useEffect(() => {
-    if (firstContainerRef.current && prevContainerRef.current && customContainerRef.current) {
-      const firstController = arrowFocus(firstContainerRef.current, {
-        bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
-        focusInStrategy: 'first'
-      })
-      const prevController = arrowFocus(prevContainerRef.current, {
-        bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
-        focusInStrategy: 'previous'
-      })
-      const customController = arrowFocus(customContainerRef.current, {
-        bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
-        focusInStrategy: customStrategy
-      })
-      return () => {
-        firstController.abort()
-        prevController.abort()
-        customController.abort()
-      }
-    }
-  }, [firstContainerRef, prevContainerRef, customContainerRef, customStrategy])
-
-  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
-    setLastKey(event.key)
-  }, [])
+  useArrowFocus({
+    containerRef: customContainerRef,
+    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
+    focusInStrategy: customStrategy
+  })
 
   return (
     <>
@@ -271,30 +256,15 @@ export const FocusInStrategy = () => {
 }
 
 export const SpecialSituations = () => {
-  const vContainerRef = useRef<HTMLElement>()
-  const hContainerRef = useRef<HTMLElement>()
   const [lastKey, setLastKey] = useState('none')
-
-  useEffect(() => {
-    if (vContainerRef.current && hContainerRef.current) {
-      const vController = arrowFocus(vContainerRef.current, {
-        bindKeys:
-          KeyBits.ArrowVertical | KeyBits.JK | KeyBits.WS | KeyBits.Tab | KeyBits.PageUpDown | KeyBits.HomeAndEnd
-      })
-      const hController = arrowFocus(hContainerRef.current, {
-        circular: true,
-        bindKeys: KeyBits.ArrowHorizontal
-      })
-      return () => {
-        vController.abort()
-        hController.abort()
-      }
-    }
-  }, [vContainerRef, hContainerRef])
-
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
+
+  const {containerRef: vContainerRef} = useArrowFocus({
+    bindKeys: KeyBits.ArrowVertical | KeyBits.JK | KeyBits.WS | KeyBits.Tab | KeyBits.PageUpDown | KeyBits.HomeAndEnd
+  })
+  const {containerRef: hContainerRef} = useArrowFocus({circular: true, bindKeys: KeyBits.ArrowHorizontal})
 
   return (
     <>
@@ -349,25 +319,14 @@ export const SpecialSituations = () => {
 }
 
 export const ChangingSubtree = () => {
-  const containerRef = useRef<HTMLElement>()
-  const [buttonCount, setButtonCount] = useState(3)
   const [lastKey, setLastKey] = useState('none')
-
-  useEffect(() => {
-    if (containerRef.current) {
-      const controller = arrowFocus(containerRef.current, {
-        bindKeys: KeyBits.ArrowVertical
-      })
-      return () => {
-        controller.abort()
-      }
-    }
-  }, [containerRef])
-
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
 
+  const {containerRef} = useArrowFocus({bindKeys: KeyBits.ArrowVertical})
+
+  const [buttonCount, setButtonCount] = useState(3)
   const removeButton = useCallback(() => {
     setButtonCount(buttonCount - 1)
   }, [setButtonCount, buttonCount])
@@ -410,46 +369,41 @@ export const ChangingSubtree = () => {
 }
 
 export const ActiveDescendant = () => {
-  const containerRef = useRef<HTMLElement>()
-  const controllingElementRef = useRef<HTMLElement>()
   const [lastKey, setLastKey] = useState('none')
-
-  useEffect(() => {
-    if (containerRef.current && controllingElementRef.current) {
-      const adController = arrowFocus(containerRef.current, {
-        bindKeys: KeyBits.ArrowVertical,
-        activeDescendantControl: controllingElementRef.current,
-        onActiveDescendantChanged: (current, previous) => {
-          if (current) {
-            current.style.outline = `2px solid ${theme.colors['blue'][3]}`
-          }
-          if (previous) {
-            previous.style.outline = ''
-          }
-        },
-        focusableElementFilter: elem => elem instanceof HTMLButtonElement
-      })
-      const focusController = arrowFocus(containerRef.current, {
-        bindKeys: KeyBits.ArrowVertical,
-
-        // This is simply a quality-of-life improvement: when the container itself is focused, we
-        // want to allow the up-arrow to move focus to the above text box (controlling element)
-        getNextFocusable: (direction, toEnd, from) => {
-          if (direction === 'previous' && !toEnd && from && from === containerRef.current) {
-            return controllingElementRef.current
-          }
-        }
-      })
-      return () => {
-        adController.abort()
-        focusController.abort()
-      }
-    }
-  }, [containerRef])
-
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
+
+  const containerRef = useRef<HTMLElement>()
+  const controllingElementRef = useRef<HTMLElement>()
+
+  // We set up two arrow focus behaviors on the same container!
+  // 1. Handles the active descendant treatment when the <input> element is focused
+  // 2. Handles regular focus treatment when the container itself is focused.
+  useArrowFocus({
+    containerRef,
+    activeDescendantFocus: controllingElementRef,
+    bindKeys: KeyBits.ArrowVertical,
+    onActiveDescendantChanged: (current, previous) => {
+      if (current) {
+        current.style.outline = `2px solid ${theme.colors['blue'][3]}`
+      }
+      if (previous) {
+        previous.style.outline = ''
+      }
+    },
+    focusableElementFilter: elem => elem instanceof HTMLButtonElement
+  })
+
+  useArrowFocus({
+    containerRef,
+    bindKeys: KeyBits.ArrowVertical,
+    getNextFocusable: (direction, toEnd, from) => {
+      if (direction === 'previous' && !toEnd && from && from === containerRef.current) {
+        return controllingElementRef.current
+      }
+    }
+  })
 
   return (
     <>
