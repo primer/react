@@ -3,7 +3,7 @@ import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, Absolute, theme, Position, Flex} from '..'
+import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, Position, Flex} from '..'
 
 export default {
   title: 'Internal components/Overlay',
@@ -12,12 +12,9 @@ export default {
     Story => {
       return (
         <ThemeProvider theme={theme}>
-          <Absolute top={0} right={0} bottom={0} left={0}>
-            <BaseStyles>
-              <Story />
-            </BaseStyles>
-          </Absolute>
-
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
         </ThemeProvider>
 
       )
@@ -78,20 +75,19 @@ export const DropdownOverlay = () => {
 export const DialogOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const noButtonRef = useRef<HTMLButtonElement>(null)
+  const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false)
   return (
-    <>
+    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen &&
-        <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
           <Overlay
             positionSettings={{side: 'inside-center', align: 'center'}}
             anchorRef={anchorRef}
-            initialFocusRef={noButtonRef}
+            initialFocusRef={confirmButtonRef}
             returnFocusRef={buttonRef}
             ignoreClickRefs={[buttonRef]}
             onEscape={closeOverlay}
@@ -101,12 +97,11 @@ export const DialogOverlay = () => {
             <Flex flexDirection="column" p={2}>
               <Text>Are you sure?</Text>
               <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
-              <Button onClick={closeOverlay} ref={noButtonRef}>Confirm</Button>
+              <Button onClick={closeOverlay} ref={confirmButtonRef}>Confirm</Button>
             </Flex>
           </Overlay>
-        </Position>
       }
-    </>
+    </Position>
   )
 }
 
