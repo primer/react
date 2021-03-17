@@ -23,25 +23,32 @@ const ThemeContext = React.createContext<{
   theme?: Theme
   colorMode?: ColorModeWithAuto
   dayScheme?: string
+  nightScheme?: string
   setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
   setDayScheme: React.Dispatch<React.SetStateAction<string>>
+  setNightScheme: React.Dispatch<React.SetStateAction<string>>
 }>({
   setColorMode: () => {},
-  setDayScheme: () => {}
+  setDayScheme: () => {},
+  setNightScheme: () => {}
 })
 
-function ThemeProvider({nightScheme, children, ...props}: ThemeProviderProps) {
+function ThemeProvider({children, ...props}: ThemeProviderProps) {
   // Get fallback values from parent ThemeProvider (if exists)
-  const {theme: fallbackTheme, colorMode: fallbackColorMode, dayScheme: fallbackDayScheme} = useTheme()
+  const {
+    theme: fallbackTheme,
+    colorMode: fallbackColorMode,
+    dayScheme: fallbackDayScheme,
+    nightScheme: fallbackNightScheme
+  } = useTheme()
 
+  // Initialize state
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
   const [colorMode, setColorMode] = React.useState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   const [dayScheme, setDayScheme] = React.useState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
-
+  const [nightScheme, setNightScheme] = React.useState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
-
-  const colorScheme = getColorScheme(colorMode, dayScheme, nightScheme ?? defaultNightScheme, systemColorMode)
-
+  const colorScheme = getColorScheme(colorMode, dayScheme, nightScheme, systemColorMode)
   const resolvedTheme = applyColorScheme(theme, colorScheme)
 
   // Update state if props change
@@ -53,14 +60,20 @@ function ThemeProvider({nightScheme, children, ...props}: ThemeProviderProps) {
     setDayScheme(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   }, [props.dayScheme])
 
+  React.useEffect(() => {
+    setNightScheme(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
+  }, [props.nightScheme])
+
   return (
     <ThemeContext.Provider
       value={{
         theme,
         colorMode,
         dayScheme,
+        nightScheme,
         setColorMode,
-        setDayScheme
+        setDayScheme,
+        setNightScheme
       }}
     >
       <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>

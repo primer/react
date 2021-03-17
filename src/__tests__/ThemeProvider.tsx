@@ -202,7 +202,31 @@ it('updates when dayScheme prop changes', async () => {
   screen.getByRole('button').click()
 
   await waitFor(() =>
-    // clicking the toggle button enables night mode (dark scheme)
+    // clicking the toggle sets the day scheme to dark_dimmed
+    expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray')
+  )
+})
+
+it('updates when nightScheme prop changes', async () => {
+  function App() {
+    const [nightScheme, setNightScheme] = React.useState('dark')
+    return (
+      <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme={nightScheme}>
+        <Text color="text">{nightScheme}</Text>
+        <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
+      </ThemeProvider>
+    )
+  }
+
+  render(<App />)
+
+  // starts in night mode (dark scheme)
+  expect(screen.getByText('dark')).toHaveStyleRule('color', 'white')
+
+  screen.getByRole('button').click()
+
+  await waitFor(() =>
+    // clicking the toggle button sets the night scheme to dark_dimmed
     expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray')
   )
 })
@@ -223,6 +247,18 @@ it('inherits dayScheme from parent', () => {
   render(
     <ThemeProvider theme={exampleTheme} dayScheme="dark_dimmed">
       <ThemeProvider colorMode="day">
+        <Text color="text">Hello</Text>
+      </ThemeProvider>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+})
+
+it('inherits nightScheme from parent', () => {
+  render(
+    <ThemeProvider theme={exampleTheme} nightScheme="dark_dimmed">
+      <ThemeProvider colorMode="night">
         <Text color="text">Hello</Text>
       </ThemeProvider>
     </ThemeProvider>
@@ -274,7 +310,31 @@ describe('setDayScheme', () => {
 
     screen.getByRole('button').click()
 
-    // clicking the toggle button enables night mode (dark scheme)
+    // clicking the toggle button sets day scheme to dark
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  })
+})
+
+describe('setNightScheme', () => {
+  it('changes the night scheme', () => {
+    function ToggleNightScheme() {
+      const {nightScheme, setNightScheme} = useTheme()
+      return <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
+    }
+
+    render(
+      <ThemeProvider theme={exampleTheme} colorMode="night">
+        <Text color="text">Hello</Text>
+        <ToggleNightScheme />
+      </ThemeProvider>
+    )
+
+    // starts in night mode (dark scheme)
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+
+    screen.getByRole('button').click()
+
+    // clicking the toggle button sets night scheme to dark_dimmed
+    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
   })
 })
