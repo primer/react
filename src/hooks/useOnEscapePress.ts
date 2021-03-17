@@ -8,7 +8,7 @@ export type UseOnEscapePressProps = {
 export const useOnEscapePress = ({onEscape}: UseOnEscapePressProps): void => {
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !e.defaultPrevented) {
         onEscape(e)
       }
     }, [onEscape]
