@@ -126,7 +126,7 @@ export const CustomFocusMovement = () => {
     setLastKey(event.key)
   }, [])
 
-  const containerRef = useRef<HTMLElement>()
+  const containerRef = useRef<HTMLElement>(null)
 
   const getNextFocusable = useCallback(
     (
@@ -229,7 +229,7 @@ export const FocusInStrategy = () => {
     focusInStrategy: 'previous'
   })
 
-  const customContainerRef = useRef<HTMLElement>()
+  const customContainerRef = useRef<HTMLElement>(null)
   const customStrategy = React.useCallback(() => {
     if (customContainerRef.current) {
       const buttons = Array.from(customContainerRef.current.querySelectorAll('button'))
@@ -406,8 +406,8 @@ export const ActiveDescendant = () => {
     setLastKey(event.key)
   }, [])
 
-  const containerRef = useRef<HTMLElement>()
-  const controllingElementRef = useRef<HTMLElement>()
+  const containerRef = useRef<HTMLElement>(null)
+  const controllingElementRef = useRef<HTMLElement>(null)
 
   // We set up two arrow focus behaviors on the same container!
   // 1. Handles the active descendant treatment when the <input> element is focused
@@ -432,7 +432,7 @@ export const ActiveDescendant = () => {
     bindKeys: KeyBits.ArrowVertical,
     getNextFocusable: (direction, toEnd, from) => {
       if (direction === 'previous' && !toEnd && from && from === containerRef.current) {
-        return controllingElementRef.current
+        return controllingElementRef.current ?? undefined
       }
     }
   })
