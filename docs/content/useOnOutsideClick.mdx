@@ -36,5 +36,5 @@ You can also pass an array of `ignoredRefs` to prevent calling the callback func
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | onOutsideClick | `function` | | Function to call when user clicks outside of the container. Usually this manages the state of the visibilitiy of the container. |
-| ignoredRefs| `React.RefObject []` | | Elements outside of the container to ignore clicks on. |
-| containerRef | `React.RefObject` | | Required. A ref for the containing element. |
+| ignoredRefs| `React.RefObject<HTMLElement> []` | | Elements outside of the container to ignore clicks on. |
+| containerRef | `React.RefObject<HTMLElement>` | | Required. A ref for the containing element. |
