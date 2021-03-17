@@ -3,7 +3,7 @@ import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import {ThemeProvider} from 'styled-components'
+import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
