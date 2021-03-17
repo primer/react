@@ -72,7 +72,7 @@ render(<Demo/>)
 
 | Name | Type   | Default | Description                         |
 | :--- | :----- | :-----: | :---------------------------------- |
-| positionSettings | See the [`PositionSettings interface`]() section of the `anchoredPosition` docs | `{side: 'outside-bottom', align: 'start', anchorOffset: 4, alignmentOffset: 4, allowOutOfBounds: false }` | Optional. Settings used to position the `Overlay`. If none are provided, `Overlay` is positioned on the bottom right of the `anchorRef`. |
+| positionSettings | See the [`PositionSettings interface`]() section of the `anchoredPosition` docs | `{side: 'outside-bottom', align: 'start', anchorOffset: 4, alignmentOffset: 4, allowOutOfBounds: false }` | Optional. Settings used to position the `Overlay`. If none are provided, `Overlay` is positioned on the bottom left of the `anchorRef`. |
 | positionDeps | `React.DependencyList` | `undefined` | Optional. If defined, the position of the `Overlay` will only be recalulated when one of the dependencies in this array changes. |
 | ignoreClickRefs   | `React.RefObject<HTMLElement> []` | `undefined` | Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice. |
 | initialFocusRef  | `React.RefObject<HTMLElement>` | `undefined` | Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.  |
