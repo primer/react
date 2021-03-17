@@ -23,15 +23,16 @@ const ThemeContext = React.createContext<{
   theme?: Theme
   colorScheme?: string
   colorMode?: ColorModeWithAuto
+  resolvedColorMode?: ColorMode
   dayScheme?: string
   nightScheme?: string
   setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
   setDayScheme: React.Dispatch<React.SetStateAction<string>>
   setNightScheme: React.Dispatch<React.SetStateAction<string>>
 }>({
-  setColorMode: () => {},
-  setDayScheme: () => {},
-  setNightScheme: () => {}
+  setColorMode: () => null,
+  setDayScheme: () => null,
+  setNightScheme: () => null
 })
 
 function ThemeProvider({children, ...props}: ThemeProviderProps) {
@@ -49,21 +50,22 @@ function ThemeProvider({children, ...props}: ThemeProviderProps) {
   const [dayScheme, setDayScheme] = React.useState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = React.useState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
-  const colorScheme = getColorScheme(colorMode, dayScheme, nightScheme, systemColorMode)
+  const resolvedColorMode = resolveColorMode(colorMode, systemColorMode)
+  const colorScheme = getColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const resolvedTheme = applyColorScheme(theme, colorScheme)
 
   // Update state if props change
   React.useEffect(() => {
     setColorMode(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
-  }, [props.colorMode])
+  }, [props.colorMode, fallbackColorMode])
 
   React.useEffect(() => {
     setDayScheme(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
-  }, [props.dayScheme])
+  }, [props.dayScheme, fallbackDayScheme])
 
   React.useEffect(() => {
     setNightScheme(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
-  }, [props.nightScheme])
+  }, [props.nightScheme, fallbackNightScheme])
 
   return (
     <ThemeContext.Provider
@@ -71,6 +73,7 @@ function ThemeProvider({children, ...props}: ThemeProviderProps) {
         theme,
         colorScheme,
         colorMode,
+        resolvedColorMode,
         dayScheme,
         nightScheme,
         setColorMode,
@@ -123,15 +126,17 @@ function getSystemColorMode(): ColorMode {
   return 'day'
 }
 
-function getColorScheme(
-  colorMode: ColorModeWithAuto,
-  dayScheme: string,
-  nightScheme: string,
-  systemColorMode: ColorMode
-) {
+function resolveColorMode(colorMode: ColorModeWithAuto, systemColorMode: ColorMode) {
   switch (colorMode) {
     case 'auto':
-      return systemColorMode === 'day' ? dayScheme : nightScheme
+      return systemColorMode
+    default:
+      return colorMode
+  }
+}
+
+function getColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme: string) {
+  switch (colorMode) {
     case 'day':
       return dayScheme
     case 'night':
@@ -140,7 +145,12 @@ function getColorScheme(
 }
 
 function applyColorScheme(theme: Theme, colorScheme: string) {
-  if (!theme.colorSchemes || !theme.colorSchemes[colorScheme]) {
+  if (!theme.colorSchemes) {
+    return theme
+  }
+
+  if (!theme.colorSchemes[colorScheme]) {
+    console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
     return theme
   }
 

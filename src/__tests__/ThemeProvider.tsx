@@ -231,40 +231,70 @@ it('updates when nightScheme prop changes', async () => {
   )
 })
 
-it('inherits colorMode from parent', () => {
-  render(
-    <ThemeProvider theme={exampleTheme} colorMode="night">
-      <ThemeProvider>
-        <Text color="text">Hello</Text>
+it('inherits colorMode from parent', async () => {
+  function App() {
+    const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
+    return (
+      <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
+        <button onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+        <ThemeProvider>
+          <Text color="text">{colorMode}</Text>
+        </ThemeProvider>
       </ThemeProvider>
-    </ThemeProvider>
-  )
+    )
+  }
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  render(<App />)
+
+  expect(screen.getByText('day')).toHaveStyleRule('color', 'black')
+
+  screen.getByRole('button').click()
+
+  await waitFor(() => expect(screen.getByText('night')).toHaveStyleRule('color', 'white'))
 })
 
-it('inherits dayScheme from parent', () => {
-  render(
-    <ThemeProvider theme={exampleTheme} dayScheme="dark_dimmed">
-      <ThemeProvider colorMode="day">
-        <Text color="text">Hello</Text>
+it('inherits dayScheme from parent', async () => {
+  function App() {
+    const [dayScheme, setDayScheme] = React.useState('light')
+    return (
+      <ThemeProvider theme={exampleTheme} colorMode="night" dayScheme={dayScheme}>
+        <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>Toggle</button>
+        <ThemeProvider colorMode="day">
+          <Text color="text">{dayScheme}</Text>
+        </ThemeProvider>
       </ThemeProvider>
-    </ThemeProvider>
-  )
+    )
+  }
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+  render(<App />)
+
+  expect(screen.getByText('light')).toHaveStyleRule('color', 'black')
+
+  screen.getByRole('button').click()
+
+  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'))
 })
 
-it('inherits nightScheme from parent', () => {
-  render(
-    <ThemeProvider theme={exampleTheme} nightScheme="dark_dimmed">
-      <ThemeProvider colorMode="night">
-        <Text color="text">Hello</Text>
+it('inherits nightScheme from parent', async () => {
+  function App() {
+    const [nightScheme, setNightScheme] = React.useState('dark')
+    return (
+      <ThemeProvider theme={exampleTheme} colorMode="day" nightScheme={nightScheme}>
+        <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
+        <ThemeProvider colorMode="night">
+          <Text color="text">{nightScheme}</Text>
+        </ThemeProvider>
       </ThemeProvider>
-    </ThemeProvider>
-  )
+    )
+  }
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+  render(<App />)
+
+  expect(screen.getByText('dark')).toHaveStyleRule('color', 'white')
+
+  screen.getByRole('button').click()
+
+  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'))
 })
 
 describe('setColorMode', () => {
