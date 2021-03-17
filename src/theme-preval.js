@@ -371,27 +371,29 @@ const theme = {
   // General
   borderWidths,
   breakpoints,
-  colors: {
-    ...mergedColors,
-    schemes: {
-      dark: omitScale(darkColors),
-      ['dark_dimmed']: omitScale(darkDimmedColors)
-    }
-  },
+  colors: mergedColors,
   fonts,
   fontSizes,
   fontWeights,
   lineHeights,
   radii,
-  shadows: {
-    ...mergedShadows,
-    schemes: {
-      dark: omitScale(darkShadows),
-      ['dark_dimmed']: omitScale(darkDimmedShadows)
-    }
-  },
+  shadows: mergedShadows,
   sizes,
   space,
+  colorSchemes: {
+    light: {
+      colors: mergedColors,
+      shadows: mergedShadows
+    },
+    dark: {
+      colors: omitScale(darkColors),
+      shadows: omitScale(darkShadows)
+    },
+    ['dark_dimmed']: {
+      colors: omitScale(darkDimmedColors),
+      shadows: omitScale(darkDimmedShadows)
+    }
+  },
 
   // Components
   buttons,
