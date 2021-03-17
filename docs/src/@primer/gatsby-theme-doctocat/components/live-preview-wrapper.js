@@ -5,14 +5,14 @@ import React from 'react'
 // We'll replace this component when @primer/components has a first-class
 // API for theme switching.
 function ThemeSwitcher({children}) {
-  const [theme, setTheme] = React.useState('dark')
+  const [colorMode, setColorMode] = React.useState('day')
 
   React.useEffect(() => {
     function handleKeyDown(event) {
       // console.log('hi')
       // Use `ctrl + cmd + t` to toggle between light and dark mode
       if (event.key === 't' && event.ctrlKey && event.metaKey) {
-        setTheme(theme === 'light' ? 'dark' : 'light')
+        setColorMode(colorMode === 'day' ? 'night' : 'day')
       }
     }
     document.addEventListener('keydown', handleKeyDown)
@@ -20,9 +20,9 @@ function ThemeSwitcher({children}) {
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [theme])
+  }, [colorMode])
 
-  return <ThemeProvider initialColorScheme={theme}>{children}</ThemeProvider>
+  return <ThemeProvider colorMode={colorMode}>{children}</ThemeProvider>
 }
 
 // Users can shadow this file to wrap live previews.
