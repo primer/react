@@ -141,7 +141,7 @@ const theme = {
 }
 ```
 
-The color scheme defined at the root of the `colors` and `shadows` objects will be accessible as `light`. The above example has three color schemes: `light`, `dark`, and `dark_dimmed`.
+The color scheme defined at the root of the `colors` and `shadows` objects can be accessed as `light`. The above example has three color schemes: `light`, `dark`, and `dark_dimmed`.
 
 ### Setting the initial color scheme
 
