@@ -371,13 +371,11 @@ const theme = {
   // General
   borderWidths,
   breakpoints,
-  colors: mergedColors,
   fonts,
   fontSizes,
   fontWeights,
   lineHeights,
   radii,
-  shadows: mergedShadows,
   sizes,
   space,
   colorSchemes: {
