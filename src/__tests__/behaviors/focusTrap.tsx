@@ -3,6 +3,22 @@ import React from 'react'
 import {fireEvent, render} from '@testing-library/react'
 import {focusTrap} from '../../behaviors/focusTrap'
 
+// Since we use strict `isTabbable` checks within focus trap, we need to mock these
+// properties that Jest does not populate.
+beforeAll(() => {
+  Object.defineProperties(HTMLElement.prototype, {
+    offsetHeight: {
+      get: () => 42
+    },
+    offsetWidth: {
+      get: () => 42
+    },
+    getClientRects: {
+      get: () => () => [42]
+    }
+  })
+})
+
 it('Should initially focus the first focusable element when activated', () => {
   const {container} = render(
     <div>
@@ -117,7 +133,7 @@ it('Should should release the trap when the signal is aborted', async () => {
   )
 
   const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
-  const durianButton = container.querySelector<HTMLElement>("#durian")!
+  const durianButton = container.querySelector<HTMLElement>('#durian')!
   const firstButton = trapContainer.querySelector('button')!
 
   const controller = focusTrap(trapContainer)
