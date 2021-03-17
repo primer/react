@@ -31,7 +31,7 @@ const StyledOverlay  = styled.div<StyledOverlayProps>`
   box-shadow: ${get('overlay.boxShadow')};
   position: absolute;
   min-width: 192px;
-  max-width: 480px;
+  max-width: 640px;
   height: ${props => heightMap[props.height || 'auto']};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: ${get('overlay.borderRadius')};
@@ -63,9 +63,11 @@ export type OverlayProps = {
   positionDeps?: React.DependencyList
 } & Omit<ComponentProps<typeof StyledOverlay>, "visibility">
 
+// omit positions props
+
 const Overlay =
   (
-    {onClickOutside, positionSettings, positionDeps, anchorRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
+    {onClickOutside, role= 'dialog', positionSettings, positionDeps, anchorRef, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}: OverlayProps
   ) : ReactElement => {
     const {position, ...overlayRest} = useOverlay({anchorRef, positionSettings, positionDeps, returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
     return (
@@ -73,10 +75,10 @@ const Overlay =
         <StyledOverlay
           {...overlayRest}
           {...position}
-          {...rest}
           visibility={position ? 'visible' : 'hidden'}
           aria-modal="true"
-          role={rest.role ? rest.role : 'dialog'}
+          role={role}
+          {...rest}
         />
       </Portal>
     )
