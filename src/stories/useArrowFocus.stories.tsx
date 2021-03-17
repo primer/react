@@ -7,6 +7,7 @@ import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme} from '..'
 import {arrowFocus, Direction, KeyBits} from '../behaviors/arrowFocus'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
+import { useArrowFocus } from '../hooks/useArrowFocus'
 
 export default {
   title: 'Hooks/useArrowFocus',
@@ -36,27 +37,13 @@ const MarginButton = styled(Button)`
 `
 
 export const ArrowFocus = () => {
-  const vContainerRef = useRef<HTMLElement>()
-  const hContainerRef = useRef<HTMLElement>()
   const [lastKey, setLastKey] = useState('none')
-
-  useEffect(() => {
-    if (vContainerRef.current && hContainerRef.current) {
-      const vController = arrowFocus(vContainerRef.current)
-      const hController = arrowFocus(hContainerRef.current, {
-        circular: true,
-        bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd
-      })
-      return () => {
-        vController.abort()
-        hController.abort()
-      }
-    }
-  }, [vContainerRef, hContainerRef])
-
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
+
+  const {containerRef: vContainerRef} = useArrowFocus()
+  const {containerRef: hContainerRef} = useArrowFocus({circular: true, bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd})
 
   return (
     <>
@@ -431,15 +418,13 @@ export const ActiveDescendant = () => {
     if (containerRef.current && controllingElementRef.current) {
       const adController = arrowFocus(containerRef.current, {
         bindKeys: KeyBits.ArrowVertical,
-        activeDescendantOptions: {
-          controllingElement: controllingElementRef.current,
-          onActiveDescendantChanged: (current, previous) => {
-            if (current) {
-              current.style.outline = `2px solid ${theme.colors["blue"][3]}`
-            }
-            if (previous) {
-              previous.style.outline = ''
-            }
+        activeDescendantControl: controllingElementRef.current,
+        onActiveDescendantChanged: (current, previous) => {
+          if (current) {
+            current.style.outline = `2px solid ${theme.colors['blue'][3]}`
+          }
+          if (previous) {
+            previous.style.outline = ''
           }
         },
         focusableElementFilter: elem => elem instanceof HTMLButtonElement

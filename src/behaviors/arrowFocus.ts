@@ -108,7 +108,7 @@ const KEY_TO_DIRECTION = {
 /**
  * Options that control the behavior of the arrow focus behavior.
  */
-export interface ArrowFocusOptions {
+export interface ArrowFocusSettings {
   /**
    * If true, when the last element in the container is focused, focusing the _next_ item
    * should cause the first element in the container to be focused. Likewise, if the first
@@ -175,32 +175,29 @@ export interface ArrowFocusOptions {
   abortSignal?: AbortSignal
 
   /**
-   * If activeDescendantOptions.controllingElement is supplied, do not move focus or alter
-   * `tabindex` on any element. Instead, manage `aria-activedescendant`, `aria-selected`,
-   * and `aria-controls` according to the ARIA best practices guidelines.
+   * If `activeDescendantControl` is supplied, do not move focus or alter `tabindex` on
+   * any element. Instead, manage `aria-activedescendant` according to the ARIA best
+   * practices guidelines.
    * @see https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant
    *
-   * The given `controllingElement` will be given an `aria-controls` attribute that
+   * The given `activeDescendantControl` will be given an `aria-controls` attribute that
    * references the ID of the `container`. Additionally, it will be given an
    * `aria-activedescendant` attribute that references the ID of the currently-active
    * descendant.
+   *
+   * This element will retain DOM focus as arrow keys are pressed.
    */
-  activeDescendantOptions?: {
-    /**
-     * The element that will retain focus as other elements become active.
-     */
-    controllingElement: HTMLElement
+  activeDescendantControl?: HTMLElement
 
-    /**
-     * Called each time the active descendant changes. Note that either of the parameters
-     * may be undefined, e.g. when an element in the container first becomes active, or
-     * when the controlling element becomes unfocused.
-     */
-    onActiveDescendantChanged?: (
-      newActiveDescendant: HTMLElement | undefined,
-      previousActiveDescendant: HTMLElement | undefined
-    ) => void
-  }
+  /**
+   * Called each time the active descendant changes. Note that either of the parameters
+   * may be undefined, e.g. when an element in the container first becomes active, or
+   * when the controlling element becomes unfocused.
+   */
+  onActiveDescendantChanged?: (
+    newActiveDescendant: HTMLElement | undefined,
+    previousActiveDescendant: HTMLElement | undefined
+  ) => void
 
   /**
    * This option allows customization of the behavior that determines which of the
@@ -316,15 +313,21 @@ function subscribeToActiveElementChanges(callback: (activeElement: HTMLElement) 
   subscriptions.push(callback)
 }
 
-export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions): AbortController {
+/**
+ * Sets up the arrow key focus behavior for all focusable elements in the given `container`.
+ * @param container 
+ * @param settings 
+ * @returns 
+ */
+export function arrowFocus(container: HTMLElement, settings?: ArrowFocusSettings): AbortController {
   const tabbableElements: HTMLElement[] = []
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
   const bindKeys =
-    options?.bindKeys ?? (options?.getNextFocusable ? KeyBits.ArrowAll : KeyBits.ArrowVertical) | KeyBits.HomeAndEnd
-  const circular = options?.circular ?? false
-  const focusInStrategy = options?.focusInStrategy ?? 'previous'
-  const activeDescendantControl = options?.activeDescendantOptions?.controllingElement
-  const activeDescendantCallback = options?.activeDescendantOptions?.onActiveDescendantChanged
+    settings?.bindKeys ?? (settings?.getNextFocusable ? KeyBits.ArrowAll : KeyBits.ArrowVertical) | KeyBits.HomeAndEnd
+  const circular = settings?.circular ?? false
+  const focusInStrategy = settings?.focusInStrategy ?? 'previous'
+  const activeDescendantControl = settings?.activeDescendantControl
+  const activeDescendantCallback = settings?.onActiveDescendantChanged
 
   // We are going to keep track of all tabbable elements we've encountered. This will be
   // necessary if one of these elements is removed from the container and subsequently
@@ -357,13 +360,13 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
     activeDescendantSuspended = true
     activeDescendantCallback?.(undefined, currentFocusedElement)
     currentFocusedElement = undefined
-    if (focusInStrategy === "first") {
+    if (focusInStrategy === 'first') {
       currentFocusedIndex = 0
     }
   }
 
   function beginFocusManagement(...elements: HTMLElement[]) {
-    const filteredElements = elements.filter(e => options?.focusableElementFilter?.(e) ?? true)
+    const filteredElements = elements.filter(e => settings?.focusableElementFilter?.(e) ?? true)
     if (filteredElements.length === 0) {
       return
     }
@@ -406,7 +409,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   // any changes that result from others so that the "previous" active element
   // stays consistent.
   subscribeToActiveElementChanges((activeElement: HTMLElement) => {
-    if (focusInStrategy === "previous") {
+    if (focusInStrategy === 'previous') {
       const tabbableElementIndex = tabbableElements.indexOf(activeElement)
       if (tabbableElementIndex >= 0) {
         const nextFocusedElement = tabbableElements[tabbableElementIndex]
@@ -443,7 +446,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
   })
 
   const controller = new AbortController()
-  const signal = options?.abortSignal ?? controller.signal
+  const signal = settings?.abortSignal ?? controller.signal
 
   // When using activedescendant focusing, the first focus-in is caused by our listeners
   // meaning we have to approach zero. This is safe since we clamp the value before using it.
@@ -503,7 +506,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
                 const requestedFocusElementIndex = elementToFocus ? tabbableElements.indexOf(elementToFocus) : -1
                 if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
                   currentFocusedIndex = requestedFocusElementIndex
-  
+
                   // Since we are calling focus() this handler will run again synchronously. Therefore,
                   // we don't want to let this invocation finish since it will clobber the value of
                   // currentFocusedElement.
@@ -560,8 +563,8 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
             nextElementToFocus = tabbableElements[currentFocusedIndex]
           } else {
             // If there is a custom function that retrieves the next focusable element, try calling that first.
-            if (options?.getNextFocusable) {
-              nextElementToFocus = options.getNextFocusable(
+            if (settings?.getNextFocusable) {
+              nextElementToFocus = settings.getNextFocusable(
                 direction,
                 toEnd,
                 document.activeElement ?? undefined,
@@ -621,7 +624,7 @@ export function arrowFocus(container: HTMLElement, options?: ArrowFocusOptions):
         }
       }
 
-      if (event.key === "Escape" && !activeDescendantSuspended && activeDescendantControl) {
+      if (event.key === 'Escape' && !activeDescendantSuspended && activeDescendantControl) {
         suspendActiveDescendant()
       }
     },
