@@ -10,13 +10,11 @@ import {
   GearIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import type {SystemStyleObject} from '@styled-system/css'
 import React from 'react'
-import {ThemeProvider} from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
 import {theme} from '..'
 import {ActionList as _ActionList} from '../ActionList'
-import {Header} from '../ActionList/private/Header'
-import {StyledDiv} from '../ActionList/private/StyledDiv'
+import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
 
 const ActionList = Object.assign(_ActionList, {
@@ -43,14 +41,11 @@ const meta: Meta = {
 }
 export default meta
 
-const ersatzOverlayStyles: SystemStyleObject = {
-  borderRadius: '12px',
-  boxShadow: '0 1px 3px rgba(0,0,0,.12),0 8px 24px rgba(149,157,165,.2)',
-  padding: '8px'
-}
-function ErsatzOverlay(props: React.ComponentPropsWithoutRef<'div'>): JSX.Element {
-  return <StyledDiv sx={ersatzOverlayStyles} {...props} />
-}
+const ErsatzOverlay = styled.div`
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(149, 157, 165, 0.2);
+  padding: 8px;
+`
 
 export function ActionsStory(): JSX.Element {
   return (

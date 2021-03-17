@@ -1,8 +1,6 @@
 import type {IconProps} from '@primer/octicons-react'
-import type {SystemStyleObject} from '@styled-system/css'
 import React from 'react'
-import {StyledDiv} from './private/StyledDiv'
-import {StyledSpan} from './private/StyledSpan'
+import styled from 'styled-components'
 import {
   borderRadius2,
   s6,
@@ -30,55 +28,50 @@ interface ItemPropsWithRenderItem extends Partial<ItemPropsBase> {
 }
 export type ItemProps = ItemPropsBase | ItemPropsWithRenderItem
 
-function baseStyles({variant}: {variant: ItemProps['variant']}): SystemStyleObject {
-  return {
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'start',
-    borderRadius: borderRadius2,
-    fontWeight: 'normal',
-    color: variant === 'danger' ? textDanger : 'inherit',
-    textDecoration: 'none',
-    border: 'none',
-    background: 'none',
-    textAlign: 'start',
-    margin: 0,
-    padding: `${s6}px ${s8}px`,
+const StyledItem = styled.div<{variant: ItemProps['variant']}>`
+    position: relative;
+    display: flex;
+    align-items: start;
+    border-radius: ${borderRadius2};
+    font-weight: normal;
+    color: ${({variant}) => (variant === 'danger' ? textDanger : 'inherit')};
+    text-decoration: none;
+    border: 0;
+    background: none;
+    text-align: start;
+    margin: 0;
+    padding: ${s6}px ${s8}px;
 
-    '@media (hover: hover) and (pointer: fine)': {
-      ':hover': {
-        background: variant === 'danger' ? actionListItemDangerHoverBg : actionListItemHoverBg,
-        cursor: 'pointer'
+    @media (hover: hover) and (pointer: fine) {
+      :hover {
+        background: ${props => (props.variant === 'danger' ? actionListItemDangerHoverBg : actionListItemHoverBg)};
+        cursor: pointer;
       }
     }
   }
-}
+`
 
-function textContainerStyles({
-  descriptionVariant
-}: {
-  descriptionVariant: ItemProps['descriptionVariant']
-}): SystemStyleObject {
-  return {flexDirection: descriptionVariant === 'inline' ? 'row' : 'column'}
-}
+const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
+  flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
+`
 
-const leadingVisualStyles: SystemStyleObject = {
-  width: `${s16}px`,
-  height: `${s20}px`,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  marginRight: `${s8}px`,
+const LeadingVisualContainer = styled.span`
+  width: ${s16}px;
+  height: ${s20}px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: ${s8}px;
 
-  svg: {
-    fill: textSecondary,
-    fontSize: textSmall
+  svg {
+    fill: ${textSecondary};
+    font-size: ${textSmall};
   }
-}
+`
 
-const descriptionStyles: SystemStyleObject = {
-  color: textSecondary
-}
+const DescriptionContainer = styled.div`
+  color: ${textSecondary};
+`
 
 export function Item({
   text,
@@ -90,16 +83,16 @@ export function Item({
   ...props
 }: ItemProps): JSX.Element {
   return (
-    <StyledDiv data-component="ActionList.Item" sx={baseStyles({variant})} {...props}>
+    <StyledItem data-component="ActionList.Item" variant={variant} {...props}>
       {LeadingVisual && (
-        <StyledSpan sx={leadingVisualStyles}>
+        <LeadingVisualContainer>
           <LeadingVisual />
-        </StyledSpan>
+        </LeadingVisualContainer>
       )}
-      <StyledDiv sx={textContainerStyles({descriptionVariant})}>
+      <StyledTextContainer descriptionVariant={descriptionVariant}>
         <div>{text}</div>
-        {description && <StyledDiv sx={descriptionStyles}>{description}</StyledDiv>}
-      </StyledDiv>
-    </StyledDiv>
+        {description && <DescriptionContainer>{description}</DescriptionContainer>}
+      </StyledTextContainer>
+    </StyledItem>
   )
 }

@@ -1,10 +1,9 @@
-import type {SystemStyleObject} from '@styled-system/css'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
 import React from 'react'
-import {StyledDiv} from './private/StyledDiv'
 import {Divider} from './Divider'
-import {Header, HeaderProps} from './private/Header'
+import {Header, HeaderProps} from './Header'
+import styled from 'styled-components'
 
 type Flatten<T extends unknown> = T extends (infer U)[] ? U : never
 
@@ -26,9 +25,9 @@ function isGroupedListProps(props: ListProps): props is GroupedListProps {
 
 export type ListProps = UngroupedListProps | GroupedListProps
 
-const actionListStyles: SystemStyleObject = {
-  fontSize: '14px'
-}
+const StyledList = styled.div`
+  font-size: 14px;
+`
 
 export function List({renderItem = Item, ...props}: ListProps): JSX.Element {
   const toJSX = (itemProps: ItemProps) =>
@@ -54,7 +53,7 @@ export function List({renderItem = Item, ...props}: ListProps): JSX.Element {
   })()
 
   return (
-    <StyledDiv data-component="ActionList" sx={actionListStyles} {...props}>
+    <StyledList data-component="ActionList" {...props}>
       {groups?.map(({header, items}, index) => (
         <>
           <Group key={index}>
@@ -64,6 +63,6 @@ export function List({renderItem = Item, ...props}: ListProps): JSX.Element {
           {index + 1 !== groups.length && <Divider />}
         </>
       ))}
-    </StyledDiv>
+    </StyledList>
   )
 }
