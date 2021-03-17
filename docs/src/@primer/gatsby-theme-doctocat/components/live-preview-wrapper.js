@@ -9,7 +9,6 @@ function ThemeSwitcher({children}) {
 
   React.useEffect(() => {
     function handleKeyDown(event) {
-      // console.log('hi')
       // Use `ctrl + cmd + t` to toggle between light and dark mode
       if (event.key === 't' && event.ctrlKey && event.metaKey) {
         setColorMode(colorMode === 'day' ? 'night' : 'day')
