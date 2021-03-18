@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react'
 import {Overlay, Position, Flex, Text, ButtonDanger, Button} from '..'
-import {render, cleanup, waitFor, act} from '@testing-library/react'
+import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
@@ -80,6 +80,17 @@ describe('Overlay', () => {
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
     act(() => userEvent.click(getByText('open overlay')))
     act(() => userEvent.click(getByText('outside')))
+    expect(mockFunction).toHaveBeenCalledTimes(1)
+    const cancelButtons = queryAllByText('Cancel')
+    expect(cancelButtons).toHaveLength(0)
+  })
+
+  it('should call function when user presses escape', () => {
+    const mockFunction = jest.fn()
+    const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
+    act(() => userEvent.click(getByText('open overlay')))
+    const domNode = getByText('Are you sure?')
+    fireEvent.keyDown(domNode, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
     expect(mockFunction).toHaveBeenCalledTimes(1)
     const cancelButtons = queryAllByText('Cancel')
     expect(cancelButtons).toHaveLength(0)
