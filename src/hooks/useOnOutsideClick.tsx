@@ -23,7 +23,7 @@ const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallCl
   }
 
   // don't call handler if the click happened inside of the container
-  if (containerRef && 'current' in containerRef && containerRef.current?.contains(e.target as Node)) {
+  if (containerRef.current?.contains(e.target as Node)) {
     shouldCallHandler = false
     // don't call handler if click happened on an ignored ref
   } else if (ignoreClickRefs) {

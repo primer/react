@@ -14,11 +14,20 @@ You can also pass an array of `ignoredRefs` to prevent calling the callback func
     {([isOpen, setIsOpen]) => {
       const containerRef = React.useRef(null)
       const triggerRef = React.useRef(null)
-      useOnOutsideClick({onClickOutside: () => setIsOpen(false), containerRef, ignoreClickRefs: [triggerRef]})
+
+      const closeOverlay = React.useCallback(() => {
+        setIsOpen(false)
+      }, [setIsOpen])
+
+      const toggleOverlay = React.useCallback(() => {
+        setIsOpen(!isOpen)
+      }, [setIsOpen, isOpen])
+
+      useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [triggerRef]})
 
       return (
         <>
-          <Button ref={triggerRef} onClick={() => setIsOpen(!isOpen)}>toggle</Button>
+          <Button ref={triggerRef} onClick={toggleOverlay}>toggle</Button>
           {isOpen &&
             <BorderBox height="200px" bg="green.4" ref={containerRef}>
               content
