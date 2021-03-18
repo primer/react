@@ -1,16 +1,13 @@
-// @preval
-// This file needs to be a JavaScript file using CommonJS to be compatiable with preval
-
-const {default: primitives} = require('@primer/primitives')
-const {lighten, rgba, desaturate} = require('polished')
-const deepmerge = require('deepmerge')
-const {filterObject, isShadowValue, isColorValue, fontStack} = require('./utils/theme')
+import {default as primitives} from '@primer/primitives'
+import {lighten, rgba, desaturate} from 'polished'
+import deepmerge from 'deepmerge'
+import {filterObject, isShadowValue, isColorValue, fontStack} from './utils/theme'
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 const {black, white, pink, gray, blue, green, orange, purple, red, yellow} = primitives.colors.light.scale
 
 // General
-const colors = {
+export const colors = {
   bodytext: gray[9],
   black,
   white,
@@ -95,9 +92,9 @@ const colors = {
     purple: purple[4],
     purpleText: purple[5]
   }
-}
+} as const
 
-const breakpoints = ['544px', '768px', '1012px', '1280px']
+const breakpoints = ['544px', '768px', '1012px', '1280px'] as const
 
 const fonts = {
   normal: fontStack([
@@ -111,18 +108,18 @@ const fonts = {
     'Segoe UI Emoji'
   ]),
   mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
-}
+} as const
 
 const fontWeights = {
   light: 300,
   normal: 400,
   semibold: 500,
   bold: 600
-}
+} as const
 
-const borderWidths = [0, '1px']
+const borderWidths = [0, '1px'] as const
 
-const radii = ['0', '3px', '6px', '100px']
+const radii = ['0', '3px', '6px', '100px'] as const
 
 const shadows = {
   small: '0 1px 0 rgba(149, 157, 165, 0.1)',
@@ -134,18 +131,32 @@ const shadows = {
   formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
   primaryShadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)',
   primaryActiveShadow: 'inset 0px 1px 0px rgba(20, 70, 32, 0.2)'
-}
+} as const
 
 const sizes = {
   small: '544px',
   medium: '768px',
   large: '1012px',
   xlarge: '1280px'
-}
+} as const
 
-const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
+const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'] as const
 
-const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
+const space = [
+  '0',
+  '4px',
+  '8px',
+  '16px',
+  '24px',
+  '32px',
+  '40px',
+  '48px',
+  '64px',
+  '80px',
+  '96px',
+  '112px',
+  '128px'
+] as const
 
 // Components
 
@@ -256,7 +267,7 @@ const buttons = {
       focus: '0 0 0 3px rgba(3, 102, 214, 0.3)'
     }
   }
-}
+} as const
 
 const flash = {
   default: {
@@ -275,7 +286,7 @@ const flash = {
     backgroundColor: yellow[1],
     borderColor: 'rgba(176, 136, 0, 0.2)'
   }
-}
+} as const
 
 // this has to be separated from the flash object since we have to use an svg selector to style the icon color
 const flashIcon = {
@@ -283,13 +294,13 @@ const flashIcon = {
   success: 'rgba(23, 111, 44, 0.8)',
   danger: 'rgba(158, 28, 35, 0.6)',
   warning: yellow[8]
-}
+} as const
 
 const popovers = {
   colors: {
     caret: 'rgba(27, 31, 35, 0.15)'
   }
-}
+} as const
 
 const pagination = {
   borderRadius: radii[2],
@@ -317,7 +328,7 @@ const pagination = {
       fg: colors.blue[5]
     }
   }
-}
+} as const
 
 const stateLabels = {
   sizes: {
@@ -351,19 +362,19 @@ const stateLabels = {
       backgroundColor: gray[5]
     }
   }
-}
+} as const
 
-const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, value =>
+const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, (value: string) =>
   isColorValue(value)
 )
-const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, value =>
+const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, (value: string) =>
   isShadowValue(value)
 )
 
 const mergedColors = deepmerge(colors, functionalColors)
 const mergedShadows = deepmerge(shadows, functionalShadows)
 
-const theme = {
+export const theme = {
   // General
   borderWidths,
   breakpoints,
@@ -384,9 +395,4 @@ const theme = {
   flash,
   flashIcon,
   stateLabels
-}
-
-module.exports = {
-  theme,
-  colors
-}
+} as const

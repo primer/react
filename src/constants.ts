@@ -1,10 +1,12 @@
-import {themeGet} from '@styled-system/theme-get'
+import type { Function, Object, String } from "ts-toolbelt"
 import * as styledSystem from 'styled-system'
 import theme from './theme'
 
 const {get: getKey, compose, system} = styledSystem
 
-export const get = (key: string) => themeGet(key, getKey(theme, key))
+export function get<T extends typeof theme, P extends string>(path: Function.AutoPath<T, P>): Object.Path<T, String.Split<P, '.'>> {
+  return getKey(theme, path)
+}
 
 // Common props
 

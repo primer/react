@@ -1,13 +1,10 @@
-// @preval
-// This file needs to be a JavaScript file using CommonJS to be compatiable with preval.
-
 // This is a temporary theme file used to allow us to preview components in dark mode
 // on the docs site. We'll remove this file when we have a more robust way to create themes.
 
-const {theme: lightTheme} = require('./theme-preval')
-const {default: primitives} = require('@primer/primitives')
-const deepmerge = require('deepmerge')
-const {filterObject, isShadowValue, isColorValue} = require('./utils/theme')
+import {theme as lightTheme} from './theme-preval'
+import {default as primitives} from '@primer/primitives'
+import deepmerge from 'deepmerge'
+import {filterObject, isShadowValue, isColorValue} from './utils/theme'
 
 const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.dark, value =>
   isColorValue(value)
@@ -23,6 +20,6 @@ const theme = {
   ...lightTheme,
   colors: mergedColors,
   shadows: mergedShadows
-}
+} as const
 
 module.exports = {theme}

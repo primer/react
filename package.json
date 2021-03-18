@@ -92,7 +92,6 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-macros": "2.8.0",
-    "babel-plugin-preval": "5.0.0",
     "babel-plugin-styled-components": "1.10.7",
     "babel-plugin-transform-replace-expressions": "0.2.0",
     "babel-polyfill": "6.26.0",
@@ -124,6 +123,7 @@
     "rollup-plugin-visualizer": "4.0.4",
     "semver": "7.3.2",
     "styled-components": "4.4.1",
+    "ts-toolbelt": "9.6.0",
     "typescript": "4.1.3"
   },
   "peerDependencies": {
