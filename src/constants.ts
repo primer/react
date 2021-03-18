@@ -4,7 +4,16 @@ import theme from './theme'
 
 const {get: getKey, compose, system} = styledSystem
 
-export function get<T extends typeof theme, P extends string>(path: Function.AutoPath<T, P>): Object.Path<T, String.Split<P, '.'>> {
+// This type and interface only exist to shorten VS Code’s Intellisense
+// https://github.com/microsoft/TypeScript/issues/14662#issuecomment-300377719
+type TTheme = typeof theme
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ITheme extends TTheme {}
+
+/**
+ * Returns the theme value at the specified path
+ */
+export function get<T extends ITheme, P extends string>(path: Function.AutoPath<T, P>): Object.Path<T, String.Split<P, '.'>> {
   return getKey(theme, path)
 }
 
