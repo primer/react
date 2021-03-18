@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, {ReactElement} from 'react'
-import {get, COMMON, POSITION} from './constants'
+import {get, COMMON, POSITION, SystemPositionProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, AnchoredPositionHookSettings, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
@@ -60,9 +60,8 @@ export type OverlayProps = {
   onEscape: (e: KeyboardEvent) => void
   positionSettings?: AnchoredPositionHookSettings
   positionDeps?: React.DependencyList
-} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility'>
+} & Omit<ComponentProps<typeof StyledOverlay>, keyof SystemPositionProps>
 
-// omit positions props
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
  * selection options, dialogs, and more. Overlays use shadows to express elevation. The `Overlay`
