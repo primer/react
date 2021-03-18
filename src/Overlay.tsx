@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import React, {ReactElement} from 'react'
-import {get, COMMON, POSITION, SystemPositionProps} from './constants'
+import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, AnchoredPositionHookSettings, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
+import sx, {SxProp} from './sx'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -26,7 +27,7 @@ const widthMap = {
 }
 
 /*TODO replace with shadow functional color variable when it's shipped to primer/primitives*/
-const StyledOverlay = styled.div<StyledOverlayProps>`
+const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SystemPositionProps & SxProp>`
   background-color: ${get('colors.bg.overlay')};
   box-shadow: ${get('overlay.boxShadow')};
   position: absolute;
@@ -50,6 +51,7 @@ const StyledOverlay = styled.div<StyledOverlayProps>`
   visibility: ${props => props.visibility};
   ${COMMON};
   ${POSITION};
+  ${sx};
 `
 export type OverlayProps = {
   ignoreClickRefs: React.RefObject<HTMLElement>[]
@@ -60,7 +62,7 @@ export type OverlayProps = {
   onEscape: (e: KeyboardEvent) => void
   positionSettings?: AnchoredPositionHookSettings
   positionDeps?: React.DependencyList
-} & Omit<ComponentProps<typeof StyledOverlay>, keyof SystemPositionProps>
+} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
