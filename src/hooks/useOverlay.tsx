@@ -3,7 +3,7 @@ import {TouchOrMouseEvent} from './useOnOutsideClick'
 import {AnchoredPositionHookSettings, useAnchoredPosition} from './useAnchoredPosition'
 import {useRef} from 'react'
 
-export type UseOverlayProps = {
+export type UseOverlaySettings = {
   ignoreClickRefs: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
@@ -28,7 +28,7 @@ export const useOverlay = ({
   onEscape,
   ignoreClickRefs,
   onClickOutside
-}: UseOverlayProps): OverlayReturnProps => {
+}: UseOverlaySettings): OverlayReturnProps => {
   const overlayRef = useRef<HTMLDivElement>(null)
   positionSettings.anchorElementRef = anchorRef
   positionSettings.floatingElementRef = overlayRef

@@ -1,10 +1,10 @@
 import {useEffect, useCallback} from 'react'
 
-export type UseOnEscapePressProps = {
+export type UseOnEscapePressSettings = {
   onEscape: (e: KeyboardEvent) => void
 }
 
-export const useOnEscapePress = ({onEscape}: UseOnEscapePressProps): void => {
+export const useOnEscapePress = ({onEscape}: UseOnEscapePressSettings): void => {
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape' && !e.defaultPrevented) {

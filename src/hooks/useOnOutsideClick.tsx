@@ -2,19 +2,19 @@ import React, {useEffect, useCallback} from 'react'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 
-export type UseOnOutsideClickProps = {
+export type UseOnOutsideClickSettings = {
   containerRef: React.RefObject<HTMLDivElement>
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   onClickOutside: (e: TouchOrMouseEvent) => void
 }
 
-type ShouldCallClickHandlerProps = {
+type ShouldCallClickHandlerSettings = {
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   containerRef: React.RefObject<HTMLDivElement>
   e: TouchOrMouseEvent
 }
 
-const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallClickHandlerProps): boolean => {
+const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallClickHandlerSettings): boolean => {
   let shouldCallHandler = true
 
   // don't call click handler if the mouse event was triggered by an auxiliary button (right click/wheel button/etc)
@@ -38,7 +38,7 @@ const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallCl
   return shouldCallHandler
 }
 
-export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickProps): void => {
+export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings): void => {
   const onOutsideClickInternal = useCallback(
     (e: TouchOrMouseEvent) => {
       if (shouldCallClickHandler({ignoreClickRefs, containerRef, e})) {
