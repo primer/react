@@ -49,11 +49,9 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
   )
 
   useEffect(() => {
-    document.addEventListener('mousedown', onOutsideClickInternal)
-    document.addEventListener('touchstart', onOutsideClickInternal)
+    document.addEventListener('click', onOutsideClickInternal)
     return () => {
-      document.removeEventListener('mousedown', onOutsideClickInternal)
-      document.removeEventListener('touchstart', onOutsideClickInternal)
+      document.removeEventListener('click', onOutsideClickInternal)
     }
   }, [onOutsideClickInternal])
 }
