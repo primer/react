@@ -1,10 +1,10 @@
 ---
-"@primer/components": minor
+"@primer/components": major
 ---
 
 Primer React now supports color modes! 🎉
 
-See the new [Theming](/theming) documentation for more details.
+See the new [Theming](https://primer.style/components/theming) documentation for more details.
 
 #### Breaking changes
 
