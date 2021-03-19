@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Getting started
 ---
 
 import {HeroLayout} from '@primer/gatsby-theme-doctocat'
@@ -11,12 +11,12 @@ Primer React is a React implementation of GitHub's [Primer Design System](https:
 
 ## Principles
 
-* Everything is a component.
-* Aim for total style encapsulation; don't rely on inheritance to provide default styles.
-* Build small building blocks with minimal props to keep complexity low.
-* Keep system constrained by only including props needed per component.
-* Favor wrapping or extending components for more complex operations.
-* Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
+- Everything is a component.
+- Aim for total style encapsulation; don't rely on inheritance to provide default styles.
+- Build small building blocks with minimal props to keep complexity low.
+- Keep system constrained by only including props needed per component.
+- Favor wrapping or extending components for more complex operations.
+- Maintain design system consistency with utilities as props (for spacing, color, font-size, line-height, widths, and radii).
 
 ## Getting started
 

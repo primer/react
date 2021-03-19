@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Getting started
 ---
 
 ## Installation
@@ -74,7 +74,7 @@ function App() {
 }
 ```
 
-See [Theming](/theming) for more details on advanced configuration, color schemes, and overriding theme values.
+See [Theming](/theming) for more details on advanced configuration, color modes, and overriding theme values.
 
 ## BaseStyles
 

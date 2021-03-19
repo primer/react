@@ -1,7 +1,7 @@
 - title: About
   url: /getting-started
   children:
-    - title: Getting Started
+    - title: Getting started
       url: /getting-started
 
     - title: Theming
