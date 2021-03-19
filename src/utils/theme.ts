@@ -18,23 +18,20 @@ export function isColorValue<T extends string>(value: T): boolean {
   return chroma.valid(value)
 }
 
-type FilterableObject<T extends unknown> = string | string[] | Record<string, T>
-export function filterObject<T>(
-  obj: FilterableObject<T>,
-  predicate: <T extends string>(value: T) => boolean
-): Record<string, T> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function filterObject<O extends object>(obj: O, predicate: <T extends string>(value: T) => boolean): O {
   return Object.entries(obj).reduce((acc, [key, value]) => {
     // Filter arrays
     if (value instanceof Array) {
       value = value.filter(predicate)
       // Filter (nested) objects
     } else if (isObject(value)) {
-      value = filterObject((value as unknown) as Record<string, T>, predicate)
+      value = filterObject((value as unknown) as O, predicate)
       // Filter primitive values
     } else if (!predicate(value)) {
       value = undefined
     }
     // Retain any values that were not filtered out
     return {...acc, ...(!isEmpty(value) && {[key]: value})}
-  }, {} as Record<string, T>)
+  }, {} as O)
 }

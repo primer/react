@@ -29,7 +29,8 @@ type StyledFilterListItemBaseProps = {
 const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   position: relative;
   display: block;
-  padding: ${props => (props.small ? `${get('space.1')(props)} 10px` : `${get('space.2')(props)} 11px`)};
+  padding: ${props =>
+    props.small ? `${get<typeof props>('space.1')(props)} 10px` : `${get<typeof props>('space.2')(props)} 11px`};
   margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')};

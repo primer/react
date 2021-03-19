@@ -32,11 +32,13 @@ const hoverColor = system({
 })
 
 const Link = styled.a<StyledLinkProps>`
-  color: ${props => (props.muted ? get('colors.text.secondary')(props) : get('colors.text.link')(props))};
+  color: ${props =>
+    props.muted ? get<typeof props>('colors.text.secondary')(props) : get<typeof props>('colors.text.link')(props)};
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
-    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.text.link')(props)}` : '')};
+    ${props =>
+      props.hoverColor ? hoverColor : props.muted ? `color: ${get<typeof props>('colors.text.link')(props)}` : ''};
   }
   &:is(button) {
     display: inline-block;

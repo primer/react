@@ -1,3 +1,4 @@
+import type {Object} from "ts-toolbelt"
 import {default as primitives} from '@primer/primitives'
 import {lighten, rgba, desaturate} from 'polished'
 import deepmerge from 'deepmerge'
@@ -364,12 +365,13 @@ const stateLabels = {
   }
 } as const
 
-const {scale: _excludeScaleColors, ...functionalColors} = filterObject(primitives.colors.light, (value: string) =>
-  isColorValue(value)
+const functionalColors: Object.Optional<typeof primitives.colors.light, 'scale'> = filterObject(
+  primitives.colors.light,
+  (value: string) => isColorValue(value)
 )
-const {scale: _excludeScaleShadows, ...functionalShadows} = filterObject(primitives.colors.light, (value: string) =>
-  isShadowValue(value)
-)
+delete functionalColors['scale']
+const functionalShadows: Object.Optional<typeof primitives.colors.light, 'scale'> = filterObject(primitives.colors.light, (value: string) => isShadowValue(value))
+delete functionalShadows['scale']
 
 const mergedColors = deepmerge(colors, functionalColors)
 const mergedShadows = deepmerge(shadows, functionalShadows)

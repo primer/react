@@ -2,15 +2,20 @@ import {themeGet} from '..'
 
 describe('themeGet', () => {
   it('acccepts theme prop', () => {
-    expect(themeGet('example')({theme: {example: 'test'}})).toBe('test')
+    const customTheme = {example: 'test'} as const
+    expect(themeGet<typeof customTheme>('example')(customTheme)).toBe('test')
   })
 
-  it('allows theme prop to override primer theme', () => {
-    expect(themeGet('colors.gray.0')({theme: {colors: {gray: ['#f00']}}})).toBe('#f00')
+  it('allows customTheme prop to override primer theme', () => {
+    const customTheme = {colors: {gray: ['#f00']}} as const
+    expect(themeGet<typeof customTheme>('colors.gray.0')(customTheme)).toBe('#f00')
   })
 
   it('uses primer theme as fallback', () => {
-    expect(themeGet('colors.gray.1')({})).toBe('#f6f8fa')
-    expect(themeGet('colors.gray.1')({theme: {colors: {foo: 'bar'}}})).toBe('#f6f8fa')
+    const emptyTheme = {}
+    expect(themeGet<typeof emptyTheme>('colors.gray.1')(emptyTheme)).toBe('#f6f8fa')
+
+    const incompleteTheme = {colors: {foo: 'bar'}}
+    expect(themeGet<typeof incompleteTheme>('colors.gray.1')(incompleteTheme)).toBe('#f6f8fa')
   })
 })
