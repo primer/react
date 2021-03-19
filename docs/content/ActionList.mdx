@@ -1,0 +1,33 @@
+---
+title: ActionList
+---
+
+An `ActionList` is a list of items which can be activated or selected. `ActionList` is the base component for many of our menu-type components, including `DropdownMenu` and `ActionMenu`.
+
+## Default example
+
+```javascript live noinline
+const Demo = () => {
+  return (
+    <ActionList
+      items={[
+        {text: 'New file'},
+        ActionList.Divider,
+        {text: 'Copy link'},
+        {text: 'Edit file'},
+        {text: 'Delete file', variant: 'danger'}
+      ]}
+    />
+  )
+}
+
+render(<Demo />)
+```
+
+## Component props
+
+| Name          | Type                                |      Default      | Description                                                                                                                                             |
+| :------------ | :---------------------------------- | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| items         | `ItemProps[]`                       |    `undefined`    | Required. A list of item objects conforming to the `ActionList.Item` props interface.                                                                   |
+| renderItems   | `(props: ItemProps) => JSX.Element` | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                       |
+| groupMetadata | `GroupProps[]`                      |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property. |
