@@ -1,18 +1,7 @@
 import type {IconProps} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
-import {
-  borderRadius2,
-  s6,
-  s8,
-  s16,
-  s20,
-  actionListItemHoverBg,
-  actionListItemDangerHoverBg,
-  textSecondary,
-  textDanger,
-  textSmall
-} from './private/variables'
+import {get} from '../constants'
 
 interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
   text: string
@@ -32,19 +21,20 @@ const StyledItem = styled.div<{variant: ItemProps['variant']}>`
     position: relative;
     display: flex;
     align-items: start;
-    border-radius: ${borderRadius2};
+    border-radius: ${get('radii.2')};
     font-weight: normal;
-    color: ${({variant}) => (variant === 'danger' ? textDanger : 'inherit')};
+    color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
     text-decoration: none;
     border: 0;
     background: none;
     text-align: start;
     margin: 0;
-    padding: ${s6}px ${s8}px;
+    padding: calc((${get('space.3')} - ${get('space.1')}) / 2) ${get('space.2')};
 
     @media (hover: hover) and (pointer: fine) {
       :hover {
-        background: ${props => (props.variant === 'danger' ? actionListItemDangerHoverBg : actionListItemHoverBg)};
+        background: ${props =>
+          props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
         cursor: pointer;
       }
     }
@@ -56,21 +46,21 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
 `
 
 const LeadingVisualContainer = styled.span`
-  width: ${s16}px;
-  height: ${s20}px;
+  width: ${get('space.3')};
+  height: calc(${get('space.4')} - ${get('space.1')});
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-right: ${s8}px;
+  margin-right: ${get('space.2')};
 
   svg {
-    fill: ${textSecondary};
-    font-size: ${textSmall};
+    fill: ${get('colors.text.secondary')};
+    font-size: ${get('fontSizes.0')};
   }
 `
 
 const DescriptionContainer = styled.div`
-  color: ${textSecondary};
+  color: ${get('colors.text.secondary')};
 `
 
 export function Item({

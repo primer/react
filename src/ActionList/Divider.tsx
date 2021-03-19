@@ -1,6 +1,6 @@
 import React from 'react'
-import {actionListItemDivider, s16, s8} from './private/variables'
 import styled from 'styled-components'
+import {get} from '../constants'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DividerProps {}
@@ -8,20 +8,20 @@ export interface DividerProps {}
 const StyledDivider = styled.div`
   position: relative;
   height: 1px;
-  background: ${actionListItemDivider};
+  background: ${get('colors.selectMenu.borderSecondary')};
   border: 0;
-  margin: ${s8 - 1}px -${s8}px ${s8}px;
+  margin: calc(${get('space.2')} - 1px) -${get('space.2')} ${get('space.2')};
   padding: 0;
 
   ::before {
     content: '';
     display: block;
     position: absolute;
-    width: calc(100% - ${s16}px);
+    width: calc(100% - ${get('space.3')});
     height: 1px;
-    background: ${actionListItemDivider};
+    background: ${get('colors.selectMenu.borderSecondary')};
     top: 0;
-    left: ${s8}px;
+    left: ${get('space.2')};
   }
 `
 

@@ -4,6 +4,7 @@ import React from 'react'
 import {Divider} from './Divider'
 import {Header, HeaderProps} from './Header'
 import styled from 'styled-components'
+import {get} from '../constants'
 
 type Flatten<T extends unknown> = T extends (infer U)[] ? U : never
 
@@ -26,7 +27,7 @@ function isGroupedListProps(props: ListProps): props is GroupedListProps {
 export type ListProps = UngroupedListProps | GroupedListProps
 
 const StyledList = styled.div`
-  font-size: 14px;
+  font-size: ${get('fontSizes.1')};
 `
 
 export function List({renderItem = Item, ...props}: ListProps): JSX.Element {
