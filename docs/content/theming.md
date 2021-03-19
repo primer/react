@@ -2,21 +2,7 @@
 title: Theming
 ---
 
-Theming in Primer React is made possible by a theme object that allows you to define your application's colors, spacing, fonts, and more.
-
-The structure of the [default theme object](/theme-reference) adheres to the [System UI Theme Specification](https://system-ui.com/theme) and contains the following keys:
-
-- colors
-- space
-- fonts
-- fontSizes
-- fontWeights
-- lineHeights
-- borderWidths
-- radii
-- shadows
-- breakpoints
-- sizes
+Theming in Primer React is made possible by a theme object that defines your application's colors, spacing, fonts, and more.
 
 ## ThemeProvider
 
@@ -34,9 +20,11 @@ function App() {
 }
 ```
 
+`ThemeProvider` comes with a [default theme object](/theme-reference) that includes colors, spacing, fonts, etc. for building applications at GitHub.
+
 ## Customizing the theme
 
-`ThemeProvider` accepts a `theme` prop that allows you to provide your own custom theme:
+If you'd like to customize the [default theme](/theme-reference), you can pass your custom theme to `ThemeProvider` using the `theme` prop:
 
 ```jsx
 import {ThemeProvider, theme} from '@primer/components'
@@ -65,7 +53,7 @@ You can reference theme values in your application using [system props](/system-
 
 ### System props and the `sx` prop
 
-Some [system props](/system-props) and [`sx` prop](/overriding-styles) keys map to specific theme keys, allowing you to reference theme values in the corresponding object. For example, the `bg` prop maps to the `colors` theme key which means you can use the `bg` prop to reference values in the `colors` object:
+Some [system props](/system-props) and [`sx` prop](/overriding-styles) keys are theme-aware. For example, the `bg` prop maps to the `colors` theme key which means you can use the `bg` prop to reference values in the `colors` object:
 
 ```jsx
 const theme = {
@@ -90,6 +78,8 @@ See the [Styled System Reference Table](https://styled-system.com/table) for a c
 
 ### themeGet
 
+The `themeGet` function is a convienient way to reference theme values in styled-components template literals:
+
 ```js
 import {themeGet} from '@primer/components'
 import styled from 'styled-components'
@@ -101,105 +91,137 @@ const Example = styled.div`
 
 ### useTheme
 
+You can use the `useTheme` hook to reference theme values from inside any function component nested under the `ThemeProvider`:
+
 ```js
+import {ThemeProvider, useTheme} from '@primer/components'
+
+function Example() {
+  const {theme} = useTheme()
+  // theme.colors.bg.primary
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Example />
+    </ThemeProvider>
+  )
+}
+```
+
+<Note variant="warning">
+
+Only use `useTheme` to reference theme values in places where it's not possible to use system props, the `sx` prop, or `themeGet`.
+
+</Note>
+
+## Color modes and color schemes
+
+The terms "color mode" and "color scheme" are often used interchangeably. However, in Primer React, they are two seperate (but related) concepts.
+
+The "color mode" of an application can be either `day`, `night`, or `auto` (i.e. synced with the operating system).
+
+A "color scheme", on the other hand, is a collection of colors that can be associated with a color mode. The [default theme](/theme-reference) includes three color schemes: `light`, `dark`, and `dark_dimmed`. By default, the `light` scheme is displayed when the application is in `day` mode and the `dark` scheme is displayed in `night` mode.
+
+### Setting the color mode
+
+By default, Primer React is in `day` mode. To change the color mode, use the `colorMode` prop on `ThemeProvider` or the `setColorMode` function from the `useTheme` hook:
+
+#### `colorMode` prop
+
+```jsx
+import {ThemeProvider} from '@primer/components'
+
+function App() {
+  return (
+    // colorMode can be "day" (default), "night", or "auto"
+    <ThemeProvider colorMode="auto">
+      <div>...</div>
+    </ThemeProvider>
+  )
+}
+```
+
+#### `setColorMode` function
+
+```jsx
 import {useTheme} from '@primer/components'
 
 function Example() {
-  const theme = useTheme()
-  // theme.colors.bg.primary
+  const {setColorMode} = useTheme()
+  return <button onClick={() => setColorMode('auto')}>Activate auto mode</button>
 }
 ```
 
-## Color schemes
+### Setting color schemes
 
-You can define multiple color schemes for your application using the `colors.schemes` and `shadows.schemes` objects:
+To change the color schemes associated with `day` and `night` mode, use the `dayScheme` and `nightScheme` props on `ThemeProvider` or the `setDayScheme` and `setNightScheme` functions from the `useTheme` hook:
 
-```js
-const theme = {
-  colors: {
-    text: '#000'
-    schemes: {
-      dark: {
-        text: '#fff'
-      },
-      dark_dimmed: {
-        text: '#aaa'
+#### `dayScheme` and `nightScheme` props
+
+```jsx
+import {ThemeProvider} from '@primer/components'
+
+function App() {
+  return (
+    // The default theme includes `light`, `dark`, and `dark_dimmed` schemes
+    <ThemeProvider dayScheme="light" nightScheme="dark_dimmed">
+      <div>...</div>
+    </ThemeProvider>
+  )
+}
+```
+
+#### `setDayScheme` and `setNightScheme` functions
+
+```jsx
+import {useTheme} from '@primer/components'
+
+function Example() {
+  const {setDayScheme, setNightScheme} = useTheme()
+  return <button onClick={() => setNightScheme('auto')}>Activate auto mode</button>
+}
+```
+
+### Customizing or adding color schemes
+
+To customize or add color schemes, update the `colorSchemes` object in the theme:
+
+```jsx
+import {ThemeProvider, theme} from '@primer/components'
+import deepmerge from 'deepmerge'
+
+const customTheme = deepmerge(theme, {
+  colorSchemes: {
+    // Customize an existing scheme
+    light: {
+      colors: {
+        text: {
+          primary: '#f00'
+        }
       }
-    }
-  },
-  shadows: {
-    small: '0 1px 0 rgba(0, 0, 0, 0.5)'
-    schemes: {
-      dark: {
-        small: '0 1px 0 rgba(255, 255, 255, 0.5)'
-      },
-      dark_dimmed: {
-        small: '0 1px 0 rgba(255, 255, 255, 0.25)'
-      }
+    },
+    // Add a new scheme
+    my_scheme_name: {
+      colors: {...},
+      shadows: {...}
     }
   }
-}
-```
-
-The color scheme defined at the root of the `colors` and `shadows` objects can be accessed as `light`. The above example has three color schemes: `light`, `dark`, and `dark_dimmed`.
-
-### Setting the initial color scheme
-
-By default, Primer React uses the `light` color scheme. Use the `initialColorScheme` prop to override the default:
-
-```jsx
-import {ThemeProvider} from '@primer/components'
+})
 
 function App() {
   return (
-    <ThemeProvider initialColorScheme="dark">
+    <ThemeProvider theme={customTheme}>
       <div>...</div>
     </ThemeProvider>
   )
 }
-```
-
-To automatically switch between color schemes according to your operating system setting, pass `initialColorScheme` an object that defines the color scheme for light and dark mode:
-
-```jsx
-import {ThemeProvider} from '@primer/components'
-
-function App() {
-  return (
-    <ThemeProvider
-      initialColorScheme={{
-        light: 'light',
-        dark: 'dark_dimmed'
-      }}
-    >
-      <div>...</div>
-    </ThemeProvider>
-  )
-}
-```
-
-### Switching the color scheme
-
-Use the `useColorScheme` hook to switch the color scheme:
-
-```javascript live noinline
-function Example() {
-  const [colorScheme, setColorScheme] = useTheme()
-  return (
-    <div>
-      <Button onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}>
-        Activate {colorScheme === 'light' ? 'dark' : 'light'} color scheme
-      </Button>
-    </div>
-  )
-}
-
-render(Example)
 ```
 
 ### Creating local color scheme variables
 
-Avoid hard-coding color values when you need to use a color that's not defined in the theme:
+If you need to use a color that is not defined in the theme, avoid hard coding the color value like this:
 
 ```jsx
 function Example() {
@@ -210,13 +232,14 @@ function Example() {
 }
 ```
 
-Instead, use the `useColorSchemeVar` hook to create a local color scheme variable:
+Instead, use the `useColorSchemeVar` hook to create a local variable that will update based on the active color scheme:
 
 ```jsx
 import {useColorSchemeVar} from '@primer/components'
 import {colors} from '@primer/primitives'
 
 function Example() {
+  // GOOD: The value of `customBg` changes based on the active color scheme
   const customBg = useColorSchemeVar({
     light: colors.light.scale.gray[1],
     dark: colors.dark.scale.gray[9],
