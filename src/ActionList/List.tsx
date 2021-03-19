@@ -36,7 +36,7 @@ export function List({renderItem = Item, ...props}: ListProps): JSX.Element {
 
   const groups = (() => {
     if (isUngroupedListProps(props)) {
-      return [{items: props.items.map(toJSX)}]
+      return [{items: props.items?.map(toJSX)}]
     } else if (isGroupedListProps(props)) {
       const groupMap = props.groupMetadata.reduce(
         (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
