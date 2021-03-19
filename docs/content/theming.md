@@ -156,7 +156,7 @@ function Example() {
 
 ### Setting color schemes
 
-To change the color schemes associated with `day` and `night` mode, use the `dayScheme` and `nightScheme` props on `ThemeProvider` or the `setDayScheme` and `setNightScheme` functions from the `useTheme` hook:
+To choose which color schemes will be displayed in `day` and `night` mode, use the `dayScheme` and `nightScheme` props on `ThemeProvider` or the `setDayScheme` and `setNightScheme` functions from the `useTheme` hook:
 
 #### `dayScheme` and `nightScheme` props
 
