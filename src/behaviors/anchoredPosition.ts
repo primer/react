@@ -144,13 +144,6 @@ export function getAnchoredPosition(
     height: parentElementRect.height - borderTop - borderBottom
   }
 
-  // const parentViewport = {
-  //   top: clippingRect.top - relativeRect.top,
-  //   left: clippingRect.left - relativeRect.left,
-  //   width: clippingRect.width,
-  //   height: clippingRect.height
-  // } as BoxPosition
-
   return pureCalculateAnchoredPosition(
     clippingRect,
     relativeRect,
@@ -175,6 +168,12 @@ function getPositionedParent(element: Element) {
   return document.body
 }
 
+/**
+ * Returns the rectangle (relative to the window) that will clip the given element
+ * if it is rendered outside of its bounds.
+ * @param element 
+ * @returns 
+ */
 function getClippingRect(element: Element): BoxPosition {
   let parentNode: typeof element.parentNode = element
   while (parentNode != undefined) {
@@ -251,8 +250,9 @@ function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionS
  * Note: This is a pure function with no dependency on DOM APIs.
  * @see getAnchoredPosition
  * @see getDefaultSettings
- * @param viewportRect BoxPosition for the closest positioned proper parent of the floating element
- * @param relativeRect
+ * @param viewportRect BoxPosition for the rectangle that will clip the floating element if it is
+ *   rendered outside of the boundsof the rectangle.
+ * @param relativeRect BoxPosition for the closest positioned proper parent of the floating element
  * @param floatingRect WidthAndHeight for the floating element
  * @param anchorRect BoxPosition for the anchor element
  * @param PositionSettings to customize the calculated position for the floating element.
@@ -264,6 +264,8 @@ function pureCalculateAnchoredPosition(
   anchorRect: BoxPosition,
   {side, align, allowOutOfBounds, anchorOffset, alignmentOffset}: PositionSettings
 ): {top: number; left: number} {
+
+  // Compute the relative viewport rect, to bring it into the same coordinate space as `pos`
   const relativeViewportRect: BoxPosition = {
     top: viewportRect.top - relativeRect.top,
     left: viewportRect.left - relativeRect.left,
@@ -272,7 +274,6 @@ function pureCalculateAnchoredPosition(
   }
 
   let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
-  console.log(pos)
   pos.top -= relativeRect.top
   pos.left -= relativeRect.left
 

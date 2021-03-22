@@ -178,7 +178,7 @@ export const ComplexAncestry = () => {
         sx={{
           border: '1px solid #000',
           backgroundColor: 'blue.1',
-          height: '400px',
+          height: '440px',
           overflow: 'auto',
           position: 'relative'
         }}
@@ -223,28 +223,6 @@ export const ComplexAncestry = () => {
       <Button onClick={onRecalculateClick}>Click to recalculate floating position</Button>
     </>
   )
-
-  // <Position
-  //   ref={anchorElementRef as React.RefObject<HTMLDivElement>}
-  //   position="absolute"
-  //   top={0}
-  //   bottom={0}
-  //   left={0}
-  //   right={0}
-  // >
-  //   <Float
-  //     ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-  //     top={position?.top ?? 0}
-  //     left={position?.left ?? 0}
-  //   >
-  //     <p>Screen-Centered Floating Element </p>
-  //     <p>
-  //       <small>
-  //         <em>(Controls are ignored for this story)</em>
-  //       </small>
-  //     </p>
-  //   </Float>
-  // </Position>
 }
 
 const Nav = styled('nav')`
