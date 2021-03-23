@@ -24,7 +24,7 @@ function App() {
 
 ## Customizing the theme
 
-If you'd like to customize the [default theme](/theme-reference), you can pass your custom theme to `ThemeProvider` using the `theme` prop:
+To customize the [default theme](/theme-reference), you can pass your custom theme to `ThemeProvider` using the `theme` prop:
 
 ```jsx
 import {ThemeProvider, theme} from '@primer/components'
