@@ -131,17 +131,13 @@ export function getAnchoredPosition(
 
   const parentElementStyle = getComputedStyle(parentElement)
   const parentElementRect = parentElement.getBoundingClientRect()
-  const [borderTop, borderLeft, borderRight, borderBottom] = [
+  const [borderTop, borderLeft] = [
     parentElementStyle.borderTopWidth,
-    parentElementStyle.borderLeftWidth,
-    parentElementStyle.borderRightWidth,
-    parentElementStyle.borderBottomWidth
+    parentElementStyle.borderLeftWidth
   ].map(v => parseInt(v, 10) || 0)
   const relativeRect = {
     top: parentElementRect.top + borderTop,
-    left: parentElementRect.left + borderLeft,
-    width: parentElementRect.width - borderRight - borderLeft,
-    height: parentElementRect.height - borderTop - borderBottom
+    left: parentElementRect.left + borderLeft
   }
 
   return pureCalculateAnchoredPosition(
@@ -252,14 +248,14 @@ function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionS
  * @see getDefaultSettings
  * @param viewportRect BoxPosition for the rectangle that will clip the floating element if it is
  *   rendered outside of the boundsof the rectangle.
- * @param relativeRect BoxPosition for the closest positioned proper parent of the floating element
+ * @param relativePosition Position for the closest positioned proper parent of the floating element
  * @param floatingRect WidthAndHeight for the floating element
  * @param anchorRect BoxPosition for the anchor element
  * @param PositionSettings to customize the calculated position for the floating element.
  */
 function pureCalculateAnchoredPosition(
   viewportRect: BoxPosition,
-  relativeRect: BoxPosition,
+  relativePosition: Position,
   floatingRect: Size,
   anchorRect: BoxPosition,
   {side, align, allowOutOfBounds, anchorOffset, alignmentOffset}: PositionSettings
@@ -267,15 +263,15 @@ function pureCalculateAnchoredPosition(
 
   // Compute the relative viewport rect, to bring it into the same coordinate space as `pos`
   const relativeViewportRect: BoxPosition = {
-    top: viewportRect.top - relativeRect.top,
-    left: viewportRect.left - relativeRect.left,
+    top: viewportRect.top - relativePosition.top,
+    left: viewportRect.left - relativePosition.left,
     width: viewportRect.width,
     height: viewportRect.height
   }
 
   let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
-  pos.top -= relativeRect.top
-  pos.left -= relativeRect.left
+  pos.top -= relativePosition.top
+  pos.left -= relativePosition.left
 
   // Handle screen overflow
   if (!allowOutOfBounds) {
@@ -294,8 +290,8 @@ function pureCalculateAnchoredPosition(
 
         // If we have cut off in the same dimension as the "side" option, try flipping to the opposite side.
         pos = calculatePosition(floatingRect, anchorRect, nextSide, align, anchorOffset, alignmentOffset)
-        pos.top -= relativeRect.top
-        pos.left -= relativeRect.left
+        pos.top -= relativePosition.top
+        pos.left -= relativePosition.left
       }
     }
     // At this point we've flipped the position if applicable. Now just nudge until it's on-screen.

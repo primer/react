@@ -14,13 +14,17 @@ When calculating the position of the floating element, the algorithm relies on d
 
 1. The floating element's width and height
 2. The anchor element's x/y position and its width and height
-3. The floating element container's x/y position, width and heigh, and border sizes
+3. The floating element's clipping container (for x/y position, width and height, and border sizes)
 
 The public API only asks for the first two elements; the floating element's container is discovered via DOM traversal.
 
-#### Finding the floating element's container
+#### Finding the floating element's clipping container
 
-The returned anchored position calculation is relative to the floating element's closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. To find this ancestor, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`. This element should be large—big enough to accommodate the floating element and have plenty of space to be moved around. It may be a good idea to ensure that this container element _also_ contains the anchor element and is scrollable. This will ensure that when scrolled, the anchor and floating element will move together.
+The returned anchored position calculation is relative to the floating element's closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. To find this ancestor, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`.
+
+Once we have found the appropriate relative ancestor, we attempt to find the floating element's _clipping container_. The clipping container is an element that: 1) has `overflow` set to something other than `visible`, and 2) is either an ancestor of the relative ancestor, or is itself the relative ancestor. Again, if we cannot locate such an element, we will use `document.body` as the clipping container.
+
+Once we have the clipping container, its bounding box is used as the viewport for the position calculation (see the next section). If the clipping container ends up being `document.body`, we take one additional step, allowing the clipping rectangle to be at least as tall as the window. This is done because the `body` element doesn't take up the full window size by default, but we still want to allow the entire space to be used as the viewport for the position calculation. It may be a good idea to ensure that this clipping container element _also_ contains the anchor element and is scrollable. This will ensure that if scrolled, the anchor and floating element will move together.
 
 #### Positioning and overflow
 
@@ -33,7 +37,7 @@ For a more in-depth explanation of the positioning settings, see `PositionSettin
 
 ### Demo
 
-See [this CodePen](https://codepen.io/team/GitHub/pen/OJbPKNZ) for a demo of `useAnchoredPosition`.
+Deploy Storybook to see a live demo of `anchoredPosition`.
 
 ### Usage
 
@@ -90,10 +94,7 @@ The `getAnchoredPosition` function takes the following arguments.
 
 ### Best practices
 
-As discussed above, the positioning algorithm needs to first measure the size of three different elements. Therefore, all three of these elements (anchor element, floating element, and the floating element's closest positioned container) must be rendered at the time `getAnchoredPosition` is called. Use these tips to get the best results:
-
-1. To avoid a frame where the floating element is rendered at the `(0, 0)` position, give it a style of `visibility: hidden` until its position is returned at set. This allows the element to be measured without showing up on the page.
-2. When checking for overflow, the positioning algorithm checks that the floating element at its calculated coordinates completely fits within its closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. Therefore, such a container should completely fill _its_ parent container without relying on automatic sizing or overflow.
+As discussed above, the positioning algorithm needs to first measure the size of three different elements. Therefore, all three of these elements (anchor element, floating element, and the floating element's closest positioned container) must be rendered at the time `getAnchoredPosition` is called. To avoid a frame where the floating element is rendered at the `(0, 0)` position, give it a style of `visibility: hidden` until its position is returned at set. This allows the element to be measured without showing up on the page.
 
 ### A note on performance
 
@@ -135,6 +136,20 @@ export const UseAnchoredPosition = () => {
   )
 }
 ```
+
+### useAnchoredPosition hook
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| settings | `UseAnchoredPositionSettings` | undefined | Optional settings to control how the anchored position is calculated. See below. |
+| dependencies | React.DependencyList | undefined | Dependencies to determine when to re-calculate the position. If undefined or `[]`, only calculate the position once. |
+
+**Return value**
+
+| Name | Type | Description |
+| :- | :- | :- |
+| floatingElementRef | `React.RefObject<Element>` | This ref must be added to the floating element JSX |
+| anchorElementRef | `React.RefObject<Element>` | This ref must be added to the anchor element JSX |
+| position | {top: number, left: number} | The calculated position |
 
 ### UseAnchoredPositionSettings interface
 `UseAnchoredPositionSettings` is an object with an interface that extends `PositionSettings` (see above). Additionally, it adds the following properties:
