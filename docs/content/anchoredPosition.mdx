@@ -115,7 +115,7 @@ Like other hooks such as `useCallback` and `useEffect`, this hook takes a depend
 ### Usage
 
 ```jsx
-export const UseAnchoredPosition = () => {
+export const AnchoredPositionExample = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({side: 'outside-bottom', align: 'center'})
   return (
     <div>
@@ -140,7 +140,7 @@ export const UseAnchoredPosition = () => {
 ### useAnchoredPosition hook
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| settings | `UseAnchoredPositionSettings` | undefined | Optional settings to control how the anchored position is calculated. See below. |
+| settings | `AnchoredPositionHookSettings` | undefined | Optional settings to control how the anchored position is calculated. See below. |
 | dependencies | React.DependencyList | undefined | Dependencies to determine when to re-calculate the position. If undefined or `[]`, only calculate the position once. |
 
 **Return value**
@@ -151,8 +151,8 @@ export const UseAnchoredPosition = () => {
 | anchorElementRef | `React.RefObject<Element>` | This ref must be added to the anchor element JSX |
 | position | {top: number, left: number} | The calculated position |
 
-### UseAnchoredPositionSettings interface
-`UseAnchoredPositionSettings` is an object with an interface that extends `PositionSettings` (see above). Additionally, it adds the following properties:
+### AnchoredPositionHookSettings interface
+`AnchoredPositionHookSettings` is an object with an interface that extends `PositionSettings` (see above). Additionally, it adds the following properties:
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
