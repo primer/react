@@ -4,12 +4,16 @@ import {Meta} from '@storybook/react'
 import styled, {ThemeProvider} from 'styled-components'
 
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, Position, Flex} from '..'
+import {registerPortalRoot} from "../Portal"
 
 export default {
   title: 'Internal components/Overlay',
   component: Overlay,
   decorators: [
     Story => {
+      // Since portal roots are registered globally, we need this line so that each storybook
+      // story works in isolation.
+      registerPortalRoot(undefined)
       return (
         <ThemeProvider theme={theme}>
           <BaseStyles>
