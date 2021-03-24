@@ -2,9 +2,9 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ButtonPrimary, Position, theme} from '..'
+import {BaseStyles, Box, ButtonPrimary, Position, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
-import styled, {ThemeProvider} from 'styled-components'
+import styled from 'styled-components'
 import {get} from '../constants'
 import {AnchorSide} from '../behaviors/anchoredPosition'
 import Portal, {registerPortalRoot} from '../Portal'
@@ -16,7 +16,7 @@ export default {
     // the component gets unmounted from the root every time a control changes!
     Story => {
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>{Story()}</BaseStyles>
         </ThemeProvider>
       )
