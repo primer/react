@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from 'styled-components'
 
 import {
   BaseStyles,
@@ -13,7 +12,7 @@ import {
   ButtonOutline,
   ButtonPrimary,
   ButtonTableList,
-  theme
+  ThemeProvider
 } from '..'
 import {ButtonStyleProps} from 'styled-system'
 import {ButtonBaseProps} from '../Button/ButtonBase'
@@ -25,7 +24,7 @@ export default {
   decorators: [
     Story => {
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>

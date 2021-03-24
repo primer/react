@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`has default theme 1`] = `
+.c0 {
+  color: #24292e;
+  margin-bottom: 4px;
+}
+
+<span
+  class="c0"
+  color="text.primary"
+>
+  Hello
+</span>
+`;

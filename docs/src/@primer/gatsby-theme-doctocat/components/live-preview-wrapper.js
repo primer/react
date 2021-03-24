@@ -1,20 +1,17 @@
-import {BaseStyles, Box} from '@primer/components'
-import {theme as darkTheme} from '@primer/components/theme-dark-preval'
-import {theme as lightTheme} from '@primer/components/theme-preval'
+import {BaseStyles, Box, ThemeProvider} from '@primer/components'
 import React from 'react'
-import {ThemeProvider} from 'styled-components'
 
 // This is a temporary way to allow us to preview components in dark mode.
 // We'll replace this component when @primer/components has a first-class
 // API for theme switching.
 function ThemeSwitcher({children}) {
-  const [theme, setTheme] = React.useState('light')
+  const [colorMode, setColorMode] = React.useState('day')
 
   React.useEffect(() => {
     function handleKeyDown(event) {
       // Use `ctrl + cmd + t` to toggle between light and dark mode
       if (event.key === 't' && event.ctrlKey && event.metaKey) {
-        setTheme(theme === 'light' ? 'dark' : 'light')
+        setColorMode(colorMode === 'day' ? 'night' : 'day')
       }
     }
     document.addEventListener('keydown', handleKeyDown)
@@ -22,9 +19,9 @@ function ThemeSwitcher({children}) {
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [theme])
+  }, [colorMode])
 
-  return <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>{children}</ThemeProvider>
+  return <ThemeProvider colorMode={colorMode}>{children}</ThemeProvider>
 }
 
 // Users can shadow this file to wrap live previews.

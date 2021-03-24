@@ -10,7 +10,6 @@ describe('themeGet', () => {
   })
 
   it('uses primer theme as fallback', () => {
-    expect(themeGet('colors.gray.1')({})).toBe('#f6f8fa')
-    expect(themeGet('colors.gray.1')({theme: {colors: {foo: 'bar'}}})).toBe('#f6f8fa')
+    expect(themeGet('space.1')({})).toBe('4px')
   })
 })

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from 'styled-components'
 
-import {BaseStyles, Box, theme} from '..'
+import {BaseStyles, Box, ThemeProvider} from '..'
 import Portal, {registerPortalRoot} from '../Portal'
 
 export default {
@@ -15,7 +14,7 @@ export default {
       // story works in isolation.
       registerPortalRoot(undefined)
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>
