@@ -118,7 +118,7 @@ Only use `useTheme` to reference theme values in places where it's not possible 
 
 ## Color modes and color schemes
 
-The terms "color mode" and "color scheme" are often used interchangeably. However, in Primer React, they are two seperate (but related) concepts.
+The terms "color mode" and "color scheme" are often used interchangeably. However, in Primer React, they are two separate (but related) concepts.
 
 The "color mode" of an application can be either `day`, `night`, or `auto` (i.e. synced with the operating system).
 
