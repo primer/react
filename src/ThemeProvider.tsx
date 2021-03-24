@@ -107,7 +107,6 @@ function useSystemColorMode() {
       setSystemColorMode(systemColorMode)
     }
 
-    // TODO: look into browser support
     media?.addEventListener('change', handleChange)
 
     return function cleanup() {
