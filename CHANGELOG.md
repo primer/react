@@ -1,5 +1,77 @@
 # @primer/components
 
+## 25.0.0
+
+### Major Changes
+
+- [`8799f74a`](https://github.com/primer/components/commit/8799f74ad69911e9840d51a65d08237f3cb1f172) [#1112](https://github.com/primer/components/pull/1112) Thanks [@colebemis](https://github.com/colebemis)! - Primer React now supports color modes! 🎉
+
+  See the new [Theming](https://primer.style/components/theming) documentation for more details.
+
+  #### Breaking changes
+
+  - You'll need to replace the `ThemeProvider` from `styled-components` with the new Primer React `ThemeProvider`:
+
+  ```diff
+  - import {ThemeProvider} from 'styled-components'
+  - import {theme} from '@primer/components
+  + import {ThemeProvider} from '@primer/components'
+
+  function App() {
+    return (
+  -   <ThemeProvider theme={theme}>
+  +   <ThemeProvider>
+        <div>your app here...</div>
+      </ThemeProvider>
+    )
+  }
+  ```
+
+  - The structure of the theme object has changed to support color schemes:
+
+  ```diff
+  const theme = {
+  - colors,
+  - shadows,
+  + colorSchemes: {
+  +   light: {
+  +     colors,
+  +     shadows,
+  +   },
+  +   dark: {...},
+  +   dark_dimmed: {...},
+  + },
+    space,
+    fonts,
+    fontSizes,
+    fontWeights,
+    lineHeights,
+    borderWidths,
+    radii,
+    breakpoints,
+    sizes,
+  }
+  ```
+
+  - The `theme.colors` and `theme.shadows` objects are no longer available from the `theme` export. Use the `useTheme`hook instead:
+
+  ```diff
+  - import {theme} from '@primer/components'
+  + import {useTheme} from '@primer/components'
+
+  function Example() {
+  + const {theme} = useTheme()
+    const myColor = theme.colors.text.primary
+    ...
+  }
+  ```
+
+### Patch Changes
+
+- [`360e3595`](https://github.com/primer/components/commit/360e3595a6e133e8caf391e7355f25b856936b12) [#1111](https://github.com/primer/components/pull/1111) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Update color variable used in ProgressBar (`state.success` → `bg.successInverse`)
+
+* [`1b3d87d2`](https://github.com/primer/components/commit/1b3d87d27103b99dd02cbf61f88d93b7df80d5b1) [#1127](https://github.com/primer/components/pull/1127) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Bump @primer/primitives from 0.0.0-20211167520 to 0.0.0-20212178221
+
 ## 24.0.0
 
 ### Major Changes
