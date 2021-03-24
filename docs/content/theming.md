@@ -24,7 +24,7 @@ function App() {
 
 ## Customizing the theme
 
-If you'd like to customize the [default theme](/theme-reference), you can pass your custom theme to `ThemeProvider` using the `theme` prop:
+To customize the [default theme](/theme-reference), you can pass your custom theme to `ThemeProvider` using the `theme` prop:
 
 ```jsx
 import {ThemeProvider, theme} from '@primer/components'
@@ -118,7 +118,7 @@ Only use `useTheme` to reference theme values in places where it's not possible 
 
 ## Color modes and color schemes
 
-The terms "color mode" and "color scheme" are often used interchangeably. However, in Primer React, they are two seperate (but related) concepts.
+The terms "color mode" and "color scheme" are often used interchangeably. However, in Primer React, they are two separate (but related) concepts.
 
 The "color mode" of an application can be either `day`, `night`, or `auto` (i.e. synced with the operating system).
 

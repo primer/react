@@ -8,7 +8,7 @@ See the new [Theming](https://primer.style/components/theming) documentation for
 
 #### Breaking changes
 
-You'll need to replace the `ThemeProvider` from `styled-components` with the new Primer React `ThemeProvider`:
+* You'll need to replace the `ThemeProvider` from `styled-components` with the new Primer React `ThemeProvider`:
 
 ```diff
 - import {ThemeProvider} from 'styled-components'
@@ -25,7 +25,7 @@ function App() {
 }
 ```
 
-Also, if you're customizing the theme, note that the structure of the theme object has changed to support color schemes:
+* The structure of the theme object has changed to support color schemes:
 
 ```diff
 const theme = {
@@ -50,3 +50,17 @@ const theme = {
   sizes,
 }
 ```
+
+* The `theme.colors` and `theme.shadows` objects are no longer available from the `theme` export. Use the `useTheme`hook instead:
+
+```diff
+- import {theme} from '@primer/components'
++ import {useTheme} from '@primer/components'
+
+function Example() {
++ const {theme} = useTheme()  
+  const myColor = theme.colors.text.primary
+  ...
+}
+```
+
