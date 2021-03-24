@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React from 'react'
+import React, {useCallback} from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, Box, ButtonPrimary, Position, ThemeProvider} from '..'
+import {BaseStyles, Box, ButtonPrimary, Position, Relative, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {AnchorSide} from '../behaviors/anchoredPosition'
 import Portal, {registerPortalRoot} from '../Portal'
+import Button from '../Button'
 
 export default {
   title: 'Hooks/useAnchoredPosition',
@@ -65,7 +65,7 @@ export default {
 
 const Float = styled(Position)`
   position: absolute;
-  border: 1px solid ${get('colors.gray.6')};
+  border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
   background-color: ${get('colors.orange.3')};
   display: flex;
@@ -77,7 +77,7 @@ const Float = styled(Position)`
 `
 const Anchor = styled(Position)`
   position: absolute;
-  border: 1px solid ${get('colors.gray.6')};
+  border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
   background-color: ${get('colors.blue.3')};
   display: flex;
@@ -93,7 +93,7 @@ export const UseAnchoredPosition = (args: any) => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
     {
       side: `${args.anchorPosition ?? 'outside'}-${args.anchorSide ?? 'bottom'}` as AnchorSide,
-      align: args.anchorAlignment ?? 'first',
+      align: args.anchorAlignment ?? 'start',
       anchorOffset: args.anchorOffset && (parseInt(args.anchorOffset, 10) ?? undefined),
       alignmentOffset: args.alignmentOffset && (parseInt(args.alignmentOffset, 10) ?? undefined),
       allowOutOfBounds: args.allowOutOfBounds ?? undefined
@@ -101,7 +101,7 @@ export const UseAnchoredPosition = (args: any) => {
     [args]
   )
   return (
-    <Position position="absolute" top={2} bottom={0} left={2} right={0}>
+    <Relative m={2}>
       <Anchor
         top={args.anchorY ?? 0}
         left={args.anchorX ?? 0}
@@ -120,7 +120,7 @@ export const UseAnchoredPosition = (args: any) => {
       >
         Floating element
       </Float>
-    </Position>
+    </Relative>
   )
 }
 export const CenteredOnScreen = () => {
@@ -151,6 +151,76 @@ export const CenteredOnScreen = () => {
         </p>
       </Float>
     </Position>
+  )
+}
+
+export const ComplexAncestry = () => {
+  const [recalculateSignal, setRecalculateSignal] = React.useState(0)
+  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
+    {
+      side: 'outside-bottom',
+      align: 'start'
+    },
+    [recalculateSignal]
+  )
+  const onRecalculateClick = React.useCallback(() => {
+    setRecalculateSignal(recalculateSignal + 1)
+  }, [recalculateSignal])
+
+  // The outer Position element simply fills all available space
+  const space = 2
+  return (
+    <>
+      <Box
+        m={space}
+        p={space}
+        sx={{
+          border: '1px solid #000',
+          backgroundColor: 'blue.1',
+          height: '440px',
+          overflow: 'auto',
+          position: 'relative'
+        }}
+      >
+        Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
+        <Box m={space} p={space} sx={{border: '1px solid #000', backgroundColor: 'blue.2', position: 'relative'}}>
+          Relatively positioned parent, but fluid height, so not the clipping parent.
+          <Box
+            m={space}
+            p={space}
+            sx={{border: '1px solid #000', backgroundColor: 'blue.3', position: 'static', overflow: 'hidden'}}
+          >
+            Floating element container. Position=static and overflow=hidden to show that overflow-hidden on a
+            statically-positioned element will not have any effect.
+            <Float
+              top={position?.top ?? 0}
+              left={position?.left ?? 0}
+              width={150}
+              height={220}
+              ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+            >
+              Floating element
+            </Float>
+          </Box>
+        </Box>
+        <Box m={space} p={space} backgroundColor="blue.3" sx={{border: '1px solid #000', height: '2000px'}}>
+          Anchor element container. This element is really tall to demonstrate behavior within a scrollable clipping
+          container.
+          <Box
+            width="200px"
+            backgroundColor="orange.3"
+            height={60}
+            ref={anchorElementRef as React.RefObject<HTMLDivElement>}
+            sx={{border: '1px solid #000'}}
+            m={space}
+            p={space}
+          >
+            Anchor Element
+          </Box>
+        </Box>
+      </Box>
+      <Button onClick={onRecalculateClick}>Click to recalculate floating position</Button>
+    </>
   )
 }
 
