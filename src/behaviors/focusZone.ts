@@ -108,7 +108,7 @@ const KEY_TO_DIRECTION = {
 /**
  * Options that control the behavior of the arrow focus behavior.
  */
-export interface ArrowFocusSettings {
+export interface FocusZoneSettings {
   /**
    * Choose the behavior applied in cases where focus is currently at either the first or
    * last element of the container.
@@ -322,7 +322,7 @@ function subscribeToActiveElementChanges(callback: (activeElement: HTMLElement) 
  * @param settings 
  * @returns 
  */
-export function arrowFocus(container: HTMLElement, settings?: ArrowFocusSettings): AbortController {
+export function focusZone(container: HTMLElement, settings?: FocusZoneSettings): AbortController {
   const tabbableElements: HTMLElement[] = []
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
   const bindKeys =

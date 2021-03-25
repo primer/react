@@ -2,19 +2,19 @@
 title: Focus Zone Behavior
 ---
 
-The `arrowFocus` behavior and `useArrowFocus` hook are used to designate a container where focus can be moved using keys other than `Tab`. This is useful for implementing many of the patterns described in [Section 6](https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard) of the WAI-ARIA Authoring Practices document. The most common use case of this behavior is to allow arrow keys (up and down or left and right) to move focus between related elements, such as items in a menu.
+The `focusZone` behavior and `useFocusZone` hook are used to designate a container where focus can be moved using keys other than `Tab`. This is useful for implementing many of the patterns described in [Section 6](https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard) of the WAI-ARIA Authoring Practices document. The most common use case of this behavior is to allow arrow keys (up and down or left and right) to move focus between related elements, such as items in a menu.
 
-At a high level, the `arrowFocus` behavior works by adjusting the `tabindex` attribute on focusable elements and setting up event listeners on the container that respond to the relevant key presses.
+At a high level, the `focusZone` behavior works by adjusting the `tabindex` attribute on focusable elements and setting up event listeners on the container that respond to the relevant key presses.
 
-Settings for this behavior allow the user to customize several aspects of the focus zone. See **ArrowFocusSettings** below for a detailed description of these settings.
+Settings for this behavior allow the user to customize several aspects of the focus zone. See **FocusZoneSettings** below for a detailed description of these settings.
 
 ### Focusability: which elements participate in the Focus Zone?
 
-When the `arrowFocus` behavior is established, it will discover all _focusable_ elements within the given container and allow them to be focused with the bound keys. _Focusable_ elements are those that either are normally focusable via the Tab key OR have a valid `tabindex` attribute (including `"-1"`). The easiest way to ensure an element participates in the focus zone is by applying the attribute `tabindex="-1"`. If you need to prevent a focusable element from participating in the focus zone, you can provide a `focusableElementFilter`.
+When the `focusZone` behavior is established, it will discover all _focusable_ elements within the given container and allow them to be focused with the bound keys. _Focusable_ elements are those that either are normally focusable via the Tab key OR have a valid `tabindex` attribute (including `"-1"`). The easiest way to ensure an element participates in the focus zone is by applying the attribute `tabindex="-1"`. If you need to prevent a focusable element from participating in the focus zone, you can provide a `focusableElementFilter`.
 
 ### Focus order
 
-The `arrowFocus` behavior uses the natural DOM ordering of elements to determine focus order. This means that a key that moves focus will either move to a "next" element or to a "previous" element. For example, the left arrow key and the up arrow key would both move focus to the previous element in the DOM order, while the right arrow key and the down arrow key would both move focus to the next element in the DOM order.
+The `focusZone` behavior uses the natural DOM ordering of elements to determine focus order. This means that a key that moves focus will either move to a "next" element or to a "previous" element. For example, the left arrow key and the up arrow key would both move focus to the previous element in the DOM order, while the right arrow key and the down arrow key would both move focus to the next element in the DOM order.
 
 Focus cannot be moved beyond the last element of the container (other than using the Tab key). The `focusOutBehavior` option can be used to allow focus to wrap around from last to first element (or vice-versa).
 
@@ -30,7 +30,7 @@ For more information on choosing the right focus in behavior, see [6.6 Keyboard 
 
 ### Supported keys
 
-The `arrowFocus` behavior supports different sets of keys for moving focus around. The `bindKeys` option is used to set which of the following keys can be used to move focus.
+The `focusZone` behavior supports different sets of keys for moving focus around. The `bindKeys` option is used to set which of the following keys can be used to move focus.
 
 | Key(s) | Notes | Use case |
 | :- | :- | :- |
@@ -46,14 +46,14 @@ The `arrowFocus` behavior supports different sets of keys for moving focus aroun
 
 ### DOM Focus vs. Active Descendant
 
-The `arrowFocus` behavior supports two modes of operation: DOM Focus and Active Descendant.
+The `focusZone` behavior supports two modes of operation: DOM Focus and Active Descendant.
 
 * DOM Focus is the default mode and by far the most commonly needed. When a key is used to move focus, we call `.focus()` directly on the element to receive focus. This results in `document.activeElement` getting set to this new element, and it will receive any necessary styles via `:focus` and `:focus-within`.
 * Active Descendant mode does _not_ move DOM focus. Instead, focus remains on the _control_ element, and its `aria-activedescendant` attribute is set to the ID of the relevant element. Because there are no `:focus` styles applied and no `focus` events fired, you can supply an `onActiveDescendantChanged` callback to handle any necessary styles or other logic as the active descendant changes. For more information on the Active Descendant focus pattern, see [6.6.2 Managing Focus in Composites Using `aria-activedescendant`](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant) from the ARIA Authoring Practices document.
 
 ### Demo
 
-Deploy Storybook to see live demos of `arrowFocus`.
+Deploy Storybook to see live demos of `focusZone`.
 
 ### Usage
 
@@ -62,20 +62,20 @@ const settings = {
   bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd
 } as Partial<PositionSettings>
 const focusZone = document.getElementById('focusZoneContainer')
-arrowFocus(focusZone, settings)
+focusZone(focusZone, settings)
 ```
 
 ### API
 
-The `arrowFocus` function takes the following arguments.
+The `focusZone` function takes the following arguments.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | container | `Element` | | The focus zone will apply to this container and all of its focusable descendants. |
-| settings | `ArrowFocusSettings` | `{}` | Settings to customize the focus zone. See below for a description of each setting. |
+| settings | `FocusZoneSettings` | `{}` | Settings to customize the focus zone. See below for a description of each setting. |
 
-#### ArrowFocusSettings interface
-`ArrowFocusSettings` is an object with the following interface. All properties are optional and have default behaviors.
+#### FocusZoneSettings interface
+`FocusZoneSettings` is an object with the following interface. All properties are optional and have default behaviors.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
@@ -84,7 +84,7 @@ The `arrowFocus` function takes the following arguments.
 | focusInStrategy | `"first"` &#124; `"previous"` &#124; `Function` | `"previous"` | This option allows customization of the behavior that determines which of the focusable elements should be focused when focus enters the container via the Tab key.<br /><br />When set to `"first"`, whenever focus enters the container via Tab, we will focus the first focusable element. When set to `"previous"`, the most recently focused element will be focused (fallback to first if there was no previous).<br /><br />If a function is provided, this function should return the `HTMLElement` intended to receive focus. This is useful if you want to focus the currently "selected" item or element. |
 | getNextFocusable | `Function` | | This is a callback used to customize the next element to focus when a bound key is pressed. The function takes 4 arguments: `direction` (`"previous"` or `"next"`), `toEnd` (boolean), `from` (Element or `undefined`), and `event` (KeyboardEvent). The function should return the next element to focus, or `undefined`. If `undefined` is returned, the regular algorithm to select the next element to focus will be used. |
 | focusableElementFilter | `Function` | | This is a callback used to cull focusable elements from participating in the focus zone. |
-| abortSignal | `AbortSignal` | | If passed, the focus zone will be deactivated and all event listeners removed when this signal is aborted. If not passed, an `AbortSignal` will be returned by the `arrowFocus` function. |
+| abortSignal | `AbortSignal` | | If passed, the focus zone will be deactivated and all event listeners removed when this signal is aborted. If not passed, an `AbortSignal` will be returned by the `focusZone` function. |
 | activeDescendantControl | `HTMLElement` | | If `activeDescendantControl` is supplied, do not move focus or alter `tabindex` on any element. Instead, manage `aria-activedescendant` according to the [ARIA best practices guidelines](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant).<br /><br />The given `activeDescendantControl` will be given an `aria-controls` attribute that references the ID of the `container`. Additionally, it will be given an `aria-activedescendant` attribute that references the ID of the currently-active descendant.<br /><br />This element will retain DOM focus as arrow keys are pressed. |
 | onActiveDescendantChanged | Function | | This function is called each time the active descendant changes (only applicable if `activeDescendantControl` is given). The function takes two arguments: `newActiveDescendant` and `previousActiveDescendant`, both `HTMLElement`, either of which can be undefined (e.g. when an element in the container first becomes active, or when the controlling element becomes unfocused). |
 
@@ -92,9 +92,9 @@ The `arrowFocus` function takes the following arguments.
 
 We highly recommend reading [Section 6: Developing a Keyboard Interface](https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard) from the WAI-ARIA Authoring Practices document.
 
-## useArrowFocus hook
+## useFocusZone hook
 
-The `useArrowFocus` hook is used to provide focus zone behavior to React components. The hook returns a ref that must be added to the container element.
+The `useFocusZone` hook is used to provide focus zone behavior to React components. The hook returns a ref that must be added to the container element.
 
 ### Using your own refs
 
@@ -107,8 +107,8 @@ Like other hooks such as `useCallback` and `useEffect`, this hook takes a depend
 ### Usage
 
 ```jsx
-export const ArrowFocusExample = () => {
-  const {containerRef} = useArrowFocus({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
+export const FocusZoneExample = () => {
+  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
   return (
     <div ref={containerRef}>
       <button>First</button>
@@ -119,10 +119,10 @@ export const ArrowFocusExample = () => {
 }
 ```
 
-### useArrowFocus hook
+### useFocusZone hook
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| settings | `ArrowFocusHookSettings` | undefined | Optional settings to control how the focus zone behaves. See below. |
+| settings | `FocusZoneHookSettings` | undefined | Optional settings to control how the focus zone behaves. See below. |
 | dependencies | React.DependencyList | undefined | Dependencies to determine when to initialize the focus zone. |
 
 **Return value**
@@ -132,8 +132,8 @@ export const ArrowFocusExample = () => {
 | containerRef | `React.RefObject<HTMLElement>` | This ref must be added to the container's JSX. |
 | activeDescendantControlRef | `React.RefObject<HTMLElement>` | If using active descendant focusing, this ref must be added to the control element's JSX. |
 
-### ArrowFocusHookSettings interface
-`ArrowFocusHookSettings` is an object with an interface that extends `ArrowFocusSettings` (see above), however, the `activeDescendantControl` prop is omitted (instead see the `activeDescendantFocus` prop below). Additionally, it adds the following properties:
+### FocusZoneHookSettings interface
+`FocusZoneHookSettings` is an object with an interface that extends `FocusZoneSettings` (see above), however, the `activeDescendantControl` prop is omitted (instead see the `activeDescendantFocus` prop below). Additionally, it adds the following properties:
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |

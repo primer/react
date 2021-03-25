@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
-import {arrowFocus, ArrowFocusSettings} from '../behaviors/arrowFocus'
+import {focusZone, FocusZoneSettings} from '../behaviors/focusZone'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
-export interface ArrowFocusHookSettings extends Omit<ArrowFocusSettings, 'activeDescendantControl'> {
+export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDescendantControl'> {
   /**
    * Optional ref for the container that holds all elements participating in arrow key focus.
    * If one is not passed, we will create one for you and return it from the hook.
@@ -16,8 +16,8 @@ export interface ArrowFocusHookSettings extends Omit<ArrowFocusSettings, 'active
   activeDescendantFocus?: boolean | React.RefObject<HTMLElement>
 }
 
-export function useArrowFocus(
-  settings: ArrowFocusHookSettings = {},
+export function useFocusZone(
+  settings: FocusZoneHookSettings = {},
   dependencies?: React.DependencyList
 ): {containerRef: React.RefObject<HTMLElement>; activeDescendantControlRef: React.RefObject<HTMLElement>} {
   const containerRef = useProvidedRefOrCreate(settings.containerRef)
@@ -34,11 +34,11 @@ export function useArrowFocus(
       containerRef.current instanceof HTMLElement &&
       (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
     ) {
-      const vanillaSettings: ArrowFocusSettings = {
+      const vanillaSettings: FocusZoneSettings = {
         ...settings,
         activeDescendantControl: activeDescendantControlRef.current ?? undefined
       }
-      abortController = arrowFocus(containerRef.current, vanillaSettings)
+      abortController = focusZone(containerRef.current, vanillaSettings)
     }
     return () => {
       abortController?.abort()

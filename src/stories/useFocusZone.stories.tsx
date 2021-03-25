@@ -4,14 +4,14 @@ import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
 
 import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme, ThemeProvider} from '..'
-import {Direction, FocusKeys} from '../behaviors/arrowFocus'
+import {Direction, FocusKeys} from '../behaviors/focusZone'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
-import {useArrowFocus} from '../hooks/useArrowFocus'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {useTheme} from '../ThemeProvider'
 
 export default {
-  title: 'Hooks/useArrowFocus',
+  title: 'Hooks/useFocusZone',
   decorators: [
     Story => {
       return (
@@ -37,14 +37,14 @@ const MarginButton = styled(Button)`
   margin: ${themeGet('space.1')};
 `
 
-export const BasicArrowFocus = () => {
+export const BasicFocusZone = () => {
   // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef} = useArrowFocus()
+  const {containerRef} = useFocusZone()
 
   return (
     <>
@@ -79,11 +79,11 @@ export const FocusOutBehavior = () => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef: containerRef1} = useArrowFocus({
+  const {containerRef: containerRef1} = useFocusZone({
     focusOutBehavior: 'stop',
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd
   })
-  const {containerRef: containerRef2} = useArrowFocus({
+  const {containerRef: containerRef2} = useFocusZone({
     focusOutBehavior: 'wrap',
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd
   })
@@ -192,7 +192,7 @@ export const CustomFocusMovement = () => {
     [containerRef]
   )
 
-  useArrowFocus({containerRef, getNextFocusable})
+  useFocusZone({containerRef, getNextFocusable})
 
   return (
     <>
@@ -235,12 +235,12 @@ export const FocusInStrategy = () => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef: firstContainerRef} = useArrowFocus({
+  const {containerRef: firstContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: 'first'
   })
 
-  const {containerRef: prevContainerRef} = useArrowFocus({
+  const {containerRef: prevContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: 'previous'
   })
@@ -253,7 +253,7 @@ export const FocusInStrategy = () => {
     }
   }, [customContainerRef])
 
-  useArrowFocus({
+  useFocusZone({
     containerRef: customContainerRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: customStrategy
@@ -307,7 +307,7 @@ export const SpecialSituations = () => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef: vContainerRef} = useArrowFocus({
+  const {containerRef: vContainerRef} = useFocusZone({
     bindKeys:
       FocusKeys.ArrowVertical |
       FocusKeys.JK |
@@ -316,7 +316,7 @@ export const SpecialSituations = () => {
       FocusKeys.PageUpDown |
       FocusKeys.HomeAndEnd
   })
-  const {containerRef: hContainerRef} = useArrowFocus({focusOutBehavior: 'wrap', bindKeys: FocusKeys.ArrowHorizontal})
+  const {containerRef: hContainerRef} = useFocusZone({focusOutBehavior: 'wrap', bindKeys: FocusKeys.ArrowHorizontal})
 
   return (
     <>
@@ -377,7 +377,7 @@ export const ChangingSubtree = () => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef} = useArrowFocus({bindKeys: FocusKeys.ArrowVertical})
+  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical})
 
   const [buttonCount, setButtonCount] = useState(3)
   const removeButton = useCallback(() => {
@@ -398,7 +398,7 @@ export const ChangingSubtree = () => {
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash mb={3}>
-          This story demonstrates that arrowFocus is consistent even when the container&rsquo;s subtree changes.
+          This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
         </Flash>
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
@@ -435,7 +435,7 @@ export const ActiveDescendant = () => {
   // We set up two arrow focus behaviors on the same container!
   // 1. Handles the active descendant treatment when the <input> element is focused
   // 2. Handles regular focus treatment when the container itself is focused.
-  useArrowFocus({
+  useFocusZone({
     containerRef,
     activeDescendantFocus: controllingElementRef,
     bindKeys: FocusKeys.ArrowVertical,
@@ -450,7 +450,7 @@ export const ActiveDescendant = () => {
     focusableElementFilter: elem => elem instanceof HTMLButtonElement
   })
 
-  useArrowFocus({
+  useFocusZone({
     containerRef,
     bindKeys: FocusKeys.ArrowVertical,
     getNextFocusable: (direction, toEnd, from) => {
