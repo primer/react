@@ -629,14 +629,12 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -722,28 +720,24 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -993,14 +987,12 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -1086,28 +1078,24 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -1357,14 +1345,12 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -1450,28 +1436,24 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -1721,14 +1703,12 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -1814,28 +1794,24 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -2085,14 +2061,12 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -2178,28 +2152,24 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -2449,14 +2419,12 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -2542,28 +2510,24 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -2813,14 +2777,12 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -2906,28 +2868,24 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -3177,14 +3135,12 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -3270,28 +3226,24 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -3541,14 +3493,12 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -3634,28 +3584,24 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -3905,14 +3851,12 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -3998,28 +3942,24 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -4269,14 +4209,12 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -4362,28 +4300,24 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
@@ -4633,14 +4567,12 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--bottom-right .c3::before,
 .c0.caret-pos--bottom-left .c3::before {
   bottom: -16px;
-  border-top-color: #e1e4e8;
 }
 
 .c0.caret-pos--bottom .c3::after,
 .c0.caret-pos--bottom-right .c3::after,
 .c0.caret-pos--bottom-left .c3::after {
   bottom: -14px;
-  border-top-color: #ffffff;
 }
 
 .c0.caret-pos--top-right .c3,
@@ -4726,28 +4658,24 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 .c0.caret-pos--right-top .c3::before,
 .c0.caret-pos--right-bottom .c3::before {
   right: -16px;
-  border-left-color: #e1e4e8;
 }
 
 .c0.caret-pos--right .c3::after,
 .c0.caret-pos--right-top .c3::after,
 .c0.caret-pos--right-bottom .c3::after {
   right: -14px;
-  border-left-color: #ffffff;
 }
 
 .c0.caret-pos--left .c3::before,
 .c0.caret-pos--left-top .c3::before,
 .c0.caret-pos--left-bottom .c3::before {
   left: -16px;
-  border-right-color: #e1e4e8;
 }
 
 .c0.caret-pos--left .c3::after,
 .c0.caret-pos--left-top .c3::after,
 .c0.caret-pos--left-bottom .c3::after {
   left: -14px;
-  border-right-color: #ffffff;
 }
 
 .c0.caret-pos--right-top .c3::before,
