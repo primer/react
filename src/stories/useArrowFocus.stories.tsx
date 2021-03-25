@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 
-import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme} from '..'
+import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme, ThemeProvider} from '..'
 import {Direction, FocusKeys} from '../behaviors/arrowFocus'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
 import {useArrowFocus} from '../hooks/useArrowFocus'
+import {useTheme} from '../ThemeProvider'
 
 export default {
   title: 'Hooks/useArrowFocus',
@@ -28,7 +29,7 @@ export default {
 // this Storybook story, but they're not recommended for a real site!
 const HelperGlobalStyling = createGlobalStyle`
   *:focus {
-    outline: 2px solid ${themeGet('colors.blue.3')} !important;
+    outline: 2px solid ${themeGet('colors.border.info')} !important;
   }
 `
 
@@ -307,9 +308,15 @@ export const SpecialSituations = () => {
   }, [])
 
   const {containerRef: vContainerRef} = useArrowFocus({
-    bindKeys: FocusKeys.ArrowVertical | FocusKeys.JK | FocusKeys.WS | FocusKeys.Tab | FocusKeys.PageUpDown | FocusKeys.HomeAndEnd
+    bindKeys:
+      FocusKeys.ArrowVertical |
+      FocusKeys.JK |
+      FocusKeys.WS |
+      FocusKeys.Tab |
+      FocusKeys.PageUpDown |
+      FocusKeys.HomeAndEnd
   })
-  const {containerRef: hContainerRef} = useArrowFocus({focusOutBehavior: "wrap", bindKeys: FocusKeys.ArrowHorizontal})
+  const {containerRef: hContainerRef} = useArrowFocus({focusOutBehavior: 'wrap', bindKeys: FocusKeys.ArrowHorizontal})
 
   return (
     <>
@@ -423,6 +430,7 @@ export const ActiveDescendant = () => {
 
   const containerRef = useRef<HTMLElement>(null)
   const controllingElementRef = useRef<HTMLElement>(null)
+  const {theme} = useTheme()
 
   // We set up two arrow focus behaviors on the same container!
   // 1. Handles the active descendant treatment when the <input> element is focused
@@ -433,7 +441,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${theme.colorSchemes.light.colors.blue[3]}`
+        current.style.outline = `2px solid ${theme.colors.border.info}`
       }
       if (previous) {
         previous.style.outline = ''
@@ -459,8 +467,8 @@ export const ActiveDescendant = () => {
         <Flash mb={3}>
           This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
           active element. Below, you can focus the input box then use the up/down arrow keys to change the active
-          descendant (dark blue outline). Furthermore, this story shows how to simultaneously set up a regular arrow
-          key focus treatment on the buttons. This pattern is used in a select menu with a filter box.
+          descendant (dark blue outline). Furthermore, this story shows how to simultaneously set up a regular arrow key
+          focus treatment on the buttons. This pattern is used in a select menu with a filter box.
         </Flash>
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
