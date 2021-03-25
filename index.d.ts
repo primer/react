@@ -1,3 +1,5 @@
+
+
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
@@ -270,6 +272,46 @@ declare module '@primer/components' {
   }
 
   export const Link: React.FunctionComponent<LinkProps>
+
+  export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
+    floatingElementRef?: React.RefObject<Element>
+    anchorElementRef?: React.RefObject<Element>
+  }
+  export type AnchorAlignment = 'start' | 'center' | 'end'
+  export type AnchorSide =
+  | 'inside-top'
+  | 'inside-bottom'
+  | 'inside-left'
+  | 'inside-right'
+  | 'inside-center'
+  | 'outside-top'
+  | 'outside-bottom'
+  | 'outside-left'
+  | 'outside-right'
+
+  export interface PositionSettings {
+    side: AnchorSide
+    align: AnchorAlignment
+    anchorOffset: number
+    alignmentOffset: number
+    allowOutOfBounds: boolean
+  }
+
+  export type OverlayProps = {
+    ignoreClickRefs: React.RefObject<HTMLElement> []
+    initialFocusRef?: React.RefObject<HTMLElement>
+    returnFocusRef: React.RefObject<HTMLElement>
+    anchorRef: React.RefObject<HTMLElement>
+    onClickOutside: (e: MouseEvent | TouchEvent) => void
+    onEscape: (e: KeyboardEvent) => void
+    positionSettings?: AnchoredPositionHookSettings
+    positionDeps?: React.DependencyList
+    width?: 'sm' | 'md' | 'lg' | 'xl' | 'auto'
+    height?: 'sm' | 'md' | 'auto'
+  }
+
+
+  export const Overlay: React.FunctionComponent<OverlayProps>
 
   export interface PageheadProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
 
@@ -757,6 +799,12 @@ declare module '@primer/components/lib/Fixed' {
   import {Fixed} from '@primer/components'
   export default Fixed
 }
+
+declare module '@primer/components/lib/Overlay' {
+  import {Overlay} from '@primer/components'
+  export default Overlay
+}
+
 
 declare module '@primer/components/lib/Pagehead' {
   import {Pagehead} from '@primer/components'
