@@ -71,7 +71,7 @@ export function* iterateFocusableElements(
 
 /**
  * Determines whether the given element is focusable. If `strict` is true, we may
- * perform additional checks that require a reflow (less performant)
+ * perform additional checks that require a reflow (less performant).
  * @param elem
  * @param strict
  */
