@@ -8,7 +8,7 @@ import {get} from '../constants'
 
 type Flatten<T extends unknown> = T extends (infer U)[] ? U : never
 
-interface UngroupedListProps {
+export interface UngroupedListProps {
   items: ItemProps[]
   renderItem?: (props: ItemProps) => JSX.Element
 }
@@ -16,7 +16,7 @@ function isUngroupedListProps(props: ListProps): props is UngroupedListProps {
   return typeof props === 'object' && props !== null && !('groupMetadata' in props)
 }
 
-interface GroupedListProps extends UngroupedListProps {
+export interface GroupedListProps extends UngroupedListProps {
   groupMetadata: (GroupProps & {groupId: number; header?: HeaderProps})[]
   items: (ItemProps & {groupId: number})[]
 }

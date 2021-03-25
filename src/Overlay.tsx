@@ -54,7 +54,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   ${sx};
 `
 export type OverlayProps = {
-  ignoreClickRefs: React.RefObject<HTMLElement>[]
+  ignoreClickRefs?: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
   anchorRef: React.RefObject<HTMLElement>
