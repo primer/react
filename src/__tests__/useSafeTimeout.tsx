@@ -19,7 +19,7 @@ test('should clear timeouts when safeClearTimeout is called', () => {
   expect(clearTimeout).toHaveBeenLastCalledWith(timeoutId);
 })
 
-test('should clear timeouts when the hook is unmounted', () => {
+test('should clear timeouts when the component is unmounted', () => {
   jest.useFakeTimers()
   const { result, unmount } = renderHook(() => useSafeTimeout())
   const mockFunction = jest.fn()
