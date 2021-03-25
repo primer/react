@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useEffect} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 
-import {BaseStyles, BorderBox, Button, Flash, Text, theme} from '..'
+import {BaseStyles, BorderBox, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
@@ -13,7 +13,7 @@ export default {
   decorators: [
     Story => {
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>
