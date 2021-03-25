@@ -24,7 +24,9 @@ export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClear
 
   useEffect(() => {
     return () => {
-      Object.values(timers.current).forEach(clearTimeout)
+      for (const id of timers.current) {
+        clearTimeout(id)
+      }
     }
   }, [])
 
