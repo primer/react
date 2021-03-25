@@ -16,148 +16,126 @@ When the `arrowFocus` behavior is established, it will discover all _focusable_ 
 
 The `arrowFocus` behavior uses the natural DOM ordering of elements to determine focus order. This means that a key that moves focus will either move to a "next" element or to a "previous" element. For example, the left arrow key and the up arrow key would both move focus to the previous element in the DOM order, while the right arrow key and the down arrow key would both move focus to the next element in the DOM order.
 
-By default, focus cannot be moved beyond the last element of the container (other than using the Tab key). Use the `focusOutBehavior` option to change this.
+Focus cannot be moved beyond the last element of the container (other than using the Tab key). The `focusOutBehavior` option can be used to allow focus to wrap around from last to first element (or vice-versa).
 
 For a more customized focus movement behavior, the consumer has the ability to supply a custom callback that identifies the next element to focus.
 
+#### Entering the focus zone
+
+By default, when focus enters a focus zone, the element that receives focus will be the most recently-focused element within that focus zone. If no element had previously been focused, or if that previously-focused element was removed, focus will revert to the first focusable element within the focus zone, regardless of the direction of focus movement.
+
+Using the `focusInStrategy` option, you can change this behavior. Setting this option to `"first"` will simply cause the first focusable element in the container to be focused whenever focus enters the focus zone. Otherwise, you may provide a callback to choose a custom element to receive initial focus. One scenario where this would be useful is if you wanted to focus an item that is "selected" in a list.
+
+For more information on choosing the right focus in behavior, see [6.6 Keyboard Navigation Inside Components](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_general_within) from the ARIA Authoring Practices document.
+
 ### Supported keys
 
-The `arrowFocus` behavior supports different sets of keys for moving focus around.
+The `arrowFocus` behavior supports different sets of keys for moving focus around. The `bindKeys` option is used to set which of the following keys can be used to move focus.
 
 | Key(s) | Notes | Use case |
-| :- | :- | :-: | :- |
+| :- | :- | :- |
 | ArrowVertical | Prevents default behavior of scrolling where applicable | Most focus zones with vertically-positioned elements |
 | ArrowHorizontal | Prevents default behavior of scrolling where applicable | Most focus zones with horizontally-positioned elements |
 | HomeAndEnd | Causes focus to jump to the first or last focusable item in the container. Does not move focus if the currently-focused element is a text box. | Generally used with arrow keys |
 | PageUpDown | Works the same as the Home and End keys. Advisable only when supplying a custom callback that supports paging. | In a long, scrollable list |
-| Tab | Unlike other keys, the Tab key will always allow movement outside of the focus zone (use the Focus Trap behavior to override). Tab moves to the next item, Shift+Tab moves to the previous. | Bind Tab if you want to continue allowing tab to move focus between elements in your container rather than jumping out of the container.
+| Tab/Shift+Tab | Unlike other keys, the Tab key will always allow movement outside of the focus zone (use the Focus Trap behavior to prevent this). Tab moves to the next item, Shift+Tab moves to the previous. | Bind Tab if you want to continue allowing tab to move focus between elements in your container rather than jumping out of the container.
 | JK | J moves focus to the next item, K moves to the previous. Does not move focus if the currently-focused element is a text box. [Originally from](https://catonmat.net/why-vim-uses-hjkl-as-arrow-keys) the vi keybindings | Used in certain lists |
 | HL | H moves focus to the previous item, L moves to the next. Does not move focus if the currently-focused element is a text box. [Originally from](https://catonmat.net/why-vim-uses-hjkl-as-arrow-keys) the vi keybindings | Used in certain lists |
 | WS | W moves focus to the previous item, S moves to the next. Does not move focus if the currently-focused element is a text box. | Any situation where it is more ergonomic for the left hand to perform this action, such as in a gaming context (rare) |
 | AD | A moves focus to the previous item, D moves to the next. Does not move focus if the currently-focused element is a text box. | Any situation where it is more ergonomic for the left hand to perform this action, such as in a gaming context (rare) |
 
-#### Finding the floating element's container
+### DOM Focus vs. Active Descendant
 
-The returned anchored position calculation is relative to the floating element's closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. To find this ancestor, we try to check parents of the floating element until we find one that has a position set to anything other than `static` and use that element's bounding box as the container. If we can't find such an element, we will try to use `document.body`. This element should be large—big enough to accommodate the floating element and have plenty of space to be moved around. It may be a good idea to ensure that this container element _also_ contains the anchor element and is scrollable. This will ensure that when scrolled, the anchor and floating element will move together.
+The `arrowFocus` behavior supports two modes of operation: DOM Focus and Active Descendant.
 
-#### Positioning and overflow
-
-With the positions and sizes of the above DOM elements, the algorithm calculates the (x, y) coordinate for the floating element. Then, it checks to see if, based on the floating element's size, if it would overflow the bounds of the container. If it would, it does one of two things:
-
-A) If the overflow happens in the same direction as the anchor side (e.g. side is `'outside-bottom'` and the overflowing portion of the floating element is the bottom), try to find a different side, recalculate the position, and check for overflow again. If we check all four sides and don't find one that fits, revert to the bottom side, in hopes that a scrollbar might appear.
-B) Otherwise, adjust the alignment offest so that the floating element can stay inside the container's bounds.
-
-For a more in-depth explanation of the positioning settings, see `PositionSettings` below.
+* DOM Focus is the default mode and by far the most commonly needed. When a key is used to move focus, we call `.focus()` directly on the element to receive focus. This results in `document.activeElement` getting set to this new element, and it will receive any necessary styles via `:focus` and `:focus-within`.
+* Active Descendant mode does _not_ move DOM focus. Instead, focus remains on the _control_ element, and its `aria-activedescendant` attribute is set to the ID of the relevant element. Because there are no `:focus` styles applied and no `focus` events fired, you can supply an `onActiveDescendantChanged` callback to handle any necessary styles or other logic as the active descendant changes. For more information on the Active Descendant focus pattern, see [6.6.2 Managing Focus in Composites Using `aria-activedescendant`](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant) from the ARIA Authoring Practices document.
 
 ### Demo
 
-See [this CodePen](https://codepen.io/team/GitHub/pen/OJbPKNZ) for a demo of `useAnchoredPosition`.
+Deploy Storybook to see live demos of `arrowFocus`.
 
 ### Usage
 
 ```ts
 const settings = {
-  side: 'outside-right',
-  align: 'center',
-  alignmentOffset: 10,
-  anchorOffset: -10
+  bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd
 } as Partial<PositionSettings>
-const float = document.getElementById('floatingElement')
-const anchor = document.getElementById('anchorElement')
-const {top, left} = getAnchoredPosition(float, anchor, settings)
-float.style.top = `${top}px`
-float.style.left = `${left}px`
+const focusZone = document.getElementById('focusZoneContainer')
+arrowFocus(focusZone, settings)
 ```
 
 ### API
 
-The `getAnchoredPosition` function takes the following arguments.
+The `arrowFocus` function takes the following arguments.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| floatingElement | `Element` | | This is an Element that is currently rendered on the page. `getAnchoredPosition` needs to be able to measure this element's `width` and `height`. |
-| anchorElement | `Element` | | This is an Element that the floating element will be "anchored" to. In other words, the calculated position of the floating element will be based on this element's position and size. |
-| settings | `PositionSettings` | `{}` | Settings to customize the positioning algorithm. See below for a description of each setting. |
+| container | `Element` | | The focus zone will apply to this container and all of its focusable descendants. |
+| settings | `ArrowFocusSettings` | `{}` | Settings to customize the focus zone. See below for a description of each setting. |
 
-#### PositionSettings interface
-`PositionSettings` is an object with the following interface
+#### ArrowFocusSettings interface
+`ArrowFocusSettings` is an object with the following interface. All properties are optional and have default behaviors.
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| side | `AnchorSide` | `"outside-bottom"` | Sets the side of the anchor element that the floating element should be pinned to. This side is given by a string starting with either `inside` or `outside`, followed by a hyphen, followed by either `top`, `right`, `bottom`, or `left`. Additionally, `"inside-center"` is an allowed value.<br /><br />The first part of this string, `inside` or `outside`, determines whether the floating element should be attempted to be placed "inside" the anchor element or "outside" of it. Using `inside` is useful for making it appear that the anchor _contains_ the floating element, and it can be used for implementing a dialog that is centered on the screen. The `outside` value is more common and can be used for tooltips, popovers, menus, etc.<br /><br />The second part of this string determines the _edge_ on the anchor element that the floating element will be anchored to. If side is `"inside-center"`, then the floating element will be centered in the X-direction (while `align` is used to position it in the Y-direction). |
-| align | `AnchorAlignment` | `"start"` | Determines how the floating element should align with the anchor element. If set to `"start"`, the floating element's first edge (top or left) will align with the anchor element's first edge. If set to `"center"`, the floating element will be centered along the axis of the anchor edge. If set to `"end"`, the floating element's last edge will align with the anchor element's last edge. |
-| anchorOffset | `number` | `4`* | The number of pixels between the anchor edge and the floating element. Positive values move the floating element farther from the anchor element (for outside positioning) or further inside the anchor element (for inside positioning). Negative values have the opposite effect. |
-| alignmentOffset | `number` | `4`** | An additional offset, in pixels, to move the floating element from the aligning edge. Positive values move the floating element in the direction of center-alignment. Negative values move the floating element away from center-alignment. When align is `"center"`, positive offsets move the floating element right (top or bottom anchor side) or down (left or right anchor side). |
-| allowOutOfBounds | `boolean` | `false` | If false, when the above settings result in rendering the floating element wholly or partially off-screen, attempt to adjust the settings to prevent this. Only applies to `outside` positioning.<br /><br />First, attempt to flip to the opposite edge of the anchor if the floating element is getting clipped in that direction. If flipping results in a similar clipping, try moving to the adjacent sides.<br /><br />Once we find a side that does not clip the overlay in its own dimension, check the rest of the sides to see if we need to adjust the alignment offset to fit in other dimensions.<br /><br />If we try all four sides and get clipped each time, settle for overflowing and use the `bottom` side, since the ability to scroll is most likely in this direction. |
-
-\* If `side` is set to `"inside-center"`, this defaults to `0` instead of `4`.
-
-\** If using outside positioning, or if `align` is set to `"center"`, this defaults to `0` instead of `4`.
-
-#### AnchorSide
-
-`AnchorSide` can be any of the following strings:
-
-`'inside-top'`, `'inside-bottom'`, `'inside-left'`, `'inside-right'`, `'inside-center'`, `'outside-top'`, `'outside-bottom'`, `'outside-left'`, `'outside-right'`
-
-#### AnchorAlignment
-
-`AnchorAlignment` can be any of the following strings:
-
-`'start'`, `'center'`, `'end'`
+| bindKeys | `number` | `FocusKeys.ArrowVertical` &#124; `FocusKeys.HomeAndEnd` | Bit flags that identify keys that will move focus around the focus zone. Each available key either moves focus to the "next" element or the "previous" element, so it is best to only bind the keys that make sense to move focus in your UI. Use the `FocusKeys` object to discover supported keys (listed in the "Supported keys" section above). <br /><br />Use the bitwise "OR" operator (&#124;) to combine key types. For example, `FocusKeys.WASD` &#124; `FocusKeys.HJKL` represents all of W, A, S, D, H, J, K, and L.<br /><br />The default for this setting is `FocusKeys.ArrowVertical` &#124; `FocusKeys.HomeAndEnd`, unless `getNextFocusable` is provided, in which case `FocusKeys.ArrowAll` &#124; `FocusKeys.HomeAndEnd` is used as the default. |
+| focusOutBehavior | `"stay"` &#124; `"wrap"` | `"stay"` | Choose the behavior applied in cases where focus is currently at either the first or last element of the container. `"stop"` - do nothing and keep focus where it was; `"wrap"` - wrap focus around to the first element from the last, or the last element from the first |
+| focusInStrategy | `"first"` &#124; `"previous"` &#124; `Function` | `"previous"` | This option allows customization of the behavior that determines which of the focusable elements should be focused when focus enters the container via the Tab key.<br /><br />When set to `"first"`, whenever focus enters the container via Tab, we will focus the first focusable element. When set to `"previous"`, the most recently focused element will be focused (fallback to first if there was no previous).<br /><br />If a function is provided, this function should return the `HTMLElement` intended to receive focus. This is useful if you want to focus the currently "selected" item or element. |
+| getNextFocusable | `Function` | | This is a callback used to customize the next element to focus when a bound key is pressed. The function takes 4 arguments: `direction` (`"previous"` or `"next"`), `toEnd` (boolean), `from` (Element or `undefined`), and `event` (KeyboardEvent). The function should return the next element to focus, or `undefined`. If `undefined` is returned, the regular algorithm to select the next element to focus will be used. |
+| focusableElementFilter | `Function` | | This is a callback used to cull focusable elements from participating in the focus zone. |
+| abortSignal | `AbortSignal` | | If passed, the focus zone will be deactivated and all event listeners removed when this signal is aborted. If not passed, an `AbortSignal` will be returned by the `arrowFocus` function. |
+| activeDescendantControl | `HTMLElement` | | If `activeDescendantControl` is supplied, do not move focus or alter `tabindex` on any element. Instead, manage `aria-activedescendant` according to the [ARIA best practices guidelines](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant).<br /><br />The given `activeDescendantControl` will be given an `aria-controls` attribute that references the ID of the `container`. Additionally, it will be given an `aria-activedescendant` attribute that references the ID of the currently-active descendant.<br /><br />This element will retain DOM focus as arrow keys are pressed. |
+| onActiveDescendantChanged | Function | | This function is called each time the active descendant changes (only applicable if `activeDescendantControl` is given). The function takes two arguments: `newActiveDescendant` and `previousActiveDescendant`, both `HTMLElement`, either of which can be undefined (e.g. when an element in the container first becomes active, or when the controlling element becomes unfocused). |
 
 ### Best practices
 
-As discussed above, the positioning algorithm needs to first measure the size of three different elements. Therefore, all three of these elements (anchor element, floating element, and the floating element's closest positioned container) must be rendered at the time `getAnchoredPosition` is called. Use these tips to get the best results:
+We highly recommend reading [Section 6: Developing a Keyboard Interface](https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard) from the WAI-ARIA Authoring Practices document.
 
-1. To avoid a frame where the floating element is rendered at the `(0, 0)` position, give it a style of `visibility: hidden` until its position is returned at set. This allows the element to be measured without showing up on the page.
-2. When checking for overflow, the positioning algorithm checks that the floating element at its calculated coordinates completely fits within its closest [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning) ancestor. Therefore, such a container should completely fill _its_ parent container without relying on automatic sizing or overflow.
+## useArrowFocus hook
 
-### A note on performance
-
-Every time `getAnchoredPosition` is called, it causes a [reflow](https://developers.google.com/speed/docs/insights/browser-reflow) because it needs to query the rendering engine for the positions of 3 elements: the anchor element, the floating element, and the closest ancestor of the floating element that is [_positioned_](https://developer.mozilla.org/en-US/docs/Web/CSS/position#types_of_positioning). Therefore, this function should not be called until it is needed (e.g. an overlay-style menu is invoked and displayed).
-
-## useAnchoredPosition hook
-
-The `useAnchoredPosition` hook is used to provide anchored positioning data for React components. The hook returns refs that must be added to the anchor and floating elements, and a `position` object containing `top` and `left`. This position is tracked as state, so the component will re-render whenever it changes. It is the responsibility of the consumer to apply the top and left styles to the floating element in question.
+The `useArrowFocus` hook is used to provide focus zone behavior to React components. The hook returns a ref that must be added to the container element.
 
 ### Using your own refs
 
-The `useAnchoredPosition` hook will return two refs for the anchor element and the floating element, which must be added to their respective JSX. If you would like to use your own refs, you can pass them into the hook as part of the settings object (see the interface below).
+If you would like to use your own refs, you can pass them into the hook as part of the settings object (see the interface below).
 
-### Recalculating position
+### Hook dependencies
 
-Like other hooks such as `useCallback` and `useEffect`, this hook takes a dependencies array. If defined, the position will only be recalulated when one of the dependencies in this array changes. Otherwise, the position will be calculated when the component is first mounted, but never again.
+Like other hooks such as `useCallback` and `useEffect`, this hook takes a dependencies array. If defined, the focus zone will be re-applied when a dependency changes (and the old one will be cleaned up).
 
 ### Usage
 
 ```jsx
-export const AnchoredPositionExample = () => {
-  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({side: 'outside-bottom', align: 'center'})
+export const ArrowFocusExample = () => {
+  const {containerRef} = useArrowFocus({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
   return (
-    <div>
-      <Position
-        position="absolute"
-        top={position?.top ?? 0}
-        left={position?.left ?? 0}
-        width={150}
-        height={150}
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-      >
-        Floating element
-      </Position>
-      <BorderBox width={400} height={75} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
-        Anchor Element
-      </BorderBox>
+    <div ref={containerRef}>
+      <button>First</button>
+      <button>Second</button>
+      <button>Third</button>
     </div>
   )
 }
 ```
 
-### AnchoredPositionHookSettings interface
-`AnchoredPositionHookSettings` is an object with an interface that extends `PositionSettings` (see above). Additionally, it adds the following properties:
+### useArrowFocus hook
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| settings | `ArrowFocusHookSettings` | undefined | Optional settings to control how the focus zone behaves. See below. |
+| dependencies | React.DependencyList | undefined | Dependencies to determine when to initialize the focus zone. |
+
+**Return value**
+
+| Name | Type | Description |
+| :- | :- | :- |
+| containerRef | `React.RefObject<HTMLElement>` | This ref must be added to the container's JSX. |
+| activeDescendantControlRef | `React.RefObject<HTMLElement>` | If using active descendant focusing, this ref must be added to the control element's JSX. |
+
+### ArrowFocusHookSettings interface
+`ArrowFocusHookSettings` is an object with an interface that extends `ArrowFocusSettings` (see above), however, the `activeDescendantControl` prop is omitted (instead see the `activeDescendantFocus` prop below). Additionally, it adds the following properties:
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| floatingElementRef | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the element that will be used for the floating element. Its size measurements are needed by the underlying `useAnchoredPosition` behavior. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the floating element's JSX. |
-| anchorElementRef | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the element that will be used for the anchor element. Its position and size measurements are needed by the underlying `useAnchoredPosition` behavior. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the anchor element's JSX. |
+| containerRef | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the element that will become the container of the focus zone. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the container's JSX. |
+| activeDescendantFocus | `boolean` | `React.RefObject<HTMLElement>` | `false` | If false, the focus zone will apply normal DOM focusing (see **DOM Focus vs. Active Descendant** above). If true, or if a ref is provided, the focus zone will use "active descendant" focusing. If a ref is applied, it will be used as the control element for active descendant focus. If `true` is given, a ref will be created and returned by the hook. |

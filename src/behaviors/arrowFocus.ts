@@ -26,7 +26,7 @@ export type FocusMovementKeys =
   | 'PageUp'
   | 'PageDown'
 
-export const KeyBits = {
+export const FocusKeys = {
   // Left and right arrow keys (previous and next, respectively)
   ArrowHorizontal: 0b000000001,
 
@@ -60,10 +60,10 @@ export const KeyBits = {
   WASD: 0,
   All: 0
 }
-KeyBits.ArrowAll = KeyBits.ArrowHorizontal | KeyBits.ArrowVertical
-KeyBits.HJKL = KeyBits.JK | KeyBits.HL
-KeyBits.WASD = KeyBits.WS | KeyBits.AD
-KeyBits.All = KeyBits.ArrowAll | KeyBits.HJKL | KeyBits.HomeAndEnd | KeyBits.PageUpDown | KeyBits.WASD | KeyBits.Tab
+FocusKeys.ArrowAll = FocusKeys.ArrowHorizontal | FocusKeys.ArrowVertical
+FocusKeys.HJKL = FocusKeys.JK | FocusKeys.HL
+FocusKeys.WASD = FocusKeys.WS | FocusKeys.AD
+FocusKeys.All = FocusKeys.ArrowAll | FocusKeys.HJKL | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown | FocusKeys.WASD | FocusKeys.Tab
 
 const KEY_TO_BIT = {
   ArrowLeft: 0b00000001,
@@ -110,16 +110,19 @@ const KEY_TO_DIRECTION = {
  */
 export interface ArrowFocusSettings {
   /**
-   * If true, when the last element in the container is focused, focusing the _next_ item
-   * should cause the first element in the container to be focused. Likewise, if the first
-   * item in the list is focused, focusing the _previous_ item should cause the last element
-   * in the container to be focused. Default: false.
+   * Choose the behavior applied in cases where focus is currently at either the first or
+   * last element of the container.
+   * 
+   * "stop" - do nothing and keep focus where it was
+   * "wrap" - wrap focus around to the first element from the last, or the last element from the first
+   * 
+   * Default: "stop"
    */
-  circular?: boolean
+  focusOutBehavior?: "stop" | "wrap"
 
   /**
    * If set, this will be called to get the next focusable element. If this function
-   * returns null, we will try to determine the next direction outselves. Use the
+   * returns null, we will try to determine the next direction ourselves. Use the
    * `bindKeys` option to customize which keys are listened to.
    *
    * The function can accept a Direction, indicating the direction focus should move,
@@ -144,26 +147,26 @@ export interface ArrowFocusSettings {
    * key focus behavior.
    *
    * By default, all focusable elements within the given container will participate
-   * in the arrow key focus behavior. If you need to withold some elements from
-   * particpation, implement this callback to return false for those elements.
+   * in the arrow key focus behavior. If you need to withhold some elements from
+   * participation, implement this callback to return false for those elements.
    */
   focusableElementFilter?: (element: HTMLElement) => boolean
 
   /**
    * Bit flags that identify keys that will be bound to. Each available key either
    * moves focus to the "next" element or the "previous" element, so it is best
-   * to only bind the keys that make sense to move focus in your UI. Use the `KeyBits`
+   * to only bind the keys that make sense to move focus in your UI. Use the `FocusKeys`
    * object to discover supported keys.
    *
    * Use the bitwise "OR" operator (`|`) to combine key types. For example,
-   * `KeyBits.WASD | KeyBits.HJKL` represents all of W, A, S, D, H, J, K, and L.
+   * `FocusKeys.WASD | FocusKeys.HJKL` represents all of W, A, S, D, H, J, K, and L.
    *
-   * A note on KeyBits.PageUpDown: This behavior does not support paging, so by default
+   * A note on FocusKeys.PageUpDown: This behavior does not support paging, so by default
    * using these keys will result in the same behavior as Home and End. To override this
    * behavior, implement `getNextFocusable`.
    *
-   * The default for this setting is `KeyBits.ArrowVertical | KeyBits.HomeAndEnd`, unless
-   * `getNextFocusable` is provided, in which case `KeyBits.ArrowAll | KeyBits.HomeAndEnd`
+   * The default for this setting is `FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd`, unless
+   * `getNextFocusable` is provided, in which case `FocusKeys.ArrowAll | FocusKeys.HomeAndEnd`
    * is used as the default.
    */
   bindKeys?: number
@@ -323,8 +326,8 @@ export function arrowFocus(container: HTMLElement, settings?: ArrowFocusSettings
   const tabbableElements: HTMLElement[] = []
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
   const bindKeys =
-    settings?.bindKeys ?? (settings?.getNextFocusable ? KeyBits.ArrowAll : KeyBits.ArrowVertical) | KeyBits.HomeAndEnd
-  const circular = settings?.circular ?? false
+    settings?.bindKeys ?? (settings?.getNextFocusable ? FocusKeys.ArrowAll : FocusKeys.ArrowVertical) | FocusKeys.HomeAndEnd
+  const focusOutBehavior = settings?.focusOutBehavior ?? "stop"
   const focusInStrategy = settings?.focusInStrategy ?? 'previous'
   const activeDescendantControl = settings?.activeDescendantControl
   const activeDescendantCallback = settings?.onActiveDescendantChanged
@@ -587,8 +590,8 @@ export function arrowFocus(container: HTMLElement, settings?: ArrowFocusSettings
                 }
               }
               if (currentFocusedIndex < 0) {
-                // Tab should never cause focus to circle. Use focusTrap for that behavior.
-                if (circular && event.key !== 'Tab') {
+                // Tab should never cause focus to wrap. Use focusTrap for that behavior.
+                if (focusOutBehavior === "wrap" && event.key !== 'Tab') {
                   currentFocusedIndex = tabbableElements.length - 1
                 } else {
                   if (activeDescendantControl) {
@@ -598,7 +601,7 @@ export function arrowFocus(container: HTMLElement, settings?: ArrowFocusSettings
                 }
               }
               if (currentFocusedIndex >= tabbableElements.length) {
-                if (circular && event.key !== 'Tab') {
+                if (focusOutBehavior === "wrap" && event.key !== 'Tab') {
                   currentFocusedIndex = 0
                 } else {
                   currentFocusedIndex = tabbableElements.length - 1

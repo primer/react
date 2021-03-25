@@ -4,7 +4,7 @@ import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
 
 import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme} from '..'
-import {Direction, KeyBits} from '../behaviors/arrowFocus'
+import {Direction, FocusKeys} from '../behaviors/arrowFocus'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
 import {useArrowFocus} from '../hooks/useArrowFocus'
@@ -71,16 +71,20 @@ export const BasicArrowFocus = () => {
   )
 }
 
-export const CircularHorizontal = () => {
+export const FocusOutBehavior = () => {
   // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
   const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef} = useArrowFocus({
-    circular: true,
-    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd
+  const {containerRef: containerRef1} = useArrowFocus({
+    focusOutBehavior: 'stop',
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd
+  })
+  const {containerRef: containerRef2} = useArrowFocus({
+    focusOutBehavior: 'wrap',
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd
   })
 
   return (
@@ -93,7 +97,18 @@ export const CircularHorizontal = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+        <BorderBox borderColor="gray.5" ref={containerRef1 as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>
+            Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus stops at the ends.
+          </strong>
+
+          <Flex flexDirection="row" alignItems="flex-start">
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </Flex>
+        </BorderBox>
+        <BorderBox borderColor="gray.5" ref={containerRef2 as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
 
           <Flex flexDirection="row" alignItems="flex-start">
@@ -220,12 +235,12 @@ export const FocusInStrategy = () => {
   }, [])
 
   const {containerRef: firstContainerRef} = useArrowFocus({
-    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: 'first'
   })
 
   const {containerRef: prevContainerRef} = useArrowFocus({
-    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: 'previous'
   })
 
@@ -239,7 +254,7 @@ export const FocusInStrategy = () => {
 
   useArrowFocus({
     containerRef: customContainerRef,
-    bindKeys: KeyBits.ArrowHorizontal | KeyBits.HomeAndEnd,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: customStrategy
   })
 
@@ -292,9 +307,9 @@ export const SpecialSituations = () => {
   }, [])
 
   const {containerRef: vContainerRef} = useArrowFocus({
-    bindKeys: KeyBits.ArrowVertical | KeyBits.JK | KeyBits.WS | KeyBits.Tab | KeyBits.PageUpDown | KeyBits.HomeAndEnd
+    bindKeys: FocusKeys.ArrowVertical | FocusKeys.JK | FocusKeys.WS | FocusKeys.Tab | FocusKeys.PageUpDown | FocusKeys.HomeAndEnd
   })
-  const {containerRef: hContainerRef} = useArrowFocus({circular: true, bindKeys: KeyBits.ArrowHorizontal})
+  const {containerRef: hContainerRef} = useArrowFocus({focusOutBehavior: "wrap", bindKeys: FocusKeys.ArrowHorizontal})
 
   return (
     <>
@@ -355,7 +370,7 @@ export const ChangingSubtree = () => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef} = useArrowFocus({bindKeys: KeyBits.ArrowVertical})
+  const {containerRef} = useArrowFocus({bindKeys: FocusKeys.ArrowVertical})
 
   const [buttonCount, setButtonCount] = useState(3)
   const removeButton = useCallback(() => {
@@ -415,7 +430,7 @@ export const ActiveDescendant = () => {
   useArrowFocus({
     containerRef,
     activeDescendantFocus: controllingElementRef,
-    bindKeys: KeyBits.ArrowVertical,
+    bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
         current.style.outline = `2px solid ${theme.colors['blue'][3]}`
@@ -429,7 +444,7 @@ export const ActiveDescendant = () => {
 
   useArrowFocus({
     containerRef,
-    bindKeys: KeyBits.ArrowVertical,
+    bindKeys: FocusKeys.ArrowVertical,
     getNextFocusable: (direction, toEnd, from) => {
       if (direction === 'previous' && !toEnd && from && from === containerRef.current) {
         return controllingElementRef.current ?? undefined
@@ -444,7 +459,7 @@ export const ActiveDescendant = () => {
         <Flash mb={3}>
           This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
           active element. Below, you can focus the input box then use the up/down arrow keys to change the active
-          descendant (dark blue outline). Furthermore, this story shows how to simulataneously set up a regular arrow
+          descendant (dark blue outline). Furthermore, this story shows how to simultaneously set up a regular arrow
           key focus treatment on the buttons. This pattern is used in a select menu with a filter box.
         </Flash>
         <Absolute right={5} top={2}>
