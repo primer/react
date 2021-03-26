@@ -12,7 +12,7 @@ If you have any quenstions, feel free to reach out in the #design-systems channe
 
 #### Text
 
-| `v24`                    | `v25`                    |
+| `v25`                    | `v26`                    |
 | ------------------------ | ------------------------ |
 | `color="text.gray"`      | `color="text.secondary"` |
 | `color="text.grayLight"` | `color="text.tertiary"`  |
@@ -31,7 +31,7 @@ If you have any quenstions, feel free to reach out in the #design-systems channe
 
 #### Icon
 
-| `v24`              | `v25`                    |
+| `v25`              | `v25`                    |
 | ------------------ | ------------------------ |
 | `color="gray.9"`   | `color="icon.primary"`   |
 | `color="gray.6"`   | `color="icon.secondary"` |
@@ -43,7 +43,7 @@ If you have any quenstions, feel free to reach out in the #design-systems channe
 
 #### Border
 
-| `v24`                             | `v25`                           |
+| `v25`                             | `v26`                           |
 | --------------------------------- | ------------------------------- |
 | `borderColor="border.blue"`       | `borderColor="border.info"`     |
 | `borderColor="border.blueLight"`  | n/a                             |
@@ -69,7 +69,7 @@ If you have any quenstions, feel free to reach out in the #design-systems channe
 
 #### Background
 
-| `v24`               | `v25`                    |
+| `v25`               | `v26`                    |
 | ------------------- | ------------------------ |
 | `bg="white"`        | `bg="bg.primary"`        |
 | `bg="bg.grayLight"` | `bg="bg.secondary"`      |
@@ -86,7 +86,7 @@ If you have any quenstions, feel free to reach out in the #design-systems channe
 
 _Note the change in pluralization from 'labels' to 'label'._
 
-| `v24`                         | `v25`                                 |
+| `v25`                         | `v26`                                 |
 | ----------------------------- | ------------------------------------- |
 | `color="labels.grayDarkText"` | `color="label.primary.text`           |
 | `borderColor="labels.gray"`   | `borderColor="label.primary.border`   |
@@ -109,14 +109,14 @@ _Note the change in pluralization from 'labels' to 'label'._
 
 #### Counters
 
-| `v24`                 | `v25`                |
+| `v25`                 | `v26`                |
 | --------------------- | -------------------- |
 | `scheme="gray"`       | `scheme="primary"`   |
 | `scheme="gray-light"` | `scheme="secondary"` |
 
 #### Timeline
 
-| `v24`                                     | `v25`                         |
+| `v25`                                     | `v26`                         |
 | ----------------------------------------- | ----------------------------- |
 | `bg="red.5"`                              | `bg="prState.closed.bg"`      |
 | `bg="green.5"`                            | `bg="prState.open.bg"`        |
