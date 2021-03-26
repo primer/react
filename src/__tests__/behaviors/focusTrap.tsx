@@ -6,17 +6,19 @@ import {focusTrap} from '../../behaviors/focusTrap'
 // Since we use strict `isTabbable` checks within focus trap, we need to mock these
 // properties that Jest does not populate.
 beforeAll(() => {
-  Object.defineProperties(HTMLElement.prototype, {
-    offsetHeight: {
-      get: () => 42
-    },
-    offsetWidth: {
-      get: () => 42
-    },
-    getClientRects: {
-      get: () => () => [42]
-    }
-  })
+  try {
+    Object.defineProperties(HTMLElement.prototype, {
+      offsetHeight: {
+        get: () => 42
+      },
+      offsetWidth: {
+        get: () => 42
+      },
+      getClientRects: {
+        get: () => () => [42]
+      }
+    })
+  } catch {}
 })
 
 it('Should initially focus the first focusable element when activated', () => {

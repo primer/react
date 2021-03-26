@@ -8,17 +8,19 @@ import {FocusKeys, focusZone} from '../../behaviors/focusZone'
 // Since we use strict `isTabbable` checks within focus trap, we need to mock these
 // properties that Jest does not populate.
 beforeAll(() => {
-  Object.defineProperties(HTMLElement.prototype, {
-    offsetHeight: {
-      get: () => 42
-    },
-    offsetWidth: {
-      get: () => 42
-    },
-    getClientRects: {
-      get: () => () => [42]
-    }
-  })
+  try {
+    Object.defineProperties(HTMLElement.prototype, {
+      offsetHeight: {
+        get: () => 42
+      },
+      offsetWidth: {
+        get: () => 42
+      },
+      getClientRects: {
+        get: () => () => [42]
+      }
+    })
+  } catch {}
 })
 
 it('Should allow arrow keys to move focus', () => {
