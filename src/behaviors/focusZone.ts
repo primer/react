@@ -446,12 +446,12 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     for (const mutation of mutations) {
       for (const addedNode of mutation.addedNodes) {
         if (addedNode instanceof HTMLElement && isFocusable(addedNode)) {
-          beginFocusManagement(addedNode)
+          beginFocusManagement(...iterateFocusableElements(addedNode))
         }
       }
       for (const removedNode of mutation.removedNodes) {
         if (removedNode instanceof HTMLElement && savedTabIndex.has(removedNode)) {
-          endFocusManagement(removedNode)
+          endFocusManagement(...iterateFocusableElements(removedNode))
         }
       }
     }
