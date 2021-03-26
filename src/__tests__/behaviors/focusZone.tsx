@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
 import {fireEvent, render} from '@testing-library/react'
-import userEvent from "@testing-library/user-event"
+import userEvent from '@testing-library/user-event'
 import {FocusKeys, focusZone} from '../../behaviors/focusZone'
 
 // Since we use strict `isTabbable` checks within focus trap, we need to mock these
@@ -167,10 +167,18 @@ it('Should call custom getNextFocusable callback', () => {
   expect(document.activeElement).toEqual(firstButton)
 
   userEvent.type(firstButton, '{arrowdown}')
-  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>('next', firstButton, expect.anything())
+  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>(
+    'next',
+    firstButton,
+    expect.anything()
+  )
 
   userEvent.type(secondButton, '{home}')
-  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>('start', secondButton, expect.anything())
+  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>(
+    'start',
+    secondButton,
+    expect.anything()
+  )
 
   controller.abort()
 })
@@ -178,7 +186,9 @@ it('Should call custom getNextFocusable callback', () => {
 it('Should focus-in to the most recently-focused element', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
         <button tabIndex={0}>Banana</button>
@@ -188,13 +198,13 @@ it('Should focus-in to the most recently-focused element', () => {
   )
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
-  const outsideButton = container.querySelector<HTMLElement>("#outside")!
+  const outsideButton = container.querySelector<HTMLElement>('#outside')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
   const controller = focusZone(focusZoneContainer)
 
   firstButton.focus()
   expect(document.activeElement).toEqual(firstButton)
-  
+
   userEvent.type(firstButton, '{arrowdown}')
   expect(document.activeElement).toEqual(secondButton)
 
@@ -212,7 +222,9 @@ it('Should focus-in to the most recently-focused element', () => {
 it('Should focus-in to the first element when focusInStrategy is "first"', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
         <button tabIndex={0}>Banana</button>
@@ -222,13 +234,13 @@ it('Should focus-in to the first element when focusInStrategy is "first"', () =>
   )
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
-  const outsideButton = container.querySelector<HTMLElement>("#outside")!
+  const outsideButton = container.querySelector<HTMLElement>('#outside')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
-  const controller = focusZone(focusZoneContainer, {focusInStrategy: "first"})
+  const controller = focusZone(focusZoneContainer, {focusInStrategy: 'first'})
 
   firstButton.focus()
   expect(document.activeElement).toEqual(firstButton)
-  
+
   userEvent.type(firstButton, '{arrowdown}')
   expect(document.activeElement).toEqual(secondButton)
 
@@ -248,7 +260,9 @@ it('Should focus-in to the first element when focusInStrategy is "first"', () =>
 it('Should call the custom focusInStrategy callback', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
         <button tabIndex={0}>Banana</button>
@@ -258,9 +272,9 @@ it('Should call the custom focusInStrategy callback', () => {
   )
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
-  const outsideButton = container.querySelector<HTMLElement>("#outside")!
+  const outsideButton = container.querySelector<HTMLElement>('#outside')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
-  const focusInCallback = jest.fn().mockReturnValue(secondButton);
+  const focusInCallback = jest.fn().mockReturnValue(secondButton)
   const controller = focusZone(focusZoneContainer, {focusInStrategy: focusInCallback})
 
   outsideButton.focus()
@@ -275,7 +289,9 @@ it('Should call the custom focusInStrategy callback', () => {
 it('Should respect inputs by not moving focus if key would have some other effect', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
         <input type="text" defaultValue="Banana" tabIndex={0} />
@@ -286,17 +302,17 @@ it('Should respect inputs by not moving focus if key would have some other effec
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
-  const input = focusZoneContainer.querySelector<HTMLElement>("input")!
+  const input = focusZoneContainer.querySelector<HTMLElement>('input')!
   const controller = focusZone(focusZoneContainer, {bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd})
 
   firstButton.focus()
-  userEvent.type(firstButton, "{arrowright}")
+  userEvent.type(firstButton, '{arrowright}')
   expect(document.activeElement).toEqual(input)
-  userEvent.type(input, "{arrowleft}")
+  userEvent.type(input, '{arrowleft}')
   expect(document.activeElement).toEqual(input)
-  userEvent.type(input, "{arrowright}")
+  userEvent.type(input, '{arrowright}')
   expect(document.activeElement).toEqual(input)
-  userEvent.type(input, "{arrowright}")
+  userEvent.type(input, '{arrowright}')
   expect(document.activeElement).toEqual(secondButton)
 
   controller.abort()
@@ -305,7 +321,9 @@ it('Should respect inputs by not moving focus if key would have some other effec
 it('Should focus-in to the first element if the last-focused element is removed', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
         <button tabIndex={0}>Banana</button>
@@ -316,11 +334,11 @@ it('Should focus-in to the first element if the last-focused element is removed'
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const [firstButton, secondButton, thirdButton] = focusZoneContainer.querySelectorAll('button')!
-  const outsideButton = container.querySelector<HTMLElement>("#outside")!
+  const outsideButton = container.querySelector<HTMLElement>('#outside')!
   const controller = focusZone(focusZoneContainer)
 
   firstButton.focus()
-  userEvent.type(firstButton, "{arrowdown}")
+  userEvent.type(firstButton, '{arrowdown}')
   expect(document.activeElement).toEqual(secondButton)
 
   outsideButton.focus()
@@ -328,7 +346,7 @@ it('Should focus-in to the first element if the last-focused element is removed'
   userEvent.tab()
   expect(document.activeElement).toEqual(firstButton)
 
-  userEvent.type(firstButton, "{arrowdown}")
+  userEvent.type(firstButton, '{arrowdown}')
   expect(document.activeElement).toEqual(thirdButton)
 
   controller.abort()
@@ -337,7 +355,9 @@ it('Should focus-in to the first element if the last-focused element is removed'
 it('Should call onActiveDescendantChanged properly', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <input id="control" defaultValue="control input" tabIndex={0} />
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
@@ -349,18 +369,30 @@ it('Should call onActiveDescendantChanged properly', () => {
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
-  const control = container.querySelector<HTMLElement>("#control")!
+  const control = container.querySelector<HTMLElement>('#control')!
   const activeDescendantChangedCallback = jest.fn()
-  const controller = focusZone(focusZoneContainer, {activeDescendantControl: control, onActiveDescendantChanged: activeDescendantChangedCallback})
+  const controller = focusZone(focusZoneContainer, {
+    activeDescendantControl: control,
+    onActiveDescendantChanged: activeDescendantChangedCallback
+  })
 
   control.focus()
-  userEvent.type(control, "{arrowdown}")
-  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(firstButton, undefined)
-  userEvent.type(control, "{arrowdown}")
-  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(secondButton, firstButton)
-  userEvent.type(control, "{arrowup}")
-  userEvent.type(control, "{arrowUp}")
-  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(undefined, firstButton)
+  userEvent.type(control, '{arrowdown}')
+  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(
+    firstButton,
+    undefined
+  )
+  userEvent.type(control, '{arrowdown}')
+  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(
+    secondButton,
+    firstButton
+  )
+  userEvent.type(control, '{arrowup}')
+  userEvent.type(control, '{arrowUp}')
+  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(
+    undefined,
+    firstButton
+  )
 
   controller.abort()
 })
@@ -368,7 +400,9 @@ it('Should call onActiveDescendantChanged properly', () => {
 it('Should set aria-activedescendant correctly', () => {
   const {container} = render(
     <div>
-      <button tabIndex={0} id="outside">Bad Apple</button>
+      <button tabIndex={0} id="outside">
+        Bad Apple
+      </button>
       <input id="control" defaultValue="control input" tabIndex={0} />
       <div id="focusZone">
         <button tabIndex={0}>Apple</button>
@@ -380,19 +414,19 @@ it('Should set aria-activedescendant correctly', () => {
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
-  const control = container.querySelector<HTMLElement>("#control")!
+  const control = container.querySelector<HTMLElement>('#control')!
   const controller = focusZone(focusZoneContainer, {activeDescendantControl: control})
 
   control.focus()
-  userEvent.type(control, "{arrowdown}")
-  expect(control.getAttribute("aria-activedescendant")).toEqual(firstButton.id)
-  userEvent.type(control, "{arrowdown}")
-  expect(control.getAttribute("aria-activedescendant")).toEqual(secondButton.id)
-  userEvent.type(control, "{arrowup}")
-  expect(control.getAttribute("aria-activedescendant")).toEqual(firstButton.id)
+  userEvent.type(control, '{arrowdown}')
+  expect(control.getAttribute('aria-activedescendant')).toEqual(firstButton.id)
+  userEvent.type(control, '{arrowdown}')
+  expect(control.getAttribute('aria-activedescendant')).toEqual(secondButton.id)
+  userEvent.type(control, '{arrowup}')
+  expect(control.getAttribute('aria-activedescendant')).toEqual(firstButton.id)
   expect(document.activeElement).toEqual(control)
-  userEvent.type(control, "{arrowup}")
-  expect(control.hasAttribute("aria-activedescendant")).toBeFalsy()
+  userEvent.type(control, '{arrowup}')
+  expect(control.hasAttribute('aria-activedescendant')).toBeFalsy()
   expect(document.activeElement).toEqual(control)
 
   controller.abort()
