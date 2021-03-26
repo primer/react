@@ -1,3 +1,7 @@
+let isMac: boolean | undefined = undefined
 export function isMacOS(): boolean {
-  return /^mac/i.test(window.navigator.platform)
+  if (isMac === undefined) {
+    isMac = /^mac/i.test(window.navigator.platform)
+  }
+  return isMac
 }

@@ -354,7 +354,7 @@ export const SpecialSituations = () => {
           </Flex>
         </BorderBox>
         <BorderBox borderColor="gray.5" ref={hContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
-          <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
+          <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
 
           <Flex flexDirection="row" alignItems="center">
             <MarginButton>Grapefruit</MarginButton>

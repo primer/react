@@ -64,11 +64,6 @@ export enum FocusKeys {
     FocusKeys.WASD |
     FocusKeys.Tab
 }
-// FocusKeys.ArrowAll = FocusKeys.ArrowHorizontal | FocusKeys.ArrowVertical
-// FocusKeys.HJKL = FocusKeys.JK | FocusKeys.HL
-// FocusKeys.WASD = FocusKeys.WS | FocusKeys.AD
-// FocusKeys.All =
-//   FocusKeys.ArrowAll | FocusKeys.HJKL | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown | FocusKeys.WASD | FocusKeys.Tab
 
 const KEY_TO_BIT = {
   ArrowLeft: FocusKeys.ArrowHorizontal,
@@ -88,7 +83,7 @@ const KEY_TO_BIT = {
   End: FocusKeys.HomeAndEnd,
   PageUp: FocusKeys.PageUpDown,
   PageDown: FocusKeys.PageUpDown
-} as {[k in FocusMovementKeys]: number}
+} as {[k in FocusMovementKeys]: FocusKeys}
 
 const KEY_TO_DIRECTION = {
   ArrowLeft: 'previous',
@@ -131,14 +126,8 @@ export interface FocusZoneSettings {
    * `bindKeys` option to customize which keys are listened to.
    *
    * The function can accept a Direction, indicating the direction focus should move,
-   * a boolean indicating whether or not focus should move to the end of the list of
-   * elements in the given direction, the HTMLElement that was previously focused, and
-   * lastly the `KeyboardEvent` object created by the original `"keydown"` event.
-   *
-   * The `toEnd` argument is true if:
-   *   - Home or End key used
-   *   - Command key used (macOS)
-   *   - Control key used (Windows or Linux)
+   * the HTMLElement that was previously focused, and lastly the `KeyboardEvent` object
+   * created by the original `"keydown"` event.
    */
   getNextFocusable?: (direction: Direction, from: Element | undefined, event: KeyboardEvent) => HTMLElement | undefined
 
@@ -327,6 +316,10 @@ function notifyActiveElement(element: HTMLElement) {
 
 function subscribeToActiveElementChanges(callback: (activeElement: HTMLElement) => void) {
   subscriptions.push(callback)
+  return () => {
+    const index = subscriptions.indexOf(callback)
+    subscriptions.splice(index, 1)
+  }
 }
 
 /**
@@ -396,9 +389,9 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
 
   function endFocusManagement(...elements: HTMLElement[]) {
     for (const element of elements) {
-      const tabbableElementIndex = focusableElements.indexOf(element)
-      if (tabbableElementIndex >= 0) {
-        focusableElements.splice(tabbableElementIndex, 1)
+      const focusableElementIndex = focusableElements.indexOf(element)
+      if (focusableElementIndex >= 0) {
+        focusableElements.splice(focusableElementIndex, 1)
 
         // If removing the last-focused element, set tabindex=0 to the first element in the list.
         if (element === currentFocusedElement && focusableElements.length > 0) {
@@ -422,10 +415,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   // Take all tabbable elements within container under management
   beginFocusManagement(...iterateFocusableElements(container))
 
-  // If multiple arrow focus behaviors have overlapping DOM, we need to know about
+  // If multiple focus zones have overlapping DOM, we need to know about
   // any changes that result from others so that the "previous" active element
   // stays consistent.
-  subscribeToActiveElementChanges((activeElement: HTMLElement) => {
+  const unsubscribeFromActiveElementChanges = subscribeToActiveElementChanges((activeElement: HTMLElement) => {
     if (focusInStrategy === 'previous') {
       const tabbableElementIndex = focusableElements.indexOf(activeElement)
       if (tabbableElementIndex >= 0) {
@@ -468,6 +461,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   signal.addEventListener('abort', () => {
     // Clean up any modifications
     endFocusManagement(...focusableElements)
+    unsubscribeFromActiveElementChanges()
   })
 
   // When using activedescendant focusing, the first focus-in is caused by our listeners
