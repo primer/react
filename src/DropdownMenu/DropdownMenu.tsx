@@ -12,10 +12,10 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, 'items
 export function DropdownMenu({
   renderAnchor = (props: ButtonProps) => <Button {...props} />,
   renderItem = Item,
-  ...props
+  ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
-  const [selection, select] = useState<string>('🎨')
+  const [selection, select] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
   const onDismiss = useCallback(() => setOpen(false), [setOpen])
   return (
@@ -24,12 +24,12 @@ export function DropdownMenu({
       {open && (
         <Overlay anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
           <List
-            {...props}
-            renderItem={({onClick, ...props}) =>
+            {...listProps}
+            renderItem={({onClick, ...itemProps}) =>
               renderItem({
-                ...props,
+                ...itemProps,
                 onClick: event => {
-                  select(props.text ?? '')
+                  select(itemProps.text ?? '')
                   setOpen(false)
                   onClick && onClick(event)
                 }

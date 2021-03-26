@@ -1,6 +1,6 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
-import {theme, ThemeProvider} from '..'
+import {Button, theme, ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
 import {DropdownMenu} from '../DropdownMenu'
 import {registerPortalRoot} from '../Portal'
@@ -35,7 +35,10 @@ export function FavoriteColorStory(): JSX.Element {
     <>
       <h1>Favorite Color</h1>
       <div>Please select your favorite color:</div>
-      <DropdownMenu items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]} />
+      <DropdownMenu
+        renderAnchor={props => <Button {...props}>{props.children || '🎨'}</Button>}
+        items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
+      />
     </>
   )
 }
