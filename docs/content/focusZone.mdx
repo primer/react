@@ -139,3 +139,4 @@ export const FocusZoneExample = () => {
 | :- | :- | :-: | :- |
 | containerRef | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the element that will become the container of the focus zone. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the container's JSX. |
 | activeDescendantFocus | `boolean` &#124; `React.RefObject<HTMLElement>` | `false` | If false, the focus zone will apply normal DOM focusing (see **DOM Focus vs. Active Descendant** above). If true, or if a ref is provided, the focus zone will use "active descendant" focusing. If a ref is applied, it will be used as the control element for active descendant focus. If `true` is given, a ref will be created and returned by the hook. |
+| disabled | `boolean` | `false` | Set to true to disable the focus zone and clean up listeners. Can be re-enabled at any time. |
