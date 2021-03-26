@@ -60,7 +60,7 @@ Deploy Storybook to see live demos of `focusZone`.
 ```ts
 const settings = {
   bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd
-} as Partial<PositionSettings>
+} as FocusZoneSettings
 const focusZone = document.getElementById('focusZoneContainer')
 focusZone(focusZone, settings)
 ```
@@ -80,7 +80,7 @@ The `focusZone` function takes the following arguments.
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
 | bindKeys | `FocusKeys` (numeric enum) | `FocusKeys.ArrowVertical` &#124; `FocusKeys.HomeAndEnd` | Bit flags that identify keys that will move focus around the focus zone. Each available key either moves focus to the "next" element or the "previous" element, so it is best to only bind the keys that make sense to move focus in your UI. Use the `FocusKeys` object to discover supported keys (listed in the "Supported keys" section above). <br /><br />Use the bitwise "OR" operator (&#124;) to combine key types. For example, `FocusKeys.WASD` &#124; `FocusKeys.HJKL` represents all of W, A, S, D, H, J, K, and L.<br /><br />The default for this setting is `FocusKeys.ArrowVertical` &#124; `FocusKeys.HomeAndEnd`, unless `getNextFocusable` is provided, in which case `FocusKeys.ArrowAll` &#124; `FocusKeys.HomeAndEnd` is used as the default. |
-| focusOutBehavior | `"stay"` &#124; `"wrap"` | `"stay"` | Choose the behavior applied in cases where focus is currently at either the first or last element of the container. `"stop"` - do nothing and keep focus where it was; `"wrap"` - wrap focus around to the first element from the last, or the last element from the first |
+| focusOutBehavior | `"stop"` &#124; `"wrap"` | `"stop"` | Choose the behavior applied in cases where focus is currently at either the first or last element of the container. `"stop"` - do nothing and keep focus where it was; `"wrap"` - wrap focus around to the first element from the last, or the last element from the first |
 | focusInStrategy | `"first"` &#124; `"previous"` &#124; `Function` | `"previous"` | This option allows customization of the behavior that determines which of the focusable elements should be focused when focus enters the container via the Tab key.<br /><br />When set to `"first"`, whenever focus enters the container via Tab, we will focus the first focusable element. When set to `"previous"`, the most recently focused element will be focused (fallback to first if there was no previous).<br /><br />If a function is provided, this function should return the `HTMLElement` intended to receive focus. This is useful if you want to focus the currently "selected" item or element. |
 | getNextFocusable | `Function` | | This is a callback used to customize the next element to focus when a bound key is pressed. The function takes 3 arguments: `direction` (`"previous"`, `"next"`, `"start"`, or `"end"`), `from` (Element or `undefined`), and `event` (KeyboardEvent). The function should return the next element to focus, or `undefined`. If `undefined` is returned, the regular algorithm to select the next element to focus will be used. |
 | focusableElementFilter | `Function` | | This is a callback used to cull focusable elements from participating in the focus zone. |
