@@ -1,8 +1,8 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
-import {Button, theme, ThemeProvider} from '..'
+import {theme, ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
-import {DropdownMenu} from '../DropdownMenu'
+import {DropdownButton, DropdownMenu} from '../DropdownMenu'
 import {registerPortalRoot} from '../Portal'
 
 const meta: Meta = {
@@ -34,9 +34,13 @@ export function FavoriteColorStory(): JSX.Element {
   return (
     <>
       <h1>Favorite Color</h1>
-      <div>Please select your favorite color:</div>
+      <div id="favorite-color-label">Please select your favorite color:</div>
       <DropdownMenu
-        renderAnchor={({children, ...anchorProps}) => <Button {...anchorProps}>{children || '🎨'}</Button>}
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
+            {children || '🎨'}
+          </DropdownButton>
+        )}
         items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
       />
     </>

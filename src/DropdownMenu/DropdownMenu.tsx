@@ -1,33 +1,45 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {List, GroupedListProps, UngroupedListProps} from '../ActionList/List'
 import Overlay from '../Overlay'
-import Button, {ButtonProps} from '../Button'
+import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {Item} from '../ActionList/Item'
 
-export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, 'items'>>, UngroupedListProps {
+export interface DropdownMenuProps
+  extends Partial<Omit<GroupedListProps, keyof UngroupedListProps>>,
+    UngroupedListProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
 }
 
 export function DropdownMenu({
-  renderAnchor = (props: ButtonProps) => <Button {...props} />,
+  renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
   renderItem = Item,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
+  const anchorId = `dropdownMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
   const [selection, select] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
   const onDismiss = useCallback(() => setOpen(false), [setOpen])
   return (
     <>
-      {renderAnchor({ref: anchorRef, children: selection, onClick: () => setOpen(!open)})}
+      {renderAnchor({
+        ref: anchorRef,
+        id: anchorId,
+        'aria-labelledby': anchorId,
+        'aria-haspopup': 'listbox',
+        children: selection,
+        onClick: () => setOpen(!open)
+      })}
       {open && (
         <Overlay anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
           <List
             {...listProps}
+            role="listbox"
             renderItem={({onClick, ...itemProps}) =>
               renderItem({
                 ...itemProps,
+                role: 'option',
                 selected: itemProps.text === selection,
                 onClick: event => {
                   select(itemProps.text === selection ? '' : itemProps.text ?? '')

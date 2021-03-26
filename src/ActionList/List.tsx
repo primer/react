@@ -5,10 +5,12 @@ import {Divider} from './Divider'
 import {Header, HeaderProps} from './Header'
 import styled from 'styled-components'
 import {get} from '../constants'
+import type {AriaRole} from '../utils/types'
 
 type Flatten<T extends unknown> = T extends (infer U)[] ? U : never
 
 export interface UngroupedListProps {
+  role?: AriaRole
   items: ItemProps[]
   renderItem?: (props: ItemProps) => JSX.Element
 }

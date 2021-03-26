@@ -75,7 +75,12 @@ export function Item({
   ...props
 }: ItemProps): JSX.Element {
   return (
-    <StyledItem data-component="ActionList.Item" variant={variant} {...props}>
+    <StyledItem
+      data-component="ActionList.Item"
+      variant={variant}
+      {...(!!selected === selected && {'aria-selected': selected})}
+      {...props}
+    >
       {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
         <LeadingVisualContainer>
