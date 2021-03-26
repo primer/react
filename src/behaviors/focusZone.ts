@@ -5,7 +5,7 @@ import {uniqueId} from '../utils/uniqueId'
 
 eventListenerSignalPolyfill()
 
-export type Direction = 'previous' | 'next'
+export type Direction = 'previous' | 'next' | 'start' | 'end'
 
 export type FocusMovementKeys =
   | 'ArrowLeft'
@@ -26,63 +26,68 @@ export type FocusMovementKeys =
   | 'PageUp'
   | 'PageDown'
 
-export const FocusKeys = {
+export enum FocusKeys {
   // Left and right arrow keys (previous and next, respectively)
-  ArrowHorizontal: 0b000000001,
+  ArrowHorizontal = 0b000000001,
 
   // Up and down arrow keys (previous and next, respectively)
-  ArrowVertical: 0b000000010,
+  ArrowVertical = 0b000000010,
 
   // The "J" and "K" keys (next and previous, respectively)
-  JK: 0b000000100,
+  JK = 0b000000100,
 
   // The "H" and "L" keys (previous and next, respectively)
-  HL: 0b000001000,
+  HL = 0b000001000,
 
   // The Home and End keys (previous and next, respectively, to end)
-  HomeAndEnd: 0b000010000,
+  HomeAndEnd = 0b000010000,
 
   // The PgUp and PgDn keys (previous and next, respectively, to end)
-  PageUpDown: 0b100000000,
+  PageUpDown = 0b100000000,
 
   // The "W" and "S" keys (previous and next, respectively)
-  WS: 0b000100000,
+  WS = 0b000100000,
 
   // The "A" and "D" keys (previous and next, respectively)
-  AD: 0b001000000,
+  AD = 0b001000000,
 
   // The Tab key (next)
-  Tab: 0b010000000,
+  Tab = 0b010000000,
 
-  // These are set below
-  ArrowAll: 0,
-  HJKL: 0,
-  WASD: 0,
-  All: 0
+  ArrowAll = FocusKeys.ArrowHorizontal | FocusKeys.ArrowVertical,
+  HJKL = FocusKeys.HL | FocusKeys.JK,
+  WASD = FocusKeys.WS | FocusKeys.AD,
+  All = FocusKeys.ArrowAll |
+    FocusKeys.HJKL |
+    FocusKeys.HomeAndEnd |
+    FocusKeys.PageUpDown |
+    FocusKeys.WASD |
+    FocusKeys.Tab
 }
-FocusKeys.ArrowAll = FocusKeys.ArrowHorizontal | FocusKeys.ArrowVertical
-FocusKeys.HJKL = FocusKeys.JK | FocusKeys.HL
-FocusKeys.WASD = FocusKeys.WS | FocusKeys.AD
-FocusKeys.All = FocusKeys.ArrowAll | FocusKeys.HJKL | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown | FocusKeys.WASD | FocusKeys.Tab
+// FocusKeys.ArrowAll = FocusKeys.ArrowHorizontal | FocusKeys.ArrowVertical
+// FocusKeys.HJKL = FocusKeys.JK | FocusKeys.HL
+// FocusKeys.WASD = FocusKeys.WS | FocusKeys.AD
+// FocusKeys.All =
+//   FocusKeys.ArrowAll | FocusKeys.HJKL | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown | FocusKeys.WASD | FocusKeys.Tab
 
 const KEY_TO_BIT = {
-  ArrowLeft: 0b00000001,
-  ArrowDown: 0b00000010,
-  ArrowUp: 0b00000010,
-  ArrowRight: 0b00000001,
-  h: 0b00001000,
-  j: 0b00000100,
-  k: 0b00000100,
-  l: 0b00001000,
-  a: 0b01000000,
-  s: 0b00100000,
-  w: 0b00100000,
-  d: 0b01000000,
-  Tab: 0b10000000,
-  Home: 0b00010000,
-  End: 0b00010000,
-  PageUp: 0b100000000,
-  PageDown: 0b100000000
+  ArrowLeft: FocusKeys.ArrowHorizontal,
+  ArrowDown: FocusKeys.ArrowVertical,
+  ArrowUp: FocusKeys.ArrowVertical,
+  ArrowRight: FocusKeys.ArrowHorizontal,
+  h: FocusKeys.HL,
+  j: FocusKeys.JK,
+  k: FocusKeys.JK,
+  l: FocusKeys.HL,
+  a: FocusKeys.AD,
+  s: FocusKeys.WS,
+  w: FocusKeys.WS,
+  d: FocusKeys.AD,
+  Tab: FocusKeys.Tab,
+  Home: FocusKeys.HomeAndEnd,
+  End: FocusKeys.HomeAndEnd,
+  PageUp: FocusKeys.PageUpDown,
+  PageDown: FocusKeys.PageUpDown
 } as {[k in FocusMovementKeys]: number}
 
 const KEY_TO_DIRECTION = {
@@ -99,10 +104,10 @@ const KEY_TO_DIRECTION = {
   w: 'previous',
   d: 'next',
   Tab: 'next',
-  Home: 'previous',
-  End: 'next',
-  PageUp: 'previous',
-  PageDown: 'next'
+  Home: 'start',
+  End: 'end',
+  PageUp: 'start',
+  PageDown: 'end'
 } as {[k in FocusMovementKeys]: Direction}
 
 /**
@@ -112,13 +117,13 @@ export interface FocusZoneSettings {
   /**
    * Choose the behavior applied in cases where focus is currently at either the first or
    * last element of the container.
-   * 
+   *
    * "stop" - do nothing and keep focus where it was
    * "wrap" - wrap focus around to the first element from the last, or the last element from the first
-   * 
+   *
    * Default: "stop"
    */
-  focusOutBehavior?: "stop" | "wrap"
+  focusOutBehavior?: 'stop' | 'wrap'
 
   /**
    * If set, this will be called to get the next focusable element. If this function
@@ -135,12 +140,7 @@ export interface FocusZoneSettings {
    *   - Command key used (macOS)
    *   - Control key used (Windows or Linux)
    */
-  getNextFocusable?: (
-    direction: Direction,
-    toEnd: boolean,
-    from: Element | undefined,
-    event: KeyboardEvent
-  ) => HTMLElement | undefined
+  getNextFocusable?: (direction: Direction, from: Element | undefined, event: KeyboardEvent) => HTMLElement | undefined
 
   /**
    * Called to decide if a focusable element is allowed to participate in the arrow
@@ -169,7 +169,7 @@ export interface FocusZoneSettings {
    * `getNextFocusable` is provided, in which case `FocusKeys.ArrowAll | FocusKeys.HomeAndEnd`
    * is used as the default.
    */
-  bindKeys?: number
+  bindKeys?: FocusKeys
 
   /**
    * If provided, this signal can be used to disable the behavior and remove any
@@ -226,6 +226,14 @@ function getDirection(keyboardEvent: KeyboardEvent) {
   if (keyboardEvent.key === 'Tab' && keyboardEvent.shiftKey) {
     return 'previous'
   }
+  const isMac = isMacOS()
+  if ((isMac && keyboardEvent.metaKey) || (!isMac && keyboardEvent.ctrlKey)) {
+    if (keyboardEvent.key === 'ArrowLeft' || keyboardEvent.key === 'ArrowUp') {
+      return 'start'
+    } else if (keyboardEvent.key === 'ArrowRight' || keyboardEvent.key === 'ArrowDown') {
+      return 'end'
+    }
+  }
   return direction
 }
 
@@ -234,7 +242,7 @@ function getDirection(keyboardEvent: KeyboardEvent) {
  * checks for those situations.
  * 1. Home and End should not move focus when a text input or textarea is active
  * 2. Keys that would normally type characters into an input or navigate a select element should be ignored
- * 3. The down arrow should not move focus when a select is active since that normally invokes the dropdown (?)
+ * 3. The down arrow sometimes should not move focus when a select is active since that sometimes invokes the dropdown
  * 4. Page Up and Page Down within a textarea should not have any effect
  * 5. When in a text input or textarea, left should only move focus if the cursor is at the beginning of the input
  * 6. When in a text input or textarea, right should only move focus if the cursor is at the end of the input
@@ -254,7 +262,6 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
   const isTextInput =
     (activeElement instanceof HTMLInputElement && activeElement.type === 'text') ||
     activeElement instanceof HTMLTextAreaElement
-  const isSelect = activeElement instanceof HTMLSelectElement
 
   // If we would normally type a character into an input, ignore
   // Also, Home and End keys should never affect focus when in a text input
@@ -262,14 +269,20 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
     return true
   }
 
-  // Since down arrow normally opens a select, and regular characters change the selection, ignore those
-  // Maybe: Allow Cmd/Ctrl as the escape hatch for down arrow? Can't be Alt since this is a common gesture for
-  //        opening the dropdown on Windows.
-  if (
-    isSelect &&
-    ((key === 'ArrowDown' && !(isMacOS() ? keyboardEvent.metaKey : keyboardEvent.ctrlKey)) || keyLength === 1)
-  ) {
-    return true
+  // Some situations we want to ignore with <select> elements
+  if (activeElement instanceof HTMLSelectElement) {
+    // Regular typeable characters change the selection, so ignore those
+    if (keyLength === 1) {
+      return true
+    }
+    // On macOS, bare ArrowDown opens the select, so ignore that
+    if (key === 'ArrowDown' && isMacOS() && !keyboardEvent.metaKey) {
+      return true
+    }
+    // On other platforms, Alt+ArrowDown opens the select, so ignore that
+    if (key === 'ArrowDown' && !isMacOS() && keyboardEvent.altKey) {
+      return true
+    }
   }
 
   // Ignore page up and page down for textareas
@@ -318,27 +331,20 @@ function subscribeToActiveElementChanges(callback: (activeElement: HTMLElement) 
 
 /**
  * Sets up the arrow key focus behavior for all focusable elements in the given `container`.
- * @param container 
- * @param settings 
- * @returns 
+ * @param container
+ * @param settings
+ * @returns
  */
 export function focusZone(container: HTMLElement, settings?: FocusZoneSettings): AbortController {
-  const tabbableElements: HTMLElement[] = []
+  const focusableElements: HTMLElement[] = []
   const savedTabIndex = new WeakMap<HTMLElement, string | null>()
   const bindKeys =
-    settings?.bindKeys ?? (settings?.getNextFocusable ? FocusKeys.ArrowAll : FocusKeys.ArrowVertical) | FocusKeys.HomeAndEnd
-  const focusOutBehavior = settings?.focusOutBehavior ?? "stop"
+    settings?.bindKeys ??
+    (settings?.getNextFocusable ? FocusKeys.ArrowAll : FocusKeys.ArrowVertical) | FocusKeys.HomeAndEnd
+  const focusOutBehavior = settings?.focusOutBehavior ?? 'stop'
   const focusInStrategy = settings?.focusInStrategy ?? 'previous'
   const activeDescendantControl = settings?.activeDescendantControl
   const activeDescendantCallback = settings?.onActiveDescendantChanged
-
-  // We are going to keep track of all tabbable elements we've encountered. This will be
-  // necessary if one of these elements is removed from the container and subsequently
-  // re-added. Since we are settings tabindex="-1" on each of these elements, once it
-  // re-enters the container, we will not otherwise recognize it as a tabbable element.
-  // This implementation makes the assumption that once something is identified as a
-  // tabbable element, it will always be a tabbable element.
-  const allSeenTabbableElements = new WeakSet<HTMLElement>()
 
   function updateTabIndex(from?: HTMLElement, to?: HTMLElement) {
     if (!activeDescendantControl) {
@@ -374,10 +380,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
       return
     }
     // Insert all elements atomically. Assume that all passed elements are well-ordered.
-    const insertIndex = tabbableElements.findIndex(
+    const insertIndex = focusableElements.findIndex(
       e => (e.compareDocumentPosition(filteredElements[0]) & Node.DOCUMENT_POSITION_PRECEDING) > 0
     )
-    tabbableElements.splice(insertIndex === -1 ? tabbableElements.length : insertIndex, 0, ...filteredElements)
+    focusableElements.splice(insertIndex === -1 ? focusableElements.length : insertIndex, 0, ...filteredElements)
     for (const element of filteredElements) {
       // Set tabindex="-1" on all tabbable elements, but save the original
       // value in case we need to disable the behavior
@@ -385,24 +391,32 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
         savedTabIndex.set(element, element.getAttribute('tabindex'))
       }
       element.setAttribute('tabindex', '-1')
-
-      allSeenTabbableElements.add(element)
     }
   }
 
-  function endFocusManagement(element: HTMLElement) {
-    const tabbableElementIndex = tabbableElements.indexOf(element)
-    if (tabbableElementIndex >= 0) {
-      tabbableElements.splice(tabbableElementIndex, 1)
+  function endFocusManagement(...elements: HTMLElement[]) {
+    for (const element of elements) {
+      const tabbableElementIndex = focusableElements.indexOf(element)
+      if (tabbableElementIndex >= 0) {
+        focusableElements.splice(tabbableElementIndex, 1)
 
-      // If removing the last-focused element, set tabindex=0 to the first element in the list.
-      if (element.getAttribute('tabindex') === '0' && tabbableElements.length > 0) {
-        updateTabIndex(undefined, tabbableElements[0])
-        currentFocusedElement = tabbableElements[0]
-        currentFocusedIndex = 0
+        // If removing the last-focused element, set tabindex=0 to the first element in the list.
+        if (element === currentFocusedElement && focusableElements.length > 0) {
+          updateTabIndex(undefined, focusableElements[0])
+          currentFocusedElement = focusableElements[0]
+          currentFocusedIndex = 0
+        }
+      }
+      const savedIndex = savedTabIndex.get(element)
+      if (savedIndex !== undefined) {
+        if (savedIndex === null) {
+          element.removeAttribute('tabindex')
+        } else {
+          element.setAttribute('tabindex', savedIndex)
+        }
+        savedTabIndex.delete(element)
       }
     }
-    savedTabIndex.delete(element)
   }
 
   // Take all tabbable elements within container under management
@@ -413,10 +427,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   // stays consistent.
   subscribeToActiveElementChanges((activeElement: HTMLElement) => {
     if (focusInStrategy === 'previous') {
-      const tabbableElementIndex = tabbableElements.indexOf(activeElement)
+      const tabbableElementIndex = focusableElements.indexOf(activeElement)
       if (tabbableElementIndex >= 0) {
-        const nextFocusedElement = tabbableElements[tabbableElementIndex]
-        const previousFocusedElement = tabbableElements[currentFocusedIndex]
+        const nextFocusedElement = focusableElements[tabbableElementIndex]
+        const previousFocusedElement = focusableElements[currentFocusedIndex]
         updateTabIndex(previousFocusedElement, nextFocusedElement)
         currentFocusedIndex = tabbableElementIndex
       }
@@ -424,14 +438,14 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   })
 
   // Open the first tabbable element for tabbing
-  updateTabIndex(undefined, tabbableElements[0])
+  updateTabIndex(undefined, focusableElements[0])
 
   // If the DOM structure of the container changes, make sure we keep our state up-to-date
   // with respect to the focusable elements cache and its order
   const observer = new MutationObserver(mutations => {
     for (const mutation of mutations) {
       for (const addedNode of mutation.addedNodes) {
-        if (addedNode instanceof HTMLElement && (isFocusable(addedNode) || allSeenTabbableElements.has(addedNode))) {
+        if (addedNode instanceof HTMLElement && isFocusable(addedNode)) {
           beginFocusManagement(addedNode)
         }
       }
@@ -451,11 +465,16 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   const controller = new AbortController()
   const signal = settings?.abortSignal ?? controller.signal
 
+  signal.addEventListener('abort', () => {
+    // Clean up any modifications
+    endFocusManagement(...focusableElements)
+  })
+
   // When using activedescendant focusing, the first focus-in is caused by our listeners
   // meaning we have to approach zero. This is safe since we clamp the value before using it.
   let currentFocusedIndex = 0
   let activeDescendantSuspended = activeDescendantControl ? true : false
-  let currentFocusedElement = activeDescendantControl ? undefined : tabbableElements[0]
+  let currentFocusedElement = activeDescendantControl ? undefined : focusableElements[0]
 
   let elementIndexFocusedByClick: number | undefined = undefined
   container.addEventListener(
@@ -464,7 +483,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
       // Since focusin is only called when focus changes, we need to make sure the clicked
       // element isn't already focused.
       if (event.target instanceof HTMLElement && event.target !== document.activeElement) {
-        elementIndexFocusedByClick = tabbableElements.indexOf(event.target)
+        elementIndexFocusedByClick = focusableElements.indexOf(event.target)
       }
     },
     {signal}
@@ -480,8 +499,8 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
           // to reflect the clicked element as the currently focused one.
           if (elementIndexFocusedByClick != undefined) {
             if (elementIndexFocusedByClick >= 0) {
-              if (tabbableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
-                updateTabIndex(currentFocusedElement, tabbableElements[elementIndexFocusedByClick])
+              if (focusableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
+                updateTabIndex(currentFocusedElement, focusableElements[elementIndexFocusedByClick])
               }
               currentFocusedIndex = elementIndexFocusedByClick
             }
@@ -494,19 +513,19 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
               if (
                 event.relatedTarget instanceof Element &&
                 !container.contains(event.relatedTarget) &&
-                event.target !== tabbableElements[0]
+                event.target !== focusableElements[0]
               ) {
                 // Regardless of the previously focused element, if we're coming from outside the
                 // container, put focus onto the first element.
                 currentFocusedIndex = 0
-                tabbableElements[0].focus()
+                focusableElements[0].focus()
               } else {
                 updateTabIndex(currentFocusedElement, event.target)
               }
             } else if (typeof focusInStrategy === 'function') {
               if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
                 const elementToFocus = focusInStrategy(event.relatedTarget)
-                const requestedFocusElementIndex = elementToFocus ? tabbableElements.indexOf(elementToFocus) : -1
+                const requestedFocusElementIndex = elementToFocus ? focusableElements.indexOf(elementToFocus) : -1
                 if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
                   currentFocusedIndex = requestedFocusElementIndex
 
@@ -546,16 +565,6 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
           (keyBit & bindKeys) > 0 &&
           !shouldIgnoreFocusHandling(event, document.activeElement)
         ) {
-          const isMac = isMacOS()
-
-          // These conditions decide if we should move focus to the first/last element in the container
-          const toEnd =
-            event.key === 'Home' ||
-            event.key === 'End' ||
-            (event.key !== 'Tab' && ((isMac && event.metaKey) || (!isMac && event.ctrlKey))) ||
-            event.key === 'PageUp' ||
-            event.key === 'PageDown'
-
           // Moving forward or backward?
           const direction = getDirection(event)
 
@@ -563,36 +572,28 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
 
           if (activeDescendantSuspended) {
             activeDescendantSuspended = false
-            nextElementToFocus = tabbableElements[currentFocusedIndex]
+            nextElementToFocus = focusableElements[currentFocusedIndex]
           } else {
             // If there is a custom function that retrieves the next focusable element, try calling that first.
             if (settings?.getNextFocusable) {
-              nextElementToFocus = settings.getNextFocusable(
-                direction,
-                toEnd,
-                document.activeElement ?? undefined,
-                event
-              )
+              nextElementToFocus = settings.getNextFocusable(direction, document.activeElement ?? undefined, event)
             }
             if (!nextElementToFocus) {
               const lastFocusedIndex = currentFocusedIndex
               if (direction === 'previous') {
-                if (toEnd) {
-                  currentFocusedIndex = 0
-                } else {
-                  currentFocusedIndex -= 1
-                }
+                currentFocusedIndex -= 1
+              } else if (direction === 'start') {
+                currentFocusedIndex = 0
               } else if (direction === 'next') {
-                if (toEnd) {
-                  currentFocusedIndex = tabbableElements.length - 1
-                } else {
-                  currentFocusedIndex += 1
-                }
+                currentFocusedIndex += 1
+              } else if (direction === 'end') {
+                currentFocusedIndex = focusableElements.length - 1
               }
+
               if (currentFocusedIndex < 0) {
                 // Tab should never cause focus to wrap. Use focusTrap for that behavior.
-                if (focusOutBehavior === "wrap" && event.key !== 'Tab') {
-                  currentFocusedIndex = tabbableElements.length - 1
+                if (focusOutBehavior === 'wrap' && event.key !== 'Tab') {
+                  currentFocusedIndex = focusableElements.length - 1
                 } else {
                   if (activeDescendantControl) {
                     suspendActiveDescendant()
@@ -600,15 +601,15 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
                   currentFocusedIndex = 0
                 }
               }
-              if (currentFocusedIndex >= tabbableElements.length) {
-                if (focusOutBehavior === "wrap" && event.key !== 'Tab') {
+              if (currentFocusedIndex >= focusableElements.length) {
+                if (focusOutBehavior === 'wrap' && event.key !== 'Tab') {
                   currentFocusedIndex = 0
                 } else {
-                  currentFocusedIndex = tabbableElements.length - 1
+                  currentFocusedIndex = focusableElements.length - 1
                 }
               }
               if (lastFocusedIndex !== currentFocusedIndex) {
-                nextElementToFocus = tabbableElements[currentFocusedIndex]
+                nextElementToFocus = focusableElements[currentFocusedIndex]
               }
             }
           }

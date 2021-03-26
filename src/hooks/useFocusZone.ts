@@ -14,6 +14,12 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
    * element. If a ref object is not passed, we will create one for you.
    */
   activeDescendantFocus?: boolean | React.RefObject<HTMLElement>
+
+  /**
+   * Set to true to disable the focus zone and clean up listeners. Can be re-enabled at
+   * any time.
+   */
+  disabled?: boolean
 }
 
 export function useFocusZone(
@@ -27,21 +33,26 @@ export function useFocusZone(
       ? undefined
       : settings.activeDescendantFocus
   const activeDescendantControlRef = useProvidedRefOrCreate(passedActiveDescendantRef)
+  const disabled = settings?.disabled
+  const abortController = React.useRef<AbortController>()
 
   useEffect(() => {
-    let abortController: AbortController | undefined = undefined
     if (
       containerRef.current instanceof HTMLElement &&
       (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
     ) {
-      const vanillaSettings: FocusZoneSettings = {
-        ...settings,
-        activeDescendantControl: activeDescendantControlRef.current ?? undefined
+      if (!disabled) {
+        const vanillaSettings: FocusZoneSettings = {
+          ...settings,
+          activeDescendantControl: activeDescendantControlRef.current ?? undefined
+        }
+        abortController.current = focusZone(containerRef.current, vanillaSettings)
+        return () => {
+          abortController.current?.abort()
+        }
+      } else {
+        abortController.current?.abort()
       }
-      abortController = focusZone(containerRef.current, vanillaSettings)
-    }
-    return () => {
-      abortController?.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies ?? [])

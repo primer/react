@@ -9,6 +9,7 @@ import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useTheme} from '../ThemeProvider'
+import {ButtonDanger, ButtonPrimary} from '../Button'
 
 export default {
   title: 'Hooks/useFocusZone',
@@ -44,7 +45,13 @@ export const BasicFocusZone = () => {
     setLastKey(event.key)
   }, [])
 
-  const {containerRef} = useFocusZone()
+  const [fzEnabled, setFzEnabled] = useState(true)
+  const {containerRef} = useFocusZone({disabled: !fzEnabled}, [fzEnabled])
+
+  const ToggleButton = fzEnabled ? ButtonDanger : ButtonPrimary
+  const toggleFz = useCallback(() => {
+    setFzEnabled(!fzEnabled)
+  }, [fzEnabled])
 
   return (
     <>
@@ -53,6 +60,7 @@ export const BasicFocusZone = () => {
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
         </Absolute>
+        <ToggleButton mb={3} onClick={toggleFz}>{fzEnabled ? 'Disable' : 'Enable'} Focus Zone</ToggleButton>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
@@ -145,12 +153,8 @@ export const CustomFocusMovement = () => {
   const containerRef = useRef<HTMLElement>(null)
 
   const getNextFocusable = useCallback(
-    (
-      direction: Direction,
-      toEnd: boolean,
-      from: Element | undefined,
-      event: KeyboardEvent
-    ): HTMLElement | undefined => {
+    (direction: Direction, from: Element | undefined, event: KeyboardEvent): HTMLElement | undefined => {
+      const toEnd = direction === 'start' || direction === 'end'
       if (from && containerRef.current) {
         const currentIndex = getSiblingIndex(from)
         let nextIndex = currentIndex
@@ -453,8 +457,8 @@ export const ActiveDescendant = () => {
   useFocusZone({
     containerRef,
     bindKeys: FocusKeys.ArrowVertical,
-    getNextFocusable: (direction, toEnd, from) => {
-      if (direction === 'previous' && !toEnd && from && from === containerRef.current) {
+    getNextFocusable: (direction, from) => {
+      if (direction === 'previous' && from && from === containerRef.current) {
         return controllingElementRef.current ?? undefined
       }
     }
