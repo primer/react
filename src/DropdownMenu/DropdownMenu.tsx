@@ -28,8 +28,9 @@ export function DropdownMenu({
             renderItem={({onClick, ...itemProps}) =>
               renderItem({
                 ...itemProps,
+                selected: itemProps.text === selection,
                 onClick: event => {
-                  select(itemProps.text ?? '')
+                  select(itemProps.text === selection ? '' : itemProps.text ?? '')
                   setOpen(false)
                   onClick && onClick(event)
                 }

@@ -36,7 +36,7 @@ export function FavoriteColorStory(): JSX.Element {
       <h1>Favorite Color</h1>
       <div>Please select your favorite color:</div>
       <DropdownMenu
-        renderAnchor={props => <Button {...props}>{props.children || '🎨'}</Button>}
+        renderAnchor={({children, ...anchorProps}) => <Button {...anchorProps}>{children || '🎨'}</Button>}
         items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
       />
     </>

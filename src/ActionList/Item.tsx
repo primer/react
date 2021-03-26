@@ -1,4 +1,4 @@
-import type {IconProps} from '@primer/octicons-react'
+import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -9,6 +9,7 @@ interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
   descriptionVariant?: 'inline' | 'block'
   leadingVisual?: React.FunctionComponent<IconProps>
   leadingVisualSize?: 16 | 20
+  selected?: boolean
   size?: 'small' | 'medium' | 'large'
   variant?: 'default' | 'singleSelection' | 'multiSelection' | 'danger' | 'static'
 }
@@ -67,6 +68,7 @@ export function Item({
   text,
   description,
   descriptionVariant = 'inline',
+  selected,
   leadingVisual: LeadingVisual,
   size: _size = 'small',
   variant = 'default',
@@ -74,6 +76,7 @@ export function Item({
 }: ItemProps): JSX.Element {
   return (
     <StyledItem data-component="ActionList.Item" variant={variant} {...props}>
+      {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
         <LeadingVisualContainer>
           <LeadingVisual />
