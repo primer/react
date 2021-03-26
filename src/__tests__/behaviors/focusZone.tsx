@@ -5,6 +5,10 @@ import {fireEvent, render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {FocusKeys, focusZone} from '../../behaviors/focusZone'
 
+async function nextTick() {
+  return new Promise(resolve => setTimeout(resolve, 0))
+}
+
 // Since we use strict `isTabbable` checks within focus trap, we need to mock these
 // properties that Jest does not populate.
 beforeAll(() => {
@@ -136,13 +140,13 @@ it('Should do focus wrapping correctly', () => {
   userEvent.type(firstButton, '{arrowup}')
   expect(document.activeElement).toEqual(thirdButton)
 
-  userEvent.type(firstButton, '{arrowup}')
+  userEvent.type(thirdButton, '{arrowup}')
   expect(document.activeElement).toEqual(secondButton)
 
-  userEvent.type(firstButton, '{arrowdown}')
+  userEvent.type(secondButton, '{arrowdown}')
   expect(document.activeElement).toEqual(thirdButton)
 
-  userEvent.type(firstButton, '{arrowdown}')
+  userEvent.type(thirdButton, '{arrowdown}')
   expect(document.activeElement).toEqual(firstButton)
 
   controller.abort()
@@ -320,7 +324,7 @@ it('Should respect inputs by not moving focus if key would have some other effec
   controller.abort()
 })
 
-it('Should focus-in to the first element if the last-focused element is removed', () => {
+it('Should focus-in to the first element if the last-focused element is removed', async () => {
   const {container} = render(
     <div>
       <button tabIndex={0} id="outside">
@@ -345,6 +349,10 @@ it('Should focus-in to the first element if the last-focused element is removed'
 
   outsideButton.focus()
   focusZoneContainer.removeChild(secondButton)
+
+  // The mutation observer fires asynchronously
+  await nextTick()
+
   userEvent.tab()
   expect(document.activeElement).toEqual(firstButton)
 
