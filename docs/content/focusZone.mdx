@@ -1,0 +1,142 @@
+---
+title: Focus Zone Behavior
+---
+
+The `focusZone` behavior and `useFocusZone` hook are used to designate a container where focus can be moved using keys other than `Tab`. This is useful for implementing many of the patterns described in [Section 6](https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard) of the WAI-ARIA Authoring Practices document. The most common use case of this behavior is to allow arrow keys (up and down or left and right) to move focus between related elements, such as items in a menu.
+
+At a high level, the `focusZone` behavior works by adjusting the `tabindex` attribute on focusable elements and setting up event listeners on the container that respond to the relevant key presses.
+
+Settings for this behavior allow the user to customize several aspects of the focus zone. See **FocusZoneSettings** below for a detailed description of these settings.
+
+### Focusability: which elements participate in the Focus Zone?
+
+When the `focusZone` behavior is established, it will discover all _focusable_ elements within the given container and allow them to be focused with the bound keys. _Focusable_ elements are those that either are normally focusable via the Tab key OR have a valid `tabindex` attribute (including `"-1"`). The easiest way to ensure an element participates in the focus zone is by applying the attribute `tabindex="-1"`. If you need to prevent a focusable element from participating in the focus zone, you can provide a `focusableElementFilter`.
+
+### Focus order
+
+The `focusZone` behavior uses the natural DOM ordering of elements to determine focus order. This means that a key that moves focus will either move to a "next" element or to a "previous" element. For example, the left arrow key and the up arrow key would both move focus to the previous element in the DOM order, while the right arrow key and the down arrow key would both move focus to the next element in the DOM order.
+
+Focus cannot be moved beyond the last element of the container (other than using the Tab key). The `focusOutBehavior` option can be used to allow focus to wrap around from last to first element (or vice-versa).
+
+For a more customized focus movement behavior, the consumer has the ability to supply a custom callback that identifies the next element to focus.
+
+#### Entering the focus zone
+
+By default, when focus enters a focus zone, the element that receives focus will be the most recently-focused element within that focus zone. If no element had previously been focused, or if that previously-focused element was removed, focus will revert to the first focusable element within the focus zone, regardless of the direction of focus movement.
+
+Using the `focusInStrategy` option, you can change this behavior. Setting this option to `"first"` will simply cause the first focusable element in the container to be focused whenever focus enters the focus zone. Otherwise, you may provide a callback to choose a custom element to receive initial focus. One scenario where this would be useful is if you wanted to focus an item that is "selected" in a list.
+
+For more information on choosing the right focus in behavior, see [6.6 Keyboard Navigation Inside Components](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_general_within) from the ARIA Authoring Practices document.
+
+### Supported keys
+
+The `focusZone` behavior supports different sets of keys for moving focus around. The `bindKeys` option is used to set which of the following keys can be used to move focus.
+
+| Key(s) | Notes | Use case |
+| :- | :- | :- |
+| ArrowVertical | Prevents default behavior of scrolling where applicable | Most focus zones with vertically-positioned elements |
+| ArrowHorizontal | Prevents default behavior of scrolling where applicable | Most focus zones with horizontally-positioned elements |
+| HomeAndEnd | Causes focus to jump to the first or last focusable item in the container. Does not move focus if the currently-focused element is a text box. | Generally used with arrow keys |
+| PageUpDown | Works the same as the Home and End keys. Advisable only when supplying a custom callback that supports paging. | In a long, scrollable list |
+| Tab/Shift+Tab | Unlike other keys, the Tab key will always allow movement outside of the focus zone (use the Focus Trap behavior to prevent this). Tab moves to the next item, Shift+Tab moves to the previous. | Bind Tab if you want to continue allowing tab to move focus between elements in your container rather than jumping out of the container.
+| JK | J moves focus to the next item, K moves to the previous. Does not move focus if the currently-focused element is a text box. [Originally from](https://catonmat.net/why-vim-uses-hjkl-as-arrow-keys) the vi keybindings | Used in certain lists |
+| HL | H moves focus to the previous item, L moves to the next. Does not move focus if the currently-focused element is a text box. [Originally from](https://catonmat.net/why-vim-uses-hjkl-as-arrow-keys) the vi keybindings | Used in certain lists |
+| WS | W moves focus to the previous item, S moves to the next. Does not move focus if the currently-focused element is a text box. | Any situation where it is more ergonomic for the left hand to perform this action, such as in a gaming context (rare) |
+| AD | A moves focus to the previous item, D moves to the next. Does not move focus if the currently-focused element is a text box. | Any situation where it is more ergonomic for the left hand to perform this action, such as in a gaming context (rare) |
+
+### DOM Focus vs. Active Descendant
+
+The `focusZone` behavior supports two modes of operation: DOM Focus and Active Descendant.
+
+* DOM Focus is the default mode and by far the most commonly needed. When a key is used to move focus, we call `.focus()` directly on the element to receive focus. This results in `document.activeElement` getting set to this new element, and it will receive any necessary styles via `:focus` and `:focus-within`.
+* Active Descendant mode does _not_ move DOM focus. Instead, focus remains on the _control_ element, and its `aria-activedescendant` attribute is set to the ID of the relevant element. Because there are no `:focus` styles applied and no `focus` events fired, you can supply an `onActiveDescendantChanged` callback to handle any necessary styles or other logic as the active descendant changes. For more information on the Active Descendant focus pattern, see [6.6.2 Managing Focus in Composites Using `aria-activedescendant`](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant) from the ARIA Authoring Practices document.
+
+### Demo
+
+Deploy Storybook to see live demos of `focusZone`.
+
+### Usage
+
+```ts
+const settings = {
+  bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd
+} as FocusZoneSettings
+const focusZone = document.getElementById('focusZoneContainer')
+focusZone(focusZone, settings)
+```
+
+### API
+
+The `focusZone` function takes the following arguments.
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| container | `Element` | | The focus zone will apply to this container and all of its focusable descendants. |
+| settings | `FocusZoneSettings` | `{}` | Settings to customize the focus zone. See below for a description of each setting. |
+
+#### FocusZoneSettings interface
+`FocusZoneSettings` is an object with the following interface. All properties are optional and have default behaviors.
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| bindKeys | `FocusKeys` (numeric enum) | `FocusKeys.ArrowVertical` &#124; `FocusKeys.HomeAndEnd` | Bit flags that identify keys that will move focus around the focus zone. Each available key either moves focus to the "next", "previous", "start", or "end" element, so it is best to only bind the keys that make sense to move focus in your UI. Use the `FocusKeys` object to discover supported keys (listed in the "Supported keys" section above). <br /><br />Use the bitwise "OR" operator (&#124;) to combine key types. For example, `FocusKeys.WASD` &#124; `FocusKeys.HJKL` represents all of W, A, S, D, H, J, K, and L.<br /><br />The default for this setting is `FocusKeys.ArrowVertical` &#124; `FocusKeys.HomeAndEnd`, unless `getNextFocusable` is provided, in which case `FocusKeys.ArrowAll` &#124; `FocusKeys.HomeAndEnd` is used as the default. |
+| focusOutBehavior | `"stop"` &#124; `"wrap"` | `"stop"` | Choose the behavior applied in cases where focus is currently at either the first or last element of the container. `"stop"` - do nothing and keep focus where it was; `"wrap"` - wrap focus around to the first element from the last, or the last element from the first |
+| focusInStrategy | `"first"` &#124; `"previous"` &#124; `Function` | `"previous"` | This option allows customization of the behavior that determines which of the focusable elements should be focused when focus enters the container via the Tab key.<br /><br />When set to `"first"`, whenever focus enters the container via Tab, we will focus the first focusable element. When set to `"previous"`, the most recently focused element will be focused (fallback to first if there was no previous).<br /><br />If a function is provided, this function should return the `HTMLElement` intended to receive focus. This is useful if you want to focus the currently "selected" item or element. |
+| getNextFocusable | `Function` | | This is a callback used to customize the next element to focus when a bound key is pressed. The function takes 3 arguments: `direction` (`"previous"`, `"next"`, `"start"`, or `"end"`), `from` (Element or `undefined`), and `event` (KeyboardEvent). The function should return the next element to focus, or `undefined`. If `undefined` is returned, the regular algorithm to select the next element to focus will be used. |
+| focusableElementFilter | `Function` | | This is a callback used to cull focusable elements from participating in the focus zone. |
+| abortSignal | `AbortSignal` | | If passed, the focus zone will be deactivated and all event listeners removed when this signal is aborted. If not passed, an `AbortSignal` will be returned by the `focusZone` function. |
+| activeDescendantControl | `HTMLElement` | | If `activeDescendantControl` is supplied, do not move focus or alter `tabindex` on any element. Instead, manage `aria-activedescendant` according to the [ARIA best practices guidelines](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant).<br /><br />The given `activeDescendantControl` will be given an `aria-controls` attribute that references the ID of the `container`. Additionally, it will be given an `aria-activedescendant` attribute that references the ID of the currently-active descendant.<br /><br />This element will retain DOM focus as arrow keys are pressed. |
+| onActiveDescendantChanged | Function | | This function is called each time the active descendant changes (only applicable if `activeDescendantControl` is given). The function takes two arguments: `newActiveDescendant` and `previousActiveDescendant`, both `HTMLElement`, either of which can be undefined (e.g. when an element in the container first becomes active, or when the controlling element becomes unfocused). |
+
+### Best practices
+
+We highly recommend reading [Section 6: Developing a Keyboard Interface](https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard) from the WAI-ARIA Authoring Practices document.
+
+## useFocusZone hook
+
+The `useFocusZone` hook is used to provide focus zone behavior to React components. The hook returns a ref that must be added to the container element.
+
+### Using your own refs
+
+If you would like to use your own refs, you can pass them into the hook as part of the settings object (see the interface below).
+
+### Hook dependencies
+
+Like other hooks such as `useCallback` and `useEffect`, this hook takes a dependencies array. If defined, the focus zone will be re-applied when a dependency changes (and the old one will be cleaned up).
+
+### Usage
+
+```jsx
+export const FocusZoneExample = () => {
+  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
+  return (
+    <div ref={containerRef}>
+      <button>First</button>
+      <button>Second</button>
+      <button>Third</button>
+    </div>
+  )
+}
+```
+
+### useFocusZone hook
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| settings | `FocusZoneHookSettings` | undefined | Optional settings to control how the focus zone behaves. See below. |
+| dependencies | React.DependencyList | undefined | Dependencies to determine when to initialize the focus zone. |
+
+**Return value**
+
+| Name | Type | Description |
+| :- | :- | :- |
+| containerRef | `React.RefObject<HTMLElement>` | This ref must be added to the container's JSX. |
+| activeDescendantControlRef | `React.RefObject<HTMLElement>` | If using active descendant focusing, this ref must be added to the control element's JSX. |
+
+### FocusZoneHookSettings interface
+`FocusZoneHookSettings` is an object with an interface that extends `FocusZoneSettings` (see above), however, the `activeDescendantControl` prop is omitted (instead see the `activeDescendantFocus` prop below). Additionally, it adds the following properties:
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| containerRef | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the element that will become the container of the focus zone. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the container's JSX. |
+| activeDescendantFocus | `boolean` &#124; `React.RefObject<HTMLElement>` | `false` | If false, the focus zone will apply normal DOM focusing (see **DOM Focus vs. Active Descendant** above). If true, or if a ref is provided, the focus zone will use "active descendant" focusing. If a ref is applied, it will be used as the control element for active descendant focus. If `true` is given, a ref will be created and returned by the hook. |
+| disabled | `boolean` | `false` | Set to true to disable the focus zone and clean up listeners. Can be re-enabled at any time. |

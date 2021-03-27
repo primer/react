@@ -20,7 +20,7 @@ type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['vari
 
 export default {
   title: 'Composite components/Button',
-  component: Button,
+  
   decorators: [
     Story => {
       return (
