@@ -45,7 +45,7 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
-const LeadingVisualContainer = styled.span`
+const LeadingVisualContainer = styled.div`
   width: ${get('space.3')};
   height: calc(${get('space.4')} - ${get('space.1')});
   display: flex;
