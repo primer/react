@@ -18,17 +18,9 @@ interface ItemPropsWithRenderItem extends Partial<ItemPropsBase> {
 export type ItemProps = ItemPropsBase | ItemPropsWithRenderItem
 
 const StyledItem = styled.div<{variant: ItemProps['variant']}>`
-    position: relative;
     display: flex;
-    align-items: start;
     border-radius: ${get('radii.2')};
-    font-weight: normal;
     color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
-    text-decoration: none;
-    border: 0;
-    background: none;
-    text-align: start;
-    margin: 0;
     padding: calc((${get('space.3')} - ${get('space.1')}) / 2) ${get('space.2')};
 
     @media (hover: hover) and (pointer: fine) {
