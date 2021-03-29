@@ -8,7 +8,8 @@ import {COMMON} from '../constants'
 // 2. remove this definition; it's just for eslint
 function SomeComponent() {}
 
-// 3. remove the leading "x" from this line to enable the test
+// 3. remove the ".skip" from this line to enable the test
+// eslint-disable-next-line jest/no-disabled-tests
 describe.skip('SomeComponent', () => {
   // if applicable, ensure that this is a "system component"
   it('is a system component', () => {
