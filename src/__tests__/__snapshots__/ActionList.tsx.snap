@@ -7,10 +7,7 @@ exports[`ActionList renders consistently 1`] = `
 
 <div
   className="c0"
-  data-component="ActionList"
 >
-  <div
-    data-component="ActionList.Group"
-  />
+  <div />
 </div>
 `;

@@ -26,6 +26,6 @@ const StyledDivider = styled.div`
 `
 
 export function Divider(props?: DividerProps): JSX.Element {
-  return <StyledDivider data-component="ActionList.Divider" {...props} />
+  return <StyledDivider {...props} />
 }
 Divider.renderItem = Divider

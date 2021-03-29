@@ -73,7 +73,7 @@ export function Item({
   ...props
 }: ItemProps): JSX.Element {
   return (
-    <StyledItem data-component="ActionList.Item" variant={variant} {...props}>
+    <StyledItem variant={variant} {...props}>
       {LeadingVisual && (
         <LeadingVisualContainer>
           <LeadingVisual />

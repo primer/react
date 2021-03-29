@@ -52,7 +52,7 @@ export function List(props: ListProps): JSX.Element {
   }
 
   return (
-    <StyledList data-component="ActionList" {...props}>
+    <StyledList {...props}>
       {groups?.map(({header, items}, index) => (
         <>
           <Group key={index}>

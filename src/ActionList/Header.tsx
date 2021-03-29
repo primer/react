@@ -30,7 +30,7 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
 
 export function Header({variant, title, auxiliaryText, children: _children, ...props}: HeaderProps): JSX.Element {
   return (
-    <StyledHeader data-component="ActionList.Header" role="heading" variant={variant} {...props}>
+    <StyledHeader role="heading" variant={variant} {...props}>
       {title}
       {auxiliaryText && <span>auxiliaryText</span>}
     </StyledHeader>
