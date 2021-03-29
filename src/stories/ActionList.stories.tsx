@@ -102,19 +102,19 @@ export function ComplexListStory(): JSX.Element {
       <ErsatzOverlay>
         <ActionList
           groupMetadata={[
-            {groupId: 0},
-            {groupId: 1, header: {title: 'Live query', variant: 'subtle'}},
-            {groupId: 2, header: {title: 'Layout', variant: 'subtle'}},
-            {groupId: 3, renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
-            {groupId: 4}
+            {groupId: '0'},
+            {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
+            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
+            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: '4'}
           ]}
           items={[
-            {leadingVisual: TypographyIcon, text: 'Rename', groupId: 0},
-            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: 0},
+            {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
+            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
             {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
-              groupId: 1,
+              groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
             },
             {
@@ -122,22 +122,22 @@ export function ComplexListStory(): JSX.Element {
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: 2
+              groupId: '2'
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: 2
+              groupId: '2'
             },
             {
               leadingVisual: FilterIcon,
               text: 'Save sort and filters to current view',
-              groupId: 3
+              groupId: '3'
             },
-            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: 3},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: 4}
+            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
           ]}
         />
       </ErsatzOverlay>

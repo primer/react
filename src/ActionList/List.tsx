@@ -14,8 +14,8 @@ interface UngroupedListProps {
 }
 
 interface GroupedListProps extends UngroupedListProps {
-  groupMetadata: (GroupProps & {groupId: number; header?: HeaderProps})[]
-  items: (ItemProps & {groupId: number})[]
+  groupMetadata: (GroupProps & {groupId: string; header?: HeaderProps})[]
+  items: (ItemProps & {groupId: string})[]
 }
 function isGroupedListProps(props: ListProps): props is GroupedListProps {
   return 'groupMetadata' in props
@@ -39,7 +39,7 @@ export function List(props: ListProps): JSX.Element {
   } else {
     const groupMap = props.groupMetadata.reduce(
       (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
-      new Map<number, GroupWithItems>()
+      new Map<string, GroupWithItems>()
     )
     for (const itemProps of props.items) {
       const group = groupMap.get(itemProps.groupId)
