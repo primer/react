@@ -12,46 +12,44 @@ interface UngroupedListProps {
   items: ItemProps[]
   renderItem?: (props: ItemProps) => JSX.Element
 }
-function isUngroupedListProps(props: ListProps): props is UngroupedListProps {
-  return typeof props === 'object' && props !== null && !('groupMetadata' in props)
-}
 
 interface GroupedListProps extends UngroupedListProps {
   groupMetadata: (GroupProps & {groupId: number; header?: HeaderProps})[]
   items: (ItemProps & {groupId: number})[]
 }
 function isGroupedListProps(props: ListProps): props is GroupedListProps {
-  return typeof props === 'object' && props !== null && 'groupMetadata' in props
+  return 'groupMetadata' in props
 }
 
 export type ListProps = UngroupedListProps | GroupedListProps
+
+type GroupWithItems = Omit<Flatten<GroupedListProps['groupMetadata']>, 'groupId'> & {items?: JSX.Element[]}
 
 const StyledList = styled.div`
   font-size: ${get('fontSizes.1')};
 `
 
-export function List({renderItem = Item, ...props}: ListProps): JSX.Element {
+export function List(props: ListProps): JSX.Element {
   const toJSX = (itemProps: ItemProps) =>
-    'renderItem' in itemProps ? itemProps.renderItem(itemProps) : renderItem(itemProps)
+    ((('renderItem' in itemProps && itemProps.renderItem) ?? props.renderItem) || Item).call(null, itemProps)
 
-  const groups = (() => {
-    if (isUngroupedListProps(props)) {
-      return [{items: props.items?.map(toJSX)}]
-    } else if (isGroupedListProps(props)) {
-      const groupMap = props.groupMetadata.reduce(
-        (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
-        new Map<number, Omit<Flatten<GroupedListProps['groupMetadata']>, 'groupId'> & {items?: JSX.Element[]}>()
-      )
-      props.items.forEach(itemProps => {
-        const group = groupMap.get(itemProps.groupId)
-        groupMap.set(itemProps.groupId, {
-          ...group,
-          items: [...(group?.items ?? []), toJSX({renderItem: group?.renderItem ?? renderItem, ...itemProps})]
-        })
+  let groups: GroupWithItems[] = []
+  if (!isGroupedListProps(props)) {
+    groups = [{items: props.items?.map(toJSX)}]
+  } else {
+    const groupMap = props.groupMetadata.reduce(
+      (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
+      new Map<number, GroupWithItems>()
+    )
+    props.items.forEach(itemProps => {
+      const group = groupMap.get(itemProps.groupId)
+      groupMap.set(itemProps.groupId, {
+        ...group,
+        items: [...(group?.items ?? []), toJSX({renderItem: group?.renderItem ?? props.renderItem, ...itemProps})]
       })
-      return [...groupMap.values()]
-    }
-  })()
+    })
+    groups = [...groupMap.values()]
+  }
 
   return (
     <StyledList data-component="ActionList" {...props}>
