@@ -41,13 +41,13 @@ export function List(props: ListProps): JSX.Element {
       (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
       new Map<number, GroupWithItems>()
     )
-    props.items.forEach(itemProps => {
+    for (const itemProps of props.items) {
       const group = groupMap.get(itemProps.groupId)
       groupMap.set(itemProps.groupId, {
         ...group,
         items: [...(group?.items ?? []), toJSX({renderItem: group?.renderItem ?? props.renderItem, ...itemProps})]
       })
-    })
+    }
     groups = [...groupMap.values()]
   }
 
