@@ -59,7 +59,7 @@ const LeadingVisualContainer = styled.div`
   }
 `
 
-const DescriptionContainer = styled.div`
+const DescriptionContainer = styled.span`
   color: ${get('colors.text.secondary')};
 `
 
