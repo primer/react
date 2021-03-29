@@ -42,4 +42,23 @@ function filterObject(obj, predicate) {
   }, {})
 }
 
-module.exports = {fontStack, isShadowValue, isColorValue, filterObject}
+function partitionColors(colors) {
+  return {
+    colors: filterObject(colors, value => isColorValue(value)),
+    shadows: filterObject(colors, value => isShadowValue(value))
+  }
+}
+
+function omitScale(obj) {
+  const {scale, ...rest} = obj
+  return rest
+}
+
+module.exports = {
+  fontStack,
+  isShadowValue,
+  isColorValue,
+  filterObject,
+  partitionColors,
+  omitScale
+}

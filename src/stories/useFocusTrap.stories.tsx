@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useEffect} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 
-import {BaseStyles, BorderBox, Button, Flash, Text, theme} from '..'
+import {BaseStyles, BorderBox, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
@@ -13,7 +13,7 @@ export default {
   decorators: [
     Story => {
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>
@@ -110,7 +110,7 @@ export const CustomInitialFocus = () => {
       <Flex flexDirection="column" alignItems="flex-start">
         <Flash mb={3}>
           This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
-          &lquo;Elderberry&rquo; button will receive the initial focus (if the trap zone container does not already have
+          &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already have
           focus).
         </Flash>
         <MarginButton>Apple</MarginButton>

@@ -16,7 +16,7 @@ describe('Flash', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Flash variant="warning" theme={theme} />)
+    const {container} = HTMLRender(<Flash variant="warning" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
@@ -29,18 +29,18 @@ describe('Flash', () => {
   })
 
   it('respects the "variant" prop', () => {
-    expect(render(<Flash variant="warning" theme={theme} />)).toHaveStyleRule(
+    expect(render(<Flash variant="warning" />)).toHaveStyleRule(
       'background-color',
-      theme.colors.alert.warn.bg
+      theme.colorSchemes.light.colors.alert?.warn.bg
     )
-    expect(render(<Flash variant="danger" theme={theme} />)).toHaveStyleRule(
+    expect(render(<Flash variant="danger" />)).toHaveStyleRule(
       'background-color',
-      theme.colors.alert.error.bg
+      theme.colorSchemes.light.colors.alert?.error.bg
     )
-    expect(render(<Flash variant="success" theme={theme} />)).toHaveStyleRule(
+    expect(render(<Flash variant="success" />)).toHaveStyleRule(
       'background-color',
-      theme.colors.alert.success.bg
+      theme.colorSchemes.light.colors.alert?.success.bg
     )
-    expect(render(<Flash theme={theme} />)).toHaveStyleRule('background-color', theme.colors.alert.info.bg)
+    expect(render(<Flash />)).toHaveStyleRule('background-color', theme.colorSchemes.light.colors.alert?.info.bg)
   })
 })

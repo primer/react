@@ -35,6 +35,7 @@ function createVirtualDOM(
   parentBorders: {top: number; right: number; bottom: number; left: number} = {top: 0, right: 0, bottom: 0, left: 0}
 ) {
   const parent = document.createElement('div')
+  parent.style.overflow = 'hidden'
   parent.style.position = 'relative'
   parent.style.borderTopWidth = parentBorders.top + 'px'
   parent.style.borderRightWidth = parentBorders.right + 'px'
@@ -52,6 +53,22 @@ function createVirtualDOM(
 
 describe('getAnchoredPosition', () => {
   it('returns the correct position in the default case with no overflow', () => {
+    const anchorRect = makeDOMRect(300, 200, 50, 50)
+    const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
+    document.body.innerHTML = `<div id="float"></div><div id="anchor"></div>`
+    const float = document.querySelector('#float')!
+    const anchor = document.querySelector('#anchor')!
+    float.getBoundingClientRect = () => floatingRect
+    anchor.getBoundingClientRect = () => anchorRect
+    document.body.getBoundingClientRect = () => makeDOMRect(0, 0, 1920, 0)
+    Object.defineProperty(window, 'innerHeight', {get: () => 1080})
+    const settings: Partial<PositionSettings> = {anchorOffset: 4}
+    const {top, left} = getAnchoredPosition(float, anchor, settings)
+    expect(top).toEqual(254)
+    expect(left).toEqual(300)
+  })
+
+  it('returns the correct position in the default case with no overflow, inside a clipping parent', () => {
     const parentRect = makeDOMRect(20, 20, 500, 500)
     const anchorRect = makeDOMRect(300, 200, 50, 50)
     const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
