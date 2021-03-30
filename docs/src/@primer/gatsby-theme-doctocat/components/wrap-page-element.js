@@ -8,7 +8,7 @@ import React from 'react'
 // We can remove this file when Doctocat uses the custom ThemeProvider.
 
 // Doctocat still uses presentional color variables.
-// We can remove this customTheme when Doctocat uses funtional color variables
+// We can remove this customTheme when Doctocat uses functional color variables
 const customTheme = deepmerge(theme, {colors: primitives.colors.light.scale})
 
 function wrapPageElement({element}) {
