@@ -10,7 +10,7 @@ import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live'
 import {ThemeContext} from 'styled-components'
 
 // Temporarily shadowing this file to update the border color of the live examples.
-// We can remove this file when Doctocat functional color variables.
+// We can remove this file when Doctocat uses functional color variables.
 
 const languageTransformers = {
   html: html => htmlToJsx(html),
