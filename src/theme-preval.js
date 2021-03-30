@@ -2,7 +2,7 @@
 // This file needs to be a JavaScript file using CommonJS to be compatiable with preval
 
 const {default: primitives} = require('@primer/primitives')
-const {filterObject, isShadowValue, isColorValue, fontStack} = require('./utils/theme')
+const {partitionColors, fontStack, omitScale} = require('./utils/theme')
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 
@@ -44,8 +44,9 @@ const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
-const {scale: _excludeScaleColors, ...colors} = filterObject(primitives.colors.light, value => isColorValue(value))
-const {scale: _excludeScaleShadows, ...shadows} = filterObject(primitives.colors.light, value => isShadowValue(value))
+const light = partitionColors(primitives.colors.light)
+const dark = partitionColors(primitives.colors.dark)
+const darkDimmed = partitionColors(primitives.colors['dark_dimmed'])
 
 // This file must be in vanilla JS to work with preval
 // but our temporary filter utils make it impossible for
@@ -55,26 +56,57 @@ const {scale: _excludeScaleShadows, ...shadows} = filterObject(primitives.colors
 /**
  * @type Partial<typeof primitives.colors.light>
  */
-const typedColors = colors
+const lightColors = omitScale(light.colors)
 
 /**
  * @type Partial<typeof primitives.colors.light>
  */
-const typedShadows = shadows
+const lightShadows = omitScale(light.shadows)
+
+/**
+ * @type Partial<typeof primitives.colors.dark>
+ */
+const darkColors = omitScale(dark.colors)
+
+/**
+ * @type Partial<typeof primitives.colors.dark>
+ */
+const darkShadows = omitScale(dark.shadows)
+
+/**
+ * @type Partial<typeof primitives.colors.dark_dimmed>
+ */
+const darkDimmedColors = omitScale(darkDimmed.colors)
+
+/**
+ * @type Partial<typeof primitives.colors.dark_dimmed>
+ */
+const darkDimmedShadows = omitScale(darkDimmed.shadows)
 
 const theme = {
-  // General
   borderWidths,
   breakpoints,
-  colors: typedColors,
   fonts,
   fontSizes,
   fontWeights,
   lineHeights,
   radii,
-  shadows: typedShadows,
   sizes,
-  space
+  space,
+  colorSchemes: {
+    light: {
+      colors: lightColors,
+      shadows: lightShadows
+    },
+    dark: {
+      colors: darkColors,
+      shadows: darkShadows
+    },
+    ['dark_dimmed']: {
+      colors: darkDimmedColors,
+      shadows: darkDimmedShadows
+    }
+  }
 }
 
 module.exports = {
