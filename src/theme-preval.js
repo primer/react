@@ -6,6 +6,10 @@ const {partitionColors, fontStack, omitScale} = require('./utils/theme')
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 
+const animation = {
+  easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)'
+}
+
 const breakpoints = ['544px', '768px', '1012px', '1280px']
 
 const fonts = {
@@ -84,6 +88,8 @@ const darkDimmedColors = omitScale(darkDimmed.colors)
 const darkDimmedShadows = omitScale(darkDimmed.shadows)
 
 const theme = {
+  // General
+  animation,
   borderWidths,
   breakpoints,
   fonts,
