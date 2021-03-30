@@ -1,0 +1,49 @@
+---
+title: useOnOutsideClick
+---
+
+`useOnOutsideClick` is a utility Hook that calls a user provided callback function when the user clicks outside of the provided container.
+
+You can also pass an array of `ignoredRefs` to prevent calling the callback function on additional elements on the page. This can be handy for ignoring clicks on trigger buttons that already manage the open/closed state of content.
+
+
+### Usage
+
+```jsx live
+  <State>
+    {([isOpen, setIsOpen]) => {
+      const containerRef = React.useRef(null)
+      const triggerRef = React.useRef(null)
+
+      const closeOverlay = React.useCallback(() => {
+        setIsOpen(false)
+      }, [setIsOpen])
+
+      const toggleOverlay = React.useCallback(() => {
+        setIsOpen(!isOpen)
+      }, [setIsOpen, isOpen])
+
+      useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [triggerRef]})
+
+      return (
+        <>
+          <Button ref={triggerRef} onClick={toggleOverlay}>toggle</Button>
+          {isOpen &&
+            <BorderBox height="200px" bg="green.4" ref={containerRef}>
+              content
+            </BorderBox>
+          }
+        </>
+      )
+    }}
+  </State>
+```
+
+
+#### useOnOutsideClick settings
+
+| Name | Type | Default | Description |
+| :- | :- | :-: | :- |
+| onOutsideClick | `function` | | Function to call when user clicks outside of the container. Usually this manages the state of the visibilitiy of the container. |
+| ignoredRefs| `React.RefObject<HTMLElement> []` | | Elements outside of the container to ignore clicks on. |
+| containerRef | `React.RefObject<HTMLElement>` | | Required. A ref for the containing element. |

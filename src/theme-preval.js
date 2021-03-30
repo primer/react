@@ -97,6 +97,10 @@ const colors = {
   }
 }
 
+const animation = {
+  easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)'
+}
+
 const breakpoints = ['544px', '768px', '1012px', '1280px']
 
 const fonts = {
@@ -285,6 +289,11 @@ const flashIcon = {
   warning: yellow[8]
 }
 
+const overlay = {
+  borderRadius: '12px',
+  boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2)'
+}
+
 const popovers = {
   colors: {
     caret: 'rgba(27, 31, 35, 0.15)'
@@ -369,6 +378,7 @@ const mergedShadows = deepmerge(shadows, omitScale(lightShadows))
 
 const theme = {
   // General
+  animation,
   borderWidths,
   breakpoints,
   fonts,
@@ -399,6 +409,7 @@ const theme = {
   popovers,
   flash,
   flashIcon,
+  overlay,
   stateLabels
 }
 
