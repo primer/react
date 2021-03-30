@@ -1,5 +1,6 @@
-import {useOnOutsideClick, useOpenAndCloseFocus, useOnEscapePress} from './index'
-import {TouchOrMouseEvent} from './useOnOutsideClick'
+import {useOnOutsideClick, TouchOrMouseEvent} from './useOnOutsideClick'
+import {useOpenAndCloseFocus} from './useOpenAndCloseFocus'
+import {useOnEscapePress} from './useOnEscapePress'
 import {AnchoredPositionHookSettings, useAnchoredPosition} from './useAnchoredPosition'
 import {useRef} from 'react'
 
