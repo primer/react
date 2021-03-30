@@ -68,7 +68,8 @@ export function focusTrap(
   // Ensure focus remains in the trap zone by checking that a given recently-focused
   // element is inside the trap zone. If it isn't, redirect focus to a suitable
   // element within the trap zone. If need to redirect focus and a suitable element
-  // is not found, return false.
+  // is not found, blur the recently-focused element so that focus doesn't leave the
+  // trap zone.
   function ensureTrapZoneHasFocus(focusedElement: EventTarget | null) {
     if (focusedElement instanceof HTMLElement) {
       if (container.contains(focusedElement)) {
