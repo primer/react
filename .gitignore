@@ -1,6 +1,7 @@
 .test
 node_modules
 .DS_Store
+.idea
 coverage/
 dist/
 lib/
