@@ -26,7 +26,7 @@ const meta: Meta = {
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <BaseStyles>
           <Story />
         </BaseStyles>
