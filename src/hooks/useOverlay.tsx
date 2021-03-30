@@ -4,7 +4,7 @@ import {AnchoredPositionHookSettings, useAnchoredPosition} from './useAnchoredPo
 import {useRef} from 'react'
 
 export type UseOverlaySettings = {
-  ignoreClickRefs: React.RefObject<HTMLElement>[]
+  ignoreClickRefs?: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
   onEscape: (e: KeyboardEvent) => void
