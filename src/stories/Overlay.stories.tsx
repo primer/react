@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {ThemeProvider} from 'styled-components'
+import styled from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, Position, Flex} from '..'
+import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, ThemeProvider, Position, Flex} from '..'
+import {registerPortalRoot} from '../Portal'
 
 export default {
   title: 'Internal components/Overlay',
   component: Overlay,
   decorators: [
     Story => {
+      // Since portal roots are registered globally, we need this line so that each storybook
+      // story works in isolation.
+      registerPortalRoot(undefined)
       return (
         <ThemeProvider theme={theme}>
           <BaseStyles>
