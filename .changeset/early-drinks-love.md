@@ -8,7 +8,7 @@ Removes deprecated presentational theme variables in favor of _functional variab
 
 If you don't use any color-related system props (e.g. `color`, `bg`, `borderColor`), all components should work without changes. If you're using color-related system props, you'll need to update them to use the new functional variables. Reference the tables below to see how old variables map to new functional variables.
 
-If you have any quenstions, feel free to reach out in the #design-systems channel.
+If you have any questions, feel free to reach out in the #design-systems channel.
 
 #### Text
 
