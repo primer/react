@@ -6,22 +6,16 @@ An `ActionList` is a list of items which can be activated or selected. `ActionLi
 
 ## Default example
 
-```javascript live noinline
-const Demo = () => {
-  return (
-    <ActionList
-      items={[
-        {text: 'New file'},
-        ActionList.Divider,
-        {text: 'Copy link'},
-        {text: 'Edit file'},
-        {text: 'Delete file', variant: 'danger'}
-      ]}
-    />
-  )
-}
-
-render(<Demo />)
+```jsx live
+<ActionList
+  items={[
+    {text: 'New file'},
+    ActionList.Divider,
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    {text: 'Delete file', variant: 'danger'}
+  ]}
+/>
 ```
 
 ## Component props
