@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {ThemeProvider} from 'styled-components'
+import styled from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, Position, Flex} from '..'
+import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
 
 export default {
   title: 'Internal components/Overlay',
@@ -11,7 +11,7 @@ export default {
   decorators: [
     Story => {
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>
