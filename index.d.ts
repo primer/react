@@ -1,5 +1,3 @@
-
-
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
@@ -293,15 +291,15 @@ declare module '@primer/components' {
   }
   export type AnchorAlignment = 'start' | 'center' | 'end'
   export type AnchorSide =
-  | 'inside-top'
-  | 'inside-bottom'
-  | 'inside-left'
-  | 'inside-right'
-  | 'inside-center'
-  | 'outside-top'
-  | 'outside-bottom'
-  | 'outside-left'
-  | 'outside-right'
+    | 'inside-top'
+    | 'inside-bottom'
+    | 'inside-left'
+    | 'inside-right'
+    | 'inside-center'
+    | 'outside-top'
+    | 'outside-bottom'
+    | 'outside-left'
+    | 'outside-right'
 
   export interface PositionSettings {
     side: AnchorSide
@@ -312,7 +310,7 @@ declare module '@primer/components' {
   }
 
   export type OverlayProps = {
-    ignoreClickRefs: React.RefObject<HTMLElement> []
+    ignoreClickRefs: React.RefObject<HTMLElement>[]
     initialFocusRef?: React.RefObject<HTMLElement>
     returnFocusRef: React.RefObject<HTMLElement>
     anchorRef: React.RefObject<HTMLElement>
@@ -324,7 +322,9 @@ declare module '@primer/components' {
     height?: 'sm' | 'md' | 'auto'
   }
 
-
+  /**
+   * Overlay is in beta and not intended for public use. Use with caution, API may change.
+   */
   export const Overlay: React.FunctionComponent<OverlayProps>
 
   export interface PageheadProps extends CommonProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {}
@@ -861,7 +861,6 @@ declare module '@primer/components/lib/Overlay' {
   import {Overlay} from '@primer/components'
   export default Overlay
 }
-
 
 declare module '@primer/components/lib/Pagehead' {
   import {Pagehead} from '@primer/components'
