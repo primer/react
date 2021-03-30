@@ -25,7 +25,7 @@ describe('BorderBox', () => {
   it('renders borders', () => {
     expect(render(<BorderBox borderColor="border.success" />)).toHaveStyleRule(
       'border-color',
-      theme.colors.border?.success
+      theme.colorSchemes.light.colors.border?.success
     )
     expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')
   })
@@ -36,6 +36,9 @@ describe('BorderBox', () => {
 
   // the test returns the box shadow value without spaces, so had to manually provide the expected string here
   it('renders box shadow', () => {
-    expect(render(<BorderBox boxShadow="shadow.small" />)).toHaveStyleRule('box-shadow', theme.shadows.shadow?.small)
+    expect(render(<BorderBox boxShadow="shadow.small" />)).toHaveStyleRule(
+      'box-shadow',
+      theme.colorSchemes.light.shadows.shadow?.small
+    )
   })
 })

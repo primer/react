@@ -40,7 +40,7 @@ describe('CircleOcticon', () => {
   it('respects the bg prop', () => {
     expect(render(<CircleOcticon icon={CheckIcon} bg="bg.danger" />)).toHaveStyleRule(
       'background-color',
-      theme.colors.bg?.danger
+      theme.colorSchemes.light.colors.bg?.danger
     )
   })
 
