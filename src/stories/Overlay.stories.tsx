@@ -3,8 +3,10 @@ import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, theme, ThemeProvider, Position, Flex} from '..'
 import {registerPortalRoot} from '../Portal'
+
+import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
+
 
 export default {
   title: 'Internal components/Overlay',
@@ -15,7 +17,7 @@ export default {
       // story works in isolation.
       registerPortalRoot(undefined)
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>

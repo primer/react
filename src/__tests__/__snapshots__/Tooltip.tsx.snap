@@ -11,7 +11,7 @@ exports[`Tooltip renders consistently 1`] = `
   display: none;
   width: 0px;
   height: 0px;
-  color: #1b1f23;
+  color: #24292e;
   pointer-events: none;
   content: '';
   border: 6px solid transparent;

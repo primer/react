@@ -26,7 +26,7 @@ describe('Link', () => {
   })
 
   it('respects hoverColor prop', () => {
-    expect(render(<Link hoverColor="blue.4" />)).toMatchSnapshot()
+    expect(render(<Link hoverColor="text.link" />)).toMatchSnapshot()
   })
 
   it('respects the "fontStyle" prop', () => {
@@ -43,6 +43,6 @@ describe('Link', () => {
   })
 
   it('respectes the "color" prop when "muted" prop is also passed', () => {
-    expect(render(<Link muted color="black" />)).toMatchSnapshot()
+    expect(render(<Link muted color="text.inverse" />)).toMatchSnapshot()
   })
 })
