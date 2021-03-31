@@ -20,6 +20,7 @@ export function mount(component: React.ReactElement) {
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface Matchers<R> {
       toImplementSxBehavior: () => boolean
       toSetExports: (exports: Record<string, string>) => boolean
@@ -201,7 +202,7 @@ interface BehavesAsComponent {
   options?: Options
 }
 
-export function behavesAsComponent({Component, systemPropArray, toRender, options}: BehavesAsComponent) {
+export function behavesAsComponent({Component, toRender, options}: BehavesAsComponent) {
   options = options || {}
 
   const getElement = () => (toRender ? toRender() : <Component />)

@@ -45,7 +45,7 @@ type SelectMenuInternalProps = {
 
 // 'as' is spread out because we don't want users to be able to change the tag.
 const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
-  ({children, initialTab = '', as, ...rest}, forwardedRef) => {
+  ({children, initialTab = '', as: _ignoredAs, ...rest}, forwardedRef) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = forwardedRef ?? backupRef
     const [selectedTab, setSelectedTab] = useState(initialTab)

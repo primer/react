@@ -7,14 +7,7 @@ import {getClasses, getComputedStyles, render} from './testing'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
-const stringify = (d: object) => JSON.stringify(d, null, '  ')
-
-/**
- * These are props that styled-system aliases for backwards compatibility.
- * For some reason, they don't show up in our toImplementSystemProps() matcher,
- * so we skip over them.
- */
-const ALIAS_PROP_TYPES = ['w', 'align', 'justify', 'wrap']
+const stringify = (d: Record<string, unknown>) => JSON.stringify(d, null, '  ')
 
 expect.extend({
   toMatchKeys(obj, values) {

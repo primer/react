@@ -1,6 +1,16 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:react/recommended", "plugin:jsx-a11y/recommended", "plugin:react-hooks/recommended"],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    ".cache",
+    "docs/public/**/*",
+    "coverage/**/*"
+  ],
   "globals": {
     "__DEV__": "readonly"
   },
@@ -38,7 +48,12 @@
     // rules which apply only to TS
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "extends": ["plugin:@typescript-eslint/recommended"]
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+      }
     }
   ]
 }
