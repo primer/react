@@ -98,17 +98,17 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
 SelectMenu.displayName = 'SelectMenu'
 
 export type SelectMenuProps = ComponentProps<typeof SelectMenu>
-export type { SelectMenuDividerProps } from './SelectMenuDivider'
-export type { SelectMenuFilterProps } from './SelectMenuFilter'
-export type { SelectMenuFooterProps } from './SelectMenuFooter'
-export type { SelectMenuHeaderProps } from './SelectMenuHeader'
-export type { SelectMenuItemProps } from './SelectMenuItem'
-export type { SelectMenuListProps } from './SelectMenuList'
-export type { SelectMenuLoadingAnimationProps } from './SelectMenuLoadingAnimation'
-export type { SelectMenuModalProps } from './SelectMenuModal'
-export type { SelectMenuTabProps } from './SelectMenuTab'
-export type { SelectMenuTabPanelProps } from './SelectMenuTabPanel'
-export type { SelectMenuTabsProps } from './SelectMenuTabs'
+export type {SelectMenuDividerProps} from './SelectMenuDivider'
+export type {SelectMenuFilterProps} from './SelectMenuFilter'
+export type {SelectMenuFooterProps} from './SelectMenuFooter'
+export type {SelectMenuHeaderProps} from './SelectMenuHeader'
+export type {SelectMenuItemProps} from './SelectMenuItem'
+export type {SelectMenuListProps} from './SelectMenuList'
+export type {SelectMenuLoadingAnimationProps} from './SelectMenuLoadingAnimation'
+export type {SelectMenuModalProps} from './SelectMenuModal'
+export type {SelectMenuTabProps} from './SelectMenuTab'
+export type {SelectMenuTabPanelProps} from './SelectMenuTabPanel'
+export type {SelectMenuTabsProps} from './SelectMenuTabs'
 export default Object.assign(SelectMenu, {
   MenuContext: MenuContext,
   List: SelectMenuList,

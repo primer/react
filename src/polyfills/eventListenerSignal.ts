@@ -17,7 +17,7 @@ try {
     {},
     {
       signal: {
-        get: function() {
+        get: function () {
           signalSupported = true
         }
       }
@@ -34,7 +34,7 @@ function featureSupported(): boolean {
 
 function monkeyPatch() {
   const originalAddEventListener = EventTarget.prototype.addEventListener
-  EventTarget.prototype.addEventListener = function(name, originalCallback, optionsOrCapture) {
+  EventTarget.prototype.addEventListener = function (name, originalCallback, optionsOrCapture) {
     if (
       typeof optionsOrCapture === 'object' &&
       'signal' in optionsOrCapture &&

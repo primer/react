@@ -31,12 +31,10 @@ export function* iterateFocusableElements(
   options: IterateFocusableElements = {}
 ): Generator<HTMLElement, undefined, undefined> {
   const strict = options.strict ?? false
-  const acceptFn = (options.onlyTabbable ?? false) ? isTabbable : isFocusable
+  const acceptFn = options.onlyTabbable ?? false ? isTabbable : isFocusable
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
     acceptNode: node =>
-      node instanceof HTMLElement && acceptFn(node, strict)
-        ? NodeFilter.FILTER_ACCEPT
-        : NodeFilter.FILTER_SKIP
+      node instanceof HTMLElement && acceptFn(node, strict) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
   })
   let nextNode: Node | null = null
 
@@ -119,5 +117,5 @@ export function isFocusable(elem: HTMLElement, strict = false): boolean {
  * @param strict
  */
 export function isTabbable(elem: HTMLElement, strict = false): boolean {
-  return isFocusable(elem, strict) && elem.getAttribute("tabindex") !== "-1"
+  return isFocusable(elem, strict) && elem.getAttribute('tabindex') !== '-1'
 }

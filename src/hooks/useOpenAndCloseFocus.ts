@@ -20,7 +20,7 @@ export function useOpenAndCloseFocus({
       const firstItem = iterateFocusableElements(containerRef.current).next().value
       firstItem?.focus()
     }
-    return function() {
+    return function () {
       returnRef?.focus()
     }
   }, [initialFocusRef, returnFocusRef, containerRef])
