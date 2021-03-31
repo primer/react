@@ -26,10 +26,10 @@ describe('PointerBox', () => {
   })
 
   it('passes the "borderColor" prop to both <BorderBox> and <Caret>', () => {
-    expect(render(<PointerBox borderColor="red.5" />)).toMatchSnapshot()
+    expect(render(<PointerBox borderColor="border.danger" />)).toMatchSnapshot()
   })
 
   it('passes the "bg" prop to both <BorderBox> and <Caret>', () => {
-    expect(render(<PointerBox bg="red.5" />)).toMatchSnapshot()
+    expect(render(<PointerBox bg="bg.danger" />)).toMatchSnapshot()
   })
 })

@@ -14,7 +14,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
     display: none;
     width: 0px;
     height: 0px;
-    color: ${get('colors.black')};
+    color: ${get('colors.tooltip.bg')};
     pointer-events: none;
     content: '';
     border: 6px solid transparent;

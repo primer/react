@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import {useRef, useCallback} from 'react'
-declare var __DEV__: boolean
+declare let __DEV__: boolean
 
 type DeprecationType = {name: string; message: string; version: string}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {}
 // eslint-disable-next-line import/no-mutable-exports
 let deprecate: ({name, message, version}: DeprecationType) => void | (() => void) = noop

@@ -112,7 +112,7 @@ const DropdownItem = styled.li`
     text-decoration: none;
     display: block;
     overflow: hidden;
-    color: ${get('colors.gray.9')};
+    color: ${get('colors.text.primary')};
     text-overflow: ellipsis;
     white-space: nowrap;
   }

@@ -25,6 +25,14 @@
   children:
     - title: useSafeTimeout
       url: /useSafeTimeout
+    # - title: useOnOutsideClick
+    #   url: /useOnOutsideClick
+    # - title: useOpenAndCloseFocus
+    #   url: /useOpenAndCloseFocus
+    # - title: useOnEscapePress
+    #   url: /useOnEscapePress
+    # - title: useOverlay
+    #   url: /useOverlay
 - title: Components
   children:
     - title: Avatar
@@ -75,6 +83,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
+    # - title: Overlay
+    #   url: /Overlay
     - title: Pagehead
       url: /Pagehead
     - title: Pagination

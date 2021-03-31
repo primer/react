@@ -9,13 +9,18 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('StateLabel', () => {
-  behavesAsComponent({Component: StateLabel, systemPropArray: [COMMON], toRender: () => <StateLabel status="issueOpened">Open</StateLabel>, options: {
-    // Rendering a StyledOcticon seems to break getComputedStyles, which
-    // the sx prop implementation test uses to make sure the prop is working correctly.
-    // Despite my best efforts, I cannot figure out why this is happening. So,
-    // unfortunately, we will simply skip this test.
-    skipSx: true
-  }})
+  behavesAsComponent({
+    Component: StateLabel,
+    systemPropArray: [COMMON],
+    toRender: () => <StateLabel status="issueOpened">Open</StateLabel>,
+    options: {
+      // Rendering a StyledOcticon seems to break getComputedStyles, which
+      // the sx prop implementation test uses to make sure the prop is working correctly.
+      // Despite my best efforts, I cannot figure out why this is happening. So,
+      // unfortunately, we will simply skip this test.
+      skipSx: true
+    }
+  })
 
   checkExports('StateLabel', {
     default: StateLabel

@@ -50,8 +50,8 @@ describe('SideNav', () => {
         </SideNav.Link>
       </SideNav>
     )
-    const wrapper = mount(elem);
-    expect(wrapper.find('[aria-current="page"]').text()).toEqual("Two")
+    const wrapper = mount(elem)
+    expect(wrapper.find('[aria-current="page"]').text()).toEqual('Two')
   })
 
   it('sets different styles for SideNavs with the lightweight variant', () => {
