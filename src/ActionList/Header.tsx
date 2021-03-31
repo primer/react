@@ -34,10 +34,10 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
   ${({variant}) =>
     variant === 'filled' &&
     css`
-      background: ${get('colors.bg.gray')};
+      background: ${get('colors.bg.tertiary')};
       margin: ${get('space.2')} -${get('space.2')};
-      border-top: 1px solid ${get('colors.border.gray')};
-      border-bottom: 1px solid ${get('colors.border.gray')};
+      border-top: 1px solid ${get('colors.border.tertiary')};
+      border-bottom: 1px solid ${get('colors.border.tertiary')};
 
       &:first-child {
         margin-top: 0;
