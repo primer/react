@@ -2,9 +2,26 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
 
+/**
+ * Contract for props passed to the `Header` component.
+ */
 export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
+  /**
+   * Style variations. Usage is discretionary.
+   *
+   * - `"filled"` - Superimposed on a background, offset from nearby content
+   * - `"subtle"` - Relatively less offset from nearby content
+   */
   variant: 'subtle' | 'filled'
+
+  /**
+   * Primary text which names a `Group`.
+   */
   title: string
+
+  /**
+   * Secondary text which provides additional information about a `Group`.
+   */
   auxiliaryText?: string
 }
 
@@ -28,6 +45,9 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
     `}
 `
 
+/**
+ * Displays the name and description of a `Group`.
+ */
 export function Header({variant, title, auxiliaryText, children: _children, ...props}: HeaderProps): JSX.Element {
   return (
     <StyledHeader role="heading" variant={variant} {...props}>

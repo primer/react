@@ -12,7 +12,7 @@ import {
 import {Meta} from '@storybook/react'
 import React from 'react'
 import styled from 'styled-components'
-import {theme, ThemeProvider} from '..'
+import {ThemeProvider} from '..'
 import {ActionList as _ActionList} from '../ActionList'
 import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
