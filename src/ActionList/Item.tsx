@@ -55,17 +55,23 @@ interface ItemPropsWithRenderItem extends Partial<ItemPropsBase> {
 export type ItemProps = ItemPropsBase | ItemPropsWithRenderItem
 
 const StyledItem = styled.div<{variant: ItemProps['variant']}>`
-    display: flex;
-    border-radius: ${get('radii.2')};
-    color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
-    padding: calc((${get('space.3')} - ${get('space.1')}) / 2) ${get('space.2')};
+   {
+    /* 6px vertical padding + 20px line height = 32px total height
+     *
+     * TODO: When rem-based spacing on a 4px scale lands, replace
+     * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
+     */
+  }
+  padding: 6px ${get('space.2')};
+  display: flex;
+  border-radius: ${get('radii.2')};
+  color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
 
-    @media (hover: hover) and (pointer: fine) {
-      :hover {
-        background: ${props =>
-          props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
-        cursor: pointer;
-      }
+  @media (hover: hover) and (pointer: fine) {
+    :hover {
+      background: ${props =>
+        props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
+      cursor: pointer;
     }
   }
 `
@@ -75,8 +81,15 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
 `
 
 const LeadingVisualContainer = styled.div`
+   {
+    /* Match visual height to adjacent text line height.
+     *
+     * TODO: When rem-based spacing on a 4px scale lands, replace
+     * hardcoded '20px' with '${get('space.s20')}'.
+     */
+  }
+  height: 20px;
   width: ${get('space.3')};
-  height: calc(${get('space.4')} - ${get('space.1')});
   display: flex;
   flex-direction: column;
   justify-content: center;

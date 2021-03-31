@@ -26,7 +26,14 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
-  padding: calc((${get('space.3')} - ${get('space.1')}) / 2) ${get('space.2')};
+   {
+    /* 6px vertical padding + 20px line height = 32px total height
+     *
+     * TODO: When rem-based spacing on a 4px scale lands, replace
+     * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
+     */
+  }
+  padding: 6px ${get('space.2')};
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.secondary')};
