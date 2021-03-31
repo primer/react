@@ -44,7 +44,9 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
     variant === 'filled' &&
     css`
       background: ${get('colors.bg.tertiary')};
-      margin: ${get('space.2')} -${get('space.2')};
+      margin: ${get('space.2')} 0;
+      padding-left: ${get('space.3')};
+      padding-right: ${get('space.3')};
       border-top: 1px solid ${get('colors.border.tertiary')};
       border-bottom: 1px solid ${get('colors.border.tertiary')};
 
