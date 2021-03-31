@@ -14,8 +14,12 @@
   "ignorePatterns": [
     "node_modules",
     ".cache",
+    "coverage/**/*",
     "docs/public/**/*",
-    "coverage/**/*"
+    "dist/**/*",
+    "lib/**/*",
+    "lib-*/**/*",
+    "types/**/*"
   ],
   "globals": {
     "__DEV__": "readonly"
