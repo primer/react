@@ -83,7 +83,6 @@ export function List(props: ListProps): JSX.Element {
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
     groups = [{items: props.items?.map(toJSX)}]
-
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 

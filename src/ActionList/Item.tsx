@@ -19,7 +19,7 @@ interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
 
   /**
    * Secondary text style variations. Usage is discretionary.
-   * 
+   *
    * - `"inline"` - Secondary text is positioned beside primary text.
    * - `"block"` - Secondary text is positioned below primary text.
    */
@@ -32,7 +32,7 @@ interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
 
   /**
    * Style variations associated with various `Item` types.
-   * 
+   *
    * - `"default"` - An action `Item`.
    * - `"danger"` - A destructive action `Item`.
    */
