@@ -7,7 +7,8 @@ const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
 const defaultNightScheme = 'dark'
 
-type Theme = any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Theme = {[key: string]: any}
 type ColorMode = 'day' | 'night'
 type ColorModeWithAuto = ColorMode | 'auto'
 

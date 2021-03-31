@@ -1,6 +1,7 @@
 import {get} from './constants'
+import {Theme} from './ThemeProvider'
 
-const getDirectionStyles = (theme: any, direction: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w') => {
+const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w') => {
   const map = {
     w: `
       top: 0;
