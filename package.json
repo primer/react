@@ -13,7 +13,7 @@
     "dist:transpile:esm": "rm -rf lib-esm && babel src --out-dir lib-esm --extensions '.js,.ts,.jsx,.tsx'",
     "dist:types": "rm -rf types && tsc",
     "lint": "eslint '**/*.{js,ts,tsx}'",
-    "lint-fix": "eslint '**/*.{js,ts,tsx}' --fix",
+    "lint:fix": "eslint '**/*.{js,ts,tsx}' --fix",
     "test": "jest -- src",
     "update-snapshots": "jest -u -- src",
     "watch": "jest --watch --no-coverage",
