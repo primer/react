@@ -3,6 +3,8 @@
 exports[`ActionList renders consistently 1`] = `
 .c0 {
   font-size: 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 <div
