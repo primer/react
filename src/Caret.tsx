@@ -1,6 +1,7 @@
 import React from 'react'
 import {ThemeContext} from 'styled-components'
 import {style} from 'styled-system'
+import {Theme} from './ThemeProvider'
 
 type Location =
   | 'top'
@@ -56,7 +57,7 @@ export type CaretProps = {
   borderWidth?: string | number
   size?: number
   location?: Location
-  theme?: any
+  theme?: Theme
 }
 
 function Caret(props: CaretProps) {
