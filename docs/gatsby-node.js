@@ -12,11 +12,11 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
       // The new configuration is based off the original...
       ...loaders.js(),
       test: /\.jsx?$/,
-      exclude: (modulePath) => /node_modules/.test(modulePath),
+      exclude: modulePath => /node_modules/.test(modulePath),
       // ...except that we want to run Primer React through webpack as well.
       // By default, Gatsby won't use the define plugin we added above on Primer React.
-      include: (modulePath) => /@primer\/components/.test(modulePath),
-    },
+      include: modulePath => /@primer\/components/.test(modulePath)
+    }
   ]
   actions.replaceWebpackConfig(config)
 }

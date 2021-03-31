@@ -13,7 +13,7 @@ module.exports = {
       options: {
         repoRootPath: '..',
         defaultBranch: 'main'
-      },
+      }
     },
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -21,7 +21,7 @@ module.exports = {
         alias: {
           '@primer/components': path.resolve(__dirname, '../src'),
           'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
-          'react': path.resolve(__dirname, 'node_modules', 'react'),
+          react: path.resolve(__dirname, 'node_modules', 'react')
         }
       }
     }

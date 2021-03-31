@@ -6,7 +6,8 @@
  * @example ComponentProps<typeof MyComponent>
  */
 export type ComponentProps<T> = T extends React.ComponentType<infer Props>
-  ? Props extends object
+  ? // eslint-disable-next-line @typescript-eslint/ban-types
+    Props extends object
     ? Props
     : never
   : never

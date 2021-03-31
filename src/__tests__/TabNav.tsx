@@ -1,6 +1,6 @@
 import React from 'react'
 import {TabNav} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -15,7 +15,7 @@ describe('TabNav', () => {
   })
 
   describe('TabNav.Link', () => {
-    behavesAsComponent({Component: TabNav.Link, systemPropArray:[COMMON]})
+    behavesAsComponent({Component: TabNav.Link, systemPropArray: [COMMON]})
   })
 
   it('should have no axe violations', async () => {
@@ -26,8 +26,8 @@ describe('TabNav', () => {
   })
 
   it('sets aria-label appropriately', () => {
-    const {getByLabelText} = HTMLRender(<TabNav aria-label="stuff"/>)
-    expect(getByLabelText("stuff")).toBeTruthy();
-    expect(getByLabelText("stuff").tagName).toEqual("NAV")
+    const {getByLabelText} = HTMLRender(<TabNav aria-label="stuff" />)
+    expect(getByLabelText('stuff')).toBeTruthy()
+    expect(getByLabelText('stuff').tagName).toEqual('NAV')
   })
 })

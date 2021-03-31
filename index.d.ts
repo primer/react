@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
-  import {SystemStyleObject} from '@styled-system/css'
-  import * as StyledComponents from 'styled-components'
   import {ReactComponentLike} from 'prop-types'
   import * as History from 'history'
 

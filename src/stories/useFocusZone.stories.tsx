@@ -60,7 +60,9 @@ export const BasicFocusZone = () => {
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
         </Absolute>
-        <ToggleButton mb={3} onClick={toggleFz}>{fzEnabled ? 'Disable' : 'Enable'} Focus Zone</ToggleButton>
+        <ToggleButton mb={3} onClick={toggleFz}>
+          {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
+        </ToggleButton>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
