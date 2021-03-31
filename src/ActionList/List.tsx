@@ -59,6 +59,8 @@ type GroupWithItems = Omit<Flatten<GroupedListProps['groupMetadata']>, 'groupId'
 
 const StyledList = styled.div`
   font-size: ${get('fontSizes.1')};
+  padding-top: ${get('space.2')};
+  padding-bottom: ${get('space.2')};
 `
 
 /**

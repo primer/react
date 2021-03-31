@@ -5,7 +5,8 @@ import {get} from '../constants'
 const StyledDivider = styled.div`
   height: 1px;
   background: ${get('colors.selectMenu.borderSecondary')};
-  margin: calc(${get('space.2')} - 1px) -${get('space.2')} ${get('space.2')};
+  margin-top: calc(${get('space.2')} - 1px);
+  margin-bottom: ${get('space.2')};
 `
 
 /**

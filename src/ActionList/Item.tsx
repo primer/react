@@ -63,6 +63,8 @@ const StyledItem = styled.div<{variant: ItemProps['variant']}>`
      */
   }
   padding: 6px ${get('space.2')};
+  margin-left: ${get('space.2')};
+  margin-right: ${get('space.2')};
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};

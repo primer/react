@@ -34,6 +34,8 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
      */
   }
   padding: 6px ${get('space.2')};
+  margin-left: ${get('space.2')};
+  margin-right: ${get('space.2')};
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.secondary')};
