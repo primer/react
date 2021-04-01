@@ -70,6 +70,7 @@ function useKeyboardNav(details, open, setOpen) {
             }
           }
           break
+        default:
       }
     },
     [details, open, setOpen]

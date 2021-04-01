@@ -108,7 +108,7 @@ const theme = {
       colors: darkColors,
       shadows: darkShadows
     },
-    ['dark_dimmed']: {
+    dark_dimmed: {
       colors: darkDimmedColors,
       shadows: darkDimmedShadows
     }

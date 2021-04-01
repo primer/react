@@ -1,4 +1,3 @@
-/* eslint-disable github/unescaped-html-literal */
 module.exports = {
   cacheDirectory: '.test',
   collectCoverage: true,
