@@ -447,7 +447,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${theme.colors.border.info}`
+        current.style.outline = `2px solid ${theme?.colors.border.info}`
       }
       if (previous) {
         previous.style.outline = ''
