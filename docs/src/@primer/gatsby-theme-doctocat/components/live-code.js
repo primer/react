@@ -34,6 +34,7 @@ function removeNewlines(string) {
 }
 
 function wrapWithFragment(jsx) {
+  // eslint-disable-next-line github/unescaped-html-literal
   return `<React.Fragment>${jsx}</React.Fragment>`
 }
 
