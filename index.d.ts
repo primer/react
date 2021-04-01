@@ -2,6 +2,7 @@
 declare module '@primer/components' {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
   import * as StyledSystem from 'styled-system'
+  import {SystemStyleObject} from '@styled-system/css'
   import {ReactComponentLike} from 'prop-types'
   import * as History from 'history'
 
