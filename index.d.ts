@@ -6,6 +6,7 @@ declare module '@primer/components' {
   import {ReactComponentLike} from 'prop-types'
   import * as History from 'history'
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export interface BaseProps extends React.Props<any> {
     as?: React.ReactType
     className?: string
@@ -607,7 +608,9 @@ declare module '@primer/components' {
     Item: React.FunctionComponent<BreadcrumbItemProps>
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export const theme: {[key: string]: any}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export const themeGet: (key: any) => any
 
   export interface DialogProps extends CommonProps, LayoutProps, Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
@@ -647,6 +650,7 @@ declare module '@primer/components' {
 
   export const ProgressBar: React.FunctionComponent<ProgressBarProps>
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type Theme = any
   type ColorMode = 'day' | 'night'
   type ColorModeWithAuto = ColorMode | 'auto'
