@@ -5,13 +5,13 @@ Consider a React component that renders a list of items. Here are two possible A
 ### A: Contents passed as React children
 
 ```jsx
-<ActionList>
-  <ActionList.Item>New file</ActionList.Item>
-  <ActionList.Divider />
-  <ActionList.Item>Copy link</ActionList.Item>
-  <ActionList.Item>Edit file</ActionList.Item>
-  <ActionList.Item variant="danger">Delete file</ActionList.Item>
-</ActionList>
+<List>
+  <List.Item>New file</List.Item>
+  <List.Divider />
+  <List.Item>Copy link</List.Item>
+  <List.Item>Edit file</List.Item>
+  <List.Item variant="danger">Delete file</List.Item>
+</List>
 ```
 
 ### B: Contents passed as data
@@ -82,13 +82,22 @@ I call this "first class" because the JSX children that are defined between your
 
 ### Contents passed as data
 
-In plain HTML, this is far less-common. One example is the `title` attribute, which results in a tooltip:
+An alternative approach is to accept data in the form of a prop, which eventually gets turned into a React element by the component's implementation. In plain HTML, this is far less common. One example is the `title` attribute, which results in a tooltip:
 
 ```html
 <button title="Save">💾</button>
 ```
 
-In custom React components, this pattern can be more common. In this example, the text to render is passed as a prop, as data rather than as JSX:
+One _could_ imagine a parallel universe where a tooltip is achieved by some other means!
+
+```html
+<button>
+    <title>Save</title>
+    💾
+</button>
+```
+
+In custom React components, this pattern can be more common. In this example, the text to render is passed as a prop, as data rather than as pre-created React elements (i.e. JSX):
 
 ```jsx
 function WordWrap({ text, charactersPerLine }) {
@@ -120,11 +129,11 @@ function WordWrap({ text, charactersPerLine }) {
 />;
 ```
 
-For further customization, one could imagine an optional `renderLine` prop that is used to give consumers control over the way a single line is rendered.
+For further customization, one could imagine an optional `renderLine` prop that is used to give consumers control over the way a single line is rendered (see the section "Customization of content passed as data" below).
 
-## Which pattern to use?
+## Can't we just stick to one of the two patterns?
 
-As shown above, both patterns can be valid approaches based on the component. But _why_ did we choose the data API for `WordWrap`? And _why_ did we choose the React children API for `MyFancyBox`?
+As shown above, both patterns can be valid approaches based on the component. But _why_ did we choose the data API for `WordWrap`, and _why_ did we choose the React children API for `MyFancyBox`?
 
 ### Let's try swapping
 
@@ -137,11 +146,11 @@ Let's start with `MyFancyBox`:
 ```jsx
 function MyFancyBox({ contents }) {
   const boxChildren = [];
-  if (typeof contents === "string" || React.isValidElement(object)) {
+  if (typeof contents === "string" || React.isValidElement(contents)) {
     boxChildren.push(contents);
   } else if (typeof contents === "function") {
     boxChildren.push(contents());
-  } // etc.?
+  } // implementation abbreviated for clarity
   return <div style="border: 4px double cornflowerblue;">{boxChildren}</div>;
 }
 
@@ -279,6 +288,7 @@ At this point we have shown that both patterns are valid, so how do we know whic
 - Easy to define a "pit of success" and lead the user there
 - Can support "escape hatches"
 - Component retains ownership of rendered contents
+- Usually less code in the implementation
 
 ### Advantages of children-based contract
 
