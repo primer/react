@@ -241,7 +241,7 @@ declare module '@primer/components' {
   export const Flash: React.FunctionComponent<FlashProps>
 
   export interface CounterLabelProps extends CommonProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
-    scheme?: string
+    scheme?: 'primary' | 'secondary'
   }
 
   export const CounterLabel: React.FunctionComponent<CounterLabelProps>
