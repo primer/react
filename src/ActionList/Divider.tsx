@@ -17,7 +17,7 @@ export function Divider(): JSX.Element {
 }
 
 /**
- * `Divider` fulfills the `ItemPropsWithRenderItem` contract,
+ * `Divider` fulfills the `ItemPropsWithCustomRenderer` contract,
  * so it can be used inline in an `ActionList`’s `items` prop.
  * In other words, `items={[ActionList.Divider]}` is supported as a concise
  * alternative to `items={[{renderItem: () => <ActionList.Divider />}]}`.

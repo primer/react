@@ -1,18 +1,19 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
+import sx, {SxProp} from '../sx'
 
 /**
  * Contract for props passed to the `Header` component.
  */
-export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
   /**
    * Style variations. Usage is discretionary.
    *
    * - `"filled"` - Superimposed on a background, offset from nearby content
    * - `"subtle"` - Relatively less offset from nearby content
    */
-  variant: 'subtle' | 'filled'
+  variant?: 'subtle' | 'filled'
 
   /**
    * Primary text which names a `Group`.
@@ -25,7 +26,7 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
   auxiliaryText?: string
 }
 
-const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
+const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxProp>`
    {
     /* 6px vertical padding + 20px line height = 32px total height
      *
@@ -33,9 +34,7 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
      * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
      */
   }
-  padding: 6px ${get('space.2')};
-  margin-left: ${get('space.2')};
-  margin-right: ${get('space.2')};
+  padding: 6px ${get('space.3')};
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
   color: ${get('colors.text.secondary')};
@@ -45,8 +44,6 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
     css`
       background: ${get('colors.bg.tertiary')};
       margin: ${get('space.2')} 0;
-      padding-left: ${get('space.3')};
-      padding-right: ${get('space.3')};
       border-top: 1px solid ${get('colors.border.tertiary')};
       border-bottom: 1px solid ${get('colors.border.tertiary')};
 
@@ -54,12 +51,20 @@ const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
         margin-top: 0;
       }
     `}
+
+  ${sx}
 `
 
 /**
  * Displays the name and description of a `Group`.
  */
-export function Header({variant, title, auxiliaryText, children: _children, ...props}: HeaderProps): JSX.Element {
+export function Header({
+  variant = 'subtle',
+  title,
+  auxiliaryText,
+  children: _children,
+  ...props
+}: HeaderProps): JSX.Element {
   return (
     <StyledHeader role="heading" variant={variant} {...props}>
       {title}

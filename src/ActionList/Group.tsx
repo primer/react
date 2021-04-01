@@ -1,21 +1,35 @@
 import React from 'react'
-import {ItemProps} from './Item'
+import styled from 'styled-components'
+import sx, {SxProp} from '../sx'
+import {Header, HeaderProps} from './Header'
 
 /**
  * Contract for props passed to the `Group` component.
  */
-export interface GroupProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
   /**
-   * A `Group`-level custom `Item` renderer. Every `Item` within this `Group`
-   * without an `Item`-level custom `Item` renderer will be rendered using
-   * this function component.
+   * Props for a `Header` to render in the `Group`.
    */
-  renderItem?: (props: ItemProps) => JSX.Element
+  header?: HeaderProps
+
+  /**
+   * `Items` to render in the `Group`.
+   */
+  items?: JSX.Element[]
 }
+
+const StyledGroup = styled.div`
+  ${sx}
+`
 
 /**
  * Collects related `Items` in an `ActionList`.
  */
-export function Group({renderItem: _renderItem, ...props}: GroupProps): JSX.Element {
-  return <div {...props} />
+export function Group({header, items, ...props}: GroupProps): JSX.Element {
+  return (
+    <StyledGroup {...props}>
+      {header && <Header {...header} />}
+      {items}
+    </StyledGroup>
+  )
 }

@@ -2,11 +2,12 @@ import type {IconProps} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
+import sx, {SxProp} from '../sx'
 
 /**
  * Contract for props passed to the `Item` component.
  */
-interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
+export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
   /**
    * Primary text which names an `Item`.
    */
@@ -39,32 +40,13 @@ interface ItemPropsBase extends React.ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'danger'
 }
 
-/**
- * Contract for props passed to the `Item` component, when an `Item`-level custom `Item` renderer is used.
- */
-interface ItemPropsWithRenderItem extends Partial<ItemPropsBase> {
-  /**
-   * An `Item`-level custom `Item` renderer.
+const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
+  /* 6px vertical padding + 20px line height = 32px total height
+   *
+   * TODO: When rem-based spacing on a 4px scale lands, replace
+   * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
    */
-  renderItem: (props: ItemProps) => JSX.Element
-}
-
-/**
- * Contract for props passed to the `Item` component.
- */
-export type ItemProps = ItemPropsBase | ItemPropsWithRenderItem
-
-const StyledItem = styled.div<{variant: ItemProps['variant']}>`
-   {
-    /* 6px vertical padding + 20px line height = 32px total height
-     *
-     * TODO: When rem-based spacing on a 4px scale lands, replace
-     * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
-     */
-  }
   padding: 6px ${get('space.2')};
-  margin-left: ${get('space.2')};
-  margin-right: ${get('space.2')};
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
@@ -76,6 +58,8 @@ const StyledItem = styled.div<{variant: ItemProps['variant']}>`
       cursor: pointer;
     }
   }
+
+  ${sx}
 `
 
 const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
@@ -117,7 +101,7 @@ export function Item({
   leadingVisual: LeadingVisual,
   variant = 'default',
   ...props
-}: ItemProps): JSX.Element {
+}: Partial<ItemProps>): JSX.Element {
   return (
     <StyledItem variant={variant} {...props}>
       {LeadingVisual && (
