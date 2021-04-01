@@ -1,11 +1,13 @@
 import 'babel-polyfill'
 import {buildPaginationModel} from '../../Pagination/model'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function first(array: Array<any>, count = 1) {
   const slice = array.slice(0, count)
   return count === 1 ? slice[0] : slice
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function last(array: Array<any>, count = 1) {
   const len = array.length
   const slice = array.slice(len - count, len)
