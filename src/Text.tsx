@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const Text = styled.span<SystemTypographyProps & SystemCommonProps & SxProp>`
   ${TYPOGRAPHY};
@@ -8,5 +9,5 @@ const Text = styled.span<SystemTypographyProps & SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type TextProps = React.ComponentProps<typeof Text>
+export type TextProps = ComponentProps<typeof Text>
 export default Text
