@@ -1,9 +1,10 @@
+import {COMMON, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps, get} from './constants'
+import sx, {SxProp} from './sx'
+
+import BorderBox from './BorderBox'
+import {ComponentProps} from './utils/types'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import BorderBox from './BorderBox'
-import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
 
 type CaretPosition =
   | 'top'

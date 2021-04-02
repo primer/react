@@ -1,9 +1,9 @@
 import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React from 'react'
-import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ItemInput} from './List'
+import styled from 'styled-components'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -28,9 +28,19 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   descriptionVariant?: 'inline' | 'block'
 
   /**
-   * Icon (or similar) positioned before `Item` text.
+   * Icon (or similar) positioned after `Item` text.
    */
   leadingVisual?: React.FunctionComponent<IconProps>
+
+  /**
+   * Icon (or similar) positioned after `Item` text.
+   */
+  auxilaryIcon?: React.FunctionComponent<IconProps>
+
+  /**
+   * Text positioned after `Item` text and optional auxilary icon.
+   */
+  auxilaryText?: string
 
   /**
    * Style variations associated with various `Item` types.
@@ -72,7 +82,7 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
-const LeadingVisualContainer = styled.div`
+const BaseVisualContainer = styled.div`
    {
     /* Match visual height to adjacent text line height.
      *
@@ -93,6 +103,18 @@ const LeadingVisualContainer = styled.div`
   }
 `
 
+const LeadingVisualContainer = styled(BaseVisualContainer)``
+
+const AuxilaryTextContainer = styled(BaseVisualContainer)`
+  color: ${get('colors.icon.tertiary')};
+  margin-left: auto;
+`
+
+const AuxilaryVisualContainer = styled(BaseVisualContainer)`
+  color: ${get('colors.icon.tertiary')};
+  margin-left: auto;
+`
+
 const DescriptionContainer = styled.span`
   color: ${get('colors.text.secondary')};
 `
@@ -106,7 +128,10 @@ export function Item({
   descriptionVariant = 'inline',
   selected,
   leadingVisual: LeadingVisual,
+  auxilaryIcon: AuxilaryIcon,
+  auxilaryText,
   variant = 'default',
+  onClick,
   ...props
 }: Partial<ItemProps> & {item: ItemInput}): JSX.Element {
   return (
@@ -126,6 +151,12 @@ export function Item({
         <div>{text}</div>
         {description && <DescriptionContainer>{description}</DescriptionContainer>}
       </StyledTextContainer>
+      {AuxilaryIcon && (
+        <AuxilaryVisualContainer>
+          <AuxilaryIcon />
+        </AuxilaryVisualContainer>
+      )}
+      {auxilaryText && <AuxilaryTextContainer>{auxilaryText}</AuxilaryTextContainer>}
     </StyledItem>
   )
 }
