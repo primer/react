@@ -105,7 +105,7 @@ export function ComplexListStory(): JSX.Element {
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
-            {groupId: '3', renderItem: props => <ActionMenu.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
             {groupId: '4'}
           ]}
           items={[
@@ -115,7 +115,7 @@ export function ComplexListStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionMenu.Item style={{color: 'rebeccapurple'}} {...props} />
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
             },
             {
               leadingVisual: NoteIcon,
