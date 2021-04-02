@@ -39,7 +39,7 @@ describe('filterObject', () => {
       }
     }
 
-    expect(filterObject(colors, (value: any) => isColorValue(value))).toEqual(expected)
+    expect(filterObject(colors, (value: unknown) => isColorValue(value))).toEqual(expected)
   })
 
   it('filters out color values', () => {
@@ -49,6 +49,6 @@ describe('filterObject', () => {
       }
     }
 
-    expect(filterObject(colors, (value: any) => isShadowValue(value))).toEqual(expected)
+    expect(filterObject(colors, (value: unknown) => isShadowValue(value))).toEqual(expected)
   })
 })
