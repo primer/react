@@ -1,17 +1,17 @@
 ---
-title: ActionList
+title: ActionMenu
 ---
 
-An `ActionList` is a list of items which can be activated or selected. `ActionList` is the base component for many of our menu-type components, including `DropdownMenu` and `ActionMenu`.
+An `ActionMenu` is a simple ActionList based component for define selectable menus.
 
 ## Default example
 
 ```jsx live
-<ActionList
+<ActionMenu
   buttonContent="Menu"
   items={[
-    {text: 'New file'},
-    ActionList.Divider,
+    {text: 'New file', onClick: () => console.log('Do Something!')},
+    ActionMenu.Divider,
     {text: 'Copy link'},
     {text: 'Edit file'},
     {text: 'Delete file', variant: 'danger'}
