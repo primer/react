@@ -27,6 +27,7 @@ export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
 
 // Components
+export {ActionList} from './ActionList'
 export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
