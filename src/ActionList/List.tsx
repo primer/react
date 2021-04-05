@@ -144,6 +144,7 @@ export function List(props: ListProps): JSX.Element {
       sx: {...itemStyle, ...itemProps.sx},
       item
     })
+  }
 
   /**
    * An array of `Group`s, each with an associated `Header` and with an array of `Item`s belonging to that `Group`.
