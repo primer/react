@@ -45,6 +45,12 @@ export interface ListPropsBase {
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
   variant?: 'inset' | 'full'
+  /*
+   * An option function to run after running an item's onClick function -
+   * because items can have their own specific click handler, this function
+   * allows global clean up tasks such as a menu hide after a selection is made
+   */
+  afterSelect?: (e: Event) => void
 }
 
 /**
