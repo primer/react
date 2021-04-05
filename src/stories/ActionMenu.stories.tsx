@@ -14,6 +14,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
+import Link from '../Link'
 import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 
@@ -57,7 +58,7 @@ export function ActionsStory(): JSX.Element {
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
               descriptionVariant: 'block',
-              onClick: () => console.log('blah!!!')
+              onClick: () => console.log('Item 1')
             },
             {
               leadingVisual: PlusCircleIcon,
@@ -115,21 +116,24 @@ export function ComplexListStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              onClick: () => console.log('Item 1')
             },
             {
               leadingVisual: NoteIcon,
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
+              onClick: () => console.log('Item 2')
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
+              onClick: () => console.log('Item 3')
             },
             {
               leadingVisual: FilterIcon,
@@ -145,3 +149,26 @@ export function ComplexListStory(): JSX.Element {
   )
 }
 ComplexListStory.storyName = 'Complex List'
+
+export function CustomTrigger(): JSX.Element {
+  const customAnchor = (props: any) => <Link {...props} />
+  return (
+    <>
+      <h1>Custom Trigger</h1>
+      <ErsatzOverlay>
+        <ActionMenu
+          buttonContent="Menu"
+          renderAnchor={customAnchor}
+          items={[
+            {text: 'New file'},
+            ActionList.Divider,
+            {text: 'Copy link'},
+            {text: 'Edit file'},
+            {text: 'Delete file', variant: 'danger'}
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+CustomTrigger.storyName = 'Custom Trigger'
