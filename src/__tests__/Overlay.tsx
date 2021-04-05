@@ -10,7 +10,7 @@ type TestComponentSettings = {
   initialFocus?: 'button'
   callback?: () => void
 }
-export const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
+const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)

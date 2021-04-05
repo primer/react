@@ -60,7 +60,9 @@ export const BasicFocusZone = () => {
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
         </Absolute>
-        <ToggleButton mb={3} onClick={toggleFz}>{fzEnabled ? 'Disable' : 'Enable'} Focus Zone</ToggleButton>
+        <ToggleButton mb={3} onClick={toggleFz}>
+          {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
+        </ToggleButton>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
@@ -445,7 +447,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${theme.colors.border.info}`
+        current.style.outline = `2px solid ${theme?.colors.border.info}`
       }
       if (previous) {
         previous.style.outline = ''

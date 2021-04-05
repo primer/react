@@ -13,6 +13,7 @@ const BasicSelectMenu = ({
   align = 'left'
 }: {
   onClick?: SelectMenuItemProps['onClick']
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: any
   align?: SelectMenuModalProps['align']
 }) => {
