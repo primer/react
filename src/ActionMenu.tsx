@@ -1,5 +1,6 @@
 import {List, GroupedListProps, UngroupedListProps} from './ActionList/List'
-import {Item} from './ActionList/Item'
+import {Item, ItemProps} from './ActionList/Item'
+import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
@@ -10,16 +11,21 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Un
   buttonContent?: React.ReactNode
 }
 
-export function ActionMenu({
+const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
+
+ActionMenuItem.displayName = 'ActionMenu.Item'
+
+const ActionMenuBase = ({
   buttonContent,
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{buttonContent}</Button>,
-  renderItem = Item,
+  renderItem = ActionMenuItem,
   ...listProps
-}: ActionMenuProps): JSX.Element {
+}: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
   const anchorId = `actionMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
   const [open, setOpen] = useState<boolean>(false)
   const onDismiss = useCallback(() => setOpen(false), [setOpen])
+  const onToggle = useCallback(() => setOpen(!open), [setOpen, open])
   return (
     <>
       {renderAnchor({
@@ -27,25 +33,18 @@ export function ActionMenu({
         id: anchorId,
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
-        onClick: () => setOpen(!open)
+        onClick: onToggle,
+        children: buttonContent
       })}
       {open && (
-        <Overlay anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
-          <List
-            {...listProps}
-            renderItem={({onClick, ...itemProps}) =>
-              renderItem({
-                ...itemProps,
-                onClick: event => {
-                  console.log('test renderItem onClick')
-                  setOpen(false)
-                  onClick && onClick(event)
-                }
-              })
-            }
-          />
+        <Overlay p={2} anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
+          <List role="menu" {...listProps} afterSelect={onDismiss} renderItem={renderItem} />
         </Overlay>
       )}
     </>
   )
 }
+
+ActionMenuBase.displayName = 'ActionMenu'
+
+export const ActionMenu = Object.assign(ActionMenuBase, {Divider: Divider, Item: ActionMenuItem})
