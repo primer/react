@@ -1,4 +1,4 @@
-import {isTabbable, iterateTabbableElements} from '../utils/iterateTabbable'
+import {isTabbable, iterateFocusableElements} from '../utils/iterateFocusableElements'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 
 eventListenerSignalPolyfill()
@@ -37,7 +37,7 @@ function followSignal(signal: AbortSignal): AbortController {
  * @param lastChild
  */
 function getFocusableChild(container: HTMLElement, lastChild = false) {
-  return iterateTabbableElements(container, {reverse: lastChild, strict: true}).next().value
+  return iterateFocusableElements(container, {reverse: lastChild, strict: true, onlyTabbable: true}).next().value
 }
 
 /**
@@ -64,55 +64,52 @@ export function focusTrap(
 
   container.setAttribute('data-focus-trap', 'active')
   let lastFocusedChild: HTMLElement | undefined = undefined
-  const firstFocusableChild = getFocusableChild(container)
-  const lastFocusableChild = getFocusableChild(container, true)
 
   // Ensure focus remains in the trap zone by checking that a given recently-focused
   // element is inside the trap zone. If it isn't, redirect focus to a suitable
   // element within the trap zone. If need to redirect focus and a suitable element
-  // is not found, return false.
-  function ensureTrapZoneHasFocus(focusedElement: EventTarget | null): boolean {
+  // is not found, blur the recently-focused element so that focus doesn't leave the
+  // trap zone.
+  function ensureTrapZoneHasFocus(focusedElement: EventTarget | null) {
     if (focusedElement instanceof HTMLElement) {
       if (container.contains(focusedElement)) {
         // If a child of the trap zone was focused, remember it
         lastFocusedChild = focusedElement
-        return true
+        return
       } else {
-        if (lastFocusedChild && isTabbable(lastFocusedChild)) {
+        if (lastFocusedChild && isTabbable(lastFocusedChild) && container.contains(lastFocusedChild)) {
           lastFocusedChild.focus()
-          return true
+          return
         } else {
-          // eslint-disable-next-line @typescript-eslint/no-extra-semi
-          const toFocus = initialFocus ?? firstFocusableChild
+          const toFocus = initialFocus && container.contains(initialFocus) ? initialFocus : getFocusableChild(container)
           if (toFocus) {
             toFocus.focus()
-            return true
+            return
+          } else {
+            // no element focusable within trap, blur the external element instead
+            focusedElement.blur()
           }
         }
       }
     }
-    return false
   }
 
   const wrappingController = followSignal(signal)
 
-  // Wrap focus from beginning to end
-  firstFocusableChild?.addEventListener(
+  container.addEventListener(
     'keydown',
     event => {
-      if (event.key === 'Tab' && event.shiftKey && !event.defaultPrevented) {
+      if (event.key !== 'Tab' || event.defaultPrevented) {
+        return
+      }
+
+      const {target} = event
+      const firstFocusableChild = getFocusableChild(container)
+      const lastFocusableChild = getFocusableChild(container, true)
+      if (target === firstFocusableChild && event.shiftKey) {
         event.preventDefault()
         lastFocusableChild?.focus()
-      }
-    },
-    {signal: wrappingController.signal}
-  )
-
-  // Wrap focus from end to beginning
-  lastFocusableChild?.addEventListener(
-    'keydown',
-    event => {
-      if (event.key === 'Tab' && !event.shiftKey && !event.defaultPrevented) {
+      } else if (target === lastFocusableChild && !event.shiftKey) {
         event.preventDefault()
         firstFocusableChild?.focus()
       }
@@ -146,11 +143,7 @@ export function focusTrap(
   document.addEventListener(
     'focusin',
     (event: FocusEvent) => {
-      if (!ensureTrapZoneHasFocus(event.target)) {
-        // Couldn't find a suitable element to focus, so assume that the trap zone UI
-        // has been hidden or removed - clean up the listeners.
-        wrappingController.abort()
-      }
+      ensureTrapZoneHasFocus(event.target)
     },
     {signal: wrappingController.signal}
   )

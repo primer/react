@@ -32,7 +32,7 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
   justify-content: center;
   background-color: ${get('colors.bg.canvas')};
   border-radius: 50%;
-  box-shadow: ${get('shadows.medium')};
+  box-shadow: ${get('shadows.shadow.medium')};
   ${COMMON};
   ${sizeStyles};
   ${sx};

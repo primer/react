@@ -105,8 +105,6 @@ describe('Portal', () => {
     expect(fancyPortalRoot1?.textContent?.trim()).toEqual('456test456')
     expect(fancyPortalRoot2?.textContent?.trim()).toEqual('789test789')
 
-    console.log(baseElement.outerHTML)
-
     baseElement.innerHTML = ''
   })
 })

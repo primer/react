@@ -12,16 +12,23 @@ function focusable(el: Element) {
 }
 
 type UseDialogParameters = {
-  modalRef: React.RefObject<HTMLDivElement>
-  overlayRef: React.RefObject<HTMLDivElement>
+  modalRef: React.RefObject<HTMLElement>
+  overlayRef: React.RefObject<HTMLElement>
   isOpen?: boolean
   onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLDivElement>
-  closeButtonRef?: React.RefObject<HTMLDivElement>
-  returnFocusRef?: React.RefObject<HTMLDivElement>
+  initialFocusRef?: React.RefObject<HTMLElement>
+  closeButtonRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement>
 }
 
-function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocusRef, closeButtonRef}: UseDialogParameters) {
+function useDialog({
+  modalRef,
+  overlayRef,
+  isOpen,
+  onDismiss = noop,
+  initialFocusRef,
+  closeButtonRef
+}: UseDialogParameters) {
   const onClickOutside = useCallback(
     e => {
       if (
@@ -62,7 +69,9 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocus
         if (items.length === 0) return
         e.preventDefault()
         const focusedElement = document.activeElement
-        if (!focusedElement) { return }
+        if (!focusedElement) {
+          return
+        }
 
         const index = items.indexOf(focusedElement)
         const offsetIndex = index + movement
@@ -75,10 +84,12 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocus
   )
 
   const handleTab = useCallback(
-    (e) => {
+    e => {
       const movement = e.shiftKey ? -1 : 1
       const focusableItem = getFocusableItem(e, movement)
-      if (!focusableItem) { return }
+      if (!focusableItem) {
+        return
+      }
 
       focusableItem.focus()
     },
@@ -86,7 +97,7 @@ function useDialog({modalRef, overlayRef, isOpen, onDismiss = noop, initialFocus
   )
 
   const onKeyDown = useCallback(
-    (event) => {
+    event => {
       switch (event.key) {
         case 'Tab':
           handleTab(event)

@@ -1,4 +1,3 @@
-import {theme, colors} from './theme-preval'
+import {theme} from './theme-preval'
 
 export default theme
-export {colors}

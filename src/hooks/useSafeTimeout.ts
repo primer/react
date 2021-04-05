@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useRef} from 'react'
 
-type SetTimeout = (handler: TimerHandler, timeout?: number, ...args: any[]) => number
+type SetTimeout = (handler: TimerHandler, timeout?: number, ...args: unknown[]) => number
 type ClearTimeout = (id: number) => void
 
 /**
@@ -11,11 +11,14 @@ type ClearTimeout = (id: number) => void
 export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClearTimeout: ClearTimeout} {
   const timers = useRef<Set<number>>(new Set<number>())
 
-  const safeSetTimeout = useCallback((handler: TimerHandler, timeout?: number | undefined, ...args: any[]): number => {
-    const id = window.setTimeout(handler, timeout, ...args)
-    timers.current.add(id)
-    return id
-  }, [])
+  const safeSetTimeout = useCallback(
+    (handler: TimerHandler, timeout?: number | undefined, ...args: unknown[]): number => {
+      const id = window.setTimeout(handler, timeout, ...args)
+      timers.current.add(id)
+      return id
+    },
+    []
+  )
 
   const safeClearTimeout = useCallback((id: number) => {
     clearTimeout(id)
@@ -24,7 +27,10 @@ export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClear
 
   useEffect(() => {
     return () => {
-      Object.values(timers.current).forEach(clearTimeout)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      for (const id of timers.current) {
+        clearTimeout(id)
+      }
     }
   }, [])
 

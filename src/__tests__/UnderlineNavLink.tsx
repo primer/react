@@ -26,7 +26,7 @@ describe('UnderlineNav.Link', () => {
   })
 
   it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Link = ({theme, ...props}: any) => <div {...props} />
+    const Link = ({theme: _ignoredTheme, ...props}: Record<string, unknown>) => <div {...props} />
     expect(render(<UnderlineNav.Link as={Link} to="#" />)).toMatchSnapshot()
   })
 })

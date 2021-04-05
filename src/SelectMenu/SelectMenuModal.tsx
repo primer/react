@@ -34,7 +34,7 @@ const modalStyles = css<StyledModalProps>`
   flex-direction: column;
   background-color: ${get('colors.bg.overlay')};
   border-radius: ${get('radii.2')};
-  box-shadow: ${get('shadows.small')};
+  box-shadow: ${get('shadows.shadow.small')};
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
 
   @media (min-width: ${get('breakpoints.0')}) {

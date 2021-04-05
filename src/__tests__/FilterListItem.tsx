@@ -5,9 +5,7 @@ import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import { ReactTestRendererJSON } from 'react-test-renderer'
 expect.extend(toHaveNoViolations)
-
 
 describe('FilterList.Item', () => {
   behavesAsComponent({Component: FilterList.Item, systemPropArray: [COMMON]})
@@ -29,6 +27,6 @@ describe('FilterList.Item', () => {
 
   it('respects "count" prop', () => {
     const {getByText} = HTMLRender(<FilterList.Item count={400} />)
-    expect(getByText("400")).toBeTruthy()
+    expect(getByText('400')).toBeTruthy()
   })
 })

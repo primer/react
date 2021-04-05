@@ -94,7 +94,6 @@ const Wrapper = styled.span<StyledWrapperProps>`
       background-color: ${get('colors.input.contrastBg')};
     `}
 
-
   ${props =>
     props.disabled &&
     css`

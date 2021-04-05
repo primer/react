@@ -29,13 +29,13 @@ const widthMap = {
 /*TODO replace with shadow functional color variable when it's shipped to primer/primitives*/
 const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SystemPositionProps & SxProp>`
   background-color: ${get('colors.bg.overlay')};
-  box-shadow: ${get('overlay.boxShadow')};
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2);
   position: absolute;
   min-width: 192px;
   max-width: 640px;
   height: ${props => heightMap[props.height || 'auto']};
   width: ${props => widthMap[props.width || 'auto']};
-  border-radius: ${get('overlay.borderRadius')};
+  border-radius: 12px;
   overflow: hidden;
   animation: overlay-appear 200ms ${get('animation.easeOutCubic')};
 

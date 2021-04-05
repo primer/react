@@ -131,10 +131,9 @@ export function getAnchoredPosition(
 
   const parentElementStyle = getComputedStyle(parentElement)
   const parentElementRect = parentElement.getBoundingClientRect()
-  const [borderTop, borderLeft] = [
-    parentElementStyle.borderTopWidth,
-    parentElementStyle.borderLeftWidth
-  ].map(v => parseInt(v, 10) || 0)
+  const [borderTop, borderLeft] = [parentElementStyle.borderTopWidth, parentElementStyle.borderLeftWidth].map(
+    v => parseInt(v, 10) || 0
+  )
   const relativeRect = {
     top: parentElementRect.top + borderTop,
     left: parentElementRect.left + borderLeft
@@ -167,8 +166,8 @@ function getPositionedParent(element: Element) {
 /**
  * Returns the rectangle (relative to the window) that will clip the given element
  * if it is rendered outside of its bounds.
- * @param element 
- * @returns 
+ * @param element
+ * @returns
  */
 function getClippingRect(element: Element): BoxPosition {
   let parentNode: typeof element.parentNode = element
@@ -260,7 +259,6 @@ function pureCalculateAnchoredPosition(
   anchorRect: BoxPosition,
   {side, align, allowOutOfBounds, anchorOffset, alignmentOffset}: PositionSettings
 ): {top: number; left: number} {
-
   // Compute the relative viewport rect, to bring it into the same coordinate space as `pos`
   const relativeViewportRect: BoxPosition = {
     top: viewportRect.top - relativePosition.top,

@@ -11,14 +11,22 @@ expect.extend(toHaveNoViolations)
 const imgInput = <img alt="" src="primer.jpg" />
 
 describe('CircleBadge', () => {
-  behavesAsComponent({Component: CircleBadge, systemPropArray: [COMMON], toRender: () => <CircleBadge>{imgInput}</CircleBadge>})
+  behavesAsComponent({
+    Component: CircleBadge,
+    systemPropArray: [COMMON],
+    toRender: () => <CircleBadge>{imgInput}</CircleBadge>
+  })
 
   checkExports('CircleBadge', {
     default: CircleBadge
   })
 
   describe('CircleBadge.Icon', () => {
-    behavesAsComponent({Component: CircleBadge.Icon, systemPropArray: [COMMON], toRender: () => <CircleBadge.Icon icon={CheckIcon} />})
+    behavesAsComponent({
+      Component: CircleBadge.Icon,
+      systemPropArray: [COMMON],
+      toRender: () => <CircleBadge.Icon icon={CheckIcon} />
+    })
   })
 
   it('should have no axe violations', async () => {

@@ -3,11 +3,23 @@ import React from 'react'
 import {fireEvent, render} from '@testing-library/react'
 import {focusTrap} from '../../behaviors/focusTrap'
 
-async function nextTick() {
-  return new Promise(resolve => {
-    process.nextTick(resolve)
-  })
-}
+// Since we use strict `isTabbable` checks within focus trap, we need to mock these
+// properties that Jest does not populate.
+beforeAll(() => {
+  try {
+    Object.defineProperties(HTMLElement.prototype, {
+      offsetHeight: {
+        get: () => 42
+      },
+      offsetWidth: {
+        get: () => 42
+      },
+      getClientRects: {
+        get: () => () => [42]
+      }
+    })
+  } catch {}
+})
 
 it('Should initially focus the first focusable element when activated', () => {
   const {container} = render(
@@ -78,6 +90,26 @@ it('Should prevent focus from exiting the trap, returns focus to previously-focu
   controller.abort()
 })
 
+it('Should prevent focus from exiting the trap if there are no focusable children', async () => {
+  const {container} = render(
+    <div>
+      <div id="trapContainer"></div>
+      <button id="durian" tabIndex={0}>
+        Durian
+      </button>
+    </div>
+  )
+
+  const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
+  const durianButton = container.querySelector<HTMLElement>('#durian')!
+  const controller = focusTrap(trapContainer)
+
+  focus(durianButton)
+  expect(document.activeElement === durianButton).toEqual(false)
+
+  controller.abort()
+})
+
 it('Should cycle focus from last element to first element and vice-versa', async () => {
   const {container} = render(
     <div>
@@ -123,7 +155,7 @@ it('Should should release the trap when the signal is aborted', async () => {
   )
 
   const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
-  const durianButton = container.querySelector<HTMLElement>("#durian")!
+  const durianButton = container.querySelector<HTMLElement>('#durian')!
   const firstButton = trapContainer.querySelector('button')!
 
   const controller = focusTrap(trapContainer)
@@ -135,6 +167,36 @@ it('Should should release the trap when the signal is aborted', async () => {
 
   focus(durianButton)
   expect(document.activeElement).toEqual(durianButton)
+})
+
+it('Should handle dynamic content', async () => {
+  const {container} = render(
+    <div>
+      <div id="trapContainer">
+        <button tabIndex={0}>Apple</button>
+        <button tabIndex={0}>Banana</button>
+        <button tabIndex={0}>Cantaloupe</button>
+      </div>
+      <button id="durian" tabIndex={0}>
+        Durian
+      </button>
+    </div>
+  )
+
+  const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
+  const [firstButton, secondButton, thirdButton] = trapContainer.querySelectorAll('button')
+
+  const controller = focusTrap(trapContainer)
+
+  secondButton.focus()
+  trapContainer.removeChild(thirdButton)
+  fireEvent(secondButton, new KeyboardEvent('keydown', {bubbles: true, key: 'Tab'}))
+  expect(document.activeElement).toEqual(firstButton)
+
+  fireEvent(firstButton, new KeyboardEvent('keydown', {bubbles: true, key: 'Tab', shiftKey: true}))
+  expect(document.activeElement).toEqual(secondButton)
+
+  controller.abort()
 })
 
 /**

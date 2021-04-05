@@ -1,6 +1,6 @@
 import React from 'react'
 import {Breadcrumb} from '..'
-import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
