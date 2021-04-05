@@ -4,9 +4,7 @@ import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
 import {registerPortalRoot} from '../Portal'
-
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
-
 
 export default {
   title: 'Internal components/Overlay',
