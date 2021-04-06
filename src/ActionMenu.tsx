@@ -38,7 +38,7 @@ const ActionMenuBase = ({
         children: buttonContent
       })}
       {open && (
-        <Overlay p={2} anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
+        <Overlay anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
           <List role="menu" {...listProps} afterSelect={onDismiss} renderItem={renderItem} />
         </Overlay>
       )}
