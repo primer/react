@@ -1,14 +1,15 @@
-import {List, GroupedListProps, UngroupedListProps} from './ActionList/List'
+import {List, ListPropsBase, GroupedListProps} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
 
-export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof UngroupedListProps>>, UngroupedListProps {
+export interface ActionMenuProps extends ListPropsBase, GroupedListProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   buttonContent?: React.ReactNode
+  renderItem?: (props: ItemProps) => JSX.Element
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -44,7 +45,5 @@ const ActionMenuBase = ({
     </>
   )
 }
-
-ActionMenuBase.displayName = 'ActionMenu'
 
 export const ActionMenu = Object.assign(ActionMenuBase, {Divider: Divider, Item: ActionMenuItem})
