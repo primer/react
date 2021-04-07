@@ -82,12 +82,17 @@ export function SimpleListStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList
+          renderItem={props => <ActionList.Item {...props} selected={true} />}
+          groupMetadata={[
+            {
+              groupId: '0'
+            }
+          ]}
           items={[
-            {text: 'New file'},
-            ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
+            {groupId: '0', text: 'New file'},
+            {groupId: '0', text: 'Copy link'},
+            {groupId: '0', text: 'Edit file'},
+            {groupId: '0', text: 'Delete file', variant: 'danger'}
           ]}
         />
       </ErsatzOverlay>

@@ -1,14 +1,11 @@
 import React, {useCallback, useRef, useState} from 'react'
-import {List, GroupedListProps, UngroupedListProps} from '../ActionList/List'
+import {List, GroupedListProps, ListPropsBase} from '../ActionList/List'
 import Overlay from '../Overlay'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {Item} from '../ActionList/Item'
 
-export interface DropdownMenuProps
-  extends Partial<Omit<GroupedListProps, keyof UngroupedListProps>>,
-    UngroupedListProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderAnchor?: (props: any) => JSX.Element
+export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 }
 
 export function DropdownMenu({

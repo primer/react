@@ -10,7 +10,7 @@ import {SystemCssProperties} from '@styled-system/css'
 /**
  * Contract for props passed to the `List` component.
  */
-interface ListPropsBase {
+export interface ListPropsBase {
   /**
    * A collection of `Item` props and `Item`-level custom `Item` renderers.
    */
@@ -47,7 +47,7 @@ interface ListPropsBase {
 /**
  * Contract for props passed to the `List` component, when its `Item`s are collected in `Group`s.
  */
-interface GroupedListProps extends ListPropsBase {
+export interface GroupedListProps extends ListPropsBase {
   /**
    * A collection of `Group` props (except `items`), plus a unique group identifier
    * and `Group`-level custom `Item` or `Group` renderers.
