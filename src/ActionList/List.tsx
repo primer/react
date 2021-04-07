@@ -1,10 +1,10 @@
+import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
 import React from 'react'
 import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
-import type {AriaRole} from '../utils/types'
 import {SystemCssProperties} from '@styled-system/css'
 
 /**
@@ -26,14 +26,14 @@ export interface ListPropsBase {
    * without a `Group`-level or `Item`-level custom `Item` renderer will be
    * rendered using this function component.
    */
-  renderItem?: (props: ItemProps) => JSX.Element
+  renderItem?: typeof Item
 
   /**
    * A `List`-level custom `Group` renderer. Every `Group` within this `List`
    * without a `Group`-level custom `Item` renderer will be rendered using
    * this function component.
    */
-  renderGroup?: (props: GroupProps) => JSX.Element
+  renderGroup?: typeof Group
 
   /**
    * Style variations. Usage is discretionary.
@@ -130,7 +130,7 @@ export function List(props: ListProps): JSX.Element {
    * or the default `Item` renderer.
    */
   const renderItem = (itemProps: ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})) =>
-    ((('renderItem' in itemProps && itemProps.renderItem) ?? props.renderItem) || Item).call(null, {
+    (('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item).call(null, {
       ...itemProps,
       sx: {...itemStyle, ...itemProps.sx}
     })
