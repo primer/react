@@ -139,22 +139,12 @@ export function List(props: ListProps): JSX.Element {
    * An `Item`-level, `Group`-level, or `List`-level custom `Item` renderer,
    * or the default `Item` renderer.
    */
-<<<<<<< HEAD
   const renderItem = (itemProps: ItemInput, item: ItemInput) =>
     (('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item).call(null, {
       ...itemProps,
       sx: {...itemStyle, ...itemProps.sx},
       item
-=======
-  const renderItem = (itemProps: ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})) => {
-    console.log('ey')
-    return ((('renderItem' in itemProps ? itemProps.renderItem : null) ?? props.renderItem) || Item).call(null, {
-      ...itemProps,
-      sx: {...itemStyle, ...itemProps.sx},
-      tabIndex: 0
->>>>>>> ActionMenu supports keyboard keys
     })
-  }
   /**
    * An array of `Group`s, each with an associated `Header` and with an array of `Item`s belonging to that `Group`.
    */
@@ -198,8 +188,6 @@ export function List(props: ListProps): JSX.Element {
 
     groups = [...groupMap.values()]
   }
-
-  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
 
   return (
     <StyledList ref={containerRef} {...props}>

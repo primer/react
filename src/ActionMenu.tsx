@@ -55,7 +55,6 @@ const ActionMenuBase = ({
                   }
                 },
                 onClick: event => {
-                  console.log('itemProps', itemProps)
                   onActivate && onActivate(itemProps)
                   onClick && onClick(event)
                   setOpen(false)
