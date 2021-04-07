@@ -6,7 +6,6 @@ Closes # (type the issue number after # if applicable; otherwise remove this lin
 Please provide before/after screenshots for any visual changes
 
 ### Merge checklist
-- [ ] Added or updated TypeScript definitions (`index.d.ts`) if necessary
 - [ ] Added/updated tests
 - [ ] Added/updated documentation
 - [ ] Tested in Chrome
