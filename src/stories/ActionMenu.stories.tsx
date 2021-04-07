@@ -18,6 +18,7 @@ import Link from '../Link'
 import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 import {registerPortalRoot} from '../Portal'
+import {ItemProps} from '../ActionList/Item'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu',
@@ -50,7 +51,7 @@ const ErsatzOverlay = styled.div`
 
 export function ActionsStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
-  const onActivate = itemProps => {
+  const onActivate = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -85,7 +86,7 @@ ActionsStory.storyName = 'Actions'
 
 export function SimpleListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
-  const onActivate = itemProps => {
+  const onActivate = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -112,7 +113,7 @@ SimpleListStory.storyName = 'Simple List'
 
 export function ComplexListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
-  const onActivate = itemProps => {
+  const onActivate = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -171,7 +172,7 @@ ComplexListStory.storyName = 'Complex List'
 export function CustomTrigger(): JSX.Element {
   const customAnchor = (props: any) => <Link {...props} />
   const [option, setOption] = useState('Select an option')
-  const onActivate = itemProps => {
+  const onActivate = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (

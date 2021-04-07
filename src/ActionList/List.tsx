@@ -46,7 +46,12 @@ export interface ListPropsBase {
    */
   variant?: 'inset' | 'full'
 
+  // **
   role?: string
+
+  tabIndex?: number
+
+  ref?: React.RefObject<HTMLDivElement>
 }
 
 /**
