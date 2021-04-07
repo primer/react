@@ -10,7 +10,7 @@ import {
   GearIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
@@ -49,11 +49,17 @@ const ErsatzOverlay = styled.div`
 `
 
 export function ActionsStory(): JSX.Element {
+  const [option, setOption] = useState('Select an option')
+  const onActivate = itemProps => {
+    setOption(itemProps.text)
+  }
   return (
     <>
       <h1>Actions</h1>
+      <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
+          onActivate={onActivate}
           buttonContent={<ServerIcon />}
           items={[
             {
@@ -61,8 +67,7 @@ export function ActionsStory(): JSX.Element {
               text: 'Open current Codespace',
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
-              descriptionVariant: 'block',
-              onClick: () => console.log('Item 1')
+              descriptionVariant: 'block'
             },
             {
               leadingVisual: PlusCircleIcon,
@@ -79,11 +84,17 @@ export function ActionsStory(): JSX.Element {
 ActionsStory.storyName = 'Actions'
 
 export function SimpleListStory(): JSX.Element {
+  const [option, setOption] = useState('Select an option')
+  const onActivate = itemProps => {
+    setOption(itemProps.text)
+  }
   return (
     <>
       <h1>Simple List</h1>
+      <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
+          onActivate={onActivate}
           buttonContent="Menu"
           items={[
             {text: 'New file'},
@@ -100,11 +111,17 @@ export function SimpleListStory(): JSX.Element {
 SimpleListStory.storyName = 'Simple List'
 
 export function ComplexListStory(): JSX.Element {
+  const [option, setOption] = useState('Select an option')
+  const onActivate = itemProps => {
+    setOption(itemProps.text)
+  }
   return (
     <>
       <h1>Complex List</h1>
+      <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
+          onActivate={onActivate}
           buttonContent="Menu"
           groupMetadata={[
             {groupId: '0'},
@@ -120,24 +137,21 @@ export function ComplexListStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
-              onClick: () => console.log('Item 1')
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
             },
             {
               leadingVisual: NoteIcon,
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2',
-              onClick: () => console.log('Item 2')
+              groupId: '2'
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2',
-              onClick: () => console.log('Item 3')
+              groupId: '2'
             },
             {
               leadingVisual: FilterIcon,
@@ -156,11 +170,17 @@ ComplexListStory.storyName = 'Complex List'
 
 export function CustomTrigger(): JSX.Element {
   const customAnchor = (props: any) => <Link {...props} />
+  const [option, setOption] = useState('Select an option')
+  const onActivate = itemProps => {
+    setOption(itemProps.text)
+  }
   return (
     <>
       <h1>Custom Trigger</h1>
+      <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
+          onActivate={onActivate}
           buttonContent="Menu"
           renderAnchor={customAnchor}
           items={[

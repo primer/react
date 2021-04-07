@@ -68,10 +68,12 @@ const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
   color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
 
   @media (hover: hover) and (pointer: fine) {
-    :hover {
+    :hover,
+    :focus {
       background: ${props =>
         props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
       cursor: pointer;
+      outline: none;
     }
   }
 

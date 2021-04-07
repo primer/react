@@ -4,12 +4,12 @@ import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
-
 export interface ActionMenuProps extends ListPropsBase, GroupedListProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   buttonContent?: React.ReactNode
   renderItem?: (props: ItemProps) => JSX.Element
+  onActivate?: (props: ItemProps) => void
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -19,7 +19,8 @@ ActionMenuItem.displayName = 'ActionMenu.Item'
 const ActionMenuBase = ({
   buttonContent,
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{buttonContent}</Button>,
-  renderItem = ActionMenuItem,
+  renderItem = Item,
+  onActivate,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
@@ -35,11 +36,33 @@ const ActionMenuBase = ({
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
         onClick: onToggle,
-        children: buttonContent
+        children: buttonContent,
+        tabIndex: 0
       })}
       {open && (
         <Overlay anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
-          <List role="menu" {...listProps} afterSelect={onDismiss} renderItem={renderItem} />
+          <List
+            role="menu"
+            {...listProps}
+            renderItem={({onClick, ...itemProps}) =>
+              renderItem({
+                ...itemProps,
+                role: 'menuitem',
+                onKeyPress: event => {
+                  if (event.key == 'Enter' || event.key == 'Space') {
+                    onActivate && onActivate(itemProps)
+                    setOpen(false)
+                  }
+                },
+                onClick: event => {
+                  console.log('itemProps', itemProps)
+                  onActivate && onActivate(itemProps)
+                  onClick && onClick(event)
+                  setOpen(false)
+                }
+              })
+            }
+          />
         </Overlay>
       )}
     </>

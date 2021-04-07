@@ -45,12 +45,8 @@ export interface ListPropsBase {
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
   variant?: 'inset' | 'full'
-  /*
-   * An option function to run after running an item's onClick function -
-   * because items can have their own specific click handler, this function
-   * allows global clean up tasks such as a menu hide after a selection is made
-   */
-  afterSelect?: (e: Event) => void
+
+  role?: string
 }
 
 /**
@@ -138,14 +134,22 @@ export function List(props: ListProps): JSX.Element {
    * An `Item`-level, `Group`-level, or `List`-level custom `Item` renderer,
    * or the default `Item` renderer.
    */
+<<<<<<< HEAD
   const renderItem = (itemProps: ItemInput, item: ItemInput) =>
     (('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item).call(null, {
       ...itemProps,
       sx: {...itemStyle, ...itemProps.sx},
       item
+=======
+  const renderItem = (itemProps: ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})) => {
+    console.log('ey')
+    return ((('renderItem' in itemProps ? itemProps.renderItem : null) ?? props.renderItem) || Item).call(null, {
+      ...itemProps,
+      sx: {...itemStyle, ...itemProps.sx},
+      tabIndex: 0
+>>>>>>> ActionMenu supports keyboard keys
     })
   }
-
   /**
    * An array of `Group`s, each with an associated `Header` and with an array of `Item`s belonging to that `Group`.
    */
@@ -190,8 +194,10 @@ export function List(props: ListProps): JSX.Element {
     groups = [...groupMap.values()]
   }
 
+  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
+
   return (
-    <StyledList {...props}>
+    <StyledList ref={containerRef} {...props}>
       {groups?.map(({header, ...groupProps}, index) => (
         <>
           {renderGroup({
