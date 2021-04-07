@@ -12,19 +12,18 @@ const portalRootRegistry: {[key: string]: Element} = {}
  * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
  * If name is not specified, registers the default portal root.
  */
-export function registerPortalRoot(root: Element | undefined, name?: string): void {
-  if (root instanceof Element) {
-    portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME] = root
-  } else {
-    delete portalRootRegistry[name ?? DEFAULT_PORTAL_CONTAINER_NAME]
-  }
+export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINER_NAME): void {
+  portalRootRegistry[name] = root
 }
 
 // Ensures that a default portal root exists and is registered. If a DOM element exists
-// with id __primerPortalRoot__, allow that element to serve as the default portl root.
+// with id __primerPortalRoot__, allow that element to serve as the default portal root.
 // Otherwise, create that element and attach it to the end of document.body.
 function ensureDefaultPortal() {
-  if (!(DEFAULT_PORTAL_CONTAINER_NAME in portalRootRegistry)) {
+  if (
+    !(DEFAULT_PORTAL_CONTAINER_NAME in portalRootRegistry) ||
+    !document.body.contains(portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME])
+  ) {
     let defaultPortalContainer = document.getElementById(PRIMER_PORTAL_ROOT_ID)
     if (!(defaultPortalContainer instanceof Element)) {
       defaultPortalContainer = document.createElement('div')
@@ -36,7 +35,8 @@ function ensureDefaultPortal() {
         document.body.appendChild(defaultPortalContainer)
       }
     }
-    portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME] = defaultPortalContainer
+
+    registerPortalRoot(defaultPortalContainer)
   }
 }
 
