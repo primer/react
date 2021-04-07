@@ -4,6 +4,7 @@ import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
+import getRandomValues from 'get-random-values'
 export interface ActionMenuProps extends ListPropsBase, GroupedListProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
@@ -24,7 +25,7 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
-  const anchorId = `actionMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
+  const anchorId = `actionMenuAnchor-${getRandomValues(new Uint8Array(4)).join('')}`
   const [open, setOpen] = useState<boolean>(false)
   const onDismiss = useCallback(() => setOpen(false), [setOpen])
   const onToggle = useCallback(() => setOpen(!open), [setOpen, open])
@@ -35,6 +36,7 @@ const ActionMenuBase = ({
         id: anchorId,
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
+        'aria-label': 'menu',
         onClick: onToggle,
         children: buttonContent,
         tabIndex: 0
@@ -42,8 +44,8 @@ const ActionMenuBase = ({
       {open && (
         <Overlay anchorRef={anchorRef} returnFocusRef={anchorRef} onClickOutside={onDismiss} onEscape={onDismiss}>
           <List
-            role="menu"
             {...listProps}
+            role="menu"
             renderItem={({onClick, ...itemProps}) =>
               renderItem({
                 ...itemProps,
@@ -67,5 +69,7 @@ const ActionMenuBase = ({
     </>
   )
 }
+
+ActionMenuBase.displayName = 'ActionMenu'
 
 export const ActionMenu = Object.assign(ActionMenuBase, {Divider: Divider, Item: ActionMenuItem})

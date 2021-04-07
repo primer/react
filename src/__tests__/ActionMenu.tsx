@@ -8,6 +8,8 @@ import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {ThemeProvider} from 'styled-components'
 import {BaseStyles} from '..'
+import getRandomValues from 'get-random-values'
+
 expect.extend(toHaveNoViolations)
 
 function SimpleActionMenu(): JSX.Element {
