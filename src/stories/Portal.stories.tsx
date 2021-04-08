@@ -10,9 +10,6 @@ export default {
   component: Portal,
   decorators: [
     Story => {
-      // Since portal roots are registered globally, we need this line so that each storybook
-      // story works in isolation.
-      registerPortalRoot(undefined)
       return (
         <ThemeProvider>
           <BaseStyles>
