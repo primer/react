@@ -242,11 +242,23 @@ export const MultipleFocusTraps = () => {
             <Text> - Inactive</Text>
           </Flex>
           <Flex flexDirection="row">
-            <BorderBox width={40} height={22} mr={2} borderColor="auto.gray.5" backgroundColor="auto.yellow.2"></BorderBox>
+            <BorderBox
+              width={40}
+              height={22}
+              mr={2}
+              borderColor="auto.gray.5"
+              backgroundColor="auto.yellow.2"
+            ></BorderBox>
             <Text> - Suspended</Text>
           </Flex>
           <Flex flexDirection="row">
-            <BorderBox width={40} height={22} mr={2} borderColor="auto.gray.5" backgroundColor="auto.green.2"></BorderBox>
+            <BorderBox
+              width={40}
+              height={22}
+              mr={2}
+              borderColor="auto.gray.5"
+              backgroundColor="auto.green.2"
+            ></BorderBox>
             <Text> - Active</Text>
           </Flex>
         </BorderBox>
