@@ -69,6 +69,7 @@ export type OverlayProps = {
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param onClickOutside  Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
+ * @param onPositionUpdated Optional.
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `sm` corresponds to `256px`, `md` corresponds to `320px`, `lg` corresponds to `480px`, and `xl` corresponds to `640px`.
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `sm` corresponds to `480px` and `md` corresponds to `640px`.
  */
@@ -96,9 +97,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   }
 )
 
-Overlay.defaultProps = {
-  height: 'auto',
-  width: 'auto'
-}
+// Overlay.defaultProps = {
+//   height: 'auto',
+//   width: 'auto'
+// }
 
 export default Overlay

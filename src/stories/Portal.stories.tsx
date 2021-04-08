@@ -27,9 +27,9 @@ export default {
 export const defaultPortal = () => (
   <>
     Root position
-    <Box bg="red.2" p={3}>
+    <Box bg="auto.red.2" p={3}>
       Outer container
-      <Box bg="green.2" p={3}>
+      <Box bg="auto.green.2" p={3}>
         Inner container
         <Portal>
           Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.
@@ -42,9 +42,9 @@ export const defaultPortal = () => (
 export const customPortalRootById = () => (
   <>
     Root position
-    <Box bg="red.2" p={3} id="__primerPortalRoot__">
+    <Box bg="auto.red.2" p={3} id="__primerPortalRoot__">
       Outer container
-      <Box bg="green.2" p={3}>
+      <Box bg="auto.green.2" p={3}>
         Inner container
         <Portal>Portaled content rendered at the outer container.</Portal>
       </Box>
@@ -64,11 +64,11 @@ export const CustomPortalRootByRegistration: React.FC<Record<string, never>> = (
   return (
     <>
       Root position
-      <Box bg="red.2" p={3} ref={outerContainerRef}>
+      <Box bg="auto.red.2" p={3} ref={outerContainerRef}>
         {mounted && (
           <>
             Outer container
-            <Box bg="green.2" p={3}>
+            <Box bg="auto.green.2" p={3}>
               Inner container
               <Portal>Portaled content rendered at the outer container.</Portal>
             </Box>
@@ -93,9 +93,9 @@ export const MultiplePortalRoots: React.FC<Record<string, never>> = () => {
   return (
     <>
       Root position
-      <Box bg="red.2" p={3} ref={outerContainerRef}>
+      <Box bg="auto.red.2" p={3} ref={outerContainerRef}>
         Outer container
-        <Box bg="green.2" p={3} ref={innerContainerRef}>
+        <Box bg="auto.green.2" p={3} ref={innerContainerRef}>
           {mounted && (
             <>
               <Portal containerName="outer">Portaled content rendered at the outer container.</Portal>

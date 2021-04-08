@@ -22,6 +22,7 @@ export const useOverlay = ({
   initialFocusRef,
   onEscape,
   ignoreClickRefs,
+  overlayRef: _overlayRef,
   onClickOutside
 }: UseOverlaySettings): OverlayReturnProps => {
   const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(_overlayRef)

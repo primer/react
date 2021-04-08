@@ -133,7 +133,6 @@ export function Item({
   auxilaryIcon: AuxilaryIcon,
   auxilaryText,
   variant = 'default',
-  onClick,
   ...props
 }: Partial<ItemProps> & {item: ItemInput}): JSX.Element {
   return (

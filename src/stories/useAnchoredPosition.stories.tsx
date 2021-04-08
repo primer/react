@@ -65,9 +65,9 @@ export default {
 
 const Float = styled(Position)`
   position: absolute;
-  border: 1px solid ${get('colors.black')};
+  border: 1px solid ${get('colors.auto.black')};
   border-radius: ${get('radii.2')};
-  background-color: ${get('colors.orange.3')};
+  background-color: ${get('colors.auto.orange.3')};
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -77,9 +77,9 @@ const Float = styled(Position)`
 `
 const Anchor = styled(Position)`
   position: absolute;
-  border: 1px solid ${get('colors.black')};
+  border: 1px solid ${get('colors.auto.black')};
   border-radius: ${get('radii.2')};
-  background-color: ${get('colors.blue.3')};
+  background-color: ${get('colors.auto.blue.3')};
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -176,7 +176,7 @@ export const ComplexAncestry = () => {
         p={space}
         sx={{
           border: '1px solid #000',
-          backgroundColor: 'blue.1',
+          backgroundColor: 'auto.blue.1',
           height: '440px',
           overflow: 'auto',
           position: 'relative'
@@ -188,7 +188,7 @@ export const ComplexAncestry = () => {
           <Box
             m={space}
             p={space}
-            sx={{border: '1px solid #000', backgroundColor: 'blue.3', position: 'static', overflow: 'hidden'}}
+            sx={{border: '1px solid #000', backgroundColor: 'auto.blue.3', position: 'static', overflow: 'hidden'}}
           >
             Floating element container. Position=static and overflow=hidden to show that overflow-hidden on a
             statically-positioned element will not have any effect.
@@ -203,12 +203,12 @@ export const ComplexAncestry = () => {
             </Float>
           </Box>
         </Box>
-        <Box m={space} p={space} backgroundColor="blue.3" sx={{border: '1px solid #000', height: '2000px'}}>
+        <Box m={space} p={space} backgroundColor="auto.blue.3" sx={{border: '1px solid #000', height: '2000px'}}>
           Anchor element container. This element is really tall to demonstrate behavior within a scrollable clipping
           container.
           <Box
             width="200px"
-            backgroundColor="orange.3"
+            backgroundColor="auto.orange.3"
             height={60}
             ref={anchorElementRef as React.RefObject<HTMLDivElement>}
             sx={{border: '1px solid #000'}}
@@ -229,7 +229,7 @@ const Nav = styled('nav')`
   padding: ${get('space.3')};
   position: relative;
   overflow: hidden;
-  border-right: 1px solid ${get('colors.border.gray')};
+  border-right: 1px solid ${get('colors.auto.border.gray')};
 `
 const Main = styled('main')`
   display: flex;
