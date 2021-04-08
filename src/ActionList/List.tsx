@@ -189,7 +189,7 @@ export function List(props: ListProps): JSX.Element {
   }
 
   return (
-    <StyledList ref={containerRef} {...props}>
+    <StyledList ref={containerRef as React.RefObject<HTMLDivElement>} {...props}>
       {groups?.map(({header, ...groupProps}, index) => (
         <>
           {renderGroup({

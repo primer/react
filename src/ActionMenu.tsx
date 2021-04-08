@@ -6,11 +6,10 @@ import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
 import getRandomValues from 'get-random-values'
 
-export interface ActionMenuProps extends ListPropsBase, GroupedListProps {
+export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   triggerContent?: React.ReactNode
-  renderItem?: (props: ItemProps) => JSX.Element
   onActivate?: (props: ItemProps) => void
 }
 
@@ -53,12 +52,12 @@ const ActionMenuBase = ({
                 role: 'menuitem',
                 onKeyPress: event => {
                   if (event.key == 'Enter' || event.key == 'Space') {
-                    onActivate && onActivate(itemProps)
+                    onActivate && onActivate(itemProps as ItemProps)
                     setOpen(false)
                   }
                 },
                 onClick: event => {
-                  onActivate && onActivate(itemProps)
+                  onActivate && onActivate(itemProps as ItemProps)
                   onClick && onClick(event)
                   setOpen(false)
                 }

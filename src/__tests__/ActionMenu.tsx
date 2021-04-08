@@ -9,7 +9,7 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {ThemeProvider} from 'styled-components'
 import {BaseStyles} from '..'
 import {registerPortalRoot} from '../Portal/index'
-import {ItemProps} from './ActionList/Item'
+import {ItemProps} from '../ActionList/Item'
 expect.extend(toHaveNoViolations)
 
 const items = [
@@ -17,7 +17,7 @@ const items = [
   {text: 'Copy link'},
   {text: 'Edit file'},
   {text: 'Delete file', variant: 'danger'}
-] as ItemProps
+] as ItemProps[]
 
 const mockOnActivate = jest.fn()
 
