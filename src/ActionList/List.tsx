@@ -44,13 +44,6 @@ export interface ListPropsBase {
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
   variant?: 'inset' | 'full'
-
-  // **
-  role?: string
-
-  tabIndex?: number
-
-  ref?: React.RefObject<HTMLDivElement>
 }
 
 /**
