@@ -2,7 +2,6 @@ import React from 'react'
 import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
-
 import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
