@@ -14,7 +14,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
-import Link from '../Link'
+import Link, {LinkProps} from '../Link'
 import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 import {registerPortalRoot} from '../Portal'
@@ -170,7 +170,7 @@ export function ComplexListStory(): JSX.Element {
 ComplexListStory.storyName = 'Complex List'
 
 export function CustomTrigger(): JSX.Element {
-  const customAnchor = (props: any) => <Link {...props} />
+  const customAnchor = (props: LinkProps) => <Link {...props} sx={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
   const onActivate = (itemProps: ItemProps) => {
     setOption(itemProps.text)
