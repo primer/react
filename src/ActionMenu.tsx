@@ -8,7 +8,7 @@ import getRandomValues from 'get-random-values'
 export interface ActionMenuProps extends ListPropsBase, GroupedListProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
-  buttonContent?: React.ReactNode
+  triggerContent?: React.ReactNode
   renderItem?: (props: ItemProps) => JSX.Element
   onActivate?: (props: ItemProps) => void
 }
@@ -18,8 +18,8 @@ const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
 ActionMenuItem.displayName = 'ActionMenu.Item'
 
 const ActionMenuBase = ({
-  buttonContent,
-  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{buttonContent}</Button>,
+  triggerContent,
+  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{triggerContent}</Button>,
   renderItem = Item,
   onActivate,
   ...listProps
@@ -38,7 +38,7 @@ const ActionMenuBase = ({
         'aria-haspopup': 'listbox',
         'aria-label': 'menu',
         onClick: onToggle,
-        children: buttonContent,
+        children: triggerContent,
         tabIndex: 0
       })}
       {open && (

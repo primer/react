@@ -61,7 +61,7 @@ export function ActionsStory(): JSX.Element {
       <ErsatzOverlay>
         <ActionMenu
           onActivate={onActivate}
-          buttonContent={<ServerIcon />}
+          triggerContent={<ServerIcon />}
           items={[
             {
               leadingVisual: ServerIcon,
@@ -96,7 +96,7 @@ export function SimpleListStory(): JSX.Element {
       <ErsatzOverlay>
         <ActionMenu
           onActivate={onActivate}
-          buttonContent="Menu"
+          triggerContent="Menu"
           items={[
             {text: 'New file'},
             ActionList.Divider,
@@ -123,7 +123,7 @@ export function ComplexListStory(): JSX.Element {
       <ErsatzOverlay>
         <ActionMenu
           onActivate={onActivate}
-          buttonContent="Menu"
+          triggerContent="Menu"
           groupMetadata={[
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
@@ -182,7 +182,7 @@ export function CustomTrigger(): JSX.Element {
       <ErsatzOverlay>
         <ActionMenu
           onActivate={onActivate}
-          buttonContent="Menu"
+          triggerContent="Menu"
           renderAnchor={customAnchor}
           items={[
             {text: 'New file'},
