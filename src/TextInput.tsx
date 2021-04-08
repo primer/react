@@ -123,7 +123,7 @@ const Wrapper = styled.span<StyledWrapperProps>`
 
 type TextInputInternalProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: string | React.ComponentType<any> // This is a band-aid fix until we have better type support for the `as` prop
+  as?: any // This is a band-aid fix until we have better type support for the `as` prop
   icon?: React.ComponentType<{className?: string}>
 } & ComponentProps<typeof Wrapper> &
   ComponentProps<typeof Input>
