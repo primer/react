@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('ProgressBar', () => {
-  behavesAsComponent({Component: ProgressBar, systemPropArray:[COMMON]})
+  behavesAsComponent({Component: ProgressBar, systemPropArray: [COMMON]})
 
   checkExports('ProgressBar', {
     default: ProgressBar

@@ -1,5 +1,5 @@
 import React from 'react'
-import theme, {colors} from '../theme'
+import theme from '../theme'
 import {BorderBox} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {LAYOUT, COMMON, BORDER, FLEX} from '../constants'
@@ -23,7 +23,10 @@ describe('BorderBox', () => {
   })
 
   it('renders borders', () => {
-    expect(render(<BorderBox borderColor="green.5" />)).toHaveStyleRule('border-color', colors.green[5])
+    expect(render(<BorderBox borderColor="border.success" />)).toHaveStyleRule(
+      'border-color',
+      theme.colorSchemes.light.colors.border?.success
+    )
     expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')
   })
 
@@ -33,6 +36,9 @@ describe('BorderBox', () => {
 
   // the test returns the box shadow value without spaces, so had to manually provide the expected string here
   it('renders box shadow', () => {
-    expect(render(<BorderBox boxShadow="small" />)).toHaveStyleRule('box-shadow', '0 1px 0 rgba(149,157,165,0.1)')
+    expect(render(<BorderBox boxShadow="shadow.small" />)).toHaveStyleRule(
+      'box-shadow',
+      theme.colorSchemes.light.shadows.shadow?.small
+    )
   })
 })

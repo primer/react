@@ -1,10 +1,10 @@
 .test
 node_modules
 .DS_Store
+.idea
 coverage/
 dist/
 lib/
 lib-esm/
 public/
 stats.html
-types

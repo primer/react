@@ -91,9 +91,8 @@ const Overlay = styled.span`
 type InternalDialogProps = {
   isOpen?: boolean
   onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLDivElement>
-  returnFocusRef?: React.RefObject<HTMLDivElement>
-  modalRef?: React.ForwardedRef<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement>
 } & ComponentProps<typeof DialogBase>
 
 const Dialog = forwardRef<HTMLElement, InternalDialogProps>(

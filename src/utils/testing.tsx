@@ -3,8 +3,10 @@ import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import {ThemeProvider} from 'styled-components'
+import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
+
+type ComputedStyles = Record<string, string | Record<string, string>>
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const readFile = promisify(require('fs').readFile)
@@ -20,6 +22,7 @@ export function mount(component: React.ReactElement) {
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface Matchers<R> {
       toImplementSxBehavior: () => boolean
       toSetExports: (exports: Record<string, string>) => boolean
@@ -84,18 +87,18 @@ export function percent(value: number | string): string {
   return typeof value === 'number' ? `${value}%` : value
 }
 
-export function renderStyles(node: React.ReactElement): any {
+export function renderStyles(node: React.ReactElement) {
   const {
     props: {className}
   } = render(node)
   return getComputedStyles(className)
 }
 
-export function getComputedStyles(className: string): Record<string, string | Record<string, string>> {
+export function getComputedStyles(className: string) {
   const div = document.createElement('div')
   div.className = className
 
-  const computed = {} as any
+  const computed: ComputedStyles = {}
   for (const sheet of document.styleSheets) {
     // CSSRulesLists assumes every rule is a CSSRule, not a CSSStyleRule
     for (const rule of sheet.cssRules) {
@@ -122,7 +125,7 @@ export function getComputedStyles(className: string): Record<string, string | Re
     }
   }
 
-  function readRule(rule: CSSStyleRule, dest: any) {
+  function readRule(rule: CSSStyleRule, dest: ComputedStyles) {
     if (matchesSafe(div, rule.selectorText)) {
       const {style} = rule
       for (let i = 0; i < style.length; i++) {
@@ -195,13 +198,14 @@ interface Options {
 }
 
 interface BehavesAsComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Component: React.ComponentType<any>
-  systemPropArray: any[]
+  systemPropArray: unknown[]
   toRender?: () => React.ReactElement
   options?: Options
 }
 
-export function behavesAsComponent({Component, systemPropArray, toRender, options}: BehavesAsComponent) {
+export function behavesAsComponent({Component, toRender, options}: BehavesAsComponent) {
   options = options || {}
 
   const getElement = () => (toRender ? toRender() : <Component />)
@@ -229,6 +233,7 @@ export function behavesAsComponent({Component, systemPropArray, toRender, option
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function checkExports(path: string, exports: Record<any, any>): void {
   it('has declared exports', () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires

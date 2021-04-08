@@ -6,7 +6,6 @@ import theme from '../theme'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {default as primitives} from '@primer/primitives'
 
 expect.extend(toHaveNoViolations)
 
@@ -28,17 +27,25 @@ describe('CounterLabel', () => {
     cleanup()
   })
 
-  it('respects the gray "scheme" prop', () => {
-    const p = primitives
-    expect(render(<CounterLabel scheme="gray" />)).toHaveStyleRule('color', theme.colors.counter.primary.text.trim())
-    expect(render(<CounterLabel scheme="gray" />)).toHaveStyleRule(
+  it('respects the primary "scheme" prop', () => {
+    expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
+      'color',
+      theme.colorSchemes.light.colors.counter?.primary.text.trim()
+    )
+    expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
       'background-color',
-      theme.colors.counter.primary.bg.trim()
+      theme.colorSchemes.light.colors.counter?.primary.bg.trim()
     )
   })
 
-  it('respects the gray-light "scheme" prop', () => {
-    expect(render(<CounterLabel scheme="gray-light" />)).toHaveStyleRule('color', theme.colors.counter.text.trim())
-    expect(render(<CounterLabel scheme="gray-light" />)).toHaveStyleRule('background-color', theme.colors.counter.bg)
+  it('respects the secondary "scheme" prop', () => {
+    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule(
+      'color',
+      theme.colorSchemes.light.colors.counter?.text.trim()
+    )
+    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule(
+      'background-color',
+      theme.colorSchemes.light.colors.counter?.bg
+    )
   })
 })

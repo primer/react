@@ -185,7 +185,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0 1px 0 rgba(149,157,165,0.1);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04);
   -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   width: 300px;

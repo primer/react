@@ -1,27 +1,38 @@
 - title: About
   url: /getting-started
   children:
-    - title: Getting Started
+    - title: Getting started
       url: /getting-started
 
-    - title: Primer Theme
-      url: /primer-theme
+    - title: Theming
+      url: /theming
 
-    - title: System Props
+    - title: Theme reference
+      url: /theme-reference
+
+    - title: System props
       url: /system-props
 
-    - title: Core Concepts
+    - title: Core concepts
       url: /core-concepts
 
     - title: Philosophy
       url: /philosophy
 
-    - title: Overriding Styles
+    - title: Overriding styles
       url: /overriding-styles
 - title: Hooks
   children:
     - title: useSafeTimeout
       url: /useSafeTimeout
+    # - title: useOnOutsideClick
+    #   url: /useOnOutsideClick
+    # - title: useOpenAndCloseFocus
+    #   url: /useOpenAndCloseFocus
+    # - title: useOnEscapePress
+    #   url: /useOnEscapePress
+    # - title: useOverlay
+    #   url: /useOverlay
 - title: Components
   children:
     - title: Avatar
@@ -72,6 +83,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
+    # - title: Overlay
+    #   url: /Overlay
     - title: Pagehead
       url: /Pagehead
     - title: Pagination

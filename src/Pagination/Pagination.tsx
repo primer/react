@@ -108,7 +108,7 @@ const Page = styled.a`
 `
 
 type UsePaginationPagesParameters = {
-  theme?: object // set to theme type once /src/theme.js is converted
+  theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
   pageCount: number
   currentPage: number
   onPageChange: (e: React.MouseEvent, n: number) => void
@@ -156,7 +156,7 @@ const PaginationContainer = styled.nav`
 `
 
 export type PaginationProps = {
-  theme?: object
+  theme?: Record<string, unknown>
   pageCount: number
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
@@ -200,6 +200,7 @@ function defaultHrefBuilder(pageNum: number) {
   return `#${pageNum}`
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 
 Pagination.defaultProps = {

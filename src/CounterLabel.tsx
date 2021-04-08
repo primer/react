@@ -4,16 +4,16 @@ import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 type StyledCounterLabelProps = {
-  scheme?: 'gray' | 'gray-light'
+  scheme?: 'primary' | 'secondary'
 } & SystemCommonProps &
   SxProp
 
 const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     color:
-      scheme === 'gray-light'
+      scheme === 'secondary'
         ? get('colors.counter.text')(props)
-        : scheme === 'gray'
+        : scheme === 'primary'
         ? get('colors.counter.primary.text')(props)
         : get('colors.counter.text')(props)
   }
@@ -22,9 +22,9 @@ const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
 const bgStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     backgroundColor:
-      scheme === 'gray-light'
+      scheme === 'secondary'
         ? get('colors.counter.bg')(props)
-        : scheme === 'gray'
+        : scheme === 'primary'
         ? get('colors.counter.primary.bg')(props)
         : get('colors.counter.bg')(props)
   }

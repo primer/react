@@ -24,7 +24,7 @@ const TabNavBody = styled.nav`
 
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
-function TabNav({children, "aria-label": ariaLabel, ...rest}: TabNavProps) {
+function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   return (
     <TabNavBase {...rest}>
       <TabNavBody aria-label={ariaLabel}>{children}</TabNavBody>

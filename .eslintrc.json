@@ -1,6 +1,26 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:react/recommended", "plugin:jsx-a11y/recommended", "plugin:react-hooks/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    ".cache",
+    "coverage/**/*",
+    "docs/public/**/*",
+    "dist/**/*",
+    "lib/**/*",
+    "lib-*/**/*",
+    "types/**/*"
+  ],
   "globals": {
     "__DEV__": "readonly"
   },
@@ -38,7 +58,12 @@
     // rules which apply only to TS
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "extends": ["plugin:@typescript-eslint/recommended"]
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": 2,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern": "^_"}]
+      }
     }
   ]
 }

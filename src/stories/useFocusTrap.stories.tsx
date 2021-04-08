@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {createGlobalStyle, ThemeProvider} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 
-import {BaseStyles, BorderBox, Button, Flash, Text, theme} from '..'
+import {BaseStyles, BorderBox, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Flex from '../Flex'
 import {themeGet} from '@styled-system/theme-get'
@@ -13,7 +13,7 @@ export default {
   decorators: [
     Story => {
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>
@@ -110,8 +110,8 @@ export const CustomInitialFocus = () => {
       <Flex flexDirection="column" alignItems="flex-start">
         <Flash mb={3}>
           This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
-          &lquo;Elderberry&rquo; button will receive the initial focus (if the trap zone container does not already have
-          focus).
+          &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already
+          have focus).
         </Flash>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
@@ -122,6 +122,73 @@ export const CustomInitialFocus = () => {
             <MarginButton>Durian</MarginButton>
             <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement>}>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Grapefruit</MarginButton>
+        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+      </Flex>
+    </>
+  )
+}
+
+function useKeyPressListener(key: string, handler: () => void, capture = false) {
+  const listener = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === key) {
+        handler()
+      }
+    },
+    [key, handler]
+  )
+
+  useEffect(() => {
+    document.addEventListener('keypress', listener, {capture})
+    return () => {
+      document.removeEventListener('keypress', listener, {capture})
+    }
+  }, [listener, capture])
+}
+
+function ToggleableButton({name}: {name: string}) {
+  const [showButton, setShowButton] = React.useState(true)
+  const key = name.substr(0, 1).toLowerCase()
+
+  useKeyPressListener(
+    key,
+    useCallback(() => setShowButton(!showButton), [showButton])
+  )
+
+  return (
+    <span>
+      {showButton ? <MarginButton>{name}</MarginButton> : <>{name} (Hidden) - </>}
+      Press {key} to toggle
+    </span>
+  )
+}
+
+export const DynamicFocusTrapContents = () => {
+  const [trapEnabled, setTrapEnabled] = React.useState(false)
+  const {containerRef} = useFocusTrap({disabled: !trapEnabled})
+
+  useKeyPressListener(
+    ' ',
+    useCallback(() => setTrapEnabled(!trapEnabled), [trapEnabled])
+  )
+
+  return (
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start">
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <ToggleableButton name="Durian"></ToggleableButton>
+            <ToggleableButton name="Elderberry"></ToggleableButton>
+            <ToggleableButton name="Fig"></ToggleableButton>
           </Flex>
         </BorderBox>
         <MarginButton>Grapefruit</MarginButton>

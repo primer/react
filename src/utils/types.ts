@@ -6,7 +6,13 @@
  * @example ComponentProps<typeof MyComponent>
  */
 export type ComponentProps<T> = T extends React.ComponentType<infer Props>
-  ? Props extends object
+  ? // eslint-disable-next-line @typescript-eslint/ban-types
+    Props extends object
     ? Props
     : never
   : never
+
+/**
+ * Contruct a type describing the items in `T`, if `T` is an array.
+ */
+export type Flatten<T extends unknown> = T extends (infer U)[] ? U : never

@@ -71,7 +71,7 @@ export interface PositionSettings {
 
   /**
    * If false, when the above settings result in rendering the floating element
-   * wholly or partially outside of the bounds of the containing element, attempt 
+   * wholly or partially outside of the bounds of the containing element, attempt
    * to adjust the settings to prevent this. Only applies to "outside" positioning.
    *
    * First, attempt to flip to the opposite edge of the anchor if the floating
@@ -127,24 +127,21 @@ export function getAnchoredPosition(
   settings: Partial<PositionSettings> = {}
 ): {top: number; left: number} {
   const parentElement = getPositionedParent(floatingElement)
-  const parentRect = parentElement.getBoundingClientRect()
-  const parentStyle = getComputedStyle(parentElement)
-  const [parentTop, parentLeft, parentRight, parentBottom] = [
-    parentStyle.borderTopWidth,
-    parentStyle.borderLeftWidth,
-    parentStyle.borderRightWidth,
-    parentStyle.borderBottomWidth
-  ].map(v => parseInt(v, 10) || 0)
+  const clippingRect = getClippingRect(parentElement)
 
-  const parentViewport = {
-    top: parentRect.top + parentTop,
-    left: parentRect.left + parentLeft,
-    width: parentRect.width - parentLeft - parentRight,
-    height: parentRect.height - parentTop - parentBottom
-  } as BoxPosition
+  const parentElementStyle = getComputedStyle(parentElement)
+  const parentElementRect = parentElement.getBoundingClientRect()
+  const [borderTop, borderLeft] = [parentElementStyle.borderTopWidth, parentElementStyle.borderLeftWidth].map(
+    v => parseInt(v, 10) || 0
+  )
+  const relativeRect = {
+    top: parentElementRect.top + borderTop,
+    left: parentElementRect.left + borderLeft
+  }
 
   return pureCalculateAnchoredPosition(
-    parentViewport,
+    clippingRect,
+    relativeRect,
     floatingElement.getBoundingClientRect(),
     anchorElement instanceof Element ? anchorElement.getBoundingClientRect() : anchorElement,
     getDefaultSettings(settings)
@@ -164,6 +161,49 @@ function getPositionedParent(element: Element) {
     parentNode = parentNode.parentNode
   }
   return document.body
+}
+
+/**
+ * Returns the rectangle (relative to the window) that will clip the given element
+ * if it is rendered outside of its bounds.
+ * @param element
+ * @returns
+ */
+function getClippingRect(element: Element): BoxPosition {
+  let parentNode: typeof element.parentNode = element
+  while (parentNode != undefined) {
+    if (parentNode === document.body) {
+      break
+    }
+    const parentNodeStyle = getComputedStyle(parentNode as Element)
+    if (parentNodeStyle.overflow !== 'visible') {
+      break
+    }
+    parentNode = parentNode.parentNode
+  }
+  const clippingNode = parentNode === document.body || !(parentNode instanceof HTMLElement) ? document.body : parentNode
+
+  const elemRect = clippingNode.getBoundingClientRect()
+  const elemStyle = getComputedStyle(clippingNode)
+
+  const [borderTop, borderLeft, borderRight, borderBottom] = [
+    elemStyle.borderTopWidth,
+    elemStyle.borderLeftWidth,
+    elemStyle.borderRightWidth,
+    elemStyle.borderBottomWidth
+  ].map(v => parseInt(v, 10) || 0)
+
+  return {
+    top: elemRect.top + borderTop,
+    left: elemRect.left + borderLeft,
+    width: elemRect.width - borderRight - borderLeft,
+
+    // If the clipping node is document.body, it can expand to the full height of the window
+    height: Math.max(
+      elemRect.height - borderTop - borderBottom,
+      clippingNode === document.body ? window.innerHeight : -Infinity
+    )
+  }
 }
 
 // Default settings to position a floating element
@@ -205,20 +245,31 @@ function getDefaultSettings(settings: Partial<PositionSettings> = {}): PositionS
  * Note: This is a pure function with no dependency on DOM APIs.
  * @see getAnchoredPosition
  * @see getDefaultSettings
- * @param parentRect BoxPosition for the closest positioned proper parent of the floating element
+ * @param viewportRect BoxPosition for the rectangle that will clip the floating element if it is
+ *   rendered outside of the boundsof the rectangle.
+ * @param relativePosition Position for the closest positioned proper parent of the floating element
  * @param floatingRect WidthAndHeight for the floating element
  * @param anchorRect BoxPosition for the anchor element
  * @param PositionSettings to customize the calculated position for the floating element.
  */
 function pureCalculateAnchoredPosition(
-  parentRect: BoxPosition,
+  viewportRect: BoxPosition,
+  relativePosition: Position,
   floatingRect: Size,
   anchorRect: BoxPosition,
   {side, align, allowOutOfBounds, anchorOffset, alignmentOffset}: PositionSettings
 ): {top: number; left: number} {
+  // Compute the relative viewport rect, to bring it into the same coordinate space as `pos`
+  const relativeViewportRect: BoxPosition = {
+    top: viewportRect.top - relativePosition.top,
+    left: viewportRect.left - relativePosition.left,
+    width: viewportRect.width,
+    height: viewportRect.height
+  }
+
   let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
-  pos.top -= parentRect.top
-  pos.left -= parentRect.left
+  pos.top -= relativePosition.top
+  pos.left -= relativePosition.left
 
   // Handle screen overflow
   if (!allowOutOfBounds) {
@@ -226,41 +277,37 @@ function pureCalculateAnchoredPosition(
     let positionAttempt = 0
     if (alternateOrder) {
       let prevSide = side
-      const containerDimensions = {
-        width: parentRect.width,
-        height: parentRect.height
-      }
 
       // Try all the alternate sides until one does not overflow
       while (
         positionAttempt < alternateOrder.length &&
-        shouldRecalculatePosition(prevSide, pos, containerDimensions, floatingRect)
+        shouldRecalculatePosition(prevSide, pos, relativeViewportRect, floatingRect)
       ) {
         const nextSide = alternateOrder[positionAttempt++]
         prevSide = nextSide
 
         // If we have cut off in the same dimension as the "side" option, try flipping to the opposite side.
         pos = calculatePosition(floatingRect, anchorRect, nextSide, align, anchorOffset, alignmentOffset)
-        pos.top -= parentRect.top
-        pos.left -= parentRect.left
+        pos.top -= relativePosition.top
+        pos.left -= relativePosition.left
       }
     }
     // At this point we've flipped the position if applicable. Now just nudge until it's on-screen.
-    if (pos.top < 0) {
-      pos.top = 0
+    if (pos.top < relativeViewportRect.top) {
+      pos.top = relativeViewportRect.top
     }
-    if (pos.left < 0) {
-      pos.left = 0
+    if (pos.left < relativeViewportRect.left) {
+      pos.left = relativeViewportRect.left
     }
-    if (pos.left + floatingRect.width > parentRect.width) {
-      pos.left = parentRect.width - floatingRect.width
+    if (pos.left + floatingRect.width > viewportRect.width + relativeViewportRect.left) {
+      pos.left = viewportRect.width + relativeViewportRect.left - floatingRect.width
     }
     // If we have exhausted all possible positions and none of them worked, we
     // say that overflowing the bottom of the screen is acceptable since it is
     // likely to be able to scroll.
     if (alternateOrder && positionAttempt < alternateOrder.length) {
-      if (pos.top + floatingRect.height > parentRect.height) {
-        pos.top = parentRect.height - floatingRect.height
+      if (pos.top + floatingRect.height > viewportRect.height + relativeViewportRect.top) {
+        pos.top = viewportRect.height + relativeViewportRect.top - floatingRect.height
       }
     }
   }
@@ -357,20 +404,26 @@ function calculatePosition(
 
 /**
  * Determines if there is an overflow
- * @param side 
- * @param currentPos 
- * @param containerDimensions 
- * @param elementDimensions 
+ * @param side
+ * @param currentPos
+ * @param containerDimensions
+ * @param elementDimensions
  */
 function shouldRecalculatePosition(
   side: AnchorSide,
   currentPos: Position,
-  containerDimensions: Size,
+  containerDimensions: BoxPosition,
   elementDimensions: Size
 ) {
   if (side === 'outside-top' || side === 'outside-bottom') {
-    return currentPos.top < 0 || currentPos.top + elementDimensions.height > containerDimensions.height
+    return (
+      currentPos.top < containerDimensions.top ||
+      currentPos.top + elementDimensions.height > containerDimensions.height + containerDimensions.top
+    )
   } else {
-    return currentPos.left < 0 || currentPos.left + elementDimensions.width > containerDimensions.width
+    return (
+      currentPos.left < containerDimensions.left ||
+      currentPos.left + elementDimensions.width > containerDimensions.width + containerDimensions.left
+    )
   }
 }
