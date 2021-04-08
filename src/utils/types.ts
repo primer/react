@@ -5,12 +5,12 @@
  *
  * @example ComponentProps<typeof MyComponent>
  */
-export type ComponentProps<T> = T extends React.ComponentType<infer Props>
+export type ComponentProps<T> = (T extends React.ComponentType<infer Props>
   ? // eslint-disable-next-line @typescript-eslint/ban-types
     Props extends object
     ? Props
     : never
-  : never
+  : never) & {as?: React.ElementType} // This is a bandaid until we have better type support for the `as` prop
 
 /**
  * Contruct a type describing the items in `T`, if `T` is an array.
