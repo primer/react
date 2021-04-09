@@ -70,9 +70,9 @@ exports[`ActionMenu renders consistently 1`] = `
 <button
   aria-haspopup="listbox"
   aria-label="menu"
-  aria-labelledby="actionMenuAnchor-0123"
+  aria-labelledby="actionMenuAnchor-abcdefg"
   className="c0"
-  id="actionMenuAnchor-0123"
+  id="actionMenuAnchor-abcdefg"
   onClick={[Function]}
   tabIndex={0}
 />

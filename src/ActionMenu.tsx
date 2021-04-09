@@ -4,7 +4,7 @@ import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
-import getRandomValues from 'get-random-values'
+import randomId from './utils/randomId'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +25,7 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
-  const anchorId = `actionMenuAnchor-${getRandomValues(new Uint8Array(4)).join('')}`
+  const anchorId = `actionMenuAnchor-${randomId()}`
   const [open, setOpen] = useState<boolean>(false)
   const onDismiss = useCallback(() => setOpen(false), [setOpen])
   const onToggle = useCallback(() => setOpen(!open), [setOpen, open])

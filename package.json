@@ -56,7 +56,6 @@
     "@types/styled-system__theme-get": "5.0.1",
     "classnames": "^2.2.5",
     "deepmerge": "4.2.2",
-    "get-random-values": "1.2.2",
     "polished": "3.5.2",
     "react-is": "16.10.2",
     "styled-system": "5.1.2"
