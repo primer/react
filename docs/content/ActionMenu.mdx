@@ -2,15 +2,16 @@
 title: ActionMenu
 ---
 
-An `ActionMenu` is a simple ActionList based component for define selectable menus.
+An `ActionMenu` is a simple ActionList based component for creating a menu of actions that expands through a trigger button.
 
 ## Default example
 
 ```jsx live
 <ActionMenu
   triggerContent="Menu"
+  onActivate={{text} => console.log(text)}
   items={[
-    {text: 'New file', onClick: () => console.log('Do Something!')},
+    {text: 'New file'},
     ActionMenu.Divider,
     {text: 'Copy link'},
     {text: 'Edit file'},
@@ -27,3 +28,4 @@ An `ActionMenu` is a simple ActionList based component for define selectable men
 | renderItems    | `(props: ItemProps) => JSX.Element` | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                       |
 | groupMetadata  | `GroupProps[]`                      |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property. |
 | triggerContent | React.ReactNode                     |    `undefined`    | Optional. If defined, it will be passed to the trigger as the elements child.                                                                           |
+| onActivate     | (props: ItemProps) => void          |    `undefined`    | Optional. If defined, this function will be called when a menu item is activated either by a click or a keyboard press.                                 |
