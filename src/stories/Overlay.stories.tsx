@@ -54,7 +54,6 @@ export const DropdownOverlay = () => {
       </Button>
       {isOpen && (
         <Overlay
-          anchorRef={buttonRef}
           returnFocusRef={buttonRef}
           height="auto"
           width="sm"
@@ -88,8 +87,6 @@ export const DialogOverlay = () => {
       </Button>
       {isOpen && (
         <Overlay
-          positionSettings={{side: 'inside-center', align: 'center'}}
-          anchorRef={anchorRef}
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}

@@ -2,14 +2,14 @@ import styled from 'styled-components'
 import React, {ReactElement} from 'react'
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
-import {useOverlay, AnchoredPositionHookSettings, TouchOrMouseEvent} from './hooks'
+import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
+import {isRefObject} from './utils/isRefObject'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
-  visibility: 'visible' | 'hidden'
 }
 
 const heightMap = {
@@ -48,7 +48,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
       opacity: 1;
     }
   }
-  visibility: ${props => props.visibility};
   ${COMMON};
   ${POSITION};
   ${sx};
@@ -57,12 +56,9 @@ export type OverlayProps = {
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
-  anchorRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
-  positionSettings?: AnchoredPositionHookSettings
-  positionDeps?: React.DependencyList
-} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
+} & Omit<ComponentProps<typeof StyledOverlay>, keyof SystemPositionProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -79,41 +75,26 @@ export type OverlayProps = {
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `sm` corresponds to `256px`, `md` corresponds to `320px`, `lg` corresponds to `480px`, and `xl` corresponds to `640px`.
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `sm` corresponds to `480px` and `md` corresponds to `640px`.
  */
-const Overlay = ({
-  onClickOutside,
-  role = 'dialog',
-  positionSettings,
-  positionDeps,
-  anchorRef,
-  initialFocusRef,
-  returnFocusRef,
-  ignoreClickRefs,
-  onEscape,
-  ...rest
-}: OverlayProps): ReactElement => {
-  const {position, ...overlayRest} = useOverlay({
-    anchorRef,
-    positionSettings,
-    positionDeps,
-    returnFocusRef,
-    onEscape,
-    ignoreClickRefs,
-    onClickOutside,
-    initialFocusRef
-  })
-  return (
-    <Portal>
-      <StyledOverlay
-        {...overlayRest}
-        {...position}
-        visibility={position ? 'visible' : 'hidden'}
-        aria-modal="true"
-        role={role}
-        {...rest}
-      />
-    </Portal>
-  )
-}
+const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
+  (
+    {onClickOutside, role = 'dialog', initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest},
+    overlayRef
+  ): ReactElement => {
+    const overlayProps = useOverlay({
+      overlayRef: isRefObject(overlayRef) ? overlayRef : undefined,
+      returnFocusRef,
+      onEscape,
+      ignoreClickRefs,
+      onClickOutside,
+      initialFocusRef
+    })
+    return (
+      <Portal>
+        <StyledOverlay {...overlayProps} aria-modal="true" role={role} {...rest} />
+      </Portal>
+    )
+  }
+)
 
 Overlay.defaultProps = {
   height: 'auto',

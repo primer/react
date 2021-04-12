@@ -36,26 +36,29 @@ export function useFocusZone(
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
 
-  useEffect(() => {
-    if (
-      containerRef.current instanceof HTMLElement &&
-      (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
-    ) {
-      if (!disabled) {
-        const vanillaSettings: FocusZoneSettings = {
-          ...settings,
-          activeDescendantControl: activeDescendantControlRef.current ?? undefined
-        }
-        abortController.current = focusZone(containerRef.current, vanillaSettings)
-        return () => {
+  useEffect(
+    () => {
+      if (
+        containerRef.current instanceof HTMLElement &&
+        (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
+      ) {
+        if (!disabled) {
+          const vanillaSettings: FocusZoneSettings = {
+            ...settings,
+            activeDescendantControl: activeDescendantControlRef.current ?? undefined
+          }
+          abortController.current = focusZone(containerRef.current, vanillaSettings)
+          return () => {
+            abortController.current?.abort()
+          }
+        } else {
           abortController.current?.abort()
         }
-      } else {
-        abortController.current?.abort()
       }
-    }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies ?? [])
+    [disabled, ...(dependencies ?? [])]
+  )
 
   return {containerRef, activeDescendantControlRef}
 }

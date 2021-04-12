@@ -29,8 +29,6 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
       <Button>outside</Button>
       {isOpen && (
         <Overlay
-          positionSettings={{side: 'inside-center', align: 'center'}}
-          anchorRef={anchorRef}
           initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}

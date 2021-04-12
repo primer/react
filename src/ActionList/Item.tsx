@@ -109,7 +109,12 @@ export function Item({
   ...props
 }: Partial<ItemProps>): JSX.Element {
   return (
-    <StyledItem variant={variant} {...(!!selected === selected && {'aria-selected': selected})} {...props}>
+    <StyledItem
+      tabIndex={-1}
+      variant={variant}
+      {...(!!selected === selected && {'aria-selected': selected})}
+      {...props}
+    >
       {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
         <LeadingVisualContainer>
