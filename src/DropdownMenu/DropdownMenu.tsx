@@ -22,9 +22,12 @@ export function DropdownMenu({
   const anchorId = `dropdownMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
   const [selection, select] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
-  const onDismiss = useCallback(() => setOpen(false), [setOpen])
-
   const [state, setState] = useState<'closed' | 'buttonFocus' | 'listFocus'>('closed')
+  const onDismiss = useCallback(() => {
+    setOpen(false)
+    setState('closed')
+  }, [])
+
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
@@ -44,13 +47,13 @@ export function DropdownMenu({
             event.preventDefault()
           } else if (event.key === 'Escape') {
             setState('closed')
-            setOpen(false)
+            onDismiss()
             event.preventDefault()
           }
         }
       }
     },
-    [state]
+    [state, onDismiss]
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -80,6 +83,7 @@ export function DropdownMenu({
       })}
       {open && (
         <Overlay
+          initialFocusRef={anchorRef}
           returnFocusRef={anchorRef}
           onClickOutside={onDismiss}
           onEscape={onDismiss}
@@ -96,7 +100,7 @@ export function DropdownMenu({
                 selected: itemProps.text === selection,
                 onClick: event => {
                   select(itemProps.text === selection ? '' : itemProps.text ?? '')
-                  setOpen(false)
+                  onDismiss()
                   onClick && onClick(event)
                 }
               })
