@@ -65,14 +65,6 @@ describe('Overlay', () => {
     expect(document.activeElement).toEqual(confirmButton)
   })
 
-  it('should focus first element when nothing is passed', async () => {
-    const {getByText} = render(<TestComponent />)
-    userEvent.click(getByText('open overlay'))
-    await waitFor(() => getByText('Cancel'))
-    const cancelButton = getByText('Cancel')
-    expect(document.activeElement).toEqual(cancelButton)
-  })
-
   it('should call function when user clicks outside container', () => {
     const mockFunction = jest.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
