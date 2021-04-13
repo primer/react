@@ -5,6 +5,8 @@ import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
 import randomId from './utils/randomId'
+import {useFocusTrap} from './hooks/useFocusTrap'
+import {useFocusZone} from './hooks/useFocusZone'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -85,7 +87,7 @@ const ActionMenuBase = ({
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
         'aria-label': 'menu',
-        onClick: onToggle,
+        onClick: onAnchorClick,
         children: triggerContent,
         tabIndex: 0
       })}

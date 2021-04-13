@@ -17,7 +17,6 @@ export type OverlayReturnProps = {
 }
 
 export const useOverlay = ({
-  overlayRef: _overlayRef,
   returnFocusRef,
   initialFocusRef,
   onEscape,
