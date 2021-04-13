@@ -35,12 +35,12 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   /**
    * Icon (or similar) positioned after `Item` text.
    */
-  auxilaryIcon?: React.FunctionComponent<IconProps>
+  trailingIcon?: React.FunctionComponent<IconProps>
 
   /**
-   * Text positioned after `Item` text and optional auxilary icon.
+   * Text positioned after `Item` text and optional trailing icon.
    */
-  auxilaryText?: string
+  trailingText?: string
 
   /**
    * Style variations associated with various `Item` types.
@@ -105,12 +105,7 @@ const BaseVisualContainer = styled.div`
 
 const LeadingVisualContainer = styled(BaseVisualContainer)``
 
-const AuxilaryTextContainer = styled(BaseVisualContainer)`
-  color: ${get('colors.icon.tertiary')};
-  margin-left: auto;
-`
-
-const AuxilaryVisualContainer = styled(BaseVisualContainer)`
+const TrailingVisualContainer = styled(BaseVisualContainer)`
   color: ${get('colors.icon.tertiary')};
   margin-left: auto;
 `
@@ -128,8 +123,8 @@ export function Item({
   descriptionVariant = 'inline',
   selected,
   leadingVisual: LeadingVisual,
-  auxilaryIcon: AuxilaryIcon,
-  auxilaryText,
+  trailingIcon: TrailingIcon,
+  trailingText,
   variant = 'default',
   ...props
 }: Partial<ItemProps> & {item: ItemInput}): JSX.Element {
@@ -150,12 +145,12 @@ export function Item({
         <div>{text}</div>
         {description && <DescriptionContainer>{description}</DescriptionContainer>}
       </StyledTextContainer>
-      {AuxilaryIcon && (
-        <AuxilaryVisualContainer>
-          <AuxilaryIcon />
-        </AuxilaryVisualContainer>
+      {TrailingIcon && (
+        <TrailingVisualContainer>
+          <TrailingIcon />
+        </TrailingVisualContainer>
       )}
-      {auxilaryText && <AuxilaryTextContainer>{auxilaryText}</AuxilaryTextContainer>}
+      {trailingText && <TrailingVisualContainer>{trailingText}</TrailingVisualContainer>}
     </StyledItem>
   )
 }
