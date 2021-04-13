@@ -20,46 +20,47 @@ export function DropdownMenu({
   const overlayRef = useRef<HTMLDivElement>(null)
 
   const anchorId = `dropdownMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
+
   const [selection, select] = useState<string>('')
+
   const [open, setOpen] = useState<boolean>(false)
-  const [state, setState] = useState<'closed' | 'buttonFocus' | 'listFocus'>('closed')
+  const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
   const onDismiss = useCallback(() => {
-    setOpen(false)
-    setState('closed')
-  }, [])
+     setOpen(false)
+     setFocusType(null)
+   }, [])
 
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
-        if (state === 'closed') {
+        if (!open) {
           if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            setState('listFocus')
+            setFocusType('list')
             setOpen(true)
             event.preventDefault()
           } else if (event.key === ' ' || event.key === 'Enter') {
-            setState('buttonFocus')
+            setFocusType('anchor')
             setOpen(true)
             event.preventDefault()
           }
-        } else if (state === 'buttonFocus') {
+        } else if (focusType === 'anchor') {
           if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].indexOf(event.key) !== -1) {
-            setState('listFocus')
+            setFocusType('list')
             event.preventDefault()
           } else if (event.key === 'Escape') {
-            setState('closed')
             onDismiss()
             event.preventDefault()
           }
         }
       }
     },
-    [state, onDismiss]
+    [open, focusType]
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       if (!event.defaultPrevented && event.button === 0 && !open) {
         setOpen(true)
-        setState('buttonFocus')
+        setFocusType('anchor')
       }
     },
     [open]
@@ -67,8 +68,8 @@ export function DropdownMenu({
 
   const {position} = useAnchoredPosition({anchorElementRef: anchorRef, floatingElementRef: overlayRef})
 
-  useFocusZone({containerRef: overlayRef, disabled: !open || state !== 'listFocus'}, [position])
-  useFocusTrap({containerRef: overlayRef, disabled: !open || state !== 'listFocus'}, [position])
+  useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list'}, [position])
+  useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list'}, [position])
 
   return (
     <>
