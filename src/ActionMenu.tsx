@@ -7,6 +7,7 @@ import Overlay from './Overlay'
 import randomId from './utils/randomId'
 import {useFocusTrap} from './hooks/useFocusTrap'
 import {useFocusZone} from './hooks/useFocusZone'
+import {useAnchoredPosition} from './hooks/useAnchoredPosition'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,6 +76,8 @@ const ActionMenuBase = ({
     [openState]
   )
 
+  const {position} = useAnchoredPosition({anchorElementRef: anchorRef, floatingElementRef: overlayRef})
+
   useFocusZone({containerRef: overlayRef, disabled: !(openState === 'ready' && state === 'listFocus')})
   useFocusTrap({containerRef: overlayRef, disabled: !(openState === 'ready' && state === 'listFocus')})
   // states: closed, buttonFocus, listFocus
@@ -88,6 +91,7 @@ const ActionMenuBase = ({
         'aria-haspopup': 'listbox',
         'aria-label': 'menu',
         onClick: onAnchorClick,
+        onkeydown: onAnchorKeyDown,
         children: triggerContent,
         tabIndex: 0
       })}
@@ -99,9 +103,7 @@ const ActionMenuBase = ({
           onClickOutside={onDismiss}
           onEscape={onDismiss}
           ref={overlayRef}
-          onPositionChanged={() => {
-            setOpenState('ready')
-          }}
+          {...position}
         >
           <List
             {...listProps}
