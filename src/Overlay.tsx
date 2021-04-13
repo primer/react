@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useRef} from 'react'
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
-import {isRefObject} from './utils/isRefObject'
+import {useCombinedRefs} from './hooks/useCombinedRefs'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -78,10 +78,13 @@ export type OverlayProps = {
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
     {onClickOutside, role = 'dialog', initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest},
-    overlayRef
+    forwardedRef
   ): ReactElement => {
+    const overlayRef = useRef<HTMLDivElement>(null)
+    const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
+
     const overlayProps = useOverlay({
-      overlayRef: isRefObject(overlayRef) ? overlayRef : undefined,
+      overlayRef,
       returnFocusRef,
       onEscape,
       ignoreClickRefs,
@@ -90,7 +93,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     })
     return (
       <Portal>
-        <StyledOverlay {...overlayProps} aria-modal="true" role={role} {...rest} />
+        <StyledOverlay {...overlayProps} aria-modal="true" role={role} {...rest} ref={combinedRef} />
       </Portal>
     )
   }

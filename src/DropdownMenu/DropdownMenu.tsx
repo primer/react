@@ -6,6 +6,7 @@ import {Item} from '../ActionList/Item'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
+import {useRenderForcingRef} from '../hooks/useRenderForcingRef'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
@@ -17,7 +18,7 @@ export function DropdownMenu({
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
+  const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
 
   const anchorId = `dropdownMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
 
@@ -68,8 +69,8 @@ export function DropdownMenu({
 
   const {position} = useAnchoredPosition({anchorElementRef: anchorRef, floatingElementRef: overlayRef})
 
-  useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list'}, [position])
-  useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list'}, [position])
+  useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
+  useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
 
   return (
     <>
@@ -88,7 +89,7 @@ export function DropdownMenu({
           returnFocusRef={anchorRef}
           onClickOutside={onDismiss}
           onEscape={onDismiss}
-          ref={overlayRef}
+          ref={updateOverlayRef}
           {...position}
         >
           <List
