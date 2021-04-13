@@ -84,21 +84,10 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
-<<<<<<< HEAD
 const BaseVisualContainer = styled.div`
-   {
-    /* Match visual height to adjacent text line height.
-     *
-     * TODO: When rem-based spacing on a 4px scale lands, replace
-     * hardcoded '20px' with '${get('space.s20')}'.
-     */
-  }
-=======
-const LeadingVisualContainer = styled.div`
   // Match visual height to adjacent text line height.
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '20px' with '${get('space.s20')}'.
->>>>>>> Complete implementation of keyboard nav in DropdownMenu.
   height: 20px;
   width: ${get('space.3')};
   display: flex;

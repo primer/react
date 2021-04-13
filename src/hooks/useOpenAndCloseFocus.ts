@@ -16,6 +16,9 @@ export function useOpenAndCloseFocus({
     const returnRef = returnFocusRef.current
     if (initialFocusRef && initialFocusRef.current) {
       initialFocusRef.current.focus()
+    } else if (containerRef && containerRef.current) {
+      const firstItem = iterateFocusableElements(containerRef.current).next().value
+      firstItem?.focus()
     }
     return function () {
       returnRef?.focus()
