@@ -54,7 +54,7 @@ export function DropdownMenu({
         }
       }
     },
-    [open, focusType]
+    [open, focusType, onDismiss]
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
