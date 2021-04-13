@@ -26,9 +26,9 @@ export function DropdownMenu({
   const [open, setOpen] = useState<boolean>(false)
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
   const onDismiss = useCallback(() => {
-     setOpen(false)
-     setFocusType(null)
-   }, [])
+    setOpen(false)
+    setFocusType(null)
+  }, [])
 
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
