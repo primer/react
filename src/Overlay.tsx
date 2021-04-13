@@ -1,5 +1,9 @@
 import styled from 'styled-components'
+<<<<<<< HEAD
 import React, {ReactElement, useRef} from 'react'
+=======
+import React, {ReactElement} from 'react'
+>>>>>>> remove some extra cruft from merges
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
@@ -55,7 +59,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
 export type OverlayProps = {
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
-  anchorRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
@@ -70,7 +73,6 @@ export type OverlayProps = {
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param onClickOutside  Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
- * @param onPositionUpdated Optional.
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `sm` corresponds to `256px`, `md` corresponds to `320px`, `lg` corresponds to `480px`, and `xl` corresponds to `640px`.
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `sm` corresponds to `480px` and `md` corresponds to `640px`.
  */
@@ -98,9 +100,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   }
 )
 
-// Overlay.defaultProps = {
-//   height: 'auto',
-//   width: 'auto'
-// }
+Overlay.defaultProps = {
+  height: 'auto',
+  width: 'auto'
+}
 
 export default Overlay

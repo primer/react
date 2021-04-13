@@ -6,9 +6,13 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
+<<<<<<< HEAD
 
 export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
 
+=======
+import type {AriaRole} from '../utils/types'
+>>>>>>> remove some extra cruft from merges
 /**
  * Contract for props passed to the `List` component.
  */
@@ -182,7 +186,7 @@ export function List(props: ListProps): JSX.Element {
   }
 
   return (
-    <StyledList ref={containerRef as React.RefObject<HTMLDivElement>} {...props}>
+    <StyledList {...props}>
       {groups?.map(({header, ...groupProps}, index) => (
         <>
           {renderGroup({

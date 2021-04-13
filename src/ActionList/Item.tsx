@@ -28,7 +28,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   descriptionVariant?: 'inline' | 'block'
 
   /**
-   * Icon (or similar) positioned after `Item` text.
+   * Icon (or similar) positioned before `Item` text.
    */
   leadingVisual?: React.FunctionComponent<IconProps>
 
@@ -68,12 +68,10 @@ const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
   color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
 
   @media (hover: hover) and (pointer: fine) {
-    :hover,
-    :focus {
+    :hover {
       background: ${props =>
         props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
       cursor: pointer;
-      outline: none;
     }
   }
 

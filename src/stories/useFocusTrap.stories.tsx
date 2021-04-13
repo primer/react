@@ -27,13 +27,13 @@ export default {
 // this Storybook story, but they're not recommended for a real site!
 const HelperGlobalStyling = createGlobalStyle`
   *:focus {
-    outline: 2px solid ${themeGet('colors.auto.blue.3')} !important;
+    outline: 2px solid ${themeGet('colors.blue.3')} !important;
   }
   [data-focus-trap='active'] {
-    background-color: ${themeGet('colors.auto.green.2')}
+    background-color: ${themeGet('colors.green.2')}
   }
   [data-focus-trap='suspended'] {
-    background-color: ${themeGet('colors.auto.yellow.2')}
+    background-color: ${themeGet('colors.yellow.2')}
   }
 `
 
@@ -68,7 +68,7 @@ export const FocusTrap = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <BorderBox borderColor="auto.gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Flex flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
@@ -116,7 +116,7 @@ export const CustomInitialFocus = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <BorderBox borderColor="auto.gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Flex flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
@@ -238,27 +238,15 @@ export const MultipleFocusTraps = () => {
         <BorderBox p={2} mb={3}>
           Legend
           <Flex flexDirection="row">
-            <BorderBox width={40} height={22} mr={2} borderColor="auto.gray.5"></BorderBox>
+            <BorderBox width={40} height={22} mr={2} borderColor="gray.5"></BorderBox>
             <Text> - Inactive</Text>
           </Flex>
           <Flex flexDirection="row">
-            <BorderBox
-              width={40}
-              height={22}
-              mr={2}
-              borderColor="auto.gray.5"
-              backgroundColor="auto.yellow.2"
-            ></BorderBox>
+            <BorderBox width={40} height={22} mr={2} borderColor="gray.5" backgroundColor="yellow.2"></BorderBox>
             <Text> - Suspended</Text>
           </Flex>
           <Flex flexDirection="row">
-            <BorderBox
-              width={40}
-              height={22}
-              mr={2}
-              borderColor="auto.gray.5"
-              backgroundColor="auto.green.2"
-            ></BorderBox>
+            <BorderBox width={40} height={22} mr={2} borderColor="gray.5" backgroundColor="green.2"></BorderBox>
             <Text> - Active</Text>
           </Flex>
         </BorderBox>

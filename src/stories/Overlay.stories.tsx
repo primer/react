@@ -47,7 +47,6 @@ const DummyItem = styled.button`
 export const DropdownOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const ref = React.useRef(null)
   return (
     <>
       <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
@@ -61,7 +60,6 @@ export const DropdownOverlay = () => {
           ignoreClickRefs={[buttonRef]}
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
-          ref={ref}
         >
           <Flex flexDirection="column" p={2}>
             <DummyItem>Copy link</DummyItem>

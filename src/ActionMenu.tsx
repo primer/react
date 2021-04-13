@@ -28,16 +28,15 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
+
   const anchorId = `actionMenuAnchor-${randomId()}`
-  const [openState, setOpenState] = useState<'closed' | 'open' | 'ready'>('closed')
+  const [open, setOpen] = useState<boolean>(false)
   const [state, setState] = useState<'closed' | 'buttonFocus' | 'listFocus'>('closed')
-
   const onDismiss = useCallback(() => {
-    setOpenState('closed')
+    setOpen(false)
     setState('closed')
-  }, [setOpenState])
-
-  const overlayRef = React.useRef<HTMLDivElement>(null)
+  }, [])
 
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
@@ -45,11 +44,11 @@ const ActionMenuBase = ({
         if (state === 'closed') {
           if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
             setState('listFocus')
-            setOpenState('open')
+            setOpen(true)
             event.preventDefault()
           } else if (event.key === ' ' || event.key === 'Enter') {
             setState('buttonFocus')
-            setOpenState('open')
+            setOpen(true)
             event.preventDefault()
           }
         } else if (state === 'buttonFocus') {
@@ -57,6 +56,7 @@ const ActionMenuBase = ({
             setState('listFocus')
             event.preventDefault()
           } else if (event.key === 'Escape') {
+            setState('closed')
             onDismiss()
             event.preventDefault()
           }
@@ -65,22 +65,20 @@ const ActionMenuBase = ({
     },
     [state, onDismiss]
   )
-
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      if (!event.defaultPrevented && event.button === 0 && openState === 'closed') {
-        setOpenState('open')
+      if (!event.defaultPrevented && event.button === 0 && !open) {
+        setOpen(true)
         setState('buttonFocus')
       }
     },
-    [openState]
+    [open]
   )
 
   const {position} = useAnchoredPosition({anchorElementRef: anchorRef, floatingElementRef: overlayRef})
 
-  useFocusZone({containerRef: overlayRef, disabled: !(openState === 'ready' && state === 'listFocus')})
-  useFocusTrap({containerRef: overlayRef, disabled: !(openState === 'ready' && state === 'listFocus')})
-  // states: closed, buttonFocus, listFocus
+  useFocusZone({containerRef: overlayRef, disabled: !open || state !== 'listFocus'}, [position])
+  useFocusTrap({containerRef: overlayRef, disabled: !open || state !== 'listFocus'}, [position])
 
   return (
     <>
@@ -95,10 +93,9 @@ const ActionMenuBase = ({
         children: triggerContent,
         tabIndex: 0
       })}
-      {openState !== 'closed' && (
+      {open && (
         <Overlay
           initialFocusRef={anchorRef}
-          anchorRef={anchorRef}
           returnFocusRef={anchorRef}
           onClickOutside={onDismiss}
           onEscape={onDismiss}
@@ -112,12 +109,6 @@ const ActionMenuBase = ({
               renderItem({
                 ...itemProps,
                 role: 'menuitem',
-                onKeyPress: event => {
-                  if (event.key == 'Enter' || event.key == 'Space') {
-                    onActivate && onActivate(itemProps as ItemProps)
-                    onDismiss()
-                  }
-                },
                 onClick: event => {
                   onActivate && onActivate(itemProps as ItemProps)
                   onClick && onClick(event)

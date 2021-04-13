@@ -17,11 +17,11 @@ export type OverlayReturnProps = {
 }
 
 export const useOverlay = ({
+  overlayRef: _overlayRef,
   returnFocusRef,
   initialFocusRef,
   onEscape,
   ignoreClickRefs,
-  overlayRef: _overlayRef,
   onClickOutside
 }: UseOverlaySettings): OverlayReturnProps => {
   const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(_overlayRef)
