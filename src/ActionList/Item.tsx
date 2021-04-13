@@ -108,6 +108,9 @@ const LeadingVisualContainer = styled(BaseVisualContainer)``
 const TrailingVisualContainer = styled(BaseVisualContainer)`
   color: ${get('colors.icon.tertiary')};
   margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `
 
 const DescriptionContainer = styled.span`
@@ -145,12 +148,16 @@ export function Item({
         <div>{text}</div>
         {description && <DescriptionContainer>{description}</DescriptionContainer>}
       </StyledTextContainer>
-      {TrailingIcon && (
+      {(TrailingIcon || trailingText) && (
         <TrailingVisualContainer>
-          <TrailingIcon />
+          {TrailingIcon && (
+            <div>
+              <TrailingIcon />
+            </div>
+          )}
+          {trailingText && <div>{trailingText}</div>}
         </TrailingVisualContainer>
       )}
-      {trailingText && <TrailingVisualContainer>{trailingText}</TrailingVisualContainer>}
     </StyledItem>
   )
 }

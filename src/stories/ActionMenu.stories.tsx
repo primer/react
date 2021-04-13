@@ -7,7 +7,8 @@ import {
   NoteIcon,
   ProjectIcon,
   FilterIcon,
-  GearIcon
+  GearIcon,
+  TrashIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useState} from 'react'
@@ -68,13 +69,15 @@ export function ActionsStory(): JSX.Element {
               text: 'Open current Codespace',
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
-              descriptionVariant: 'block'
+              descriptionVariant: 'block',
+              trailingText: '⌘O'
             },
             {
               leadingVisual: PlusCircleIcon,
               text: 'Create new Codespace',
               description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
-              descriptionVariant: 'block'
+              descriptionVariant: 'block',
+              trailingText: '⌘C'
             }
           ]}
         />
@@ -98,11 +101,11 @@ export function SimpleListStory(): JSX.Element {
           onActivate={onActivate}
           triggerContent="Menu"
           items={[
-            {text: 'New file'},
+            {text: 'New file', trailingText: '⌘O'},
             ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
+            {text: 'Copy link', trailingText: 'ctrl+C'},
+            {text: 'Edit file', trailingText: '⌘E'},
+            {text: 'Delete file', variant: 'danger', trailingIcon: TrashIcon, trailingText: '⌘D'}
           ]}
         />
       </ErsatzOverlay>
