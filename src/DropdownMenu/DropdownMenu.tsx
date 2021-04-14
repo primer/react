@@ -11,7 +11,7 @@ import {useRenderForcingRef} from '../hooks/useRenderForcingRef'
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * A custom fuction component used to render the anchor element.
-   * Will receive `selection` as a prop when an item is activated.
+   * Will receive the selected text as `children` prop when an item is activated.
    * Uses a `DropdownButton` by default.
    */
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element

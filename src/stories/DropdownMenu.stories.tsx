@@ -43,6 +43,7 @@ export function FavoriteColorStory(): JSX.Element {
         )}
         items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
       />
+      <DropdownMenu items={[{text: 'Apple'}, {text: 'Banana'}, {text: 'Cantaloupe'}]} />
     </>
   )
 }
