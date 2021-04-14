@@ -112,9 +112,9 @@ export function DropdownMenu({
                 onKeyDown: event => {
                   if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
                     itemActivated()
+                    // prevent "Enter" event from becoming a click on the anchor as overlay closes
+                    event.preventDefault()
                   }
-                  // prevent "Enter" event from becoming a click on the anchor as overlay closes
-                  event.preventDefault()
                   onKeyDown && onKeyDown(event)
                 }
               })
