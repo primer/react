@@ -8,7 +8,7 @@ import {
   ProjectIcon,
   FilterIcon,
   GearIcon,
-  TrashIcon
+  ArrowRightIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useState} from 'react'
@@ -105,7 +105,7 @@ export function SimpleListStory(): JSX.Element {
             ActionList.Divider,
             {text: 'Copy link', trailingText: 'ctrl+C'},
             {text: 'Edit file', trailingText: '⌘E'},
-            {text: 'Delete file', variant: 'danger', trailingIcon: TrashIcon, trailingText: '⌘D'}
+            {text: 'Delete file', variant: 'danger', trailingText: '⌘D'}
           ]}
         />
       </ErsatzOverlay>
@@ -141,7 +141,9 @@ export function ComplexListStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              trailingText: '⌘S',
+              trailingIcon: ArrowRightIcon
             },
             {
               leadingVisual: NoteIcon,
