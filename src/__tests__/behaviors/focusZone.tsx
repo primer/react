@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
-import {fireEvent, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {FocusKeys, focusZone} from '../../behaviors/focusZone'
 
@@ -262,9 +262,15 @@ it('Should focus-in to the closest element when focusInStrategy is "closest"', (
         Bad Apple
       </button>
       <div id="focusZone">
-        <button id="apple" tabIndex={0}>Apple</button>
-        <button id="banana" tabIndex={0}>Banana</button>
-        <button id="cantaloupe" tabIndex={0}>Cantaloupe</button>
+        <button id="apple" tabIndex={0}>
+          Apple
+        </button>
+        <button id="banana" tabIndex={0}>
+          Banana
+        </button>
+        <button id="cantaloupe" tabIndex={0}>
+          Cantaloupe
+        </button>
       </div>
       <button tabIndex={0} id="outsideAfter">
         Good Apple
@@ -291,7 +297,7 @@ it('Should focus-in to the closest element when focusInStrategy is "closest"', (
 
   outsideAfter.focus()
   userEvent.tab({shift: true})
-  
+
   expect(document.activeElement).toEqual(thirdButton)
 
   controller.abort()
@@ -313,7 +319,7 @@ it('Should call the custom focusInStrategy callback', () => {
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const outsideButton = container.querySelector<HTMLElement>('#outside')!
-  const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
+  const [, secondButton] = focusZoneContainer.querySelectorAll('button')!
   const focusInCallback = jest.fn().mockReturnValue(secondButton)
   const controller = focusZone(focusZoneContainer, {focusInStrategy: focusInCallback})
 
