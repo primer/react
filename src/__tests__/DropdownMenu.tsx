@@ -9,7 +9,6 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {ThemeProvider} from 'styled-components'
 import {BaseStyles} from '..'
 import {registerPortalRoot} from '../Portal/index'
-import {ItemProps} from '../ActionList/Item'
 import {ItemInput} from '../ActionList/List'
 
 expect.extend(toHaveNoViolations)
@@ -66,7 +65,7 @@ describe('DropdownMenu', () => {
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const itemText = items
-      .map((i: ItemProps) => {
+      .map((i: ItemInput) => {
         if (i.hasOwnProperty('text')) return i?.text
       })
       .join('')
