@@ -2,7 +2,7 @@ import {Meta} from '@storybook/react'
 import React from 'react'
 import {theme, ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
-import {DropdownButton, DropdownMenu} from '../DropdownMenu'
+import {DropdownMenu} from '../DropdownMenu'
 import {registerPortalRoot} from '../Portal'
 
 const meta: Meta = {
