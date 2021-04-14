@@ -17,25 +17,25 @@ export default Position
 
 // Absolute
 export type AbsoluteProps = Omit<PositionProps, 'position'>
-export function Absolute(props: AbsoluteProps) {
-  return <Position {...props} position="absolute" />
-}
+export const Absolute = React.forwardRef((props: AbsoluteProps, ref) => {
+  return <Position {...props} position="absolute" ref={ref} />
+})
 
 // Fixed
 export type FixedProps = Omit<PositionProps, 'position'>
-export function Fixed(props: AbsoluteProps) {
-  return <Position {...props} position="fixed" />
-}
+export const Fixed = React.forwardRef((props: AbsoluteProps, ref) => {
+  return <Position {...props} position="fixed" ref={ref} />
+})
 
 // Relative
 export type RelativeProps = Omit<PositionProps, 'position'>
-export function Relative(props: RelativeProps) {
-  return <Position {...props} position="relative" />
-}
+export const Relative = React.forwardRef((props: RelativeProps, ref) => {
+  return <Position {...props} position="relative" ref={ref} />
+})
 
 // Sticky
 export type StickyProps = Omit<PositionProps, 'position'>
-export function Sticky(props: StickyProps) {
-  return <Position {...props} position="sticky" />
-}
+export const Sticky = React.forwardRef((props: StickyProps, ref) => {
+  return <Position {...props} position="sticky" ref={ref} />
+})
 Sticky.defaultProps = {top: 0, zIndex: 1}
