@@ -95,18 +95,30 @@ export function DropdownMenu({
           <List
             {...listProps}
             role="listbox"
-            renderItem={({onClick, ...itemProps}) =>
-              renderItem({
+            renderItem={({onClick, onKeyDown, ...itemProps}) => {
+              const itemActivated = () => {
+                select(itemProps.text === selection ? '' : itemProps.text ?? '')
+                onDismiss()
+              }
+
+              return renderItem({
                 ...itemProps,
                 role: 'option',
                 selected: itemProps.text === selection,
                 onClick: event => {
-                  select(itemProps.text === selection ? '' : itemProps.text ?? '')
-                  onDismiss()
+                  itemActivated()
                   onClick && onClick(event)
+                },
+                onKeyDown: event => {
+                  if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
+                    itemActivated()
+                  }
+                  // prevent "Enter" event from becoming a click on the anchor as overlay closes
+                  event.preventDefault()
+                  onKeyDown && onKeyDown(event)
                 }
               })
-            }
+            }}
           />
         </Overlay>
       )}
