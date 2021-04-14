@@ -9,9 +9,19 @@ import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
 import {useRenderForcingRef} from '../hooks/useRenderForcingRef'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+  /**
+   * A custom fuction component used to render the anchor element.
+   * Will receive `selection` as a prop when an item is activated.
+   * Uses a `DropdownButton` by default.
+   */
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 }
 
+/**
+ * A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be
+ * opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the anchor contents will be updated
+ * with the selection.
+ */
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
   renderItem = Item,
