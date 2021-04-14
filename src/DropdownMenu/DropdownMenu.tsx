@@ -7,6 +7,7 @@ import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
 import {useRenderForcingRef} from '../hooks/useRenderForcingRef'
+import randomId from '../utils/randomId'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
@@ -30,7 +31,7 @@ export function DropdownMenu({
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
 
-  const anchorId = `dropdownMenuAnchor-${window.crypto.getRandomValues(new Uint8Array(4)).join('')}`
+  const anchorId = `dropdownMenuAnchor-${randomId()}`
 
   const [selection, select] = useState<string>('')
 
@@ -135,3 +136,5 @@ export function DropdownMenu({
     </>
   )
 }
+
+DropdownMenu.displayName = 'DropdownMenu'
