@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react'
-import {List, GroupedListProps, ListPropsBase} from '../ActionList/List'
+import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/List'
 import Overlay from '../Overlay'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {Item} from '../ActionList/Item'
@@ -16,10 +16,22 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * Uses a `DropdownButton` by default.
    */
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+
   /**
    * A placeholder value to display on the trigger button when no selection has been made.
    */
   placeholder?: string
+
+  /**
+   * An `ItemProps` item from the list of `items` which is currently selected.  This item will receive a checkmark next to it in the menu.
+   */
+  selectedItem?: ItemInput
+
+  /**
+   * A callback which receives the selected item or `undefined` when an item is activated in the menu.  If the activated item is the same as the current
+   * `selectedItem`, `undefined` will be passed.
+   */
+  setSelectedItem?: (item?: ItemInput) => unknown
 }
 
 /**
@@ -31,14 +43,14 @@ export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
   renderItem = Item,
   placeholder,
+  selectedItem,
+  setSelectedItem,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
 
   const anchorId = `dropdownMenuAnchor-${randomId()}`
-
-  const [selection, select] = useState<string>('')
 
   const [open, setOpen] = useState<boolean>(false)
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
@@ -95,7 +107,7 @@ export function DropdownMenu({
         id: anchorId,
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
-        children: selection || placeholder,
+        children: selectedItem?.text ?? placeholder,
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown
       })}
@@ -111,16 +123,17 @@ export function DropdownMenu({
           <List
             {...listProps}
             role="listbox"
-            renderItem={({onClick, onKeyDown, ...itemProps}) => {
+            renderItem={({onClick, onKeyDown, item, ...itemProps}) => {
               const itemActivated = () => {
-                select(itemProps.text === selection ? '' : itemProps.text ?? '')
+                setSelectedItem?.(item === selectedItem ? undefined : item)
                 onDismiss()
               }
 
               return renderItem({
                 ...itemProps,
+                item,
                 role: 'option',
-                selected: itemProps.text === selection,
+                selected: item === selectedItem,
                 onClick: event => {
                   itemActivated()
                   onClick && onClick(event)

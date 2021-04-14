@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {ItemInput} from './List'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -107,7 +108,7 @@ export function Item({
   leadingVisual: LeadingVisual,
   variant = 'default',
   ...props
-}: Partial<ItemProps>): JSX.Element {
+}: Partial<ItemProps> & {item: ItemInput}): JSX.Element {
   return (
     <StyledItem
       tabIndex={-1}

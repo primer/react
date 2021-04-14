@@ -7,6 +7,8 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
 
+export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
+
 /**
  * Contract for props passed to the `List` component.
  */
@@ -14,7 +16,7 @@ export interface ListPropsBase {
   /**
    * A collection of `Item` props and `Item`-level custom `Item` renderers.
    */
-  items: (ItemProps | (Partial<ItemProps> & {renderItem: typeof Item}))[]
+  items: ItemInput[]
 
   /**
    * The ARIA role describing the function of `List` component. `listbox` is a common value.
@@ -129,10 +131,11 @@ export function List(props: ListProps): JSX.Element {
    * An `Item`-level, `Group`-level, or `List`-level custom `Item` renderer,
    * or the default `Item` renderer.
    */
-  const renderItem = (itemProps: ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})) =>
+  const renderItem = (itemProps: ItemInput, item: ItemInput) =>
     (('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item).call(null, {
       ...itemProps,
-      sx: {...itemStyle, ...itemProps.sx}
+      sx: {...itemStyle, ...itemProps.sx},
+      item
     })
 
   /**
@@ -144,7 +147,7 @@ export function List(props: ListProps): JSX.Element {
 
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items?.map(renderItem)}]
+    groups = [{items: props.items?.map(item => renderItem(item, item))}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 
@@ -165,7 +168,13 @@ export function List(props: ListProps): JSX.Element {
         ...group,
         items: [
           ...(group?.items ?? []),
-          renderItem({...(group && 'renderItem' in group && {renderItem: group.renderItem}), ...itemProps})
+          renderItem(
+            {
+              ...(group && 'renderItem' in group && {renderItem: group.renderItem}),
+              ...itemProps
+            },
+            itemProps
+          )
         ]
       })
     }

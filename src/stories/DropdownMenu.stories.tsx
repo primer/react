@@ -1,6 +1,7 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {theme, ThemeProvider} from '..'
+import {ItemProps} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 import {DropdownMenu} from '../DropdownMenu'
 import {registerPortalRoot} from '../Portal'
@@ -31,11 +32,14 @@ const meta: Meta = {
 export default meta
 
 export function FavoriteColorStory(): JSX.Element {
+  const items = React.useMemo(() => [{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}], [])
+  const [selectedItem, setSelectedItem] = React.useState<ItemProps | undefined>()
+
   return (
     <>
       <h1>Favorite Color</h1>
       <div id="favorite-color-label">Please select your favorite color:</div>
-      <DropdownMenu placeholder="🎨" items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]} />
+      <DropdownMenu placeholder="🎨" items={items} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
     </>
   )
 }

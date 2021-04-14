@@ -10,17 +10,25 @@ import {ThemeProvider} from 'styled-components'
 import {BaseStyles} from '..'
 import {registerPortalRoot} from '../Portal/index'
 import {ItemProps} from '../ActionList/Item'
+import {ItemInput} from '../ActionList/List'
 
 expect.extend(toHaveNoViolations)
 
-const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemProps[]
+const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemInput[]
 
 function SimpleDropdownMenu(): JSX.Element {
+  const [selectedItem, setSelectedItem] = React.useState<ItemInput | undefined>()
+
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
         <div id="something-else">X</div>
-        <DropdownMenu items={items} placeholder="Select an Option" />
+        <DropdownMenu
+          items={items}
+          placeholder="Select an Option"
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+        />
         <div id="portal-root"></div>
       </BaseStyles>
     </ThemeProvider>
