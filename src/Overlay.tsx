@@ -64,11 +64,8 @@ export type OverlayProps = {
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
  * selection options, dialogs, and more. Overlays use shadows to express elevation. The `Overlay`
  * component handles all behaviors needed by overlay UIs as well as the common styles that all overlays * should have.
- * @param positionSettings Settings for calculating the anchored position.
- * @param positionDeps Dependencies to determine when to re-calculate the position of the overlay.
  * @param ignoreClickRefs Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice.
  * @param initialFocusRef Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.
- * @param anchorRef Required. Element the `Overlay` should be anchored to.
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param onClickOutside  Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
