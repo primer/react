@@ -16,6 +16,10 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * Uses a `DropdownButton` by default.
    */
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+  /**
+   * A placeholder value to display on the trigger button when no selection has been made.
+   */
+  placeholder?: string
 }
 
 /**
@@ -26,6 +30,7 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
   renderItem = Item,
+  placeholder,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
@@ -90,7 +95,7 @@ export function DropdownMenu({
         id: anchorId,
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
-        children: selection,
+        children: selection || placeholder,
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown
       })}

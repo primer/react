@@ -7,14 +7,7 @@ A `DropdownMenu` provides an anchor (button by default) that will open a floatin
 ## Example
 
 ```jsx live
-<DropdownMenu
-  renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-    <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
-      {children || '🎨'}
-    </DropdownButton>
-  )}
-  items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
-/>
+<DropdownMenu placeholder="🎨" items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]} />
 ```
 
 ## Component props
@@ -22,6 +15,7 @@ A `DropdownMenu` provides an anchor (button by default) that will open a floatin
 | Name          | Type                                          |      Default      | Description                                                                                                                                                          |
 | :------------ | :-------------------------------------------- | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | items         | `ItemProps[]`                                 |    `undefined`    | Required. A list of item objects to display in the menu                                                                                                              |
+| placeholder   | `string`                                      |    `undefined`    | Optional. A placeholder value to display when there is no current selection.                                                                                         |
 | renderAnchor  | `(props: DropdownButtonProps) => JSX.Element` | `DropdownButton`  | Optional. If defined, provided component will be used to render the menu anchor. Will receive the selected `Item` text as `children` prop when an item is activated. |
 | renderItems   | `(props: ItemProps) => JSX.Element`           | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for custom item rendering.                                                      |
 | groupMetadata | `GroupProps[]`                                |    `undefined`    | Optional. If defined, `DropdownMenu` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property.            |

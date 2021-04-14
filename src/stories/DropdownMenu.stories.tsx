@@ -35,15 +35,7 @@ export function FavoriteColorStory(): JSX.Element {
     <>
       <h1>Favorite Color</h1>
       <div id="favorite-color-label">Please select your favorite color:</div>
-      <DropdownMenu
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
-            {children || '🎨'}
-          </DropdownButton>
-        )}
-        items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
-      />
-      <DropdownMenu items={[{text: 'Apple'}, {text: 'Banana'}, {text: 'Cantaloupe'}]} />
+      <DropdownMenu placeholder="🎨" items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]} />
     </>
   )
 }

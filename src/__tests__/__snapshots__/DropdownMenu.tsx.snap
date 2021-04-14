@@ -75,7 +75,6 @@ exports[`DropdownMenu renders consistently 1`] = `
   onClick={[Function]}
   onKeyDown={[Function]}
 >
-  
   <svg
     aria-hidden="true"
     className="octicon"

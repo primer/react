@@ -20,12 +20,7 @@ function SimpleDropdownMenu(): JSX.Element {
     <ThemeProvider theme={theme}>
       <BaseStyles>
         <div id="something-else">X</div>
-        <DropdownMenu
-          items={items}
-          renderAnchor={({children, ...anchorProps}) => (
-            <DropdownButton {...anchorProps}>{children || 'Select an Option'}</DropdownButton>
-          )}
-        />
+        <DropdownMenu items={items} placeholder="Select an Option" />
         <div id="portal-root"></div>
       </BaseStyles>
     </ThemeProvider>
