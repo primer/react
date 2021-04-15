@@ -93,7 +93,7 @@ const ActionMenuBase = ({
         children: triggerContent,
         tabIndex: 0
       })}
-      {open && (
+      {open ? (
         <Overlay
           initialFocusRef={anchorRef}
           returnFocusRef={anchorRef}
@@ -122,7 +122,7 @@ const ActionMenuBase = ({
             }
           />
         </Overlay>
-      )}
+      ) : null}
     </>
   )
 }
