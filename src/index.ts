@@ -78,8 +78,7 @@ export type {
   DropdownItemProps,
   DropdownMenuProps
 } from './Dropdown'
-export {DropdownButton} from './DropdownMenu/DropdownButton'
-export {DropdownMenu} from './DropdownMenu/DropdownMenu'
+export {DropdownButton, DropdownMenu} from './DropdownMenu'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
 export {default as FilterList} from './FilterList'
