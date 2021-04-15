@@ -134,7 +134,7 @@ export function Item({
   trailingText,
   variant = 'default',
   ...props
-}: Partial<ItemProps> & {item: ItemInput}): JSX.Element {
+}: Partial<ItemProps> & {item?: ItemInput}): JSX.Element {
   return (
     <StyledItem
       tabIndex={-1}
