@@ -19,7 +19,6 @@ export type {PositionProps, AbsoluteProps, FixedProps, RelativeProps, StickyProp
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
-export {default as useMouseIntent} from './hooks/useMouseIntent'
 export {default as useSafeTimeout} from './hooks/useSafeTimeout'
 export {useOnOutsideClick} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'

@@ -246,6 +246,11 @@ export const FocusInStrategy = () => {
     focusInStrategy: 'first'
   })
 
+  const {containerRef: closestContainerRef} = useFocusZone({
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusInStrategy: 'closest'
+  })
+
   const {containerRef: prevContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: 'previous'
@@ -283,24 +288,32 @@ export const FocusInStrategy = () => {
             <MarginButton>Durian</MarginButton>
           </Flex>
         </BorderBox>
-        <BorderBox borderColor="gray.5" ref={prevContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
-          <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
+        <BorderBox borderColor="gray.5" ref={closestContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>&ldquo;Closest&rdquo; strategy (focus first or last depending on focus direction)</strong>
           <Flex flexDirection="row" alignItems="flex-start">
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
             <MarginButton>Grapefruit</MarginButton>
           </Flex>
         </BorderBox>
-        <BorderBox borderColor="gray.5" ref={customContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
-          <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
+        <BorderBox borderColor="gray.5" ref={prevContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
           <Flex flexDirection="row" alignItems="flex-start">
             <MarginButton>Honeydew</MarginButton>
             <MarginButton>Jackfruit</MarginButton>
             <MarginButton>Kiwi</MarginButton>
           </Flex>
         </BorderBox>
-        <MarginButton>Lemon</MarginButton>
-        <MarginButton>Mango</MarginButton>
+        <BorderBox borderColor="gray.5" ref={customContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
+          <Flex flexDirection="row" alignItems="flex-start">
+            <MarginButton>Lemon</MarginButton>
+            <MarginButton>Mango</MarginButton>
+            <MarginButton>Nectarine</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Orange</MarginButton>
+        <MarginButton>Papaya</MarginButton>
       </Flex>
     </>
   )
