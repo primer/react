@@ -33,6 +33,10 @@ function featureSupported(): boolean {
 }
 
 function monkeyPatch() {
+  if (typeof window === 'undefined') {
+    return
+  }
+
   const originalAddEventListener = EventTarget.prototype.addEventListener
   EventTarget.prototype.addEventListener = function (name, originalCallback, optionsOrCapture) {
     if (
