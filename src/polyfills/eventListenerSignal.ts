@@ -17,7 +17,7 @@ try {
     {},
     {
       signal: {
-        get: function () {
+        get() {
           signalSupported = true
         }
       }

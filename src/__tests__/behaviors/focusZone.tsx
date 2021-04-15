@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -24,7 +22,9 @@ beforeAll(() => {
         get: () => () => [42]
       }
     })
-  } catch {}
+  } catch {
+    // ignore
+  }
 })
 
 it('Should allow arrow keys to move focus', () => {
@@ -173,18 +173,10 @@ it('Should call custom getNextFocusable callback', () => {
   expect(document.activeElement).toEqual(firstButton)
 
   userEvent.type(firstButton, '{arrowdown}')
-  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>(
-    'next',
-    firstButton,
-    expect.anything()
-  )
+  expect(getNextFocusableCallback).toHaveBeenCalledWith('next', firstButton, expect.anything())
 
   userEvent.type(secondButton, '{home}')
-  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>(
-    'start',
-    secondButton,
-    expect.anything()
-  )
+  expect(getNextFocusableCallback).toHaveBeenCalledWith('start', secondButton, expect.anything())
 
   controller.abort()
 })

@@ -46,7 +46,6 @@ expect.extend({
     }
 
     const elem = React.cloneElement(element, {sx: sxPropValue})
-    const rendered = render(elem)
 
     function checkStylesDeep(rendered: ReactTestRendererJSON): boolean {
       const className = rendered?.props ? rendered.props.className : ''
@@ -62,7 +61,7 @@ expect.extend({
     }
 
     return {
-      pass: checkStylesDeep(rendered),
+      pass: checkStylesDeep(render(elem)),
       message: () => 'sx prop values did not change styles of component nor of any sub-components'
     }
   },

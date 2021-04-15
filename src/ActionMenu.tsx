@@ -129,4 +129,4 @@ const ActionMenuBase = ({
 
 ActionMenuBase.displayName = 'ActionMenu'
 
-export const ActionMenu = Object.assign(ActionMenuBase, {Divider: Divider, Item: ActionMenuItem})
+export const ActionMenu = Object.assign(ActionMenuBase, {Divider, Item: ActionMenuItem})

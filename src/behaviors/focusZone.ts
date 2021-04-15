@@ -26,6 +26,7 @@ export type FocusMovementKeys =
   | 'PageUp'
   | 'PageDown'
 
+// eslint-disable-next-line no-shadow
 export enum FocusKeys {
   // Left and right arrow keys (previous and next, respectively)
   ArrowHorizontal = 0b000000001,
@@ -494,7 +495,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
         if (event.target instanceof HTMLElement) {
           // If a click initiated the focus movement, we always want to set our internal state
           // to reflect the clicked element as the currently focused one.
-          if (elementIndexFocusedByClick != undefined) {
+          if (elementIndexFocusedByClick !== undefined) {
             if (elementIndexFocusedByClick >= 0) {
               if (focusableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
                 updateTabIndex(currentFocusedElement, focusableElements[elementIndexFocusedByClick])
@@ -536,7 +537,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
                   elementToFocus.focus()
                   return
                 } else {
-                  // Should we warn here?
+                  // eslint-disable-next-line no-console
                   console.warn('Element requested is not a known focusable element.')
                 }
               } else {

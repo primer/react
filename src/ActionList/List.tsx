@@ -155,7 +155,7 @@ export function List(props: ListProps): JSX.Element {
      * A map of group identifiers to `Group`s, each with an associated array of `Item`s belonging to that `Group`.
      */
     const groupMap = props.groupMetadata.reduce(
-      (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
+      (groupAccumulator, groupMetadata) => groupAccumulator.set(groupMetadata.groupId, groupMetadata),
       new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>()
     )
 

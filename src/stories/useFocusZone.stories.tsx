@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
@@ -409,7 +408,7 @@ export const ChangingSubtree = () => {
 
   const buttons: JSX.Element[] = []
   for (let i = 0; i < buttonCount; ++i) {
-    buttons.push(<MarginButton key={'button' + i}>{i + 1}</MarginButton>)
+    buttons.push(<MarginButton key={`button${i}`}>{i + 1}</MarginButton>)
   }
 
   return (
@@ -449,7 +448,7 @@ export const ActiveDescendant = () => {
 
   const containerRef = useRef<HTMLElement>(null)
   const controllingElementRef = useRef<HTMLElement>(null)
-  const {theme} = useTheme()
+  const {theme: themeFromContext} = useTheme()
 
   // We set up two arrow focus behaviors on the same container!
   // 1. Handles the active descendant treatment when the <input> element is focused
@@ -460,7 +459,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${theme?.colors.border.info}`
+        current.style.outline = `2px solid ${themeFromContext?.colors.border.info}`
       }
       if (previous) {
         previous.style.outline = ''

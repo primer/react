@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {getAnchoredPosition, PositionSettings} from '../../behaviors/anchoredPosition'
 
 /*
@@ -37,12 +36,13 @@ function createVirtualDOM(
   const parent = document.createElement('div')
   parent.style.overflow = 'hidden'
   parent.style.position = 'relative'
-  parent.style.borderTopWidth = parentBorders.top + 'px'
-  parent.style.borderRightWidth = parentBorders.right + 'px'
-  parent.style.borderBottomWidth = parentBorders.bottom + 'px'
-  parent.style.borderLeftWidth = parentBorders.left + 'px'
+  parent.style.borderTopWidth = `${parentBorders.top}px`
+  parent.style.borderRightWidth = `${parentBorders.right}px`
+  parent.style.borderBottomWidth = `${parentBorders.bottom}px`
+  parent.style.borderLeftWidth = `${parentBorders.left}px`
   parent.id = 'parent'
-  parent.innerHTML = `<div id="float"></div><div id="anchor"></div>`
+  // eslint-disable-next-line github/unescaped-html-literal
+  parent.innerHTML = '<div id="float"></div><div id="anchor"></div>'
   const float = parent.querySelector('#float')!
   const anchor = parent.querySelector('#anchor')!
   anchor.getBoundingClientRect = () => anchorRect
@@ -55,7 +55,8 @@ describe('getAnchoredPosition', () => {
   it('returns the correct position in the default case with no overflow', () => {
     const anchorRect = makeDOMRect(300, 200, 50, 50)
     const floatingRect = makeDOMRect(NaN, NaN, 100, 100)
-    document.body.innerHTML = `<div id="float"></div><div id="anchor"></div>`
+    // eslint-disable-next-line github/unescaped-html-literal
+    document.body.innerHTML = '<div id="float"></div><div id="anchor"></div>'
     const float = document.querySelector('#float')!
     const anchor = document.querySelector('#anchor')!
     float.getBoundingClientRect = () => floatingRect

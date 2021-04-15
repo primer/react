@@ -92,10 +92,10 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
 
 export type StateLabelProps = ComponentProps<typeof StateLabelBase>
 
-function StateLabel({children, status, variant, ...rest}: StateLabelProps) {
-  const octiconProps = variant === 'small' ? {width: '1em'} : {}
+function StateLabel({children, status, variant: variantProp, ...rest}: StateLabelProps) {
+  const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
   return (
-    <StateLabelBase {...rest} variant={variant} status={status}>
+    <StateLabelBase {...rest} variant={variantProp} status={status}>
       {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status] || QuestionIcon} />}
       {children}
     </StateLabelBase>

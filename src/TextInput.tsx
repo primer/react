@@ -130,7 +130,7 @@ type TextInputInternalProps = {
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({icon: IconComponent, contrast, className, block, disabled, theme, sx, ...rest}, ref) => {
+  ({icon: IconComponent, contrast, className, block, disabled, theme, sx: sxProp, ...rest}, ref) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const wrapperProps = pick(rest)
@@ -143,7 +143,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         theme={theme}
         disabled={disabled}
         contrast={contrast}
-        sx={sx}
+        sx={sxProp}
         {...wrapperProps}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
