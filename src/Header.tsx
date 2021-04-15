@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-namespace
 import * as History from 'history'
 import styled, {css} from 'styled-components'
 import {BORDER, COMMON, get, SystemBorderProps, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'

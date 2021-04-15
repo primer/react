@@ -110,7 +110,7 @@ export type {SelectMenuTabProps} from './SelectMenuTab'
 export type {SelectMenuTabPanelProps} from './SelectMenuTabPanel'
 export type {SelectMenuTabsProps} from './SelectMenuTabs'
 export default Object.assign(SelectMenu, {
-  MenuContext: MenuContext,
+  MenuContext,
   List: SelectMenuList,
   Divider: SelectMenuDivider,
   Filter: SelectMenuFilter,
