@@ -11,6 +11,8 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'
 
+const ANIMATION_DURATION = "200ms"
+
 export type DialogButtonProps = ButtonProps & {
   element?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
   text: string
@@ -33,7 +35,7 @@ const Backdrop = styled('div')`
   bottom: 0;
   right: 0;
   background-color: black;
-  animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
+  animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
   opacity: 0.4;
 
   @keyframes dialog-backdrop-appear {
@@ -93,7 +95,9 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   overflow: hidden;
   animation: ${props =>
     // only apply the animation when the dialog becomes visible
-    props.visibility === 'hidden' ? 'none' : `overlay--dialog-appear 200ms ${get('animation.easeOutCubic')(props)}`};
+    props.visibility === 'hidden'
+      ? 'none'
+      : `overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')(props)}`};
 
   @keyframes overlay--dialog-appear {
     0% {
