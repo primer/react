@@ -74,14 +74,10 @@ const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      background: ${props => (props.variant === 'danger' ? '#FFF0F2' : '#F0F3F5')};
+      background: ${props =>
+        props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
       cursor: pointer;
     }
-  }
-
-  &:focus {
-    background: ${props => (props.variant === 'danger' ? '#FFDBE0' : '#E0E4E7')};
-    outline: none;
   }
 
   ${sx}

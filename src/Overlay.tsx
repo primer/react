@@ -1,9 +1,5 @@
 import styled from 'styled-components'
-<<<<<<< HEAD
 import React, {ReactElement, useRef} from 'react'
-=======
-import React, {ReactElement} from 'react'
->>>>>>> remove some extra cruft from merges
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'

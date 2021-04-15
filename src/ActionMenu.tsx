@@ -89,7 +89,7 @@ const ActionMenuBase = ({
         'aria-haspopup': 'listbox',
         'aria-label': 'menu',
         onClick: onAnchorClick,
-        onkeydown: onAnchorKeyDown,
+        onKeyDown: onAnchorKeyDown,
         children: triggerContent,
         tabIndex: 0
       })}
@@ -109,6 +109,10 @@ const ActionMenuBase = ({
               renderItem({
                 ...itemProps,
                 role: 'menuitem',
+                onKeyPress: event => {
+                  onActivate && onActivate(itemProps as ItemProps)
+                  onDismiss()
+                },
                 onClick: event => {
                   onActivate && onActivate(itemProps as ItemProps)
                   onClick && onClick(event)
