@@ -5,7 +5,7 @@ import React from 'react'
 it('should call function when user presses escape', () => {
   const functionToCall = jest.fn()
   const Component = () => {
-    useOnEscapePress({onEscape: functionToCall})
+    useOnEscapePress(functionToCall, [])
     return <div>content</div>
   }
 

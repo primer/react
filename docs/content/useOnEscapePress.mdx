@@ -2,13 +2,20 @@
 title: useOnEscapePress
 ---
 
-`useOnEscapePress` is a simple utility Hook that calls a user provided function when the `Escape` key is pressed.
+`useOnEscapePress` is a simple utility Hook that calls a user-provided function when the `Escape` key is pressed. The hook sets up `keydown` event listener on `window.document` and executes the user-provided function if these conditions are met:
+
+1. The Escape key was pressed
+2. The `preventDefault` method has not yet been called on the event object.
+
+Furthermore, unlike the normal behavior for multiple event listeners existing on the same DOM Node, if multiple `useOnEscapePress` hooks are active simultaneously, the callbacks will occur in reverse order. In other words, if a parent component and a child component both call `useOnEscapePress`, when the user presses Escape, the child component's callback will execute, followed by the parent's callback. Each callback has the chance to call `.preventDefault()` on the event to prevent further callbacks.
+
+Similar to `useCallback`, `useOnEscapePress` takes a `React.DependencyList` as its second argument. These are the dependencies used to memoize the callback. Failing to provide the correct dependency list can result in degraded performance.
 
 ### Usage
 
 ```javascript live noinline
 const OverlayDemo = ({onEscape, children}) => {
-  useOnEscapePress({onEscape})
+  useOnEscapePress(onEscape, [])
   return (
     <Box height="200px">
       {children}
@@ -18,11 +25,17 @@ const OverlayDemo = ({onEscape, children}) => {
 
 function DemoComponent() {
   const [isOpen, setIsOpen] = React.useState(false)
+  const toggleOverlay = React.useCallback(() => {
+    setIsOpen(!isOpen)
+  })
+  const closeOverlay = React.useCallback(() => {
+    setIsOpen(false)
+  })
   return (
     <>
-      <Button onClick={() => setIsOpen(!isOpen)}>toggle</Button>
+      <Button onClick={toggleOverlay}>toggle</Button>
       {isOpen &&
-        <OverlayDemo onEscape={() => setIsOpen(false)}>
+        <OverlayDemo onEscape={closeOverlay}>
           <Button>Button One</Button>
           <Button>Button Two</Button>
         </OverlayDemo>}
@@ -33,9 +46,9 @@ function DemoComponent() {
 render(<DemoComponent/>)
 ```
 
-
-#### useOnEscapePress settings
+#### useOnEscapePress
 
 | Name | Type | Default | Description |
 | :- | :- | :-: | :- |
-| onEscape | `function` | | Function to call when user presses the Escape key |
+| onEscape | `(event: KeyboardEvent) => void` | | Function to call when user presses the Escape key |
+| callbackDependencies | `React.DependencyList` | | Array of dependencies for memoizing the given callback |
