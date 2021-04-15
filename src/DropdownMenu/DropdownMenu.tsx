@@ -111,7 +111,7 @@ export function DropdownMenu({
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown
       })}
-      {open && (
+      {open ? (
         <Overlay
           initialFocusRef={anchorRef}
           returnFocusRef={anchorRef}
@@ -150,7 +150,7 @@ export function DropdownMenu({
             }}
           />
         </Overlay>
-      )}
+      ) : null}
     </>
   )
 }
