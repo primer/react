@@ -7,7 +7,21 @@ A `DropdownMenu` provides an anchor (button by default) that will open a floatin
 ## Example
 
 ```jsx live
-<DropdownMenu placeholder="🎨" items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]} />
+<State>
+  {([selectedItem, setSelectedItem]) => (
+    <DropdownMenu
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
+          {children}
+        </DropdownButton>
+      )}
+      placeholder="🎨"
+      items={[{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}]}
+      selectedItem={selectedItem}
+      setSelectedItem={setSelectedItem}
+    />
+  )}
+</State>
 ```
 
 ## Component props
