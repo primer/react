@@ -109,7 +109,7 @@ const ActionMenuBase = ({
               renderItem({
                 ...itemProps,
                 role: 'menuitem',
-                onKeyPress: event => {
+                onKeyPress: _event => {
                   onActivate && onActivate(itemProps as ItemProps)
                   onDismiss()
                 },

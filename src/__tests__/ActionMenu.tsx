@@ -56,60 +56,56 @@ describe('ActionMenu', () => {
 
   it('should trigger the overlay on trigger click', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+    let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
     await anchor.click()
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const itemText = items
       .map((i: ItemProps) => {
         if (i.hasOwnProperty('text')) return i?.text
       })
       .join('')
-    expect(portalRoot.textContent?.trim()).toEqual(itemText)
+    expect(portalRoot?.textContent?.trim()).toEqual(itemText)
   })
 
   it('should dismiss the overlay on menuitem click', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = (await menu.baseElement.querySelector('#__primerPortalRoot__')) as HTMLElement
+    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
     await anchor.click()
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = (await portalRoot.querySelector("[role='menuitem']")) as HTMLElement
-    await menuItem.click()
-    // portal is closed after click
-    portalRoot = (await menu.baseElement.querySelector('#__primerPortalRoot__')) as HTMLElement
-    expect(portalRoot.textContent).toEqual('') // menu items are hidden
+    const menuItem = await menu.queryByText(items[0].text)
+    menuItem?.click()
+    expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
   it('should dismiss the overlay on clicking outside overlay', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = (await menu.baseElement.querySelector('#__primerPortalRoot__')) as HTMLElement
+    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
     await anchor.click()
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    await somethingElse.click()
-    // portal is closed after click
-    portalRoot = (await menu.baseElement.querySelector('#__primerPortalRoot__')) as HTMLElement
-    expect(portalRoot.textContent).toEqual('') // menu items are hidden
+    await somethingElse?.click()
+    expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
   it('should pass correct values to onActivate on menu click', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = (await menu.baseElement.querySelector('#__primerPortalRoot__')) as HTMLElement
+    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
     await anchor.click()
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = (await portalRoot.querySelector("[role='menuitem']")) as HTMLElement
-    await menuItem.click()
+    const menuItem = (await portalRoot?.querySelector("[role='menuitem']")) as HTMLElement
+    await menuItem?.click()
     // onActivate has been called with correct argument
     expect(mockOnActivate).toHaveBeenCalledTimes(1)
     const arg = mockOnActivate.mock.calls[0][0]
