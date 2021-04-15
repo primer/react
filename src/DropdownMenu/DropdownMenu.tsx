@@ -11,7 +11,7 @@ import randomId from '../utils/randomId'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
-   * A custom fuction component used to render the anchor element.
+   * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    * Uses a `DropdownButton` by default.
    */
