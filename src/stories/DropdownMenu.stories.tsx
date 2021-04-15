@@ -4,16 +4,12 @@ import {theme, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {registerPortalRoot} from '../Portal'
 
 const meta: Meta = {
   title: 'Composite components/DropdownMenu',
   component: DropdownMenu,
   decorators: [
     (Story: React.ComponentType): JSX.Element => {
-      // Since portal roots are registered globally, we need this line so that each storybook
-      // story works in isolation.
-      registerPortalRoot(undefined)
       return (
         <ThemeProvider theme={theme}>
           <BaseStyles>

@@ -1,6 +1,5 @@
 import {isTabbable, iterateFocusableElements} from '../utils/iterateFocusableElements'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
-import {prepareForFocusWithoutMouse} from '../hooks/useMouseIntent'
 
 eventListenerSignalPolyfill()
 
@@ -84,7 +83,6 @@ export function focusTrap(
         } else {
           const toFocus = initialFocus && container.contains(initialFocus) ? initialFocus : getFocusableChild(container)
           if (toFocus) {
-            prepareForFocusWithoutMouse()
             toFocus.focus()
             return
           } else {

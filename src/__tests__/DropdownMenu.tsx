@@ -7,7 +7,6 @@ import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
-import {registerPortalRoot} from '../Portal/index'
 import {ItemInput} from '../ActionList/List'
 
 expect.extend(toHaveNoViolations)
@@ -35,8 +34,6 @@ function SimpleDropdownMenu(): JSX.Element {
 
 describe('DropdownMenu', () => {
   afterEach(() => {
-    // since the registry is global, reset after each test
-    registerPortalRoot(undefined)
     jest.clearAllMocks()
   })
 
