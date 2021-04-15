@@ -25,7 +25,7 @@ function SimpleActionMenu(): JSX.Element {
     <ThemeProvider theme={theme}>
       <BaseStyles>
         <div id="something-else">X</div>
-        <ActionMenu onAction={mockOnActivate} triggerContent="Menu" items={items} />
+        <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
         <div id="portal-root"></div>
       </BaseStyles>
     </ThemeProvider>

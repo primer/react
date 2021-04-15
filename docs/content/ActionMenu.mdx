@@ -8,7 +8,7 @@ An `ActionMenu` is a simple ActionList based component for creating a menu of ac
 
 ```jsx live
 <ActionMenu
-  triggerContent="Menu"
+  anchorContent="Menu"
   onAction={({text}) => console.log(text)}
   items={[
     {text: 'New file'},
@@ -22,10 +22,10 @@ An `ActionMenu` is a simple ActionList based component for creating a menu of ac
 
 ## Component props
 
-| Name           | Type                                |      Default      | Description                                                                                                                                             |
-| :------------- | :---------------------------------- | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| items          | `ItemProps[]`                       |    `undefined`    | Required. A list of item objects conforming to the `ActionList.Item` props interface.                                                                   |
-| renderItem     | `(props: ItemProps) => JSX.Element` | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                       |
-| groupMetadata  | `GroupProps[]`                      |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property. |
-| triggerContent | React.ReactNode                     |    `undefined`    | Optional. If defined, it will be passed to the trigger as the elements child.                                                                           |
-| onAction       | (props: ItemProps) => void          |    `undefined`    | Optional. If defined, this function will be called when a menu item is activated either by a click or a keyboard press.                                 |
+| Name          | Type                                |      Default      | Description                                                                                                                                             |
+| :------------ | :---------------------------------- | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| items         | `ItemProps[]`                       |    `undefined`    | Required. A list of item objects conforming to the `ActionList.Item` props interface.                                                                   |
+| renderItem    | `(props: ItemProps) => JSX.Element` | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                       |
+| groupMetadata | `GroupProps[]`                      |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property. |
+| anchorContent | React.ReactNode                     |    `undefined`    | Optional. If defined, it will be passed to the trigger as the elements child.                                                                           |
+| onAction      | (props: ItemProps) => void          |    `undefined`    | Optional. If defined, this function will be called when a menu item is activated either by a click or a keyboard press.                                 |

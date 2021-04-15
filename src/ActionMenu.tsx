@@ -12,7 +12,7 @@ import {useAnchoredPosition} from './hooks/useAnchoredPosition'
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
-  triggerContent?: React.ReactNode
+  anchorContent?: React.ReactNode
   onAction?: (props: ItemProps) => void
 }
 
@@ -21,8 +21,8 @@ const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
 ActionMenuItem.displayName = 'ActionMenu.Item'
 
 const ActionMenuBase = ({
-  triggerContent,
-  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{triggerContent}</Button>,
+  anchorContent,
+  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{anchorContent}</Button>,
   renderItem = Item,
   onAction,
   ...listProps
@@ -90,7 +90,7 @@ const ActionMenuBase = ({
         'aria-label': 'menu',
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown,
-        children: triggerContent,
+        children: anchorContent,
         tabIndex: 0
       })}
       {open ? (
