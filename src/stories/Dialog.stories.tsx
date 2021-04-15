@@ -13,7 +13,6 @@ export default {
     Story => {
       // Since portal roots are registered globally, we need this line so that each storybook
       // story works in isolation.
-      registerPortalRoot(undefined)
       return (
         <ThemeProvider>
           <BaseStyles>
@@ -70,9 +69,12 @@ const dialogContents = (
 
 export const BasicDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
   return (
     <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -85,10 +87,15 @@ export const BasicDialog = () => {
           onClose={onDialogClose}
           footerButtons={[
             {element: ButtonDanger, text: 'Delete the universe'},
-            {element: ButtonPrimary, text: 'Proceed'}
+            {element: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog}
           ]}
         >
           {dialogContents}
+          {secondOpen && (
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose}>
+              Hello world
+            </Dialog>
+          )}
         </Dialog>
       )}
     </Position>

@@ -9,6 +9,7 @@ import StyledOcticon from '../StyledOcticon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
+import Portal from '../Portal'
 
 export type DialogButtonProps = ButtonProps & {
   element?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
@@ -133,16 +134,16 @@ const _Dialog: React.FC<DialogProps> = ({
   })
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'first'
+    focusInStrategy: 'closest'
   })
+
   useOnEscapePress({
     onEscape: e => {
-      if (!e.defaultPrevented) {
-        onClose()
-        e.preventDefault()
-      }
+      onClose()
+      e.preventDefault()
     }
   })
+
   const header = renderHeader?.(title) ?? (
     <Dialog.Header divided={variant === 'divided'}>
       <Flex>
@@ -173,12 +174,14 @@ const _Dialog: React.FC<DialogProps> = ({
     ))
   return (
     <>
-      <Backdrop ref={backdropRef}></Backdrop>
-      <StyledDialog {...position} visibility={position ? 'visible' : 'hidden'} ref={dialogRef}>
-        {header}
-        {body}
-        {footer}
-      </StyledDialog>
+      <Portal>
+        <Backdrop ref={backdropRef}></Backdrop>
+        <StyledDialog {...position} visibility={position ? 'visible' : 'hidden'} ref={dialogRef}>
+          {header}
+          {body}
+          {footer}
+        </StyledDialog>
+      </Portal>
     </>
   )
 }

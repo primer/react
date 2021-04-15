@@ -59,7 +59,14 @@ export interface PortalProps {
  * @see https://reactjs.org/docs/portals.html
  */
 export const Portal: React.FC<PortalProps> = ({children, onMount, containerName: _containerName}) => {
-  const elementRef = React.useRef(document.createElement('div'))
+  const element = document.createElement('div')
+
+  // Portaled content should get their own stacking context so they don't interfere
+  // with each other in unexpected ways. One should never find themselves tempted
+  // to change the zIndex to a value other than "0".
+  element.style.position = 'relative'
+  element.style.zIndex = '0'
+  const elementRef = React.useRef(element)
 
   React.useLayoutEffect(() => {
     let containerName = _containerName
