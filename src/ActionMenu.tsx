@@ -13,7 +13,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   triggerContent?: React.ReactNode
-  onActivate?: (props: ItemProps) => void
+  onAction?: (props: ItemProps) => void
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -24,7 +24,7 @@ const ActionMenuBase = ({
   triggerContent,
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props}>{triggerContent}</Button>,
   renderItem = Item,
-  onActivate,
+  onAction,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
@@ -110,11 +110,11 @@ const ActionMenuBase = ({
                 ...itemProps,
                 role: 'menuitem',
                 onKeyPress: _event => {
-                  onActivate && onActivate(itemProps as ItemProps)
+                  onAction && onAction(itemProps as ItemProps)
                   onDismiss()
                 },
                 onClick: event => {
-                  onActivate && onActivate(itemProps as ItemProps)
+                  onAction && onAction(itemProps as ItemProps)
                   onClick && onClick(event)
                   onDismiss()
                 }

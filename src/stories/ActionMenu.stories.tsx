@@ -52,7 +52,7 @@ const ErsatzOverlay = styled.div`
 
 export function ActionsStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
-  const onActivate = (itemProps: ItemProps) => {
+  const onAction = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -61,7 +61,7 @@ export function ActionsStory(): JSX.Element {
       <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
-          onActivate={onActivate}
+          onAction={onAction}
           triggerContent={<ServerIcon />}
           items={[
             {
@@ -89,7 +89,7 @@ ActionsStory.storyName = 'Actions'
 
 export function SimpleListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
-  const onActivate = (itemProps: ItemProps) => {
+  const onAction = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -98,7 +98,7 @@ export function SimpleListStory(): JSX.Element {
       <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
-          onActivate={onActivate}
+          onAction={onAction}
           triggerContent="Menu"
           items={[
             {text: 'New file', trailingText: '⌘O'},
@@ -116,7 +116,7 @@ SimpleListStory.storyName = 'Simple List'
 
 export function ComplexListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
-  const onActivate = (itemProps: ItemProps) => {
+  const onAction = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -125,7 +125,7 @@ export function ComplexListStory(): JSX.Element {
       <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
-          onActivate={onActivate}
+          onAction={onAction}
           triggerContent="Menu"
           groupMetadata={[
             {groupId: '0'},
@@ -177,7 +177,7 @@ ComplexListStory.storyName = 'Complex List'
 export function CustomTrigger(): JSX.Element {
   const customAnchor = (props: LinkProps) => <Link {...props} sx={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
-  const onActivate = (itemProps: ItemProps) => {
+  const onAction = (itemProps: ItemProps) => {
     setOption(itemProps.text)
   }
   return (
@@ -186,7 +186,7 @@ export function CustomTrigger(): JSX.Element {
       <h2>Last option activated: {option}</h2>
       <ErsatzOverlay>
         <ActionMenu
-          onActivate={onActivate}
+          onAction={onAction}
           triggerContent="Menu"
           renderAnchor={customAnchor}
           items={[

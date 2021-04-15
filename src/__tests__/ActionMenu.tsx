@@ -25,7 +25,7 @@ function SimpleActionMenu(): JSX.Element {
     <ThemeProvider theme={theme}>
       <BaseStyles>
         <div id="something-else">X</div>
-        <ActionMenu onActivate={mockOnActivate} triggerContent="Menu" items={items} />
+        <ActionMenu onAction={mockOnActivate} triggerContent="Menu" items={items} />
         <div id="portal-root"></div>
       </BaseStyles>
     </ThemeProvider>
@@ -95,7 +95,7 @@ describe('ActionMenu', () => {
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
-  it('should pass correct values to onActivate on menu click', async () => {
+  it('should pass correct values to onAction on menu click', async () => {
     const menu = HTMLRender(<SimpleActionMenu />)
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
@@ -105,7 +105,7 @@ describe('ActionMenu', () => {
     expect(portalRoot).toBeTruthy()
     const menuItem = (await portalRoot?.querySelector("[role='menuitem']")) as HTMLElement
     await menuItem?.click()
-    // onActivate has been called with correct argument
+    // onAction has been called with correct argument
     expect(mockOnActivate).toHaveBeenCalledTimes(1)
     const arg = mockOnActivate.mock.calls[0][0]
     expect(arg.text).toEqual(items[0].text)
