@@ -2,8 +2,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {registerPortalRoot} from '../Portal'
-import {BaseStyles, Button, ButtonDanger, ButtonPrimary, ThemeProvider, Position} from '..'
+import {BaseStyles, Button, ButtonDanger, ButtonPrimary, Text, ThemeProvider, Position} from '..'
 import {Dialog} from '../Dialog/Dialog'
 
 export default {
@@ -24,7 +23,7 @@ export default {
   ]
 } as Meta
 
-const dialogContents = (
+const lipsum = (
   <div style={{fontSize: '14px'}}>
     <p style={{marginBlockStart: 0}}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin mauris maximus elit sagittis, nec
@@ -70,6 +69,7 @@ const dialogContents = (
 export const BasicDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
+  const [variant, setVariant] = useState<'condensed' | 'divided'>('divided')
   const buttonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -90,7 +90,7 @@ export const BasicDialog = () => {
             {element: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog}
           ]}
         >
-          {dialogContents}
+          {lipsum}
           {secondOpen && (
             <Dialog title="Inner dialog!" onClose={onSecondDialogClose}>
               Hello world

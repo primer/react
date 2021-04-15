@@ -23,7 +23,6 @@ export interface DialogProps {
   renderBody?: (contents: React.ReactNode) => React.ReactNode
   renderFooter?: (buttons: DialogButtonProps[] | undefined) => React.ReactNode
   footerButtons?: DialogButtonProps[]
-  variant?: 'divided' | 'condensed'
   onClose: () => void
 }
 
@@ -68,12 +67,13 @@ interface StyledDialogProps {
 }
 
 /*
+
 Dialog questions:
 
 1. How does "auto" width and height work?
-2. v/h scrolling. Title and buttons fixed?
-3. Closing animation?
-4. Backdrop fade-in?
+2. Closing animation?
+3. Backdrop fade-in?
+4. Auto focus on dialog open?
 
 */
 
@@ -115,7 +115,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
 const _Dialog: React.FC<DialogProps> = ({
   title = 'Dialog',
   subtitle = '',
-  variant = 'divided',
   renderHeader,
   renderBody,
   renderFooter,
@@ -145,10 +144,10 @@ const _Dialog: React.FC<DialogProps> = ({
   })
 
   const header = renderHeader?.(title) ?? (
-    <Dialog.Header divided={variant === 'divided'}>
+    <Dialog.Header>
       <Flex>
         <Flex pt={2} flexDirection="column" flexGrow={1}>
-          <Dialog.Title size={variant === 'divided' ? 'normal' : 'large'}>{title ?? 'Dialog'}</Dialog.Title>
+          <Dialog.Title>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle>{subtitle}</Dialog.Subtitle>}
         </Flex>
         <DialogCloseButton onClick={onClose}>
@@ -198,16 +197,16 @@ const DialogCloseButton = styled(Button)`
   box-shadow: none;
 `
 
-const Header = styled.header<{divided: boolean}>`
-  box-shadow: ${props => (props.divided ? `0 1px 0 ${get('colors.border.overlay')(props)}` : '')};
+const Header = styled.header`
+  box-shadow: 0 1px 0 ${get('colors.border.overlay')};
   padding: 6px 6px 14px ${get('space.3')};
   z-index: 1;
 `
-const Title = styled.div<{size?: 'normal' | 'large'}>`
-  font-size: ${props => (props.size === 'large' ? get('fontSizes.3')(props) : get('fontSizes.1')(props))};
+const Title = styled.div`
+  font-size: ${get('fontSizes.1')};
   font-weight: 700;
 `
-const Subtitle = styled.div<{size?: 'normal' | 'large'}>`
+const Subtitle = styled.div`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.text.tertiary')};
 `
