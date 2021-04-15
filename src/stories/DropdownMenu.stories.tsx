@@ -3,7 +3,7 @@ import React from 'react'
 import {theme, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
-import {DropdownMenu} from '../DropdownMenu'
+import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {registerPortalRoot} from '../Portal'
 
 const meta: Meta = {
@@ -39,7 +39,17 @@ export function FavoriteColorStory(): JSX.Element {
     <>
       <h1>Favorite Color</h1>
       <div id="favorite-color-label">Please select your favorite color:</div>
-      <DropdownMenu placeholder="🎨" items={items} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+      <DropdownMenu
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
+            {children}
+          </DropdownButton>
+        )}
+        placeholder="🎨"
+        items={items}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
+      />
     </>
   )
 }
