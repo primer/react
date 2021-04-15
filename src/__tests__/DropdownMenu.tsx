@@ -24,7 +24,7 @@ function SimpleDropdownMenu(): JSX.Element {
           items={items}
           placeholder="Select an Option"
           selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
+          onChange={setSelectedItem}
         />
         <div id="portal-root"></div>
       </BaseStyles>

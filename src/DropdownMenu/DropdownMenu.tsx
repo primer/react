@@ -31,20 +31,20 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * A callback which receives the selected item or `undefined` when an item is activated in the menu.  If the activated item is the same as the current
    * `selectedItem`, `undefined` will be passed.
    */
-  setSelectedItem?: (item?: ItemInput) => unknown
+  onChange?: (item?: ItemInput) => unknown
 }
 
 /**
  * A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be
- * opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the anchor contents will be updated
- * with the selection.
+ * opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the `onChange` callback will be called.
+ * If the default anchor button is used, the anchor contents will be updated with the selection.
  */
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
   renderItem = Item,
   placeholder,
   selectedItem,
-  setSelectedItem,
+  onChange,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
@@ -125,7 +125,7 @@ export function DropdownMenu({
             role="listbox"
             renderItem={({onClick, onKeyDown, item, ...itemProps}) => {
               const itemActivated = () => {
-                setSelectedItem?.(item === selectedItem ? undefined : item)
+                onChange?.(item === selectedItem ? undefined : item)
                 onDismiss()
               }
 

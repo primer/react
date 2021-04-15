@@ -44,7 +44,7 @@ export function FavoriteColorStory(): JSX.Element {
         placeholder="🎨"
         items={items}
         selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
+        onChange={setSelectedItem}
       />
     </>
   )

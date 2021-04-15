@@ -2,7 +2,7 @@
 title: DropdownMenu
 ---
 
-A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items. The menu can be opened and navigated using keyboard or mouse. When an item is selected, the menu will close and the anchor contents will be updated with the selection.
+A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the `onChange` callback will be called.  If the default anchor button is used, the anchor contents will be updated with the selection.
 
 ## Example
 
@@ -21,7 +21,7 @@ function DemoComponent() {
       placeholder="🎨"
       items={items}
       selectedItem={selectedItem}
-      setSelectedItem={setSelectedItem}
+      onChange={setSelectedItem}
     />
   )
 }
