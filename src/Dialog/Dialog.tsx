@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback, useRef} from 'react'
 import styled from 'styled-components'
 import {Button, ButtonPrimary, ButtonDanger, ButtonProps, Flex} from '..'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
@@ -122,8 +122,8 @@ const _Dialog: React.FC<DialogProps> = ({
   onClose,
   children
 }) => {
-  const dialogRef = React.useRef<HTMLDivElement>(null)
-  const backdropRef = React.useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef})
   const {position} = useAnchoredPosition({
     side: 'inside-center',
@@ -136,12 +136,13 @@ const _Dialog: React.FC<DialogProps> = ({
     focusInStrategy: 'closest'
   })
 
-  useOnEscapePress({
-    onEscape: e => {
+  useOnEscapePress(
+    (event: KeyboardEvent) => {
       onClose()
-      e.preventDefault()
-    }
-  })
+      event.preventDefault()
+    },
+    [onClose]
+  )
 
   const header = renderHeader?.(title) ?? (
     <Dialog.Header>

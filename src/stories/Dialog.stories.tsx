@@ -69,7 +69,6 @@ const lipsum = (
 export const BasicDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
-  const [variant, setVariant] = useState<'condensed' | 'divided'>('divided')
   const buttonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -77,8 +76,8 @@ export const BasicDialog = () => {
   const openSecondDialog = useCallback(() => setSecondOpen(true), [])
   return (
     <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        open overlay
+      <Button m={2} ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
       </Button>
       {isOpen && (
         <Dialog
@@ -86,7 +85,7 @@ export const BasicDialog = () => {
           subtitle="This is a subtitle!"
           onClose={onDialogClose}
           footerButtons={[
-            {element: ButtonDanger, text: 'Delete the universe'},
+            {element: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
             {element: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog}
           ]}
         >
