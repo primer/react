@@ -9,7 +9,7 @@ An `ActionMenu` is a simple ActionList based component for creating a menu of ac
 ```jsx live
 <ActionMenu
   triggerContent="Menu"
-  onActivate={{text} => console.log(text)}
+  onActivate={({text}) => console.log(text)}
   items={[
     {text: 'New file'},
     ActionMenu.Divider,
