@@ -37,6 +37,8 @@ export const useOnEscapePress = (
       }
     }
   }, [])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const escapeCallback = useCallback(onEscape, callbackDependencies ?? [onEscape])
   useEffect(() => {
     if (handlers.length === 0) {
@@ -54,5 +56,5 @@ export const useOnEscapePress = (
         console.log('removed')
       }
     }
-  }, [escapeCallback])
+  }, [escapeCallback, handleEscape])
 }
