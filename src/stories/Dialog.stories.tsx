@@ -131,12 +131,11 @@ function customFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
 }
 export const WithCustomRenderers = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
     <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <Button m={2} ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button m={2} onClick={() => setIsOpen(!isOpen)}>
         Show dialog
       </Button>
       {isOpen && (

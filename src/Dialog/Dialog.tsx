@@ -11,6 +11,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'
 import {uniqueId} from '../utils/uniqueId'
+import {useCombinedRefs} from '../hooks/useCombinedRefs'
 
 const ANIMATION_DURATION = '200ms'
 
@@ -169,7 +170,7 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   ${sx};
 `
 
-const _Dialog: React.FC<DialogProps> = React.forwardRef((props, forwardedRef) => {
+const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -186,6 +187,7 @@ const _Dialog: React.FC<DialogProps> = React.forwardRef((props, forwardedRef) =>
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)
+  const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
   const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef})
   const {position} = useAnchoredPosition({
@@ -235,7 +237,7 @@ const _Dialog: React.FC<DialogProps> = React.forwardRef((props, forwardedRef) =>
         <StyledDialog
           {...position}
           visibility={position ? 'visible' : 'hidden'}
-          ref={dialogRef}
+          ref={combinedRef as React.RefObject<HTMLDivElement>}
           role={role}
           aria-labelledby={dialogLabelId}
           aria-describedby={dialogDescriptionId}
