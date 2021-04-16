@@ -100,6 +100,35 @@ export function DropdownMenu({
   useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
   useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
 
+  const renderItemWithCallbacks = useCallback(
+    ({onClick, onKeyDown, item, ...itemProps}) => {
+      const handleSelection = () => {
+        onChange?.(item === selectedItem ? undefined : item)
+        onDismiss()
+      }
+
+      return renderItem({
+        ...itemProps,
+        item,
+        role: 'option',
+        selected: item === selectedItem,
+        onClick: event => {
+          handleSelection()
+          onClick?.(event)
+        },
+        onKeyDown: event => {
+          if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
+            handleSelection()
+            // prevent "Enter" event from becoming a click on the anchor as overlay closes
+            event.preventDefault()
+          }
+          onKeyDown?.(event)
+        }
+      })
+    },
+    [onChange, onDismiss, renderItem, selectedItem]
+  )
+
   return (
     <>
       {renderAnchor({
@@ -120,35 +149,7 @@ export function DropdownMenu({
           ref={updateOverlayRef}
           {...position}
         >
-          <List
-            {...listProps}
-            role="listbox"
-            renderItem={({onClick, onKeyDown, item, ...itemProps}) => {
-              const handleSelection = () => {
-                onChange?.(item === selectedItem ? undefined : item)
-                onDismiss()
-              }
-
-              return renderItem({
-                ...itemProps,
-                item,
-                role: 'option',
-                selected: item === selectedItem,
-                onClick: event => {
-                  handleSelection()
-                  onClick?.(event)
-                },
-                onKeyDown: event => {
-                  if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-                    handleSelection()
-                    // prevent "Enter" event from becoming a click on the anchor as overlay closes
-                    event.preventDefault()
-                  }
-                  onKeyDown?.(event)
-                }
-              })
-            }}
-          />
+          <List {...listProps} role="listbox" renderItem={renderItemWithCallbacks} />
         </Overlay>
       ) : null}
     </>
