@@ -110,12 +110,12 @@ const ActionMenuBase = ({
                 ...itemProps,
                 role: 'menuitem',
                 onKeyPress: _event => {
-                  onAction && onAction(itemProps as ItemProps)
+                  onAction?.(itemProps as ItemProps)
                   onDismiss()
                 },
                 onClick: event => {
-                  onAction && onAction(itemProps as ItemProps)
-                  onClick && onClick(event)
+                  onAction?.(itemProps as ItemProps)
+                  onClick?.(event)
                   onDismiss()
                 }
               })
