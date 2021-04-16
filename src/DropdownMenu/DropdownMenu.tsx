@@ -73,7 +73,7 @@ export function DropdownMenu({
             event.preventDefault()
           }
         } else if (focusType === 'anchor') {
-          if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].indexOf(event.key) !== -1) {
+          if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].includes(event.key)) {
             setFocusType('list')
             event.preventDefault()
           } else if (event.key === 'Escape') {
