@@ -7,6 +7,7 @@ import Overlay from './Overlay'
 import {useFocusTrap} from './hooks/useFocusTrap'
 import {useFocusZone} from './hooks/useFocusZone'
 import {useAnchoredPosition} from './hooks/useAnchoredPosition'
+import {useRenderForcingRef} from './hooks/useRenderForcingRef'
 import {uniqueId} from './utils/uniqueId'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
