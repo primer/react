@@ -10,8 +10,9 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'
+import {uniqueId} from '../utils/uniqueId'
 
-const ANIMATION_DURATION = "200ms"
+const ANIMATION_DURATION = '200ms'
 
 export type DialogButtonProps = ButtonProps & {
   element?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
@@ -21,11 +22,23 @@ export type DialogButtonProps = ButtonProps & {
 export interface DialogProps {
   title?: string | JSX.Element
   subtitle?: string | JSX.Element
-  renderHeader?: (title: string | JSX.Element | undefined) => React.ReactNode
+  renderHeader?: (
+    title?: string | JSX.Element | undefined,
+    subtitle?: string | JSX.Element | undefined,
+    dialogLabelId?: string,
+    dialogDescriptionId?: string
+  ) => React.ReactNode
   renderBody?: (contents: React.ReactNode) => React.ReactNode
   renderFooter?: (buttons: DialogButtonProps[] | undefined) => React.ReactNode
   footerButtons?: DialogButtonProps[]
   onClose: () => void
+
+  /**
+   * Default: "dialog". The ARIA role to assign to this dialog.
+   * @see https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal
+   * @see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog
+   */
+  role?: 'dialog' | 'alertdialog'
 }
 
 const Backdrop = styled('div')`
@@ -67,17 +80,6 @@ interface StyledDialogProps {
   height?: keyof typeof heightMap
   visibility?: 'visible' | 'hidden'
 }
-
-/*
-
-Dialog questions:
-
-1. How does "auto" width and height work?
-2. Closing animation?
-3. Backdrop fade-in?
-4. Auto focus on dialog open?
-
-*/
 
 const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPositionProps & SxProp>`
   display: flex;
@@ -124,7 +126,8 @@ const _Dialog: React.FC<DialogProps> = ({
   renderFooter,
   footerButtons,
   onClose,
-  children
+  children,
+  role = 'dialog'
 }) => {
   const dialogRef = useRef<HTMLDivElement>(null)
   const backdropRef = useRef<HTMLDivElement>(null)
@@ -140,20 +143,23 @@ const _Dialog: React.FC<DialogProps> = ({
     focusInStrategy: 'closest'
   })
 
-  useOnEscapePress(
+  const callback = useCallback(
     (event: KeyboardEvent) => {
       onClose()
       event.preventDefault()
     },
     [onClose]
   )
+  useOnEscapePress(callback)
 
-  const header = renderHeader?.(title) ?? (
+  const dialogLabelId = uniqueId()
+  const dialogDescriptionId = uniqueId()
+  const header = renderHeader?.(title, subtitle, dialogLabelId, dialogDescriptionId) ?? (
     <Dialog.Header>
       <Flex>
         <Flex pt={2} flexDirection="column" flexGrow={1}>
-          <Dialog.Title>{title ?? 'Dialog'}</Dialog.Title>
-          {subtitle && <Dialog.Subtitle>{subtitle}</Dialog.Subtitle>}
+          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
+          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Flex>
         <DialogCloseButton onClick={onClose}>
           <StyledOcticon icon={XIcon} />
@@ -176,11 +182,19 @@ const _Dialog: React.FC<DialogProps> = ({
         })}
       </Dialog.Footer>
     ))
+
   return (
     <>
       <Portal>
         <Backdrop ref={backdropRef}></Backdrop>
-        <StyledDialog {...position} visibility={position ? 'visible' : 'hidden'} ref={dialogRef}>
+        <StyledDialog
+          {...position}
+          visibility={position ? 'visible' : 'hidden'}
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+        >
           {header}
           {body}
           {footer}
