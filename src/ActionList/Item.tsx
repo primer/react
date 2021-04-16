@@ -109,6 +109,7 @@ const LeadingVisualContainer = styled(BaseVisualContainer)``
 const TrailingVisualContainer = styled(BaseVisualContainer)`
   color: ${get('colors.icon.tertiary')};
   margin-left: auto;
+  margin-right: 0;
   div:nth-child(2) {
     margin-left: ${get('space.2')};
   }
