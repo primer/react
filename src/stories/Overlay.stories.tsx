@@ -3,7 +3,6 @@ import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {registerPortalRoot} from '../Portal'
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
 
 export default {
@@ -11,9 +10,6 @@ export default {
   component: Overlay,
   decorators: [
     Story => {
-      // Since portal roots are registered globally, we need this line so that each storybook
-      // story works in isolation.
-      registerPortalRoot(undefined)
       return (
         <ThemeProvider>
           <BaseStyles>
@@ -52,7 +48,7 @@ export const DropdownOverlay = () => {
       <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && (
+      {isOpen ? (
         <Overlay
           returnFocusRef={buttonRef}
           height="auto"
@@ -69,7 +65,7 @@ export const DropdownOverlay = () => {
             <DummyItem>Delete</DummyItem>
           </Flex>
         </Overlay>
-      )}
+      ) : null}
     </>
   )
 }
@@ -85,7 +81,7 @@ export const DialogOverlay = () => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && (
+      {isOpen ? (
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
@@ -102,7 +98,7 @@ export const DialogOverlay = () => {
             </Button>
           </Flex>
         </Overlay>
-      )}
+      ) : null}
     </Position>
   )
 }

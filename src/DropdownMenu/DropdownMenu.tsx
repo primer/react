@@ -7,11 +7,11 @@ import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
 import {useRenderForcingRef} from '../hooks/useRenderForcingRef'
-import randomId from '../utils/randomId'
+import {uniqueId} from '../utils/uniqueId'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
-   * A custom fuction component used to render the anchor element.
+   * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    * Uses a `DropdownButton` by default.
    */
@@ -31,26 +31,26 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * A callback which receives the selected item or `undefined` when an item is activated in the menu.  If the activated item is the same as the current
    * `selectedItem`, `undefined` will be passed.
    */
-  setSelectedItem?: (item?: ItemInput) => unknown
+  onChange?: (item?: ItemInput) => unknown
 }
 
 /**
  * A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be
- * opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the anchor contents will be updated
- * with the selection.
+ * opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the `onChange` callback will be called.
+ * If the default anchor button is used, the anchor contents will be updated with the selection.
  */
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
   renderItem = Item,
   placeholder,
   selectedItem,
-  setSelectedItem,
+  onChange,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
 
-  const anchorId = `dropdownMenuAnchor-${randomId()}`
+  const anchorId = `dropdownMenuAnchor-${uniqueId()}`
 
   const [open, setOpen] = useState<boolean>(false)
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
@@ -63,17 +63,17 @@ export function DropdownMenu({
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
         if (!open) {
-          if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          if (['ArrowDown', 'ArrowUp'].includes(event.key)) {
             setFocusType('list')
             setOpen(true)
             event.preventDefault()
-          } else if (event.key === ' ' || event.key === 'Enter') {
+          } else if ([' ', 'Enter'].includes(event.key)) {
             setFocusType('anchor')
             setOpen(true)
             event.preventDefault()
           }
         } else if (focusType === 'anchor') {
-          if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].indexOf(event.key) !== -1) {
+          if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].includes(event.key)) {
             setFocusType('list')
             event.preventDefault()
           } else if (event.key === 'Escape') {
@@ -111,7 +111,7 @@ export function DropdownMenu({
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown
       })}
-      {open && (
+      {open ? (
         <Overlay
           initialFocusRef={anchorRef}
           returnFocusRef={anchorRef}
@@ -124,8 +124,8 @@ export function DropdownMenu({
             {...listProps}
             role="listbox"
             renderItem={({onClick, onKeyDown, item, ...itemProps}) => {
-              const itemActivated = () => {
-                setSelectedItem?.(item === selectedItem ? undefined : item)
+              const handleSelection = () => {
+                onChange?.(item === selectedItem ? undefined : item)
                 onDismiss()
               }
 
@@ -135,22 +135,22 @@ export function DropdownMenu({
                 role: 'option',
                 selected: item === selectedItem,
                 onClick: event => {
-                  itemActivated()
-                  onClick && onClick(event)
+                  handleSelection()
+                  onClick?.(event)
                 },
                 onKeyDown: event => {
                   if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-                    itemActivated()
+                    handleSelection()
                     // prevent "Enter" event from becoming a click on the anchor as overlay closes
                     event.preventDefault()
                   }
-                  onKeyDown && onKeyDown(event)
+                  onKeyDown?.(event)
                 }
               })
             }}
           />
         </Overlay>
-      )}
+      ) : null}
     </>
   )
 }

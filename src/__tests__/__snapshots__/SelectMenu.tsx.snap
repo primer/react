@@ -246,7 +246,6 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 @media (hover:hover) {
-  .c5 body:not(.intent-mouse) .SelectMenu-item:focus,
   .c5:hover,
   .c5:active,
   .c5:focus {

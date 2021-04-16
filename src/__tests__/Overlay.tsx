@@ -27,7 +27,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
         open overlay
       </Button>
       <Button>outside</Button>
-      {isOpen && (
+      {isOpen ? (
         <Overlay
           initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
           returnFocusRef={buttonRef}
@@ -44,7 +44,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
             </Button>
           </Flex>
         </Overlay>
-      )}
+      ) : null}
     </Position>
   )
 }

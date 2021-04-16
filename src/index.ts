@@ -19,7 +19,6 @@ export type {PositionProps, AbsoluteProps, FixedProps, RelativeProps, StickyProp
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
-export {default as useMouseIntent} from './hooks/useMouseIntent'
 export {default as useSafeTimeout} from './hooks/useSafeTimeout'
 export {useOnOutsideClick} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
@@ -79,8 +78,9 @@ export type {
   DropdownItemProps,
   DropdownMenuProps
 } from './Dropdown'
-export {DropdownButton} from './DropdownMenu/DropdownButton'
-export {DropdownMenu} from './DropdownMenu/DropdownMenu'
+export {DropdownButton, DropdownMenu} from './DropdownMenu'
+// not exporting new DropdownMenu types yet due to conflict with Dropdown types above
+// export type {DropdownButtonProps, DropdownMenuProps} from './DropdownMenu'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
 export {default as FilterList} from './FilterList'
