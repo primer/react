@@ -13,5 +13,3 @@ export const DropdownButton = React.forwardRef<HTMLElement, React.PropsWithChild
     </Button>
   )
 )
-
-DropdownButton.displayName = 'DropdownMenu.Button'
