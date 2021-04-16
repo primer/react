@@ -27,6 +27,8 @@ export {useOverlay} from './hooks/useOverlay'
 
 // Components
 export {ActionList} from './ActionList'
+export {ActionMenu} from './ActionMenu'
+export type {ActionMenuProps} from './ActionMenu'
 export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
