@@ -108,7 +108,7 @@ exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = 
   color: #586069;
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #1b1f23;
+  color: #ffffff;
 }
 
 .c0:hover {
@@ -136,7 +136,7 @@ exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = 
 
 <a
   className="c0"
-  color="black"
+  color="text.inverse"
   muted={true}
 />
 `;
@@ -187,7 +187,7 @@ exports[`Link respects hoverColor prop 1`] = `
 .c0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #2188ff;
+  color: #0366d6;
 }
 
 .c0:is(button) {

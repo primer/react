@@ -1,6 +1,7 @@
 import semver from 'semver'
 import {Deprecations} from './deprecate'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ourVersion = require('../../package.json').version
 
 beforeEach(() => {

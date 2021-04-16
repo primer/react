@@ -12,18 +12,6 @@ type StyledLinkProps = {
   SxProp &
   SystemTypographyProps
 
-const buttonStyles = `
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  appearance: none;
-`
-
 const hoverColor = system({
   hoverColor: {
     property: 'color',
