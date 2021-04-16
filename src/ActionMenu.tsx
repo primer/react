@@ -4,10 +4,10 @@ import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
 import React, {useCallback, useRef, useState} from 'react'
 import Overlay from './Overlay'
-import randomId from './utils/randomId'
 import {useFocusTrap} from './hooks/useFocusTrap'
 import {useFocusZone} from './hooks/useFocusZone'
 import {useAnchoredPosition} from './hooks/useAnchoredPosition'
+import {uniqueId} from './utils/uniqueId'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,7 +30,7 @@ const ActionMenuBase = ({
   const anchorRef = useRef<HTMLElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
 
-  const anchorId = `actionMenuAnchor-${randomId()}`
+  const anchorId = `dropdownMenuAnchor-${uniqueId()}`
   const [open, setOpen] = useState<boolean>(false)
   const [state, setState] = useState<'closed' | 'buttonFocus' | 'listFocus'>('closed')
   const onDismiss = useCallback(() => {
