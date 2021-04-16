@@ -11,3 +11,8 @@ export type ComponentProps<T> = T extends React.ComponentType<infer Props>
     ? Props
     : never
   : never
+
+/**
+ * Contruct a type describing the items in `T`, if `T` is an array.
+ */
+export type Flatten<T extends unknown> = T extends (infer U)[] ? U : never

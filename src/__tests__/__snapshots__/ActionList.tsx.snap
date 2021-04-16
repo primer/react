@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionList renders consistently 1`] = `
+.c1 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.c0 {
+  font-size: 14px;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  />
+</div>
+`;

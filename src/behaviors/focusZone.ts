@@ -199,6 +199,9 @@ export interface FocusZoneSettings {
    * first focusable element. When set to "previous", the most recently focused element
    * will be focused (fallback to first if there was no previous).
    *
+   * The "closest" strategy works like "first", except either the first or the last element
+   * of the container will be focused, depending on the direction from which focus comes.
+   *
    * If a function is provided, this function should return the HTMLElement intended
    * to receive focus. This is useful if you want to focus the currently "selected"
    * item or element.
@@ -207,7 +210,7 @@ export interface FocusZoneSettings {
    *
    * For more information, @see https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_general_within
    */
-  focusInStrategy?: 'first' | 'previous' | ((previousFocusedElement: Element) => HTMLElement | undefined)
+  focusInStrategy?: 'first' | 'closest' | 'previous' | ((previousFocusedElement: Element) => HTMLElement | undefined)
 }
 
 function getDirection(keyboardEvent: KeyboardEvent) {
@@ -503,16 +506,20 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
             // Set tab indexes and internal state based on the focus handling strategy
             if (focusInStrategy === 'previous') {
               updateTabIndex(currentFocusedElement, event.target)
-            } else if (focusInStrategy === 'first') {
-              if (
-                event.relatedTarget instanceof Element &&
-                !container.contains(event.relatedTarget) &&
-                event.target !== focusableElements[0]
-              ) {
+            } else if (focusInStrategy === 'closest' || focusInStrategy === 'first') {
+              if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
                 // Regardless of the previously focused element, if we're coming from outside the
-                // container, put focus onto the first element.
-                currentFocusedIndex = 0
-                focusableElements[0].focus()
+                // container, put focus onto the first encountered element (from above, it's The
+                // first element of the container; from below, it's the last). If the
+                // focusInStrategy is set to "first", lastKeyboardFocusDirection will always
+                // be undefined.
+                if (lastKeyboardFocusDirection === 'previous') {
+                  currentFocusedIndex = focusableElements.length - 1
+                } else {
+                  currentFocusedIndex = 0
+                }
+                focusableElements[currentFocusedIndex].focus()
+                return
               } else {
                 updateTabIndex(currentFocusedElement, event.target)
               }
@@ -540,12 +547,28 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
           notifyActiveElement(event.target)
           currentFocusedElement = event.target
         }
+        lastKeyboardFocusDirection = undefined
       },
       {signal}
     )
   }
 
   const keyboardEventRecipient = activeDescendantControl ?? container
+
+  // If the strategy is "closest", we need to capture the direction that the user
+  // is trying to move focus before our focusin handler is executed.
+  let lastKeyboardFocusDirection: Direction | undefined = undefined
+  if (focusInStrategy === 'closest') {
+    document.addEventListener(
+      'keydown',
+      event => {
+        if (event.key === 'Tab') {
+          lastKeyboardFocusDirection = getDirection(event)
+        }
+      },
+      {signal, capture: true}
+    )
+  }
 
   // "keydown" is the event that triggers DOM focus change, so that is what we use here
   keyboardEventRecipient.addEventListener(
@@ -611,6 +634,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
             if (activeDescendantControl) {
               setActiveDescendant(currentFocusedElement, nextElementToFocus)
             } else {
+              lastKeyboardFocusDirection = direction
               nextElementToFocus.focus()
             }
           }
