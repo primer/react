@@ -28,8 +28,7 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const anchorRef = useRef<HTMLElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
-
+  const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = `dropdownMenuAnchor-${uniqueId()}`
   const [open, setOpen] = useState<boolean>(false)
   const [state, setState] = useState<'closed' | 'buttonFocus' | 'listFocus'>('closed')
@@ -99,7 +98,7 @@ const ActionMenuBase = ({
           returnFocusRef={anchorRef}
           onClickOutside={onDismiss}
           onEscape={onDismiss}
-          ref={overlayRef}
+          ref={updateOverlayRef}
           {...position}
         >
           <List
