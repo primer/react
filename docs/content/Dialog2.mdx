@@ -34,10 +34,6 @@ The default keyboard API for a dialog employs three mechanisms:
 2. Focus is trapped within the top-most dialog. When a dialog is opened, the close button receives initial focus by default.
 3. If there are buttons in the dialog footer, focus can be moved between them with left and right arrow keys or tab/shift+tab.
 
-### Z-index
-
-It may be tempted to adjust z-index values, but this is not necessary. If there are z-index issues, it is likely a problem with your portal root.
-
 ### Example
 
 ```jsx live
@@ -66,42 +62,6 @@ It may be tempted to adjust z-index values, but this is not necessary. If there 
   }}
 </State>
 ```
-
-<!-- You can also pass any non-text content into the header:
-
-```jsx live
-<State default={false}>
-  {([isOpen, setIsOpen]) => {
-    const returnFocusRef = React.useRef(null)
-    return (
-      <>
-        <Button ref={returnFocusRef} onClick={() => setIsOpen(true)}>
-          Open
-        </Button>
-        <Dialog
-          isOpen={isOpen}
-          returnFocusRef={returnFocusRef}
-          onDismiss={() => setIsOpen(false)}
-          aria-labelledby="label"
-        >
-          <Dialog.Header>
-            <ZapIcon />
-          </Dialog.Header>
-          <Box p={3}>
-            <Text id="label" fontFamily="sans-serif">
-              Are you sure you'd like to delete this issue?
-            </Text>
-            <Flex mt={3} justifyContent="flex-end">
-              <Button mr={1}>Cancel</Button>
-              <ButtonDanger>Delete</ButtonDanger>
-            </Flex>
-          </Box>
-        </Dialog>
-      </>
-    )
-  }}
-</State>
-``` -->
 
 ## System props
 
