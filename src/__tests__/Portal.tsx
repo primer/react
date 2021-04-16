@@ -5,10 +5,6 @@ import React from 'react'
 import BaseStyles from '../BaseStyles'
 
 describe('Portal', () => {
-  afterEach(() => {
-    // since the registry is global, reset after each test
-    registerPortalRoot(undefined)
-  })
   it('renders a default portal into document.body (no BaseStyles present)', () => {
     const {baseElement} = render(<Portal>123test123</Portal>)
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')

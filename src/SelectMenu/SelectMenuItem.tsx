@@ -65,7 +65,6 @@ export const listItemStyles = css`
 
   // can hover states
   @media (hover: hover) {
-    body:not(.intent-mouse) .SelectMenu-item:focus,
     &:hover,
     &:active,
     &:focus {

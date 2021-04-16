@@ -35,7 +35,7 @@ export const useOverlay = ({
   positionSettings.floatingElementRef = overlayRef
   useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef})
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
-  useOnEscapePress({onEscape})
+  useOnEscapePress(onEscape)
   const {position} = useAnchoredPosition(positionSettings, positionDeps)
   return {ref: overlayRef, position}
 }
