@@ -5,8 +5,6 @@ import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
-import randomId from '../utils/randomId'
-jest.mock('../utils/randomId')
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
@@ -208,9 +206,6 @@ interface BehavesAsComponent {
 }
 
 export function behavesAsComponent({Component, toRender, options}: BehavesAsComponent) {
-  // @ts-expect-error: ignore jest mock implementation
-  randomId.mockImplementation(() => 'abcdefg')
-
   options = options || {}
 
   const getElement = () => (toRender ? toRender() : <Component />)
