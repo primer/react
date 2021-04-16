@@ -7,7 +7,6 @@ import {ActionMenu} from '../ActionMenu'
 import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
-import {registerPortalRoot} from '../Portal/index'
 import {ItemProps} from '../ActionList/Item'
 expect.extend(toHaveNoViolations)
 
