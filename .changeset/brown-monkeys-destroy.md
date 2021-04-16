@@ -2,4 +2,4 @@
 '@primer/components': patch
 ---
 
-remove unused dependencies
+Removed unused dependencies
