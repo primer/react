@@ -12,7 +12,7 @@ export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof It
 /**
  * Contract for props passed to the `List` component.
  */
-export interface ListPropsBase extends React.ComponentPropsWithRef<'div'> {
+export interface ListPropsBase {
   /**
    * A collection of `Item` props and `Item`-level custom `Item` renderers.
    */
