@@ -2,8 +2,8 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Button, ButtonDanger, ButtonPrimary, ThemeProvider, Position} from '..'
-import {Dialog} from '../Dialog/Dialog'
+import {BaseStyles, Button, ButtonDanger, ButtonPrimary, ThemeProvider, Position, Box} from '..'
+import {Dialog, DialogProps} from '../Dialog/Dialog'
 
 export default {
   title: 'Internal components/Dialog',
@@ -95,6 +95,64 @@ export const BasicDialog = () => {
               Hello world
             </Dialog>
           )}
+        </Dialog>
+      )}
+    </Position>
+  )
+}
+
+function customHeader({
+  title,
+  subtitle,
+  dialogLabelId,
+  dialogDescriptionId,
+  onClose
+}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+  if (typeof title === 'string' && typeof subtitle === 'string') {
+    return (
+      <Box bg="auto.blue.3">
+        <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
+        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
+        <Dialog.CloseButton onClose={onClose} />
+      </Box>
+    )
+  }
+  return null
+}
+function customBody({children}: React.PropsWithChildren<DialogProps>) {
+  return <Dialog.Body bg="auto.red.3">{children}</Dialog.Body>
+}
+function customFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
+  return (
+    <Dialog.Footer bg="auto.yellow.3">
+      {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
+    </Dialog.Footer>
+  )
+}
+export const WithCustomRenderers = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+      <Button m={2} ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          subtitle="This is a subtitle!"
+          renderHeader={customHeader}
+          renderBody={customBody}
+          renderFooter={customFooter}
+          onClose={onDialogClose}
+          footerButtons={[
+            {element: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
+            {element: ButtonPrimary, text: 'Proceed'}
+          ]}
+        >
+          {lipsum}
         </Dialog>
       )}
     </Position>
