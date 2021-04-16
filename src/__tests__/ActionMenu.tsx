@@ -34,8 +34,6 @@ function SimpleActionMenu(): JSX.Element {
 
 describe('ActionMenu', () => {
   afterEach(() => {
-    // since the registry is global, reset after each test
-    registerPortalRoot(undefined)
     jest.clearAllMocks()
   })
 

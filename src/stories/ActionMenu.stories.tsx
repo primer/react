@@ -18,23 +18,19 @@ import {ActionMenu} from '../ActionMenu'
 import Link, {LinkProps} from '../Link'
 import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
-import {registerPortalRoot} from '../Portal'
 import {ItemProps} from '../ActionList/Item'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu',
   component: ActionMenu,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => {
-      registerPortalRoot(undefined)
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
+    (Story: React.ComponentType): JSX.Element => (
+      <ThemeProvider>
+        <BaseStyles>
+          <Story />
+        </BaseStyles>
+      </ThemeProvider>
+    )
   ],
   parameters: {
     controls: {
