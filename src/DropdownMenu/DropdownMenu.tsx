@@ -63,11 +63,11 @@ export function DropdownMenu({
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
         if (!open) {
-          if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          if (['ArrowDown', 'ArrowUp'].includes(event.key)) {
             setFocusType('list')
             setOpen(true)
             event.preventDefault()
-          } else if (event.key === ' ' || event.key === 'Enter') {
+          } else if ([' ', 'Enter'].includes(event.key)) {
             setFocusType('anchor')
             setOpen(true)
             event.preventDefault()
