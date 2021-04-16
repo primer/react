@@ -24,7 +24,7 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
 
 export function useFocusZone(
   settings: FocusZoneHookSettings = {},
-  dependencies?: React.DependencyList
+  dependencies: React.DependencyList = []
 ): {containerRef: React.RefObject<HTMLElement>; activeDescendantControlRef: React.RefObject<HTMLElement>} {
   const containerRef = useProvidedRefOrCreate(settings.containerRef)
   const useActiveDescendant = !!settings.activeDescendantFocus
@@ -57,7 +57,7 @@ export function useFocusZone(
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [disabled, ...(dependencies ?? [])]
+    [disabled, ...dependencies]
   )
 
   return {containerRef, activeDescendantControlRef}
