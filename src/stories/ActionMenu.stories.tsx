@@ -139,7 +139,7 @@ export function ComplexListStory(): JSX.Element {
             {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
             {
               leadingVisual: SearchIcon,
-              text: 'repo:github/memex,github/github',
+              text: 'repo:github/github',
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
               trailingText: '⌘S',
