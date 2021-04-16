@@ -12,16 +12,27 @@ export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)
   const combinedRef = useRef<T | null>(null)
 
   React.useEffect(() => {
-    for (const ref of refs) {
-      if (!ref) {
-        return
-      }
-      if (typeof ref === 'function') {
-        ref(combinedRef.current ?? null)
-      } else {
-        ref.current = combinedRef.current ?? null
+    const setRefs = (current: T | null = null) => {
+      for (const ref of refs) {
+        if (!ref) {
+          return
+        }
+        if (typeof ref === 'function') {
+          ref(current)
+        } else {
+          ref.current = current
+        }
       }
     }
+
+    setRefs(combinedRef.current)
+
+    return () => {
+      // ensure the refs get updated on unmount
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setRefs(combinedRef.current)
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...refs, combinedRef.current])
 
