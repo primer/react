@@ -1,0 +1,121 @@
+---
+title: Dialog v2
+---
+
+import State from '../components/State'
+
+The dialog component the Primer implementation of the ARIA design pattern [Dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal). A dialog is a type of overlay that can be used for confirming actions, asking for disambiguation, and presenting small forms. They generally allow the user to focus on a quick task without having to navigate to a different page.
+
+**Dialogs appear in the page after a direct user interaction**. Don't show dialogs on page load or as system alerts.
+
+**Dialogs appear centered in the page**, with a visible backdrop that dims the rest of the window for focus.
+
+**All dialogs should have a title and a close button**. Use an overlay header to compose these required elements.
+
+**Dialogs are modal**. Dialogs can be dismissed by clicking on the close button, or by interacting with another button in the overlay. To avoid losing information and missing important messages, clicking outside of the dialog will not close it.
+
+**Make sure larger dialogs remain mobile-friendly**. Even large dialogs need to be responsive. A dialog's width and height will be readjusted depending on the screen size and should never exceed the available space. Use responsive solutions to adjust the UI so they behave well on smaller screens.
+
+**Simple and small dialogs can remain as-is on mobile**. As more elements are added to it, mobile-specific style variations such as **Bottom sheet** and **Full-screen** should be considered.
+
+### State
+
+The dialog component is completely stateless. The parent component must conditionally render a dialog based on the necessary criteria. The parent component can be notified by a gesture to close the dialog (e.g. by clicking the "X" button or by pressing the Escape key) by passing in the `onClose` prop.
+
+### Accessibility
+
+The dialog component is fully accessible out-of-the-box. The dialog's title is used for `aria-labelledby`, and the dialog's description is used for `aria-describedby`. The `aria-modal="true"` attribute is used to inform screen readers that the rest of the content on the page is inert.
+
+#### Keyboard
+
+The default keyboard API for a dialog employs three mechanisms:
+
+1. The Escape key can be pressed to close the dialog.
+2. Focus is trapped within the top-most dialog. When a dialog is opened, the close button receives initial focus by default.
+3. If there are buttons in the dialog footer, focus can be moved between them with left and right arrow keys or tab/shift+tab.
+
+### Z-index
+
+It may be tempted to adjust z-index values, but this is not necessary. If there are z-index issues, it is likely a problem with your portal root.
+
+### Example
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const returnFocusRef = React.useRef(null)
+    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
+    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
+    return (
+      <>
+        <Button ref={returnFocusRef} onClick={openDialog}>
+          Open
+        </Button>
+        {isOpen && (
+          <Dialog2
+            title="Dialog example"
+            subtitle={<>This is a <b>description</b> of the dialog.</>}
+            footerButtons={[{text: 'Ok'}]}
+            onClose={closeDialog}
+          >
+            <Text fontFamily="sans-serif">Some content</Text>
+          </Dialog2>
+        )}
+      </>
+    )
+  }}
+</State>
+```
+
+<!-- You can also pass any non-text content into the header:
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const returnFocusRef = React.useRef(null)
+    return (
+      <>
+        <Button ref={returnFocusRef} onClick={() => setIsOpen(true)}>
+          Open
+        </Button>
+        <Dialog
+          isOpen={isOpen}
+          returnFocusRef={returnFocusRef}
+          onDismiss={() => setIsOpen(false)}
+          aria-labelledby="label"
+        >
+          <Dialog.Header>
+            <ZapIcon />
+          </Dialog.Header>
+          <Box p={3}>
+            <Text id="label" fontFamily="sans-serif">
+              Are you sure you'd like to delete this issue?
+            </Text>
+            <Flex mt={3} justifyContent="flex-end">
+              <Button mr={1}>Cancel</Button>
+              <ButtonDanger>Delete</ButtonDanger>
+            </Flex>
+          </Box>
+        </Dialog>
+      </>
+    )
+  }}
+</State>
+``` -->
+
+## System props
+
+`Dialog` components get the `COMMON` and `LAYOUT` categories of system props. `Dialog.Header` components get `COMMON`, `LAYOUT`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+| Prop name       | Type      | Description                                                                                                                                               |
+| :-------------- | :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isOpen          | Boolean   | Set whether or not the dialog is shown                                                                                                                    |
+| onDismiss       | Function  | A user-provided function that should close the dialog                                                                                                     |
+| returnFocusRef  | React ref | The element to restore focus back to after the `Dialog` is closed                                                                                         |
+| initialFocusRef | React ref | Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `intiialFocusRef` the close button is focused. |
+| aria-labelledby | string    | Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both.                                                     |
+| aria-label      | string    | Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both.                                           |
+
+`Dialog.Header` does not take any non-system props.

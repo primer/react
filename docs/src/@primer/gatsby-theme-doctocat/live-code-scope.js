@@ -20,6 +20,7 @@ import {
   VersionsIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
+import {Dialog as Dialog2} from "../../../../src/Dialog/Dialog"
 
 export default {
   ...doctocatComponents,
@@ -41,5 +42,6 @@ export default {
   FilterIcon,
   GearIcon,
   TypographyIcon,
-  VersionsIcon
+  VersionsIcon,
+  Dialog2
 }

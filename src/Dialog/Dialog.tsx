@@ -169,7 +169,7 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   ${sx};
 `
 
-const _Dialog: React.FC<DialogProps> = props => {
+const _Dialog: React.FC<DialogProps> = React.forwardRef((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -247,7 +247,7 @@ const _Dialog: React.FC<DialogProps> = props => {
       </Portal>
     </>
   )
-}
+})
 
 const Header = styled(Box).attrs({as: 'header'})`
   box-shadow: 0 1px 0 ${get('colors.border.overlay')};
@@ -263,6 +263,7 @@ const Subtitle = styled(Box)`
   color: ${get('colors.text.tertiary')};
 `
 const Body = styled(Box)`
+  flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
 `
