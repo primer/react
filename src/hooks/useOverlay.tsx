@@ -1,8 +1,7 @@
 import {useOnOutsideClick, TouchOrMouseEvent} from './useOnOutsideClick'
 import {useOpenAndCloseFocus} from './useOpenAndCloseFocus'
 import {useOnEscapePress} from './useOnEscapePress'
-import {AnchoredPositionHookSettings, useAnchoredPosition} from './useAnchoredPosition'
-import {useRef} from 'react'
+import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export type UseOverlaySettings = {
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
@@ -10,32 +9,24 @@ export type UseOverlaySettings = {
   returnFocusRef: React.RefObject<HTMLElement>
   onEscape: (e: KeyboardEvent) => void
   onClickOutside: (e: TouchOrMouseEvent) => void
-  anchorRef: React.RefObject<HTMLElement>
-  positionDeps?: React.DependencyList
-  positionSettings?: AnchoredPositionHookSettings
+  overlayRef?: React.RefObject<HTMLDivElement>
 }
 
 export type OverlayReturnProps = {
   ref: React.RefObject<HTMLDivElement>
-  position: {top: number; left: number} | undefined
 }
 
 export const useOverlay = ({
-  anchorRef,
-  positionSettings = {},
-  positionDeps,
+  overlayRef: _overlayRef,
   returnFocusRef,
   initialFocusRef,
   onEscape,
   ignoreClickRefs,
   onClickOutside
 }: UseOverlaySettings): OverlayReturnProps => {
-  const overlayRef = useRef<HTMLDivElement>(null)
-  positionSettings.anchorElementRef = anchorRef
-  positionSettings.floatingElementRef = overlayRef
+  const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(_overlayRef)
   useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef})
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
   useOnEscapePress(onEscape)
-  const {position} = useAnchoredPosition(positionSettings, positionDeps)
-  return {ref: overlayRef, position}
+  return {ref: overlayRef}
 }

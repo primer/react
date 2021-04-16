@@ -48,9 +48,8 @@ export const DropdownOverlay = () => {
       <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && (
+      {isOpen ? (
         <Overlay
-          anchorRef={buttonRef}
           returnFocusRef={buttonRef}
           height="auto"
           width="sm"
@@ -66,7 +65,7 @@ export const DropdownOverlay = () => {
             <DummyItem>Delete</DummyItem>
           </Flex>
         </Overlay>
-      )}
+      ) : null}
     </>
   )
 }
@@ -82,10 +81,8 @@ export const DialogOverlay = () => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen && (
+      {isOpen ? (
         <Overlay
-          positionSettings={{side: 'inside-center', align: 'center'}}
-          anchorRef={anchorRef}
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
@@ -101,7 +98,7 @@ export const DialogOverlay = () => {
             </Button>
           </Flex>
         </Overlay>
-      )}
+      ) : null}
     </Position>
   )
 }

@@ -1,8 +1,9 @@
-import type {IconProps} from '@primer/octicons-react'
+import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {ItemInput} from './List'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -38,6 +39,11 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
+
+  /**
+   * For `Item`s which can be selected, whether the `Item` is currently selected.
+   */
+  selected?: boolean
 }
 
 const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
@@ -98,12 +104,14 @@ export function Item({
   text,
   description,
   descriptionVariant = 'inline',
+  selected,
   leadingVisual: LeadingVisual,
   variant = 'default',
   ...props
-}: Partial<ItemProps>): JSX.Element {
+}: Partial<ItemProps> & {item: ItemInput}): JSX.Element {
   return (
-    <StyledItem variant={variant} {...props}>
+    <StyledItem tabIndex={-1} variant={variant} aria-selected={selected} {...props}>
+      {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
         <LeadingVisualContainer>
           <LeadingVisual />

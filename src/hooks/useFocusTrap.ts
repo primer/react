@@ -28,25 +28,30 @@ interface FocusTrapHookSettings {
  * @param settings {FocusTrapHookSettings}
  */
 export function useFocusTrap(
-  settings?: FocusTrapHookSettings
+  settings?: FocusTrapHookSettings,
+  dependencies: React.DependencyList = []
 ): {containerRef: React.RefObject<HTMLElement>; initialFocusRef: React.RefObject<HTMLElement>} {
   const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const initialFocusRef = useProvidedRefOrCreate(settings?.initialFocusRef)
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
 
-  React.useEffect(() => {
-    if (containerRef.current instanceof HTMLElement) {
-      if (!disabled) {
-        abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
-        return () => {
+  React.useEffect(
+    () => {
+      if (containerRef.current instanceof HTMLElement) {
+        if (!disabled) {
+          abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
+          return () => {
+            abortController.current?.abort()
+          }
+        } else {
           abortController.current?.abort()
         }
-      } else {
-        abortController.current?.abort()
       }
-    }
-  }, [containerRef, initialFocusRef, disabled])
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [containerRef, initialFocusRef, disabled, ...dependencies]
+  )
 
   return {containerRef, initialFocusRef}
 }
