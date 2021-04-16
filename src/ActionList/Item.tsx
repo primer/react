@@ -54,7 +54,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
    * For `Item`s which can be selected, whether the `Item` is currently selected.
    */
   selected?: boolean
-  
+
   /**
    * Designates the group that an item belongs to.
    */
