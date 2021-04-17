@@ -1,0 +1,74 @@
+---
+title: ActionMenu
+---
+
+An `ActionMenu` is an ActionList-based component for creating a menu of actions that expands through a trigger button.
+
+## Default example
+
+```jsx live
+<ActionMenu
+  anchorContent="Menu"
+  onAction={({text}) => console.log(text)}
+  items={[
+    {text: 'New file'},
+    ActionMenu.Divider,
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    {text: 'Delete file', variant: 'danger'}
+  ]}
+/>
+```
+
+## Example with grouped items
+
+```jsx live
+<ActionMenu
+  anchorContent="Menu"
+  onAction={({text}) => console.log(text)}
+  groupMetadata={[
+    {groupId: '0'},
+    {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
+    {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
+    {groupId: '3'},
+    {groupId: '4'}
+  ]}
+  items={[
+    {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
+    {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+    {leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
+    {
+      leadingVisual: NoteIcon,
+      text: 'Table',
+      description: 'Information-dense table optimized for operations across teams',
+      descriptionVariant: 'block',
+      groupId: '2'
+    },
+    {
+      leadingVisual: ProjectIcon,
+      text: 'Board',
+      description: 'Kanban-style board focused on visual states',
+      descriptionVariant: 'block',
+      groupId: '2'
+    },
+    {
+      leadingVisual: FilterIcon,
+      text: 'Save sort and filters to current view',
+      groupId: '3'
+    },
+    {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+    {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+  ]}
+/>
+```
+
+## Component props
+
+| Name          | Type                                  |      Default      | Description                                                                                                                                                          |
+| :------------ | :------------------------------------ | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| items         | `ItemProps[]`                         |    `undefined`    | Required. A list of item objects conforming to the `ActionList.Item` props interface.                                                                                |
+| renderItem    | `(props: ItemProps) => JSX.Element`   | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                                    |
+| groupMetadata | `GroupProps[]`                        |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property.              |
+| renderAnchor  | `(props: ButtonProps) => JSX.Element` |     `Button`      | Optional. If defined, provided component will be used to render the menu anchor. Will receive the selected `Item` text as `children` prop when an item is activated. |
+| anchorContent | React.ReactNode                       |    `undefined`    | Optional. If defined, it will be passed to the trigger as the elements child.                                                                                        |
+| onAction      | (props: ItemProps) => void            |    `undefined`    | Optional. If defined, this function will be called when a menu item is activated either by a click or a keyboard press.                                              |

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {useRef, useCallback} from 'react'
 declare let __DEV__: boolean
 
@@ -58,6 +57,7 @@ export class Deprecations {
 
   static deprecate({name, message, version}: DeprecationType) {
     const msg = `WARNING! ${name} is deprecated and will be removed in version ${version}. ${message}`
+    // eslint-disable-next-line no-console
     console.warn(msg)
 
     this.get().deprecations.push({name, message, version})

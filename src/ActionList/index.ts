@@ -1,10 +1,10 @@
 import {List} from './List'
-export type {ListProps as ActionListProps} from './List'
 import {Group} from './Group'
-export type {GroupProps} from './Group'
 import {Item} from './Item'
-export type {ItemProps} from './Item'
 import {Divider} from './Divider'
+export type {ListProps as ActionListProps} from './List'
+export type {GroupProps} from './Group'
+export type {ItemProps} from './Item'
 
 /**
  * Collection of list-related components.

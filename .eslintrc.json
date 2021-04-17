@@ -9,7 +9,9 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:github/recommended",
+    "plugin:github/browser"
   ],
   "ignorePatterns": [
     "node_modules",
@@ -41,28 +43,58 @@
     "react/prop-types": 0,
     "react/display-name": 0,
     "react-hooks/exhaustive-deps": "error",
-    "jsx-a11y/label-has-for": [2, {"components": []}]
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": []
+      }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "allow": [
+          "dark_dimmed"
+        ]
+      }
+    ]
   },
   "overrides": [
     // rules which apply only to JS
     {
-      "files": ["**/*.js", "**/*.jsx"],
-      "extends": ["plugin:github/recommended", "plugin:github/browser"],
+      "files": [
+        "**/*.js",
+        "**/*.jsx"
+      ],
       "rules": {
         "eslint-comments/no-use": 0,
         "import/no-namespace": 0,
         "no-shadow": 0,
-        "no-unused-vars": ["error", {"ignoreRestSiblings": true}]
+        "no-unused-vars": [
+          "error",
+          {
+            "ignoreRestSiblings": true
+          }
+        ]
       }
     },
     // rules which apply only to TS
     {
-      "files": ["**/*.ts", "**/*.tsx"],
-      "extends": ["plugin:@typescript-eslint/recommended"],
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "extends": [
+        "plugin:@typescript-eslint/recommended"
+      ],
       "rules": {
         "@typescript-eslint/no-explicit-any": 2,
         "@typescript-eslint/explicit-module-boundary-types": 0,
-        "@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern": "^_"}]
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ]
       }
     }
   ]

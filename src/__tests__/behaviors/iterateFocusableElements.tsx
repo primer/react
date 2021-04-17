@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-
 import React from 'react'
 import {iterateFocusableElements} from '../../utils/iterateFocusableElements'
 import {render} from '@testing-library/react'
@@ -14,6 +11,7 @@ it('Should iterate through focusable elements only', () => {
       <input />
       <button>Hello</button>
       <p>Not focusable</p>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <div tabIndex={0}>
         <a tabIndex={-1} href="#boo">
           Not focusable
@@ -42,6 +40,7 @@ it('Should iterate through focusable elements in reverse', () => {
       <input />
       <button>Hello</button>
       <p>Not focusable</p>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <div tabIndex={0}>
         <a tabIndex={-1} href="#boo">
           Not focusable

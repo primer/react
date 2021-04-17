@@ -123,8 +123,8 @@ export function ComplexListStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx, ...props}) => (
-                <ActionList.Group {...props} sx={{...sx, backgroundColor: 'cornflowerblue', color: 'white'}} />
+              renderGroup: ({sx: sxProps, ...props}) => (
+                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
               )
             }
           ]}
@@ -183,8 +183,8 @@ export function ComplexListStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx, ...props}) => (
-                <ActionList.Group {...props} sx={{...sx, backgroundColor: 'cornflowerblue', color: 'white'}} />
+              renderGroup: ({sx: sxProps, ...props}) => (
+                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
               )
             }
           ]}

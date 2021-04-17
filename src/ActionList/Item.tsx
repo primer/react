@@ -1,8 +1,9 @@
-import type {IconProps} from '@primer/octicons-react'
+import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React from 'react'
-import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {ItemInput} from './List'
+import styled from 'styled-components'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -32,12 +33,32 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   leadingVisual?: React.FunctionComponent<IconProps>
 
   /**
+   * Icon (or similar) positioned after `Item` text.
+   */
+  trailingIcon?: React.FunctionComponent<IconProps>
+
+  /**
+   * Text positioned after `Item` text and optional trailing icon.
+   */
+  trailingText?: string
+
+  /**
    * Style variations associated with various `Item` types.
    *
    * - `"default"` - An action `Item`.
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
+
+  /**
+   * For `Item`s which can be selected, whether the `Item` is currently selected.
+   */
+  selected?: boolean
+
+  /**
+   * Designates the group that an item belongs to.
+   */
+  groupId?: string
 }
 
 const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
@@ -66,14 +87,10 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
-const LeadingVisualContainer = styled.div`
-   {
-    /* Match visual height to adjacent text line height.
-     *
-     * TODO: When rem-based spacing on a 4px scale lands, replace
-     * hardcoded '20px' with '${get('space.s20')}'.
-     */
-  }
+const BaseVisualContainer = styled.div`
+  // Match visual height to adjacent text line height.
+  // TODO: When rem-based spacing on a 4px scale lands, replace
+  // hardcoded '20px' with '${get('space.s20')}'.
   height: 20px;
   width: ${get('space.3')};
   display: flex;
@@ -87,6 +104,20 @@ const LeadingVisualContainer = styled.div`
   }
 `
 
+const LeadingVisualContainer = styled(BaseVisualContainer)``
+
+const TrailingVisualContainer = styled(BaseVisualContainer)`
+  color: ${get('colors.icon.tertiary')};
+  margin-left: auto;
+  margin-right: 0;
+  div:nth-child(2) {
+    margin-left: ${get('space.2')};
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`
+
 const DescriptionContainer = styled.span`
   color: ${get('colors.text.secondary')};
 `
@@ -98,12 +129,16 @@ export function Item({
   text,
   description,
   descriptionVariant = 'inline',
+  selected,
   leadingVisual: LeadingVisual,
+  trailingIcon: TrailingIcon,
+  trailingText,
   variant = 'default',
   ...props
-}: Partial<ItemProps>): JSX.Element {
+}: Partial<ItemProps> & {item?: ItemInput}): JSX.Element {
   return (
-    <StyledItem variant={variant} {...props}>
+    <StyledItem tabIndex={-1} variant={variant} aria-selected={selected} {...props}>
+      {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
         <LeadingVisualContainer>
           <LeadingVisual />
@@ -113,6 +148,16 @@ export function Item({
         <div>{text}</div>
         {description && <DescriptionContainer>{description}</DescriptionContainer>}
       </StyledTextContainer>
+      {(TrailingIcon || trailingText) && (
+        <TrailingVisualContainer>
+          {trailingText && <div>{trailingText}</div>}
+          {TrailingIcon && (
+            <div>
+              <TrailingIcon />
+            </div>
+          )}
+        </TrailingVisualContainer>
+      )}
     </StyledItem>
   )
 }
