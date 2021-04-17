@@ -1,4 +1,5 @@
 import classnames from 'classnames'
+// eslint-disable-next-line import/no-namespace
 import * as History from 'history'
 import React from 'react'
 import styled, {css} from 'styled-components'

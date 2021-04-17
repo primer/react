@@ -11,7 +11,13 @@ import {
   MailIcon,
   GitCommitIcon,
   FlameIcon,
-  MarkGithubIcon
+  MarkGithubIcon,
+  NoteIcon,
+  ProjectIcon,
+  FilterIcon,
+  GearIcon,
+  TypographyIcon,
+  VersionsIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 
@@ -29,5 +35,11 @@ export default {
   MailIcon,
   GitCommitIcon,
   FlameIcon,
-  MarkGithubIcon
+  MarkGithubIcon,
+  NoteIcon,
+  ProjectIcon,
+  FilterIcon,
+  GearIcon,
+  TypographyIcon,
+  VersionsIcon
 }

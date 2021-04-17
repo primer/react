@@ -60,7 +60,6 @@ describe('Portal', () => {
     const portalRoot = baseElement.querySelector('#myPortalRoot')
     expect(portalRoot).toBeInstanceOf(HTMLElement)
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     registerPortalRoot(baseElement.querySelector('#myPortalRoot')!)
 
     const toRender = <Portal>123test123</Portal>
@@ -83,9 +82,7 @@ describe('Portal', () => {
     expect(fancyPortalRoot1).toBeInstanceOf(HTMLElement)
     expect(fancyPortalRoot2).toBeInstanceOf(HTMLElement)
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     registerPortalRoot(baseElement.querySelector('#myPortalRoot1')!, 'fancyPortal1')
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     registerPortalRoot(baseElement.querySelector('#myPortalRoot2')!, 'fancyPortal2')
 
     const toRender = (

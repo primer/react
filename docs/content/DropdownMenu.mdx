@@ -1,0 +1,42 @@
+---
+title: DropdownMenu
+---
+
+A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the `onChange` callback will be called.  If the default anchor button is used, the anchor contents will be updated with the selection.
+
+## Example
+
+```javascript live noinline
+function DemoComponent() {
+  const items = React.useMemo(() => [{text: '🔵 Cyan', id: 5}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}], [])
+  const [selectedItem, setSelectedItem] = React.useState()
+
+  return (
+    <DropdownMenu
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
+          {children}
+        </DropdownButton>
+      )}
+      placeholder="🎨"
+      items={items}
+      selectedItem={selectedItem}
+      onChange={setSelectedItem}
+    />
+  )
+}
+
+render(<DemoComponent />)
+```
+
+## Component props
+
+| Name             | Type                                          |      Default      | Description                                                                                                                                                                                    |
+| :--------------- | :-------------------------------------------- | :---------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| items            | `ItemProps[]`                                 |    `undefined`    | Required. A list of item objects to display in the menu                                                                                                                                        |
+| selectedItem     | `ItemInput`                                   |    `undefined`    | An `ItemProps` item from the list of `items` which is currently selected. This item will receive a checkmark next to it in the menu.                                                           |
+| onChange? | (item?: ItemInput) => unknown                 |    `undefined`    | A callback which receives the selected item or `undefined` when an item is activated in the menu. If the activated item is the same as the current `selectedItem`, `undefined` will be passed. |
+| placeholder      | `string`                                      |    `undefined`    | Optional. A placeholder value to display when there is no current selection.                                                                                                                   |
+| renderAnchor     | `(props: DropdownButtonProps) => JSX.Element` | `DropdownButton`  | Optional. If defined, provided component will be used to render the menu anchor. Will receive the selected `Item` text as `children` prop when an item is activated.                           |
+| renderItem       | `(props: ItemProps) => JSX.Element`           | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for custom item rendering.                                                                                |
+| groupMetadata    | `GroupProps[]`                                |    `undefined`    | Optional. If defined, `DropdownMenu` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property.                                      |

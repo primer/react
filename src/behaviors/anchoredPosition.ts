@@ -154,7 +154,7 @@ export function getAnchoredPosition(
  */
 function getPositionedParent(element: Element) {
   let parentNode = element.parentNode
-  while (parentNode != undefined) {
+  while (parentNode !== null) {
     if (parentNode instanceof HTMLElement && getComputedStyle(parentNode).position !== 'static') {
       return parentNode
     }
@@ -171,7 +171,7 @@ function getPositionedParent(element: Element) {
  */
 function getClippingRect(element: Element): BoxPosition {
   let parentNode: typeof element.parentNode = element
-  while (parentNode != undefined) {
+  while (parentNode !== null) {
     if (parentNode === document.body) {
       break
     }

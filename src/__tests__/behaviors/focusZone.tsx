@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
-import {fireEvent, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {FocusKeys, focusZone} from '../../behaviors/focusZone'
 
@@ -24,7 +22,9 @@ beforeAll(() => {
         get: () => () => [42]
       }
     })
-  } catch {}
+  } catch {
+    // ignore
+  }
 })
 
 it('Should allow arrow keys to move focus', () => {
@@ -173,18 +173,10 @@ it('Should call custom getNextFocusable callback', () => {
   expect(document.activeElement).toEqual(firstButton)
 
   userEvent.type(firstButton, '{arrowdown}')
-  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>(
-    'next',
-    firstButton,
-    expect.anything()
-  )
+  expect(getNextFocusableCallback).toHaveBeenCalledWith('next', firstButton, expect.anything())
 
   userEvent.type(secondButton, '{home}')
-  expect(getNextFocusableCallback).toHaveBeenCalledWith<[string, HTMLElement, any]>(
-    'start',
-    secondButton,
-    expect.anything()
-  )
+  expect(getNextFocusableCallback).toHaveBeenCalledWith('start', secondButton, expect.anything())
 
   controller.abort()
 })
@@ -213,9 +205,6 @@ it('Should focus-in to the most recently-focused element', () => {
 
   userEvent.type(firstButton, '{arrowdown}')
   expect(document.activeElement).toEqual(secondButton)
-
-  // make sure focusin is fired because JSDOM
-  fireEvent(secondButton, new FocusEvent('focusin', {bubbles: true}))
 
   outsideButton.focus()
   userEvent.tab()
@@ -250,15 +239,58 @@ it('Should focus-in to the first element when focusInStrategy is "first"', () =>
   userEvent.type(firstButton, '{arrowdown}')
   expect(document.activeElement).toEqual(secondButton)
 
-  // make sure focusin is fired because JSDOM
-  fireEvent(secondButton, new FocusEvent('focusin', {bubbles: true, relatedTarget: firstButton}))
-
   outsideButton.focus()
   userEvent.tab()
 
-  // fire focusin on secondButton, since that actually has tabindex=0. The behavior will then it to the first.
-  fireEvent(secondButton, new FocusEvent('focusin', {bubbles: true, relatedTarget: outsideButton}))
   expect(document.activeElement).toEqual(firstButton)
+
+  controller.abort()
+})
+
+it('Should focus-in to the closest element when focusInStrategy is "closest"', () => {
+  const {container} = render(
+    <div>
+      <button tabIndex={0} id="outsideBefore">
+        Bad Apple
+      </button>
+      <div id="focusZone">
+        <button id="apple" tabIndex={0}>
+          Apple
+        </button>
+        <button id="banana" tabIndex={0}>
+          Banana
+        </button>
+        <button id="cantaloupe" tabIndex={0}>
+          Cantaloupe
+        </button>
+      </div>
+      <button tabIndex={0} id="outsideAfter">
+        Good Apple
+      </button>
+    </div>
+  )
+
+  const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
+  const outsideBefore = container.querySelector<HTMLElement>('#outsideBefore')!
+  const outsideAfter = container.querySelector<HTMLElement>('#outsideAfter')!
+  const [firstButton, secondButton, thirdButton] = focusZoneContainer.querySelectorAll('button')!
+  const controller = focusZone(focusZoneContainer, {focusInStrategy: 'closest'})
+
+  firstButton.focus()
+  expect(document.activeElement).toEqual(firstButton)
+
+  userEvent.type(firstButton, '{arrowdown}')
+  expect(document.activeElement).toEqual(secondButton)
+
+  outsideBefore.focus()
+  userEvent.tab()
+
+  expect(document.activeElement).toEqual(firstButton)
+
+  outsideAfter.focus()
+  userEvent.tab({shift: true})
+
+  expect(document.activeElement).toEqual(thirdButton)
 
   controller.abort()
 })
@@ -279,13 +311,12 @@ it('Should call the custom focusInStrategy callback', () => {
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const outsideButton = container.querySelector<HTMLElement>('#outside')!
-  const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
+  const [, secondButton] = focusZoneContainer.querySelectorAll('button')!
   const focusInCallback = jest.fn().mockReturnValue(secondButton)
   const controller = focusZone(focusZoneContainer, {focusInStrategy: focusInCallback})
 
   outsideButton.focus()
   userEvent.tab()
-  fireEvent(firstButton, new FocusEvent('focusin', {bubbles: true, relatedTarget: outsideButton}))
   expect(focusInCallback).toHaveBeenCalledWith<[HTMLElement]>(outsideButton)
   expect(document.activeElement).toEqual(secondButton)
 

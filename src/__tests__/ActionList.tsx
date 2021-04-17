@@ -6,8 +6,7 @@ import theme from '../theme'
 import {ActionList} from '../ActionList'
 import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {ThemeProvider} from 'styled-components'
-import {BaseStyles} from '..'
+import {BaseStyles, ThemeProvider} from '..'
 expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {

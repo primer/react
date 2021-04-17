@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
@@ -246,6 +245,11 @@ export const FocusInStrategy = () => {
     focusInStrategy: 'first'
   })
 
+  const {containerRef: closestContainerRef} = useFocusZone({
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusInStrategy: 'closest'
+  })
+
   const {containerRef: prevContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusInStrategy: 'previous'
@@ -283,24 +287,32 @@ export const FocusInStrategy = () => {
             <MarginButton>Durian</MarginButton>
           </Flex>
         </BorderBox>
-        <BorderBox borderColor="gray.5" ref={prevContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
-          <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
+        <BorderBox borderColor="gray.5" ref={closestContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>&ldquo;Closest&rdquo; strategy (focus first or last depending on focus direction)</strong>
           <Flex flexDirection="row" alignItems="flex-start">
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
             <MarginButton>Grapefruit</MarginButton>
           </Flex>
         </BorderBox>
-        <BorderBox borderColor="gray.5" ref={customContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
-          <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
+        <BorderBox borderColor="gray.5" ref={prevContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
           <Flex flexDirection="row" alignItems="flex-start">
             <MarginButton>Honeydew</MarginButton>
             <MarginButton>Jackfruit</MarginButton>
             <MarginButton>Kiwi</MarginButton>
           </Flex>
         </BorderBox>
-        <MarginButton>Lemon</MarginButton>
-        <MarginButton>Mango</MarginButton>
+        <BorderBox borderColor="gray.5" ref={customContainerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
+          <Flex flexDirection="row" alignItems="flex-start">
+            <MarginButton>Lemon</MarginButton>
+            <MarginButton>Mango</MarginButton>
+            <MarginButton>Nectarine</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Orange</MarginButton>
+        <MarginButton>Papaya</MarginButton>
       </Flex>
     </>
   )
@@ -396,7 +408,7 @@ export const ChangingSubtree = () => {
 
   const buttons: JSX.Element[] = []
   for (let i = 0; i < buttonCount; ++i) {
-    buttons.push(<MarginButton key={'button' + i}>{i + 1}</MarginButton>)
+    buttons.push(<MarginButton key={`button${i}`}>{i + 1}</MarginButton>)
   }
 
   return (
@@ -436,7 +448,7 @@ export const ActiveDescendant = () => {
 
   const containerRef = useRef<HTMLElement>(null)
   const controllingElementRef = useRef<HTMLElement>(null)
-  const {theme} = useTheme()
+  const {theme: themeFromContext} = useTheme()
 
   // We set up two arrow focus behaviors on the same container!
   // 1. Handles the active descendant treatment when the <input> element is focused
@@ -447,7 +459,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${theme?.colors.border.info}`
+        current.style.outline = `2px solid ${themeFromContext?.colors.border.info}`
       }
       if (previous) {
         previous.style.outline = ''
