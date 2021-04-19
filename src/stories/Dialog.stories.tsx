@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
