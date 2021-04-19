@@ -2,7 +2,7 @@ import React, {useCallback, useRef} from 'react'
 import styled from 'styled-components'
 import {Button, ButtonPrimary, ButtonDanger, ButtonProps, Flex, Box} from '..'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
-import {useAnchoredPosition, useOnEscapePress} from '../hooks'
+import {useOnEscapePress} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
 import StyledOcticon from '../StyledOcticon'
@@ -99,16 +99,18 @@ const Backdrop = styled('div')`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
   animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
-  opacity: 0.4;
 
   @keyframes dialog-backdrop-appear {
     0% {
       opacity: 0;
     }
     100% {
-      opacity: 0.4;
+      opacity: 1;
     }
   }
 `
@@ -130,7 +132,6 @@ const widthMap = {
 interface StyledDialogProps {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
-  visibility?: 'visible' | 'hidden'
 }
 
 const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPositionProps & SxProp>`
@@ -138,20 +139,16 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   flex-direction: column;
   background-color: ${get('colors.bg.overlay')};
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2);
-  position: absolute;
   min-width: 296px;
-  max-width: 640px;
+  max-width: min(640px, 100vw);
   min-height: 480px;
-  max-height: 640px;
+  max-height: min(640px, 100vh);
   width: ${props => widthMap[props.width ?? 'auto']};
   height: ${props => heightMap[props.height ?? 'auto']};
   border-radius: 12px;
   overflow: hidden;
-  animation: ${props =>
-    // only apply the animation when the dialog becomes visible
-    props.visibility === 'hidden'
-      ? 'none'
-      : `overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')(props)}`};
+  opacity: 1;
+  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
   @keyframes overlay--dialog-appear {
     0% {
@@ -164,7 +161,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
     }
   }
 
-  visibility: ${props => props.visibility};
   ${COMMON};
   ${POSITION};
   ${sx};
@@ -190,12 +186,6 @@ const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProp
   const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
   const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef})
-  const {position} = useAnchoredPosition({
-    side: 'inside-center',
-    align: 'center',
-    anchorElementRef: backdropRef,
-    floatingElementRef: dialogRef
-  })
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest'
@@ -233,19 +223,18 @@ const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProp
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef}></Backdrop>
-        <StyledDialog
-          {...position}
-          visibility={position ? 'visible' : 'hidden'}
-          ref={combinedRef as React.RefObject<HTMLDivElement>}
-          role={role}
-          aria-labelledby={dialogLabelId}
-          aria-describedby={dialogDescriptionId}
-        >
-          {header}
-          {body}
-          {footer}
-        </StyledDialog>
+        <Backdrop ref={backdropRef}>
+          <StyledDialog
+            ref={combinedRef as React.RefObject<HTMLDivElement>}
+            role={role}
+            aria-labelledby={dialogLabelId}
+            aria-describedby={dialogDescriptionId}
+          >
+            {header}
+            {body}
+            {footer}
+          </StyledDialog>
+        </Backdrop>
       </Portal>
     </>
   )
