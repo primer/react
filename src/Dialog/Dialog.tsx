@@ -88,10 +88,10 @@ export interface DialogProps {
   /**
    * This method is invoked when a gesture to close the dialog is used (either
    * an Escape key press or clicking the "X" in the top-right corner). The
-   * action argument indicates the method that was used to close the dialog
+   * gesture argument indicates the gesture that was used to close the dialog
    * (either 'close-button' or 'escape').
    */
-  onClose: (action: 'close-button' | 'escape') => void
+  onClose: (gesture: 'close-button' | 'escape') => void
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
@@ -106,12 +106,14 @@ export interface DialogProps {
  */
 export interface DialogHeaderProps extends DialogProps {
   /**
-   * ID of the element that should be used as the `aria-labelledby` attribute on the dialog
+   * ID of the element that will be used as the `aria-labelledby` attribute on the
+   * dialog. This ID should be set to the element that renders the dialog's title.
    */
   dialogLabelId: string
 
   /**
-   * ID of the element that should be used as the `aria-describedby` attribute on the dialog
+   * ID of the element that will be used as the `aria-describedby` attribute on the
+   * dialog. This ID should be set to the element that renders the dialog's subtitle.
    */
   dialogDescriptionId: string
 }
@@ -268,6 +270,7 @@ const Header = styled(Box).attrs({as: 'header'})`
   box-shadow: 0 1px 0 ${get('colors.border.overlay')};
   padding: 6px 6px 14px ${get('space.3')};
   z-index: 1;
+  flex-shrink: 0;
 `
 const Title = styled(Box)`
   font-size: ${get('fontSizes.1')};
@@ -288,6 +291,7 @@ const Footer = styled(Box).attrs({as: 'footer'})`
   display: flex;
   justify-content: flex-end;
   z-index: 1;
+  flex-shrink: 0;
 `
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
