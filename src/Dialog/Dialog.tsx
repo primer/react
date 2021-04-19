@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react'
+import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import {Button, ButtonPrimary, ButtonDanger, ButtonProps, Flex, Box} from '..'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
@@ -29,6 +29,12 @@ export type DialogButtonProps = ButtonProps & {
    * The Button's inner text
    */
   text: string
+
+  /**
+   * If true, and if this is the only button with autoFocus set to true,
+   * focus this button automatically when the dialog appears.
+   */
+  autoFocus?: boolean
 }
 
 /**
@@ -54,7 +60,7 @@ export interface DialogProps {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderHeader?: React.FunctionComponent<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>
+  renderHeader?: React.FunctionComponent<DialogHeaderProps>
 
   /**
    * Provide a custom render function for the dialog body. This content is
@@ -81,9 +87,11 @@ export interface DialogProps {
 
   /**
    * This method is invoked when a gesture to close the dialog is used (either
-   * an Escape key press or clicking the "X" in the top-right corner).
+   * an Escape key press or clicking the "X" in the top-right corner). The
+   * action argument indicates the method that was used to close the dialog
+   * (either 'close-button' or 'escape').
    */
-  onClose: () => void
+  onClose: (action: 'close-button' | 'escape') => void
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
@@ -91,6 +99,21 @@ export interface DialogProps {
    * @see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog
    */
   role?: 'dialog' | 'alertdialog'
+}
+
+/**
+ * Props that are passed to a component that serves as a dialog header
+ */
+export interface DialogHeaderProps extends DialogProps {
+  /**
+   * ID of the element that should be used as the `aria-labelledby` attribute on the dialog
+   */
+  dialogLabelId: string
+
+  /**
+   * ID of the element that should be used as the `aria-describedby` attribute on the dialog
+   */
+  dialogDescriptionId: string
 }
 
 const Backdrop = styled('div')`
@@ -166,18 +189,39 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   ${sx};
 `
 
+const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subtitle, dialogDescriptionId, onClose}) => {
+  const onCloseClick = useCallback(() => {
+    onClose('close-button')
+  }, [onClose])
+  return (
+    <Dialog.Header>
+      <Flex>
+        <Flex pt={2} flexDirection="column" flexGrow={1}>
+          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
+          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
+        </Flex>
+        <Dialog.CloseButton onClose={onCloseClick} />
+      </Flex>
+    </Dialog.Header>
+  )
+}
+const DefaultBody: React.FC<DialogProps> = ({children}) => {
+  return <Dialog.Body>{children}</Dialog.Body>
+}
+const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
+  const {containerRef: footerRef} = useFocusZone({
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
+    focusInStrategy: 'closest'
+  })
+  return footerButtons ? (
+    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+      <Dialog.Buttons buttons={footerButtons} />
+    </Dialog.Footer>
+  ) : null
+}
+
 const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
-  const {
-    title = 'Dialog',
-    subtitle = '',
-    renderHeader,
-    renderBody,
-    renderFooter,
-    footerButtons,
-    onClose,
-    children,
-    role = 'dialog'
-  } = props
+  const {title = 'Dialog', subtitle = '', renderHeader, renderBody, renderFooter, onClose, role = 'dialog'} = props
   const dialogLabelId = uniqueId()
   const dialogDescriptionId = uniqueId()
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
@@ -186,39 +230,19 @@ const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProp
   const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
   const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef})
-  const {containerRef: footerRef} = useFocusZone({
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest'
-  })
 
   const callback = useCallback(
     (event: KeyboardEvent) => {
-      onClose()
+      onClose('escape')
       event.preventDefault()
     },
     [onClose]
   )
   useOnEscapePress(callback)
 
-  const header = renderHeader?.(defaultedProps) ?? (
-    <Dialog.Header>
-      <Flex>
-        <Flex pt={2} flexDirection="column" flexGrow={1}>
-          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
-          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
-        </Flex>
-        <Dialog.CloseButton onClose={onClose} />
-      </Flex>
-    </Dialog.Header>
-  )
-  const body = renderBody?.(defaultedProps) ?? <Dialog.Body>{children}</Dialog.Body>
-  const footer =
-    renderFooter?.(defaultedProps) ??
-    (footerButtons && (
-      <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
-        <Dialog.Buttons buttons={footerButtons} />
-      </Dialog.Footer>
-    ))
+  const header = (renderHeader ?? DefaultHeader)(defaultedProps)
+  const body = (renderBody ?? DefaultBody)(defaultedProps)
+  const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
 
   return (
     <>
@@ -266,12 +290,24 @@ const Footer = styled(Box).attrs({as: 'footer'})`
   z-index: 1;
 `
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
+  const autoFocusRef = useRef<HTMLButtonElement>(null)
+  let autoFocusCount = 0
+  useEffect(() => {
+    if (autoFocusRef.current) {
+      autoFocusRef.current.focus()
+    }
+  }, [])
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {text, element: Element = Button, ...buttonProps} = dialogButtonProps
+        const {text, element: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
-          <Element key={index} ml={index === 0 ? 0 : 1} {...buttonProps}>
+          <Element
+            key={index}
+            ml={index === 0 ? 0 : 1}
+            {...buttonProps}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+          >
             {text}
           </Element>
         )

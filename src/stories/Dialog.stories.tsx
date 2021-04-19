@@ -85,7 +85,7 @@ export const BasicDialog = () => {
           onClose={onDialogClose}
           footerButtons={[
             {element: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
-            {element: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog}
+            {element: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog, autoFocus: true}
           ]}
         >
           {lipsum}
