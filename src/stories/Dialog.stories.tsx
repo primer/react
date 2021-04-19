@@ -100,28 +100,31 @@ export const BasicDialog = () => {
   )
 }
 
-function customHeader({
+function CustomHeader({
   title,
   subtitle,
   dialogLabelId,
   dialogDescriptionId,
   onClose
 }: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+  const onCloseClick = useCallback(() => {
+    onClose('close-button')
+  }, [onClose])
   if (typeof title === 'string' && typeof subtitle === 'string') {
     return (
       <Box bg="auto.blue.3">
         <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
         <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
-        <Dialog.CloseButton onClose={onClose} />
+        <Dialog.CloseButton onClose={onCloseClick} />
       </Box>
     )
   }
   return null
 }
-function customBody({children}: React.PropsWithChildren<DialogProps>) {
+function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
   return <Dialog.Body bg="auto.red.3">{children}</Dialog.Body>
 }
-function customFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
+function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   return (
     <Dialog.Footer bg="auto.yellow.3">
       {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
@@ -141,9 +144,9 @@ export const WithCustomRenderers = () => {
         <Dialog
           title="My Dialog"
           subtitle="This is a subtitle!"
-          renderHeader={customHeader}
-          renderBody={customBody}
-          renderFooter={customFooter}
+          renderHeader={CustomHeader}
+          renderBody={CustomBody}
+          renderFooter={CustomFooter}
           onClose={onDialogClose}
           footerButtons={[
             {element: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
