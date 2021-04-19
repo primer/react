@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
+import {cleanup, render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -55,7 +55,9 @@ describe('ActionMenu', () => {
     let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const itemText = items
@@ -71,11 +73,15 @@ describe('ActionMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const menuItem = await menu.queryByText(items[0].text)
-    menuItem?.click()
+    act(() => {
+      fireEvent.click(menuItem as Element)
+    })
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
@@ -84,11 +90,15 @@ describe('ActionMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    await somethingElse?.click()
+    await act(async () => {
+      await fireEvent.click(somethingElse)
+    })
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
 
@@ -97,11 +107,15 @@ describe('ActionMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Menu')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const menuItem = (await portalRoot?.querySelector("[role='menuitem']")) as HTMLElement
-    await menuItem?.click()
+    act(() => {
+      fireEvent.click(menuItem)
+    })
     // onAction has been called with correct argument
     expect(mockOnActivate).toHaveBeenCalledTimes(1)
     const arg = mockOnActivate.mock.calls[0][0]

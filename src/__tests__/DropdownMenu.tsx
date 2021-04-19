@@ -57,7 +57,9 @@ describe('DropdownMenu', () => {
     let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    await anchor?.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const itemText = items
@@ -73,7 +75,9 @@ describe('DropdownMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const menuItem = await menu.queryByText('Baz')
@@ -89,7 +93,9 @@ describe('DropdownMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const menuItem = await menu.queryByText('Baz')
@@ -104,11 +110,15 @@ describe('DropdownMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    await anchor.click()
+    act(() => {
+      fireEvent.click(anchor)
+    })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    await somethingElse?.click()
+    act(() => {
+      fireEvent.click(somethingElse)
+    })
     // portal is closed after click
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
