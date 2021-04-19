@@ -20,7 +20,7 @@ import {
   VersionsIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
-import {Dialog as Dialog2} from "../../../../src/Dialog/Dialog"
+import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
 
 export default {
   ...doctocatComponents,
