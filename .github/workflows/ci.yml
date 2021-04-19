@@ -26,7 +26,7 @@ jobs:
         run: yarn test
 
       - name: Create .npmrc
-        if: github.repository == 'primer/components'
+        if: github.event_name == 'push'
         run: |
           cat << EOF > "$HOME/.npmrc"
             //registry.npmjs.org/:_authToken=$NPM_TOKEN
@@ -35,7 +35,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
 
       - name: Publish canary version
-        if: github.repository == 'primer/components'
+        if: github.event_name == 'push'
         run: |
           echo "$( jq '.version = "0.0.0"' package.json )" > package.json
           echo -e "---\n'@primer/components': patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
@@ -45,7 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Output canary version number
-        if: github.repository == 'primer/components'
+        if: github.event_name == 'push'
         run: |
           name=$(jq -r .name package.json)
           version=$(jq -r .version package.json)
