@@ -84,8 +84,8 @@ export const BasicDialog = () => {
           subtitle="This is a subtitle!"
           onClose={onDialogClose}
           footerButtons={[
-            {element: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
-            {element: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog, autoFocus: true}
+            {buttonType: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog, autoFocus: true}
           ]}
         >
           {lipsum}
@@ -149,8 +149,8 @@ export const WithCustomRenderers = () => {
           renderFooter={CustomFooter}
           onClose={onDialogClose}
           footerButtons={[
-            {element: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
-            {element: ButtonPrimary, text: 'Proceed'}
+            {buttonType: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: ButtonPrimary, text: 'Proceed'}
           ]}
         >
           {lipsum}

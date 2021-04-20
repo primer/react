@@ -23,7 +23,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  element?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
+  buttonType?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
 
   /**
    * The Button's inner text
@@ -305,7 +305,7 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {text, element: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {text, buttonType: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
           <Element
             key={index}
