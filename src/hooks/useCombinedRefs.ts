@@ -12,7 +12,7 @@ export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)
   const combinedRef = useRef<T | null>(null)
 
   React.useEffect(() => {
-    const setRefs = (current: T | null = null) => {
+    function setRefs(current: T | null = null) {
       for (const ref of refs) {
         if (!ref) {
           return
