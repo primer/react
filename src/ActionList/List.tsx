@@ -1,33 +1,41 @@
+import React from 'react'
+import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
-import React from 'react'
 import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
 
+export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
+
 /**
  * Contract for props passed to the `List` component.
  */
-interface ListPropsBase {
+export interface ListPropsBase {
   /**
    * A collection of `Item` props and `Item`-level custom `Item` renderers.
    */
-  items: (ItemProps | (Partial<ItemProps> & {renderItem: typeof Item}))[]
+  items: ItemInput[]
+
+  /**
+   * The ARIA role describing the function of `List` component. `listbox` is a common value.
+   */
+  role?: AriaRole
 
   /**
    * A `List`-level custom `Item` renderer. Every `Item` within this `List`
    * without a `Group`-level or `Item`-level custom `Item` renderer will be
    * rendered using this function component.
    */
-  renderItem?: (props: ItemProps) => JSX.Element
+  renderItem?: typeof Item
 
   /**
    * A `List`-level custom `Group` renderer. Every `Group` within this `List`
    * without a `Group`-level custom `Item` renderer will be rendered using
    * this function component.
    */
-  renderGroup?: (props: GroupProps) => JSX.Element
+  renderGroup?: typeof Group
 
   /**
    * Style variations. Usage is discretionary.
@@ -41,7 +49,7 @@ interface ListPropsBase {
 /**
  * Contract for props passed to the `List` component, when its `Item`s are collected in `Group`s.
  */
-interface GroupedListProps extends ListPropsBase {
+export interface GroupedListProps extends ListPropsBase {
   /**
    * A collection of `Group` props (except `items`), plus a unique group identifier
    * and `Group`-level custom `Item` or `Group` renderers.
@@ -123,10 +131,11 @@ export function List(props: ListProps): JSX.Element {
    * An `Item`-level, `Group`-level, or `List`-level custom `Item` renderer,
    * or the default `Item` renderer.
    */
-  const renderItem = (itemProps: ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})) =>
-    ((('renderItem' in itemProps && itemProps.renderItem) ?? props.renderItem) || Item).call(null, {
+  const renderItem = (itemProps: ItemInput, item: ItemInput) =>
+    (('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item).call(null, {
       ...itemProps,
-      sx: {...itemStyle, ...itemProps.sx}
+      sx: {...itemStyle, ...itemProps.sx},
+      item
     })
 
   /**
@@ -138,7 +147,7 @@ export function List(props: ListProps): JSX.Element {
 
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items?.map(renderItem)}]
+    groups = [{items: props.items?.map(item => renderItem(item, item))}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 
@@ -146,7 +155,7 @@ export function List(props: ListProps): JSX.Element {
      * A map of group identifiers to `Group`s, each with an associated array of `Item`s belonging to that `Group`.
      */
     const groupMap = props.groupMetadata.reduce(
-      (groups, groupMetadata) => groups.set(groupMetadata.groupId, groupMetadata),
+      (groupAccumulator, groupMetadata) => groupAccumulator.set(groupMetadata.groupId, groupMetadata),
       new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>()
     )
 
@@ -159,7 +168,13 @@ export function List(props: ListProps): JSX.Element {
         ...group,
         items: [
           ...(group?.items ?? []),
-          renderItem({...(group && 'renderItem' in group && {renderItem: group.renderItem}), ...itemProps})
+          renderItem(
+            {
+              ...(group && 'renderItem' in group && {renderItem: group.renderItem}),
+              ...itemProps
+            },
+            itemProps
+          )
         ]
       })
     }

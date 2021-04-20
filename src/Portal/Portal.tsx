@@ -63,7 +63,7 @@ export const Portal: React.FC<PortalProps> = ({children, onMount, containerName:
 
   React.useLayoutEffect(() => {
     let containerName = _containerName
-    if (containerName == undefined) {
+    if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
     }

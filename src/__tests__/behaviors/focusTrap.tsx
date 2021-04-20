@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
 import {fireEvent, render} from '@testing-library/react'
 import {focusTrap} from '../../behaviors/focusTrap'
@@ -18,7 +17,9 @@ beforeAll(() => {
         get: () => () => [42]
       }
     })
-  } catch {}
+  } catch {
+    // ignore
+  }
 })
 
 it('Should initially focus the first focusable element when activated', () => {

@@ -27,6 +27,8 @@ export {useOverlay} from './hooks/useOverlay'
 
 // Components
 export {ActionList} from './ActionList'
+export {ActionMenu} from './ActionMenu'
+export type {ActionMenuProps} from './ActionMenu'
 export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
@@ -77,6 +79,9 @@ export type {
   DropdownItemProps,
   DropdownMenuProps
 } from './Dropdown'
+export {DropdownButton, DropdownMenu} from './DropdownMenu'
+// not exporting new DropdownMenu types yet due to conflict with Dropdown types above
+// export type {DropdownButtonProps, DropdownMenuProps} from './DropdownMenu'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
 export {default as FilterList} from './FilterList'
