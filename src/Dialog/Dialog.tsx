@@ -99,6 +99,19 @@ export interface DialogProps {
    * @see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog
    */
   role?: 'dialog' | 'alertdialog'
+
+  /**
+   * The size of the dialog.
+   * [size]: [width]x[height]
+   * sm: 296x480
+   * md: 320x480
+   * lg: 480x640
+   * xl: 640x640
+   * auto: auto x auto
+   *
+   * Automatic sizing will cause the dialog to grow as big as the contents, up to 64px smaller than the screen dimension.
+   */
+  size?: DialogSize
 }
 
 /**
@@ -142,11 +155,13 @@ const Backdrop = styled('div')`
 
 const heightMap = {
   sm: '480px',
-  md: '640px',
+  md: '480px',
+  lg: '640px',
+  xl: '640px',
   auto: 'auto'
 }
 
-const widthMap = {
+const sizeMap = {
   sm: '296px',
   md: '320px',
   lg: '480px',
@@ -154,9 +169,11 @@ const widthMap = {
   auto: 'auto'
 }
 
+export type DialogSize = keyof typeof sizeMap
+
 interface StyledDialogProps {
-  width?: keyof typeof widthMap
-  height?: keyof typeof heightMap
+  width?: DialogSize
+  height?: DialogSize
 }
 
 const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPositionProps & SxProp>`
@@ -165,10 +182,10 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   background-color: ${get('colors.bg.overlay')};
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2);
   min-width: 296px;
-  max-width: min(640px, 100vw);
-  min-height: 480px;
-  max-height: min(640px, 100vh);
-  width: ${props => widthMap[props.width ?? 'auto']};
+  max-width: calc(100vw - 64px);
+  min-height: 160px;
+  max-height: calc(100vw - 64px);
+  width: ${props => sizeMap[props.width ?? 'auto']};
   height: ${props => heightMap[props.height ?? 'auto']};
   border-radius: 12px;
   overflow: hidden;
@@ -223,7 +240,16 @@ const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
 }
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
-  const {title = 'Dialog', subtitle = '', renderHeader, renderBody, renderFooter, onClose, role = 'dialog'} = props
+  const {
+    title = 'Dialog',
+    subtitle = '',
+    renderHeader,
+    renderBody,
+    renderFooter,
+    onClose,
+    role = 'dialog',
+    size = 'auto'
+  } = props
   const dialogLabelId = uniqueId()
   const dialogDescriptionId = uniqueId()
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
@@ -251,6 +277,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       <Portal>
         <Backdrop ref={backdropRef}>
           <StyledDialog
+            width={size}
+            height={size === 'md' ? 'sm' : size === 'xl' ? 'lg' : size}
             ref={combinedRef}
             role={role}
             aria-labelledby={dialogLabelId}

@@ -2,7 +2,7 @@ import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Button, ButtonDanger, ButtonPrimary, ThemeProvider, Position, Box} from '..'
-import {Dialog, DialogProps} from '../Dialog/Dialog'
+import {Dialog, DialogProps, DialogSize} from '../Dialog/Dialog'
 
 export default {
   title: 'Internal components/Dialog',
@@ -12,14 +12,32 @@ export default {
       // Since portal roots are registered globally, we need this line so that each storybook
       // story works in isolation.
       return (
-        <ThemeProvider colorMode="night">
+        <ThemeProvider>
           <BaseStyles>
             <Story />
           </BaseStyles>
         </ThemeProvider>
       )
     }
-  ]
+  ],
+  argTypes: {
+    size: {
+      control: {
+        type: 'radio',
+        options: ['sm', 'md', 'lg', 'xl', 'auto']
+      }
+    },
+    title: {table: {disable: true}},
+    subtitle: {table: {disable: true}},
+    renderHeader: {table: {disable: true}},
+    renderBody: {table: {disable: true}},
+    renderFooter: {table: {disable: true}},
+    onClose: {table: {disable: true}},
+    role: {table: {disable: true}},
+    ref: {table: {disable: true}},
+    key: {table: {disable: true}},
+    footerButtons: {table: {disable: true}}
+  }
 } as Meta
 
 const lipsum = (
@@ -65,7 +83,7 @@ const lipsum = (
   </div>
 )
 
-export const BasicDialog = () => {
+export const BasicDialog = ({size}: {size: DialogSize}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -83,6 +101,7 @@ export const BasicDialog = () => {
           title="My Dialog"
           subtitle="This is a subtitle!"
           onClose={onDialogClose}
+          size={size}
           footerButtons={[
             {buttonType: ButtonDanger, text: 'Delete the universe', onClick: onDialogClose},
             {buttonType: ButtonPrimary, text: 'Proceed', onClick: openSecondDialog, autoFocus: true}
@@ -131,7 +150,7 @@ function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
     </Dialog.Footer>
   )
 }
-export const WithCustomRenderers = () => {
+export const WithCustomRenderers = ({size}: {size: DialogSize}) => {
   const [isOpen, setIsOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -144,6 +163,7 @@ export const WithCustomRenderers = () => {
         <Dialog
           title="My Dialog"
           subtitle="This is a subtitle!"
+          size={size}
           renderHeader={CustomHeader}
           renderBody={CustomBody}
           renderFooter={CustomFooter}
