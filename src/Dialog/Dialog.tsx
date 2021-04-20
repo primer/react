@@ -333,7 +333,7 @@ const DialogCloseButton = styled(Button)`
 `
 const CloseButton: React.FC<{onClose: () => void}> = ({onClose}) => {
   return (
-    <DialogCloseButton onClick={onClose}>
+    <DialogCloseButton aria-label="Close" onClick={onClose}>
       <StyledOcticon icon={XIcon} />
     </DialogCloseButton>
   )
