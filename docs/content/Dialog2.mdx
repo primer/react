@@ -14,9 +14,9 @@ The dialog component the Primer implementation of the ARIA design pattern [Dialo
 
 **Dialogs are modal**. Dialogs can be dismissed by clicking on the close button, or by interacting with another button in the overlay. To avoid losing information and missing important messages, clicking outside of the dialog will not close it.
 
-**Make sure larger dialogs remain mobile-friendly**. Even large dialogs need to be responsive. A dialog's width and height will be readjusted depending on the screen size and should never exceed the available space. Use responsive solutions to adjust the UI so they behave well on smaller screens.
+**(Coming soon) Make sure larger dialogs remain mobile-friendly**. Even large dialogs need to be responsive. A dialog's width and height will be readjusted depending on the screen size and should never exceed the available space. Use responsive solutions to adjust the UI so they behave well on smaller screens.
 
-**Simple and small dialogs can remain as-is on mobile**. As more elements are added to it, mobile-specific style variations such as **Bottom sheet** and **Full-screen** should be considered.
+**(Coming soon) Simple and small dialogs can remain as-is on mobile**. As more elements are added to it, mobile-specific style variations such as **Bottom sheet** and **Full-screen** should be considered.
 
 ### State
 
@@ -31,8 +31,9 @@ The dialog component is fully accessible out-of-the-box. The dialog's title is u
 The default keyboard API for a dialog employs three mechanisms:
 
 1. The Escape key can be pressed to close the dialog.
-2. Focus is trapped within the top-most dialog. When a dialog is opened, the close button receives initial focus by default.
+2. Focus is trapped within the top-most dialog. When a dialog is opened, the close button receives initial focus by default, or on a button defined with `autoFocus: true`.
 3. If there are buttons in the dialog footer, focus can be moved between them with left and right arrow keys or tab/shift+tab.
+4. When a dialog is closed, focus returns to the element that was focused immediately before the dialog was opened.
 
 ### Custom rendering
 

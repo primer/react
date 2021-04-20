@@ -26,13 +26,13 @@ export default {
 // this Storybook story, but they're not recommended for a real site!
 const HelperGlobalStyling = createGlobalStyle`
   *:focus {
-    outline: 2px solid ${themeGet('colors.blue.3')} !important;
+    outline: 2px solid ${themeGet('colors.auto.blue.3')} !important;
   }
   [data-focus-trap='active'] {
-    background-color: ${themeGet('colors.green.2')}
+    background-color: ${themeGet('colors.auto.green.2')}
   }
   [data-focus-trap='suspended'] {
-    background-color: ${themeGet('colors.yellow.2')}
+    background-color: ${themeGet('colors.auto.yellow.2')}
   }
 `
 
@@ -43,6 +43,49 @@ const MarginButton = styled(Button)`
 export const FocusTrap = () => {
   const [trapEnabled, setTrapEnabled] = React.useState(false)
   const {containerRef} = useFocusTrap({disabled: !trapEnabled})
+
+  const spaceListener = React.useCallback(
+    event => {
+      if (event.key === ' ') {
+        setTrapEnabled(!trapEnabled)
+      }
+    },
+    [trapEnabled]
+  )
+
+  useEffect(() => {
+    document.addEventListener('keypress', spaceListener)
+    return () => {
+      document.removeEventListener('keypress', spaceListener)
+    }
+  }, [spaceListener])
+
+  return (
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start">
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
+          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+          <Flex flexDirection="column" alignItems="flex-start">
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </Flex>
+        </BorderBox>
+        <MarginButton>Grapefruit</MarginButton>
+        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+      </Flex>
+    </>
+  )
+}
+
+export const RestoreFocus = () => {
+  const [trapEnabled, setTrapEnabled] = React.useState(false)
+  const {containerRef} = useFocusTrap({disabled: !trapEnabled, restoreFocusOnCleanUp: true})
 
   const spaceListener = React.useCallback(
     event => {

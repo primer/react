@@ -231,7 +231,7 @@ const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProp
   const dialogRef = useRef<HTMLDivElement>(null)
   const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
   const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef})
+  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true})
 
   const callback = useCallback(
     (event: KeyboardEvent) => {
@@ -265,6 +265,7 @@ const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProp
     </>
   )
 })
+_Dialog.displayName = 'Dialog'
 
 const Header = styled(Box).attrs({as: 'header'})`
   box-shadow: 0 1px 0 ${get('colors.border.overlay')};
