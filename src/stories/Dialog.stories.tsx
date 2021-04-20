@@ -12,7 +12,7 @@ export default {
       // Since portal roots are registered globally, we need this line so that each storybook
       // story works in isolation.
       return (
-        <ThemeProvider>
+        <ThemeProvider colorMode="night">
           <BaseStyles>
             <Story />
           </BaseStyles>

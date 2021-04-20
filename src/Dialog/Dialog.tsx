@@ -222,7 +222,7 @@ const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
   ) : null
 }
 
-const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {title = 'Dialog', subtitle = '', renderHeader, renderBody, renderFooter, onClose, role = 'dialog'} = props
   const dialogLabelId = uniqueId()
   const dialogDescriptionId = uniqueId()
@@ -251,7 +251,7 @@ const _Dialog = React.forwardRef<HTMLElement, React.PropsWithChildren<DialogProp
       <Portal>
         <Backdrop ref={backdropRef}>
           <StyledDialog
-            ref={combinedRef as React.RefObject<HTMLDivElement>}
+            ref={combinedRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
