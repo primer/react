@@ -46,7 +46,7 @@ export const BasicConfirmationDialog = () => {
   )
 }
 
-export const ShorthandConfirmation = () => {
+export const ShorthandHook = () => {
   const confirm = useConfirm()
   const {theme} = useTheme()
   const onButtonClick = useCallback(

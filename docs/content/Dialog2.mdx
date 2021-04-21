@@ -115,7 +115,11 @@ The `DialogButtonProps` interface extends `ButtonProps` (see Button) and adds th
 
 A `ConfirmationDialog` is a special kind of dialog with more rigid behavior. It is used to confirm a user action. `ConfirmationDialog`s always have exactly two buttons: one to cancel the action and one to confirm it. No custom rendering capabilities are provided for ConfirmationDialog.
 
-### Example (shorthand async version)
+### useConfirm hook
+
+An alternate way to use `ConfirmationDialog` is with the `useConfirm()` hook. It takes no parameters and returns an `async` function, `confirm`. When `confirm` is called (its `options` argument is `ConfirmationDialogProps` but without an `onClose` handler), it shows the confirmation dialog. When the dialog is dismissed, a promise is resolved with `true` or `false` depending on whether or not the confirm button was used.
+
+### Example (with `useConfirm` hook)
 
 ```javascript live noinline
 function ShorthandExample() {
@@ -165,7 +169,7 @@ render(<ShorthandExample2 />)
 ```
 -->
 
-### Example (component version)
+### Example (using the full `ConfirmationDialog` component)
 
 ```jsx live
 <State default={false}>
