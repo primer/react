@@ -22,19 +22,28 @@ export default {
   ],
   argTypes: {
     width: {
+      defaultValue: 'xl',
       control: {
         type: 'radio',
         options: ['sm', 'md', 'lg', 'xl']
       }
     },
     height: {
+      defaultValue: 'auto',
       control: {
         type: 'radio',
         options: ['sm', 'lg', 'auto']
       }
     },
+    subtitle: {
+      name: 'show subtitle',
+      defaultValue: true,
+      control: {
+        type: 'boolean'
+      }
+    },
     title: {table: {disable: true}},
-    subtitle: {table: {disable: true}},
+
     renderHeader: {table: {disable: true}},
     renderBody: {table: {disable: true}},
     renderFooter: {table: {disable: true}},
@@ -88,8 +97,12 @@ const lipsum = (
     </p>
   </div>
 )
-
-export const BasicDialog = ({width, height}: {width: DialogWidth; height: DialogHeight}) => {
+interface DialogStoryProps {
+  width: DialogWidth
+  height: DialogHeight
+  subtitle: boolean
+}
+export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -105,7 +118,7 @@ export const BasicDialog = ({width, height}: {width: DialogWidth; height: Dialog
       {isOpen && (
         <Dialog
           title="My Dialog"
-          subtitle="This is a subtitle!"
+          subtitle={subtitle ? 'This is a subtitle!' : undefined}
           onClose={onDialogClose}
           width={width}
           height={height}
@@ -157,7 +170,7 @@ function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
     </Dialog.Footer>
   )
 }
-export const WithCustomRenderers = ({width, height}: {width: DialogWidth; height: DialogHeight}) => {
+export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -169,7 +182,7 @@ export const WithCustomRenderers = ({width, height}: {width: DialogWidth; height
       {isOpen && (
         <Dialog
           title="My Dialog"
-          subtitle="This is a subtitle!"
+          subtitle={subtitle ? 'This is a subtitle!' : undefined}
           width={width}
           height={height}
           renderHeader={CustomHeader}
@@ -188,7 +201,7 @@ export const WithCustomRenderers = ({width, height}: {width: DialogWidth; height
   )
 }
 
-export const StressTest = ({width, height}: {width: DialogWidth; height: DialogHeight}) => {
+export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -205,7 +218,11 @@ export const StressTest = ({width, height}: {width: DialogWidth; height: DialogH
       {isOpen && (
         <Dialog
           title="This dialog has a really long title. So long, in fact, that it should cause wrapping, going to multiple lines!."
-          subtitle="It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
+          subtitle={
+            subtitle
+              ? "It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
+              : undefined
+          }
           onClose={onDialogClose}
           width={width}
           height={height}

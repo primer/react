@@ -305,10 +305,11 @@ const Header = styled(Box).attrs({as: 'header'})`
 `
 const Title = styled(Box)`
   font-size: ${get('fontSizes.1')};
-  font-weight: 700;
+  font-weight: ${get('fontWeights.bold')};
 `
 const Subtitle = styled(Box)`
   font-size: ${get('fontSizes.0')};
+  margin-top: ${get('space.1')};
   color: ${get('colors.text.tertiary')};
 `
 const Body = styled(Box)`
