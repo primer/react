@@ -171,6 +171,11 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
   })
 }
 
+/**
+ * This hook takes no parameters and returns an `async` function, `confirm`. When `confirm`
+ * is called, it shows the confirmation dialog. When the dialog is dismissed, a promise is
+ * resolved with `true` or `false` depending on whether or not the confirm button was used.
+ */
 export function useConfirm() {
   const {theme, colorMode, dayScheme, nightScheme} = useTheme()
   const result = useCallback(

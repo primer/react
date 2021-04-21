@@ -117,7 +117,7 @@ A `ConfirmationDialog` is a special kind of dialog with more rigid behavior. It 
 
 ### useConfirm hook
 
-An alternate way to use `ConfirmationDialog` is with the `useConfirm()` hook. It takes no parameters and returns an `async` function, `confirm`. When `confirm` is called (its `options` argument is `ConfirmationDialogProps` but without an `onClose` handler), it shows the confirmation dialog. When the dialog is dismissed, a promise is resolved with `true` or `false` depending on whether or not the confirm button was used.
+An alternate way to use `ConfirmationDialog` is with the `useConfirm()` hook. It takes no parameters and returns an `async` function, `confirm`. When `confirm` is called (see ConfirmOptions below for its argument), it shows the confirmation dialog. When the dialog is dismissed, a promise is resolved with `true` or `false` depending on whether or not the confirm button was used.
 
 ### Example (with `useConfirm` hook)
 
@@ -199,3 +199,13 @@ render(<ShorthandExample2 />)
 | cancelButtonLabel  | `string`                                                              | `"Cancel"` | The text to use for the cancel button.                                                                                        |
 | confirmButtonLabel | `string`                                                              | `"OK"`     | The text to use for the confirm button.                                                                                       |
 | confirmButtonType  | `Button │ ButtonPrimary │ ButtonDanger`                               | `Button`   | The type of button to use for the confirm button.                                                                             |
+
+### ConfirmOptions
+
+| Prop name          | Type                                    | Default    | Description                                                                                               |
+| :----------------- | :-------------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------- |
+| title              | `string`                                |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute. |
+| description        | `string`                                |            | Required. Used as the body of the ConfirmationDialog that is displayed.                                   |
+| cancelButtonLabel  | `string`                                | `"Cancel"` | The text to use for the cancel button.                                                                    |
+| confirmButtonLabel | `string`                                | `"OK"`     | The text to use for the confirm button.                                                                   |
+| confirmButtonType  | `Button │ ButtonPrimary │ ButtonDanger` | `Button`   | The type of button to use for the confirm button.                                                         |
