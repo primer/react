@@ -10,6 +10,7 @@ import {useCombinedRefs} from './hooks/useCombinedRefs'
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
+  visibility?: 'visible' | 'hidden'
 }
 
 const heightMap = {
@@ -48,6 +49,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
       opacity: 1;
     }
   }
+  visibility: ${props => props.visibility || 'visible'};
   ${COMMON};
   ${POSITION};
   ${sx};
@@ -58,7 +60,8 @@ export type OverlayProps = {
   returnFocusRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
-} & Omit<ComponentProps<typeof StyledOverlay>, keyof SystemPositionProps>
+  visibility?: 'visible' | 'hidden'
+} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -71,10 +74,11 @@ export type OverlayProps = {
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `sm` corresponds to `256px`, `md` corresponds to `320px`, `lg` corresponds to `480px`, and `xl` corresponds to `640px`.
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `sm` corresponds to `480px` and `md` corresponds to `640px`.
+ * @param visibility Sets the visibility of the `Overlay`
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
-    {onClickOutside, role = 'dialog', initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest},
+    {onClickOutside, role = 'dialog', initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, visibility, ...rest},
     forwardedRef
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
@@ -90,7 +94,14 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     })
     return (
       <Portal>
-        <StyledOverlay {...overlayProps} aria-modal="true" role={role} {...rest} ref={combinedRef} />
+        <StyledOverlay
+          {...overlayProps}
+          aria-modal="true"
+          role={role}
+          {...rest}
+          ref={combinedRef}
+          visibility={visibility}
+        />
       </Portal>
     )
   }

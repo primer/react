@@ -247,7 +247,7 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 
 Make sure to run `yarn` from inside the `docs/` subfolder _as well as_ the root folder.
 
-** `yarn start` fails with a different error**
+**`yarn start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
 
