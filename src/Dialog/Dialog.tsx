@@ -321,6 +321,7 @@ const Footer = styled(Box).attrs({as: 'footer'})`
   box-shadow: 0 -1px 0 ${get('colors.border.overlay')};
   padding: ${get('space.3')};
   display: flex;
+  flex-flow: wrap;
   justify-content: flex-end;
   z-index: 1;
   flex-shrink: 0;
