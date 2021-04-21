@@ -20,6 +20,12 @@ interface FocusTrapHookSettings {
    * any time.
    */
   disabled?: boolean
+
+  /**
+   * If true, when this focus trap is cleaned up, restore focus to the element that had
+   * focus immediately before the focus trap was enabled. (Default: false)
+   */
+  restoreFocusOnCleanUp?: boolean
 }
 
 /**
@@ -35,6 +41,23 @@ export function useFocusTrap(
   const initialFocusRef = useProvidedRefOrCreate(settings?.initialFocusRef)
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
+  const previousFocusedElement = React.useRef<Element | null>(null)
+
+  // If we are enabling a focus trap and haven't already stored the previously focused element
+  // go ahead an do that so we can restore later when the trap is disabled.
+  if (!previousFocusedElement.current && !settings?.disabled) {
+    previousFocusedElement.current = document.activeElement
+  }
+
+  // This function removes the event listeners that enable the focus trap and restores focus
+  // to the previously-focused element (if necessary).
+  function disableTrap() {
+    abortController.current?.abort()
+    if (settings?.restoreFocusOnCleanUp && previousFocusedElement.current instanceof HTMLElement) {
+      previousFocusedElement.current.focus()
+      previousFocusedElement.current = null
+    }
+  }
 
   React.useEffect(
     () => {
@@ -42,10 +65,10 @@ export function useFocusTrap(
         if (!disabled) {
           abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
           return () => {
-            abortController.current?.abort()
+            disableTrap()
           }
         } else {
-          abortController.current?.abort()
+          disableTrap()
         }
       }
     },
