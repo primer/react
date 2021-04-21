@@ -6,7 +6,7 @@
     "checkJs": false,
     "jsx": "preserve",
     "declaration": true,
-    "outDir": "./types",
+    "outDir": "./lib",
     "emitDeclarationOnly": true,
     "strict": true,
     "moduleResolution": "node",

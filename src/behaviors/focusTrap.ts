@@ -87,6 +87,7 @@ export function focusTrap(
             return
           } else {
             // no element focusable within trap, blur the external element instead
+            // eslint-disable-next-line github/no-blur
             focusedElement.blur()
           }
         }

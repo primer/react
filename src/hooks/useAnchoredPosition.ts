@@ -18,7 +18,7 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
  */
 export function useAnchoredPosition(
   settings?: AnchoredPositionHookSettings,
-  dependencies?: React.DependencyList
+  dependencies: React.DependencyList = []
 ): {
   floatingElementRef: React.RefObject<Element>
   anchorElementRef: React.RefObject<Element>
@@ -30,9 +30,11 @@ export function useAnchoredPosition(
   React.useEffect(() => {
     if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
       setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
+    } else {
+      setPosition(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies ?? [])
+  }, [floatingElementRef, anchorElementRef, ...dependencies])
   return {
     floatingElementRef,
     anchorElementRef,

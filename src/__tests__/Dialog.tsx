@@ -91,7 +91,6 @@ describe('Dialog', () => {
   it('should have no axe violations', async () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation()
     const {container} = HTMLRender(comp)
-    // eslint-disable-next-line no-console
     spy.mockRestore()
     const results = await axe(container)
     expect(results).toHaveNoViolations()

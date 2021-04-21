@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ButtonPrimary, Position, Relative, ThemeProvider} from '..'
@@ -295,7 +294,7 @@ export const WithPortal = () => {
           <ButtonPrimary onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement>}>
             Show the overlay!
           </ButtonPrimary>
-          {showMenu && (
+          {showMenu ? (
             <Portal>
               <Float
                 ref={floatingElementRef as React.RefObject<HTMLDivElement>}
@@ -308,7 +307,7 @@ export const WithPortal = () => {
                 An un-constrained overlay!
               </Float>
             </Portal>
-          )}
+          ) : null}
         </Box>
       </Nav>
       <Box sx={{flexGrow: 1}} p={3}>

@@ -7,7 +7,8 @@ const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
 const defaultNightScheme = 'dark'
 
-type Theme = any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Theme = {[key: string]: any}
 type ColorMode = 'day' | 'night'
 type ColorModeWithAuto = ColorMode | 'auto'
 
@@ -103,8 +104,7 @@ function useSystemColorMode() {
 
     function handleChange(event: MediaQueryListEvent) {
       const isNight = event.matches
-      const systemColorMode = isNight ? 'night' : 'day'
-      setSystemColorMode(systemColorMode)
+      setSystemColorMode(isNight ? 'night' : 'day')
     }
 
     media?.addEventListener('change', handleChange)
@@ -149,6 +149,7 @@ function applyColorScheme(theme: Theme, colorScheme: string) {
   }
 
   if (!theme.colorSchemes[colorScheme]) {
+    // eslint-disable-next-line no-console
     console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
     return theme
   }

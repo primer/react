@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionMenu renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27,31,35,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0:hover {
+  background-color: #f3f4f6;
+  border-color: rgba(27,31,35,0.15);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c0:active {
+  background-color: #edeff2;
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
+}
+
+.c0:disabled {
+  color: #959da5;
+  background-color: #fafbfc;
+  border-color: rgba(27,31,35,0.15);
+}
+
+<button
+  aria-haspopup="listbox"
+  aria-label="menu"
+  aria-labelledby="dropdownMenuAnchor-__primer_id_10000"
+  className="c0"
+  id="dropdownMenuAnchor-__primer_id_10000"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  tabIndex={0}
+/>
+`;

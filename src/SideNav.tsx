@@ -1,4 +1,5 @@
 import classnames from 'classnames'
+// eslint-disable-next-line import/no-namespace
 import * as History from 'history'
 import React from 'react'
 import styled, {css} from 'styled-components'
@@ -160,6 +161,6 @@ SideNavLink.defaultProps = {
 SideNavLink.displayName = 'SideNav.Link'
 
 export type SideNavProps = ComponentProps<typeof SideNav>
-export type SideNavLinksProps = ComponentProps<typeof SideNavLink>
+export type SideNavLinkProps = ComponentProps<typeof SideNavLink>
 
 export default Object.assign(SideNav, {Link: SideNavLink})

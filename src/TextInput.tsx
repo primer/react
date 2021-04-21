@@ -121,12 +121,16 @@ const Wrapper = styled.span<StyledWrapperProps>`
   ${sx};
 `
 
-type TextInputInternalProps = {icon?: React.ComponentType<{className?: string}>} & ComponentProps<typeof Wrapper> &
+type TextInputInternalProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  as?: any // This is a band-aid fix until we have better type support for the `as` prop
+  icon?: React.ComponentType<{className?: string}>
+} & ComponentProps<typeof Wrapper> &
   ComponentProps<typeof Input>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({icon: IconComponent, contrast, className, block, disabled, theme, sx, ...rest}, ref) => {
+  ({icon: IconComponent, contrast, className, block, disabled, theme, sx: sxProp, ...rest}, ref) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const wrapperProps = pick(rest)
@@ -139,7 +143,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         theme={theme}
         disabled={disabled}
         contrast={contrast}
-        sx={sx}
+        sx={sxProp}
         {...wrapperProps}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
