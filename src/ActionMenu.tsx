@@ -75,7 +75,13 @@ const ActionMenuBase = ({
     [open]
   )
 
-  const {position} = useAnchoredPosition({anchorElementRef: anchorRef, floatingElementRef: overlayRef})
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: overlayRef
+    },
+    [overlayRef.current]
+  )
 
   useFocusZone({containerRef: overlayRef, disabled: !open || state !== 'listFocus'}, [position])
   useFocusTrap({containerRef: overlayRef, disabled: !open || state !== 'listFocus'}, [position])
@@ -100,6 +106,7 @@ const ActionMenuBase = ({
           onClickOutside={onDismiss}
           onEscape={onDismiss}
           ref={updateOverlayRef}
+          visibility={position ? 'visible' : 'hidden'}
           {...position}
         >
           <List
