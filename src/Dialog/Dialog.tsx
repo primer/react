@@ -217,7 +217,7 @@ const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subti
   return (
     <Dialog.Header>
       <Flex>
-        <Flex pt={2} flexDirection="column" flexGrow={1}>
+        <Flex px={2} py="6px" flexDirection="column" flexGrow={1}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Flex>
@@ -299,7 +299,7 @@ _Dialog.displayName = 'Dialog'
 
 const Header = styled(Box).attrs({as: 'header'})`
   box-shadow: 0 1px 0 ${get('colors.border.overlay')};
-  padding: 6px 6px 14px ${get('space.3')};
+  padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
 `
