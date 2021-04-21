@@ -95,7 +95,13 @@ export function DropdownMenu({
     [open]
   )
 
-  const {position} = useAnchoredPosition({anchorElementRef: anchorRef, floatingElementRef: overlayRef})
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: overlayRef
+    },
+    [overlayRef.current]
+  )
 
   useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
   useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
@@ -147,6 +153,7 @@ export function DropdownMenu({
           onClickOutside={onDismiss}
           onEscape={onDismiss}
           ref={updateOverlayRef}
+          visibility={position ? 'visible' : 'hidden'}
           {...position}
         >
           <List {...listProps} role="listbox" renderItem={renderItemWithCallbacks} />
