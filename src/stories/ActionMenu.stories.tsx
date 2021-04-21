@@ -11,14 +11,13 @@ import {
   ArrowRightIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
 import Link, {LinkProps} from '../Link'
-import {ActionList} from '../ActionList'
+import {ActionList, ItemProps} from '../ActionList'
 import BaseStyles from '../BaseStyles'
-import {ItemProps} from '../ActionList/Item'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu',
@@ -173,9 +172,9 @@ ComplexListStory.storyName = 'Complex List'
 export function CustomTrigger(): JSX.Element {
   const customAnchor = (props: LinkProps) => <Link {...props} sx={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
-  const onAction = (itemProps: ItemProps) => {
+  const onAction = useCallback((itemProps: ItemProps) => {
     setOption(itemProps.text)
-  }
+  }, [])
   return (
     <>
       <h1>Custom Trigger</h1>

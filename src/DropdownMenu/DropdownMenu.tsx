@@ -1,13 +1,8 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/List'
-import Overlay from '../Overlay'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {Item} from '../ActionList/Item'
-import {useFocusTrap} from '../hooks/useFocusTrap'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
-import {useRenderForcingRef} from '../hooks/useRenderForcingRef'
-import {uniqueId} from '../utils/uniqueId'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
@@ -47,70 +42,25 @@ export function DropdownMenu({
   onChange,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
-  const anchorRef = useRef<HTMLElement>(null)
-  const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const [open, setOpen] = useState(false)
+  const onOpen = useCallback(() => setOpen(true), [])
+  const onClose = useCallback(() => setOpen(false), [])
 
-  const anchorId = `dropdownMenuAnchor-${uniqueId()}`
-
-  const [open, setOpen] = useState<boolean>(false)
-  const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
-  const onDismiss = useCallback(() => {
-    setOpen(false)
-    setFocusType(null)
-  }, [])
-
-  const onAnchorKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      if (!event.defaultPrevented) {
-        if (!open) {
-          if (['ArrowDown', 'ArrowUp'].includes(event.key)) {
-            setFocusType('list')
-            setOpen(true)
-            event.preventDefault()
-          } else if ([' ', 'Enter'].includes(event.key)) {
-            setFocusType('anchor')
-            setOpen(true)
-            event.preventDefault()
-          }
-        } else if (focusType === 'anchor') {
-          if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].includes(event.key)) {
-            setFocusType('list')
-            event.preventDefault()
-          } else if (event.key === 'Escape') {
-            onDismiss()
-            event.preventDefault()
-          }
-        }
-      }
+  const renderMenuAnchor = useCallback(
+    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
+      return renderAnchor({
+        ...props,
+        children: selectedItem?.text ?? placeholder
+      })
     },
-    [open, focusType, onDismiss]
-  )
-  const onAnchorClick = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      if (!event.defaultPrevented && event.button === 0 && !open) {
-        setOpen(true)
-        setFocusType('anchor')
-      }
-    },
-    [open]
+    [placeholder, renderAnchor, selectedItem?.text]
   )
 
-  const {position} = useAnchoredPosition(
-    {
-      anchorElementRef: anchorRef,
-      floatingElementRef: overlayRef
-    },
-    [overlayRef.current]
-  )
-
-  useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
-  useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
-
-  const renderItemWithCallbacks = useCallback(
+  const renderMenuItem: typeof Item = useCallback(
     ({onClick, onKeyDown, item, ...itemProps}) => {
       const handleSelection = () => {
         onChange?.(item === selectedItem ? undefined : item)
-        onDismiss()
+        onClose()
       }
 
       return renderItem({
@@ -132,34 +82,13 @@ export function DropdownMenu({
         }
       })
     },
-    [onChange, onDismiss, renderItem, selectedItem]
+    [onChange, onClose, renderItem, selectedItem]
   )
 
   return (
-    <>
-      {renderAnchor({
-        ref: anchorRef,
-        id: anchorId,
-        'aria-labelledby': anchorId,
-        'aria-haspopup': 'listbox',
-        children: selectedItem?.text ?? placeholder,
-        onClick: onAnchorClick,
-        onKeyDown: onAnchorKeyDown
-      })}
-      {open ? (
-        <Overlay
-          initialFocusRef={anchorRef}
-          returnFocusRef={anchorRef}
-          onClickOutside={onDismiss}
-          onEscape={onDismiss}
-          ref={updateOverlayRef}
-          visibility={position ? 'visible' : 'hidden'}
-          {...position}
-        >
-          <List {...listProps} role="listbox" renderItem={renderItemWithCallbacks} />
-        </Overlay>
-      ) : null}
-    </>
+    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
+      <List {...listProps} role="listbox" renderItem={renderMenuItem} />
+    </AnchoredOverlay>
   )
 }
 
