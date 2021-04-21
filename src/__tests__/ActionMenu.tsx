@@ -96,8 +96,8 @@ describe('ActionMenu', () => {
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    await act(async () => {
-      await fireEvent.click(somethingElse)
+    act(() => {
+      fireEvent.click(somethingElse)
     })
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
