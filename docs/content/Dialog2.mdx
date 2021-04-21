@@ -46,14 +46,11 @@ By default, the Dialog component implements the design and interactions defined 
 ```jsx live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
-    const returnFocusRef = React.useRef(null)
     const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
     const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
     return (
       <>
-        <Button ref={returnFocusRef} onClick={openDialog}>
-          Open
-        </Button>
+        <Button onClick={openDialog}>Open</Button>
         {isOpen && (
           <Dialog2
             title="Dialog example"
@@ -108,8 +105,8 @@ The `DialogHeaderProps` interface extends `DialogProps` and adds these additiona
 
 The `DialogButtonProps` interface extends `ButtonProps` (see Button) and adds these additional properties:
 
-| Prop name  | Type                                             | Default                      | Description                                                                                                                                                        |
-| :--------- | :----------------------------------------------- | :--------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| buttonType | `Button │ ButtonPrimary │ ButtonDanger │ Button` | The type of button to render |
-| text       | `string`                                         |                              | Required. The button's inner text.                                                                                                                                 |
-| autoFocus  | `boolean`                                        | false                        | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
+| Prop name  | Type                                    | Default | Description                                                                                                                                                        |
+| :--------- | :-------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| buttonType | `Button │ ButtonPrimary │ ButtonDanger` |         | The type of button to render                                                                                                                                       |
+| text       | `string`                                |         | Required. The button's inner text.                                                                                                                                 |
+| autoFocus  | `boolean`                               | false   | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
