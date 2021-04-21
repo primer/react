@@ -262,14 +262,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true})
 
-  const callback = useCallback(
+  useOnEscapePress(
     (event: KeyboardEvent) => {
       onClose('escape')
       event.preventDefault()
     },
     [onClose]
   )
-  useOnEscapePress(callback)
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)

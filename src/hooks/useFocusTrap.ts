@@ -43,23 +43,21 @@ export function useFocusTrap(
   const abortController = React.useRef<AbortController>()
   const previousFocusedElement = React.useRef<Element | null>(null)
 
+  // If we are enabling a focus trap and haven't already stored the previously focused element
+  // go ahead an do that so we can restore later when the trap is disabled.
+  if (!previousFocusedElement.current && !settings?.disabled) {
+    previousFocusedElement.current = document.activeElement
+  }
+
+  // This function removes the event listeners that enable the focus trap and restores focus
+  // to the previously-focused element (if necessary).
   function disableTrap() {
+    abortController.current?.abort()
     if (settings?.restoreFocusOnCleanUp && previousFocusedElement.current instanceof HTMLElement) {
       previousFocusedElement.current.focus()
       previousFocusedElement.current = null
     }
-    abortController.current?.abort()
   }
-
-  // We useLayoutEffect here to ensure this runs before any downstream useEffect callbacks, which
-  // might redirect focus to somewhere inside the trap before we've had a chance to save the
-  // previously-focused element.
-  React.useLayoutEffect(() => {
-    if (!previousFocusedElement.current) {
-      previousFocusedElement.current = document.activeElement
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef, initialFocusRef, disabled, ...dependencies])
 
   React.useEffect(
     () => {
