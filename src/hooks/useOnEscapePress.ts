@@ -35,7 +35,8 @@ function handleEscape(event: KeyboardEvent) {
  * keypress is passed as the only argument.
  *
  * @param callbackDependencies {React.DependencyList} The dependencies of the given
- * `onEscape` callback for memoization. See `React.useCallback` for more info.
+ * `onEscape` callback for memoization. Omit this param if the callback is already
+ * memoized. See `React.useCallback` for more info on memoization.
  */
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,

@@ -1,0 +1,112 @@
+---
+title: Dialog v2
+---
+
+import State from '../components/State'
+
+The dialog component the Primer implementation of the ARIA design pattern [Dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal). A dialog is a type of overlay that can be used for confirming actions, asking for disambiguation, and presenting small forms. They generally allow the user to focus on a quick task without having to navigate to a different page.
+
+**Dialogs appear in the page after a direct user interaction**. Don't show dialogs on page load or as system alerts.
+
+**Dialogs appear centered in the page**, with a visible backdrop that dims the rest of the window for focus.
+
+**All dialogs should have a title and a close button**. Use the `title` prop to set the title. The close button is created automatically, but must be handled with an `onClose` prop.
+
+**Dialogs are modal**. Dialogs can be dismissed by clicking on the close button, or by interacting with another button in the overlay. To avoid losing information and missing important messages, clicking outside of the dialog will not close it.
+
+**(Coming soon) Make sure larger dialogs remain mobile-friendly**. Even large dialogs need to be responsive. A dialog's width and height will be readjusted depending on the screen size and should never exceed the available space. Use responsive solutions to adjust the UI so they behave well on smaller screens.
+
+**(Coming soon) Simple and small dialogs can remain as-is on mobile**. As more elements are added to it, mobile-specific style variations such as **Bottom sheet** and **Full-screen** should be considered.
+
+### State
+
+The dialog component is completely stateless. The parent component must conditionally render a dialog based on the necessary criteria. The parent component can be notified by a gesture to close the dialog (e.g. by clicking the "X" button or by pressing the Escape key) by passing in the `onClose` prop.
+
+### Accessibility
+
+The dialog component is fully accessible out-of-the-box. The dialog's title is used for `aria-labelledby`, and the dialog's description is used for `aria-describedby`. The `aria-modal="true"` attribute is used to inform screen readers that the rest of the content on the page is inert.
+
+#### Keyboard
+
+The default keyboard API for a dialog employs three mechanisms:
+
+1. The Escape key can be pressed to close the dialog.
+2. Focus is trapped within the top-most dialog. When a dialog is opened, the close button receives initial focus by default, or on a button defined with `autoFocus: true`.
+3. If there are buttons in the dialog footer, focus can be moved between them with left and right arrow keys or tab/shift+tab.
+4. When a dialog is closed, it can optionally handle returning focus to the element that was focused immediately before the dialog was opened. Otherwise, it is the consumer's responsibility to move focus to a suitable element.
+
+### Custom rendering
+
+**Note: using custom rendering allows breaking out of the defined design, UX, and accessibility patterns of the dialog. Use only as a last resort.**
+
+By default, the Dialog component implements the design and interactions defined by the Primer design system. If necessary, you can provide custom renderers for the header, body, or footer using the `renderHeader`, `renderBody`, and `renderFooter` props, respectively. The JSX produced by these render props will render full-bleed into their respective areas of the dialog. If you are using the custom renderers, you should use the provided sub-components `Dialog.Header`, `Dialog.Title`, `Dialog.Subtitle`, `Dialog.CloseButton`, `Dialog.Body`, `Dialog.Footer`, and `Dialog.Buttons` to the extent possible.
+
+### Example
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
+    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
+    return (
+      <>
+        <Button onClick={openDialog}>Open</Button>
+        {isOpen && (
+          <Dialog2
+            title="Dialog example"
+            subtitle={
+              <>
+                This is a <b>description</b> of the dialog.
+              </>
+            }
+            footerButtons={[{text: 'Ok', onClick: closeDialog}]}
+            onClose={closeDialog}
+          >
+            <Text fontFamily="sans-serif">Some content</Text>
+          </Dialog2>
+        )}
+      </>
+    )
+  }}
+</State>
+```
+
+## System props
+
+`Dialog`, `Dialog.Header`, `Dialog.Title`, `Dialog.Subtitle`, `Dialog.Body`, and `Dialog.Footer` components get the `COMMON`, `LAYOUT`, and `FLEX` categories of system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+## Component props
+
+### DialogProps
+
+| Prop name     | Type                                           | Default    | Description                                                                                                                                                                                                                                                             |
+| :------------ | :--------------------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title         | `string`                                       | `"Dialog"` | Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                                                                                                                                                                         |
+| subtitle      | `string`                                       |            | Optional. Sets the subtitle of the dialog, which by default is also used as the `aria-describedby` attribute.                                                                                                                                                           |
+| renderHeader  | `(props: DialogHeaderProps) => JSX.Element`    |            | Optional. Custom render the dialog header. See "Custom rendering" above for more info.                                                                                                                                                                                  |
+| renderBody    | `(props: DialogProps) => JSX.Element`          |            | Optional. Custom render the dialog body. See "Custom rendering" above for more info.                                                                                                                                                                                    |
+| renderFooter  | `(props: DialogProps) => JSX.Element`          |            | Optional. Custom render the dialog footer. See "Custom rendering" above for more info.                                                                                                                                                                                  |
+| footerButtons | `DialogButtonProps[]`                          |            | Optional. Specify buttons that will be rendered in the footer of the dialog.                                                                                                                                                                                            |
+| onClose       | `(gesture: 'close-button' │ 'escape') => void` |            | Required. This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the "X" in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape'). |
+| role          | `"dialog" │ "alertdialog"`                     | `"dialog"` | The ARIA role given to the dialog element. More info: [dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal), [alertdialog](https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog)                                                                    |
+| width         | `"sm" │ "md" │ "lg" │ "xl"`                    | `"xl"`     | The fixed width of the dialog.                                                                                                                                                                                                                                          |
+| height        | `"sm" │ "lg" │ "auto"`                         | `"auto"`   | The fixed height of the dialog, or, auto to adjust the height based on its contents.                                                                                                                                                                                    |
+
+### DialogHeaderProps
+
+The `DialogHeaderProps` interface extends `DialogProps` and adds these additional properties:
+
+| Prop name           | Type     | Description                                                                                                                                                     |
+| :------------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| dialogLabelId       | `string` | ID of the element that will be used as the `aria-labelledby` attribute on the dialog. This ID should be set to the element that renders the dialog's title.     |
+| dialogDescriptionId | `string` | ID of the element that will be used as the `aria-describedby` attribute on the dialog. This ID should be set to the element that renders the dialog's subtitle. |
+
+### DialogButtonProps
+
+The `DialogButtonProps` interface extends `ButtonProps` (see Button) and adds these additional properties:
+
+| Prop name  | Type                                    | Default | Description                                                                                                                                                        |
+| :--------- | :-------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| buttonType | `Button │ ButtonPrimary │ ButtonDanger` |         | The type of button to render                                                                                                                                       |
+| text       | `string`                                |         | Required. The button's inner text.                                                                                                                                 |
+| autoFocus  | `boolean`                               | false   | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |

@@ -79,7 +79,7 @@ You can also pass any non-text content into the header:
 | isOpen | Boolean | Set whether or not the dialog is shown |
 | onDismiss | Function | A user-provided function that should close the dialog |
 | returnFocusRef | React ref | The element to restore focus back to after the `Dialog` is closed |
-| initialFocusRef | React ref | Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `intiialFocusRef` the close button is focused. |
+| initialFocusRef | React ref | Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused. |
 | aria-labelledby | string | Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both.  |
 | aria-label | string | Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both. |
 
