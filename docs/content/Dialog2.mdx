@@ -105,8 +105,43 @@ The `DialogHeaderProps` interface extends `DialogProps` and adds these additiona
 
 The `DialogButtonProps` interface extends `ButtonProps` (see Button) and adds these additional properties:
 
-| Prop name  | Type                                    | Default | Description                                                                                                                                                        |
-| :--------- | :-------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| buttonType | `Button │ ButtonPrimary │ ButtonDanger` |         | The type of button to render                                                                                                                                       |
-| text       | `string`                                |         | Required. The button's inner text.                                                                                                                                 |
-| autoFocus  | `boolean`                               | false   | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
+| Prop name  | Type                                    | Default  | Description                                                                                                                                                        |
+| :--------- | :-------------------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| buttonType | `Button │ ButtonPrimary │ ButtonDanger` | `Button` | The type of button to render                                                                                                                                       |
+| text       | `string`                                |          | Required. The button's inner text.                                                                                                                                 |
+| autoFocus  | `boolean`                               | false    | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
+
+## ConfirmationDialog
+
+A `ConfirmationDialog` is a special kind of dialog with more rigid behavior. It is used to confirm a user action. `ConfirmationDialog`s always have exactly two buttons: one to cancel the action and one to confirm it. No custom rendering capabilities are provided for ConfirmationDialog.
+
+### Example
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
+    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
+    return (
+      <>
+        <Button onClick={openDialog}>Open</Button>
+        {isOpen && (
+          <ConfirmationDialog title="Confirm action?" onClose={closeDialog}>
+            Are you sure you want to confirm this action?
+          </ConfirmationDialog>
+        )}
+      </>
+    )
+  }}
+</State>
+```
+
+### ConfirmationDialogProps
+
+| Prop name          | Type                                                                  | Default    | Description                                                                                                                   |
+| :----------------- | :-------------------------------------------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| title              | `string`                                                              |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                     |
+| onClose            | `(gesture: 'confirm' │ 'cancel' │ 'close-button' │ 'escape') => void` |            | Required. This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture. |
+| cancelButtonLabel  | `string`                                                              | `"Cancel"` | The text to use for the cancel button.                                                                                        |
+| confirmButtonLabel | `string`                                                              | `"OK"`     | The text to use for the confirm button.                                                                                       |
+| confirmButtonType  | `Button │ ButtonPrimary │ ButtonDanger`                               | `Button`   | The type of button to use for the confirm button.                                                                             |

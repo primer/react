@@ -1,8 +1,8 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Button, ButtonDanger, ThemeProvider} from '..'
-import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
+import {BaseStyles, Button, ButtonDanger, Flex, ThemeProvider, useTheme} from '..'
+import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
 
 export default {
   title: 'Internal components/ConfirmationDialog',
@@ -33,7 +33,7 @@ export const BasicConfirmationDialog = () => {
       </Button>
       {isOpen && (
         <ConfirmationDialog
-          title="Are you sure you want to delete the universe?"
+          title="Delete universe?"
           onClose={onDialogClose}
           confirmButtonLabel="Delete it!"
           confirmButtonType={ButtonDanger}
@@ -43,5 +43,38 @@ export const BasicConfirmationDialog = () => {
         </ConfirmationDialog>
       )}
     </>
+  )
+}
+
+export const ShorthandConfirmation = () => {
+  const confirm = useConfirm()
+  const {theme} = useTheme()
+  const onButtonClick = useCallback(
+    async (event: React.MouseEvent) => {
+      if (
+        (await confirm({title: 'Are you sure?', description: 'Do you really want to turn this button green?'})) &&
+        event.target instanceof HTMLElement
+      ) {
+        event.target.style.backgroundColor = theme?.colors.auto.green[3] ?? 'green'
+        event.target.textContent = "I'm green!"
+      }
+    },
+    [confirm, theme]
+  )
+  return (
+    <Flex flexDirection="column" alignItems="flex-start">
+      <Button mb={2} onClick={onButtonClick}>
+        Turn me green!
+      </Button>
+      <Button mb={2} onClick={onButtonClick}>
+        Turn me green!
+      </Button>
+      <Button mb={2} onClick={onButtonClick}>
+        Turn me green!
+      </Button>
+      <Button mb={2} onClick={onButtonClick}>
+        Turn me green!
+      </Button>
+    </Flex>
   )
 }

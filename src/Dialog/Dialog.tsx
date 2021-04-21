@@ -325,6 +325,13 @@ const Footer = styled(Box).attrs({as: 'footer'})`
   justify-content: flex-end;
   z-index: 1;
   flex-shrink: 0;
+
+  button {
+    margin-left: ${get('space.1')};
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 `
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
@@ -341,7 +348,6 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
         return (
           <Element
             key={index}
-            ml={index === 0 ? 0 : 1}
             {...buttonProps}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
