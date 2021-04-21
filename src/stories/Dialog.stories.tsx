@@ -106,13 +106,12 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
   const openSecondDialog = useCallback(() => setSecondOpen(true), [])
   return (
-    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <Button m={2} ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         Show dialog
       </Button>
       {isOpen && (
@@ -135,7 +134,7 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
           )}
         </Dialog>
       )}
-    </Position>
+    </>
   )
 }
 
@@ -172,13 +171,10 @@ function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
 }
 export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <Button m={2} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
       {isOpen && (
         <Dialog
           title="My Dialog"
@@ -197,7 +193,7 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
           {lipsum}
         </Dialog>
       )}
-    </Position>
+    </>
   )
 }
 
@@ -205,14 +201,13 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
   const openSecondDialog = useCallback(() => setSecondOpen(true), [])
   const manyButtons = new Array(10).fill(undefined).map((_, i) => ({text: `Button ${i}`}))
   return (
-    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <Button m={2} ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         Show dialog
       </Button>
       {isOpen && (
@@ -240,6 +235,6 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
           )}
         </Dialog>
       )}
-    </Position>
+    </>
   )
 }
