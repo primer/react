@@ -6,6 +6,7 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
+import {uniqueId} from '../utils/uniqueId'
 
 export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
 
@@ -124,19 +125,27 @@ export function List(props: ListProps): JSX.Element {
    */
   const renderGroup = (
     groupProps: GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})
-  ) => ((('renderGroup' in groupProps && groupProps.renderGroup) ?? props.renderGroup) || Group).call(null, groupProps)
+  ) => {
+    const GroupComponent = (('renderGroup' in groupProps && groupProps.renderGroup) ?? props.renderGroup) || Group
+    return <GroupComponent {...groupProps} key={groupProps.groupId} />
+  }
 
   /**
    * Render an `Item` using the first of the following renderers that is defined:
    * An `Item`-level, `Group`-level, or `List`-level custom `Item` renderer,
    * or the default `Item` renderer.
    */
-  const renderItem = (itemProps: ItemInput, item: ItemInput) =>
-    (('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item).call(null, {
-      ...itemProps,
-      sx: {...itemStyle, ...itemProps.sx},
-      item
-    })
+  const renderItem = (itemProps: ItemInput, item: ItemInput) => {
+    const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
+    return (
+      <ItemComponent
+        {...itemProps}
+        key={itemProps.key || uniqueId()}
+        sx={{...itemStyle, ...itemProps.sx}}
+        item={item}
+      />
+    )
+  }
 
   /**
    * An array of `Group`s, each with an associated `Header` and with an array of `Item`s belonging to that `Group`.
@@ -147,7 +156,7 @@ export function List(props: ListProps): JSX.Element {
 
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items?.map(item => renderItem(item, item))}]
+    groups = [{items: props.items?.map(item => renderItem(item, item)), groupId: uniqueId()}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 
@@ -185,9 +194,8 @@ export function List(props: ListProps): JSX.Element {
   return (
     <StyledList {...props}>
       {groups?.map(({header, ...groupProps}, index) => (
-        <>
+        <React.Fragment key={groupProps.groupId}>
           {renderGroup({
-            key: index,
             sx: {
               ...(index === 0 && firstGroupStyle),
               ...(index === groups.length - 1 && lastGroupStyle)
@@ -200,8 +208,8 @@ export function List(props: ListProps): JSX.Element {
             }),
             ...groupProps
           })}
-          {index + 1 !== groups.length && <Divider />}
-        </>
+          {index + 1 !== groups.length && <Divider key={`${groupProps.groupId}-divider`} />}
+        </React.Fragment>
       ))}
     </StyledList>
   )
