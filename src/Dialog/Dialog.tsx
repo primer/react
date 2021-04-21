@@ -387,6 +387,9 @@ const CloseButton: React.FC<{onClose: () => void}> = ({onClose}) => {
  * pressing the escape key, or by interacting with another button in the dialog.
  * To avoid losing information and missing important messages, clicking outside
  * of the dialog will not close it.
+ *
+ * The sub components provided (e.g. Header, Title, etc.) are available for custom
+ * renderers only. They are not intended to be used otherwise.
  */
 export const Dialog = Object.assign(_Dialog, {
   Header,

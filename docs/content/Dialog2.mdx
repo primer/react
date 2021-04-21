@@ -10,7 +10,7 @@ The dialog component the Primer implementation of the ARIA design pattern [Dialo
 
 **Dialogs appear centered in the page**, with a visible backdrop that dims the rest of the window for focus.
 
-**All dialogs should have a title and a close button**. Use an overlay header to compose these required elements.
+**All dialogs should have a title and a close button**. Use the `title` prop to set the title. The close button is created automatically, but must be handled with an `onClose` prop.
 
 **Dialogs are modal**. Dialogs can be dismissed by clicking on the close button, or by interacting with another button in the overlay. To avoid losing information and missing important messages, clicking outside of the dialog will not close it.
 
@@ -33,11 +33,11 @@ The default keyboard API for a dialog employs three mechanisms:
 1. The Escape key can be pressed to close the dialog.
 2. Focus is trapped within the top-most dialog. When a dialog is opened, the close button receives initial focus by default, or on a button defined with `autoFocus: true`.
 3. If there are buttons in the dialog footer, focus can be moved between them with left and right arrow keys or tab/shift+tab.
-4. When a dialog is closed, focus returns to the element that was focused immediately before the dialog was opened.
+4. When a dialog is closed, it can optionally handle returning focus to the element that was focused immediately before the dialog was opened. Otherwise, it is the consumer's responsibility to move focus to a suitable element.
 
 ### Custom rendering
 
-**Note: using custom rendering allows break out of the defined design, UX, and accessibility patterns of the dialog. Use only as a last resort.**
+**Note: using custom rendering allows breaking out of the defined design, UX, and accessibility patterns of the dialog. Use only as a last resort.**
 
 By default, the Dialog component implements the design and interactions defined by the Primer design system. If necessary, you can provide custom renderers for the header, body, or footer using the `renderHeader`, `renderBody`, and `renderFooter` props, respectively. The JSX produced by these render props will render full-bleed into their respective areas of the dialog. If you are using the custom renderers, you should use the provided sub-components `Dialog.Header`, `Dialog.Title`, `Dialog.Subtitle`, `Dialog.CloseButton`, `Dialog.Body`, `Dialog.Footer`, and `Dialog.Buttons` to the extent possible.
 
