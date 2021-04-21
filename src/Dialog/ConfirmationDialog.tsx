@@ -77,6 +77,7 @@ const StyledConfirmationFooter = styled(Box)`
     flex: 1 1 0;
     border-radius: 0;
     border-bottom: 0;
+    margin: 0;
     border-right: 0;
     &:last-child {
     }
