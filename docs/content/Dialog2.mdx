@@ -122,36 +122,10 @@ An alternate way to use `ConfirmationDialog` is with the `useConfirm()` hook. It
 ### Example (with `useConfirm` hook)
 
 ```javascript live noinline
-function ShorthandExample() {
-  const confirm = useConfirm()
-  const buttonClick = React.useCallback(
-    e => {
-      // @todo The docs site live code examples don't work with async/await, so using the raw promise instead!
-      confirm({title: 'Are you sure?', description: 'Confirm this action to continue'}).then(confirmed => {
-        if (confirmed) {
-          e.target.textContent = 'Confirmed!'
-        }
-      })
-    },
-    [confirm]
-  )
-  return (
-    <>
-      <Button onClick={buttonClick}>Confirmable action</Button>
-    </>
-  )
-}
-render(<ShorthandExample />)
-```
-
-<!-- The commented code below shows the async version -->
-<!-- ### Example (shorthand async version)
-
-```javascript live noinline
 function ShorthandExample2() {
   const confirm = useConfirm()
   const buttonClick = React.useCallback(
-    async e => {
+    async function (e) {
       // @todo The docs site live code examples don't work with async/await, so using the raw promise instead!
       if (await confirm({title: 'Are you sure?', description: 'You must confirm this action to continue'})) {
         e.target.textContent = 'Confirmed!'
@@ -167,7 +141,6 @@ function ShorthandExample2() {
 }
 render(<ShorthandExample2 />)
 ```
--->
 
 ### Example (using the full `ConfirmationDialog` component)
 
