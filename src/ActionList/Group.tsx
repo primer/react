@@ -13,6 +13,11 @@ export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxPro
   header?: HeaderProps
 
   /**
+   * The id of the group.
+   */
+  groupId?: string
+
+  /**
    * `Items` to render in the `Group`.
    */
   items?: JSX.Element[]

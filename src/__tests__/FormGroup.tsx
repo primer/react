@@ -18,7 +18,7 @@ describe('FormGroup', () => {
     const {container} = HTMLRender(
       <FormGroup>
         <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
-        <input id="example-text" value="Example Value" />
+        <input id="example-text" value="Example Value" readOnly />
       </FormGroup>
     )
     const results = await axe(container)

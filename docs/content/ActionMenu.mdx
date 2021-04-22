@@ -11,11 +11,11 @@ An `ActionMenu` is an ActionList-based component for creating a menu of actions 
   anchorContent="Menu"
   onAction={({text}) => console.log(text)}
   items={[
-    {text: 'New file'},
+    {text: 'New file', key: 'new-file'},
     ActionMenu.Divider,
-    {text: 'Copy link'},
-    {text: 'Edit file'},
-    {text: 'Delete file', variant: 'danger'}
+    {text: 'Copy link', key: 'copy-link'},
+    {text: 'Edit file', key: 'edit-file'},
+    {text: 'Delete file', variant: 'danger', key: 'delete-file'}
   ]}
 />
 ```
@@ -34,10 +34,11 @@ An `ActionMenu` is an ActionList-based component for creating a menu of actions 
     {groupId: '4'}
   ]}
   items={[
-    {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
-    {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
-    {leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
+    {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
+    {key: '2', leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+    {key: '3', leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
     {
+      key: '4',
       leadingVisual: NoteIcon,
       text: 'Table',
       description: 'Information-dense table optimized for operations across teams',
@@ -45,6 +46,7 @@ An `ActionMenu` is an ActionList-based component for creating a menu of actions 
       groupId: '2'
     },
     {
+      key: '5',
       leadingVisual: ProjectIcon,
       text: 'Board',
       description: 'Kanban-style board focused on visual states',
@@ -52,12 +54,13 @@ An `ActionMenu` is an ActionList-based component for creating a menu of actions 
       groupId: '2'
     },
     {
+      key: '6',
       leadingVisual: FilterIcon,
       text: 'Save sort and filters to current view',
       groupId: '3'
     },
-    {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-    {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+    {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
   ]}
 />
 ```
