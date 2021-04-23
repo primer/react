@@ -7,7 +7,8 @@ import {
   ButtonOutline,
   ButtonInvisible,
   ButtonGroup,
-  ButtonTableList
+  ButtonTableList,
+  ButtonUnset
 } from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
@@ -30,7 +31,8 @@ describe('Button', () => {
     ButtonInvisible,
     ButtonGroup,
     ButtonTableList,
-    ButtonClose
+    ButtonClose,
+    ButtonUnset
   })
 
   it('renders a <button>', () => {
@@ -116,6 +118,19 @@ describe('ButtonInvisible', () => {
 
   it('renders correct disabled styles', () => {
     const item = render(<ButtonInvisible disabled />)
+    expect(item).toMatchSnapshot()
+  })
+})
+
+describe('ButtonUnset', () => {
+  behavesAsComponent({Component: ButtonUnset, systemPropArray: [COMMON, LAYOUT]})
+
+  it('renders a <button> by default', () => {
+    expect(render(<ButtonUnset />).type).toEqual('button')
+  })
+
+  it('renders correct disabled styles', () => {
+    const item = render(<ButtonUnset disabled />)
     expect(item).toMatchSnapshot()
   })
 })
