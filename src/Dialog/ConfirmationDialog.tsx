@@ -155,10 +155,8 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
     const hostElement = document.createElement('div')
-    document.body.append(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
       ReactDOM.unmountComponentAtNode(hostElement)
-      document.body.removeChild(hostElement)
       if (gesture === 'confirm') {
         resolve(true)
       } else {
