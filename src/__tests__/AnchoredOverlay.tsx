@@ -17,7 +17,7 @@ const AnchoredOverlayTestComponent = ({
   initiallyOpen = false,
   onOpenCallback,
   onCloseCallback
-}: TestComponentSettings) => {
+}: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
     (gesture: string) => {
@@ -46,7 +46,12 @@ const AnchoredOverlayTestComponent = ({
 }
 
 describe('AnchoredOverlay', () => {
-  behavesAsComponent({Component: AnchoredOverlay, systemPropArray: [], options: {skipAs: true, skipSx: true}})
+  behavesAsComponent({
+    Component: AnchoredOverlay,
+    systemPropArray: [],
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <AnchoredOverlayTestComponent />
+  })
 
   checkExports('AnchoredOverlay', {
     default: undefined,
