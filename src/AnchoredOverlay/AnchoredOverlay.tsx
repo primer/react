@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import Overlay from '../Overlay'
-import Button, {ButtonProps} from '../Button'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
@@ -10,9 +9,8 @@ export interface AnchoredOverlayProps {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
-   * Uses a `DropdownButton` by default.
    */
-  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   /**
    * Determines whether the overlay portion of the component should be shown or not
@@ -34,13 +32,7 @@ export interface AnchoredOverlayProps {
  * An `AnchoredOverlay` provides an anchor (button by default) that will open a floating overlay.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
-export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
-  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
-  children,
-  open,
-  onOpen,
-  onClose
-}) => {
+export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, children, open, onOpen, onClose}) => {
   const anchorRef = useRef<HTMLButtonElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
