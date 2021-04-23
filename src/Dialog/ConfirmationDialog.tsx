@@ -2,8 +2,10 @@ import React, {useCallback} from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import {Box, Button, ButtonDanger, ButtonPrimary, ThemeProvider, useTheme} from '..'
+import {FocusKeys} from '../behaviors/focusZone'
 import {get} from '../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {ThemeProviderProps} from '../ThemeProvider'
 
 /**
@@ -87,9 +89,13 @@ const StyledConfirmationFooter = styled(Box)`
   }
 `
 const ConfirmationFooter: React.FC<DialogProps> = ({footerButtons}) => {
+  const {containerRef: footerRef} = useFocusZone({
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
+    focusInStrategy: 'closest'
+  })
   // Must have exactly 2 buttons!
   return (
-    <StyledConfirmationFooter>
+    <StyledConfirmationFooter ref={footerRef as React.RefObject<HTMLDivElement>}>
       <Dialog.Buttons buttons={footerButtons ?? []} />
     </StyledConfirmationFooter>
   )
