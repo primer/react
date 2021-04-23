@@ -20,12 +20,12 @@ export interface AnchoredOverlayProps {
   open: boolean
 
   /**
-   * A callback which is called whenever the overlay is open an a "close gesture" is detected.
+   * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
   onOpen?: (gesture: 'anchor-click' | 'anchor-key-press') => unknown
 
   /**
-   * A callback which is called whenever the overlay is open an a "close gesture" is detected.
+   * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
   onClose?: (gesture: 'click-outside' | 'escape') => unknown
 }
