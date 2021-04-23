@@ -15,6 +15,7 @@ import {
 } from '..'
 import {ButtonStyleProps} from 'styled-system'
 import {ButtonBaseProps} from '../Button/ButtonBase'
+import {ButtonUnset} from '../Button'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {
@@ -63,6 +64,7 @@ export const primaryButton = (args: StrictButtonStyleProps) => <ButtonPrimary {.
 export const invisibleButton = (args: StrictButtonStyleProps) => (
   <ButtonInvisible {...args}>Invisible Button</ButtonInvisible>
 )
+export const unsetButton = (args: StrictButtonStyleProps) => <ButtonUnset {...args}>Unset Button</ButtonUnset>
 
 export const closeButton = (args: ButtonStyleProps) => (
   <ButtonClose {...args} onClick={() => alert('button clicked.')} />
