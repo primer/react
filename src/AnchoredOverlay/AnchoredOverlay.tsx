@@ -33,7 +33,7 @@ export interface AnchoredOverlayProps {
  * The overlay can be opened and navigated using keyboard or mouse.
  */
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, children, open, onOpen, onClose}) => {
-  const anchorRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
   const anchorId = useMemo(uniqueId, [])
