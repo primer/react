@@ -22,17 +22,17 @@ export interface ConfirmationDialogProps {
    * Required. The title of the ConfirmationDialog. This is usually a brief
    * question.
    */
-  title: string
+  title: React.ReactNode
 
   /**
    * The text to use for the cancel button. Default: "Cancel".
    */
-  cancelButtonLabel?: string
+  cancelButtonContent?: React.ReactNode
 
   /**
    * The text to use for the confirm button. Default: "OK".
    */
-  confirmButtonLabel?: string
+  confirmButtonContent?: React.ReactNode
 
   /**
    * The type of button to use for the confirm button. Default: Button.
@@ -109,8 +109,8 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
   const {
     onClose,
     title,
-    cancelButtonLabel = 'Cancel',
-    confirmButtonLabel = 'OK',
+    cancelButtonContent = 'Cancel',
+    confirmButtonContent = 'OK',
     confirmButtonType = Button,
     children
   } = props
@@ -122,13 +122,13 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
     onClose('confirm')
   }, [onClose])
   const cancelButton: DialogButtonProps = {
-    text: cancelButtonLabel,
+    content: cancelButtonContent,
     onClick: onCancelButtonClick,
     autoFocus: true,
     variant: 'large'
   }
   const confirmButton: DialogButtonProps = {
-    text: confirmButtonLabel,
+    content: confirmButtonContent,
     buttonType: confirmButtonType,
     variant: 'large',
     onClick: onConfirmButtonClick
@@ -150,9 +150,9 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
   )
 }
 
-export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {description: string}
+export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
 async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
-  const {description, ...confirmationDialogProps} = options
+  const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
     const hostElement = document.createElement('div')
     document.body.append(hostElement)
@@ -168,7 +168,7 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
     ReactDOM.render(
       <ThemeProvider {...themeProps}>
         <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-          {description}
+          {content}
         </ConfirmationDialog>
       </ThemeProvider>,
       hostElement

@@ -28,7 +28,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The Button's inner text
    */
-  text: string
+  content: React.ReactNode
 
   /**
    * If true, and if this is the only button with autoFocus set to true,
@@ -44,14 +44,14 @@ export interface DialogProps {
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
-  title?: string | JSX.Element
+  title?: React.ReactNode
 
   /**
    * The Dialog's subtitle. Optional. Rendered below the title in smaller
    * type with less contrast. Also serves as the aria-describedby for this
    * Dialog.
    */
-  subtitle?: string | JSX.Element
+  subtitle?: React.ReactNode
 
   /**
    * Provide a custom renderer for the dialog header. This content is
@@ -344,14 +344,14 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {text, buttonType: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
           <Element
             key={index}
             {...buttonProps}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
-            {text}
+            {content}
           </Element>
         )
       })}

@@ -35,7 +35,7 @@ export const BasicConfirmationDialog = () => {
         <ConfirmationDialog
           title="Delete universe?"
           onClose={onDialogClose}
-          confirmButtonLabel="Delete it!"
+          confirmButtonContent="Delete it!"
           confirmButtonType={ButtonDanger}
         >
           Deleting the universe could have disastrous effects, including but not limited to destroying all life on
@@ -52,7 +52,7 @@ export const ShorthandHook = () => {
   const onButtonClick = useCallback(
     async (event: React.MouseEvent) => {
       if (
-        (await confirm({title: 'Are you sure?', description: 'Do you really want to turn this button green?'})) &&
+        (await confirm({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
         event.target instanceof HTMLElement
       ) {
         event.target.style.backgroundColor = theme?.colors.auto.green[3] ?? 'green'
