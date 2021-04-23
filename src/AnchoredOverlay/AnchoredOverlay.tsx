@@ -15,11 +15,6 @@ export interface AnchoredOverlayProps {
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   /**
-   * Children node to use as the contents of the overlay
-   */
-  children: React.ReactNode
-
-  /**
    * Determines whether the overlay portion of the component should be shown or not
    */
   open: boolean
@@ -39,14 +34,14 @@ export interface AnchoredOverlayProps {
  * An `AnchoredOverlay` provides an anchor (button by default) that will open a floating overlay.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
-export function AnchoredOverlay({
+export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
   children,
   open,
   onOpen,
   onClose
-}: AnchoredOverlayProps): JSX.Element {
-  const anchorRef = useRef<HTMLElement>(null)
+}) => {
+  const anchorRef = useRef<HTMLButtonElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
   const anchorId = useMemo(uniqueId, [])
