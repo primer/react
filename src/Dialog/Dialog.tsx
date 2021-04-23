@@ -185,7 +185,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2);
   min-width: 296px;
   max-width: calc(100vw - 64px);
-  min-height: 160px;
   max-height: calc(100vh - 64px);
   width: ${props => widthMap[props.width ?? ('xl' as const)]};
   height: ${props => heightMap[props.height ?? ('auto' as const)]};
