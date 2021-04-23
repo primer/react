@@ -126,7 +126,6 @@ function ShorthandExample2() {
   const confirm = useConfirm()
   const buttonClick = React.useCallback(
     async function (e) {
-      // @todo The docs site live code examples don't work with async/await, so using the raw promise instead!
       if (await confirm({title: 'Are you sure?', content: 'You must confirm this action to continue.'})) {
         e.target.textContent = 'Confirmed!'
       }
