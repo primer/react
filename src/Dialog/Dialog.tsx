@@ -23,12 +23,12 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  buttonType?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
+  buttonType?: 'normal' | 'primary' | 'danger'
 
   /**
    * The Button's inner text
    */
-  text: string
+  content: React.ReactNode
 
   /**
    * If true, and if this is the only button with autoFocus set to true,
@@ -44,14 +44,14 @@ export interface DialogProps {
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
-  title?: string | JSX.Element
+  title?: React.ReactNode
 
   /**
    * The Dialog's subtitle. Optional. Rendered below the title in smaller
    * type with less contrast. Also serves as the aria-describedby for this
    * Dialog.
    */
-  subtitle?: string | JSX.Element
+  subtitle?: React.ReactNode
 
   /**
    * Provide a custom renderer for the dialog header. This content is
@@ -185,7 +185,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2);
   min-width: 296px;
   max-width: calc(100vw - 64px);
-  min-height: 160px;
   max-height: calc(100vh - 64px);
   width: ${props => widthMap[props.width ?? ('xl' as const)]};
   height: ${props => heightMap[props.height ?? ('auto' as const)]};
@@ -325,7 +324,19 @@ const Footer = styled(Box).attrs({as: 'footer'})`
   justify-content: flex-end;
   z-index: 1;
   flex-shrink: 0;
+
+  button {
+    margin-left: ${get('space.1')};
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 `
+const buttonTypes = {
+  normal: Button,
+  primary: ButtonPrimary,
+  danger: ButtonDanger
+}
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
   let autoFocusCount = 0
@@ -337,16 +348,16 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {text, buttonType: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const ButtonElement = buttonTypes[buttonType]
         return (
-          <Element
+          <ButtonElement
             key={index}
-            ml={index === 0 ? 0 : 1}
             {...buttonProps}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
-            {text}
-          </Element>
+            {content}
+          </ButtonElement>
         )
       })}
     </>

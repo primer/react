@@ -59,7 +59,7 @@ By default, the Dialog component implements the design and interactions defined 
                 This is a <b>description</b> of the dialog.
               </>
             }
-            footerButtons={[{text: 'Ok', onClick: closeDialog}]}
+            footerButtons={[{content: 'Ok', onClick: closeDialog}]}
             onClose={closeDialog}
           >
             <Text fontFamily="sans-serif">Some content</Text>
@@ -81,8 +81,8 @@ By default, the Dialog component implements the design and interactions defined 
 
 | Prop name     | Type                                           | Default    | Description                                                                                                                                                                                                                                                             |
 | :------------ | :--------------------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| title         | `string`                                       | `"Dialog"` | Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                                                                                                                                                                         |
-| subtitle      | `string`                                       |            | Optional. Sets the subtitle of the dialog, which by default is also used as the `aria-describedby` attribute.                                                                                                                                                           |
+| title         | `React.ReactNode`                              | `"Dialog"` | Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                                                                                                                                                                         |
+| subtitle      | `React.ReactNode`                              |            | Optional. Sets the subtitle of the dialog, which by default is also used as the `aria-describedby` attribute.                                                                                                                                                           |
 | renderHeader  | `(props: DialogHeaderProps) => JSX.Element`    |            | Optional. Custom render the dialog header. See "Custom rendering" above for more info.                                                                                                                                                                                  |
 | renderBody    | `(props: DialogProps) => JSX.Element`          |            | Optional. Custom render the dialog body. See "Custom rendering" above for more info.                                                                                                                                                                                    |
 | renderFooter  | `(props: DialogProps) => JSX.Element`          |            | Optional. Custom render the dialog footer. See "Custom rendering" above for more info.                                                                                                                                                                                  |
@@ -105,8 +105,79 @@ The `DialogHeaderProps` interface extends `DialogProps` and adds these additiona
 
 The `DialogButtonProps` interface extends `ButtonProps` (see Button) and adds these additional properties:
 
-| Prop name  | Type                                    | Default | Description                                                                                                                                                        |
-| :--------- | :-------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| buttonType | `Button │ ButtonPrimary │ ButtonDanger` |         | The type of button to render                                                                                                                                       |
-| text       | `string`                                |         | Required. The button's inner text.                                                                                                                                 |
-| autoFocus  | `boolean`                               | false   | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
+| Prop name  | Type                              | Default  | Description                                                                                                                                                        |
+| :--------- | :-------------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| buttonType | `"normal" │ "primary" │ "danger"` | `Button` | The type of button to render                                                                                                                                       |
+| content    | `React.ReactNode`                 |          | Required. The button's inner content.                                                                                                                              |
+| autoFocus  | `boolean`                         | false    | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
+
+## ConfirmationDialog
+
+A `ConfirmationDialog` is a special kind of dialog with more rigid behavior. It is used to confirm a user action. `ConfirmationDialog`s always have exactly two buttons: one to cancel the action and one to confirm it. No custom rendering capabilities are provided for ConfirmationDialog.
+
+### useConfirm hook
+
+An alternate way to use `ConfirmationDialog` is with the `useConfirm()` hook. It takes no parameters and returns an `async` function, `confirm`. When `confirm` is called (see ConfirmOptions below for its argument), it shows the confirmation dialog. When the dialog is dismissed, a promise is resolved with `true` or `false` depending on whether or not the confirm button was used.
+
+### Example (with `useConfirm` hook)
+
+```javascript live noinline
+function ShorthandExample2() {
+  const confirm = useConfirm()
+  const buttonClick = React.useCallback(
+    async function (e) {
+      if (await confirm({title: 'Are you sure?', content: 'You must confirm this action to continue.'})) {
+        e.target.textContent = 'Confirmed!'
+      }
+    },
+    [confirm]
+  )
+  return (
+    <>
+      <Button onClick={buttonClick}>Confirmable action</Button>
+    </>
+  )
+}
+render(<ShorthandExample2 />)
+```
+
+### Example (using the full `ConfirmationDialog` component)
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
+    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
+    return (
+      <>
+        <Button onClick={openDialog}>Open</Button>
+        {isOpen && (
+          <ConfirmationDialog title="Confirm action?" onClose={closeDialog}>
+            Are you sure you want to confirm this action?
+          </ConfirmationDialog>
+        )}
+      </>
+    )
+  }}
+</State>
+```
+
+### ConfirmationDialogProps
+
+| Prop name            | Type                                                                  | Default    | Description                                                                                                                   |
+| :------------------- | :-------------------------------------------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| title                | `React.ReactNode`                                                     |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                     |
+| onClose              | `(gesture: 'confirm' │ 'cancel' │ 'close-button' │ 'escape') => void` |            | Required. This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture. |
+| cancelButtonContent  | `React.ReactNode`                                                     | `"Cancel"` | The content to use for the cancel button.                                                                                     |
+| confirmButtonContent | `React.ReactNode`                                                     | `"OK"`     | The content to use for the confirm button.                                                                                    |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"`                                     | `Button`   | The type of button to use for the confirm button.                                                                             |
+
+### ConfirmOptions
+
+| Prop name            | Type                              | Default    | Description                                                                                               |
+| :------------------- | :-------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------- |
+| title                | `React.ReactNode`                 |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute. |
+| content              | `React.ReactNode`                 |            | Required. Used as the body of the ConfirmationDialog that is displayed.                                   |
+| cancelButtonContent  | `React.ReactNode`                 | `"Cancel"` | The content to use for the cancel button.                                                                 |
+| confirmButtonContent | `React.ReactNode`                 | `"OK"`     | The content to use for the confirm button.                                                                |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"` | `Button`   | The type of button to use for the confirm button.                                                         |
