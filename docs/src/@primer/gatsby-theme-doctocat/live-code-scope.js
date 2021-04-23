@@ -21,6 +21,7 @@ import {
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
+import {ConfirmationDialog, useConfirm} from '../../../../src/Dialog/ConfirmationDialog'
 
 export default {
   ...doctocatComponents,
@@ -43,5 +44,7 @@ export default {
   GearIcon,
   TypographyIcon,
   VersionsIcon,
-  Dialog2
+  Dialog2,
+  ConfirmationDialog,
+  useConfirm
 }

@@ -17,7 +17,6 @@ export type ThemeProviderProps = {
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
-  children: React.ReactNode
 }
 
 const ThemeContext = React.createContext<{
@@ -36,7 +35,7 @@ const ThemeContext = React.createContext<{
   setNightScheme: () => null
 })
 
-function ThemeProvider({children, ...props}: ThemeProviderProps) {
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}) => {
   // Get fallback values from parent ThemeProvider (if exists)
   const {
     theme: fallbackTheme,
