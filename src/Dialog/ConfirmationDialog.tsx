@@ -81,8 +81,6 @@ const StyledConfirmationFooter = styled(Box)`
     border-bottom: 0;
     margin: 0;
     border-right: 0;
-    &:last-child {
-    }
     &:first-child {
       border-left: 0;
     }
