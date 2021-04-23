@@ -84,6 +84,10 @@ const StyledConfirmationFooter = styled(Box)`
     &:first-child {
       border-left: 0;
     }
+    &:focus {
+      // this is a bit of a hack to get the focus outlines to show up
+      z-index: 1;
+    }
   }
 `
 const ConfirmationFooter: React.FC<DialogProps> = ({footerButtons}) => {
