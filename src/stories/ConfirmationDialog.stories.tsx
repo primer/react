@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Button, ButtonDanger, Flex, ThemeProvider, useTheme} from '..'
+import {BaseStyles, Button, Flex, ThemeProvider, useTheme} from '..'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
 
 export default {
@@ -36,7 +36,7 @@ export const BasicConfirmationDialog = () => {
           title="Delete universe?"
           onClose={onDialogClose}
           confirmButtonContent="Delete it!"
-          confirmButtonType={ButtonDanger}
+          confirmButtonType="danger"
         >
           Deleting the universe could have disastrous effects, including but not limited to destroying all life on
           Earth.

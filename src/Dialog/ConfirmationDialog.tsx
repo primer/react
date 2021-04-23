@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import {Box, Button, ButtonDanger, ButtonPrimary, ThemeProvider, useTheme} from '..'
+import {Box, ThemeProvider, useTheme} from '..'
 import {FocusKeys} from '../behaviors/focusZone'
 import {get} from '../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
@@ -37,7 +37,7 @@ export interface ConfirmationDialogProps {
   /**
    * The type of button to use for the confirm button. Default: Button.
    */
-  confirmButtonType?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
+  confirmButtonType?: 'normal' | 'primary' | 'danger'
 }
 
 const StyledConfirmationHeader = styled.header`
@@ -111,7 +111,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
     title,
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
-    confirmButtonType = Button,
+    confirmButtonType = 'normal',
     children
   } = props
 

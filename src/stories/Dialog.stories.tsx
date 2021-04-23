@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Button, ButtonDanger, ButtonPrimary, ThemeProvider, Box} from '..'
+import {BaseStyles, Button, ThemeProvider, Box} from '..'
 import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 
 export default {
@@ -122,8 +122,8 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
           width={width}
           height={height}
           footerButtons={[
-            {buttonType: ButtonDanger, content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: ButtonPrimary, content: 'Proceed', onClick: openSecondDialog, autoFocus: true}
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true}
           ]}
         >
           {lipsum}
@@ -186,8 +186,8 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
           renderFooter={CustomFooter}
           onClose={onDialogClose}
           footerButtons={[
-            {buttonType: ButtonDanger, content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: ButtonPrimary, content: 'Proceed'}
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed'}
           ]}
         >
           {lipsum}
@@ -223,8 +223,8 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
           height={height}
           footerButtons={[
             ...manyButtons,
-            {buttonType: ButtonDanger, content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: ButtonPrimary, content: 'Proceed', onClick: openSecondDialog, autoFocus: true}
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true}
           ]}
         >
           {lipsum}

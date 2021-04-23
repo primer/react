@@ -23,7 +23,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  buttonType?: typeof Button | typeof ButtonPrimary | typeof ButtonDanger
+  buttonType?: 'normal' | 'primary' | 'danger'
 
   /**
    * The Button's inner text
@@ -333,6 +333,11 @@ const Footer = styled(Box).attrs({as: 'footer'})`
     }
   }
 `
+const buttonTypes = {
+  normal: Button,
+  primary: ButtonPrimary,
+  danger: ButtonDanger
+}
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
   let autoFocusCount = 0
@@ -344,15 +349,16 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType: Element = Button, autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const ButtonElement = buttonTypes[buttonType]
         return (
-          <Element
+          <ButtonElement
             key={index}
             {...buttonProps}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </Element>
+          </ButtonElement>
         )
       })}
     </>

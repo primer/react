@@ -105,11 +105,11 @@ The `DialogHeaderProps` interface extends `DialogProps` and adds these additiona
 
 The `DialogButtonProps` interface extends `ButtonProps` (see Button) and adds these additional properties:
 
-| Prop name  | Type                                    | Default  | Description                                                                                                                                                        |
-| :--------- | :-------------------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| buttonType | `Button │ ButtonPrimary │ ButtonDanger` | `Button` | The type of button to render                                                                                                                                       |
-| content    | `React.ReactNode`                       |          | Required. The button's inner content.                                                                                                                              |
-| autoFocus  | `boolean`                               | false    | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
+| Prop name  | Type                              | Default  | Description                                                                                                                                                        |
+| :--------- | :-------------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| buttonType | `"normal" │ "primary" │ "danger"` | `Button` | The type of button to render                                                                                                                                       |
+| content    | `React.ReactNode`                 |          | Required. The button's inner content.                                                                                                                              |
+| autoFocus  | `boolean`                         | false    | If true, this button will be automatically focused when the dialog is first rendered. If `autoFocus` is true on subsequent button definitions, it will be ignored. |
 
 ## ConfirmationDialog
 
@@ -171,14 +171,14 @@ render(<ShorthandExample2 />)
 | onClose              | `(gesture: 'confirm' │ 'cancel' │ 'close-button' │ 'escape') => void` |            | Required. This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture. |
 | cancelButtonContent  | `React.ReactNode`                                                     | `"Cancel"` | The content to use for the cancel button.                                                                                     |
 | confirmButtonContent | `React.ReactNode`                                                     | `"OK"`     | The content to use for the confirm button.                                                                                    |
-| confirmButtonType    | `Button │ ButtonPrimary │ ButtonDanger`                               | `Button`   | The type of button to use for the confirm button.                                                                             |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"`                                     | `Button`   | The type of button to use for the confirm button.                                                                             |
 
 ### ConfirmOptions
 
-| Prop name            | Type                                    | Default    | Description                                                                                               |
-| :------------------- | :-------------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------- |
-| title                | `React.ReactNode`                       |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute. |
-| content              | `React.ReactNode`                       |            | Required. Used as the body of the ConfirmationDialog that is displayed.                                   |
-| cancelButtonContent  | `React.ReactNode`                       | `"Cancel"` | The content to use for the cancel button.                                                                 |
-| confirmButtonContent | `React.ReactNode`                       | `"OK"`     | The content to use for the confirm button.                                                                |
-| confirmButtonType    | `Button │ ButtonPrimary │ ButtonDanger` | `Button`   | The type of button to use for the confirm button.                                                         |
+| Prop name            | Type                              | Default    | Description                                                                                               |
+| :------------------- | :-------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------- |
+| title                | `React.ReactNode`                 |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute. |
+| content              | `React.ReactNode`                 |            | Required. Used as the body of the ConfirmationDialog that is displayed.                                   |
+| cancelButtonContent  | `React.ReactNode`                 | `"Cancel"` | The content to use for the cancel button.                                                                 |
+| confirmButtonContent | `React.ReactNode`                 | `"OK"`     | The content to use for the confirm button.                                                                |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"` | `Button`   | The type of button to use for the confirm button.                                                         |
