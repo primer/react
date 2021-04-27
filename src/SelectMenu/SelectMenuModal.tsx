@@ -42,7 +42,7 @@ const modalStyles = css<StyledModalProps>`
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
-    border: ${get('borderWidths.1')} solid ${get('colors.border.overlay')};
+    border: ${get('borderWidths.1')} solid ${get('colors.border.primary')};
     border-radius: ${get('radii.2')};
     box-shadow: ${get('shadows.shadow.small')};
   }

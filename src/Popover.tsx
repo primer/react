@@ -67,7 +67,7 @@ const PopoverContent = styled(BorderBox)`
     top: -${get('space.3')};
     margin-left: -9px;
     border: ${get('space.2')} solid transparent; // TODO: solid?
-    border-bottom-color: ${get('colors.border.overlay')};
+    border-bottom-color: ${get('colors.border.primary')};
   }
 
   &::after {
@@ -89,7 +89,7 @@ const PopoverContent = styled(BorderBox)`
 
     &::before {
       bottom: -${get('space.3')};
-      border-top-color: ${get('colors.border.overlay')};
+      border-top-color: ${get('colors.border.primary')};
     }
 
     &::after {
@@ -168,7 +168,7 @@ const PopoverContent = styled(BorderBox)`
   ${Popover}.caret-pos--right-bottom & {
     &::before {
       right: -${get('space.3')};
-      border-left-color: ${get('colors.border.overlay')};
+      border-left-color: ${get('colors.border.primary')};
     }
 
     &::after {
@@ -184,7 +184,7 @@ const PopoverContent = styled(BorderBox)`
   ${Popover}.caret-pos--left-bottom & {
     &::before {
       left: -${get('space.3')};
-      border-right-color: ${get('colors.border.overlay')};
+      border-right-color: ${get('colors.border.primary')};
     }
 
     &::after {

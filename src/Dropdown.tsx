@@ -57,7 +57,7 @@ type StyledDropdownMenuProps = {
 const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   background-clip: padding-box;
   background-color: ${get('colors.bg.overlay')};
-  border: 1px solid ${get('colors.border.overlay')};
+  border: 1px solid ${get('colors.border.primary')};
   border-radius: ${get('radii.2')};
   box-shadow: ${get('shadows.dropdown.shadow')};
   left: 0;

@@ -297,7 +297,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 _Dialog.displayName = 'Dialog'
 
 const Header = styled(Box).attrs({as: 'header'})`
-  box-shadow: 0 1px 0 ${get('colors.border.overlay')};
+  box-shadow: 0 1px 0 ${get('colors.border.primary')};
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
@@ -317,7 +317,7 @@ const Body = styled(Box)`
   padding: ${get('space.3')};
 `
 const Footer = styled(Box).attrs({as: 'footer'})`
-  box-shadow: 0 -1px 0 ${get('colors.border.overlay')};
+  box-shadow: 0 -1px 0 ${get('colors.border.primary')};
   padding: ${get('space.3')};
   display: flex;
   flex-flow: wrap;
