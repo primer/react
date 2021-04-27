@@ -2,16 +2,13 @@ import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import {Button, ButtonPrimary, ButtonDanger, ButtonProps, Flex, Box} from '..'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
-import {useOnEscapePress} from '../hooks'
-import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
 import StyledOcticon from '../StyledOcticon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'
-import {uniqueId} from '../utils/uniqueId'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useDialog} from './useDialog'
 
 const ANIMATION_DURATION = '200ms'
 
@@ -209,7 +206,13 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   ${sx};
 `
 
-const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subtitle, dialogDescriptionId, onClose}) => {
+export const DefaultHeader: React.FC<DialogHeaderProps> = ({
+  dialogLabelId,
+  title,
+  subtitle,
+  dialogDescriptionId,
+  onClose
+}) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
@@ -225,10 +228,10 @@ const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subti
     </Dialog.Header>
   )
 }
-const DefaultBody: React.FC<DialogProps> = ({children}) => {
+export const DefaultBody: React.FC<DialogProps> = ({children}) => {
   return <Dialog.Body>{children}</Dialog.Body>
 }
-const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
+export const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest'
@@ -241,49 +244,19 @@ const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
 }
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
-  const {
-    title = 'Dialog',
-    subtitle = '',
-    renderHeader,
-    renderBody,
-    renderFooter,
-    onClose,
-    role = 'dialog',
-    width = 'xl',
-    height = 'auto'
-  } = props
-  const dialogLabelId = uniqueId()
-  const dialogDescriptionId = uniqueId()
-  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
-
-  const dialogRef = useRef<HTMLDivElement>(null)
-  const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
-  const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true})
-
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      onClose('escape')
-      event.preventDefault()
-    },
-    [onClose]
-  )
-
-  const header = (renderHeader ?? DefaultHeader)(defaultedProps)
-  const body = (renderBody ?? DefaultBody)(defaultedProps)
-  const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
+  const {dialogRef, backdropRef, header, body, footer, defaultedProps} = useDialog(props, forwardedRef)
 
   return (
     <>
       <Portal>
         <Backdrop ref={backdropRef}>
           <StyledDialog
-            width={width}
-            height={height}
-            ref={combinedRef}
-            role={role}
-            aria-labelledby={dialogLabelId}
-            aria-describedby={dialogDescriptionId}
+            width={defaultedProps.width}
+            height={defaultedProps.height}
+            ref={dialogRef}
+            role={defaultedProps.role}
+            aria-labelledby={defaultedProps.dialogLabelId}
+            aria-describedby={defaultedProps.dialogDescriptionId}
           >
             {header}
             {body}
