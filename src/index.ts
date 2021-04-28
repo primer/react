@@ -73,6 +73,7 @@ export type {DetailsProps} from './Details'
 export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
 export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
+export type {ConfirmationDialogProps} from './Dialog/ConfirmationDialog'
 export {default as Dropdown} from './Dropdown'
 export type {
   DropdownProps,
