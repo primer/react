@@ -85,7 +85,38 @@ export const FocusTrap = () => {
 
 export const RestoreFocus = () => {
   const [trapEnabled, setTrapEnabled] = React.useState(false)
-  const {containerRef} = useFocusTrap({disabled: !trapEnabled, restoreFocusOnCleanUp: true})
+  const appleRef = React.useRef<HTMLButtonElement>(null)
+  const bananaRef = React.useRef<HTMLButtonElement>(null)
+  const cantaloupeRef = React.useRef<HTMLButtonElement>(null)
+
+  const restoreFocusTo = React.useRef<HTMLButtonElement | boolean>()
+  const trapButtonClick = React.useCallback((e: React.MouseEvent) => {
+    setTrapEnabled(false)
+    if (
+      e.target instanceof HTMLButtonElement &&
+      appleRef.current instanceof HTMLButtonElement &&
+      bananaRef.current instanceof HTMLButtonElement &&
+      cantaloupeRef.current instanceof HTMLButtonElement
+    ) {
+      if (e.target.textContent?.includes('Apple')) {
+        restoreFocusTo.current = appleRef.current
+      }
+      if (e.target.textContent?.includes('Banana')) {
+        restoreFocusTo.current = bananaRef.current
+      }
+      if (e.target.textContent?.includes('Cantaloupe')) {
+        restoreFocusTo.current = cantaloupeRef.current
+      }
+      if (e.target.textContent?.includes('Previous')) {
+        restoreFocusTo.current = true
+      }
+    }
+  }, [])
+
+  const restoreFocusOnCleanUp = useCallback(() => {
+    return restoreFocusTo.current ?? false
+  }, [])
+  const {containerRef} = useFocusTrap({disabled: !trapEnabled, restoreFocusOnCleanUp})
 
   const spaceListener = React.useCallback(
     event => {
@@ -107,20 +138,18 @@ export const RestoreFocus = () => {
     <>
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start">
-        <MarginButton>Apple</MarginButton>
-        <MarginButton>Banana</MarginButton>
-        <MarginButton>Cantaloupe</MarginButton>
+        <MarginButton ref={appleRef}>Apple</MarginButton>
+        <MarginButton ref={bananaRef}>Banana</MarginButton>
+        <MarginButton ref={cantaloupeRef}>Cantaloupe</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Flex flexDirection="column" alignItems="flex-start">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
+            <MarginButton onClick={trapButtonClick}>Restore to Apple</MarginButton>
+            <MarginButton onClick={trapButtonClick}>Restore to Banana</MarginButton>
+            <MarginButton onClick={trapButtonClick}>Restore to Cantaloupe</MarginButton>
+            <MarginButton onClick={trapButtonClick}>Restore to Previous</MarginButton>
           </Flex>
         </BorderBox>
-        <MarginButton>Grapefruit</MarginButton>
-        <MarginButton>Honeydew</MarginButton>
-        <MarginButton>Jackfruit</MarginButton>
       </Flex>
     </>
   )
