@@ -70,7 +70,13 @@ The focus trap can be disabled in two ways:
 1. Simply do not render the component. When a component that uses focus trapping is unmounted, its focus trap will be aborted automatically.
 2. Pass `disabled: true` to the settings argument of `useFocusTrap`.
 
-The `useFocusTrap` hook also has an additional setting, `restoreFocusOnCleanUp`. If this is set to true, when the hook is either disabled (called with `disabled: true` or unmounted), we will attempt to re-focus the element that was focused immediately before the focus trap was enabled.
+Return focus to the specified element when the focus trap is cleaned up or disabled.
+
+- If true, return focus to the element that was focused immediately before the focus
+- trap was enabled. If a function is passed, it will be called when the focus trap is
+- cleaned up to determine the element to return focus to. (Default: false)
+
+The `useFocusTrap` hook also has an additional setting, `restoreFocusOnCleanUp`. This can be used to return focus to the specified element when the focus trap is cleaned up or disabled. If true, return focus to the element that was focused immediately before the focus trap was enabled. If a function is passed, it will be called when the focus trap is cleaned up to determine the element to return focus to.
 
 ### Using your own refs
 
@@ -95,9 +101,9 @@ export const FocusTrapExample = () => {
 
 `FocusTrapHookSettings` has the following properties:
 
-| Name                  | Type              |   Default   | Description                                                                                                                                                                                                                                                                  |
-| :-------------------- | :---------------- | :---------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| containerRef          | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the focus trap container. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the container element's JSX.                                                           |
-| initialFocusRef       | `React.RefObject` | `undefined` | If provided, this will be the ref used to access the element that should receive initial focus when the focus trap is activated. Otherwise, this hook will create the ref for you and return it. If unused, the first tabbable element inside the container will be focused. |
-| disabled              | `boolean`         |   `false`   | If true, the previously-established focus trap for this container will be aborted.                                                                                                                                                                                           |
-| restoreFocusOnCleanUp | `boolean`         |   `false`   | If true, attempt to restore focus to the previously-focused element when the trap is disabled or unmounted.                                                                                                                                                                  |
+| Name                  | Type                                                    |   Default   | Description                                                                                                                                                                                                                                                                                                                          |
+| :-------------------- | :------------------------------------------------------ | :---------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| containerRef          | `React.RefObject`                                       | `undefined` | If provided, this will be the ref used to access the focus trap container. Otherwise, this hook will create the ref for you and return it. In both cases, the ref must be provided to the container element's JSX.                                                                                                                   |
+| initialFocusRef       | `React.RefObject`                                       | `undefined` | If provided, this will be the ref used to access the element that should receive initial focus when the focus trap is activated. Otherwise, this hook will create the ref for you and return it. If unused, the first tabbable element inside the container will be focused.                                                         |
+| disabled              | `boolean`                                               |   `false`   | If true, the previously-established focus trap for this container will be aborted.                                                                                                                                                                                                                                                   |
+| restoreFocusOnCleanUp | `HTMLElement │ boolean │ (() => HTMLElement │ boolean)` |   `false`   | Return focus to the specified element when the focus trap is cleaned up or disabled. If true, return focus to the element that was focused immediately before the focus trap was enabled. If a function is passed, it will be called when the focus trap is cleaned up to determine the element to return focus to. (Default: false) |

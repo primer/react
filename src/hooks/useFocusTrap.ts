@@ -22,10 +22,12 @@ interface FocusTrapHookSettings {
   disabled?: boolean
 
   /**
-   * If true, when this focus trap is cleaned up, restore focus to the element that had
-   * focus immediately before the focus trap was enabled. (Default: false)
+   * Return focus to the specified element when the focus trap is cleaned up or disabled.
+   * If true, return focus to the element that was focused immediately before the focus
+   * trap was enabled. If a function is passed, it will be called when the focus trap is
+   * cleaned up to determine the element to return focus to. (Default: false)
    */
-  restoreFocusOnCleanUp?: boolean
+  restoreFocusOnCleanUp?: HTMLElement | boolean | (() => HTMLElement | boolean)
 }
 
 /**
@@ -53,8 +55,18 @@ export function useFocusTrap(
   // to the previously-focused element (if necessary).
   function disableTrap() {
     abortController.current?.abort()
-    if (settings?.restoreFocusOnCleanUp && previousFocusedElement.current instanceof HTMLElement) {
-      previousFocusedElement.current.focus()
+    let restoreFocusTo: Element | null =
+      settings?.restoreFocusOnCleanUp !== false ? previousFocusedElement.current : null
+    if (typeof settings?.restoreFocusOnCleanUp === 'function') {
+      const result = settings.restoreFocusOnCleanUp()
+      if (result instanceof HTMLElement) {
+        restoreFocusTo = result
+      } else if (result !== true) {
+        restoreFocusTo = null
+      }
+    }
+    if (restoreFocusTo instanceof HTMLElement) {
+      restoreFocusTo.focus()
       previousFocusedElement.current = null
     }
   }
