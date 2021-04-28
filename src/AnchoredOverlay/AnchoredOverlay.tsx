@@ -35,7 +35,7 @@ export interface AnchoredOverlayProps {
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, children, open, onOpen, onClose}) => {
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(null)
+  const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(open ? 'list' : null)
   const anchorId = useMemo(uniqueId, [])
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
