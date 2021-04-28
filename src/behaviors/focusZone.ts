@@ -1,4 +1,4 @@
-import {isFocusable, iterateFocusableElements} from '../utils/iterateFocusableElements'
+import {iterateFocusableElements} from '../utils/iterateFocusableElements'
 import {polyfill as eventListenerSignalPolyfill} from '../polyfills/eventListenerSignal'
 import {isMacOS} from '../utils/userAgent'
 import {uniqueId} from '../utils/uniqueId'
@@ -442,12 +442,12 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   const observer = new MutationObserver(mutations => {
     for (const mutation of mutations) {
       for (const addedNode of mutation.addedNodes) {
-        if (addedNode instanceof HTMLElement && isFocusable(addedNode)) {
+        if (addedNode instanceof HTMLElement) {
           beginFocusManagement(...iterateFocusableElements(addedNode))
         }
       }
       for (const removedNode of mutation.removedNodes) {
-        if (removedNode instanceof HTMLElement && savedTabIndex.has(removedNode)) {
+        if (removedNode instanceof HTMLElement) {
           endFocusManagement(...iterateFocusableElements(removedNode))
         }
       }
