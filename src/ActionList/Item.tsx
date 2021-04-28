@@ -69,10 +69,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (
-    item: Partial<ItemProps>,
-    event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
-  ) => void
+  onAction?: (item: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -106,7 +103,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   }
 }
 
-const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemProps} & SxProp>`
+const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} & SxProp>`
   /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
