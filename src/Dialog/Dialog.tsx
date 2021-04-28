@@ -19,23 +19,24 @@ const ANIMATION_DURATION = '200ms'
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
-export type DialogButtonProps = ButtonProps & {
-  /**
-   * The type of Button element to use
-   */
-  buttonType?: 'normal' | 'primary' | 'danger'
+export type DialogButtonProps = ButtonProps &
+  React.ComponentPropsWithoutRef<'button'> & {
+    /**
+     * The type of Button element to use
+     */
+    buttonType?: 'normal' | 'primary' | 'danger'
 
-  /**
-   * The Button's inner text
-   */
-  content: React.ReactNode
+    /**
+     * The Button's inner text
+     */
+    content: React.ReactNode
 
-  /**
-   * If true, and if this is the only button with autoFocus set to true,
-   * focus this button automatically when the dialog appears.
-   */
-  autoFocus?: boolean
-}
+    /**
+     * If true, and if this is the only button with autoFocus set to true,
+     * focus this button automatically when the dialog appears.
+     */
+    autoFocus?: boolean
+  }
 
 /**
  * Props to customize the rendering of the Dialog.

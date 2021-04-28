@@ -67,7 +67,7 @@ describe('Details', () => {
   })
 
   it('Can manipulate state with setOpen', () => {
-    const CloseButton = (props: ButtonProps) => <Button {...props} />
+    const CloseButton = (props: ButtonProps & React.ComponentPropsWithoutRef<'button'>) => <Button {...props} />
     const Component = () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (

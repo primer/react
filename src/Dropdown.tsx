@@ -24,7 +24,7 @@ const Dropdown = ({children, className, ...rest}: DropdownProps) => {
   )
 }
 
-export type DropdownButtonProps = ButtonProps
+export type DropdownButtonProps = ButtonProps & React.ComponentPropsWithoutRef<'summary'>
 
 const DropdownButton = ({children, ...rest}: DropdownButtonProps) => {
   return (

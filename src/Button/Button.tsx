@@ -1,21 +1,22 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
-const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
+export type ButtonProps = ButtonBaseProps & ButtonSystemProps & SxProp
+
+const Button = styled(ButtonBase)<ButtonProps>`
   color: ${get('colors.btn.text')};
   background-color: ${get('colors.btn.bg')};
   border: 1px solid ${get('colors.btn.border')};
-  box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')}};
+  box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')};
 
   &:hover {
     background-color: ${get('colors.btn.hoverBg')};
     border-color: ${get('colors.btn.hoverBorder')};
   }
 
-  // focus must come before :active so that the active box shadow overrides
+  /* focus must come before :active so that the active box shadow overrides */
   &:focus {
     border-color: ${get('colors.btn.focusBorder')};
     box-shadow: ${get('shadows.btn.focusShadow')};
@@ -36,5 +37,4 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   ${sx};
 `
 
-export type ButtonProps = ComponentProps<typeof Button>
 export default Button
