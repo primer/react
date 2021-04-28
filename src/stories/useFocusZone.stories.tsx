@@ -408,7 +408,11 @@ export const ChangingSubtree = () => {
 
   const buttons: JSX.Element[] = []
   for (let i = 0; i < buttonCount; ++i) {
-    buttons.push(<MarginButton key={`button${i}`}>{i + 1}</MarginButton>)
+    buttons.push(
+      <div>
+        <MarginButton key={`button${i}`}>{i + 1}</MarginButton>
+      </div>
+    )
   }
 
   return (
