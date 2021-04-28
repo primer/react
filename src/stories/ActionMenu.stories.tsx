@@ -8,7 +8,8 @@ import {
   ProjectIcon,
   FilterIcon,
   GearIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  TrashIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState} from 'react'
@@ -96,11 +97,15 @@ export function SimpleListStory(): JSX.Element {
           onAction={onAction}
           anchorContent="Menu"
           items={[
-            {text: 'New file', trailingText: '⌘O'},
+            {text: 'New file', trailingText: '⌘O', disabled: true, leadingVisual: ProjectIcon},
             ActionList.Divider,
             {text: 'Copy link', trailingText: 'ctrl+C'},
             {text: 'Edit file', trailingText: '⌘E'},
-            {text: 'Delete file', variant: 'danger', trailingText: '⌘D'}
+            {
+              text: 'Delete file',
+              variant: 'danger',
+              trailingText: '⌘D'
+            }
           ]}
         />
       </ErsatzOverlay>

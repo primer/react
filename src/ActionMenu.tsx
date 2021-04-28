@@ -44,11 +44,27 @@ const ActionMenuBase = ({
         ...itemProps,
         role: 'menuitem',
         onKeyPress: _event => {
-          onAction?.(itemProps as ItemProps)
+          if (itemProps.disabled) {
+            return
+          }
+
+          if (itemProps.onAction) {
+            itemProps.onAction(itemProps)
+          } else if (onAction) {
+            onAction(itemProps as ItemProps)
+          }
           onClose()
         },
         onClick: event => {
-          onAction?.(itemProps as ItemProps)
+          if (itemProps.disabled) {
+            return
+          }
+
+          if (itemProps.onAction) {
+            itemProps.onAction(itemProps)
+          } else if (onAction) {
+            onAction(itemProps as ItemProps)
+          }
           onClick?.(event)
           onClose()
         }
