@@ -8,8 +8,7 @@ import {
   ProjectIcon,
   FilterIcon,
   GearIcon,
-  ArrowRightIcon,
-  TrashIcon
+  ArrowRightIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState} from 'react'
