@@ -1,5 +1,5 @@
 import {CheckIcon, IconProps} from '@primer/octicons-react'
-import React from 'react'
+import React, {useCallback} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ItemInput} from './List'
@@ -69,7 +69,10 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (item: Partial<ItemProps>, event?: MouseEvent | KeyboardEvent) => void
+  onAction?: (
+    item: Partial<ItemProps>,
+    event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
+  ) => void
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -182,30 +185,41 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     onClick,
     ...props
   } = itemProps
+
+  const keyPressHandler = useCallback(
+    event => {
+      if (disabled) {
+        return
+      }
+      if (onAction) {
+        onAction(itemProps as ItemProps, event)
+      }
+      onKeyPress?.(event)
+    },
+    [onAction, disabled, itemProps, onKeyPress]
+  )
+
+  const clickHandler = useCallback(
+    event => {
+      if (disabled) {
+        return
+      }
+      if (onAction) {
+        onAction(itemProps as ItemProps, event)
+      }
+      onClick?.(event)
+    },
+    [onAction, disabled, itemProps, onClick]
+  )
+
   return (
     <StyledItem
       tabIndex={disabled ? undefined : -1}
       variant={variant}
       aria-selected={selected}
       {...props}
-      onKeyPress={event => {
-        if (disabled) {
-          return
-        }
-        if (onAction) {
-          onAction(itemProps as ItemProps, event)
-        }
-        onKeyPress?.(event)
-      }}
-      onClick={event => {
-        if (disabled) {
-          return
-        }
-        if (onAction) {
-          onAction(itemProps as ItemProps, event)
-        }
-        onClick?.(event)
-      }}
+      onKeyPress={keyPressHandler}
+      onClick={clickHandler}
     >
       {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
