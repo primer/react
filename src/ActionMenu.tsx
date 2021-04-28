@@ -10,6 +10,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   renderAnchor?: (props: any) => JSX.Element
   anchorContent?: React.ReactNode
   onAction?: (props: ItemProps) => void
+  restoreFocusOnClose?: HTMLElement | boolean | (() => HTMLElement | boolean)
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -21,6 +22,7 @@ const ActionMenuBase = ({
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
   renderItem = Item,
   onAction,
+  restoreFocusOnClose,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const [open, setOpen] = useState(false)
@@ -57,7 +59,13 @@ const ActionMenuBase = ({
   )
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay
+      renderAnchor={renderMenuAnchor}
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      restoreFocusOnClose={restoreFocusOnClose}
+    >
       <List {...listProps} role="menu" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )

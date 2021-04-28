@@ -26,13 +26,27 @@ export interface AnchoredOverlayProps {
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
   onClose?: (gesture: 'click-outside' | 'escape') => unknown
+
+  /**
+   * When the AnchoredOverlay is closed, we can attempt to restore focus to some given element or the
+   * last element that was focused before the overlay opened (typically the anchor). See `useFocusTrap`
+   * for more info. (Default: true)
+   */
+  restoreFocusOnClose?: HTMLElement | boolean | (() => HTMLElement | boolean)
 }
 
 /**
  * An `AnchoredOverlay` provides an anchor (button by default) that will open a floating overlay.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
-export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, children, open, onOpen, onClose}) => {
+export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
+  renderAnchor,
+  children,
+  open,
+  onOpen,
+  onClose,
+  restoreFocusOnClose = true
+}) => {
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(open ? 'list' : null)
@@ -92,7 +106,11 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
   )
 
   useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
-  useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
+  useFocusTrap({
+    containerRef: overlayRef,
+    disabled: !open || focusType !== 'list' || !position,
+    restoreFocusOnCleanUp: restoreFocusOnClose
+  })
 
   return (
     <>

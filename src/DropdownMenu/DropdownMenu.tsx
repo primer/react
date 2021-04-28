@@ -27,6 +27,13 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * `selectedItem`, `undefined` will be passed.
    */
   onChange?: (item?: ItemInput) => unknown
+
+  /**
+   * When the DropdownMenu is closed, we can attempt to restore focus to some given element or the
+   * last element that was focused before the overlay opened (typically the anchor). See `useFocusTrap`
+   * for more info. (Default: true)
+   */
+  restoreFocusOnClose?: HTMLElement | boolean | (() => HTMLElement | boolean)
 }
 
 /**
@@ -40,6 +47,7 @@ export function DropdownMenu({
   placeholder,
   selectedItem,
   onChange,
+  restoreFocusOnClose,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const [open, setOpen] = useState(false)
@@ -86,7 +94,13 @@ export function DropdownMenu({
   )
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay
+      renderAnchor={renderMenuAnchor}
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      restoreFocusOnClose={restoreFocusOnClose}
+    >
       <List {...listProps} role="listbox" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )
