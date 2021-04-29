@@ -21,6 +21,7 @@ import {
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
+import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
 import {ConfirmationDialog, useConfirm} from '../../../../src/Dialog/ConfirmationDialog'
 
 export default {
@@ -46,5 +47,6 @@ export default {
   VersionsIcon,
   Dialog2,
   ConfirmationDialog,
-  useConfirm
+  useConfirm,
+  AnchoredOverlay
 }

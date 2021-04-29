@@ -29,7 +29,7 @@ export interface AnchoredOverlayProps {
 }
 
 /**
- * An `AnchoredOverlay` provides an anchor (button by default) that will open a floating overlay.
+ * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, children, open, onOpen, onClose}) => {
