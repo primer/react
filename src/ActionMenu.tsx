@@ -9,7 +9,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   anchorContent?: React.ReactNode
-  onAction?: (props: ItemProps) => void
+  onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -43,12 +43,22 @@ const ActionMenuBase = ({
       renderItem({
         ...itemProps,
         role: 'menuitem',
-        onKeyPress: _event => {
-          onAction?.(itemProps as ItemProps)
+        onKeyPress: event => {
+          if (itemProps.disabled) {
+            return
+          }
+
+          const actionCallback = itemProps.onAction ?? onAction
+          actionCallback?.(itemProps as ItemProps, event)
           onClose()
         },
         onClick: event => {
-          onAction?.(itemProps as ItemProps)
+          if (itemProps.disabled) {
+            return
+          }
+
+          const actionCallback = itemProps.onAction ?? onAction
+          actionCallback?.(itemProps as ItemProps, event)
           onClick?.(event)
           onClose()
         }

@@ -1,9 +1,10 @@
 import {CheckIcon, IconProps} from '@primer/octicons-react'
-import React from 'react'
+import React, {useCallback} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ItemInput} from './List'
 import styled from 'styled-components'
+import {themeGet} from '..'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -59,9 +60,50 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
    * Designates the group that an item belongs to.
    */
   groupId?: string
+
+  /**
+   * Items that are disabled can not be clicked, selected, or navigated through.
+   */
+  disabled?: boolean
+
+  /**
+   * Callback that will trigger both on click selection and keyboard selection.
+   */
+  onAction?: (item: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
-const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
+const getItemVariant = (variant = 'default', disabled?: boolean) => {
+  if (disabled) {
+    return {
+      color: themeGet('colors.text.disabled'),
+      iconColor: themeGet('colors.text.disabled'),
+      annotationColor: themeGet('colors.text.disabled'),
+      hoverBackground: 'inherit',
+      hoverCursor: 'default'
+    }
+  }
+
+  switch (variant) {
+    case 'danger':
+      return {
+        color: themeGet('colors.text.danger'),
+        iconColor: themeGet('colors.icon.danger'),
+        annotationColor: themeGet('colors.text.disabled'),
+        hoverBackground: themeGet('colors.bg.danger'),
+        hoverCursor: 'pointer'
+      }
+    default:
+      return {
+        color: 'inherit',
+        iconColor: themeGet('colors.text.disabled'),
+        annotationColor: themeGet('colors.text.disabled'),
+        hoverBackground: themeGet('colors.selectMenu.tapHighlight'),
+        hoverCursor: 'pointer'
+      }
+  }
+}
+
+const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} & SxProp>`
   /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
@@ -70,13 +112,12 @@ const StyledItem = styled.div<{variant: ItemProps['variant']} & SxProp>`
   padding: 6px ${get('space.2')};
   display: flex;
   border-radius: ${get('radii.2')};
-  color: ${({variant}) => (variant === 'danger' ? get('colors.text.danger') : 'inherit')};
+  color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      background: ${props =>
-        props.variant === 'danger' ? get('colors.bg.danger') : get('colors.selectMenu.tapHighlight')};
-      cursor: pointer;
+      background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBackground};
+      cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
 
@@ -87,7 +128,7 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
-const BaseVisualContainer = styled.div`
+const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
   // Match visual height to adjacent text line height.
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '20px' with '${get('space.s20')}'.
@@ -99,7 +140,7 @@ const BaseVisualContainer = styled.div`
   margin-right: ${get('space.2')};
 
   svg {
-    fill: ${get('colors.text.secondary')};
+    fill: ${({variant, disabled}) => getItemVariant(variant, disabled).iconColor};
     font-size: ${get('fontSizes.0')};
   }
 `
@@ -107,7 +148,7 @@ const BaseVisualContainer = styled.div`
 const LeadingVisualContainer = styled(BaseVisualContainer)``
 
 const TrailingVisualContainer = styled(BaseVisualContainer)`
-  color: ${get('colors.icon.tertiary')};
+  color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
   margin-left: auto;
   margin-right: 0;
   div:nth-child(2) {
@@ -125,22 +166,61 @@ const DescriptionContainer = styled.span`
 /**
  * An actionable or selectable `Item` with an optional icon and description.
  */
-export function Item({
-  text,
-  description,
-  descriptionVariant = 'inline',
-  selected,
-  leadingVisual: LeadingVisual,
-  trailingIcon: TrailingIcon,
-  trailingText,
-  variant = 'default',
-  ...props
-}: Partial<ItemProps> & {item?: ItemInput}): JSX.Element {
+export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.Element {
+  const {
+    text,
+    description,
+    descriptionVariant = 'inline',
+    selected,
+    leadingVisual: LeadingVisual,
+    trailingIcon: TrailingIcon,
+    trailingText,
+    variant = 'default',
+    disabled,
+    onAction,
+    onKeyPress,
+    onClick,
+    ...props
+  } = itemProps
+
+  const keyPressHandler = useCallback(
+    event => {
+      if (disabled) {
+        return
+      }
+      if (onAction) {
+        onAction(itemProps as ItemProps, event)
+      }
+      onKeyPress?.(event)
+    },
+    [onAction, disabled, itemProps, onKeyPress]
+  )
+
+  const clickHandler = useCallback(
+    event => {
+      if (disabled) {
+        return
+      }
+      if (onAction) {
+        onAction(itemProps as ItemProps, event)
+      }
+      onClick?.(event)
+    },
+    [onAction, disabled, itemProps, onClick]
+  )
+
   return (
-    <StyledItem tabIndex={-1} variant={variant} aria-selected={selected} {...props}>
+    <StyledItem
+      tabIndex={disabled ? undefined : -1}
+      variant={variant}
+      aria-selected={selected}
+      {...props}
+      onKeyPress={keyPressHandler}
+      onClick={clickHandler}
+    >
       {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
       {LeadingVisual && (
-        <LeadingVisualContainer>
+        <LeadingVisualContainer variant={variant} disabled={disabled}>
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
@@ -149,7 +229,7 @@ export function Item({
         {description && <DescriptionContainer>{description}</DescriptionContainer>}
       </StyledTextContainer>
       {(TrailingIcon || trailingText) && (
-        <TrailingVisualContainer>
+        <TrailingVisualContainer variant={variant} disabled={disabled}>
           {trailingText && <div>{trailingText}</div>}
           {TrailingIcon && (
             <div>
