@@ -1,5 +1,15 @@
 # @primer/components
 
+## 28.0.0
+
+### Major Changes
+
+- [`5f85394d`](https://github.com/primer/components/commit/5f85394dc16f076080824d8fdb3bda06d01e29da) [#1157](https://github.com/primer/components/pull/1157) Thanks [@dgreif](https://github.com/dgreif)! - Removed `useMouseIntent` in favor of [`:focus-visible`](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible). With the removal of `useMouseIntent`, the `intent-mouse` class will no longer be added to the `<body>`. Since `:focus-visible` is a relatively new psuedo-class, a polyfill is included. Any focused elements that meet the criteria for `:focus-visible` will also have a `focus-visible` class added to them by the polyfill.
+
+### Patch Changes
+
+- [`f7857a06`](https://github.com/primer/components/commit/f7857a06031df339fa61d27f8ca717e4df95d5e5) [#1159](https://github.com/primer/components/pull/1159) Thanks [@hehex9](https://github.com/hehex9)! - Removed unused dependencies
+
 ## 27.0.0
 
 ### Major Changes
