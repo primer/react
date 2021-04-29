@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {cleanup, render as HTMLRender, act, fireEvent, waitFor} from '@testing-library/react'
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -116,8 +116,12 @@ describe('ActionMenu', () => {
     act(() => {
       fireEvent.click(menuItem)
     })
+    waitFor(() => {
+      mockOnActivate.mock.calls.length > 0
+    })
+
     // onAction has been called with correct argument
-    expect(mockOnActivate).toHaveBeenCalledTimes(1)
+    await waitFor(() => expect(mockOnActivate).toHaveBeenCalledTimes(1))
     const arg = mockOnActivate.mock.calls[0][0]
     expect(arg.text).toEqual(items[0].text)
   })
