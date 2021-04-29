@@ -188,10 +188,10 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       if (disabled) {
         return
       }
-      if (onAction) {
-        onAction(itemProps as ItemProps, event)
-      }
       onKeyPress?.(event)
+      if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
+        onAction?.(itemProps as ItemProps, event)
+      }
     },
     [onAction, disabled, itemProps, onKeyPress]
   )
@@ -201,10 +201,8 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       if (disabled) {
         return
       }
-      if (onAction) {
-        onAction(itemProps as ItemProps, event)
-      }
       onClick?.(event)
+      onAction?.(itemProps as ItemProps, event)
     },
     [onAction, disabled, itemProps, onClick]
   )

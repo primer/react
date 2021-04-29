@@ -39,30 +39,21 @@ const ActionMenuBase = ({
   )
 
   const renderMenuItem: typeof Item = useCallback(
-    ({onClick, ...itemProps}) =>
-      renderItem({
+    ({onAction: itemOnAction, ...itemProps}) => {
+      const onActionWithClose = (
+        props: ItemProps,
+        event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
+      ) => {
+        const actionCallback = itemOnAction ?? onAction
+        actionCallback?.(props as ItemProps, event)
+        onClose()
+      }
+      return renderItem({
         ...itemProps,
         role: 'menuitem',
-        onKeyPress: event => {
-          if (itemProps.disabled) {
-            return
-          }
-
-          const actionCallback = itemProps.onAction ?? onAction
-          actionCallback?.(itemProps as ItemProps, event)
-          onClose()
-        },
-        onClick: event => {
-          if (itemProps.disabled) {
-            return
-          }
-
-          const actionCallback = itemProps.onAction ?? onAction
-          actionCallback?.(itemProps as ItemProps, event)
-          onClick?.(event)
-          onClose()
-        }
-      }),
+        onAction: onActionWithClose
+      })
+    },
     [onAction, onClose, renderItem]
   )
 
