@@ -2,8 +2,9 @@ import {List, ListPropsBase, GroupedListProps} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
+import {useAwaitableState} from './hooks/useAwaitableState'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,9 +26,11 @@ const ActionMenuBase = ({
   restoreFocusOnClose,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
-  const [open, setOpen] = useState(false)
-  const onOpen = useCallback(() => setOpen(true), [])
-  const onClose = useCallback(() => setOpen(false), [])
+  const [open, setOpen] = useAwaitableState(false)
+  const onOpen = useCallback(() => setOpen(true), [setOpen])
+  const onClose = useCallback(async () => {
+    await setOpen(false)
+  }, [setOpen])
 
   const renderMenuAnchor = useCallback(
     <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
@@ -45,14 +48,14 @@ const ActionMenuBase = ({
       renderItem({
         ...itemProps,
         role: 'menuitem',
-        onKeyPress: _event => {
+        onKeyPress: async _event => {
+          await onClose()
           onAction?.(itemProps as ItemProps)
-          onClose()
         },
-        onClick: event => {
-          onAction?.(itemProps as ItemProps)
+        onClick: async event => {
           onClick?.(event)
-          onClose()
+          await onClose()
+          onAction?.(itemProps as ItemProps)
         }
       }),
     [onAction, onClose, renderItem]
