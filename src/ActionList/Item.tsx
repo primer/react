@@ -202,7 +202,9 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         return
       }
       onClick?.(event)
-      onAction?.(itemProps as ItemProps, event)
+      if (!event.defaultPrevented) {
+        onAction?.(itemProps as ItemProps, event)
+      }
     },
     [onAction, disabled, itemProps, onClick]
   )
