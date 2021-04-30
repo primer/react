@@ -21,11 +21,6 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   description?: string
 
   /**
-   * Custom children content to show if text/description is not flexible enough.  If supplied, leading/trailing elements can still be used.
-   */
-  children?: React.ReactNode
-
-  /**
    * Secondary text style variations. Usage is discretionary.
    *
    * - `"inline"` - Secondary text is positioned beside primary text.
