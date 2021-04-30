@@ -1,5 +1,13 @@
 # @primer/components
 
+## 28.0.1
+
+### Patch Changes
+
+- [`b319ce43`](https://github.com/primer/components/commit/b319ce4396b11c185faee23f0884632806922303) [#1197](https://github.com/primer/components/pull/1197) Thanks [@dmarcey](https://github.com/dmarcey)! - Typescript declare files will now be published to the lib-esm directory, as well as lib
+
+* [`17957f29`](https://github.com/primer/components/commit/17957f293542d6cbf5f8005698bb352f95d5c8f7) [#1192](https://github.com/primer/components/pull/1192) Thanks [@dgreif](https://github.com/dgreif)! - Add basic docs for `AnchoredOverlay`
+
 ## 28.0.0
 
 ### Major Changes

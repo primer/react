@@ -1,4 +1,4 @@
-import {List, ListPropsBase, GroupedListProps} from './ActionList/List'
+import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
@@ -9,7 +9,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   anchorContent?: React.ReactNode
-  onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  onAction?: (props: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -40,18 +40,14 @@ const ActionMenuBase = ({
 
   const renderMenuItem: typeof Item = useCallback(
     ({onAction: itemOnAction, ...itemProps}) => {
-      const onActionWithClose = (
-        props: ItemProps,
-        event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
-      ) => {
-        const actionCallback = itemOnAction ?? onAction
-        actionCallback?.(props as ItemProps, event)
-        onClose()
-      }
       return renderItem({
         ...itemProps,
         role: 'menuitem',
-        onAction: onActionWithClose
+        onAction: (props, event) => {
+          const actionCallback = itemOnAction ?? onAction
+          actionCallback?.(props as ItemProps, event)
+          onClose()
+        }
       })
     },
     [onAction, onClose, renderItem]
