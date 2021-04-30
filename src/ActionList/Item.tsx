@@ -21,7 +21,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   description?: string
 
   /**
-   * Custom children content to show if text/description is not flexible enough.  If supplied, leading/traling elements can still be used.
+   * Custom children content to show if text/description is not flexible enough.  If supplied, leading/trailing elements can still be used.
    */
   children?: React.ReactNode
 

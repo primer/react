@@ -263,4 +263,4 @@ export function CustomItemChildren(): JSX.Element {
     </>
   )
 }
-SimpleListStory.storyName = 'Simple List'
+CustomItemChildren.storyName = 'Custom Item Children'
