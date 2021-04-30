@@ -90,6 +90,9 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
     },
     [overlayRef.current]
   )
+  const overlayPosition = useMemo(() => {
+    return position && {top: `${position.top}px`, left: `${position.left}px`}
+  }, [position])
 
   useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
   useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
@@ -114,7 +117,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
           ref={updateOverlayRef}
           role="listbox"
           visibility={position ? 'visible' : 'hidden'}
-          {...position}
+          {...overlayPosition}
         >
           {children}
         </Overlay>
