@@ -8,7 +8,7 @@ import styled from 'styled-components'
 /**
  * Contract for props passed to the `Item` component.
  */
-export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'id'>, SxProp {
   /**
    * Primary text which names an `Item`.
    */
@@ -69,6 +69,11 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
    * Callback that will trigger both on click selection and keyboard selection.
    */
   onAction?: (item: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+
+  /**
+   * An id associated with this item.  Should be unique between items
+   */
+  id?: number | string
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -180,6 +185,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     onKeyPress,
     children,
     onClick,
+    id,
     ...props
   } = itemProps
 
@@ -215,6 +221,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       variant={variant}
       aria-selected={selected}
       {...props}
+      data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
     >

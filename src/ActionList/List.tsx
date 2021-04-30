@@ -137,14 +137,8 @@ export function List(props: ListProps): JSX.Element {
    */
   const renderItem = (itemProps: ItemInput, item: ItemInput) => {
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
-    return (
-      <ItemComponent
-        {...itemProps}
-        key={itemProps.key || uniqueId()}
-        sx={{...itemStyle, ...itemProps.sx}}
-        item={item}
-      />
-    )
+    const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
+    return <ItemComponent {...itemProps} key={key} sx={{...itemStyle, ...itemProps.sx}} item={item} />
   }
 
   /**
