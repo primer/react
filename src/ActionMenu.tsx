@@ -2,7 +2,7 @@ import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
@@ -26,6 +26,7 @@ const ActionMenuBase = ({
   const [open, setOpen] = useState(false)
   const onOpen = useCallback(() => setOpen(true), [])
   const onClose = useCallback(() => setOpen(false), [])
+  const pendingActionRef = useRef<() => unknown>()
 
   const renderMenuAnchor = useCallback(
     <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
@@ -45,13 +46,22 @@ const ActionMenuBase = ({
         role: 'menuitem',
         onAction: (props, event) => {
           const actionCallback = itemOnAction ?? onAction
-          actionCallback?.(props as ItemProps, event)
+          pendingActionRef.current = () => actionCallback?.(props as ItemProps, event)
           onClose()
         }
       })
     },
     [onAction, onClose, renderItem]
   )
+
+  useEffect(() => {
+    // Wait until menu has re-rendered in a closed state before triggering action.
+    // This is needed in scenarios where the action will move focus, which would otherwise be captured by focus trap
+    if (!open && pendingActionRef.current) {
+      pendingActionRef.current()
+      pendingActionRef.current = undefined
+    }
+  }, [open])
 
   return (
     <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
