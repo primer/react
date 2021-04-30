@@ -51,6 +51,7 @@ const ActionMenuBase = ({
         onAction: (props, event) => {
           const actionCallback = itemOnAction ?? onAction
           pendingActionRef.current = () => actionCallback?.(props as ItemProps, event)
+          actionCallback?.(props as ItemProps, event)
           onClose()
         }
       })
