@@ -9,7 +9,9 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   anchorContent?: React.ReactNode
-  onAction?: (props: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  open?: boolean
+  setOpen?: (s: boolean) => void
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -21,6 +23,8 @@ const ActionMenuBase = ({
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
   renderItem = Item,
   onAction,
+  open,
+  setOpen,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const [open, setOpen] = useState(false)
@@ -64,7 +68,7 @@ const ActionMenuBase = ({
   }, [open])
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={openState} onOpen={onOpen} onClose={onClose}>
       <List {...listProps} role="menu" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )
