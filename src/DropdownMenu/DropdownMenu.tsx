@@ -57,28 +57,21 @@ export function DropdownMenu({
   )
 
   const renderMenuItem: typeof Item = useCallback(
-    ({onClick, onKeyDown, item, ...itemProps}) => {
-      const handleSelection = () => {
-        onChange?.(item === selectedItem ? undefined : item)
-        onClose()
-      }
-
+    ({item, onAction: itemOnAction, ...itemProps}) => {
       return renderItem({
         ...itemProps,
         item,
         role: 'option',
         selected: item === selectedItem,
-        onClick: event => {
-          handleSelection()
-          onClick?.(event)
-        },
-        onKeyDown: event => {
-          if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-            handleSelection()
-            // prevent "Enter" event from becoming a click on the anchor as overlay closes
-            event.preventDefault()
+        onAction: (itemFromAction, event) => {
+          itemOnAction?.(itemFromAction, event)
+
+          if (event.defaultPrevented) {
+            return
           }
-          onKeyDown?.(event)
+
+          onClose()
+          onChange?.(item === selectedItem ? undefined : item)
         }
       })
     },

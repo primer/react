@@ -69,7 +69,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (item: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
