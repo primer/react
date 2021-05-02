@@ -88,17 +88,22 @@ const StyledConfirmationFooter = styled(Box)`
       z-index: 1;
     }
   }
-  button:first-of-type {
+  button:first-of-type:not(:last-of-type) {
     // All except border-bottom-left-radius, which should follow the curvature of the container
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  button:last-of-type {
+  button:last-of-type:not(:first-of-type) {
     // All except border-bottom-right-radius, which should follow the curvature of the container
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: 0;
+  }
+  button:first-of-type:last-of-type {
+    // When the footer contains a single button, it should follow the curvature of the container
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
   button:not(:first-of-type):not(:last-of-type) {
     border-radius: 0;
