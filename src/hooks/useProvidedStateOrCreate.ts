@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import {useCallback, useState} from 'react'
 
 /**
  * There are some situations where we only want to create a new ref if one is not provided to a component
