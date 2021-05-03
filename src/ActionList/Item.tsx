@@ -13,7 +13,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   /**
    * Primary text which names an `Item`.
    */
-  text: string
+  text?: string
 
   /**
    * Secondary text which provides additional information about an `Item`.
@@ -179,6 +179,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     disabled,
     onAction,
     onKeyPress,
+    children,
     onClick,
     ...props
   } = itemProps
@@ -224,10 +225,13 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      <StyledTextContainer descriptionVariant={descriptionVariant}>
-        <div>{text}</div>
-        {description && <DescriptionContainer>{description}</DescriptionContainer>}
-      </StyledTextContainer>
+      {children}
+      {(text || description) && (
+        <StyledTextContainer descriptionVariant={descriptionVariant}>
+          {text && <div>{text}</div>}
+          {description && <DescriptionContainer>{description}</DescriptionContainer>}
+        </StyledTextContainer>
+      )}
       {(TrailingIcon || trailingText) && (
         <TrailingVisualContainer variant={variant} disabled={disabled}>
           {trailingText && <div>{trailingText}</div>}

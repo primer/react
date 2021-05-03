@@ -78,7 +78,7 @@ describe('ActionMenu', () => {
     })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = await menu.queryByText(items[0].text)
+    const menuItem = await menu.queryByText(items[0].text!)
     act(() => {
       fireEvent.click(menuItem as Element)
     })
