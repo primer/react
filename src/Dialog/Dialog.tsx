@@ -189,7 +189,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   width: ${props => widthMap[props.width ?? ('xl' as const)]};
   height: ${props => heightMap[props.height ?? ('auto' as const)]};
   border-radius: 12px;
-  overflow: hidden;
   opacity: 1;
   animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
