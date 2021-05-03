@@ -48,7 +48,7 @@ const ErsatzOverlay = styled.div`
 export function ActionsStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text || '')
+    setOption(itemProps.text ?? '')
   }
   return (
     <>
