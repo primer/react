@@ -5,7 +5,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
-const onMouseDown = (event: React.MouseEvent) => event.preventDefault()
+const onMouseDown = (event: React.MouseEvent) => event.stopPropagation()
 export interface AnchoredOverlayProps {
   /**
    * A custom function component used to render the anchor element.
