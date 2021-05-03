@@ -5,6 +5,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
+const onMouseDown = (event: React.MouseEvent) => event.preventDefault()
 export interface AnchoredOverlayProps {
   /**
    * A custom function component used to render the anchor element.
@@ -105,6 +106,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
         'aria-labelledby': anchorId,
         'aria-haspopup': 'listbox',
         tabIndex: 0,
+        onMouseDown,
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown
       })}
@@ -117,6 +119,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
           ref={updateOverlayRef}
           role="listbox"
           visibility={position ? 'visible' : 'hidden'}
+          onMouseDown={onMouseDown}
           {...overlayPosition}
         >
           {children}
