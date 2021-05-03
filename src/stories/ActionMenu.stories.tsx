@@ -16,6 +16,7 @@ import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
 import Link, {LinkProps} from '../Link'
+import Button from '../Button'
 import {ActionList, ItemProps} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 
@@ -124,6 +125,10 @@ export function ExternalOpenState(): JSX.Element {
       <h1>Simple List</h1>
       <h2>Last option activated: {option}</h2>
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
+      <div>
+        <Button onClick={() => setOpen(!open)}>Toggle External State</Button>
+      </div>
+      <br />
       <ErsatzOverlay>
         <ActionMenu
           onAction={onAction}
