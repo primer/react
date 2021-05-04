@@ -10,11 +10,11 @@ import {useCallback, useState} from 'react'
  * @param defaultState The defaultState to use, if using internal state.
  */
 export function useProvidedStateOrCreate<T>(
-  externalState?: T,
-  setExternalState?: (s: T) => void,
-  defaultState?: T
-): [T, (s: T) => void] {
-  const [internalState, setInternalState] = useState(defaultState)
+  externalState: T | undefined,
+  setExternalState: ((s: T) => void) | undefined,
+  defaultState: T
+) {
+  const [internalState, setInternalState] = useState<T>(defaultState)
   const state = externalState ?? internalState
   const setState = useCallback(
     (s: T) => {
@@ -23,5 +23,5 @@ export function useProvidedStateOrCreate<T>(
     },
     [setExternalState]
   )
-  return [state as T, setState]
+  return [state, setState] as const
 }
