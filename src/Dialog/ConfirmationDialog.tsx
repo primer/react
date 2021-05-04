@@ -77,7 +77,6 @@ const StyledConfirmationFooter = styled(Box)`
   button {
     font-size: ${get('fontSizes.1')};
     flex: 1 1 0;
-    border-radius: 0;
     border-bottom: 0;
     margin: 0;
     border-right: 0;
@@ -88,6 +87,26 @@ const StyledConfirmationFooter = styled(Box)`
       // this is a bit of a hack to get the focus outlines to show up
       z-index: 1;
     }
+  }
+  button:first-of-type:not(:last-of-type) {
+    // All except border-bottom-left-radius, which should follow the curvature of the container
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  button:last-of-type:not(:first-of-type) {
+    // All except border-bottom-right-radius, which should follow the curvature of the container
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  button:first-of-type:last-of-type {
+    // When the footer contains a single button, it should follow the curvature of the container
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  button:not(:first-of-type):not(:last-of-type) {
+    border-radius: 0;
   }
 `
 const ConfirmationFooter: React.FC<DialogProps> = ({footerButtons}) => {

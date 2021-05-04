@@ -7,12 +7,14 @@ import {
   NoteIcon,
   ProjectIcon,
   FilterIcon,
-  GearIcon
+  GearIcon,
+  ArrowRightIcon,
+  ArrowLeftIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import styled from 'styled-components'
-import {ThemeProvider} from '..'
+import {Label, ThemeProvider} from '..'
 import {ActionList as _ActionList} from '../ActionList'
 import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
@@ -238,3 +240,27 @@ export function HeaderStory(): JSX.Element {
   )
 }
 HeaderStory.storyName = 'Header'
+
+export function CustomItemChildren(): JSX.Element {
+  return (
+    <>
+      <h1>Custom Item Children</h1>
+      <ErsatzOverlay>
+        <ActionList
+          items={[
+            {
+              leadingVisual: ArrowRightIcon,
+              children: (
+                <Label outline borderColor="border.success">
+                  Choose this one
+                </Label>
+              ),
+              trailingIcon: ArrowLeftIcon
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+CustomItemChildren.storyName = 'Custom Item Children'

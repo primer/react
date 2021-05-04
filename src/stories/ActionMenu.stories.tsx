@@ -48,7 +48,7 @@ const ErsatzOverlay = styled.div`
 export function ActionsStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text ?? '')
   }
   return (
     <>
@@ -85,7 +85,7 @@ ActionsStory.storyName = 'Actions'
 export function SimpleListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text || '')
   }
   return (
     <>
@@ -116,7 +116,7 @@ SimpleListStory.storyName = 'Simple List'
 export function ComplexListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text || '')
   }
   return (
     <>
@@ -177,7 +177,7 @@ export function CustomTrigger(): JSX.Element {
   const customAnchor = (props: LinkProps) => <Link {...props} sx={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
   const onAction = useCallback((itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text || '')
   }, [])
   return (
     <>
