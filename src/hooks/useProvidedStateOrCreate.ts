@@ -6,7 +6,7 @@ import {useCallback, useState} from 'react'
  * only in the situations where the state is not provided as a prop.
  * This hook aims to encapsulate that logic, so the consumer doesn't need to be concerned with violating `rules-of-hooks`.
  * @param externalState The state to use - if undefined, will use the state from a call to React.useState
- * @param setExternalState The setState to use - if undefined, will use the state from a call to React.useState
+ * @param setExternalState The setState to use - if undefined, will use the setState from a call to React.useState
  * @param defaultState The defaultState to use, if using internal state.
  */
 export function useProvidedStateOrCreate<T>(
