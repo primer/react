@@ -13,7 +13,7 @@ export function useProvidedStateOrCreate<T>(
   externalState?: T,
   setExternalState?: (s: T) => void,
   defaultState?: T
-): [T | undefined, (s: T) => void] {
+): [T, (s: T) => void] {
   const [internalState, setInternalState] = useState(defaultState)
   const state = externalState ?? internalState
   const setState = useCallback(
@@ -23,5 +23,5 @@ export function useProvidedStateOrCreate<T>(
     },
     [setExternalState]
   )
-  return [state, setState]
+  return [state as T, setState]
 }

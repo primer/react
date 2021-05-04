@@ -69,7 +69,7 @@ const ActionMenuBase = ({
   }, [open])
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={!!combinedOpenState} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={combinedOpenState} onOpen={onOpen} onClose={onClose}>
       <List {...listProps} role="menu" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )
