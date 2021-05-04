@@ -118,7 +118,7 @@ export function ExternalOpenState(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const [open, setOpen] = useState(false)
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text as string)
   }
   return (
     <>
