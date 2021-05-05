@@ -2,14 +2,16 @@ import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
-
+import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
   anchorContent?: React.ReactNode
-  onAction?: (props: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  open?: boolean
+  setOpen?: (s: boolean) => void
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -21,12 +23,14 @@ const ActionMenuBase = ({
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
   renderItem = Item,
   onAction,
+  open,
+  setOpen,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
-  const [open, setOpen] = useState(false)
-  const onOpen = useCallback(() => setOpen(true), [])
-  const onClose = useCallback(() => setOpen(false), [])
   const pendingActionRef = useRef<() => unknown>()
+  const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
+  const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
+  const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   const renderMenuAnchor = useCallback(
     <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
@@ -47,6 +51,7 @@ const ActionMenuBase = ({
         onAction: (props, event) => {
           const actionCallback = itemOnAction ?? onAction
           pendingActionRef.current = () => actionCallback?.(props as ItemProps, event)
+          actionCallback?.(props as ItemProps, event)
           onClose()
         }
       })
@@ -64,7 +69,7 @@ const ActionMenuBase = ({
   }, [open])
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={combinedOpenState} onOpen={onOpen} onClose={onClose}>
       <List {...listProps} role="menu" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )

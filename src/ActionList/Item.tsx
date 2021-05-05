@@ -4,7 +4,6 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ItemInput} from './List'
 import styled from 'styled-components'
-import {themeGet} from '..'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -13,7 +12,7 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
   /**
    * Primary text which names an `Item`.
    */
-  text: string
+  text?: string
 
   /**
    * Secondary text which provides additional information about an `Item`.
@@ -75,9 +74,9 @@ export interface ItemProps extends React.ComponentPropsWithoutRef<'div'>, SxProp
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
-      color: themeGet('colors.text.disabled'),
-      iconColor: themeGet('colors.text.disabled'),
-      annotationColor: themeGet('colors.text.disabled'),
+      color: get('colors.text.disabled'),
+      iconColor: get('colors.text.disabled'),
+      annotationColor: get('colors.text.disabled'),
       hoverBackground: 'inherit',
       hoverCursor: 'default'
     }
@@ -86,18 +85,18 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   switch (variant) {
     case 'danger':
       return {
-        color: themeGet('colors.text.danger'),
-        iconColor: themeGet('colors.icon.danger'),
-        annotationColor: themeGet('colors.text.disabled'),
-        hoverBackground: themeGet('colors.bg.danger'),
+        color: get('colors.text.danger'),
+        iconColor: get('colors.icon.danger'),
+        annotationColor: get('colors.text.disabled'),
+        hoverBackground: get('colors.bg.danger'),
         hoverCursor: 'pointer'
       }
     default:
       return {
         color: 'inherit',
-        iconColor: themeGet('colors.text.disabled'),
-        annotationColor: themeGet('colors.text.disabled'),
-        hoverBackground: themeGet('colors.selectMenu.tapHighlight'),
+        iconColor: get('colors.text.disabled'),
+        annotationColor: get('colors.text.disabled'),
+        hoverBackground: get('colors.selectMenu.tapHighlight'),
         hoverCursor: 'pointer'
       }
   }
@@ -179,6 +178,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     disabled,
     onAction,
     onKeyPress,
+    children,
     onClick,
     ...props
   } = itemProps
@@ -224,10 +224,13 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      <StyledTextContainer descriptionVariant={descriptionVariant}>
-        <div>{text}</div>
-        {description && <DescriptionContainer>{description}</DescriptionContainer>}
-      </StyledTextContainer>
+      {children}
+      {(text || description) && (
+        <StyledTextContainer descriptionVariant={descriptionVariant}>
+          {text && <div>{text}</div>}
+          {description && <DescriptionContainer>{description}</DescriptionContainer>}
+        </StyledTextContainer>
+      )}
       {(TrailingIcon || trailingText) && (
         <TrailingVisualContainer variant={variant} disabled={disabled}>
           {trailingText && <div>{trailingText}</div>}

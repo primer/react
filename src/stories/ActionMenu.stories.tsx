@@ -16,6 +16,7 @@ import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
 import Link, {LinkProps} from '../Link'
+import Button from '../Button'
 import {ActionList, ItemProps} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 
@@ -48,7 +49,7 @@ const ErsatzOverlay = styled.div`
 export function ActionsStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text ?? '')
   }
   return (
     <>
@@ -85,7 +86,7 @@ ActionsStory.storyName = 'Actions'
 export function SimpleListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text || '')
   }
   return (
     <>
@@ -113,10 +114,49 @@ export function SimpleListStory(): JSX.Element {
 }
 SimpleListStory.storyName = 'Simple List'
 
+export function ExternalOpenState(): JSX.Element {
+  const [option, setOption] = useState('Select an option')
+  const [open, setOpen] = useState(false)
+  const onAction = (itemProps: ItemProps) => {
+    setOption(itemProps.text as string)
+  }
+  return (
+    <>
+      <h1>Simple List</h1>
+      <h2>Last option activated: {option}</h2>
+      <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
+      <div>
+        <Button onClick={() => setOpen(!open)}>Toggle External State</Button>
+      </div>
+      <br />
+      <ErsatzOverlay>
+        <ActionMenu
+          onAction={onAction}
+          anchorContent="Menu"
+          open={open}
+          setOpen={setOpen}
+          items={[
+            {text: 'New file', trailingText: '⌘O', disabled: true, leadingVisual: ProjectIcon},
+            ActionList.Divider,
+            {text: 'Copy link', trailingText: 'ctrl+C'},
+            {text: 'Edit file', trailingText: '⌘E'},
+            {
+              text: 'Delete file',
+              variant: 'danger',
+              trailingText: '⌘D'
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+ExternalOpenState.storyName = 'External Open State'
+
 export function ComplexListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
   const onAction = (itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text || '')
   }
   return (
     <>
@@ -177,7 +217,7 @@ export function CustomTrigger(): JSX.Element {
   const customAnchor = (props: LinkProps) => <Link {...props} sx={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
   const onAction = useCallback((itemProps: ItemProps) => {
-    setOption(itemProps.text)
+    setOption(itemProps.text || '')
   }, [])
   return (
     <>

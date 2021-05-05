@@ -24,6 +24,7 @@ export {useOnOutsideClick} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
+export {useConfirm} from './Dialog/ConfirmationDialog'
 
 // Components
 export {ActionList} from './ActionList'
@@ -71,6 +72,7 @@ export {default as Details} from './Details'
 export type {DetailsProps} from './Details'
 export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
+export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
 export {default as Dropdown} from './Dropdown'
 export type {
   DropdownProps,
