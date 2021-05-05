@@ -75,7 +75,6 @@ exports[`ActionMenu renders consistently 1`] = `
   id="__primer_id_10000"
   onClick={[Function]}
   onKeyDown={[Function]}
-  onMouseDown={[Function]}
   tabIndex={0}
 />
 `;
