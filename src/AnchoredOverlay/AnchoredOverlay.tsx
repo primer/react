@@ -5,8 +5,8 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
-function stopPropagation(event: React.UIEvent) {
-  event.stopPropagation()
+function preventDefault(event: React.UIEvent) {
+  event.preventDefault()
 }
 
 export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
@@ -129,8 +129,8 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ref={updateOverlayRef}
           role="listbox"
           visibility={position ? 'visible' : 'hidden'}
-          onMouseDown={stopPropagation}
-          onClick={stopPropagation}
+          onMouseDown={preventDefault}
+          onClick={preventDefault}
           height={height}
           width={width}
           {...overlayPosition}
