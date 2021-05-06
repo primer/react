@@ -1,5 +1,30 @@
 # @primer/components
 
+## 28.0.2
+
+### Patch Changes
+
+- [`d20a5996`](https://github.com/primer/components/commit/d20a5996aafdbc6446f13aaa7a489394926f083a) [#1209](https://github.com/primer/components/pull/1209) Thanks [@dgreif](https://github.com/dgreif)! - Allow Overlay height and width to be set through AnchoredOverlay
+  Allow ActionList Items to supply an `id` instead of `key`
+  Performance imporvements when ActionList is not given any groups
+  Enable focus zone as soon as AnchoredOverlay opens
+
+* [`d29741ca`](https://github.com/primer/components/commit/d29741cab4bfa4249000e5b2479e99f5aeea3189) [#1196](https://github.com/primer/components/pull/1196) Thanks [@dgreif](https://github.com/dgreif)! - Allow custom `children` in `ActionItem`. `text` and `description` can still be provided as a shortcut, but `children` is now available if you need more control over the rending of the item, without sacrificing benefits from `Item` by using `renderItem`.
+
+- [`4c2e1a2b`](https://github.com/primer/components/commit/4c2e1a2b449d3f762c530f70a5056e581404d3d8) [#1195](https://github.com/primer/components/pull/1195) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Export useConfirm hook and ConfirmationDialog component from index.
+
+* [`3c13d039`](https://github.com/primer/components/commit/3c13d039466370a70ed1e0bf8c3af0860fe26702) [#1201](https://github.com/primer/components/pull/1201) Thanks [@T-Hugs](https://github.com/T-Hugs)! - Fix overlay position when using an AnchoredOverlay
+
+- [`c9b4db79`](https://github.com/primer/components/commit/c9b4db79ec2b4360f23f42d3ab49f265a56e9447) [#1199](https://github.com/primer/components/pull/1199) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Action Menu can have its open state be controlled externally.
+
+* [`3e759e59`](https://github.com/primer/components/commit/3e759e59b5af115e82cca2253c0caca9e400be24) [#1211](https://github.com/primer/components/pull/1211) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Use preventDefault on AnchoredOverlay instead of stopPropagation.
+
+- [`84e3c570`](https://github.com/primer/components/commit/84e3c5706fa313eab5605f551256c0dc34a8626d) [#1194](https://github.com/primer/components/pull/1194) Thanks [@dgreif](https://github.com/dgreif)! - Handle `onAction` for `DropdownMenu` Items
+
+* [`7aeb53fe`](https://github.com/primer/components/commit/7aeb53fec23a80414f6c1db8b31c06beb2073dd2) [#1200](https://github.com/primer/components/pull/1200) Thanks [@dgreif](https://github.com/dgreif)! - Perform ActionMenu actions after overlay has closed. This allows the action to move focus if so desired, without the ActionMenu focus trap preventing focus from moving away.
+
+- [`bba66fdd`](https://github.com/primer/components/commit/bba66fddb51be251456711e21e725b1034bae806) [#1206](https://github.com/primer/components/pull/1206) Thanks [@VanAnderson](https://github.com/VanAnderson)! - stopPropagation for mousedown and click in AnchoredOverlay based components
+
 ## 28.0.1
 
 ### Patch Changes
