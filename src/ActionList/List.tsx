@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
@@ -137,14 +137,8 @@ export function List(props: ListProps): JSX.Element {
    */
   const renderItem = (itemProps: ItemInput, item: ItemInput) => {
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
-    return (
-      <ItemComponent
-        {...itemProps}
-        key={itemProps.key || uniqueId()}
-        sx={{...itemStyle, ...itemProps.sx}}
-        item={item}
-      />
-    )
+    const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
+    return <ItemComponent {...itemProps} key={key} sx={{...itemStyle, ...itemProps.sx}} item={item} />
   }
 
   /**
@@ -153,10 +147,11 @@ export function List(props: ListProps): JSX.Element {
   let groups: (GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}))[] = []
 
   // Collect rendered `Item`s into `Group`s, avoiding excess iteration over the lists of `items` and `groupMetadata`:
+  const singleGroupId = useMemo(uniqueId, [])
 
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items?.map(item => renderItem(item, item)), groupId: uniqueId()}]
+    groups = [{items: props.items?.map(item => renderItem(item, item)), groupId: singleGroupId}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 

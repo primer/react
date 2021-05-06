@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import Overlay from '../Overlay'
+import Overlay, {OverlayProps} from '../Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
@@ -9,7 +9,7 @@ function stopPropagation(event: React.UIEvent) {
   event.stopPropagation()
 }
 
-export interface AnchoredOverlayProps {
+export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
@@ -36,7 +36,15 @@ export interface AnchoredOverlayProps {
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
-export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, children, open, onOpen, onClose}) => {
+export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
+  renderAnchor,
+  children,
+  open,
+  onOpen,
+  onClose,
+  height,
+  width
+}) => {
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(open ? 'list' : null)
@@ -98,7 +106,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
     return position && {top: `${position.top}px`, left: `${position.left}px`}
   }, [position])
 
-  useFocusZone({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
+  useFocusZone({containerRef: overlayRef, disabled: !open || !position})
   useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
 
   return (
@@ -123,6 +131,8 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({renderAnchor, c
           visibility={position ? 'visible' : 'hidden'}
           onMouseDown={stopPropagation}
           onClick={stopPropagation}
+          height={height}
+          width={width}
           {...overlayPosition}
         >
           {children}
