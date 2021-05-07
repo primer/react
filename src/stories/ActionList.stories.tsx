@@ -98,6 +98,48 @@ export function SimpleListStory(): JSX.Element {
 }
 SimpleListStory.storyName = 'Simple List'
 
+const selectListItems = new Array(6).fill(undefined).map((_, i) => {
+  return {
+    text: `Item ${i}`,
+    id: i
+  }
+})
+
+export function SingleSelectListStory(): JSX.Element {
+  return (
+    <>
+      <h1>Single Select List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          items={selectListItems.map((item, index) => ({
+            ...item,
+            selected: index === 1
+          }))}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+SingleSelectListStory.storyName = 'Single Select'
+
+export function MultiSelectListStory(): JSX.Element {
+  return (
+    <>
+      <h1>Multi Select List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          selectionVariant="multiple"
+          items={selectListItems.map((item, index) => ({
+            ...item,
+            selected: index === 1 || index === 3
+          }))}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+MultiSelectListStory.storyName = 'Multi Select'
+
 export function ComplexListStory(): JSX.Element {
   const StyledDiv = styled.div`
     ${sx}

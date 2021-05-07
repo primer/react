@@ -45,6 +45,11 @@ export interface ListPropsBase {
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
   variant?: 'inset' | 'full'
+
+  /**
+   *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
+   */
+  selectionVariant?: 'single' | 'multiple'
 }
 
 /**
@@ -138,7 +143,15 @@ export function List(props: ListProps): JSX.Element {
   const renderItem = (itemProps: ItemInput, item: ItemInput) => {
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
     const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
-    return <ItemComponent {...itemProps} key={key} sx={{...itemStyle, ...itemProps.sx}} item={item} />
+    return (
+      <ItemComponent
+        selectionVariant={props.selectionVariant}
+        {...itemProps}
+        key={key}
+        sx={{...itemStyle, ...itemProps.sx}}
+        item={item}
+      />
+    )
   }
 
   /**

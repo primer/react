@@ -56,6 +56,11 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   selected?: boolean
 
   /**
+   *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
+   */
+  selectionVariant?: 'single' | 'multiple'
+
+  /**
    * Designates the group that an item belongs to.
    */
   groupId?: string
@@ -178,6 +183,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     description,
     descriptionVariant = 'inline',
     selected,
+    selectionVariant,
     leadingVisual: LeadingVisual,
     trailingIcon: TrailingIcon,
     trailingText,
@@ -227,7 +233,15 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
     >
-      {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
+      {!!selected === selected && (
+        <LeadingVisualContainer>
+          {selectionVariant === 'multiple' ? (
+            <input type="checkbox" defaultChecked={selected} />
+          ) : (
+            selected && <CheckIcon />
+          )}
+        </LeadingVisualContainer>
+      )}
       {LeadingVisual && (
         <LeadingVisualContainer variant={variant} disabled={disabled}>
           <LeadingVisual />
