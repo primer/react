@@ -132,7 +132,13 @@ export function ComplexListStory(): JSX.Element {
           ]}
           items={[
             {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
-            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+            {
+              leadingVisual: VersionsIcon,
+              text: 'Duplicate',
+              description: 'Create a copy',
+              descriptionVariant: 'inline',
+              groupId: '0'
+            },
             {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',

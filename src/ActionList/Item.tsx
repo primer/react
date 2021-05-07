@@ -129,6 +129,7 @@ const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} 
 `
 
 const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
+  display: flex;
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
@@ -163,8 +164,9 @@ const TrailingVisualContainer = styled(BaseVisualContainer)`
   justify-content: flex-end;
 `
 
-const DescriptionContainer = styled.span`
+const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
+  margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
 `
 
 /**
@@ -235,7 +237,9 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       {(text || description) && (
         <StyledTextContainer descriptionVariant={descriptionVariant}>
           {text && <div>{text}</div>}
-          {description && <DescriptionContainer>{description}</DescriptionContainer>}
+          {description && (
+            <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
+          )}
         </StyledTextContainer>
       )}
       {(TrailingIcon || trailingText) && (
