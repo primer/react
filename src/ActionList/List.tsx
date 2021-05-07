@@ -188,24 +188,29 @@ export function List(props: ListProps): JSX.Element {
 
   return (
     <StyledList {...props}>
-      {groups?.map(({header, ...groupProps}, index) => (
-        <React.Fragment key={groupProps.groupId}>
-          {renderGroup({
-            sx: {
-              ...(index === 0 && firstGroupStyle),
-              ...(index === groups.length - 1 && lastGroupStyle)
-            },
-            ...(header && {
-              header: {
-                ...header,
-                sx: {...headerStyle, ...header?.sx}
-              }
-            }),
-            ...groupProps
-          })}
-          {index + 1 !== groups.length && <Divider key={`${groupProps.groupId}-divider`} />}
-        </React.Fragment>
-      ))}
+      {groups?.map(({header, ...groupProps}, index) => {
+        const hasFilledHeader = header?.variant === 'filled'
+        const shouldShowDivider = index > 0 && !hasFilledHeader
+        return (
+          <React.Fragment key={groupProps.groupId}>
+            {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
+            {renderGroup({
+              sx: {
+                ...(index === 0 && firstGroupStyle),
+                ...(index === groups.length - 1 && lastGroupStyle),
+                ...(index > 0 && !shouldShowDivider && {mt: 2})
+              },
+              ...(header && {
+                header: {
+                  ...header,
+                  sx: {...headerStyle, ...header?.sx}
+                }
+              }),
+              ...groupProps
+            })}
+          </React.Fragment>
+        )
+      })}
     </StyledList>
   )
 }
