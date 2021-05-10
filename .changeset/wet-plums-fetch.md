@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-onMouseDown passthrough from ActionMenu to AnchoredOverlay.
+overlayProps passthrough from ActionMenu and DropdownMenu to AnchoredOverlay.
