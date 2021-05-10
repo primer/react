@@ -28,11 +28,6 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
   onClose?: (gesture: 'click-outside' | 'escape') => unknown
 
   /**
-   * A callback that occurs when a user presses a mouse button over an element.
-   */
-  onMouseDown?: (event: React.MouseEvent) => unknown
-
-  /**
    * Props to be spread on the internal `Overlay` component.
    */
   overlayProps?: Record<string, unknown>
