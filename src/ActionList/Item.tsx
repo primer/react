@@ -243,7 +243,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
                * (to inform screen readers these inputs are not *actually* readonly)
                * effectively removes the checkbox from the focus order.
                */}
-              <input type="checkbox" defaultChecked={selected} aria-label={text} readOnly aria-readonly="false" />
+              <input type="checkbox" checked={selected} aria-label={text} readOnly aria-readonly="false" />
             </>
           ) : (
             selected && <CheckIcon />
