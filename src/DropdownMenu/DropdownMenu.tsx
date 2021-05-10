@@ -3,7 +3,7 @@ import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/Li
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {Item} from '../ActionList/Item'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {OverlayProps} from './Overlay'
+import {OverlayProps} from '../Overlay'
 
 export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
