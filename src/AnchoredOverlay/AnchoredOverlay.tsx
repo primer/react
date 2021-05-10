@@ -31,6 +31,11 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
    * A callback that occurs when a user presses a mouse button over an element.
    */
   onMouseDown?: (event: React.MouseEvent) => unknown
+
+  /**
+   * Props to be spread on the internal `Overlay` component.
+   */
+  overlayProps?: Record<string, unknown>
 }
 
 /**
@@ -44,7 +49,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   onOpen,
   onClose,
   height,
-  onMouseDown,
+  overlayProps,
   width
 }) => {
   const anchorRef = useRef<HTMLElement>(null)
@@ -131,10 +136,10 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ref={updateOverlayRef}
           role="listbox"
           visibility={position ? 'visible' : 'hidden'}
-          onMouseDown={onMouseDown}
           height={height}
           width={width}
           {...overlayPosition}
+          {...overlayProps}
         >
           {children}
         </Overlay>

@@ -35,9 +35,9 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   setOpen?: (s: boolean) => void
 
   /**
-   * An onMouseDown callback that will be passed into the internal AnchoredOverlay component
+   * Props to be spread on the internal `Overlay` component.
    */
-  onOverlayMouseDown?: (e: React.MouseEvent) => unknown
+  overlayProps?: Record<string, unknown>
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -51,7 +51,7 @@ const ActionMenuBase = ({
   onAction,
   open,
   setOpen,
-  onOverlayMouseDown,
+  overlayProps,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const pendingActionRef = useRef<() => unknown>()
@@ -101,7 +101,7 @@ const ActionMenuBase = ({
       open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}
-      onMouseDown={onOverlayMouseDown}
+      overlayProps={overlayProps}
     >
       <List {...listProps} role="menu" renderItem={renderMenuItem} />
     </AnchoredOverlay>

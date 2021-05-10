@@ -27,6 +27,11 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * `selectedItem`, `undefined` will be passed.
    */
   onChange?: (item?: ItemInput) => unknown
+
+  /**
+   * Props to be spread on the internal `Overlay` component.
+   */
+  overlayProps?: Record<string, unknown>
 }
 
 /**
@@ -40,6 +45,7 @@ export function DropdownMenu({
   placeholder,
   selectedItem,
   onChange,
+  overlayProps,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const [open, setOpen] = useState(false)
@@ -79,7 +85,13 @@ export function DropdownMenu({
   )
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={open} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay
+      renderAnchor={renderMenuAnchor}
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      overlayProps={overlayProps}
+    >
       <List {...listProps} role="listbox" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )
