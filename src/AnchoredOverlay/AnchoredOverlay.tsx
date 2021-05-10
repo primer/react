@@ -5,10 +5,6 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
-function preventDefault(event: React.UIEvent) {
-  event.preventDefault()
-}
-
 export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * A custom function component used to render the anchor element.
@@ -30,6 +26,11 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
   onClose?: (gesture: 'click-outside' | 'escape') => unknown
+
+  /**
+   * A callback that occurs when a user presses a mouse button over an element.
+   */
+  onMouseDown?: (event: React.MouseEvent) => unknown
 }
 
 /**
@@ -43,6 +44,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   onOpen,
   onClose,
   height,
+  onMouseDown,
   width
 }) => {
   const anchorRef = useRef<HTMLElement>(null)
@@ -129,8 +131,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ref={updateOverlayRef}
           role="listbox"
           visibility={position ? 'visible' : 'hidden'}
-          onMouseDown={preventDefault}
-          onClick={preventDefault}
+          onMouseDown={onMouseDown}
           height={height}
           width={width}
           {...overlayPosition}
