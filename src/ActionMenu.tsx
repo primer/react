@@ -5,13 +5,40 @@ import Button, {ButtonProps} from './Button'
 import React, {useCallback, useEffect, useRef} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
+import {OverlayProps} from './Overlay'
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+  /**
+   * A custom function component used to render the anchor element.
+   * Will receive the `anchoredContent` prop as `children` prop.
+   * Uses a `Button` by default.
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
+
+  /**
+   * Content that is passed into the renderAnchor component, which is a button by default.
+   */
   anchorContent?: React.ReactNode
+
+  /**
+   * A callback that triggers both on clicks and keyboard events. This callback will be overridden by item level `onAction` callbacks.
+   */
   onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+
+  /**
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `setOpen`.
+   */
   open?: boolean
+
+  /**
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
+   */
   setOpen?: (s: boolean) => void
+
+  /**
+   * Props to be spread on the internal `Overlay` component.
+   */
+  overlayProps?: Partial<OverlayProps>
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
@@ -25,6 +52,7 @@ const ActionMenuBase = ({
   onAction,
   open,
   setOpen,
+  overlayProps,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const pendingActionRef = useRef<() => unknown>()
@@ -69,7 +97,13 @@ const ActionMenuBase = ({
   }, [open])
 
   return (
-    <AnchoredOverlay renderAnchor={renderMenuAnchor} open={combinedOpenState} onOpen={onOpen} onClose={onClose}>
+    <AnchoredOverlay
+      renderAnchor={renderMenuAnchor}
+      open={combinedOpenState}
+      onOpen={onOpen}
+      onClose={onClose}
+      overlayProps={overlayProps}
+    >
       <List {...listProps} role="menu" renderItem={renderMenuItem} />
     </AnchoredOverlay>
   )
