@@ -37,7 +37,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   height: ${props => heightMap[props.height || 'auto']};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
-  overflow: hidden;
   animation: overlay-appear 200ms ${get('animation.easeOutCubic')};
 
   @keyframes overlay-appear {

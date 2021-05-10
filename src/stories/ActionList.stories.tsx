@@ -47,7 +47,9 @@ export default meta
 const ErsatzOverlay = styled.div`
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(149, 157, 165, 0.2);
-  overflow: hidden;
+  position: absolute;
+  min-width: 192px;
+  max-width: 640px;
 `
 
 export function ActionsStory(): JSX.Element {
@@ -140,7 +142,7 @@ export function MultiSelectListStory(): JSX.Element {
 }
 MultiSelectListStory.storyName = 'Multi Select'
 
-export function ComplexListStory(): JSX.Element {
+export function ComplexListInsetVariantStory(): JSX.Element {
   const StyledDiv = styled.div`
     ${sx}
   `
@@ -211,7 +213,17 @@ export function ComplexListStory(): JSX.Element {
           ]}
         />
       </ErsatzOverlay>
+    </>
+  )
+}
+ComplexListInsetVariantStory.storyName = 'Complex List — Inset Variant'
 
+export function ComplexListFullVariantStory(): JSX.Element {
+  const StyledDiv = styled.div`
+    ${sx}
+  `
+  return (
+    <>
       <h2>Full Variant</h2>
       <ErsatzOverlay>
         <ActionList
@@ -274,7 +286,7 @@ export function ComplexListStory(): JSX.Element {
     </>
   )
 }
-ComplexListStory.storyName = 'Complex List'
+ComplexListFullVariantStory.storyName = 'Complex List — Full Variant'
 
 export function HeaderStory(): JSX.Element {
   return (
