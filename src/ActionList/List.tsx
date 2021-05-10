@@ -87,6 +87,12 @@ export type ListProps = ListPropsBase | GroupedListProps
 
 const StyledList = styled.div`
   font-size: ${get('fontSizes.1')};
+  /* 14px font-size * 1.428571429 = 20px line height
+   *
+   * TODO: When rem-based spacing on a 4px scale lands, replace
+   * hardcoded '1.428571429'
+   */
+  line-height: 1.428571429;
 `
 
 /**
