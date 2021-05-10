@@ -26,7 +26,7 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxPr
   auxiliaryText?: string
 }
 
-const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxProp>`
+export const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxProp>`
    {
     /* 6px vertical padding + 20px line height = 32px total height
      *

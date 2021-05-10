@@ -2,8 +2,11 @@ import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import Flex from '../Flex'
 import {ItemInput} from './List'
 import styled from 'styled-components'
+import {StyledHeader} from './Header'
+import {StyledDivider} from './Divider'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -112,6 +115,10 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   }
 }
 
+const StyledItemContent = styled.div`
+  width: 100%;
+`
+
 const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} & SxProp>`
   /* 6px vertical padding + 20px line height = 32px total height
    *
@@ -122,11 +129,24 @@ const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} 
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
+  position: relative;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
       background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBackground};
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
+    }
+  }
+
+  :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
+    margin-top: 1px;
+
+    ${StyledItemContent}::before {
+      content: ' ';
+      display: block;
+      position: relative;
+      top: -7px;
+      border-top: 1px solid ${get('colors.selectMenu.borderSecondary')};
     }
   }
 
@@ -259,25 +279,29 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      {children}
-      {(text || description) && (
-        <StyledTextContainer descriptionVariant={descriptionVariant}>
-          {text && <div>{text}</div>}
-          {description && (
-            <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
+      <StyledItemContent>
+        <Flex>
+          {children}
+          {(text || description) && (
+            <StyledTextContainer descriptionVariant={descriptionVariant}>
+              {text && <div>{text}</div>}
+              {description && (
+                <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
+              )}
+            </StyledTextContainer>
           )}
-        </StyledTextContainer>
-      )}
-      {(TrailingIcon || trailingText) && (
-        <TrailingVisualContainer variant={variant} disabled={disabled}>
-          {trailingText && <div>{trailingText}</div>}
-          {TrailingIcon && (
-            <div>
-              <TrailingIcon />
-            </div>
+          {(TrailingIcon || trailingText) && (
+            <TrailingVisualContainer variant={variant} disabled={disabled}>
+              {trailingText && <div>{trailingText}</div>}
+              {TrailingIcon && (
+                <div>
+                  <TrailingIcon />
+                </div>
+              )}
+            </TrailingVisualContainer>
           )}
-        </TrailingVisualContainer>
-      )}
+        </Flex>
+      </StyledItemContent>
     </StyledItem>
   )
 }
