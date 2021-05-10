@@ -99,7 +99,7 @@ export function SimpleListStory(): JSX.Element {
           overlayProps={{
             onMouseDown: (e: React.MouseEvent) =>
               // eslint-disable-next-line no-console
-              console.log('onMouseDown in the interal Overlay can be useful for controlling event interactions', e)
+              console.log('onMouseDown in the internal Overlay can be useful for controlling event interactions', e)
           }}
           items={[
             {text: 'New file', trailingText: '⌘O', disabled: true, leadingVisual: ProjectIcon},
