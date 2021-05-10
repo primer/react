@@ -8,19 +8,22 @@ import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * A custom function component used to render the anchor element.
-   * Will receive the `anchoredContent` prop as `children` prop when an item is activated.
+   * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
+
   /**
    * Content that is passed into the renderAnchor component, which is a button by default.
    */
   anchorContent?: React.ReactNode
+
   /**
    * A callback that triggers both on clicks and keyboard events. This callback will be overridden by item level `onAction` callbacks.
    */
   onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `setOpen`.
    */
