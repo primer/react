@@ -236,7 +236,15 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       {!!selected === selected && (
         <LeadingVisualContainer>
           {selectionVariant === 'multiple' ? (
-            <input type="checkbox" defaultChecked={selected} />
+            <>
+              {/* Checkboxes should be activable, but not included in the focus order.
+               * `FocusZone` does not exclude elements with `tabIndex={-1}`,
+               * but the combination of `readOnly` (to disallow focus) + `aria-readonly="false"`
+               * (to inform screen readers these inputs are not *actually* readonly)
+               * effectively removes the checkbox from the focus order.
+               */}
+              <input type="checkbox" defaultChecked={selected} aria-label={text} readOnly aria-readonly="false" />
+            </>
           ) : (
             selected && <CheckIcon />
           )}
