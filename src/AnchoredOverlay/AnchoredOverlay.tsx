@@ -30,7 +30,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
   /**
    * Props to be spread on the internal `Overlay` component.
    */
-  overlayProps?: Record<string, unknown>
+  overlayProps?: Partial<OverlayProps>
 }
 
 /**

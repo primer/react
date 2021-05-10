@@ -5,6 +5,7 @@ import Button, {ButtonProps} from './Button'
 import React, {useCallback, useEffect, useRef} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
+import {OverlayProps} from './Overlay'
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * A custom function component used to render the anchor element.
@@ -37,7 +38,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   /**
    * Props to be spread on the internal `Overlay` component.
    */
-  overlayProps?: Record<string, unknown>
+  overlayProps?: Partial<OverlayProps>
 }
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
