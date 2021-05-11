@@ -203,6 +203,12 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         return
       }
       onKeyPress?.(event)
+      const isCheckbox = event.target instanceof HTMLInputElement && event.target.type === 'checkbox'
+      if (isCheckbox && event.key === ' ') {
+        // space key on a checkbox will also trigger a click event.  Ignore the space key so we don't get double events
+        return
+      }
+
       if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
         onAction?.(itemProps as ItemProps, event)
       }
@@ -237,11 +243,9 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         <LeadingVisualContainer>
           {selectionVariant === 'multiple' ? (
             <>
-              {/* Checkboxes should be activable, but not included in the focus order.
-               * `FocusZone` does not exclude elements with `tabIndex={-1}`,
-               * but the combination of `readOnly` (to disallow focus) + `aria-readonly="false"`
-               * (to inform screen readers these inputs are not *actually* readonly)
-               * effectively removes the checkbox from the focus order.
+              {/*
+               * readOnly is required because we are doing a one-way bind to `checked`.
+               * aria-readonly="false" tells screen that they can still interact with the checkbox
                */}
               <input type="checkbox" checked={selected} aria-label={text} readOnly aria-readonly="false" />
             </>
