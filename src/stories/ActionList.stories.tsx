@@ -224,6 +224,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
   `
   return (
     <>
+      <h1>Complex List</h1>
       <h2>Full Variant</h2>
       <ErsatzOverlay>
         <ActionList
