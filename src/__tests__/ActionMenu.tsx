@@ -36,7 +36,12 @@ describe('ActionMenu', () => {
     jest.clearAllMocks()
   })
 
-  behavesAsComponent({Component: ActionMenu, systemPropArray: [COMMON], options: {skipAs: true, skipSx: true}})
+  behavesAsComponent({
+    Component: ActionMenu,
+    systemPropArray: [COMMON],
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionMenu items={[]} />
+  })
 
   checkExports('ActionMenu', {
     default: undefined,

@@ -37,7 +37,12 @@ describe('DropdownMenu', () => {
     jest.clearAllMocks()
   })
 
-  behavesAsComponent({Component: DropdownMenu, systemPropArray: [COMMON], options: {skipAs: true, skipSx: true}})
+  behavesAsComponent({
+    Component: DropdownMenu,
+    systemPropArray: [COMMON],
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <DropdownMenu items={[]} />
+  })
 
   checkExports('DropdownMenu', {
     default: undefined,
