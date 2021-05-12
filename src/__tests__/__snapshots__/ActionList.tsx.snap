@@ -8,7 +8,7 @@ exports[`ActionList renders consistently 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 1.428571429;
+  line-height: 20px;
 }
 
 <div
