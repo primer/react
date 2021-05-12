@@ -73,10 +73,6 @@ const ActionMenuBase = ({
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      if ('renderItem' in item) {
-        return item
-      }
-
       return {
         ...item,
         role: 'menuitem',
