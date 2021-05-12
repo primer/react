@@ -90,9 +90,9 @@ const StyledList = styled.div`
   /* 14px font-size * 1.428571429 = 20px line height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
-   * hardcoded '1.428571429'
+   * hardcoded '20px'
    */
-  line-height: 1.428571429;
+  line-height: 20px;
 `
 
 /**
