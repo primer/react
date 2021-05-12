@@ -1,7 +1,7 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useMemo, useState} from 'react'
 import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/List'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
-import {Item} from '../ActionList/Item'
+import {ItemProps} from '../ActionList/Item'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {OverlayProps} from '../Overlay'
 
@@ -42,11 +42,11 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
  */
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
-  renderItem = Item,
   placeholder,
   selectedItem,
   onChange,
   overlayProps,
+  items,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
   const [open, setOpen] = useState(false)
@@ -63,15 +63,14 @@ export function DropdownMenu({
     [placeholder, renderAnchor, selectedItem?.text]
   )
 
-  const renderMenuItem: typeof Item = useCallback(
-    ({item, onAction: itemOnAction, ...itemProps}) => {
-      return renderItem({
-        ...itemProps,
-        item,
+  const itemsToRender = useMemo(() => {
+    return items.map(item => {
+      return {
+        ...item,
         role: 'option',
         selected: item === selectedItem,
         onAction: (itemFromAction, event) => {
-          itemOnAction?.(itemFromAction, event)
+          item.onAction?.(itemFromAction, event)
 
           if (event.defaultPrevented) {
             return
@@ -80,10 +79,9 @@ export function DropdownMenu({
           onClose()
           onChange?.(item === selectedItem ? undefined : item)
         }
-      })
-    },
-    [onChange, onClose, renderItem, selectedItem]
-  )
+      } as ItemProps
+    })
+  }, [items, onChange, onClose, selectedItem])
 
   return (
     <AnchoredOverlay
@@ -93,7 +91,7 @@ export function DropdownMenu({
       onClose={onClose}
       overlayProps={overlayProps}
     >
-      <List {...listProps} role="listbox" renderItem={renderMenuItem} />
+      <List {...listProps} role="listbox" items={itemsToRender} />
     </AnchoredOverlay>
   )
 }

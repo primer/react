@@ -2,7 +2,7 @@ import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
@@ -48,11 +48,11 @@ ActionMenuItem.displayName = 'ActionMenu.Item'
 const ActionMenuBase = ({
   anchorContent,
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
-  renderItem = Item,
   onAction,
   open,
   setOpen,
   overlayProps,
+  items,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const pendingActionRef = useRef<() => unknown>()
@@ -71,23 +71,22 @@ const ActionMenuBase = ({
     [anchorContent, renderAnchor]
   )
 
-  const renderMenuItem: typeof Item = useCallback(
-    ({onAction: itemOnAction, ...itemProps}) => {
-      return renderItem({
-        ...itemProps,
+  const itemsToRender = useMemo(() => {
+    return items.map(item => {
+      return {
+        ...item,
         role: 'menuitem',
         onAction: (props, event) => {
-          const actionCallback = itemOnAction ?? onAction
+          const actionCallback = item.onAction ?? onAction
           pendingActionRef.current = () => actionCallback?.(props as ItemProps, event)
           actionCallback?.(props as ItemProps, event)
           if (!event.defaultPrevented) {
             onClose()
           }
         }
-      })
-    },
-    [onAction, onClose, renderItem]
-  )
+      } as ItemProps
+    })
+  }, [items, onAction, onClose])
 
   useEffect(() => {
     // Wait until menu has re-rendered in a closed state before triggering action.
@@ -106,7 +105,7 @@ const ActionMenuBase = ({
       onClose={onClose}
       overlayProps={overlayProps}
     >
-      <List {...listProps} role="menu" renderItem={renderMenuItem} />
+      <List {...listProps} role="menu" items={itemsToRender} />
     </AnchoredOverlay>
   )
 }
