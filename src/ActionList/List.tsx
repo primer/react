@@ -45,6 +45,11 @@ export interface ListPropsBase {
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
   variant?: 'inset' | 'full'
+
+  /**
+   *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
+   */
+  selectionVariant?: 'single' | 'multiple'
 }
 
 /**
@@ -82,6 +87,12 @@ export type ListProps = ListPropsBase | GroupedListProps
 
 const StyledList = styled.div`
   font-size: ${get('fontSizes.1')};
+  /* 14px font-size * 1.428571429 = 20px line height
+   *
+   * TODO: When rem-based spacing on a 4px scale lands, replace
+   * hardcoded '20px'
+   */
+  line-height: 20px;
 `
 
 /**
@@ -138,7 +149,15 @@ export function List(props: ListProps): JSX.Element {
   const renderItem = (itemProps: ItemInput, item: ItemInput) => {
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
     const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
-    return <ItemComponent {...itemProps} key={key} sx={{...itemStyle, ...itemProps.sx}} item={item} />
+    return (
+      <ItemComponent
+        selectionVariant={props.selectionVariant}
+        {...itemProps}
+        key={key}
+        sx={{...itemStyle, ...itemProps.sx}}
+        item={item}
+      />
+    )
   }
 
   /**
@@ -188,24 +207,29 @@ export function List(props: ListProps): JSX.Element {
 
   return (
     <StyledList {...props}>
-      {groups?.map(({header, ...groupProps}, index) => (
-        <React.Fragment key={groupProps.groupId}>
-          {renderGroup({
-            sx: {
-              ...(index === 0 && firstGroupStyle),
-              ...(index === groups.length - 1 && lastGroupStyle)
-            },
-            ...(header && {
-              header: {
-                ...header,
-                sx: {...headerStyle, ...header?.sx}
-              }
-            }),
-            ...groupProps
-          })}
-          {index + 1 !== groups.length && <Divider key={`${groupProps.groupId}-divider`} />}
-        </React.Fragment>
-      ))}
+      {groups?.map(({header, ...groupProps}, index) => {
+        const hasFilledHeader = header?.variant === 'filled'
+        const shouldShowDivider = index > 0 && !hasFilledHeader
+        return (
+          <React.Fragment key={groupProps.groupId}>
+            {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
+            {renderGroup({
+              sx: {
+                ...(index === 0 && firstGroupStyle),
+                ...(index === groups.length - 1 && lastGroupStyle),
+                ...(index > 0 && !shouldShowDivider && {mt: 2})
+              },
+              ...(header && {
+                header: {
+                  ...header,
+                  sx: {...headerStyle, ...header?.sx}
+                }
+              }),
+              ...groupProps
+            })}
+          </React.Fragment>
+        )
+      })}
     </StyledList>
   )
 }

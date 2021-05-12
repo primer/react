@@ -47,7 +47,9 @@ export default meta
 const ErsatzOverlay = styled.div`
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(149, 157, 165, 0.2);
-  overflow: hidden;
+  position: absolute;
+  min-width: 192px;
+  max-width: 640px;
 `
 
 export function ActionsStory(): JSX.Element {
@@ -98,7 +100,49 @@ export function SimpleListStory(): JSX.Element {
 }
 SimpleListStory.storyName = 'Simple List'
 
-export function ComplexListStory(): JSX.Element {
+const selectListItems = new Array(6).fill(undefined).map((_, i) => {
+  return {
+    text: `Item ${i}`,
+    id: i
+  }
+})
+
+export function SingleSelectListStory(): JSX.Element {
+  return (
+    <>
+      <h1>Single Select List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          items={selectListItems.map((item, index) => ({
+            ...item,
+            selected: index === 1
+          }))}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+SingleSelectListStory.storyName = 'Single Select'
+
+export function MultiSelectListStory(): JSX.Element {
+  return (
+    <>
+      <h1>Multi Select List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          selectionVariant="multiple"
+          items={selectListItems.map((item, index) => ({
+            ...item,
+            selected: index === 1 || index === 3
+          }))}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+MultiSelectListStory.storyName = 'Multi Select'
+
+export function ComplexListInsetVariantStory(): JSX.Element {
   const StyledDiv = styled.div`
     ${sx}
   `
@@ -132,7 +176,13 @@ export function ComplexListStory(): JSX.Element {
           ]}
           items={[
             {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
-            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+            {
+              leadingVisual: VersionsIcon,
+              text: 'Duplicate',
+              description: 'Create a copy',
+              descriptionVariant: 'inline',
+              groupId: '0'
+            },
             {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
@@ -163,7 +213,18 @@ export function ComplexListStory(): JSX.Element {
           ]}
         />
       </ErsatzOverlay>
+    </>
+  )
+}
+ComplexListInsetVariantStory.storyName = 'Complex List — Inset Variant'
 
+export function ComplexListFullVariantStory(): JSX.Element {
+  const StyledDiv = styled.div`
+    ${sx}
+  `
+  return (
+    <>
+      <h1>Complex List</h1>
       <h2>Full Variant</h2>
       <ErsatzOverlay>
         <ActionList
@@ -226,7 +287,7 @@ export function ComplexListStory(): JSX.Element {
     </>
   )
 }
-ComplexListStory.storyName = 'Complex List'
+ComplexListFullVariantStory.storyName = 'Complex List — Full Variant'
 
 export function HeaderStory(): JSX.Element {
   return (

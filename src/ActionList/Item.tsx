@@ -56,6 +56,11 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   selected?: boolean
 
   /**
+   *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
+   */
+  selectionVariant?: 'single' | 'multiple'
+
+  /**
    * Designates the group that an item belongs to.
    */
   groupId?: string
@@ -129,6 +134,7 @@ const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} 
 `
 
 const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
+  display: flex;
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
 
@@ -163,8 +169,9 @@ const TrailingVisualContainer = styled(BaseVisualContainer)`
   justify-content: flex-end;
 `
 
-const DescriptionContainer = styled.span`
+const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
+  margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
 `
 
 /**
@@ -176,6 +183,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     description,
     descriptionVariant = 'inline',
     selected,
+    selectionVariant,
     leadingVisual: LeadingVisual,
     trailingIcon: TrailingIcon,
     trailingText,
@@ -195,6 +203,12 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         return
       }
       onKeyPress?.(event)
+      const isCheckbox = event.target instanceof HTMLInputElement && event.target.type === 'checkbox'
+      if (isCheckbox && event.key === ' ') {
+        // space key on a checkbox will also trigger a click event.  Ignore the space key so we don't get double events
+        return
+      }
+
       if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
         onAction?.(itemProps as ItemProps, event)
       }
@@ -225,7 +239,21 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
     >
-      {!!selected === selected && <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>}
+      {!!selected === selected && (
+        <LeadingVisualContainer>
+          {selectionVariant === 'multiple' ? (
+            <>
+              {/*
+               * readOnly is required because we are doing a one-way bind to `checked`.
+               * aria-readonly="false" tells screen that they can still interact with the checkbox
+               */}
+              <input type="checkbox" checked={selected} aria-label={text} readOnly aria-readonly="false" />
+            </>
+          ) : (
+            selected && <CheckIcon />
+          )}
+        </LeadingVisualContainer>
+      )}
       {LeadingVisual && (
         <LeadingVisualContainer variant={variant} disabled={disabled}>
           <LeadingVisual />
@@ -235,7 +263,9 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       {(text || description) && (
         <StyledTextContainer descriptionVariant={descriptionVariant}>
           {text && <div>{text}</div>}
-          {description && <DescriptionContainer>{description}</DescriptionContainer>}
+          {description && (
+            <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
+          )}
         </StyledTextContainer>
       )}
       {(TrailingIcon || trailingText) && (
