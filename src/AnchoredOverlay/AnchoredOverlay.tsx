@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useMemo, useRef} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -49,49 +49,26 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 }) => {
   const anchorRef = useRef<HTMLElement>(null)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const [focusType, setFocusType] = useState<null | 'anchor' | 'list'>(open ? 'list' : null)
   const anchorId = useMemo(uniqueId, [])
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
 
-  useEffect(() => {
-    if (!open) {
-      setFocusType(null)
-    }
-  }, [open])
-
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
-        if (!open) {
-          if (['ArrowDown', 'ArrowUp'].includes(event.key)) {
-            setFocusType('list')
-            onOpen?.('anchor-key-press')
-            event.preventDefault()
-          } else if ([' ', 'Enter'].includes(event.key)) {
-            setFocusType('anchor')
-            onOpen?.('anchor-key-press')
-            event.preventDefault()
-          }
-        } else if (focusType === 'anchor') {
-          if (['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].includes(event.key)) {
-            setFocusType('list')
-            event.preventDefault()
-          } else if (event.key === 'Escape') {
-            onClose?.('escape')
-            event.preventDefault()
-          }
+        if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
+          onOpen?.('anchor-key-press')
+          event.preventDefault()
         }
       }
     },
-    [open, focusType, onOpen, onClose]
+    [open, onOpen]
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       if (!event.defaultPrevented && event.button === 0 && !open) {
         onOpen?.('anchor-click')
-        setFocusType('anchor')
       }
     },
     [open, onOpen]
@@ -109,7 +86,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   }, [position])
 
   useFocusZone({containerRef: overlayRef, disabled: !open || !position})
-  useFocusTrap({containerRef: overlayRef, disabled: !open || focusType !== 'list' || !position})
+  useFocusTrap({containerRef: overlayRef, disabled: !open || !position})
 
   return (
     <>
@@ -124,7 +101,6 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
       })}
       {open ? (
         <Overlay
-          initialFocusRef={anchorRef}
           returnFocusRef={anchorRef}
           onClickOutside={onClickOutside}
           onEscape={onEscape}
