@@ -1,10 +1,9 @@
 import React, {useCallback, useMemo, useRef} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import {useFocusZone} from '../hooks/useFocusZone'
+import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
-import {FocusZoneSettings} from '../behaviors/focusZone'
 
 export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
@@ -36,7 +35,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
   /**
    * Settings to apply to the Focus Zone on the internal `Overlay` component.
    */
-  focusZoneSettings?: Partial<FocusZoneSettings>
+  focusZoneSettings?: Partial<FocusZoneHookSettings>
 }
 
 /**
