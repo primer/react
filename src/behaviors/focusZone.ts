@@ -440,15 +440,18 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   // If the DOM structure of the container changes, make sure we keep our state up-to-date
   // with respect to the focusable elements cache and its order
   const observer = new MutationObserver(mutations => {
+    // Perform all removals first, in case element order has simply changed
+    for (const mutation of mutations) {
+      for (const removedNode of mutation.removedNodes) {
+        if (removedNode instanceof HTMLElement) {
+          endFocusManagement(...iterateFocusableElements(removedNode))
+        }
+      }
+    }
     for (const mutation of mutations) {
       for (const addedNode of mutation.addedNodes) {
         if (addedNode instanceof HTMLElement) {
           beginFocusManagement(...iterateFocusableElements(addedNode))
-        }
-      }
-      for (const removedNode of mutation.removedNodes) {
-        if (removedNode instanceof HTMLElement) {
-          endFocusManagement(...iterateFocusableElements(removedNode))
         }
       }
     }
