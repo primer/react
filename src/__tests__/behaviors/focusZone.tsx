@@ -7,6 +7,9 @@ async function nextTick() {
   return new Promise(resolve => setTimeout(resolve, 0))
 }
 
+const moveDown = () => userEvent.type(document.activeElement!, '{arrowdown}')
+const moveUp = () => userEvent.type(document.activeElement!, '{arrowup}')
+
 // Since we use strict `isTabbable` checks within focus trap, we need to mock these
 // properties that Jest does not populate.
 beforeAll(() => {
@@ -469,6 +472,52 @@ it('Should set aria-activedescendant correctly', () => {
   userEvent.type(control, '{arrowup}')
   expect(control.hasAttribute('aria-activedescendant')).toBeFalsy()
   expect(document.activeElement).toEqual(control)
+
+  controller.abort()
+})
+
+it('Should handle elements being reordered', async () => {
+  const {container} = render(
+    <div>
+      <div id="focusZone">
+        <button tabIndex={0}>Apple</button>
+        <button tabIndex={0}>Banana</button>
+        <button tabIndex={0}>Cantaloupe</button>
+        <button tabIndex={0}>Durian</button>
+      </div>
+    </div>
+  )
+
+  const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
+  const [firstButton, secondButton, thirdButton, fourthButton] = focusZoneContainer.querySelectorAll('button')
+  const controller = focusZone(focusZoneContainer)
+
+  firstButton.focus()
+  expect(document.activeElement).toEqual(firstButton)
+
+  moveDown()
+  expect(document.activeElement).toEqual(secondButton)
+
+  moveUp()
+  expect(document.activeElement).toEqual(firstButton)
+
+  // move secondButton and thirdButton to the end of the zone, in reverse order
+  focusZoneContainer.appendChild(thirdButton)
+  focusZoneContainer.appendChild(secondButton)
+
+  // The mutation observer fires asynchronously
+  await nextTick()
+
+  expect(document.activeElement).toEqual(firstButton)
+
+  moveDown()
+  expect(document.activeElement).toEqual(fourthButton)
+
+  moveDown()
+  expect(document.activeElement).toEqual(thirdButton)
+
+  moveDown()
+  expect(document.activeElement).toEqual(secondButton)
 
   controller.abort()
 })
