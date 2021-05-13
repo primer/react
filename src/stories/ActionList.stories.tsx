@@ -58,6 +58,7 @@ export function ActionsStory(): JSX.Element {
       <h1>Actions</h1>
       <ErsatzOverlay>
         <ActionList
+          showItemDividers
           items={[
             {
               leadingVisual: ServerIcon,
@@ -87,11 +88,11 @@ export function SimpleListStory(): JSX.Element {
       <ErsatzOverlay>
         <ActionList
           items={[
-            {text: 'New file'},
+            {text: 'New file', showDivider: true},
             ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
+            {text: 'Copy link', showDivider: true},
+            {text: 'Edit file', showDivider: true},
+            {text: 'Delete file', variant: 'danger', showDivider: true}
           ]}
         />
       </ErsatzOverlay>
@@ -155,7 +156,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
           groupMetadata={[
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
-            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
+            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}, showItemDividers: true},
             {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
             {
               groupId: '4',
