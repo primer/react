@@ -2,8 +2,11 @@ import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import Flex from '../Flex'
 import {ItemInput} from './List'
 import styled from 'styled-components'
+import {StyledHeader} from './Header'
+import {StyledDivider} from './Divider'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -49,6 +52,11 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
+
+  /**
+   * Whether to display a divider above the `Item` when it does not follow a `Header` or `Divider`.
+   */
+  showDivider?: boolean
 
   /**
    * For `Item`s which can be selected, whether the `Item` is currently selected.
@@ -112,7 +120,13 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   }
 }
 
-const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} & SxProp>`
+const StyledItemContent = styled.div`
+  width: 100%;
+`
+
+const StyledItem = styled.div<
+  {variant: ItemProps['variant']; showDivider: ItemProps['showDivider']; item?: ItemInput} & SxProp
+>`
   /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
@@ -127,6 +141,21 @@ const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} 
     :hover {
       background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBackground};
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
+    }
+  }
+
+  // Item dividers
+  :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
+    margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
+
+    ${StyledItemContent}::before {
+      content: ' ';
+      display: block;
+      position: relative;
+      top: -7px;
+      // NB: This 'get' won’t execute if it’s moved into the arrow function below.
+      border: 0 solid ${get('colors.selectMenu.borderSecondary')};
+      border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
     }
   }
 
@@ -188,6 +217,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     trailingIcon: TrailingIcon,
     trailingText,
     variant = 'default',
+    showDivider,
     disabled,
     onAction,
     onKeyPress,
@@ -233,6 +263,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     <StyledItem
       tabIndex={disabled ? undefined : -1}
       variant={variant}
+      showDivider={showDivider}
       aria-selected={selected}
       {...props}
       data-id={id}
@@ -259,25 +290,29 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      {children}
-      {(text || description) && (
-        <StyledTextContainer descriptionVariant={descriptionVariant}>
-          {text && <div>{text}</div>}
-          {description && (
-            <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
+      <StyledItemContent>
+        <Flex>
+          {children}
+          {(text || description) && (
+            <StyledTextContainer descriptionVariant={descriptionVariant}>
+              {text && <div>{text}</div>}
+              {description && (
+                <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
+              )}
+            </StyledTextContainer>
           )}
-        </StyledTextContainer>
-      )}
-      {(TrailingIcon || trailingText) && (
-        <TrailingVisualContainer variant={variant} disabled={disabled}>
-          {trailingText && <div>{trailingText}</div>}
-          {TrailingIcon && (
-            <div>
-              <TrailingIcon />
-            </div>
+          {(TrailingIcon || trailingText) && (
+            <TrailingVisualContainer variant={variant} disabled={disabled}>
+              {trailingText && <div>{trailingText}</div>}
+              {TrailingIcon && (
+                <div>
+                  <TrailingIcon />
+                </div>
+              )}
+            </TrailingVisualContainer>
           )}
-        </TrailingVisualContainer>
-      )}
+        </Flex>
+      </StyledItemContent>
     </StyledItem>
   )
 }

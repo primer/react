@@ -21,6 +21,11 @@ export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxPro
    * `Items` to render in the `Group`.
    */
   items?: JSX.Element[]
+
+  /**
+   * Whether to display a divider above each `Item` in this `Group` when it does not follow a `Header` or `Divider`.
+   */
+  showItemDividers?: boolean
 }
 
 const StyledGroup = styled.div`

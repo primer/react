@@ -50,6 +50,11 @@ export interface ListPropsBase {
    *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
    */
   selectionVariant?: 'single' | 'multiple'
+
+  /**
+   * Whether to display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
+   */
+  showItemDividers?: boolean
 }
 
 /**
@@ -151,6 +156,7 @@ export function List(props: ListProps): JSX.Element {
     const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
     return (
       <ItemComponent
+        showDivider={props.showItemDividers}
         selectionVariant={props.selectionVariant}
         {...itemProps}
         key={key}
@@ -193,6 +199,7 @@ export function List(props: ListProps): JSX.Element {
           ...(group?.items ?? []),
           renderItem(
             {
+              showDivider: group?.showItemDividers,
               ...(group && 'renderItem' in group && {renderItem: group.renderItem}),
               ...itemProps
             },

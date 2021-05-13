@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 
-const StyledDivider = styled.div`
+export const StyledDivider = styled.div`
   height: 1px;
   background: ${get('colors.selectMenu.borderSecondary')};
   margin-top: calc(${get('space.2')} - 1px);
