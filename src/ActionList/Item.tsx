@@ -54,6 +54,11 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   variant?: 'default' | 'danger'
 
   /**
+   * Whether to display a divider above the `Item` when it does not follow a `Header` or `Divider`.
+   */
+  showDivider?: boolean
+
+  /**
    * For `Item`s which can be selected, whether the `Item` is currently selected.
    */
   selected?: boolean
@@ -119,7 +124,9 @@ const StyledItemContent = styled.div`
   width: 100%;
 `
 
-const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} & SxProp>`
+const StyledItem = styled.div<
+  {variant: ItemProps['variant']; showDivider: ItemProps['showDivider']; item?: ItemInput} & SxProp
+>`
   /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
@@ -138,15 +145,18 @@ const StyledItem = styled.div<{variant: ItemProps['variant']; item?: ItemInput} 
     }
   }
 
+  // Item dividers
   :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
-    margin-top: 1px;
+    margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
 
     ${StyledItemContent}::before {
       content: ' ';
       display: block;
       position: relative;
       top: -7px;
-      border-top: 1px solid ${get('colors.selectMenu.borderSecondary')};
+      // NB: This 'get' won’t execute if it’s moved into the arrow function below.
+      border: 0 solid ${get('colors.selectMenu.borderSecondary')};
+      border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
     }
   }
 
@@ -208,6 +218,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     trailingIcon: TrailingIcon,
     trailingText,
     variant = 'default',
+    showDivider,
     disabled,
     onAction,
     onKeyPress,
@@ -253,6 +264,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     <StyledItem
       tabIndex={disabled ? undefined : -1}
       variant={variant}
+      showDivider={showDivider}
       aria-selected={selected}
       {...props}
       data-id={id}
