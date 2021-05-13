@@ -136,7 +136,6 @@ const StyledItem = styled.div<
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
-  position: relative;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
