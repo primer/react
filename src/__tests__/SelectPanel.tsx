@@ -14,8 +14,8 @@ expect.extend(toHaveNoViolations)
 const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemInput[]
 
 function SimpleSelectPanel(): JSX.Element {
-  const [selectedItems, setSelectedItems] = React.useState<ItemInput[]>([])
-  const [filterValue, setFilterValue] = React.useState('')
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [, setFilter] = React.useState('')
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -25,13 +25,11 @@ function SimpleSelectPanel(): JSX.Element {
           items={items}
           placeholder="Select Items"
           placeholderText="Filter Items"
-          selectedItems={selectedItems}
-          onChange={setSelectedItems}
-          filterValue={filterValue}
-          onFilterChange={e => setFilterValue(e.target.value)}
+          selected={selected}
+          setSelected={setSelected}
+          setFilter={setFilter}
           open={open}
-          onOpen={() => setOpen(true)}
-          onClose={() => setOpen(false)}
+          setOpen={setOpen}
         />
         <div id="portal-root"></div>
       </BaseStyles>

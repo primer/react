@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
-import TextInput from '../TextInput'
+import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
 import SelectMenu from '../SelectMenu'
 import {ActionList} from '../ActionList'
@@ -8,31 +8,36 @@ import {ActionList} from '../ActionList'
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
   placeholderText: string
-  filterValue: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => unknown
+  setFilter: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  textInputProps?: Partial<TextInputProps>
 }
 
 export function FilteredActionList({
   loading = false,
   placeholderText,
-  filterValue,
-  onChange,
+  setFilter,
   items,
+  textInputProps,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  const onInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value
+      setFilter(value, e)
+    },
+    [setFilter]
+  )
+
   return (
     <>
       <TextInput
         block
         width="auto"
         color="text.primary"
-        defaultValue={filterValue}
-        onChange={onChange}
+        onChange={onInputChange}
         placeholder={placeholderText}
         aria-label={placeholderText}
-        mx={2}
-        my={2}
-        contrast
+        {...textInputProps}
       />
       <Box flexGrow={1} overflow="auto">
         {loading ? <SelectMenu.LoadingAnimation /> : <ActionList items={items} {...listProps} role="listbox" />}

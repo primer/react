@@ -1,11 +1,10 @@
 import {Meta} from '@storybook/react'
-import React, {useCallback, useState} from 'react'
+import React, {useState} from 'react'
 import {theme, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import {DropdownButton} from '../DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
-import {ItemProps} from '../ActionList'
 import BorderBox from '../BorderBox'
 
 const meta: Meta = {
@@ -36,28 +35,23 @@ function getColorCircle(color: string) {
   }
 }
 
-export function LabelStory(): JSX.Element {
-  const items = React.useMemo(
-    (): ItemProps[] => [
-      {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
-      {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
-      {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
-      {leadingVisual: getColorCircle('#8dc6fc'), text: 'design', id: 4}
-    ],
-    []
-  )
-  const [selectedItems, setSelectedItems] = React.useState<ItemInput[]>([items[0], items[1]])
-  const [filterValue, setFilterValue] = React.useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filterValue.toLowerCase()))
-  const onFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setFilterValue(e.target.value), [])
+const items = [
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'design', id: 4}
+]
+
+export function MultiSelectStory(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
-  const onOpen = useCallback(() => setOpen(true), [])
-  const onClose = useCallback(() => setOpen(false), [])
 
   return (
     <>
-      <h1>Label Select Panel</h1>
-      <div id="">Please select labels that describe your issue:</div>
+      <h1>Multi Select Panel</h1>
+      <div>Please select labels that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
@@ -66,16 +60,42 @@ export function LabelStory(): JSX.Element {
         )}
         placeholderText="Filter Labels"
         open={open}
-        onOpen={onOpen}
-        onClose={onClose}
+        setOpen={setOpen}
         items={filteredItems}
-        selectedItems={selectedItems}
-        onChange={setSelectedItems}
-        filterValue={filterValue}
-        onFilterChange={onFilterChange}
-        selectionVariant="multiple"
+        selected={selected}
+        setSelected={setSelected}
+        setFilter={setFilter}
       />
     </>
   )
 }
-LabelStory.storyName = 'Label Multi-Select'
+MultiSelectStory.storyName = 'Multi Select'
+
+export function SingleSelectStory(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>Single Select Panel</h1>
+      <div>Please select a label that describe your issue:</div>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={open}
+        setOpen={setOpen}
+        items={filteredItems}
+        selected={selected}
+        setSelected={setSelected}
+        setFilter={setFilter}
+      />
+    </>
+  )
+}
+SingleSelectStory.storyName = 'Single Select'
