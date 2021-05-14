@@ -1,13 +1,15 @@
-import classnames from 'classnames'
 // eslint-disable-next-line import/no-namespace
 import * as History from 'history'
-import React from 'react'
-import styled, {css} from 'styled-components'
-import BorderBox from './BorderBox'
+
 import {COMMON, get} from './constants'
-import Link from './Link'
-import sx from './sx'
+import styled, {css} from 'styled-components'
+
+import BorderBox from './BorderBox'
 import {ComponentProps} from './utils/types'
+import Link from './Link'
+import React from 'react'
+import classnames from 'classnames'
+import sx from './sx'
 
 type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'
@@ -52,6 +54,20 @@ type StyledSideNavLinkProps = {
   variant?: 'full' | 'normal'
 }
 
+// used for variant normal hover, focus pseudo selectors
+const CommonAccessibilityVariantNormalStyles = css`
+  background-color: ${get('colors.state.hover.secondaryBg')};
+  outline: none;
+  text-decoration: none;
+`
+
+// used for light weight hover, focus pseudo selectors
+const CommonAccessibilityVariantLightWeightStyles = css`
+  color: ${get('colors.text.primary')};
+  text-decoration: none;
+  outline: none;
+`
+
 const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   const isReactRouter = typeof props.to === 'string'
   if (isReactRouter || props.selected) {
@@ -79,16 +95,6 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
     border-bottom: none;
   }
 
-  &:first-child {
-    border-top-right-radius: ${get('radii.2')};
-    border-top-left-radius: ${get('radii.2')};
-  }
-
-  &:last-child {
-    border-bottom-right-radius: ${get('radii.2')};
-    border-bottom-left-radius: ${get('radii.2')};
-  }
-
   ${SideNav}.variant-normal > & {
     color: ${get('colors.text.primary')};
     padding: ${get('space.3')};
@@ -97,6 +103,13 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:first-child {
       border-top: 0;
+      border-top-right-radius: ${get('radii.2')};
+      border-top-left-radius: ${get('radii.2')};
+    }
+
+    &:last-child {
+      border-bottom-right-radius: ${get('radii.2')};
+      border-bottom-left-radius: ${get('radii.2')};
     }
 
     // Bar on the left
@@ -111,11 +124,14 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
       content: '';
     }
 
-    &:hover,
+    &:hover {
+      ${CommonAccessibilityVariantNormalStyles}
+    }
+
     &:focus {
-      text-decoration: none;
-      background-color: ${get('colors.state.hover.secondaryBg')};
-      outline: none;
+      ${CommonAccessibilityVariantNormalStyles}
+      box-shadow: ${get('shadows.state.focus.shadow')};
+      z-index: 1;
     }
 
     &[aria-current='page'],
@@ -133,11 +149,14 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
     padding: ${get('space.1')} 0;
     color: ${get('colors.text.link')};
 
-    &:hover,
+    &:hover {
+      ${CommonAccessibilityVariantLightWeightStyles}
+    }
+
     &:focus {
-      color: ${get('colors.text.primary')};
-      text-decoration: none;
-      outline: none;
+      ${CommonAccessibilityVariantLightWeightStyles}
+      box-shadow: ${get('shadows.state.focus.shadow')};
+      z-index: 1;
     }
 
     &[aria-current='page'],
