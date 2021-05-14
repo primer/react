@@ -90,11 +90,11 @@ const ActionMenuBase = ({
   useEffect(() => {
     // Wait until menu has re-rendered in a closed state before triggering action.
     // This is needed in scenarios where the action will move focus, which would otherwise be captured by focus trap
-    if (!open && pendingActionRef.current) {
+    if (!combinedOpenState && pendingActionRef.current) {
       pendingActionRef.current()
       pendingActionRef.current = undefined
     }
-  }, [open])
+  }, [combinedOpenState])
 
   return (
     <AnchoredOverlay

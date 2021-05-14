@@ -106,4 +106,25 @@ describe('ActionMenu', () => {
     })
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
+
+  it('should pass correct values to onAction on menu click', async () => {
+    const menu = HTMLRender(<SimpleActionMenu />)
+    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
+    expect(portalRoot).toBeNull()
+    const anchor = await menu.findByText('Menu')
+    act(() => {
+      fireEvent.click(anchor)
+    })
+    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
+    expect(portalRoot).toBeTruthy()
+    const menuItem = (await portalRoot?.querySelector("[role='menuitem']")) as HTMLElement
+    act(() => {
+      fireEvent.click(menuItem)
+    })
+
+    // onAction has been called with correct argument
+    expect(mockOnActivate).toHaveBeenCalledTimes(1)
+    const arg = mockOnActivate.mock.calls[0][0]
+    expect(arg.text).toEqual(items[0].text)
+  })
 })
