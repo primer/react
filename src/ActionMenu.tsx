@@ -79,7 +79,6 @@ const ActionMenuBase = ({
         onAction: (props, event) => {
           const actionCallback = item.onAction ?? onAction
           pendingActionRef.current = () => actionCallback?.(props as ItemProps, event)
-          actionCallback?.(props as ItemProps, event)
           if (!event.defaultPrevented) {
             onClose()
           }
