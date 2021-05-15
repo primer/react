@@ -607,7 +607,8 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
                 currentFocusedIndex = 0
               } else if (direction === 'next') {
                 currentFocusedIndex += 1
-              } else if (direction === 'end') {
+              } else {
+                // end
                 currentFocusedIndex = focusableElements.length - 1
               }
 

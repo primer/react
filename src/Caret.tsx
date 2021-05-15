@@ -33,12 +33,12 @@ const perpendicularEdge = {
   left: 'Top'
 }
 
-function getEdgeAlign(location: Location): Alignment[] {
+function getEdgeAlign(location: Location) {
   const [edge, align] = location.split('-')
-  return [edge as Alignment, align as Alignment]
+  return [edge as Alignment, align as Alignment | undefined] as const
 }
 
-function getPosition(edge: Alignment, align: Alignment, spacing: number) {
+function getPosition(edge: Alignment, align: Alignment | undefined, spacing: number) {
   const opposite = oppositeEdge[edge].toLowerCase()
   const perp = perpendicularEdge[edge].toLowerCase()
   return {

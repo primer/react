@@ -152,6 +152,7 @@ export function List(props: ListProps): JSX.Element {
    * or the default `Item` renderer.
    */
   const renderItem = (itemProps: ItemInput, item: ItemInput) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
     const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
     return (
@@ -176,7 +177,7 @@ export function List(props: ListProps): JSX.Element {
 
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items?.map(item => renderItem(item, item)), groupId: singleGroupId}]
+    groups = [{items: props.items.map(item => renderItem(item, item)), groupId: singleGroupId}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 
@@ -214,7 +215,7 @@ export function List(props: ListProps): JSX.Element {
 
   return (
     <StyledList {...props}>
-      {groups?.map(({header, ...groupProps}, index) => {
+      {groups.map(({header, ...groupProps}, index) => {
         const hasFilledHeader = header?.variant === 'filled'
         const shouldShowDivider = index > 0 && !hasFilledHeader
         return (
@@ -229,7 +230,7 @@ export function List(props: ListProps): JSX.Element {
               ...(header && {
                 header: {
                   ...header,
-                  sx: {...headerStyle, ...header?.sx}
+                  sx: {...headerStyle, ...header.sx}
                 }
               }),
               ...groupProps

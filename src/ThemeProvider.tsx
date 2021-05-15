@@ -90,7 +90,7 @@ export function useTheme() {
   return React.useContext(ThemeContext)
 }
 
-export function useColorSchemeVar(values: Record<string, string>, fallback?: string) {
+export function useColorSchemeVar(values: Partial<Record<string, string>>, fallback?: string) {
   const {colorScheme = ''} = useTheme()
   return values[colorScheme] ?? fallback
 }
@@ -99,6 +99,7 @@ function useSystemColorMode() {
   const [systemColorMode, setSystemColorMode] = React.useState(getSystemColorMode)
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
 
     function handleChange(event: MediaQueryListEvent) {
@@ -106,9 +107,11 @@ function useSystemColorMode() {
       setSystemColorMode(isNight ? 'night' : 'day')
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     media?.addEventListener('change', handleChange)
 
     return function cleanup() {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       media?.removeEventListener('change', handleChange)
     }
   }, [])
@@ -117,6 +120,7 @@ function useSystemColorMode() {
 }
 
 function getSystemColorMode(): ColorMode {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)')?.matches) {
     return 'night'
   }

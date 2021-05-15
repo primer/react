@@ -4,7 +4,7 @@ import {createPortal} from 'react-dom'
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
 
-const portalRootRegistry: {[key: string]: Element} = {}
+const portalRootRegistry: Partial<Record<string, Element>> = {}
 
 /**
  * Register a container to serve as a portal root.
@@ -20,10 +20,8 @@ export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINE
 // with id __primerPortalRoot__, allow that element to serve as the default portal root.
 // Otherwise, create that element and attach it to the end of document.body.
 function ensureDefaultPortal() {
-  if (
-    !(DEFAULT_PORTAL_CONTAINER_NAME in portalRootRegistry) ||
-    !document.body.contains(portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME])
-  ) {
+  const existingDefaultPortalContainer = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
+  if (!existingDefaultPortalContainer || !document.body.contains(existingDefaultPortalContainer)) {
     let defaultPortalContainer = document.getElementById(PRIMER_PORTAL_ROOT_ID)
     if (!(defaultPortalContainer instanceof Element)) {
       defaultPortalContainer = document.createElement('div')
