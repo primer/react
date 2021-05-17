@@ -9,7 +9,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   loading?: boolean
   placeholderText: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
-  textInputProps?: Partial<TextInputProps>
+  textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
 }
 
 export function FilteredActionList({
