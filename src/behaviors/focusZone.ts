@@ -344,7 +344,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   const activeDescendantCallback = settings?.onActiveDescendantChanged
 
   let activeDescendantSuspended = Boolean(activeDescendantControl)
-  let currentFocusedElement = activeDescendantControl ? undefined : focusableElements[0]
+  let currentFocusedElement: HTMLElement | undefined
 
   function updateFocusedElement(to?: HTMLElement) {
     const from = currentFocusedElement
@@ -352,7 +352,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
 
     if (!activeDescendantControl) {
       if (from && from !== to && savedTabIndex.has(from)) {
-        from?.setAttribute('tabindex', '-1')
+        from.setAttribute('tabindex', '-1')
       }
 
       to?.setAttribute('tabindex', '0')
@@ -396,6 +396,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
         savedTabIndex.set(element, element.getAttribute('tabindex'))
       }
       element.setAttribute('tabindex', '-1')
+    }
+
+    if (!currentFocusedElement) {
+      updateFocusedElement(focusableElements[0])
     }
   }
 
