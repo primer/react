@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner renders consistently 1`] = `
+.c0 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+}
+
+<svg
+  className="c0"
+  fill="none"
+  height="32px"
+  viewBox="0 0 16 16"
+  width="32px"
+>
+  <circle
+    cx="8"
+    cy="8"
+    r="7"
+    stroke="currentColor"
+    strokeOpacity="0.25"
+    strokeWidth="2"
+    vectorEffect="non-scaling-stroke"
+  />
+  <path
+    d="M15 8a7.002 7.002 0 00-7-7"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeWidth="2"
+    vectorEffect="non-scaling-stroke"
+  />
+</svg>
+`;

@@ -133,6 +133,8 @@ export type {
 } from './SelectMenu'
 export {default as SideNav} from './SideNav'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
+export {default as Spinner} from './Spinner'
+export type {SpinnerProps} from './Spinner'
 export {default as StateLabel} from './StateLabel'
 export type {StateLabelProps} from './StateLabel'
 export {default as StyledOcticon} from './StyledOcticon'
