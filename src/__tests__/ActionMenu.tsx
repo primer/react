@@ -121,6 +121,7 @@ describe('ActionMenu', () => {
     act(() => {
       fireEvent.click(menuItem)
     })
+
     // onAction has been called with correct argument
     expect(mockOnActivate).toHaveBeenCalledTimes(1)
     const arg = mockOnActivate.mock.calls[0][0]
