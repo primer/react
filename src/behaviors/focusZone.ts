@@ -343,9 +343,18 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   const activeDescendantControl = settings?.activeDescendantControl
   const activeDescendantCallback = settings?.onActiveDescendantChanged
 
-  function updateTabIndex(from?: HTMLElement, to?: HTMLElement) {
+  let activeDescendantSuspended = Boolean(activeDescendantControl)
+  let currentFocusedElement: HTMLElement | undefined
+
+  function updateFocusedElement(to?: HTMLElement) {
+    const from = currentFocusedElement
+    currentFocusedElement = to
+
     if (!activeDescendantControl) {
-      from?.setAttribute('tabindex', '-1')
+      if (from && from !== to && savedTabIndex.has(from)) {
+        from.setAttribute('tabindex', '-1')
+      }
+
       to?.setAttribute('tabindex', '0')
     }
   }
@@ -358,16 +367,15 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     activeDescendantControl?.setAttribute('aria-activedescendant', to.id)
     notifyActiveElement(to)
 
-    activeDescendantCallback?.(to, from)
+    activeDescendantCallback?.(to, from === to ? undefined : from)
   }
 
   function suspendActiveDescendant() {
     activeDescendantControl?.removeAttribute('aria-activedescendant')
     activeDescendantSuspended = true
     activeDescendantCallback?.(undefined, currentFocusedElement)
-    currentFocusedElement = undefined
     if (focusInStrategy === 'first') {
-      currentFocusedIndex = 0
+      currentFocusedElement = undefined
     }
   }
 
@@ -389,6 +397,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
       }
       element.setAttribute('tabindex', '-1')
     }
+
+    if (!currentFocusedElement) {
+      updateFocusedElement(focusableElements[0])
+    }
   }
 
   function endFocusManagement(...elements: HTMLElement[]) {
@@ -398,10 +410,8 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
         focusableElements.splice(focusableElementIndex, 1)
 
         // If removing the last-focused element, set tabindex=0 to the first element in the list.
-        if (element === currentFocusedElement && focusableElements.length > 0) {
-          updateTabIndex(undefined, focusableElements[0])
-          currentFocusedElement = focusableElements[0]
-          currentFocusedIndex = 0
+        if (element === currentFocusedElement) {
+          updateFocusedElement(focusableElements[0])
         }
       }
       const savedIndex = savedTabIndex.get(element)
@@ -427,15 +437,13 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
       const tabbableElementIndex = focusableElements.indexOf(activeElement)
       if (tabbableElementIndex >= 0) {
         const nextFocusedElement = focusableElements[tabbableElementIndex]
-        const previousFocusedElement = focusableElements[currentFocusedIndex]
-        updateTabIndex(previousFocusedElement, nextFocusedElement)
-        currentFocusedIndex = tabbableElementIndex
+        updateFocusedElement(nextFocusedElement)
       }
     }
   })
 
   // Open the first tabbable element for tabbing
-  updateTabIndex(undefined, focusableElements[0])
+  updateFocusedElement(focusableElements[0])
 
   // If the DOM structure of the container changes, make sure we keep our state up-to-date
   // with respect to the focusable elements cache and its order
@@ -471,12 +479,6 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     unsubscribeFromActiveElementChanges()
   })
 
-  // When using activedescendant focusing, the first focus-in is caused by our listeners
-  // meaning we have to approach zero. This is safe since we clamp the value before using it.
-  let currentFocusedIndex = 0
-  let activeDescendantSuspended = activeDescendantControl ? true : false
-  let currentFocusedElement = activeDescendantControl ? undefined : focusableElements[0]
-
   let elementIndexFocusedByClick: number | undefined = undefined
   container.addEventListener(
     'mousedown',
@@ -501,15 +503,14 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
           if (elementIndexFocusedByClick !== undefined) {
             if (elementIndexFocusedByClick >= 0) {
               if (focusableElements[elementIndexFocusedByClick] !== currentFocusedElement) {
-                updateTabIndex(currentFocusedElement, focusableElements[elementIndexFocusedByClick])
+                updateFocusedElement(focusableElements[elementIndexFocusedByClick])
               }
-              currentFocusedIndex = elementIndexFocusedByClick
             }
             elementIndexFocusedByClick = undefined
           } else {
             // Set tab indexes and internal state based on the focus handling strategy
             if (focusInStrategy === 'previous') {
-              updateTabIndex(currentFocusedElement, event.target)
+              updateFocusedElement(event.target)
             } else if (focusInStrategy === 'closest' || focusInStrategy === 'first') {
               if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
                 // Regardless of the previously focused element, if we're coming from outside the
@@ -517,23 +518,18 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
                 // first element of the container; from below, it's the last). If the
                 // focusInStrategy is set to "first", lastKeyboardFocusDirection will always
                 // be undefined.
-                if (lastKeyboardFocusDirection === 'previous') {
-                  currentFocusedIndex = focusableElements.length - 1
-                } else {
-                  currentFocusedIndex = 0
-                }
-                focusableElements[currentFocusedIndex].focus()
+                const targetElementIndex = lastKeyboardFocusDirection === 'previous' ? focusableElements.length - 1 : 0
+                const targetElement = focusableElements[targetElementIndex]
+                targetElement?.focus()
                 return
               } else {
-                updateTabIndex(currentFocusedElement, event.target)
+                updateFocusedElement(event.target)
               }
             } else if (typeof focusInStrategy === 'function') {
               if (event.relatedTarget instanceof Element && !container.contains(event.relatedTarget)) {
                 const elementToFocus = focusInStrategy(event.relatedTarget)
                 const requestedFocusElementIndex = elementToFocus ? focusableElements.indexOf(elementToFocus) : -1
                 if (requestedFocusElementIndex >= 0 && elementToFocus instanceof HTMLElement) {
-                  currentFocusedIndex = requestedFocusElementIndex
-
                   // Since we are calling focus() this handler will run again synchronously. Therefore,
                   // we don't want to let this invocation finish since it will clobber the value of
                   // currentFocusedElement.
@@ -544,12 +540,11 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
                   console.warn('Element requested is not a known focusable element.')
                 }
               } else {
-                updateTabIndex(currentFocusedElement, event.target)
+                updateFocusedElement(event.target)
               }
             }
           }
           notifyActiveElement(event.target)
-          currentFocusedElement = event.target
         }
         lastKeyboardFocusDirection = undefined
       },
@@ -574,6 +569,15 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     )
   }
 
+  function getCurrentFocusedIndex() {
+    if (!currentFocusedElement) {
+      return 0
+    }
+
+    const focusedIndex = focusableElements.indexOf(currentFocusedElement)
+    return focusedIndex === -1 ? 0 : focusedIndex
+  }
+
   // "keydown" is the event that triggers DOM focus change, so that is what we use here
   keyboardEventRecipient.addEventListener(
     'keydown',
@@ -593,44 +597,45 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
 
           if (activeDescendantSuspended) {
             activeDescendantSuspended = false
-            nextElementToFocus = focusableElements[currentFocusedIndex]
+            nextElementToFocus = currentFocusedElement || focusableElements[0]
           } else {
             // If there is a custom function that retrieves the next focusable element, try calling that first.
             if (settings?.getNextFocusable) {
               nextElementToFocus = settings.getNextFocusable(direction, document.activeElement ?? undefined, event)
             }
             if (!nextElementToFocus) {
-              const lastFocusedIndex = currentFocusedIndex
+              const lastFocusedIndex = getCurrentFocusedIndex()
+              let nextFocusedIndex = lastFocusedIndex
               if (direction === 'previous') {
-                currentFocusedIndex -= 1
+                nextFocusedIndex -= 1
               } else if (direction === 'start') {
-                currentFocusedIndex = 0
+                nextFocusedIndex = 0
               } else if (direction === 'next') {
-                currentFocusedIndex += 1
+                nextFocusedIndex += 1
               } else if (direction === 'end') {
-                currentFocusedIndex = focusableElements.length - 1
+                nextFocusedIndex = focusableElements.length - 1
               }
 
-              if (currentFocusedIndex < 0) {
+              if (nextFocusedIndex < 0) {
                 // Tab should never cause focus to wrap. Use focusTrap for that behavior.
                 if (focusOutBehavior === 'wrap' && event.key !== 'Tab') {
-                  currentFocusedIndex = focusableElements.length - 1
+                  nextFocusedIndex = focusableElements.length - 1
                 } else {
                   if (activeDescendantControl) {
                     suspendActiveDescendant()
                   }
-                  currentFocusedIndex = 0
+                  nextFocusedIndex = 0
                 }
               }
-              if (currentFocusedIndex >= focusableElements.length) {
+              if (nextFocusedIndex >= focusableElements.length) {
                 if (focusOutBehavior === 'wrap' && event.key !== 'Tab') {
-                  currentFocusedIndex = 0
+                  nextFocusedIndex = 0
                 } else {
-                  currentFocusedIndex = focusableElements.length - 1
+                  nextFocusedIndex = focusableElements.length - 1
                 }
               }
-              if (lastFocusedIndex !== currentFocusedIndex) {
-                nextElementToFocus = focusableElements[currentFocusedIndex]
+              if (lastFocusedIndex !== nextFocusedIndex) {
+                nextElementToFocus = focusableElements[nextFocusedIndex]
               }
             }
           }
