@@ -28,7 +28,12 @@ function SimpleActionList(): JSX.Element {
 }
 
 describe('ActionList', () => {
-  behavesAsComponent({Component: ActionList, systemPropArray: [COMMON], options: {skipAs: true, skipSx: true}})
+  behavesAsComponent({
+    Component: ActionList,
+    systemPropArray: [COMMON],
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList items={[]} />
+  })
 
   checkExports('ActionList', {
     default: undefined,

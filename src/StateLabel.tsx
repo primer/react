@@ -96,6 +96,7 @@ function StateLabel({children, status, variant: variantProp, ...rest}: StateLabe
   const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
+      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
       {status && <StyledOcticon mr={1} {...octiconProps} icon={octiconMap[status] || QuestionIcon} />}
       {children}
     </StateLabelBase>

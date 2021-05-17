@@ -69,7 +69,9 @@ describe('DropdownMenu', () => {
     expect(portalRoot).toBeTruthy()
     const itemText = items
       .map((i: ItemInput) => {
-        if (i.hasOwnProperty('text')) return i?.text
+        if (i.hasOwnProperty('text')) {
+          return i.text
+        }
       })
       .join('')
     expect(portalRoot?.textContent?.trim()).toEqual(itemText)
@@ -107,7 +109,7 @@ describe('DropdownMenu', () => {
     act(() => {
       fireEvent.click(menuItem as Element)
     })
-    expect(anchor?.textContent).toEqual('Baz')
+    expect(anchor.textContent).toEqual('Baz')
   })
 
   it('should dismiss the overlay on clicking outside overlay', async () => {

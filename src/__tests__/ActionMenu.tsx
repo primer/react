@@ -67,7 +67,9 @@ describe('ActionMenu', () => {
     expect(portalRoot).toBeTruthy()
     const itemText = items
       .map((i: ItemProps) => {
-        if (i.hasOwnProperty('text')) return i?.text
+        if (i.hasOwnProperty('text')) {
+          return i.text
+        }
       })
       .join('')
     expect(portalRoot?.textContent?.trim()).toEqual(itemText)
@@ -121,6 +123,7 @@ describe('ActionMenu', () => {
     act(() => {
       fireEvent.click(menuItem)
     })
+
     // onAction has been called with correct argument
     expect(mockOnActivate).toHaveBeenCalledTimes(1)
     const arg = mockOnActivate.mock.calls[0][0]
