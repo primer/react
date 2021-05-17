@@ -11,27 +11,27 @@ import {TextInputProps} from '../TextInput'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
-  setSelected: (selected: ItemInput | undefined) => void
+  onSelectedChange: (selected: ItemInput | undefined) => void
 }
 
 interface SelectPanelMultiSelection {
   selected: ItemInput[]
-  setSelected: (selected: ItemInput[]) => void
+  onSelectedChange: (selected: ItemInput[]) => void
 }
 
 interface SelectPanelBaseProps {
   renderAnchor?: AnchoredOverlayProps['renderAnchor']
-  setOpen: (
+  onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
   ) => void
   placeholder?: string
-  setFilter: (value: string, e?: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e?: React.ChangeEvent<HTMLInputElement>) => void
   overlayProps?: Partial<OverlayProps>
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'setFilter' | 'selectionVariant'> &
+  Omit<FilteredActionListProps, 'onFilterChange' | 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -56,24 +56,24 @@ const textInputProps: Partial<TextInputProps> = {
 
 export function SelectPanel({
   open,
-  setOpen,
+  onOpenChange,
   renderAnchor = props => <DropdownButton {...props} />,
   placeholder,
   selected,
-  setSelected,
-  setFilter,
+  onSelectedChange,
+  onFilterChange,
   items,
   overlayProps,
   ...listProps
 }: SelectPanelProps): JSX.Element {
-  const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => setOpen(true, gesture), [setOpen])
+  const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
   const onClose = useCallback(
     (gesture: 'click-outside' | 'escape' | 'selection') => {
-      setOpen(false, gesture)
+      onOpenChange(false, gesture)
       // ensure consuming component clears filter since the input will be blank on next open
-      setFilter('')
+      onFilterChange('')
     },
-    [setFilter, setOpen]
+    [onFilterChange, onOpenChange]
   )
 
   const renderMenuAnchor: AnchoredOverlayProps['renderAnchor'] = useCallback(
@@ -109,19 +109,19 @@ export function SelectPanel({
             const newSelectedItems =
               !item || selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
 
-            const multiSelectOnChange = setSelected as SelectPanelMultiSelection['setSelected']
+            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)
             return
           }
 
           // single select
-          const singleSelectOnChange = setSelected as SelectPanelSingleSelection['setSelected']
+          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         }
       } as ItemProps
     })
-  }, [onClose, items, selected, setSelected])
+  }, [onClose, onSelectedChange, items, selected])
 
   return (
     <AnchoredOverlay
@@ -134,7 +134,7 @@ export function SelectPanel({
     >
       <Flex flexDirection="column" width="100%" height="100%">
         <FilteredActionList
-          setFilter={setFilter}
+          onFilterChange={onFilterChange}
           {...listProps}
           role="listbox"
           items={itemsToRender}

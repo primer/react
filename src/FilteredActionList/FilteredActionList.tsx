@@ -8,14 +8,14 @@ import {ActionList} from '../ActionList'
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
   placeholderText: string
-  setFilter: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<TextInputProps>
 }
 
 export function FilteredActionList({
   loading = false,
   placeholderText,
-  setFilter,
+  onFilterChange,
   items,
   textInputProps,
   ...listProps
@@ -23,9 +23,9 @@ export function FilteredActionList({
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
-      setFilter(value, e)
+      onFilterChange(value, e)
     },
-    [setFilter]
+    [onFilterChange]
   )
 
   return (

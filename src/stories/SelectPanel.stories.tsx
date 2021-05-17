@@ -60,11 +60,11 @@ export function MultiSelectStory(): JSX.Element {
         )}
         placeholderText="Filter Labels"
         open={open}
-        setOpen={setOpen}
+        onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
-        setSelected={setSelected}
-        setFilter={setFilter}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
       />
     </>
   )
@@ -89,11 +89,11 @@ export function SingleSelectStory(): JSX.Element {
         )}
         placeholderText="Filter Labels"
         open={open}
-        setOpen={setOpen}
+        onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
-        setSelected={setSelected}
-        setFilter={setFilter}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
       />
     </>
   )

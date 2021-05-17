@@ -26,10 +26,10 @@ function SimpleSelectPanel(): JSX.Element {
           placeholder="Select Items"
           placeholderText="Filter Items"
           selected={selected}
-          setSelected={setSelected}
-          setFilter={setFilter}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
           open={open}
-          setOpen={setOpen}
+          onOpenChange={setOpen}
         />
         <div id="portal-root"></div>
       </BaseStyles>
