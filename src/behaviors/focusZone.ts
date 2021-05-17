@@ -519,7 +519,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
                 // focusInStrategy is set to "first", lastKeyboardFocusDirection will always
                 // be undefined.
                 const targetElementIndex = lastKeyboardFocusDirection === 'previous' ? focusableElements.length - 1 : 0
-                const targetElement = focusableElements[targetElementIndex]
+                const targetElement = focusableElements[targetElementIndex] as HTMLElement | undefined
                 targetElement?.focus()
                 return
               } else {
