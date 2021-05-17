@@ -2,7 +2,7 @@ import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useEffect, useMemo, useRef} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
@@ -55,7 +55,6 @@ const ActionMenuBase = ({
   items,
   ...listProps
 }: ActionMenuProps): JSX.Element => {
-  const pendingActionRef = useRef<() => unknown>()
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
   const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
@@ -78,7 +77,6 @@ const ActionMenuBase = ({
         role: 'menuitem',
         onAction: (props, event) => {
           const actionCallback = item.onAction ?? onAction
-          pendingActionRef.current = () => actionCallback?.(props as ItemProps, event)
           actionCallback?.(props as ItemProps, event)
           if (!event.defaultPrevented) {
             onClose()
@@ -87,15 +85,6 @@ const ActionMenuBase = ({
       } as ItemProps
     })
   }, [items, onAction, onClose])
-
-  useEffect(() => {
-    // Wait until menu has re-rendered in a closed state before triggering action.
-    // This is needed in scenarios where the action will move focus, which would otherwise be captured by focus trap
-    if (!open && pendingActionRef.current) {
-      pendingActionRef.current()
-      pendingActionRef.current = undefined
-    }
-  }, [open])
 
   return (
     <AnchoredOverlay
