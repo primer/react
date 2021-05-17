@@ -64,7 +64,7 @@ function useDialog({
 
   const getFocusableItem = useCallback(
     (e: Event, movement: number) => {
-      if (modalRef && modalRef.current) {
+      if (modalRef.current) {
         const items = Array.from(modalRef.current.querySelectorAll('*')).filter(focusable)
         if (items.length === 0) return
         e.preventDefault()

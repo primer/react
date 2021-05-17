@@ -7,6 +7,7 @@ import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
 import {ComponentProps} from './utils/types'
+import {useCombinedRefs} from './hooks/useCombinedRefs'
 
 const noop = () => null
 
@@ -78,7 +79,6 @@ const Overlay = styled.span`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 80;
     display: block;
     cursor: default;
     content: ' ';
@@ -95,14 +95,10 @@ type InternalDialogProps = {
   returnFocusRef?: React.RefObject<HTMLElement>
 } & ComponentProps<typeof DialogBase>
 
-const Dialog = forwardRef<HTMLElement, InternalDialogProps>(
-  (
-    {children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props},
-    forwardedRef: React.ForwardedRef<HTMLElement>
-  ) => {
-    const backupRef = useRef(null)
+const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
+  ({children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
     const overlayRef = useRef(null)
-    const modalRef = (forwardedRef as React.RefObject<HTMLDivElement>) ?? backupRef
+    const modalRef = useCombinedRefs(forwardedRef)
     const closeButtonRef = useRef(null)
 
     const onCloseClick = () => {

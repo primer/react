@@ -354,7 +354,8 @@ function calculatePosition(
       left = anchorPosition.left + alignmentOffset
     } else if (align === 'center') {
       left = anchorPosition.left - (elementDimensions.width - anchorPosition.width) / 2 + alignmentOffset
-    } else if (align === 'end') {
+    } else {
+      // end
       left = anchorRight - elementDimensions.width - alignmentOffset
     }
   }
@@ -364,7 +365,8 @@ function calculatePosition(
       top = anchorPosition.top + alignmentOffset
     } else if (align === 'center') {
       top = anchorPosition.top - (elementDimensions.height - anchorPosition.height) / 2 + alignmentOffset
-    } else if (align === 'end') {
+    } else {
+      // end
       top = anchorBottom - elementDimensions.height - alignmentOffset
     }
   }
@@ -386,7 +388,8 @@ function calculatePosition(
       left = anchorPosition.left + alignmentOffset
     } else if (align === 'center') {
       left = anchorPosition.left - (elementDimensions.width - anchorPosition.width) / 2 + alignmentOffset
-    } else if (align === 'end') {
+    } else {
+      // end
       left = anchorRight - elementDimensions.width - alignmentOffset
     }
   } else if (side === 'inside-left' || side === 'inside-right' || side === 'inside-center') {
@@ -394,7 +397,8 @@ function calculatePosition(
       top = anchorPosition.top + alignmentOffset
     } else if (align === 'center') {
       top = anchorPosition.top - (elementDimensions.height - anchorPosition.height) / 2 + alignmentOffset
-    } else if (align === 'end') {
+    } else {
+      // end
       top = anchorBottom - elementDimensions.height - alignmentOffset
     }
   }

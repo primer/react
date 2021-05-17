@@ -33,7 +33,7 @@ export function useFocusZone(
       ? undefined
       : settings.activeDescendantFocus
   const activeDescendantControlRef = useProvidedRefOrCreate(passedActiveDescendantRef)
-  const disabled = settings?.disabled
+  const disabled = settings.disabled
   const abortController = React.useRef<AbortController>()
 
   useEffect(
