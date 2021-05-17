@@ -3,7 +3,7 @@ import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList
 import {OverlayProps} from '../Overlay'
 import {ItemInput} from '../ActionList/List'
 import {FocusZoneSettings} from '../behaviors/focusZone'
-import {DropdownButton, DropdownButtonProps} from '../DropdownMenu'
+import {DropdownButton} from '../DropdownMenu'
 import {ItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import Flex from '../Flex'
@@ -57,7 +57,7 @@ const textInputProps: Partial<TextInputProps> = {
 export function SelectPanel({
   open,
   setOpen,
-  renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
+  renderAnchor = props => <DropdownButton {...props} />,
   placeholder,
   selected,
   setSelected,
@@ -76,8 +76,8 @@ export function SelectPanel({
     [setFilter, setOpen]
   )
 
-  const renderMenuAnchor = useCallback(
-    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
+  const renderMenuAnchor: AnchoredOverlayProps['renderAnchor'] = useCallback(
+    props => {
       const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
 
       return renderAnchor({
