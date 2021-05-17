@@ -2,8 +2,8 @@ import React, {useCallback} from 'react'
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
-import SelectMenu from '../SelectMenu'
 import {ActionList} from '../ActionList'
+import Spinner from '../Spinner'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -40,7 +40,13 @@ export function FilteredActionList({
         {...textInputProps}
       />
       <Box flexGrow={1} overflow="auto">
-        {loading ? <SelectMenu.LoadingAnimation /> : <ActionList items={items} {...listProps} role="listbox" />}
+        {loading ? (
+          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
+            <Spinner />
+          </Box>
+        ) : (
+          <ActionList items={items} {...listProps} role="listbox" />
+        )}
       </Box>
     </>
   )
