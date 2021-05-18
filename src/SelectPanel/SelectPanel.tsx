@@ -106,8 +106,7 @@ export function SelectPanel({
           if (isMultiSelectVariant(selected)) {
             // multi select
             const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems =
-              !item || selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
 
             const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)

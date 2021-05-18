@@ -45,7 +45,7 @@ const items = [
 export function MultiSelectStory(): JSX.Element {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
 
   return (
@@ -74,7 +74,7 @@ MultiSelectStory.storyName = 'Multi Select'
 export function SingleSelectStory(): JSX.Element {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
 
   return (
