@@ -342,10 +342,14 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
   let autoFocusCount = 0
   useEffect(() => {
-    if (autoFocusRef.current) {
-      autoFocusRef.current.focus()
-    }
+    // hack to work around dialogs originating from other focus traps.
+    setTimeout(() => {
+      if (autoFocusRef.current) {
+        autoFocusRef.current.focus()
+      }
+    })
   }, [])
+
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
