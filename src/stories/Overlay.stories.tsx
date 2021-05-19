@@ -51,7 +51,7 @@ export const DropdownOverlay = () => {
         <Overlay
           returnFocusRef={buttonRef}
           height="auto"
-          width="sm"
+          width="small"
           ignoreClickRefs={[buttonRef]}
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
@@ -87,7 +87,7 @@ export const DialogOverlay = () => {
           ignoreClickRefs={[buttonRef]}
           onEscape={closeOverlay}
           onClickOutside={closeOverlay}
-          width="sm"
+          width="small"
         >
           <Flex flexDirection="column" p={2}>
             <Text>Are you sure?</Text>

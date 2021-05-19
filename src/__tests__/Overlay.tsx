@@ -34,7 +34,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
           ignoreClickRefs={[buttonRef]}
           onEscape={closeOverlay}
           onClickOutside={closeOverlay}
-          width="sm"
+          width="small"
         >
           <Flex flexDirection="column" p={2}>
             <Text>Are you sure?</Text>
