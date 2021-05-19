@@ -345,7 +345,7 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
     if (hasRendered === 1) {
-      autoFocusRef?.current?.focus()
+      autoFocusRef.current?.focus()
     } else {
       setHasRendered(hasRendered + 1)
     }
