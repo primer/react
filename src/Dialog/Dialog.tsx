@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
 import Flex from '../Flex'
@@ -341,14 +341,15 @@ const buttonTypes = {
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
   let autoFocusCount = 0
+  const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
-    setTimeout(() => {
-      if (autoFocusRef.current) {
-        autoFocusRef.current.focus()
-      }
-    })
-  }, [])
+    if (hasRendered === 1) {
+      autoFocusRef?.current?.focus()
+    } else {
+      setHasRendered(hasRendered + 1)
+    }
+  }, [hasRendered])
 
   return (
     <>
