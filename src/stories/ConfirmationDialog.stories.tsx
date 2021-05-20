@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Button, Flex, ThemeProvider, useTheme} from '..'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {ActionMenu} from '../ActionMenu'
 
 export default {
   title: 'Internal components/ConfirmationDialog',
@@ -75,6 +76,30 @@ export const ShorthandHook = () => {
       <Button mb={2} onClick={onButtonClick}>
         Turn me green!
       </Button>
+    </Flex>
+  )
+}
+
+export const ShorthandHookFromActionMenu = () => {
+  const confirm = useConfirm()
+  const [text, setText] = useState('open me')
+  const onButtonClick = useCallback(async () => {
+    if (await confirm({title: 'Are you sure?', content: 'Do you really want to do a trick?'})) {
+      setText('tada!')
+    }
+  }, [confirm])
+
+  return (
+    <Flex flexDirection="column" alignItems="flex-start">
+      <ActionMenu
+        renderAnchor={props => <Button {...props}>{text}</Button>}
+        items={[
+          {
+            text: 'Do a trick!',
+            onAction: onButtonClick
+          }
+        ]}
+      />
     </Flex>
   )
 }
