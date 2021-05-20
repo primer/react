@@ -1,5 +1,19 @@
 # @primer/components
 
+## 28.1.0
+
+### Minor Changes
+
+- [`6800c609`](https://github.com/primer/components/commit/6800c609634d8227c6538a49bca3ef59d8b660a1) [#1232](https://github.com/primer/components/pull/1232) Thanks [@dgreif](https://github.com/dgreif)! - New `Spinner` Component
+
+### Patch Changes
+
+- [`909ada5c`](https://github.com/primer/components/commit/909ada5c47c597f0260563c5030df0613051f618) [#1224](https://github.com/primer/components/pull/1224) Thanks [@dgreif](https://github.com/dgreif)! - Add `SelectPanel` alpha component
+
+* [`0d26d2b0`](https://github.com/primer/components/commit/0d26d2b07d8ed242eec71fd05959d8cdd0e6f0ba) [#1240](https://github.com/primer/components/pull/1240) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Fix check Spacing on selected items for ActionList components.
+
+- [`e009e321`](https://github.com/primer/components/commit/e009e321bf6c456ca6584650cd5f3ea35fe36003) [#1235](https://github.com/primer/components/pull/1235) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Dialog properly auto-focuses cancel button by default when originating from a FocusZone/FocusTrap.
+
 ## 28.0.4
 
 ### Patch Changes
