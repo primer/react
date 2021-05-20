@@ -28,7 +28,7 @@ const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallCl
     // don't call handler if click happened on an ignored ref
   } else if (ignoreClickRefs) {
     for (const ignoreRef of ignoreClickRefs) {
-      if (ignoreRef && ignoreRef.current?.contains(e.target as Node)) {
+      if (ignoreRef.current?.contains(e.target as Node)) {
         shouldCallHandler = false
         // if we encounter one, break early, we don't need to go through the rest
         break

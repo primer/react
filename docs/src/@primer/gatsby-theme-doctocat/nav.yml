@@ -103,6 +103,8 @@
       url: /SelectMenu
     - title: SideNav
       url: /SideNav
+    - title: Spinner
+      url: /Spinner
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon

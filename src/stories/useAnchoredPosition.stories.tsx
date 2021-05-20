@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ButtonPrimary, Position, Relative, ThemeProvider} from '..'
-import {useAnchoredPosition} from '../hooks/useAnchoredPosition'
+import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {AnchorSide} from '../behaviors/anchoredPosition'
@@ -93,8 +93,8 @@ export const UseAnchoredPosition = (args: any) => {
     {
       side: `${args.anchorPosition ?? 'outside'}-${args.anchorSide ?? 'bottom'}` as AnchorSide,
       align: args.anchorAlignment ?? 'start',
-      anchorOffset: args.anchorOffset && (parseInt(args.anchorOffset, 10) ?? undefined),
-      alignmentOffset: args.alignmentOffset && (parseInt(args.alignmentOffset, 10) ?? undefined),
+      anchorOffset: args.anchorOffset && parseInt(args.anchorOffset, 10),
+      alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
       allowOutOfBounds: args.allowOutOfBounds ?? undefined
     },
     [args]

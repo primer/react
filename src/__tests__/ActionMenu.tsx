@@ -67,7 +67,9 @@ describe('ActionMenu', () => {
     expect(portalRoot).toBeTruthy()
     const itemText = items
       .map((i: ItemProps) => {
-        if (i.hasOwnProperty('text')) return i?.text
+        if (i.hasOwnProperty('text')) {
+          return i.text
+        }
       })
       .join('')
     expect(portalRoot?.textContent?.trim()).toEqual(itemText)
