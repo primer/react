@@ -173,6 +173,7 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   // hardcoded '20px' with '${get('space.s20')}'.
   height: 20px;
   width: ${get('space.3')};
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
