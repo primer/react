@@ -1,7 +1,8 @@
-import React, {KeyboardEventHandler, useCallback, useMemo, useRef} from 'react'
+import React, {KeyboardEventHandler, useCallback, useEffect, useMemo, useRef} from 'react'
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
+import Flex from '../Flex'
 import {ActionList} from '../ActionList'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -69,12 +70,18 @@ export function FilteredActionList({
 
       if (current) {
         current.classList.add(itemActiveDescendantClass)
+        current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
       }
     }
   })
 
+  useEffect(() => {
+    // if items changed, we want to instantly move active descendant into view
+    activeDescendantRef.current?.scrollIntoView({block: 'center', inline: 'center'})
+  }, [items])
+
   return (
-    <Box ref={containerRef} flexGrow={1} flexDirection="column">
+    <Flex ref={containerRef} flexDirection="column" overflow="hidden">
       <TextInput
         ref={inputRef}
         block
@@ -87,7 +94,7 @@ export function FilteredActionList({
         aria-controls={listId}
         {...textInputProps}
       />
-      <Box flexGrow={1} overflow="auto">
+      <Box overflow="auto">
         {loading ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
@@ -96,7 +103,7 @@ export function FilteredActionList({
           <ActionList items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
-    </Box>
+    </Flex>
   )
 }
 
