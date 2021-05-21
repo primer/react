@@ -110,7 +110,7 @@ describe('AnchoredOverlay', () => {
         onCloseCallback={mockCloseCallback}
       />
     )
-    fireEvent.click(anchoredOverlay.baseElement)
+    fireEvent.mouseDown(anchoredOverlay.baseElement)
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(0)
     expect(mockCloseCallback).toHaveBeenCalledTimes(1)
