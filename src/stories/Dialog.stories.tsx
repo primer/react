@@ -22,10 +22,10 @@ export default {
   ],
   argTypes: {
     width: {
-      defaultValue: 'xLarge',
+      defaultValue: 'xlarge',
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large', 'xLarge']
+        options: ['small', 'medium', 'large', 'xlarge']
       }
     },
     height: {

@@ -107,7 +107,7 @@ export interface DialogProps {
    * small: 296px
    * medium: 320px
    * large: 480px
-   * xLarge: 640px
+   * xlarge: 640px
    */
   width?: DialogWidth
 
@@ -169,7 +169,7 @@ const widthMap = {
   small: '296px',
   medium: '320px',
   large: '480px',
-  xLarge: '640px'
+  xlarge: '640px'
 } as const
 
 export type DialogWidth = keyof typeof widthMap
@@ -188,7 +188,7 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   min-width: 296px;
   max-width: calc(100vw - 64px);
   max-height: calc(100vh - 64px);
-  width: ${props => widthMap[props.width ?? ('xLarge' as const)]};
+  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
   height: ${props => heightMap[props.height ?? ('auto' as const)]};
   border-radius: 12px;
   opacity: 1;
@@ -250,7 +250,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     renderFooter,
     onClose,
     role = 'dialog',
-    width = 'xLarge',
+    width = 'xlarge',
     height = 'auto'
   } = props
   const dialogLabelId = uniqueId()

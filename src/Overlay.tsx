@@ -14,11 +14,11 @@ type StyledOverlayProps = {
 }
 
 const heightMap = {
-  xSmall: '192px',
+  xsmall: '192px',
   small: '256px',
   medium: '320px',
   large: '432px',
-  xLarge: '600px',
+  xlarge: '600px',
   auto: 'auto'
 }
 
@@ -26,8 +26,8 @@ const widthMap = {
   small: '256px',
   medium: '320px',
   large: '480px',
-  xLarge: '640px',
-  xxLarge: '960px',
+  xlarge: '640px',
+  xxlarge: '960px',
   auto: 'auto'
 }
 
@@ -75,8 +75,8 @@ export type OverlayProps = {
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param onClickOutside  Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
- * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xLarge` corresponds to `640px`, `xxLarge` corresponds to `960px`.
- * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xSmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xLarge` corresponds to `600px`.
+ * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.
+ * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param visibility Sets the visibility of the `Overlay`
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
