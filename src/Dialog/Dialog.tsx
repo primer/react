@@ -104,17 +104,17 @@ export interface DialogProps {
 
   /**
    * The width of the dialog.
-   * sm: 296px
-   * md: 320px
-   * lg: 480px
-   * xl: 640px
+   * small: 296px
+   * medium: 320px
+   * large: 480px
+   * xlarge: 640px
    */
   width?: DialogWidth
 
   /**
    * The height of the dialog.
-   * sm: 296x480
-   * lg: 480x640
+   * small: 296x480
+   * large: 480x640
    * auto: variable based on contents
    */
   height?: DialogHeight
@@ -160,16 +160,16 @@ const Backdrop = styled('div')`
 `
 
 const heightMap = {
-  sm: '480px',
-  lg: '640px',
+  small: '480px',
+  large: '640px',
   auto: 'auto'
 } as const
 
 const widthMap = {
-  sm: '296px',
-  md: '320px',
-  lg: '480px',
-  xl: '640px'
+  small: '296px',
+  medium: '320px',
+  large: '480px',
+  xlarge: '640px'
 } as const
 
 export type DialogWidth = keyof typeof widthMap
@@ -188,7 +188,7 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   min-width: 296px;
   max-width: calc(100vw - 64px);
   max-height: calc(100vh - 64px);
-  width: ${props => widthMap[props.width ?? ('xl' as const)]};
+  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
   height: ${props => heightMap[props.height ?? ('auto' as const)]};
   border-radius: 12px;
   opacity: 1;
@@ -250,7 +250,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     renderFooter,
     onClose,
     role = 'dialog',
-    width = 'xl',
+    width = 'xlarge',
     height = 'auto'
   } = props
   const dialogLabelId = uniqueId()

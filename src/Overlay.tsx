@@ -14,16 +14,20 @@ type StyledOverlayProps = {
 }
 
 const heightMap = {
-  sm: '480px',
-  md: '640px',
+  xsmall: '192px',
+  small: '256px',
+  medium: '320px',
+  large: '432px',
+  xlarge: '600px',
   auto: 'auto'
 }
 
 const widthMap = {
-  sm: '256px',
-  md: '320px',
-  lg: '480px',
-  xl: '640px',
+  small: '256px',
+  medium: '320px',
+  large: '480px',
+  xlarge: '640px',
+  xxlarge: '960px',
   auto: 'auto'
 }
 
@@ -71,8 +75,8 @@ export type OverlayProps = {
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param onClickOutside  Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
- * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `sm` corresponds to `256px`, `md` corresponds to `320px`, `lg` corresponds to `480px`, and `xl` corresponds to `640px`.
- * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `sm` corresponds to `480px` and `md` corresponds to `640px`.
+ * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.
+ * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param visibility Sets the visibility of the `Overlay`
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(

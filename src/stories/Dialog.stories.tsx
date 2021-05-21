@@ -22,17 +22,17 @@ export default {
   ],
   argTypes: {
     width: {
-      defaultValue: 'xl',
+      defaultValue: 'xlarge',
       control: {
         type: 'radio',
-        options: ['sm', 'md', 'lg', 'xl']
+        options: ['small', 'medium', 'large', 'xlarge']
       }
     },
     height: {
       defaultValue: 'auto',
       control: {
         type: 'radio',
-        options: ['sm', 'lg', 'auto']
+        options: ['small', 'large', 'auto']
       }
     },
     subtitle: {
@@ -128,7 +128,7 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
         >
           {lipsum}
           {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="sm">
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
             </Dialog>
           )}
@@ -229,7 +229,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
         >
           {lipsum}
           {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="sm">
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
             </Dialog>
           )}

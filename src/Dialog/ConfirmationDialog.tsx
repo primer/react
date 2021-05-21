@@ -163,7 +163,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
       title={title}
       footerButtons={footerButtons}
       role="alertdialog"
-      width="md"
+      width="medium"
       renderHeader={ConfirmationHeader}
       renderBody={ConfirmationBody}
       renderFooter={ConfirmationFooter}
