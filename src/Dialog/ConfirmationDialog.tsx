@@ -47,7 +47,7 @@ const StyledConfirmationHeader = styled.header`
 `
 const StyledTitle = styled(Box)`
   font-size: ${get('fontSizes.3')};
-  font-weight: 700;
+  font-weight: ${get('fontWeights.bold')};
   padding: 6px ${get('space.2')};
   flex-grow: 1;
 `
@@ -80,6 +80,7 @@ const StyledConfirmationFooter = styled(Box)`
     border-bottom: 0;
     margin: 0;
     border-right: 0;
+    border-radius: 12px;
     &:first-child {
       border-left: 0;
     }
