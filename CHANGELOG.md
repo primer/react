@@ -1,5 +1,17 @@
 # @primer/components
 
+## 28.1.1
+
+### Patch Changes
+
+- [`ff177c88`](https://github.com/primer/components/commit/ff177c88200f2ebb8c27a8e41aeb869a8eddf95b) [#1242](https://github.com/primer/components/pull/1242) Thanks [@dgreif](https://github.com/dgreif)! - Use `Item` `index` as fallback key within `List` groups
+
+* [`fb2fa6c2`](https://github.com/primer/components/commit/fb2fa6c2f40be51f4f7201b93e004bb7d2257110) [#1244](https://github.com/primer/components/pull/1244) Thanks [@dgreif](https://github.com/dgreif)! - Allow focus to move to an input outside an overlay on mousedown
+
+- [`1519742f`](https://github.com/primer/components/commit/1519742fcffcad9d14c972bc8c1fdd8e575c956e) [#1243](https://github.com/primer/components/pull/1243) Thanks [@dgreif](https://github.com/dgreif)! - Use `active-descendant` to control focus in `SelectPanel`
+
+* [`c1991318`](https://github.com/primer/components/commit/c1991318aa7ee5d021f458db26cd2597279cc4ba) [#1158](https://github.com/primer/components/pull/1158) Thanks [@dgreif](https://github.com/dgreif)! - Add background styles for focused action list items, instead of using default `outline`
+
 ## 28.1.0
 
 ### Minor Changes
