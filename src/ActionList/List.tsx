@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
@@ -6,7 +6,6 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
-import {uniqueId} from '../utils/uniqueId'
 
 export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
 
@@ -23,6 +22,11 @@ export interface ListPropsBase {
    * The ARIA role describing the function of `List` component. `listbox` is a common value.
    */
   role?: AriaRole
+
+  /**
+   * id to attach to the base DOM node of the list
+   */
+  id?: string
 
   /**
    * A `List`-level custom `Item` renderer. Every `Item` within this `List`
@@ -151,10 +155,10 @@ export function List(props: ListProps): JSX.Element {
    * An `Item`-level, `Group`-level, or `List`-level custom `Item` renderer,
    * or the default `Item` renderer.
    */
-  const renderItem = (itemProps: ItemInput, item: ItemInput) => {
+  const renderItem = (itemProps: ItemInput, item: ItemInput, itemIndex: number) => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
-    const key = itemProps.key ?? itemProps.id?.toString() ?? uniqueId()
+    const key = itemProps.key ?? itemProps.id?.toString() ?? itemIndex.toString()
     return (
       <ItemComponent
         showDivider={props.showItemDividers}
@@ -173,11 +177,9 @@ export function List(props: ListProps): JSX.Element {
   let groups: (GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}))[] = []
 
   // Collect rendered `Item`s into `Group`s, avoiding excess iteration over the lists of `items` and `groupMetadata`:
-  const singleGroupId = useMemo(uniqueId, [])
-
   if (!isGroupedListProps(props)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items.map(item => renderItem(item, item)), groupId: singleGroupId}]
+    groups = [{items: props.items.map((item, index) => renderItem(item, item, index)), groupId: '0'}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 
@@ -192,6 +194,7 @@ export function List(props: ListProps): JSX.Element {
     for (const itemProps of props.items) {
       // Look up the group associated with the current item.
       const group = groupMap.get(itemProps.groupId)
+      const itemIndex = group?.items?.length ?? 0
 
       // Upsert the group to include the current item (rendered).
       groupMap.set(itemProps.groupId, {
@@ -204,7 +207,8 @@ export function List(props: ListProps): JSX.Element {
               ...(group && 'renderItem' in group && {renderItem: group.renderItem}),
               ...itemProps
             },
-            itemProps
+            itemProps,
+            itemIndex
           )
         ]
       })

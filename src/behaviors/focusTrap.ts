@@ -142,11 +142,12 @@ export function focusTrap(
 
   // Prevent focus leaving the trap container
   document.addEventListener(
-    'focusin',
-    (event: FocusEvent) => {
+    'focus',
+    event => {
       ensureTrapZoneHasFocus(event.target)
     },
-    {signal: wrappingController.signal}
+    // use capture to ensure we get all events.  focus events do not bubble
+    {signal: wrappingController.signal, capture: true}
   )
 
   // focus the first element

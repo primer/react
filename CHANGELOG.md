@@ -1,5 +1,31 @@
 # @primer/components
 
+## 28.1.1
+
+### Patch Changes
+
+- [`ff177c88`](https://github.com/primer/components/commit/ff177c88200f2ebb8c27a8e41aeb869a8eddf95b) [#1242](https://github.com/primer/components/pull/1242) Thanks [@dgreif](https://github.com/dgreif)! - Use `Item` `index` as fallback key within `List` groups
+
+* [`fb2fa6c2`](https://github.com/primer/components/commit/fb2fa6c2f40be51f4f7201b93e004bb7d2257110) [#1244](https://github.com/primer/components/pull/1244) Thanks [@dgreif](https://github.com/dgreif)! - Allow focus to move to an input outside an overlay on mousedown
+
+- [`1519742f`](https://github.com/primer/components/commit/1519742fcffcad9d14c972bc8c1fdd8e575c956e) [#1243](https://github.com/primer/components/pull/1243) Thanks [@dgreif](https://github.com/dgreif)! - Use `active-descendant` to control focus in `SelectPanel`
+
+* [`c1991318`](https://github.com/primer/components/commit/c1991318aa7ee5d021f458db26cd2597279cc4ba) [#1158](https://github.com/primer/components/pull/1158) Thanks [@dgreif](https://github.com/dgreif)! - Add background styles for focused action list items, instead of using default `outline`
+
+## 28.1.0
+
+### Minor Changes
+
+- [`6800c609`](https://github.com/primer/components/commit/6800c609634d8227c6538a49bca3ef59d8b660a1) [#1232](https://github.com/primer/components/pull/1232) Thanks [@dgreif](https://github.com/dgreif)! - New `Spinner` Component
+
+### Patch Changes
+
+- [`909ada5c`](https://github.com/primer/components/commit/909ada5c47c597f0260563c5030df0613051f618) [#1224](https://github.com/primer/components/pull/1224) Thanks [@dgreif](https://github.com/dgreif)! - Add `SelectPanel` alpha component
+
+* [`0d26d2b0`](https://github.com/primer/components/commit/0d26d2b07d8ed242eec71fd05959d8cdd0e6f0ba) [#1240](https://github.com/primer/components/pull/1240) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Fix check Spacing on selected items for ActionList components.
+
+- [`e009e321`](https://github.com/primer/components/commit/e009e321bf6c456ca6584650cd5f3ea35fe36003) [#1235](https://github.com/primer/components/pull/1235) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Dialog properly auto-focuses cancel button by default when originating from a FocusZone/FocusTrap.
+
 ## 28.0.4
 
 ### Patch Changes

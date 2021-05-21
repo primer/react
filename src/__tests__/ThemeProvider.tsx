@@ -377,11 +377,14 @@ describe('useColorSchemeVar', () => {
     }
 
     function CustomBg() {
-      const customBg = useColorSchemeVar({
-        light: 'red',
-        dark: 'blue',
-        dark_dimmed: 'green'
-      })
+      const customBg = useColorSchemeVar(
+        {
+          light: 'red',
+          dark: 'blue',
+          dark_dimmed: 'green'
+        },
+        'inherit'
+      )
 
       return <Text bg={customBg}>Hello</Text>
     }

@@ -70,9 +70,9 @@ exports[`ActionMenu renders consistently 1`] = `
 <button
   aria-haspopup="listbox"
   aria-label="menu"
-  aria-labelledby="__primer_id_10000"
+  aria-labelledby="__primer_id_10001"
   className="c0"
-  id="__primer_id_10000"
+  id="__primer_id_10001"
   onClick={[Function]}
   onKeyDown={[Function]}
   tabIndex={0}

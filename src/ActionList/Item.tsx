@@ -7,6 +7,38 @@ import {ItemInput} from './List'
 import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
+import {useColorSchemeVar, useTheme} from '../ThemeProvider'
+import {uniqueId} from '../utils/uniqueId'
+
+/**
+ * These colors are not yet in our default theme.  Need to remove this once they are added.
+ */
+const customItemThemes = {
+  default: {
+    hover: {
+      light: 'rgba(46, 77, 108, 0.06)',
+      dark: 'rgba(201, 206, 212, 0.12)',
+      dark_dimmed: 'rgba(201, 206, 212, 0.12)'
+    },
+    focus: {
+      light: 'rgba(54, 77, 100, 0.16)',
+      dark: 'rgba(201, 206, 212, 0.24)',
+      dark_dimmed: 'rgba(201, 206, 212, 0.24)'
+    }
+  },
+  danger: {
+    hover: {
+      light: 'rgba(234, 74, 90, 0.08)',
+      dark: 'rgba(248, 81, 73, 0.16)',
+      dark_dimmed: 'rgba(248, 81, 73, 0.16)'
+    },
+    focus: {
+      light: 'rgba(234, 74, 90, 0.14)',
+      dark: 'rgba(248, 81, 73, 0.24)',
+      dark_dimmed: 'rgba(248, 81, 73, 0.24)'
+    }
+  }
+} as const
 
 /**
  * Contract for props passed to the `Item` component.
@@ -89,13 +121,14 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   id?: number | string
 }
 
+export const itemActiveDescendantClass = `${uniqueId()}active-descendant`
+
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
       color: get('colors.text.disabled'),
       iconColor: get('colors.text.disabled'),
       annotationColor: get('colors.text.disabled'),
-      hoverBackground: 'inherit',
       hoverCursor: 'default'
     }
   }
@@ -106,15 +139,13 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         color: get('colors.text.danger'),
         iconColor: get('colors.icon.danger'),
         annotationColor: get('colors.text.disabled'),
-        hoverBackground: get('colors.bg.danger'),
         hoverCursor: 'pointer'
       }
     default:
       return {
         color: 'inherit',
-        iconColor: get('colors.text.disabled'),
-        annotationColor: get('colors.text.disabled'),
-        hoverBackground: get('colors.selectMenu.tapHighlight'),
+        iconColor: get('colors.text.secondary'),
+        annotationColor: get('colors.text.secondary'),
         hoverCursor: 'pointer'
       }
   }
@@ -125,7 +156,13 @@ const StyledItemContent = styled.div`
 `
 
 const StyledItem = styled.div<
-  {variant: ItemProps['variant']; showDivider: ItemProps['showDivider']; item?: ItemInput} & SxProp
+  {
+    variant: ItemProps['variant']
+    showDivider: ItemProps['showDivider']
+    item?: ItemInput
+    hoverBackground: string
+    focusBackground: string
+  } & SxProp
 >`
   /* 6px vertical padding + 20px line height = 32px total height
    *
@@ -139,7 +176,7 @@ const StyledItem = styled.div<
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBackground};
+      background: ${({hoverBackground}) => hoverBackground};
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
@@ -157,6 +194,20 @@ const StyledItem = styled.div<
       border: 0 solid ${get('colors.selectMenu.borderSecondary')};
       border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
     }
+
+    // Override if current or previous item is active descendant
+    &.${itemActiveDescendantClass}, .${itemActiveDescendantClass} + & {
+      ${StyledItemContent}::before {
+        border-color: transparent;
+      }
+    }
+  }
+
+  // Focused OR Active Descendant
+  &:focus,
+  &.${itemActiveDescendantClass} {
+    background: ${({focusBackground}) => focusBackground};
+    outline: none;
   }
 
   ${sx}
@@ -173,20 +224,23 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   // hardcoded '20px' with '${get('space.s20')}'.
   height: 20px;
   width: ${get('space.3')};
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-right: ${get('space.2')};
+`
 
+const ColoredVisualContainer = styled(BaseVisualContainer)`
   svg {
     fill: ${({variant, disabled}) => getItemVariant(variant, disabled).iconColor};
     font-size: ${get('fontSizes.0')};
   }
 `
 
-const LeadingVisualContainer = styled(BaseVisualContainer)``
+const LeadingVisualContainer = styled(ColoredVisualContainer)``
 
-const TrailingVisualContainer = styled(BaseVisualContainer)`
+const TrailingVisualContainer = styled(ColoredVisualContainer)`
   color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
   margin-left: auto;
   margin-right: 0;
@@ -201,6 +255,10 @@ const TrailingVisualContainer = styled(BaseVisualContainer)`
 const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
   margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
+`
+
+const MultiSelectInput = styled.input`
+  pointer-events: none;
 `
 
 /**
@@ -259,6 +317,12 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     [onAction, disabled, itemProps, onClick]
   )
 
+  const customItemTheme = customItemThemes[variant]
+  const hoverBackground = useColorSchemeVar(customItemTheme.hover, 'inherit')
+  const focusBackground = useColorSchemeVar(customItemTheme.focus, 'inherit')
+
+  const {theme} = useTheme()
+
   return (
     <StyledItem
       tabIndex={disabled ? undefined : -1}
@@ -269,21 +333,31 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
+      hoverBackground={disabled ? 'inherit' : hoverBackground}
+      focusBackground={disabled ? 'inherit' : focusBackground}
     >
       {!!selected === selected && (
-        <LeadingVisualContainer>
+        <BaseVisualContainer>
           {selectionVariant === 'multiple' ? (
             <>
               {/*
                * readOnly is required because we are doing a one-way bind to `checked`.
                * aria-readonly="false" tells screen that they can still interact with the checkbox
                */}
-              <input type="checkbox" checked={selected} aria-label={text} readOnly aria-readonly="false" />
+              <MultiSelectInput
+                disabled={disabled}
+                tabIndex={-1}
+                type="checkbox"
+                checked={selected}
+                aria-label={text}
+                readOnly
+                aria-readonly="false"
+              />
             </>
           ) : (
-            selected && <CheckIcon />
+            selected && <CheckIcon fill={theme?.colors.text.primary} />
           )}
-        </LeadingVisualContainer>
+        </BaseVisualContainer>
       )}
       {LeadingVisual && (
         <LeadingVisualContainer variant={variant} disabled={disabled}>

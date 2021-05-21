@@ -2,7 +2,7 @@ import React from 'react'
 import {focusTrap} from '../behaviors/focusTrap'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
-interface FocusTrapHookSettings {
+export interface FocusTrapHookSettings {
   /**
    * Ref that will be used for the trapping container. If not provided, one will
    * be created by this hook and returned.

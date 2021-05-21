@@ -65,6 +65,7 @@ export function MultiSelectStory(): JSX.Element {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        showItemDividers={true}
       />
     </>
   )
@@ -94,6 +95,7 @@ export function SingleSelectStory(): JSX.Element {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        showItemDividers={true}
       />
     </>
   )
