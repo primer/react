@@ -4,6 +4,7 @@ import {theme, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
+import TextInput from '../TextInput'
 
 const meta: Meta = {
   title: 'Composite components/DropdownMenu',
@@ -34,6 +35,7 @@ export function FavoriteColorStory(): JSX.Element {
   return (
     <>
       <h1>Favorite Color</h1>
+      <TextInput placeholder="Input for focus testing" mb={2} />
       <div id="favorite-color-label">Please select your favorite color:</div>
       <DropdownMenu
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (

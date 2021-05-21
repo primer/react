@@ -104,7 +104,7 @@ describe('ActionMenu', () => {
     expect(portalRoot).toBeTruthy()
     const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
     act(() => {
-      fireEvent.click(somethingElse)
+      fireEvent.mouseDown(somethingElse)
     })
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
