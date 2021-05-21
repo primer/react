@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Fix border radius on ConfirmationDialog buttons
+Fix border radius on buttons and title `font-weight` in ConfirmationDialog
