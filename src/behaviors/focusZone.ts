@@ -346,6 +346,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   let activeDescendantSuspended = Boolean(activeDescendantControl)
   let currentFocusedElement: HTMLElement | undefined
 
+  function getFirstFocusableElement() {
+    return focusableElements[0] as HTMLElement | undefined
+  }
+
   function updateFocusedElement(to?: HTMLElement) {
     const from = currentFocusedElement
     currentFocusedElement = to
@@ -370,10 +374,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     activeDescendantCallback?.(to, from === to ? undefined : from)
   }
 
-  function suspendActiveDescendant() {
+  function suspendActiveDescendant(previouslyActiveElement = currentFocusedElement) {
     activeDescendantControl?.removeAttribute('aria-activedescendant')
     activeDescendantSuspended = true
-    activeDescendantCallback?.(undefined, currentFocusedElement)
+    activeDescendantCallback?.(undefined, previouslyActiveElement)
     if (focusInStrategy === 'first') {
       currentFocusedElement = undefined
     }
@@ -399,7 +403,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     }
 
     if (!currentFocusedElement) {
-      updateFocusedElement(focusableElements[0])
+      updateFocusedElement(getFirstFocusableElement())
     }
   }
 
@@ -411,7 +415,16 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
 
         // If removing the last-focused element, set tabindex=0 to the first element in the list.
         if (element === currentFocusedElement) {
-          updateFocusedElement(focusableElements[0])
+          const nextElementToFocus = getFirstFocusableElement()
+          updateFocusedElement(nextElementToFocus)
+
+          if (activeDescendantControl && !activeDescendantSuspended) {
+            if (nextElementToFocus) {
+              setActiveDescendant(element, nextElementToFocus)
+            } else {
+              suspendActiveDescendant(element)
+            }
+          }
         }
       }
       const savedIndex = savedTabIndex.get(element)
@@ -443,7 +456,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
   })
 
   // Open the first tabbable element for tabbing
-  updateFocusedElement(focusableElements[0])
+  updateFocusedElement(getFirstFocusableElement())
 
   // If the DOM structure of the container changes, make sure we keep our state up-to-date
   // with respect to the focusable elements cache and its order
@@ -596,8 +609,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
           let nextElementToFocus: HTMLElement | undefined = undefined
 
           if (activeDescendantSuspended) {
-            activeDescendantSuspended = false
-            nextElementToFocus = currentFocusedElement || focusableElements[0]
+            nextElementToFocus = currentFocusedElement || getFirstFocusableElement()
+            if (nextElementToFocus) {
+              activeDescendantSuspended = false
+            }
           } else {
             // If there is a custom function that retrieves the next focusable element, try calling that first.
             if (settings?.getNextFocusable) {

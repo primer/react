@@ -2,7 +2,7 @@ import React, {useCallback, useMemo} from 'react'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import {OverlayProps} from '../Overlay'
 import {ItemInput} from '../ActionList/List'
-import {FocusZoneSettings} from '../behaviors/focusZone'
+import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DropdownButton} from '../DropdownMenu'
 import {ItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
@@ -41,11 +41,9 @@ function isMultiSelectVariant(
   return Array.isArray(selected)
 }
 
-const focusZoneSettings: Partial<FocusZoneSettings> = {
-  focusOutBehavior: 'wrap',
-  focusableElementFilter: element => {
-    return !(element instanceof HTMLInputElement) || element.type !== 'checkbox'
-  }
+const focusZoneSettings: Partial<FocusZoneHookSettings> = {
+  // Let FilteredActionList handle focus zone
+  disabled: true
 }
 
 const textInputProps: Partial<TextInputProps> = {
@@ -104,7 +102,6 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            // multi select
             const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
             const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
 

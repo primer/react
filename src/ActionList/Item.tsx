@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
+import {uniqueId} from '../utils/uniqueId'
 
 /**
  * These colors are not yet in our default theme.  Need to remove this once they are added.
@@ -120,6 +121,8 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   id?: number | string
 }
 
+export const itemActiveDescendantClass = `${uniqueId()}active-descendant`
+
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
@@ -191,9 +194,18 @@ const StyledItem = styled.div<
       border: 0 solid ${get('colors.selectMenu.borderSecondary')};
       border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
     }
+
+    // Override if current or previous item is active descendant
+    &.${itemActiveDescendantClass}, .${itemActiveDescendantClass} + & {
+      ${StyledItemContent}::before {
+        border-color: transparent;
+      }
+    }
   }
 
-  &:focus {
+  // Focused OR Active Descendant
+  &:focus,
+  &.${itemActiveDescendantClass} {
     background: ${({focusBackground}) => focusBackground};
     outline: none;
   }
@@ -215,7 +227,6 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
   justify-content: center;
   margin-right: ${get('space.2')};
 `
@@ -244,6 +255,10 @@ const TrailingVisualContainer = styled(ColoredVisualContainer)`
 const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
   margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
+`
+
+const MultiSelectInput = styled.input`
+  pointer-events: none;
 `
 
 /**
@@ -329,7 +344,15 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
                * readOnly is required because we are doing a one-way bind to `checked`.
                * aria-readonly="false" tells screen that they can still interact with the checkbox
                */}
-              <input type="checkbox" checked={selected} aria-label={text} readOnly aria-readonly="false" />
+              <MultiSelectInput
+                disabled={disabled}
+                tabIndex={-1}
+                type="checkbox"
+                checked={selected}
+                aria-label={text}
+                readOnly
+                aria-readonly="false"
+              />
             </>
           ) : (
             selected && <CheckIcon fill={theme?.colors.text.primary} />

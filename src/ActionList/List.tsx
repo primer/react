@@ -24,6 +24,11 @@ export interface ListPropsBase {
   role?: AriaRole
 
   /**
+   * id to attach to the base DOM node of the list
+   */
+  id?: string
+
+  /**
    * A `List`-level custom `Item` renderer. Every `Item` within this `List`
    * without a `Group`-level or `Item`-level custom `Item` renderer will be
    * rendered using this function component.
