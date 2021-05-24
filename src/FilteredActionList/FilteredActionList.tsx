@@ -70,14 +70,14 @@ export function FilteredActionList({
 
       if (current) {
         current.classList.add(itemActiveDescendantClass)
-        current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
+        current.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'})
       }
     }
   })
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
-    activeDescendantRef.current?.scrollIntoView({block: 'center', inline: 'center'})
+    activeDescendantRef.current?.scrollIntoView({block: 'nearest', inline: 'nearest'})
   }, [items])
 
   return (
