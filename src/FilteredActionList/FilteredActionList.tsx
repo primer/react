@@ -8,6 +8,8 @@ import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {uniqueId} from '../utils/uniqueId'
 import {itemActiveDescendantClass} from '../ActionList/Item'
+import styled from 'styled-components'
+import {get} from '../constants'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -38,6 +40,11 @@ function scrollIntoViewingArea(
 
   // either completely in view or outside viewing area on both ends, don't scroll
 }
+
+const StyledHeader = styled.div`
+  box-shadow: 0 1px 0 ${get('colors.border.primary')};
+  z-index: 1;
+`
 
 export function FilteredActionList({
   loading = false,
@@ -111,18 +118,20 @@ export function FilteredActionList({
 
   return (
     <Flex ref={containerRef} flexDirection="column" overflow="hidden">
-      <TextInput
-        ref={inputRef}
-        block
-        width="auto"
-        color="text.primary"
-        onChange={onInputChange}
-        onKeyPress={onInputKeyPress}
-        placeholder={placeholderText}
-        aria-label={placeholderText}
-        aria-controls={listId}
-        {...textInputProps}
-      />
+      <StyledHeader>
+        <TextInput
+          ref={inputRef}
+          block
+          width="auto"
+          color="text.primary"
+          onChange={onInputChange}
+          onKeyPress={onInputKeyPress}
+          placeholder={placeholderText}
+          aria-label={placeholderText}
+          aria-controls={listId}
+          {...textInputProps}
+        />
+      </StyledHeader>
       <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
