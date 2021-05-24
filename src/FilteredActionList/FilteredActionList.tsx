@@ -16,6 +16,29 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
 }
 
+function scrollIntoViewingArea(
+  child: HTMLElement,
+  container: HTMLElement,
+  margin = 8,
+  behavior: ScrollBehavior = 'smooth'
+) {
+  const {top: childTop, bottom: childBottom} = child.getBoundingClientRect()
+  const {top: containerTop, bottom: containerBottom} = container.getBoundingClientRect()
+
+  const isChildTopAboveViewingArea = childTop < containerTop + margin
+  const isChildBottomBelowViewingArea = childBottom > containerBottom - margin
+
+  if (isChildTopAboveViewingArea) {
+    const scrollHeightToChildTop = childTop - containerTop + container.scrollTop
+    container.scrollTo({behavior, top: scrollHeightToChildTop - margin})
+  } else if (isChildBottomBelowViewingArea) {
+    const scrollHeightToChildBottom = childBottom - containerBottom + container.scrollTop
+    container.scrollTo({behavior, top: scrollHeightToChildBottom + margin})
+  }
+
+  // either completely in view or outside viewing area on both ends, don't scroll
+}
+
 export function FilteredActionList({
   loading = false,
   placeholderText,
@@ -33,6 +56,7 @@ export function FilteredActionList({
   )
 
   const containerRef = useRef<HTMLInputElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useMemo(uniqueId, [])
@@ -70,14 +94,19 @@ export function FilteredActionList({
 
       if (current) {
         current.classList.add(itemActiveDescendantClass)
-        current.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'})
+
+        if (scrollContainerRef.current) {
+          scrollIntoViewingArea(current, scrollContainerRef.current)
+        }
       }
     }
   })
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
-    activeDescendantRef.current?.scrollIntoView({block: 'nearest', inline: 'nearest'})
+    if (activeDescendantRef.current && scrollContainerRef.current) {
+      scrollIntoViewingArea(activeDescendantRef.current, scrollContainerRef.current, undefined, 'auto')
+    }
   }, [items])
 
   return (
@@ -94,7 +123,7 @@ export function FilteredActionList({
         aria-controls={listId}
         {...textInputProps}
       />
-      <Box overflow="auto">
+      <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
