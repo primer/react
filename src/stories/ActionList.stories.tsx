@@ -335,7 +335,7 @@ export function SizeStressTestingStory(): JSX.Element {
           items={[
             {
               leadingVisual: ArrowRightIcon,
-              text: 'Block Description',
+              text: 'Block Description.  Long text should wrap',
               description: 'This description is long, but it is block so it wraps',
               descriptionVariant: 'block',
               trailingIcon: ArrowLeftIcon,
@@ -351,7 +351,7 @@ export function SizeStressTestingStory(): JSX.Element {
             },
             {
               leadingVisual: ArrowRightIcon,
-              text: 'Really long text without a description',
+              text: 'Really long text without a description should wrap',
               trailingIcon: ArrowLeftIcon,
               showDivider: true
             }

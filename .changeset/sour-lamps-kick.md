@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Truncate text within ActionList Items, and use correct font size for description
+Correct font size and truncate for description within ActionList Items
