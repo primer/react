@@ -262,6 +262,7 @@ const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descrip
   margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
   overflow: hidden;
   flex-grow: 1;
+  flex-basis: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 0 : 'auto')};
 `
 
 const MultiSelectInput = styled.input`
