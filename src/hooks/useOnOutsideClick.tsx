@@ -67,16 +67,16 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
   )
   useEffect(() => {
     if (handlers.length === 0) {
-      document.addEventListener('click', handleClick)
+      document.addEventListener('mousedown', handleClick)
     }
-    setTimeout(() => handlers.push(onOutsideClickInternal))
+    handlers.push(onOutsideClickInternal)
     return () => {
       handlers.splice(
         handlers.findIndex(h => h === onOutsideClickInternal),
         1
       )
       if (handlers.length === 0) {
-        document.removeEventListener('click', handleClick)
+        document.removeEventListener('mousedown', handleClick)
       }
     }
   }, [onOutsideClickInternal])

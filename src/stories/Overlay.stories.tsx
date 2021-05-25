@@ -105,11 +105,39 @@ export const DialogOverlay = () => {
 
 export const OverlayOnTopOfOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const secondaryButtonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false)
-  const items = React.useMemo(() => [{text: '🔵 Cyan'}, {text: '🔴 Magenta'}, {text: '🟡 Yellow'}], [])
+  const closeSecondaryOverlay = () => setIsSecondaryOpen(false)
+  const items = React.useMemo(
+    () => [
+      {
+        text: '🔵 Cyan',
+        onMouseDown: (e: React.MouseEvent) => {
+          console.log('prevent default on ListItem')
+          e.preventDefault()
+        }
+      },
+      {
+        text: '🔴 Magenta',
+        onMouseDown: (e: React.MouseEvent) => {
+          console.log('prevent default on ListItem')
+          e.preventDefault()
+        }
+      },
+      {
+        text: '🟡 Yellow',
+        onMouseDown: (e: React.MouseEvent) => {
+          console.log('prevent default on ListItem')
+          e.preventDefault()
+        }
+      }
+    ],
+    []
+  )
   const [selectedItem, setSelectedItem] = React.useState<ItemInput | undefined>()
   return (
     <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
@@ -125,20 +153,44 @@ export const OverlayOnTopOfOverlay = () => {
           onClickOutside={closeOverlay}
           width="small"
         >
-          <Flex flexDirection="column" p={2}>
-            <Text>Select an option!</Text>
-            <DropdownMenu
-              renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-                <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
-                  {children}
-                </DropdownButton>
-              )}
-              placeholder="🎨"
-              items={items}
-              selectedItem={selectedItem}
-              onChange={setSelectedItem}
-            />
-          </Flex>
+          <Button
+            ref={secondaryButtonRef}
+            onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}
+            onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
+          >
+            open overlay
+          </Button>
+          {isSecondaryOpen ? (
+            <Overlay
+              initialFocusRef={confirmButtonRef}
+              returnFocusRef={buttonRef}
+              ignoreClickRefs={[buttonRef]}
+              onEscape={closeSecondaryOverlay}
+              onClickOutside={closeSecondaryOverlay}
+              onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
+              width="small"
+              sx={{top: '40px'}}
+            >
+              <Flex flexDirection="column" p={2}>
+                <Text>Select an option!</Text>
+                <DropdownMenu
+                  renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+                    <DropdownButton
+                      aria-labelledby={`favorite-color-label ${ariaLabelledBy}`}
+                      onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
+                      {...anchorProps}
+                    >
+                      {children}
+                    </DropdownButton>
+                  )}
+                  placeholder="🎨"
+                  items={items}
+                  selectedItem={selectedItem}
+                  onChange={setSelectedItem}
+                />
+              </Flex>
+            </Overlay>
+          ) : null}
         </Overlay>
       ) : null}
     </Position>
