@@ -8,6 +8,7 @@ import {ItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import Flex from '../Flex'
 import {TextInputProps} from '../TextInput'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -26,12 +27,11 @@ interface SelectPanelBaseProps {
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
   ) => void
   placeholder?: string
-  onFilterChange: (value: string, e?: React.ChangeEvent<HTMLInputElement>) => void
   overlayProps?: Partial<OverlayProps>
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'onFilterChange' | 'selectionVariant'> &
+  Omit<FilteredActionListProps, 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -59,19 +59,27 @@ export function SelectPanel({
   placeholder,
   selected,
   onSelectedChange,
-  onFilterChange,
+  filterValue: externalFilterValue,
+  onFilterChange: externalOnFilterChange,
   items,
   overlayProps,
   ...listProps
 }: SelectPanelProps): JSX.Element {
+  const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+  const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
+    (value, e) => {
+      externalOnFilterChange(value, e)
+      setInternalFilterValue(value)
+    },
+    [externalOnFilterChange, setInternalFilterValue]
+  )
+
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
   const onClose = useCallback(
     (gesture: 'click-outside' | 'escape' | 'selection') => {
       onOpenChange(false, gesture)
-      // ensure consuming component clears filter since the input will be blank on next open
-      onFilterChange('')
     },
-    [onFilterChange, onOpenChange]
+    [onOpenChange]
   )
 
   const renderMenuAnchor: AnchoredOverlayProps['renderAnchor'] = useCallback(
@@ -130,6 +138,7 @@ export function SelectPanel({
     >
       <Flex flexDirection="column" width="100%" height="100%">
         <FilteredActionList
+          filterValue={filterValue}
           onFilterChange={onFilterChange}
           {...listProps}
           role="listbox"
