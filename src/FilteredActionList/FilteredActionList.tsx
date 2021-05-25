@@ -7,10 +7,12 @@ import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {uniqueId} from '../utils/uniqueId'
 import {itemActiveDescendantClass} from '../ActionList/Item'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
   placeholderText: string
+  filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
 }
@@ -18,17 +20,20 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
 export function FilteredActionList({
   loading = false,
   placeholderText,
+  filterValue: externalFilterValue,
   onFilterChange,
   items,
   textInputProps,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
       onFilterChange(value, e)
+      setInternalFilterValue(value)
     },
-    [onFilterChange]
+    [onFilterChange, setInternalFilterValue]
   )
 
   const containerRef = useRef<HTMLInputElement>(null)
@@ -80,6 +85,7 @@ export function FilteredActionList({
         block
         width="auto"
         color="text.primary"
+        value={filterValue}
         onChange={onInputChange}
         onKeyPress={onInputKeyPress}
         placeholder={placeholderText}
