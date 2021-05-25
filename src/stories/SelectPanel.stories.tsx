@@ -31,7 +31,7 @@ export default meta
 
 function getColorCircle(color: string) {
   return function () {
-    return <BorderBox bg={color} borderColor={color} padding={2} borderRadius={10} />
+    return <BorderBox bg={color} borderColor={color} width={14} height={14} borderRadius={10} margin="auto" />
   }
 }
 
