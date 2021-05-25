@@ -7,4 +7,50 @@ A `SelectPanel` provides an anchor that will open an overlay with a list of sele
 
 ## Example
 
+```javascript live noinline
+function getColorCircle(color) {
+  return function () {
+    return <BorderBox bg={color} borderColor={color} width={14} height={14} borderRadius={10} margin="auto" />
+  }
+}
+
+const items = [
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
+]
+
+function DemoComponent() {
+const [selected, setSelected] = React.useState([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <SelectPanel
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children || 'Select Labels'}
+        </DropdownButton>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      showItemDividers={true}
+      overlayProps={{width: 'small', height: 'xsmall'}}
+    />
+  )
+}
+
+render(<DemoComponent />)
+```
+
 ## Component props

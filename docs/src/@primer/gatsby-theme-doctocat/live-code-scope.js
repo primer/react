@@ -23,6 +23,7 @@ import State from '../../../components/State'
 import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
 import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
 import {ConfirmationDialog, useConfirm} from '../../../../src/Dialog/ConfirmationDialog'
+import {SelectPanel} from '../../../../src/SelectPanel/SelectPanel'
 
 export default {
   ...doctocatComponents,
@@ -48,5 +49,6 @@ export default {
   Dialog2,
   ConfirmationDialog,
   useConfirm,
-  AnchoredOverlay
+  AnchoredOverlay,
+  SelectPanel
 }
