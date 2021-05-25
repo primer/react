@@ -375,7 +375,11 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         {children}
         {(text || description) && (
           <StyledTextContainer descriptionVariant={descriptionVariant}>
-            {text && <div>{text}</div>}
+            {text && (
+              <Truncate title={text} inline={true} maxWidth="100%">
+                {text}
+              </Truncate>
+            )}
             {description && (
               <DescriptionContainer descriptionVariant={descriptionVariant}>
                 {descriptionVariant === 'block' ? (
