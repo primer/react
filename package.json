@@ -6,13 +6,13 @@
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "start": "cd docs && yarn run develop",
+    "start": "cd docs && npm run develop",
     "predist": "rm -rf dist & rm -rf lib & rm -rf lib-esm",
-    "dist": "concurrently yarn:dist:*",
+    "dist": "concurrently npm:dist:*",
     "dist:rollup": "cross-env NODE_ENV=production rollup -c",
     "dist:transpile:cjs": "cross-env BABEL_MODULE=commonjs babel src --out-dir lib --extensions '.js,.ts,.jsx,.tsx'",
     "dist:transpile:esm": "babel src --out-dir lib-esm --extensions '.js,.ts,.jsx,.tsx'",
-    "dist:types": "yarn build-types && yarn copy-esm-types",
+    "dist:types": "npm run build-types && npm run copy-esm-types",
     "build-types": "tsc",
     "copy-esm-types": "copyfiles -u 1 \"./lib/**/*.d.ts\" ./lib-esm",
     "lint": "eslint '**/*.{js,ts,tsx}'",
@@ -22,8 +22,8 @@
     "watch": "jest --watch --no-coverage",
     "playroom:start": "playroom start",
     "playroom:build": "playroom build",
-    "build": "yarn playroom:build",
-    "release": "yarn dist && changeset publish",
+    "build": "npm run playroom:build",
+    "release": "npm run dist && changeset publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -138,7 +138,7 @@
   },
   "prettier": "@github/prettier-config",
   "actionBundlesize": {
-    "build": "yarn && yarn dist:rollup",
+    "build": "npm install && npm run dist:rollup",
     "files": [
       {
         "path": "dist/browser.esm.js",

@@ -49,13 +49,13 @@ We primarily use our documentation site as a workspace to develop new components
 Before running the documentation site locally, you'll need to install packages in the root and `docs` directories:
 
 ```sh
-yarn && cd docs && yarn
+npm install && cd docs && npm install
 ```
 
 Then navigate back to the root folder and run the following to start up the site:
 
 ```sh
-yarn start
+npm start
 ```
 
 Navigate to http://localhost:8000/ to see the site in your browser ✨
@@ -145,7 +145,7 @@ const Component = styled.div`
 We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our JavaScript. To check your work before pushing, run:
 
 ```sh
-yarn run lint
+npm run lint
 ```
 
 Or, you can use [npx] to run eslint on one or more specific files:
@@ -158,17 +158,17 @@ npx eslint src/**/MyComponent.js
 **Protip:** The [eslint `--fix` flag](https://eslint.org/docs/user-guide/command-line-interface#--fix) can automatically fix most linting errors, such as those involving whitespace or incorrect ordering of object keys and imports. You can fix those issues across the entire project with:
 
 ```sh
-yarn run lint -- --fix
+npm run lint -- --fix
 ```
 
-**Protip:** `yarn run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
+**Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
 
 ### Testing
 
-We test our components with [Jest](https://facebook.github.io/jest/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run the tests locally with `yarn test`. To run the tests as you work, run Jest in watch mode with:
+We test our components with [Jest](https://facebook.github.io/jest/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run the tests locally with `npm test`. To run the tests as you work, run Jest in watch mode with:
 
 ```sh
-yarn test -- --watch
+npm test -- --watch
 ```
 
 See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways that we test our components.
@@ -234,7 +234,7 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 #### Using changesets to prepare and publish a release
 
 1. When creating a new PR, changeset-bot will remind you to add a changeset if your change should trigger a new version number for the package.
-2. To create a new changeset on your local machine, run `yarn changeset` and answer the prompts. If you are introducing multiple features in the PR, add a separate changeset for each.
+2. To create a new changeset on your local machine, run `npx changeset` and answer the prompts. If you are introducing multiple features in the PR, add a separate changeset for each.
 3. Push your new changes along with the changeset file to your PR; changeset-bot will show that there are valid changesets in the PR.
 4. When the PR is ready, merge it to the main branch.
 5. The changeset action will automatically create a new PR that bumps the version number appropriately, creates or updates `CHANGELOG.md`, and shows the release notes that will be used in the GitHub Release notes.
@@ -243,11 +243,11 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 
 ## Troubleshooting
 
-**`yarn start` fails with an error like `gatsby: command not found`**
+**`npm start` fails with an error like `gatsby: command not found`**
 
-Make sure to run `yarn` from inside the `docs/` subfolder _as well as_ the root folder.
+Make sure to run `npm install` from inside the `docs/` subfolder _as well as_ the root folder.
 
-**`yarn start` fails with a different error**
+**`npm start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
 
