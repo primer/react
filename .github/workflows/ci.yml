@@ -14,16 +14,16 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: yarn
+        run: npm ci
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Build
-        run: yarn dist
+        run: npm run dist
 
       - name: Test
-        run: yarn test
+        run: npm run test
 
       - name: Create .npmrc
         if: github.event_name == 'push'
@@ -39,8 +39,8 @@ jobs:
         run: |
           echo "$( jq '.version = "0.0.0"' package.json )" > package.json
           echo -e "---\n'@primer/components': patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
-          yarn changeset version --snapshot
-          yarn changeset publish --tag canary
+          npx changeset version --snapshot
+          npx changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

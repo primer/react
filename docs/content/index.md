@@ -27,7 +27,7 @@ Check out [our getting started guide](/getting-started) for everything you need 
 To run `@primer/components` locally when adding or updating components:
 
 1. Clone this repo: `git clone https://github.com/primer/components`
-2. Install dependencies: `yarn`
-3. Run the dev app: `yarn start`
+2. Install dependencies: `npm install`
+3. Run the dev app: `npm start`
 
 > 👉 See [the contributing docs](https://github.com/primer/components/blob/main/contributor-docs/CONTRIBUTING.md) for more info on code style, testing, and coverage.
