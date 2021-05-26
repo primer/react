@@ -153,8 +153,9 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
 
 const StyledItemContent = styled.div`
   display: flex;
-  overflow: hidden;
+  min-width: 0;
   flex-grow: 1;
+  position: relative;
 `
 
 const StyledItem = styled.div<
@@ -190,7 +191,8 @@ const StyledItem = styled.div<
     ${StyledItemContent}::before {
       content: ' ';
       display: block;
-      position: relative;
+      position: absolute;
+      width: 100%;
       top: -7px;
       // NB: This 'get' won’t execute if it’s moved into the arrow function below.
       border: 0 solid ${get('colors.selectMenu.borderSecondary')};
@@ -217,7 +219,7 @@ const StyledItem = styled.div<
 
 const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
   display: flex;
-  overflow: hidden;
+  min-width: 0;
   flex-grow: 1;
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
 `
@@ -260,7 +262,7 @@ const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descrip
   color: ${get('colors.text.secondary')};
   font-size: ${get('fontSizes.0')};
   margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
-  overflow: hidden;
+  min-width: 0;
   flex-grow: 1;
   flex-basis: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 0 : 'auto')};
 `
