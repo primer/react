@@ -17,7 +17,7 @@
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "deepmerge": "4.2.2",
-    "gatsby": "2.27.5",
+    "gatsby": "^3.6.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-typescript": "2.10.0",
     "prop-types": "^15.7.2",
