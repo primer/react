@@ -14,7 +14,7 @@ type ShouldCallClickHandlerSettings = {
   e: TouchOrMouseEvent
 }
 
-const handlers: ((e: MouseEvent) => void)[] = []
+const handlers: ((e: MouseEvent) => boolean)[] = []
 
 /**
  * Calls all handlers in reverse order
@@ -22,10 +22,10 @@ const handlers: ((e: MouseEvent) => void)[] = []
  */
 function handleClick(event: MouseEvent) {
   if (!event.defaultPrevented) {
-    for (let i = handlers.length - 1; i >= 0; --i) {
-      handlers[i](event)
+    for (let i = handlers.length - 1; i >= 0; i--) {
+      const wasClickOutside = handlers[i](event)
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (event.defaultPrevented) {
+      if (!wasClickOutside || event.defaultPrevented) {
         break
       }
     }
@@ -59,15 +59,17 @@ const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallCl
 export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings): void => {
   const onOutsideClickInternal = useCallback(
     (e: TouchOrMouseEvent) => {
-      if (shouldCallClickHandler({ignoreClickRefs, containerRef, e})) {
+      const wasClickOutside = shouldCallClickHandler({ignoreClickRefs, containerRef, e})
+      if (wasClickOutside) {
         onClickOutside(e)
       }
+      return wasClickOutside
     },
     [onClickOutside, containerRef, ignoreClickRefs]
   )
   useEffect(() => {
     if (handlers.length === 0) {
-      document.addEventListener('mousedown', handleClick)
+      document.addEventListener('mousedown', handleClick, {capture: true})
     }
     handlers.push(onOutsideClickInternal)
     return () => {
@@ -76,7 +78,7 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
         1
       )
       if (handlers.length === 0) {
-        document.removeEventListener('mousedown', handleClick)
+        document.removeEventListener('mousedown', handleClick, {capture: true})
       }
     }
   }, [onOutsideClickInternal])

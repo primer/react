@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
@@ -110,8 +110,8 @@ export const OverlayOnTopOfOverlay = () => {
   const secondaryButtonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = () => setIsOpen(false)
-  const closeSecondaryOverlay = () => setIsSecondaryOpen(false)
+  const closeOverlay = useCallback(() => setIsOpen(false), [setIsOpen])
+  const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
   const items = React.useMemo(
     () => [
       {
@@ -138,6 +138,8 @@ export const OverlayOnTopOfOverlay = () => {
   const [selectedItem, setSelectedItem] = React.useState<ItemInput | undefined>()
   return (
     <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+      <input placeholder="Input for focus testing" />
+      <br />
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
@@ -145,26 +147,19 @@ export const OverlayOnTopOfOverlay = () => {
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
           onEscape={closeOverlay}
           onClickOutside={closeOverlay}
           width="small"
         >
-          <Button
-            ref={secondaryButtonRef}
-            onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}
-            onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
-          >
+          <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
             open overlay
           </Button>
           {isSecondaryOpen ? (
             <Overlay
               initialFocusRef={confirmButtonRef}
-              returnFocusRef={buttonRef}
-              ignoreClickRefs={[buttonRef]}
+              returnFocusRef={secondaryButtonRef}
               onEscape={closeSecondaryOverlay}
               onClickOutside={closeSecondaryOverlay}
-              onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
               width="small"
               sx={{top: '40px'}}
             >
@@ -172,11 +167,7 @@ export const OverlayOnTopOfOverlay = () => {
                 <Text>Select an option!</Text>
                 <DropdownMenu
                   renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-                    <DropdownButton
-                      aria-labelledby={`favorite-color-label ${ariaLabelledBy}`}
-                      onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
-                      {...anchorProps}
-                    >
+                    <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
                       {children}
                     </DropdownButton>
                   )}
