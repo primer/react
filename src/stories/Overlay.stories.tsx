@@ -117,21 +117,18 @@ export const OverlayOnTopOfOverlay = () => {
       {
         text: '🔵 Cyan',
         onMouseDown: (e: React.MouseEvent) => {
-          console.log('prevent default on ListItem')
           e.preventDefault()
         }
       },
       {
         text: '🔴 Magenta',
         onMouseDown: (e: React.MouseEvent) => {
-          console.log('prevent default on ListItem')
           e.preventDefault()
         }
       },
       {
         text: '🟡 Yellow',
         onMouseDown: (e: React.MouseEvent) => {
-          console.log('prevent default on ListItem')
           e.preventDefault()
         }
       }
