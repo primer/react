@@ -74,26 +74,22 @@ export const RefAnchoredOverlay: React.FC<RefAnchoredOverlayProps> = ({
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position})
 
-  return (
-    <>
-      {open ? (
-        <Overlay
-          returnFocusRef={anchorRef}
-          onClickOutside={onClickOutside}
-          onEscape={onEscape}
-          ref={updateOverlayRef}
-          role="listbox"
-          visibility={position ? 'visible' : 'hidden'}
-          height={height}
-          width={width}
-          {...overlayPosition}
-          {...overlayProps}
-        >
-          {children}
-        </Overlay>
-      ) : null}
-    </>
-  )
+  return open ? (
+    <Overlay
+      returnFocusRef={anchorRef}
+      onClickOutside={onClickOutside}
+      onEscape={onEscape}
+      ref={updateOverlayRef}
+      role="listbox"
+      visibility={position ? 'visible' : 'hidden'}
+      height={height}
+      width={width}
+      {...overlayPosition}
+      {...overlayProps}
+    >
+      {children}
+    </Overlay>
+  ) : null
 }
 
 RefAnchoredOverlay.displayName = 'AnchoredOverlay'
