@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "cross-env": "7.0.2",
-    "minipass": "^2.9.0"
+    "minipass": "^2.9.0",
+    "path-browserify": "^1.0.1"
   }
 }
