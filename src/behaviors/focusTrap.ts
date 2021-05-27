@@ -71,7 +71,7 @@ export function focusTrap(
   // is not found, blur the recently-focused element so that focus doesn't leave the
   // trap zone.
   function ensureTrapZoneHasFocus(focusedElement: EventTarget | null) {
-    if (focusedElement instanceof HTMLElement) {
+    if (focusedElement instanceof HTMLElement && document.contains(container)) {
       if (container.contains(focusedElement)) {
         // If a child of the trap zone was focused, remember it
         lastFocusedChild = focusedElement
