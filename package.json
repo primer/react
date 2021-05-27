@@ -127,7 +127,7 @@
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-visualizer": "4.0.4",
-    "semver": "7.3.2",
+    "semver": "7.3.5",
     "styled-components": "4.4.1",
     "typescript": "4.1.3"
   },
