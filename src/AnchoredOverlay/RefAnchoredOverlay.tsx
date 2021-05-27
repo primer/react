@@ -37,7 +37,7 @@ export interface RefAnchoredOverlayProps extends Pick<OverlayProps, 'height' | '
 }
 
 /**
- * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
+ * An `RefAnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor ref.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
 export const RefAnchoredOverlay: React.FC<RefAnchoredOverlayProps> = ({
@@ -91,4 +91,4 @@ export const RefAnchoredOverlay: React.FC<RefAnchoredOverlayProps> = ({
   ) : null
 }
 
-RefAnchoredOverlay.displayName = 'AnchoredOverlay'
+RefAnchoredOverlay.displayName = 'RefAnchoredOverlay'
