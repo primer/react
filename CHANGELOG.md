@@ -1,5 +1,25 @@
 # @primer/components
 
+## 28.2.0
+
+### Minor Changes
+
+- [`8368a83e`](https://github.com/primer/components/commit/8368a83efbc89aa73f9c775c25da62e34960c95c) [#1238](https://github.com/primer/components/pull/1238) Thanks [@dgreif](https://github.com/dgreif)! - New sizes for Overlay and Dialog. Sizes have been changed from abbreviations to full words. `xs` -> `xsmall`, `sm` -> `small`, `md` -> `medium`, `lg` -> `large`, `xl` -> `xlarge`. The sizing for `Overlay` has also been updated to provide a wider range of options. The original values for Overlay were based on the needs of Dialog, but Dialog is not reliant on Overlay so they don't need to have similar sizing. This is technically a breaking change, but is being released as a minor because these components are both still in `alpha` status.
+
+### Patch Changes
+
+- [`a7fe32c8`](https://github.com/primer/components/commit/a7fe32c8ba42ad75a945185b5f358f274a21ef0e) [#1248](https://github.com/primer/components/pull/1248) Thanks [@dgreif](https://github.com/dgreif)! - Hide overflow from `Overlay`
+
+* [`02e86095`](https://github.com/primer/components/commit/02e86095e6775f42c150c362e5281f0ffc332212) Thanks [@dgreif](https://github.com/dgreif)! - Allow `filterValue` to be provided to `SelectPanel`
+
+- [`10df320b`](https://github.com/primer/components/commit/10df320bb4d2a3d7ad7e59722c0b8896eeef0357) [#1247](https://github.com/primer/components/pull/1247) Thanks [@dgreif](https://github.com/dgreif)! - Handle overflow and active-descendant scrolling within `SelectPanel`
+
+* [`25d88c49`](https://github.com/primer/components/commit/25d88c49709f1c91c1a596fc77ed05e66cae083f) [#1253](https://github.com/primer/components/pull/1253) Thanks [@dgreif](https://github.com/dgreif)! - Correct font size and truncate for description within ActionList Items
+
+- [`9cb715cd`](https://github.com/primer/components/commit/9cb715cd2a613a0cedae60e488d4f69449465a38) [#1258](https://github.com/primer/components/pull/1258) Thanks [@dgreif](https://github.com/dgreif)! - prevent focusTrap from causing a `blur` if trap container is not in DOM
+
+* [`aa7d80fc`](https://github.com/primer/components/commit/aa7d80fcb70b5e7936eae13fd073f7c2163df7ec) [#1246](https://github.com/primer/components/pull/1246) Thanks [@dgreif](https://github.com/dgreif)! - Fix border radius on buttons and title `font-weight` in ConfirmationDialog
+
 ## 28.1.1
 
 ### Patch Changes
