@@ -2,7 +2,7 @@ import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import Flex from '../Flex'
+import Truncate from '../Truncate'
 import {ItemInput} from './List'
 import styled from 'styled-components'
 import {StyledHeader} from './Header'
@@ -152,7 +152,10 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
 }
 
 const StyledItemContent = styled.div`
-  width: 100%;
+  display: flex;
+  min-width: 0;
+  flex-grow: 1;
+  position: relative;
 `
 
 const StyledItem = styled.div<
@@ -188,7 +191,8 @@ const StyledItem = styled.div<
     ${StyledItemContent}::before {
       content: ' ';
       display: block;
-      position: relative;
+      position: absolute;
+      width: 100%;
       top: -7px;
       // NB: This 'get' won’t execute if it’s moved into the arrow function below.
       border: 0 solid ${get('colors.selectMenu.borderSecondary')};
@@ -215,7 +219,10 @@ const StyledItem = styled.div<
 
 const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
   display: flex;
+  min-width: 0;
+  flex-grow: 1;
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
+  align-items: baseline;
 `
 
 const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
@@ -242,7 +249,7 @@ const LeadingVisualContainer = styled(ColoredVisualContainer)``
 
 const TrailingVisualContainer = styled(ColoredVisualContainer)`
   color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
-  margin-left: auto;
+  margin-left: ${get('space.2')};
   margin-right: 0;
   div:nth-child(2) {
     margin-left: ${get('space.2')};
@@ -254,7 +261,14 @@ const TrailingVisualContainer = styled(ColoredVisualContainer)`
 
 const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
+  font-size: ${get('fontSizes.0')};
+  // TODO: When rem-based spacing on a 4px scale lands, replace
+  // hardcoded '16px' with '${get('lh-12')}'.
+  line-height: 16px;
   margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
+  min-width: 0;
+  flex-grow: 1;
+  flex-basis: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 0 : 'auto')};
 `
 
 const MultiSelectInput = styled.input`
@@ -365,27 +379,33 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         </LeadingVisualContainer>
       )}
       <StyledItemContent>
-        <Flex>
-          {children}
-          {(text || description) && (
-            <StyledTextContainer descriptionVariant={descriptionVariant}>
-              {text && <div>{text}</div>}
-              {description && (
-                <DescriptionContainer descriptionVariant={descriptionVariant}>{description}</DescriptionContainer>
-              )}
-            </StyledTextContainer>
-          )}
-          {(TrailingIcon || trailingText) && (
-            <TrailingVisualContainer variant={variant} disabled={disabled}>
-              {trailingText && <div>{trailingText}</div>}
-              {TrailingIcon && (
-                <div>
-                  <TrailingIcon />
-                </div>
-              )}
-            </TrailingVisualContainer>
-          )}
-        </Flex>
+        {children}
+        {(text || description) && (
+          <StyledTextContainer descriptionVariant={descriptionVariant}>
+            {text && <div>{text}</div>}
+            {description && (
+              <DescriptionContainer descriptionVariant={descriptionVariant}>
+                {descriptionVariant === 'block' ? (
+                  description
+                ) : (
+                  <Truncate title={description} inline={true} maxWidth="100%">
+                    {description}
+                  </Truncate>
+                )}
+              </DescriptionContainer>
+            )}
+          </StyledTextContainer>
+        )}
+        {(TrailingIcon || trailingText) && (
+          <TrailingVisualContainer variant={variant} disabled={disabled}>
+            {trailingText && <div>{trailingText}</div>}
+            {TrailingIcon && (
+              <div>
+                <TrailingIcon />
+              </div>
+            )}
+          </TrailingVisualContainer>
+        )}
       </StyledItemContent>
     </StyledItem>
   )
