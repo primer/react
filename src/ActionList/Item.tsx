@@ -222,6 +222,7 @@ const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descripti
   min-width: 0;
   flex-grow: 1;
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
+  align-items: baseline;
 `
 
 const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
@@ -261,6 +262,9 @@ const TrailingVisualContainer = styled(ColoredVisualContainer)`
 const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
   font-size: ${get('fontSizes.0')};
+  // TODO: When rem-based spacing on a 4px scale lands, replace
+  // hardcoded '16px' with '${get('lh-12')}'.
+  line-height: 16px;
   margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
   min-width: 0;
   flex-grow: 1;
