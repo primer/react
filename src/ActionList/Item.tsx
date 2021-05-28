@@ -198,13 +198,25 @@ const StyledItem = styled.div<
       border: 0 solid ${get('colors.selectMenu.borderSecondary')};
       border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
     }
+  }
 
-    // Override if current or previous item is active descendant
-    &.${itemActiveDescendantClass}, .${itemActiveDescendantClass} + & {
-      ${StyledItemContent}::before {
-        border-color: transparent;
-      }
-    }
+  // Item dividers should not be visible:
+  // - above Hovered
+  &:hover ${StyledItemContent}::before,
+  // - below Hovered
+  // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
+  :hover + * ${StyledItemContent}::before,
+  // - above Focused
+  &:focus ${StyledItemContent}::before,
+  // - below Focused
+  // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
+  :focus + * ${StyledItemContent}::before,
+  // - above Active Descendent
+  &.${itemActiveDescendantClass} ${StyledItemContent}::before,
+  // - below Active Descendent
+  .${itemActiveDescendantClass} + & ${StyledItemContent}::before {
+    // '!important' because all the ':not's above give higher specificity
+    border-color: transparent !important;
   }
 
   // Focused OR Active Descendant
