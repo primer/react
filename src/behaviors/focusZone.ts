@@ -619,7 +619,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
               nextElementToFocus = settings.getNextFocusable(direction, document.activeElement ?? undefined, event)
             }
             if (!nextElementToFocus) {
-              const lastFocusedIndex = getCurrentFocusedIndex()
+              const lastFocusedIndex = currentFocusedElement === container ? -1 : getCurrentFocusedIndex()
               let nextFocusedIndex = lastFocusedIndex
               if (direction === 'previous') {
                 nextFocusedIndex -= 1
