@@ -2,7 +2,7 @@ import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo, useRef} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
@@ -14,6 +14,11 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor?: (props: any) => JSX.Element
+
+  /**
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
+  anchorRef?: React.RefObject<HTMLElement>
 
   /**
    * Content that is passed into the renderAnchor component, which is a button by default.
@@ -48,6 +53,7 @@ ActionMenuItem.displayName = 'ActionMenu.Item'
 const ActionMenuBase = ({
   anchorContent,
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
+  anchorRef: externalAnchorRef,
   onAction,
   open,
   setOpen,
@@ -56,6 +62,9 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
+  const internalAnchorRef = useRef<HTMLElement>(null)
+  const anchorRef = externalAnchorRef || internalAnchorRef
+
   const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
@@ -89,6 +98,7 @@ const ActionMenuBase = ({
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
+      anchorRef={anchorRef}
       open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}
