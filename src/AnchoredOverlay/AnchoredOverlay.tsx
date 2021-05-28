@@ -10,7 +10,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | ((props: T) => null)
+  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
