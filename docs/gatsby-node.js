@@ -18,5 +18,20 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
       include: modulePath => /@primer\/components/.test(modulePath)
     }
   ]
+
+  // Polyfill `path` and stub `fs` for use in the browser
+  // https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v2-to-v3/#webpack-5-node-configuration-changed-nodefs-nodepath-
+  config.resolve = {
+    ...config.resolve,
+    alias: {
+      ...config.resolve.alias,
+      path: require.resolve('path-browserify')
+    },
+    fallback: {
+      ...config.resolve.fallback,
+      fs: false
+    }
+  }
+
   actions.replaceWebpackConfig(config)
 }
