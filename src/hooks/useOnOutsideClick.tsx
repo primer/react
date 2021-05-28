@@ -69,6 +69,7 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
   )
   useEffect(() => {
     if (handlers.length === 0) {
+      // use capture to ensure we get all events
       document.addEventListener('mousedown', handleClick, {capture: true})
     }
     handlers.push(onOutsideClickInternal)
