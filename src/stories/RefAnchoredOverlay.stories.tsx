@@ -1,13 +1,13 @@
 import React, {useState, useRef} from 'react'
 import {Button, Text, ButtonDanger, Position, Flex, BaseStyles, ThemeProvider} from '..'
+import {Meta} from '@storybook/react'
 
-import {RefAnchoredOverlay} from '../AnchoredOverlay/RefAnchoredOverlay'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 
 export default {
-  title: 'Internal components/RefAnchoredOverlay',
-  component: RefAnchoredOverlay,
+  title: 'Internal components/AnchoredOverlay',
+  component: AnchoredOverlay,
   decorators: [
-    // @ts-ignore
     Story => {
       return (
         <ThemeProvider>
@@ -20,7 +20,7 @@ export default {
   ]
 } as Meta
 
-export const RefAnchoredOverlayStory = () => {
+export const RefAnchoredOverlay = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
@@ -31,8 +31,13 @@ export const RefAnchoredOverlayStory = () => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {/* @ts-ignore */}
-      <RefAnchoredOverlay onClose={closeOverlay} anchorRef={buttonRef} open={isOpen} width="small">
+      <AnchoredOverlay
+        renderAnchor={() => null}
+        anchorRef={buttonRef}
+        onClose={closeOverlay}
+        open={isOpen}
+        width="small"
+      >
         <Flex flexDirection="column" p={2}>
           <Text>Are you sure?</Text>
           <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
@@ -40,7 +45,7 @@ export const RefAnchoredOverlayStory = () => {
             Confirm
           </Button>
         </Flex>
-      </RefAnchoredOverlay>
+      </AnchoredOverlay>
     </Position>
   )
 }

@@ -1,14 +1,21 @@
 import React, {useCallback, useMemo, useRef} from 'react'
-import {OverlayProps} from '../Overlay'
-import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import Overlay, {OverlayProps} from '../Overlay'
+import {useFocusTrap} from '../hooks/useFocusTrap'
+import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
+import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
-import {RefAnchoredOverlay} from './RefAnchoredOverlay'
+
 export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
+
+  /**
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
+  anchorRef?: React.RefObject<HTMLElement>
 
   /**
    * Determines whether the overlay portion of the component should be shown or not
@@ -42,6 +49,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
  */
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   renderAnchor,
+  anchorRef: externalAnchorRef,
   children,
   open,
   onOpen,
@@ -51,8 +59,13 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   overlayProps,
   focusZoneSettings
 }) => {
-  const anchorRef = useRef<HTMLElement>(null)
+  const internalAnchorRef = useRef<HTMLElement>(null)
+  const anchorRef = externalAnchorRef || internalAnchorRef
+  const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useMemo(uniqueId, [])
+
+  const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
+  const onEscape = useCallback(() => onClose?.('escape'), [onClose])
 
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
@@ -74,6 +87,24 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     [open, onOpen]
   )
 
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: overlayRef
+    },
+    [overlayRef.current]
+  )
+  const overlayPosition = useMemo(() => {
+    return position && {top: `${position.top}px`, left: `${position.left}px`}
+  }, [position])
+
+  useFocusZone({
+    containerRef: overlayRef,
+    disabled: !open || !position,
+    ...focusZoneSettings
+  })
+  useFocusTrap({containerRef: overlayRef, disabled: !open || !position})
+
   return (
     <>
       {renderAnchor({
@@ -85,16 +116,22 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
         onClick: onAnchorClick,
         onKeyDown: onAnchorKeyDown
       })}
-      <RefAnchoredOverlay
-        anchorRef={anchorRef}
-        children={children}
-        open={open}
-        onClose={onClose}
-        height={height}
-        width={width}
-        overlayProps={overlayProps}
-        focusZoneSettings={focusZoneSettings}
-      />
+      {open ? (
+        <Overlay
+          returnFocusRef={anchorRef}
+          onClickOutside={onClickOutside}
+          onEscape={onEscape}
+          ref={updateOverlayRef}
+          role="listbox"
+          visibility={position ? 'visible' : 'hidden'}
+          height={height}
+          width={width}
+          {...overlayPosition}
+          {...overlayProps}
+        >
+          {children}
+        </Overlay>
+      ) : null}
     </>
   )
 }
