@@ -22,7 +22,7 @@ beforeAll(() => {
   }
 })
 
-it('Should initially focus the first focusable element when activated', () => {
+it('Should initially focus the container when activated', () => {
   const {container} = render(
     <div>
       <button tabIndex={0}>Bad Apple</button>
@@ -35,9 +35,8 @@ it('Should initially focus the first focusable element when activated', () => {
   )
 
   const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
-  const firstButton = trapContainer.querySelector('button')!
   const controller = focusTrap(trapContainer)
-  expect(document.activeElement).toEqual(firstButton)
+  expect(document.activeElement).toEqual(trapContainer)
 
   controller.abort()
 })
@@ -74,13 +73,12 @@ it('Should prevent focus from exiting the trap, returns focus to previously-focu
   )
 
   const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
-  const firstButton = trapContainer.querySelector('button')!
   const secondButton = trapContainer.querySelectorAll('button')[1]!
   const durianButton = container.querySelector<HTMLElement>('#durian')!
   const controller = focusTrap(trapContainer)
 
   focus(durianButton)
-  expect(document.activeElement).toEqual(firstButton)
+  expect(document.activeElement).toEqual(trapContainer)
 
   focus(secondButton)
   expect(document.activeElement).toEqual(secondButton)
@@ -157,12 +155,11 @@ it('Should should release the trap when the signal is aborted', async () => {
 
   const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
   const durianButton = container.querySelector<HTMLElement>('#durian')!
-  const firstButton = trapContainer.querySelector('button')!
 
   const controller = focusTrap(trapContainer)
 
   focus(durianButton)
-  expect(document.activeElement).toEqual(firstButton)
+  expect(document.activeElement).toEqual(trapContainer)
 
   controller.abort()
 
@@ -189,7 +186,7 @@ it('Should should release the trap when the container is removed from the DOM', 
   focusTrap(trapContainer)
 
   focus(durianButton)
-  expect(document.activeElement).toEqual(firstButton)
+  expect(document.activeElement).toEqual(trapContainer)
 
   // empty trap and remove it from the DOM
   trapContainer.removeChild(firstButton)
