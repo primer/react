@@ -85,14 +85,13 @@ Use the `reset` prop to remove the left caret when using the html tag. Use the `
 ```jsx live
 <State>
   {([]) => {
-    const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
     return (
       <Grid gridAutoFlow="row" gridGap="2vmin">
-        <details>
+        <Details>
           <summary>default</summary>
-          this is some content
-        </details>
-        <Details {...getDetailsProps()} reset>
+          <p> this is some content</p>
+        </Details>
+        <Details reset>
           <summary>reset</summary>
           <p> This is some content </p>
         </Details>

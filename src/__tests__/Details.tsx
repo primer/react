@@ -113,4 +113,20 @@ describe('Details', () => {
 
     wrapper.unmount()
   })
+
+  it('Removes default caret with the reset prop', () => {
+    const Component = () => {
+      const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
+      return (
+        <Details {...getDetailsProps()} reset>
+          <summary>Here is one</summary>
+        </Details>
+      )
+    }
+    const wrapper = mount(<Component />)
+
+    expect(wrapper.find('summary')).toHaveStyleRule('list-style', 'none')
+
+    wrapper.unmount()
+  })
 })
