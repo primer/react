@@ -170,6 +170,35 @@ it('Should should release the trap when the signal is aborted', async () => {
   expect(document.activeElement).toEqual(durianButton)
 })
 
+it('Should should release the trap when the container is removed from the DOM', async () => {
+  const {container} = render(
+    <div>
+      <div id="trapContainer">
+        <button tabIndex={0}>Apple</button>
+      </div>
+      <button id="durian" tabIndex={0}>
+        Durian
+      </button>
+    </div>
+  )
+
+  const trapContainer = container.querySelector<HTMLElement>('#trapContainer')!
+  const durianButton = container.querySelector<HTMLElement>('#durian')!
+  const firstButton = trapContainer.querySelector('button')!
+
+  focusTrap(trapContainer)
+
+  focus(durianButton)
+  expect(document.activeElement).toEqual(firstButton)
+
+  // empty trap and remove it from the DOM
+  trapContainer.removeChild(firstButton)
+  trapContainer.parentElement?.removeChild(trapContainer)
+
+  focus(durianButton)
+  expect(document.activeElement).toEqual(durianButton)
+})
+
 it('Should handle dynamic content', async () => {
   const {container} = render(
     <div>

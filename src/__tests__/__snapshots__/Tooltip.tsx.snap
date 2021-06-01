@@ -222,5 +222,6 @@ exports[`Tooltip renders consistently 1`] = `
 
 <span
   className="c0 tooltipped-n"
+  role="tooltip"
 />
 `;

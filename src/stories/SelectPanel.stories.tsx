@@ -31,7 +31,7 @@ export default meta
 
 function getColorCircle(color: string) {
   return function () {
-    return <BorderBox bg={color} borderColor={color} padding={2} borderRadius={10} />
+    return <BorderBox bg={color} borderColor={color} width={14} height={14} borderRadius={10} margin="auto" />
   }
 }
 
@@ -39,7 +39,10 @@ const items = [
   {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
   {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
   {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'design', id: 4}
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
 ]
 
 export function MultiSelectStory(): JSX.Element {
@@ -66,6 +69,7 @@ export function MultiSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
+        overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
   )
@@ -96,6 +100,7 @@ export function SingleSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
+        overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
   )

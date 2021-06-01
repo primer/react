@@ -250,7 +250,7 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     wrap && 'tooltipped-multiline'
   )
   return (
-    <TooltipBase aria-label={text} {...rest} className={classes}>
+    <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
       {children}
     </TooltipBase>
   )
