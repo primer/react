@@ -40,6 +40,7 @@ function monkeyPatch() {
   const originalAddEventListener = EventTarget.prototype.addEventListener
   EventTarget.prototype.addEventListener = function (name, originalCallback, optionsOrCapture) {
     if (
+      optionsOrCapture &&
       typeof optionsOrCapture === 'object' &&
       'signal' in optionsOrCapture &&
       optionsOrCapture.signal instanceof AbortSignal
