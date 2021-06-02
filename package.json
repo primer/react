@@ -27,7 +27,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "repository": "primer/components",
+  "repository": "primer/react",
   "keywords": [
     "react",
     "components",
