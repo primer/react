@@ -2,9 +2,6 @@ import React, {useState, useRef} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
-import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {ItemInput} from '../ActionList/List'
-import {AnchoredOverlay} from '../AnchoredOverlay'
 
 export default {
   title: 'Internal components/Overlay',

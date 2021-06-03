@@ -2,7 +2,7 @@ import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import Button, {ButtonProps} from './Button'
-import React, {useCallback, useMemo, useRef} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
@@ -14,7 +14,6 @@ interface ActionMenuPropsWithAnchor {
    * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor: null | (<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element)
 
   /**
@@ -29,7 +28,6 @@ interface ActionMenuPropsWithoutAnchor {
    * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderAnchor: null
 
   /**
