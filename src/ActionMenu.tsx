@@ -14,7 +14,7 @@ interface ActionMenuPropsWithAnchor {
    * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
-  renderAnchor: null | (<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element)
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor

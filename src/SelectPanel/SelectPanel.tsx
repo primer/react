@@ -86,10 +86,13 @@ export function SelectPanel({
     props => {
       const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
 
-      return renderAnchor({
-        ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
-      })
+      return (
+        renderAnchor &&
+        renderAnchor({
+          ...props,
+          children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+        })
+      )
     },
     [placeholder, renderAnchor, selected]
   )
