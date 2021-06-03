@@ -13,10 +13,7 @@ export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLE
     const currentScroll = scrollContainer.scrollTop
     const maxScroll = scrollContainer.scrollHeight
 
-    const altScroll = currentScroll < Math.min(1, maxScroll) ? currentScroll + 1 : currentScroll - 1;
-      if (currentScroll < 1 || currentScroll < maxScroll) return currentScroll + 1
-      else return currentScroll - 1
-    })()
+    const altScroll = currentScroll < Math.min(1, maxScroll) ? currentScroll + 1 : currentScroll - 1
 
     scrollContainer.scrollTop = altScroll
     scrollContainer.scrollTop = currentScroll
