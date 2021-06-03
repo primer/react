@@ -5,7 +5,32 @@ import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
-export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
+interface AnchoredOverlayPropsWithAnchor {
+  /**
+   * A custom function component used to render the anchor element.
+   * Will receive the selected text as `children` prop when an item is activated.
+   */
+  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+
+  /**
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
+  anchorRef?: React.RefObject<HTMLElement>
+}
+
+interface AnchoredOverlayPropsWithoutAnchor {
+  /**
+   * A custom function component used to render the anchor element.
+   * Will receive the selected text as `children` prop when an item is activated.
+   */
+  renderAnchor: null
+
+  /**
+   * An override to the internal ref that will be used to position the overlay.  This ref will also be passed to renderAnchor.  If you want to use an external anchor, you should provide `anchorRef` and set the `rendorAnchor` prop to `() => null`
+   */
+  anchorRef: React.RefObject<HTMLElement>
+}
+interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
@@ -42,6 +67,9 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
    */
   focusZoneSettings?: Partial<FocusZoneHookSettings>
 }
+
+export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
+  (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor)
 
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.

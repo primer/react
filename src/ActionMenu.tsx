@@ -7,20 +7,37 @@ import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate} from './hooks'
-export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+
+interface ActionMenuPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderAnchor?: null | (<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element)
+  renderAnchor: null | (<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element)
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
   anchorRef?: React.RefObject<HTMLElement>
+}
 
+interface ActionMenuPropsWithoutAnchor {
+  /**
+   * A custom function component used to render the anchor element.
+   * Will receive the `anchoredContent` prop as `children` prop.
+   * Uses a `Button` by default.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderAnchor: null
+
+  /**
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
+  anchorRef: React.RefObject<HTMLElement>
+}
+interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * Content that is passed into the renderAnchor component, which is a button by default.
    */
@@ -46,6 +63,8 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
    */
   overlayProps?: Partial<OverlayProps>
 }
+
+export type ActionMenuProps = ActionMenuBaseProps & (ActionMenuPropsWithAnchor | ActionMenuPropsWithoutAnchor)
 
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
 
