@@ -13,7 +13,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
   renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
 
   /**
-   * An override to the internal ref that will be spread on to the renderAnchor
+   * An override to the internal ref that will be used to position the overlay.  This ref will also be passed to renderAnchor.  If you want to use an external anchor, you should provide `anchorRef` and set the `rendorAnchor` prop to `() => null`
    */
   anchorRef?: React.RefObject<HTMLElement>
 
