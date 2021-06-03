@@ -14,7 +14,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
    * Uses a `Button` by default.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
+  renderAnchor?: null | (<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element)
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor

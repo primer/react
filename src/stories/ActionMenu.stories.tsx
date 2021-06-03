@@ -256,7 +256,7 @@ export function ActionMenuWithExternalAnchor(): JSX.Element {
         Open Menu
       </Button>
       <ActionMenu
-        renderAnchor={() => null}
+        renderAnchor={null}
         anchorRef={buttonRef}
         open={isOpen}
         setOpen={setIsOpen}

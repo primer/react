@@ -10,7 +10,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
+  renderAnchor: null | (<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element)
 
   /**
    * An override to the internal ref that will be used to position the overlay.  This ref will also be passed to renderAnchor.  If you want to use an external anchor, you should provide `anchorRef` and set the `rendorAnchor` prop to `() => null`
@@ -106,15 +106,16 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 
   return (
     <>
-      {renderAnchor({
-        ref: anchorRef,
-        id: anchorId,
-        'aria-labelledby': anchorId,
-        'aria-haspopup': 'listbox',
-        tabIndex: 0,
-        onClick: onAnchorClick,
-        onKeyDown: onAnchorKeyDown
-      })}
+      {renderAnchor &&
+        renderAnchor({
+          ref: anchorRef,
+          id: anchorId,
+          'aria-labelledby': anchorId,
+          'aria-haspopup': 'listbox',
+          tabIndex: 0,
+          onClick: onAnchorClick,
+          onKeyDown: onAnchorKeyDown
+        })}
       {open ? (
         <Overlay
           returnFocusRef={anchorRef}
