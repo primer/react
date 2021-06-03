@@ -2,7 +2,7 @@ import React, {useCallback, useMemo, useRef} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
 export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
@@ -10,7 +10,7 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
 
   /**
    * An override to the internal ref that will be used to position the overlay.  This ref will also be passed to renderAnchor.  If you want to use an external anchor, you should provide `anchorRef` and set the `rendorAnchor` prop to `() => null`
@@ -59,8 +59,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   overlayProps,
   focusZoneSettings
 }) => {
-  const internalAnchorRef = useRef<HTMLElement>(null)
-  const anchorRef = externalAnchorRef || internalAnchorRef
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useMemo(uniqueId, [])
 

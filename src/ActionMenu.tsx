@@ -6,6 +6,7 @@ import React, {useCallback, useMemo, useRef} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
+import {useProvidedRefOrCreate} from './hooks'
 export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * A custom function component used to render the anchor element.
@@ -13,7 +14,7 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
    * Uses a `Button` by default.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderAnchor?: (props: any) => JSX.Element
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
@@ -62,9 +63,7 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
-  const internalAnchorRef = useRef<HTMLElement>(null)
-  const anchorRef = externalAnchorRef || internalAnchorRef
-
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
