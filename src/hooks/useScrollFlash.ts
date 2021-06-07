@@ -17,8 +17,5 @@ export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLE
 
     scrollContainer.scrollTop = altScroll
     scrollContainer.scrollTop = currentScroll
-
-    const flashScrollersEvent = new Event('flashScrollers')
-    scrollContainer.dispatchEvent(flashScrollersEvent)
   }, [scrollContainerRef])
 }
