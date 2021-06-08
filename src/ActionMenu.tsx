@@ -88,6 +88,8 @@ const ActionMenuBase = ({
 
   const renderMenuAnchor = useCallback(
     <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
+      // we make sure never to call this with a null renderAnchor
+      // by using renderMenuAnchorOrNull
       return renderAnchor!({
         'aria-label': 'menu',
         children: anchorContent,
