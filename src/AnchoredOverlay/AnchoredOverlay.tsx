@@ -10,7 +10,7 @@ interface AnchoredOverlayPropsWithAnchor {
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
+  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
@@ -21,12 +21,13 @@ interface AnchoredOverlayPropsWithAnchor {
 interface AnchoredOverlayPropsWithoutAnchor {
   /**
    * A custom function component used to render the anchor element.
-   * Will receive the selected text as `children` prop when an item is activated.
+   * When renderAnchor is null, an anchorRef is required.
    */
   renderAnchor: null
 
   /**
-   * An override to the internal ref that will be used to position the overlay.  This ref will also be passed to renderAnchor.  If you want to use an external anchor, you should provide `anchorRef` and set the `rendorAnchor` prop to `() => null`
+   * An override to the internal renderAnchor ref that will be used to position the overlay.
+   * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
   anchorRef: React.RefObject<HTMLElement>
 }

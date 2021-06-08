@@ -14,10 +14,12 @@ interface ActionMenuPropsWithAnchor {
    * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
-  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element | null
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   /**
-   * An override to the internal ref that will be spread on to the renderAnchor
+   * An override to the internal renderAnchor ref that will be spread on to the renderAnchor,
+   * When renderAnchor is defined, this prop will be spread on to the rendAnchor
+   * component that is passed in.
    */
   anchorRef?: React.RefObject<HTMLElement>
 }
@@ -25,13 +27,13 @@ interface ActionMenuPropsWithAnchor {
 interface ActionMenuPropsWithoutAnchor {
   /**
    * A custom function component used to render the anchor element.
-   * Will receive the `anchoredContent` prop as `children` prop.
-   * Uses a `Button` by default.
+   * When renderAnchor is null, an anchorRef is required.
    */
   renderAnchor: null
 
   /**
-   * An override to the internal ref that will be spread on to the renderAnchor
+   * An override to the internal renderAnchor ref. When renderAnchor is null this can be
+   * used to make an anchor that is detached from ActionMenu.
    */
   anchorRef: React.RefObject<HTMLElement>
 }
