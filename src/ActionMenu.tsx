@@ -88,17 +88,16 @@ const ActionMenuBase = ({
 
   const renderMenuAnchor = useCallback(
     <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
-      return (
-        renderAnchor &&
-        renderAnchor({
-          'aria-label': 'menu',
-          children: anchorContent,
-          ...props
-        })
-      )
+      return renderAnchor!({
+        'aria-label': 'menu',
+        children: anchorContent,
+        ...props
+      })
     },
     [anchorContent, renderAnchor]
   )
+
+  const renderMenuAnchorOrNull = renderAnchor ? renderMenuAnchor : null
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -118,7 +117,7 @@ const ActionMenuBase = ({
 
   return (
     <AnchoredOverlay
-      renderAnchor={renderMenuAnchor}
+      renderAnchor={renderMenuAnchorOrNull}
       anchorRef={anchorRef}
       open={combinedOpenState}
       onOpen={onOpen}

@@ -85,14 +85,14 @@ export function SelectPanel({
   const renderMenuAnchor: AnchoredOverlayProps['renderAnchor'] = useCallback(
     props => {
       const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
-
-      return (
-        renderAnchor &&
-        renderAnchor({
+      if (renderAnchor) {
+        return renderAnchor({
           ...props,
           children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
         })
-      )
+      } else {
+        return <></>
+      }
     },
     [placeholder, renderAnchor, selected]
   )
