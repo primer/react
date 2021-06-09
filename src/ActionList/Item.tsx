@@ -229,7 +229,7 @@ const StyledItem = styled.div<
   ${sx}
 `
 
-const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
+export const TextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
   display: flex;
   min-width: 0;
   flex-grow: 1;
@@ -257,9 +257,9 @@ const ColoredVisualContainer = styled(BaseVisualContainer)`
   }
 `
 
-const LeadingVisualContainer = styled(ColoredVisualContainer)``
+export const LeadingVisualContainer = styled(ColoredVisualContainer)``
 
-const TrailingVisualContainer = styled(ColoredVisualContainer)`
+export const TrailingVisualContainer = styled(ColoredVisualContainer)`
   color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
   margin-left: ${get('space.2')};
   margin-right: 0;
@@ -271,7 +271,7 @@ const TrailingVisualContainer = styled(ColoredVisualContainer)`
   justify-content: flex-end;
 `
 
-const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
+export const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
   font-size: ${get('fontSizes.0')};
   // TODO: When rem-based spacing on a 4px scale lands, replace
@@ -393,7 +393,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       <StyledItemContent>
         {children}
         {(text || description) && (
-          <StyledTextContainer descriptionVariant={descriptionVariant}>
+          <TextContainer descriptionVariant={descriptionVariant}>
             {text && <div>{text}</div>}
             {description && (
               <DescriptionContainer descriptionVariant={descriptionVariant}>
@@ -406,7 +406,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
                 )}
               </DescriptionContainer>
             )}
-          </StyledTextContainer>
+          </TextContainer>
         )}
         {(TrailingIcon || trailingText) && (
           <TrailingVisualContainer variant={variant} disabled={disabled}>
