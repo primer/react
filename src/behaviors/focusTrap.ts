@@ -83,9 +83,14 @@ export function focusTrap(
           initialFocus.focus()
           return
         } else {
-          container.setAttribute('tabindex', '-1')
+          const containerNeedsTemporaryTabIndex = container.getAttribute('tabindex') === null
+          if (containerNeedsTemporaryTabIndex) {
+            container.setAttribute('tabindex', '-1')
+          }
           container.focus()
-          container.removeAttribute('tabindex')
+          if (containerNeedsTemporaryTabIndex) {
+            container.removeAttribute('tabindex')
+          }
           return
         }
       }
