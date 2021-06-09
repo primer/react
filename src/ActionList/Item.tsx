@@ -229,7 +229,10 @@ const StyledItem = styled.div<
   ${sx}
 `
 
-export const TextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
+export const TextContainer = styled.div<{
+  dangerouslySetInnerHtml?: {__html: string}
+  descriptionVariant: ItemProps['descriptionVariant']
+}>`
   display: flex;
   min-width: 0;
   flex-grow: 1;
@@ -237,7 +240,11 @@ export const TextContainer = styled.div<{descriptionVariant: ItemProps['descript
   align-items: baseline;
 `
 
-const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
+const BaseVisualContainer = styled.div<{
+  dangerouslySetInnerHtml?: {__html: string}
+  variant?: ItemProps['variant']
+  disabled?: boolean
+}>`
   // Match visual height to adjacent text line height.
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '20px' with '${get('space.s20')}'.
