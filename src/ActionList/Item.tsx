@@ -240,11 +240,7 @@ export const TextContainer = styled.div<{
   align-items: baseline;
 `
 
-const BaseVisualContainer = styled.div<{
-  dangerouslySetInnerHtml?: {__html: string}
-  variant?: ItemProps['variant']
-  disabled?: boolean
-}>`
+const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
   // Match visual height to adjacent text line height.
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '20px' with '${get('space.s20')}'.
@@ -264,9 +260,9 @@ const ColoredVisualContainer = styled(BaseVisualContainer)`
   }
 `
 
-export const LeadingVisualContainer = styled(ColoredVisualContainer)``
+const LeadingVisualContainer = styled(ColoredVisualContainer)``
 
-export const TrailingVisualContainer = styled(ColoredVisualContainer)`
+const TrailingVisualContainer = styled(ColoredVisualContainer)`
   color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
   margin-left: ${get('space.2')};
   margin-right: 0;
@@ -278,7 +274,7 @@ export const TrailingVisualContainer = styled(ColoredVisualContainer)`
   justify-content: flex-end;
 `
 
-export const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
+const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
   color: ${get('colors.text.secondary')};
   font-size: ${get('fontSizes.0')};
   // TODO: When rem-based spacing on a 4px scale lands, replace
