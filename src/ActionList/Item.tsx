@@ -230,7 +230,7 @@ const StyledItem = styled.div<
 `
 
 export const TextContainer = styled.div<{
-  dangerouslySetInnerHtml?: {__html: string}
+  dangerouslySetInnerHtml?: React.DOMAttributes<HTMLDivElement>["dangerouslySetInnerHTML"]
   descriptionVariant: ItemProps['descriptionVariant']
 }>`
   display: flex;
