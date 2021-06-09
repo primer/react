@@ -11,6 +11,7 @@ import {itemActiveDescendantClass} from '../ActionList/Item'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import styled from 'styled-components'
 import {get} from '../constants'
+import useScrollFlash from '../hooks/useScrollFlash'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -120,6 +121,8 @@ export function FilteredActionList({
       scrollIntoViewingArea(activeDescendantRef.current, scrollContainerRef.current, undefined, 'auto')
     }
   }, [items])
+
+  useScrollFlash(scrollContainerRef)
 
   return (
     <Flex ref={containerRef} flexDirection="column" overflow="hidden">

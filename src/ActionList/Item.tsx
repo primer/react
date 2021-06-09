@@ -229,7 +229,10 @@ const StyledItem = styled.div<
   ${sx}
 `
 
-const StyledTextContainer = styled.div<{descriptionVariant: ItemProps['descriptionVariant']}>`
+export const TextContainer = styled.div<{
+  dangerouslySetInnerHtml?: React.DOMAttributes<HTMLDivElement>['dangerouslySetInnerHTML']
+  descriptionVariant: ItemProps['descriptionVariant']
+}>`
   display: flex;
   min-width: 0;
   flex-grow: 1;
@@ -393,7 +396,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       <StyledItemContent>
         {children}
         {(text || description) && (
-          <StyledTextContainer descriptionVariant={descriptionVariant}>
+          <TextContainer descriptionVariant={descriptionVariant}>
             {text && <div>{text}</div>}
             {description && (
               <DescriptionContainer descriptionVariant={descriptionVariant}>
@@ -406,7 +409,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
                 )}
               </DescriptionContainer>
             )}
-          </StyledTextContainer>
+          </TextContainer>
         )}
         {(TrailingIcon || trailingText) && (
           <TrailingVisualContainer variant={variant} disabled={disabled}>
