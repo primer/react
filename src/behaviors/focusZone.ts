@@ -587,6 +587,10 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
       return 0
     }
 
+    if (currentFocusedElement === container) {
+      return -1
+    }
+
     const focusedIndex = focusableElements.indexOf(currentFocusedElement)
     return focusedIndex === -1 ? 0 : focusedIndex
   }
@@ -619,7 +623,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
               nextElementToFocus = settings.getNextFocusable(direction, document.activeElement ?? undefined, event)
             }
             if (!nextElementToFocus) {
-              const lastFocusedIndex = currentFocusedElement === container ? -1 : getCurrentFocusedIndex()
+              const lastFocusedIndex = getCurrentFocusedIndex()
               let nextFocusedIndex = lastFocusedIndex
               if (direction === 'previous') {
                 nextFocusedIndex -= 1
