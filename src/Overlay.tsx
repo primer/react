@@ -19,7 +19,8 @@ const heightMap = {
   medium: '320px',
   large: '432px',
   xlarge: '600px',
-  auto: 'auto'
+  auto: 'auto',
+  initial: 'auto' // Passing 'initial' initially applies 'auto'
 }
 
 const widthMap = {
@@ -68,7 +69,7 @@ export type OverlayProps = {
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   visibility?: 'visible' | 'hidden'
-  height?: keyof typeof heightMap | 'initial'
+  height?: keyof typeof heightMap
   [additionalKey: string]: unknown
 } & Omit<ComponentProps<typeof StyledOverlay>, 'height' | 'visibility' | keyof SystemPositionProps>
 
@@ -103,7 +104,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     const overlayRef = useRef<HTMLDivElement>(null)
     const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
 
-    const overlayProps = useOverlay({
+    useOverlay({
       overlayRef,
       returnFocusRef,
       onEscape,
@@ -112,18 +113,16 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       initialFocusRef
     })
 
-    const initialHeight = useRef<string>('auto')
     useEffect(() => {
-      if (overlayRef.current?.clientHeight) {
-        initialHeight.current = `${overlayRef.current.clientHeight}px`
+      if (heightKey === 'initial' && combinedRef.current?.clientHeight) {
+        combinedRef.current.style.height = `${combinedRef.current.clientHeight}px`
       }
-    }, [overlayRef])
-    const height = heightKey === 'initial' ? initialHeight.current : heightMap[heightKey || 'auto']
+    }, [heightKey, combinedRef])
+    const height = heightMap[heightKey || 'auto']
 
     return (
       <Portal>
         <StyledOverlay
-          {...overlayProps}
           aria-modal="true"
           role={role}
           height={height}
