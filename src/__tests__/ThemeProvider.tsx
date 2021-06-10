@@ -106,6 +106,16 @@ it('defaults to dark color scheme in night mode', () => {
   expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
 })
 
+it('defaults to first color scheme when passed an invalid color scheme name', () => {
+  render(
+    <ThemeProvider theme={exampleTheme} dayScheme="foo">
+      <Text color="text">Hello</Text>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+})
+
 it('respects nightScheme prop', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme="dark_dimmed">

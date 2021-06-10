@@ -1,5 +1,13 @@
 # @primer/components
 
+## 28.2.1
+
+### Patch Changes
+
+- [`f793ed00`](https://github.com/primer/components/commit/f793ed00e244de861f373cf0882397a1f640b046) [#1280](https://github.com/primer/components/pull/1280) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Export TexContainer from of ActionList/Item.
+
+* [`2893326b`](https://github.com/primer/components/commit/2893326bc45fd841cd71ac46ca71cdaececa7343) [#1259](https://github.com/primer/components/pull/1259) Thanks [@smockle](https://github.com/smockle)! - Hide intra-'Item' dividers on ':hover' and ':focus'
+
 ## 28.2.0
 
 ### Minor Changes

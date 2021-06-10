@@ -97,6 +97,7 @@ export function SimpleListStory(): JSX.Element {
           onAction={onAction}
           anchorContent="Menu"
           overlayProps={{
+            'data-test-id': 'some_test_id',
             onMouseDown: (e: React.MouseEvent) =>
               // eslint-disable-next-line no-console
               console.log('onMouseDown in the internal Overlay can be useful for controlling event interactions', e)

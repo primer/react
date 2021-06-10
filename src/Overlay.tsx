@@ -54,6 +54,9 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
     }
   }
   visibility: ${props => props.visibility || 'visible'};
+  :focus {
+    outline: none;
+  }
   ${COMMON};
   ${POSITION};
   ${sx};
@@ -65,6 +68,7 @@ export type OverlayProps = {
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   visibility?: 'visible' | 'hidden'
+  [additionalKey: string]: unknown
 } & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
