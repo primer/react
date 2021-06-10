@@ -1,17 +1,38 @@
-import React, {useCallback, useMemo, useRef} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {uniqueId} from '../utils/uniqueId'
 
-export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'width'> {
+interface AnchoredOverlayPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
   renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
+  /**
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
+  anchorRef?: React.RefObject<HTMLElement>
+}
+
+interface AnchoredOverlayPropsWithoutAnchor {
+  /**
+   * A custom function component used to render the anchor element.
+   * When renderAnchor is null, an anchorRef is required.
+   */
+  renderAnchor: null
+
+  /**
+   * An override to the internal renderAnchor ref that will be used to position the overlay.
+   * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
+   */
+  anchorRef: React.RefObject<HTMLElement>
+}
+
+interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * Determines whether the overlay portion of the component should be shown or not
    */
@@ -43,12 +64,16 @@ export interface AnchoredOverlayProps extends Pick<OverlayProps, 'height' | 'wid
   focusZoneSettings?: Partial<FocusZoneHookSettings>
 }
 
+export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
+  (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor)
+
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
  */
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   renderAnchor,
+  anchorRef: externalAnchorRef,
   children,
   open,
   onOpen,
@@ -59,7 +84,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   focusTrapSettings,
   focusZoneSettings
 }) => {
-  const anchorRef = useRef<HTMLElement>(null)
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useMemo(uniqueId, [])
 
@@ -106,15 +131,16 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 
   return (
     <>
-      {renderAnchor({
-        ref: anchorRef,
-        id: anchorId,
-        'aria-labelledby': anchorId,
-        'aria-haspopup': 'listbox',
-        tabIndex: 0,
-        onClick: onAnchorClick,
-        onKeyDown: onAnchorKeyDown
-      })}
+      {renderAnchor &&
+        renderAnchor({
+          ref: anchorRef,
+          id: anchorId,
+          'aria-labelledby': anchorId,
+          'aria-haspopup': 'listbox',
+          tabIndex: 0,
+          onClick: onAnchorClick,
+          onKeyDown: onAnchorKeyDown
+        })}
       {open ? (
         <Overlay
           returnFocusRef={anchorRef}
