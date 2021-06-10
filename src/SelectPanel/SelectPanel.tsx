@@ -21,7 +21,7 @@ interface SelectPanelMultiSelection {
 }
 
 interface SelectPanelBaseProps {
-  renderAnchor?: AnchoredOverlayProps['renderAnchor']
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
@@ -82,8 +82,8 @@ export function SelectPanel({
     [onOpenChange]
   )
 
-  const renderMenuAnchor: AnchoredOverlayProps['renderAnchor'] = useCallback(
-    props => {
+  const renderMenuAnchor = useCallback(
+    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
 
       return renderAnchor({
