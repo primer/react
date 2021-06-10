@@ -9,7 +9,7 @@ import {useCombinedRefs} from './hooks/useCombinedRefs'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
-  height?: string
+  height?: keyof typeof heightMap
   visibility?: 'visible' | 'hidden'
 }
 
@@ -39,7 +39,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   position: absolute;
   min-width: 192px;
   max-width: 640px;
-  height: ${props => props.height};
+  height: ${props => heightMap[props.height || 'auto']};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
   overflow: hidden;
@@ -69,9 +69,8 @@ export type OverlayProps = {
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   visibility?: 'visible' | 'hidden'
-  height?: keyof typeof heightMap
   [additionalKey: string]: unknown
-} & Omit<ComponentProps<typeof StyledOverlay>, 'height' | 'visibility' | keyof SystemPositionProps>
+} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -96,7 +95,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       ignoreClickRefs,
       onEscape,
       visibility,
-      height: heightKey,
+      height,
       ...rest
     },
     forwardedRef
@@ -114,11 +113,10 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     })
 
     useEffect(() => {
-      if (heightKey === 'initial' && combinedRef.current?.clientHeight) {
+      if (height === 'initial' && combinedRef.current?.clientHeight) {
         combinedRef.current.style.height = `${combinedRef.current.clientHeight}px`
       }
-    }, [heightKey, combinedRef])
-    const height = heightMap[heightKey || 'auto']
+    }, [height, combinedRef])
 
     return (
       <Portal>
