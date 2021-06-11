@@ -10,7 +10,7 @@ import {useCombinedRefs} from './hooks/useCombinedRefs'
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
-  maxHeight?: keyof typeof heightMap
+  maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
 }
 
