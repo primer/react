@@ -42,7 +42,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   color: #24292e;
   padding: 16px;
   border: 0;
-  border-top: 1px solid #eaecef;
+  border-top: 1px solid hsla(214,13%,93%,1);
 }
 
 .c1.variant-normal > .c0:first-child {
