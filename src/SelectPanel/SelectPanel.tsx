@@ -127,11 +127,6 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const focusTrapSettings = {
-    initialFocusRef: inputRef
-  }
-
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
@@ -139,7 +134,6 @@ export function SelectPanel({
       onOpen={onOpen}
       onClose={onClose}
       overlayProps={overlayProps}
-      focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
       <Flex flexDirection="column" width="100%" height="100%">
@@ -151,7 +145,6 @@ export function SelectPanel({
           items={itemsToRender}
           selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
           textInputProps={textInputProps}
-          inputRef={inputRef}
         />
       </Flex>
     </AnchoredOverlay>
