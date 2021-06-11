@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {ReactElement, useRef} from 'react'
+import React, {ReactElement, useEffect, useRef} from 'react'
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
@@ -10,6 +10,7 @@ import {useCombinedRefs} from './hooks/useCombinedRefs'
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
+  maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
 }
 
@@ -19,7 +20,8 @@ const heightMap = {
   medium: '320px',
   large: '432px',
   xlarge: '600px',
-  auto: 'auto'
+  auto: 'auto',
+  initial: 'auto' // Passing 'initial' initially applies 'auto'
 }
 
 const widthMap = {
@@ -39,6 +41,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   min-width: 192px;
   max-width: 640px;
   height: ${props => heightMap[props.height || 'auto']};
+  max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
   overflow: hidden;
@@ -78,18 +81,29 @@ export type OverlayProps = {
  * @param onClickOutside  Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.
- * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
+ * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`, or pass `initial` to set the height based on the initial content of the `Overlay` (i.e. ignoring content changes). `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
+ * @param maxHeight Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param visibility Sets the visibility of the `Overlay`
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
-    {onClickOutside, role = 'dialog', initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, visibility, ...rest},
+    {
+      onClickOutside,
+      role = 'dialog',
+      initialFocusRef,
+      returnFocusRef,
+      ignoreClickRefs,
+      onEscape,
+      visibility,
+      height,
+      ...rest
+    },
     forwardedRef
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
 
-    const overlayProps = useOverlay({
+    useOverlay({
       overlayRef,
       returnFocusRef,
       onEscape,
@@ -97,12 +111,19 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       onClickOutside,
       initialFocusRef
     })
+
+    useEffect(() => {
+      if (height === 'initial' && combinedRef.current?.clientHeight) {
+        combinedRef.current.style.height = `${combinedRef.current.clientHeight}px`
+      }
+    }, [height, combinedRef])
+
     return (
       <Portal>
         <StyledOverlay
-          {...overlayProps}
           aria-modal="true"
           role={role}
+          height={height}
           {...rest}
           ref={combinedRef}
           visibility={visibility}
