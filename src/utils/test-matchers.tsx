@@ -1,4 +1,3 @@
-import {Nullish} from '@testing-library/react'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import React from 'react'
@@ -50,7 +49,7 @@ expect.extend({
     function checkStylesDeep(rendered: ReactTestRendererJSON): boolean {
       const className = rendered.props.className
       const styles = getComputedStyles(className)
-      const mediaStyles = styles[mediaKey] as Nullish<Record<string, string>>
+      const mediaStyles = styles[mediaKey] as Record<string, string> | null
       if (mediaStyles && mediaStyles.color) {
         return true
       } else if (rendered.children) {
