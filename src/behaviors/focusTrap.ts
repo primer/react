@@ -94,24 +94,12 @@ export function focusTrap(
           container.focus()
           // If a temporary `tabIndex` was provided, remove it.
           if (containerNeedsTemporaryTabIndex) {
-            const blurController = new AbortController()
-            container.addEventListener(
-              'blur',
-              () => {
-                // Once focus has moved from the container to a child within the FocusTrap,
-                // the container can be made un-refocusable by removing `tabIndex`.
-                container.removeAttribute('tabindex')
-                // NB: If `tabIndex` was removed *before* `blur`, then certain browsers (e.g. Chrome)
-                // would consider `body` the `activeElement`, and as a result, keyboard navigation
-                // between children would break, since `body` is outside the `FocusTrap`.
-
-                // Stop listening, so `tabIndex` is only removed once.
-                blurController.abort()
-              },
-              {
-                signal: blurController.signal
-              }
-            )
+            // Once focus has moved from the container to a child within the FocusTrap,
+            // the container can be made un-refocusable by removing `tabIndex`.
+            container.addEventListener('blur', () => container.removeAttribute('tabindex'), {once: true})
+            // NB: If `tabIndex` was removed *before* `blur`, then certain browsers (e.g. Chrome)
+            // would consider `body` the `activeElement`, and as a result, keyboard navigation
+            // between children would break, since `body` is outside the `FocusTrap`.
           }
           return
         }
