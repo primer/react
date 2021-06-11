@@ -68,8 +68,7 @@ export function focusTrap(
   // Ensure focus remains in the trap zone by checking that a given recently-focused
   // element is inside the trap zone. If it isn't, redirect focus to a suitable
   // element within the trap zone. If need to redirect focus and a suitable element
-  // is not found, blur the recently-focused element so that focus doesn't leave the
-  // trap zone.
+  // is not found, focus the container.
   function ensureTrapZoneHasFocus(focusedElement: EventTarget | null) {
     if (focusedElement instanceof HTMLElement && document.contains(container)) {
       if (container.contains(focusedElement)) {
@@ -80,16 +79,29 @@ export function focusTrap(
         if (lastFocusedChild && isTabbable(lastFocusedChild) && container.contains(lastFocusedChild)) {
           lastFocusedChild.focus()
           return
+        } else if (initialFocus && container.contains(initialFocus)) {
+          initialFocus.focus()
+          return
         } else {
-          const toFocus = initialFocus && container.contains(initialFocus) ? initialFocus : getFocusableChild(container)
-          if (toFocus) {
-            toFocus.focus()
-            return
-          } else {
-            // no element focusable within trap, blur the external element instead
-            // eslint-disable-next-line github/no-blur
-            focusedElement.blur()
+          // Ensure the container is focusable:
+          // - Either the container already has a `tabIndex`
+          // - Or provide a temporary `tabIndex`
+          const containerNeedsTemporaryTabIndex = container.getAttribute('tabindex') === null
+          if (containerNeedsTemporaryTabIndex) {
+            container.setAttribute('tabindex', '-1')
           }
+          // Focus the container.
+          container.focus()
+          // If a temporary `tabIndex` was provided, remove it.
+          if (containerNeedsTemporaryTabIndex) {
+            // Once focus has moved from the container to a child within the FocusTrap,
+            // the container can be made un-refocusable by removing `tabIndex`.
+            container.addEventListener('blur', () => container.removeAttribute('tabindex'), {once: true})
+            // NB: If `tabIndex` was removed *before* `blur`, then certain browsers (e.g. Chrome)
+            // would consider `body` the `activeElement`, and as a result, keyboard navigation
+            // between children would break, since `body` is outside the `FocusTrap`.
+          }
+          return
         }
       }
     }
