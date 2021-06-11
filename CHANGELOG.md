@@ -1,5 +1,11 @@
 # @primer/components
 
+## 28.2.3
+
+### Patch Changes
+
+- [`0ffc381c`](https://github.com/primer/components/commit/0ffc381c833219959ed3b99a9dd64fe56ac51036) [#1294](https://github.com/primer/components/pull/1294) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Revert first item focus fix for ActionList components.
+
 ## 28.2.2
 
 ### Patch Changes
