@@ -83,13 +83,23 @@ export function focusTrap(
           initialFocus.focus()
           return
         } else {
+          // Ensure the container is focusable:
+          // - Either the container already has a `tabIndex`
+          // - Or provide a temporary `tabIndex`
           const containerNeedsTemporaryTabIndex = container.getAttribute('tabindex') === null
           if (containerNeedsTemporaryTabIndex) {
             container.setAttribute('tabindex', '-1')
           }
+          // Focus the container.
           container.focus()
+          // If a temporary `tabIndex` was provided, remove it.
           if (containerNeedsTemporaryTabIndex) {
-            container.removeAttribute('tabindex')
+            // Once focus has moved from the container to a child within the FocusTrap,
+            // the container can be made un-refocusable by removing `tabIndex`.
+            container.addEventListener('blur', () => container.removeAttribute('tabindex'), {once: true})
+            // NB: If `tabIndex` was removed *before* `blur`, then certain browsers (e.g. Chrome)
+            // would consider `body` the `activeElement`, and as a result, keyboard navigation
+            // between children would break, since `body` is outside the `FocusTrap`.
           }
           return
         }

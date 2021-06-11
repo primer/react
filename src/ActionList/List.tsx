@@ -108,9 +108,7 @@ const StyledList = styled.div`
  * Returns `sx` prop values for `List` children matching the given `List` style variation.
  * @param variant `List` style variation.
  */
-function useListVariant(
-  variant: ListProps['variant'] = 'inset'
-): {
+function useListVariant(variant: ListProps['variant'] = 'inset'): {
   firstGroupStyle?: SystemCssProperties
   lastGroupStyle?: SystemCssProperties
   headerStyle?: SystemCssProperties
