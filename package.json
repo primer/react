@@ -67,7 +67,7 @@
     "@babel/eslint-parser": "7.13.14",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.12.1",
     "@babel/plugin-proposal-optional-chaining": "7.12.16",
-    "@babel/plugin-transform-modules-commonjs": "7.12.1",
+    "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "@babel/preset-react": "7.9.4",
     "@babel/preset-typescript": "7.12.7",
     "@changesets/changelog-github": "0.2.8",
