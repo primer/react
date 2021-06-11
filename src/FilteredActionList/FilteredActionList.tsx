@@ -11,6 +11,7 @@ import {itemActiveDescendantClass} from '../ActionList/Item'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import styled from 'styled-components'
 import {get} from '../constants'
+import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
@@ -19,6 +20,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
+  inputRef?: React.RefObject<HTMLInputElement>
 }
 
 function scrollIntoViewingArea(
@@ -56,6 +58,7 @@ export function FilteredActionList({
   onFilterChange,
   items,
   textInputProps,
+  inputRef: providedInputRef,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -70,7 +73,7 @@ export function FilteredActionList({
 
   const containerRef = useRef<HTMLInputElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useMemo(uniqueId, [])
   const onInputKeyPress: KeyboardEventHandler = useCallback(
