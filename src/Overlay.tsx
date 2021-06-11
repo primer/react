@@ -10,6 +10,7 @@ import {useCombinedRefs} from './hooks/useCombinedRefs'
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
+  maxHeight?: keyof typeof heightMap
   visibility?: 'visible' | 'hidden'
 }
 
@@ -40,6 +41,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   min-width: 192px;
   max-width: 640px;
   height: ${props => heightMap[props.height || 'auto']};
+  max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
   overflow: hidden;

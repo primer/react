@@ -131,7 +131,7 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', sx: {maxHeight: '192px'}}}
+        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
       />
     </>
   )
@@ -163,7 +163,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', sx: {maxHeight: '192px'}}}
+        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
       />
     </>
   )
