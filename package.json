@@ -91,7 +91,7 @@
     "@types/lodash.isobject": "3.0.6",
     "@typescript-eslint/eslint-plugin": "4.20.0",
     "@typescript-eslint/parser": "4.20.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "0.3.2",
+    "@wojtekmaj/enzyme-adapter-react-17": "0.6.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-react-displayname": "0.0.5",
