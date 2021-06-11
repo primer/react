@@ -588,9 +588,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     }
 
     const focusedIndex = focusableElements.indexOf(currentFocusedElement)
-    const fallbackIndex = currentFocusedElement === container ? -1 : 0
-
-    return focusedIndex !== -1 ? focusedIndex : fallbackIndex
+    return focusedIndex === -1 ? 0 : focusedIndex
   }
 
   // "keydown" is the event that triggers DOM focus change, so that is what we use here

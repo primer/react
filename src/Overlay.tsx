@@ -57,9 +57,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
     }
   }
   visibility: ${props => props.visibility || 'visible'};
-  :focus {
-    outline: none;
-  }
   ${COMMON};
   ${POSITION};
   ${sx};
