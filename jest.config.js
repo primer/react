@@ -1,5 +1,6 @@
 /* eslint-disable github/unescaped-html-literal */
 module.exports = {
+  testEnvironment: 'jsdom',
   cacheDirectory: '.test',
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**'],
