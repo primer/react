@@ -47,7 +47,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "^13.0.0",
-    "@primer/primitives": "0.0.0-202121782215",
+    "@primer/primitives": "4.4.0",
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.5",
     "@styled-system/theme-get": "5.1.2",
@@ -129,7 +129,7 @@
     "rollup-plugin-visualizer": "5.5.0",
     "semver": "7.3.5",
     "styled-components": "4.4.1",
-    "typescript": "4.2.2"
+    "typescript": "4.3.2"
   },
   "peerDependencies": {
     "react": "^17.0.0",

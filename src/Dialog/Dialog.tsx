@@ -184,7 +184,7 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.bg.overlay')};
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 8px 24px rgba(149, 157, 165, 0.2);
+  box-shadow: ${get('shadows.overlay.shadow')};
   min-width: 296px;
   max-width: calc(100vw - 64px);
   max-height: calc(100vh - 64px);

@@ -57,7 +57,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 .c1:active {
-  background-color: #edeff2;
+  background-color: hsla(220,14%,94%,1);
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
 }
 
@@ -74,7 +74,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   font-weight: 600;
   color: #6a737d;
   background-color: #f6f8fa;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid hsla(214,13%,93%,1);
 }
 
 .c7 {
@@ -83,7 +83,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   font-size: 12px;
   color: #6a737d;
   text-align: center;
-  border-top: 1px solid #eaecef;
+  border-top: 1px solid hsla(214,13%,93%,1);
 }
 
 .c5 {
@@ -101,7 +101,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   cursor: pointer;
   background-color: #ffffff;
   border: 0;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid hsla(214,13%,93%,1);
   color: #586069;
   -webkit-text-decoration: none;
   text-decoration: none;

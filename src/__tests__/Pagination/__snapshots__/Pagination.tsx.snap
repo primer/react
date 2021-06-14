@@ -45,7 +45,7 @@ exports[`Pagination renders consistently 1`] = `
 }
 
 .c2:active {
-  border-color: #eaecef;
+  border-color: hsla(214,13%,93%,1);
 }
 
 .c2[rel='prev'],

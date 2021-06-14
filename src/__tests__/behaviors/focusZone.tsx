@@ -458,11 +458,11 @@ it('Should set aria-activedescendant correctly', () => {
 
   const focusZoneContainer = container.querySelector<HTMLElement>('#focusZone')!
   const [firstButton, secondButton] = focusZoneContainer.querySelectorAll('button')!
+  const outsideButton = container.querySelector<HTMLElement>('#outside')!
   const control = container.querySelector<HTMLElement>('#control')!
   const controller = focusZone(focusZoneContainer, {activeDescendantControl: control})
 
   control.focus()
-  userEvent.type(control, '{arrowdown}')
   expect(control.getAttribute('aria-activedescendant')).toEqual(firstButton.id)
   userEvent.type(control, '{arrowdown}')
   expect(control.getAttribute('aria-activedescendant')).toEqual(secondButton.id)
@@ -470,8 +470,9 @@ it('Should set aria-activedescendant correctly', () => {
   expect(control.getAttribute('aria-activedescendant')).toEqual(firstButton.id)
   expect(document.activeElement).toEqual(control)
   userEvent.type(control, '{arrowup}')
+  expect(control.getAttribute('aria-activedescendant')).toEqual(firstButton.id)
+  outsideButton.focus()
   expect(control.hasAttribute('aria-activedescendant')).toBeFalsy()
-  expect(document.activeElement).toEqual(control)
 
   controller.abort()
 })
