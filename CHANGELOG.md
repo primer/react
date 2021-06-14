@@ -1,5 +1,21 @@
 # @primer/components
 
+## 28.2.4
+
+### Patch Changes
+
+- [#1293](https://github.com/primer/components/pull/1293) [`1148a718`](https://github.com/primer/components/commit/1148a718aa1db92fb90d15efc150aa4c0c2ef018) Thanks [@smockle](https://github.com/smockle)! - Restore "fix: Don’t focus first 'Item' of 'DropdownMenu' and 'SelectMenu' on open" by deferring the removal of a temporary `tabIndex` until focus moves within the container.
+
+* [#1279](https://github.com/primer/components/pull/1279) [`bb38754f`](https://github.com/primer/components/commit/bb38754f9f5c9f1d2d6cfa03f2bf9984fbd3c82d) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Update overlay shadows
+
+- [#1297](https://github.com/primer/components/pull/1297) [`5fb3683d`](https://github.com/primer/components/commit/5fb3683df6cc116975c729e83ce3c14b87ffaea1) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Bump @primer/primitives to 4.4.0
+
+* [#1288](https://github.com/primer/components/pull/1288) [`15207119`](https://github.com/primer/components/commit/15207119d25a3d6b0b13294bb99dc4efd780a788) Thanks [@dgreif](https://github.com/dgreif)! - Focus zones with an `activeDescendantControl` will now activate the first descendant as soon as the control element is focused, rather than waiting for an up/down arrow press. Descendants stay active until the control element is blurred. This is a breaking change to `useFocusZone`, but this behavior is still considered to be in `alpha`.
+
+- [#1292](https://github.com/primer/components/pull/1292) [`4b643818`](https://github.com/primer/components/commit/4b64381872eac9df00c53186782a370b0d6da638) Thanks [@dgreif](https://github.com/dgreif)! - Bump dependencies
+
+* [#1279](https://github.com/primer/components/pull/1279) [`bb38754f`](https://github.com/primer/components/commit/bb38754f9f5c9f1d2d6cfa03f2bf9984fbd3c82d) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Update TextInput border color
+
 ## 28.2.3
 
 ### Patch Changes
