@@ -33,10 +33,9 @@ const widthMap = {
   auto: 'auto'
 }
 
-/*TODO replace with shadow functional color variable when it's shipped to primer/primitives*/
 const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SystemPositionProps & SxProp>`
   background-color: ${get('colors.bg.overlay')};
-  box-shadow: ${get('shadows.shadow.large')};
+  box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
   min-width: 192px;
   max-width: 640px;
