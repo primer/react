@@ -71,8 +71,7 @@ export function FilteredActionList({
     [onFilterChange, setInternalFilterValue]
   )
 
-  const containerRef = useRef<HTMLInputElement>(null)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useMemo(uniqueId, [])
@@ -91,11 +90,11 @@ export function FilteredActionList({
   )
 
   useFocusZone({
-    containerRef,
+    containerRef: listContainerRef,
     focusOutBehavior: 'wrap',
     focusableElementFilter: element => {
       if (element instanceof HTMLInputElement) {
-        // No active-descendant focus on checkboxes in list items or filter input
+        // No active-descendant focus on checkboxes in list items
         return false
       }
       return true
@@ -111,8 +110,8 @@ export function FilteredActionList({
       if (current) {
         current.classList.add(itemActiveDescendantClass)
 
-        if (scrollContainerRef.current) {
-          scrollIntoViewingArea(current, scrollContainerRef.current)
+        if (listContainerRef.current) {
+          scrollIntoViewingArea(current, listContainerRef.current)
         }
       }
     }
@@ -120,15 +119,15 @@ export function FilteredActionList({
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
-    if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoViewingArea(activeDescendantRef.current, scrollContainerRef.current, undefined, 'auto')
+    if (activeDescendantRef.current && listContainerRef.current) {
+      scrollIntoViewingArea(activeDescendantRef.current, listContainerRef.current, undefined, 'auto')
     }
   }, [items])
 
-  useScrollFlash(scrollContainerRef)
+  useScrollFlash(listContainerRef)
 
   return (
-    <Flex ref={containerRef} flexDirection="column" overflow="hidden">
+    <Flex flexDirection="column" overflow="hidden">
       <StyledHeader>
         <TextInput
           ref={inputRef}
@@ -144,7 +143,7 @@ export function FilteredActionList({
           {...textInputProps}
         />
       </StyledHeader>
-      <Box ref={scrollContainerRef} overflow="auto">
+      <Box ref={listContainerRef} overflow="auto">
         {loading ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
