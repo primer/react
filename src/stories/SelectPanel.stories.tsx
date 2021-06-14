@@ -1,3 +1,4 @@
+import type {OverlayProps} from '../Overlay'
 import {Meta} from '@storybook/react'
 import React, {useState} from 'react'
 import {theme, ThemeProvider} from '..'
@@ -169,3 +170,49 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
   )
 }
 SelectPanelHeightInitialWithUnderflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Underflowing Items'
+
+export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const [fetchedItems, setFetchedItems] = useState<typeof items>([])
+  const filteredItems = React.useMemo(
+    () => fetchedItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())),
+    [fetchedItems, filter]
+  )
+  const [open, setOpen] = useState(false)
+  const [height, setHeight] = useState<OverlayProps['height']>('auto')
+
+  const onOpenChange = () => {
+    setOpen(!open)
+    setTimeout(() => {
+      setFetchedItems([items[0], items[1]])
+      setHeight('initial')
+    }, 1500)
+  }
+
+  return (
+    <>
+      <h1>Single Select Panel</h1>
+      <div>Please select a label that describe your issue:</div>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={onOpenChange}
+        loading={filteredItems.length === 0}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+      />
+    </>
+  )
+}
+SelectPanelHeightInitialWithUnderflowingItemsAfterFetch.storyName =
+  'SelectPanel, Height: Initial, Underflowing Items (After Fetch)'
