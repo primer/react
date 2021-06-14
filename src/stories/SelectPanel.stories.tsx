@@ -106,3 +106,66 @@ export function SingleSelectStory(): JSX.Element {
   )
 }
 SingleSelectStory.storyName = 'Single Select'
+
+export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>Single Select Panel</h1>
+      <div>Please select a label that describe your issue:</div>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+      />
+    </>
+  )
+}
+SelectPanelHeightInitialWithOverflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Overflowing Items'
+
+export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Element {
+  const underflowingItems = [items[0], items[1]]
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = underflowingItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>Single Select Panel</h1>
+      <div>Please select a label that describe your issue:</div>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+      />
+    </>
+  )
+}
+SelectPanelHeightInitialWithUnderflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Underflowing Items'

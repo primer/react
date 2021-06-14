@@ -1,5 +1,29 @@
 # @primer/components
 
+## 28.2.3
+
+### Patch Changes
+
+- [`0ffc381c`](https://github.com/primer/components/commit/0ffc381c833219959ed3b99a9dd64fe56ac51036) [#1294](https://github.com/primer/components/pull/1294) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Revert first item focus fix for ActionList components.
+
+## 28.2.2
+
+### Patch Changes
+
+- [`68877076`](https://github.com/primer/components/commit/68877076fcbbc1c4cd308f2e6f8f44290751efe4) [#1275](https://github.com/primer/components/pull/1275) Thanks [@VanAnderson](https://github.com/VanAnderson)! - data props can be used in overlayProps.
+
+* [`2793ef48`](https://github.com/primer/components/commit/2793ef48d554e307e46442fcc198ed4adf8c137f) [#1286](https://github.com/primer/components/pull/1286) Thanks [@colebemis](https://github.com/colebemis)! - `ThemeProvider` now uses the first defined color scheme if passed an invalid color scheme name
+
+- [`321b9a3d`](https://github.com/primer/components/commit/321b9a3d9e0ddf6755bd7299ea6cd42a52f427a9) [#1266](https://github.com/primer/components/pull/1266) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Anchored overlay can take an external anchorRef.
+
+## 28.2.1
+
+### Patch Changes
+
+- [`f793ed00`](https://github.com/primer/components/commit/f793ed00e244de861f373cf0882397a1f640b046) [#1280](https://github.com/primer/components/pull/1280) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Export TexContainer from of ActionList/Item.
+
+* [`2893326b`](https://github.com/primer/components/commit/2893326bc45fd841cd71ac46ca71cdaececa7343) [#1259](https://github.com/primer/components/pull/1259) Thanks [@smockle](https://github.com/smockle)! - Hide intra-'Item' dividers on ':hover' and ':focus'
+
 ## 28.2.0
 
 ### Minor Changes

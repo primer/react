@@ -11,7 +11,7 @@ import {
   ArrowRightIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '..'
 import {ActionMenu} from '../ActionMenu'
@@ -97,6 +97,7 @@ export function SimpleListStory(): JSX.Element {
           onAction={onAction}
           anchorContent="Menu"
           overlayProps={{
+            'data-test-id': 'some_test_id',
             onMouseDown: (e: React.MouseEvent) =>
               // eslint-disable-next-line no-console
               console.log('onMouseDown in the internal Overlay can be useful for controlling event interactions', e)
@@ -246,3 +247,28 @@ export function CustomTrigger(): JSX.Element {
   )
 }
 CustomTrigger.storyName = 'Custom Trigger'
+
+export function ActionMenuWithExternalAnchor(): JSX.Element {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Open Menu
+      </Button>
+      <ActionMenu
+        renderAnchor={null}
+        anchorRef={buttonRef}
+        open={isOpen}
+        setOpen={setIsOpen}
+        items={[
+          {text: 'New file'},
+          ActionList.Divider,
+          {text: 'Copy link'},
+          {text: 'Edit file'},
+          {text: 'Delete file', variant: 'danger'}
+        ]}
+      />
+    </>
+  )
+}
