@@ -128,7 +128,7 @@ exports[`Timeline.Item renders consistently 1`] = `
   display: block;
   width: 2px;
   content: '';
-  background-color: #eaecef;
+  background-color: hsla(214,13%,93%,1);
 }
 
 <div
@@ -166,7 +166,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   display: block;
   width: 2px;
   content: '';
-  background-color: #eaecef;
+  background-color: hsla(214,13%,93%,1);
 }
 
 .c0:last-child {

@@ -10,7 +10,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid hsla(214,13%,93%,1);
 }
 
 .c0.UnderlineNav--right {
