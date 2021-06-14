@@ -57,7 +57,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:active {
-  background-color: #edeff2;
+  background-color: hsla(220,14%,94%,1);
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
 }
 
@@ -129,7 +129,7 @@ exports[`Button respects the "disabled" prop 1`] = `
 }
 
 .c0:active {
-  background-color: #edeff2;
+  background-color: hsla(220,14%,94%,1);
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
 }
 
@@ -205,7 +205,7 @@ exports[`ButtonDanger renders consistently 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #d42d3d;
+  background-color: hsla(354,66%,51%,1);
   box-shadow: inset 0 1px 0 rgba(134,24,29,0.2);
   border-color: rgba(27,31,35,0.15);
 }
@@ -280,7 +280,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #d42d3d;
+  background-color: hsla(354,66%,51%,1);
   box-shadow: inset 0 1px 0 rgba(134,24,29,0.2);
   border-color: rgba(27,31,35,0.15);
 }
@@ -409,7 +409,7 @@ exports[`ButtonInvisible renders consistently 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #035fc7;
+  background-color: hsla(212,97%,40%,1);
   box-shadow: inset 0 1px 0 rgba(5,38,76,0.2);
   border-color: rgba(27,31,35,0.15);
 }
@@ -546,7 +546,7 @@ exports[`ButtonOutline renders consistently 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #035fc7;
+  background-color: hsla(212,97%,40%,1);
   box-shadow: inset 0 1px 0 rgba(5,38,76,0.2);
   border-color: rgba(27,31,35,0.15);
 }
@@ -622,7 +622,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #035fc7;
+  background-color: hsla(212,97%,40%,1);
   box-shadow: inset 0 1px 0 rgba(5,38,76,0.2);
   border-color: rgba(27,31,35,0.15);
 }
@@ -696,7 +696,7 @@ exports[`ButtonPrimary renders consistently 1`] = `
 }
 
 .c0:active {
-  background-color: #2a8f47;
+  background-color: hsla(137,55%,36%,1);
   box-shadow: inset 0 1px 0 rgba(20,70,32,0.2);
 }
 
@@ -768,7 +768,7 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
 }
 
 .c0:active {
-  background-color: #2a8f47;
+  background-color: hsla(137,55%,36%,1);
   box-shadow: inset 0 1px 0 rgba(20,70,32,0.2);
 }
 
