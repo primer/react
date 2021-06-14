@@ -47,7 +47,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "^13.0.0",
-    "@primer/primitives": "4.3.11",
+    "@primer/primitives": "0.0.0-2021514171229",
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.4",
     "@styled-system/theme-get": "5.1.2",
