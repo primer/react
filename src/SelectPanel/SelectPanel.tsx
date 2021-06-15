@@ -46,12 +46,6 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   disabled: true
 }
 
-const textInputProps: Partial<TextInputProps> = {
-  mx: 2,
-  my: 2,
-  contrast: true
-}
-
 export function SelectPanel({
   open,
   onOpenChange,
@@ -62,6 +56,7 @@ export function SelectPanel({
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
   items,
+  textInputProps,
   overlayProps,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -129,7 +124,15 @@ export function SelectPanel({
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
-    initialFocusRef: inputRef
+    initialFocusRef: inputRef,
+    disabled: textInputProps?.disabled
+  }
+
+  const extendedTextInputProps: Partial<TextInputProps> = {
+    ...textInputProps,
+    mx: 2,
+    my: 2,
+    contrast: true
   }
 
   return (
@@ -150,7 +153,7 @@ export function SelectPanel({
           role="listbox"
           items={itemsToRender}
           selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-          textInputProps={textInputProps}
+          textInputProps={extendedTextInputProps}
           inputRef={inputRef}
         />
       </Flex>
