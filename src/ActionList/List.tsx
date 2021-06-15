@@ -132,7 +132,7 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
 /**
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
-export function List(props: ListProps): JSX.Element {
+export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
   const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
 
@@ -216,7 +216,7 @@ export function List(props: ListProps): JSX.Element {
   }
 
   return (
-    <StyledList {...props}>
+    <StyledList {...props} ref={forwardedRef}>
       {groups.map(({header, ...groupProps}, index) => {
         const hasFilledHeader = header?.variant === 'filled'
         const shouldShowDivider = index > 0 && !hasFilledHeader
@@ -242,4 +242,6 @@ export function List(props: ListProps): JSX.Element {
       })}
     </StyledList>
   )
-}
+})
+
+List.displayName = 'ActionList'

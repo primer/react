@@ -8,7 +8,11 @@ import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
-import {uniqueId} from '../utils/uniqueId'
+import {
+  activeDescendantActivatedDirectly,
+  activeDescendantActivatedIndirectly,
+  isActiveDescendantAttribute
+} from '../behaviors/focusZone'
 
 /**
  * These colors are not yet in our default theme.  Need to remove this once they are added.
@@ -121,8 +125,6 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   id?: number | string
 }
 
-export const itemActiveDescendantClass = `${uniqueId()}active-descendant`
-
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
@@ -212,16 +214,23 @@ const StyledItem = styled.div<
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
   :focus + * ${StyledItemContent}::before,
   // - above Active Descendent
-  &.${itemActiveDescendantClass} ${StyledItemContent}::before,
+  &[${isActiveDescendantAttribute}] ${StyledItemContent}::before,
   // - below Active Descendent
-  .${itemActiveDescendantClass} + & ${StyledItemContent}::before {
+  [${isActiveDescendantAttribute}] + & ${StyledItemContent}::before {
     // '!important' because all the ':not's above give higher specificity
     border-color: transparent !important;
   }
 
-  // Focused OR Active Descendant
-  &:focus,
-  &.${itemActiveDescendantClass} {
+  // Active Descendant
+  &[${isActiveDescendantAttribute}='${activeDescendantActivatedDirectly}'] {
+    background: ${({focusBackground}) => focusBackground};
+  }
+  &[${isActiveDescendantAttribute}='${activeDescendantActivatedIndirectly}'] {
+    background: ${({hoverBackground}) => hoverBackground};
+  }
+
+  // Focused
+  &:focus {
     background: ${({focusBackground}) => focusBackground};
     outline: none;
   }

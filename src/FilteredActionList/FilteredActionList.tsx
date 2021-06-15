@@ -7,7 +7,6 @@ import {ActionList} from '../ActionList'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {uniqueId} from '../utils/uniqueId'
-import {itemActiveDescendantClass} from '../ActionList/Item'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -71,6 +70,7 @@ export function FilteredActionList({
     [onFilterChange, setInternalFilterValue]
   )
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
@@ -100,19 +100,11 @@ export function FilteredActionList({
       return true
     },
     activeDescendantFocus: inputRef,
-    onActiveDescendantChanged: (current, previous) => {
+    onActiveDescendantChanged: (current, previous, activatedByKeyboardNavigation) => {
       activeDescendantRef.current = current
 
-      if (previous) {
-        previous.classList.remove(itemActiveDescendantClass)
-      }
-
-      if (current) {
-        current.classList.add(itemActiveDescendantClass)
-
-        if (listContainerRef.current) {
-          scrollIntoViewingArea(current, listContainerRef.current)
-        }
+      if (current && scrollContainerRef.current && activatedByKeyboardNavigation) {
+        scrollIntoViewingArea(current, scrollContainerRef.current)
       }
     }
   })
@@ -124,7 +116,7 @@ export function FilteredActionList({
     }
   }, [items])
 
-  useScrollFlash(listContainerRef)
+  useScrollFlash(scrollContainerRef)
 
   return (
     <Flex flexDirection="column" overflow="hidden">
@@ -143,13 +135,13 @@ export function FilteredActionList({
           {...textInputProps}
         />
       </StyledHeader>
-      <Box ref={listContainerRef} overflow="auto">
+      <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
           </Box>
         ) : (
-          <ActionList items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
     </Flex>
