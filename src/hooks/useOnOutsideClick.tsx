@@ -1,6 +1,7 @@
 import React, {useEffect, useCallback, useMemo} from 'react'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
+type TouchOrMouseEventCallback = (event: TouchOrMouseEvent) => boolean | undefined
 
 export type UseOnOutsideClickSettings = {
   containerRef: React.RefObject<HTMLDivElement>
@@ -8,14 +9,8 @@ export type UseOnOutsideClickSettings = {
   onClickOutside: (e: TouchOrMouseEvent) => void
 }
 
-type ShouldCallClickHandlerSettings = {
-  ignoreClickRefs?: React.RefObject<HTMLElement>[]
-  containerRef: React.RefObject<HTMLDivElement>
-  e: TouchOrMouseEvent
-}
-
-type ClickOutsideEventHandler = (e: MouseEvent) => boolean
-const handlers: ClickOutsideEventHandler[] = []
+// Because events are handled at the document level, we provide a mechanism for early return.
+const stopPropagation = true
 
 /**
  * Calls all handlers in reverse order
@@ -23,83 +18,65 @@ const handlers: ClickOutsideEventHandler[] = []
  */
 function handleClick(event: MouseEvent) {
   if (!event.defaultPrevented) {
-    for (let i = handlers.length - 1; i >= 0; i--) {
-      const wasClickOutside = handlers[i](event)
+    for (const handler of Object.values(registry).reverse()) {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (!wasClickOutside || event.defaultPrevented) {
+      if (handler(event) === stopPropagation || event.defaultPrevented) {
         break
       }
     }
   }
 }
 
-const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallClickHandlerSettings): boolean => {
-  let shouldCallHandler = true
+const registry: {[id: number]: TouchOrMouseEventCallback} = {}
 
-  // don't call click handler if the mouse event was triggered by an auxiliary button (right click/wheel button/etc)
-  if (e instanceof MouseEvent && e.button > 0) {
-    shouldCallHandler = false
-  }
-
-  // don't call handler if the click happened inside of the container
-  if (containerRef.current?.contains(e.target as Node)) {
-    shouldCallHandler = false
-    // don't call handler if click happened on an ignored ref
-  } else if (ignoreClickRefs) {
-    for (const ignoreRef of ignoreClickRefs) {
-      if (ignoreRef.current?.contains(e.target as Node)) {
-        shouldCallHandler = false
-        // if we encounter one, break early, we don't need to go through the rest
-        break
-      }
-    }
-  }
-  return shouldCallHandler
+function register(id: number, handler: TouchOrMouseEventCallback): void {
+  registry[id] = handler
 }
-// eslint-disable-next-line @typescript-eslint/ban-types
-const handlersByToken = new WeakMap<object, ClickOutsideEventHandler>()
 
-export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings): void => {
-  const handlerToken = useMemo(() => ({}), [])
-  const propSpecificHandler = useCallback(
-    (e: TouchOrMouseEvent) => {
-      const wasClickOutside = shouldCallClickHandler({ignoreClickRefs, containerRef, e})
-      if (wasClickOutside) {
-        onClickOutside(e)
-      }
-      return wasClickOutside
-    },
-    [onClickOutside, containerRef, ignoreClickRefs]
-  )
-  handlersByToken.set(handlerToken, propSpecificHandler)
+function deregister(id: number) {
+  delete registry[id]
+}
 
-  const distinctHandler = useCallback(
-    (event: MouseEvent) => {
-      const handler = handlersByToken.get(handlerToken)
+// For auto-incrementing unique identifiers for registered handlers.
+let handlerId = 0
 
-      if (!handler) {
-        return false
+export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings) => {
+  const id = useMemo(() => handlerId++, [])
+
+  const handler = useCallback<TouchOrMouseEventCallback>(
+    event => {
+      // don't call click handler if the mouse event was triggered by an auxiliary button (right click/wheel button/etc)
+      if (event instanceof MouseEvent && event.button > 0) {
+        return stopPropagation
       }
 
-      return handler(event)
+      // don't call handler if the click happened inside of the container
+      if (containerRef.current?.contains(event.target as Node)) {
+        return stopPropagation
+      }
+
+      // don't call handler if click happened on an ignored ref
+      if (ignoreClickRefs && ignoreClickRefs.some(({current}) => current?.contains(event.target as Node))) {
+        return stopPropagation
+      }
+
+      onClickOutside(event)
     },
-    [handlerToken]
+    [containerRef, ignoreClickRefs, onClickOutside]
   )
 
   useEffect(() => {
-    if (handlers.length === 0) {
+    if (Object.keys(registry).length === 0) {
       // use capture to ensure we get all events
       document.addEventListener('mousedown', handleClick, {capture: true})
     }
-    handlers.push(distinctHandler)
+    register(id, handler)
+
     return () => {
-      handlers.splice(
-        handlers.findIndex(h => h === distinctHandler),
-        1
-      )
-      if (handlers.length === 0) {
+      deregister(id)
+      if (Object.keys(registry).length === 0) {
         document.removeEventListener('mousedown', handleClick, {capture: true})
       }
     }
-  }, [distinctHandler])
+  }, [id, handler])
 }
