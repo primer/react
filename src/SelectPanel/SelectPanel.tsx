@@ -128,12 +128,14 @@ export function SelectPanel({
     disabled: textInputProps?.disabled
   }
 
-  const extendedTextInputProps: Partial<TextInputProps> = {
-    ...textInputProps,
-    mx: 2,
-    my: 2,
-    contrast: true
-  }
+  const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
+    return {
+      mx: 2,
+      my: 2,
+      contrast: true,
+      ...textInputProps
+    }
+  }, [textInputProps])
 
   return (
     <AnchoredOverlay
