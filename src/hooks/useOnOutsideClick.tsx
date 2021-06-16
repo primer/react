@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react'
+import React, {useEffect, useCallback, useMemo} from 'react'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 
@@ -14,7 +14,8 @@ type ShouldCallClickHandlerSettings = {
   e: TouchOrMouseEvent
 }
 
-const handlers: ((e: MouseEvent) => boolean)[] = []
+type ClickOutsideEventHandler = (e: MouseEvent) => boolean
+const handlers: ClickOutsideEventHandler[] = []
 
 /**
  * Calls all handlers in reverse order
@@ -55,9 +56,12 @@ const shouldCallClickHandler = ({ignoreClickRefs, containerRef, e}: ShouldCallCl
   }
   return shouldCallHandler
 }
+// eslint-disable-next-line @typescript-eslint/ban-types
+const handlersByToken = new WeakMap<object, ClickOutsideEventHandler>()
 
 export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside}: UseOnOutsideClickSettings): void => {
-  const onOutsideClickInternal = useCallback(
+  const handlerToken = useMemo(() => ({}), [])
+  const propSpecificHandler = useCallback(
     (e: TouchOrMouseEvent) => {
       const wasClickOutside = shouldCallClickHandler({ignoreClickRefs, containerRef, e})
       if (wasClickOutside) {
@@ -67,20 +71,35 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
     },
     [onClickOutside, containerRef, ignoreClickRefs]
   )
+  handlersByToken.set(handlerToken, propSpecificHandler)
+
+  const distinctHandler = useCallback(
+    (event: MouseEvent) => {
+      const handler = handlersByToken.get(handlerToken)
+
+      if (!handler) {
+        return false
+      }
+
+      return handler(event)
+    },
+    [handlerToken]
+  )
+
   useEffect(() => {
     if (handlers.length === 0) {
       // use capture to ensure we get all events
       document.addEventListener('mousedown', handleClick, {capture: true})
     }
-    handlers.push(onOutsideClickInternal)
+    handlers.push(distinctHandler)
     return () => {
       handlers.splice(
-        handlers.findIndex(h => h === onOutsideClickInternal),
+        handlers.findIndex(h => h === distinctHandler),
         1
       )
       if (handlers.length === 0) {
         document.removeEventListener('mousedown', handleClick, {capture: true})
       }
     }
-  }, [onOutsideClickInternal])
+  }, [distinctHandler])
 }

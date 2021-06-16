@@ -110,7 +110,7 @@ export const OverlayOnTopOfOverlay = () => {
   const secondaryButtonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = useCallback(() => setIsOpen(false), [setIsOpen])
+  const closeOverlay = () => setIsOpen(false) // intentionally not memoized
   const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
   const items = React.useMemo(
     () => [
