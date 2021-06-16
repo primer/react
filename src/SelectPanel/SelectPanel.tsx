@@ -21,7 +21,7 @@ interface SelectPanelMultiSelection {
 }
 
 interface SelectPanelBaseProps {
-  renderAnchor?: AnchoredOverlayProps['renderAnchor']
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
@@ -82,8 +82,8 @@ export function SelectPanel({
     [onOpenChange]
   )
 
-  const renderMenuAnchor: AnchoredOverlayProps['renderAnchor'] = useCallback(
-    props => {
+  const renderMenuAnchor = useCallback(
+    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
 
       return renderAnchor({
@@ -127,6 +127,11 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const focusTrapSettings = {
+    initialFocusRef: inputRef
+  }
+
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
@@ -134,6 +139,7 @@ export function SelectPanel({
       onOpen={onOpen}
       onClose={onClose}
       overlayProps={overlayProps}
+      focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
       <Flex flexDirection="column" width="100%" height="100%">
@@ -145,6 +151,7 @@ export function SelectPanel({
           items={itemsToRender}
           selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
           textInputProps={textInputProps}
+          inputRef={inputRef}
         />
       </Flex>
     </AnchoredOverlay>

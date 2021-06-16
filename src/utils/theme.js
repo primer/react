@@ -14,7 +14,7 @@ function fontStack(fonts) {
 // will not be needed.
 
 function isShadowValue(value) {
-  return typeof value === 'string' && /(inset\s|)([0-9.empx\s]+){1,4}rgb[a]?\(.*\)/.test(value)
+  return typeof value === 'string' && /(inset\s|)([0-9.]+(\w*)\s){1,4}(rgb[a]?\(.*\)|\w+)/.test(value)
 }
 
 function isColorValue(value) {

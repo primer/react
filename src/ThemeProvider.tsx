@@ -154,7 +154,10 @@ function applyColorScheme(theme: Theme, colorScheme: string) {
   if (!theme.colorSchemes[colorScheme]) {
     // eslint-disable-next-line no-console
     console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
-    return theme
+
+    // Apply the first defined color scheme
+    const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
+    return deepmerge(theme, theme.colorSchemes[defaultColorScheme])
   }
 
   return deepmerge(theme, theme.colorSchemes[colorScheme])

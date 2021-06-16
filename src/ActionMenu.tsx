@@ -6,15 +6,38 @@ import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
 import {OverlayProps} from './Overlay'
-export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+import {useProvidedRefOrCreate} from './hooks'
+
+interface ActionMenuPropsWithAnchor {
   /**
    * A custom function component used to render the anchor element.
    * Will receive the `anchoredContent` prop as `children` prop.
    * Uses a `Button` by default.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderAnchor?: (props: any) => JSX.Element
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
+  /**
+   * An override to the internal renderAnchor ref that will be spread on to the renderAnchor,
+   * When renderAnchor is defined, this prop will be spread on to the rendAnchor
+   * component that is passed in.
+   */
+  anchorRef?: React.RefObject<HTMLElement>
+}
+
+interface ActionMenuPropsWithoutAnchor {
+  /**
+   * A custom function component used to render the anchor element.
+   * When renderAnchor is null, an anchorRef is required.
+   */
+  renderAnchor: null
+
+  /**
+   * An override to the internal renderAnchor ref. When renderAnchor is null this can be
+   * used to make an anchor that is detached from ActionMenu.
+   */
+  anchorRef: React.RefObject<HTMLElement>
+}
+interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * Content that is passed into the renderAnchor component, which is a button by default.
    */
@@ -41,6 +64,8 @@ export interface ActionMenuProps extends Partial<Omit<GroupedListProps, keyof Li
   overlayProps?: Partial<OverlayProps>
 }
 
+export type ActionMenuProps = ActionMenuBaseProps & (ActionMenuPropsWithAnchor | ActionMenuPropsWithoutAnchor)
+
 const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
 
 ActionMenuItem.displayName = 'ActionMenu.Item'
@@ -48,6 +73,7 @@ ActionMenuItem.displayName = 'ActionMenu.Item'
 const ActionMenuBase = ({
   anchorContent,
   renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
+  anchorRef: externalAnchorRef,
   onAction,
   open,
   setOpen,
@@ -56,19 +82,22 @@ const ActionMenuBase = ({
   ...listProps
 }: ActionMenuProps): JSX.Element => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
-  const renderMenuAnchor = useCallback(
-    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
+  const renderMenuAnchor = useMemo(() => {
+    if (renderAnchor === null) {
+      return null
+    }
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         'aria-label': 'menu',
         children: anchorContent,
         ...props
       })
-    },
-    [anchorContent, renderAnchor]
-  )
+    }
+  }, [anchorContent, renderAnchor])
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -89,6 +118,7 @@ const ActionMenuBase = ({
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
+      anchorRef={anchorRef}
       open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}

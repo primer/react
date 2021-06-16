@@ -1,5 +1,65 @@
 # @primer/components
 
+## 28.2.4
+
+### Patch Changes
+
+- [#1293](https://github.com/primer/components/pull/1293) [`1148a718`](https://github.com/primer/components/commit/1148a718aa1db92fb90d15efc150aa4c0c2ef018) Thanks [@smockle](https://github.com/smockle)! - Restore "fix: Don’t focus first 'Item' of 'DropdownMenu' and 'SelectMenu' on open" by deferring the removal of a temporary `tabIndex` until focus moves within the container.
+
+* [#1279](https://github.com/primer/components/pull/1279) [`bb38754f`](https://github.com/primer/components/commit/bb38754f9f5c9f1d2d6cfa03f2bf9984fbd3c82d) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Update overlay shadows
+
+- [#1297](https://github.com/primer/components/pull/1297) [`5fb3683d`](https://github.com/primer/components/commit/5fb3683df6cc116975c729e83ce3c14b87ffaea1) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Bump @primer/primitives to 4.4.0
+
+* [#1288](https://github.com/primer/components/pull/1288) [`15207119`](https://github.com/primer/components/commit/15207119d25a3d6b0b13294bb99dc4efd780a788) Thanks [@dgreif](https://github.com/dgreif)! - Focus zones with an `activeDescendantControl` will now activate the first descendant as soon as the control element is focused, rather than waiting for an up/down arrow press. Descendants stay active until the control element is blurred. This is a breaking change to `useFocusZone`, but this behavior is still considered to be in `alpha`.
+
+- [#1292](https://github.com/primer/components/pull/1292) [`4b643818`](https://github.com/primer/components/commit/4b64381872eac9df00c53186782a370b0d6da638) Thanks [@dgreif](https://github.com/dgreif)! - Bump dependencies
+
+* [#1279](https://github.com/primer/components/pull/1279) [`bb38754f`](https://github.com/primer/components/commit/bb38754f9f5c9f1d2d6cfa03f2bf9984fbd3c82d) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Update TextInput border color
+
+## 28.2.3
+
+### Patch Changes
+
+- [`0ffc381c`](https://github.com/primer/components/commit/0ffc381c833219959ed3b99a9dd64fe56ac51036) [#1294](https://github.com/primer/components/pull/1294) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Revert first item focus fix for ActionList components.
+
+## 28.2.2
+
+### Patch Changes
+
+- [`68877076`](https://github.com/primer/components/commit/68877076fcbbc1c4cd308f2e6f8f44290751efe4) [#1275](https://github.com/primer/components/pull/1275) Thanks [@VanAnderson](https://github.com/VanAnderson)! - data props can be used in overlayProps.
+
+* [`2793ef48`](https://github.com/primer/components/commit/2793ef48d554e307e46442fcc198ed4adf8c137f) [#1286](https://github.com/primer/components/pull/1286) Thanks [@colebemis](https://github.com/colebemis)! - `ThemeProvider` now uses the first defined color scheme if passed an invalid color scheme name
+
+- [`321b9a3d`](https://github.com/primer/components/commit/321b9a3d9e0ddf6755bd7299ea6cd42a52f427a9) [#1266](https://github.com/primer/components/pull/1266) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Anchored overlay can take an external anchorRef.
+
+## 28.2.1
+
+### Patch Changes
+
+- [`f793ed00`](https://github.com/primer/components/commit/f793ed00e244de861f373cf0882397a1f640b046) [#1280](https://github.com/primer/components/pull/1280) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Export TexContainer from of ActionList/Item.
+
+* [`2893326b`](https://github.com/primer/components/commit/2893326bc45fd841cd71ac46ca71cdaececa7343) [#1259](https://github.com/primer/components/pull/1259) Thanks [@smockle](https://github.com/smockle)! - Hide intra-'Item' dividers on ':hover' and ':focus'
+
+## 28.2.0
+
+### Minor Changes
+
+- [`8368a83e`](https://github.com/primer/components/commit/8368a83efbc89aa73f9c775c25da62e34960c95c) [#1238](https://github.com/primer/components/pull/1238) Thanks [@dgreif](https://github.com/dgreif)! - New sizes for Overlay and Dialog. Sizes have been changed from abbreviations to full words. `xs` -> `xsmall`, `sm` -> `small`, `md` -> `medium`, `lg` -> `large`, `xl` -> `xlarge`. The sizing for `Overlay` has also been updated to provide a wider range of options. The original values for Overlay were based on the needs of Dialog, but Dialog is not reliant on Overlay so they don't need to have similar sizing. This is technically a breaking change, but is being released as a minor because these components are both still in `alpha` status.
+
+### Patch Changes
+
+- [`a7fe32c8`](https://github.com/primer/components/commit/a7fe32c8ba42ad75a945185b5f358f274a21ef0e) [#1248](https://github.com/primer/components/pull/1248) Thanks [@dgreif](https://github.com/dgreif)! - Hide overflow from `Overlay`
+
+* [`02e86095`](https://github.com/primer/components/commit/02e86095e6775f42c150c362e5281f0ffc332212) Thanks [@dgreif](https://github.com/dgreif)! - Allow `filterValue` to be provided to `SelectPanel`
+
+- [`10df320b`](https://github.com/primer/components/commit/10df320bb4d2a3d7ad7e59722c0b8896eeef0357) [#1247](https://github.com/primer/components/pull/1247) Thanks [@dgreif](https://github.com/dgreif)! - Handle overflow and active-descendant scrolling within `SelectPanel`
+
+* [`25d88c49`](https://github.com/primer/components/commit/25d88c49709f1c91c1a596fc77ed05e66cae083f) [#1253](https://github.com/primer/components/pull/1253) Thanks [@dgreif](https://github.com/dgreif)! - Correct font size and truncate for description within ActionList Items
+
+- [`9cb715cd`](https://github.com/primer/components/commit/9cb715cd2a613a0cedae60e488d4f69449465a38) [#1258](https://github.com/primer/components/pull/1258) Thanks [@dgreif](https://github.com/dgreif)! - prevent focusTrap from causing a `blur` if trap container is not in DOM
+
+* [`aa7d80fc`](https://github.com/primer/components/commit/aa7d80fcb70b5e7936eae13fd073f7c2163df7ec) [#1246](https://github.com/primer/components/pull/1246) Thanks [@dgreif](https://github.com/dgreif)! - Fix border radius on buttons and title `font-weight` in ConfirmationDialog
+
 ## 28.1.1
 
 ### Patch Changes

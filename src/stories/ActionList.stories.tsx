@@ -44,10 +44,11 @@ const meta: Meta = {
 }
 export default meta
 
-const ErsatzOverlay = styled.div`
+const ErsatzOverlay = styled.div<{maxWidth?: string}>`
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(149, 157, 165, 0.2);
   overflow: hidden;
+  max-width: ${({maxWidth}) => maxWidth || 'none'};
 `
 
 export function ActionsStory(): JSX.Element {
@@ -324,3 +325,40 @@ export function CustomItemChildren(): JSX.Element {
   )
 }
 CustomItemChildren.storyName = 'Custom Item Children'
+
+export function SizeStressTestingStory(): JSX.Element {
+  return (
+    <>
+      <h1>Size Stress Testing</h1>
+      <ErsatzOverlay maxWidth="300px">
+        <ActionList
+          items={[
+            {
+              leadingVisual: ArrowRightIcon,
+              text: 'Block Description.  Long text should wrap',
+              description: 'This description is long, but it is block so it wraps',
+              descriptionVariant: 'block',
+              trailingIcon: ArrowLeftIcon,
+
+              showDivider: true
+            },
+            {
+              leadingVisual: ArrowRightIcon,
+              text: 'Inline Description',
+              description: 'This description gets truncated because it is inline',
+              trailingIcon: ArrowLeftIcon,
+              showDivider: true
+            },
+            {
+              leadingVisual: ArrowRightIcon,
+              text: 'Really long text without a description should wrap',
+              trailingIcon: ArrowLeftIcon,
+              showDivider: true
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+SizeStressTestingStory.storyName = 'Size Stress Testing'

@@ -443,6 +443,57 @@ export const ChangingSubtree = () => {
   )
 }
 
+export const NestedZones = () => {
+  // Display each key press in the top-right corner of the page as a visual aid
+  const [lastKey, setLastKey] = useState('none')
+  const reportKey = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    setLastKey(event.key)
+  }, [])
+
+  const outerContainerRef = useRef<HTMLElement>(null)
+  const innerContainerRef = useRef<HTMLElement>(null)
+
+  useFocusZone({
+    containerRef: outerContainerRef,
+    bindKeys: FocusKeys.ArrowVertical
+  })
+
+  useFocusZone({
+    containerRef: innerContainerRef,
+    bindKeys: FocusKeys.ArrowHorizontal
+  })
+
+  return (
+    <>
+      <HelperGlobalStyling />
+      <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
+        <Absolute right={5} top={2}>
+          Last key pressed: {lastKey}
+        </Absolute>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <BorderBox borderColor="gray.5" m={4} p={4} ref={outerContainerRef as React.RefObject<HTMLDivElement>}>
+          <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          <br />
+          <MarginButton>Cantaloupe</MarginButton>
+          <BorderBox borderColor="gray.5" m={4} p={4} ref={innerContainerRef as React.RefObject<HTMLDivElement>}>
+            <strong>Additional Bound keys: Arrow Left and Arrow Right</strong>
+            <Flex id="list" flexDirection="column" alignItems="flex-start">
+              <MarginButton>Durian</MarginButton>
+              <MarginButton>Elderberry</MarginButton>
+              <MarginButton>Fig</MarginButton>
+              <MarginButton>Grapefruit</MarginButton>
+            </Flex>
+          </BorderBox>
+          <MarginButton>Honeydew</MarginButton>
+        </BorderBox>
+        <MarginButton>Jackfruit</MarginButton>
+        <MarginButton>Kiwi</MarginButton>
+      </Flex>
+    </>
+  )
+}
+
 export const ActiveDescendant = () => {
   // Display each key press in the top-right corner of the page as a visual aid
   const [lastKey, setLastKey] = useState('none')
@@ -454,9 +505,6 @@ export const ActiveDescendant = () => {
   const controllingElementRef = useRef<HTMLElement>(null)
   const {theme: themeFromContext} = useTheme()
 
-  // We set up two arrow focus behaviors on the same container!
-  // 1. Handles the active descendant treatment when the <input> element is focused
-  // 2. Handles regular focus treatment when the container itself is focused.
   useFocusZone({
     containerRef,
     activeDescendantFocus: controllingElementRef,
@@ -472,16 +520,6 @@ export const ActiveDescendant = () => {
     focusableElementFilter: elem => elem instanceof HTMLButtonElement
   })
 
-  useFocusZone({
-    containerRef,
-    bindKeys: FocusKeys.ArrowVertical,
-    getNextFocusable: (direction, from) => {
-      if (direction === 'previous' && from && from === containerRef.current) {
-        return controllingElementRef.current ?? undefined
-      }
-    }
-  })
-
   return (
     <>
       <HelperGlobalStyling />
@@ -489,8 +527,7 @@ export const ActiveDescendant = () => {
         <Flash mb={3}>
           This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
           active element. Below, you can focus the input box then use the up/down arrow keys to change the active
-          descendant (dark blue outline). Furthermore, this story shows how to simultaneously set up a regular arrow key
-          focus treatment on the buttons. This pattern is used in a select menu with a filter box.
+          descendant (dark blue outline).
         </Flash>
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
@@ -509,7 +546,6 @@ export const ActiveDescendant = () => {
             />
             <Flex
               id="list"
-              tabIndex={0}
               flexDirection="column"
               alignItems="flex-start"
               ref={containerRef as React.RefObject<HTMLDivElement>}

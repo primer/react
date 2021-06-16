@@ -8,6 +8,7 @@ jobs:
   bundlesize:
     name: Check Bundle Size
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -18,6 +19,6 @@ jobs:
           path: 'new'
 
       - name: Check Bundle Size Change
-        uses: "BinaryMuse/action-bundlesize@master"
+        uses: 'BinaryMuse/action-bundlesize@master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
