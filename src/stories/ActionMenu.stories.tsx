@@ -14,11 +14,12 @@ import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '..'
-import {ActionMenu} from '../ActionMenu'
+import {ActionMenu, ActionMenuProps} from '../ActionMenu'
 import Link, {LinkProps} from '../Link'
 import Button from '../Button'
 import {ActionList, ItemProps} from '../ActionList'
 import BaseStyles from '../BaseStyles'
+import {DropdownButton} from '../DropdownMenu'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu',
@@ -272,3 +273,50 @@ export function ActionMenuWithExternalAnchor(): JSX.Element {
     </>
   )
 }
+
+const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | undefined> = ({
+  onClick: callback,
+  ...rest
+}) => {
+  const onClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (event.detail === 2) {
+        event.preventDefault()
+      }
+      callback?.(event)
+    },
+    [callback]
+  )
+  return <DropdownButton onClick={onClick} {...rest} />
+}
+export function ActionMenuWithDoubleClickStory(): JSX.Element {
+  return (
+    <>
+      <h1>Actions</h1>
+      <ErsatzOverlay>
+        <ActionMenu
+          renderAnchor={DoubleClickableAnchor}
+          anchorContent={<ServerIcon />}
+          items={[
+            {
+              leadingVisual: ServerIcon,
+              text: 'Open current Codespace',
+              description:
+                "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
+              descriptionVariant: 'block',
+              trailingText: '⌘O'
+            },
+            {
+              leadingVisual: PlusCircleIcon,
+              text: 'Create new Codespace',
+              description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
+              descriptionVariant: 'block',
+              trailingText: '⌘C'
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+ActionMenuWithDoubleClickStory.storyName = 'ActionMenu with double-clickable anchor'
