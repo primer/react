@@ -104,11 +104,16 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      if (!event.defaultPrevented && event.button === 0 && !open) {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
+      }
+      if (!open) {
         onOpen?.('anchor-click')
+      } else {
+        onClose?.('click-outside')
       }
     },
-    [open, onOpen]
+    [open, onOpen, onClose]
   )
 
   const {position} = useAnchoredPosition(
@@ -145,6 +150,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
         <Overlay
           returnFocusRef={anchorRef}
           onClickOutside={onClickOutside}
+          ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="listbox"
