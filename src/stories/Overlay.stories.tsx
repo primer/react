@@ -1,7 +1,9 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
+import {DropdownMenu, DropdownButton} from '../DropdownMenu'
+import {ItemInput} from '../ActionList/List'
 
 export default {
   title: 'Internal components/Overlay',
@@ -95,6 +97,88 @@ export const DialogOverlay = () => {
               Confirm
             </Button>
           </Flex>
+        </Overlay>
+      ) : null}
+    </Position>
+  )
+}
+
+export const OverlayOnTopOfOverlay = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const secondaryButtonRef = useRef<HTMLButtonElement>(null)
+  const confirmButtonRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const closeOverlay = () => setIsOpen(false) // intentionally not memoized
+  const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
+  const items = React.useMemo(
+    () => [
+      {
+        text: '🔵 Cyan',
+        onMouseDown: (e: React.MouseEvent) => {
+          e.preventDefault()
+        }
+      },
+      {
+        text: '🔴 Magenta',
+        onMouseDown: (e: React.MouseEvent) => {
+          e.preventDefault()
+        }
+      },
+      {
+        text: '🟡 Yellow',
+        onMouseDown: (e: React.MouseEvent) => {
+          e.preventDefault()
+        }
+      }
+    ],
+    []
+  )
+  const [selectedItem, setSelectedItem] = React.useState<ItemInput | undefined>()
+  return (
+    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+      <input placeholder="Input for focus testing" />
+      <br />
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        open overlay
+      </Button>
+      {isOpen ? (
+        <Overlay
+          initialFocusRef={confirmButtonRef}
+          returnFocusRef={buttonRef}
+          onEscape={closeOverlay}
+          onClickOutside={closeOverlay}
+          width="small"
+        >
+          <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
+            open overlay
+          </Button>
+          {isSecondaryOpen ? (
+            <Overlay
+              initialFocusRef={confirmButtonRef}
+              returnFocusRef={secondaryButtonRef}
+              onEscape={closeSecondaryOverlay}
+              onClickOutside={closeSecondaryOverlay}
+              width="small"
+              sx={{top: '40px'}}
+            >
+              <Flex flexDirection="column" p={2}>
+                <Text>Select an option!</Text>
+                <DropdownMenu
+                  renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+                    <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
+                      {children}
+                    </DropdownButton>
+                  )}
+                  placeholder="🎨"
+                  items={items}
+                  selectedItem={selectedItem}
+                  onChange={setSelectedItem}
+                />
+              </Flex>
+            </Overlay>
+          ) : null}
         </Overlay>
       ) : null}
     </Position>
