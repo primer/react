@@ -124,8 +124,7 @@ export function SelectPanel({
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
-    initialFocusRef: inputRef,
-    disabled: textInputProps?.disabled
+    initialFocusRef: inputRef
   }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
