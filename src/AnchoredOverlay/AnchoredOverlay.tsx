@@ -46,7 +46,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -110,7 +110,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
       if (!open) {
         onOpen?.('anchor-click')
       } else {
-        onClose?.('click-outside')
+        onClose?.('anchor-click')
       }
     },
     [open, onOpen, onClose]
