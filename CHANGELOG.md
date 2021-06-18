@@ -1,5 +1,17 @@
 # @primer/components
 
+## 28.2.5
+
+### Patch Changes
+
+- [#1311](https://github.com/primer/components/pull/1311) [`6f0535df`](https://github.com/primer/components/commit/6f0535dfcf5c640da2322c68654cb369d8eafea0) Thanks [@lukewar](https://github.com/lukewar)! - Expose 'textInputProps' from the 'SelectPanel'
+
+* [#1309](https://github.com/primer/components/pull/1309) [`dc17a49e`](https://github.com/primer/components/commit/dc17a49e6a8f2f71e689f4666bcf0384111deb36) Thanks [@colebemis](https://github.com/colebemis)! - Include all shadow variables in theme object
+
+- [#1251](https://github.com/primer/components/pull/1251) [`528e9a41`](https://github.com/primer/components/commit/528e9a411eac6730e05ce39d22ba8982283b71a5) Thanks [@VanAnderson](https://github.com/VanAnderson)! - Call `useOnOutsideClick` handlers in reverse order that they are registered, and allow propagation to stop if default is prevented or an non-outside click is detected.
+
+* [#1312](https://github.com/primer/components/pull/1312) [`76a38432`](https://github.com/primer/components/commit/76a384328fc57b0cf9d3d92170de5ce071334121) Thanks [@smockle](https://github.com/smockle)! - Ensure clicking an `AnchoredOverlay`’s trigger allows it to close without immediately reopening.
+
 ## 28.2.4
 
 ### Patch Changes
