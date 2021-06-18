@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "28.2.4",
+  "version": "28.2.5",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -47,7 +47,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "^13.0.0",
-    "@primer/primitives": "4.4.0",
+    "@primer/primitives": "4.4.2",
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.5",
     "@styled-system/theme-get": "5.1.2",
