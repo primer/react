@@ -93,7 +93,8 @@ const ActionMenuBase = ({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         children: anchorContent,
-        ...props
+        ...props,
+        'aria-haspopup': 'menu'
       })
     }
   }, [anchorContent, renderAnchor])

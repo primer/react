@@ -57,7 +57,8 @@ export function DropdownMenu({
     <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItem?.text ?? placeholder
+        children: selectedItem?.text ?? placeholder,
+        'aria-haspopup': 'listbox'
       })
     },
     [placeholder, renderAnchor, selectedItem?.text]
