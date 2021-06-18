@@ -1,5 +1,5 @@
 import {CheckIcon, IconProps} from '@primer/octicons-react'
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import Truncate from '../Truncate'
@@ -307,9 +307,11 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     onKeyPress,
     children,
     onClick,
-    id = uniqueId(),
+    id: _id,
     ...props
   } = itemProps
+
+  const id = useMemo(() => _id ?? uniqueId(), [_id])
 
   const keyPressHandler = useCallback(
     event => {
