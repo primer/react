@@ -151,9 +151,13 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   }
 }
 
-const StyledItemContent = styled.div`
+const StyledItemContent = styled.div<{
+  descriptionVariant: ItemProps['descriptionVariant']
+}>`
+  align-items: baseline;
   display: flex;
   min-width: 0;
+  flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
   flex-grow: 1;
   position: relative;
 `
@@ -229,16 +233,9 @@ const StyledItem = styled.div<
   ${sx}
 `
 
-export const TextContainer = styled.div<{
+export const TextContainer = styled.span<{
   dangerouslySetInnerHtml?: React.DOMAttributes<HTMLDivElement>['dangerouslySetInnerHTML']
-  descriptionVariant: ItemProps['descriptionVariant']
-}>`
-  display: flex;
-  min-width: 0;
-  flex-grow: 1;
-  flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
-  align-items: baseline;
-`
+}>``
 
 const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
   // Match visual height to adjacent text line height.
@@ -310,7 +307,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     onKeyPress,
     children,
     onClick,
-    id,
+    id = uniqueId(),
     ...props
   } = itemProps
 
@@ -358,6 +355,8 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       variant={variant}
       showDivider={showDivider}
       aria-selected={selected}
+      aria-labelledby={text ? `${id}-label` : undefined}
+      aria-describedby={text ? `${id}-description` : undefined}
       {...props}
       data-id={id}
       onKeyPress={keyPressHandler}
@@ -393,35 +392,31 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      <StyledItemContent>
+      <StyledItemContent descriptionVariant={descriptionVariant}>
         {children}
-        {(text || description) && (
-          <TextContainer descriptionVariant={descriptionVariant}>
-            {text && <div>{text}</div>}
-            {description && (
-              <DescriptionContainer descriptionVariant={descriptionVariant}>
-                {descriptionVariant === 'block' ? (
-                  description
-                ) : (
-                  <Truncate title={description} inline={true} maxWidth="100%">
-                    {description}
-                  </Truncate>
-                )}
-              </DescriptionContainer>
+        {text ? <TextContainer id={`${id}-label`}>{text}</TextContainer> : null}
+        {description ? (
+          <DescriptionContainer id={`${id}-description`} descriptionVariant={descriptionVariant}>
+            {descriptionVariant === 'block' ? (
+              description
+            ) : (
+              <Truncate title={description} inline={true} maxWidth="100%">
+                {description}
+              </Truncate>
             )}
-          </TextContainer>
-        )}
-        {(TrailingIcon || trailingText) && (
-          <TrailingVisualContainer variant={variant} disabled={disabled}>
-            {trailingText && <div>{trailingText}</div>}
-            {TrailingIcon && (
-              <div>
-                <TrailingIcon />
-              </div>
-            )}
-          </TrailingVisualContainer>
-        )}
+          </DescriptionContainer>
+        ) : null}
       </StyledItemContent>
+      {(TrailingIcon || trailingText) && (
+        <TrailingVisualContainer variant={variant} disabled={disabled}>
+          {trailingText && <div>{trailingText}</div>}
+          {TrailingIcon && (
+            <div>
+              <TrailingIcon />
+            </div>
+          )}
+        </TrailingVisualContainer>
+      )}
     </StyledItem>
   )
 }
