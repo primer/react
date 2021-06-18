@@ -356,7 +356,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       showDivider={showDivider}
       aria-selected={selected}
       aria-labelledby={text ? `${id}-label` : undefined}
-      aria-describedby={text ? `${id}-description` : undefined}
+      aria-describedby={description ? `${id}-description` : undefined}
       {...props}
       data-id={id}
       onKeyPress={keyPressHandler}
