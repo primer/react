@@ -92,7 +92,6 @@ const ActionMenuBase = ({
     }
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
-        'aria-label': 'menu',
         children: anchorContent,
         ...props
       })
@@ -122,7 +121,7 @@ const ActionMenuBase = ({
       open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}
-      overlayProps={overlayProps}
+      overlayProps={{...overlayProps, role: 'menu'}}
     >
       <List {...listProps} role="menu" items={itemsToRender} />
     </AnchoredOverlay>

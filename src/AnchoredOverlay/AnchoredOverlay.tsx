@@ -87,6 +87,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useMemo(uniqueId, [])
+  const overlayId = useMemo(() => `${anchorId}-overlay`, [anchorId])
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -141,19 +142,22 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ref: anchorRef,
           id: anchorId,
           'aria-labelledby': anchorId,
-          'aria-haspopup': 'listbox',
+          'aria-haspopup': true,
+          'aria-controls': overlayId,
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown
         })}
       {open ? (
         <Overlay
+          id={overlayId}
           returnFocusRef={anchorRef}
           onClickOutside={onClickOutside}
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           ref={updateOverlayRef}
-          role="listbox"
+          role="dialog"
+          aria-labelledby={anchorId}
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
