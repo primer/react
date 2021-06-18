@@ -143,6 +143,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           id: anchorId,
           'aria-labelledby': anchorId,
           'aria-haspopup': true,
+          'aria-expanded': open,
           'aria-controls': overlayId,
           tabIndex: 0,
           onClick: onAnchorClick,
