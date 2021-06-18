@@ -71,7 +71,7 @@ export function SelectPanel({
 
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
   const onClose = useCallback(
-    (gesture: 'click-outside' | 'escape' | 'selection') => {
+    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
       onOpenChange(false, gesture)
     },
     [onOpenChange]

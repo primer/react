@@ -46,7 +46,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -104,11 +104,16 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      if (!event.defaultPrevented && event.button === 0 && !open) {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
+      }
+      if (!open) {
         onOpen?.('anchor-click')
+      } else {
+        onClose?.('anchor-click')
       }
     },
-    [open, onOpen]
+    [open, onOpen, onClose]
   )
 
   const {position} = useAnchoredPosition(
@@ -145,6 +150,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
         <Overlay
           returnFocusRef={anchorRef}
           onClickOutside={onClickOutside}
+          ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="listbox"
