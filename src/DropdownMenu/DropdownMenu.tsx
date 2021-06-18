@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useMemo, useState, useRef} from 'react'
 import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/List'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {ItemProps} from '../ActionList/Item'
@@ -84,6 +84,8 @@ export function DropdownMenu({
     })
   }, [items, onChange, onClose, selectedItem])
 
+  const listRef = useRef<HTMLDivElement>(null)
+
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
@@ -91,8 +93,9 @@ export function DropdownMenu({
       onOpen={onOpen}
       onClose={onClose}
       overlayProps={overlayProps}
+      focusTrapSettings={{initialFocusRef: listRef}}
     >
-      <List {...listProps} role="listbox" items={itemsToRender} />
+      <List {...listProps} ref={listRef} role="listbox" items={itemsToRender} />
     </AnchoredOverlay>
   )
 }
