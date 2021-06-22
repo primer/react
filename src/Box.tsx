@@ -1,14 +1,53 @@
 import styled from 'styled-components'
-import {COMMON, FLEX, LAYOUT, SystemCommonProps, SystemFlexProps, SystemLayoutProps} from './constants'
+import {
+  background,
+  BackgroundProps,
+  border,
+  BorderProps,
+  color,
+  ColorProps,
+  flexbox,
+  FlexboxProps,
+  grid,
+  GridProps,
+  layout,
+  LayoutProps,
+  position,
+  PositionProps,
+  shadow,
+  ShadowProps,
+  space,
+  SpaceProps,
+  typography,
+  TypographyProps
+} from 'styled-system'
+
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
 
-const Box = styled.div<SystemCommonProps & SystemFlexProps & SystemLayoutProps & SxProp>`
-  ${COMMON}
-  ${FLEX}
-  ${LAYOUT}
-  ${sx};
-`
+type BoxProps = SpaceProps &
+  ColorProps &
+  TypographyProps &
+  LayoutProps &
+  FlexboxProps &
+  GridProps &
+  BackgroundProps &
+  BorderProps &
+  PositionProps &
+  ShadowProps &
+  SxProp
 
-export type BoxProps = ComponentProps<typeof Box>
+const Box = styled.div<BoxProps>(
+  space,
+  color,
+  typography,
+  layout,
+  flexbox,
+  grid,
+  background,
+  border,
+  position,
+  shadow,
+  sx
+)
+
 export default Box
