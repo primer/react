@@ -250,11 +250,11 @@ const StyledItem = styled.div<
       }
       50% {
         transform: scale(1);
-        box-shadow: inset 0 0 0 rgba(#000, 0.04);
+        box-shadow: inset 0 0 0 rgba(${get('colors.scale.black')}, 0.04);
       }
       100% {
         transform: scale(0.97);
-        box-shadow: inset 0 3px 9px rgba(#000, 0.04);
+        box-shadow: inset 0 3px 9px rgba(${get('colors.scale.black')}, 0.04);
       }
     }
   }
