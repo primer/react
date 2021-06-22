@@ -179,7 +179,7 @@ const StyledItem = styled.div<
   border-radius: ${get('radii.2')};
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
   // 2 frames on a 60hz monitor
-  transition: background 133.333ms linear;
+  transition: background 33.333ms linear;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
