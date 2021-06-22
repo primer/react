@@ -93,17 +93,13 @@ export function FilteredActionList({
     containerRef: listContainerRef,
     focusOutBehavior: 'wrap',
     focusableElementFilter: element => {
-      if (element instanceof HTMLInputElement) {
-        // No active-descendant focus on checkboxes in list items
-        return false
-      }
-      return true
+      return !(element instanceof HTMLInputElement)
     },
     activeDescendantFocus: inputRef,
-    onActiveDescendantChanged: (current, previous, activatedByKeyboardNavigation) => {
+    onActiveDescendantChanged: (current, previous, directlyActivated) => {
       activeDescendantRef.current = current
 
-      if (current && scrollContainerRef.current && activatedByKeyboardNavigation) {
+      if (current && scrollContainerRef.current && directlyActivated) {
         scrollIntoViewingArea(current, scrollContainerRef.current)
       }
     }
