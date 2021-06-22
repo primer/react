@@ -315,6 +315,7 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
 export const isActiveDescendantAttribute = 'data-is-active-descendant'
 export const activeDescendantActivatedDirectly = 'activated-directly'
 export const activeDescendantActivatedIndirectly = 'activated-indirectly'
+export const hasActiveDescendantAttribute = 'data-has-active-descendant'
 
 /**
  * Sets up the arrow key focus behavior for all focusable elements in the given `container`.
@@ -381,6 +382,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     }
 
     activeDescendantControl.setAttribute('aria-activedescendant', to.id)
+    container.setAttribute(hasActiveDescendantAttribute, to.id)
     to.setAttribute(
       isActiveDescendantAttribute,
       directlyActivated ? activeDescendantActivatedDirectly : activeDescendantActivatedIndirectly
@@ -394,6 +396,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     }
 
     activeDescendantControl?.removeAttribute('aria-activedescendant')
+    container.removeAttribute(hasActiveDescendantAttribute)
     previouslyActiveElement?.removeAttribute(isActiveDescendantAttribute)
     activeDescendantCallback?.(undefined, previouslyActiveElement, false)
   }

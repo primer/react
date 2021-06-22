@@ -6,6 +6,7 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
+import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
 
 export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
 
@@ -102,6 +103,11 @@ const StyledList = styled.div`
    * hardcoded '20px'
    */
   line-height: 20px;
+
+  &[${hasActiveDescendantAttribute}], &:focus-within {
+    --item-hover-bg-override: none;
+    --item-hover-divider-border-color-override: ${get('colors.selectMenu.borderSecondary')};
+  }
 `
 
 /**

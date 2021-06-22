@@ -181,7 +181,8 @@ const StyledItem = styled.div<
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      background: ${({hoverBackground}) => hoverBackground};
+      // allow override in case another item in the list is active/focused
+      background: var(--item-hover-bg-override, ${({hoverBackground}) => hoverBackground});
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
@@ -207,7 +208,11 @@ const StyledItem = styled.div<
   &:hover ${StyledItemContent}::before,
   // - below Hovered
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :hover + * ${StyledItemContent}::before,
+  :hover + * ${StyledItemContent}::before {
+    // allow override in case another item in the list is active/focused
+    border-color: var(--item-hover-divider-border-color-override, transparent) !important;
+  }
+
   // - above Focused
   &:focus ${StyledItemContent}::before,
   // - below Focused
