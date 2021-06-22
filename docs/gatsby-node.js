@@ -35,3 +35,52 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
 
   actions.replaceWebpackConfig(config)
 }
+
+exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
+  const {createNode} = actions
+  const components = [
+    {
+      name: 'Foo',
+      description: 'foo',
+      props: [
+        {
+          name: 'foo',
+          required: false,
+          type: 'number',
+          defaultValue: 2,
+          description: 'foo'
+        }
+      ]
+    },
+    {
+      name: 'Bar',
+      description: 'foo',
+      props: [
+        {
+          name: 'foo',
+          required: false,
+          type: 'number',
+          defaultValue: 2,
+          description: 'foo'
+        }
+      ]
+    }
+  ]
+
+  for (const component of components) {
+    const nodeContent = JSON.stringify(component)
+    const nodeMeta = {
+      id: createNodeId(component.name),
+      parent: null,
+      children: [],
+      internal: {
+        type: `ComponentMetadata`,
+        mediaType: `text/html`,
+        content: nodeContent,
+        contentDigest: createContentDigest(component)
+      }
+    }
+    const node = Object.assign({}, component, nodeMeta)
+    createNode(node)
+  }
+}
