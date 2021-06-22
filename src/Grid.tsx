@@ -3,6 +3,9 @@ import Box from './Box'
 import {GRID, SystemGridProps} from './constants'
 import {ComponentProps} from './utils/types'
 
+/**
+ * @deprecated Please use the Box component instead.
+ */
 const Grid = styled(Box)<SystemGridProps>`
   ${GRID};
 `
