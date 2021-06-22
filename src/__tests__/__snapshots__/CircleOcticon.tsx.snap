@@ -9,6 +9,10 @@ exports[`CircleOcticon renders consistently 1`] = `
   border-radius: 50%;
   border-style: solid;
   border-color: #e1e4e8;
+  border-width: 0;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #e1e4e8;
 }
 
 .c1 {
@@ -16,6 +20,8 @@ exports[`CircleOcticon renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  width: 32px;
+  height: 32px;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -24,12 +30,6 @@ exports[`CircleOcticon renders consistently 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 32px;
-  height: 32px;
 }
 
 <div

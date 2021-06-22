@@ -299,7 +299,6 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 exports[`ButtonGroup renders consistently 1`] = `
 .c0 {
   display: inline-block;
-  display: inline-block;
   vertical-align: middle;
 }
 

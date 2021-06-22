@@ -131,6 +131,10 @@ exports[`SideNav renders consistently 1`] = `
   border-style: solid;
   border-color: #e1e4e8;
   border-radius: 6px;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e1e4e8;
+  border-radius: 6px;
 }
 
 .c1 {
