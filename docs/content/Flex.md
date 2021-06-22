@@ -1,10 +1,35 @@
 ---
 title: Flex
+status: Deprecated
 ---
 
 The `Flex` component behaves the same as the `Box` component except that it has `display: flex` set by default.
 
 _Previously, a `Flex.Item` component was used for flex item specific properties; `Box` now contains all those properties and should be used in its place._
+
+## Deprecation
+
+Please use [Box](/Box) instead.
+
+_Before:_
+
+```
+<Flex flexWrap="nowrap">
+  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+    Item 1
+  </Box>
+</Flex>
+```
+
+_After:_
+
+```
+<Box display="flex" flexWrap="nowrap">
+  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+    Item 1
+  </Box>
+</Box>
+```
 
 ## Default example
 

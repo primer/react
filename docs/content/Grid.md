@@ -1,8 +1,39 @@
 ---
 title: Grid
+status: Deprecated
 ---
 
 Grid is a component that exposes grid system props. See the [CSS Tricks Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to learn more about Grid Layout.
+
+## Deprecation
+
+Please use [Box](/Box) instead.
+
+_Before:_
+
+```
+<Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+    1
+  </Box>
+  <Box p={3} color="text.inverse" bg="bg.warningInverse">
+    2
+  </Box>
+</Grid>
+```
+
+_After:_
+
+```
+<Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+    1
+  </Box>
+  <Box p={3} color="text.inverse" bg="bg.warningInverse">
+    2
+  </Box>
+</Box>
+```
 
 ## Default example
 

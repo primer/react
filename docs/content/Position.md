@@ -1,8 +1,33 @@
 ---
 title: Position Components
+status: Deprecated
 ---
 
 The Position component is a wrapper component that gives the containing component css positioning abilities.
+
+## Deprecation
+
+Please use [Box](/Box) instead.
+
+_Before:_
+
+```
+<Position position="absolute" {...props}>x</Position>
+<Absolute {...props}>x</Absolute>
+<Relative {...props}>x</Relative>
+<Fixed {...props}>x</Fixed>
+<Sticky {...props}>x</Sticky>
+```
+
+_After:_
+
+```
+<Box position="absolute" {...props}>x</Box>
+<Box position="absolute" {...props}>x</Box>
+<Box position="relative" {...props}>x</Box>
+<Box position="fixed" {...props}>x</Box>
+<Box position="sticky" {...props}>x</Box>
+```
 
 ## Default examples
 
