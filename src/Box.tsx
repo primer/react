@@ -24,7 +24,7 @@ import {
 
 import sx, {SxProp} from './sx'
 
-type BoxProps = SpaceProps &
+export type BoxProps = SpaceProps &
   ColorProps &
   TypographyProps &
   LayoutProps &
