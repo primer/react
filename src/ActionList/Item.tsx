@@ -243,20 +243,6 @@ const StyledItem = styled.div<
 
   &:active {
     background: ${({focusBackground}) => focusBackground};
-    animation: actionList-item-active-bg 4s forwards ${get('animation.easeOutCubic')};
-
-    @keyframes actionList-item-active-bg {
-      0% {
-      }
-      50% {
-        transform: scale(1);
-        box-shadow: inset 0 0 0 rgba(${get('colors.scale.black')}, 0.04);
-      }
-      100% {
-        transform: scale(0.97);
-        box-shadow: inset 0 3px 9px rgba(${get('colors.scale.black')}, 0.04);
-      }
-    }
   }
 
   ${sx}
