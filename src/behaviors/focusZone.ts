@@ -506,7 +506,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
       if (event.target instanceof HTMLElement && focusableElements.includes(event.target)) {
         // Move focus to the activeDescendantControl if one of the descendants is focused
         activeDescendantControl.focus()
-        updateFocusedElement(event.target, true)
+        updateFocusedElement(event.target)
       }
     })
     container.addEventListener(

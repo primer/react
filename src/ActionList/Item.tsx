@@ -178,6 +178,8 @@ const StyledItem = styled.div<
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
+  // 2 frames on a 60hz monitor
+  transition: background 133.333ms linear;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
@@ -234,10 +236,27 @@ const StyledItem = styled.div<
     background: ${({hoverBackground}) => hoverBackground};
   }
 
-  // Focused
   &:focus {
     background: ${({focusBackground}) => focusBackground};
     outline: none;
+  }
+
+  &:active {
+    background: ${({focusBackground}) => focusBackground};
+    animation: actionList-item-active-bg 4s forwards ${get('animation.easeOutCubic')};
+
+    @keyframes actionList-item-active-bg {
+      0% {
+      }
+      50% {
+        transform: scale(1);
+        box-shadow: inset 0 0 0 rgba(#000, 0.04);
+      }
+      100% {
+        transform: scale(0.97);
+        box-shadow: inset 0 3px 9px rgba(#000, 0.04);
+      }
+    }
   }
 
   ${sx}
