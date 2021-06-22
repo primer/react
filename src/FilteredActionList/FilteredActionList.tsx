@@ -107,8 +107,8 @@ export function FilteredActionList({
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
-    if (activeDescendantRef.current && listContainerRef.current) {
-      scrollIntoViewingArea(activeDescendantRef.current, listContainerRef.current, undefined, 'auto')
+    if (activeDescendantRef.current && scrollContainerRef.current) {
+      scrollIntoViewingArea(activeDescendantRef.current, scrollContainerRef.current, undefined, 'auto')
     }
   }, [items])
 
