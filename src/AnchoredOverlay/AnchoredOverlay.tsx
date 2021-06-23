@@ -124,7 +124,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     [overlayRef.current]
   )
   const overlayPosition = useMemo(() => {
-    return position && {top: `${position.top}px`, left: `${position.left}px`}
+    return position && {top: `${position.top}px`, left: `${position.left}px`, anchorSide: position.anchorSide}
   }, [position])
 
   useFocusZone({
@@ -154,7 +154,6 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="listbox"
-          visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
           {...overlayPosition}
