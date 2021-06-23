@@ -313,7 +313,19 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
 }
 
 export const isActiveDescendantAttribute = 'data-is-active-descendant'
+/**
+ * A value of activated-directly for data-is-active-descendant indicates the descendant was activated
+ * by a manual user interaction with intent to move active descendant.  This usually translates to the
+ * user pressing one of the bound keys (up/down arrow, etc) to move through the focus zone.  This is
+ * intended to be roughly equivalent to the :focus-visible pseudo-class
+ **/
 export const activeDescendantActivatedDirectly = 'activated-directly'
+/**
+ * A value of activated-indirectly for data-is-active-descendant indicates the descendant was activated
+ * implicitly, and not by a direct key press.  This includes focus zone being created from scratch, focusable
+ * elements being added/removed, and mouseover events. This is intended to be roughly equivalent
+ * to :focus:not(:focus-visible)
+ **/
 export const activeDescendantActivatedIndirectly = 'activated-indirectly'
 export const hasActiveDescendantAttribute = 'data-has-active-descendant'
 
@@ -512,7 +524,7 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     container.addEventListener(
       'mousemove',
       ({target}) => {
-        if (!(target instanceof HTMLElement)) {
+        if (!(target instanceof Node)) {
           return
         }
 
