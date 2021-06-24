@@ -13,6 +13,7 @@ export function Props({of}) {
           name
           props {
             description
+            defaultValue
             name
             required
             type
@@ -52,7 +53,7 @@ export function Props({of}) {
               <td>
                 <InlineCode>{prop.type}</InlineCode>
               </td>
-              <td>{prop.defaultValue ? <InlineCode>{JSON.stringify(prop.defaultValue)}</InlineCode> : '–'}</td>
+              <td>{prop.defaultValue ? <InlineCode>{prop.defaultValue}</InlineCode> : '–'}</td>
               <td>{prop.description}</td>
             </tr>
           ))}
