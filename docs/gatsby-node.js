@@ -1,4 +1,6 @@
 const defines = require('../babel-defines')
+const docgen = require('react-docgen-typescript')
+const globby = require('globby')
 
 exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
   const config = getConfig()
@@ -38,34 +40,40 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
 
 exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
   const {createNode} = actions
-  const components = [
-    {
-      name: 'Foo',
-      description: 'foo',
-      props: [
-        {
-          name: 'foo',
-          required: false,
-          type: 'number',
-          defaultValue: 2,
-          description: 'foo'
-        }
-      ]
-    },
-    {
-      name: 'Bar',
-      description: 'foo',
-      props: [
-        {
-          name: 'foo',
-          required: false,
-          type: 'number',
-          defaultValue: 2,
-          description: 'foo'
-        }
-      ]
+
+  const files = globby.sync(['../src/**/*.tsx'], {absolute: true})
+  const data = docgen.parse(files, {
+    savePropValueAsString: true,
+    shouldExtractLiteralValuesFromEnum: true,
+    shouldExtractValuesFromUnion: true,
+    propFilter: prop => {
+      if (prop.declarations !== undefined && prop.declarations.length > 0) {
+        const hasPropAdditionalDescription = prop.declarations.find(declaration => {
+          return !declaration.fileName.includes('node_modules')
+        })
+
+        return Boolean(hasPropAdditionalDescription)
+      }
+
+      return true
     }
-  ]
+  })
+
+  const components = data.map(component => {
+    return {
+      name: component.displayName,
+      description: component.description,
+      props: Object.values(component.props).map(prop => {
+        return {
+          name: prop.name,
+          description: prop.description,
+          defaultValue: prop.defaultValue ? prop.defaultValue.value : null,
+          required: prop.required,
+          type: prop.type.name
+        }
+      })
+    }
+  })
 
   for (const component of components) {
     const nodeContent = JSON.stringify(component)
