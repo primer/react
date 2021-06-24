@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
@@ -126,6 +126,13 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   const overlayPosition = useMemo(() => {
     return position && {top: `${position.top}px`, left: `${position.left}px`, anchorSide: position.anchorSide}
   }, [position])
+
+  useEffect(() => {
+    // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
+    if (!open && overlayRef.current) {
+      updateOverlayRef(null)
+    }
+  }, [open, overlayRef, updateOverlayRef])
 
   useFocusZone({
     containerRef: overlayRef,
