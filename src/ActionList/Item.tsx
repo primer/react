@@ -307,11 +307,12 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     onKeyPress,
     children,
     onClick,
-    id: _id,
+    id,
     ...props
   } = itemProps
 
-  const id = useMemo(() => _id ?? uniqueId(), [_id])
+  const labelId = useMemo(() => uniqueId(), [])
+  const descriptionId = useMemo(() => uniqueId(), [])
 
   const keyPressHandler = useCallback(
     event => {
@@ -357,8 +358,8 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       variant={variant}
       showDivider={showDivider}
       aria-selected={selected}
-      aria-labelledby={text ? `${id}-label` : undefined}
-      aria-describedby={description ? `${id}-description` : undefined}
+      aria-labelledby={text ? labelId : undefined}
+      aria-describedby={description ? descriptionId : undefined}
       {...props}
       data-id={id}
       onKeyPress={keyPressHandler}
@@ -396,9 +397,9 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       )}
       <StyledItemContent descriptionVariant={descriptionVariant}>
         {children}
-        {text ? <TextContainer id={`${id}-label`}>{text}</TextContainer> : null}
+        {text ? <TextContainer id={labelId}>{text}</TextContainer> : null}
         {description ? (
-          <DescriptionContainer id={`${id}-description`} descriptionVariant={descriptionVariant}>
+          <DescriptionContainer id={descriptionId} descriptionVariant={descriptionVariant}>
             {descriptionVariant === 'block' ? (
               description
             ) : (
