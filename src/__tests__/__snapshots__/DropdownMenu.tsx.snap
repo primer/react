@@ -73,9 +73,9 @@ exports[`DropdownMenu renders consistently 1`] = `
 
 <button
   aria-haspopup="listbox"
-  aria-labelledby="__primer_id_10001"
+  aria-labelledby="__primer_id_10000"
   className="c0"
-  id="__primer_id_10001"
+  id="__primer_id_10000"
   onClick={[Function]}
   onKeyDown={[Function]}
   tabIndex={0}

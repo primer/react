@@ -8,7 +8,11 @@ import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
-import {uniqueId} from '../utils/uniqueId'
+import {
+  activeDescendantActivatedDirectly,
+  activeDescendantActivatedIndirectly,
+  isActiveDescendantAttribute
+} from '../behaviors/focusZone'
 
 /**
  * These colors are not yet in our default theme.  Need to remove this once they are added.
@@ -121,8 +125,6 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
   id?: number | string
 }
 
-export const itemActiveDescendantClass = `${uniqueId()}active-descendant`
-
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
@@ -176,10 +178,13 @@ const StyledItem = styled.div<
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
+  // 2 frames on a 60hz monitor
+  transition: background 33.333ms linear;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      background: ${({hoverBackground}) => hoverBackground};
+      // allow override in case another item in the list is active/focused
+      background: var(--item-hover-bg-override, ${({hoverBackground}) => hoverBackground});
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
@@ -205,25 +210,39 @@ const StyledItem = styled.div<
   &:hover ${StyledItemContent}::before,
   // - below Hovered
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :hover + * ${StyledItemContent}::before,
+  :hover + * ${StyledItemContent}::before {
+    // allow override in case another item in the list is active/focused
+    border-color: var(--item-hover-divider-border-color-override, transparent) !important;
+  }
+
   // - above Focused
   &:focus ${StyledItemContent}::before,
   // - below Focused
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
   :focus + * ${StyledItemContent}::before,
   // - above Active Descendent
-  &.${itemActiveDescendantClass} ${StyledItemContent}::before,
+  &[${isActiveDescendantAttribute}] ${StyledItemContent}::before,
   // - below Active Descendent
-  .${itemActiveDescendantClass} + & ${StyledItemContent}::before {
+  [${isActiveDescendantAttribute}] + & ${StyledItemContent}::before {
     // '!important' because all the ':not's above give higher specificity
     border-color: transparent !important;
   }
 
-  // Focused OR Active Descendant
-  &:focus,
-  &.${itemActiveDescendantClass} {
+  // Active Descendant
+  &[${isActiveDescendantAttribute}='${activeDescendantActivatedDirectly}'] {
+    background: ${({focusBackground}) => focusBackground};
+  }
+  &[${isActiveDescendantAttribute}='${activeDescendantActivatedIndirectly}'] {
+    background: ${({hoverBackground}) => hoverBackground};
+  }
+
+  &:focus {
     background: ${({focusBackground}) => focusBackground};
     outline: none;
+  }
+
+  &:active {
+    background: ${({focusBackground}) => focusBackground};
   }
 
   ${sx}
