@@ -63,15 +63,22 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
     return {
       name: component.displayName,
       description: component.description,
-      props: Object.values(component.props).map(prop => {
-        return {
-          name: prop.name,
-          description: prop.description,
-          defaultValue: prop.defaultValue ? prop.defaultValue.value : null,
-          required: prop.required,
-          type: prop.type.name
-        }
-      })
+      props: Object.values(component.props)
+        .map(prop => {
+          return {
+            name: prop.name,
+            description: prop.description,
+            defaultValue: prop.defaultValue ? prop.defaultValue.value : '',
+            required: prop.required,
+            type: prop.type.name
+          }
+        })
+        // Move required props to beginning of the list
+        .sort((a, b) => {
+          if (a.required && !b.required) return -1
+          if (!a.required && b.required) return 1
+          return 0
+        })
     }
   })
 

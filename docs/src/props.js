@@ -55,8 +55,9 @@ export function Props({of}) {
           <tbody>
             {component.props.map(prop => (
               <tr key={prop.name}>
-                <td>
-                  <InlineCode>{prop.name}</InlineCode> {prop.required ? <Label>Required</Label> : null}
+                <td style={{whiteSpace: 'nowrap'}}>
+                  <InlineCode>{prop.name}</InlineCode>{' '}
+                  {prop.required ? <Label style={{verticalAlign: 'text-top'}}>Required</Label> : null}
                 </td>
                 <td>
                   <InlineCode>{prop.type}</InlineCode>
