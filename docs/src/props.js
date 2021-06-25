@@ -1,4 +1,4 @@
-import {Flash} from '@primer/components'
+import {Flash, Label} from '@primer/components'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 import Paragraph from '@primer/gatsby-theme-doctocat/src/components/paragraph'
@@ -56,7 +56,7 @@ export function Props({of}) {
             {component.props.map(prop => (
               <tr key={prop.name}>
                 <td>
-                  <InlineCode>{prop.name}</InlineCode>
+                  <InlineCode>{prop.name}</InlineCode> {prop.required ? <Label>Required</Label> : null}
                 </td>
                 <td>
                   <InlineCode>{prop.type}</InlineCode>
