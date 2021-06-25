@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
-import {borderColor, BorderColorProps, variant} from 'styled-system'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {variant} from 'styled-system'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -10,8 +10,6 @@ const outlineStyles = css`
   color: ${get('colors.label.secondary.text')};
   border: ${get('borderWidths.1')} solid ${get('colors.label.border')};
   box-shadow: none;
-  ${borderColor};
-  ${COMMON};
   background-color: transparent;
 `
 
@@ -46,9 +44,7 @@ const Label = styled.span<
     variant?: 'small' | 'medium' | 'large' | 'xl'
     dropshadow?: boolean
     outline?: boolean
-  } & BorderColorProps &
-    SystemCommonProps &
-    SxProp
+  } & SxProp
 >`
   display: inline-block;
   font-weight: ${get('fontWeights.semibold')};
@@ -60,7 +56,6 @@ const Label = styled.span<
   }
 
   ${sizeVariant}
-  ${COMMON}
   ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')}
   ${props => (props.outline ? outlineStyles : '')} // must be last to override other values
   ${sx}

@@ -2,7 +2,6 @@
 
 exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
 .c0 {
-  background-color: #ffeef0;
   position: relative;
   border-width: 1px;
   border-style: solid;

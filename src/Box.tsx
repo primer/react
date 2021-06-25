@@ -4,9 +4,6 @@ import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 const Box = styled.div<SystemCommonProps & SystemFlexProps & SystemLayoutProps & SxProp>`
-  ${COMMON}
-  ${FLEX}
-  ${LAYOUT}
   ${sx};
 `
 

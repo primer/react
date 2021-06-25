@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {system} from 'styled-system'
-import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -8,9 +8,7 @@ type StyledLinkProps = {
   hoverColor?: string
   muted?: boolean
   underline?: boolean
-} & SystemCommonProps &
-  SxProp &
-  SystemTypographyProps
+} & SxProp
 
 const hoverColor = system({
   hoverColor: {
@@ -37,8 +35,6 @@ const Link = styled.a<StyledLinkProps>`
     border: 0;
     appearance: none;
   }
-  ${TYPOGRAPHY};
-  ${COMMON};
   ${sx};
 `
 

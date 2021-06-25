@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import {COMMON, get} from '../constants'
+import {get} from '../constants'
 import sx from '../sx'
 import {buildComponentData, buildPaginationModel} from './model'
 
@@ -103,8 +103,6 @@ const Page = styled.a`
       );
     }
   }
-
-  ${COMMON};
 `
 
 type UsePaginationPagesParameters = {

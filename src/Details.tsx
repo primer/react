@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import {COMMON, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-type StyledDetailsProps = SystemCommonProps & SxProp
+type StyledDetailsProps = SxProp
 
 const Details = styled.details<StyledDetailsProps>`
   & > summary {
@@ -13,7 +12,6 @@ const Details = styled.details<StyledDetailsProps>`
     display: none;
   }
 
-  ${COMMON}
   ${sx};
 `
 

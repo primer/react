@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, {ReactElement, useEffect, useRef} from 'react'
-import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
+import {get} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
@@ -33,7 +33,7 @@ const widthMap = {
   auto: 'auto'
 }
 
-const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SystemPositionProps & SxProp>`
+const StyledOverlay = styled.div<StyledOverlayProps & SxProp>`
   background-color: ${get('colors.bg.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
@@ -59,8 +59,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   :focus {
     outline: none;
   }
-  ${COMMON};
-  ${POSITION};
   ${sx};
 `
 export type OverlayProps = {

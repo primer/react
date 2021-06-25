@@ -1,14 +1,13 @@
 import React from 'react'
 import {Dropdown} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Dropdown', () => {
-  behavesAsComponent({Component: Dropdown, systemPropArray: [COMMON], toRender: () => <Dropdown>Hello!</Dropdown>})
+  behavesAsComponent({Component: Dropdown, systemPropArray: [], toRender: () => <Dropdown>Hello!</Dropdown>})
 
   checkExports('Dropdown', {
     default: Dropdown
@@ -25,7 +24,7 @@ describe('Dropdown', () => {
 describe('Dropdown.Item', () => {
   behavesAsComponent({
     Component: Dropdown.Item,
-    systemPropArray: [COMMON],
+    systemPropArray: [],
     toRender: () => <Dropdown.Item>Hello!</Dropdown.Item>
   })
 })
@@ -33,19 +32,19 @@ describe('Dropdown.Item', () => {
 describe('Dropdown.Button', () => {
   behavesAsComponent({
     Component: Dropdown.Button,
-    systemPropArray: [COMMON],
+    systemPropArray: [],
     toRender: () => <Dropdown.Button>Hello!</Dropdown.Button>
   })
 })
 
 describe('Dropdown.Caret', () => {
-  behavesAsComponent({Component: Dropdown.Caret, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: Dropdown.Caret, systemPropArray: []})
 })
 
 describe('Dropdown.Menu', () => {
   behavesAsComponent({
     Component: Dropdown.Menu,
-    systemPropArray: [COMMON],
+    systemPropArray: [],
     toRender: () => (
       <Dropdown.Menu>
         <li key="a">1</li>

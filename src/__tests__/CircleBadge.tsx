@@ -2,7 +2,6 @@ import React from 'react'
 import {CircleBadge} from '..'
 import {CheckIcon} from '@primer/octicons-react'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -13,7 +12,7 @@ const imgInput = <img alt="" src="primer.jpg" />
 describe('CircleBadge', () => {
   behavesAsComponent({
     Component: CircleBadge,
-    systemPropArray: [COMMON],
+    systemPropArray: [],
     toRender: () => <CircleBadge>{imgInput}</CircleBadge>
   })
 
@@ -24,7 +23,7 @@ describe('CircleBadge', () => {
   describe('CircleBadge.Icon', () => {
     behavesAsComponent({
       Component: CircleBadge.Icon,
-      systemPropArray: [COMMON],
+      systemPropArray: [],
       toRender: () => <CircleBadge.Icon icon={CheckIcon} />
     })
   })

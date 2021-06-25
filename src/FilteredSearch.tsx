@@ -1,10 +1,9 @@
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const FilteredSearch = styled.div<SystemCommonProps & SxProp>`
-  ${COMMON};
+const FilteredSearch = styled.div<SxProp>`
   display: flex;
   align-items: stretch;
 

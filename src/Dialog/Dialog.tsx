@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
 import Flex from '../Flex'
 import Box from '../Box'
-import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
+import {get} from '../constants'
 import {useOnEscapePress} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
@@ -180,7 +180,7 @@ interface StyledDialogProps {
   height?: DialogHeight
 }
 
-const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPositionProps & SxProp>`
+const StyledDialog = styled.div<StyledDialogProps & SxProp>`
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.bg.overlay')};
@@ -205,8 +205,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
     }
   }
 
-  ${COMMON};
-  ${POSITION};
   ${sx};
 `
 

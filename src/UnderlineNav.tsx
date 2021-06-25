@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import * as History from 'history'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -39,7 +39,6 @@ const UnderlineNavBase = styled.nav`
     align-self: center;
   }
 
-  ${COMMON};
   ${sx};
 `
 
@@ -63,8 +62,7 @@ function UnderlineNav({actions, className, align, children, full, label, theme, 
 type StyledUnderlineNavLinkProps = {
   to?: History.LocationDescriptor
   selected?: boolean
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -100,7 +98,6 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
     }
   }
 
-  ${COMMON};
   ${sx};
 `
 

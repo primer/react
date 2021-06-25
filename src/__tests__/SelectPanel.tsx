@@ -4,7 +4,6 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
-import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
@@ -44,7 +43,7 @@ describe('SelectPanel', () => {
 
   behavesAsComponent({
     Component: SelectPanel,
-    systemPropArray: [COMMON],
+    systemPropArray: [],
     options: {skipAs: true, skipSx: true},
     toRender: () => <SimpleSelectPanel />
   })

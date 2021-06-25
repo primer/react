@@ -2,14 +2,6 @@
 
 exports[`Timeline renders consistently 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -23,14 +15,6 @@ exports[`Timeline renders consistently 1`] = `
 
 exports[`Timeline renders with clipSidebar prop 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -57,32 +41,6 @@ exports[`Timeline.Badge renders consistently 1`] = `
 }
 
 .c1 {
-  color: #586069;
-  background-color: #e1e4e8;
-  margin-right: 8px;
-  margin-left: -15px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   border-radius: 50%;
   border: 2px solid #ffffff;
 }
@@ -103,14 +61,6 @@ exports[`Timeline.Badge renders consistently 1`] = `
 
 exports[`Timeline.Item renders consistently 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   position: relative;
   padding: 16px 0;
   margin-left: 16px;
@@ -139,14 +89,6 @@ exports[`Timeline.Item renders consistently 1`] = `
 
 exports[`Timeline.Item renders with condensed prop 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   position: relative;
   padding: 16px 0;
   margin-left: 16px;

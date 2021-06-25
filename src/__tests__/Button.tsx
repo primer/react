@@ -10,7 +10,6 @@ import {
   ButtonTableList
 } from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON, FLEX, LAYOUT, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -20,9 +19,7 @@ expect.extend(toHaveNoViolations)
 function noop() {}
 
 describe('Button', () => {
-  behavesAsComponent({Component: Button, systemPropArray: [COMMON, LAYOUT]})
-
-  checkExports('Button', {
+  behavesAsComponent({Component: Button, systemPropArray: [('Button', {
     default: Button,
     ButtonPrimary,
     ButtonDanger,
@@ -69,7 +66,7 @@ describe('Button', () => {
 })
 
 describe('ButtonPrimary', () => {
-  behavesAsComponent({Component: ButtonPrimary, systemPropArray: [COMMON, LAYOUT]})
+  behavesAsComponent({Component: ButtonPrimary, systemPropArray: []})
 
   it('renders a <button>', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
@@ -82,7 +79,7 @@ describe('ButtonPrimary', () => {
 })
 
 describe('ButtonDanger', () => {
-  behavesAsComponent({Component: ButtonDanger, systemPropArray: [COMMON, LAYOUT]})
+  behavesAsComponent({Component: ButtonDanger, systemPropArray: []})
 
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
@@ -95,7 +92,7 @@ describe('ButtonDanger', () => {
 })
 
 describe('ButtonOutline', () => {
-  behavesAsComponent({Component: ButtonOutline, systemPropArray: [COMMON, LAYOUT]})
+  behavesAsComponent({Component: ButtonOutline, systemPropArray: []})
 
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
@@ -108,7 +105,7 @@ describe('ButtonOutline', () => {
 })
 
 describe('ButtonInvisible', () => {
-  behavesAsComponent({Component: ButtonOutline, systemPropArray: [COMMON, LAYOUT]})
+  behavesAsComponent({Component: ButtonOutline, systemPropArray: []})
 
   it('renders a <button> by default', () => {
     expect(render(<ButtonInvisible />).type).toEqual('button')
@@ -121,9 +118,9 @@ describe('ButtonInvisible', () => {
 })
 
 describe('ButtonGroup', () => {
-  behavesAsComponent({Component: ButtonGroup, systemPropArray: [COMMON, FLEX, LAYOUT]})
+  behavesAsComponent({Component: ButtonGroup, systemPropArray: []})
 })
 
 describe('ButtonTableList', () => {
-  behavesAsComponent({Component: ButtonTableList, systemPropArray: [COMMON, TYPOGRAPHY, LAYOUT]})
+  behavesAsComponent({Component: ButtonTableList, systemPropArray: []})
 })

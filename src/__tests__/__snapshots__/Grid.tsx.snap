@@ -1,21 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Grid renders consistently 1`] = `
-.c0 {
-  display: grid;
-  display: grid;
-}
-
 <div
-  className="c0"
+  className=""
   display="grid"
 />
 `;
 
 exports[`Grid respects gridArea 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-area: sidebar;
 }
 
@@ -27,8 +20,6 @@ exports[`Grid respects gridArea 1`] = `
 
 exports[`Grid respects gridAutoColumns 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-auto-columns: 1fr;
 }
 
@@ -40,8 +31,6 @@ exports[`Grid respects gridAutoColumns 1`] = `
 
 exports[`Grid respects gridAutoFlow 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-auto-flow: row;
 }
 
@@ -53,8 +42,6 @@ exports[`Grid respects gridAutoFlow 1`] = `
 
 exports[`Grid respects gridAutoRows 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-auto-rows: 1fr;
 }
 
@@ -66,8 +53,6 @@ exports[`Grid respects gridAutoRows 1`] = `
 
 exports[`Grid respects gridColumn 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-column: 1 / 2;
 }
 
@@ -79,8 +64,6 @@ exports[`Grid respects gridColumn 1`] = `
 
 exports[`Grid respects gridColumnGap 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-column-gap: 8px;
 }
 
@@ -92,8 +75,6 @@ exports[`Grid respects gridColumnGap 1`] = `
 
 exports[`Grid respects gridGap 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-gap: 4px;
 }
 
@@ -105,8 +86,6 @@ exports[`Grid respects gridGap 1`] = `
 
 exports[`Grid respects gridRow 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-row: 1 / 2;
 }
 
@@ -118,8 +97,6 @@ exports[`Grid respects gridRow 1`] = `
 
 exports[`Grid respects gridRowGap 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-row-gap: 8px;
 }
 
@@ -131,8 +108,6 @@ exports[`Grid respects gridRowGap 1`] = `
 
 exports[`Grid respects gridTemplateAreas 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-template-areas: sidebar main;
 }
 
@@ -144,8 +119,6 @@ exports[`Grid respects gridTemplateAreas 1`] = `
 
 exports[`Grid respects gridTemplateColumns 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-template-columns: 200px 1fr;
 }
 
@@ -157,8 +130,6 @@ exports[`Grid respects gridTemplateColumns 1`] = `
 
 exports[`Grid respects gridTemplateRows 1`] = `
 .c0 {
-  display: grid;
-  display: grid;
   grid-template-rows: 200px 1fr;
 }
 
@@ -169,25 +140,8 @@ exports[`Grid respects gridTemplateRows 1`] = `
 `;
 
 exports[`Grid respects responsive display 1`] = `
-.c0 {
-  display: grid;
-  display: grid;
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    display: inline-grid;
-  }
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    display: inline-grid;
-  }
-}
-
 <div
-  className="c0"
+  className=""
   display={
     Array [
       "grid",

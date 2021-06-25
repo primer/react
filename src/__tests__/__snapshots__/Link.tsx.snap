@@ -108,7 +108,6 @@ exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = 
   color: #586069;
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #ffffff;
 }
 
 .c0:hover {

@@ -1,5 +1,4 @@
 import React from 'react'
-import {LAYOUT, POSITION} from '../constants'
 import {BorderBox, Position, Absolute, Fixed, Relative, Sticky} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -9,7 +8,7 @@ expect.extend(toHaveNoViolations)
 
 describe('position components', () => {
   describe('Absolute', () => {
-    behavesAsComponent({Component: Absolute, systemPropArray: [LAYOUT, POSITION]})
+    behavesAsComponent({Component: Absolute, systemPropArray: []})
 
     checkExports('Position', {
       default: Position,
@@ -39,7 +38,7 @@ describe('position components', () => {
   })
 
   describe('Fixed', () => {
-    behavesAsComponent({Component: Fixed, systemPropArray: [LAYOUT, POSITION]})
+    behavesAsComponent({Component: Fixed, systemPropArray: []})
 
     it('respects the "as" prop', () => {
       expect(render(<Fixed as="span" />).type).toEqual('span')
@@ -65,7 +64,7 @@ describe('position components', () => {
   })
 
   describe('Relative', () => {
-    behavesAsComponent({Component: Relative, systemPropArray: [LAYOUT, POSITION]})
+    behavesAsComponent({Component: Relative, systemPropArray: []})
 
     it('should have no axe violations', async () => {
       const {container} = HTMLRender(<Relative />)
@@ -87,7 +86,7 @@ describe('position components', () => {
   })
 
   describe('Sticky', () => {
-    behavesAsComponent({Component: Sticky, systemPropArray: [LAYOUT, POSITION]})
+    behavesAsComponent({Component: Sticky, systemPropArray: []})
 
     it('should have no axe violations', async () => {
       const {container} = HTMLRender(<Sticky />)

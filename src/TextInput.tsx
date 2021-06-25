@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -43,8 +43,7 @@ type StyledWrapperProps = {
   block?: boolean
   contrast?: boolean
   variant?: 'small' | 'large'
-} & SystemCommonProps &
-  WidthProps &
+} & WidthProps &
   MinWidthProps &
   MaxWidthProps &
   SxProp
@@ -113,7 +112,6 @@ const Wrapper = styled.span<StyledWrapperProps>`
   @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
-  ${COMMON}
   ${width}
   ${minWidth}
   ${maxWidth}

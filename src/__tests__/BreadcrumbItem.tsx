@@ -3,12 +3,11 @@ import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Breadcrumb} from '..'
-import {COMMON} from '../constants'
 import {behavesAsComponent, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumb.Item', () => {
-  behavesAsComponent({Component: Breadcrumb.Item, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: Breadcrumb.Item, systemPropArray: []})
 
   it('renders an <a> by default', () => {
     expect(render(<Breadcrumb.Item />).type).toEqual('a')

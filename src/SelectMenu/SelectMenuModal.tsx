@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -11,8 +11,7 @@ type StyledModalProps = {
 
 type StyledModalWrapperProps = {
   align?: 'left' | 'right'
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const animateModal = keyframes`
   0% {
@@ -92,7 +91,6 @@ const Modal = styled.div<StyledModalProps>`
 
 const ModalWrapper = styled.div<StyledModalWrapperProps>`
   ${modalWrapperStyles}
-  ${COMMON}
   ${sx};
 `
 

@@ -1,17 +1,9 @@
 import styled from 'styled-components'
-import {
-  COMMON,
-  get,
-  LAYOUT,
-  SystemCommonProps,
-  SystemLayoutProps,
-  SystemTypographyProps,
-  TYPOGRAPHY
-} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
-type StyledButtonTableListProps = SystemCommonProps & SystemTypographyProps & SystemLayoutProps & SxProp
+type StyledButtonTableListProps = SxProp
 
 const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   display: inline-block;
@@ -48,9 +40,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
     border: 4px solid transparent;
     border-top-color: currentcolor;
   }
-  ${COMMON}
-  ${TYPOGRAPHY}
-  ${LAYOUT}
+
   ${sx};
 `
 

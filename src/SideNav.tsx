@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-namespace
 import * as History from 'history'
 
-import {COMMON, get} from './constants'
+import {get} from './constants'
 import styled, {css} from 'styled-components'
 
 import BorderBox from './BorderBox'
@@ -45,7 +45,6 @@ const SideNav = styled(SideNavBase)`
       }
     `}
 
-  ${COMMON};
   ${sx};
 `
 type StyledSideNavLinkProps = {

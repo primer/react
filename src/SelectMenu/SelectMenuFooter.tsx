@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -16,9 +16,8 @@ const footerStyles = css`
   }
 `
 
-const SelectMenuFooter = styled.footer<SystemCommonProps & SxProp>`
+const SelectMenuFooter = styled.footer<SxProp>`
   ${footerStyles}
-  ${COMMON}
   ${sx};
 `
 

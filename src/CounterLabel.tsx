@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 type StyledCounterLabelProps = {
   scheme?: 'primary' | 'secondary'
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
@@ -39,7 +38,6 @@ const CounterLabel = styled.span<StyledCounterLabelProps>`
   border-radius: 20px;
   ${colorStyles};
   ${bgStyles};
-  ${COMMON};
 
   &:empty {
     display: none;

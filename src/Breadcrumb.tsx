@@ -4,7 +4,7 @@ import * as History from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
-import {COMMON, FLEX, get, SystemCommonProps, SystemFlexProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -31,11 +31,9 @@ const Wrapper = styled.li`
   }
 `
 
-const BreadcrumbBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
+const BreadcrumbBase = styled.nav<SxProp>`
   display: flex;
   justify-content: space-between;
-  ${COMMON};
-  ${FLEX};
   ${sx};
 `
 
@@ -56,8 +54,7 @@ function Breadcrumb({className, children, theme, ...rest}: React.PropsWithChildr
 type StyledBreadcrumbItemProps = {
   to?: History.LocationDescriptor
   selected?: boolean
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -75,7 +72,6 @@ const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
     color: ${get('colors.text.primary')};
     pointer-events: none;
   }
-  ${COMMON}
   ${sx};
 `
 

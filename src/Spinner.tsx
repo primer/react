@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -39,7 +38,7 @@ function Spinner({size: sizeKey, ...props}: SpinnerInternalProps) {
   )
 }
 
-const StyledSpinner = styled(Spinner)<SystemCommonProps & SxProp>`
+const StyledSpinner = styled(Spinner)<SxProp>`
   @keyframes rotate-keyframes {
     100% {
       transform: rotate(360deg);
@@ -48,7 +47,6 @@ const StyledSpinner = styled(Spinner)<SystemCommonProps & SxProp>`
 
   animation: rotate-keyframes 1s linear infinite;
 
-  ${COMMON}
   ${sx}
 `
 
