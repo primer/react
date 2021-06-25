@@ -24,13 +24,6 @@ module.exports = {
           react: path.resolve(__dirname, 'node_modules', 'react')
         }
       }
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'components',
-        path: path.resolve(__dirname, '../src')
-      }
     }
   ],
   pathPrefix: '/components'
