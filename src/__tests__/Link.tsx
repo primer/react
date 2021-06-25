@@ -29,8 +29,8 @@ describe('Link', () => {
   })
 
   it('respects the "fontStyle" prop', () => {
-    expect(render(<Link fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Link as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    expect(render(<Link sx={{fontStyle: 'italic'}} />)).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Link as="i" sx={{fontStyle: 'normal'}} />)).toHaveStyleRule('font-style', 'normal')
   })
 
   it('applies button styles when rendering a button element', () => {
@@ -42,6 +42,6 @@ describe('Link', () => {
   })
 
   it('respectes the "color" prop when "muted" prop is also passed', () => {
-    expect(render(<Link muted color="text.inverse" />)).toMatchSnapshot()
+    expect(render(<Link muted sx={{color: 'text.inverse'}} />)).toMatchSnapshot()
   })
 })

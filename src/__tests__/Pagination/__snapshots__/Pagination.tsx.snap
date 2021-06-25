@@ -3,6 +3,11 @@
 exports[`Pagination renders consistently 1`] = `
 .c1 {
   display: inline-block;
+  display: inline-block;
+}
+
+.c2 {
+  display: inline-block;
   min-width: 32px;
   padding: 5px 10px;
   font-style: normal;
@@ -25,12 +30,12 @@ exports[`Pagination renders consistently 1`] = `
   transition: border-color 0.2s cubic-bezier(0.3,0,0.5,1);
 }
 
-.c1:last-child {
+.c2:last-child {
   margin-right: 0;
 }
 
-.c1:hover,
-.c1:focus {
+.c2:hover,
+.c2:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
   border-color: #e1e4e8;
@@ -39,24 +44,24 @@ exports[`Pagination renders consistently 1`] = `
   transition-duration: 0.1s;
 }
 
-.c1:active {
+.c2:active {
   border-color: hsla(214,13%,93%,1);
 }
 
-.c1[rel='prev'],
-.c1[rel='next'] {
+.c2[rel='prev'],
+.c2[rel='next'] {
   color: #0366d6;
 }
 
-.c1[aria-current],
-.c1[aria-current]:hover {
+.c2[aria-current],
+.c2[aria-current]:hover {
   color: #ffffff;
   background-color: #0366d6;
   border-color: transparent;
 }
 
-.c1[aria-disabled],
-.c1[aria-disabled]:hover {
+.c2[aria-disabled],
+.c2[aria-disabled]:hover {
   color: #959da5;
   cursor: default;
   border-color: transparent;
@@ -69,8 +74,8 @@ exports[`Pagination renders consistently 1`] = `
 }
 
 @supports (-webkit-clip-path:polygon(50% 0,100% 50%,50% 100%)) or (clip-path:polygon(50% 0,100% 50%,50% 100%)) {
-  .c1[rel='prev']::before,
-  .c1[rel='next']::after {
+  .c2[rel='prev']::before,
+  .c2[rel='next']::after {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -79,13 +84,13 @@ exports[`Pagination renders consistently 1`] = `
     background-color: currentColor;
   }
 
-  .c1[rel='prev']::before {
+  .c2[rel='prev']::before {
     margin-right: 4px;
     -webkit-clip-path: polygon( 9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px );
     clip-path: polygon( 9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px );
   }
 
-  .c1[rel='next']::after {
+  .c2[rel='next']::after {
     margin-left: 4px;
     -webkit-clip-path: polygon( 6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px );
     clip-path: polygon( 6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px );
@@ -97,24 +102,24 @@ exports[`Pagination renders consistently 1`] = `
   className="c0"
 >
   <div
-    className=""
+    className="c1"
     display="inline-block"
   >
     <span
       aria-disabled="true"
-      className="c1"
+      className="c2"
     >
       Previous
     </span>
     <em
       aria-current="page"
-      className="c1"
+      className="c2"
     >
       1
     </em>
     <a
       aria-label="Page 2"
-      className="c1"
+      className="c2"
       href="#2"
       onClick={[Function]}
     >
@@ -122,7 +127,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 3"
-      className="c1"
+      className="c2"
       href="#3"
       onClick={[Function]}
     >
@@ -130,7 +135,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 4"
-      className="c1"
+      className="c2"
       href="#4"
       onClick={[Function]}
     >
@@ -138,7 +143,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 5"
-      className="c1"
+      className="c2"
       href="#5"
       onClick={[Function]}
     >
@@ -146,7 +151,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Page 6"
-      className="c1"
+      className="c2"
       href="#6"
       onClick={[Function]}
     >
@@ -154,13 +159,13 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <span
       aria-disabled={true}
-      className="c1"
+      className="c2"
     >
       …
     </span>
     <a
       aria-label="Page 10"
-      className="c1"
+      className="c2"
       href="#10"
       onClick={[Function]}
     >
@@ -168,7 +173,7 @@ exports[`Pagination renders consistently 1`] = `
     </a>
     <a
       aria-label="Next Page"
-      className="c1"
+      className="c2"
       href="#2"
       onClick={[Function]}
       rel="next"

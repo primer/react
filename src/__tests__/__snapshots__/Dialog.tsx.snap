@@ -9,6 +9,16 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 }
 
 .c0 {
+  padding: 16px;
+  background-color: #f6f8fa;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #e1e4e8;
 }
@@ -52,7 +62,11 @@ Array [
 <span
     className="c0"
   />,
-  .c1 {
+  .c4 {
+  padding: 16px;
+}
+
+.c1 {
   border: none;
   padding: 0;
   background: transparent;
@@ -80,7 +94,7 @@ Array [
   color: #24292e;
 }
 
-.c4 {
+.c5 {
   font-family: sans-serif;
 }
 
@@ -102,6 +116,16 @@ Array [
 }
 
 .c2 {
+  padding: 16px;
+  background-color: #f6f8fa;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #e1e4e8;
 }
@@ -172,10 +196,10 @@ Array [
       </span>
     </div>
     <div
-      className=""
+      className="c4"
     >
       <span
-        className="c4"
+        className="c5"
         fontFamily="sans-serif"
       >
         Some content

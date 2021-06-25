@@ -37,8 +37,4 @@ describe('Avatar', () => {
   it('passes through the src prop', () => {
     expect(render(<Avatar src="primer.png" alt="" />).props.src).toEqual('primer.png')
   })
-
-  it('respects margin props', () => {
-    expect(render(<Avatar m={2} alt="" />)).toHaveStyleRule('margin', px(theme.space[2]))
-  })
 })

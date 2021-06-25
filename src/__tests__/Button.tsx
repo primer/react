@@ -19,7 +19,9 @@ expect.extend(toHaveNoViolations)
 function noop() {}
 
 describe('Button', () => {
-  behavesAsComponent({Component: Button, systemPropArray: [('Button', {
+  behavesAsComponent({Component: Button, systemPropArray: []})
+
+  checkExports('Button', {
     default: Button,
     ButtonPrimary,
     ButtonDanger,
@@ -46,7 +48,7 @@ describe('Button', () => {
   })
 
   it('respects width props', () => {
-    expect(render(<Button width={200} />)).toHaveStyleRule('width', '200px')
+    expect(render(<Button sx={{width: 200}} />)).toHaveStyleRule('width', '200px')
   })
 
   it('respects the "disabled" prop', () => {
