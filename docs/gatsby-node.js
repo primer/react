@@ -41,11 +41,10 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
 exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
   const {createNode} = actions
 
+  // Extract compontent metadata from source files
   const files = globby.sync(['../src/**/*.tsx'], {absolute: true})
   const data = docgen.parse(files, {
     savePropValueAsString: true,
-    // shouldExtractLiteralValuesFromEnum: true,
-    // shouldExtractValuesFromUnion: true,
     propFilter: prop => {
       if (prop.declarations !== undefined && prop.declarations.length > 0) {
         const hasPropAdditionalDescription = prop.declarations.find(declaration => {
@@ -82,6 +81,7 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
     }
   })
 
+  // Add component metadata to GraphQL API
   for (const component of components) {
     const nodeContent = JSON.stringify(component)
     const nodeMeta = {
