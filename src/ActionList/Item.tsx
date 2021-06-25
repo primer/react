@@ -151,7 +151,16 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   }
 }
 
-const StyledItemContent = styled.div<{
+const DividedContent = styled.div`
+  display: flex;
+  min-width: 0;
+
+  /* Required for dividers */
+  position: relative;
+  flex-grow: 1;
+`
+
+const MainContent = styled.div<{
   descriptionVariant: ItemProps['descriptionVariant']
 }>`
   align-items: baseline;
@@ -159,7 +168,6 @@ const StyledItemContent = styled.div<{
   min-width: 0;
   flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
   flex-grow: 1;
-  position: relative;
 `
 
 const StyledItem = styled.div<
@@ -192,7 +200,7 @@ const StyledItem = styled.div<
   :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
     margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
 
-    ${StyledItemContent}::before {
+    ${DividedContent}::before {
       content: ' ';
       display: block;
       position: absolute;
@@ -206,19 +214,19 @@ const StyledItem = styled.div<
 
   // Item dividers should not be visible:
   // - above Hovered
-  &:hover ${StyledItemContent}::before,
+  &:hover ${DividedContent}::before,
   // - below Hovered
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :hover + * ${StyledItemContent}::before,
+  :hover + * ${DividedContent}::before,
   // - above Focused
-  &:focus ${StyledItemContent}::before,
+  &:focus ${DividedContent}::before,
   // - below Focused
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :focus + * ${StyledItemContent}::before,
+  :focus + * ${DividedContent}::before,
   // - above Active Descendent
-  &.${itemActiveDescendantClass} ${StyledItemContent}::before,
+  &.${itemActiveDescendantClass} ${DividedContent}::before,
   // - below Active Descendent
-  .${itemActiveDescendantClass} + & ${StyledItemContent}::before {
+  .${itemActiveDescendantClass} + & ${DividedContent}::before {
     // '!important' because all the ':not's above give higher specificity
     border-color: transparent !important;
   }
@@ -243,10 +251,6 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   // hardcoded '20px' with '${get('space.s20')}'.
   height: 20px;
   width: ${get('space.3')};
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-right: ${get('space.2')};
 `
 
@@ -257,18 +261,21 @@ const ColoredVisualContainer = styled(BaseVisualContainer)`
   }
 `
 
-const LeadingVisualContainer = styled(ColoredVisualContainer)``
+const LeadingVisualContainer = styled(ColoredVisualContainer)`
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
-const TrailingVisualContainer = styled(ColoredVisualContainer)`
+const TrailingContent = styled(ColoredVisualContainer)`
   color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
   margin-left: ${get('space.2')};
   margin-right: 0;
+  width: auto;
   div:nth-child(2) {
     margin-left: ${get('space.2')};
   }
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
 `
 
 const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
@@ -395,31 +402,29 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      <StyledItemContent descriptionVariant={descriptionVariant}>
-        {children}
-        {text ? <TextContainer id={labelId}>{text}</TextContainer> : null}
-        {description ? (
-          <DescriptionContainer id={descriptionId} descriptionVariant={descriptionVariant}>
-            {descriptionVariant === 'block' ? (
-              description
-            ) : (
-              <Truncate title={description} inline={true} maxWidth="100%">
-                {description}
-              </Truncate>
-            )}
-          </DescriptionContainer>
+      <DividedContent>
+        <MainContent descriptionVariant={descriptionVariant}>
+          {children}
+          {text ? <TextContainer id={labelId}>{text}</TextContainer> : null}
+          {description ? (
+            <DescriptionContainer id={descriptionId} descriptionVariant={descriptionVariant}>
+              {descriptionVariant === 'block' ? (
+                description
+              ) : (
+                <Truncate title={description} inline={true} maxWidth="100%">
+                  {description}
+                </Truncate>
+              )}
+            </DescriptionContainer>
+          ) : null}
+        </MainContent>
+        {TrailingIcon || trailingText ? (
+          <TrailingContent variant={variant} disabled={disabled}>
+            {trailingText}
+            {TrailingIcon && <TrailingIcon />}
+          </TrailingContent>
         ) : null}
-      </StyledItemContent>
-      {(TrailingIcon || trailingText) && (
-        <TrailingVisualContainer variant={variant} disabled={disabled}>
-          {trailingText && <div>{trailingText}</div>}
-          {TrailingIcon && (
-            <div>
-              <TrailingIcon />
-            </div>
-          )}
-        </TrailingVisualContainer>
-      )}
+      </DividedContent>
     </StyledItem>
   )
 }
