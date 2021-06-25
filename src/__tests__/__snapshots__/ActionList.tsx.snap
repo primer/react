@@ -11,6 +11,12 @@ exports[`ActionList renders consistently 1`] = `
   line-height: 20px;
 }
 
+.c0[data-has-active-descendant],
+.c0:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: hsla(214,13%,93%,1);
+}
+
 <div
   className="c0"
 >
