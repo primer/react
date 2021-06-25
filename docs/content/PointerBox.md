@@ -18,7 +18,7 @@ function PointerBoxDemo(props) {
 
   return (
     <Box>
-      <Heading as="h3" fontSize={3}>
+      <Heading as="h3" sx={{fontSize: 3}}>
         Caret Position
       </Heading>
       <CaretSelector current={pos} onChange={setPos} />

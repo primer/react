@@ -45,10 +45,6 @@ You can use the `expandable` boolean prop to display the truncated text on hover
 </Truncate>
 ```
 
-## System props
-
-Truncate components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name       | Type    | Default | Description                                                  |

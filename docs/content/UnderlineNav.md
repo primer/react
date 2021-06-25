@@ -23,10 +23,6 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </UnderlineNav>
 ```
 
-## System props
-
-UnderlineNav and UnderlineNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### UnderlineNav

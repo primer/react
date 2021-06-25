@@ -19,18 +19,14 @@ Flash components with icons inside of them will automatically set the correct co
 
 ```jsx live
 <Flash variant="success">
-  <StyledOcticon icon={CheckIcon}/>
+  <StyledOcticon icon={CheckIcon} />
   Success!
 </Flash>
 ```
 
-## System props
-
-Flash components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| full | Boolean | | Creates a full width Flash component|
-| variant | String | default | Can be one of `default`, `success`, `warning`, or `danger` - sets the background color and border of the Flash component |
+| Name    | Type    | Default | Description                                                                                                              |
+| :------ | :------ | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
+| full    | Boolean |         | Creates a full width Flash component                                                                                     |
+| variant | String  | default | Can be one of `default`, `success`, `warning`, or `danger` - sets the background color and border of the Flash component |

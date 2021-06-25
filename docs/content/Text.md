@@ -12,10 +12,6 @@ The Text component is a wrapper component that will apply typography styles to t
 <Text as='p' color="text.inverse" bg="bg.canvasInverse" p={2}>inverse colors</Text>
 ```
 
-## System props
-
-Text components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name | Type   | Default | Description                         |

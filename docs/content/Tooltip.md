@@ -20,10 +20,6 @@ Before adding a tooltip, please consider: Is this information essential and nece
 </BorderBox>
 ```
 
-## System props
-
-Tooltip components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name       | Type    | Default | Description                                              |

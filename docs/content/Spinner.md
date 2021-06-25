@@ -16,18 +16,14 @@ Use Spinner to let users know that content is being loaded.
 ### Small
 
 ```jsx live
-<Spinner size="small"/>
+<Spinner size="small" />
 ```
 
 ### Large
 
 ```jsx live
-<Spinner size="large"/>
+<Spinner size="large" />
 ```
-
-## System props
-
-Spinner components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

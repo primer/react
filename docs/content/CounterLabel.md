@@ -13,10 +13,6 @@ Use the CounterLabel component to add a count to navigational elements and butto
 <CounterLabel scheme="secondary">13</CounterLabel>
 ```
 
-## System props
-
-CounterLabel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name   | Type   | Default | Description                                                                                                                                                                        |

@@ -39,12 +39,12 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={ZapIcon} />
+    <StyledOcticon sx={{mr: 2}} size={16} icon={ZapIcon} />
     <Text>With an Octicon</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={DotIcon} color="icon.success" />
+    <StyledOcticon sx={{mr: 2}} size={16} icon={DotIcon} color="icon.success" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -55,7 +55,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <CounterLabel>16</CounterLabel>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Heading as="h5" fontSize={1}>
+    <Heading as="h5" sx={{fontSize: 1}}>
       A heading
     </Heading>
     <Text>and some more content</Text>
@@ -130,10 +130,6 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 ```
 <SideNav.Link as={NavLink} to="...">...</SideNav.Link>
 ```
-
-## System props
-
-`SideNav` components get `COMMON`, `BORDER`, `LAYOUT`, and `FLEX` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
