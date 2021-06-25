@@ -6,6 +6,7 @@ import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import {graphql, useStaticQuery} from 'gatsby'
 import React from 'react'
 
+/** Render prop documentation for the given component */
 export function Props({of}) {
   const data = useStaticQuery(graphql`
     query {
