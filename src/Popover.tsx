@@ -1,6 +1,5 @@
 import classnames from 'classnames'
 import styled from 'styled-components'
-import BorderBox from './BorderBox'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'

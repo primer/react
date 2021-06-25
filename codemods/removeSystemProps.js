@@ -113,20 +113,20 @@ const FLEX = [
   'order'
 ]
 
-const GRID = [
-  'gridGap',
-  'gridColumnGap',
-  'gridRowGap',
-  'gridColumn',
-  'gridRow',
-  'gridAutoFlow',
-  'gridAutoColumns',
-  'gridAutoRows',
-  'gridTemplateColumns',
-  'gridTemplateRows',
-  'gridTemplateAreas',
-  'gridArea'
-]
+// const GRID = [
+//   'gridGap',
+//   'gridColumnGap',
+//   'gridRowGap',
+//   'gridColumn',
+//   'gridRow',
+//   'gridAutoFlow',
+//   'gridAutoColumns',
+//   'gridAutoRows',
+//   'gridTemplateColumns',
+//   'gridTemplateRows',
+//   'gridTemplateAreas',
+//   'gridArea'
+// ]
 
 const stylePropsMap = {
   Avatar: [...COMMON],
