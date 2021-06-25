@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {ReactElement, useEffect, useRef} from 'react'
+import React, {ReactElement, useEffect, useLayoutEffect, useRef} from 'react'
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
@@ -7,6 +7,7 @@ import Portal from './Portal'
 import sx, {SxProp} from './sx'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
 import {AnchorSide} from './behaviors/anchoredPosition'
+import {useTheme} from './ThemeProvider'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -33,8 +34,9 @@ const widthMap = {
   xxlarge: '960px',
   auto: 'auto'
 }
+const animationDuration = 200
 
-function getSlideAnimationFactors(anchorSide?: AnchorSide): {x: number; y: number} {
+function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y: number} {
   if (anchorSide?.endsWith('bottom')) {
     return {x: 0, y: -1}
   } else if (anchorSide?.endsWith('top')) {
@@ -59,8 +61,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
   overflow: hidden;
-  animation: overlay-appear 200ms ${get('animation.easeOutCubic')},
-    overlay-slide var(--slide-animation-timing, 200ms) ${get('animation.easeOutCubic')};
+  animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
 
   @keyframes overlay-appear {
     0% {
@@ -68,18 +69,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
     }
     100% {
       opacity: 1;
-    }
-  }
-
-  // split from overlay-appear so that the timing can be set to 0 initially or if we don't know which side to slide from
-  @keyframes overlay-slide {
-    0% {
-      transform: translate(
-        calc(var(--slide-animation-x-factor) * ${get('space.2')}),
-        calc(var(--slide-animation-y-factor) * ${get('space.2')})
-      );
-    }
-    100% {
     }
   }
 
@@ -130,7 +119,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
-    const slideAnimationFactors = getSlideAnimationFactors(anchorSide)
+    const {theme} = useTheme()
+    const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
+    const slideAnimationEasing = get('animation.easeOutCubic')(theme)
 
     useOverlay({
       overlayRef,
@@ -147,24 +138,25 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       }
     }, [height, combinedRef])
 
+    useLayoutEffect(() => {
+      const {x, y} = getSlideAnimationStartingVector(anchorSide)
+      if ((!x && !y) || !overlayRef.current?.animate) {
+        return
+      }
+
+      // JS animation is required because Safari does not allow css animations to start paused and then run
+      overlayRef.current.animate(
+        {transform: [`translate(${slideAnimationDistance * x}px, ${slideAnimationDistance * y}px)`, `translate(0, 0)`]},
+        {
+          duration: animationDuration,
+          easing: slideAnimationEasing
+        }
+      )
+    }, [anchorSide, slideAnimationDistance, slideAnimationEasing])
+
     return (
       <Portal>
-        <StyledOverlay
-          aria-modal="true"
-          role={role}
-          height={height}
-          {...rest}
-          ref={combinedRef}
-          style={
-            {
-              '--slide-animation-x-factor': slideAnimationFactors.x,
-              '--slide-animation-y-factor': slideAnimationFactors.y,
-              '--slide-animation-timing':
-                slideAnimationFactors.x === 0 && slideAnimationFactors.y === 0 ? '0' : undefined // 0 if we don't want to animate, fallback in css if we do
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any
-          }
-        />
+        <StyledOverlay aria-modal="true" role={role} height={height} {...rest} ref={combinedRef} />
       </Portal>
     )
   }
