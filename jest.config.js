@@ -4,5 +4,6 @@ module.exports = {
   cacheDirectory: '.test',
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**'],
-  setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx']
+  setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
+  testRegex: '/src/__tests__/.*\\.[jt]sx?$'
 }
