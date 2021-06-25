@@ -160,13 +160,11 @@ const DividedContent = styled.div`
   flex-grow: 1;
 `
 
-const MainContent = styled.div<{
-  descriptionVariant: ItemProps['descriptionVariant']
-}>`
+const MainContent = styled.div`
   align-items: baseline;
   display: flex;
   min-width: 0;
-  flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
+  flex-direction: var(--main-content-flex-direction);
   flex-grow: 1;
 `
 
@@ -278,16 +276,16 @@ const TrailingContent = styled(ColoredVisualContainer)`
   }
 `
 
-const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
+const DescriptionContainer = styled.span`
   color: ${get('colors.text.secondary')};
   font-size: ${get('fontSizes.0')};
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '16px' with '${get('lh-12')}'.
   line-height: 16px;
-  margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
+  margin-left: var(--description-container-margin-left);
   min-width: 0;
   flex-grow: 1;
-  flex-basis: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 0 : 'auto')};
+  flex-basis: var(--description-container-flex-basis);
 `
 
 const MultiSelectInput = styled.input`
@@ -403,11 +401,23 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
         </LeadingVisualContainer>
       )}
       <DividedContent>
-        <MainContent descriptionVariant={descriptionVariant}>
+        <MainContent
+          style={
+            {'--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column'} as React.CSSProperties
+          }
+        >
           {children}
           {text ? <TextContainer id={labelId}>{text}</TextContainer> : null}
           {description ? (
-            <DescriptionContainer id={descriptionId} descriptionVariant={descriptionVariant}>
+            <DescriptionContainer
+              id={descriptionId}
+              style={
+                {
+                  '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
+                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto'
+                } as React.CSSProperties
+              }
+            >
               {descriptionVariant === 'block' ? (
                 description
               ) : (
