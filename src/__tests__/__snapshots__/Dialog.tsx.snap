@@ -10,17 +10,19 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 
 .c0 {
   padding: 16px;
+  background-color: gray.1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   background-color: #f6f8fa;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #e1e4e8;
+  background-color: #f6f8fa;
 }
 
 @media screen and (max-width:750px) {
@@ -117,17 +119,19 @@ Array [
 
 .c2 {
   padding: 16px;
+  background-color: gray.1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   background-color: #f6f8fa;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #e1e4e8;
+  background-color: #f6f8fa;
 }
 
 @media screen and (max-width:750px) {

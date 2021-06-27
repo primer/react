@@ -67,6 +67,10 @@ exports[`DropdownMenu renders consistently 1`] = `
   border-color: rgba(27,31,35,0.15);
 }
 
+.c1 {
+  margin-left: 4px;
+}
+
 <button
   aria-haspopup="listbox"
   aria-labelledby="__primer_id_10001"
@@ -78,7 +82,7 @@ exports[`DropdownMenu renders consistently 1`] = `
 >
   <svg
     aria-hidden="true"
-    className=""
+    className="c1"
     dangerouslySetInnerHTML={
       Object {
         "__html": "<path d=\\"M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z\\"></path>",
