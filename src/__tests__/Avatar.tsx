@@ -1,13 +1,14 @@
 import React from 'react'
 import {Avatar} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import theme from '../theme'
+import {px, render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Avatar', () => {
-  behavesAsComponent({Component: Avatar})
+  behavesAsComponent({Component: Avatar, systemPropArray: []})
 
   checkExports('Avatar', {
     default: Avatar
@@ -35,5 +36,9 @@ describe('Avatar', () => {
 
   it('passes through the src prop', () => {
     expect(render(<Avatar src="primer.png" alt="" />).props.src).toEqual('primer.png')
+  })
+
+  it('respects margin props', () => {
+    expect(render(<Avatar sx={{m: 2}} alt="" />)).toHaveStyleRule('margin', px(theme.space[2]))
   })
 })

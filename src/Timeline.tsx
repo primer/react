@@ -4,10 +4,10 @@ import styled, {css} from 'styled-components'
 import {get} from './constants'
 import Flex, {FlexProps} from './Flex'
 import {Relative} from './Position'
-import sx from './sx'
+import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const Timeline = styled.div<{clipSidebar?: boolean}>`
+const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   flex-direction: column;
   ${props =>
     props.clipSidebar &&
@@ -24,7 +24,7 @@ const Timeline = styled.div<{clipSidebar?: boolean}>`
   ${sx};
 `
 
-type StyledTimelineItemProps = {condensed?: boolean}
+type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
 const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)

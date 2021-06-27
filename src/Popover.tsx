@@ -36,7 +36,7 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
   ${sx};
 `
 
-const PopoverContent = styled.div`
+const PopoverContent = styled.div<SxProp>`
   position: relative;
   width: 232px;
   margin-right: auto;

@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 const comp = (
   <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
     <Dialog.Header id="header">Title</Dialog.Header>
-    <Box p={3}>
+    <Box sx={{p: 3}}>
       <Text fontFamily="sans-serif">Some content</Text>
     </Box>
   </Dialog>
@@ -31,7 +31,7 @@ const Component = () => {
       >
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
-          <Box p={3}>
+          <Box sx={{p: 3}}>
             <Text fontFamily="sans-serif">Some content</Text>
           </Box>
         </div>
@@ -45,7 +45,7 @@ const ClosedDialog = () => {
     <Dialog isOpen={false} onDismiss={() => null} aria-labelledby="header">
       <div data-testid="inner">
         <Dialog.Header id="header">Title</Dialog.Header>
-        <Box p={3}>
+        <Box sx={{p: 3}}>
           <Text fontFamily="sans-serif">Some content</Text>
         </Box>
       </div>
@@ -59,7 +59,7 @@ const DialogWithCustomFocusRef = () => {
     <Dialog isOpen initialFocusRef={buttonRef} onDismiss={() => null} aria-labelledby="header">
       <div data-testid="inner">
         <Dialog.Header id="header">Title</Dialog.Header>
-        <Box p={3}>
+        <Box sx={{p: 3}}>
           <Text fontFamily="sans-serif">Some content</Text>
           <button data-testid="inner-button" ref={buttonRef}>
             hi

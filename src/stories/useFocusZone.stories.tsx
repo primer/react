@@ -59,7 +59,7 @@ export const BasicFocusZone = () => {
         <Absolute right={5} top={2}>
           Last key pressed: {lastKey}
         </Absolute>
-        <ToggleButton mb={3} onClick={toggleFz}>
+        <ToggleButton sx={{mb: 3}} onClick={toggleFz}>
           {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
         </ToggleButton>
         <MarginButton>Apple</MarginButton>
@@ -340,7 +340,7 @@ export const SpecialSituations = () => {
     <>
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
           different situations. Focus treatment within your component should be evaluated for your particular UX using
           the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard">ARIA guidelines</a>.
@@ -419,7 +419,7 @@ export const ChangingSubtree = () => {
     <>
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
         </Flash>
         <Absolute right={5} top={2}>
@@ -524,7 +524,7 @@ export const ActiveDescendant = () => {
     <>
       <HelperGlobalStyling />
       <Flex flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
           active element. Below, you can focus the input box then use the up/down arrow keys to change the active
           descendant (dark blue outline).

@@ -57,7 +57,7 @@ export const DropdownOverlay = () => {
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
         >
-          <Flex flexDirection="column" p={2}>
+          <Flex flexDirection="column" sx={{p: 2}}>
             <DummyItem>Copy link</DummyItem>
             <DummyItem>Quote reply</DummyItem>
             <DummyItem>Reference in new issue</DummyItem>
@@ -90,7 +90,7 @@ export const DialogOverlay = () => {
           onClickOutside={closeOverlay}
           width="small"
         >
-          <Flex flexDirection="column" p={2}>
+          <Flex flexDirection="column" sx={{p: 2}}>
             <Text>Are you sure?</Text>
             <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
             <Button onClick={closeOverlay} ref={confirmButtonRef}>
@@ -163,7 +163,7 @@ export const OverlayOnTopOfOverlay = () => {
               width="small"
               sx={{top: '40px'}}
             >
-              <Flex flexDirection="column" p={2}>
+              <Flex flexDirection="column" sx={{p: 2}}>
                 <Text>Select an option!</Text>
                 <DropdownMenu
                   renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (

@@ -64,16 +64,16 @@ export const ShorthandHook = () => {
   )
   return (
     <Flex flexDirection="column" alignItems="flex-start">
-      <Button mb={2} onClick={onButtonClick}>
+      <Button sx={{mb: null}} onClick={onButtonClick}>
         Turn me green!
       </Button>
-      <Button mb={2} onClick={onButtonClick}>
+      <Button sx={{mb: null}} onClick={onButtonClick}>
         Turn me green!
       </Button>
-      <Button mb={2} onClick={onButtonClick}>
+      <Button sx={{mb: null}} onClick={onButtonClick}>
         Turn me green!
       </Button>
-      <Button mb={2} onClick={onButtonClick}>
+      <Button sx={{mb: null}} onClick={onButtonClick}>
         Turn me green!
       </Button>
     </Flex>

@@ -36,7 +36,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
           onClickOutside={closeOverlay}
           width="small"
         >
-          <Flex flexDirection="column" p={2}>
+          <Flex flexDirection="column" sx={{p: 2}}>
             <Text>Are you sure?</Text>
             <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
             <Button onClick={closeOverlay} ref={confirmButtonRef}>

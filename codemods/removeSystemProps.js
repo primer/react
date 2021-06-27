@@ -1,5 +1,4 @@
 const prettify = require('./lib/prettify')
-const _ = require('lodash')
 
 const COMMON = [
   'margin',
@@ -133,6 +132,7 @@ const stylePropsMap = {
   AvatarStack: [...COMMON],
   BranchName: [...COMMON],
   Breadcrumb: [...COMMON, ...FLEX],
+  Button: [...COMMON, ...LAYOUT, ...TYPOGRAPHY],
   ButtonBase: [...COMMON, ...LAYOUT],
   ButtonClose: [...COMMON, ...LAYOUT],
   ButtonTableList: [...COMMON, ...TYPOGRAPHY, ...LAYOUT],
@@ -148,10 +148,10 @@ const stylePropsMap = {
   FormGroupLabel: [...COMMON, ...TYPOGRAPHY],
   Header: [...COMMON, ...BORDER],
   HeaderItem: [...COMMON, ...BORDER],
-  Label: [...COMMON],
+  Label: [...COMMON, ...BORDER],
   LabelGroup: [...COMMON],
   Link: [...COMMON, ...TYPOGRAPHY],
-  Overlay: [...COMMON, ...POSITION],
+  Overlay: [...COMMON],
   Pagehead: [...COMMON],
   Pagination: [...COMMON],
   Popover: [...COMMON, ...LAYOUT, ...POSITION],
@@ -183,15 +183,23 @@ const stylePropsMap = {
 }
 
 const objectToString = object => {
-  const values = _.values(object)
-  const keys = _.keys(object)
-  const duples = _.zip(keys, values)
-  const sortedDuples = _.sortBy(duples, [0])
+  const values = Object.values(object)
+  const keys = Object.keys(object)
+  const duples = keys.map(function (key, i) {
+    return [key, values[i]]
+  })
   const accumulator = (string, duple) => {
-    const literal = typeof duple[1] === 'string' ? `"${duple[1]}"` : duple[1]
-    return `${string} ${duple[0]}: ${literal},`
+    const expression = duple[1]
+    let expressionString = null
+    if (expression.type === 'Literal') {
+      const expressionValue = expression.value
+      expressionString = typeof expressionValue === 'string' ? `"${expressionValue}"` : expressionValue
+    } else if (expression.type === 'Identifier') {
+      expressionString = expression.name
+    }
+    return `${string} ${duple[0]}: ${expressionString},`
   }
-  const objString = sortedDuples.reduce(accumulator, '')
+  const objString = duples.reduce(accumulator, '')
   return `{ ${objString} }`
 }
 
@@ -231,13 +239,18 @@ module.exports = (file, api) => {
         }
       })
       attrNodes.forEach((attr, index) => {
-        const key = attr.value.name.name
-        const val = attr.value.value.expression.value
-        sx[key] = val
+        const key = attr?.value?.name?.name
+        const val = attr?.value?.value?.expression
+        if (key && val) {
+          sx[key] = val
+        }
         if (index + 1 !== attrNodes.length) {
           attr.prune()
         } else {
-          j(attr).replaceWith(`sx={${objectToString(sx)}}`)
+          const keys = Object.keys(sx)
+          if (keys.length > 0) {
+            j(attr).replaceWith(`sx={${objectToString(sx)}}`)
+          }
         }
       })
     })

@@ -62,7 +62,7 @@ const Label = styled.span<
 `
 
 Label.defaultProps = {
-  bg: 'label.primary.border',
+  sx: {bg: 'label.primary.border'},
   variant: 'medium'
 }
 

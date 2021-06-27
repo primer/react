@@ -7,7 +7,7 @@ module.exports = function prettify(ast, file) {
     source,
     Object.assign(
       {
-        parser: 'babel',
+        parser: 'typescript',
         filepath: file.path
       },
       config

@@ -133,7 +133,7 @@ export function FilteredActionList({
           ref={inputRef}
           block
           width="auto"
-          color="text.primary"
+          sx={{}}
           value={filterValue}
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
