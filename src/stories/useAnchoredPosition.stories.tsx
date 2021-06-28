@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, ButtonPrimary, Position, Relative, ThemeProvider} from '..'
+import {BaseStyles, Box, ButtonPrimary, Position, Box, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'
 import {get} from '../constants'

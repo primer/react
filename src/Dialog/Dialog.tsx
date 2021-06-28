@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
-import Flex from '../Flex'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
 import {useOnEscapePress} from '../hooks'
@@ -217,7 +216,7 @@ const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subti
   return (
     <Dialog.Header>
       <Box display="flex">
-        <Box display="flex"px={2} py="6px" flexDirection="column" flexGrow={1}>
+        <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Box>

@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {Flex, Text, Heading} from '../src'
+import {Box, Text, Heading} from '../src'
 
 const useAddRuleForPseudoClass = (ref, pseudoClass) => {
   const [modifiedClassName, setModifiedClassName] = useState('')

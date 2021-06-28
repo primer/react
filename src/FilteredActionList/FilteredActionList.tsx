@@ -2,7 +2,6 @@ import React, {KeyboardEventHandler, useCallback, useEffect, useMemo, useRef} fr
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
-import Flex from '../Flex'
 import {ActionList} from '../ActionList'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'

@@ -1,4 +1,4 @@
-import {Absolute, Flex, Relative, Text} from '@primer/components'
+import {Box, Text} from '@primer/components'
 import ClipboardCopy from '@primer/gatsby-theme-doctocat/src/components/clipboard-copy'
 import LivePreviewWrapper from '@primer/gatsby-theme-doctocat/src/components/live-preview-wrapper'
 import githubTheme from '@primer/gatsby-theme-doctocat/src/github'

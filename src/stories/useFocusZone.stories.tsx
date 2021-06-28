@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
 
-import {Absolute, BaseStyles, BorderBox, Button, Flash, Grid, theme, ThemeProvider} from '..'
+import {Box, BaseStyles, BorderBox, Button, Flash, theme, ThemeProvider} from '..'
 import {Direction, FocusKeys} from '../behaviors/focusZone'
 import Box from '../Box'
 import {themeGet} from '@styled-system/theme-get'
