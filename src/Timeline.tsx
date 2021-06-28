@@ -1,10 +1,8 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
-import Box from './Box'
+import Box, {BoxProps} from './Box'
 import {COMMON, get} from './constants'
-import Box, {BoxProps} from './Flex'
-import {Relative} from './Position'
 import sx from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -109,7 +107,8 @@ const TimelineBody = styled(Box)`
   ${sx};
 `
 
-const TimelineBreak = styled(Relative)`
+const TimelineBreak = styled(Box)`
+  position: relative
   z-index: 1;
   height: 24px;
   margin: 0;
