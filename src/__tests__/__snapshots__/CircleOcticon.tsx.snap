@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CircleOcticon renders consistently 1`] = `
-.c0 {
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
-  border-width: 0;
-  border-radius: 50%;
-  border-style: solid;
-  border-color: #e1e4e8;
-  border-width: 0;
-  border-radius: 50%;
-  border-style: solid;
-  border-color: #e1e4e8;
-}
-
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -30,6 +16,20 @@ exports[`CircleOcticon renders consistently 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.c0 {
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
+  border-width: 0;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #e1e4e8;
+  border-width: 0;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #e1e4e8;
 }
 
 <div

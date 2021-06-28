@@ -21,10 +21,11 @@ import {
   typography,
   TypographyProps
 } from 'styled-system'
+import {ComponentProps} from './utils/types'
 
 import sx, {SxProp} from './sx'
 
-export type BoxProps = SpaceProps &
+type StyledBoxProps = SpaceProps &
   ColorProps &
   TypographyProps &
   LayoutProps &
@@ -36,7 +37,7 @@ export type BoxProps = SpaceProps &
   ShadowProps &
   SxProp
 
-const Box = styled.div<BoxProps>(
+const Box = styled.div<StyledBoxProps>(
   space,
   color,
   typography,
@@ -50,4 +51,5 @@ const Box = styled.div<BoxProps>(
   sx
 )
 
+export type BoxProps = ComponentProps<typeof Box>
 export default Box
