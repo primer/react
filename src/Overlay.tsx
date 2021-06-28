@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import React, {ReactElement, useEffect, useRef} from 'react'
-import {get} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
