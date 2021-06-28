@@ -4,7 +4,7 @@ import styled, {createGlobalStyle} from 'styled-components'
 
 import {BaseStyles, BorderBox, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import Flex from '../Flex'
+import Box from '../Box'
 import {themeGet} from '@styled-system/theme-get'
 
 export default {
@@ -63,22 +63,22 @@ export const FocusTrap = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Flex flexDirection="column" alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Flex flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Flex>
+      </Box>
     </>
   )
 }
@@ -106,22 +106,22 @@ export const RestoreFocus = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Flex flexDirection="column" alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Flex flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Flex>
+      </Box>
     </>
   )
 }
@@ -149,7 +149,7 @@ export const CustomInitialFocus = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Flex flexDirection="column" alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
         <Flash mb={3}>
           This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
           &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already
@@ -160,16 +160,16 @@ export const CustomInitialFocus = () => {
         <MarginButton>Cantaloupe</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Flex flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
             <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement>}>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Flex>
+      </Box>
     </>
   )
 }
@@ -221,22 +221,22 @@ export const DynamicFocusTrapContents = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Flex flexDirection="column" alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
         <BorderBox borderColor="gray.5" ref={containerRef as React.RefObject<HTMLDivElement>} m={4} p={4}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Flex flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
             <ToggleableButton name="Durian"></ToggleableButton>
             <ToggleableButton name="Elderberry"></ToggleableButton>
             <ToggleableButton name="Fig"></ToggleableButton>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Flex>
+      </Box>
     </>
   )
 }
@@ -270,7 +270,7 @@ export const MultipleFocusTraps = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Flex flexDirection="column" alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
         <Flash mb={3}>
           This story demonstrates the global nature of focus traps. When a focus trap is enabled, if there is already an
           active focus trap, it becomes suspended and pushed onto a stack. Once the newly-active focus trap is disabled,
@@ -279,18 +279,18 @@ export const MultipleFocusTraps = () => {
         </Flash>
         <BorderBox p={2} mb={3}>
           Legend
-          <Flex flexDirection="row">
+          <Box display="flex" flexDirection="row">
             <BorderBox width={40} height={22} mr={2} borderColor="gray.5"></BorderBox>
             <Text> - Inactive</Text>
-          </Flex>
-          <Flex flexDirection="row">
+          </Box>
+          <Box display="flex" flexDirection="row">
             <BorderBox width={40} height={22} mr={2} borderColor="gray.5" backgroundColor="yellow.2"></BorderBox>
             <Text> - Suspended</Text>
-          </Flex>
-          <Flex flexDirection="row">
+          </Box>
+          <Box display="flex" flexDirection="row">
             <BorderBox width={40} height={22} mr={2} borderColor="gray.5" backgroundColor="green.2"></BorderBox>
             <Text> - Active</Text>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
@@ -299,11 +299,11 @@ export const MultipleFocusTraps = () => {
           <strong>
             Trap zone ({trapEnabled1 ? 'enabled' : 'disabled'})! Press <code>1</code> to toggle.
           </strong>
-          <Flex flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
@@ -312,16 +312,16 @@ export const MultipleFocusTraps = () => {
           <strong>
             Trap zone ({trapEnabled2 ? 'enabled' : 'disabled'})! Press <code>2</code> to toggle.
           </strong>
-          <Flex flexDirection="column" alignItems="flex-start">
+          <Box display="flex" flexDirection="column" alignItems="flex-start">
             <MarginButton>Kiwi</MarginButton>
             <MarginButton>Lemon</MarginButton>
             <MarginButton>Mango</MarginButton>
-          </Flex>
+          </Box>
         </BorderBox>
         <MarginButton>Nectarine</MarginButton>
         <MarginButton>Orange</MarginButton>
         <MarginButton>Peach</MarginButton>
-      </Flex>
+      </Box>
     </>
   )
 }

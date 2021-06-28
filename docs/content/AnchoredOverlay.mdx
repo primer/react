@@ -15,23 +15,19 @@ The overlay can be opened and navigated using keyboard or mouse.
     const closeOverlay = React.useCallback(() => setIsOpen(false), [setIsOpen])
     return (
       <AnchoredOverlay
-        renderAnchor={(anchorProps) => (
-          <DropdownButton {...anchorProps}>
-            Click me to open
-          </DropdownButton>
-        )}
+        renderAnchor={anchorProps => <DropdownButton {...anchorProps}>Click me to open</DropdownButton>}
         open={isOpen}
         onOpen={openOverlay}
         onClose={closeOverlay}
       >
-        <Flex flexDirection="column" maxWidth="300px" padding={2}>
+        <Box display="flex" flexDirection="column" maxWidth="300px" padding={2}>
           <p>
-            This menu automatically receives a focus trap and focus zone.  Use up/down keys to navigate between buttons
+            This menu automatically receives a focus trap and focus zone. Use up/down keys to navigate between buttons
           </p>
           <Button mb={1}>Button 1</Button>
           <Button mb={1}>Button 2</Button>
           <Button>Button 3</Button>
-        </Flex>
+        </Box>
       </AnchoredOverlay>
     )
   }}

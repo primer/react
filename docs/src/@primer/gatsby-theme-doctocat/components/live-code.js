@@ -44,9 +44,9 @@ function LiveCode({code, language, noinline}) {
   const handleChange = updatedLiveCode => setLiveCode(updatedLiveCode)
 
   return (
-    <Flex flexDirection="column" mb={3}>
+    <Box display="flex" flexDirection="column" mb={3}>
       <LiveProvider scope={scope} code={liveCode} transformCode={languageTransformers[language]} noInline={noinline}>
-        <Flex
+        <Box
           sx={{
             border: '1px solid',
             borderColor: 'border.primary',
@@ -57,8 +57,8 @@ function LiveCode({code, language, noinline}) {
           <LivePreviewWrapper>
             <LivePreview />
           </LivePreviewWrapper>
-        </Flex>
-        <Relative>
+        </Box>
+        <Box position="relative">
           <LiveEditor
             onChange={handleChange}
             theme={githubTheme}
@@ -71,13 +71,13 @@ function LiveCode({code, language, noinline}) {
               borderBottomRightRadius: theme.radii[2]
             }}
           />
-          <Absolute top={0} right={0} p={2}>
+          <Box position="absolute" top={0} right={0} p={2}>
             <ClipboardCopy value={liveCode} />
-          </Absolute>
-        </Relative>
+          </Box>
+        </Box>
         <Text as={LiveError} m={0} p={3} fontFamily="mono" fontSize={1} color="white" bg="red.5" />
       </LiveProvider>
-    </Flex>
+    </Box>
   )
 }
 

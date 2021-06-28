@@ -13,7 +13,7 @@ It can be useful to give the `Popover.Content` element a margin to help align th
 ## Default Example
 
 ```jxs live
-<Relative>
+<Box position="relative">
   <Text textAlign="center" display="block">
     <ButtonPrimary>Hello!</ButtonPrimary>
   </Text>
@@ -25,7 +25,7 @@ It can be useful to give the `Popover.Content` element a margin to help align th
       <Button>Got it!</Button>
     </Popover.Content>
   </Popover>
-</Relative>
+</Box>
 ```
 
 ## Caret position
@@ -39,45 +39,66 @@ function PopoverDemo(props) {
 
   return (
     <Box>
-      <Heading as="h3" fontSize={3}>Caret Position</Heading>
+      <Heading as="h3" fontSize={3}>
+        Caret Position
+      </Heading>
       <CaretSelector current={pos} onChange={setPos} />
-      <Heading as="h3" fontSize={3}>Popover Visibility</Heading>
+      <Heading as="h3" fontSize={3}>
+        Popover Visibility
+      </Heading>
       <Box my={2}>
         <label>
-          <input type="checkbox" value={open} checked={open}
-            onChange={() => setOpen(open => !open)}/> Open
+          <input type="checkbox" value={open} checked={open} onChange={() => setOpen(open => !open)} /> Open
         </label>
       </Box>
 
-      <Relative pt={4}>
+      <Box position="relative" pt={4}>
         <Popover relative open={open} caret={pos}>
           <Popover.Content>
-            <Heading fontSize={2}><code>{pos}</code> caret</Heading>
+            <Heading fontSize={2}>
+              <code>{pos}</code> caret
+            </Heading>
             <Text as="p">Message about this particular piece of UI.</Text>
             <Button onClick={() => setOpen(false)}>Got it!</Button>
           </Popover.Content>
         </Popover>
-      </Relative>
+      </Box>
     </Box>
   )
 }
 
 function CaretSelector(props) {
   const choices = [
-    'top',         'bottom',      'left',         'right',
-    'left-bottom', 'left-top',    'right-bottom', 'right-top',
-    'top-left',    'bottom-left', 'top-right',    'bottom-right'
-  ].map((dir) => (
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'left-bottom',
+    'left-top',
+    'right-bottom',
+    'right-top',
+    'top-left',
+    'bottom-left',
+    'top-right',
+    'bottom-right'
+  ].map(dir => (
     <label>
-      <input key={dir} type='radio' name='caret' value={dir}
-        checked={dir === props.current} onChange={() => props.onChange(dir)} /> {dir}
+      <input
+        key={dir}
+        type="radio"
+        name="caret"
+        value={dir}
+        checked={dir === props.current}
+        onChange={() => props.onChange(dir)}
+      />{' '}
+      {dir}
     </label>
-))
+  ))
 
   return (
-    <Grid gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
+    <Box display="grid" gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
       {choices}
-    </Grid>
+    </Box>
   )
 }
 
@@ -92,12 +113,12 @@ render(<PopoverDemo />)
 
 ### Popover
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'div' | Sets the HTML tag for the component. |
-| caret | String | 'top' | Controls the position of the caret. See below for the list of caret positions. |
-| open | Boolean | false | Controls the visibility of the popover. |
-| relative | Boolean | false | Set to true to render the popover using relative positioning. |
+| Name     | Type    | Default | Description                                                                    |
+| :------- | :------ | :-----: | :----------------------------------------------------------------------------- |
+| as       | String  |  'div'  | Sets the HTML tag for the component.                                           |
+| caret    | String  |  'top'  | Controls the position of the caret. See below for the list of caret positions. |
+| open     | Boolean |  false  | Controls the visibility of the popover.                                        |
+| relative | Boolean |  false  | Set to true to render the popover using relative positioning.                  |
 
 #### Caret Positions
 
@@ -105,6 +126,6 @@ The `caret` prop can be one of the following values: `top`, `bottom`, `left`, `r
 
 ### Popover.Content
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as | String | 'div' | Sets the HTML tag for the component. |
+| Name | Type   | Default | Description                          |
+| :--- | :----- | :-----: | :----------------------------------- |
+| as   | String |  'div'  | Sets the HTML tag for the component. |

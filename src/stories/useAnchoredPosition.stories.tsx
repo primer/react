@@ -100,7 +100,7 @@ export const UseAnchoredPosition = (args: any) => {
     [args]
   )
   return (
-    <Relative m={2}>
+    <Box position="relative" m={2}>
       <Anchor
         top={args.anchorY ?? 0}
         left={args.anchorX ?? 0}
@@ -119,7 +119,7 @@ export const UseAnchoredPosition = (args: any) => {
       >
         Floating element
       </Float>
-    </Relative>
+    </Box>
   )
 }
 export const CenteredOnScreen = () => {
@@ -129,7 +129,7 @@ export const CenteredOnScreen = () => {
   })
   // The outer Position element simply fills all available space
   return (
-    <Position
+    <Box
       ref={anchorElementRef as React.RefObject<HTMLDivElement>}
       position="absolute"
       top={0}
@@ -149,7 +149,7 @@ export const CenteredOnScreen = () => {
           </small>
         </p>
       </Float>
-    </Position>
+    </Box>
   )
 }
 
