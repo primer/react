@@ -4,7 +4,6 @@ import styled, {createGlobalStyle} from 'styled-components'
 
 import {Box, BaseStyles, BorderBox, Button, Flash, theme, ThemeProvider} from '..'
 import {Direction, FocusKeys} from '../behaviors/focusZone'
-import Box from '../Box'
 import {themeGet} from '@styled-system/theme-get'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useTheme} from '../ThemeProvider'

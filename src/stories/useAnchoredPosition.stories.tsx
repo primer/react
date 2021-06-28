@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, ButtonPrimary, Position, Box, ThemeProvider} from '..'
+import {BaseStyles, Box, ButtonPrimary, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -62,7 +62,7 @@ export default {
   }
 } as Meta
 
-const Float = styled(Position)`
+const Float = styled(Box)`
   position: absolute;
   border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
@@ -74,7 +74,7 @@ const Float = styled(Position)`
   font-weight: ${get('fontWeights.bold')};
   padding: ${get('space.3')};
 `
-const Anchor = styled(Position)`
+const Anchor = styled(Box)`
   position: absolute;
   border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
