@@ -5,7 +5,7 @@ import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
-import {SystemPositionProps} from './constants'
+import {SystemPositionProps, get} from './constants'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
