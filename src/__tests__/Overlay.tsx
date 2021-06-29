@@ -4,7 +4,8 @@ import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import theme from '../theme'
-import {BaseStyles, ThemeProvider} from '..'
+import BaseStyles from '../BaseStyles'
+import {ThemeProvider} from '../ThemeProvider'
 
 expect.extend(toHaveNoViolations)
 

@@ -6,7 +6,8 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import {Button} from '../index'
 import theme from '../theme'
-import {BaseStyles, ThemeProvider} from '..'
+import BaseStyles from '../BaseStyles'
+import {ThemeProvider} from '../ThemeProvider'
 expect.extend(toHaveNoViolations)
 
 type TestComponentSettings = {

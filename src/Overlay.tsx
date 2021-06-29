@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {ReactElement, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import React, {ReactElement, useEffect, useLayoutEffect, useRef} from 'react'
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
