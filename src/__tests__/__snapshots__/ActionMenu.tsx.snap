@@ -68,7 +68,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 <button
-  aria-haspopup="listbox"
+  aria-haspopup="true"
   aria-label="menu"
   aria-labelledby="__primer_id_10000"
   className="c0"

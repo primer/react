@@ -1,5 +1,5 @@
 import React from 'react'
-import {PositionSettings, getAnchoredPosition} from '../behaviors/anchoredPosition'
+import {PositionSettings, getAnchoredPosition, AnchorPosition} from '../behaviors/anchoredPosition'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
@@ -22,12 +22,12 @@ export function useAnchoredPosition(
 ): {
   floatingElementRef: React.RefObject<Element>
   anchorElementRef: React.RefObject<Element>
-  position: {top: number; left: number} | undefined
+  position: AnchorPosition | undefined
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
-  const [position, setPosition] = React.useState<{top: number; left: number} | undefined>(undefined)
-  React.useEffect(() => {
+  const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
+  React.useLayoutEffect(() => {
     if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
       setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
     } else {

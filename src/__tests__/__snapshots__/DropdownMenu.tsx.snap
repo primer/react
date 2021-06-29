@@ -72,7 +72,7 @@ exports[`DropdownMenu renders consistently 1`] = `
 }
 
 <button
-  aria-haspopup="listbox"
+  aria-haspopup="true"
   aria-labelledby="__primer_id_10000"
   className="c0"
   id="__primer_id_10000"
