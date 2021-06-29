@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {ReactElement, useEffect, useLayoutEffect, useRef} from 'react'
+import React, {ReactElement, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
@@ -106,7 +106,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
     {
       onClickOutside,
-      role = 'dialog',
+      role = 'none',
       initialFocusRef,
       returnFocusRef,
       ignoreClickRefs,
@@ -156,7 +156,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
 
     return (
       <Portal>
-        <StyledOverlay aria-modal="true" role={role} height={height} {...rest} ref={combinedRef} />
+        <StyledOverlay height={height} role={role} {...rest} ref={combinedRef} />
       </Portal>
     )
   }

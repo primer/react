@@ -148,7 +148,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ref: anchorRef,
           id: anchorId,
           'aria-labelledby': anchorId,
-          'aria-haspopup': 'listbox',
+          'aria-haspopup': 'true',
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown
@@ -160,7 +160,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           ref={updateOverlayRef}
-          role="listbox"
+          role="none"
           height={height}
           width={width}
           {...overlayPosition}

@@ -5,6 +5,8 @@ import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import {Button} from '../index'
+import theme from '../theme'
+import {BaseStyles, ThemeProvider} from '..'
 expect.extend(toHaveNoViolations)
 
 type TestComponentSettings = {
@@ -34,14 +36,18 @@ const AnchoredOverlayTestComponent = ({
     [onCloseCallback]
   )
   return (
-    <AnchoredOverlay
-      open={open}
-      onOpen={onOpen}
-      onClose={onClose}
-      renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-    >
-      Contents
-    </AnchoredOverlay>
+    <ThemeProvider theme={theme}>
+      <BaseStyles>
+        <AnchoredOverlay
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+        >
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>
+    </ThemeProvider>
   )
 }
 
@@ -78,7 +84,7 @@ describe('AnchoredOverlay', () => {
     const anchoredOverlay = HTMLRender(
       <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />
     )
-    const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="listbox"]')!
+    const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
     fireEvent.click(anchor)
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(1)
@@ -92,7 +98,7 @@ describe('AnchoredOverlay', () => {
     const anchoredOverlay = HTMLRender(
       <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />
     )
-    const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="listbox"]')!
+    const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
     fireEvent.keyDown(anchor, {key: ' '})
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(1)
@@ -127,7 +133,7 @@ describe('AnchoredOverlay', () => {
         onCloseCallback={mockCloseCallback}
       />
     )
-    const overlay = await anchoredOverlay.findByRole('listbox')
+    const overlay = await anchoredOverlay.findByRole('none')
     fireEvent.keyDown(overlay, {key: 'Escape'})
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(0)
