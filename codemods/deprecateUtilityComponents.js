@@ -10,6 +10,40 @@ module.exports = (file, api) => {
       attributes: {
         display: 'flex'
       }
+    },
+    Grid: {
+      identifier: 'Box',
+      attributes: {
+        display: 'grid'
+      }
+    },
+    Position: {
+      identifier: 'Box',
+      attributes: {}
+    },
+    Absolute: {
+      identifier: 'Box',
+      attributes: {
+        position: 'absolute'
+      }
+    },
+    Relative: {
+      identifier: 'Box',
+      attributes: {
+        position: 'relative'
+      }
+    },
+    Fixed: {
+      identifier: 'Box',
+      attributes: {
+        position: 'fixed'
+      }
+    },
+    Sticky: {
+      identifier: 'Box',
+      attributes: {
+        position: 'sticky'
+      }
     }
   })
 
@@ -49,10 +83,16 @@ function deprecateComponents(ast, j, importSource, importMap) {
         })
     })
 
+    ast.find(j.JSXOpeningElement, {name: {name: from}}).forEach(nodePath => {
+      for (const [attr, value] of Object.entries(attributes || {})) {
+        nodePath.value.attributes.push(j.jsxAttribute(j.jsxIdentifier(attr), j.literal(value)))
+      }
+    })
+
     // replace all of the rewritten identifiers with member expressions
     ast
       .find(j.Identifier, {name: from})
       .filter(id => id.parent.node.type !== 'ImportSpecifier')
-      .replaceWith(j.memberExpression(to))
+      .replaceWith(j.jsxIdentifier(to))
   }
 }
