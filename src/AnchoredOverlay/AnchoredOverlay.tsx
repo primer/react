@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
@@ -124,8 +124,15 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     [overlayRef.current]
   )
   const overlayPosition = useMemo(() => {
-    return position && {top: `${position.top}px`, left: `${position.left}px`}
+    return position && {top: `${position.top}px`, left: `${position.left}px`, anchorSide: position.anchorSide}
   }, [position])
+
+  useEffect(() => {
+    // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
+    if (!open && overlayRef.current) {
+      updateOverlayRef(null)
+    }
+  }, [open, overlayRef, updateOverlayRef])
 
   useFocusZone({
     containerRef: overlayRef,
@@ -141,7 +148,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ref: anchorRef,
           id: anchorId,
           'aria-labelledby': anchorId,
-          'aria-haspopup': 'listbox',
+          'aria-haspopup': 'true',
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown
@@ -153,8 +160,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           ref={updateOverlayRef}
-          role="listbox"
-          visibility={position ? 'visible' : 'hidden'}
+          role="none"
           height={height}
           width={width}
           {...overlayPosition}

@@ -1,5 +1,5 @@
 import {CheckIcon, IconProps} from '@primer/octicons-react'
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import Truncate from '../Truncate'
@@ -13,6 +13,7 @@ import {
   activeDescendantActivatedIndirectly,
   isActiveDescendantAttribute
 } from '../behaviors/focusZone'
+import {uniqueId} from '../utils/uniqueId'
 
 /**
  * These colors are not yet in our default theme.  Need to remove this once they are added.
@@ -153,11 +154,21 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
   }
 }
 
-const StyledItemContent = styled.div`
+const DividedContent = styled.div`
   display: flex;
   min-width: 0;
-  flex-grow: 1;
+
+  /* Required for dividers */
   position: relative;
+  flex-grow: 1;
+`
+
+const MainContent = styled.div`
+  align-items: baseline;
+  display: flex;
+  min-width: 0;
+  flex-direction: var(--main-content-flex-direction);
+  flex-grow: 1;
 `
 
 const StyledItem = styled.div<
@@ -193,7 +204,7 @@ const StyledItem = styled.div<
   :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
     margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
 
-    ${StyledItemContent}::before {
+    ${DividedContent}::before {
       content: ' ';
       display: block;
       position: absolute;
@@ -207,23 +218,23 @@ const StyledItem = styled.div<
 
   // Item dividers should not be visible:
   // - above Hovered
-  &:hover ${StyledItemContent}::before,
+  &:hover ${DividedContent}::before,
   // - below Hovered
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :hover + * ${StyledItemContent}::before {
+  :hover + * ${DividedContent}::before {
     // allow override in case another item in the list is active/focused
     border-color: var(--item-hover-divider-border-color-override, transparent) !important;
   }
 
   // - above Focused
-  &:focus ${StyledItemContent}::before,
+  &:focus ${DividedContent}::before,
   // - below Focused
   // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :focus + * ${StyledItemContent}::before,
+  :focus + * ${DividedContent}::before,
   // - above Active Descendent
-  &[${isActiveDescendantAttribute}] ${StyledItemContent}::before,
+  &[${isActiveDescendantAttribute}] ${DividedContent}::before,
   // - below Active Descendent
-  [${isActiveDescendantAttribute}] + & ${StyledItemContent}::before {
+  [${isActiveDescendantAttribute}] + & ${DividedContent}::before {
     // '!important' because all the ':not's above give higher specificity
     border-color: transparent !important;
   }
@@ -248,16 +259,9 @@ const StyledItem = styled.div<
   ${sx}
 `
 
-export const TextContainer = styled.div<{
+export const TextContainer = styled.span<{
   dangerouslySetInnerHtml?: React.DOMAttributes<HTMLDivElement>['dangerouslySetInnerHTML']
-  descriptionVariant: ItemProps['descriptionVariant']
-}>`
-  display: flex;
-  min-width: 0;
-  flex-grow: 1;
-  flex-direction: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 'row' : 'column')};
-  align-items: baseline;
-`
+}>``
 
 const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
   // Match visual height to adjacent text line height.
@@ -265,10 +269,6 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   // hardcoded '20px' with '${get('space.s20')}'.
   height: 20px;
   width: ${get('space.3')};
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-right: ${get('space.2')};
 `
 
@@ -279,30 +279,33 @@ const ColoredVisualContainer = styled(BaseVisualContainer)`
   }
 `
 
-const LeadingVisualContainer = styled(ColoredVisualContainer)``
+const LeadingVisualContainer = styled(ColoredVisualContainer)`
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
-const TrailingVisualContainer = styled(ColoredVisualContainer)`
+const TrailingContent = styled(ColoredVisualContainer)`
   color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
   margin-left: ${get('space.2')};
   margin-right: 0;
+  width: auto;
   div:nth-child(2) {
     margin-left: ${get('space.2')};
   }
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
 `
 
-const DescriptionContainer = styled.span<{descriptionVariant: ItemProps['descriptionVariant']}>`
+const DescriptionContainer = styled.span`
   color: ${get('colors.text.secondary')};
   font-size: ${get('fontSizes.0')};
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '16px' with '${get('lh-12')}'.
   line-height: 16px;
-  margin-left: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? get('space.2') : 0)};
+  margin-left: var(--description-container-margin-left);
   min-width: 0;
   flex-grow: 1;
-  flex-basis: ${({descriptionVariant}) => (descriptionVariant === 'inline' ? 0 : 'auto')};
+  flex-basis: var(--description-container-flex-basis);
 `
 
 const MultiSelectInput = styled.input`
@@ -332,6 +335,9 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     id,
     ...props
   } = itemProps
+
+  const labelId = useMemo(() => uniqueId(), [])
+  const descriptionId = useMemo(() => uniqueId(), [])
 
   const keyPressHandler = useCallback(
     event => {
@@ -377,6 +383,8 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       variant={variant}
       showDivider={showDivider}
       aria-selected={selected}
+      aria-labelledby={text ? labelId : undefined}
+      aria-describedby={description ? descriptionId : undefined}
       {...props}
       data-id={id}
       onKeyPress={keyPressHandler}
@@ -412,35 +420,41 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
-      <StyledItemContent>
-        {children}
-        {(text || description) && (
-          <TextContainer descriptionVariant={descriptionVariant}>
-            {text && <div>{text}</div>}
-            {description && (
-              <DescriptionContainer descriptionVariant={descriptionVariant}>
-                {descriptionVariant === 'block' ? (
-                  description
-                ) : (
-                  <Truncate title={description} inline={true} maxWidth="100%">
-                    {description}
-                  </Truncate>
-                )}
-              </DescriptionContainer>
-            )}
-          </TextContainer>
-        )}
-        {(TrailingIcon || trailingText) && (
-          <TrailingVisualContainer variant={variant} disabled={disabled}>
-            {trailingText && <div>{trailingText}</div>}
-            {TrailingIcon && (
-              <div>
-                <TrailingIcon />
-              </div>
-            )}
-          </TrailingVisualContainer>
-        )}
-      </StyledItemContent>
+      <DividedContent>
+        <MainContent
+          style={
+            {'--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column'} as React.CSSProperties
+          }
+        >
+          {children}
+          {text ? <TextContainer id={labelId}>{text}</TextContainer> : null}
+          {description ? (
+            <DescriptionContainer
+              id={descriptionId}
+              style={
+                {
+                  '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
+                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto'
+                } as React.CSSProperties
+              }
+            >
+              {descriptionVariant === 'block' ? (
+                description
+              ) : (
+                <Truncate title={description} inline={true} maxWidth="100%">
+                  {description}
+                </Truncate>
+              )}
+            </DescriptionContainer>
+          ) : null}
+        </MainContent>
+        {TrailingIcon || trailingText ? (
+          <TrailingContent variant={variant} disabled={disabled}>
+            {trailingText}
+            {TrailingIcon && <TrailingIcon />}
+          </TrailingContent>
+        ) : null}
+      </DividedContent>
     </StyledItem>
   )
 }
