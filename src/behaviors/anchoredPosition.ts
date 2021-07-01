@@ -109,6 +109,12 @@ interface Position {
   left: number
 }
 
+export interface AnchorPosition {
+  top: number
+  left: number
+  anchorSide: AnchorSide
+}
+
 interface BoxPosition extends Size, Position {}
 
 /**
@@ -125,7 +131,7 @@ export function getAnchoredPosition(
   floatingElement: Element,
   anchorElement: Element | DOMRect,
   settings: Partial<PositionSettings> = {}
-): {top: number; left: number} {
+): AnchorPosition {
   const parentElement = getPositionedParent(floatingElement)
   const clippingRect = getClippingRect(parentElement)
 
@@ -258,7 +264,7 @@ function pureCalculateAnchoredPosition(
   floatingRect: Size,
   anchorRect: BoxPosition,
   {side, align, allowOutOfBounds, anchorOffset, alignmentOffset}: PositionSettings
-): {top: number; left: number} {
+): AnchorPosition {
   // Compute the relative viewport rect, to bring it into the same coordinate space as `pos`
   const relativeViewportRect: BoxPosition = {
     top: viewportRect.top - relativePosition.top,
@@ -268,6 +274,7 @@ function pureCalculateAnchoredPosition(
   }
 
   let pos = calculatePosition(floatingRect, anchorRect, side, align, anchorOffset, alignmentOffset)
+  let anchorSide = side
   pos.top -= relativePosition.top
   pos.left -= relativePosition.left
 
@@ -290,6 +297,7 @@ function pureCalculateAnchoredPosition(
         pos = calculatePosition(floatingRect, anchorRect, nextSide, align, anchorOffset, alignmentOffset)
         pos.top -= relativePosition.top
         pos.left -= relativePosition.left
+        anchorSide = nextSide
       }
     }
     // At this point we've flipped the position if applicable. Now just nudge until it's on-screen.
@@ -311,7 +319,8 @@ function pureCalculateAnchoredPosition(
       }
     }
   }
-  return pos
+
+  return {...pos, anchorSide}
 }
 
 /**
