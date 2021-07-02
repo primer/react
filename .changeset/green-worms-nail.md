@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Box may accept all system props.
+`Box` now accepts all system props.
