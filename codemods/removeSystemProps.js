@@ -182,6 +182,29 @@ const stylePropsMap = {
   UnderlineNav: [...COMMON]
 }
 
+const expressionToString = expression => {
+  if (expression.type === 'Literal') {
+    const expressionValue = expression.value
+    return typeof expressionValue === 'string' ? `"${expressionValue}"` : expressionValue
+  } else if (expression.type === 'Identifier') {
+    return expression.name
+  } else if (expression.type === 'Identifier') {
+    return expression.name
+  } else if (['null', 'undefined'].includes(expression.raw)) {
+    return expression.raw
+  } else {
+    const start = expression.start
+    const end = expression.end
+    const toks = expression.loc.tokens.filter(token => {
+      return token.type !== 'CommentLine' && token.start >= start && token.end <= end
+    })
+    const vals = toks.map(tok => {
+      return tok.type.label === 'string' ? `"${tok.value}"` : tok.value
+    })
+    return vals.join('')
+  }
+}
+
 const objectToString = object => {
   const values = Object.values(object)
   const keys = Object.keys(object)
@@ -190,17 +213,11 @@ const objectToString = object => {
   })
   const accumulator = (string, duple) => {
     const expression = duple[1]
-    let expressionString = null
-    if (expression.type === 'Literal') {
-      const expressionValue = expression.value
-      expressionString = typeof expressionValue === 'string' ? `"${expressionValue}"` : expressionValue
-    } else if (expression.type === 'Identifier') {
-      expressionString = expression.name
-    }
+    const expressionString = expressionToString(expression)
     return `${string} ${duple[0]}: ${expressionString},`
   }
   const objString = duples.reduce(accumulator, '')
-  return `{ ${objString} }`
+  return `{${objString}}`
 }
 
 module.exports = (file, api) => {
@@ -231,16 +248,20 @@ module.exports = (file, api) => {
     })
     .forEach(el => {
       const sx = {}
+      const elementName = el.value?.openingElement?.name?.name
+      const elementNameScrubbed = elementName.replace('.', '')
+      const systemProps = stylePropsMap[elementNameScrubbed]
       const attrNodes = j(el).find(j.JSXAttribute, {
         name: name => {
-          const elementName = el.value.openingElement.name.name.replace('.', '')
-          const systemProps = stylePropsMap[elementName]
-          return systemProps && systemProps.includes(name.name)
+          const isInElement = name.start >= el.node.start && name.end <= el.value.openingElement.end
+          return systemProps && systemProps.includes(name.name) && isInElement
         }
       })
+
       attrNodes.forEach((attr, index) => {
         const key = attr?.value?.name?.name
-        const val = attr?.value?.value?.expression
+        const literal = attr?.value?.value
+        const val = literal.type === 'JSXExpressionContainer' ? literal.expression : literal
         if (key && val) {
           sx[key] = val
         }
