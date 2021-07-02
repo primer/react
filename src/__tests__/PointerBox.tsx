@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('PointerBox', () => {
-  behavesAsComponent({Component: PointerBox, systemPropArray: []})
+  behavesAsComponent({Component: PointerBox})
 
   checkExports('PointerBox', {
     default: PointerBox

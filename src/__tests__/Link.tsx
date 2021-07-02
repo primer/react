@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Link', () => {
-  behavesAsComponent({Component: Link, systemPropArray: []})
+  behavesAsComponent({Component: Link})
 
   checkExports('Link', {
     default: Link

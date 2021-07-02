@@ -13,14 +13,14 @@ const comp = (
 )
 
 describe('Popover', () => {
-  behavesAsComponent({Component: Popover, systemPropArray: [], toRender: () => comp})
+  behavesAsComponent({Component: Popover, toRender: () => comp})
 
   checkExports('Popover', {
     default: Popover
   })
 
   describe('Popover.Content', () => {
-    behavesAsComponent({Component: Popover.Content, systemPropArray: [], toRender: () => comp})
+    behavesAsComponent({Component: Popover.Content, toRender: () => comp})
   })
 
   it('should have no axe violations', async () => {

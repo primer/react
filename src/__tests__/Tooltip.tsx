@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Tooltip', () => {
-  behavesAsComponent({Component: Tooltip, systemPropArray: []})
+  behavesAsComponent({Component: Tooltip})
 
   checkExports('Tooltip', {
     default: Tooltip

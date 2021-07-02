@@ -303,27 +303,27 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 )
 _Dialog.displayName = 'Dialog'
 
-const Header = styled(Box).attrs({as: 'header'})`
+const Header = styled.header`
   box-shadow: 0 1px 0 ${get('colors.border.overlay')};
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
 `
-const Title = styled(Box)`
+const Title = styled.div`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
 `
-const Subtitle = styled(Box)`
+const Subtitle = styled.div`
   font-size: ${get('fontSizes.0')};
   margin-top: ${get('space.1')};
   color: ${get('colors.text.tertiary')};
 `
-const Body = styled(Box)`
+const Body = styled.div`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
 `
-const Footer = styled(Box).attrs({as: 'footer'})`
+const Footer = styled.footer`
   box-shadow: 0 -1px 0 ${get('colors.border.overlay')};
   padding: ${get('space.3')};
   display: flex;

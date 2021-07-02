@@ -8,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Avatar', () => {
-  behavesAsComponent({Component: Avatar, systemPropArray: []})
+  behavesAsComponent({Component: Avatar})
 
   checkExports('Avatar', {
     default: Avatar

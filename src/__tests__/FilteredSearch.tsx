@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FilteredSearch', () => {
-  behavesAsComponent({Component: FilteredSearch, systemPropArray: []})
+  behavesAsComponent({Component: FilteredSearch})
 
   checkExports('FilteredSearch', {
     default: FilteredSearch

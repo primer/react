@@ -1,10 +1,7 @@
 import styled from 'styled-components'
-import {compose, fontSize, FontSizeProps, variant} from 'styled-system'
+import {FontSizeProps, variant} from 'styled-system'
 import {ComponentProps} from '../utils/types'
 import buttonBaseStyles from './ButtonStyles'
-
-export const buttonSystemProps = compose(fontSize)
-export type ButtonSystemProps = FontSizeProps
 
 const variants = variant({
   variants: {
@@ -25,7 +22,7 @@ const variants = variant({
 type StyledButtonBaseProps = {
   as?: 'button' | 'a' | 'summary' | 'input' | string | React.ReactType
   variant?: 'small' | 'medium' | 'large'
-} & FontSizeProps
+}
 
 const ButtonBase = styled.button.attrs<StyledButtonBaseProps>(({disabled, onClick}) => ({
   onClick: disabled ? undefined : onClick

@@ -7,14 +7,14 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('TabNav', () => {
-  behavesAsComponent({Component: TabNav, systemPropArray: []})
+  behavesAsComponent({Component: TabNav})
 
   checkExports('TabNav', {
     default: TabNav
   })
 
   describe('TabNav.Link', () => {
-    behavesAsComponent({Component: TabNav.Link, systemPropArray: []})
+    behavesAsComponent({Component: TabNav.Link})
   })
 
   it('should have no axe violations', async () => {

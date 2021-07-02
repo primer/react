@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('TextInput', () => {
-  behavesAsComponent({Component: TextInput, systemPropArray: [], options: {skipAs: true}})
+  behavesAsComponent({Component: TextInput, options: {skipAs: true}})
 
   checkExports('TextInput', {
     default: TextInput

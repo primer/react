@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FilterList', () => {
-  behavesAsComponent({Component: FilterList, systemPropArray: []})
+  behavesAsComponent({Component: FilterList})
 
   checkExports('FilterList', {
     default: FilterList

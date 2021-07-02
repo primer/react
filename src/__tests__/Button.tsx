@@ -19,7 +19,7 @@ expect.extend(toHaveNoViolations)
 function noop() {}
 
 describe('Button', () => {
-  behavesAsComponent({Component: Button, systemPropArray: []})
+  behavesAsComponent({Component: Button})
 
   checkExports('Button', {
     default: Button,
@@ -68,7 +68,7 @@ describe('Button', () => {
 })
 
 describe('ButtonPrimary', () => {
-  behavesAsComponent({Component: ButtonPrimary, systemPropArray: []})
+  behavesAsComponent({Component: ButtonPrimary})
 
   it('renders a <button>', () => {
     expect(render(<ButtonPrimary />).type).toEqual('button')
@@ -81,7 +81,7 @@ describe('ButtonPrimary', () => {
 })
 
 describe('ButtonDanger', () => {
-  behavesAsComponent({Component: ButtonDanger, systemPropArray: []})
+  behavesAsComponent({Component: ButtonDanger})
 
   it('renders a <button>', () => {
     expect(render(<ButtonDanger />).type).toEqual('button')
@@ -94,7 +94,7 @@ describe('ButtonDanger', () => {
 })
 
 describe('ButtonOutline', () => {
-  behavesAsComponent({Component: ButtonOutline, systemPropArray: []})
+  behavesAsComponent({Component: ButtonOutline})
 
   it('renders a <button> by default', () => {
     expect(render(<ButtonOutline />).type).toEqual('button')
@@ -107,7 +107,7 @@ describe('ButtonOutline', () => {
 })
 
 describe('ButtonInvisible', () => {
-  behavesAsComponent({Component: ButtonOutline, systemPropArray: []})
+  behavesAsComponent({Component: ButtonOutline})
 
   it('renders a <button> by default', () => {
     expect(render(<ButtonInvisible />).type).toEqual('button')
@@ -120,9 +120,9 @@ describe('ButtonInvisible', () => {
 })
 
 describe('ButtonGroup', () => {
-  behavesAsComponent({Component: ButtonGroup, systemPropArray: []})
+  behavesAsComponent({Component: ButtonGroup})
 })
 
 describe('ButtonTableList', () => {
-  behavesAsComponent({Component: ButtonTableList, systemPropArray: []})
+  behavesAsComponent({Component: ButtonTableList})
 })

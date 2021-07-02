@@ -10,7 +10,7 @@ const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />
 
 describe('Pagination', () => {
-  behavesAsComponent({Component: Pagination, systemPropArray: [], toRender: () => comp})
+  behavesAsComponent({Component: Pagination, toRender: () => comp})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(comp)

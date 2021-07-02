@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Dropdown', () => {
-  behavesAsComponent({Component: Dropdown, systemPropArray: [], toRender: () => <Dropdown>Hello!</Dropdown>})
+  behavesAsComponent({Component: Dropdown, toRender: () => <Dropdown>Hello!</Dropdown>})
 
   checkExports('Dropdown', {
     default: Dropdown
@@ -38,7 +38,7 @@ describe('Dropdown.Button', () => {
 })
 
 describe('Dropdown.Caret', () => {
-  behavesAsComponent({Component: Dropdown.Caret, systemPropArray: []})
+  behavesAsComponent({Component: Dropdown.Caret})
 })
 
 describe('Dropdown.Menu', () => {

@@ -9,7 +9,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('CounterLabel', () => {
-  behavesAsComponent({Component: CounterLabel, systemPropArray: []})
+  behavesAsComponent({Component: CounterLabel})
 
   checkExports('CounterLabel', {
     default: CounterLabel

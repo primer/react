@@ -7,7 +7,7 @@ import {behavesAsComponent, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumb.Item', () => {
-  behavesAsComponent({Component: Breadcrumb.Item, systemPropArray: []})
+  behavesAsComponent({Component: Breadcrumb.Item})
 
   it('renders an <a> by default', () => {
     expect(render(<Breadcrumb.Item />).type).toEqual('a')

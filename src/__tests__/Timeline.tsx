@@ -9,7 +9,7 @@ import {Timeline} from '..'
 expect.extend(toHaveNoViolations)
 
 describe('Timeline', () => {
-  behavesAsComponent({Component: Timeline, systemPropArray: []})
+  behavesAsComponent({Component: Timeline})
 
   checkExports('Timeline', {
     default: Timeline
@@ -28,7 +28,7 @@ describe('Timeline', () => {
 })
 
 describe('Timeline.Item', () => {
-  behavesAsComponent({Component: Timeline.Item, systemPropArray: []})
+  behavesAsComponent({Component: Timeline.Item})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Item />)
@@ -47,7 +47,7 @@ describe('Timeline.Item', () => {
 })
 
 describe('Timeline.Badge', () => {
-  behavesAsComponent({Component: Timeline.Badge, systemPropArray: [], options: {skipAs: true}})
+  behavesAsComponent({Component: Timeline.Badge, options: {skipAs: true}})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Badge />)

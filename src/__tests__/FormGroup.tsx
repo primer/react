@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FormGroup', () => {
-  behavesAsComponent({Component: FormGroup, systemPropArray: []})
+  behavesAsComponent({Component: FormGroup})
 
   checkExports('FormGroup', {
     default: FormGroup
@@ -27,7 +27,7 @@ describe('FormGroup', () => {
 })
 
 describe('FormGroup.Label', () => {
-  behavesAsComponent({Component: FormGroup.Label, systemPropArray: []})
+  behavesAsComponent({Component: FormGroup.Label})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>)

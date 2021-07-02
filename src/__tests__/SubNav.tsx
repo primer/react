@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SubNav', () => {
-  behavesAsComponent({Component: SubNav, systemPropArray: []})
+  behavesAsComponent({Component: SubNav})
 
   checkExports('SubNav', {
     default: SubNav

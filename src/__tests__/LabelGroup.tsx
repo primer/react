@@ -15,7 +15,7 @@ const comp = (
 )
 
 describe('LabelGroup', () => {
-  behavesAsComponent({Component: LabelGroup, systemPropArray: []})
+  behavesAsComponent({Component: LabelGroup})
 
   checkExports('LabelGroup', {
     default: LabelGroup

@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FilterList.Item', () => {
-  behavesAsComponent({Component: FilterList.Item, systemPropArray: []})
+  behavesAsComponent({Component: FilterList.Item})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilterList.Item>stuff</FilterList.Item>)

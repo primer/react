@@ -8,7 +8,7 @@ expect.extend(toHaveNoViolations)
 
 describe('position components', () => {
   describe('Absolute', () => {
-    behavesAsComponent({Component: Absolute, systemPropArray: []})
+    behavesAsComponent({Component: Absolute})
 
     checkExports('Position', {
       default: Position,
@@ -38,7 +38,7 @@ describe('position components', () => {
   })
 
   describe('Fixed', () => {
-    behavesAsComponent({Component: Fixed, systemPropArray: []})
+    behavesAsComponent({Component: Fixed})
 
     it('respects the "as" prop', () => {
       expect(render(<Fixed as="span" />).type).toEqual('span')
@@ -64,7 +64,7 @@ describe('position components', () => {
   })
 
   describe('Relative', () => {
-    behavesAsComponent({Component: Relative, systemPropArray: []})
+    behavesAsComponent({Component: Relative})
 
     it('should have no axe violations', async () => {
       const {container} = HTMLRender(<Relative />)
@@ -86,7 +86,7 @@ describe('position components', () => {
   })
 
   describe('Sticky', () => {
-    behavesAsComponent({Component: Sticky, systemPropArray: []})
+    behavesAsComponent({Component: Sticky})
 
     it('should have no axe violations', async () => {
       const {container} = HTMLRender(<Sticky />)
