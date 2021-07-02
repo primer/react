@@ -11,7 +11,7 @@ import React, {ForwardedRef, useRef} from 'react'
 export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)[]) {
   const combinedRef = useRef<T | null>(null)
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     function setRefs(current: T | null = null) {
       for (const ref of refs) {
         if (!ref) {

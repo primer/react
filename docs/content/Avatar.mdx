@@ -2,6 +2,9 @@
 title: Avatar
 ---
 
+import {Props} from '../src/props'
+import {Avatar} from '@primer/components'
+
 Avatars are images used to represent users and organizations on GitHub. Use the default round avatar for users, and the `square` prop for organizations or any other non-human avatars.
 
 ## Default example
@@ -25,11 +28,6 @@ Avatars are images used to represent users and organizations on GitHub. Use the 
 </AvatarPair>
 ```
 
-## Component props
+## Props
 
-| Name   | Type    | Default | Description                                   |
-| :----- | :------ | :-----: | :-------------------------------------------- |
-| alt    | String  |         | Passed through to alt on img tag              |
-| size   | Number  |   20    | adds the `avatar-small` class if less than 24 |
-| src    | String  |         | The source url of the avatar image            |
-| square | Boolean |  false  | Used to create a square avatar                |
+<Props of={Avatar} />
