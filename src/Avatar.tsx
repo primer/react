@@ -4,7 +4,9 @@ import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 type StyledAvatarProps = {
+  /** Sets the width and height of the avatar. */
   size?: number
+  /** Sets the shape of the avatar to a square if true. If false, the avatar will be circular. */
   square?: boolean
 } & SystemCommonProps &
   SxProp
