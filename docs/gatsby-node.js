@@ -1,4 +1,6 @@
 const defines = require('../babel-defines')
+const docgen = require('react-docgen-typescript')
+const globby = require('globby')
 
 exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
   const config = getConfig()
@@ -34,4 +36,66 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
   }
 
   actions.replaceWebpackConfig(config)
+}
+
+exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
+  const {createNode} = actions
+
+  // Extract compontent metadata from source files
+  const files = globby.sync(['../src/**/*.tsx'], {absolute: true})
+  const data = docgen.parse(files, {
+    savePropValueAsString: true,
+    propFilter: prop => {
+      if (prop.declarations !== undefined && prop.declarations.length > 0) {
+        const hasPropAdditionalDescription = prop.declarations.find(declaration => {
+          return !declaration.fileName.includes('node_modules')
+        })
+
+        return Boolean(hasPropAdditionalDescription)
+      }
+
+      return true
+    }
+  })
+
+  const components = data.map(component => {
+    return {
+      name: component.displayName,
+      description: component.description,
+      props: Object.values(component.props)
+        .map(prop => {
+          return {
+            name: prop.name,
+            description: prop.description,
+            defaultValue: prop.defaultValue ? prop.defaultValue.value : '',
+            required: prop.required,
+            type: prop.type.name
+          }
+        })
+        // Move required props to beginning of the list
+        .sort((a, b) => {
+          if (a.required && !b.required) return -1
+          if (!a.required && b.required) return 1
+          return 0
+        })
+    }
+  })
+
+  // Add component metadata to GraphQL API
+  for (const component of components) {
+    const nodeContent = JSON.stringify(component)
+    const nodeMeta = {
+      id: createNodeId(component.name),
+      parent: null,
+      children: [],
+      internal: {
+        type: `ComponentMetadata`,
+        mediaType: `text/html`,
+        content: nodeContent,
+        contentDigest: createContentDigest(component)
+      }
+    }
+    const node = Object.assign({}, component, nodeMeta)
+    createNode(node)
+  }
 }
