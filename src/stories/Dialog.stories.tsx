@@ -158,11 +158,11 @@ function CustomHeader({
   return null
 }
 function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
-  return <Dialog.Body bg="auto.red.3">{children}</Dialog.Body>
+  return <Dialog.Body sx={{bg: 'auto.red.3'}}>{children}</Dialog.Body>
 }
 function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   return (
-    <Dialog.Footer bg="auto.yellow.3">
+    <Dialog.Footer sx={{bg: 'auto.yellow.3'}}>
       {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
     </Dialog.Footer>
   )

@@ -302,27 +302,35 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 )
 _Dialog.displayName = 'Dialog'
 
-const Header = styled.header`
+const Header = styled.header<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.overlay')};
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
+
+  ${sx}
 `
-const Title = styled.div`
+const Title = styled.div<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
+
+  ${sx}
 `
-const Subtitle = styled.div`
+const Subtitle = styled.div<SxProp>`
   font-size: ${get('fontSizes.0')};
   margin-top: ${get('space.1')};
   color: ${get('colors.text.tertiary')};
+
+  ${sx}
 `
-const Body = styled.div`
+const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
+
+  ${sx}
 `
-const Footer = styled.footer`
+const Footer = styled.footer<SxProp>`
   box-shadow: 0 -1px 0 ${get('colors.border.overlay')};
   padding: ${get('space.3')};
   display: flex;
@@ -337,6 +345,8 @@ const Footer = styled.footer`
       margin-left: 0;
     }
   }
+
+  ${sx}
 `
 const buttonTypes = {
   normal: Button,
