@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {FontSizeProps, variant} from 'styled-system'
+import {variant} from 'styled-system'
 import {ComponentProps} from '../utils/types'
 import buttonBaseStyles from './ButtonStyles'
 
