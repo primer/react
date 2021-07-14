@@ -1,3 +1,4 @@
+// @ts-check
 // @preval
 // This file needs to be a JavaScript file using CommonJS to be compatiable with preval
 
@@ -87,6 +88,44 @@ const darkDimmedColors = omitScale(darkDimmed.colors)
  */
 const darkDimmedShadows = omitScale(darkDimmed.shadows)
 
+/**
+ * @todo are these types all correct - especially the partial colors from
+ * primitives?  if not - let's tighten that up!
+ *
+ * @typedef {Object} ThemePrevalType
+ * @property {{easeOutCubic: string}} animation
+ * @property {ReadonlyArray<string | number>} borderWidths
+ * @property {ReadonlyArray<string>} breakpoints
+ * @property {{normal: string; mono: string}} fonts
+ * @property {ReadonlyArray<string>} fontSizes
+ * @property {Record<'light' | 'normal' | 'semibold' | 'bold', number>} fontWeights
+ * @property {Record<'condensedUltra' | 'condensed' | 'default', number>} lineHeights
+ * @property {ReadonlyArray<string>} radii
+ * @property {Record<'small' | 'medium' | 'large' | 'xlarge', string>} sizes
+ * @property {ReadonlyArray<string>} space
+ * @property {{
+ *   light: {
+ *      colors: typeof lightColors,
+ *      shadows: typeof lightShadows
+ *   },
+ *   dark: {
+ *      colors: typeof darkColors,
+ *      shadows: typeof darkShadows
+ *   },
+ *   dark_dimmed: {
+ *      colors: typeof darkDimmedColors,
+ *      shadows: typeof darkDimmedShadows
+ *   },
+ *   [x: string]: {
+ *      colors: typeof darkDimmedColors,
+ *      shadows: typeof darkDimmedShadows
+ *   }
+ * }} colorSchemes
+ */
+
+/**
+ * @type {ThemePrevalType}
+ */
 const theme = {
   // General
   animation,

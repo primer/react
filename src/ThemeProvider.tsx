@@ -2,13 +2,13 @@ import React from 'react'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
+import {ThemePrevalType} from './theme-preval'
 
 const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
 const defaultNightScheme = 'dark'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Theme = {[key: string]: any}
+export type Theme = ThemePrevalType & Pick<ThemePrevalType['colorSchemes']['light'], 'colors' | 'shadows'>
 type ColorMode = 'day' | 'night'
 type ColorModeWithAuto = ColorMode | 'auto'
 
@@ -146,9 +146,10 @@ function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme:
   }
 }
 
-function applyColorScheme(theme: Theme, colorScheme: string) {
+function applyColorScheme(theme: ThemePrevalType, colorScheme: string): Theme {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!theme.colorSchemes) {
-    return theme
+    return theme as Theme
   }
 
   if (!theme.colorSchemes[colorScheme]) {
@@ -156,7 +157,7 @@ function applyColorScheme(theme: Theme, colorScheme: string) {
     console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
 
     // Apply the first defined color scheme
-    const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
+    const defaultColorScheme = Object.keys(theme.colorSchemes)[0] as keyof ThemePrevalType['colorSchemes']
     return deepmerge(theme, theme.colorSchemes[defaultColorScheme])
   }
 
