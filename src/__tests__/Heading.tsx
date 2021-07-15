@@ -1,10 +1,11 @@
+import {cleanup, render as HTMLRender} from '@testing-library/react'
+import 'babel-polyfill'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Heading} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {TYPOGRAPHY, COMMON} from '../constants'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+import {COMMON, TYPOGRAPHY} from '../constants'
+import {Theme} from '../ThemeProvider'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 const theme = {
@@ -18,7 +19,7 @@ const theme = {
     mono: 'Consolas,monospace'
   },
   lineHeights: {
-    normal: 1.5,
+    default: 1.5,
     condensed: 1.25,
     condensedUltra: 1
   },
@@ -28,7 +29,7 @@ const theme = {
     semibold: '500',
     bold: '600'
   }
-}
+} as unknown as Theme
 
 describe('Heading', () => {
   behavesAsComponent({Component: Heading, systemPropArray: [COMMON, TYPOGRAPHY]})
@@ -62,9 +63,9 @@ describe('Heading', () => {
   })
 
   it('respects lineHeight', () => {
-    expect(render(<Heading lineHeight="normal" theme={theme} />)).toHaveStyleRule(
+    expect(render(<Heading lineHeight="default" theme={theme} />)).toHaveStyleRule(
       'line-height',
-      String(theme.lineHeights.normal)
+      String(theme.lineHeights.default)
     )
     expect(render(<Heading lineHeight="condensed" theme={theme} />)).toHaveStyleRule(
       'line-height',

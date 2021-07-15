@@ -3,7 +3,7 @@ import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from 
 import sx, {SxProp} from './sx'
 import theme from './theme'
 import {ComponentProps} from './utils/types'
-
+import {Theme} from './ThemeProvider'
 const Heading = styled.h2<SystemTypographyProps & SystemCommonProps & SxProp>`
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.5')};
@@ -14,7 +14,7 @@ const Heading = styled.h2<SystemTypographyProps & SystemCommonProps & SxProp>`
 `
 
 Heading.defaultProps = {
-  theme
+  theme: theme as Theme
 }
 
 export type HeadingProps = ComponentProps<typeof Heading>

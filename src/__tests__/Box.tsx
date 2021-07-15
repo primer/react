@@ -5,8 +5,11 @@ import React from 'react'
 import {Box} from '..'
 import {COMMON, FLEX, LAYOUT} from '../constants'
 import theme from '../theme'
+import {Theme} from '../ThemeProvider'
 import {behavesAsComponent, checkExports, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
+
+const boxTheme = theme as Theme
 
 describe('Box', () => {
   behavesAsComponent({Component: Box, systemPropArray: [COMMON, LAYOUT, FLEX]})
@@ -23,21 +26,21 @@ describe('Box', () => {
   })
 
   it('renders margin', () => {
-    expect(render(<Box m={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box m={1} theme={boxTheme} />)).toMatchSnapshot()
+    expect(render(<Box m={[0, 1, 2, 3]} theme={boxTheme} />)).toMatchSnapshot()
+    expect(render(<Box m={[1, 1, 1, 3]} theme={boxTheme} />)).toMatchSnapshot()
   })
 
   it('renders padding', () => {
-    expect(render(<Box p={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box p={1} theme={boxTheme} />)).toMatchSnapshot()
+    expect(render(<Box p={[0, 1, 2, 3]} theme={boxTheme} />)).toMatchSnapshot()
+    expect(render(<Box p={[1, 1, 1, 3]} theme={boxTheme} />)).toMatchSnapshot()
   })
 
   it('respects display', () => {
     expect(render(<Box display="inline" />)).toMatchSnapshot()
     expect(render(<Box display="inline-block" />)).toMatchSnapshot()
     expect(render(<Box display="none" />)).toMatchSnapshot()
-    expect(render(<Box display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
+    expect(render(<Box display={['none', 'none', 'block']} theme={boxTheme} />)).toMatchSnapshot()
   })
 })

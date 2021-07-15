@@ -4,7 +4,7 @@ import Box from '../Box'
 import {COMMON, get} from '../constants'
 import sx from '../sx'
 import {buildComponentData, buildPaginationModel} from './model'
-
+import {Theme} from '../ThemeProvider'
 const Page = styled.a`
   display: inline-block;
   min-width: 32px;
@@ -108,7 +108,7 @@ const Page = styled.a`
 `
 
 type UsePaginationPagesParameters = {
-  theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
+  theme?: Theme
   pageCount: number
   currentPage: number
   onPageChange: (e: React.MouseEvent, n: number) => void
@@ -156,7 +156,7 @@ const PaginationContainer = styled.nav`
 `
 
 export type PaginationProps = {
-  theme?: Record<string, unknown>
+  theme?: Theme
   pageCount: number
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
