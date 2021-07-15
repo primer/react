@@ -42,6 +42,15 @@ function filterObject(obj, predicate) {
   }, {})
 }
 
+/**
+ * @typedef PartitionedColors
+ * @property {import('./shadows-types').Shadows} shadows
+ * @property {import('./colors-types').Color} colors
+ */
+
+/**
+ * @type {<T>(colors: T) => PartitionedColors}
+ */
 function partitionColors(colors) {
   return {
     colors: filterObject(colors, value => isColorValue(value)),

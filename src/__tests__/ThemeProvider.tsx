@@ -2,6 +2,7 @@ import {render, screen, waitFor} from '@testing-library/react'
 import 'jest-styled-components'
 import React from 'react'
 import {Text, ThemeProvider, useColorSchemeVar, useTheme} from '..'
+import {ThemePrevalType} from '../theme-preval'
 
 // window.matchMedia() is not implmented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -40,7 +41,7 @@ const exampleTheme = {
       }
     }
   }
-}
+} as unknown as ThemePrevalType
 
 it('respects theme prop', () => {
   const theme = {
@@ -48,7 +49,7 @@ it('respects theme prop', () => {
       text: '#f00'
     },
     space: ['0', '0.25rem']
-  }
+  } as unknown as ThemePrevalType
 
   render(
     <ThemeProvider theme={theme}>

@@ -13,7 +13,7 @@ type ColorMode = 'day' | 'night'
 type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
-  theme?: Theme
+  theme?: ThemePrevalType
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
@@ -152,7 +152,7 @@ function applyColorScheme(theme: ThemePrevalType, colorScheme: string): Theme {
     return theme as Theme
   }
 
-  if (!theme.colorSchemes[colorScheme]) {
+  if (!(colorScheme in theme.colorSchemes)) {
     // eslint-disable-next-line no-console
     console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
 

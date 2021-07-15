@@ -27,28 +27,28 @@ export default sx
  * functions from sx
  */
 
-type CSSPseudoSelectorProps = {[K in Pseudos]?: SystemStyleObject}
+export type CSSPseudoSelectorProps = {[K in Pseudos]?: SystemStyleObject}
 
-interface CSSSelectorObject {
+export interface CSSSelectorObject {
   [cssSelector: string]: SystemStyleObject
 }
 
-type SystemCssProperties = {
+export type SystemCssProperties = {
   [K in keyof AllSystemCSSProperties]:
     | ResponsiveStyleValue<AllSystemCSSProperties[K]>
     | ((theme: Theme) => ResponsiveStyleValue<AllSystemCSSProperties[K]>)
     | SystemStyleObject
 }
 
-interface UseThemeFunction {
+export interface UseThemeFunction {
   (theme: Theme): SystemStyleObject
 }
 
-interface EmotionLabel {
+export interface EmotionLabel {
   label?: string
 }
 
-type SystemStyleObject =
+export type SystemStyleObject =
   | SystemCssProperties
   | CSSPseudoSelectorProps
   | CSSSelectorObject

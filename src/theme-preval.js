@@ -59,32 +59,32 @@ const darkDimmed = partitionColors(primitives.colors['dark_dimmed'])
 // so we need to use JSDoc comments.
 
 /**
- * @type Partial<typeof primitives.colors.light>
+ * @type {Omit<typeof light['colors'], 'scale'>}
  */
 const lightColors = omitScale(light.colors)
 
 /**
- * @type Partial<typeof primitives.colors.light>
+ * @type {Omit<typeof light['shadows'], 'scale'>}
  */
 const lightShadows = omitScale(light.shadows)
 
 /**
- * @type Partial<typeof primitives.colors.dark>
+ * @type {Omit<typeof dark['colors'], 'scale'>}
  */
 const darkColors = omitScale(dark.colors)
 
 /**
- * @type Partial<typeof primitives.colors.dark>
+ * @type {Omit<typeof dark['shadows'], 'scale'>}
  */
 const darkShadows = omitScale(dark.shadows)
 
 /**
- * @type Partial<typeof primitives.colors.dark_dimmed>
+ * @type {Omit<typeof darkDimmed['colors'], 'scale'>}
  */
 const darkDimmedColors = omitScale(darkDimmed.colors)
 
 /**
- * @type Partial<typeof primitives.colors.dark_dimmed>
+ * @type {Omit<typeof darkDimmed['shadows'], 'scale'>}
  */
 const darkDimmedShadows = omitScale(darkDimmed.shadows)
 
@@ -124,7 +124,7 @@ const darkDimmedShadows = omitScale(darkDimmed.shadows)
  */
 
 /**
- * @type {ThemePrevalType}
+ * @type {Readonly<ThemePrevalType>}
  */
 const theme = {
   // General
