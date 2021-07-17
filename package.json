@@ -6,12 +6,9 @@
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
   "sideEffects": [
-    "lib/BaseStyles.js",
-    "lib-esm/BaseStyles.js",
-    "lib/behaviors/focusZone.js",
-    "lib-esm/behaviors/focusZone.js",
-    "lib/behaviors/focusTrap.js",
-    "lib-esm/behaviors/focusTrap.js"
+    "(lib|lib-esm)/BaseStyles.js",
+    "(lib|lib-esm)/behaviors/focusZone.js",
+    "(lib|lib-esm)/behaviors/focusTrap.js"
   ],
   "scripts": {
     "start": "cd docs && npm run develop",
