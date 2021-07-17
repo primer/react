@@ -6,7 +6,6 @@
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
   "sideEffects": [
-    "(lib|lib-esm)/BaseStyles.js",
     "(lib|lib-esm)/behaviors/focusZone.js",
     "(lib|lib-esm)/behaviors/focusTrap.js"
   ],
