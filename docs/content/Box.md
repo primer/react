@@ -76,4 +76,4 @@ Box components may receive system props of any category. Read our [System Props]
 | :--- | :------------------ | :----------------------------------------------------------------------: | :---------- |
 | `as` |                     | [`"div"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div) |             |
 | `sx` | `SystemStyleObject` |                                    —                                     |             |
-`Box` also accepts all [styled system props].
+`Box` also accepts all [styled system props](https://styled-system.com/table/).
