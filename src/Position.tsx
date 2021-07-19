@@ -1,16 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
-import {POSITION, SystemPositionProps} from './constants'
-import sx from './sx'
 import {ComponentProps} from './utils/types'
 
-type StyledPositionProps = {as?: React.ElementType} & SystemPositionProps
+type StyledPositionProps = {as?: React.ElementType}
 
-const Position = styled(Box)<StyledPositionProps>`
-  ${POSITION};
-  ${sx};
-`
+const Position = styled(Box)<StyledPositionProps>``
 
 export type PositionProps = ComponentProps<typeof Position>
 export default Position

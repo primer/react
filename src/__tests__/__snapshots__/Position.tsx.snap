@@ -3,7 +3,6 @@
 exports[`position components Absolute renders consistently 1`] = `
 .c0 {
   position: absolute;
-  position: absolute;
 }
 
 <div
@@ -13,7 +12,6 @@ exports[`position components Absolute renders consistently 1`] = `
 
 exports[`position components Fixed renders consistently 1`] = `
 .c0 {
-  position: fixed;
   position: fixed;
 }
 
@@ -25,7 +23,6 @@ exports[`position components Fixed renders consistently 1`] = `
 exports[`position components Relative renders consistently 1`] = `
 .c0 {
   position: relative;
-  position: relative;
 }
 
 <div
@@ -35,10 +32,6 @@ exports[`position components Relative renders consistently 1`] = `
 
 exports[`position components Sticky renders consistently 1`] = `
 .c0 {
-  top: 0;
-  z-index: 1;
-  position: -webkit-sticky;
-  position: sticky;
   top: 0;
   z-index: 1;
   position: -webkit-sticky;
