@@ -2,17 +2,24 @@
 title: Box
 ---
 
-The Box component serves as a wrapper component for most layout related needs. Use Box to set values such as `display`, `width`, `height`, and more. See the LAYOUT section of our [System Props](/system-props) documentation for the full list of available props. In practice, this component is used frequently as a wrapper around other components to achieve Box Model related styling.
+import {Props} from '../src/props'
+import {Box} from '@primer/components'
 
-## Examples
-
-### Default
+Box is a low-level utility component that accepts [styled system props](https://styled-system.com/table/) to enable custom theme-aware styling.
 
 ```jsx live
 <Box color="text.secondary" bg="bg.tertiary" p={3}>
   Hello
 </Box>
 ```
+
+## Props
+
+<Props of={Box} />
+
+Box also accepts all [styled system props](https://styled-system.com/table/).
+
+## Examples
 
 ### Border on all sides
 
@@ -65,15 +72,3 @@ Use `Box` to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CS
   </Box>
 </Box>
 ```
-
-## System props
-
-Box components may receive system props of any category. Read our [System Props](/system-props) doc page for a full list of available props.
-
-## Component props
-
-| Prop | Type                |                                 Default                                  | Description |
-| :--- | :------------------ | :----------------------------------------------------------------------: | :---------- |
-| `as` |                     | [`"div"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div) |             |
-| `sx` | `SystemStyleObject` |                                    —                                     |             |
-`Box` also accepts all [styled system props](https://styled-system.com/table/).
