@@ -21,7 +21,6 @@ import {
   typography,
   TypographyProps
 } from 'styled-system'
-
 import sx, {SxProp} from './sx'
 
 export type BoxProps = SpaceProps &
