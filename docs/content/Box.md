@@ -39,7 +39,7 @@ Box also accepts all [styled system props](https://styled-system.com/table/).
 
 ### Flexbox
 
-Use `Box` to create [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) layouts.
+Use Box to create [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) layouts.
 
 ```jsx live
 <Box display="flex">
@@ -57,7 +57,7 @@ Use `Box` to create [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS
 
 ### Grid
 
-Use `Box` to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids) layouts.
+Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids) layouts.
 
 ```jsx live
 <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={3}>
