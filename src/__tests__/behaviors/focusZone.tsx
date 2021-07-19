@@ -1,7 +1,7 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {FocusKeys, focusZone} from '../../behaviors/focusZone'
+import {FocusKeys, focusZone, FocusZoneSettings} from '../../behaviors/focusZone'
 
 async function nextTick() {
   return new Promise(resolve => setTimeout(resolve, 0))
@@ -419,24 +419,49 @@ it('Should call onActiveDescendantChanged properly', () => {
     activeDescendantControl: control,
     onActiveDescendantChanged: activeDescendantChangedCallback
   })
+  type ActiveDescendantChangedCallbackParameters = Parameters<
+    Exclude<FocusZoneSettings['onActiveDescendantChanged'], undefined>
+  >
 
   control.focus()
-  userEvent.type(control, '{arrowdown}')
-  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(
+  expect(activeDescendantChangedCallback).toHaveBeenLastCalledWith<ActiveDescendantChangedCallbackParameters>(
     firstButton,
-    undefined
+    undefined,
+    false
   )
   userEvent.type(control, '{arrowdown}')
-  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(
+  expect(activeDescendantChangedCallback).toHaveBeenLastCalledWith<ActiveDescendantChangedCallbackParameters>(
     secondButton,
-    firstButton
+    firstButton,
+    true
   )
   userEvent.type(control, '{arrowup}')
-  userEvent.type(control, '{arrowUp}')
-  expect(activeDescendantChangedCallback).toHaveBeenCalledWith<[HTMLElement | undefined, HTMLElement | undefined]>(
-    undefined,
-    firstButton
+  expect(activeDescendantChangedCallback).toHaveBeenLastCalledWith<ActiveDescendantChangedCallbackParameters>(
+    firstButton,
+    secondButton,
+    true
   )
+  fireEvent.mouseMove(secondButton)
+  expect(activeDescendantChangedCallback).toHaveBeenLastCalledWith<ActiveDescendantChangedCallbackParameters>(
+    secondButton,
+    firstButton,
+    false
+  )
+  userEvent.type(control, '{arrowup}')
+  expect(activeDescendantChangedCallback).toHaveBeenLastCalledWith<ActiveDescendantChangedCallbackParameters>(
+    firstButton,
+    secondButton,
+    true
+  )
+  userEvent.type(control, '{arrowUp}')
+  expect(activeDescendantChangedCallback).toHaveBeenLastCalledWith<ActiveDescendantChangedCallbackParameters>(
+    firstButton,
+    firstButton,
+    true
+  )
+  activeDescendantChangedCallback.mockReset()
+  fireEvent.mouseMove(firstButton)
+  expect(activeDescendantChangedCallback).not.toBeCalled()
 
   controller.abort()
 })
