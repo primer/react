@@ -5,6 +5,10 @@
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
+  "sideEffects": [
+    "(lib|lib-esm)/behaviors/focusZone.js",
+    "(lib|lib-esm)/behaviors/focusTrap.js"
+  ],
   "scripts": {
     "start": "cd docs && npm run develop",
     "predist": "rm -rf dist & rm -rf lib & rm -rf lib-esm",
