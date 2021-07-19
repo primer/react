@@ -17,16 +17,18 @@
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "deepmerge": "4.2.2",
-    "gatsby": "^3.6.0",
+    "gatsby": "^3.7.2",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-typescript": "2.10.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
+    "react-docgen-typescript": "^2.0.0",
     "react-dom": "^17.0.0",
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
     "cross-env": "7.0.2",
+    "globby": "^11.0.4",
     "minipass": "^2.9.0",
     "path-browserify": "^1.0.1"
   }
