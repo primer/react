@@ -189,7 +189,8 @@ export interface FocusZoneSettings {
    */
   onActiveDescendantChanged?: (
     newActiveDescendant: HTMLElement | undefined,
-    previousActiveDescendant: HTMLElement | undefined
+    previousActiveDescendant: HTMLElement | undefined,
+    directlyActivated: boolean
   ) => void
 
   /**
@@ -311,6 +312,23 @@ function shouldIgnoreFocusHandling(keyboardEvent: KeyboardEvent, activeElement: 
   return false
 }
 
+export const isActiveDescendantAttribute = 'data-is-active-descendant'
+/**
+ * A value of activated-directly for data-is-active-descendant indicates the descendant was activated
+ * by a manual user interaction with intent to move active descendant.  This usually translates to the
+ * user pressing one of the bound keys (up/down arrow, etc) to move through the focus zone.  This is
+ * intended to be roughly equivalent to the :focus-visible pseudo-class
+ **/
+export const activeDescendantActivatedDirectly = 'activated-directly'
+/**
+ * A value of activated-indirectly for data-is-active-descendant indicates the descendant was activated
+ * implicitly, and not by a direct key press.  This includes focus zone being created from scratch, focusable
+ * elements being added/removed, and mouseover events. This is intended to be roughly equivalent
+ * to :focus:not(:focus-visible)
+ **/
+export const activeDescendantActivatedIndirectly = 'activated-indirectly'
+export const hasActiveDescendantAttribute = 'data-has-active-descendant'
+
 /**
  * Sets up the arrow key focus behavior for all focusable elements in the given `container`.
  * @param container
@@ -337,13 +355,13 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     return document.activeElement === activeDescendantControl
   }
 
-  function updateFocusedElement(to?: HTMLElement) {
+  function updateFocusedElement(to?: HTMLElement, directlyActivated = false) {
     const from = currentFocusedElement
     currentFocusedElement = to
 
     if (activeDescendantControl) {
       if (to && isActiveDescendantInputFocused()) {
-        setActiveDescendant(from, to)
+        setActiveDescendant(from, to, directlyActivated)
       } else {
         clearActiveDescendant()
       }
@@ -358,13 +376,30 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     to?.setAttribute('tabindex', '0')
   }
 
-  function setActiveDescendant(from: HTMLElement | undefined, to: HTMLElement) {
+  function setActiveDescendant(from: HTMLElement | undefined, to: HTMLElement, directlyActivated = false) {
     if (!to.id) {
       to.setAttribute('id', uniqueId())
     }
 
-    activeDescendantControl?.setAttribute('aria-activedescendant', to.id)
-    activeDescendantCallback?.(to, from === to ? undefined : from)
+    if (from && from !== to) {
+      from.removeAttribute(isActiveDescendantAttribute)
+    }
+
+    if (
+      !activeDescendantControl ||
+      (!directlyActivated && activeDescendantControl.getAttribute('aria-activedescendant') === to.id)
+    ) {
+      // prevent active descendant callback from being called repeatedly if the same element is activated (e.g. via mousemove)
+      return
+    }
+
+    activeDescendantControl.setAttribute('aria-activedescendant', to.id)
+    container.setAttribute(hasActiveDescendantAttribute, to.id)
+    to.setAttribute(
+      isActiveDescendantAttribute,
+      directlyActivated ? activeDescendantActivatedDirectly : activeDescendantActivatedIndirectly
+    )
+    activeDescendantCallback?.(to, from, directlyActivated)
   }
 
   function clearActiveDescendant(previouslyActiveElement = currentFocusedElement) {
@@ -373,7 +408,9 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
     }
 
     activeDescendantControl?.removeAttribute('aria-activedescendant')
-    activeDescendantCallback?.(undefined, previouslyActiveElement)
+    container.removeAttribute(hasActiveDescendantAttribute)
+    previouslyActiveElement?.removeAttribute(isActiveDescendantAttribute)
+    activeDescendantCallback?.(undefined, previouslyActiveElement, false)
   }
 
   function beginFocusManagement(...elements: HTMLElement[]) {
@@ -484,6 +521,23 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
         updateFocusedElement(event.target)
       }
     })
+    container.addEventListener(
+      'mousemove',
+      ({target}) => {
+        if (!(target instanceof Node)) {
+          return
+        }
+
+        const focusableElement = focusableElements.find(element => element.contains(target))
+
+        if (focusableElement) {
+          updateFocusedElement(focusableElement)
+        }
+      },
+      {signal, capture: true}
+    )
+
+    // Listeners specifically on the controlling element
     activeDescendantControl.addEventListener('focusin', () => {
       // Focus moved into the active descendant input.  Activate current or first descendant.
       if (!currentFocusedElement) {
@@ -637,13 +691,13 @@ export function focusZone(container: HTMLElement, settings?: FocusZoneSettings):
             }
           }
 
-          if (nextElementToFocus) {
-            if (activeDescendantControl) {
-              updateFocusedElement(nextElementToFocus)
-            } else {
-              lastKeyboardFocusDirection = direction
-              nextElementToFocus.focus()
-            }
+          if (activeDescendantControl) {
+            updateFocusedElement(nextElementToFocus || currentFocusedElement, true)
+          } else if (nextElementToFocus) {
+            lastKeyboardFocusDirection = direction
+
+            // updateFocusedElement will be called implicitly when focus moves, as long as the event isn't prevented somehow
+            nextElementToFocus.focus()
           }
           // Tab should always allow escaping from this container, so only
           // preventDefault if tab key press already resulted in a focus movement

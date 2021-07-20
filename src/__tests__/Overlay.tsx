@@ -3,6 +3,9 @@ import {Overlay, Box, Text, ButtonDanger, Button} from '..'
 import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import theme from '../theme'
+import BaseStyles from '../BaseStyles'
+import {ThemeProvider} from '../ThemeProvider'
 
 expect.extend(toHaveNoViolations)
 
@@ -22,30 +25,34 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
     }
   }
   return (
-    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        open overlay
-      </Button>
-      <Button>outside</Button>
-      {isOpen ? (
-        <Overlay
-          initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
-          returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
-          onEscape={closeOverlay}
-          onClickOutside={closeOverlay}
-          width="small"
-        >
-          <Box display="flex" flexDirection="column" p={2}>
-            <Text>Are you sure?</Text>
-            <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
-            <Button onClick={closeOverlay} ref={confirmButtonRef}>
-              Confirm
-            </Button>
-          </Box>
-        </Overlay>
-      ) : null}
-    </Box>
+    <ThemeProvider theme={theme}>
+      <BaseStyles>
+        <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+          <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+            open overlay
+          </Button>
+          <Button>outside</Button>
+          {isOpen ? (
+            <Overlay
+              initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
+              returnFocusRef={buttonRef}
+              ignoreClickRefs={[buttonRef]}
+              onEscape={closeOverlay}
+              onClickOutside={closeOverlay}
+              width="small"
+            >
+              <Box display="flex" flexDirection="column" p={2}>
+                <Text>Are you sure?</Text>
+                <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
+                <Button onClick={closeOverlay} ref={confirmButtonRef}>
+                  Confirm
+                </Button>
+              </Box>
+            </Overlay>
+          ) : null}
+        </Box>
+      </BaseStyles>
+    </ThemeProvider>
   )
 }
 

@@ -1,13 +1,9 @@
 import styled from 'styled-components'
-import Box from './Box'
-import {BORDER, SystemBorderProps} from './constants'
-import sx from './sx'
-import {ComponentProps} from './utils/types'
+import Box, {BoxProps} from './Box'
 
-const BorderBox = styled(Box)<SystemBorderProps>`
-  ${BORDER};
-  ${sx};
-`
+export type BorderBoxProps = BoxProps
+
+const BorderBox = styled(Box)``
 
 BorderBox.defaultProps = {
   borderWidth: '1px',
@@ -16,5 +12,4 @@ BorderBox.defaultProps = {
   borderRadius: 2
 }
 
-export type BorderBoxProps = ComponentProps<typeof BorderBox>
 export default BorderBox

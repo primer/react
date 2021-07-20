@@ -26,10 +26,6 @@ exports[`CircleOcticon renders consistently 1`] = `
   border-radius: 50%;
   border-style: solid;
   border-color: #e1e4e8;
-  border-width: 0;
-  border-radius: 50%;
-  border-style: solid;
-  border-color: #e1e4e8;
 }
 
 <div

@@ -15,7 +15,6 @@ exports[`Grid respects gridArea 1`] = `
 .c0 {
   display: grid;
   grid-area: sidebar;
-  grid-area: sidebar;
 }
 
 <div
@@ -27,7 +26,6 @@ exports[`Grid respects gridArea 1`] = `
 exports[`Grid respects gridAutoColumns 1`] = `
 .c0 {
   display: grid;
-  grid-auto-columns: 1fr;
   grid-auto-columns: 1fr;
 }
 
@@ -41,7 +39,6 @@ exports[`Grid respects gridAutoFlow 1`] = `
 .c0 {
   display: grid;
   grid-auto-flow: row;
-  grid-auto-flow: row;
 }
 
 <div
@@ -53,7 +50,6 @@ exports[`Grid respects gridAutoFlow 1`] = `
 exports[`Grid respects gridAutoRows 1`] = `
 .c0 {
   display: grid;
-  grid-auto-rows: 1fr;
   grid-auto-rows: 1fr;
 }
 
@@ -67,7 +63,6 @@ exports[`Grid respects gridColumn 1`] = `
 .c0 {
   display: grid;
   grid-column: 1 / 2;
-  grid-column: 1 / 2;
 }
 
 <div
@@ -79,7 +74,6 @@ exports[`Grid respects gridColumn 1`] = `
 exports[`Grid respects gridColumnGap 1`] = `
 .c0 {
   display: grid;
-  grid-column-gap: 8px;
   grid-column-gap: 8px;
 }
 
@@ -93,7 +87,6 @@ exports[`Grid respects gridGap 1`] = `
 .c0 {
   display: grid;
   grid-gap: 4px;
-  grid-gap: 4px;
 }
 
 <div
@@ -105,7 +98,6 @@ exports[`Grid respects gridGap 1`] = `
 exports[`Grid respects gridRow 1`] = `
 .c0 {
   display: grid;
-  grid-row: 1 / 2;
   grid-row: 1 / 2;
 }
 
@@ -119,7 +111,6 @@ exports[`Grid respects gridRowGap 1`] = `
 .c0 {
   display: grid;
   grid-row-gap: 8px;
-  grid-row-gap: 8px;
 }
 
 <div
@@ -131,7 +122,6 @@ exports[`Grid respects gridRowGap 1`] = `
 exports[`Grid respects gridTemplateAreas 1`] = `
 .c0 {
   display: grid;
-  grid-template-areas: sidebar main;
   grid-template-areas: sidebar main;
 }
 
@@ -145,7 +135,6 @@ exports[`Grid respects gridTemplateColumns 1`] = `
 .c0 {
   display: grid;
   grid-template-columns: 200px 1fr;
-  grid-template-columns: 200px 1fr;
 }
 
 <div
@@ -157,7 +146,6 @@ exports[`Grid respects gridTemplateColumns 1`] = `
 exports[`Grid respects gridTemplateRows 1`] = `
 .c0 {
   display: grid;
-  grid-template-rows: 200px 1fr;
   grid-template-rows: 200px 1fr;
 }
 

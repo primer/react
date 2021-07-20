@@ -6,6 +6,7 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
+import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
 
 export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
 
@@ -102,6 +103,11 @@ const StyledList = styled.div`
    * hardcoded '20px'
    */
   line-height: 20px;
+
+  &[${hasActiveDescendantAttribute}], &:focus-within {
+    --item-hover-bg-override: none;
+    --item-hover-divider-border-color-override: ${get('colors.selectMenu.borderSecondary')};
+  }
 `
 
 /**
@@ -132,7 +138,7 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
 /**
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
-export function List(props: ListProps): JSX.Element {
+export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
   const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
 
@@ -216,7 +222,7 @@ export function List(props: ListProps): JSX.Element {
   }
 
   return (
-    <StyledList {...props}>
+    <StyledList {...props} ref={forwardedRef}>
       {groups.map(({header, ...groupProps}, index) => {
         const hasFilledHeader = header?.variant === 'filled'
         const shouldShowDivider = index > 0 && !hasFilledHeader
@@ -242,4 +248,6 @@ export function List(props: ListProps): JSX.Element {
       })}
     </StyledList>
   )
-}
+})
+
+List.displayName = 'ActionList'

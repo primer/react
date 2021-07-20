@@ -5,6 +5,10 @@
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
+  "sideEffects": [
+    "(lib|lib-esm)/behaviors/focusZone.js",
+    "(lib|lib-esm)/behaviors/focusTrap.js"
+  ],
   "scripts": {
     "start": "cd docs && npm run develop",
     "predist": "rm -rf dist & rm -rf lib & rm -rf lib-esm",
@@ -17,8 +21,7 @@
     "copy-esm-types": "copyfiles -u 1 \"./lib/**/*.d.ts\" ./lib-esm",
     "lint": "eslint '**/*.{js,ts,tsx}'",
     "lint:fix": "eslint '**/*.{js,ts,tsx}' --fix",
-    "test": "jest -- src",
-    "update-snapshots": "jest -u -- src",
+    "test": "jest",
     "watch": "jest --watch --no-coverage",
     "playroom:start": "playroom start",
     "playroom:build": "playroom build",

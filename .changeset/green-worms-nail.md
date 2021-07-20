@@ -1,5 +1,5 @@
 ---
-"@primer/components": patch
+'@primer/components': minor
 ---
 
-Box may accept all system props.
+`Box` now accepts all [styled system props](https://styled-system.com/table/).
