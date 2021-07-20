@@ -143,7 +143,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
 
     useLayoutEffect(() => {
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
-      if ((!x && !y) || !overlayRef.current?.animate) {
+      if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return
       }
 
@@ -155,7 +155,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           easing: slideAnimationEasing
         }
       )
-    }, [anchorSide, slideAnimationDistance, slideAnimationEasing])
+    }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     return (
       <Portal>
