@@ -72,7 +72,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
       opacity: 1;
     }
   }
-  visibility: ${props => props.visibility || 'visible'};
+  visibility: var(--styled-overlay-visibility);
   :focus {
     outline: none;
   }
@@ -113,7 +113,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       returnFocusRef,
       ignoreClickRefs,
       onEscape,
-      visibility,
+      visibility = 'visible',
       height,
       anchorSide,
       ...rest
@@ -159,7 +159,18 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
 
     return (
       <Portal>
-        <StyledOverlay height={height} role={role} {...rest} ref={combinedRef} visibility={visibility} />
+        <StyledOverlay
+          height={height}
+          role={role}
+          {...rest}
+          ref={combinedRef}
+          style={
+            {
+              ...rest.style,
+              '--styled-overlay-visibility': visibility
+            } as React.CSSProperties
+          }
+        />
       </Portal>
     )
   }
