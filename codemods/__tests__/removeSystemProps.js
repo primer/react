@@ -97,3 +97,27 @@ const link = (
 )`.trim(),
   'removeSystemProps'
 )
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label mr={1} ml={leftMargin} sx={{p: 1}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label sx={{p: 1, mr: 1, ml: leftMargin}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)
