@@ -25,6 +25,8 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ## System props
 
+**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+
 UnderlineNav and UnderlineNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props

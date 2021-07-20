@@ -16,6 +16,12 @@ StyledOcticon renders an [Octicon](https://octicons.github.com) with common syst
 
 StyledOcticon components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
+## System props
+
+**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+
+StyledOcticon components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
 ## Component props
 
 StyledOcticon passes all of its props except the common system props down to the [Octicon component](https://github.com/primer/octicons/tree/master/lib/octicons_react#usage), including:

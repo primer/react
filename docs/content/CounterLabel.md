@@ -15,6 +15,8 @@ Use the CounterLabel component to add a count to navigational elements and butto
 
 ## System props
 
+**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+
 CounterLabel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props

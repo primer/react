@@ -20,6 +20,8 @@ The FilterList component is a menu with filter options that filter the main cont
 
 ## System props
 
+**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+
 FilterList components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props

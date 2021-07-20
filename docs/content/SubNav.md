@@ -37,7 +37,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
     <SubNav.Link href="#support">Support</SubNav.Link>
   </SubNav.Links>
 
-  <TextInput type="search" icon={SearchIcon} width={320} />
+  <TextInput type="search" icon={SearchIcon} sx={{width: 320}} />
 </SubNav>
 ```
 
@@ -73,6 +73,8 @@ This ensures that the NavLink gets `activeClassName='selected'`
 ```
 
 ## System props
+
+**Note: System props for components other than `Box` are deprecated and will be removed soon.**
 
 SubNav and SubNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
