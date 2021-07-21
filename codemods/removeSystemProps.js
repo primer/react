@@ -258,6 +258,21 @@ module.exports = (file, api) => {
         }
       })
 
+      const sxNodes = j(el).find(j.JSXAttribute, {
+        name: name => {
+          const isInElement = name.start >= el.node.start && name.end <= el.value.openingElement.end
+          return name.name === 'sx' && isInElement
+        }
+      })
+
+      const existingSx = {}
+      const sxNodesArray = sxNodes.nodes() || []
+      const existingSxProps = sxNodesArray[0]?.value?.expression?.properties
+      existingSxProps &&
+        existingSxProps.forEach(p => {
+          existingSx[p.key.name] = p.value
+        })
+
       attrNodes.forEach((attr, index) => {
         const key = attr?.value?.name?.name
         const literal = attr?.value?.value
@@ -270,7 +285,8 @@ module.exports = (file, api) => {
         } else {
           const keys = Object.keys(sx)
           if (keys.length > 0) {
-            j(attr).replaceWith(`sx={${objectToString(sx)}}`)
+            sxNodes.forEach(node => node.prune())
+            j(attr).replaceWith(`sx={${objectToString({...existingSx, ...sx})}}`)
           }
         }
       })

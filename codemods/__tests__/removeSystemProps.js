@@ -121,3 +121,27 @@ export default () => (
 `.trim(),
   'removeSystemProps'
 )
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label mr={1} ml={leftMargin} sx={{p:3}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label sx={{p: 3, mr: 1, ml: leftMargin}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)
