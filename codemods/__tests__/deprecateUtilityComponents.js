@@ -154,3 +154,47 @@ export default () => (
 `.trim(),
   'deprecateUtilityComponents'
 )
+
+defineInlineTest(
+  deprecateUtilityComponents,
+  {},
+  `
+import {BorderBox} from '@primer/components'
+export default () => (
+  <BorderBox>
+    <div />
+  </BorderBox>
+)
+`.trim(),
+  `
+import {Box} from '@primer/components'
+export default () => (
+  <Box>
+    <div />
+  </Box>
+)
+`.trim(),
+  'deprecateUtilityComponents'
+)
+
+defineInlineTest(
+  deprecateUtilityComponents,
+  {},
+  `
+import {Flex} from '@primer/components'
+export default () => (
+  <Flex p={2} m={1}>
+    <div />
+  </Flex>
+)
+`.trim(),
+  `
+import {Box} from '@primer/components'
+export default () => (
+  <Box p={2} m={1} display="flex">
+    <div />
+  </Box>
+)
+`.trim(),
+  'deprecateUtilityComponents'
+)

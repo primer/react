@@ -44,6 +44,15 @@ module.exports = (file, api) => {
       attributes: {
         position: 'sticky'
       }
+    },
+    BorderBox: {
+      identifier: 'Box',
+      attributes: {
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: 'border.primary',
+        borderRadius: 2
+      }
     }
   })
 
