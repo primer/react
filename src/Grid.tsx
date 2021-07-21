@@ -4,7 +4,7 @@ import Box, {BoxProps} from './Box'
 export type GridProps = BoxProps
 
 /**
- * @deprecated Please use the Box component instead.
+ * @deprecated Use the Box component instead (i.e. <Grid> → <Grid display="grid">)
  */
 const Grid = styled(Box)``
 

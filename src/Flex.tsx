@@ -4,7 +4,7 @@ import Box, {BoxProps} from './Box'
 export type FlexProps = BoxProps
 
 /**
- * @deprecated Please use the Box component instead.
+ * @deprecated Use the Box component instead (i.e. <Flex> → <Box display="flex">)
  */
 const Flex = styled(Box)``
 
