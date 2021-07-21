@@ -95,7 +95,7 @@ function deprecateComponents(ast, j, importSource, importMap) {
     ast.find(j.JSXOpeningElement, {name: {name: from}}).forEach(nodePath => {
       for (const [attr, value] of Object.entries(attributes || {})) {
         const expression = typeof value === 'string' ? j.literal(value) : j.jsxExpressionContainer(j.literal(value))
-        const attrExists = nodePath.value.attributes.find(a => a.name.name === attr)
+        const attrExists = nodePath.value.attributes.find(a => a?.name?.name === attr)
         if (!attrExists) {
           nodePath.value.attributes.push(j.jsxAttribute(j.jsxIdentifier(attr), expression))
         }
