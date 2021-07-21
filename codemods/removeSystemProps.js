@@ -205,7 +205,7 @@ const expressionToString = expression => {
   }
 }
 
-const objectToString = object => {
+const objectToString = (object, spreads = []) => {
   const values = Object.values(object)
   const keys = Object.keys(object)
   const duples = keys.map(function (key, i) {
@@ -217,7 +217,8 @@ const objectToString = object => {
     return `${string} ${duple[0]}: ${expressionString},`
   }
   const objString = duples.reduce(accumulator, '')
-  return `{${objString}}`
+  const spreadsString = spreads.map(s => `...${s},`).join('')
+  return `{${spreadsString}${objString}}`
 }
 
 module.exports = (file, api) => {
@@ -270,8 +271,14 @@ module.exports = (file, api) => {
       const existingSxProps = sxNodesArray[0]?.value?.expression?.properties
       existingSxProps &&
         existingSxProps.forEach(p => {
-          existingSx[p.key.name] = p.value
+          const keyName = p?.key?.name
+          if (!keyName) {
+            return
+          }
+          existingSx[keyName] = p.value
         })
+      const spreads =
+        existingSxProps && existingSxProps.filter(p => p.type === 'SpreadElement').map(s => s?.argument?.name)
 
       attrNodes.forEach((attr, index) => {
         const key = attr?.value?.name?.name
@@ -286,7 +293,7 @@ module.exports = (file, api) => {
           const keys = Object.keys(sx)
           if (keys.length > 0) {
             sxNodes.forEach(node => node.prune())
-            j(attr).replaceWith(`sx={${objectToString({...existingSx, ...sx})}}`)
+            j(attr).replaceWith(`sx={${objectToString({...existingSx, ...sx}, spreads)}}`)
           }
         }
       })
