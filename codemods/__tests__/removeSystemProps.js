@@ -173,3 +173,27 @@ export default () => (
 `.trim(),
   'removeSystemProps'
 )
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label mr={1} sx={{'&:hover': {textDecoration: 'none'}}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label sx={{'&:hover': {textDecoration: 'none'}, mr: 1}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)

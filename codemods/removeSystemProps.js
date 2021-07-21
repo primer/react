@@ -272,10 +272,11 @@ module.exports = (file, api) => {
       existingSxProps &&
         existingSxProps.forEach(p => {
           const keyName = p?.key?.name
-          if (!keyName) {
+          const keyValue = p?.key?.raw
+          if (!keyName && !keyValue) {
             return
           }
-          existingSx[keyName] = p.value
+          existingSx[keyName || keyValue] = p.value
         })
       const spreads =
         existingSxProps && existingSxProps.filter(p => p.type === 'SpreadElement').map(s => s?.argument?.name)
