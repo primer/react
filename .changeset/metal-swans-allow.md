@@ -26,5 +26,5 @@ Then, run the codemod using the appropriate command (examples given from the pri
 typescript example:
 `jscodeshift -t codemods/deprecateUtilityComponents.js --parser=tsx path/to/workspace/src/*.tsx`
 
-es6 example:
-`jscodeshift -t codemods/deprecateUtilityComponents.js --parser=jsx path/to/workspace/src/*.jsx`
+babel example:
+`jscodeshift -t codemods/deprecateUtilityComponents.js --parser=babel path/to/workspace/src/*.jsx`
