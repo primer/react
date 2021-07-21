@@ -279,7 +279,15 @@ module.exports = (file, api) => {
           existingSx[keyName || keyValue] = p.value
         })
       const spreads =
-        existingSxProps && existingSxProps.filter(p => p.type === 'SpreadElement').map(s => s?.argument?.name)
+        existingSxProps &&
+        existingSxProps
+          .filter(p => p.type === 'SpreadElement')
+          .map(s => {
+            const argName = s?.argument?.name
+            const propName = s?.argument?.property?.name
+            const objectName = s?.argument?.object?.name
+            return argName || `${objectName}.${propName}`
+          })
 
       attrNodes.forEach((attr, index) => {
         const key = attr?.value?.name?.name
