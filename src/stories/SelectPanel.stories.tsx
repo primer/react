@@ -6,7 +6,7 @@ import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import {DropdownButton} from '../DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
-import Box from '../BorderBox'
+import Box from '../Box'
 
 const meta: Meta = {
   title: 'Composite components/SelectPanel',

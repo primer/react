@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 
-import {ThemeProvider, BaseStyles, BorderBox, themeGet, useTheme} from '..'
+import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
 import {ThemeProviderProps} from '../ThemeProvider'
 import {createGlobalStyle} from 'styled-components'
 

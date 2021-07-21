@@ -1,7 +1,6 @@
 import {IconProps} from '@primer/octicons-react'
 import React from 'react'
-import BorderBox from './BorderBox'
-import {Box, BoxProps} from '.'
+import Box, {BoxProps} from './Box'
 
 export type CircleOcticonProps = {
   as?: React.ElementType
@@ -13,11 +12,20 @@ function CircleOcticon(props: CircleOcticonProps) {
   const {size, as} = props
   const {icon: IconComponent, bg, ...rest} = props
   return (
-    <BorderBox as={as} bg={bg} overflow="hidden" borderWidth={0} size={size} borderRadius="50%">
+    <Box
+      as={as}
+      bg={bg}
+      overflow="hidden"
+      borderWidth={0}
+      size={size}
+      borderRadius="50%"
+      borderStyle="solid"
+      borderColor="border.primary"
+    >
       <Box display="flex" {...rest} alignItems="center" justifyContent="center">
         <IconComponent size={size} />
       </Box>
-    </BorderBox>
+    </Box>
   )
 }
 

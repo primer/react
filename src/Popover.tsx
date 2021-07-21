@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import styled from 'styled-components'
-import BorderBox from './BorderBox'
+import Box from './Box'
 import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
@@ -43,7 +43,7 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
   ${sx};
 `
 
-const PopoverContent = styled(BorderBox)`
+const PopoverContent = styled(Box)`
   position: relative;
   width: 232px;
   margin-right: auto;

@@ -34,7 +34,15 @@ _After:_
 ## Default example
 
 ```jsx live
-<BorderBox width={300} height={300} borderRadius={0}>
+<Box
+  borderWidth="1px"
+  borderStyle="solid"
+  borderColor="border.primary"
+  borderRadius={2}
+  width={300}
+  height={300}
+  borderRadius={0}
+>
   <Flex flexWrap="nowrap">
     <Box p={3} color="text.inverse" bg="bg.infoInverse">
       Item 1
@@ -46,7 +54,7 @@ _After:_
       Item 3
     </Box>
   </Flex>
-</BorderBox>
+</Box>
 ```
 
 ## System props

@@ -1,6 +1,7 @@
 ---
 title: Pagination
 ---
+
 import State from '../components/State'
 
 Use the pagination component to create a connected set of links that lead to related pages (for example, previous, next, or page numbers).
@@ -10,11 +11,7 @@ Use the pagination component to create a connected set of links that lead to rel
 The pagination component only requires two properties to render: `pageCount`, which is the total number of pages, and `currentPage`, which is the currently selected page number (which should be managed by the consuming application).
 
 ```jsx live
-<Pagination
-  pageCount={15}
-  currentPage={2}
-  onPageChange={e => e.preventDefault()}
-/>
+<Pagination pageCount={15} currentPage={2} onPageChange={e => e.preventDefault()} />
 ```
 
 However, to handle state changes when the user clicks a page, you also need to pass `onPageChange`, which is a function that takes a click event and page number as an argument:
@@ -35,14 +32,12 @@ By default, clicking a link in the pagination component will cause the browser t
     }
 
     return (
-      <BorderBox p={2}>
-        <Box>Current page: {page} / {totalPages}</Box>
-        <Pagination
-          pageCount={totalPages}
-          currentPage={page}
-          onPageChange={onPageChange}
-        />
-      </BorderBox>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
+        <Box>
+          Current page: {page} / {totalPages}
+        </Box>
+        <Pagination pageCount={totalPages} currentPage={page} onPageChange={onPageChange} />
+      </Box>
     )
   }}
 </State>
@@ -63,20 +58,15 @@ type HrefBuilder = (page: number) => string
       evt.preventDefault()
       setLastUrl(evt.target.href)
     }
-    const hrefBuilder = (page) => {
+    const hrefBuilder = page => {
       return `https://example.com/pages/${page}`
     }
 
     return (
-      <BorderBox p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
         <Box>The last URL clicked was: {lastUrl}</Box>
-        <Pagination
-          pageCount={15}
-          currentPage={2}
-          onPageChange={onPageChange}
-          hrefBuilder={hrefBuilder}
-        />
-      </BorderBox>
+        <Pagination pageCount={15} currentPage={2} onPageChange={onPageChange} hrefBuilder={hrefBuilder} />
+      </Box>
     )
   }}
 </State>
@@ -126,15 +116,12 @@ To hide all the page numbers and create a simple pagination container with just 
     }
 
     return (
-      <BorderBox p={2}>
-        <Box>Current page: {page} / {totalPages}</Box>
-        <Pagination
-          pageCount={totalPages}
-          currentPage={page}
-          onPageChange={onPageChange}
-          showPages={false}
-        />
-      </BorderBox>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
+        <Box>
+          Current page: {page} / {totalPages}
+        </Box>
+        <Pagination pageCount={totalPages} currentPage={page} onPageChange={onPageChange} showPages={false} />
+      </Box>
     )
   }}
 </State>
@@ -146,15 +133,15 @@ Pagination components get `COMMON` system props. Read our [System Props](/system
 
 ## Component props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| currentPage | Number | | **Required.** The currently selected page. |
-| hrefBuilder | Function | `#${page}` | A function to generate links based on page number. |
-| marginPageCount | Number | 1 | How many pages to always show at the left and right of the component. |
-| onPageChange | Function | no-op | Called with event and page number when a page is clicked. |
-| pageCount | Number | | **Required.** The total number of pages. |
-| showPages | Boolean | `true` | Whether or not to show the individual page links. |
-| surroundingPageCount | Number | 2 | How many pages to display on each side of the currently selected page. |
+| Name                 | Type     |  Default   | Description                                                            |
+| :------------------- | :------- | :--------: | :--------------------------------------------------------------------- |
+| currentPage          | Number   |            | **Required.** The currently selected page.                             |
+| hrefBuilder          | Function | `#${page}` | A function to generate links based on page number.                     |
+| marginPageCount      | Number   |     1      | How many pages to always show at the left and right of the component.  |
+| onPageChange         | Function |   no-op    | Called with event and page number when a page is clicked.              |
+| pageCount            | Number   |            | **Required.** The total number of pages.                               |
+| showPages            | Boolean  |   `true`   | Whether or not to show the individual page links.                      |
+| surroundingPageCount | Number   |     2      | How many pages to display on each side of the currently selected page. |
 
 ## Theming
 

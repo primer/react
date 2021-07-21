@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
 
-import {BaseStyles, BorderBox, Button, Flash, Text, ThemeProvider} from '..'
+import {BaseStyles, Box, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Box from '../Box'
 import {themeGet} from '@styled-system/theme-get'
