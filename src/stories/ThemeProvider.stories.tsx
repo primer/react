@@ -48,9 +48,18 @@ Default.args = {
 function NightMode() {
   return (
     <ThemeProvider colorMode="night">
-      <BorderBox my={3} p={3} color="text.primary" bg="bg.canvas">
+      <Box
+        my={3}
+        p={3}
+        color="text.primary"
+        bg="bg.canvas"
+        borderWidth="1px"
+        borderStyle="solid"
+        borderColor="border.primary"
+        borderRadius={2}
+      >
         Always night mode (<ActiveColorScheme />)
-      </BorderBox>
+      </Box>
     </ThemeProvider>
   )
 }
@@ -59,9 +68,18 @@ function InverseMode() {
   const {resolvedColorMode} = useTheme()
   return (
     <ThemeProvider colorMode={resolvedColorMode === 'day' ? 'night' : 'day'}>
-      <BorderBox my={3} p={3} color="text.primary" bg="bg.canvas">
+      <Box
+        my={3}
+        p={3}
+        color="text.primary"
+        bg="bg.canvas"
+        borderWidth="1px"
+        borderStyle="solid"
+        borderColor="border.primary"
+        borderRadius={2}
+      >
         Always inverse of parent mode (<ActiveColorScheme />)
-      </BorderBox>
+      </Box>
     </ThemeProvider>
   )
 }
