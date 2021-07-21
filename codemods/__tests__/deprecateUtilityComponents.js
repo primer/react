@@ -161,7 +161,7 @@ defineInlineTest(
   `
 import {BorderBox} from '@primer/components'
 export default () => (
-  <BorderBox>
+  <BorderBox borderColor="border.secondary" borderRadius={1}>
     <div />
   </BorderBox>
 )
@@ -169,7 +169,7 @@ export default () => (
   `
 import {Box} from '@primer/components'
 export default () => (
-  <Box>
+  <Box borderColor="border.secondary" borderRadius={1} borderWidth="1px" borderStyle="solid">
     <div />
   </Box>
 )
