@@ -24,7 +24,7 @@ First, install jscodeshift:
 Then, run the codemod using the appropriate command (examples given from the primer/components root directory)
 
 typescript example:
-`jscodeshift -t codemods/removeSystemProps.js --parser=tsx path/to/workspace/src/*.tsx`
+`jscodeshift -t codemods/deprecateUtilityComponents.js --parser=tsx path/to/workspace/src/*.tsx`
 
 es6 example:
-`jscodeshift -t codemods/removeSystemProps.js --parser=jsx path/to/workspace/src/*.jsx`
+`jscodeshift -t codemods/deprecateUtilityComponents.js --parser=jsx path/to/workspace/src/*.jsx`
