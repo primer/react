@@ -74,5 +74,5 @@ There is a codemod available to upgrade these components:
 
   ```shell
   npx jscodeshift -t node_modules/@primer/components/codemods/removeSystemProps.js
-  --parser=babel path/to/workspace/src/*.tsx
+  --parser=babel path/to/workspace/src/*.jsx
   ```
