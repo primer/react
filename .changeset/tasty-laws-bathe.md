@@ -61,14 +61,18 @@ UnderlineNav
 
 In place of these components, you should now put any system prop assignments in the `sx` prop. There is a codemod available to effectively handle this migration.
 
-First, install jscodeshift:
+There is a codemod available to upgrade these components:
 
-`npm install -g jscodeshift`
+- TypeScript example:
 
-Then, run the codemod using the appropriate command (examples given from the primer/components root directory)
+  ```shell
+  npx jscodeshift -t node_modules/@primer/components/codemods/removeSystemProps.js
+  --parser=tsx path/to/workspace/src/*.tsx
+  ```
 
-typescript example:
-`jscodeshift -t codemods/removeSystemProps.js --parser=tsx path/to/workspace/src/*.tsx`
+- Babel example:
 
-babel example:
-`jscodeshift -t codemods/removeSystemProps.js --parser=babel path/to/workspace/src/*.jsx`
+  ```shell
+  npx jscodeshift -t node_modules/@primer/components/codemods/removeSystemProps.js
+  --parser=babel path/to/workspace/src/*.tsx
+  ```
