@@ -1,67 +1,15 @@
 ---
-'@primer/components': patch
+'@primer/components': minor
 ---
 
-Deprecate system props from components that are not `Box`
+System props are deprecated in all components except `Box`. Move all system props into the [`sx` prop](https://primer.style/components/overriding-styles) instead. Example:
 
-The following components will be have system props removed:
+```diff
+- <Button mr={2}>...</Button>
++ <Button sx={{mr: 2}}>...</Button>
+```
 
-Avatar
-AvatarStack
-BranchName
-Breadcrumb
-Button
-ButtonBase
-ButtonClose
-ButtonTableList
-CircleBadge
-CounterLabel
-Details
-Dialog
-Dropdown
-FilteredSearch
-FilterList
-Flash
-FormGroup
-FormGroupLabel
-Header
-HeaderItem
-Label
-LabelGroup
-Link
-Overlay
-Pagehead
-Pagination
-Popover
-PopoverContent
-SelectMenu
-SelectMenuDivider
-SelectMenuFilter
-SelectMenuFooter
-SelectMenuHeader
-SelectMenuItem
-SelectMenuList
-SelectMenuLoadingAnimation
-SelectMenuModal
-SelectMenuTab
-SelectMenuTabPanel
-SelectMenuTabs
-SideNav
-Spinner
-StateLabel
-StyledOcticon
-SubNav
-TabNav
-TabNavLink
-TextInput
-Timeline
-Tooltip
-Truncate
-UnderlineNav
-
-In place of these components, you should now put any system prop assignments in the `sx` prop. There is a codemod available to effectively handle this migration.
-
-There is a codemod available to upgrade these components:
+There is a codemod available to migrate from system props to the `sx` prop:
 
 - TypeScript example:
 
@@ -74,5 +22,5 @@ There is a codemod available to upgrade these components:
 
   ```shell
   npx jscodeshift -t node_modules/@primer/components/codemods/removeSystemProps.js
-  --parser=babel path/to/workspace/src/*.jsx
+  --parser=babel path/to/workspace/src/*.tsx
   ```
