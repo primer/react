@@ -14,10 +14,6 @@ StyledOcticon renders an [Octicon](https://octicons.github.com) with common syst
 
 ## System props
 
-StyledOcticon components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
-## System props
-
 <Note variant="warning">
 
 System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
