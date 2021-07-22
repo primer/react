@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Position, Flex} from '..'
+import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Box} from '..'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {ItemInput} from '../ActionList/List'
 
@@ -57,13 +57,13 @@ export const DropdownOverlay = () => {
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
         >
-          <Flex flexDirection="column" p={2}>
+          <Box display="flex" flexDirection="column" p={2}>
             <DummyItem>Copy link</DummyItem>
             <DummyItem>Quote reply</DummyItem>
             <DummyItem>Reference in new issue</DummyItem>
             <DummyItem>Edit</DummyItem>
             <DummyItem>Delete</DummyItem>
-          </Flex>
+          </Box>
         </Overlay>
       ) : null}
     </>
@@ -77,7 +77,7 @@ export const DialogOverlay = () => {
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false)
   return (
-    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
@@ -90,16 +90,16 @@ export const DialogOverlay = () => {
           onClickOutside={closeOverlay}
           width="small"
         >
-          <Flex flexDirection="column" p={2}>
+          <Box display="flex" flexDirection="column" p={2}>
             <Text>Are you sure?</Text>
             <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
             <Button onClick={closeOverlay} ref={confirmButtonRef}>
               Confirm
             </Button>
-          </Flex>
+          </Box>
         </Overlay>
       ) : null}
-    </Position>
+    </Box>
   )
 }
 
@@ -137,7 +137,7 @@ export const OverlayOnTopOfOverlay = () => {
   )
   const [selectedItem, setSelectedItem] = React.useState<ItemInput | undefined>()
   return (
-    <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
       <input placeholder="Input for focus testing" />
       <br />
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -163,7 +163,7 @@ export const OverlayOnTopOfOverlay = () => {
               width="small"
               sx={{top: '40px'}}
             >
-              <Flex flexDirection="column" p={2}>
+              <Box display="flex" flexDirection="column" p={2}>
                 <Text>Select an option!</Text>
                 <DropdownMenu
                   renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
@@ -176,11 +176,11 @@ export const OverlayOnTopOfOverlay = () => {
                   selectedItem={selectedItem}
                   onChange={setSelectedItem}
                 />
-              </Flex>
+              </Box>
             </Overlay>
           ) : null}
         </Overlay>
       ) : null}
-    </Position>
+    </Box>
   )
 }

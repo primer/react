@@ -13,7 +13,6 @@ exports[`Timeline renders consistently 1`] = `
 
 <div
   className="c0"
-  display="flex"
 />
 `;
 
@@ -38,14 +37,13 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
 
 <div
   className="c0"
-  display="flex"
 />
 `;
 
 exports[`Timeline.Badge renders consistently 1`] = `
 .c0 {
-  z-index: 1;
   position: relative;
+  z-index: 1;
 }
 
 .c1 {
@@ -53,13 +51,13 @@ exports[`Timeline.Badge renders consistently 1`] = `
   margin-left: -15px;
   color: #586069;
   background-color: #e1e4e8;
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -91,17 +89,9 @@ exports[`Timeline.Badge renders consistently 1`] = `
 
 exports[`Timeline.Item renders consistently 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   position: relative;
   padding: 16px 0;
   margin-left: 16px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .c0::before {
@@ -117,25 +107,16 @@ exports[`Timeline.Item renders consistently 1`] = `
 
 <div
   className="c0 Timeline-Item"
-  display="flex"
 />
 `;
 
 exports[`Timeline.Item renders with condensed prop 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   position: relative;
   padding: 16px 0;
   margin-left: 16px;
   padding-top: 4px;
   padding-bottom: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .c0::before {
@@ -164,6 +145,5 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
 
 <div
   className="c0 Timeline-Item"
-  display="flex"
 />
 `;

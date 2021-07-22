@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps} from './constants'
-import {Absolute} from './Position'
+import {Box} from '.'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -151,9 +151,9 @@ const AvatarStack = ({children, alignRight, ...rest}: AvatarStackProps) => {
   })
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} {...rest}>
-      <Absolute display="flex" width="38px" className="pc-AvatarStackBody">
+      <Box position="absolute" display="flex" width="38px" className="pc-AvatarStackBody">
         {transformChildren(children)}
-      </Absolute>
+      </Box>
     </AvatarStackWrapper>
   )
 }

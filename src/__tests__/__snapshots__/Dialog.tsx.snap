@@ -11,12 +11,12 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 .c0 {
   padding: 16px;
   background-color: #f6f8fa;
+  border-radius: 6px 6px 0px 0px;
+  border-bottom: 1px solid #e1e4e8;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 6px 6px 0px 0px;
-  border-bottom: 1px solid #e1e4e8;
 }
 
 @media screen and (max-width:750px) {
@@ -27,7 +27,6 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 
 <div
   className="c0"
-  display="flex"
 >
   <span
     className="c1"
@@ -114,12 +113,12 @@ Array [
 .c2 {
   padding: 16px;
   background-color: #f6f8fa;
+  border-radius: 6px 6px 0px 0px;
+  border-bottom: 1px solid #e1e4e8;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 6px 6px 0px 0px;
-  border-bottom: 1px solid #e1e4e8;
 }
 
 @media screen and (max-width:750px) {
@@ -174,7 +173,6 @@ Array [
     </button>
     <div
       className="c2"
-      display="flex"
       id="header"
     >
       <span

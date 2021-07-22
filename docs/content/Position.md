@@ -1,8 +1,33 @@
 ---
 title: Position Components
+status: Deprecated
 ---
 
 The Position component is a wrapper component that gives the containing component css positioning abilities.
+
+## Deprecation
+
+Use [Box](/Box) instead.
+
+**Before**
+
+```jsx
+<Position position="absolute">...</Position>
+<Absolute>...</Absolute>
+<Relative>...</Relative>
+<Fixed>...</Fixed>
+<Sticky>...</Sticky>
+```
+
+**After**
+
+```jsx
+<Box position="absolute">...</Box>
+<Box position="absolute">...</Box>
+<Box position="relative">...</Box>
+<Box position="fixed">...</Box>
+<Box position="sticky">...</Box>
+```
 
 ## Default examples
 
@@ -10,7 +35,7 @@ The Position component is a wrapper component that gives the containing componen
 <Box p={2} mb={200}>
   <Heading mb={2}>Relative + Absolute</Heading>
   <Relative size={128} mx={128} my={6}>
-    <BorderBox size="100%">
+    <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} size="100%">
       <Absolute left="100%" top={0} color="text.inverse" bg="bg.successInverse" p={1}>
         rt
       </Absolute>
@@ -35,16 +60,24 @@ The Position component is a wrapper component that gives the containing componen
       <Absolute right={0} bottom="100%" color="text.inverse" bg="bg.successInverse" p={1}>
         tr
       </Absolute>
-    </BorderBox>
+    </Box>
   </Relative>
 
   <Heading my={2}>Sticky</Heading>
 
-  <BorderBox border={1} borderColor="border.success" height={500}>
+  <Box
+    borderWidth="1px"
+    borderStyle="solid"
+    borderColor="border.primary"
+    borderRadius={2}
+    border={1}
+    borderColor="border.success"
+    height={500}
+  >
     <Sticky top={0} bg="bg.success" p={6}>
       I'm sticky!
     </Sticky>
-  </BorderBox>
+  </Box>
 
   <Heading my={2}>Fixed</Heading>
   <p>(see the bottom right of the screen)</p>

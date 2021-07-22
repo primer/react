@@ -2,7 +2,6 @@ import React, {KeyboardEventHandler, useCallback, useEffect, useMemo, useRef} fr
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
-import Flex from '../Flex'
 import {ActionList} from '../ActionList'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -115,7 +114,7 @@ export function FilteredActionList({
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Flex flexDirection="column" overflow="hidden">
+    <Box display="flex" flexDirection="column" overflow="hidden">
       <StyledHeader>
         <TextInput
           ref={inputRef}
@@ -140,7 +139,7 @@ export function FilteredActionList({
           <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
-    </Flex>
+    </Box>
   )
 }
 
