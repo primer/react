@@ -47,6 +47,12 @@ You can use the `expandable` boolean prop to display the truncated text on hover
 
 ## System props
 
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
 Truncate components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
