@@ -44,6 +44,8 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
 `
 
 const PopoverContent = styled(Box)`
+  border: 1px solid ${get('colors.border.primary')};
+  border-radius: ${get('radii.2')};
   position: relative;
   width: 232px;
   margin-right: auto;
