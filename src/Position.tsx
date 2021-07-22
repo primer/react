@@ -6,7 +6,7 @@ import {ComponentProps} from './utils/types'
 type StyledPositionProps = {as?: React.ElementType}
 
 /**
- * @deprecated Use the Box component instead (i.e. <Position> → <Box position="absolute">)
+ * @deprecated Use the Box component instead (i.e. <Position> → <Box>)
  */
 const Position = styled(Box)<StyledPositionProps>``
 
