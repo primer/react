@@ -1,6 +1,6 @@
 import React from 'react'
 import {LAYOUT, POSITION} from '../constants'
-import {BorderBox, Position, Absolute, Fixed, Relative, Sticky} from '..'
+import {Box, Position, Absolute, Fixed, Relative, Sticky} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -31,7 +31,9 @@ describe('position components', () => {
     })
 
     it('can render other components with the as prop', () => {
-      const result = render(<Absolute as={BorderBox} />)
+      const result = render(
+        <Absolute as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} />
+      )
       expect(result).toHaveStyleRule('position', 'absolute')
       expect(result).toHaveStyleRule('border-width', '1px')
       expect(result).toHaveStyleRule('border-style', 'solid')
@@ -57,7 +59,9 @@ describe('position components', () => {
     })
 
     it('can render other components with the as prop', () => {
-      const result = render(<Fixed as={BorderBox} />)
+      const result = render(
+        <Fixed as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} />
+      )
       expect(result).toHaveStyleRule('position', 'fixed')
       expect(result).toHaveStyleRule('border-width', '1px')
       expect(result).toHaveStyleRule('border-style', 'solid')
@@ -79,7 +83,9 @@ describe('position components', () => {
     })
 
     it('can render other components with the as prop', () => {
-      const result = render(<Relative as={BorderBox} />)
+      const result = render(
+        <Relative as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} />
+      )
       expect(result).toHaveStyleRule('position', 'relative')
       expect(result).toHaveStyleRule('border-width', '1px')
       expect(result).toHaveStyleRule('border-style', 'solid')
@@ -101,7 +107,9 @@ describe('position components', () => {
     })
 
     it('can render other components with the as prop', () => {
-      const result = render(<Sticky as={BorderBox} />)
+      const result = render(
+        <Sticky as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} />
+      )
       expect(result).toHaveStyleRule('position', 'sticky')
       expect(result).toHaveStyleRule('border-width', '1px')
       expect(result).toHaveStyleRule('border-style', 'solid')

@@ -8,9 +8,7 @@ exports[`Popover Popover.Content renders consistently 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -217,9 +215,7 @@ exports[`Popover renders consistently 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -426,9 +422,7 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -784,9 +778,7 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -1142,9 +1134,7 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -1500,9 +1490,7 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -1858,9 +1846,7 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -2216,9 +2202,7 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -2574,9 +2558,7 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -2932,9 +2914,7 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -3290,9 +3270,7 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -3648,9 +3626,7 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -4006,9 +3982,7 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;
@@ -4364,9 +4338,7 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 }
 
 .c2 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e1e4e8;
+  border: 1px solid #e1e4e8;
   border-radius: 6px;
   position: relative;
   width: 232px;

@@ -92,7 +92,7 @@ Used to wrap the content in a `SelectMenu`.
 Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself. You will need to wrap the SelectMenu in a relatively positioned element for this to work properly.
 
 ```jsx live
-<Relative display="flex" justifyContent="flex-end">
+<Box position="relative" display="flex" justifyContent="flex-end">
   <SelectMenu>
     <Button as="summary">Projects</Button>
     <SelectMenu.Modal align="right">
@@ -105,7 +105,7 @@ Use the `align='right'` prop to align the modal to the right. Note that this onl
       </SelectMenu.List>
     </SelectMenu.Modal>
   </SelectMenu>
-</Relative>
+</Box>
 ```
 
 ### Component Props
@@ -172,6 +172,12 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expe
   </SelectMenu.Modal>
 </SelectMenu>
 ```
+
+### System Props
+
+**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+
+SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ### Component Props
 

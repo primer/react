@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {Flex, Text, Heading} from '../src'
+import {Box, Text, Heading} from '../src'
 
 const useAddRuleForPseudoClass = (ref, pseudoClass) => {
   const [modifiedClassName, setModifiedClassName] = useState('')
@@ -43,10 +43,10 @@ export const WithPseudoClass = props => {
 
 export const StickerSheet = ({children, title}) => {
   return (
-    <Flex p={[3, 4]} flexDirection="column">
+    <Box display="flex" p={[3, 4]} flexDirection="column">
       <Heading>{title}</Heading>
       {children}
-    </Flex>
+    </Box>
   )
 }
 
@@ -88,22 +88,24 @@ export const ComponentStickerSheet = ({props = [], pseudoClasses = [], title, ch
     )
   })
   return (
-    <Flex flexDirection="column" mb={2}>
+    <Box display="flex" flexDirection="column" mb={2}>
       <Text fontSize={3} fontWeight="bold">
         {title}
       </Text>
       {propsModifiedChildren[0]}
       {pseudoClassChildren}
       {propsModifiedChildren.slice(1)}
-    </Flex>
+    </Box>
   )
 }
 
 const StickerSheetRow = ({children, label, childWrapper}) => {
   return (
-    <Flex flexDirection="column">
+    <Box display="flex" flexDirection="column">
       <Text mr={2}>{label}</Text>
-      <Flex mb={2}>{React.Children.map(children, child => childWrapper(child))}</Flex>
-    </Flex>
+      <Box display="flex" mb={2}>
+        {React.Children.map(children, child => childWrapper(child))}
+      </Box>
+    </Box>
   )
 }

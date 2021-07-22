@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Avatar from './Avatar'
 import {get} from './constants'
-import {Relative, RelativeProps} from './Position'
+import {Box, BoxProps} from '.'
 
 const ChildAvatar = styled(Avatar)`
   position: absolute;
@@ -11,7 +11,7 @@ const ChildAvatar = styled(Avatar)`
   box-shadow: ${get('shadows.avatar.childShadow')};
 `
 
-export type AvatarPairProps = RelativeProps
+export type AvatarPairProps = BoxProps
 
 const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
@@ -19,9 +19,9 @@ const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
     return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar bg="bg.canvas" {...child.props} size={20} />
   })
   return (
-    <Relative display="inline-flex" {...rest}>
+    <Box position="relative" display="inline-flex" {...rest}>
       {avatars}
-    </Relative>
+    </Box>
   )
 }
 

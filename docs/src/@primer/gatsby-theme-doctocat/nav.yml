@@ -39,8 +39,6 @@
       url: /Avatar
     - title: AvatarStack
       url: /AvatarStack
-    - title: BorderBox
-      url: /BorderBox
     - title: Box
       url: /Box
     - title: BranchName
@@ -67,12 +65,8 @@
       url: /FilterList
     - title: Flash
       url: /Flash
-    - title: Flex
-      url: /Flex
     - title: FormGroup
       url: /FormGroup
-    - title: Grid
-      url: /Grid
     - title: Header
       url: /Header
     - title: Heading
@@ -95,8 +89,6 @@
       url: /Popover
     # - title: Portal
     #   url: /Portal
-    - title: Position
-      url: /Position
     - title: ProgressBar
       url: /ProgressBar
     - title: SelectMenu
@@ -125,3 +117,13 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
+- title: Deprecated
+  children:
+    - title: BorderBox
+      url: /BorderBox
+    - title: Flex
+      url: /Flex
+    - title: Grid
+      url: /Grid
+    - title: Position
+      url: /Position

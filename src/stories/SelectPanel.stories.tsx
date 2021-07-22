@@ -6,7 +6,7 @@ import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import {DropdownButton} from '../DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
-import BorderBox from '../BorderBox'
+import Box from '../Box'
 
 const meta: Meta = {
   title: 'Composite components/SelectPanel',
@@ -32,7 +32,18 @@ export default meta
 
 function getColorCircle(color: string) {
   return function () {
-    return <BorderBox bg={color} borderColor={color} width={14} height={14} borderRadius={10} margin="auto" />
+    return (
+      <Box
+        bg={color}
+        borderColor={color}
+        width={14}
+        height={14}
+        borderRadius={10}
+        margin="auto"
+        borderWidth="1px"
+        borderStyle="solid"
+      />
+    )
   }
 }
 

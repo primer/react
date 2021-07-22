@@ -13,7 +13,7 @@ It can be useful to give the `Popover.Content` element a margin to help align th
 ## Default Example
 
 ```jxs live
-<Relative>
+<Box position="relative">
   <Text textAlign="center" display="block">
     <ButtonPrimary>Hello!</ButtonPrimary>
   </Text>
@@ -25,7 +25,7 @@ It can be useful to give the `Popover.Content` element a margin to help align th
       <Button>Got it!</Button>
     </Popover.Content>
   </Popover>
-</Relative>
+</Box>
 ```
 
 ## Caret position
@@ -52,7 +52,7 @@ function PopoverDemo(props) {
         </label>
       </Box>
 
-      <Relative pt={4}>
+      <Box position="relative" pt={4}>
         <Popover relative open={open} caret={pos}>
           <Popover.Content>
             <Heading sx={{fontSize: 2}}>
@@ -62,7 +62,7 @@ function PopoverDemo(props) {
             <Button onClick={() => setOpen(false)}>Got it!</Button>
           </Popover.Content>
         </Popover>
-      </Relative>
+      </Box>
     </Box>
   )
 }
@@ -96,9 +96,9 @@ function CaretSelector(props) {
   ))
 
   return (
-    <Grid gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
+    <Box display="grid" gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
       {choices}
-    </Grid>
+    </Box>
   )
 }
 

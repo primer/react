@@ -2,7 +2,7 @@ import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
 import ButtonClose from './Button/ButtonClose'
 import {COMMON, get, LAYOUT, SystemCommonProps, SystemLayoutProps} from './constants'
-import Flex from './Flex'
+import Box from './Box'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
@@ -44,9 +44,10 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   ${sx};
 `
 
-const DialogHeaderBase = styled(Flex)<SxProp>`
+const DialogHeaderBase = styled(Box)<SxProp>`
   border-radius: ${get('radii.2')} ${get('radii.2')} 0px 0px;
   border-bottom: 1px solid ${get('colors.border.primary')};
+  display: flex;
 
   @media screen and (max-width: 750px) {
     border-radius: 0px;
@@ -138,7 +139,7 @@ DialogHeader.defaultProps = {
 }
 
 DialogHeader.propTypes = {
-  ...Flex.propTypes
+  ...Box.propTypes
 }
 
 DialogHeader.displayName = 'Dialog.Header'
