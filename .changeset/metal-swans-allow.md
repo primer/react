@@ -2,36 +2,31 @@
 '@primer/components': minor
 ---
 
-Deprecate utility components in favor of using Box.
+The following components have been deprecated in favor of the `Box` component:
 
-The following components will be deprecated:
+| Component   | Replacement                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------- |
+| `Flex`      | `<Box display="flex">`                                                                      |
+| `Grid`      | `<Box display="grid">`                                                                      |
+| `Position`  | `<Box>`                                                                                     |
+| `Absolute`  | `<Box position="absolute">`                                                                 |
+| `Fixed`     | `<Box position="fixed">`                                                                    |
+| `Relative`  | `<Box position="relative">`                                                                 |
+| `Sticky`    | `<Box position="sticky">`                                                                   |
+| `BorderBox` | `<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2}>` |
 
-- Flex
-- Grid
-- Position
-- Absolute
-- Fixed
-- Relative
-- Sticky
-- BorderBox
+There is a codemod available to upgrade these components:
 
-In place of these components, you may now use `Box`, which accepts all system props. There is a codemod availible to effectively handle these deprecations.
+- TypeScript example:
 
-First, install jscodeshift:
+  ```shell
+  npx jscodeshift -t node_modules/@primer/components/codemods/deprecateUtilityComponents.js
+  --parser=tsx path/to/workspace/src/*.tsx
+  ```
 
-```shell
-npm install -g jscodeshift
-```
+- Babel example:
 
-Then, run the codemod using the appropriate command (examples given from the primer/components root directory)
-
-TypeScript example:
-
-```shell
-jscodeshift -t codemods/deprecateUtilityComponents.js --parser=tsx path/to/workspace/src/*.tsx
-```
-
-Babel example:
-```shell
-jscodeshift -t codemods/deprecateUtilityComponents.js --parser=babel path/to/workspace/src/*.jsx
-```
+  ```shell
+  npx jscodeshift -t node_modules/@primer/components/codemods/deprecateUtilityComponents.js
+  --parser=babel path/to/workspace/src/*.tsx
+  ```
