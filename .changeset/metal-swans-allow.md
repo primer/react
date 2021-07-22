@@ -19,12 +19,19 @@ In place of these components, you may now use `Box`, which accepts all system pr
 
 First, install jscodeshift:
 
-`npm install -g jscodeshift`
+```shell
+npm install -g jscodeshift
+```
 
 Then, run the codemod using the appropriate command (examples given from the primer/components root directory)
 
-typescript example:
-`jscodeshift -t codemods/deprecateUtilityComponents.js --parser=tsx path/to/workspace/src/*.tsx`
+TypeScript example:
 
-babel example:
-`jscodeshift -t codemods/deprecateUtilityComponents.js --parser=babel path/to/workspace/src/*.jsx`
+```shell
+jscodeshift -t codemods/deprecateUtilityComponents.js --parser=tsx path/to/workspace/src/*.tsx
+```
+
+Babel example:
+```shell
+jscodeshift -t codemods/deprecateUtilityComponents.js --parser=babel path/to/workspace/src/*.jsx
+```
