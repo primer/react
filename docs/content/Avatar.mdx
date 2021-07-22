@@ -1,25 +1,29 @@
 ---
 title: Avatar
+componentId: avatar
+source: https://github.com/primer/components/blob/main/src/Avatar.tsx
 ---
 
 import {Props} from '../src/props'
 import {Avatar} from '@primer/components'
 
-Avatars are images used to represent users and organizations on GitHub. Use the default round avatar for users, and the `square` prop for organizations or any other non-human avatars.
-
-## Default example
-
 ```jsx live
 <Avatar src="https://avatars.githubusercontent.com/primer" />
 ```
 
-## Square Avatar
+## Props
+
+<Props of={Avatar} />
+
+## Examples
+
+### Square
 
 ```jsx live
 <Avatar square src="https://avatars.githubusercontent.com/primer" />
 ```
 
-## AvatarPair
+### AvatarPair
 
 ```jsx live
 <AvatarPair>
@@ -27,7 +31,3 @@ Avatars are images used to represent users and organizations on GitHub. Use the 
   <Avatar src="https://avatars.githubusercontent.com/primer" />
 </AvatarPair>
 ```
-
-## Props
-
-<Props of={Avatar} />
