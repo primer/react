@@ -5,15 +5,13 @@ status: Deprecated
 
 The `Flex` component behaves the same as the `Box` component except that it has `display: flex` set by default.
 
-_Previously, a `Flex.Item` component was used for flex item specific properties; `Box` now contains all those properties and should be used in its place._
-
 ## Deprecation
 
-Please use [Box](/Box) instead.
+Use [Box](/Box) instead.
 
-_Before:_
+**Before**
 
-```
+```jsx
 <Flex flexWrap="nowrap">
   <Box p={3} color="text.inverse" bg="bg.infoInverse">
     Item 1
@@ -21,9 +19,9 @@ _Before:_
 </Flex>
 ```
 
-_After:_
+**After**
 
-```
+```jsx
 <Box display="flex" flexWrap="nowrap">
   <Box p={3} color="text.inverse" bg="bg.infoInverse">
     Item 1
@@ -34,15 +32,7 @@ _After:_
 ## Default example
 
 ```jsx live
-<Box
-  borderWidth="1px"
-  borderStyle="solid"
-  borderColor="border.primary"
-  borderRadius={2}
-  width={300}
-  height={300}
-  borderRadius={0}
->
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
     <Box p={3} color="text.inverse" bg="bg.infoInverse">
       Item 1

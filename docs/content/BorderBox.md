@@ -7,20 +7,18 @@ BorderBox is a Box component with a border. When no `borderColor` is present, th
 
 ## Deprecation
 
-Please use [Box](/Box) instead.
+Use [Box](/Box) instead.
 
-_Before:_
+**Before**
 
-```
-<BorderBox>
-  Item 1
-</BorderBox>
+```jsx
+<BorderBox>Item 1</BorderBox>
 ```
 
-_After:_
+**After**
 
-```
-<Box borderWidth='1px' borderStyle='solid' borderColor='border.primary' borderRadius={2}>
+```jsx
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2}>
   Item 1
 </Box>
 ```

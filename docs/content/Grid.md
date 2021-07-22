@@ -7,11 +7,11 @@ Grid is a component that exposes grid system props. See the [CSS Tricks Complete
 
 ## Deprecation
 
-Please use [Box](/Box) instead.
+Use [Box](/Box) instead.
 
-_Before:_
+**Before**
 
-```
+```jsx
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
   <Box p={3} color="text.inverse" bg="bg.infoInverse">
     1
@@ -22,9 +22,9 @@ _Before:_
 </Grid>
 ```
 
-_After:_
+**After**
 
-```
+```jsx
 <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
   <Box p={3} color="text.inverse" bg="bg.infoInverse">
     1

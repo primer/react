@@ -7,26 +7,26 @@ The Position component is a wrapper component that gives the containing componen
 
 ## Deprecation
 
-Please use [Box](/Box) instead.
+Use [Box](/Box) instead.
 
-_Before:_
+**Before**
 
+```jsx
+<Position position="absolute">...</Position>
+<Absolute>...</Absolute>
+<Relative>...</Relative>
+<Fixed>...</Fixed>
+<Sticky>...</Sticky>
 ```
-<Position position="absolute" {...props}>x</Position>
-<Absolute {...props}>x</Absolute>
-<Relative {...props}>x</Relative>
-<Fixed {...props}>x</Fixed>
-<Sticky {...props}>x</Sticky>
-```
 
-_After:_
+**After**
 
-```
-<Box position="absolute" {...props}>x</Box>
-<Box position="absolute" {...props}>x</Box>
-<Box position="relative" {...props}>x</Box>
-<Box position="fixed" {...props}>x</Box>
-<Box position="sticky" {...props}>x</Box>
+```jsx
+<Box position="absolute">...</Box>
+<Box position="absolute">...</Box>
+<Box position="relative">...</Box>
+<Box position="fixed">...</Box>
+<Box position="sticky">...</Box>
 ```
 
 ## Default examples
