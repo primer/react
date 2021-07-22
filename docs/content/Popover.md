@@ -19,8 +19,8 @@ It can be useful to give the `Popover.Content` element a margin to help align th
   </Text>
 
   <Popover relative open={true} caret="top">
-    <Popover.Content mt={2}>
-      <Heading fontSize={2}>Popover heading</Heading>
+    <Popover.Content sx={{mt: 2}}>
+      <Heading sx={{fontSize: 2}}>Popover heading</Heading>
       <Text as="p">Message about this particular piece of UI.</Text>
       <Button>Got it!</Button>
     </Popover.Content>
@@ -39,11 +39,11 @@ function PopoverDemo(props) {
 
   return (
     <Box>
-      <Heading as="h3" fontSize={3}>
+      <Heading as="h3" sx={{fontSize: 3}}>
         Caret Position
       </Heading>
       <CaretSelector current={pos} onChange={setPos} />
-      <Heading as="h3" fontSize={3}>
+      <Heading as="h3" sx={{fontSize: 3}}>
         Popover Visibility
       </Heading>
       <Box my={2}>
@@ -55,7 +55,7 @@ function PopoverDemo(props) {
       <Box position="relative" pt={4}>
         <Popover relative open={open} caret={pos}>
           <Popover.Content>
-            <Heading fontSize={2}>
+            <Heading sx={{fontSize: 2}}>
               <code>{pos}</code> caret
             </Heading>
             <Text as="p">Message about this particular piece of UI.</Text>
@@ -107,7 +107,13 @@ render(<PopoverDemo />)
 
 ## System props
 
-`Popover` components get `COMMON`, `LAYOUT`, and `POSITION` system props. `Popover.Content` components get `COMMON`, `LAYOUT`, `BORDER`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+ProgressBar components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

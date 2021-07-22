@@ -20,6 +20,12 @@ Adds styles for multiple form elements used together.
 
 ## System props
 
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
 FormGroup components get `COMMON` system props. FormGroup.Label components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
@@ -32,7 +38,7 @@ FormGroup components get `COMMON` system props. FormGroup.Label components get `
 
 ### FormGroup.Label
 
-| Name | Type   | Default | Description                         |
-| :--- | :----- | :-----: | :---------------------------------- |
-| as   | String |  `label`  | Sets the HTML tag for the component |
-| htmlFor | String |  | The value of `htmlFor` needs to be the same as the `id` of the input it labels |
+| Name    | Type   | Default | Description                                                                    |
+| :------ | :----- | :-----: | :----------------------------------------------------------------------------- |
+| as      | String | `label` | Sets the HTML tag for the component                                            |
+| htmlFor | String |         | The value of `htmlFor` needs to be the same as the `id` of the input it labels |

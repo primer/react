@@ -10,10 +10,6 @@ BranchName is a label-type component rendered as an `<a>` tag by default with mo
 <BranchName>a_new_feature_branch</BranchName>
 ```
 
-## System props
-
-BranchName components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name | Type   | Default | Description                         |
