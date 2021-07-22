@@ -22,7 +22,11 @@ The Label component is used to add contextual metadata to a design. Visually it 
 
 ## System props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Label components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

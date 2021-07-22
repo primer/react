@@ -129,7 +129,11 @@ To hide all the page numbers and create a simple pagination container with just 
 
 ## System props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Pagination components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

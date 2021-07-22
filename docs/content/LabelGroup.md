@@ -18,7 +18,11 @@ The LabelGroup component is used to add commonly used margins and wrapping for g
 
 ## System props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 LabelGroup components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

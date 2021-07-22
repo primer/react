@@ -141,7 +141,11 @@ You can use a `button` tag instead by utilizing the [`as` prop](/core-concepts#t
 
 ### System props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -175,7 +179,11 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expe
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -239,7 +247,11 @@ The `onClick` prop is optional and can be used for any events or data fetching y
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.Tab components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -263,7 +275,11 @@ Wraps the content for each tab. Make sure to use the `tabName` prop to identify 
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -295,7 +311,11 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.Divder components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -325,7 +345,11 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.Footer components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -355,7 +379,11 @@ Use a `SelectMenu.Header` to add a header to the top of the select menu content.
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.Header components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -392,7 +420,11 @@ Use a `SelectMenu.LoadingAnimation` to add a loading animation inside of the Sel
 
 ### System Props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 SelectMenu.LoadingAnimation components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

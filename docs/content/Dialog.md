@@ -86,7 +86,11 @@ You can also pass any non-text content into the header:
 
 ## System props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 `Dialog` components get the `COMMON` and `LAYOUT` categories of system props. `Dialog.Header` components get `COMMON`, `LAYOUT`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

@@ -27,7 +27,11 @@ Use Spinner to let users know that content is being loaded.
 
 ## System props
 
-**Note: System props for components other than `Box` are deprecated and will be removed soon.**
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Spinner components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
