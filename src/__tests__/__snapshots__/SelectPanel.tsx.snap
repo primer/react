@@ -84,7 +84,7 @@ exports[`SelectPanel renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
-    aria-haspopup="listbox"
+    aria-haspopup="true"
     aria-labelledby="__primer_id_10000"
     className="c1"
     id="__primer_id_10000"

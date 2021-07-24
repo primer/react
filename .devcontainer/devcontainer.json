@@ -1,6 +1,8 @@
 {
   "name": "Primer Components",
-  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:14",
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:14",
+  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
   "forwardPorts": [8000],
-  "postCreateCommand": ["/bin/bash", "-c", "pushd docs && npm install && popd && npm install"]
+  "postCreateCommand": ["/bin/bash", "-c", "pushd docs && npm install && popd && npm install"],
+  "remoteUser": "node"
 }

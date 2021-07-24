@@ -4,7 +4,7 @@ import * as History from 'history'
 import {COMMON, get} from './constants'
 import styled, {css} from 'styled-components'
 
-import BorderBox from './BorderBox'
+import Box from './Box'
 import {ComponentProps} from './utils/types'
 import Link from './Link'
 import React from 'react'
@@ -14,7 +14,7 @@ import sx from './sx'
 type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'
   bordered?: boolean
-} & ComponentProps<typeof BorderBox>
+} & ComponentProps<typeof Box>
 
 function SideNavBase({variant, className, bordered, children, ...props}: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
@@ -25,9 +25,17 @@ function SideNavBase({variant, className, bordered, children, ...props}: SideNav
   }
 
   return (
-    <BorderBox as="nav" className={newClassName} {...props}>
+    <Box
+      borderWidth="1px"
+      borderStyle="solid"
+      borderColor="border.primary"
+      borderRadius={2}
+      as="nav"
+      className={newClassName}
+      {...props}
+    >
       {children}
-    </BorderBox>
+    </Box>
   )
 }
 

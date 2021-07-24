@@ -39,12 +39,12 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={ZapIcon} />
+    <StyledOcticon sx={{mr: 2}} size={16} icon={ZapIcon} />
     <Text>With an Octicon</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon mr={2} size={16} icon={DotIcon} color="icon.success" />
+    <StyledOcticon sx={{mr: 2}} size={16} icon={DotIcon} color="icon.success" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -55,7 +55,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
     <CounterLabel>16</CounterLabel>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Heading as="h5" fontSize={1}>
+    <Heading as="h5" sx={{fontSize: 1}}>
       A heading
     </Heading>
     <Text>and some more content</Text>
@@ -68,12 +68,28 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
 Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more lightweight version that has items with no borders and are more condensed.
 
 ```jsx live
-<BorderBox p={3} backgroundColor="bg.secondary" maxWidth={360}>
-  <BorderBox borderWidth={0} borderBottomWidth={1} borderRadius={0} mb={2} pb={1}>
+<Box
+  borderWidth="1px"
+  borderStyle="solid"
+  borderColor="border.primary"
+  borderRadius={2}
+  p={3}
+  backgroundColor="bg.secondary"
+  maxWidth={360}
+>
+  <Box
+    borderStyle="solid"
+    borderColor="border.primary"
+    borderWidth={0}
+    borderBottomWidth={1}
+    borderRadius={0}
+    mb={2}
+    pb={1}
+  >
     <Heading as="h5" fontSize={1} color="text.secondary">
       Menu
     </Heading>
-  </BorderBox>
+  </Box>
   <SideNav variant="lightweight">
     <SideNav.Link href="#url">
       <Text>Account</Text>
@@ -88,7 +104,7 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
       <Text>Notifications</Text>
     </SideNav.Link>
   </SideNav>
-</BorderBox>
+</Box>
 ```
 
 It can also appear nested, as a sub navigation. Use margin/padding [System Props](/system-props) to add indentation.
@@ -132,6 +148,12 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 ```
 
 ## System props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 `SideNav` components get `COMMON`, `BORDER`, `LAYOUT`, and `FLEX` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

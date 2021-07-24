@@ -3,7 +3,6 @@
 exports[`Pagination renders consistently 1`] = `
 .c1 {
   display: inline-block;
-  display: inline-block;
 }
 
 .c2 {
