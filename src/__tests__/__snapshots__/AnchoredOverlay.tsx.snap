@@ -92,3 +92,241 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   </button>
 </div>
 `;
+
+exports[`AnchoredOverlay should render consistently when open 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .c0 {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  line-height: 1.5;
+  color: #24292e;
+}
+
+.c1 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27,31,35,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,35,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:focus {
+  outline: none;
+}
+
+.c1:disabled {
+  cursor: default;
+}
+
+.c1:disabled svg {
+  opacity: 0.6;
+}
+
+.c1:hover {
+  background-color: #f3f4f6;
+  border-color: rgba(27,31,35,0.15);
+}
+
+.c1:focus {
+  border-color: rgba(27,31,35,0.15);
+  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+}
+
+.c1:active {
+  background-color: hsla(220,14%,94%,1);
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
+}
+
+.c1:disabled {
+  color: #959da5;
+  background-color: #fafbfc;
+  border-color: rgba(27,31,35,0.15);
+}
+
+.c2 {
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(27,31,35,0.12),0 8px 24px rgba(68,77,86,0.12);
+  position: absolute;
+  min-width: 192px;
+  max-width: 640px;
+  height: auto;
+  width: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  visibility: var(--styled-overlay-visibility);
+  top: 4px;
+  left: 0px;
+}
+
+.c2:focus {
+  outline: none;
+}
+
+<body>
+    <div>
+      <div
+        class="c0"
+        color="text.primary"
+        data-portal-root="true"
+        font-family="normal"
+      >
+        <button
+          aria-haspopup="true"
+          aria-labelledby="__primer_id_10007"
+          class="c1"
+          id="__primer_id_10007"
+          tabindex="0"
+        >
+          Anchor Button
+        </button>
+        <div
+          id="__primerPortalRoot__"
+        >
+          <div
+            style="position: relative; z-index: 1;"
+          >
+            <div
+              class="c2"
+              data-focus-trap="active"
+              height="auto"
+              role="none"
+              style="--styled-overlay-visibility: visible;"
+              width="auto"
+            >
+              <button
+                class="focus-visible"
+                data-focus-visible-added=""
+                tabindex="0"
+                type="button"
+              >
+                Focusable Child
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="BaseStyles__Base-qvuaww-0 dhupSQ"
+      color="text.primary"
+      data-portal-root="true"
+      font-family="normal"
+    >
+      <button
+        aria-haspopup="true"
+        aria-labelledby="__primer_id_10007"
+        class="ButtonBase-sc-181ps9o-0 Button-xjtz72-0 jhgDtb"
+        id="__primer_id_10007"
+        tabindex="0"
+      >
+        Anchor Button
+      </button>
+      <div
+        id="__primerPortalRoot__"
+      >
+        <div
+          style="position: relative; z-index: 1;"
+        >
+          <div
+            class="Overlay__StyledOverlay-jhwkzw-0 leFwDU"
+            data-focus-trap="active"
+            height="auto"
+            role="none"
+            style="--styled-overlay-visibility: visible;"
+            width="auto"
+          >
+            <button
+              class="focus-visible"
+              data-focus-visible-added=""
+              tabindex="0"
+              type="button"
+            >
+              Focusable Child
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
