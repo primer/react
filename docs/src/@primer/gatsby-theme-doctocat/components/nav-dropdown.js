@@ -3,7 +3,7 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 
-// Temporarily shadowing this component until Doctocat is updated to the
+// Temporarily shadowing this component until Doctocat uses the
 // latest version of the Details or ActionMenu component
 
 function NavDropdown({title, children}) {
