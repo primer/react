@@ -88,21 +88,27 @@ export function FilteredActionList({
     [activeDescendantRef]
   )
 
-  useFocusZone({
-    containerRef: listContainerRef,
-    focusOutBehavior: 'wrap',
-    focusableElementFilter: element => {
-      return !(element instanceof HTMLInputElement)
-    },
-    activeDescendantFocus: inputRef,
-    onActiveDescendantChanged: (current, previous, directlyActivated) => {
-      activeDescendantRef.current = current
+  useFocusZone(
+    {
+      containerRef: listContainerRef,
+      focusOutBehavior: 'wrap',
+      focusableElementFilter: element => {
+        return !(element instanceof HTMLInputElement)
+      },
+      activeDescendantFocus: inputRef,
+      onActiveDescendantChanged: (current, previous, directlyActivated) => {
+        activeDescendantRef.current = current
 
-      if (current && scrollContainerRef.current && directlyActivated) {
-        scrollIntoViewingArea(current, scrollContainerRef.current)
+        if (current && scrollContainerRef.current && directlyActivated) {
+          scrollIntoViewingArea(current, scrollContainerRef.current)
+        }
       }
-    }
-  })
+    },
+    [
+      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
+      loading
+    ]
+  )
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view

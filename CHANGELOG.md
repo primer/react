@@ -1,5 +1,69 @@
 # @primer/components
 
+## 28.3.0
+
+### Minor Changes
+
+- [#1315](https://github.com/primer/components/pull/1315) [`85d0202b`](https://github.com/primer/components/commit/85d0202b0edd553bcbb50f9b280caf13ce79dae3) Thanks [@VanAnderson](https://github.com/VanAnderson)! - `Box` now accepts all [styled system props](https://styled-system.com/table/).
+
+* [#1316](https://github.com/primer/components/pull/1316) [`4c063317`](https://github.com/primer/components/commit/4c0633171170205c53ef7dc29e5d4104a8486059) Thanks [@VanAnderson](https://github.com/VanAnderson)! - The following components have been deprecated in favor of the `Box` component:
+
+  | Component   | Replacement                                                                                 |
+  | ----------- | ------------------------------------------------------------------------------------------- |
+  | `Flex`      | `<Box display="flex">`                                                                      |
+  | `Grid`      | `<Box display="grid">`                                                                      |
+  | `Position`  | `<Box>`                                                                                     |
+  | `Absolute`  | `<Box position="absolute">`                                                                 |
+  | `Fixed`     | `<Box position="fixed">`                                                                    |
+  | `Relative`  | `<Box position="relative">`                                                                 |
+  | `Sticky`    | `<Box position="sticky">`                                                                   |
+  | `BorderBox` | `<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2}>` |
+
+  There is a codemod available to upgrade these components:
+
+  - TypeScript example:
+
+    ```shell
+    npx jscodeshift -t node_modules/@primer/components/codemods/deprecateUtilityComponents.js
+    --parser=tsx path/to/workspace/src/*.tsx
+    ```
+
+  - Babel example:
+
+    ```shell
+    npx jscodeshift -t node_modules/@primer/components/codemods/deprecateUtilityComponents.js
+    --parser=babel path/to/workspace/src/*.tsx
+    ```
+
+- [#1336](https://github.com/primer/components/pull/1336) [`489a718b`](https://github.com/primer/components/commit/489a718b6b6d2892906bc2709e243195bf5fd91e) Thanks [@VanAnderson](https://github.com/VanAnderson)! - System props are deprecated in all components except `Box`. Move all system props into the [`sx` prop](https://primer.style/components/overriding-styles) instead. Example:
+
+  ```diff
+  - <Button mr={2}>...</Button>
+  + <Button sx={{mr: 2}}>...</Button>
+  ```
+
+  There is a codemod available to migrate from system props to the `sx` prop:
+
+  - TypeScript example:
+
+    ```shell
+    npx jscodeshift -t node_modules/@primer/components/codemods/removeSystemProps.js
+    --parser=tsx path/to/workspace/src/*.tsx
+    ```
+
+  - Babel example:
+
+    ```shell
+    npx jscodeshift -t node_modules/@primer/components/codemods/removeSystemProps.js
+    --parser=babel path/to/workspace/src/*.tsx
+    ```
+
+### Patch Changes
+
+- [#1332](https://github.com/primer/components/pull/1332) [`ec11d7b8`](https://github.com/primer/components/commit/ec11d7b8a589742a41134d31f419b6b5d34ad026) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Side effects are properly declared in package.json
+
+* [#1308](https://github.com/primer/components/pull/1308) [`a8f3ca6d`](https://github.com/primer/components/commit/a8f3ca6dbff5c2619e067ad5118fcb784f8525bc) Thanks [@dgreif](https://github.com/dgreif)! - Focus zones will now update active-descendant on `mousemove` over focusable elements. ActionList has been updated to handle direct (key press) vs indirect (`mousemove`, DOM change, etc.) changes to active-descendant, and will use a distinct background color for the directly activated items.
+
 ## 28.2.5
 
 ### Patch Changes
