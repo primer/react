@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, ButtonPrimary, Position, Relative, ThemeProvider} from '..'
+import {BaseStyles, Box, ButtonPrimary, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -62,7 +62,7 @@ export default {
   }
 } as Meta
 
-const Float = styled(Position)`
+const Float = styled(Box)`
   position: absolute;
   border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
@@ -74,7 +74,7 @@ const Float = styled(Position)`
   font-weight: ${get('fontWeights.bold')};
   padding: ${get('space.3')};
 `
-const Anchor = styled(Position)`
+const Anchor = styled(Box)`
   position: absolute;
   border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
@@ -100,7 +100,7 @@ export const UseAnchoredPosition = (args: any) => {
     [args]
   )
   return (
-    <Relative m={2}>
+    <Box position="relative" m={2}>
       <Anchor
         top={args.anchorY ?? 0}
         left={args.anchorX ?? 0}
@@ -119,7 +119,7 @@ export const UseAnchoredPosition = (args: any) => {
       >
         Floating element
       </Float>
-    </Relative>
+    </Box>
   )
 }
 export const CenteredOnScreen = () => {
@@ -129,7 +129,7 @@ export const CenteredOnScreen = () => {
   })
   // The outer Position element simply fills all available space
   return (
-    <Position
+    <Box
       ref={anchorElementRef as React.RefObject<HTMLDivElement>}
       position="absolute"
       top={0}
@@ -149,7 +149,7 @@ export const CenteredOnScreen = () => {
           </small>
         </p>
       </Float>
-    </Position>
+    </Box>
   )
 }
 

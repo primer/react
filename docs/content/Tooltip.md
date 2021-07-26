@@ -15,12 +15,18 @@ Before adding a tooltip, please consider: Is this information essential and nece
 ## Default example
 
 ```jsx live
-<BorderBox p={3}>
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={3}>
   <Tooltip aria-label="Hello, Tooltip!">Text with a tooltip</Tooltip>
-</BorderBox>
+</Box>
 ```
 
 ## System props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Tooltip components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

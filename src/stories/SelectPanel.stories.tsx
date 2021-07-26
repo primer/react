@@ -6,7 +6,7 @@ import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import {DropdownButton} from '../DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
-import BorderBox from '../BorderBox'
+import Box from '../Box'
 
 const meta: Meta = {
   title: 'Composite components/SelectPanel',
@@ -32,7 +32,18 @@ export default meta
 
 function getColorCircle(color: string) {
   return function () {
-    return <BorderBox bg={color} borderColor={color} width={14} height={14} borderRadius={10} margin="auto" />
+    return (
+      <Box
+        bg={color}
+        borderColor={color}
+        width={14}
+        height={14}
+        borderRadius={10}
+        margin="auto"
+        borderWidth="1px"
+        borderStyle="solid"
+      />
+    )
   }
 }
 
@@ -216,3 +227,43 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
 }
 SelectPanelHeightInitialWithUnderflowingItemsAfterFetch.storyName =
   'SelectPanel, Height: Initial, Underflowing Items (After Fetch)'
+
+export function SelectPanelAboveTallBody(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>Single Select Panel</h1>
+      <div>Please select a label that describe your issue:</div>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height: 'xsmall'}}
+      />
+      <div
+        style={{
+          backgroundColor: 'cornflowerblue',
+          height: '100vh'
+        }}
+      >
+        This element makes the body really tall. This is to test that we do not have layout/focus issues if the Portal
+        is far down the page
+      </div>
+    </>
+  )
+}
+SelectPanelAboveTallBody.storyName = 'SelectPanel, Above a Tall Body'

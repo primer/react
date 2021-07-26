@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Overlay, Position, Flex, Text, ButtonDanger, Button} from '..'
+import {Overlay, Box, Text, ButtonDanger, Button} from '..'
 import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -27,7 +27,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
-        <Position position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+        <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
           <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
             open overlay
           </Button>
@@ -41,16 +41,16 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
               onClickOutside={closeOverlay}
               width="small"
             >
-              <Flex flexDirection="column" p={2}>
+              <Box display="flex" flexDirection="column" p={2}>
                 <Text>Are you sure?</Text>
                 <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
                 <Button onClick={closeOverlay} ref={confirmButtonRef}>
                   Confirm
                 </Button>
-              </Flex>
+              </Box>
             </Overlay>
           ) : null}
-        </Position>
+        </Box>
       </BaseStyles>
     </ThemeProvider>
   )

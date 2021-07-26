@@ -1,11 +1,11 @@
 ---
 title: Box
+description: A low-level utility component that accepts styled system props to enable custom theme-aware styling
+source: https://github.com/primer/components/blob/main/src/Box.tsx
 ---
 
 import {Props} from '../src/props'
 import {Box} from '@primer/components'
-
-Box is a low-level utility component that accepts [styled system props](https://styled-system.com/table/) to enable custom theme-aware styling.
 
 ```jsx live
 <Box color="text.secondary" bg="bg.tertiary" p={3}>

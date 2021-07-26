@@ -71,10 +71,6 @@ By default, the Dialog component implements the design and interactions defined 
 </State>
 ```
 
-## System props
-
-`Dialog`, `Dialog.Header`, `Dialog.Title`, `Dialog.Subtitle`, `Dialog.Body`, and `Dialog.Footer` components get the `COMMON`, `LAYOUT`, and `FLEX` categories of system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### DialogProps
@@ -89,8 +85,8 @@ By default, the Dialog component implements the design and interactions defined 
 | footerButtons | `DialogButtonProps[]`                          |            | Optional. Specify buttons that will be rendered in the footer of the dialog.                                                                                                                                                                                            |
 | onClose       | `(gesture: 'close-button' │ 'escape') => void` |            | Required. This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the "X" in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape'). |
 | role          | `"dialog" │ "alertdialog"`                     | `"dialog"` | The ARIA role given to the dialog element. More info: [dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal), [alertdialog](https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog)                                                                    |
-| width         | `"small" │ "medium" │ "large" │ "xlarge"`                    | `"xlarge"`     | The fixed width of the dialog.                                                                                                                                                                                                                                          |
-| height        | `"small" │ "large" │ "auto"`                         | `"auto"`   | The fixed height of the dialog, or, auto to adjust the height based on its contents.                                                                                                                                                                                    |
+| width         | `"small" │ "medium" │ "large" │ "xlarge"`      | `"xlarge"` | The fixed width of the dialog.                                                                                                                                                                                                                                          |
+| height        | `"small" │ "large" │ "auto"`                   | `"auto"`   | The fixed height of the dialog, or, auto to adjust the height based on its contents.                                                                                                                                                                                    |
 
 ### DialogHeaderProps
 

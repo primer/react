@@ -10,7 +10,18 @@ A `SelectPanel` provides an anchor that will open an overlay with a list of sele
 ```javascript live noinline
 function getColorCircle(color) {
   return function () {
-    return <BorderBox bg={color} borderColor={color} width={14} height={14} borderRadius={10} margin="auto" />
+    return (
+      <Box
+        borderWidth="1px"
+        borderStyle="solid"
+        bg={color}
+        borderColor={color}
+        width={14}
+        height={14}
+        borderRadius={10}
+        margin="auto"
+      />
+    )
   }
 }
 
@@ -25,7 +36,7 @@ const items = [
 ]
 
 function DemoComponent() {
-const [selected, setSelected] = React.useState([items[0], items[1]])
+  const [selected, setSelected] = React.useState([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = React.useState(false)

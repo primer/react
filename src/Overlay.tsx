@@ -13,6 +13,7 @@ type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
+  visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
 }
 
@@ -71,7 +72,7 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
       opacity: 1;
     }
   }
-
+  visibility: var(--styled-overlay-visibility);
   :focus {
     outline: none;
   }
@@ -85,8 +86,9 @@ export type OverlayProps = {
   returnFocusRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
+  visibility?: 'visible' | 'hidden'
   [additionalKey: string]: unknown
-} & Omit<ComponentProps<typeof StyledOverlay>, keyof SystemPositionProps>
+} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -111,6 +113,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       returnFocusRef,
       ignoreClickRefs,
       onEscape,
+      visibility = 'visible',
       height,
       anchorSide,
       ...rest
@@ -140,7 +143,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
 
     useLayoutEffect(() => {
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
-      if ((!x && !y) || !overlayRef.current?.animate) {
+      if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return
       }
 
@@ -152,11 +155,22 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           easing: slideAnimationEasing
         }
       )
-    }, [anchorSide, slideAnimationDistance, slideAnimationEasing])
+    }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     return (
       <Portal>
-        <StyledOverlay height={height} role={role} {...rest} ref={combinedRef} />
+        <StyledOverlay
+          height={height}
+          role={role}
+          {...rest}
+          ref={combinedRef}
+          style={
+            {
+              ...rest.style,
+              '--styled-overlay-visibility': visibility
+            } as React.CSSProperties
+          }
+        />
       </Portal>
     )
   }

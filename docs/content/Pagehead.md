@@ -12,6 +12,12 @@ Give a page a clear, separated title and optional top nav by using Pagehead.
 
 ## System props
 
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
 Pagehead components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
