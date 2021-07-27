@@ -3,6 +3,9 @@
 # Install dependencies
 npm install
 
+# Build
+npm run build
+
 # Install docs dependencies
 pushd docs
 npm install
