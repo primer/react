@@ -147,11 +147,13 @@
   "size-limit": [
     {
       "path": "dist/browser.esm.js",
-      "webpack": false
+      "webpack": false,
+      "running": false
     },
     {
       "path": "dist/browser.umd.js",
-      "webpack": false
+      "webpack": false,
+      "running": false
     }
   ]
 }
