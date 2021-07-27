@@ -141,4 +141,9 @@ describe('AnchoredOverlay', () => {
     expect(mockCloseCallback).toHaveBeenCalledTimes(1)
     expect(mockCloseCallback).toHaveBeenCalledWith('escape')
   })
+
+  it('should render consistently when open', () => {
+    const anchoredOverlay = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
+    expect(anchoredOverlay).toMatchSnapshot()
+  })
 })
