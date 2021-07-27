@@ -29,7 +29,7 @@
     "release": "npm run dist && changeset publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "size": "size-limit"
+    "size": "npm run dist && size-limit"
   },
   "repository": "primer/components",
   "keywords": [
@@ -159,10 +159,12 @@
   },
   "size-limit": [
     {
-      "path": "dist/browser.esm.js"
+      "path": "dist/browser.esm.js",
+      "webpack": false
     },
     {
-      "path": "dist/browser.umd.js"
+      "path": "dist/browser.umd.js",
+      "webpack": false
     }
   ]
 }
