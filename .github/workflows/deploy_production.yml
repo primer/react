@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - id: changeset-count
-        run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)
+        run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
 
   deploy:
     name: Production
