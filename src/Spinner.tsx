@@ -11,11 +11,12 @@ const sizeMap = {
 }
 
 export interface SpinnerInternalProps {
+  /** Sets the width and height of the spinner. */
   size?: keyof typeof sizeMap
 }
 
-function Spinner({size: sizeKey, ...props}: SpinnerInternalProps) {
-  const size = (sizeKey && sizeMap[sizeKey]) ?? sizeMap.medium
+function Spinner({size: sizeKey = 'medium', ...props}: SpinnerInternalProps) {
+  const size = sizeMap[sizeKey]
 
   return (
     <svg height={size} width={size} viewBox="0 0 16 16" fill="none" {...props}>
