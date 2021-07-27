@@ -20,7 +20,7 @@ jobs:
   deploy:
     name: Production
     needs: [guard]
-    if: ${{ needs.guard.outputs.should_deploy }}
+    if: ${{ needs.guard.outputs.should_deploy == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
