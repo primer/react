@@ -3,7 +3,7 @@ on:
   push:
     branches-ignore:
       - 'main'
-      - 'dependabot/**'
+
 jobs:
   deploy-preview:
     if: ${{ github.repository == 'primer/components' }}
