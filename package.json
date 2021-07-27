@@ -10,6 +10,7 @@
     "(lib|lib-esm)/behaviors/focusTrap.js"
   ],
   "scripts": {
+    "setup": "./script/setup",
     "start": "cd docs && npm run develop",
     "predist": "rm -rf dist & rm -rf lib & rm -rf lib-esm",
     "dist": "concurrently npm:dist:*",

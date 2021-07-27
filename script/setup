@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Install dependencies
+npm install
+
+# Install docs dependencies
+pushd docs
+npm install
+popd
