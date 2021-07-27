@@ -23,8 +23,6 @@
     "lint:fix": "eslint '**/*.{js,ts,tsx}' --fix",
     "test": "jest",
     "watch": "jest --watch --no-coverage",
-    "playroom:start": "playroom start",
-    "playroom:build": "playroom build",
     "release": "npm run dist && changeset publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
