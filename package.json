@@ -144,27 +144,16 @@
     "styled-components": "4.x || 5.x"
   },
   "prettier": "@github/prettier-config",
-  "actionBundlesize": {
-    "build": "npm install && npm run dist:rollup",
-    "files": [
-      {
-        "path": "dist/browser.esm.js",
-        "name": "ESM Build"
-      },
-      {
-        "path": "dist/browser.umd.js",
-        "name": "UMD Build"
-      }
-    ]
-  },
   "size-limit": [
     {
       "path": "dist/browser.esm.js",
-      "webpack": false
+      "webpack": false,
+      "running": false
     },
     {
       "path": "dist/browser.umd.js",
-      "webpack": false
+      "webpack": false,
+      "running": false
     }
   ]
 }
