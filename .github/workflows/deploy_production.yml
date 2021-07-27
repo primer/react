@@ -6,6 +6,7 @@ on:
 jobs:
   guard:
     name: Guard
+    runs-on: ubuntu-latest
     outputs:
       # To avoid deploying documentation for unrelease changes, we check the number of changeset files.
       # If it's 0, we deploy.
