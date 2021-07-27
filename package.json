@@ -42,7 +42,9 @@
     "lib-esm",
     "index.d.ts",
     "!lib/__tests__",
-    "!lib-esm/__tests__"
+    "!lib/stories",
+    "!lib-esm/__tests__",
+    "!lib-esm/stories"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
