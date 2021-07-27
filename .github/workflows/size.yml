@@ -1,7 +1,8 @@
-name: size
+name: Size
 on: [pull_request]
 jobs:
   size:
+    name: Size
     runs-on: ubuntu-latest
     env:
       CI_JOB_NUMBER: 1
