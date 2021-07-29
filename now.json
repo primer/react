@@ -1,7 +1,4 @@
 {
-  "name": "primer-components",
-  "version": 2,
-  "alias": "primer-components.now.sh",
   "routes": [
     {"src": "/react(/.*)?", "dest": "/docs$1"},
     {
