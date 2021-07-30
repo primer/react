@@ -128,11 +128,13 @@ const FLEX = [
 // ]
 
 const stylePropsMap = {
+  Anchor: [...COMMON, ...TYPOGRAPHY, ...LAYOUT],
   Avatar: [...COMMON],
   AvatarStack: [...COMMON],
   BranchName: [...COMMON],
   Breadcrumb: [...COMMON, ...FLEX],
   Button: [...COMMON, ...LAYOUT, ...TYPOGRAPHY],
+  ButtonGroup: [...COMMON, ...TYPOGRAPHY, ...LAYOUT],
   ButtonBase: [...COMMON, ...LAYOUT],
   ButtonClose: [...COMMON, ...LAYOUT],
   ButtonTableList: [...COMMON, ...TYPOGRAPHY, ...LAYOUT],
@@ -144,6 +146,7 @@ const stylePropsMap = {
   FilteredSearch: [...COMMON],
   FilterList: [...COMMON],
   Flash: [...COMMON],
+  Float: [...COMMON, ...TYPOGRAPHY, ...LAYOUT],
   FormGroup: [...COMMON],
   FormGroupLabel: [...COMMON, ...TYPOGRAPHY],
   Header: [...COMMON, ...BORDER],

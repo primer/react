@@ -104,8 +104,7 @@ export const UseAnchoredPosition = (args: any) => {
       <Anchor
         top={args.anchorY ?? 0}
         left={args.anchorX ?? 0}
-        width={args.anchorWidth}
-        height={args.anchorHeight}
+        sx={{width: args.anchorWidth, height: args.anchorHeight}}
         ref={anchorElementRef as React.RefObject<HTMLDivElement>}
       >
         Anchor Element
@@ -113,8 +112,7 @@ export const UseAnchoredPosition = (args: any) => {
       <Float
         top={position?.top ?? 0}
         left={position?.left ?? 0}
-        width={args.floatWidth ?? 150}
-        height={args.floatHeight ?? 150}
+        sx={{width: args.floatWidth ?? 150, height: args.floatHeight ?? 150}}
         ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       >
         Floating element
@@ -194,8 +192,7 @@ export const ComplexAncestry = () => {
             <Float
               top={position?.top ?? 0}
               left={position?.left ?? 0}
-              width={150}
-              height={220}
+              sx={{width: 150, height: 220}}
               ref={floatingElementRef as React.RefObject<HTMLDivElement>}
             >
               Floating element
@@ -300,9 +297,7 @@ export const WithPortal = () => {
                 ref={floatingElementRef as React.RefObject<HTMLDivElement>}
                 top={position?.top ?? 0}
                 left={position?.left ?? 0}
-                width={250}
-                height={400}
-                sx={{visibility: position ? 'visible' : 'hidden'}}
+                sx={{visibility: position ? 'visible' : 'hidden', width: 250, height: 400}}
               >
                 An un-constrained overlay!
               </Float>
