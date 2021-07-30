@@ -5,6 +5,7 @@ import {ComponentProps} from '../utils/types'
 
 const ButtonGroup = styled.div`
   vertical-align: middle;
+  display: inline-block;
 
   && > * {
     position: relative;
@@ -45,10 +46,6 @@ const ButtonGroup = styled.div`
 
   ${sx};
 `
-
-ButtonGroup.defaultProps = {
-  display: 'inline-block'
-}
 
 export type ButtonGroupProps = ComponentProps<typeof ButtonGroup>
 export default ButtonGroup

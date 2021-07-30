@@ -10,7 +10,7 @@ const outlineStyles = css`
   color: ${get('colors.label.secondary.text')};
   border: ${get('borderWidths.1')} solid ${get('colors.label.border')};
   box-shadow: none;
-  background-color: transparent;
+  background-color: ${get('label.primary.border')};
 `
 
 const sizeVariant = variant({
@@ -62,7 +62,6 @@ const Label = styled.span<
 `
 
 Label.defaultProps = {
-  sx: {bg: 'label.primary.border'},
   variant: 'medium'
 }
 
