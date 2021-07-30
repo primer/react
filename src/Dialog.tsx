@@ -1,7 +1,7 @@
 import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
 import ButtonClose from './Button/ButtonClose'
-import {COMMON, get, LAYOUT, SystemCommonProps, SystemLayoutProps} from './constants'
+import {get} from './constants'
 import Box from './Box'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'

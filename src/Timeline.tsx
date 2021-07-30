@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import Box, {BoxProps} from './Box'
-import {COMMON, get} from './constants'
+import {get} from './constants'
 import sx from './sx'
 import {ComponentProps} from './utils/types'
 

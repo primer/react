@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import styled from 'styled-components'
 import Box from './Box'
-import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 

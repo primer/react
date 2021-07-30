@@ -113,6 +113,8 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 </Timeline>
 ```
 
+## Component props
+
 ### Timeline
 
 | Prop name   | Type    | Description                                                                       |

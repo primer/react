@@ -1,5 +1,4 @@
 import React from 'react'
-import {LAYOUT, POSITION} from '../constants'
 import {Box, Position, Absolute, Fixed, Relative, Sticky} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
