@@ -26,5 +26,5 @@ module.exports = {
       }
     }
   ],
-  pathPrefix: '/react'
+  pathPrefix: '/components'
 }
