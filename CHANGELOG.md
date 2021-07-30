@@ -1,5 +1,11 @@
 # @primer/components
 
+## 28.3.1
+
+### Patch Changes
+
+- [#1355](https://github.com/primer/components/pull/1355) [`3cc7be77`](https://github.com/primer/components/commit/3cc7be77d766b9161808898a0d2cc8373aee5a21) Thanks [@colebemis](https://github.com/colebemis)! - Replace octoface icon with spinner in SelectMenu component
+
 ## 28.3.0
 
 ### Minor Changes
