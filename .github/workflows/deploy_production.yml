@@ -18,15 +18,20 @@ jobs:
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
         
       # Log changeset count for debugging purposes
-      - run: echo ${{ steps.changeset-count.outputs.change_count == 0 }}
+      - name: Log changeset count
+        run: echo ${{ steps.changeset-count.outputs.change_count }}
 
   deploy:
     name: Production
     needs: [guard]
-    if: ${{ needs.guard.outputs.should_deploy == true }}
+    #if: ${{ needs.guard.outputs.should_deploy == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      # Log guard output for debugging purposes
+      - name: Log guard output
+        run: echo ${{ needs.guard.outputs.should_deploy }}
 
       - name: Create GitHub deployment
         uses: chrnorm/deployment-action@v1.2.0
