@@ -3,10 +3,10 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import Box, {BoxProps} from './Box'
 import {get} from './constants'
-import sx from './sx'
+import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const Timeline = styled(Box)<{clipSidebar?: boolean}>`
+const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
   ${props =>
@@ -26,7 +26,7 @@ const Timeline = styled(Box)<{clipSidebar?: boolean}>`
 
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
-const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
+const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)
 }))<StyledTimelineItemProps>`
   position: relative;
@@ -106,7 +106,7 @@ const TimelineBody = styled.div`
   ${sx};
 `
 
-const TimelineBreak = styled(Box)`
+const TimelineBreak = styled.div`
   position: relative
   z-index: 1;
   height: 24px;

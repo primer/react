@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import Box from '../Box'
 import {ThemeProvider, useTheme, ThemeProviderProps} from '../ThemeProvider'
 import {FocusKeys} from '../behaviors/focusZone'
 import {get} from '../constants'
@@ -45,7 +44,7 @@ const StyledConfirmationHeader = styled.header`
   display: flex;
   flex-direction: row;
 `
-const StyledTitle = styled(Box)`
+const StyledTitle = styled.div`
   font-size: ${get('fontSizes.3')};
   font-weight: ${get('fontWeights.bold')};
   padding: 6px ${get('space.2')};
@@ -62,7 +61,7 @@ const ConfirmationHeader: React.FC<DialogHeaderProps> = ({title, onClose, dialog
     </StyledConfirmationHeader>
   )
 }
-const StyledConfirmationBody = styled(Box)`
+const StyledConfirmationBody = styled.div`
   font-size: ${get('fontSizes.1')};
   padding: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
   color: ${get('colors.text.tertiary')};
@@ -71,7 +70,7 @@ const StyledConfirmationBody = styled(Box)`
 const ConfirmationBody: React.FC<DialogProps> = ({children}) => {
   return <StyledConfirmationBody>{children}</StyledConfirmationBody>
 }
-const StyledConfirmationFooter = styled(Box)`
+const StyledConfirmationFooter = styled.div`
   display: flex;
   flex-shrink: 0;
   button {

@@ -62,7 +62,7 @@ export default {
   }
 } as Meta
 
-const Float = styled(Box)`
+const Float = styled.div`
   position: absolute;
   border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
@@ -74,7 +74,7 @@ const Float = styled(Box)`
   font-weight: ${get('fontWeights.bold')};
   padding: ${get('space.3')};
 `
-const Anchor = styled(Box)`
+const Anchor = styled.div`
   position: absolute;
   border: 1px solid ${get('colors.black')};
   border-radius: ${get('radii.2')};
