@@ -53,20 +53,6 @@ All items directly under the Header component should be a `Header.Item` componen
 </Header>
 ```
 
-# <<<<<<< HEAD
-
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-`Header` and `Header.Item` components get `COMMON` and `BORDER` system props. `Header.Link` component gets `COMMON`, `BORDER`, and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
-> > > > > > > main
-
 ## Component props
 
 ### Header.Item
