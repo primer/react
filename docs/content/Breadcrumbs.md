@@ -25,6 +25,12 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </Breadcrumb>
 ```
 
+## Component props
+
+### Breadcrumb
+
+The `Breadcrumb` component does not receive any additional props besides `COMMON` system props.
+
 ### Breadcrumb.Item
 
 | Prop name | Type    | Default | Description                                      |

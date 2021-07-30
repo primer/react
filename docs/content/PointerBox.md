@@ -22,12 +22,12 @@ function PointerBoxDemo(props) {
         Caret Position
       </Heading>
       <CaretSelector current={pos} onChange={setPos} />
-      <Relative pt={4}>
+      <Box position="relative" pt={4}>
         <PointerBox m={4} p={2} minHeight={100} bg="bg.success" borderColor="border.success" caret={pos}>
           {' '}
           Content{' '}
         </PointerBox>
-      </Relative>
+      </Box>
     </Box>
   )
 }
@@ -61,9 +61,9 @@ function CaretSelector(props) {
   ))
 
   return (
-    <Grid gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
+    <Box display="grid" gridTemplateColumns="repeat(4, auto)" gridGap={3} my={2}>
       {choices}
-    </Grid>
+    </Box>
   )
 }
 

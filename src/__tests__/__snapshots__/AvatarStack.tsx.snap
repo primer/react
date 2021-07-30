@@ -6,10 +6,6 @@ exports[`Avatar renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   width: 38px;
   position: absolute;
 }
@@ -194,10 +190,6 @@ exports[`Avatar renders consistently 1`] = `
 
 exports[`Avatar respects alignRight props 1`] = `
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

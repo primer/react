@@ -12,6 +12,8 @@ Use CircleBadge to visually connect logos of third party services like in market
 </CircleBadge>
 ```
 
+## Component props
+
 ### CircleBadge
 
 | Name    | Type    | Default  | Description                                                                                                 |

@@ -1,13 +1,13 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
-import {get} from './constants'
-import Flex, {FlexProps} from './Flex'
-import {Relative} from './Position'
-import sx, {SxProp} from './sx'
+import Box, {BoxProps} from './Box'
+import {COMMON, get} from './constants'
+import sx from './sx'
 import {ComponentProps} from './utils/types'
 
-const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
+const Timeline = styled(Box)<{clipSidebar?: boolean}>`
+  display: flex;
   flex-direction: column;
   ${props =>
     props.clipSidebar &&
@@ -26,7 +26,7 @@ const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
 
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
-const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
+const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)
 }))<StyledTimelineItemProps>`
   position: relative;
@@ -66,12 +66,13 @@ const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   ${sx};
 `
 
-export type TimelineBadgeProps = FlexProps
+export type TimelineBadgeProps = BoxProps
 
 const TimelineBadge = (props: TimelineBadgeProps) => {
   return (
-    <Relative zIndex={1}>
-      <Flex
+    <Box position="relative" zIndex={1}>
+      <Box
+        display="flex"
         className={classnames(props.className, 'TimelineItem-Badge')}
         flexShrink={0}
         css={`
@@ -90,8 +91,8 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
         {...props}
       >
         {props.children}
-      </Flex>
-    </Relative>
+      </Box>
+    </Box>
   )
 }
 
@@ -105,7 +106,8 @@ const TimelineBody = styled.div`
   ${sx};
 `
 
-const TimelineBreak = styled.div`
+const TimelineBreak = styled(Box)`
+  position: relative
   z-index: 1;
   height: 24px;
   margin: 0;

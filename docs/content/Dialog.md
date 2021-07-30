@@ -72,10 +72,10 @@ You can also pass any non-text content into the header:
             <Text id="label" fontFamily="sans-serif">
               Are you sure you'd like to delete this issue?
             </Text>
-            <Flex mt={3} justifyContent="flex-end">
+            <Box display="flex" mt={3} justifyContent="flex-end">
               <Button sx={{mr: 1}}>Cancel</Button>
               <ButtonDanger>Delete</ButtonDanger>
-            </Flex>
+            </Box>
           </Box>
         </Dialog>
       </>

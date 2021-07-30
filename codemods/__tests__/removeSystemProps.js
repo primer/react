@@ -97,3 +97,129 @@ const link = (
 )`.trim(),
   'removeSystemProps'
 )
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label mr={1} ml={leftMargin} sx={{p: 1}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label sx={{p: 1, mr: 1, ml: leftMargin}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label mr={1} ml={leftMargin} sx={{p:3}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label sx={{p: 3, mr: 1, ml: leftMargin}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+const colorProps = {backgroundColor: 'red'}
+const borderProps = {borderColor: 'red'}
+export default () => (
+  <Label mr={1} ml={leftMargin} sx={{...colorProps, ...borderProps, p:3}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+const colorProps = {backgroundColor: 'red'}
+const borderProps = {borderColor: 'red'}
+export default () => (
+  <Label sx={{...colorProps, ...borderProps, p: 3, mr: 1, ml: leftMargin}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label mr={1} sx={{'&:hover': {textDecoration: 'none'}}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+export default () => (
+  <Label sx={{'&:hover': {textDecoration: 'none'}, mr: 1}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)
+
+defineInlineTest(
+  removeSystemProps,
+  {},
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+const colorProps = {dark: {backgroundColor: 'red'}}
+export default () => (
+  <Label mr={1} ml={leftMargin} sx={{...colorProps.dark, p:3}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  `
+import {Label} from '@primer/components'
+const leftMargin = 2
+const colorProps = {dark: {backgroundColor: 'red'}}
+export default () => (
+  <Label sx={{...colorProps.dark, p: 3, mr: 1, ml: leftMargin}}>
+    <Text>hi</Text>
+  </Label>
+)
+`.trim(),
+  'removeSystemProps'
+)

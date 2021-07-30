@@ -22,6 +22,8 @@ The FilteredSearch component helps style a Dropdown and a TextInput side-by-side
 </FilteredSearch>
 ```
 
+## Component props
+
 #### FilteredSearch.Children
 
 FilteredSearch is expected to contain a [`Dropdown`](/Dropdown) followed by a [`TextInput`](/TextInput).

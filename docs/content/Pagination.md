@@ -32,12 +32,12 @@ By default, clicking a link in the pagination component will cause the browser t
     }
 
     return (
-      <BorderBox p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
         <Box>
           Current page: {page} / {totalPages}
         </Box>
         <Pagination pageCount={totalPages} currentPage={page} onPageChange={onPageChange} />
-      </BorderBox>
+      </Box>
     )
   }}
 </State>
@@ -63,10 +63,10 @@ type HrefBuilder = (page: number) => string
     }
 
     return (
-      <BorderBox p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
         <Box>The last URL clicked was: {lastUrl}</Box>
         <Pagination pageCount={15} currentPage={2} onPageChange={onPageChange} hrefBuilder={hrefBuilder} />
-      </BorderBox>
+      </Box>
     )
   }}
 </State>
@@ -116,12 +116,12 @@ To hide all the page numbers and create a simple pagination container with just 
     }
 
     return (
-      <BorderBox p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
         <Box>
           Current page: {page} / {totalPages}
         </Box>
         <Pagination pageCount={totalPages} currentPage={page} onPageChange={onPageChange} showPages={false} />
-      </BorderBox>
+      </Box>
     )
   }}
 </State>

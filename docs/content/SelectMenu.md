@@ -92,7 +92,7 @@ Used to wrap the content in a `SelectMenu`.
 Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself. You will need to wrap the SelectMenu in a relatively positioned element for this to work properly.
 
 ```jsx live
-<Relative display="flex" justifyContent="flex-end">
+<Box position="relative" display="flex" justifyContent="flex-end">
   <SelectMenu>
     <Button as="summary">Projects</Button>
     <SelectMenu.Modal align="right">
@@ -105,7 +105,7 @@ Use the `align='right'` prop to align the modal to the right. Note that this onl
       </SelectMenu.List>
     </SelectMenu.Modal>
   </SelectMenu>
-</Relative>
+</Box>
 ```
 
 ### Component Props
@@ -167,6 +167,20 @@ Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expe
 </SelectMenu>
 ```
 
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.Filter components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
+
 ### Component Props
 
 SelectMenu.Filter components receive all the props that the [TextInput](/TextInput) component gets.
@@ -225,6 +239,20 @@ The `onClick` prop is optional and can be used for any events or data fetching y
 <SelectMenu.Tab index={1} tabName="Organization"/>
 ```
 
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.Tab components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
+
 ### Component Props
 
 | Name    | Type     | Default | Description                                                                                                                |
@@ -242,6 +270,20 @@ Wraps the content for each tab. Make sure to use the `tabName` prop to identify 
 ```jsx
 <SelectMenu.TabPanel tabName="Repository">{/* Wraps content for each tab */}</SelectMenu.TabPanel>
 ```
+
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.TabPanel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
 
 ### Component Props
 
@@ -269,6 +311,20 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
 </SelectMenu>
 ```
 
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.Divder components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
+
 ### Component Props
 
 SelectMenu.Divider components do not get any additional props besides system props.
@@ -293,6 +349,20 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 </SelectMenu>
 ```
 
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.Footer components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
+
 ### Component Props
 
 SelectMenu.Footer components do not get any additional props besides system props.
@@ -316,6 +386,20 @@ Use a `SelectMenu.Header` to add a header to the top of the select menu content.
   </SelectMenu.Modal>
 </SelectMenu>
 ```
+
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.Header components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
 
 ### Component Props
 
@@ -347,6 +431,20 @@ Use a `SelectMenu.LoadingAnimation` to add a loading animation inside of the Sel
   </SelectMenu.Modal>
 </SelectMenu>
 ```
+
+# <<<<<<< HEAD
+
+### System Props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+SelectMenu.LoadingAnimation components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+
+> > > > > > > main
 
 ### Component Props
 

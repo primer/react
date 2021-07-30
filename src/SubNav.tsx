@@ -3,8 +3,8 @@ import classnames from 'classnames'
 import * as History from 'history'
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
-import Flex, {FlexProps} from './Flex'
+import {COMMON, FLEX, get, SystemBorderProps, SystemCommonProps, SystemFlexProps} from './constants'
+import Box, {BoxProps} from './Box'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -52,10 +52,10 @@ function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   )
 }
 
-export type SubNavLinksProps = FlexProps
+export type SubNavLinksProps = BoxProps
 
 function SubNavLinks(props: SubNavLinksProps) {
-  return <Flex {...props} />
+  return <Box display="flex" {...props} />
 }
 
 type StyledSubNavLinkProps = {

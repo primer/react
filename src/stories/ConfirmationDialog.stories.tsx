@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Button, Flex, ThemeProvider, useTheme} from '..'
+import {BaseStyles, Button, Box, ThemeProvider, useTheme} from '..'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
 import {ActionMenu} from '../ActionMenu'
 
@@ -63,8 +63,8 @@ export const ShorthandHook = () => {
     [confirm, theme]
   )
   return (
-    <Flex flexDirection="column" alignItems="flex-start">
-      <Button sx={{mb: null}} onClick={onButtonClick}>
+    <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <Button mb={2} onClick={onButtonClick}>
         Turn me green!
       </Button>
       <Button sx={{mb: null}} onClick={onButtonClick}>
@@ -76,7 +76,7 @@ export const ShorthandHook = () => {
       <Button sx={{mb: null}} onClick={onButtonClick}>
         Turn me green!
       </Button>
-    </Flex>
+    </Box>
   )
 }
 
@@ -90,7 +90,7 @@ export const ShorthandHookFromActionMenu = () => {
   }, [confirm])
 
   return (
-    <Flex flexDirection="column" alignItems="flex-start">
+    <Box display="flex" flexDirection="column" alignItems="flex-start">
       <ActionMenu
         renderAnchor={props => <Button {...props}>{text}</Button>}
         items={[
@@ -100,6 +100,6 @@ export const ShorthandHookFromActionMenu = () => {
           }
         ]}
       />
-    </Flex>
+    </Box>
   )
 }

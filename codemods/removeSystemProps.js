@@ -205,7 +205,7 @@ const expressionToString = expression => {
   }
 }
 
-const objectToString = object => {
+const objectToString = (object, spreads = []) => {
   const values = Object.values(object)
   const keys = Object.keys(object)
   const duples = keys.map(function (key, i) {
@@ -217,7 +217,8 @@ const objectToString = object => {
     return `${string} ${duple[0]}: ${expressionString},`
   }
   const objString = duples.reduce(accumulator, '')
-  return `{${objString}}`
+  const spreadsString = spreads.map(s => `...${s},`).join('')
+  return `{${spreadsString}${objString}}`
 }
 
 module.exports = (file, api) => {
@@ -258,6 +259,36 @@ module.exports = (file, api) => {
         }
       })
 
+      const sxNodes = j(el).find(j.JSXAttribute, {
+        name: name => {
+          const isInElement = name.start >= el.node.start && name.end <= el.value.openingElement.end
+          return name.name === 'sx' && isInElement
+        }
+      })
+
+      const existingSx = {}
+      const sxNodesArray = sxNodes.nodes() || []
+      const existingSxProps = sxNodesArray[0]?.value?.expression?.properties
+      existingSxProps &&
+        existingSxProps.forEach(p => {
+          const keyName = p?.key?.name
+          const keyValue = p?.key?.raw
+          if (!keyName && !keyValue) {
+            return
+          }
+          existingSx[keyName || keyValue] = p.value
+        })
+      const spreads =
+        existingSxProps &&
+        existingSxProps
+          .filter(p => p.type === 'SpreadElement')
+          .map(s => {
+            const argName = s?.argument?.name
+            const propName = s?.argument?.property?.name
+            const objectName = s?.argument?.object?.name
+            return argName || `${objectName}.${propName}`
+          })
+
       attrNodes.forEach((attr, index) => {
         const key = attr?.value?.name?.name
         const literal = attr?.value?.value
@@ -270,7 +301,8 @@ module.exports = (file, api) => {
         } else {
           const keys = Object.keys(sx)
           if (keys.length > 0) {
-            j(attr).replaceWith(`sx={${objectToString(sx)}}`)
+            sxNodes.forEach(node => node.prune())
+            j(attr).replaceWith(`sx={${objectToString({...existingSx, ...sx}, spreads)}}`)
           }
         }
       })

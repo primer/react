@@ -161,6 +161,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="none"
+          visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
           {...overlayPosition}
