@@ -13,6 +13,9 @@ jobs:
       should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 }}
     steps:
       - uses: actions/checkout@v2
+      
+      # Log changeset count for debugging purposes
+      - run: ls .changeset/*.md | grep -v README | wc -l | xargs 
 
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
