@@ -10,18 +10,17 @@
   <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/components">
     <img alt="" src="https://img.shields.io/npm/v/@primer/components.svg">
   </a>
-  <a aria-label="contributors graph" href="https://github.com/primer/components/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/primer/components.svg">
+  <a aria-label="contributors graph" href="https://github.com/primer/react/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/primer/react.svg">
   </a>
-  <a aria-label="last commit" href="https://github.com/primer/components/commits/main">
+  <a aria-label="last commit" href="https://github.com/primer/react/commits/main">
     <img alt="" src=
-  "https://img.shields.io/github/last-commit/primer/components.svg">
+  "https://img.shields.io/github/last-commit/primer/react.svg">
   </a>
-  <a aria-label="license" href="https://github.com/primer/components/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/primer/components.svg" alt="">
+  <a aria-label="license" href="https://github.com/primer/react/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/primer/react.svg" alt="">
   </a>
 </p>
-
 
 ## Documentation
 
@@ -40,18 +39,19 @@ yarn add @primer/components
 ```
 
 ## Roadmap
-You can track our roadmap progress in the [Roadmap Project Board](https://github.com/primer/components/projects/3), see more detail in the [quarterly planning Discussions](https://github.com/primer/components/discussions?discussions_q=%5BRoadmap%5D), and find a list of all the current epic tracking issues [here](https://github.com/primer/components/discussions/997).
+
+You can track our roadmap progress in the [Roadmap Project Board](https://github.com/primer/react/projects/3), see more detail in the [quarterly planning Discussions](https://github.com/primer/react/discussions?discussions_q=%5BRoadmap%5D), and find a list of all the current epic tracking issues [here](https://github.com/primer/react/discussions/997).
 
 ## Contributing
- We love collaborating with folks inside and outside of GitHub and welcome contributions!
+
+We love collaborating with folks inside and outside of GitHub and welcome contributions!
 
 > 👉 See [the contributing docs](contributor-docs/CONTRIBUTING.md) for more info on code style, testing, coverage, and troubleshooting.
 
 ## New Component Proposals
-We welcome and encourage new component proposals from internal GitHub teams! Our best work comes from collaborating directly with the teams using Primer React Components in their projects. If you'd like to kick off a new component proposal, please submit an issue using the [component proposal issue template](https://github.com/primer/components/issues/new?template=new-component-proposal.md) and we will get in touch!
 
-
+We welcome and encourage new component proposals from internal GitHub teams! Our best work comes from collaborating directly with the teams using Primer React Components in their projects. If you'd like to kick off a new component proposal, please submit an issue using the [component proposal issue template](https://github.com/primer/react/issues/new?template=new-component-proposal.md) and we will get in touch!
 
 [styled-components]: https://www.styled-components.com/docs
-[Primer CSS]: https://github.com/primer/primer
+[primer css]: https://github.com/primer/primer
 [flash of unstyled content]: https://en.wikipedia.org/wiki/Flash_of_unstyled_content
