@@ -1,10 +1,10 @@
 <p align="center">
-  <img width="300px" src="/static/assets/readme-components.png">
+  <img width="300px" src="https://user-images.githubusercontent.com/4608155/127241386-f11da52d-00d9-4366-b01c-6f4c1ebcf7f2.png">
 </p>
 
-<h1 align="center">Primer Components</h1>
+<h1 align="center">Primer React</h1>
 
-<p align="center">React components for the Primer Design System</p>
+<p align="center">A React implementation of GitHub's Primer Design System</p>
 
 <p align="center">
   <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/components">
@@ -25,7 +25,7 @@
 
 ## Documentation
 
-Our documentation site lives at [primer.style/components](https://primer.style/components). You'll be able to find detailed documentation on getting started, all of the components, our theme, our principles, and more.
+Our documentation site lives at [primer.style/react](https://primer.style/react). You'll be able to find detailed documentation on getting started, all of the components, our theme, our principles, and more.
 
 ## Installation
 

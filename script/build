@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Clean up
+rm -rf dist
+rm -rf lib
+rm -rf lib-esm
+
+# Bundle
+npx cross-env NODE_ENV=production rollup -c
+
+# Compile
+npx cross-env BABEL_MODULE=commonjs babel src --out-dir lib --extensions ".js,.ts,.jsx,.tsx"
+npx babel src --out-dir lib-esm --extensions ".js,.ts,.jsx,.tsx"
+
+# Type check
+npx tsc
+
+# Copy type declarations
+npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm
