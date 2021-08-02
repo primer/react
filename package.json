@@ -22,7 +22,7 @@
     "release": "npm run build && changeset publish",
     "size": "size-limit"
   },
-  "repository": "primer/components",
+  "repository": "primer/react",
   "keywords": [
     "react",
     "components",
