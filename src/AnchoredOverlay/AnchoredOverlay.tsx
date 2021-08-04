@@ -32,6 +32,10 @@ interface AnchoredOverlayPropsWithoutAnchor {
   anchorRef: React.RefObject<HTMLElement>
 }
 
+export type AnchoredOverlayWrapperAnchorProps =
+  | Partial<AnchoredOverlayPropsWithAnchor>
+  | AnchoredOverlayPropsWithoutAnchor
+
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * Determines whether the overlay portion of the component should be shown or not
