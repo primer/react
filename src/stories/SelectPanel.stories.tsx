@@ -1,6 +1,6 @@
 import type {OverlayProps} from '../Overlay'
 import {Meta} from '@storybook/react'
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import {theme, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
@@ -118,6 +118,37 @@ export function SingleSelectStory(): JSX.Element {
   )
 }
 SingleSelectStory.storyName = 'Single Select'
+
+export function ExternalAnchorStory(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Select Panel With External Anchor</h1>
+      <DropdownButton ref={buttonRef} onClick={() => setOpen(!open)}>
+        Custom: {selected?.text || 'Click Me'}
+      </DropdownButton>
+      <SelectPanel
+        renderAnchor={null}
+        anchorRef={buttonRef}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height: 'xsmall'}}
+      />
+    </>
+  )
+}
+ExternalAnchorStory.storyName = 'With External Anchor'
 
 export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
