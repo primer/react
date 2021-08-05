@@ -1,5 +1,11 @@
 # @primer/components
 
+## 28.3.2
+
+### Patch Changes
+
+- [#1368](https://github.com/primer/react/pull/1368) [`36f156a0`](https://github.com/primer/react/commit/36f156a0e42e242489dc1046ea8592b049a88bd7) Thanks [@dgreif](https://github.com/dgreif)! - Allow `anchorRef` to be passed into `SelectPanel` if you want to use an external anchor
+
 ## 28.3.1
 
 ### Patch Changes
