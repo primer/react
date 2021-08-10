@@ -38,7 +38,7 @@ interface DropdownMenuBaseProps extends Partial<Omit<GroupedListProps, keyof Lis
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
    */
-  onOpenChange?: (s: boolean) => void
+  onOpenChange?: (open: boolean) => void
 }
 
 export type DropdownMenuProps = DropdownMenuBaseProps & AnchoredOverlayWrapperAnchorProps
