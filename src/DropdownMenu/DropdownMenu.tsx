@@ -31,7 +31,8 @@ interface DropdownMenuBaseProps extends Partial<Omit<GroupedListProps, keyof Lis
   overlayProps?: Partial<OverlayProps>
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`.
+   * If defined, will control the open/closed state of the overlay. If not defined, the overlay will manage its own state (in other words, an
+   * uncontrolled component). Must be used in conjuction with `onOpenChange`.
    */
   open?: boolean
 
