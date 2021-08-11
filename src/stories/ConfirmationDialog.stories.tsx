@@ -84,7 +84,9 @@ export const ShorthandHookFromActionMenu = () => {
   const confirm = useConfirm()
   const [text, setText] = useState('open me')
   const onButtonClick = useCallback(async () => {
-    if (await confirm({title: 'Are you sure?', content: 'Do you really want to do a trick?'})) {
+    if (
+      await confirm({title: 'Are you sure?', content: 'Do you really want to do a trick?', cancelButtonContent: null})
+    ) {
       setText('tada!')
     }
   }, [confirm])

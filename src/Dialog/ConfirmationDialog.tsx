@@ -157,7 +157,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
     variant: 'large',
     onClick: onConfirmButtonClick
   }
-  const footerButtons = [cancelButton, confirmButton]
+  const footerButtons = [cancelButton, confirmButton].filter(btn => !!btn.content)
   return (
     <Dialog
       onClose={onClose}
