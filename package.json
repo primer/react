@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "28.3.0",
+  "version": "28.3.2",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -22,7 +22,7 @@
     "release": "npm run build && changeset publish",
     "size": "size-limit"
   },
-  "repository": "primer/components",
+  "repository": "primer/react",
   "keywords": [
     "react",
     "components",

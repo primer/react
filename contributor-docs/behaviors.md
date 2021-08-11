@@ -1,4 +1,4 @@
-*Note: This documentation is a draft and is expected to undergo several revisions before being adopted.*
+_Note: This documentation is a draft and is expected to undergo several revisions before being adopted._
 
 # Implementing Behaviors in Primer Components
 
@@ -10,10 +10,10 @@ Behaviors in Primer Components are implemented via React Hooks. Primer Component
 
 **Internal dependencies:** Internal dependencies are fine and encouraged to reduce code duplication and maintain consistency. When taking an internal dependency, observe the following:
 
-* No circular dependencies
-* Components may depend on other components and component behaviors, but should avoid depending directly on generic behaviors.
-* Component behaviors may depend on other component behaviors and generic behaviors.
-* Generic behaviors may only depend on other generic behaviors.
+- No circular dependencies
+- Components may depend on other components and component behaviors, but should avoid depending directly on generic behaviors.
+- Component behaviors may depend on other component behaviors and generic behaviors.
+- Generic behaviors may only depend on other generic behaviors.
 
 See below for a visualization of allowed dependencies.
 
@@ -23,7 +23,7 @@ See below for a visualization of allowed dependencies.
 +-------------V--------+   /
 |   Generic behaviors  |---
 +----------------------+
-           ^   
+           ^
           *|     ___________
            |    |           \*
 +----------|----V-------+   /
@@ -44,10 +44,10 @@ Generic behaviors provide functionality that is not specific to any single compo
 
 ### Examples
 
-* `useProvidedRefOrCreate`
-* `usePosition`
-* `useClickAway`
-* `useTypeAhead`
+- `useProvidedRefOrCreate`
+- `usePosition`
+- `useClickAway`
+- `useTypeAhead`
 
 ## Component behaviors
 
@@ -55,10 +55,10 @@ Component behaviors specifically implement behaviors for components. Therefore, 
 
 ### Examples
 
-* `usePopover`
-* `useComboBox`
-* `useFilteredSearch`
-* `useDetails`
+- `usePopover`
+- `useComboBox`
+- `useFilteredSearch`
+- `useDetails`
 
 ## Implementation guidelines
 
@@ -70,12 +70,12 @@ Example: The Dialog component uses a `usePopover` behavior. The `usePopover` beh
 
 ### Component implementation
 
-Component implementation is [discussed elsewhere](https://github.com/primer/components/blob/main/contributor-docs/CONTRIBUTING.md#developing-components), but with respect to behaviors, follow these guidelines.
+Component implementation is [discussed elsewhere](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#developing-components), but with respect to behaviors, follow these guidelines.
 
-* If a component has behaviors, it should make a call to exactly one component behavior hook.
-* The hook will return an object containing multiple props objects. Each of the returned objects are props that should be spread onto the appropriate JSX element.
-* Component implementations should be as clean as possible, mostly consisting of the JSX tree definition that the component renders.
-* Component props and, in some circumstances, context values, should serve as arguments to component behavior hooks.
+- If a component has behaviors, it should make a call to exactly one component behavior hook.
+- The hook will return an object containing multiple props objects. Each of the returned objects are props that should be spread onto the appropriate JSX element.
+- Component implementations should be as clean as possible, mostly consisting of the JSX tree definition that the component renders.
+- Component props and, in some circumstances, context values, should serve as arguments to component behavior hooks.
 
 ### Balancing API surface with supported scenarios
 
@@ -83,16 +83,16 @@ The [YAGNI Principle](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) 
 
 ### Sensible defaults, powerful configuration, and last-resort "escape hatches"
 
-* Defaults should take users down the “happy path” and place them into the “pit of success.” 
-* Configuration allows the component to reach more use cases. Components that use configurations to deviate from defaults should be viewed as first-class supported scenarios, just as important as the defaults.
-* Escape hatches may be necessary to support consumers with requirements that we haven’t considered. It should be cleared that using escape hatches “voids your warranty,” yet, they should be fully documented.
+- Defaults should take users down the “happy path” and place them into the “pit of success.”
+- Configuration allows the component to reach more use cases. Components that use configurations to deviate from defaults should be viewed as first-class supported scenarios, just as important as the defaults.
+- Escape hatches may be necessary to support consumers with requirements that we haven’t considered. It should be cleared that using escape hatches “voids your warranty,” yet, they should be fully documented.
 
 ### Arguments to behaviors
 
-* As mentioned above, behaviors should have sensible defaults but powerful configuration. Behaviors are configured via arguments passed to the hook.
-* When possible, a hook should be able to be called with zero arguments to get all the defaults.
-* Each argument that is required should have an individual parameter on the hook function.
-* Optional arguments (i.e. “settings”) should be provided via a strongly typed settings object as the last argument to a hook function.
+- As mentioned above, behaviors should have sensible defaults but powerful configuration. Behaviors are configured via arguments passed to the hook.
+- When possible, a hook should be able to be called with zero arguments to get all the defaults.
+- Each argument that is required should have an individual parameter on the hook function.
+- Optional arguments (i.e. “settings”) should be provided via a strongly typed settings object as the last argument to a hook function.
 
 ### Return value of behavior hooks
 
@@ -100,15 +100,16 @@ The [YAGNI Principle](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) 
 
 Component behavior hooks produce _props_. Therefore, the return value of a component behavior should be a collection of props objects, intended to be spread onto JSX elements that render a component.
 
-* Each element of the object returned from a component behavior hook is a props object that can be spread onto a JSX element
-* The names of the keys should accurately indicate the JSX element onto which those props should be spread
+- Each element of the object returned from a component behavior hook is a props object that can be spread onto a JSX element
+- The names of the keys should accurately indicate the JSX element onto which those props should be spread
 
 Example: The Dialog component uses a `usePopover` component behavior, which may return an object like:
+
 ```
-{ 
+{
   popoverProps: PropsObject,
   openClickTargetProps: PropsObject,
-  closeClickTargetProps: PropsObject 
+  closeClickTargetProps: PropsObject
 }
 ```
 
@@ -120,12 +121,12 @@ There are no restrictions on return values of generic behavior hooks. In fact, s
 
 ### Refs
 
-* Often, a behavior will need to act on a real DOM element.
-* In this case, the hook should return a ref as part of the returned props for that element. The ref will get spread onto the element, giving the ref access to it.
-* Whenever you need a ref, it must be accepted as an optional setting to the hook. The hook then uses the `useProvidedRefOrCreate` hook to resolve a usable ref. Remember to return the resulting ref from the hook.
+- Often, a behavior will need to act on a real DOM element.
+- In this case, the hook should return a ref as part of the returned props for that element. The ref will get spread onto the element, giving the ref access to it.
+- Whenever you need a ref, it must be accepted as an optional setting to the hook. The hook then uses the `useProvidedRefOrCreate` hook to resolve a usable ref. Remember to return the resulting ref from the hook.
 
 ## Testing behaviors
 
-* Whenever possible, test your changes in another application that makes heavy use of Primer Components.
-* You may even want to build and “marinate” your component in another application before merging a change to Primer Components.
-* Build the component, start using it in the application, and see how the component API feels. This approach works best for engineers at GitHub already working on a product written in React.
+- Whenever possible, test your changes in another application that makes heavy use of Primer Components.
+- You may even want to build and “marinate” your component in another application before merging a change to Primer Components.
+- Build the component, start using it in the application, and see how the component API feels. This approach works best for engineers at GitHub already working on a product written in React.

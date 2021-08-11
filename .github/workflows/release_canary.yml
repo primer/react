@@ -16,7 +16,7 @@ on:
 jobs:
   release-canary:
     name: Canary
-    if: ${{ github.repository == 'primer/components' }}
+    if: ${{ github.repository == 'primer/react' }}
 
     runs-on: ubuntu-latest
     steps:
