@@ -110,16 +110,31 @@ const StyledConfirmationFooter = styled(Box)`
     border-radius: 0;
   }
 `
+
+const StyledSingleConfirmationFooter = styled(Box)`
+  display: flex;
+  margin: 0 16px 16px 16px;
+
+  button {
+    font-size: ${get('fontSizes.1')};
+    flex: 1 1 0;
+    padding: 5px 16px;
+  }
+`
+
 const ConfirmationFooter: React.FC<DialogProps> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest'
   })
-  // Must have exactly 2 buttons!
+
+  const Footer = footerButtons?.length === 1 ? StyledSingleConfirmationFooter : StyledConfirmationFooter
+
+  // Must have at most 2 buttons!
   return (
-    <StyledConfirmationFooter ref={footerRef as React.RefObject<HTMLDivElement>}>
+    <Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
       <Dialog.Buttons buttons={footerButtons ?? []} />
-    </StyledConfirmationFooter>
+    </Footer>
   )
 }
 
