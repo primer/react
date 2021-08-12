@@ -113,12 +113,12 @@ const StyledConfirmationFooter = styled(Box)`
 
 const StyledSingleConfirmationFooter = styled(Box)`
   display: flex;
-  margin: 0 16px 16px 16px;
+  margin: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
 
   button {
     font-size: ${get('fontSizes.1')};
     flex: 1 1 0;
-    padding: 5px 16px;
+    padding: 5px ${get('space.3')};
   }
 `
 
