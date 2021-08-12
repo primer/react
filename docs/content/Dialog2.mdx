@@ -158,6 +158,27 @@ render(<ShorthandExample2 />)
 </State>
 ```
 
+### Example (using `ConfirmationDialog` component with one confirm option)
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
+    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
+    return (
+      <>
+        <Button onClick={openDialog}>Open</Button>
+        {isOpen && (
+          <ConfirmationDialog title="Confirm action?" onClose={closeDialog} cancelButtonContent={null}>
+            Are you sure you want to confirm this action?
+          </ConfirmationDialog>
+        )}
+      </>
+    )
+  }}
+</State>
+```
+
 ### ConfirmationDialogProps
 
 | Prop name            | Type                                                                  | Default    | Description                                                                                                                   |
