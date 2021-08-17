@@ -1,13 +1,13 @@
-import React, {useState, useRef, useCallback} from 'react'
+import React, {useState, useCallback, useRef} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Button, Box, ThemeProvider, useTheme} from '..'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {AlertDialog, useAlert} from '../Dialog/AlertDialog'
 import {ActionMenu} from '../ActionMenu'
 
 export default {
-  title: 'Internal components/ConfirmationDialog',
-  component: ConfirmationDialog,
+  title: 'Internal components/AlertDialog',
+  component: AlertDialog,
   decorators: [
     Story => {
       // Since portal roots are registered globally, we need this line so that each storybook
@@ -23,7 +23,7 @@ export default {
   ]
 } as Meta
 
-export const BasicConfirmationDialog = () => {
+export const BasicAlertDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -33,34 +33,29 @@ export const BasicConfirmationDialog = () => {
         Show dialog
       </Button>
       {isOpen && (
-        <ConfirmationDialog
-          title="Delete universe?"
-          onClose={onDialogClose}
-          confirmButtonContent="Delete it!"
-          confirmButtonType="danger"
-        >
+        <AlertDialog title="Delete universe?" onClose={onDialogClose} confirmButtonContent="OK">
           Deleting the universe could have disastrous effects, including but not limited to destroying all life on
           Earth.
-        </ConfirmationDialog>
+        </AlertDialog>
       )}
     </>
   )
 }
 
 export const ShorthandHook = () => {
-  const confirm = useConfirm()
+  const alert = useAlert()
   const {theme} = useTheme()
   const onButtonClick = useCallback(
     async (event: React.MouseEvent) => {
       if (
-        (await confirm({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
+        (await alert({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
         event.target instanceof HTMLElement
       ) {
         event.target.style.backgroundColor = theme?.colors.auto.green[3] ?? 'green'
         event.target.textContent = "I'm green!"
       }
     },
-    [confirm, theme]
+    [alert, theme]
   )
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">
@@ -81,13 +76,15 @@ export const ShorthandHook = () => {
 }
 
 export const ShorthandHookFromActionMenu = () => {
-  const confirm = useConfirm()
+  const alert = useAlert()
   const [text, setText] = useState('open me')
   const onButtonClick = useCallback(async () => {
-    if (await confirm({title: 'Are you sure?', content: 'Do you really want to do a trick?'})) {
+    if (
+      await alert({title: 'Are you sure?', content: 'Do you really want to do a trick?', confirmButtonContent: 'OK'})
+    ) {
       setText('tada!')
     }
-  }, [confirm])
+  }, [alert])
 
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">

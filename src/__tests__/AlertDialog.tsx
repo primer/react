@@ -1,18 +1,18 @@
 import React from 'react'
 import {fireEvent, screen} from '@testing-library/dom'
-import {ConfirmationDialog, ConfirmationDialogProps} from '../Dialog/ConfirmationDialog'
+import {AlertDialog, AlertDialogProps} from '../Dialog/AlertDialog'
 import {render, RenderResult} from '@testing-library/react'
 
-describe('ConfirmationDialog', () => {
+describe('AlertDialog', () => {
   const handleClose = jest.fn()
   const title = 'Are you sure?'
   const content = 'Do you really want to do a trick?'
 
-  const renderElement = (props: Omit<ConfirmationDialogProps, 'onClose' | 'title'> = {}): RenderResult =>
+  const renderElement = (props: Omit<AlertDialogProps, 'onClose' | 'title'> = {}): RenderResult =>
     render(
-      <ConfirmationDialog title={title} onClose={handleClose} {...props}>
+      <AlertDialog title={title} onClose={handleClose} {...props}>
         {content}
-      </ConfirmationDialog>
+      </AlertDialog>
     )
 
   beforeEach(() => {
@@ -37,30 +37,19 @@ describe('ConfirmationDialog', () => {
     expect(handleClose).toHaveBeenCalledTimes(1)
   })
 
-  it('renders with default buttons', () => {
-    const expectedButtons = ['Cancel', 'OK']
+  it('renders without buttons', () => {
+    const {container} = renderElement()
 
-    renderElement()
-
-    for (const btnText of expectedButtons) {
-      expect(screen.getByText(btnText)).toBeTruthy()
-    }
-
-    fireEvent.click(screen.getByText(expectedButtons[0]))
-    expect(handleClose).toHaveBeenCalledTimes(1)
+    expect(container.querySelector('button')).toBeNull()
   })
 
-  it('renders with custom buttons', () => {
-    const cancel = 'Dismiss'
+  it('renders with custom button', () => {
     const confirm = 'Got it!'
 
     renderElement({
-      cancelButtonContent: cancel,
       confirmButtonContent: confirm
     })
 
-    for (const expected of [cancel, confirm]) {
-      expect(screen.queryByText(expected)).toBeDefined()
-    }
+    expect(screen.queryByText(confirm)).toBeDefined()
   })
 })

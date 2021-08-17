@@ -16,7 +16,7 @@ export interface ConfirmationDialogProps {
    * Required. This callback is invoked when a gesture to close the dialog
    * is performed. The first argument indicates the gesture.
    */
-  onClose: (gesture: 'confirm' | 'cancel' | 'close-button' | 'cancel' | 'escape') => void
+  onClose: (gesture: 'confirm' | 'cancel' | 'close-button' | 'escape') => void
 
   /**
    * Required. The title of the ConfirmationDialog. This is usually a brief
@@ -110,31 +110,16 @@ const StyledConfirmationFooter = styled(Box)`
     border-radius: 0;
   }
 `
-
-const StyledSingleConfirmationFooter = styled(Box)`
-  display: flex;
-  margin: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
-
-  button {
-    font-size: ${get('fontSizes.1')};
-    flex: 1 1 0;
-    padding: 5px ${get('space.3')};
-  }
-`
-
 const ConfirmationFooter: React.FC<DialogProps> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest'
   })
-
-  const Footer = footerButtons?.length === 1 ? StyledSingleConfirmationFooter : StyledConfirmationFooter
-
-  // Must have at most 2 buttons!
+  // Must have exactly 2 buttons!
   return (
-    <Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+    <StyledConfirmationFooter ref={footerRef as React.RefObject<HTMLDivElement>}>
       <Dialog.Buttons buttons={footerButtons ?? []} />
-    </Footer>
+    </StyledConfirmationFooter>
   )
 }
 
@@ -172,7 +157,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
     variant: 'large',
     onClick: onConfirmButtonClick
   }
-  const footerButtons = [cancelButton, confirmButton].filter(btn => !!btn.content)
+  const footerButtons = [cancelButton, confirmButton]
   return (
     <Dialog
       onClose={onClose}

@@ -158,27 +158,6 @@ render(<ShorthandExample2 />)
 </State>
 ```
 
-### Example (using `ConfirmationDialog` component with no cancel option)
-
-```jsx live
-<State default={false}>
-  {([isOpen, setIsOpen]) => {
-    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
-    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
-    return (
-      <>
-        <Button onClick={openDialog}>Open</Button>
-        {isOpen && (
-          <ConfirmationDialog title="Confirm action?" onClose={closeDialog} cancelButtonContent={null}>
-            Are you sure you want to confirm this action?
-          </ConfirmationDialog>
-        )}
-      </>
-    )
-  }}
-</State>
-```
-
 ### ConfirmationDialogProps
 
 | Prop name            | Type                                                                  | Default    | Description                                                                                                                   |
@@ -198,3 +177,78 @@ render(<ShorthandExample2 />)
 | cancelButtonContent  | `React.ReactNode`                 | `"Cancel"` | The content to use for the cancel button.                                                                 |
 | confirmButtonContent | `React.ReactNode`                 | `"OK"`     | The content to use for the confirm button.                                                                |
 | confirmButtonType    | `"normal" │ "primary" │ "danger"` | `Button`   | The type of button to use for the confirm button.                                                         |
+
+## AlertDialog
+
+An `AlertDialog` is a special kind of dialog with more rigid behavior. It is used to alert or confirm a single user action. AlertDialogs can only have at most one button: no buttons or one to confirm the alert dialog. No custom rendering capabilities are provided for AlertDialog.
+
+### useAlert hook
+
+An alternate way to use `AlertDialog` is with the `useAlert()` hook. It takes no parameters and returns an `async` function, `alert`. When `alert` is called (see AlertOptions below for its argument), it shows the alert dialog. When the dialog is dismissed, a promise is resolved with `true` or `false` depending on whether or not the confirm button was used.
+
+### Example (with `useAlert` hook)
+
+```javascript live noinline
+function ShorthandExample2() {
+  const alert = useAlert()
+  const buttonClick = React.useCallback(
+    async function (e) {
+      if (
+        await alert({
+          title: 'Are you sure?',
+          content: 'You must confirm this action to continue.',
+          confirmButtonContent: 'OK'
+        })
+      ) {
+        e.target.textContent = 'Confirmed!'
+      }
+    },
+    [confirm]
+  )
+  return (
+    <>
+      <Button onClick={buttonClick}>Confirmable action</Button>
+    </>
+  )
+}
+render(<ShorthandExample2 />)
+```
+
+### Example (using `AlertDialog` component)
+
+```jsx live
+<State default={false}>
+  {([isOpen, setIsOpen]) => {
+    const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])
+    const closeDialog = React.useCallback(() => setIsOpen(false), [setIsOpen])
+    return (
+      <>
+        <Button onClick={openDialog}>Open</Button>
+        {isOpen && (
+          <AlertDialog title="Confirm action?" onClose={closeDialog}>
+            Are you sure you want to confirm this action?
+          </AlertDialog>
+        )}
+      </>
+    )
+  }}
+</State>
+```
+
+### AlertDialogProps
+
+| Prop name            | Type                                                       | Default  | Description                                                                                                                   |
+| :------------------- | :--------------------------------------------------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| title                | `React.ReactNode`                                          |          | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                     |
+| onClose              | `(gesture: 'confirm' │ 'close-button' │ 'escape') => void` |          | Required. This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture. |
+| confirmButtonContent | `React.ReactNode`                                          |          | The content to use for the confirm button.                                                                                    |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"`                          | `Button` | The type of button to use for the confirm button.                                                                             |
+
+### AlertOptions
+
+| Prop name            | Type                              | Default  | Description                                                                                               |
+| :------------------- | :-------------------------------- | :------- | :-------------------------------------------------------------------------------------------------------- |
+| title                | `React.ReactNode`                 |          | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute. |
+| content              | `React.ReactNode`                 |          | Required. Used as the body of the ConfirmationDialog that is displayed.                                   |
+| confirmButtonContent | `React.ReactNode`                 |          | The content to use for the confirm button.                                                                |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"` | `Button` | The type of button to use for the confirm button.                                                         |

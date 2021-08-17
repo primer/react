@@ -25,6 +25,7 @@ export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './Dialog/ConfirmationDialog'
+export {useAlert} from './Dialog/AlertDialog'
 
 // Components
 export {ActionList} from './ActionList'

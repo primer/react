@@ -1,5 +1,5 @@
 ---
-'@primer/components': patch
+'@primer/components': minor
 ---
 
-ConfirmationDialog can now render with one button, by passing a falsy value to `cancelButtonContent`.
+adding `AlertDialog` to account for cases where only one button is needed.
