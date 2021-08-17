@@ -128,7 +128,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     [overlayRef.current]
   )
   const overlayPosition = useMemo(() => {
-    return position && {top: `${position.top}px`, left: `${position.left}px`, anchorSide: position.anchorSide}
+    return position && {style: {top: `${position.top}px`, left: `${position.left}px`}, anchorSide: position.anchorSide}
   }, [position])
 
   useEffect(() => {

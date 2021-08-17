@@ -298,8 +298,7 @@ export const WithPortal = () => {
             <Portal>
               <Float
                 ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-                top={position?.top ?? 0}
-                left={position?.left ?? 0}
+                style={{top: `${position?.top ?? 0}px`, left: `${position?.left ?? 0}px`}}
                 width={250}
                 height={400}
                 sx={{visibility: position ? 'visible' : 'hidden'}}

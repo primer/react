@@ -181,8 +181,6 @@ Object {
   -webkit-animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
   animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
   visibility: var(--styled-overlay-visibility);
-  top: 4px;
-  left: 0px;
 }
 
 .c2:focus {
@@ -217,7 +215,7 @@ Object {
               data-focus-trap="active"
               height="auto"
               role="none"
-              style="--styled-overlay-visibility: visible;"
+              style="--styled-overlay-visibility: visible; top: 4px; left: 0px;"
               width="auto"
             >
               <button
@@ -257,11 +255,11 @@ Object {
           style="position: relative; z-index: 1;"
         >
           <div
-            class="Overlay__StyledOverlay-jhwkzw-0 leFwDU"
+            class="Overlay__StyledOverlay-jhwkzw-0 kVoHwu"
             data-focus-trap="active"
             height="auto"
             role="none"
-            style="--styled-overlay-visibility: visible;"
+            style="--styled-overlay-visibility: visible; top: 4px; left: 0px;"
             width="auto"
           >
             <button
