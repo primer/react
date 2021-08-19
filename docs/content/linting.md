@@ -4,7 +4,7 @@ title: Linting
 
 <Note variant="warning">
 
-`eslint-plugin-primer-react` is experimental. Please report issues in the [primer/eslint-plugin-primer-react](https://github.com/primer/eslint-plugin-primer-react) repository.
+`eslint-plugin-primer-react` is experimental. Please report issues in the [primer/react](https://github.com/primer/react) repository.
 
 </Note>
 
