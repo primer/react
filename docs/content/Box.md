@@ -1,7 +1,7 @@
 ---
 title: Box
 description: A low-level utility component that accepts styled system props to enable custom theme-aware styling
-source: https://github.com/primer/components/blob/main/src/Box.tsx
+source: https://github.com/primer/react/blob/main/src/Box.tsx
 ---
 
 import {Props} from '../src/props'
