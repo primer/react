@@ -1,5 +1,6 @@
 ---
 title: Linting
+description: Primer React offers an ESLint plugin to enforce best practices and fix common problems. 
 ---
 
 <Note variant="warning">
@@ -7,8 +8,6 @@ title: Linting
 `eslint-plugin-primer-react` is experimental. Please report issues in the [primer/react](https://github.com/primer/react) repository.
 
 </Note>
-
-Primer React offers an [ESLint plugin](https://github.com/primer/eslint-plugin-primer-react) to enforce best practices and fix common problems. 
 
 ## Installation
 
