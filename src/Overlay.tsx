@@ -104,8 +104,8 @@ export type OverlayProps = {
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`, or pass `initial` to set the height based on the initial content of the `Overlay` (i.e. ignoring content changes). `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param maxHeight Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param anchorSide If provided, the Overlay will slide into position from the side of the anchor with a brief animation
- * @param top Position of the overlay within its portal
- * @param left Position of the overlay within its portal
+ * @param top Optional. Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param left Optional. Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
@@ -171,8 +171,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           ref={combinedRef}
           style={
             {
-              top: `${top}px`,
-              left: `${left}px`,
+              top: `${top || 0}px`,
+              left: `${left || 0}px`,
               ...rest.style,
               '--styled-overlay-visibility': visibility
             } as React.CSSProperties
