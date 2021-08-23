@@ -108,11 +108,11 @@ function useSystemColorMode() {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    media?.addEventListener('change', handleChange)
+    media?.addEventListener?.('change', handleChange)
 
     return function cleanup() {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      media?.removeEventListener('change', handleChange)
+      media?.removeEventListener?.('change', handleChange)
     }
   }, [])
 
