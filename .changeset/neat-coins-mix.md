@@ -2,4 +2,4 @@
 '@primer/components': minor
 ---
 
-adding `AlertDialog` to account for cases where only one button is needed in a dialog.
+add `AlertDialog` component for cases where only one button is needed in a dialog.

@@ -33,7 +33,7 @@ export const BasicAlertDialog = () => {
         Show dialog
       </Button>
       {isOpen && (
-        <AlertDialog title="Delete universe?" onClose={onDialogClose} confirmButtonContent="OK">
+        <AlertDialog title="Delete universe?" onClose={onDialogClose} buttonContent="OK">
           Deleting the universe could have disastrous effects, including but not limited to destroying all life on
           Earth.
         </AlertDialog>
@@ -48,7 +48,10 @@ export const ShorthandHook = () => {
   const onButtonClick = useCallback(
     async (event: React.MouseEvent) => {
       if (
-        (await alert({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
+        (await alert({
+          title: 'Button color change',
+          content: 'This button will turn green!'
+        })) &&
         event.target instanceof HTMLElement
       ) {
         event.target.style.backgroundColor = theme?.colors.auto.green[3] ?? 'green'
@@ -80,9 +83,14 @@ export const ShorthandHookFromActionMenu = () => {
   const [text, setText] = useState('open me')
   const onButtonClick = useCallback(async () => {
     if (
-      await alert({title: 'Are you sure?', content: 'Do you really want to do a trick?', confirmButtonContent: 'OK'})
+      await alert({
+        title: 'Erase USB Storage?',
+        content: 'By pressing "OK" you acknowledge All files will be deleted and cannot be recovered',
+        buttonContent: 'OK',
+        buttonType: 'danger'
+      })
     ) {
-      setText('tada!')
+      setText('Erasing storage...')
     }
   }, [alert])
 
@@ -92,7 +100,7 @@ export const ShorthandHookFromActionMenu = () => {
         renderAnchor={props => <Button {...props}>{text}</Button>}
         items={[
           {
-            text: 'Do a trick!',
+            text: 'Erase',
             onAction: onButtonClick
           }
         ]}

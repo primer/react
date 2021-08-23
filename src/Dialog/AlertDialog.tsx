@@ -9,30 +9,30 @@ import ReactDOM from 'react-dom'
 import {ThemeProvider, useTheme, ThemeProviderProps} from '../ThemeProvider'
 
 /**
- * Props to customize the ConfirmationDialog.
+ * Props to customize the AlertDialog.
  */
 export interface AlertDialogProps {
   /**
    * Required. This callback is invoked when a gesture to close the dialog
    * is performed. The first argument indicates the gesture.
    */
-  onClose(gesture: 'confirm' | 'close-button' | 'escape'): void
+  onClose(gesture: 'acknowledge' | 'close-button' | 'escape'): void
 
   /**
-   * Required. The title of the ConfirmationDialog. This is usually a brief
-   * question.
+   * Required. The title of the AlertDialog. This is usually a clear
+   * question or statement.
    */
   title: React.ReactNode
 
   /**
-   * The text to use for the confirm button. Default: "OK".
+   * The text to use to acknowledge the alert. Default: "Got it!".
    */
-  confirmButtonContent?: React.ReactNode
+  buttonContent?: React.ReactNode
 
   /**
-   * The type of button to use for the confirm button. Default: Button.
+   * The type of button to use for the acknowledgement gesture. Default: normal.
    */
-  confirmButtonType?: 'normal' | 'primary' | 'danger'
+  buttonType?: 'normal' | 'primary' | 'danger'
 }
 
 const StyledAlertHeader = styled.header`
@@ -94,27 +94,30 @@ const AlertFooter: React.FC<DialogProps> = ({footerButtons}) => {
 }
 
 /**
- * An AlertDialog is a special kind of dialog with more rigid behavior. It
- * is used to alert or confirm a single user action. AlertDialogs can only have at most
- * one button: no buttons or one to confirm the alert dialog.
+ * AlertDialog is a special kind of dialog with an urgent interruption, and informs the user about a situation.
+ * They summarize a __single__ decision that requires acknowledgement and can only be dismissed by the alert close button or `escape` key.
+ * Use a clear question or statement for the alert title with an explanation in the content area, such as "Erase USB storage?".
+ * Avoid apologies, ambiguity, or questions, such as “Warning!” or “Are you sure?”
  * No custom rendering capabilities are provided for AlertDialog.
  */
 export const AlertDialog: React.FC<AlertDialogProps> = props => {
-  const {onClose, title, confirmButtonContent, confirmButtonType = 'normal', children} = props
+  const {onClose, title, buttonContent = 'Got it!', buttonType = 'normal', children} = props
 
   const onConfirmButtonClick = useCallback(() => {
-    onClose('confirm')
+    onClose('acknowledge')
   }, [onClose])
 
-  const confirmButton: DialogButtonProps = {
-    content: confirmButtonContent,
-    buttonType: confirmButtonType,
+  const acknowledgeButton: DialogButtonProps = {
+    content: buttonContent,
+    buttonType,
     variant: 'large',
     onClick: onConfirmButtonClick
   }
 
-  const hasConfirm = !!confirmButtonContent
-  const footerButtons = hasConfirm ? [confirmButton] : undefined
+  const hasAcknowledgeContent = !!buttonContent
+  const footerButtons = hasAcknowledgeContent ? [acknowledgeButton] : undefined
+  const footer = hasAcknowledgeContent ? AlertFooter : undefined
+
   return (
     <Dialog
       onClose={onClose}
@@ -124,7 +127,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = props => {
       width="medium"
       renderHeader={AlertHeader}
       renderBody={AlertBody}
-      renderFooter={hasConfirm ? AlertFooter : undefined}
+      renderFooter={footer}
     >
       {children}
     </Dialog>
@@ -139,7 +142,7 @@ async function alert(themeProps: ThemeProviderProps, options: AlertOptions): Pro
     const hostElement = document.createElement('div')
     const onClose: AlertDialogProps['onClose'] = gesture => {
       ReactDOM.unmountComponentAtNode(hostElement)
-      resolve(gesture === 'confirm')
+      resolve(gesture === 'acknowledge')
     }
 
     ReactDOM.render(
@@ -155,8 +158,8 @@ async function alert(themeProps: ThemeProviderProps, options: AlertOptions): Pro
 
 /**
  * This hook takes no parameters and returns an `async` function, `alert`. When `alert`
- * is called, it shows the confirmation dialog. When the dialog is dismissed, a promise is
- * resolved with `true` or `false` depending on whether or not the confirm button was used.
+ * is called, it shows the AlertDialog. When the dialog is dismissed, a promise is
+ * resolved with `true` or `false` depending on whether or not the acknowledgement button was used.
  */
 export function useAlert() {
   const {theme, colorMode, dayScheme, nightScheme} = useTheme()

@@ -5,8 +5,8 @@ import {render, RenderResult} from '@testing-library/react'
 
 describe('AlertDialog', () => {
   const handleClose = jest.fn()
-  const title = 'Are you sure?'
-  const content = 'Do you really want to do a trick?'
+  const title = 'Drop table xyz'
+  const content = 'By pressing "OK" you confirm to drop the table'
 
   const renderElement = (props: Omit<AlertDialogProps, 'onClose' | 'title'> = {}): RenderResult =>
     render(
@@ -38,17 +38,14 @@ describe('AlertDialog', () => {
   })
 
   it('renders without buttons', () => {
-    const {container} = renderElement()
-
-    expect(container.querySelector('button')).toBeNull()
+    renderElement({buttonContent: null})
+    expect(screen.queryByText('Got it!')).toBeNull()
   })
 
   it('renders with custom button', () => {
     const confirm = 'Got it!'
 
-    renderElement({
-      confirmButtonContent: confirm
-    })
+    renderElement()
 
     expect(screen.queryByText(confirm)).toBeDefined()
   })
