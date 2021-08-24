@@ -11,12 +11,21 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
   border-radius: ${get('radii.2')};
   box-shadow: none;
 
-  &:disabled {
-    color: ${get('colors.fg.muted')};
+  &:hover {
+    background-color: ${get('colors.btn.hoverBg')};
   }
 
   &:focus {
     box-shadow: ${get('shadows.btn.focusShadow')};
+  }
+
+  &:active {
+    background-color: ${get('colors.btn.selectedBg')};
+  }
+
+  &:disabled {
+    background-color: transparent;
+    color: ${get('colors.fg.muted')};
   }
 
   ${buttonSystemProps};

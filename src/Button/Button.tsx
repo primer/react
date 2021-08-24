@@ -21,7 +21,10 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
     box-shadow: ${get('shadows.btn.focusShadow')};
   }
 
-  &:active {
+  // additional selector with high specificity is needed to beat
+  // the specificity of the :focus-visible styles in BaseStyles
+  &:active,
+  &:active:focus:not(:focus-visible):not(.focus-visible) {
     background-color: ${get('colors.btn.selectedBg')};
     box-shadow: ${get('shadows.btn.shadowActive')};
   }
