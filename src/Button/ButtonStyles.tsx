@@ -22,10 +22,6 @@ export default css`
     text-decoration: none;
   }
 
-  &:focus {
-    outline: none;
-  }
-
   &:disabled {
     cursor: default;
   }

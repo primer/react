@@ -16,10 +16,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   border-radius: ${get('radii.2')};
   color: ${get('colors.fg.muted')};
 
-  &:focus {
-    box-shadow: ${get('shadows.btn.focusShadow')};
-  }
-
   &:hover {
     color: ${get('colors.accent.fg')};
   }

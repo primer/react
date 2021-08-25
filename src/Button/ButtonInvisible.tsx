@@ -15,10 +15,6 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
     background-color: ${get('colors.btn.hoverBg')};
   }
 
-  &:focus {
-    box-shadow: ${get('shadows.btn.focusShadow')};
-  }
-
   &:active {
     background-color: ${get('colors.btn.selectedBg')};
   }

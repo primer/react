@@ -8,11 +8,7 @@ const GlobalStyle = createGlobalStyle`
   body { margin: 0; }
   table { border-collapse: collapse; }
   
-  [role="button"]:focus:not(:focus-visible):not(.focus-visible),
-  [role="tabpanel"][tabindex="0"]:focus:not(:focus-visible):not(.focus-visible),
-  button:focus:not(:focus-visible):not(.focus-visible),
-  summary:focus:not(:focus-visible):not(.focus-visible),
-  a:focus:not(:focus-visible):not(.focus-visible) {
+  [role="tabpanel"][tabindex="0"]:focus:not(:focus-visible):not(.focus-visible) {
     outline: none;
     box-shadow: none;
   }
