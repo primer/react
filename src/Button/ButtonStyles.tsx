@@ -16,6 +16,7 @@ export default css`
   appearance: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
 
   &:hover {
     // needed to override link styles
