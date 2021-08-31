@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "repository": "primer/components",
+  "repository": "primer/react",
   "version": "1.0.0",
   "scripts": {
     "clean": "gatsby clean",

@@ -32,6 +32,10 @@ interface AnchoredOverlayPropsWithoutAnchor {
   anchorRef: React.RefObject<HTMLElement>
 }
 
+export type AnchoredOverlayWrapperAnchorProps =
+  | Partial<AnchoredOverlayPropsWithAnchor>
+  | AnchoredOverlayPropsWithoutAnchor
+
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * Determines whether the overlay portion of the component should be shown or not
@@ -124,7 +128,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     [overlayRef.current]
   )
   const overlayPosition = useMemo(() => {
-    return position && {top: `${position.top}px`, left: `${position.left}px`, anchorSide: position.anchorSide}
+    return position && {style: {top: `${position.top}px`, left: `${position.left}px`}, anchorSide: position.anchorSide}
   }, [position])
 
   useEffect(() => {
