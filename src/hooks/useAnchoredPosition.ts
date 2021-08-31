@@ -1,6 +1,7 @@
 import React from 'react'
 import {PositionSettings, getAnchoredPosition, AnchorPosition} from '../behaviors/anchoredPosition'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+import {useResizeObserver} from './useResizeObserver'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>
@@ -27,14 +28,23 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  React.useLayoutEffect(() => {
-    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-      setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
-    } else {
-      setPosition(undefined)
-    }
+
+  const updatePosition = React.useCallback(
+    () => {
+      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+        setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
+      } else {
+        setPosition(undefined)
+      }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [floatingElementRef, anchorElementRef, ...dependencies])
+    [floatingElementRef, anchorElementRef, ...dependencies]
+  )
+
+  React.useLayoutEffect(updatePosition, [updatePosition])
+
+  useResizeObserver(updatePosition)
+
   return {
     floatingElementRef,
     anchorElementRef,
