@@ -72,43 +72,13 @@ const ConfirmationBody: React.FC<DialogProps> = ({children}) => {
   return <StyledConfirmationBody>{children}</StyledConfirmationBody>
 }
 const StyledConfirmationFooter = styled(Box)`
-  display: flex;
-  flex-shrink: 0;
-  button {
-    font-size: ${get('fontSizes.1')};
-    flex: 1 1 0;
-    border-bottom: 0;
-    margin: 0;
-    border-right: 0;
-    border-radius: 12px;
-    &:first-child {
-      border-left: 0;
-    }
-    &:focus {
-      // this is a bit of a hack to get the focus outlines to show up
-      z-index: 1;
-    }
-  }
-  button:first-of-type:not(:last-of-type) {
-    // All except border-bottom-left-radius, which should follow the curvature of the container
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  button:last-of-type:not(:first-of-type) {
-    // All except border-bottom-right-radius, which should follow the curvature of the container
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  button:first-of-type:last-of-type {
-    // When the footer contains a single button, it should follow the curvature of the container
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  button:not(:first-of-type):not(:last-of-type) {
-    border-radius: 0;
-  }
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-gap: ${get('space.2')};
+  align-items: end;
+  justify-content: end;
+  padding: ${get('space.1')} ${get('space.3')} ${get('space.3')};
 `
 const ConfirmationFooter: React.FC<DialogProps> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
@@ -148,13 +118,11 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
     onClick: onCancelButtonClick,
-    autoFocus: true,
-    variant: 'large'
+    autoFocus: true
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
-    variant: 'large',
     onClick: onConfirmButtonClick
   }
   const footerButtons = [cancelButton, confirmButton]

@@ -1,5 +1,7 @@
 ---
 title: Breadcrumbs
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Breadcrumb.tsx
 ---
 
 Breadcrumbs are used to show taxonomical context on pages that are many levels deep in a site’s hierarchy. Breadcrumbs show and link to parent, grandparent, and sometimes great-grandparent pages. Breadcrumbs are most appropriate on pages that:
@@ -17,10 +19,10 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ```jsx live
 <Breadcrumb>
-  <Breadcrumb.Item href="#business">Business</Breadcrumb.Item>
-  <Breadcrumb.Item href="#customers">Customers</Breadcrumb.Item>
-  <Breadcrumb.Item href="#mailchimp" selected>
-    MailChimp
+  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+  <Breadcrumb.Item href="/about">About</Breadcrumb.Item>
+  <Breadcrumb.Item href="/about/team" selected>
+    Team
   </Breadcrumb.Item>
 </Breadcrumb>
 ```

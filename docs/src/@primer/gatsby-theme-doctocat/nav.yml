@@ -10,6 +10,9 @@
     - title: Theme reference
       url: /theme-reference
 
+    - title: Linting
+      url: /linting
+
     - title: System props
       url: /system-props
 
