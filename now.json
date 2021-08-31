@@ -1,13 +1,10 @@
 {
-  "name": "primer-components",
-  "version": 2,
-  "alias": "primer-components.now.sh",
   "routes": [
-    {"src": "/components(/.*)?", "dest": "/docs$1"},
+    {"src": "/react(/.*)?", "dest": "/docs$1"},
     {
       "src": "/",
       "status": 301,
-      "headers": {"Location": "/components"}
+      "headers": {"Location": "/react"}
     }
   ],
   "builds": [

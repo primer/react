@@ -26,7 +26,7 @@
 
 ## Roadmap
 
-If you're looking for something to work on, a great place to start is our issues labeled [up for grabs](https://github.com/primer/components/issues?q=is%3Aopen+is%3Aissue+label%3A%22up+for+grabs%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Components Roadmap](https://github.com/primer/components/projects/3) to make sure it hasn't already been started on.
+If you're looking for something to work on, a great place to start is our issues labeled [up for grabs](https://github.com/primer/react/issues?q=is%3Aopen+is%3Aissue+label%3A%22up+for+grabs%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Components Roadmap](https://github.com/primer/react/projects/3) to make sure it hasn't already been started on.
 
 ## Before Getting Started
 
@@ -36,7 +36,7 @@ A common question asked about Primer Components is how to know what should be ad
 
 - Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
 
-**In general, we tend to be pretty excited about 99% of feature proposals and contributions!** If you would like to get started with a component proposal, open an issue using the [component proposal template](https://github.com/primer/components/issues/new?template=new-component-proposal.md).
+**In general, we tend to be pretty excited about 99% of feature proposals and contributions!** If you would like to get started with a component proposal, open an issue using the [component proposal template](https://github.com/primer/react/issues/new?template=new-component-proposal.md).
 
 ## Discussing non-public features or products
 
