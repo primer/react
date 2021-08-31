@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, {ReactElement, useEffect, useLayoutEffect, useRef} from 'react'
-import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
+import {get, COMMON, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
@@ -51,7 +51,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
   return {x: 0, y: 0}
 }
 
-const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SystemPositionProps & SxProp>`
+const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SxProp>`
   background-color: ${get('colors.bg.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
@@ -77,7 +77,6 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
     outline: none;
   }
   ${COMMON};
-  ${POSITION};
   ${sx};
 `
 export type OverlayProps = {
@@ -88,6 +87,8 @@ export type OverlayProps = {
   onEscape: (e: KeyboardEvent) => void
   visibility?: 'visible' | 'hidden'
   [additionalKey: string]: unknown
+  top: number
+  left: number
 } & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
@@ -103,6 +104,8 @@ export type OverlayProps = {
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`, or pass `initial` to set the height based on the initial content of the `Overlay` (i.e. ignoring content changes). `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param maxHeight Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param anchorSide If provided, the Overlay will slide into position from the side of the anchor with a brief animation
+ * @param top Optional. Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param left Optional. Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
@@ -115,6 +118,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       onEscape,
       visibility = 'visible',
       height,
+      top,
+      left,
       anchorSide,
       ...rest
     },
@@ -166,6 +171,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           ref={combinedRef}
           style={
             {
+              top: `${top || 0}px`,
+              left: `${left || 0}px`,
               ...rest.style,
               '--styled-overlay-visibility': visibility
             } as React.CSSProperties
