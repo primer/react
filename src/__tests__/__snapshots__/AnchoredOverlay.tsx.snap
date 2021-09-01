@@ -206,6 +206,7 @@ Object {
         </button>
         <div
           id="__primerPortalRoot__"
+          style="position: absolute; top: 0px; left: 0px;"
         >
           <div
             style="position: relative; z-index: 1;"
@@ -250,6 +251,7 @@ Object {
       </button>
       <div
         id="__primerPortalRoot__"
+        style="position: absolute; top: 0px; left: 0px;"
       >
         <div
           style="position: relative; z-index: 1;"

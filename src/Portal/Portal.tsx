@@ -26,6 +26,9 @@ function ensureDefaultPortal() {
     if (!(defaultPortalContainer instanceof Element)) {
       defaultPortalContainer = document.createElement('div')
       defaultPortalContainer.setAttribute('id', PRIMER_PORTAL_ROOT_ID)
+      defaultPortalContainer.style.position = 'absolute'
+      defaultPortalContainer.style.top = '0'
+      defaultPortalContainer.style.left = '0'
       const suitablePortalRoot = document.querySelector('[data-portal-root]')
       if (suitablePortalRoot) {
         suitablePortalRoot.appendChild(defaultPortalContainer)
