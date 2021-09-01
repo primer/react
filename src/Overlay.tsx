@@ -15,7 +15,6 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
-  portalContainerName?: string
 }
 
 const heightMap = {
