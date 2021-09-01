@@ -89,6 +89,7 @@ export type OverlayProps = {
   [additionalKey: string]: unknown
   top: number
   left: number
+  portalContainerName?: string
 } & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
@@ -106,6 +107,7 @@ export type OverlayProps = {
  * @param anchorSide If provided, the Overlay will slide into position from the side of the anchor with a brief animation
  * @param top Optional. Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param left Optional. Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
@@ -121,6 +123,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       top,
       left,
       anchorSide,
+      portalContainerName,
       ...rest
     },
     forwardedRef
@@ -163,7 +166,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     return (
-      <Portal>
+      <Portal containerName={portalContainerName}>
         <StyledOverlay
           height={height}
           role={role}
