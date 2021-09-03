@@ -89,6 +89,10 @@ exports[`Timeline.Badge renders consistently 1`] = `
 
 exports[`Timeline.Item renders consistently 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   position: relative;
   padding: 16px 0;
   margin-left: 16px;
@@ -112,6 +116,10 @@ exports[`Timeline.Item renders consistently 1`] = `
 
 exports[`Timeline.Item renders with condensed prop 1`] = `
 .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   position: relative;
   padding: 16px 0;
   margin-left: 16px;
