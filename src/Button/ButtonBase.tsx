@@ -10,7 +10,7 @@ export type ButtonSystemProps = FontSizeProps & SystemCommonProps & SystemLayout
 const variants = variant({
   variants: {
     small: {
-      p: '4px 8px',
+      p: '4px 12px',
       fontSize: 0
     },
     medium: {

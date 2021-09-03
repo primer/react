@@ -4,48 +4,34 @@ import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
-// TODO:
-//
-// - Instead of _just_ setting :hover background-color to `colors.btn.hoverBg`,
-// change `colors.btn.outline.hoverBg` in primitives
-// - Remove `colors.btn.outline.hoverText` from primitives
-// - Remove `colors.btn.outline.hoverShadow` from primitives
-// - Remove `colors.btn.outline.hoverBorder` from primitives, or change it if we don't just use the default (`colors.btn.hoverBorder`)
-// - Remove `colors.btn.outline.selectedText` from primitives
-// - Remove `colors.btn.outline.selectedBg` from primitives
-// - Instead of _just_ setting :focus box-shadow to `shadows.btn.focusShadow`,
-// change `shadows.btn.outline.focusShadow` in primitives
-// - Remove `colors.btn.outline.focusBorder`
-// - Remove `colors.btn.outline.selectedBg` from primitives, or change it if we don't just use the default (`colors.btn.selectedBg`)
-// - Remove `colors.btn.outline.selectedBorder` from primitives
-// - Remove `colors.btn.outline.disabledBg` from primitives, or change it if we don't just use the default (`colors.btn.bg`)
-// - Remove `colors.btn.outline.text` from primitives, or change it if we don't just use the default (`colors.btn.text`)
-// - Remove `colors.btn.outline.disabledText` from primitives, or change it if we don't just use the default (`colors.text.disabled`)
-//
-
 const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
-  color: ${get('colors.btn.text')};
+  color: ${get('colors.btn.outline.text')};
   border: 1px solid ${get('colors.btn.border')};
-  background-color: transparent;
+  background-color: ${get('colors.btn.outline.bg')};
+  box-shadow: ${get('shadows.btn.shadow')};
 
   &:hover {
-    background-color: ${get('colors.btn.hoverBg')};
-    border-color: ${get('colors.btn.hoverBorder')};
+    color: ${get('colors.btn.outline.hoverText')};
+    background-color: ${get('colors.btn.outline.hoverBg')};
+    border-color: ${get('colors.btn.outline.hoverBorder')};
+    box-shadow: ${get('shadows.btn.outline.hoverShadow')};
   }
   // focus must come before :active so that the active box shadow overrides
   &:focus {
-    border-color: ${get('colors.btn.focusBorder')};
+    border-color: ${get('colors.btn.outline.focusBorder')};
+    box-shadow: ${get('shadows.btn.outline.focusShadow')};
   }
 
   &:active {
-    background-color: ${get('colors.btn.selectedBg')};
-    box-shadow: ${get('shadows.btn.shadowActive')};
+    color: ${get('colors.btn.outline.selectedText')};
+    background-color: ${get('colors.btn.outline.selectedBg')};
+    box-shadow: ${get('shadows.btn.outline.selectedShadow')};
     border-color: ${get('colors.btn.outline.selectedBorder')};
   }
 
   &:disabled {
-    color: ${get('colors.text.disabled')};
-    background-color: transparent;
+    color: ${get('colors.btn.outline.disabledText')};
+    background-color: ${get('colors.btn.outline.disabledBg')};
     border-color: ${get('colors.btn.border')};
   }
 
