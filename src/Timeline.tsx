@@ -29,6 +29,7 @@ type StyledTimelineItemProps = {condensed?: boolean}
 const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)
 }))<StyledTimelineItemProps>`
+  display: flex;
   position: relative;
   padding: ${get('space.3')} 0;
   margin-left: ${get('space.3')};
