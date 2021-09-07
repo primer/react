@@ -56,28 +56,7 @@ export default {
   }
 } as Meta
 
-const buttonTestGroupStyles = {display: 'flex', gap: '1rem', paddingBottom: '2rem'}
-
 export const defaultButton = (args: StrictButtonStyleProps) => <Button {...args}>Default Button</Button>
-export const buttonCorrectionTest = (args: StrictButtonStyleProps) => (
-  <>
-    <div>Default</div>
-    <div style={buttonTestGroupStyles}>
-      <div><Button {...args}>Button</Button></div>
-      <div><Button {...args} disabled>Disabled</Button></div>
-    </div>
-    <div>Outline</div>
-    <div style={buttonTestGroupStyles}>
-      <div><ButtonOutline {...args}>Button</ButtonOutline></div>
-      <div><ButtonOutline {...args} disabled>Disabled</ButtonOutline></div>
-    </div>
-    <div>Invisible</div>
-    <div style={buttonTestGroupStyles}>
-      <div><ButtonInvisible {...args}>Button</ButtonInvisible></div>
-      <div><ButtonInvisible {...args} disabled>Disabled</ButtonInvisible></div>
-    </div>
-  </>
-)
 export const dangerButton = (args: StrictButtonStyleProps) => <ButtonDanger {...args}>Danger Button</ButtonDanger>
 export const outlineButton = (args: StrictButtonStyleProps) => <ButtonOutline {...args}>Outline Button</ButtonOutline>
 export const primaryButton = (args: StrictButtonStyleProps) => <ButtonPrimary {...args}>Primary Button</ButtonPrimary>
@@ -99,7 +78,6 @@ export const buttonTableList = (args: ButtonStyleProps) => (
   <ButtonTableList {...args}>Button Table List</ButtonTableList>
 )
 
-buttonCorrectionTest.args = {variant: 'medium'}
 defaultButton.args = {variant: 'medium'}
 dangerButton.args = {variant: 'medium'}
 outlineButton.args = {variant: 'medium'}

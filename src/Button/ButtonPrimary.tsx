@@ -4,11 +4,6 @@ import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
 
-// TODO:
-//
-// - Instead of `colors.btn.primary.hoverBg`, add `colors.btn.primary.focusBg`
-//   OR use an outline-offset on all focus states instead of darkening the bg color
-//
 export const ButtonPrimary = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   color: ${get('colors.btn.primary.text')};
   border: 1px solid ${get('colors.btn.primary.border')};
