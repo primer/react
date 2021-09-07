@@ -24,6 +24,10 @@ Behaviors include:
 
 See the W3C accessibility recommendations for modals [here](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_roles_states_props).
 
+## Positioning
+
+`Overlay` renders its `children` within a div positioned absolutely within a portal within the default portal root. The overlay will not update its positioning if the portal root's positioning changes (e.g., if the portal root is statically positioned after some DOM element that dynamically resizes). You may consider [customizing the portal or specifying a different portal root](/Portal#customizing-the-portal-root) to achieve different positioning behavior.
+
 ## Default example
 
 ```javascript live noinline
