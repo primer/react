@@ -74,10 +74,6 @@ Array [
   right: 16px;
 }
 
-.c1:focus {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 .c1:hover {
   color: #0969da;
 }

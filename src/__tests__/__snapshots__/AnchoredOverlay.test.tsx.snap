@@ -28,6 +28,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
@@ -38,10 +39,6 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 .c1:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c1:focus {
-  outline: none;
 }
 
 .c1:disabled {
@@ -59,7 +56,6 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 
 .c1:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c1:active {
@@ -123,6 +119,7 @@ Object {
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
@@ -133,10 +130,6 @@ Object {
 .c1:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c1:focus {
-  outline: none;
 }
 
 .c1:disabled {
@@ -154,7 +147,6 @@ Object {
 
 .c1:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c1:active {
@@ -243,7 +235,7 @@ Object {
       <button
         aria-haspopup="true"
         aria-labelledby="react-aria-1"
-        class="ButtonBase-sc-181ps9o-0 Button-xjtz72-0 jPURef"
+        class="ButtonBase-sc-181ps9o-0 Button-xjtz72-0 kGuJvm"
         id="react-aria-1"
         tabindex="0"
       >

@@ -22,6 +22,7 @@ exports[`Button renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
@@ -32,10 +33,6 @@ exports[`Button renders consistently 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -53,7 +50,6 @@ exports[`Button renders consistently 1`] = `
 
 .c0:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c0:active {
@@ -94,6 +90,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
@@ -104,10 +101,6 @@ exports[`Button respects the "disabled" prop 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -125,7 +118,6 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c0:active {
@@ -167,6 +159,7 @@ exports[`ButtonDanger renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #cf222e;
   border: 1px solid rgba(27,31,36,0.15);
@@ -177,10 +170,6 @@ exports[`ButtonDanger renders consistently 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -200,7 +189,6 @@ exports[`ButtonDanger renders consistently 1`] = `
 
 .c0:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
 .c0:active {
@@ -242,6 +230,7 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #cf222e;
   border: 1px solid rgba(27,31,36,0.15);
@@ -252,10 +241,6 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -275,7 +260,6 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 
 .c0:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
 .c0:active {
@@ -370,20 +354,16 @@ exports[`ButtonInvisible renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #0969da;
   border: 1px solid rgba(27,31,36,0.15);
-  background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04);
 }
 
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -446,6 +426,7 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #0969da;
   background-color: transparent;
@@ -459,10 +440,6 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   text-decoration: none;
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
 }
@@ -471,12 +448,17 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   opacity: 0.6;
 }
 
-.c0:disabled {
-  color: #57606a;
+.c0:hover {
+  background-color: #f3f4f6;
 }
 
-.c0:focus {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0:active {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c0:disabled {
+  background-color: transparent;
+  color: #57606a;
 }
 
 <button
@@ -507,20 +489,16 @@ exports[`ButtonOutline renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #0969da;
   border: 1px solid rgba(27,31,36,0.15);
-  background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04);
 }
 
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -583,20 +561,16 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #0969da;
   border: 1px solid rgba(27,31,36,0.15);
-  background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04);
 }
 
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -660,6 +634,7 @@ exports[`ButtonPrimary renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #ffffff;
   border: 1px solid rgba(27,31,36,0.15);
@@ -670,10 +645,6 @@ exports[`ButtonPrimary renders consistently 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -690,8 +661,8 @@ exports[`ButtonPrimary renders consistently 1`] = `
 }
 
 .c0:focus {
+  background-color: #2c974b;
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(45,164,78,0.4);
 }
 
 .c0:active {
@@ -732,6 +703,7 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #ffffff;
   border: 1px solid rgba(27,31,36,0.15);
@@ -742,10 +714,6 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -762,8 +730,8 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
 }
 
 .c0:focus {
+  background-color: #2c974b;
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(45,164,78,0.4);
 }
 
 .c0:active {

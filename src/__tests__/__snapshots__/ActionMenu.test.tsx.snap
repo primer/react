@@ -22,6 +22,7 @@ exports[`ActionMenu renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  outline-offset: 3px;
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
@@ -32,10 +33,6 @@ exports[`ActionMenu renders consistently 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c0:focus {
-  outline: none;
 }
 
 .c0:disabled {
@@ -53,7 +50,6 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c0:focus {
   border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c0:active {
