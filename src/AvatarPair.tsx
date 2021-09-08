@@ -16,7 +16,11 @@ export type AvatarPairProps = BoxProps
 const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
     if (!React.isValidElement(child)) return child
-    return i === 0 ? React.cloneElement(child, {size: 40}) : <ChildAvatar bg="bg.canvas" {...child.props} size={20} />
+    return i === 0 ? (
+      React.cloneElement(child, {size: 40})
+    ) : (
+      <ChildAvatar bg="canvas.default" {...child.props} size={20} />
+    )
   })
   return (
     <Box position="relative" display="inline-flex" {...rest}>

@@ -7,7 +7,7 @@ import {ComponentProps} from '../utils/types'
 const Animation = styled.div<SystemCommonProps>`
   padding: ${get('space.6')} ${get('space.4')};
   text-align: center;
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
   ${COMMON}
 `
 

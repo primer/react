@@ -16,7 +16,7 @@ const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | '
         right: -16px;
         left: auto;
         border-color: transparent;
-        border-left-color: ${get('colors.border.overlay')(theme)};
+        border-left-color: ${get('colors.border.default')(theme)};
       }
 
       &::after {
@@ -24,7 +24,7 @@ const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | '
         right: -14px;
         left: auto;
         border-color: transparent;
-        border-left-color: ${get('colors.border.overlay')(theme)};
+        border-left-color: ${get('colors.border.default')(theme)};
       }
     `,
     e: `
@@ -38,14 +38,14 @@ const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | '
         top: 10px;
         left: -16px;
         border-color: transparent;
-        border-right-color: ${get('colors.border.overlay')(theme)};
+        border-right-color: ${get('colors.border.default')(theme)};
       }
 
       &::after {
         top: 11px;
         left: -14px;
         border-color: transparent;
-        border-right-color: ${get('colors.border.overlay')(theme)};
+        border-right-color: ${get('colors.border.default')(theme)};
       }
     `,
     ne: `
@@ -63,7 +63,7 @@ const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | '
       &::before {
         bottom: -8px;
         left: 9px;
-        border-top: 8px solid ${get('colors.border.overlay')(theme)};
+        border-top: 8px solid ${get('colors.border.default')(theme)};
         border-bottom: 0;
         border-left: 8px solid transparent;
       }
@@ -71,7 +71,7 @@ const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | '
       &::after {
         bottom: -7px;
         left: 10px;
-        border-top: 7px solid ${get('colors.border.overlay')(theme)};
+        border-top: 7px solid ${get('colors.border.default')(theme)};
         border-right: 7px solid transparent;
         border-bottom: 0;
         border-left: 7px solid transparent;

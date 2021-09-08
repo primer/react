@@ -11,7 +11,7 @@ const Page = styled.a`
   padding: 5px 10px;
   font-style: normal;
   line-height: 20px;
-  color: ${get('colors.text.primary')};
+  color: ${get('colors.fg.default')};
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -32,30 +32,30 @@ const Page = styled.a`
   &:hover,
   &:focus {
     text-decoration: none;
-    border-color: ${get('colors.border.primary')};
+    border-color: ${get('colors.border.default')};
     outline: 0;
     transition-duration: 0.1s;
   }
 
   &:active {
-    border-color: ${get('colors.border.secondary')};
+    border-color: ${get('colors.border.muted')};
   }
 
   &[rel='prev'],
   &[rel='next'] {
-    color: ${get('colors.text.link')};
+    color: ${get('colors.accent.fg')};
   }
 
   &[aria-current],
   &[aria-current]:hover {
-    color: ${get('colors.state.selected.primaryText')};
-    background-color: ${get('colors.state.selected.primaryBg')};
+    color: ${get('colors.fg.onEmphasis')};
+    background-color: ${get('colors.accent.emphasis')};
     border-color: transparent;
   }
 
   &[aria-disabled],
   &[aria-disabled]:hover {
-    color: ${get('colors.text.disabled')}; // check
+    color: ${get('colors.fg.muted')}; // check
     cursor: default;
     border-color: transparent;
   }

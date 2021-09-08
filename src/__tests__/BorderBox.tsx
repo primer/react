@@ -23,7 +23,7 @@ describe('BorderBox', () => {
   })
 
   it('renders borders', () => {
-    expect(render(<BorderBox borderColor="border.success" />)).toHaveStyleRule(
+    expect(render(<BorderBox borderColor="success.emphasis" />)).toHaveStyleRule(
       'border-color',
       theme.colorSchemes.light.colors.border?.success
     )

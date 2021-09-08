@@ -8,7 +8,7 @@ const Pagehead = styled.div<SystemCommonProps & SxProp>`
   padding-top: ${get('space.4')};
   padding-bottom: ${get('space.4')};
   margin-bottom: ${get('space.4')};
-  border-bottom: 1px solid ${get('colors.border.primary')};
+  border-bottom: 1px solid ${get('colors.border.default')};
   ${COMMON};
   ${sx};
 `

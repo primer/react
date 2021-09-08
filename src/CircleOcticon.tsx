@@ -20,7 +20,7 @@ function CircleOcticon(props: CircleOcticonProps) {
       size={size}
       borderRadius="50%"
       borderStyle="solid"
-      borderColor="border.primary"
+      borderColor="border.default"
     >
       <Box display="flex" {...rest} alignItems="center" justifyContent="center">
         <IconComponent size={size} />

@@ -182,7 +182,7 @@ interface StyledDialogProps {
 const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPositionProps & SxProp>`
   display: flex;
   flex-direction: column;
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   min-width: 296px;
   max-width: calc(100vw - 64px);
@@ -297,7 +297,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 _Dialog.displayName = 'Dialog'
 
 const Header = styled(Box).attrs({as: 'header'})`
-  box-shadow: 0 1px 0 ${get('colors.border.overlay')};
+  box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
@@ -309,7 +309,7 @@ const Title = styled(Box)`
 const Subtitle = styled(Box)`
   font-size: ${get('fontSizes.0')};
   margin-top: ${get('space.1')};
-  color: ${get('colors.text.tertiary')};
+  color: ${get('colors.fg.muted')};
 `
 const Body = styled(Box)`
   flex-grow: 1;
@@ -317,7 +317,7 @@ const Body = styled(Box)`
   padding: ${get('space.3')};
 `
 const Footer = styled(Box).attrs({as: 'footer'})`
-  box-shadow: 0 -1px 0 ${get('colors.border.overlay')};
+  box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
   display: flex;
   flex-flow: wrap;
@@ -373,7 +373,7 @@ const DialogCloseButton = styled(Button)`
   background: transparent;
   border: 0;
   vertical-align: middle;
-  color: ${get('colors.text.secondary')};
+  color: ${get('colors.fg.muted')};
   padding: ${get('space.2')};
   align-self: flex-start;
   line-height: normal;

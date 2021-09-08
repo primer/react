@@ -65,7 +65,7 @@ it('respects theme prop', () => {
 it('has default theme', () => {
   render(
     <ThemeProvider>
-      <Text color="text.primary" mb={1}>
+      <Text color="fg.default" mb={1}>
         Hello
       </Text>
     </ThemeProvider>

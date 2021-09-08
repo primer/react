@@ -51,11 +51,11 @@ function NightMode() {
       <Box
         my={3}
         p={3}
-        color="text.primary"
-        bg="bg.canvas"
+        color="fg.default"
+        bg="canvas.default"
         borderWidth="1px"
         borderStyle="solid"
-        borderColor="border.primary"
+        borderColor="border.default"
         borderRadius={2}
       >
         Always night mode (<ActiveColorScheme />)
@@ -71,11 +71,11 @@ function InverseMode() {
       <Box
         my={3}
         p={3}
-        color="text.primary"
-        bg="bg.canvas"
+        color="fg.default"
+        bg="canvas.default"
         borderWidth="1px"
         borderStyle="solid"
-        borderColor="border.primary"
+        borderColor="border.default"
         borderRadius={2}
       >
         Always inverse of parent mode (<ActiveColorScheme />)

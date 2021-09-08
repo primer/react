@@ -106,7 +106,7 @@ const StyledList = styled.div`
 
   &[${hasActiveDescendantAttribute}], &:focus-within {
     --item-hover-bg-override: none;
-    --item-hover-divider-border-color-override: ${get('colors.selectMenu.borderSecondary')};
+    --item-hover-divider-border-color-override: ${get('colors.border.muted')};
   }
 `
 

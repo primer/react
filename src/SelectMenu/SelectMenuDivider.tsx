@@ -8,9 +8,9 @@ const dividerStyles = css`
   margin: 0;
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.text.tertiary')};
-  background-color: ${get('colors.bg.tertiary')};
-  border-bottom: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
+  color: ${get('colors.fg.muted')};
+  background-color: ${get('colors.canvas.subtle')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
 `
 
 const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`

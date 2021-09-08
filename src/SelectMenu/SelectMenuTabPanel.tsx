@@ -7,7 +7,7 @@ import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 
 const TabPanelBase = styled.div<SystemCommonProps & SxProp>`
-  border-top: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
+  border-top: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
   ${COMMON}
   ${sx};
 `

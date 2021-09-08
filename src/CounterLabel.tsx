@@ -12,10 +12,10 @@ const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     color:
       scheme === 'secondary'
-        ? get('colors.counter.text')(props)
+        ? get('colors.fg.default')(props)
         : scheme === 'primary'
-        ? get('colors.counter.primary.text')(props)
-        : get('colors.counter.text')(props)
+        ? get('colors.fg.onEmphasis')(props)
+        : get('colors.fg.default')(props)
   }
 }
 
@@ -23,10 +23,10 @@ const bgStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
   return {
     backgroundColor:
       scheme === 'secondary'
-        ? get('colors.counter.bg')(props)
+        ? get('colors.neutral.muted')(props)
         : scheme === 'primary'
-        ? get('colors.counter.primary.bg')(props)
-        : get('colors.counter.bg')(props)
+        ? get('colors.neutral.emphasis')(props)
+        : get('colors.neutral.muted')(props)
   }
 }
 
