@@ -1,9 +1,8 @@
-import {omit, pick} from '@styled-system/props'
 import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -43,8 +42,7 @@ type StyledWrapperProps = {
   block?: boolean
   contrast?: boolean
   variant?: 'small' | 'large'
-} & SystemCommonProps &
-  WidthProps &
+} & WidthProps &
   MinWidthProps &
   MaxWidthProps &
   SxProp
@@ -113,7 +111,6 @@ const Wrapper = styled.span<StyledWrapperProps>`
   @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
-  ${COMMON}
   ${width}
   ${minWidth}
   ${maxWidth}
@@ -121,30 +118,53 @@ const Wrapper = styled.span<StyledWrapperProps>`
   ${sx};
 `
 
-type TextInputInternalProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: any // This is a band-aid fix until we have better type support for the `as` prop
+// Props that are not passed through to Input:
+type NonPassthroughProps = {
+  className?: string
   icon?: React.ComponentType<{className?: string}>
-} & ComponentProps<typeof Wrapper> &
-  ComponentProps<typeof Input>
+} & Pick<
+  ComponentProps<typeof Wrapper>,
+  'block' | 'contrast' | 'disabled' | 'sx' | 'theme' | 'width' | 'maxWidth' | 'minWidth' | 'variant'
+>
+
+type TextInputInternalProps = NonPassthroughProps &
+  // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
+  Omit<React.ComponentPropsWithoutRef<typeof Input>, keyof NonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({icon: IconComponent, contrast, className, block, disabled, theme, sx: sxProp, ...rest}, ref) => {
+  (
+    {
+      icon: IconComponent,
+      block,
+      className,
+      contrast,
+      disabled,
+      sx: sxProp,
+      theme,
+      width: widthProp,
+      minWidth: minWidthProp,
+      maxWidth: maxWidthProp,
+      variant: variantProp,
+      ...inputProps
+    },
+    ref
+  ) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
-    const wrapperProps = pick(rest)
-    const inputProps = omit(rest)
     return (
       <Wrapper
-        className={wrapperClasses}
-        hasIcon={!!IconComponent}
         block={block}
-        theme={theme}
-        disabled={disabled}
+        className={wrapperClasses}
         contrast={contrast}
+        disabled={disabled}
+        hasIcon={!!IconComponent}
         sx={sxProp}
-        {...wrapperProps}
+        theme={theme}
+        width={widthProp}
+        minWidth={minWidthProp}
+        maxWidth={maxWidthProp}
+        variant={variantProp}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         <Input ref={ref} disabled={disabled} {...inputProps} />
