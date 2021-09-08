@@ -11,7 +11,8 @@
     "plugin:react-hooks/recommended",
     "plugin:prettier/recommended",
     "plugin:github/recommended",
-    "plugin:github/browser"
+    "plugin:github/browser",
+    "plugin:primer-react/recommended"
   ],
   "ignorePatterns": [
     "node_modules",
