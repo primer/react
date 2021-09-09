@@ -1,0 +1,13 @@
+---
+title: Server-side rendering with Primer React
+---
+
+## SSR-safe ID generation
+
+Some primer components generate IDs for elements that unique and are isomorphic (server-side rendering and client-side rendering are the same). We use [@react-aria/ssr](https://react-spectrum.adobe.com/react-aria/ssr.html) to generate those IDs. In client-only rendering, this doesn't require any work. In SSR contexts, you must wrap your application with `<SSRProvider>`:
+
+```
+<SSRProvider></SSRProvider>
+```
+
+SSRProvider maintains the context necessary to ensure IDs are consistent.
