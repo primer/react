@@ -4,7 +4,7 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {Button} from '../index'
+import {Button, SSRProvider} from '../index'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
@@ -38,16 +38,18 @@ const AnchoredOverlayTestComponent = ({
   )
   return (
     <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <AnchoredOverlay
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-        >
-          <button type="button">Focusable Child</button>
-        </AnchoredOverlay>
-      </BaseStyles>
+      <SSRProvider>
+        <BaseStyles>
+          <AnchoredOverlay
+            open={open}
+            onOpen={onOpen}
+            onClose={onClose}
+            renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+          >
+            <button type="button">Focusable Child</button>
+          </AnchoredOverlay>
+        </BaseStyles>
+      </SSRProvider>
     </ThemeProvider>
   )
 }
