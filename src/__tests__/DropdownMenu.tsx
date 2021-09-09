@@ -43,7 +43,11 @@ describe('DropdownMenu', () => {
     Component: DropdownMenu,
     systemPropArray: [COMMON],
     options: {skipAs: true, skipSx: true},
-    toRender: () => <DropdownMenu items={[]} />
+    toRender: () => (
+      <SSRProvider>
+        <DropdownMenu items={[]} />
+      </SSRProvider>
+    )
   })
 
   checkExports('DropdownMenu', {
