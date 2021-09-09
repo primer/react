@@ -42,7 +42,11 @@ describe('ActionMenu', () => {
     Component: ActionMenu,
     systemPropArray: [COMMON],
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionMenu items={[]} />
+    toRender: () => (
+      <SSRProvider>
+        <ActionMenu items={[]} />
+      </SSRProvider>
+    )
   })
 
   checkExports('ActionMenu', {
