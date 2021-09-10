@@ -10,7 +10,7 @@ type StyledAvatarProps = {
   square?: boolean
   /** URL of the avatar image. */
   src: string
-  /** Provide an alt text in case the Avatar is used without the user's name next to it. */
+  /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
 } & SystemCommonProps &
   SxProp
