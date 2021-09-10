@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {get} from './constants'
@@ -132,7 +132,7 @@ type TextInputInternalProps = NonPassthroughProps &
   Omit<React.ComponentPropsWithoutRef<typeof Input>, keyof NonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
-const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
+const TextInput = forwardRef<HTMLInputElement, TextInputInternalProps>(
   (
     {
       icon: IconComponent,
