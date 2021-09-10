@@ -123,6 +123,7 @@ const theme = {
       colors: darkDimmedColors,
       shadows: darkDimmedShadows
     },
+    // eslint-disable-next-line camelcase
     dark_high_contrast: {
       colors: darkHighContrastColors,
       shadows: darkHighContrastShadows
