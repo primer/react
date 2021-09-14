@@ -70,7 +70,9 @@ exports[`Timeline.Badge renders consistently 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   border-radius: 50%;
-  border: 2px solid #ffffff;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #ffffff;
 }
 
 <div
