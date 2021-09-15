@@ -1,0 +1,50 @@
+[
+  {
+    "tags": {},
+    "filePath": "/Users/sid/code/github/primer/react/debug/Button.tsx",
+    "description": "",
+    "displayName": "SimpleButtonWithDestructuredFC",
+    "methods": [],
+    "props": {
+      "variant": {
+        "defaultValue": null,
+        "description": "",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "debug/Button.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"medium\" | \"large\""
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/sid/code/github/primer/react/debug/Button.tsx",
+    "description": "",
+    "displayName": "ButtonWithDestructuredForwardRef",
+    "methods": [],
+    "props": {
+      "variant": {
+        "defaultValue": null,
+        "description": "",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "debug/Button.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"medium\" | \"large\""
+        }
+      }
+    }
+  }
+]

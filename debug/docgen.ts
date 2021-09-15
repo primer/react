@@ -1,5 +1,6 @@
 /** temporary script to debug types */
 
+const fs = require('fs')
 const docgen = require('react-docgen-typescript')
 const globby = require('globby')
 
@@ -20,3 +21,4 @@ const data = docgen.parse(files, {
 })
 
 console.log(data)
+fs.writeFileSync('output.json', JSON.stringify(data, null, 2), 'utf8')
