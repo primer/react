@@ -3,27 +3,22 @@
   children:
     - title: Getting started
       url: /getting-started
-
     - title: Theming
       url: /theming
-
     - title: Theme reference
       url: /theme-reference
-
     - title: Linting
       url: /linting
-
     - title: System props
       url: /system-props
-
     - title: Core concepts
       url: /core-concepts
-
     - title: Philosophy
       url: /philosophy
-
     - title: Overriding styles
       url: /overriding-styles
+    - title: Server-side rendering
+      url: /ssr
 - title: Hooks
   children:
     - title: useSafeTimeout

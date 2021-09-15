@@ -81,9 +81,9 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 >
   <button
     aria-haspopup="true"
-    aria-labelledby="__primer_id_10000"
+    aria-labelledby="react-aria-1"
     className="c1"
-    id="__primer_id_10000"
+    id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
@@ -197,9 +197,9 @@ Object {
       >
         <button
           aria-haspopup="true"
-          aria-labelledby="__primer_id_10007"
+          aria-labelledby="react-aria-1"
           class="c1"
-          id="__primer_id_10007"
+          id="react-aria-1"
           tabindex="0"
         >
           Anchor Button
@@ -242,9 +242,9 @@ Object {
     >
       <button
         aria-haspopup="true"
-        aria-labelledby="__primer_id_10007"
+        aria-labelledby="react-aria-1"
         class="ButtonBase-sc-181ps9o-0 Button-xjtz72-0 jhgDtb"
-        id="__primer_id_10007"
+        id="react-aria-1"
         tabindex="0"
       >
         Anchor Button

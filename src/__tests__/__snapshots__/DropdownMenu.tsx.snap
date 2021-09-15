@@ -73,9 +73,9 @@ exports[`DropdownMenu renders consistently 1`] = `
 
 <button
   aria-haspopup="true"
-  aria-labelledby="__primer_id_10000"
+  aria-labelledby="react-aria-1"
   className="c0"
-  id="__primer_id_10000"
+  id="react-aria-1"
   onClick={[Function]}
   onKeyDown={[Function]}
   tabIndex={0}
