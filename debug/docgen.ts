@@ -12,10 +12,8 @@ const data = docgen.parse(files, {
       const hasPropAdditionalDescription = prop.declarations.find(declaration => {
         return !declaration.fileName.includes('node_modules')
       })
-
       return Boolean(hasPropAdditionalDescription)
     }
-
     return true
   }
 })

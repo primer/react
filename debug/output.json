@@ -46,5 +46,52 @@
         }
       }
     }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/sid/code/github/primer/react/debug/TextInput.tsx",
+    "description": "",
+    "displayName": "TextInput1",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/sid/code/github/primer/react/debug/TextInput.tsx",
+    "description": "",
+    "displayName": "TextInput2",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "debug/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "debug/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      }
+    }
   }
 ]

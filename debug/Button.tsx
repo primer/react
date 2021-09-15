@@ -18,8 +18,6 @@ export const SimpleButtonWithDestructuredFC: FC<ButtonProps> = props => {
   return <button {...props} />
 }
 
-export const ButtonWithDestructuredForwardRef = forwardRef<HTMLButtonElement, ButtonProps>(
-  (props: ButtonProps, ref) => {
-    return <button ref={ref} {...props} />
-  }
-)
+export const ButtonWithDestructuredForwardRef = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  return <button ref={ref} {...props} />
+})
