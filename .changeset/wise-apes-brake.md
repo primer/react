@@ -1,5 +1,5 @@
 ---
-"@primer/components": patch
+"@primer/components": minor
 ---
 
 Add new [functional color variables](https://primer.style/primitives/colors) to the theme object.
