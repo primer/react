@@ -25,14 +25,16 @@ function MyApplication() {
   const [dataA] = useAsyncData('a');
   const [dataB] = useAsyncData('b');
 
-  return <>
-    <SSRProvider>
-      {dataA && <MyComponentA data={dataA} />}
-    </SSRProvider>
-    <SSRProvider>
-      {dataB && <MyComponentB data={dataB} />}
-    </SSRProvider>
-  </>
+  return (
+    <>
+      <SSRProvider>
+        {dataA && <MyComponentA data={dataA} />}
+      </SSRProvider>
+      <SSRProvider>
+        {dataB && <MyComponentB data={dataB} />}
+      </SSRProvider>
+    </>
+  )
 }
 ```
 
