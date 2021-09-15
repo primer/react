@@ -11,8 +11,8 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'
-import {uniqueId} from '../utils/uniqueId'
 import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 const ANIMATION_DURATION = '200ms'
 
@@ -252,8 +252,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     width = 'xlarge',
     height = 'auto'
   } = props
-  const dialogLabelId = uniqueId()
-  const dialogDescriptionId = uniqueId()
+  const dialogLabelId = useSSRSafeId()
+  const dialogDescriptionId = useSSRSafeId()
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)
