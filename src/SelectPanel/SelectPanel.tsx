@@ -6,9 +6,11 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DropdownButton} from '../DropdownMenu'
 import {ItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
-import Flex from '../Flex'
+import Box from '../Box'
 import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
+import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import {useProvidedRefOrCreate} from '../hooks'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -21,7 +23,6 @@ interface SelectPanelMultiSelection {
 }
 
 interface SelectPanelBaseProps {
-  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
@@ -33,6 +34,7 @@ interface SelectPanelBaseProps {
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
+  AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
 function isMultiSelectVariant(
@@ -50,6 +52,7 @@ export function SelectPanel({
   open,
   onOpenChange,
   renderAnchor = props => <DropdownButton {...props} />,
+  anchorRef: externalAnchorRef,
   placeholder,
   selected,
   onSelectedChange,
@@ -69,6 +72,7 @@ export function SelectPanel({
     [externalOnFilterChange, setInternalFilterValue]
   )
 
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
   const onClose = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
@@ -77,17 +81,20 @@ export function SelectPanel({
     [onOpenChange]
   )
 
-  const renderMenuAnchor = useCallback(
-    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
-      const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
+  const renderMenuAnchor = useMemo(() => {
+    if (renderAnchor === null) {
+      return null
+    }
 
+    const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
+
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
         children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
       })
-    },
-    [placeholder, renderAnchor, selected]
-  )
+    }
+  }, [placeholder, renderAnchor, selected])
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -139,6 +146,7 @@ export function SelectPanel({
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
+      anchorRef={anchorRef}
       open={open}
       onOpen={onOpen}
       onClose={onClose}
@@ -146,7 +154,7 @@ export function SelectPanel({
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
-      <Flex flexDirection="column" width="100%" height="100%">
+      <Box display="flex" flexDirection="column" width="100%" height="100%">
         <FilteredActionList
           filterValue={filterValue}
           onFilterChange={onFilterChange}
@@ -157,7 +165,7 @@ export function SelectPanel({
           textInputProps={extendedTextInputProps}
           inputRef={inputRef}
         />
-      </Flex>
+      </Box>
     </AnchoredOverlay>
   )
 }

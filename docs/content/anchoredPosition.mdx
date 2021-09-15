@@ -120,7 +120,7 @@ export const AnchoredPositionExample = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({side: 'outside-bottom', align: 'center'})
   return (
     <div>
-      <Position
+      <Box
         position="absolute"
         top={position?.top ?? 0}
         left={position?.left ?? 0}
@@ -129,10 +129,10 @@ export const AnchoredPositionExample = () => {
         ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       >
         Floating element
-      </Position>
-      <BorderBox width={400} height={75} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
+      </Box>
+      <Box borderWidth='1px' borderStyle='solid' borderColor='border.primary' borderRadius={2} width={400} height={75} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
         Anchor Element
-      </BorderBox>
+      </Box>
     </div>
   )
 }

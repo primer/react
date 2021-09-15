@@ -1,15 +1,15 @@
 import styled from 'styled-components'
-import Box from './Box'
-import {GRID, SystemGridProps} from './constants'
-import {ComponentProps} from './utils/types'
+import Box, {BoxProps} from './Box'
 
-const Grid = styled(Box)<SystemGridProps>`
-  ${GRID};
-`
+export type GridProps = BoxProps
+
+/**
+ * @deprecated Use the Box component instead (i.e. <Grid> → <Box display="grid">)
+ */
+const Grid = styled(Box)``
 
 Grid.defaultProps = {
   display: 'grid'
 }
 
-export type GridProps = ComponentProps<typeof Grid>
 export default Grid

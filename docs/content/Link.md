@@ -11,12 +11,18 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 ## Default example
 
 ```jsx live
-<Link mb={1} href="https://github.com">
+<Link sx={{mb: 1}} href="https://github.com">
   Link
 </Link>
 ```
 
 ## System props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

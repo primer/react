@@ -13,10 +13,10 @@ The Timeline.Item component is used to display items on a vertical timeline, con
       <StyledOcticon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>
-      <Link href="#" fontWeight="bold" color="text.primary" mr={1} muted>
+      <Link href="#" sx={{fontWeight: 'bold', color: 'text.primary', mr: 1}} muted>
         Monalisa
       </Link>
-      created one <Link href="#" fontWeight="bold" color="text.primary" mr={1} muted>
+      created one <Link href="#" sx={{fontWeight: 'bold', color: 'text.primary', mr: 1}} muted>
         hot potato
       </Link>
       <Link href="#" color="timeline.text" muted>
@@ -50,20 +50,20 @@ of the child `StyledOcticon` if necessary.
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge bg="prState.closed.bg">
-      <StyledOcticon icon={FlameIcon} color="prState.closed.text" />
+    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: 'prState.closed.text'}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge bg="prState.open.bg">
+    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
       <StyledOcticon icon={FlameIcon} color="prState.open.text" />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge bg="prState.merged.bg">
-      <StyledOcticon icon={FlameIcon} color="prState.merged.text" />
+    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: 'prState.merged.text'}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
@@ -98,15 +98,15 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge bg="prState.closed.bg">
+    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
       <StyledOcticon icon={FlameIcon} color="prState.closed.text" />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Break />
   <Timeline.Item>
-    <Timeline.Badge bg="prState.open.bg">
-      <StyledOcticon icon={FlameIcon} color="prState.open.text" />
+    <Timeline.Badge sx={{bg: 'prState.open.bg'}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: 'prState.open.text'}} />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
@@ -114,6 +114,12 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 ```
 
 ## System props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Timeline and Timeline.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 

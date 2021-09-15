@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
-import Flex from '../Flex'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
 import {useOnEscapePress} from '../hooks'
@@ -12,8 +11,8 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'
-import {uniqueId} from '../utils/uniqueId'
 import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 const ANIMATION_DURATION = '200ms'
 
@@ -216,13 +215,13 @@ const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subti
   }, [onClose])
   return (
     <Dialog.Header>
-      <Flex>
-        <Flex px={2} py="6px" flexDirection="column" flexGrow={1}>
+      <Box display="flex">
+        <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
-        </Flex>
+        </Box>
         <Dialog.CloseButton onClose={onCloseClick} />
-      </Flex>
+      </Box>
     </Dialog.Header>
   )
 }
@@ -253,8 +252,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     width = 'xlarge',
     height = 'auto'
   } = props
-  const dialogLabelId = uniqueId()
-  const dialogDescriptionId = uniqueId()
+  const dialogLabelId = useSSRSafeId()
+  const dialogDescriptionId = useSSRSafeId()
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)

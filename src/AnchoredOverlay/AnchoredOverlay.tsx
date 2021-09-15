@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect, useMemo} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
-import {uniqueId} from '../utils/uniqueId'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -31,6 +31,10 @@ interface AnchoredOverlayPropsWithoutAnchor {
    */
   anchorRef: React.RefObject<HTMLElement>
 }
+
+export type AnchoredOverlayWrapperAnchorProps =
+  | Partial<AnchoredOverlayPropsWithAnchor>
+  | AnchoredOverlayPropsWithoutAnchor
 
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
@@ -86,7 +90,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const anchorId = useMemo(uniqueId, [])
+  const anchorId = useSSRSafeId()
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -123,9 +127,6 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     },
     [overlayRef.current]
   )
-  const overlayPosition = useMemo(() => {
-    return position && {top: `${position.top}px`, left: `${position.left}px`, anchorSide: position.anchorSide}
-  }, [position])
 
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
@@ -161,9 +162,12 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="none"
+          visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          {...overlayPosition}
+          top={position?.top || 0}
+          left={position?.left || 0}
+          anchorSide={position?.anchorSide}
           {...overlayProps}
         >
           {children}

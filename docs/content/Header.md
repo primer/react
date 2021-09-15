@@ -20,26 +20,17 @@ All items directly under the Header component should be a `Header.Item` componen
   </Header.Item>
   <Header.Item full>Menu</Header.Item>
   <Header.Item mr={0}>
-    <Avatar
-      src="https://github.com/octocat.png"
-      size={20}
-      square
-      alt="@octocat"
-    />
+    <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
   </Header.Item>
 </Header>
 ```
 
-## Header with full-size item example 
+## Header with full-size item example
 
 ```jsx live
 <Header>
   <Header.Item>Item 1</Header.Item>
-  <Header.Item
-    full
-    border={1}
-    borderStyle="solid"
-  >
+  <Header.Item full border={1} borderStyle="solid">
     Item 2
   </Header.Item>
   <Header.Item mr={0}>Item 3</Header.Item>
@@ -64,19 +55,25 @@ All items directly under the Header component should be a `Header.Item` componen
 
 ## System props
 
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
 `Header` and `Header.Item` components get `COMMON` and `BORDER` system props. `Header.Link` component gets `COMMON`, `BORDER`, and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
 ### Header.Item
 
-| Prop name  | Type    | Description                                                                            |
-| :--------- | :------ | :------------------------------------------------------------------------------------- |
-| full | Boolean | stretches item to fill the available space |
+| Prop name | Type    | Description                                |
+| :-------- | :------ | :----------------------------------------- |
+| full      | Boolean | stretches item to fill the available space |
 
 ### Header.Link
 
-| Prop name  | Type    | Description                                                                            |
-| :--------- | :------ | :------------------------------------------------------------------------------------- |
-| as | String | sets the HTML tag for the component |
-| href | String | URL to be used for the Link |
+| Prop name | Type   | Description                         |
+| :-------- | :----- | :---------------------------------- |
+| as        | String | sets the HTML tag for the component |
+| href      | String | URL to be used for the Link         |

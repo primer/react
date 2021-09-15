@@ -108,11 +108,21 @@ function useSystemColorMode() {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    media?.addEventListener('change', handleChange)
-
-    return function cleanup() {
+    if (media) {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      media?.removeEventListener('change', handleChange)
+      if (media.addEventListener !== undefined) {
+        media.addEventListener('change', handleChange)
+        return function cleanup() {
+          media.removeEventListener('change', handleChange)
+        }
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      else if (media.addListener !== undefined) {
+        media.addListener(handleChange)
+        return function cleanup() {
+          media.removeListener(handleChange)
+        }
+      }
     }
   }, [])
 

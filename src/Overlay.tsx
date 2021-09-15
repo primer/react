@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, {ReactElement, useEffect, useLayoutEffect, useRef} from 'react'
-import {get, COMMON, POSITION, SystemPositionProps, SystemCommonProps} from './constants'
+import {get, COMMON, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
@@ -13,6 +13,7 @@ type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
+  visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
 }
 
@@ -50,7 +51,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
   return {x: 0, y: 0}
 }
 
-const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SystemPositionProps & SxProp>`
+const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SxProp>`
   background-color: ${get('colors.bg.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
@@ -71,12 +72,11 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & System
       opacity: 1;
     }
   }
-
+  visibility: var(--styled-overlay-visibility);
   :focus {
     outline: none;
   }
   ${COMMON};
-  ${POSITION};
   ${sx};
 `
 export type OverlayProps = {
@@ -85,8 +85,12 @@ export type OverlayProps = {
   returnFocusRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
+  visibility?: 'visible' | 'hidden'
   [additionalKey: string]: unknown
-} & Omit<ComponentProps<typeof StyledOverlay>, keyof SystemPositionProps>
+  top: number
+  left: number
+  portalContainerName?: string
+} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -101,6 +105,9 @@ export type OverlayProps = {
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`, or pass `initial` to set the height based on the initial content of the `Overlay` (i.e. ignoring content changes). `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param maxHeight Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param anchorSide If provided, the Overlay will slide into position from the side of the anchor with a brief animation
+ * @param top Optional. Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param left Optional. Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
   (
@@ -111,8 +118,12 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       returnFocusRef,
       ignoreClickRefs,
       onEscape,
+      visibility = 'visible',
       height,
+      top,
+      left,
       anchorSide,
+      portalContainerName,
       ...rest
     },
     forwardedRef
@@ -140,7 +151,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
 
     useLayoutEffect(() => {
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
-      if ((!x && !y) || !overlayRef.current?.animate) {
+      if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return
       }
 
@@ -152,11 +163,24 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           easing: slideAnimationEasing
         }
       )
-    }, [anchorSide, slideAnimationDistance, slideAnimationEasing])
+    }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     return (
-      <Portal>
-        <StyledOverlay height={height} role={role} {...rest} ref={combinedRef} />
+      <Portal containerName={portalContainerName}>
+        <StyledOverlay
+          height={height}
+          role={role}
+          {...rest}
+          ref={combinedRef}
+          style={
+            {
+              top: `${top || 0}px`,
+              left: `${left || 0}px`,
+              ...rest.style,
+              '--styled-overlay-visibility': visibility
+            } as React.CSSProperties
+          }
+        />
       </Portal>
     )
   }

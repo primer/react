@@ -3,24 +3,22 @@
   children:
     - title: Getting started
       url: /getting-started
-
     - title: Theming
       url: /theming
-
     - title: Theme reference
       url: /theme-reference
-
+    - title: Linting
+      url: /linting
     - title: System props
       url: /system-props
-
     - title: Core concepts
       url: /core-concepts
-
     - title: Philosophy
       url: /philosophy
-
     - title: Overriding styles
       url: /overriding-styles
+    - title: Server-side rendering
+      url: /ssr
 - title: Hooks
   children:
     - title: useSafeTimeout
@@ -39,8 +37,6 @@
       url: /Avatar
     - title: AvatarStack
       url: /AvatarStack
-    - title: BorderBox
-      url: /BorderBox
     - title: Box
       url: /Box
     - title: BranchName
@@ -67,12 +63,8 @@
       url: /FilterList
     - title: Flash
       url: /Flash
-    - title: Flex
-      url: /Flex
     - title: FormGroup
       url: /FormGroup
-    - title: Grid
-      url: /Grid
     - title: Header
       url: /Header
     - title: Heading
@@ -95,8 +87,6 @@
       url: /Popover
     # - title: Portal
     #   url: /Portal
-    - title: Position
-      url: /Position
     - title: ProgressBar
       url: /ProgressBar
     - title: SelectMenu
@@ -125,3 +115,13 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
+- title: Deprecated
+  children:
+    - title: BorderBox
+      url: /BorderBox
+    - title: Flex
+      url: /Flex
+    - title: Grid
+      url: /Grid
+    - title: Position
+      url: /Position

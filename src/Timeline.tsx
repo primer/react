@@ -1,14 +1,13 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
-import Box from './Box'
+import Box, {BoxProps} from './Box'
 import {COMMON, get} from './constants'
-import Flex, {FlexProps} from './Flex'
-import {Relative} from './Position'
 import sx from './sx'
 import {ComponentProps} from './utils/types'
 
-const Timeline = styled(Flex)<{clipSidebar?: boolean}>`
+const Timeline = styled(Box)<{clipSidebar?: boolean}>`
+  display: flex;
   flex-direction: column;
   ${props =>
     props.clipSidebar &&
@@ -27,9 +26,10 @@ const Timeline = styled(Flex)<{clipSidebar?: boolean}>`
 
 type StyledTimelineItemProps = {condensed?: boolean}
 
-const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
+const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)
 }))<StyledTimelineItemProps>`
+  display: flex;
   position: relative;
   padding: ${get('space.3')} 0;
   margin-left: ${get('space.3')};
@@ -68,18 +68,19 @@ const TimelineItem = styled(Flex).attrs<StyledTimelineItemProps>(props => ({
   ${sx};
 `
 
-export type TimelineBadgeProps = FlexProps
+export type TimelineBadgeProps = BoxProps
 
 const TimelineBadge = (props: TimelineBadgeProps) => {
   return (
-    <Relative zIndex={1}>
-      <Flex
+    <Box position="relative" zIndex={1}>
+      <Box
+        display="flex"
         className={classnames(props.className, 'TimelineItem-Badge')}
         flexShrink={0}
-        css={`
-          border-radius: 50%;
-          border: 2px solid ${get('colors.bg.canvas')};
-        `}
+        borderRadius="50%"
+        borderWidth="2px"
+        borderStyle="solid"
+        borderColor="bg.canvas"
         overflow="hidden"
         color="icon.secondary"
         bg="timeline.badgeBg"
@@ -92,8 +93,8 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
         {...props}
       >
         {props.children}
-      </Flex>
-    </Relative>
+      </Box>
+    </Box>
   )
 }
 
@@ -107,7 +108,8 @@ const TimelineBody = styled(Box)`
   ${sx};
 `
 
-const TimelineBreak = styled(Relative)`
+const TimelineBreak = styled(Box)`
+  position: relative
   z-index: 1;
   height: 24px;
   margin: 0;

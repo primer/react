@@ -1,5 +1,7 @@
 ---
 title: Breadcrumbs
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Breadcrumb.tsx
 ---
 
 Breadcrumbs are used to show taxonomical context on pages that are many levels deep in a site’s hierarchy. Breadcrumbs show and link to parent, grandparent, and sometimes great-grandparent pages. Breadcrumbs are most appropriate on pages that:
@@ -17,15 +19,21 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ```jsx live
 <Breadcrumb>
-  <Breadcrumb.Item href="#business">Business</Breadcrumb.Item>
-  <Breadcrumb.Item href="#customers">Customers</Breadcrumb.Item>
-  <Breadcrumb.Item href="#mailchimp" selected>
-    MailChimp
+  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+  <Breadcrumb.Item href="/about">About</Breadcrumb.Item>
+  <Breadcrumb.Item href="/about/team" selected>
+    Team
   </Breadcrumb.Item>
 </Breadcrumb>
 ```
 
 ## System props
+
+<Note variant="warning">
+
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
 
 Breadcrumb and Breadcrumb.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
@@ -37,8 +45,8 @@ The `Breadcrumb` component does not receive any additional props besides `COMMON
 
 ### Breadcrumb.Item
 
-| Prop name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| as        | String  | `a` | Sets the HTML tag for the component              |
-| href      | String  | | URL to be used for the Link                      |
-| selected  | Boolean | false | Used to style the link as selected or unselected |
+| Prop name | Type    | Default | Description                                      |
+| :-------- | :------ | :-----: | :----------------------------------------------- |
+| as        | String  |   `a`   | Sets the HTML tag for the component              |
+| href      | String  |         | URL to be used for the Link                      |
+| selected  | Boolean |  false  | Used to style the link as selected or unselected |

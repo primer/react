@@ -4,7 +4,7 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {Button} from '../index'
+import {Button, SSRProvider} from '../index'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
@@ -38,16 +38,18 @@ const AnchoredOverlayTestComponent = ({
   )
   return (
     <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <AnchoredOverlay
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-        >
-          <button type="button">Focusable Child</button>
-        </AnchoredOverlay>
-      </BaseStyles>
+      <SSRProvider>
+        <BaseStyles>
+          <AnchoredOverlay
+            open={open}
+            onOpen={onOpen}
+            onClose={onClose}
+            renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+          >
+            <button type="button">Focusable Child</button>
+          </AnchoredOverlay>
+        </BaseStyles>
+      </SSRProvider>
     </ThemeProvider>
   )
 }
@@ -140,5 +142,10 @@ describe('AnchoredOverlay', () => {
     expect(mockOpenCallback).toHaveBeenCalledTimes(0)
     expect(mockCloseCallback).toHaveBeenCalledTimes(1)
     expect(mockCloseCallback).toHaveBeenCalledWith('escape')
+  })
+
+  it('should render consistently when open', () => {
+    const anchoredOverlay = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
+    expect(anchoredOverlay).toMatchSnapshot()
   })
 })

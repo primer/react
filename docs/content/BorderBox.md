@@ -1,8 +1,27 @@
 ---
 title: BorderBox
+status: Deprecated
 ---
 
 BorderBox is a Box component with a border. When no `borderColor` is present, the component defaults to a primary border.
+
+## Deprecation
+
+Use [Box](/Box) instead.
+
+**Before**
+
+```jsx
+<BorderBox>Item 1</BorderBox>
+```
+
+**After**
+
+```jsx
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2}>
+  Item 1
+</Box>
+```
 
 ## Default example
 

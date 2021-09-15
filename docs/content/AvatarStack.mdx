@@ -5,32 +5,39 @@ title: AvatarStack
 AvatarStack is used to display more than one Avatar in an inline stack.
 
 ### Default example
-```jsx live
- <AvatarStack>
-  <Avatar alt="Primer" src="https://avatars.githubusercontent.com/primer"/>
-  <Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github"/>
-  <Avatar alt="Atom" src="https://avatars.githubusercontent.com/atom"/>
-  <Avatar alt="Desktop" src="https://avatars.githubusercontent.com/desktop"/>
- </AvatarStack>
- ```
 
- ### Right aligned
 ```jsx live
- <AvatarStack alignRight>
-  <Avatar alt="Primer" src="https://avatars.githubusercontent.com/primer"/>
-  <Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github"/>
-  <Avatar alt="Atom" src="https://avatars.githubusercontent.com/atom"/>
-  <Avatar alt="Desktop" src="https://avatars.githubusercontent.com/desktop"/>
- </AvatarStack>
- ```
+<AvatarStack>
+  <Avatar alt="Primer" src="https://avatars.githubusercontent.com/primer" />
+  <Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github" />
+  <Avatar alt="Atom" src="https://avatars.githubusercontent.com/atom" />
+  <Avatar alt="Desktop" src="https://avatars.githubusercontent.com/desktop" />
+</AvatarStack>
+```
+
+### Right aligned
+
+```jsx live
+<AvatarStack alignRight>
+  <Avatar alt="Primer" src="https://avatars.githubusercontent.com/primer" />
+  <Avatar alt="GitHub" src="https://avatars.githubusercontent.com/github" />
+  <Avatar alt="Atom" src="https://avatars.githubusercontent.com/atom" />
+  <Avatar alt="Desktop" src="https://avatars.githubusercontent.com/desktop" />
+</AvatarStack>
+```
 
 ## System props
 
-AvatarStack components get `COMMON` system props, AvatarStack.Item components do not get any system props. Read our [System Props](/system-props) doc page for a full list of available props.
+<Note variant="warning">
 
+System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
+
+</Note>
+
+AvatarStack components get `COMMON` system props, AvatarStack.Item components do not get any system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## AvatarStack Component props
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| alignRight | Boolean | | Creates right aligned AvatarStack |
+| Name       | Type    | Default | Description                       |
+| :--------- | :------ | :-----: | :-------------------------------- |
+| alignRight | Boolean |         | Creates right aligned AvatarStack |

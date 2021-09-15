@@ -1,18 +1,14 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/List'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {ItemProps} from '../ActionList/Item'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {OverlayProps} from '../Overlay'
+import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 
-export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
-  /**
-   * A custom function component used to render the anchor element.
-   * Will receive the selected text as `children` prop when an item is activated.
-   * Uses a `DropdownButton` by default.
-   */
-  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
-
+interface DropdownMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
    * A placeholder value to display on the trigger button when no selection has been made.
    */
@@ -33,7 +29,20 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
    * Props to be spread on the internal `Overlay` component.
    */
   overlayProps?: Partial<OverlayProps>
+
+  /**
+   * If defined, will control the open/closed state of the overlay. If not defined, the overlay will manage its own state (in other words, an
+   * uncontrolled component). Must be used in conjuction with `onOpenChange`.
+   */
+  open?: boolean
+
+  /**
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
+   */
+  onOpenChange?: (open: boolean) => void
 }
+
+export type DropdownMenuProps = DropdownMenuBaseProps & AnchoredOverlayWrapperAnchorProps
 
 /**
  * A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be
@@ -42,26 +51,32 @@ export interface DropdownMenuProps extends Partial<Omit<GroupedListProps, keyof 
  */
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,
+  anchorRef: externalAnchorRef,
   placeholder,
   selectedItem,
   onChange,
   overlayProps,
   items,
+  open,
+  onOpenChange,
   ...listProps
 }: DropdownMenuProps): JSX.Element {
-  const [open, setOpen] = useState(false)
-  const onOpen = useCallback(() => setOpen(true), [])
-  const onClose = useCallback(() => setOpen(false), [])
+  const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
+  const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
+  const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
-  const renderMenuAnchor = useCallback(
-    <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
-      return renderAnchor({
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+
+  const renderMenuAnchor = useMemo(() => {
+    if (renderAnchor === null) {
+      return null
+    }
+    return <T extends React.HTMLAttributes<HTMLElement>>(props: T) =>
+      renderAnchor({
         ...props,
         children: selectedItem?.text ?? placeholder
       })
-    },
-    [placeholder, renderAnchor, selectedItem?.text]
-  )
+  }, [placeholder, renderAnchor, selectedItem?.text])
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -86,7 +101,8 @@ export function DropdownMenu({
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
-      open={open}
+      anchorRef={anchorRef}
+      open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}
       overlayProps={overlayProps}
