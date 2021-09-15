@@ -1,5 +1,5 @@
 import {CheckIcon, IconProps} from '@primer/octicons-react'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback} from 'react'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import Truncate from '../Truncate'
@@ -13,7 +13,7 @@ import {
   activeDescendantActivatedIndirectly,
   isActiveDescendantAttribute
 } from '../behaviors/focusZone'
-import {uniqueId} from '../utils/uniqueId'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 /**
  * These colors are not yet in our default theme.  Need to remove this once they are added.
@@ -336,8 +336,8 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
     ...props
   } = itemProps
 
-  const labelId = useMemo(() => uniqueId(), [])
-  const descriptionId = useMemo(() => uniqueId(), [])
+  const labelId = useSSRSafeId()
+  const descriptionId = useSSRSafeId()
 
   const keyPressHandler = useCallback(
     event => {

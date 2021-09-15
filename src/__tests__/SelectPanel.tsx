@@ -6,7 +6,7 @@ import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
 import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
+import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {ItemInput} from '../ActionList/List'
 
 expect.extend(toHaveNoViolations)
@@ -20,19 +20,21 @@ function SimpleSelectPanel(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <SelectPanel
-          items={items}
-          placeholder="Select Items"
-          placeholderText="Filter Items"
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          open={open}
-          onOpenChange={setOpen}
-        />
-        <div id="portal-root"></div>
-      </BaseStyles>
+      <SSRProvider>
+        <BaseStyles>
+          <SelectPanel
+            items={items}
+            placeholder="Select Items"
+            placeholderText="Filter Items"
+            selected={selected}
+            onSelectedChange={setSelected}
+            onFilterChange={setFilter}
+            open={open}
+            onOpenChange={setOpen}
+          />
+          <div id="portal-root"></div>
+        </BaseStyles>
+      </SSRProvider>
     </ThemeProvider>
   )
 }

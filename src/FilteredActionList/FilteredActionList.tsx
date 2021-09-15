@@ -1,16 +1,16 @@
-import React, {KeyboardEventHandler, useCallback, useEffect, useMemo, useRef} from 'react'
+import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
 import {ActionList} from '../ActionList'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {uniqueId} from '../utils/uniqueId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -73,7 +73,7 @@ export function FilteredActionList({
   const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
-  const listId = useMemo(uniqueId, [])
+  const listId = useSSRSafeId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {

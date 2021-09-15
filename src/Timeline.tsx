@@ -77,10 +77,10 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
         display="flex"
         className={classnames(props.className, 'TimelineItem-Badge')}
         flexShrink={0}
-        css={`
-          border-radius: 50%;
-          border: 2px solid ${get('colors.canvas.default')};
-        `}
+        borderRadius="50%"
+        borderWidth="2px"
+        borderStyle="solid"
+        borderColor="canvas.default"
         overflow="hidden"
         color="fg.muted"
         bg="timeline.badgeBg"

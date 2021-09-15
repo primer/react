@@ -8,6 +8,10 @@ type StyledAvatarProps = {
   size?: number
   /** Sets the shape of the avatar to a square if true. If false, the avatar will be circular. */
   square?: boolean
+  /** URL of the avatar image. */
+  src: string
+  /** Provide alt text when the Avatar is used without the user's name next to it. */
+  alt?: string
 } & SystemCommonProps &
   SxProp
 

@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "28.5.0",
+  "version": "29.0.0",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -45,6 +45,7 @@
   "dependencies": {
     "@primer/octicons-react": "^13.0.0",
     "@primer/primitives": "4.7.1",
+    "@react-aria/ssr": "3.1.0",
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.5",
     "@styled-system/theme-get": "5.1.2",
@@ -122,7 +123,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-test-renderer": "17.0.2",
-    "rollup": "2.51.2",
+    "rollup": "2.56.3",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-visualizer": "5.5.0",

@@ -6,7 +6,7 @@ import theme from '../theme'
 import {ActionMenu} from '../ActionMenu'
 import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
+import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {ItemProps} from '../ActionList/Item'
 expect.extend(toHaveNoViolations)
 
@@ -22,11 +22,13 @@ const mockOnActivate = jest.fn()
 function SimpleActionMenu(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <div id="something-else">X</div>
-        <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
-        <div id="portal-root"></div>
-      </BaseStyles>
+      <SSRProvider>
+        <BaseStyles>
+          <div id="something-else">X</div>
+          <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
+          <div id="portal-root"></div>
+        </BaseStyles>
+      </SSRProvider>
     </ThemeProvider>
   )
 }
@@ -40,7 +42,11 @@ describe('ActionMenu', () => {
     Component: ActionMenu,
     systemPropArray: [COMMON],
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionMenu items={[]} />
+    toRender: () => (
+      <SSRProvider>
+        <ActionMenu items={[]} />
+      </SSRProvider>
+    )
   })
 
   checkExports('ActionMenu', {
