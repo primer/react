@@ -1,5 +1,21 @@
 # @primer/components
 
+## 29.0.0
+
+### Major Changes
+
+- [#1414](https://github.com/primer/react/pull/1414) [`f4e1de6d`](https://github.com/primer/react/commit/f4e1de6dbe9d20dfcf2144d879294d189433a810) Thanks [@jfuchs](https://github.com/jfuchs)! - Removed system props support from `<TextInput>` and fixed its type definition.
+
+### Minor Changes
+
+- [#1409](https://github.com/primer/react/pull/1409) [`90b17dd6`](https://github.com/primer/react/commit/90b17dd6447419ce1d661e5399b7ac193836ad1a) Thanks [@jfuchs](https://github.com/jfuchs)! - Use @react-aria/ssr for isomorphic ID generation.
+
+### Patch Changes
+
+- [#1424](https://github.com/primer/react/pull/1424) [`7cf8d8b8`](https://github.com/primer/react/commit/7cf8d8b82a6387b1143c06e090cde8f87b4f3a33) Thanks [@jfuchs](https://github.com/jfuchs)! - Removed irregular styling on Timeline
+
+* [#1403](https://github.com/primer/react/pull/1403) [`65cab2cc`](https://github.com/primer/react/commit/65cab2ccd5eae3dcc5d75cbd1a1fd78a6f78abf7) Thanks [@mathiasbosman](https://github.com/mathiasbosman)! - Fix the Timeline.Item layout
+
 ## 28.5.0
 
 ### Minor Changes
