@@ -9,9 +9,13 @@ Some primer components generate their own DOM IDs. Those IDs must be unique acro
 ```
 import {SSRProvider} from '@primer/components';
 
-<SSRProvider>
-  <MyApplication />
-</SSRProvider>
+function App() {
+  return (
+    <SSRProvider>
+      <MyApplication />
+    </SSRProvider>
+  )
+}
 ```
 
 `SSRProvider` maintains the context necessary to ensure IDs are consistent. In cases where some parts of the react tree are rendered asynchronously, you should wrap an additional `SSRProvider` around the conditionally rendered elements:
