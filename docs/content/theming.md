@@ -1,8 +1,9 @@
 ---
 title: Theming
+description: Theming in Primer React is made possible by a theme object that defines your application's colors, spacing, fonts, and more.
 ---
 
-Theming in Primer React is made possible by a theme object that defines your application's colors, spacing, fonts, and more.
+
 
 ## ThemeProvider
 
