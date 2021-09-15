@@ -2,7 +2,7 @@
 
 exports[`SideNav SideNav.Link renders consistently 1`] = `
 .c0 {
-  color: #0366d6;
+  color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
   position: relative;
@@ -39,10 +39,10 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 }
 
 .c1.variant-normal > .c0 {
-  color: #24292e;
+  color: #24292f;
   padding: 16px;
   border: 0;
-  border-top: 1px solid hsla(214,13%,93%,1);
+  border-top: 1px solid hsla(210,18%,87%,1);
 }
 
 .c1.variant-normal > .c0:first-child {
@@ -68,18 +68,18 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 }
 
 .c1.variant-normal > .c0:hover {
-  background-color: #f6f8fa;
+  background-color: rgba(234,238,242,0.5);
   outline: none;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1.variant-normal > .c0:focus {
-  background-color: #f6f8fa;
+  background-color: rgba(234,238,242,0.5);
   outline: none;
   -webkit-text-decoration: none;
   text-decoration: none;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
   z-index: 1;
 }
 
@@ -90,33 +90,33 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 .c1.variant-normal > .c0[aria-current='page']::before,
 .c1.variant-normal > .c0[aria-selected='true']::before {
-  background-color: #f9826c;
+  background-color: #FD8C73;
 }
 
 .c1.variant-lightweight > .c0 {
   padding: 4px 0;
-  color: #0366d6;
+  color: #0969da;
 }
 
 .c1.variant-lightweight > .c0:hover {
-  color: #24292e;
+  color: #24292f;
   -webkit-text-decoration: none;
   text-decoration: none;
   outline: none;
 }
 
 .c1.variant-lightweight > .c0:focus {
-  color: #24292e;
+  color: #24292f;
   -webkit-text-decoration: none;
   text-decoration: none;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
   z-index: 1;
 }
 
 .c1.variant-lightweight > .c0[aria-current='page'],
 .c1.variant-lightweight > .c0[aria-selected='true'] {
-  color: #24292e;
+  color: #24292f;
   font-weight: 500;
 }
 
@@ -129,12 +129,12 @@ exports[`SideNav renders consistently 1`] = `
 .c0 {
   border-width: 0;
   border-style: solid;
-  border-color: #e1e4e8;
+  border-color: #d0d7de;
   border-radius: 6px;
 }
 
 .c1 {
-  background-color: #fafbfc;
+  background-color: #f6f8fa;
 }
 
 <nav

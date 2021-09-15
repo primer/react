@@ -9,7 +9,7 @@ exports[`Label renders consistently 1`] = `
   font-size: 12px;
   line-height: 20px;
   padding: 0 8px;
-  background-color: #6a737d;
+  background-color: #6e7781;
 }
 
 .c0:hover {
@@ -31,13 +31,13 @@ exports[`Label respects the "outline" prop 1`] = `
   font-size: 12px;
   line-height: 20px;
   padding: 0 8px;
-  background-color: #6a737d;
+  background-color: #6e7781;
   margin-top: -1px;
   margin-bottom: -1px;
-  color: #586069;
-  border: 1px solid #e1e4e8;
+  color: #57606a;
+  border: 1px solid #d0d7de;
   box-shadow: none;
-  background-color: #6a737d;
+  background-color: #6e7781;
   background-color: transparent;
 }
 
@@ -60,7 +60,7 @@ exports[`Label respects the "variant" prop 1`] = `
   font-size: 14px;
   line-height: 16px;
   padding: 8px 12px;
-  background-color: #6a737d;
+  background-color: #6e7781;
 }
 
 .c0:hover {

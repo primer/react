@@ -63,7 +63,7 @@ exports[`Header renders consistently 1`] = `
   font-size: 14px;
   line-height: 1.5;
   color: rgba(255,255,255,0.7);
-  background-color: #24292e;
+  background-color: #24292f;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

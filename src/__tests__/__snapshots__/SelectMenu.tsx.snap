@@ -23,10 +23,10 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292e;
-  background-color: #fafbfc;
-  border: 1px solid rgba(27,31,35,0.15);
-  box-shadow: 0 1px 0 rgba(27,31,35,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(27,31,36,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -48,23 +48,23 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 .c1:hover {
   background-color: #f3f4f6;
-  border-color: rgba(27,31,35,0.15);
+  border-color: rgba(27,31,36,0.15);
 }
 
 .c1:focus {
-  border-color: rgba(27,31,35,0.15);
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c1:active {
   background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
 }
 
 .c1:disabled {
-  color: #959da5;
-  background-color: #fafbfc;
-  border-color: rgba(27,31,35,0.15);
+  color: #57606a;
+  background-color: #f6f8fa;
+  border-color: rgba(27,31,36,0.15);
 }
 
 .c6 {
@@ -72,18 +72,18 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   margin: 0;
   font-size: 12px;
   font-weight: 600;
-  color: #6a737d;
+  color: #57606a;
   background-color: #f6f8fa;
-  border-bottom: 1px solid hsla(214,13%,93%,1);
+  border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
 .c7 {
   margin-top: -1px;
   padding: 8px 16px;
   font-size: 12px;
-  color: #6a737d;
+  color: #57606a;
   text-align: center;
-  border-top: 1px solid hsla(214,13%,93%,1);
+  border-top: 1px solid hsla(210,18%,87%,1);
 }
 
 .c5 {
@@ -101,8 +101,8 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   cursor: pointer;
   background-color: #ffffff;
   border: 0;
-  border-bottom: 1px solid hsla(214,13%,93%,1);
-  color: #586069;
+  border-bottom: 1px solid hsla(210,18%,87%,1);
+  color: #57606a;
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 12px;
@@ -143,7 +143,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 .c5[aria-checked='true'] {
   font-weight: 500;
-  color: #24292e;
+  color: #24292f;
 }
 
 .c5[aria-checked='true'] .SelectMenu-selected-icon {
@@ -185,7 +185,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0 1px 0 rgba(27,31,35,0.04);
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04);
   -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   width: 300px;
@@ -217,7 +217,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   left: 0;
   pointer-events: none;
   content: '';
-  background-color: rgba(27,31,35,0.5);
+  background-color: rgba(27,31,36,0.5);
 }
 
 .c0 > summary {
@@ -249,33 +249,33 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   .c5:hover,
   .c5:active,
   .c5:focus {
-    background-color: #f6f8fa;
+    background-color: rgba(234,238,242,0.5);
   }
 }
 
 @media (hover:none) {
   .c5 {
-    -webkit-tap-highlight-color: rgba(209,213,218,0.5);
+    -webkit-tap-highlight-color: rgba(175,184,193,0.5);
   }
 
   .c5:focus,
   .c5:active {
-    background-color: #fafbfc;
+    background-color: #f6f8fa;
   }
 }
 
 @media (hover:hover) {
   .c4 .SelectMenuTab:focus {
-    background-color: #dbedff;
+    background-color: #b6e3ff;
   }
 
   .c4 .SelectMenuTab:not([aria-checked='true']):hover {
-    color: #24292e;
+    color: #24292f;
     background-color: #f6f8fa;
   }
 
   .c4 .SelectMenuTab:not([aria-checked='true']):active {
-    color: #24292e;
+    color: #24292f;
     background-color: #f6f8fa;
   }
 }
@@ -286,9 +286,9 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
     max-height: 350px;
     margin: 4px 0 16px 0;
     font-size: 12px;
-    border: 1px solid #e1e4e8;
+    border: 1px solid #d0d7de;
     border-radius: 6px;
-    box-shadow: 0 1px 0 rgba(27,31,35,0.04);
+    box-shadow: 0 1px 0 rgba(27,31,36,0.04);
   }
 }
 

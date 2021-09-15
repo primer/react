@@ -8,13 +8,13 @@ exports[`SubNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" p
   font-size: 14px;
   line-height: 20px;
   min-height: 34px;
-  color: #24292e;
+  color: #24292f;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-top: 1px solid #e1e4e8;
-  border-bottom: 1px solid #e1e4e8;
-  border-right: 1px solid #e1e4e8;
+  border-top: 1px solid #d0d7de;
+  border-bottom: 1px solid #d0d7de;
+  border-right: 1px solid #d0d7de;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -28,7 +28,7 @@ exports[`SubNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" p
 .c0:first-of-type {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
-  border-left: 1px solid #e1e4e8;
+  border-left: 1px solid #d0d7de;
 }
 
 .c0:last-of-type {
@@ -47,13 +47,13 @@ exports[`SubNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" p
 
 .c0:hover .SubNav-octicon,
 .c0:focus .SubNav-octicon {
-  color: #586069;
+  color: #57606a;
 }
 
 .c0.selected {
   color: #ffffff;
-  background-color: #0366d6;
-  border-color: #0366d6;
+  background-color: #0969da;
+  border-color: #0969da;
 }
 
 .c0.selected .SubNav-octicon {
@@ -75,13 +75,13 @@ exports[`SubNav.Link renders consistently 1`] = `
   font-size: 14px;
   line-height: 20px;
   min-height: 34px;
-  color: #24292e;
+  color: #24292f;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-top: 1px solid #e1e4e8;
-  border-bottom: 1px solid #e1e4e8;
-  border-right: 1px solid #e1e4e8;
+  border-top: 1px solid #d0d7de;
+  border-bottom: 1px solid #d0d7de;
+  border-right: 1px solid #d0d7de;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -95,7 +95,7 @@ exports[`SubNav.Link renders consistently 1`] = `
 .c0:first-of-type {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
-  border-left: 1px solid #e1e4e8;
+  border-left: 1px solid #d0d7de;
 }
 
 .c0:last-of-type {
@@ -114,13 +114,13 @@ exports[`SubNav.Link renders consistently 1`] = `
 
 .c0:hover .SubNav-octicon,
 .c0:focus .SubNav-octicon {
-  color: #586069;
+  color: #57606a;
 }
 
 .c0.selected {
   color: #ffffff;
-  background-color: #0366d6;
-  border-color: #0366d6;
+  background-color: #0969da;
+  border-color: #0969da;
 }
 
 .c0.selected .SubNav-octicon {
@@ -140,13 +140,13 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   font-size: 14px;
   line-height: 20px;
   min-height: 34px;
-  color: #24292e;
+  color: #24292f;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-top: 1px solid #e1e4e8;
-  border-bottom: 1px solid #e1e4e8;
-  border-right: 1px solid #e1e4e8;
+  border-top: 1px solid #d0d7de;
+  border-bottom: 1px solid #d0d7de;
+  border-right: 1px solid #d0d7de;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -160,7 +160,7 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
 .c0:first-of-type {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
-  border-left: 1px solid #e1e4e8;
+  border-left: 1px solid #d0d7de;
 }
 
 .c0:last-of-type {
@@ -179,13 +179,13 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
 
 .c0:hover .SubNav-octicon,
 .c0:focus .SubNav-octicon {
-  color: #586069;
+  color: #57606a;
 }
 
 .c0.selected {
   color: #ffffff;
-  background-color: #0366d6;
-  border-color: #0366d6;
+  background-color: #0969da;
+  border-color: #0969da;
 }
 
 .c0.selected .SubNav-octicon {

@@ -5,7 +5,7 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
   padding: 8px 12px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: transparent;
@@ -15,14 +15,14 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 
 .c0:hover,
 .c0:focus {
-  color: #24292e;
+  color: #24292f;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c0.selected {
-  color: #24292e;
-  border-color: #e1e4e8;
+  color: #24292f;
+  border-color: #d0d7de;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
   background-color: #ffffff;
@@ -36,7 +36,7 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 exports[`TabNav renders consistently 1`] = `
 .c0 {
   margin-top: 0;
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 1px solid #d0d7de;
 }
 
 .c1 {
