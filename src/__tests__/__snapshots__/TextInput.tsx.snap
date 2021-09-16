@@ -27,14 +27,14 @@ exports[`TextInput renders 1`] = `
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   padding: 6px 12px;
 }
 
@@ -42,7 +42,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #959da5;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -50,8 +50,8 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #0366d6;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 @media (min-width:768px) {
@@ -98,14 +98,14 @@ exports[`TextInput renders block 1`] = `
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   padding: 6px 12px;
   display: block;
   width: 100%;
@@ -115,7 +115,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #959da5;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -123,8 +123,8 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #0366d6;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 @media (min-width:768px) {
@@ -171,14 +171,14 @@ exports[`TextInput renders consistently 1`] = `
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   padding: 6px 12px;
 }
 
@@ -186,7 +186,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #959da5;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -194,8 +194,8 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #0366d6;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 @media (min-width:768px) {
@@ -241,14 +241,14 @@ exports[`TextInput renders large 1`] = `
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   padding: 6px 12px;
   padding-left: 8px;
   padding-right: 8px;
@@ -261,7 +261,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #959da5;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -269,8 +269,8 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #0366d6;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 @media (min-width:768px) {
@@ -317,14 +317,14 @@ exports[`TextInput renders small 1`] = `
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   padding: 6px 12px;
   min-height: 28px;
   padding-left: 8px;
@@ -339,7 +339,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #959da5;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -347,8 +347,8 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #0366d6;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 @media (min-width:768px) {
@@ -395,14 +395,14 @@ exports[`TextInput should render a password input 1`] = `
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   vertical-align: middle;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(225,228,232,0.2);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   padding: 6px 12px;
 }
 
@@ -410,7 +410,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #959da5;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -418,8 +418,8 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #0366d6;
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 @media (min-width:768px) {

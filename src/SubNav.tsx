@@ -77,19 +77,19 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   font-size: ${get('fontSizes.1')};
   line-height: 20px; //custom value for SubNav
   min-height: 34px; //custom value for SubNav
-  color: ${get('colors.text.primary')};
+  color: ${get('colors.fg.default')};
   text-align: center;
   text-decoration: none;
-  border-top: 1px solid ${get('colors.border.primary')};
-  border-bottom: 1px solid ${get('colors.border.primary')};
-  border-right: 1px solid ${get('colors.border.primary')};
+  border-top: 1px solid ${get('colors.border.default')};
+  border-bottom: 1px solid ${get('colors.border.default')};
+  border-right: 1px solid ${get('colors.border.default')};
   display: flex;
   align-items: center;
 
   &:first-of-type {
     border-top-left-radius: ${get('radii.2')};
     border-bottom-left-radius: ${get('radii.2')};
-    border-left: 1px solid ${get('colors.border.primary')};
+    border-left: 1px solid ${get('colors.border.default')};
   }
 
   &:last-of-type {
@@ -100,20 +100,20 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   &:hover,
   &:focus {
     text-decoration: none;
-    background-color: ${get('colors.bg.tertiary')};
+    background-color: ${get('colors.canvas.subtle')};
     transition: 0.2s ease;
 
     .SubNav-octicon {
-      color: ${get('colors.icon.secondary')};
+      color: ${get('colors.fg.muted')};
     }
   }
 
   &.selected {
-    color: ${get('colors.state.selected.primaryText')};
-    background-color: ${get('colors.state.selected.primaryBg')};
-    border-color: ${get('colors.state.selected.primaryBorder')};
+    color: ${get('colors.fg.onEmphasis')};
+    background-color: ${get('colors.accent.emphasis')};
+    border-color: ${get('colors.accent.emphasis')};
     .SubNav-octicon {
-      color: ${get('colors.state.selected.primaryText')};
+      color: ${get('colors.fg.onEmphasis')};
     }
   }
 

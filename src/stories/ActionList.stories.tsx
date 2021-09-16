@@ -312,7 +312,7 @@ export function CustomItemChildren(): JSX.Element {
             {
               leadingVisual: ArrowRightIcon,
               children: (
-                <Label outline borderColor="border.success">
+                <Label outline borderColor="success.emphasis">
                   Choose this one
                 </Label>
               ),

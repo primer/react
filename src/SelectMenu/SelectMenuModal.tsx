@@ -32,7 +32,7 @@ const modalStyles = css<StyledModalProps>`
   overflow: hidden; // Enables border radius on scrollable child elements
   pointer-events: auto;
   flex-direction: column;
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
   border-radius: ${get('radii.2')};
   box-shadow: ${get('shadows.shadow.small')};
   animation: ${animateModal} 0.12s cubic-bezier(0, 0.1, 0.1, 1) backwards;
@@ -42,7 +42,7 @@ const modalStyles = css<StyledModalProps>`
     max-height: 350px;
     margin: ${get('space.1')} 0 ${get('space.3')} 0;
     font-size: ${get('fontSizes.0')};
-    border: ${get('borderWidths.1')} solid ${get('colors.border.overlay')};
+    border: ${get('borderWidths.1')} solid ${get('colors.border.default')};
     border-radius: ${get('radii.2')};
     box-shadow: ${get('shadows.shadow.small')};
   }
@@ -68,7 +68,7 @@ const modalWrapperStyles = css<StyledModalWrapperProps>`
     left: 0;
     pointer-events: none;
     content: '';
-    background-color: ${get('colors.selectMenu.backdropBg')};
+    background-color: ${get('colors.primer.canvas.backdrop')};
 
     @media (min-width: ${get('breakpoints.0')}) {
       display: none;

@@ -49,7 +49,7 @@ const Flash = styled.div<
     SxProp
 >`
   position: relative;
-  color: ${get('colors.text.primary')};
+  color: ${get('colors.fg.default')};
   padding: ${get('space.3')};
   border-style: solid;
   border-width: ${props => (props.full ? '1px 0px' : '1px')};

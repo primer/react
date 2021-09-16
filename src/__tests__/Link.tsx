@@ -43,6 +43,6 @@ describe('Link', () => {
   })
 
   it('respectes the "color" prop when "muted" prop is also passed', () => {
-    expect(render(<Link muted color="text.inverse" />)).toMatchSnapshot()
+    expect(render(<Link muted color="fg.onEmphasis" />)).toMatchSnapshot()
   })
 })

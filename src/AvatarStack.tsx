@@ -21,7 +21,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     flex-shrink: 0;
     height: 20px;
     width: 20px;
-    box-shadow: 0 0 0 1px ${get('colors.bg.canvas')};
+    box-shadow: 0 0 0 1px ${get('colors.canvas.default')};
     margin-left: -11px;
     position: relative;
     overflow: hidden;
@@ -118,7 +118,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
       margin-left: ${get('space.1')};
       opacity: 100%;
       visibility: visible;
-      box-shadow: 0 0 0 4px ${get('colors.bg.canvas')};
+      box-shadow: 0 0 0 4px ${get('colors.canvas.default')};
       &:first-child {
         margin-left: 0;
       }

@@ -79,7 +79,7 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   align-items: center;
   font-weight: ${get('fontWeights.bold')};
   line-height: 16px;
-  color: ${get('colors.bg.primary')};
+  color: ${get('colors.canvas.default')};
   text-align: center;
   border-radius: ${get('radii.3')};
   border-width: 1px;

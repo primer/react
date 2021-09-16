@@ -45,7 +45,7 @@ function scrollIntoViewingArea(
 }
 
 const StyledHeader = styled.div`
-  box-shadow: 0 1px 0 ${get('colors.border.primary')};
+  box-shadow: 0 1px 0 ${get('colors.border.default')};
   z-index: 1;
 `
 
@@ -126,7 +126,7 @@ export function FilteredActionList({
           ref={inputRef}
           block
           width="auto"
-          color="text.primary"
+          color="fg.default"
           value={filterValue}
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}

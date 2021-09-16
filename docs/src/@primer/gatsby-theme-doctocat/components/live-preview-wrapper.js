@@ -29,7 +29,7 @@ function ThemeSwitcher({children}) {
 function LivePreviewWrapper({children}) {
   return (
     <ThemeSwitcher>
-      <Box width="100%" p={3} bg="bg.canvas" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
+      <Box width="100%" p={3} bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
         <BaseStyles>{children}</BaseStyles>
       </Box>
     </ThemeSwitcher>

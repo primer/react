@@ -33,8 +33,8 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')};
-  color: ${props => (props.selected ? get('colors.state.selected.primaryText') : get('colors.text.secondary'))};
-  background-color: ${props => (props.selected ? get('colors.state.selected.primaryBg') : '')}!important;
+  color: ${props => (props.selected ? get('colors.fg.onEmphasis') : get('colors.fg.muted'))};
+  background-color: ${props => (props.selected ? get('colors.accent.emphasis') : '')}!important;
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -42,11 +42,11 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   border-radius: ${get('radii.1')};
   &:hover {
     text-decoration: none;
-    background-color: ${get('colors.bg.tertiary')};
+    background-color: ${get('colors.canvas.subtle')};
   }
   &:active {
-    color: ${get('colors.state.selected.primaryText')};
-    background-color: ${get('colors.state.selected.primaryBg')};
+    color: ${get('colors.fg.onEmphasis')};
+    background-color: ${get('colors.accent.emphasis')};
   }
   .count {
     float: right;

@@ -51,6 +51,7 @@ const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px'
 const light = partitionColors(primitives.colors.light)
 const dark = partitionColors(primitives.colors.dark)
 const darkDimmed = partitionColors(primitives.colors['dark_dimmed'])
+const darkHighContrast = partitionColors(primitives.colors['dark_high_contrast'])
 
 // This file must be in vanilla JS to work with preval
 // but our temporary filter utils make it impossible for
@@ -87,6 +88,16 @@ const darkDimmedColors = omitScale(darkDimmed.colors)
  */
 const darkDimmedShadows = omitScale(darkDimmed.shadows)
 
+/**
+ * @type Partial<typeof primitives.colors.dark_dimmed>
+ */
+const darkHighContrastColors = omitScale(darkHighContrast.colors)
+
+/**
+ * @type Partial<typeof primitives.colors.dark_high_contrast>
+ */
+const darkHighContrastShadows = omitScale(darkHighContrast.shadows)
+
 const theme = {
   // General
   animation,
@@ -111,6 +122,11 @@ const theme = {
     dark_dimmed: {
       colors: darkDimmedColors,
       shadows: darkDimmedShadows
+    },
+    // eslint-disable-next-line camelcase
+    dark_high_contrast: {
+      colors: darkHighContrastColors,
+      shadows: darkHighContrastShadows
     }
   }
 }

@@ -37,15 +37,15 @@ export const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxPro
   padding: 6px ${get('space.3')};
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.text.secondary')};
+  color: ${get('colors.fg.muted')};
 
   ${({variant}) =>
     variant === 'filled' &&
     css`
-      background: ${get('colors.bg.tertiary')};
+      background: ${get('colors.canvas.subtle')};
       margin: ${get('space.2')} 0;
-      border-top: 1px solid ${get('colors.border.tertiary')};
-      border-bottom: 1px solid ${get('colors.border.tertiary')};
+      border-top: 1px solid ${get('colors.neutral.muted')};
+      border-bottom: 1px solid ${get('colors.neutral.muted')};
 
       &:first-child {
         margin-top: 0;

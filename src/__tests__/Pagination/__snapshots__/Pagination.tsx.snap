@@ -11,7 +11,7 @@ exports[`Pagination renders consistently 1`] = `
   padding: 5px 10px;
   font-style: normal;
   line-height: 20px;
-  color: #24292e;
+  color: #24292f;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -37,31 +37,31 @@ exports[`Pagination renders consistently 1`] = `
 .c2:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-color: #e1e4e8;
+  border-color: #d0d7de;
   outline: 0;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
 
 .c2:active {
-  border-color: hsla(214,13%,93%,1);
+  border-color: hsla(210,18%,87%,1);
 }
 
 .c2[rel='prev'],
 .c2[rel='next'] {
-  color: #0366d6;
+  color: #0969da;
 }
 
 .c2[aria-current],
 .c2[aria-current]:hover {
   color: #ffffff;
-  background-color: #0366d6;
+  background-color: #0969da;
   border-color: transparent;
 }
 
 .c2[aria-disabled],
 .c2[aria-disabled]:hover {
-  color: #959da5;
+  color: #57606a;
   cursor: default;
   border-color: transparent;
 }

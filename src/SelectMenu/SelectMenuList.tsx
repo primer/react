@@ -10,7 +10,7 @@ const listStyles = css`
   flex: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
   -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
 
   @media (hover: hover) {
@@ -19,13 +19,13 @@ const listStyles = css`
     }
 
     .SelectMenuTab:not([aria-checked='true']):hover {
-      color: ${get('colors.text.primary')};
-      background-color: ${get('colors.bg.tertiary')};
+      color: ${get('colors.fg.default')};
+      background-color: ${get('colors.canvas.subtle')};
     }
 
     .SelectMenuTab:not([aria-checked='true']):active {
-      color: ${get('colors.text.primary')};
-      background-color: ${get('colors.bg.tertiary')};
+      color: ${get('colors.fg.default')};
+      background-color: ${get('colors.canvas.subtle')};
     }
   }
 `

@@ -49,7 +49,7 @@ function LiveCode({code, language, noinline}) {
         <Box
           sx={{
             border: '1px solid',
-            borderColor: 'border.primary',
+            borderColor: 'border.default',
             borderTopRightRadius: 2,
             borderTopLeftRadius: 2
           }}

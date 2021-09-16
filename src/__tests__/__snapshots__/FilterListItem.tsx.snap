@@ -8,7 +8,7 @@ exports[`FilterList.Item renders consistently 1`] = `
   margin: 0 0 5px 0;
   overflow: hidden;
   font-size: 14px;
-  color: #586069;
+  color: #57606a;
   background-color: !important;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -26,7 +26,7 @@ exports[`FilterList.Item renders consistently 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #0366d6;
+  background-color: #0969da;
 }
 
 .c0 .count {
@@ -48,7 +48,7 @@ exports[`FilterList.Item respects the "selected" prop 1`] = `
   overflow: hidden;
   font-size: 14px;
   color: #ffffff;
-  background-color: #0366d6!important;
+  background-color: #0969da!important;
   -webkit-text-decoration: none;
   text-decoration: none;
   text-overflow: ellipsis;
@@ -65,7 +65,7 @@ exports[`FilterList.Item respects the "selected" prop 1`] = `
 
 .c0:active {
   color: #ffffff;
-  background-color: #0366d6;
+  background-color: #0969da;
 }
 
 .c0 .count {

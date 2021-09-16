@@ -14,7 +14,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
     display: none;
     width: 0px;
     height: 0px;
-    color: ${get('colors.tooltip.bg')};
+    color: ${get('colors.neutral.emphasisPlus')};
     pointer-events: none;
     content: '';
     border: 6px solid transparent;
@@ -28,7 +28,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
     padding: 0.5em 0.75em;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.tooltip.text')};
+    color: ${get('colors.fg.onEmphasis')};
     text-align: center;
     text-decoration: none;
     text-shadow: none;
@@ -38,7 +38,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
     white-space: pre;
     pointer-events: none;
     content: attr(aria-label);
-    background: ${get('colors.tooltip.bg')};
+    background: ${get('colors.neutral.emphasisPlus')};
     border-radius: ${get('radii.1')};
     opacity: 0;
   }
@@ -101,7 +101,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       right: 50%;
       bottom: -7px;
       margin-right: -6px;
-      border-bottom-color: ${get('colors.tooltip.bg')};
+      border-bottom-color: ${get('colors.neutral.emphasisPlus')};
     }
   }
 
@@ -132,7 +132,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       right: 50%;
       bottom: auto;
       margin-right: -6px;
-      border-top-color: ${get('colors.tooltip.bg')};
+      border-top-color: ${get('colors.neutral.emphasisPlus')};
     }
   }
 
@@ -168,7 +168,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       bottom: 50%;
       left: -7px;
       margin-top: -6px;
-      border-left-color: ${get('colors.tooltip.bg')};
+      border-left-color: ${get('colors.neutral.emphasisPlus')};
     }
   }
 
@@ -186,7 +186,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
       right: -7px;
       bottom: 50%;
       margin-top: -6px;
-      border-right-color: ${get('colors.tooltip.bg')};
+      border-right-color: ${get('colors.neutral.emphasisPlus')};
     }
   }
 

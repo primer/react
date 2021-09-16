@@ -8,8 +8,8 @@ exports[`CounterLabel renders consistently 1`] = `
   font-weight: 600;
   line-height: 1;
   border-radius: 20px;
-  color: #24292e;
-  background-color: rgba(209,213,218,0.5);
+  color: #24292f;
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c0:empty {

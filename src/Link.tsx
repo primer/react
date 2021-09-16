@@ -20,11 +20,11 @@ const hoverColor = system({
 })
 
 const Link = styled.a<StyledLinkProps>`
-  color: ${props => (props.muted ? get('colors.text.secondary')(props) : get('colors.text.link')(props))};
+  color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
-    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.text.link')(props)}` : '')};
+    ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.accent.fg')(props)}` : '')};
   }
   &:is(button) {
     display: inline-block;

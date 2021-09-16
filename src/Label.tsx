@@ -7,8 +7,8 @@ import {ComponentProps} from './utils/types'
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
   margin-bottom: -1px; // offsets the 1px border
-  color: ${get('colors.label.secondary.text')};
-  border: ${get('borderWidths.1')} solid ${get('colors.label.border')};
+  color: ${get('colors.fg.muted')};
+  border: ${get('borderWidths.1')} solid ${get('colors.border.default')};
   box-shadow: none;
   ${borderColor};
   ${COMMON};
@@ -52,7 +52,7 @@ const Label = styled.span<
 >`
   display: inline-block;
   font-weight: ${get('fontWeights.semibold')};
-  color: ${get('colors.text.inverse')};
+  color: ${get('colors.fg.onEmphasis')};
   border-radius: ${get('radii.3')};
 
   &:hover {

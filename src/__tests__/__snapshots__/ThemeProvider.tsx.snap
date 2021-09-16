@@ -2,13 +2,13 @@
 
 exports[`has default theme 1`] = `
 .c0 {
-  color: #24292e;
+  color: #24292f;
   margin-bottom: 4px;
 }
 
 <span
   class="c0"
-  color="text.primary"
+  color="fg.default"
 >
   Hello
 </span>

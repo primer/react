@@ -52,7 +52,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
 }
 
 const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SxProp>`
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
   min-width: 192px;

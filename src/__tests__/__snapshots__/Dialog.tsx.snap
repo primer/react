@@ -5,14 +5,14 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
-  color: #24292e;
+  color: #24292f;
 }
 
 .c0 {
   padding: 16px;
   background-color: #f6f8fa;
   border-radius: 6px 6px 0px 0px;
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30,7 +30,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 >
   <span
     className="c1"
-    color="text.primary"
+    color="fg.default"
     fontFamily="sans-serif"
     fontSize={1}
     fontWeight="bold"
@@ -51,7 +51,7 @@ Array [
   content: ' ';
   background: transparent;
   z-index: 99;
-  background: rgba(27,31,35,0.5);
+  background: rgba(27,31,36,0.5);
 }
 
 <span
@@ -68,25 +68,25 @@ Array [
   outline: none;
   cursor: pointer;
   border-radius: 6px;
-  color: #586069;
+  color: #57606a;
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
 .c1:focus {
-  box-shadow: 0 0 0 3px rgba(3,102,214,0.3);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
 .c1:hover {
-  color: #0366d6;
+  color: #0969da;
 }
 
 .c3 {
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
-  color: #24292e;
+  color: #24292f;
 }
 
 .c5 {
@@ -94,7 +94,7 @@ Array [
 }
 
 .c0 {
-  box-shadow: 0 8px 24px rgba(149,157,165,0.2);
+  box-shadow: 0 8px 24px rgba(140,149,159,0.2);
   border-radius: 6px;
   position: fixed;
   top: 0;
@@ -114,7 +114,7 @@ Array [
   padding: 16px;
   background-color: #f6f8fa;
   border-radius: 6px 6px 0px 0px;
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -177,7 +177,7 @@ Array [
     >
       <span
         className="c3"
-        color="text.primary"
+        color="fg.default"
         fontFamily="sans-serif"
         fontSize={1}
         fontWeight="bold"

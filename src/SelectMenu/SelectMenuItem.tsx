@@ -14,10 +14,10 @@ export const listItemStyles = css`
   overflow: hidden;
   text-align: left;
   cursor: pointer;
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
   border: 0;
-  border-bottom: ${get('borderWidths.1')} solid ${get('colors.selectMenu.borderSecondary')};
-  color: ${get('colors.text.secondary')};
+  border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
+  color: ${get('colors.fg.muted')};
   text-decoration: none;
   font-size: ${get('fontSizes.0')};
   font-family: inherit; // needed if user uses a "button" tag
@@ -54,7 +54,7 @@ export const listItemStyles = css`
   // selected items
   &[aria-checked='true'] {
     font-weight: 500;
-    color: ${get('colors.text.primary')};
+    color: ${get('colors.fg.default')};
 
     .SelectMenu-selected-icon {
       visibility: visible;
@@ -68,7 +68,7 @@ export const listItemStyles = css`
     &:hover,
     &:active,
     &:focus {
-      background-color: ${get('colors.state.hover.secondaryBg')};
+      background-color: ${get('colors.neutral.subtle')};
     }
   }
 
@@ -80,7 +80,7 @@ export const listItemStyles = css`
     // Android
     &:focus,
     &:active {
-      background-color: ${get('colors.bg.secondary')};
+      background-color: ${get('colors.canvas.subtle')};
     }
 
     // iOS Safari

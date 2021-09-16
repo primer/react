@@ -42,7 +42,7 @@ const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
     display: block;
     width: 2px;
     content: '';
-    background-color: ${get('colors.border.secondary')};
+    background-color: ${get('colors.border.muted')};
   }
 
   ${props =>
@@ -58,8 +58,8 @@ const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
         height: 16px;
         margin-top: ${get('space.2')};
         margin-bottom: ${get('space.2')};
-        color: ${get('colors.icon.tertiary')};
-        background-color: ${get('colors.bg.canvas')};
+        color: ${get('colors.fg.muted')};
+        background-color: ${get('colors.canvas.default')};
         border: 0;
       }
     `}
@@ -80,9 +80,9 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
         borderRadius="50%"
         borderWidth="2px"
         borderStyle="solid"
-        borderColor="bg.canvas"
+        borderColor="canvas.default"
         overflow="hidden"
-        color="icon.secondary"
+        color="fg.muted"
         bg="timeline.badgeBg"
         width="32px"
         height="32px"
@@ -102,7 +102,7 @@ const TimelineBody = styled(Box)`
   min-width: 0;
   max-width: 100%;
   margin-top: ${get('space.1')};
-  color: ${get('colors.timeline.text')};
+  color: ${get('colors.fg.muted')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
   ${sx};
@@ -115,9 +115,9 @@ const TimelineBreak = styled(Box)`
   margin: 0;
   margin-bottom: -${get('space.3')};
   margin-left: 0;
-  background-color: ${get('colors.bg.canvas')};
+  background-color: ${get('colors.canvas.default')};
   border: 0;
-  border-top: ${get('space.1')} solid ${get('colors.border.primary')};
+  border-top: ${get('space.1')} solid ${get('colors.border.default')};
   ${sx};
 `
 

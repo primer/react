@@ -30,7 +30,7 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
-  background-color: ${get('colors.bg.canvas')};
+  background-color: ${get('colors.canvas.default')};
   border-radius: 50%;
   box-shadow: ${get('shadows.shadow.medium')};
   ${COMMON};

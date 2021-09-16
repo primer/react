@@ -308,7 +308,7 @@ export const MultipleFocusTraps = () => {
           the most recently-suspended trap will reactivate. Suspended focus traps can be disabled, causing them to be
           removed from the stack of suspended traps.
         </Flash>
-        <Box p={2} mb={3} borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2}>
+        <Box p={2} mb={3} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
           Legend
           <Box display="flex" flexDirection="row">
             <Box

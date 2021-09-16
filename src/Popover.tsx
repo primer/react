@@ -44,14 +44,14 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
 `
 
 const PopoverContent = styled(Box)`
-  border: 1px solid ${get('colors.border.primary')};
+  border: 1px solid ${get('colors.border.default')};
   border-radius: ${get('radii.2')};
   position: relative;
   width: 232px;
   margin-right: auto;
   margin-left: auto;
   padding: ${get('space.4')};
-  background-color: ${get('colors.bg.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
 
   ${COMMON};
   ${LAYOUT};
@@ -69,14 +69,14 @@ const PopoverContent = styled(Box)`
     top: -${get('space.3')};
     margin-left: -9px;
     border: ${get('space.2')} solid transparent; // TODO: solid?
-    border-bottom-color: ${get('colors.border.overlay')};
+    border-bottom-color: ${get('colors.border.default')};
   }
 
   &::after {
     top: -14px;
     margin-left: -${get('space.2')};
     border: 7px solid transparent; // todo: solid
-    border-bottom-color: ${get('colors.bg.overlay')};
+    border-bottom-color: ${get('colors.canvas.overlay')};
   }
 
   // Bottom-oriented carets
@@ -91,13 +91,13 @@ const PopoverContent = styled(Box)`
 
     &::before {
       bottom: -${get('space.3')};
-      border-top-color: ${get('colors.border.overlay')};
+      border-top-color: ${get('colors.border.default')};
     }
 
     &::after {
       bottom: -14px;
       // stylelint-disable-next-line primer/borders
-      border-top-color: ${get('colors.bg.overlay')};
+      border-top-color: ${get('colors.canvas.overlay')};
     }
   }
 
@@ -170,13 +170,13 @@ const PopoverContent = styled(Box)`
   ${Popover}.caret-pos--right-bottom & {
     &::before {
       right: -${get('space.3')};
-      border-left-color: ${get('colors.border.overlay')};
+      border-left-color: ${get('colors.border.default')};
     }
 
     &::after {
       right: -14px;
       // stylelint-disable-next-line primer/borders
-      border-left-color: ${get('colors.bg.overlay')};
+      border-left-color: ${get('colors.canvas.overlay')};
     }
   }
 
@@ -186,13 +186,13 @@ const PopoverContent = styled(Box)`
   ${Popover}.caret-pos--left-bottom & {
     &::before {
       left: -${get('space.3')};
-      border-right-color: ${get('colors.border.overlay')};
+      border-right-color: ${get('colors.border.default')};
     }
 
     &::after {
       left: -14px;
       // stylelint-disable-next-line primer/borders
-      border-right-color: ${get('colors.bg.overlay')};
+      border-right-color: ${get('colors.canvas.overlay')};
     }
   }
 

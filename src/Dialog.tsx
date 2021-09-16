@@ -28,7 +28,7 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   max-height: 80vh;
   z-index: 999;
   margin: 10vh auto;
-  background-color: ${get('colors.bg.primary')};
+  background-color: ${get('colors.canvas.default')};
   width: ${props => (props.narrow ? '320px' : props.wide ? '640px' : '440px')};
   outline: none;
 
@@ -46,7 +46,7 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
 
 const DialogHeaderBase = styled(Box)<SxProp>`
   border-radius: ${get('radii.2')} ${get('radii.2')} 0px 0px;
-  border-bottom: 1px solid ${get('colors.border.primary')};
+  border-bottom: 1px solid ${get('colors.border.default')};
   display: flex;
 
   @media screen and (max-width: 750px) {
@@ -60,7 +60,7 @@ export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
-      <Text theme={theme} color="text.primary" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+      <Text theme={theme} color="fg.default" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
         {children}
       </Text>
     )
@@ -85,7 +85,7 @@ const Overlay = styled.span`
     content: ' ';
     background: transparent;
     z-index: 99;
-    background: ${get('colors.fade.black50')};
+    background: ${get('colors.primer.canvas.backdrop')};
   }
 `
 

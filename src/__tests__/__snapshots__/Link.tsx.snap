@@ -2,7 +2,7 @@
 
 exports[`Link applies button styles when rendering a button element 1`] = `
 .c0 {
-  color: #0366d6;
+  color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -36,7 +36,7 @@ exports[`Link applies button styles when rendering a button element 1`] = `
 
 exports[`Link passes href down to link element 1`] = `
 .c0 {
-  color: #0366d6;
+  color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -71,7 +71,7 @@ exports[`Link passes href down to link element 1`] = `
 
 exports[`Link renders consistently 1`] = `
 .c0 {
-  color: #0366d6;
+  color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -105,7 +105,7 @@ exports[`Link renders consistently 1`] = `
 
 exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = `
 .c0 {
-  color: #586069;
+  color: #57606a;
   -webkit-text-decoration: none;
   text-decoration: none;
   color: #ffffff;
@@ -114,7 +114,7 @@ exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = 
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #0366d6;
+  color: #0969da;
 }
 
 .c0:is(button) {
@@ -136,14 +136,14 @@ exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = 
 
 <a
   className="c0"
-  color="text.inverse"
+  color="fg.onEmphasis"
   muted={true}
 />
 `;
 
 exports[`Link respectes the "muted" prop 1`] = `
 .c0 {
-  color: #586069;
+  color: #57606a;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -151,7 +151,7 @@ exports[`Link respectes the "muted" prop 1`] = `
 .c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #0366d6;
+  color: #0969da;
 }
 
 .c0:is(button) {
@@ -179,7 +179,7 @@ exports[`Link respectes the "muted" prop 1`] = `
 
 exports[`Link respects hoverColor prop 1`] = `
 .c0 {
-  color: #0366d6;
+  color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -187,7 +187,7 @@ exports[`Link respects hoverColor prop 1`] = `
 .c0:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #0366d6;
+  color: #0969da;
 }
 
 .c0:is(button) {

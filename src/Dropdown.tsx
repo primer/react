@@ -56,10 +56,10 @@ type StyledDropdownMenuProps = {
 
 const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   background-clip: padding-box;
-  background-color: ${get('colors.bg.overlay')};
-  border: 1px solid ${get('colors.border.overlay')};
+  background-color: ${get('colors.canvas.overlay')};
+  border: 1px solid ${get('colors.border.default')};
   border-radius: ${get('radii.2')};
-  box-shadow: ${get('shadows.dropdown.shadow')};
+  box-shadow: ${get('shadows.shadow.large')};
   left: 0;
   list-style: none;
   margin-top: 2px;
@@ -83,12 +83,12 @@ const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
 
   &::before {
     border: 8px solid transparent;
-    border-bottom-color: ${get('colors.bg.overlay')};
+    border-bottom-color: ${get('colors.canvas.overlay')};
   }
 
   &::after {
     border: 7px solid transparent;
-    border-bottom-color: ${get('colors.bg.overlay')};
+    border-bottom-color: ${get('colors.canvas.overlay')};
   }
 
   // stylelint-disable-next-line selector-max-type
@@ -104,31 +104,31 @@ const DropdownItem = styled.li`
   display: block;
   padding: ${get('space.1')} 10px ${get('space.1')} 15px;
   overflow: hidden;
-  color: ${get('colors.text.primary')};
+  color: ${get('colors.fg.default')};
   text-overflow: ellipsis;
   white-space: nowrap;
   a {
-    color: ${get('colors.text.primary')};
+    color: ${get('colors.fg.default')};
     text-decoration: none;
     display: block;
     overflow: hidden;
-    color: ${get('colors.text.primary')};
+    color: ${get('colors.fg.default')};
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   &:focus,
   a:focus {
-    color: ${get('colors.state.hover.primaryText')};
+    color: ${get('colors.fg.onEmphasis')};
     text-decoration: none;
-    background-color: ${get('colors.state.hover.primaryBg')};
+    background-color: ${get('colors.accent.emphasis')};
   }
 
   &:hover,
   &:hover a {
-    color: ${get('colors.state.hover.primaryText')};
+    color: ${get('colors.fg.onEmphasis')};
     text-decoration: none;
-    background-color: ${get('colors.state.hover.primaryBg')};
+    background-color: ${get('colors.accent.emphasis')};
     outline: none;
   }
   ${COMMON};

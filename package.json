@@ -44,7 +44,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "^13.0.0",
-    "@primer/primitives": "4.6.4",
+    "@primer/primitives": "4.7.1",
     "@react-aria/ssr": "3.1.0",
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.5",
@@ -56,6 +56,7 @@
     "@types/styled-system__theme-get": "5.0.1",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
+    "eslint-plugin-primer-react": "0.4.1",
     "focus-visible": "5.2.0",
     "styled-system": "5.1.5"
   },

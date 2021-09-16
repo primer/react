@@ -28,7 +28,7 @@ function SideNavBase({variant, className, bordered, children, ...props}: SideNav
     <Box
       borderWidth="1px"
       borderStyle="solid"
-      borderColor="border.primary"
+      borderColor="border.default"
       borderRadius={2}
       as="nav"
       className={newClassName}
@@ -40,7 +40,7 @@ function SideNavBase({variant, className, bordered, children, ...props}: SideNav
 }
 
 const SideNav = styled(SideNavBase)`
-  background-color: ${get('colors.bg.secondary')};
+  background-color: ${get('colors.canvas.subtle')};
 
   ${props =>
     props.bordered &&
@@ -64,14 +64,14 @@ type StyledSideNavLinkProps = {
 
 // used for variant normal hover, focus pseudo selectors
 const CommonAccessibilityVariantNormalStyles = css`
-  background-color: ${get('colors.state.hover.secondaryBg')};
+  background-color: ${get('colors.neutral.subtle')};
   outline: none;
   text-decoration: none;
 `
 
 // used for light weight hover, focus pseudo selectors
 const CommonAccessibilityVariantLightWeightStyles = css`
-  color: ${get('colors.text.primary')};
+  color: ${get('colors.fg.default')};
   text-decoration: none;
   outline: none;
 `
@@ -104,10 +104,10 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   }
 
   ${SideNav}.variant-normal > & {
-    color: ${get('colors.text.primary')};
+    color: ${get('colors.fg.default')};
     padding: ${get('space.3')};
     border: 0;
-    border-top: ${get('borderWidths.1')} solid ${get('colors.border.secondary')};
+    border-top: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
 
     &:first-child {
       border-top: 0;
@@ -138,7 +138,7 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:focus {
       ${CommonAccessibilityVariantNormalStyles}
-      box-shadow: ${get('shadows.state.focus.shadow')};
+      box-shadow: ${get('shadows.primer.shadow.focus')};
       z-index: 1;
     }
 
@@ -148,14 +148,14 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
       // Bar on the left
       &::before {
-        background-color: ${get('colors.sidenav.borderActive')};
+        background-color: ${get('colors.primer.border.active')};
       }
     }
   }
 
   ${SideNav}.variant-lightweight > & {
     padding: ${get('space.1')} 0;
-    color: ${get('colors.text.link')};
+    color: ${get('colors.accent.fg')};
 
     &:hover {
       ${CommonAccessibilityVariantLightWeightStyles}
@@ -163,13 +163,13 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:focus {
       ${CommonAccessibilityVariantLightWeightStyles}
-      box-shadow: ${get('shadows.state.focus.shadow')};
+      box-shadow: ${get('shadows.primer.shadow.focus')};
       z-index: 1;
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      color: ${get('colors.text.primary')};
+      color: ${get('colors.fg.default')};
       font-weight: ${get('fontWeights.semibold')};
     }
   }
