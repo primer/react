@@ -85,7 +85,7 @@ const Overlay = styled.span`
     content: ' ';
     background: transparent;
     z-index: 99;
-    background: ${get('colors.fade.black50')};
+    background: ${get('colors.primer.canvas.backdrop')};
   }
 `
 
