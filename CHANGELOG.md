@@ -1,5 +1,15 @@
 # @primer/components
 
+## 29.1.0
+
+### Minor Changes
+
+- [#1412](https://github.com/primer/react/pull/1412) [`627cd3e9`](https://github.com/primer/react/commit/627cd3e95614ab4347e5acf456dd23588196ec87) Thanks [@colebemis](https://github.com/colebemis)! - Add `dark_high_contrast` color scheme
+
+* [#1412](https://github.com/primer/react/pull/1412) [`627cd3e9`](https://github.com/primer/react/commit/627cd3e95614ab4347e5acf456dd23588196ec87) Thanks [@colebemis](https://github.com/colebemis)! - Add new [functional color variables](https://primer.style/primitives/colors) to the theme object.
+
+  **Tip:** Install [`eslint-plugin-primer-react`](https://primer.style/react/linting) to ensure that you're not using any deprecated color variables.
+
 ## 29.0.0
 
 ### Major Changes
