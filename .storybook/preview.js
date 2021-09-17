@@ -17,7 +17,7 @@ export const globalTypes = {
     toolbar: {
       icon: 'paintbrush',
       // array of colorMode items
-      items: Object.keys(theme.colorSchemes),
+      items: ['day', 'night', 'auto'],
       showName: true
     }
   },
