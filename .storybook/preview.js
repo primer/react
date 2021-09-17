@@ -1,13 +1,12 @@
 import {addons} from '@storybook/addons'
-import {ThemeProvider} from '../src/ThemeProvider'
-import {themeGet} from '../src'
+import {ThemeProvider, themeGet, theme} from '../src'
 import {createGlobalStyle} from 'styled-components'
 
 // set global theme styles for each story
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${themeGet('colors.bg.primary')};
-    color: ${themeGet('colors.text.primary')}
+    color: ${themeGet('colors.text.primary')};
   }
 `
 export const globalTypes = {
@@ -28,7 +27,7 @@ export const globalTypes = {
     defaultValue: 'light',
     toolbar: {
       icon: 'circlehollow',
-      items: ['light', 'dark', 'dark_dimmed'],
+      items: Object.keys(theme.colorSchemes),
       showName: true
     }
   },
@@ -38,7 +37,7 @@ export const globalTypes = {
     defaultValue: 'dark',
     toolbar: {
       icon: 'circle',
-      items: ['light', 'dark', 'dark_dimmed'],
+      items: Object.keys(theme.colorSchemes),
       showName: true
     }
   }
