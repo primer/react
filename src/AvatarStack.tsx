@@ -129,11 +129,12 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   ${sx};
 `
 const transformChildren = (children: React.ReactNode) => {
+  const countOfChildren = React.Children.count(children)
   return React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       className: classnames(child.props.className, 'pc-AvatarItem'),
-      sx: {zIndex: 10 - index, ...child.props.sx}
+      sx: {zIndex: countOfChildren - index, ...child.props.sx}
     })
   })
 }
