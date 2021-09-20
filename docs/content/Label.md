@@ -8,7 +8,7 @@ The Label component is used to add contextual metadata to a design. Visually it 
 
 ```jsx live
 <>
-  <Label variant="small" outline sx={{borderColor: "border.danger", mr: 2, color: "text.danger"}}>small</Label>
+  <Label variant="small" outline sx={{borderColor: "danger.emphasis", mr: 2, color: "danger.fg"}}>small</Label>
   <Label variant="medium" sx={{mr: 2}}>medium (default)</Label>
   <Label variant="large" sx={{mr: 2}}>large</Label>
   <Label variant="xl">xl label</Label>

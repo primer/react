@@ -13,10 +13,10 @@ Use [Box](/Box) instead.
 
 ```jsx
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
-  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
   </Box>
-  <Box p={3} color="text.inverse" bg="bg.warningInverse">
+  <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
     2
   </Box>
 </Grid>
@@ -26,10 +26,10 @@ Use [Box](/Box) instead.
 
 ```jsx
 <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
-  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
   </Box>
-  <Box p={3} color="text.inverse" bg="bg.warningInverse">
+  <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
     2
   </Box>
 </Box>
@@ -39,10 +39,10 @@ Use [Box](/Box) instead.
 
 ```jsx live
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
-  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
   </Box>
-  <Box p={3} color="text.inverse" bg="bg.warningInverse">
+  <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
     2
   </Box>
 </Grid>
