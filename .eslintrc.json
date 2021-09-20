@@ -63,8 +63,7 @@
     // rules which apply only to JS
     {
       "files": [
-        "**/*.js",
-        "**/*.jsx"
+        "**/*.{js,jsx}"
       ],
       "rules": {
         "eslint-comments/no-use": 0,
@@ -84,8 +83,7 @@
         "project": "tsconfig.json"
       },
       "files": [
-        "**/*.ts",
-        "**/*.tsx"
+        "**/*.{ts,tsx}"
       ],
       "extends": [
         "plugin:@typescript-eslint/recommended"
@@ -100,6 +98,47 @@
             "argsIgnorePattern": "^_"
           }
         ]
+      }
+    },
+    {
+      "files": [
+        "**/*.{md,mdx}"
+      ],
+      "extends": [
+        "plugin:mdx/recommended"
+      ],
+      "settings": {
+        "mdx/code-blocks": true
+      }
+    },
+    {
+      "files": [
+        "**/*.{md,mdx}",
+        "**/*.{md,mdx}/**"
+      ],
+      "parserOptions": {
+        "project": false
+      },
+      "rules": {
+        "camelcase": 0,
+        "no-constant-condition": 0,
+        "no-console": 0,
+        "no-empty-pattern": 0,
+        "no-irregular-whitespace": 0,
+        "no-unused-vars": 0,
+        "no-undef": 0,
+        "react/no-unescaped-entities": 0,
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-no-undef": 0,
+        "react/jsx-key": 0,
+        "react/jsx-no-comment-textnodes": 0,
+        "import/no-anonymous-default-export": 0,
+        "prettier/prettier": 0,
+        "jsx-a11y/anchor-is-valid": 0,
+        "jsx-a11y/accessible-emoji": 0,
+        "jsx-a11y/label-has-for": 0,
+        "@typescript-eslint/no-unnecessary-condition": 0,
+        "@typescript-eslint/no-unused-vars": 0
       }
     }
   ]
