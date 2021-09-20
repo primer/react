@@ -29,10 +29,9 @@ You can override the maximum width of the truncated text with the `maxWidth` pro
 You can use the `inline` boolean prop for inline (or inline-block) elements with a fixed maximum width (default: 125px).
 
 ```jsx live
-  Some text with a{' '}
-  <Truncate as="strong" inline title="branch-name-that-is-really-long">
-    branch-name-that-is-really-long
-  </Truncate>
+<Truncate as="strong" inline title="branch-name-that-is-really-long">
+  Some text with a branch-name-that-is-really-long
+</Truncate>
 ```
 
 ## Expandable example

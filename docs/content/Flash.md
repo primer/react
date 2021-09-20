@@ -7,10 +7,12 @@ The Flash component informs users of successful or pending actions.
 ## Default example
 
 ```jsx live
-<Flash>Default Flash</Flash>
-<Flash variant="success">Success Flash</Flash>
-<Flash variant="warning">Warning Flash</Flash>
-<Flash variant="danger">Danger Flash</Flash>
+<>
+  <Flash>Default Flash</Flash>
+  <Flash variant="success">Success Flash</Flash>
+  <Flash variant="warning">Warning Flash</Flash>
+  <Flash variant="danger">Danger Flash</Flash>
+</>
 ```
 
 ## With an icon

@@ -166,12 +166,13 @@ Now let's dive into `WordWrap`, implemented with a React children-based API:
 
 ```jsx
 function WordWrap({ children, charactersPerLine }) {
+  const items = React.Children.toArray(children);
   let textContent = "";
-  React.Children.forEach(children, (child) => {
+  for (const child of items) {
     if (typeof child === "string") {
       textContent += child;
     }
-  });
+  }
   const lines = [];
   for (
     let low = 0;
@@ -247,8 +248,8 @@ function MyApp() {
 ```jsx
 function List({ items, ordered }) {
   const Elem = ordered ? "ol" : "ul";
-  const items = items.map((i) => <li key={i}>i</li>);
-  return <Elem>{items}</Elem>;
+  const listItems = items.map((i) => <li key={i}>i</li>);
+  return <Elem>{listItems}</Elem>;
 }
 
 // usage

@@ -79,7 +79,7 @@ Here's an example of a basic component written in the style of Primer Components
 
 ```jsx
 import {TYPOGRAPHY, COMMON} from './constants'
-import sx from './sx
+import sx from './sx'
 
 const Component = styled.div`
   // additional styles here
@@ -258,7 +258,7 @@ Ensure you are using the latest minor of Node.js for the major version specified
 System props are style functions that provide one or more props, and can be passed directly the return value of [styled-components]'s `styled()` function:
 
 ```jsx
-import {styled} from 'styled-components'
+import styled from 'styled-components'
 import {space} from 'styled-system'
 const SpaceDiv = styled.div`
   ${space}

@@ -48,17 +48,22 @@ registerPortalRoot(document.querySelector(".my-portal-root")!)
 
 ```jsx
 import { Portal, registerPortalRoot } from "@primer/components"
+
 registerPortalRoot(document.querySelector(".scrolling-canvas-root")!, "scrolling-canvas")
+
 // ...
-<Portal containerName="scrolling-canvas">
-    <div>This div will be rendered into the element registered above.</div>
-    <Portal>
-        <div>
-            This div will be rendered into the default
-            portal root created at document.body
-        </div>
+
+export default () => (
+    <Portal containerName="scrolling-canvas">
+        <div>This div will be rendered into the element registered above.</div>
+        <Portal>
+            <div>
+                This div will be rendered into the default
+                portal root created at document.body
+            </div>
+        </Portal>
     </Portal>
-</Portal>
+)
 ```
 
 ## System props

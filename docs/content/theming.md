@@ -203,8 +203,8 @@ const customTheme = deepmerge(theme, {
     },
     // Add a new scheme
     my_scheme_name: {
-      colors: {...},
-      shadows: {...}
+      colors: {},
+      shadows: {}
     }
   }
 })

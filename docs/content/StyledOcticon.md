@@ -8,8 +8,10 @@ StyledOcticon renders an [Octicon](https://octicons.github.com) with common syst
 ## Default example
 
 ```jsx live
-<StyledOcticon icon={CheckIcon} size={32} color="icon.success" mr={2} />
-<StyledOcticon icon={XIcon} size={32} color="icon.danger" />
+<>
+  <StyledOcticon icon={CheckIcon} size={32} color="icon.success" mr={2} />
+  <StyledOcticon icon={XIcon} size={32} color="icon.danger" />
+</>
 ```
 
 ## System props

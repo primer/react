@@ -84,7 +84,7 @@ Used to wrap the content in a `SelectMenu`.
 ```jsx
 <SelectMenu.Modal>
   {/* all menu content is wrapped in the modal*/}
-</SelectMenu.Menu>
+</SelectMenu.Modal>
 ```
 
 ### Right-aligned modal
@@ -241,8 +241,10 @@ Used for each individual tab inside of a `SelectMenu.Tabs`. Be sure to set the `
 The `onClick` prop is optional and can be used for any events or data fetching you might need to trigger on tab clicks.
 
 ```jsx
-<SelectMenu.Tab index={0} tabName="Repository"/>
-<SelectMenu.Tab index={1} tabName="Organization"/>
+<>
+  <SelectMenu.Tab index={0} tabName="Repository"/>
+  <SelectMenu.Tab index={1} tabName="Organization"/>
+</>
 ```
 
 ### System Props

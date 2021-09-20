@@ -18,17 +18,19 @@ The `sx` prop provides a lot of power, which means it is an easy tool to abuse. 
 This example demonstrates applying a bottom border to `Heading`, a component that does not receive `BORDER` system props. The `borderBottomWidth` value comes from `theme.borderWidths` and `borderBottomColor` comes from `theme.colors`.
 
 ```jsx live
-<Heading pb={2}>Heading</Heading>
+<>
+  <Heading pb={2}>Heading</Heading>
 
-<Heading
-  pb={2}
-  sx={{
-    borderBottomWidth: 1,
-    borderBottomColor: 'border.primary',
-    borderBottomStyle: 'solid'
-  }}>
-    Heading with bottom border
-</Heading>
+  <Heading
+    pb={2}
+    sx={{
+      borderBottomWidth: 1,
+      borderBottomColor: 'border.primary',
+      borderBottomStyle: 'solid'
+    }}>
+      Heading with bottom border
+  </Heading>
+</>
 ```
 
 ## Responsive values

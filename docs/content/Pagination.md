@@ -154,7 +154,7 @@ Pagination components get `COMMON` system props. Read our [System Props](/system
 The following snippet shows the properties in the theme that control the styling of the pagination component:
 
 ```javascript
-{
+export default {
   // ... rest of theme ...
   pagination: {
     borderRadius,

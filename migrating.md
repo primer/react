@@ -11,7 +11,7 @@
 
 There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#3-0-0-beta):
 
-```js
+```
 npx jscodeshift -t node_modules/@primer/components/codemods/v4.js path/to/src
 ```
 
@@ -32,7 +32,7 @@ The following breaking changes must be accounted for manually:
 
 There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#2-0-0-beta) and updating the package name:
 
-```js
+```
 npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
 ```
 
@@ -48,7 +48,7 @@ We suggest that you rename your components in the above order, since renaming `B
 
 There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#1-0-0-beta):
 
-```js
+```
 npx jscodeshift -t node_modules/primer-react/codemods/v2.js path/to/src
 ```
 
@@ -58,7 +58,7 @@ npx jscodeshift -t node_modules/primer-react/codemods/v2.js path/to/src
 
 There is a [codemod](#codemods) available to upgrade from previous versions `0.x.x-beta`:
 
-```js
+```
 npx jscodeshift -t node_modules/primer-react/codemods/v1.js path/to/src
 ```
 

@@ -7,15 +7,17 @@ Adds styles for multiple form elements used together.
 ## Default example
 
 ```jsx live
-<FormGroup>
-  <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
-  <TextInput id="example-text" value="Example Value" />
-</FormGroup>
+<>
+  <FormGroup>
+    <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
+    <TextInput id="example-text" value="Example Value" />
+  </FormGroup>
 
-<FormGroup>
-  <FormGroup.Label htmlFor="example-text-b">Example text</FormGroup.Label>
-  <TextInput id="example-text-b" value="Example Value" />
-</FormGroup>
+  <FormGroup>
+    <FormGroup.Label htmlFor="example-text-b">Example text</FormGroup.Label>
+    <TextInput id="example-text-b" value="Example Value" />
+  </FormGroup>
+</>
 ```
 
 ## System props

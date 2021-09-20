@@ -12,21 +12,25 @@ Use [Box](/Box) instead.
 **Before**
 
 ```jsx
-<Position position="absolute">...</Position>
-<Absolute>...</Absolute>
-<Relative>...</Relative>
-<Fixed>...</Fixed>
-<Sticky>...</Sticky>
+<>
+  <Position position="absolute">...</Position>
+  <Absolute>...</Absolute>
+  <Relative>...</Relative>
+  <Fixed>...</Fixed>
+  <Sticky>...</Sticky>
+</>
 ```
 
 **After**
 
 ```jsx
-<Box position="absolute">...</Box>
-<Box position="absolute">...</Box>
-<Box position="relative">...</Box>
-<Box position="fixed">...</Box>
-<Box position="sticky">...</Box>
+<>
+  <Box position="absolute">...</Box>
+  <Box position="absolute">...</Box>
+  <Box position="relative">...</Box>
+  <Box position="fixed">...</Box>
+  <Box position="sticky">...</Box>
+</>
 ```
 
 ## Default examples
@@ -68,10 +72,9 @@ Use [Box](/Box) instead.
   <Box
     borderWidth="1px"
     borderStyle="solid"
-    borderColor="border.primary"
+    borderColor="border.success"
     borderRadius={2}
     border={1}
-    borderColor="border.success"
     height={500}
   >
     <Sticky top={0} bg="bg.success" p={6}>
