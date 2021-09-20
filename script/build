@@ -13,7 +13,7 @@ npx cross-env BABEL_MODULE=commonjs babel src --out-dir lib --extensions ".js,.t
 npx babel src --out-dir lib-esm --extensions ".js,.ts,.jsx,.tsx"
 
 # Type check
-npx tsc
+npx tsc --project tsconfig.build.json
 
 # Copy type declarations
 npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm
