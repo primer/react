@@ -1,5 +1,5 @@
 import React from 'react'
-import {Breadcrumb} from '..'
+import {Breadcrumbs, Breadcrumb} from '..'
 import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -7,25 +7,26 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
-describe('Breadcrumb', () => {
-  behavesAsComponent({Component: Breadcrumb, systemPropArray: [COMMON]})
+describe('Breadcrumbs', () => {
+  behavesAsComponent({Component: Breadcrumbs, systemPropArray: [COMMON]})
 
-  checkExports('Breadcrumb', {
-    default: Breadcrumb
+  checkExports('Breadcrumbs', {
+    default: Breadcrumbs,
+    Breadcrumb: Breadcrumb
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Breadcrumb />)
+    const {container} = HTMLRender(<Breadcrumbs />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
   })
 
   it('renders a <nav>', () => {
-    expect(render(<Breadcrumb />).type).toEqual('nav')
+    expect(render(<Breadcrumbs />).type).toEqual('nav')
   })
 
-  it('adds the Breadcrumb class', () => {
-    expect(rendersClass(<Breadcrumb />, 'Breadcrumb')).toEqual(true)
+  it('adds the Breadcrumbs class', () => {
+    expect(rendersClass(<Breadcrumbs />, 'Breadcrumbs')).toEqual(true)
   })
 })
