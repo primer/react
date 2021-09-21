@@ -7,9 +7,11 @@ The Text component is a wrapper component that will apply typography styles to t
 ## Default example
 
 ```jsx live
-<Text as='p' fontWeight="bold">bold</Text>
-<Text as='p' color="text.danger">danger color</Text>
-<Text as='p' color="text.inverse" bg="bg.canvasInverse" p={2}>inverse colors</Text>
+<>
+  <Text as='p' fontWeight="bold">bold</Text>
+  <Text as='p' color="danger.fg">danger color</Text>
+  <Text as='p' color="fg.onEmphasis" bg="neutral.emphasis" p={2}>inverse colors</Text>
+</>
 ```
 
 ## System props

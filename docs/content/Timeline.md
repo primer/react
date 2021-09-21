@@ -13,13 +13,13 @@ The Timeline.Item component is used to display items on a vertical timeline, con
       <StyledOcticon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>
-      <Link href="#" sx={{fontWeight: 'bold', color: 'text.primary', mr: 1}} muted>
+      <Link href="#" sx={{fontWeight: 'bold', color: "fg.default", mr: 1}} muted>
         Monalisa
       </Link>
-      created one <Link href="#" sx={{fontWeight: 'bold', color: 'text.primary', mr: 1}} muted>
+      created one <Link href="#" sx={{fontWeight: 'bold', color: "fg.default", mr: 1}} muted>
         hot potato
       </Link>
-      <Link href="#" color="timeline.text" muted>
+      <Link href="#" color="fg.muted" muted>
         Just now
       </Link>
     </Timeline.Body>
@@ -50,20 +50,20 @@ of the child `StyledOcticon` if necessary.
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: 'prState.closed.text'}} />
+    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: "fg.onEmphasis"}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
-      <StyledOcticon icon={FlameIcon} color="prState.open.text" />
+    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
+      <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: 'prState.merged.text'}} />
+    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: "fg.onEmphasis"}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
@@ -98,15 +98,15 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: 'prState.closed.bg'}}>
-      <StyledOcticon icon={FlameIcon} color="prState.closed.text" />
+    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
+      <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Break />
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: 'prState.open.bg'}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: 'prState.open.text'}} />
+    <Timeline.Badge sx={{bg: "success.emphasis"}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: "fg.onEmphasis"}} />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>

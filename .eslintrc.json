@@ -53,19 +53,14 @@
     "camelcase": [
       "error",
       {
-        "allow": [
-          "dark_dimmed"
-        ]
+        "allow": ["dark_dimmed"]
       }
     ]
   },
   "overrides": [
     // rules which apply only to JS
     {
-      "files": [
-        "**/*.js",
-        "**/*.jsx"
-      ],
+      "files": ["**/*.{js,jsx}"],
       "rules": {
         "eslint-comments/no-use": 0,
         "import/no-namespace": 0,
@@ -83,13 +78,8 @@
       "parserOptions": {
         "project": "tsconfig.json"
       },
-      "files": [
-        "**/*.ts",
-        "**/*.tsx"
-      ],
-      "extends": [
-        "plugin:@typescript-eslint/recommended"
-      ],
+      "files": ["**/*.{ts,tsx}"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
       "rules": {
         "@typescript-eslint/no-explicit-any": 2,
         "@typescript-eslint/no-unnecessary-condition": 2,
@@ -100,6 +90,46 @@
             "argsIgnorePattern": "^_"
           }
         ]
+      }
+    },
+    // rules which apply only to Markdown
+    {
+      "files": ["**/*.{md,mdx}"],
+      "extends": ["plugin:mdx/recommended"],
+      "settings": {
+        "mdx/code-blocks": true
+      },
+      "rules": {
+        "prettier/prettier": 0
+      }
+    },
+    // rules which apply only to Markdown code blocks
+    {
+      "files": ["**/*.{md,mdx}/**"],
+      "parserOptions": {
+        "project": false
+      },
+      "rules": {
+        "camelcase": 0,
+        "no-constant-condition": 0,
+        "no-console": 0,
+        "no-empty-pattern": 0,
+        "no-unused-vars": 0,
+        "no-undef": 0,
+        "react/no-unescaped-entities": 0,
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-no-undef": 0,
+        "react/jsx-key": 0,
+        "react/jsx-no-comment-textnodes": 0,
+        "import/no-anonymous-default-export": 0,
+        "prettier/prettier": 0,
+        // These a11y rules should eventually be re-enabled
+        "jsx-a11y/anchor-is-valid": 0,
+        "jsx-a11y/accessible-emoji": 0,
+        "jsx-a11y/label-has-for": 0,
+        "@typescript-eslint/no-unnecessary-condition": 0,
+        "@typescript-eslint/no-unused-vars": 0,
+        "primer-react/no-deprecated-colors": ["error", {"skipImportCheck": true}]
       }
     }
   ]

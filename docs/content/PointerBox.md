@@ -7,7 +7,7 @@ PointerBox is a [BorderBox](./BorderBox) component with a caret added to it.
 ## Default example
 
 ```jsx live
-<PointerBox m={4} p={2} minHeight={100} bg="bg.success" borderColor="border.success">
+<PointerBox m={4} p={2} minHeight={100} bg="success.subtle" borderColor="success.emphasis">
   PointerBox
 </PointerBox>
 ```
@@ -23,7 +23,7 @@ function PointerBoxDemo(props) {
       </Heading>
       <CaretSelector current={pos} onChange={setPos} />
       <Box position="relative" pt={4}>
-        <PointerBox m={4} p={2} minHeight={100} bg="bg.success" borderColor="border.success" caret={pos}>
+        <PointerBox m={4} p={2} minHeight={100} bg="success.subtle" borderColor="success.emphasis" caret={pos}>
           {' '}
           Content{' '}
         </PointerBox>

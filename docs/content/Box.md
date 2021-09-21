@@ -8,7 +8,7 @@ import {Props} from '../src/props'
 import {Box} from '@primer/components'
 
 ```jsx live
-<Box color="text.secondary" bg="bg.tertiary" p={3}>
+<Box color="fg.muted" bg="canvas.subtle" p={3}>
   Hello
 </Box>
 ```
@@ -24,7 +24,7 @@ Box also accepts all [styled system props](https://styled-system.com/table/).
 ### Border on all sides
 
 ```jsx live
-<Box borderColor="border.primary" borderWidth={1} borderStyle="solid" p={3}>
+<Box borderColor="border.default" borderWidth={1} borderStyle="solid" p={3}>
   Hello
 </Box>
 ```
@@ -32,7 +32,7 @@ Box also accepts all [styled system props](https://styled-system.com/table/).
 ### Border on one side
 
 ```jsx live
-<Box borderColor="border.primary" borderBottomWidth={1} borderBottomStyle="solid" pb={3}>
+<Box borderColor="border.default" borderBottomWidth={1} borderBottomStyle="solid" pb={3}>
   Hello
 </Box>
 ```
@@ -43,13 +43,13 @@ Use Box to create [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/C
 
 ```jsx live
 <Box display="flex">
-  <Box p={3} borderColor="border.primary" borderWidth={1} borderStyle="solid">
+  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
     1
   </Box>
-  <Box flexGrow={1} p={3} borderColor="border.primary" borderWidth={1} borderStyle="solid">
+  <Box flexGrow={1} p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
     2
   </Box>
-  <Box p={3} borderColor="border.primary" borderWidth={1} borderStyle="solid">
+  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
     3
   </Box>
 </Box>
@@ -61,13 +61,13 @@ Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_
 
 ```jsx live
 <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={3}>
-  <Box p={3} borderColor="border.primary" borderWidth={1} borderStyle="solid">
+  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
     1
   </Box>
-  <Box p={3} borderColor="border.primary" borderWidth={1} borderStyle="solid">
+  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
     2
   </Box>
-  <Box p={3} borderColor="border.primary" borderWidth={1} borderStyle="solid">
+  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
     3
   </Box>
 </Box>

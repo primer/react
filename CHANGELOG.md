@@ -558,7 +558,7 @@
   import {ThemeProvider} from 'styled-components'
   import {theme} from '@primer/react'
 
-  funciton App(props) {
+  function App(props) {
     return (
       <div>
         <ThemeProvider theme={theme}>

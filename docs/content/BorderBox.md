@@ -18,7 +18,7 @@ Use [Box](/Box) instead.
 **After**
 
 ```jsx
-<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2}>
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
   Item 1
 </Box>
 ```
