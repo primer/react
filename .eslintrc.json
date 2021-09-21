@@ -123,6 +123,7 @@
         "react/jsx-no-comment-textnodes": 0,
         "import/no-anonymous-default-export": 0,
         "prettier/prettier": 0,
+        // These a11y rules should eventually be re-enabled
         "jsx-a11y/anchor-is-valid": 0,
         "jsx-a11y/accessible-emoji": 0,
         "jsx-a11y/label-has-for": 0,
