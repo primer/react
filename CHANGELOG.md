@@ -1,5 +1,13 @@
 # @primer/components
 
+## 29.1.1
+
+### Patch Changes
+
+- [#1441](https://github.com/primer/react/pull/1441) [`f3f5afb9`](https://github.com/primer/react/commit/f3f5afb9cf91e0ce3ea287351c871eb1559f1fa4) Thanks [@jfuchs](https://github.com/jfuchs)! - Fix type error where `css` is a required prop of some components by excluding storybook stories from TypeScript compilation for builds
+
+* [#1446](https://github.com/primer/react/pull/1446) [`b4e5287c`](https://github.com/primer/react/commit/b4e5287cf1ec75a27e4b78b17425952e85f82f47) Thanks [@colebemis](https://github.com/colebemis)! - Fix filter input spacing in SelectPanel
+
 ## 29.1.0
 
 ### Minor Changes
