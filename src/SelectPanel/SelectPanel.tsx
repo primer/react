@@ -136,7 +136,7 @@ export function SelectPanel({
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
-      sx: { m: 2 },
+      sx: {m: 2},
       contrast: true,
       ...textInputProps
     }
