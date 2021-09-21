@@ -132,7 +132,6 @@ const stylePropsMap = {
   AvatarStack: [...COMMON],
   BranchName: [...COMMON],
   Breadcrumb: [...COMMON, ...FLEX],
-  Breadcrumbs: [...COMMON, ...FLEX],
   Button: [...COMMON, ...LAYOUT, ...TYPOGRAPHY],
   ButtonBase: [...COMMON, ...LAYOUT],
   ButtonClose: [...COMMON, ...LAYOUT],

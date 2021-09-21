@@ -53,10 +53,6 @@ module.exports = (file, api) => {
         borderColor: 'border.primary',
         borderRadius: 2
       }
-    },
-    Breadcrum: {
-      identifier: 'Breadcrums',
-      attributes: {}
     }
   })
 
