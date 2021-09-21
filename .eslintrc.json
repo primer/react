@@ -114,7 +114,6 @@
     },
     {
       "files": [
-        "**/*.{md,mdx}",
         "**/*.{md,mdx}/**"
       ],
       "parserOptions": {
