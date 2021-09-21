@@ -11,20 +11,22 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 ## Default examples
 
 ```jsx live
-<Button>Button</Button>
-<ButtonDanger>Button Danger</ButtonDanger>
-<ButtonOutline>Button Outline</ButtonOutline>
-<ButtonPrimary>Button Primary</ButtonPrimary>
-<ButtonInvisible>Button Invisible</ButtonInvisible>
-<ButtonClose onClick={() => window.alert('button clicked')}/>
+<>
+  <Button>Button</Button>
+  <ButtonDanger>Button Danger</ButtonDanger>
+  <ButtonOutline>Button Outline</ButtonOutline>
+  <ButtonPrimary>Button Primary</ButtonPrimary>
+  <ButtonInvisible>Button Invisible</ButtonInvisible>
+  <ButtonClose onClick={() => window.alert('button clicked')}/>
 
-<ButtonGroup display='block' my={2}>
-  <Button>Button</Button>
-  <Button>Button</Button>
-  <Button>Button</Button>
-</ButtonGroup>
+  <ButtonGroup display='block' my={2}>
+    <Button>Button</Button>
+    <Button>Button</Button>
+    <Button>Button</Button>
+  </ButtonGroup>
 
-<ButtonTableList>Button Table List </ButtonTableList>
+  <ButtonTableList>Button Table List </ButtonTableList>
+</>
 ```
 
 ## System props

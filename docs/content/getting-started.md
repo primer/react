@@ -19,7 +19,9 @@ You can now import Primer React from the main package module:
 ```javascript
 // using import syntax
 import {Box, Flex} from '@primer/components'
+```
 
+```javascript
 // using require syntax
 const {Box, Flex} = require('@primer/components')
 ```
@@ -40,7 +42,9 @@ Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake 
 // using import syntax
 import Box from '@primer/components/lib/Box'
 import Flex from '@primer/components/lib/Flex'
+```
 
+```javascript
 // using require syntax
 const Box = require('@primer/components/lib/Box')
 const Flex = require('@primer/components/lib/Flex')
@@ -83,7 +87,7 @@ In order to set baseline color, font-family, and line-heights across your projec
 ```jsx
 import {BaseStyles, Box, Heading} from '@primer/components'
 
-export default const MyApp = () => (
+export default () => (
   <BaseStyles>
     <Box m={4}>
       <Heading mb={2}>Hello, world!</Heading>
@@ -115,7 +119,7 @@ Ever since `@types/styled-components` version `4.1.19`, it has had a dependency 
 
 You may run into this conflict even if you're not importing anything from `react-native` or don't have it installed. This is because some package managers hoist packages to the top-level `node_modules` folder, and the TypeScript compiler automatically includes types from all folders in `node_modules/@types` by default.
 
-The TypeScript compiler allows you to opt-out of this behavior [using the `typeRoots` and `types` configuration options](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#types-typeroots-and-types), and the best solution for this error — for now — seems to be to opt out the automatic inclusion of `node_modules/@types` and instead list the types you want to be included individually.
+The TypeScript compiler allows you to opt-out of this behavior [using the `typeRoots` and `types` configuration options](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#types-typeroots-and-types), and the best solution for this error — for now — seems to be to opt out the automatic inclusion of `node_modules/@types` and instead list the types you want to be included individually.
 
 In your `tsconfig.json`, set the `types` array under the `compilerOptions` like so:
 

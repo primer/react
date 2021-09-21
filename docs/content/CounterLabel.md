@@ -8,9 +8,11 @@ Use the CounterLabel component to add a count to navigational elements and butto
 ## Default example
 
 ```jsx live
-<CounterLabel>12</CounterLabel>
-<CounterLabel scheme="primary">13</CounterLabel>
-<CounterLabel scheme="secondary">13</CounterLabel>
+<>
+  <CounterLabel>12</CounterLabel>
+  <CounterLabel scheme="primary">13</CounterLabel>
+  <CounterLabel scheme="secondary">13</CounterLabel>
+</>
 ```
 
 ## System props

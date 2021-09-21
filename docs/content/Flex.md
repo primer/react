@@ -13,7 +13,7 @@ Use [Box](/Box) instead.
 
 ```jsx
 <Flex flexWrap="nowrap">
-  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
   </Box>
 </Flex>
@@ -23,7 +23,7 @@ Use [Box](/Box) instead.
 
 ```jsx
 <Box display="flex" flexWrap="nowrap">
-  <Box p={3} color="text.inverse" bg="bg.infoInverse">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
   </Box>
 </Box>
@@ -32,15 +32,15 @@ Use [Box](/Box) instead.
 ## Default example
 
 ```jsx live
-<Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" width={300} height={300} borderRadius={0}>
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.default" width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
-    <Box p={3} color="text.inverse" bg="bg.infoInverse">
+    <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
       Item 1
     </Box>
-    <Box p={3} color="text.inverse" bg="bg.warningInverse">
+    <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
       Item 2
     </Box>
-    <Box p={3} color="text.inverse" bg="bg.dangerInverse">
+    <Box p={3} color="fg.onEmphasis" bg="danger.emphasis">
       Item 3
     </Box>
   </Flex>

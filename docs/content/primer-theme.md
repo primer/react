@@ -51,7 +51,7 @@ There are two ways to change the theme of Primer components:
    import {ThemeProvider} from `styled-components`
    import {theme} from '@primer/components'
 
-   const customTheme = { ... }
+   const customTheme = {} // Theme overrides
 
    const App = (props) => {
      return (

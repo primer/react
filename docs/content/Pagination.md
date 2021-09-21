@@ -32,7 +32,7 @@ By default, clicking a link in the pagination component will cause the browser t
     }
 
     return (
-      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={2}>
         <Box>
           Current page: {page} / {totalPages}
         </Box>
@@ -63,7 +63,7 @@ type HrefBuilder = (page: number) => string
     }
 
     return (
-      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={2}>
         <Box>The last URL clicked was: {lastUrl}</Box>
         <Pagination pageCount={15} currentPage={2} onPageChange={onPageChange} hrefBuilder={hrefBuilder} />
       </Box>
@@ -116,7 +116,7 @@ To hide all the page numbers and create a simple pagination container with just 
     }
 
     return (
-      <Box borderWidth="1px" borderStyle="solid" borderColor="border.primary" borderRadius={2} p={2}>
+      <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={2}>
         <Box>
           Current page: {page} / {totalPages}
         </Box>
@@ -154,7 +154,7 @@ Pagination components get `COMMON` system props. Read our [System Props](/system
 The following snippet shows the properties in the theme that control the styling of the pagination component:
 
 ```javascript
-{
+export default {
   // ... rest of theme ...
   pagination: {
     borderRadius,

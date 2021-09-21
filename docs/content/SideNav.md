@@ -44,7 +44,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <StyledOcticon sx={{mr: 2}} size={16} icon={DotIcon} color="icon.success" />
+    <StyledOcticon sx={{mr: 2}} size={16} icon={DotIcon} color="success.fg" />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -71,22 +71,22 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
 <Box
   borderWidth="1px"
   borderStyle="solid"
-  borderColor="border.primary"
+  borderColor="border.default"
   borderRadius={2}
   p={3}
-  backgroundColor="bg.secondary"
+  backgroundColor="canvas.subtle"
   maxWidth={360}
 >
   <Box
     borderStyle="solid"
-    borderColor="border.primary"
+    borderColor="border.default"
     borderWidth={0}
     borderBottomWidth={1}
     borderRadius={0}
     mb={2}
     pb={1}
   >
-    <Heading as="h5" fontSize={1} color="text.secondary">
+    <Heading as="h5" fontSize={1} color="fg.muted">
       Menu
     </Heading>
   </Box>

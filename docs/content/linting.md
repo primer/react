@@ -23,7 +23,7 @@ description: Primer React offers an ESLint plugin to enforce best practices and 
 
 2. In your [ESLint configuration file](https://eslint.org/docs/user-guide/configuring/configuration-files), extend the recommended Primer React ESLint config:
 
-   ```js
+   ```json
    {
      "extends": [
        // ...

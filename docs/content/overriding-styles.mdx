@@ -18,17 +18,19 @@ The `sx` prop provides a lot of power, which means it is an easy tool to abuse. 
 This example demonstrates applying a bottom border to `Heading`, a component that does not receive `BORDER` system props. The `borderBottomWidth` value comes from `theme.borderWidths` and `borderBottomColor` comes from `theme.colors`.
 
 ```jsx live
-<Heading pb={2}>Heading</Heading>
+<>
+  <Heading pb={2}>Heading</Heading>
 
-<Heading
-  pb={2}
-  sx={{
-    borderBottomWidth: 1,
-    borderBottomColor: 'border.primary',
-    borderBottomStyle: 'solid'
-  }}>
-    Heading with bottom border
-</Heading>
+  <Heading
+    pb={2}
+    sx={{
+      borderBottomWidth: 1,
+      borderBottomColor: 'border.primary',
+      borderBottomStyle: 'solid'
+    }}>
+      Heading with bottom border
+  </Heading>
+</>
 ```
 
 ## Responsive values
@@ -39,7 +41,7 @@ Just like [values passed to system props](https://styled-system.com/responsive-s
 <Box
   borderWidth="1px"
   borderStyle="solid"
-  borderColor="border.primary"
+  borderColor="border.default"
   borderRadius={2}
   p={2}
   sx={{
@@ -59,7 +61,7 @@ The `sx` prop also allows for declaring styles based on media queries, psueudo-c
   sx={{
     '> *': {
       borderWidth: 1,
-      borderColor: 'border.primary',
+      borderColor: "border.default",
       borderStyle: 'solid',
       borderBottomWidth: 0,
       padding: 2,
@@ -67,7 +69,7 @@ The `sx` prop also allows for declaring styles based on media queries, psueudo-c
         borderBottomWidth: 1
       },
       ':hover': {
-        bg: 'border.tertiary'
+        bg: "neutral.muted"
       }
     }
   }}
