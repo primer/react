@@ -90,5 +90,13 @@ export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
  * @deprecated Use the Breadcrumbs component instead (i.e. <Breadcrumb> → <Breadcrumbs>)
  */
 export const Breadcrumb = Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
+
+/**
+ * @deprecated Use the BreadcrumbsProps type instead
+ */
 export type BreadcrumbProps = ComponentProps<typeof BreadcrumbsBase>
+
+/**
+ * @deprecated Use the BreadcrumbsItemProps type instead
+ */
 export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbsItem>
