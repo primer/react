@@ -42,10 +42,9 @@ const BreadcrumbsBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>
 export type BreadcrumbsProps = ComponentProps<typeof BreadcrumbsBase>
 
 function Breadcrumbs({className, children, theme, ...rest}: React.PropsWithChildren<BreadcrumbsProps>) {
-  const classes = classnames(className, 'Breadcrumbs')
   const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
   return (
-    <BreadcrumbsBase className={classes} aria-label="Breadcrumbs" theme={theme} {...rest}>
+    <BreadcrumbsBase className={className} aria-label="Breadcrumbs" theme={theme} {...rest}>
       <Box as="ol" my={0} pl={0}>
         {wrappedChildren}
       </Box>

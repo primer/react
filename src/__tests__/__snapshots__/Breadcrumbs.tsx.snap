@@ -20,7 +20,7 @@ exports[`Breadcrumbs renders consistently 1`] = `
 
 <nav
   aria-label="Breadcrumbs"
-  className="c0 Breadcrumbs"
+  className="c0"
 >
   <ol
     className="c1"

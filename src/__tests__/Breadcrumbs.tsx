@@ -25,8 +25,4 @@ describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
     expect(render(<Breadcrumbs />).type).toEqual('nav')
   })
-
-  it('adds the Breadcrumbs class', () => {
-    expect(rendersClass(<Breadcrumbs />, 'Breadcrumbs')).toEqual(true)
-  })
 })
