@@ -1,22 +1,231 @@
 ---
-title: Component Name
+title: Action Menu
 status: Alpha
 ---
 
-Start with a Description about the `Component` and when would you use it
+<!-- Start with a Description about the `Component` and when would you use it -->
+
+An action menu is a vertical list of interactive actions. It’s composed of items presented in a consistent single-column format, with room for icons, descriptions, side information, and other rich visuals.
 
 <br />
 
-<!-- Tip: Put the most common usage first for copy paste-ability -->
+<!-- Preview up top, so that folks can figure out if this is the component they want -->
+<!-- Rendered version is ideal, but an image is a good fallback -->
+
+![Action menu preview](https://user-images.githubusercontent.com/293280/123880964-95b3a700-d8f8-11eb-9775-cbaf165207ed.png)
+
+import {Box} from '@primer/components'
+{
+  /* <ImageContainer>
+  <Box pb="160px">
+    <ActionMenu
+      anchorContent="Menu"
+      onAction={item => console.log(item)}
+      items={[
+        {text: 'New file', key: 'new-file'},
+        ActionMenu.Divider,
+        {text: 'Copy link', key: 'copy-link'},
+        {text: 'Edit file', key: 'edit-file'},
+        {text: 'Delete file', variant: 'danger', key: 'delete-file'}
+      ]}
+    />
+  </Box>
+</ImageContainer> */
+}
+
+<br />
+
+<!-- Examples for most common use case, optimised for copy-pasteability -->
+<!-- Realistic use cases from products are better than generic ones -->
+
+## Examples
+
+### Simple example
 
 ```jsx live
-<Breadcrumb>
-  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-  <Breadcrumb.Item href="/about">About</Breadcrumb.Item>
-  <Breadcrumb.Item href="/about/team" selected>
-    Team
-  </Breadcrumb.Item>
-</Breadcrumb>
+<ActionMenu
+  anchorContent="Menu"
+  onAction={item => console.log(item)}
+  items={[
+    {text: 'New file', key: 'new-file'},
+    {text: 'Copy link', key: 'copy-link'},
+    {text: 'Edit file', key: 'edit-file'}
+  ]}
+/>
+```
+
+### Example with Item states
+
+Action list items can be selected. Single selections are represented with a check octicon, while multiple selections are represented with a checkbox component. These selection visuals are always placed at the beginning of the item.
+
+An action list item can have a special "danger" style, to be used in cases that require extra attention from the user. Place danger items at the end of the list.
+
+```jsx live
+<ActionMenu
+  anchorContent="Menu"
+  onAction={item => console.log(item)}
+  items={[
+    {text: 'Default', key: 'default'},
+    {text: 'Disabled', disabled: true, key: 'disabled'},
+    {text: 'Danger', variant: 'danger', key: 'danger'},
+    {text: 'Selected', selected: true, key: 'selected'}
+  ]}
+/>
+```
+
+### Example with Divider
+
+Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
+
+```jsx live
+<ActionMenu
+  anchorContent="Menu"
+  onAction={item => console.log(item)}
+  items={[
+    {text: 'Show comments', key: 'comments', selected: true},
+    ActionMenu.Divider,
+    {text: 'View file', key: 'view'},
+    {text: 'Edit file', key: 'edit'},
+    {text: 'Delete file', variant: 'danger', key: 'delete'},
+    ActionMenu.Divider,
+    {text: 'Open in desktop', key: 'desktop'}
+  ]}
+/>
+```
+
+### Example with leading and trailing visuals
+
+Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
+
+When listing system sections, features, or options, use leading visuals to improve the items' scannability. In user-generated objects, they can help to indicate the item's content type and status.
+
+Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
+
+Note these side visuals don't have dedicated interaction targets.
+
+```jsx live
+<ActionMenu
+  anchorContent="Menu"
+  onAction={item => console.log(item)}
+  overlayProps={{width: 'medium'}}
+  items={[
+    {
+      text: 'Filter by Values',
+      leadingVisual: FilterIcon,
+      trailingIcon: () => <span>⌘ + F</span>,
+      key: 'filter'
+    },
+    ActionMenu.Divider,
+    {text: 'Sort ascending', leadingVisual: ArrowDownIcon, key: 'sort-asc'},
+    {text: 'Sort descending', leadingVisual: ArrowUpIcon, key: 'sort-desc'},
+    ActionMenu.Divider,
+    {text: 'Hide field', leadingVisual: EyeClosedIcon, key: 'hide'},
+    {text: 'Delete field', leadingVisual: TrashIcon, variant: 'danger', key: 'delete'}
+  ]}
+/>
+```
+
+### Example with description
+
+```jsx live
+<ActionMenu
+  anchorContent="Assign to"
+  onAction={item => console.log(item)}
+  overlayProps={{width: 'medium'}}
+  items={[
+    {
+      text: 'primer/reviewers',
+      description: '4 members',
+      descriptionVariant: 'block',
+      leadingVisual: () => <Avatar src="https://github.com/primer.png" />,
+      key: 'primer/reviewers'
+    },
+    ActionMenu.Divider,
+    {
+      text: 'langermank',
+      description: 'Katie Langerman',
+      descriptionVariant: 'inline',
+      leadingVisual: () => <Avatar src="https://github.com/langermank.png" />,
+      key: 'langermank'
+    },
+    {
+      text: 'maximedegreve',
+      description: 'Maxime De Greve',
+      descriptionVariant: 'inline',
+      leadingVisual: () => <Avatar src="https://github.com/maximedegreve.png" />,
+      key: 'maximedegreve'
+    },
+    {
+      text: 'alliethu',
+      description: 'Allie Thu',
+      descriptionVariant: 'inline',
+      leadingVisual: () => <Avatar src="https://github.com/alliethu.png" />,
+      key: 'alliethu'
+    }
+  ]}
+/>
+```
+
+### Example with groups
+
+```jsx live
+<ActionMenu
+  anchorContent="Menu"
+  onAction={item => console.log(item)}
+  groupMetadata={[
+    {groupId: '0'},
+    {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
+    {groupId: '2', header: {title: 'Layout', variant: 'subtle'}}
+  ]}
+  items={[
+    {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
+    {key: '2', leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+    {key: '3', leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
+    {
+      key: '4',
+      leadingVisual: NoteIcon,
+      text: 'Table',
+      description: 'Information-dense table optimized for operations across teams',
+      descriptionVariant: 'block',
+      groupId: '2'
+    },
+    {
+      key: '5',
+      leadingVisual: ProjectIcon,
+      text: 'Board',
+      description: 'Kanban-style board focused on visual states',
+      descriptionVariant: 'block',
+      groupId: '2'
+    }
+  ]}
+/>
+```
+
+### Example with Custom Anchor
+
+```jsx live
+<Box bg="canvas.subtle" p={2}>
+  <Label outline mr={2}>
+    Contributor
+  </Label>
+  <SmileyIcon color="fg.muted" />
+  <ActionMenu
+    renderAnchor={anchorProps => (
+      <ButtonInvisible {...anchorProps} color="fg.subtle">
+        <KebabHorizontalIcon />
+      </ButtonInvisible>
+    )}
+    onAction={item => console.log(item)}
+    items={[
+      {text: 'Copy link', key: 'copy'},
+      {text: 'Quote reply', key: 'quote'},
+      ActionMenu.Divider,
+      {text: 'Edit', key: 'edit'},
+      ActionMenu.Divider,
+      {text: 'Report content', key: 'report'}
+    ]}
+  />
+</Box>
 ```
 
 <br />
@@ -26,45 +235,96 @@ Start with a Description about the `Component` and when would you use it
 <!-- collocate imports -->
 
 import {Props} from '../src/props'
-import {Breadcrumb} from '@primer/components'
+import {ActionMenu} from '@primer/components'
 
-<Props of={Breadcrumb} />
+<!-- List root component and it's children -->
 
-<Props of={Breadcrumb.Item} />
+<Props of={ActionMenu} />
 
 <br />
+
+## Best practices
+
+### Leading visual
+
+Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
+
+When listing system sections, features, or options, use leading visuals to improve the items' scannability. In user-generated objects, they can help to indicate the item's content type and status.
+
+Depending on the context, displaying a leading visual may not be necessary. For example, a list of branches in a select panel may not need repeated icons if the surrounding UI provides enough hints about its content type.
+
+### Selection states
+
+Action list items can be selected. Single selections are represented with a check octicon, while multiple selections are represented with a checkbox component. These selection visuals are always placed at the beginning of the item.
+
+When listing selectable items alongside non-selectable items in a menu, use dividers to differentiate between the item types.
+
+Don't mix different types of selections in the same list.
+
+<br />
+
+## Accessibility
+
+[Link to the component's WAI-ARIA spec here](https://www.w3.org/TR/wai-aria-practices-1.2)
+
+| Name      | Type                                 |
+| :-------- | :----------------------------------- |
+| ArrowDown | Moves focus to the next item.        |
+| ArrowUp   | Moves focus to the previous item.    |
+| Enter     | Calls the action of the focused item |
+| Space     | Calls the action of the focused item |
+| Escape    | Closes menu.                         |
+
+After closing menu, focus is returned to the `Anchor`
+
+<br />
+
+## Further reading
+
+[Interface guidelines: Action List](https://primer.style/design/components/action-list)
+
+## Related components
+
+- [Action List](/ActionList)
+- [DropdownMenu](/DropdownMenu)
+
+<br />
+
+---
+
+### For contributors
 
 Use this handy dandy checklist:
 
 - [x] 1 Component Name
-- [x] 2 Description
-- [x] 3 Status
+- [x] 2 Status
+- [x] 3 Description
 - [x] 4 Quick Preview with code
-- [ ] 5 Props / API reference
-- [ ] 6 Examples with use cases (code toggle)
-- [ ] 7 Usage guidelines / Dos and Don’ts / Best practices
-- [ ] 8 Related components
-- [ ] 9 (maybe) interface guidelines
-- [ ] 10 (maybe) Accessibility
+- [x] 5 Examples + Usage guidelines (code toggle, fold by default)
+- [x] 6 Props / API reference
+- [x] 7 Bonus best practices if needed, Dos and Don’ts
+- [x] 8 Related docs (like interface guidelines)
+- [x] 9 Related components
+- [x] 10 Accessibility
 - [ ] 11 (maybe) Responsive view
 - [ ] 12 (maybe) Extending/customising the component
 - [ ] 13 (maybe) Changelog with version
-- [ ] 14 (maybe) hide too much content behind tabs (see inspo)
 
-## + for compound components
+\+ for compound components
 
-1. Anatomy - show an example with all the children at the same time
-2. API reference: each of the children
-3. Examples with use cases
+- [ ] Anatomy - show an example with all the children at the same time
+- [ ] API reference: each of the children
 
-Inspo:
+<br />
 
-1. Anatomy [atlkastkit](https://atlassian.design/components/banner/usage#anatomy) [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog#anatomy)
-2. Dynamic props [polaris](https://polaris.shopify.com/components/structure/callout-card#navigation) [cosmos](https://auth0-cosmos.vercel.app/#/component/alert)
+#### Inspiration / Prior art:
+
+1. Anatomy [atlkastkit](https://atlassian.design/components/banner/usage#anatomy), [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog#anatomy)
+2. Dynamic props [polaris](https://polaris.shopify.com/components/structure/callout-card#navigation), [cosmos](https://auth0-cosmos.vercel.app/#/component/alert)
 3. Child props [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog#api-reference)
-4. Use cases examples [polaris](https://polaris.shopify.com/components/structure/callout-card#navigation) [cosmos](https://auth0-cosmos.vercel.app/#/component/avatar-block#examples) [react-aria](https://react-spectrum.adobe.com/react-aria/useColorField.html)
+4. Use cases examples [polaris](https://polaris.shopify.com/components/structure/callout-card#navigation), [cosmos](https://auth0-cosmos.vercel.app/#/component/avatar-block#examples), [react-aria](https://react-spectrum.adobe.com/react-aria/useColorField.html)
 5. Changelog [atlastkit](https://atlassian.design/components/dropdown-menu/code#changelog)
 6. Guidelines [polaris](https://polaris.shopify.com/components/structure/callout-card#section-content-guidelines)
-7. Accessibility [reach](https://reach.tech/menu-button/) [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog%23accessibility)
-8. Extending [react-ui](https://react-ui.dev/components/Form%23Customisation) [radix](https://www.radix-ui.com/docs/primitives/components/dialog#custom-apis)
+7. Accessibility [reach](https://reach.tech/menu-button/), [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog#accessibility)
+8. Extending [react-ui](https://react-ui.dev/components/Form#Customisation), [radix](https://www.radix-ui.com/docs/primitives/components/dialog#custom-apis)
 9. Hide content behind tabs [atlastkit](https://atlassian.design/components/avatar/examples)
