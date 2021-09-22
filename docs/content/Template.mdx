@@ -1,0 +1,70 @@
+---
+title: Component Name
+status: Alpha
+---
+
+Start with a Description about the `Component` and when would you use it
+
+<br />
+
+<!-- Tip: Put the most common usage first for copy paste-ability -->
+
+```jsx live
+<Breadcrumb>
+  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+  <Breadcrumb.Item href="/about">About</Breadcrumb.Item>
+  <Breadcrumb.Item href="/about/team" selected>
+    Team
+  </Breadcrumb.Item>
+</Breadcrumb>
+```
+
+<br />
+
+## API Reference
+
+<!-- collocate imports -->
+
+import {Props} from '../src/props'
+import {Breadcrumb} from '@primer/components'
+
+<Props of={Breadcrumb} />
+
+<Props of={Breadcrumb.Item} />
+
+<br />
+
+Use this handy dandy checklist:
+
+- [x] 1 Component Name
+- [x] 2 Description
+- [x] 3 Status
+- [x] 4 Quick Preview with code
+- [ ] 5 Props / API reference
+- [ ] 6 Examples with use cases (code toggle)
+- [ ] 7 Usage guidelines / Dos and Don’ts / Best practices
+- [ ] 8 Related components
+- [ ] 9 (maybe) interface guidelines
+- [ ] 10 (maybe) Accessibility
+- [ ] 11 (maybe) Responsive view
+- [ ] 12 (maybe) Extending/customising the component
+- [ ] 13 (maybe) Changelog with version
+- [ ] 14 (maybe) hide too much content behind tabs (see inspo)
+
+## + for compound components
+
+1. Anatomy - show an example with all the children at the same time
+2. API reference: each of the children
+3. Examples with use cases
+
+Inspo:
+
+1. Anatomy [atlkastkit](https://atlassian.design/components/banner/usage#anatomy) [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog#anatomy)
+2. Dynamic props [polaris](https://polaris.shopify.com/components/structure/callout-card#navigation) [cosmos](https://auth0-cosmos.vercel.app/#/component/alert)
+3. Child props [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog#api-reference)
+4. Use cases examples [polaris](https://polaris.shopify.com/components/structure/callout-card#navigation) [cosmos](https://auth0-cosmos.vercel.app/#/component/avatar-block#examples) [react-aria](https://react-spectrum.adobe.com/react-aria/useColorField.html)
+5. Changelog [atlastkit](https://atlassian.design/components/dropdown-menu/code#changelog)
+6. Guidelines [polaris](https://polaris.shopify.com/components/structure/callout-card#section-content-guidelines)
+7. Accessibility [reach](https://reach.tech/menu-button/) [radix](https://www.radix-ui.com/docs/primitives/components/alert-dialog%23accessibility)
+8. Extending [react-ui](https://react-ui.dev/components/Form%23Customisation) [radix](https://www.radix-ui.com/docs/primitives/components/dialog#custom-apis)
+9. Hide content behind tabs [atlastkit](https://atlassian.design/components/avatar/examples)
