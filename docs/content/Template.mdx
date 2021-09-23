@@ -14,25 +14,6 @@ An action menu is a vertical list of interactive actions. It’s composed of ite
 
 ![Action menu preview](https://user-images.githubusercontent.com/293280/123880964-95b3a700-d8f8-11eb-9775-cbaf165207ed.png)
 
-import {Box} from '@primer/components'
-{
-  /* <ImageContainer>
-  <Box pb="160px">
-    <ActionMenu
-      anchorContent="Menu"
-      onAction={item => console.log(item)}
-      items={[
-        {text: 'New file', key: 'new-file'},
-        ActionMenu.Divider,
-        {text: 'Copy link', key: 'copy-link'},
-        {text: 'Edit file', key: 'edit-file'},
-        {text: 'Delete file', variant: 'danger', key: 'delete-file'}
-      ]}
-    />
-  </Box>
-</ImageContainer> */
-}
-
 <br />
 
 <!-- Examples for most common use case, optimised for copy-pasteability -->
@@ -202,6 +183,8 @@ Note these side visuals don't have dedicated interaction targets.
 ```
 
 ### Example with Custom Anchor
+
+import {Box} from '@primer/components'
 
 ```jsx live
 <Box bg="canvas.subtle" p={2}>
