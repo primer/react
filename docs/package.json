@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "pushd .. && npm install && popd && cross-env NODE_ENV=production gatsby build --prefix-paths && npm run add:storybook",
+    "build": "pushd .. && npm install && popd && cross-env NODE_ENV=production gatsby build --prefix-paths && npm run build:storybook",
     "build:storybook": "cd .. && ./script/build-storybook"
   },
   "engines": {
