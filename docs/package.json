@@ -6,7 +6,7 @@
     "clean": "gatsby clean",
     "develop": "gatsby develop",
     "build": "pushd .. && npm install && popd && cross-env NODE_ENV=production gatsby build --prefix-paths && npm run add:storybook",
-    "add:storybook": "cd .. && ./script/deploy-storybook"
+    "build:storybook": "cd .. && ./script/build-storybook"
   },
   "engines": {
     "node": ">= 10.x"
