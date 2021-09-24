@@ -101,7 +101,7 @@
     "babel-plugin-transform-replace-expressions": "0.2.0",
     "babel-polyfill": "6.26.0",
     "chroma-js": "2.1.2",
-    "concurrently": "6.2.0",
+    "concurrently": "6.2.1",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "enzyme": "3.11.0",
