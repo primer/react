@@ -31,7 +31,7 @@ const Wrapper = styled.li`
   }
 `
 
-const BreadcrumbBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
+const BreadcrumbsBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
   display: flex;
   justify-content: space-between;
   ${COMMON};
@@ -39,31 +39,30 @@ const BreadcrumbBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
   ${sx};
 `
 
-export type BreadcrumbProps = ComponentProps<typeof BreadcrumbBase>
+export type BreadcrumbsProps = ComponentProps<typeof BreadcrumbsBase>
 
-function Breadcrumb({className, children, theme, ...rest}: React.PropsWithChildren<BreadcrumbProps>) {
-  const classes = classnames(className, 'Breadcrumb')
+function Breadcrumbs({className, children, theme, ...rest}: React.PropsWithChildren<BreadcrumbsProps>) {
   const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
   return (
-    <BreadcrumbBase className={classes} aria-label="breadcrumb" theme={theme} {...rest}>
+    <BreadcrumbsBase className={className} aria-label="Breadcrumbs" theme={theme} {...rest}>
       <Box as="ol" my={0} pl={0}>
         {wrappedChildren}
       </Box>
-    </BreadcrumbBase>
+    </BreadcrumbsBase>
   )
 }
 
-type StyledBreadcrumbItemProps = {
+type StyledBreadcrumbsItemProps = {
   to?: History.LocationDescriptor
   selected?: boolean
 } & SystemCommonProps &
   SxProp
 
-const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
+const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null
-}))<StyledBreadcrumbItemProps>`
+}))<StyledBreadcrumbsItemProps>`
   color: ${get('colors.accent.fg')};
   display: inline-block;
   font-size: ${get('fontSizes.1')};
@@ -79,9 +78,24 @@ const BreadcrumbItem = styled.a.attrs<StyledBreadcrumbItemProps>(props => ({
   ${sx};
 `
 
-Breadcrumb.displayName = 'Breadcrumb'
+Breadcrumbs.displayName = 'Breadcrumbs'
 
-BreadcrumbItem.displayName = 'Breadcrumb.Item'
+BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
 
-export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbItem>
-export default Object.assign(Breadcrumb, {Item: BreadcrumbItem})
+export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
+export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
+
+/**
+ * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
+ */
+export const Breadcrumb = Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
+
+/**
+ * @deprecated Use the `BreadcrumbsProps` type instead
+ */
+export type BreadcrumbProps = ComponentProps<typeof BreadcrumbsBase>
+
+/**
+ * @deprecated Use the `BreadcrumbsItemProps` type instead
+ */
+export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbsItem>
