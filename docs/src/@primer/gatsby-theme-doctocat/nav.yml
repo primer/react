@@ -33,8 +33,6 @@
     #   url: /useOverlay
 - title: Components
   children:
-    - title: ActionMenu
-      url: /ActionMenu
     - title: Avatar
       url: /Avatar
     - title: AvatarStack
@@ -117,8 +115,6 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
-    - title: Template
-      url: /Template
 - title: Deprecated
   children:
     - title: BorderBox
