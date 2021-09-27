@@ -1,7 +1,7 @@
 import React from 'react'
-import {ThemeProvider, useTheme, Dropdown} from '@primer/components'
+import {ThemeProvider, useTheme /* Dropdown*/} from '@primer/components'
 
-function ThemeSwitcherProviderV2({children, colorProps}) {
+function ThemeSwitcherProvider({children, colorProps}) {
   return <ThemeProvider {...colorProps}>{children}</ThemeProvider>
 }
 
@@ -25,8 +25,8 @@ function ThemeSwitcher({onSwitch}) {
   // </Dropdown>
   return (
     <select
-      style={{float: 'right'}}
-      onChange={event => {
+      style={{float: 'right'}} // sorry
+      onBlur={event => {
         const colorScheme = event.target.value
         const colorMode = colorScheme === 'light' ? 'day' : 'night'
         const nightScheme = colorScheme === 'light' ? 'dark' : colorScheme
@@ -38,7 +38,7 @@ function ThemeSwitcher({onSwitch}) {
       }}
     >
       {Object.keys(theme.colorSchemes).map(key => (
-        <option>{key}</option>
+        <option key={key}>{key}</option>
       ))}
     </select>
   )
@@ -48,4 +48,4 @@ const defaultColorProps = {
   dayScheme: 'night'
 }
 
-export {ThemeSwitcherProviderV2, defaultColorProps, ThemeSwitcher}
+export {ThemeSwitcherProvider, defaultColorProps, ThemeSwitcher}
