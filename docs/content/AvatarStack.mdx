@@ -2,6 +2,9 @@
 title: AvatarStack
 ---
 
+import {Props} from '../src/props'
+import {AvatarStack} from '@primer/components'
+
 AvatarStack is used to display more than one Avatar in an inline stack.
 
 ### Default example
@@ -26,10 +29,6 @@ AvatarStack is used to display more than one Avatar in an inline stack.
 </AvatarStack>
 ```
 
-## AvatarStack Component props
+## Props
 
-| Name       | Type              | Default | Description                          |
-| :--------- | :---------------- | :-----: | :----------------------------------- |
-| alignRight | Boolean           |         | Creates right aligned AvatarStack    |
-| children   | React.Node        |         | The avatars                          |
-| sx         | SystemStyleObject |   {}    | Style to be applied to the component |
+<Props of={AvatarStack} />
