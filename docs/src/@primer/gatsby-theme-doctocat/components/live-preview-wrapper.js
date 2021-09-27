@@ -1,10 +1,11 @@
-import {BaseStyles, Box, ThemeProvider} from '@primer/components'
+import {BaseStyles, Box, ThemeProvider, useTheme} from '@primer/components'
+import {ThemeSwitcherProviderV2, defaultColorProps, ThemeSwitcher} from './theme-switcher'
 import React from 'react'
 
 // This is a temporary way to allow us to preview components in dark mode.
 // We'll replace this component when @primer/components has a first-class
 // API for theme switching.
-function ThemeSwitcher({children}) {
+function ThemeSwitcherProvider({children}) {
   const [colorMode, setColorMode] = React.useState('day')
 
   React.useEffect(() => {
@@ -27,12 +28,19 @@ function ThemeSwitcher({children}) {
 // Users can shadow this file to wrap live previews.
 // This is useful for applying global styles.
 function LivePreviewWrapper({children}) {
+  const [selectedColorProps, setColorProps] = React.useState(defaultColorProps)
   return (
-    <ThemeSwitcher>
+    <ThemeSwitcherProviderV2 colorProps={selectedColorProps}>
       <Box width="100%" p={3} bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
+        <ThemeSwitcher
+          onSwitch={colorProps => {
+            setColorProps(colorProps)
+          }}
+        />
+
         <BaseStyles>{children}</BaseStyles>
       </Box>
-    </ThemeSwitcher>
+    </ThemeSwitcherProviderV2>
   )
 }
 
