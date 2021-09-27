@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Key} from 'react'
 import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
@@ -10,7 +10,7 @@ import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
-export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: RenderItemFn})
+export type ItemInput = ItemProps | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**
  * Contract for props passed to the `List` component.
@@ -164,7 +164,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   const renderItem = (itemProps: ItemInput, item: ItemInput, itemIndex: number) => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
-    const key = itemProps.id?.toString() ?? itemIndex.toString()
+    const key = ('key' in itemProps ? itemProps.key : undefined) ?? itemProps.id?.toString() ?? itemIndex.toString()
     return (
       <ItemComponent
         showDivider={props.showItemDividers}
