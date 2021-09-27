@@ -1,14 +1,13 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import {Box} from '.'
 import sx, {SxProp} from './sx'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   display: flex;
@@ -124,7 +123,6 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     }
   }
 
-  ${COMMON}
   ${sx};
 `
 const transformChildren = (children: React.ReactNode) => {
