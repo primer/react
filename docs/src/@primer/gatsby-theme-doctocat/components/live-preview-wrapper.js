@@ -1,27 +1,40 @@
-import {BaseStyles, Box} from '@primer/components'
-import {ThemeSwitcherProvider, ThemeSwitcher} from './theme-switcher'
-
+import {BaseStyles, Box, ThemeProvider, useTheme, DropdownMenu, DropdownButton} from '@primer/components'
 import React from 'react'
+
+function ThemeSwitcher() {
+  const {theme, dayScheme, setDayScheme} = useTheme()
+  const items = Object.keys(theme.colorSchemes).map(scheme => ({text: scheme.replace(/_/g, ' '), key: scheme}))
+  const selectedItem = React.useMemo(() => items.find(item => item.key === dayScheme), [items, dayScheme])
+  return (
+    <DropdownMenu
+      renderAnchor={({children, ...anchorProps}) => (
+        <DropdownButton variant="small" {...anchorProps}>
+          {children}
+        </DropdownButton>
+      )}
+      items={items}
+      selectedItem={selectedItem}
+      onChange={item => {
+        setDayScheme(item.key)
+      }}
+    />
+  )
+}
 
 // Users can shadow this file to wrap live previews.
 // This is useful for applying global styles.
 function LivePreviewWrapper({children}) {
-  const [dayScheme, setDayScheme] = React.useState('light')
   return (
-    <>
-      <Box p={2} width="200px">
-        <ThemeSwitcher
-          onSwitch={scheme => {
-            setDayScheme(scheme)
-          }}
-        />
-      </Box>
-      <ThemeSwitcherProvider colorProps={{dayScheme}}>
-        <Box width="100%" p={3} bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
+    <ThemeProvider>
+      <Box width="100%" bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
+        <Box p={2} display="flex" justifyContent="right">
+          <ThemeSwitcher />
+        </Box>
+        <Box p={3}>
           <BaseStyles>{children}</BaseStyles>
         </Box>
-      </ThemeSwitcherProvider>
-    </>
+      </Box>
+    </ThemeProvider>
   )
 }
 
