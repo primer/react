@@ -146,7 +146,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
       }
     default:
       return {
-        color: 'inherit',
+        color: get('colors.fg.default'),
         iconColor: get('colors.fg.muted'),
         annotationColor: get('colors.fg.muted'),
         hoverCursor: 'pointer'
