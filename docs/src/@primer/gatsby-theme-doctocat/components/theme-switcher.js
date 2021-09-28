@@ -1,51 +1,42 @@
 import React from 'react'
-import {ThemeProvider, useTheme /* Dropdown*/} from '@primer/components'
+import {ThemeProvider, useTheme, DropdownMenu, DropdownButton} from '@primer/components'
 
 function ThemeSwitcherProvider({children, colorProps}) {
-  return <ThemeProvider {...colorProps}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider {...defaultColorProps} {...colorProps}>
+      {children}
+    </ThemeProvider>
+  )
 }
 
 function ThemeSwitcher({onSwitch}) {
   const {theme} = useTheme()
-  //   return <Dropdown>
-  //   <Dropdown.Button>ColorScheme</Dropdown.Button>
-  //   <Dropdown.Menu
-  //     direction="sw"
-  //     items={theme.colorSchemes}
-  //     onChange={colorScheme => {
-  //       const colorMode = colorScheme === 'light' ? 'day' : 'night'
-  //       const nightScheme = colorScheme === 'light' ? 'dark' : colorScheme
-  //       onSwitch({
-  //         colorMode,
-  //         dayScheme: 'light',
-  //         nightScheme
-  //       })
-  //     }}
-  //   ></Dropdown.Menu>
-  // </Dropdown>
+  const items = Object.keys(theme.colorSchemes).map(scheme => ({text: scheme, key: scheme}))
+  const [selectedItem, setSelectedItem] = React.useState({
+    key: defaultColorProps.dayScheme,
+    text: defaultColorProps.dayScheme
+  })
+
   return (
-    <select
-      style={{float: 'right'}} // sorry
-      onBlur={event => {
-        const colorScheme = event.target.value
-        const colorMode = colorScheme === 'light' ? 'day' : 'night'
-        const nightScheme = colorScheme === 'light' ? 'dark' : colorScheme
-        onSwitch({
-          colorMode,
-          dayScheme: 'light',
-          nightScheme
-        })
+    <DropdownMenu
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
+          {children}
+        </DropdownButton>
+      )}
+      items={items}
+      selectedItem={selectedItem}
+      onChange={item => {
+        setSelectedItem(item)
+        onSwitch(item.key)
       }}
-    >
-      {Object.keys(theme.colorSchemes).map(key => (
-        <option key={key}>{key}</option>
-      ))}
-    </select>
+    />
   )
 }
 const defaultColorProps = {
   colorMode: 'day',
-  dayScheme: 'night'
+  dayScheme: 'light',
+  nightScheme: 'dark'
 }
 
 export {ThemeSwitcherProvider, defaultColorProps, ThemeSwitcher}

@@ -1,23 +1,27 @@
 import {BaseStyles, Box} from '@primer/components'
-import {ThemeSwitcherProvider, defaultColorProps, ThemeSwitcher} from './theme-switcher'
+import {ThemeSwitcherProvider, ThemeSwitcher} from './theme-switcher'
+
 import React from 'react'
 
 // Users can shadow this file to wrap live previews.
 // This is useful for applying global styles.
 function LivePreviewWrapper({children}) {
-  const [selectedColorProps, setColorProps] = React.useState(defaultColorProps)
+  const [dayScheme, setDayScheme] = React.useState('light')
   return (
-    <ThemeSwitcherProvider colorProps={selectedColorProps}>
-      <Box width="100%" p={3} bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
+    <>
+      <Box p={2} width="200px">
         <ThemeSwitcher
-          onSwitch={colorProps => {
-            setColorProps(colorProps)
+          onSwitch={scheme => {
+            setDayScheme(scheme)
           }}
         />
-
-        <BaseStyles>{children}</BaseStyles>
       </Box>
-    </ThemeSwitcherProvider>
+      <ThemeSwitcherProvider colorProps={{dayScheme}}>
+        <Box width="100%" p={3} bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
+          <BaseStyles>{children}</BaseStyles>
+        </Box>
+      </ThemeSwitcherProvider>
+    </>
   )
 }
 
