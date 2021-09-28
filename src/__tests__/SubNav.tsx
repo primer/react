@@ -1,14 +1,13 @@
 import React from 'react'
 import {SubNav} from '..'
 import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SubNav', () => {
-  behavesAsComponent({Component: SubNav, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: SubNav})
 
   checkExports('SubNav', {
     default: SubNav

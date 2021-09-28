@@ -1,21 +1,20 @@
 import React from 'react'
 import {TabNav} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('TabNav', () => {
-  behavesAsComponent({Component: TabNav, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: TabNav})
 
   checkExports('TabNav', {
     default: TabNav
   })
 
   describe('TabNav.Link', () => {
-    behavesAsComponent({Component: TabNav.Link, systemPropArray: [COMMON]})
+    behavesAsComponent({Component: TabNav.Link})
   })
 
   it('should have no axe violations', async () => {

@@ -3,7 +3,6 @@ import {CheckIcon} from '@primer/octicons-react'
 import theme from '../theme'
 import {CircleOcticon} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -12,7 +11,6 @@ expect.extend(toHaveNoViolations)
 describe('CircleOcticon', () => {
   behavesAsComponent({
     Component: CircleOcticon,
-    systemPropArray: [COMMON, FLEX, LAYOUT],
     toRender: () => <CircleOcticon icon={CheckIcon} />
   })
 

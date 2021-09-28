@@ -1,7 +1,6 @@
 import React from 'react'
 import {LabelGroup, Label} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -16,7 +15,7 @@ const comp = (
 )
 
 describe('LabelGroup', () => {
-  behavesAsComponent({Component: LabelGroup, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: LabelGroup})
 
   checkExports('LabelGroup', {
     default: LabelGroup

@@ -57,7 +57,6 @@ const AnchoredOverlayTestComponent = ({
 describe('AnchoredOverlay', () => {
   behavesAsComponent({
     Component: AnchoredOverlay,
-    systemPropArray: [],
     options: {skipAs: true, skipSx: true},
     toRender: () => <AnchoredOverlayTestComponent />
   })
