@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useRef} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useOnEscapePress} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
 import StyledOcticon from '../StyledOcticon'
@@ -36,12 +36,6 @@ export type DialogButtonProps = ButtonProps & {
    * focus this button automatically when the dialog appears.
    */
   autoFocus?: boolean
-
-  /**
-   * A reference to the rendered Button’s DOM node, used together with
-   * `autoFocus` for `focusTrap`’s `initialFocus`.
-   */
-  ref?: React.RefObject<HTMLButtonElement>
 }
 
 /**
@@ -351,29 +345,13 @@ const buttonTypes = {
   danger: ButtonDanger
 }
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
-  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
-  let autoFocusCount = 0
-  const [hasRendered, setHasRendered] = useState(0)
-  useEffect(() => {
-    // hack to work around dialogs originating from other focus traps.
-    if (hasRendered === 1) {
-      autoFocusRef.current?.focus()
-    } else {
-      setHasRendered(hasRendered + 1)
-    }
-  }, [autoFocusRef, hasRendered])
-
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'normal', ...buttonProps} = dialogButtonProps
         const ButtonElement = buttonTypes[buttonType]
         return (
-          <ButtonElement
-            key={index}
-            {...buttonProps}
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
-          >
+          <ButtonElement key={index} {...buttonProps}>
             {content}
           </ButtonElement>
         )
