@@ -1,7 +1,6 @@
 import React from 'react'
 import Popover, {PopoverProps} from '../Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {BORDER, COMMON, LAYOUT, POSITION} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -14,14 +13,14 @@ const comp = (
 )
 
 describe('Popover', () => {
-  behavesAsComponent({Component: Popover, systemPropArray: [COMMON, LAYOUT, POSITION], toRender: () => comp})
+  behavesAsComponent({Component: Popover, toRender: () => comp})
 
   checkExports('Popover', {
     default: Popover
   })
 
   describe('Popover.Content', () => {
-    behavesAsComponent({Component: Popover.Content, systemPropArray: [COMMON, LAYOUT, BORDER], toRender: () => comp})
+    behavesAsComponent({Component: Popover.Content, toRender: () => comp})
   })
 
   it('should have no axe violations', async () => {

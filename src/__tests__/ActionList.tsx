@@ -4,7 +4,6 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList'
-import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
 expect.extend(toHaveNoViolations)
@@ -30,7 +29,6 @@ function SimpleActionList(): JSX.Element {
 describe('ActionList', () => {
   behavesAsComponent({
     Component: ActionList,
-    systemPropArray: [COMMON],
     options: {skipAs: true, skipSx: true},
     toRender: () => <ActionList items={[]} />
   })

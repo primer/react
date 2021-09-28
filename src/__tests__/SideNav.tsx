@@ -1,21 +1,20 @@
 import React from 'react'
 import {SideNav} from '..'
 import {render, behavesAsComponent, mount, checkExports} from '../utils/testing'
-import {BORDER, COMMON, LAYOUT, FLEX, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SideNav', () => {
-  behavesAsComponent({Component: SideNav, systemPropArray: [BORDER, LAYOUT, COMMON, FLEX]})
+  behavesAsComponent({Component: SideNav})
 
   checkExports('SideNav', {
     default: SideNav
   })
 
   describe('SideNav.Link', () => {
-    behavesAsComponent({Component: SideNav.Link, systemPropArray: [COMMON, TYPOGRAPHY]})
+    behavesAsComponent({Component: SideNav.Link})
   })
 
   it('should have no axe violations', async () => {

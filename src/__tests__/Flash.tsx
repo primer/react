@@ -1,6 +1,5 @@
 import React from 'react'
 import {Flash} from '..'
-import {COMMON} from '../constants'
 import theme from '../theme'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -9,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Flash', () => {
-  behavesAsComponent({Component: Flash, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: Flash})
 
   checkExports('Flash', {
     default: Flash

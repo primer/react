@@ -1,14 +1,13 @@
 import React from 'react'
 import {Label} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Label', () => {
-  behavesAsComponent({Component: Label, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: Label})
 
   checkExports('Label', {
     default: Label

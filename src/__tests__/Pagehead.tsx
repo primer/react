@@ -1,6 +1,5 @@
 import React from 'react'
 import {Pagehead} from '..'
-import {COMMON} from '../constants'
 import theme from '../theme'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
@@ -9,7 +8,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Pagehead', () => {
-  behavesAsComponent({Component: Pagehead, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: Pagehead})
 
   checkExports('Pagehead', {
     default: Pagehead

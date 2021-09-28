@@ -1,14 +1,13 @@
 import React from 'react'
 import {TextInput} from '..'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('TextInput', () => {
-  behavesAsComponent({Component: TextInput, systemPropArray: [COMMON], options: {skipAs: true}})
+  behavesAsComponent({Component: TextInput, options: {skipAs: true}})
 
   checkExports('TextInput', {
     default: TextInput

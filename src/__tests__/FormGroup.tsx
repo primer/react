@@ -1,6 +1,5 @@
 import React from 'react'
 import {FormGroup} from '..'
-import {COMMON, TYPOGRAPHY} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FormGroup', () => {
-  behavesAsComponent({Component: FormGroup, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: FormGroup})
 
   checkExports('FormGroup', {
     default: FormGroup
@@ -28,7 +27,7 @@ describe('FormGroup', () => {
 })
 
 describe('FormGroup.Label', () => {
-  behavesAsComponent({Component: FormGroup.Label, systemPropArray: [COMMON, TYPOGRAPHY]})
+  behavesAsComponent({Component: FormGroup.Label})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>)

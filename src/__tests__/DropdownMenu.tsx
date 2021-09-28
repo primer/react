@@ -4,7 +4,6 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {ItemInput} from '../ActionList/List'
@@ -41,7 +40,6 @@ describe('DropdownMenu', () => {
 
   behavesAsComponent({
     Component: DropdownMenu,
-    systemPropArray: [COMMON],
     options: {skipAs: true, skipSx: true},
     toRender: () => (
       <SSRProvider>
