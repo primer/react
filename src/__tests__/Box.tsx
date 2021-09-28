@@ -3,13 +3,12 @@ import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Box} from '..'
-import {COMMON, FLEX, LAYOUT} from '../constants'
 import theme from '../theme'
 import {behavesAsComponent, checkExports, render} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
-  behavesAsComponent({Component: Box, systemPropArray: [COMMON, LAYOUT, FLEX]})
+  behavesAsComponent({Component: Box})
 
   checkExports('Box', {
     default: Box

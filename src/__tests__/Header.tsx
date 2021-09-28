@@ -1,25 +1,24 @@
 import React from 'react'
 import {Header} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {BORDER, COMMON, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Header', () => {
-  behavesAsComponent({Component: Header, systemPropArray: [COMMON, BORDER]})
+  behavesAsComponent({Component: Header})
 
   checkExports('Header', {
     default: Header
   })
 
   describe('Header.Item', () => {
-    behavesAsComponent({Component: Header.Item, systemPropArray: [COMMON, BORDER]})
+    behavesAsComponent({Component: Header.Item})
   })
 
   describe('Header.Link', () => {
-    behavesAsComponent({Component: Header.Link, systemPropArray: [COMMON, BORDER, TYPOGRAPHY]})
+    behavesAsComponent({Component: Header.Link})
   })
 
   it('should have no axe violations', async () => {

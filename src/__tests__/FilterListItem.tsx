@@ -1,14 +1,13 @@
 import React from 'react'
 import {FilterList} from '..'
 import {render, behavesAsComponent} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('FilterList.Item', () => {
-  behavesAsComponent({Component: FilterList.Item, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: FilterList.Item})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilterList.Item>stuff</FilterList.Item>)

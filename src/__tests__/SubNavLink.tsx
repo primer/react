@@ -1,6 +1,5 @@
 import React from 'react'
 import {SubNav} from '..'
-import {COMMON} from '../constants'
 import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('SubNav.Link', () => {
-  behavesAsComponent({Component: SubNav.Link, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: SubNav.Link})
 
   it('renders an <a> by default', () => {
     expect(render(<SubNav.Link />).type).toEqual('a')

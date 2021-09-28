@@ -1,6 +1,5 @@
 import React from 'react'
 import {Grid} from '..'
-import {COMMON, FLEX, LAYOUT, GRID} from '../constants'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Grid', () => {
-  behavesAsComponent({Component: Grid, systemPropArray: [COMMON, FLEX, LAYOUT, GRID]})
+  behavesAsComponent({Component: Grid})
 
   checkExports('Grid', {
     default: Grid

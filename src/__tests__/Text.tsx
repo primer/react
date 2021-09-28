@@ -2,14 +2,13 @@ import React from 'react'
 import {Text} from '..'
 import theme from '../theme'
 import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON, TYPOGRAPHY} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Text', () => {
-  behavesAsComponent({Component: Text, systemPropArray: [COMMON, TYPOGRAPHY]})
+  behavesAsComponent({Component: Text})
 
   checkExports('Text', {
     default: Text

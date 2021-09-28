@@ -1,6 +1,5 @@
 import React from 'react'
 import {Flex} from '..'
-import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Flex', () => {
-  behavesAsComponent({Component: Flex, systemPropArray: [COMMON, FLEX, LAYOUT]})
+  behavesAsComponent({Component: Flex})
 
   checkExports('Flex', {
     default: Flex
