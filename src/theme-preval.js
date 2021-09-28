@@ -51,15 +51,14 @@ const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px'
 /**
  * @type Record<keyof typeof primitives.colors, Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
  */
-const colorSchemes = Object.entries(primitives.colors)
-  .map(([name, variables]) => {
-    const {colors, shadows} = partitionColors(variables)
-    return [name, {colors: omitScale(colors), shadows: omitScale(shadows)}]
-  })
-  .reduce((acc, [name, variables]) => {
-    acc[name] = variables
-    return acc
-  }, {})
+const colorSchemes = Object.entries(primitives.colors).reduce((acc, [name, variables]) => {
+  const {colors, shadows} = partitionColors(variables)
+  acc[name] = {
+    colors: omitScale(colors),
+    shadows: omitScale(shadows)
+  }
+  return acc
+}, {})
 
 const theme = {
   animation,
