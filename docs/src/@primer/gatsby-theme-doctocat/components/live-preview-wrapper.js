@@ -24,10 +24,26 @@ function ThemeSwitcher() {
 // Users can shadow this file to wrap live previews.
 // This is useful for applying global styles.
 function LivePreviewWrapper({children}) {
+  const [showSwitcher, setShowSwitcher] = React.useState(false)
   return (
     <ThemeProvider>
-      <Box width="100%" bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
-        <Box p={2} display="flex" justifyContent="right">
+      <Box
+        tabIndex="0"
+        onFocusCapture={() => {
+          setShowSwitcher(true)
+        }}
+        onMouseEnter={() => {
+          setShowSwitcher(true)
+        }}
+        onMouseLeave={() => {
+          setShowSwitcher(false)
+        }}
+        width="100%"
+        bg="canvas.default"
+        position="relative"
+        sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}
+      >
+        <Box p={2} display={showSwitcher ? '' : 'none'} zIndex="1" position="absolute" right="2">
           <ThemeSwitcher />
         </Box>
         <Box p={3}>
