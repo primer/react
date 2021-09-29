@@ -10,9 +10,9 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 export const globalTypes = {
-  colorMode: {
-    name: 'Day color scheme',
-    description: 'Day color scheme',
+  colorScheme: {
+    name: 'Color scheme',
+    description: 'Color scheme',
     defaultValue: 'light',
     toolbar: {
       icon: 'circlehollow',
@@ -25,7 +25,7 @@ export const globalTypes = {
 // context.globals.X references items in globalTypes
 const withThemeProvider = (Story, context) => {
   return (
-    <ThemeProvider colorMode={'day'} dayScheme={context.globals.colorMode} nightScheme={'dark'}>
+    <ThemeProvider colorMode={'day'} dayScheme={context.globals.colorScheme}>
       <GlobalStyle />
       <Story {...context} />
     </ThemeProvider>
