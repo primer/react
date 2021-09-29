@@ -333,7 +333,7 @@ const MultiSelectInput = styled.input`
 /**
  * An actionable or selectable `Item` with an optional icon and description.
  */
-const Item = React.forwardRef((itemProps, ref) => {
+export const Item = React.forwardRef((itemProps, ref) => {
   const {
     as: Component,
     text,
@@ -480,4 +480,4 @@ const Item = React.forwardRef((itemProps, ref) => {
   )
 }) as PolymorphicForwardRefComponent<'div', ItemProps>
 
-export {Item}
+Item.displayName = 'Item'
