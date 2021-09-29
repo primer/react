@@ -1,7 +1,7 @@
 import {BaseStyles, Box, ThemeProvider, useTheme, DropdownMenu, DropdownButton} from '@primer/components'
 import React from 'react'
 
-function ThemeSwitcher() {
+function ThemeSwitcher({setShowSwitcher}) {
   const {theme, dayScheme, setDayScheme} = useTheme()
   const items = Object.keys(theme.colorSchemes).map(scheme => ({text: scheme.replace(/_/g, ' '), key: scheme}))
   const selectedItem = React.useMemo(() => items.find(item => item.key === dayScheme), [items, dayScheme])
@@ -16,6 +16,8 @@ function ThemeSwitcher() {
       selectedItem={selectedItem}
       onChange={item => {
         setDayScheme(item.key)
+        // If selected remove itself after few seconds.
+        setTimeout(() => setShowSwitcher(false), 3000)
       }}
     />
   )
@@ -44,7 +46,7 @@ function LivePreviewWrapper({children}) {
         sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}
       >
         <Box p={2} display={showSwitcher ? '' : 'none'} zIndex="1" position="absolute" right="2">
-          <ThemeSwitcher />
+          <ThemeSwitcher setShowSwitcher={setShowSwitcher} />
         </Box>
         <Box p={3}>
           <BaseStyles>{children}</BaseStyles>
