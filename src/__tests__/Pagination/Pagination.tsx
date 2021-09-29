@@ -1,7 +1,6 @@
 import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
-import {COMMON} from '../../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -11,7 +10,7 @@ const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />
 
 describe('Pagination', () => {
-  behavesAsComponent({Component: Pagination, systemPropArray: [COMMON], toRender: () => comp})
+  behavesAsComponent({Component: Pagination, toRender: () => comp})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(comp)

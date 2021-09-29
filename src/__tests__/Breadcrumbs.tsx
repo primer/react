@@ -1,14 +1,13 @@
 import React from 'react'
 import {Breadcrumbs, Breadcrumb} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumbs', () => {
-  behavesAsComponent({Component: Breadcrumbs, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: Breadcrumbs})
 
   checkExports('Breadcrumbs', {
     default: Breadcrumbs,

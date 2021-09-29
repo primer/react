@@ -48,58 +48,19 @@ const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
-const light = partitionColors(primitives.colors.light)
-const dark = partitionColors(primitives.colors.dark)
-const darkDimmed = partitionColors(primitives.colors['dark_dimmed'])
-const darkHighContrast = partitionColors(primitives.colors['dark_high_contrast'])
-
-// This file must be in vanilla JS to work with preval
-// but our temporary filter utils make it impossible for
-// our TypeScript to properly infer const object structure
-// so we need to use JSDoc comments.
-
 /**
- * @type Partial<typeof primitives.colors.light>
+ * @type Record<keyof typeof primitives.colors, Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
  */
-const lightColors = omitScale(light.colors)
-
-/**
- * @type Partial<typeof primitives.colors.light>
- */
-const lightShadows = omitScale(light.shadows)
-
-/**
- * @type Partial<typeof primitives.colors.dark>
- */
-const darkColors = omitScale(dark.colors)
-
-/**
- * @type Partial<typeof primitives.colors.dark>
- */
-const darkShadows = omitScale(dark.shadows)
-
-/**
- * @type Partial<typeof primitives.colors.dark_dimmed>
- */
-const darkDimmedColors = omitScale(darkDimmed.colors)
-
-/**
- * @type Partial<typeof primitives.colors.dark_dimmed>
- */
-const darkDimmedShadows = omitScale(darkDimmed.shadows)
-
-/**
- * @type Partial<typeof primitives.colors.dark_dimmed>
- */
-const darkHighContrastColors = omitScale(darkHighContrast.colors)
-
-/**
- * @type Partial<typeof primitives.colors.dark_high_contrast>
- */
-const darkHighContrastShadows = omitScale(darkHighContrast.shadows)
+const colorSchemes = Object.entries(primitives.colors).reduce((acc, [name, variables]) => {
+  const {colors, shadows} = partitionColors(variables)
+  acc[name] = {
+    colors: omitScale(colors),
+    shadows: omitScale(shadows)
+  }
+  return acc
+}, {})
 
 const theme = {
-  // General
   animation,
   borderWidths,
   breakpoints,
@@ -110,25 +71,7 @@ const theme = {
   radii,
   sizes,
   space,
-  colorSchemes: {
-    light: {
-      colors: lightColors,
-      shadows: lightShadows
-    },
-    dark: {
-      colors: darkColors,
-      shadows: darkShadows
-    },
-    dark_dimmed: {
-      colors: darkDimmedColors,
-      shadows: darkDimmedShadows
-    },
-    // eslint-disable-next-line camelcase
-    dark_high_contrast: {
-      colors: darkHighContrastColors,
-      shadows: darkHighContrastShadows
-    }
-  }
+  colorSchemes
 }
 
 module.exports = {

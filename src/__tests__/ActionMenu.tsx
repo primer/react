@@ -4,7 +4,6 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu} from '../ActionMenu'
-import {COMMON} from '../constants'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {ItemProps} from '../ActionList/Item'
@@ -40,7 +39,6 @@ describe('ActionMenu', () => {
 
   behavesAsComponent({
     Component: ActionMenu,
-    systemPropArray: [COMMON],
     options: {skipAs: true, skipSx: true},
     toRender: () => (
       <SSRProvider>

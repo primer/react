@@ -1,6 +1,5 @@
 import React from 'react'
 import {UnderlineNav} from '..'
-import {COMMON} from '../constants'
 import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -8,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('UnderlineNav.Link', () => {
-  behavesAsComponent({Component: UnderlineNav.Link, systemPropArray: [COMMON]})
+  behavesAsComponent({Component: UnderlineNav.Link})
 
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNav.Link />).type).toEqual('a')

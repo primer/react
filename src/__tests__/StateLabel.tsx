@@ -1,7 +1,6 @@
 import React from 'react'
 import {StateLabel} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {COMMON} from '../constants'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -11,7 +10,6 @@ expect.extend(toHaveNoViolations)
 describe('StateLabel', () => {
   behavesAsComponent({
     Component: StateLabel,
-    systemPropArray: [COMMON],
     toRender: () => <StateLabel status="issueOpened">Open</StateLabel>,
     options: {
       // Rendering a StyledOcticon seems to break getComputedStyles, which

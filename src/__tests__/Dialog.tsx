@@ -1,6 +1,5 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text, Button} from '..'
-import {COMMON, FLEX, LAYOUT} from '../constants'
 import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
@@ -75,7 +74,6 @@ describe('Dialog', () => {
   // because Dialog returns a React fragment the as and sx tests fail always, so they are skipped
   behavesAsComponent({
     Component: Dialog,
-    systemPropArray: [COMMON, LAYOUT],
     toRender: () => comp,
     options: {skipAs: true, skipSx: true}
   })
@@ -85,7 +83,7 @@ describe('Dialog', () => {
   })
 
   describe('Dialog.Header', () => {
-    behavesAsComponent({Component: Dialog.Header, systemPropArray: [COMMON, FLEX, LAYOUT]})
+    behavesAsComponent({Component: Dialog.Header})
   })
 
   it('should have no axe violations', async () => {
