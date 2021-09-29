@@ -77,7 +77,6 @@ const ShorthandHookFromActionMenu = () => {
 describe('ConfirmationDialog', () => {
   behavesAsComponent({
     Component: ConfirmationDialog,
-    systemPropArray: [COMMON, LAYOUT],
     toRender: () => <Basic />,
     options: {skipAs: true, skipSx: true}
   })
