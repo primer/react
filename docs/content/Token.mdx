@@ -1,0 +1,51 @@
+# Tokens
+
+A Token represents a piece of data. They are typically used to show a collection of related attributes.
+
+The default `Token` can be used for most cases, but specialized token components are provided for specific use cases (see below for more info).
+
+All types of tokens may have the same interactive qualities as links or buttons. They also have a sense of being "selected" and ready for user interaction such as being removed from a collection.
+
+## Token
+
+The default `Token` component
+
+### Basic example
+<!-- insert example of plain token that just has text -->
+```tsx live
+```
+
+### With a `leadingVisual`
+<!-- insert example of plain token that has an icon as the leadingVisual -->
+```tsx live
+```
+
+### Interactive token examples
+<!--
+insert multiple examples:
+- link
+- button
+- with internal remove button
+- selectable
+-->
+```tsx live
+```
+
+## Component props
+<!-- insert prop table here -->
+
+## TokenLabel
+
+Tokens that represent Issue Labels should use the `TokenLabel` component.
+
+<!-- insert row of issue labels -->
+```tsx live
+```
+
+## TokenProfile
+
+Tokens that represent GitHub users should use the `TokenProfile` component.
+
+<!-- insert row of profile tokens -->
+```tsx live
+```
