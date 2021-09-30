@@ -2,9 +2,11 @@ import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
+import UnstyledTextInput from './_UnstyledTextInput'
 
 const sizeVariants = variant({
   variants: {
@@ -22,19 +24,6 @@ const sizeVariants = variant({
     }
   }
 })
-
-const Input = styled.input`
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  &:focus {
-    outline: 0;
-  }
-`
 
 type StyledWrapperProps = {
   disabled?: boolean
@@ -118,10 +107,11 @@ const Wrapper = styled.span<StyledWrapperProps>`
   ${sx};
 `
 
-// Props that are not passed through to Input:
 type NonPassthroughProps = {
   className?: string
   icon?: React.ComponentType<{className?: string}>
+  inputComponent?: React.ComponentType<HTMLInputElement>
+  wrapperRef?: React.RefObject<HTMLSpanElement>
 } & Pick<
   ComponentProps<typeof Wrapper>,
   'block' | 'contrast' | 'disabled' | 'sx' | 'theme' | 'width' | 'maxWidth' | 'minWidth' | 'variant'
@@ -129,29 +119,30 @@ type NonPassthroughProps = {
 
 type TextInputInternalProps = NonPassthroughProps &
   // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
-  Omit<React.ComponentPropsWithoutRef<typeof Input>, keyof NonPassthroughProps>
+  Omit<React.ComponentPropsWithoutRef<typeof UnstyledTextInput>, keyof NonPassthroughProps>
+
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  (
-    {
-      icon: IconComponent,
-      block,
-      className,
-      contrast,
-      disabled,
-      sx: sxProp,
-      theme,
-      width: widthProp,
-      minWidth: minWidthProp,
-      maxWidth: maxWidthProp,
-      variant: variantProp,
-      ...inputProps
-    },
-    ref
-  ) => {
+  ({
+    inputComponent: InputComponent,
+    icon: IconComponent,
+    block,
+    className,
+    contrast,
+    disabled,
+    sx: sxProp,
+    theme,
+    width: widthProp,
+    minWidth: minWidthProp,
+    maxWidth: maxWidthProp,
+    variant: variantProp,
+    wrapperRef,
+    ...inputProps
+  }, ref) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
+
     return (
       <Wrapper
         block={block}
@@ -165,13 +156,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         minWidth={minWidthProp}
         maxWidth={maxWidthProp}
         variant={variantProp}
+        ref={wrapperRef}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
-        <Input ref={ref} disabled={disabled} {...inputProps} />
+        <UnstyledTextInput ref={ref} disabled={disabled} {...inputProps} />
       </Wrapper>
     )
   }
-)
+) as Polymorphic.ForwardRefComponent<"input", TextInputInternalProps>
 
 TextInput.defaultProps = {
   type: 'text'

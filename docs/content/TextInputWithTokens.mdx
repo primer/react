@@ -1,0 +1,40 @@
+# TextInputWithTokens
+
+A `TextInputWithTokens` component is used to show multiple values in one field.
+
+It supports all of the features of a [TextInput]() component, but it can render a list of [Tokens]() next to the area a user types in.
+
+## Basic Example
+
+<!-- insert topic tags input? -->
+```tsx live
+```
+
+## Adding and removing tokens
+
+The array passed to the `tokens` prop needs to be manually updated to add and remove tokens.
+
+The function passed to the `onRemoveToken` prop is called when:
+- Clicking the remove button in the token
+- Pressing the `Backspace` key when the input is empty
+- Selecting a token using the arrow keys or by clicking on a token and then pressing the `Backspace` key
+
+There is no function that gets called to "add" a token, so the user needs to be provided with a UI to select tokens.
+
+For example, an [Autocomplete]() component may be used to select tokens:
+<!-- insert editable topic tags input? -->
+```tsx live
+```
+
+## Custom token rendering
+
+By default, the `Token` input is used to render the tokens in the input. If this component does not make sense for the kinds of tokens you're rendering, you can pass a component to the `tokenComponent` prop
+
+For example, a `TextInputWithTokens` that shows selected Issue Labels could use a [TokenLabel]():
+<!-- insert input that has issue label tokens passed -->
+```tsx live
+```
+
+## Component props
+
+<!-- insert prop table here -->
