@@ -480,4 +480,4 @@ export const Item = React.forwardRef((itemProps, ref) => {
   )
 }) as PolymorphicForwardRefComponent<'div', ItemProps>
 
-Item.displayName = 'Item'
+Item.displayName = 'ActionList.Item'
