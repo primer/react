@@ -25,3 +25,199 @@ exports[`ActionList renders consistently 1`] = `
   />
 </div>
 `;
+
+exports[`ActionList.Item renders consistently 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  -webkit-flex-direction: var(--main-content-flex-direction);
+  -ms-flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--main-content-flex-direction);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c5:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+  margin-top: 0;
+}
+
+.c5:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c5:hover .c2::before,
+.c5:hover + * .c2::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c5:focus .c2::before,
+.c5:focus + * .c2::before,
+.c5[data-is-active-descendant] .c2::before,
+[data-is-active-descendant] + .c5 .c2::before {
+  border-color: transparent !important;
+}
+
+.c6:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+  margin-top: 0;
+}
+
+.c6:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c6:hover .c2::before,
+.c6:hover + * .c2::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c6:focus .c2::before,
+.c6:focus + * .c2::before,
+.c6[data-is-active-descendant] .c2::before,
+[data-is-active-descendant] + .c6 .c2::before {
+  border-color: transparent !important;
+}
+
+.c7:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+  margin-top: 0;
+}
+
+.c7:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c7:hover .c2::before,
+.c7:hover + * .c2::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c7:focus .c2::before,
+.c7:focus + * .c2::before,
+.c7[data-is-active-descendant] .c2::before,
+[data-is-active-descendant] + .c7 .c2::before {
+  border-color: transparent !important;
+}
+
+.c1 {
+  padding: 6px 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 6px;
+  color: #24292f;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+  margin-top: 0;
+}
+
+.c1:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c1:hover .c2::before,
+.c1:hover + * .c2::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c1:focus .c2::before,
+.c1:focus + * .c2::before,
+.c1[data-is-active-descendant] .c2::before,
+[data-is-active-descendant] + .c1 .c2::before {
+  border-color: transparent !important;
+}
+
+.c1[data-is-active-descendant='activated-directly'] {
+  background: rgba(54,77,100,0.16);
+}
+
+.c1[data-is-active-descendant='activated-indirectly'] {
+  background: rgba(46,77,108,0.06);
+}
+
+.c1:focus {
+  background: rgba(54,77,100,0.16);
+  outline: none;
+}
+
+.c1:active {
+  background: rgba(54,77,100,0.16);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c1:hover {
+    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    cursor: pointer;
+  }
+}
+
+<div
+  className="c0 c1"
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  tabIndex={-1}
+>
+  <div
+    className="c2 c3"
+  >
+    <div
+      className="c4"
+      style={
+        Object {
+          "--main-content-flex-direction": "row",
+        }
+      }
+    />
+  </div>
+</div>
+`;

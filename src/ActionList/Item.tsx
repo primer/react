@@ -14,6 +14,8 @@ import {
   isActiveDescendantAttribute
 } from '../behaviors/focusZone'
 import {useSSRSafeId} from '@react-aria/ssr'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {AriaRole} from '../utils/types'
 
 /**
  * These colors are not yet in our default theme.  Need to remove this once they are added.
@@ -48,7 +50,7 @@ const customItemThemes = {
 /**
  * Contract for props passed to the `Item` component.
  */
-export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'id'>, SxProp {
+export interface ItemProps extends SxProp {
   /**
    * Primary text which names an `Item`.
    */
@@ -124,6 +126,21 @@ export interface ItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
    * An id associated with this item.  Should be unique between items
    */
   id?: number | string
+
+  /**
+   * Node to be included inside the item before the text.
+   */
+  children?: React.ReactNode
+
+  /**
+   * The ARIA role describing the function of `List` component. `option` is a common value.
+   */
+  role?: AriaRole
+
+  /**
+   * An item to pass back in the `onAction` callback, meant as
+   */
+  item?: ItemInput
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -191,6 +208,7 @@ const StyledItem = styled.div<
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
   // 2 frames on a 60hz monitor
   transition: background 33.333ms linear;
+  text-decoration: none;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
@@ -315,8 +333,9 @@ const MultiSelectInput = styled.input`
 /**
  * An actionable or selectable `Item` with an optional icon and description.
  */
-export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.Element {
+export const Item = React.forwardRef((itemProps, ref) => {
   const {
+    as: Component,
     text,
     description,
     descriptionVariant = 'inline',
@@ -352,7 +371,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       }
 
       if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-        onAction?.(itemProps as ItemProps, event)
+        onAction?.(itemProps, event)
       }
     },
     [onAction, disabled, itemProps, onKeyPress]
@@ -365,7 +384,7 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       }
       onClick?.(event)
       if (!event.defaultPrevented) {
-        onAction?.(itemProps as ItemProps, event)
+        onAction?.(itemProps, event)
       }
     },
     [onAction, disabled, itemProps, onClick]
@@ -379,6 +398,8 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
 
   return (
     <StyledItem
+      ref={ref}
+      as={Component}
       tabIndex={disabled ? undefined : -1}
       variant={variant}
       showDivider={showDivider}
@@ -457,4 +478,6 @@ export function Item(itemProps: Partial<ItemProps> & {item?: ItemInput}): JSX.El
       </DividedContent>
     </StyledItem>
   )
-}
+}) as PolymorphicForwardRefComponent<'div', ItemProps>
+
+Item.displayName = 'ActionList.Item'
