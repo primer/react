@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "29.1.1",
+  "version": "30.0.0",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -44,7 +44,7 @@
   "license": "MIT",
   "dependencies": {
     "@primer/octicons-react": "^13.0.0",
-    "@primer/primitives": "4.7.1",
+    "@primer/primitives": "4.8.1",
     "@react-aria/ssr": "3.1.0",
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.5",
@@ -67,7 +67,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.14.5",
     "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "@babel/preset-react": "7.14.5",
-    "@babel/preset-typescript": "7.14.5",
+    "@babel/preset-typescript": "7.15.0",
     "@changesets/changelog-github": "0.4.0",
     "@changesets/cli": "2.17.0",
     "@github/prettier-config": "0.0.4",
