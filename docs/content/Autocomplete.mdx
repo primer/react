@@ -1,0 +1,83 @@
+# Autocomplete
+
+The `Autocomplete` components are used to render a text input that allows a user to quickly filter through a list of options to pick one or more values. It is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
+
+## Basic Example
+<!-- Insert search field example here -->
+```tsx live
+```
+
+## Autocomplete.Input
+
+The text input is used to filter the options in the dropdown menu. It is also used to show the selected value (or values).
+
+The default input rendered is the `TextInput` component. A different text input component may be rendered by passing a different component to the `as` prop.
+
+### Examples
+
+#### Using the default text input component
+<!-- Insert search field example here -->
+```tsx live
+```
+
+#### Passing a custom text input
+<!-- Insert token select field example here -->
+```tsx live
+```
+
+### Component Props
+
+The props of `Autocomplete.Input` depend on what component is passed to the `as` prop
+
+<!-- Insert prop table here -->
+
+## Autocomplete.Menu
+
+The `Autocomplete.Menu` component renders a list of selectable options in a non-modal dialog. The list is filtered and sorted to make it as easy as possible to find the option/s that a user is looking for.
+
+### Component Props
+
+<!-- Insert prop table here -->
+
+### Sorting menu items
+
+Items can be displayed in any order that makes sense, but the `Autocomplete.Menu` component comes with a default sort behavior to make it easy to find selected items. The default behavior is to sort selected items to the top of the list after the menu has been closed.
+
+A function may be passed to the `selectedSortFn` prop if this default sorting logic is not helpful for your use case.
+
+### Filtering items
+
+By default, menu items are filtered based on whether or not they match the value of the text input. The default filter is case-insensitive.
+
+A function may be passed to the `filterFn` prop if this default filtering behavior does not make sense for your use case.
+
+### Examples
+
+#### Select a single value
+<!-- insert `selectionVariant="single"` example: search field? -->
+```tsx live
+```
+
+#### Select multiple values
+<!-- insert `selectionVariant="multiple"` example: add items to a list? build up a filter query? -->
+```tsx live
+```
+
+#### Custom render function for menu items
+<!-- insert custom item rendering example: issue labels? users w/ handle + full name? custom selected style? -->
+```tsx live
+```
+
+#### Add the text input value to the list of options
+
+By default, menu items are just rendered as a single line of text. The list in the menu is rendered using the [Action List]() component, so menu items can be renderd with all of the same options as Action List items.
+
+<!-- insert example for `addNewItem`: issue label selection -->
+```tsx live
+```
+
+#### Show a custom empty state
+
+<!-- insert example for custom empty state text: no issue labels match the filter / there are no issue labels to even choose from -->
+```tsx live
+```
