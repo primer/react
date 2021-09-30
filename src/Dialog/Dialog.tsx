@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
-import {useOnEscapePress} from '../hooks'
+import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
 import StyledOcticon from '../StyledOcticon'
@@ -36,6 +36,12 @@ export type DialogButtonProps = ButtonProps & {
    * focus this button automatically when the dialog appears.
    */
   autoFocus?: boolean
+
+  /**
+   * A reference to the rendered Button’s DOM node, used together with
+   * `autoFocus` for `focusTrap`’s `initialFocus`.
+   */
+  ref?: React.RefObject<HTMLButtonElement>
 }
 
 /**
@@ -250,16 +256,23 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     onClose,
     role = 'dialog',
     width = 'xlarge',
-    height = 'auto'
+    height = 'auto',
+    footerButtons = []
   } = props
   const dialogLabelId = useSSRSafeId()
   const dialogDescriptionId = useSSRSafeId()
+  const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
+  for (const footerButton of footerButtons) {
+    if (footerButton.autoFocus) {
+      footerButton.ref = autoFocusedFooterButtonRef
+    }
+  }
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)
   const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
   const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true})
+  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
@@ -338,7 +351,7 @@ const buttonTypes = {
   danger: ButtonDanger
 }
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
-  const autoFocusRef = useRef<HTMLButtonElement>(null)
+  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
@@ -348,7 +361,7 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
     } else {
       setHasRendered(hasRendered + 1)
     }
-  }, [hasRendered])
+  }, [autoFocusRef, hasRendered])
 
   return (
     <>
