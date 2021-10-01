@@ -1,5 +1,15 @@
 # @primer/components
 
+## 30.1.0
+
+### Minor Changes
+
+- [#1463](https://github.com/primer/react/pull/1463) [`bde3a034`](https://github.com/primer/react/commit/bde3a0344c713f15f5650b35195258901582bd41) Thanks [@jfuchs](https://github.com/jfuchs)! - `ActionList.item` accepts an `as` prop, allowing it to be a link, or (in combination with the renderItem prop) a Next.js or React Router link
+
+### Patch Changes
+
+- [#1471](https://github.com/primer/react/pull/1471) [`f1cebb7e`](https://github.com/primer/react/commit/f1cebb7e9af297a7c466701454aac6dc1eb7b3a4) Thanks [@smockle](https://github.com/smockle)! - Change the button which receives focus when a 'ConfirmationDialog' opens from the secondary (e.g. 'Cancel') to the primary (e.g. 'OK'). Fixes github/primer#313.
+
 ## 30.0.0
 
 ### Major Changes
