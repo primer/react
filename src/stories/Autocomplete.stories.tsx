@@ -106,11 +106,13 @@ export const Default = () => {
         <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
         <Autocomplete>
           <Autocomplete.Input id="autocompleteInput" />
-          <Autocomplete.Menu
-            items={items}
-            selectedItemIds={[]}
-            aria-labelledby="autocompleteLabel"
-          />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu
+              items={items}
+              selectedItemIds={[]}
+              aria-labelledby="autocompleteLabel"
+            />
+          </Autocomplete.Overlay>
         </Autocomplete>
       </>
     )
@@ -125,13 +127,22 @@ export const MultiSelectWithTokenInput = () => {
       setTokens(tokens.filter(token => token.id !== tokenId))
       setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
   }
-  const onItemSelect: (item: Datum) => void = ({ text, id }) => {
-    setTokens([...tokens, { text, id }])
-    setSelectedItemIds([...selectedItemIds, id])
-  }
-  const onItemDeselect: (item: Datum) => void = (item) => {
-    onTokenRemove(item.id)
-    setSelectedItemIds(selectedItemIds.filter(selectedItemId => selectedItemId !== item.id))
+  const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+
+    if (newlySelectedItems.length < selectedItemIds.length) {
+      const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
+      const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
+
+      removedItemIds.forEach(onTokenRemove)
+      return
+    }
+
+    setTokens(newlySelectedItems.map(({id, text}) => ({id, text})))
   }
 
   return (
@@ -144,14 +155,15 @@ export const MultiSelectWithTokenInput = () => {
           onTokenRemove={onTokenRemove}
           id="autocompleteInput"
         />
-        <Autocomplete.Menu
-          items={items}
-          selectedItemIds={selectedItemIds}
-          onItemSelect={onItemSelect}
-          onItemDeselect={onItemDeselect}
-          selectionVariant="multiple"
-          aria-labelledby="autocompleteLabel"
-        />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={items}
+            selectedItemIds={selectedItemIds}
+            onSelectedChange={onSelectedChange}
+            selectionVariant="multiple"
+            aria-labelledby="autocompleteLabel"
+          />
+        </Autocomplete.Overlay>
       </Autocomplete>
     </>
   )
@@ -167,21 +179,36 @@ export const MultiSelectAddNewItem = () => {
       setTokens(tokens.filter(token => token.id !== tokenId))
       setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
   }
+  const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+
+    if (newlySelectedItems.length < selectedItemIds.length) {
+      const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
+      const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
+
+      removedItemIds.forEach(onTokenRemove)
+      return
+    }
+
+    setTokens(newlySelectedItems.map(({id, text}) => ({id, text})))
+  }
+
   const onItemSelect: (item: Datum) => void = (item) => {
-      setTokens([...tokens, item])
-      setSelectedItemIds([...selectedItemIds, item.id])
-      
-      if (!localItemsState.some(localItem => localItem.id === item.id)) {
-        setLocalItemsState([
-          ...localItemsState,
-          item
-        ])
-      }
+    onSelectedChange([...selectedItemIds.map(id => items.find(selectedItem => selectedItem.id === id) as Datum), item])
+
+    if (!localItemsState.some((localItem, i) => localItem.id === item.id)) {
+      console.log('item', item);
+      setLocalItemsState([
+        ...localItemsState,
+        item,
+      ])
+    }
   }
-  const onItemDeselect: (item: Datum) => void = (item) => {
-    onTokenRemove(item.id)
-    setSelectedItemIds(selectedItemIds.filter(selectedItemId => selectedItemId !== item.id))
-  }
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     setFilterVal(e.currentTarget.value)
   };
@@ -197,30 +224,32 @@ export const MultiSelectAddNewItem = () => {
           onChange={handleChange}
           id="autocompleteInput"
         />
-        <Autocomplete.Menu
-          addNewItem={
-            filterVal && 
-            !localItemsState.map(localItem => localItem.text).includes(filterVal)
-              ? {
-                text: `Add '${filterVal}'`,
-                handleAddItem: (item) => {
-                  onItemSelect({
-                    ...item,
-                    text: filterVal,
-                    selected: true
-                  })
-                  setFilterVal('');
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            addNewItem={
+              filterVal && 
+              !localItemsState.map(localItem => localItem.text).includes(filterVal)
+                ? {
+                  text: `Add '${filterVal}'`,
+                  handleAddItem: (item) => {
+                    onItemSelect({
+                      ...item,
+                      text: filterVal,
+                      selected: true,
+                      id: `newItem-${localItemsState.length}`
+                    })
+                    setFilterVal('');
+                  }
                 }
-              }
-            : undefined
-          }
-          items={localItemsState}
-          selectedItemIds={selectedItemIds}
-          onItemSelect={onItemSelect}
-          onItemDeselect={onItemDeselect}
-          selectionVariant="multiple"
-          aria-labelledby="autocompleteLabel"
-        />
+              : undefined
+            }
+            items={localItemsState}
+            selectedItemIds={selectedItemIds}
+            onSelectedChange={onSelectedChange}
+            selectionVariant="multiple"
+            aria-labelledby="autocompleteLabel"
+          />
+        </Autocomplete.Overlay>
       </Autocomplete>
     </>
   )
@@ -239,15 +268,23 @@ export const TokenLabelSelectInTable = () => {
         setTokens(tokens.filter(token => token.id !== tokenId));
         setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId));
     };
-    const onItemSelect: (item: Datum) => void = (item) => {
-        const {metadata, text, id} = item;
-        setTokens([...tokens, {fillColor: metadata?.fillColor, text, id}])
-        setSelectedItemIds([...selectedItemIds, item.id])
-    };
-    const onItemDeselect: (item: Datum) => void = (item) => {
-      onTokenRemove(item.id)
-      setSelectedItemIds(selectedItemIds.filter(selectedItemId => selectedItemId !== item.id))
-    };
+    const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
+      if (!Array.isArray(newlySelectedItems)) {
+        return
+      }
+  
+      setSelectedItemIds(newlySelectedItems.map(item => item.id))
+  
+      if (newlySelectedItems.length < selectedItemIds.length) {
+        const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
+        const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
+  
+        removedItemIds.forEach(onTokenRemove)
+        return
+      }
+  
+      setTokens(newlySelectedItems.map(({id, text, metadata}) => ({fillColor: metadata?.fillColor, id, text})))
+    }
     const gridItemStyles = {
       display: "flex",
       alignItems: "center",
@@ -334,15 +371,16 @@ export const TokenLabelSelectInTable = () => {
                   }
                 }}
               />
-              <Autocomplete.Menu
-                items={labelItems}
-                selectedItemIds={selectedItemIds}
-                onItemSelect={onItemSelect}
-                onItemDeselect={onItemDeselect}
-                selectionVariant="multiple"
-                menuAnchorRef={scrollContainerRef}
-                aria-labelledby="autocompleteLabel"
-              />
+              <Autocomplete.Overlay>
+                <Autocomplete.Menu
+                  items={labelItems}
+                  selectedItemIds={selectedItemIds}
+                  onSelectedChange={onSelectedChange}
+                  selectionVariant="multiple"
+                  menuAnchorRef={scrollContainerRef}
+                  aria-labelledby="autocompleteLabel"
+                />
+              </Autocomplete.Overlay>
             </Autocomplete>
           </Box>
           <Box {...gridItemStyles} borderWidth={0}>table cell 4</Box>
@@ -360,15 +398,23 @@ export const AsTokenSelectPanel = () => {
       setTokens(tokens.filter(token => token.id !== tokenId));
       setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId));
   };
-  const onItemSelect: (item: Datum) => void = (item) => {
-    const {metadata, text, id} = item;
-    setTokens([...tokens, {fillColor: metadata?.fillColor, text, id}])
-    setSelectedItemIds([...selectedItemIds, item.id])
-  };
-  const onItemDeselect: (item: Datum) => void = (item) => {
-    onTokenRemove(item.id)
-    setSelectedItemIds(selectedItemIds.filter(selectedItemId => selectedItemId !== item.id))
-  };
+  const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+
+    if (newlySelectedItems.length < selectedItemIds.length) {
+      const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
+      const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
+
+      removedItemIds.forEach(onTokenRemove)
+      return
+    }
+
+    setTokens(newlySelectedItems.map(({id, text, metadata}) => ({fillColor: metadata?.fillColor, id, text})))
+  }
 
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => {
@@ -445,11 +491,9 @@ export const AsTokenSelectPanel = () => {
             </Box>
             <Box overflow="auto" flexGrow={1}>
               <Autocomplete.Menu
-                preventOverlay
                 items={labelItems}
                 selectedItemIds={selectedItemIds}
-                onItemSelect={onItemSelect}
-                onItemDeselect={onItemDeselect}
+                onSelectedChange={onSelectedChange}
                 selectionVariant="multiple"
                 menuAnchorRef={scrollContainerRef}
                 aria-labelledby="autocompleteLabel"

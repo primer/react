@@ -4,6 +4,7 @@ import { uniqueId } from '../utils/uniqueId';
 import { AutocompleteContext } from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput';
 import AutocompleteMenu from './AutocompleteMenu';
+import AutocompleteOverlay from './AutocompleteOverlay';
 
 
 const Autocomplete: React.FC<{id?: string}> = ({ children, id: idProp }) => {
@@ -13,6 +14,7 @@ const Autocomplete: React.FC<{id?: string}> = ({ children, id: idProp }) => {
     const [showMenu, setShowMenu] = useState(false)
     const [autocompleteSuggestion, setAutocompleteSuggestion] = useState<string>('')
     const [isMenuDirectlyActivated, setIsMenuDirectlyActivated] = useState<boolean>(false)
+    const [selectedItemLength, setSelectedItemLength] = useState<number>()
     const id = idProp || uniqueId()
 
     return (
@@ -23,10 +25,12 @@ const Autocomplete: React.FC<{id?: string}> = ({ children, id: idProp }) => {
         inputRef,
         inputValue,
         isMenuDirectlyActivated,
+        selectedItemLength,
         setAutocompleteSuggestion,
         setInputValue,
         setIsMenuDirectlyActivated,
         setShowMenu,
+        setSelectedItemLength,
         showMenu,
       }}>
         {children}
@@ -37,9 +41,11 @@ const Autocomplete: React.FC<{id?: string}> = ({ children, id: idProp }) => {
 export type AutocompleteProps = ComponentProps<typeof Autocomplete>
 export type { AutocompleteInputProps } from './AutocompleteInput'
 export type { AutocompleteMenuProps } from './AutocompleteMenu'
+export type { AutocompleteOverlayProps } from './AutocompleteOverlay'
 export default Object.assign(Autocomplete, {
     AutocompleteContext,
     Input: AutocompleteInput,
     Menu: AutocompleteMenu,
+    Overlay: AutocompleteOverlay
 })
   

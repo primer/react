@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { ActionList, ItemProps } from '../ActionList'
-import { useAnchoredPosition } from '../hooks'
 import { useFocusZone } from '../hooks/useFocusZone'
-import Overlay, { OverlayProps } from '../Overlay'
 import { ComponentProps, MandateProps } from '../utils/types'
 import { Box, Spinner } from '../'
 import { registerPortalRoot } from '../Portal'
 import { AutocompleteContext } from './AutocompleteContext'
-import { useCombinedRefs } from '../hooks/useCombinedRefs'
 import { PlusIcon } from '@primer/octicons-react'
 import { uniqueId } from '../utils/uniqueId'
 import { scrollIntoViewingArea } from '../utils/scrollIntoViewingArea'
 
-type OnAction<T> = (item: T, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+type OnSelectedChange<T> = (item: T | T[]) => void
 
 const DROPDOWN_PORTAL_CONTAINER_NAME = '__listcontainerportal__'
 
@@ -31,6 +28,13 @@ function getDefaultItemFilter<T extends MandateProps<ItemProps, 'id'>>(filterVal
                 .startsWith((filterValue)
                 .toLowerCase())
         )
+    }
+}
+
+const getDefaultOnSelectionChange = <T extends MandateProps<ItemProps, 'id'>>(setInputValueFn?: React.Dispatch<React.SetStateAction<string>>): (OnSelectedChange<T> | undefined) => {
+    return function (itemOrItems) {
+        const { text = '' } = Array.isArray(itemOrItems) ? itemOrItems.slice(-1)[0] : itemOrItems
+        setInputValueFn && setInputValueFn(text)
     }
 }
 
@@ -59,14 +63,6 @@ type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    */
   items: T[]
   /**
-   * The function that is called when an item in the list is de-selected
-   */
-  onItemDeselect?: OnAction<T>
-  /**
-   * The function that is called when an item in the list is selected
-   */
-  onItemSelect?: OnAction<T>
-  /**
    * Whether the data is loaded for the menu items
    */
   loading?: boolean
@@ -84,31 +80,15 @@ type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    * Whether there can be one item selected from the menu or multiple items selected from the menu
    */
   selectionVariant?: 'single' | 'multiple'
+   /**
+    * Function that gets called when the menu is opened or closed
+    */
+   onOpenChange?: (open: boolean) => void
   /**
-   * The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input
+   * The function that is called when an item in the list is selected or deselected
    */
-  menuAnchorRef?: React.RefObject<Element>
-  /**
-   * Whether the menu should be displayed in an overlay
-   */
-  preventOverlay?: boolean
-  /**
-   * Props to be spread on the internal `Overlay` component.
-   */
-   overlayProps?: Partial<OverlayProps>
+   onSelectedChange?: OnSelectedChange<T>
 } & Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
-
-function getDefaultOnItemSelectFn<T extends MandateProps<ItemProps, 'id'>>(setInputValueFn?: React.Dispatch<React.SetStateAction<string>>): OnAction<T> {
-    if (setInputValueFn) {
-        return function ({text = ''}) {
-            setInputValueFn(text)
-        }
-    }
-
-    return ({text}) => {
-        console.error(`getDefaultOnItemSelectFn could not be called with ${text} because a function to set the text input was undefined`)
-    }
-}
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
     const {
@@ -120,74 +100,53 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         setShowMenu,
         setInputValue,
         setIsMenuDirectlyActivated,
+        setSelectedItemLength,
         showMenu,
     } = useContext(AutocompleteContext)
     const {
         items,
         selectedItemIds,
         sortOnCloseFn,
-        onItemSelect = getDefaultOnItemSelectFn(setInputValue),
-        onItemDeselect,
         emptyStateText,
         addNewItem,
         loading,
         selectionVariant,
         filterFn = getDefaultItemFilter(inputValue),
-        menuAnchorRef,
         "aria-labelledby": ariaLabelledBy,
-        preventOverlay,
-        overlayProps
+        onOpenChange,
+        onSelectedChange = getDefaultOnSelectionChange(setInputValue)
     } = props
     const listContainerRef = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const [highlightedItem, setHighlightedItem] = useState<T>()
     const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id}) => id))
 
-    const {floatingElementRef, position} = useAnchoredPosition(
-        {
-            side: 'outside-bottom',
-            align: 'start',
-            anchorElementRef: menuAnchorRef ? menuAnchorRef : inputRef
-        },
-        [showMenu, selectedItemIds]
-    )
-
-    const combinedOverlayRef = useCombinedRefs(scrollContainerRef, floatingElementRef)
-
-    const closeOptionList = () => {
-        setShowMenu && setShowMenu(false)
-    }
-
     const isItemSelected = (itemId: string | number) => selectedItemIds.includes(itemId)
+    
+    const getItemById = (itemId: string | number) => items.find(item => item.id === itemId);
 
-    const selectableItems = items.map((selectableItem) => ({
+    const selectableItems = items.map((selectableItem) => {
+        return ({
             ...selectableItem,
             role: "option",
             id: selectableItem.id,
-            selected: selectionVariant === 'multiple' ? isItemSelected(selectableItem.id) : undefined,
-            onAction: (item: T, e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-                const handleItemSelection = () => {
-                    onItemSelect(item, e)
+            selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
+            onAction: (item: T) => {
+                const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
+                const newSelectedItemIds = selectedItemIds.includes(item.id) ? otherSelectedItemIds : [...otherSelectedItemIds, item.id]
 
-                    if (selectionVariant === 'multiple') {
-                        setInputValue && setInputValue('')
-                        setAutocompleteSuggestion && setAutocompleteSuggestion('')
-                    }
-                }
+                onSelectedChange && onSelectedChange(newSelectedItemIds.map(getItemById) as T[])
 
-                if (item.selected) {
-                    onItemDeselect && onItemDeselect(item, e)
+                if (selectionVariant === 'multiple') {
+                    setInputValue && setInputValue('')
+                    setAutocompleteSuggestion && setAutocompleteSuggestion('')
                 } else {
-                    handleItemSelection()
-                }
-
-                if (selectionVariant === 'single') {
                     setShowMenu && setShowMenu(false)
                     inputRef?.current?.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length)
                 }
             }
         })
-    )
+    })
 
     const itemSortOrderData = sortedItemIds.reduce<Record<string | number, number>>((acc, curr, i) => {
         acc[curr] = i
@@ -263,58 +222,38 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         setSortedItemIds(
             [...sortedItemIds].sort(sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(isItemSelected))
         )
+        onOpenChange && onOpenChange(Boolean(showMenu))
     }, [showMenu])
+
+    useEffect(() => {
+        setSelectedItemLength && setSelectedItemLength(selectedItemIds.length)
+    }, [selectedItemIds])
 
     if (listContainerRef.current) {
         registerPortalRoot(listContainerRef.current, DROPDOWN_PORTAL_CONTAINER_NAME)
     }
 
-    const selectionList = (
-        <>
-            {loading ? (
-                <Box p={3} display="flex" justifyContent="center">
-                    <Spinner />
-                </Box>
-            ) : (
-                <div ref={listContainerRef}>
-                    {allItemsToRender.length ? (
-                        <ActionList
-                            selectionVariant="multiple"
-                            // have to typecast to `ItemProps` because we have an extra property 
-                            // on `items` for Autocomplete: `metadata`
-                            items={allItemsToRender as ItemProps[]}
-                            role="listbox"
-                            id={`${id}-listbox`}
-                            aria-labelledby={ariaLabelledBy}
-                        />
-                        ) : (
-                            <Box p={3}>{emptyStateText}</Box>
-                        )}
-                </div>
-            )}
-        </>
-    );
 
-    if (preventOverlay) {
-        return selectionList
-    }
-
-    return (
-        <Overlay
-            returnFocusRef={inputRef}
-            preventFocusOnOpen={true}
-            onClickOutside={closeOptionList}
-            onEscape={closeOptionList}
-            ref={combinedOverlayRef as React.RefObject<HTMLDivElement>}
-            top={position?.top}
-            left={position?.left}
-            visibility={showMenu ? 'visible' : 'hidden'}
-            {...overlayProps}
-        >
-            <Box height="100%" overflow="auto">
-                {selectionList}
-            </Box>
-        </Overlay>
+    return loading ? (
+        <Box p={3} display="flex" justifyContent="center">
+            <Spinner />
+        </Box>
+    ) : (
+        <div ref={listContainerRef}>
+            {allItemsToRender.length ? (
+                <ActionList
+                    selectionVariant="multiple"
+                    // have to typecast to `ItemProps` because we have an extra property 
+                    // on `items` for Autocomplete: `metadata`
+                    items={allItemsToRender as ItemProps[]}
+                    role="listbox"
+                    id={`${id}-listbox`}
+                    aria-labelledby={ariaLabelledBy}
+                />
+                ) : (
+                    <Box p={3}>{emptyStateText}</Box>
+                )}
+        </div>
     )
 }
 

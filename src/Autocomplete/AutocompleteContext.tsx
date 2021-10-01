@@ -9,9 +9,11 @@ export const AutocompleteContext = createContext<{
     inputRef?: React.MutableRefObject<HTMLInputElement | null>
     inputValue?: string
     isMenuDirectlyActivated?: boolean
+    selectedItemLength?: number
     setAutocompleteSuggestion?: React.Dispatch<React.SetStateAction<string>>
     setInputValue?: React.Dispatch<React.SetStateAction<string>>
     setIsMenuDirectlyActivated?: React.Dispatch<React.SetStateAction<boolean>>
+    setSelectedItemLength?: React.Dispatch<React.SetStateAction<number | undefined>>
     setShowMenu?: React.Dispatch<React.SetStateAction<boolean>>
     showMenu?: boolean
 }>({})
