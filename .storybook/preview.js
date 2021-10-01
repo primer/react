@@ -1,6 +1,6 @@
 import {addons} from '@storybook/addons'
 import {ThemeProvider, themeGet, theme} from '../src'
-import {createGlobalStyle} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 
 // set global theme styles for each story
 const GlobalStyle = createGlobalStyle`
@@ -9,15 +9,37 @@ const GlobalStyle = createGlobalStyle`
     color: ${themeGet('colors.text.primary')};
   }
 `
+
+// only remove padding for multi-theme view grid
+const GlobalStyleMultiTheme = createGlobalStyle`
+  body {
+    padding: 0 !important;
+  }
+`
+
+// duo theme view, this can be extended for more themes
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100vh;
+`
+
+// instead of global theme, only theme wrapper for each story
+const ThemedSectionStyle = styled.div`
+  background-color: ${themeGet('colors.bg.primary')};
+  color: ${themeGet('colors.text.primary')};
+  padding: 1rem;
+`
+
 export const globalTypes = {
   colorMode: {
     name: 'Color mode',
-    description: 'Color mode (day, night, auto)',
+    description: 'Color mode (day, night, auto, all)',
     defaultValue: 'day',
     toolbar: {
       icon: 'paintbrush',
       // array of colorMode items
-      items: ['day', 'night', 'auto'],
+      items: ['day', 'night', 'auto', 'all'],
       showName: true
     }
   },
@@ -45,6 +67,28 @@ export const globalTypes = {
 
 // context.globals.X references items in globalTypes
 const withThemeProvider = (Story, context) => {
+  if (context.globals.colorMode === 'all') {
+    return (
+      <Wrapper>
+        <GlobalStyleMultiTheme />
+        <ThemeProvider colorMode="day" dayScheme={context.globals.dayScheme} nightScheme={context.globals.nightScheme}>
+          <ThemedSectionStyle>
+            <Story {...context} />
+          </ThemedSectionStyle>
+        </ThemeProvider>
+        <ThemeProvider
+          colorMode="night"
+          dayScheme={context.globals.dayScheme}
+          nightScheme={context.globals.nightScheme}
+        >
+          <ThemedSectionStyle>
+            <Story {...context} />
+          </ThemedSectionStyle>
+        </ThemeProvider>
+      </Wrapper>
+    )
+  }
+
   return (
     <ThemeProvider
       colorMode={context.globals.colorMode}

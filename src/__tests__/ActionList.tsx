@@ -45,3 +45,9 @@ describe('ActionList', () => {
     cleanup()
   })
 })
+
+describe('ActionList.Item', () => {
+  behavesAsComponent({
+    Component: ActionList.Item
+  })
+})

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Key} from 'react'
 import type {AriaRole} from '../utils/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
@@ -8,7 +8,9 @@ import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
 
-export type ItemInput = ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})
+type RenderItemFn = (props: ItemProps) => React.ReactElement
+
+export type ItemInput = ItemProps | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**
  * Contract for props passed to the `List` component.
@@ -34,7 +36,7 @@ export interface ListPropsBase {
    * without a `Group`-level or `Item`-level custom `Item` renderer will be
    * rendered using this function component.
    */
-  renderItem?: typeof Item
+  renderItem?: RenderItemFn
 
   /**
    * A `List`-level custom `Group` renderer. Every `Group` within this `List`
@@ -72,14 +74,14 @@ export interface GroupedListProps extends ListPropsBase {
    */
   groupMetadata: ((
     | Omit<GroupProps, 'items'>
-    | Omit<Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}, 'items'>
+    | Omit<Partial<GroupProps> & {renderItem?: RenderItemFn; renderGroup?: typeof Group}, 'items'>
   ) & {groupId: string})[]
 
   /**
    * A collection of `Item` props, plus associated group identifiers
    * and `Item`-level custom `Item` renderers.
    */
-  items: ((ItemProps | (Partial<ItemProps> & {renderItem: typeof Item})) & {groupId: string})[]
+  items: ((ItemProps | (Partial<ItemProps> & {renderItem: RenderItemFn})) & {groupId: string})[]
 }
 
 /**
@@ -162,7 +164,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   const renderItem = (itemProps: ItemInput, item: ItemInput, itemIndex: number) => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
-    const key = itemProps.key ?? itemProps.id?.toString() ?? itemIndex.toString()
+    const key = ('key' in itemProps ? itemProps.key : undefined) ?? itemProps.id?.toString() ?? itemIndex.toString()
     return (
       <ItemComponent
         showDivider={props.showItemDividers}
