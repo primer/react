@@ -43,13 +43,13 @@ function LivePreviewWrapper({children}) {
         width="100%"
         bg="canvas.default"
         position="relative"
-        sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}
+        sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2, display: 'flex'}}
       >
-        <Box p={2} display={showSwitcher ? '' : 'none'} zIndex="1" position="absolute" top="0" right="0">
-          <ThemeSwitcher setIsDropdownOpen={setIsDropdownOpen} />
-        </Box>
-        <Box p={3}>
+        <Box p={3} sx={{flexGrow: 1}}>
           <BaseStyles>{children}</BaseStyles>
+        </Box>
+        <Box p={2} display={showSwitcher ? '' : 'none'}>
+          <ThemeSwitcher setIsDropdownOpen={setIsDropdownOpen} />
         </Box>
       </Box>
     </ThemeProvider>
