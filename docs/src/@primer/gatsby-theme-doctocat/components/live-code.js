@@ -38,26 +38,44 @@ function wrapWithFragment(jsx) {
   return `<React.Fragment>${jsx}</React.Fragment>`
 }
 
-function LiveCode({code, language, noinline}) {
+function LiveCode({code, language, noinline, title}) {
   const theme = React.useContext(ThemeContext)
   const [liveCode, setLiveCode] = useState(code)
   const handleChange = updatedLiveCode => setLiveCode(updatedLiveCode)
 
   return (
-    <Box display="flex" flexDirection="column" mb={3}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      mb={3}
+      sx={{
+        border: '1px solid',
+        borderColor: 'border.default',
+        borderRadius: 2
+      }}
+    >
       <LiveProvider scope={scope} code={liveCode} transformCode={languageTransformers[language]} noInline={noinline}>
         <Box
           sx={{
-            border: '1px solid',
-            borderColor: 'border.default',
-            borderTopRightRadius: 2,
-            borderTopLeftRadius: 2
+            borderBottom: '1px solid',
+            borderColor: 'border.default'
           }}
         >
           <LivePreviewWrapper>
             <LivePreview />
           </LivePreviewWrapper>
         </Box>
+        {title ? (
+          <Box
+            p={3}
+            sx={{
+              borderBottom: '1px solid',
+              borderColor: 'border.default'
+            }}
+          >
+            {title}
+          </Box>
+        ) : null}
         <Box position="relative">
           <LiveEditor
             onChange={handleChange}
