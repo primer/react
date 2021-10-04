@@ -14,7 +14,7 @@ export const scrollIntoViewingArea = (
   
     const isChildStartAboveViewingArea = childStart < containerStart + endMargin
     const isChildBottomBelowViewingArea = childEnd > containerEnd - startMargin
-  
+
     if (isChildStartAboveViewingArea) {
       const scrollHeightToChildStart = childStart - containerStart + container[scrollSide]
       container.scrollTo({behavior, [startSide]: scrollHeightToChildStart - endMargin})

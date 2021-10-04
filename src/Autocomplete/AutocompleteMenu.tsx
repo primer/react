@@ -88,6 +88,12 @@ type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    * The function that is called when an item in the list is selected or deselected
    */
    onSelectedChange?: OnSelectedChange<T>
+   /**
+    * If the menu is rendered in a scrolling element other than the `Autocomplete.Overlay` component,
+    * pass the ref of that element to `customScrollContainerRef` to ensure the container automatically
+    * scrolls when the user highlights an item in the menu that is outside the scroll container
+    */
+    customScrollContainerRef?: React.MutableRefObject<HTMLElement | null>
 } & Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
@@ -96,6 +102,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         id,
         inputRef,
         inputValue = '',
+        scrollContainerRef,
         setAutocompleteSuggestion,
         setShowMenu,
         setInputValue,
@@ -114,10 +121,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         filterFn = getDefaultItemFilter(inputValue),
         "aria-labelledby": ariaLabelledBy,
         onOpenChange,
-        onSelectedChange = getDefaultOnSelectionChange(setInputValue)
+        onSelectedChange = getDefaultOnSelectionChange(setInputValue),
+        customScrollContainerRef,
     } = props
     const listContainerRef = useRef<HTMLDivElement>(null)
-    const scrollContainerRef = useRef<HTMLDivElement>(null)
     const [highlightedItem, setHighlightedItem] = useState<T>()
     const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id}) => id))
 
@@ -200,7 +207,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                 setIsMenuDirectlyActivated && setIsMenuDirectlyActivated(directlyActivated)
             }
 
-            if (current && scrollContainerRef.current && directlyActivated) {
+            if (current && customScrollContainerRef && customScrollContainerRef.current && directlyActivated) {
+                scrollIntoViewingArea(current, customScrollContainerRef.current)
+            } else if (current && scrollContainerRef && scrollContainerRef.current && directlyActivated) {
                 scrollIntoViewingArea(current, scrollContainerRef.current)
             }
         }
@@ -234,26 +243,45 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }
 
 
-    return loading ? (
-        <Box p={3} display="flex" justifyContent="center">
-            <Spinner />
-        </Box>
-    ) : (
-        <div ref={listContainerRef}>
-            {allItemsToRender.length ? (
-                <ActionList
-                    selectionVariant="multiple"
-                    // have to typecast to `ItemProps` because we have an extra property 
-                    // on `items` for Autocomplete: `metadata`
-                    items={allItemsToRender as ItemProps[]}
-                    role="listbox"
-                    id={`${id}-listbox`}
-                    aria-labelledby={ariaLabelledBy}
-                />
+    return (
+        <Box
+            sx={!showMenu ? {
+                // visually hides this label for sighted users
+                position: 'absolute',
+                width: '1px',
+                height: '1px',
+                padding: '0',
+                margin: '-1px',
+                overflow: 'hidden',
+                clip: 'rect(0, 0, 0, 0)',
+                whiteSpace: 'nowrap',
+                borderWidth: '0',
+            } : {}}
+        >
+            {
+                loading ? (
+                    <Box p={3} display="flex" justifyContent="center">
+                        <Spinner />
+                    </Box>
                 ) : (
-                    <Box p={3}>{emptyStateText}</Box>
-                )}
-        </div>
+                    <div ref={listContainerRef}>
+                        {allItemsToRender.length ? (
+                            <ActionList
+                                selectionVariant="multiple"
+                                // have to typecast to `ItemProps` because we have an extra property 
+                                // on `items` for Autocomplete: `metadata`
+                                items={allItemsToRender as ItemProps[]}
+                                role="listbox"
+                                id={`${id}-listbox`}
+                                aria-labelledby={ariaLabelledBy}
+                            />
+                            ) : (
+                                <Box p={3}>{emptyStateText}</Box>
+                            )}
+                    </div>
+                )
+            }
+        </Box>
     )
 }
 

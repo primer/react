@@ -9,6 +9,7 @@ import AutocompleteOverlay from './AutocompleteOverlay';
 
 const Autocomplete: React.FC<{id?: string}> = ({ children, id: idProp }) => {
     const activeDescendantRef = useRef<HTMLElement>(null)
+    const scrollContainerRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const [inputValue, setInputValue] = useState<string>('')
     const [showMenu, setShowMenu] = useState(false)
@@ -25,6 +26,7 @@ const Autocomplete: React.FC<{id?: string}> = ({ children, id: idProp }) => {
         inputRef,
         inputValue,
         isMenuDirectlyActivated,
+        scrollContainerRef,
         selectedItemLength,
         setAutocompleteSuggestion,
         setInputValue,

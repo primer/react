@@ -1,4 +1,4 @@
-import React, { RefObject, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useAnchoredPosition } from '../hooks'
 import Overlay, { OverlayProps } from '../Overlay'
 import { ComponentProps } from '../utils/types'
@@ -10,7 +10,7 @@ type AutocompleteOverlayInternalProps = {
   /**
    * The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input
    */
-  menuAnchorRef?: React.RefObject<Element>
+  menuAnchorRef?: React.RefObject<HTMLElement>
   /**
    * Props to be spread on the internal `Overlay` component.
    */
@@ -25,11 +25,11 @@ const AutocompleteOverlay: React.FC<AutocompleteOverlayInternalProps> = ({
 }) => {
     const {
         inputRef,
+        scrollContainerRef,
         selectedItemLength,
         setShowMenu,
         showMenu = false,
     } = useContext(AutocompleteContext)
-    const scrollContainerRef = useRef<HTMLDivElement>(null)
     const {floatingElementRef, position} = useAnchoredPosition(
         {
             side: 'outside-bottom',
@@ -55,11 +55,12 @@ const AutocompleteOverlay: React.FC<AutocompleteOverlayInternalProps> = ({
             top={position?.top}
             left={position?.left}
             visibility={showMenu ? 'visible' : 'hidden'}
+            sx={{
+                overflow: "auto"
+            }}
             {...overlayProps}
         >
-            <Box height="100%" overflow="auto">
-                {children}
-            </Box>
+            {children}
         </Overlay>
     )
 }
