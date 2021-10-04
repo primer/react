@@ -65,10 +65,10 @@ const variants = variant<
 })
 
 const TokenBase = styled.span.attrs<TokenBaseProps>(({text, handleRemove, onKeyUp}) => ({
-  onKeyUp: (e: KeyboardEvent<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>) => {
-    onKeyUp && onKeyUp(e)
+  onKeyUp: (event: KeyboardEvent<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>) => {
+    onKeyUp && onKeyUp(event)
 
-    if ((e.key === 'Backspace' || e.key === 'Delete') && handleRemove) {
+    if ((event.key === 'Backspace' || event.key === 'Delete') && handleRemove) {
       handleRemove()
     }
   },
