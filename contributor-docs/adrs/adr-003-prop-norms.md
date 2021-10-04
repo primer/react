@@ -6,7 +6,7 @@ Proposed
 
 ## Context
 
-Today we have:
+Today our component prop APIs have:
 
 - Implicit conventions not documented anywhere but consistently reflected in our code (e.g., the type of the `sx` prop)
 - Explicit plans to change some of those (e.g., the deprecation of styled-system props)
@@ -37,6 +37,10 @@ Only components with a clear need for polymorphism should accept an `as` prop. R
 
 When passing an `as` prop to a component, it should be done in a way that is consistent with the component’s intended use.
 
+#### Additional context:
+
+- https://github.com/github/primer/discussions/130
+
 ### 🟡 DOM props: Limited
 
 All components that accept an `as` prop should accept the props for the element specified by the as prop. _Additionally_, some other elements (e.g., `<TextInput>`) should accept the props for their root HTML element when those props are fundamental to the component’s function.
@@ -47,7 +51,9 @@ Components should not accept styled system props (except our utility components:
 
 _Reasoning:_ Utility components are meant to provide a convenient API for writing styles (including styles that reference theme and other context managed within Primer). Non-utility components implement specific design patterns where additional styling is available for exceptional cases.
 
-- Context: https://github.com/github/primer/discussions/132
+#### Additional context:
+
+- https://github.com/github/primer/discussions/132
 
 ### 🔴 `theme`
 
@@ -55,11 +61,11 @@ Components should not accept a `theme` prop (with the exception of `ThemeProvide
 
 _Reasoning:_ The `theme` prop doesn't enable anything that can't be done with `<ThemeProvider>`, and promotes the anti-pattern of per-component theme overrides.
 
-### ❓ `children`
+### 🟡 `children`
 
 TK What can we say about children? What conventions do we expect when a components accepts children, but of a certain type?
 
-## Sequencing
+### Sequencing
 
 1. Deprecate unwanted props (should be done? Let's verify.)
 1. Release an eslint rule to disallow system props
