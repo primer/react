@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useAnchoredPosition } from '../hooks'
 import Overlay, { OverlayProps } from '../Overlay'
 import { ComponentProps } from '../utils/types'
-import { Box } from '../'
 import { AutocompleteContext } from './AutocompleteContext'
 import { useCombinedRefs } from '../hooks/useCombinedRefs'
 
@@ -41,9 +40,9 @@ const AutocompleteOverlay: React.FC<AutocompleteOverlayInternalProps> = ({
 
     const combinedOverlayRef = useCombinedRefs(scrollContainerRef, floatingElementRef)
 
-    const closeOptionList = () => {
+    const closeOptionList = useCallback(() => {
         setShowMenu && setShowMenu(false)
-    }
+    }, [setShowMenu])
 
     return (
         <Overlay

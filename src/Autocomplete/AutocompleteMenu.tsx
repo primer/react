@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { ActionList, ItemProps } from '../ActionList'
 import { useFocusZone } from '../hooks/useFocusZone'
 import { ComponentProps, MandateProps } from '../utils/types'
 import { Box, Spinner } from '../'
-import { registerPortalRoot } from '../Portal'
 import { AutocompleteContext } from './AutocompleteContext'
 import { PlusIcon } from '@primer/octicons-react'
 import { uniqueId } from '../utils/uniqueId'
 import { scrollIntoViewingArea } from '../utils/scrollIntoViewingArea'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
-
-const DROPDOWN_PORTAL_CONTAINER_NAME = '__listcontainerportal__'
 
 const getDefaultSortFn = (isItemSelectedFn: (itemId: string | number) => boolean) => 
     (itemIdA: string | number, itemIdB: string | number) => isItemSelectedFn(itemIdA) === isItemSelectedFn(itemIdB)
@@ -31,12 +28,18 @@ function getDefaultItemFilter<T extends MandateProps<ItemProps, 'id'>>(filterVal
     }
 }
 
-const getDefaultOnSelectionChange = <T extends MandateProps<ItemProps, 'id'>>(setInputValueFn?: React.Dispatch<React.SetStateAction<string>>): (OnSelectedChange<T> | undefined) => {
+function  getDefaultOnSelectionChange<T extends MandateProps<ItemProps, 'id'>>(setInputValueFn?: React.Dispatch<React.SetStateAction<string>>): (OnSelectedChange<T> | undefined) {
     return function (itemOrItems) {
         const { text = '' } = Array.isArray(itemOrItems) ? itemOrItems.slice(-1)[0] : itemOrItems
         setInputValueFn && setInputValueFn(text)
     }
 }
+
+const isItemSelected = (itemId: string | number, selectedItemIds: Array<string | number>) => selectedItemIds.includes(itemId)
+
+function getItemById<T extends MandateProps<ItemProps, 'id'>>(itemId: string | number, items: T[]) { 
+    return items.find(item => item.id === itemId)
+};
 
 type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'id'> & { metadata?: T }
 
@@ -128,11 +131,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     const [highlightedItem, setHighlightedItem] = useState<T>()
     const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id}) => id))
 
-    const isItemSelected = (itemId: string | number) => selectedItemIds.includes(itemId)
-    
-    const getItemById = (itemId: string | number) => items.find(item => item.id === itemId);
-
-    const selectableItems = items.map((selectableItem) => {
+    const selectableItems = useMemo(() => items.map((selectableItem) => {
         return ({
             ...selectableItem,
             role: "option",
@@ -142,7 +141,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                 const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
                 const newSelectedItemIds = selectedItemIds.includes(item.id) ? otherSelectedItemIds : [...otherSelectedItemIds, item.id]
 
-                onSelectedChange && onSelectedChange(newSelectedItemIds.map(getItemById) as T[])
+                onSelectedChange && onSelectedChange(newSelectedItemIds.map((newSelectedItemId) => getItemById(newSelectedItemId, items)) as T[])
 
                 if (selectionVariant === 'multiple') {
                     setInputValue && setInputValue('')
@@ -153,20 +152,22 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                 }
             }
         })
-    })
+    }), [items, selectedItemIds])
 
-    const itemSortOrderData = sortedItemIds.reduce<Record<string | number, number>>((acc, curr, i) => {
+    const itemSortOrderData = useMemo(() => sortedItemIds.reduce<Record<string | number, number>>((acc, curr, i) => {
         acc[curr] = i
 
         return acc
-    }, {})
+    }, {}), [sortedItemIds])
 
-    const sortedAndFilteredItemsToRender =
+    const sortedAndFilteredItemsToRender = useMemo(() =>
         selectableItems.filter(
             (item, i) => filterFn(item, i)
-        ).sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id])
+        ).sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id]),
+        [selectableItems]
+    )
 
-    const allItemsToRender = [
+    const allItemsToRender = useMemo(() => [
         // sorted and filtered selectable items
         ...sortedAndFilteredItemsToRender,
 
@@ -187,7 +188,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
             }]
             : []
         )
-    ]
+    ], [sortedAndFilteredItemsToRender, addNewItem])
 
     useFocusZone({
         containerRef: listContainerRef,
@@ -228,20 +229,21 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }, [highlightedItem, inputValue])
 
     useEffect(() => {
-        setSortedItemIds(
-            [...sortedItemIds].sort(sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(isItemSelected))
-        )
+        if (showMenu === false) {
+            setSortedItemIds(
+                [...sortedItemIds].sort(sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn((itemId) => isItemSelected(itemId, selectedItemIds)))
+            )
+        }
         onOpenChange && onOpenChange(Boolean(showMenu))
     }, [showMenu])
 
     useEffect(() => {
-        setSelectedItemLength && setSelectedItemLength(selectedItemIds.length)
+        if (selectedItemIds.length) {
+            setSelectedItemLength && setSelectedItemLength(selectedItemIds.length)
+        }
     }, [selectedItemIds])
 
-    if (listContainerRef.current) {
-        registerPortalRoot(listContainerRef.current, DROPDOWN_PORTAL_CONTAINER_NAME)
-    }
-
+    console.log('AutocompleteMenu re-rendering')
 
     return (
         <Box

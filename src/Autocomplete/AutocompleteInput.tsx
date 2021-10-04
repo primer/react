@@ -42,12 +42,12 @@ const AutocompleteInput = React.forwardRef(
         const combinedInputRef = useCombinedRefs(inputRef, forwardedRef)
         const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
 
-        const handleInputFocus: FocusEventHandler<HTMLInputElement> = (e) => {
+        const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback((e) => {
             onFocus && onFocus(e)
             setShowMenu && setShowMenu(true)
-        }
+        }, [onFocus, setShowMenu])
 
-        const handleInputBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+        const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback((e) => {
             onBlur && onBlur(e)
 
             // HACK: wait a tick and check the focused element before hiding the autocomplete menu
@@ -58,18 +58,18 @@ const AutocompleteInput = React.forwardRef(
                     setShowMenu && setShowMenu(false)
                 }
             }, 0)
-        }
+        }, [onBlur, setShowMenu])
 
-        const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
             onChange && onChange(e)
             setInputValue && setInputValue(e.currentTarget.value)
 
             if (!showMenu) {
                 setShowMenu && setShowMenu(true)
             }
-        }
+        }, [onChange, setInputValue, setShowMenu, showMenu])
 
-        const handleInputKeyDown: KeyboardEventHandler = (e) => {
+        const handleInputKeyDown: KeyboardEventHandler = useCallback((e) => () => {
             if (e.key === 'Backspace') {
                 setHighlightRemainingText(false)
             }
@@ -78,7 +78,7 @@ const AutocompleteInput = React.forwardRef(
                 setInputValue && setInputValue('')
                 inputRef.current.value = ''
             }
-        }
+        }, [setInputValue])
 
         const handleInputKeyUp: KeyboardEventHandler = (e) => {
             if (e.key === 'Backspace') {
