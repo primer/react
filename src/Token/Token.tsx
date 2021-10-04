@@ -1,4 +1,4 @@
-import React, {forwardRef, KeyboardEventHandler, MouseEventHandler} from 'react'
+import React, {forwardRef, MouseEventHandler} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
@@ -8,7 +8,7 @@ export interface TokenProps extends TokenBaseProps {
   /**
    * A function that renders a component before the token text
    */
-  leadingVisual?: React.FunctionComponent<any>
+  leadingVisual?: React.ComponentType<any>
   /**
    * Whether the remove button should be rendered in the token
    */
@@ -47,22 +47,22 @@ const LeadingVisualContainer = styled('span')`
 `
 
 const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps>((props, forwardedRef) => {
-  const {as, handleRemove, id, leadingVisual: LeadingVisual, ref, text, variant, hideRemoveButton, ...rest} = props
-  const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(handleRemove) && !hideRemoveButton
-  const handleRemoveClick: MouseEventHandler = e => {
+  const {as, onRemove, id, leadingVisual: LeadingVisual, ref, text, size, hideRemoveButton, ...rest} = props
+  const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
+  const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
-    handleRemove && handleRemove()
+    onRemove && onRemove()
   }
 
   return (
     <DefaultTokenStyled
       as={as}
-      handleRemove={handleRemove}
-      hideRemoveButton={hideRemoveButton || !handleRemove}
+      onRemove={onRemove}
+      hideRemoveButton={hideRemoveButton || !onRemove}
       id={id?.toString()}
       text={text}
       ref={forwardedRef}
-      variant={variant}
+      size={size}
       {...rest}
     >
       {LeadingVisual ? (
@@ -71,13 +71,13 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
         </LeadingVisualContainer>
       ) : null}
       <TokenTextContainer>{text}</TokenTextContainer>
-      {!hideRemoveButton && handleRemove ? (
+      {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
           parentTokenTag={as || 'span'}
-          onClick={handleRemoveClick}
-          variant={variant}
-          parentTokenIsInteractive={isTokenInteractive(props)}
+          onClick={onRemoveClick}
+          size={size}
+          isParentInteractive={isTokenInteractive(props)}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
         />
       ) : null}

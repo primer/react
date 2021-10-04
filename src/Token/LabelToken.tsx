@@ -27,7 +27,7 @@ const colorModeConfigs: Record<string, ColorModeConfig> = {
   }
 }
 
-export interface TokenLabelProps extends TokenBaseProps {
+export interface LabelTokenProps extends TokenBaseProps {
   /**
    * The color that corresponds to the label
    */
@@ -46,7 +46,7 @@ interface LabelStyleProps {
 
 const tokenBorderWidthPx = 1
 
-const StyledTokenLabel = styled(TokenBase)<TokenLabelProps & LabelStyleProps>`
+const StyledLabelToken = styled(TokenBase)<LabelTokenProps & LabelStyleProps>`
   background-color: ${props => props.bgColor};
   border-width: ${tokenBorderWidthPx}px;
   border-style: solid;
@@ -84,8 +84,8 @@ const TokenTextContainer = styled('span')`
   white-space: nowrap;
 `
 
-const TokenLabel = forwardRef<HTMLElement, TokenLabelProps>((props, forwardedRef) => {
-  const {as, fillColor, handleRemove, id, isSelected, ref, text, variant, hideRemoveButton, ...rest} = props
+const LabelToken = forwardRef<HTMLElement, LabelTokenProps>((props, forwardedRef) => {
+  const {as, fillColor, onRemove, id, isSelected, ref, text, size, hideRemoveButton, ...rest} = props
   const {colorScheme} = useTheme()
   const {bgOpacity, borderOpacity, borderThreshold, lightnessThreshold} = colorModeConfigs[colorScheme || 'light']
   let bgColor = fillColor
@@ -132,14 +132,14 @@ const TokenLabel = forwardRef<HTMLElement, TokenLabelProps>((props, forwardedRef
     }
   }
 
-  const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(handleRemove) && !hideRemoveButton
-  const handleRemoveClick: MouseEventHandler = e => {
+  const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
+  const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
-    handleRemove && handleRemove()
+    onRemove && onRemove()
   }
 
   return (
-    <StyledTokenLabel
+    <StyledLabelToken
       // specific to labels
       fillColor={fillColor}
       bgColor={bgColor}
@@ -147,32 +147,32 @@ const TokenLabel = forwardRef<HTMLElement, TokenLabelProps>((props, forwardedRef
       textColor={textColor}
       // common token props
       as={as}
-      hideRemoveButton={hideRemoveButton || !handleRemove}
-      handleRemove={handleRemove}
+      hideRemoveButton={hideRemoveButton || !onRemove}
+      onRemove={onRemove}
       id={id?.toString()}
       isSelected={isSelected}
       ref={forwardedRef}
       text={text}
-      variant={variant}
+      size={size}
       {...rest}
     >
       <TokenTextContainer>{text}</TokenTextContainer>
-      {!hideRemoveButton && handleRemove ? (
+      {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
           parentTokenTag={as || 'span'}
           tabIndex={-1}
-          onClick={handleRemoveClick}
-          variant={variant}
+          onClick={onRemoveClick}
+          size={size}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
         />
       ) : null}
-    </StyledTokenLabel>
+    </StyledLabelToken>
   )
 })
 
-TokenLabel.defaultProps = {
+LabelToken.defaultProps = {
   fillColor: '#999'
 }
 
-export default TokenLabel
+export default LabelToken

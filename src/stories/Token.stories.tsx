@@ -7,7 +7,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 import Token from '../Token/Token'
 import TokenProfile from '../Token/TokenProfile'
-import TokenLabel from '../Token/TokenLabel'
+import LabelToken from '../Token/LabelToken'
 import Text from '../Text'
 
 export default {
@@ -75,15 +75,15 @@ export const defaultToken = () => (
         <Token as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
       </Box>
     </SingleExampleContainer>
-    <SingleExampleContainer label="w/ handleRemove passed">
+    <SingleExampleContainer label="w/ onRemove passed">
       <Token
         text="Default Token"
-        handleRemove={() => {
+        onRemove={() => {
           console.log('remove me')
         }}
       />
     </SingleExampleContainer>
-    <SingleExampleContainer label="w/ handleRemove passed and the token is clickable">
+    <SingleExampleContainer label="w/ onRemove passed and the token is clickable">
       <Box
         display="flex"
         sx={{
@@ -95,7 +95,7 @@ export const defaultToken = () => (
           as="a"
           href="http://google.com/"
           text="Link"
-          handleRemove={() => {
+          onRemove={() => {
             console.log('remove me')
           }}
         />
@@ -103,7 +103,7 @@ export const defaultToken = () => (
           as="button"
           onClick={() => console.log('clicked')}
           text="Button"
-          handleRemove={() => {
+          onRemove={() => {
             console.log('remove me')
           }}
         />
@@ -112,7 +112,7 @@ export const defaultToken = () => (
           tabIndex={0}
           onFocus={() => console.log('focused')}
           text="Focusable Span"
-          handleRemove={() => {
+          onRemove={() => {
             console.log('remove me')
           }}
         />
@@ -130,21 +130,21 @@ export const defaultToken = () => (
 export const profileToken = () => (
   <ExampleCollectionContainer>
     <SingleExampleContainer label="Resting">
-      <TokenProfile variant="lg" avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Mike Perrotti" />
+      <TokenProfile size="lg" avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Mike Perrotti" />
     </SingleExampleContainer>
-    <SingleExampleContainer label="w/ handleRemove passed">
+    <SingleExampleContainer label="w/ onRemove passed">
       <TokenProfile
-        variant="lg"
+        size="lg"
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         text="Mike Perrotti"
-        handleRemove={() => {
+        onRemove={() => {
           console.log('remove me')
         }}
       />
     </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
       <TokenProfile
-        variant="lg"
+        size="lg"
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         text="Mike Perrotti"
         isSelected={true}
@@ -163,9 +163,9 @@ export const labelToken = () => (
           gap: get('space.2')
         }}
       >
-        <TokenLabel as="a" href="http://google.com/" text="Link" />
-        <TokenLabel as="button" onClick={() => console.log('clicked')} text="Button" />
-        <TokenLabel as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
+        <LabelToken as="a" href="http://google.com/" text="Link" />
+        <LabelToken as="button" onClick={() => console.log('clicked')} text="Button" />
+        <LabelToken as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
       </Box>
     </SingleExampleContainer>
     <SingleExampleContainer label="Interactive (#656BFE fill color passed)">
@@ -176,9 +176,9 @@ export const labelToken = () => (
           gap: get('space.2')
         }}
       >
-        <TokenLabel fillColor="#656BFE" as="a" href="http://google.com/" text="Link" />
-        <TokenLabel fillColor="#656BFE" as="button" onClick={() => console.log('clicked')} text="Button" />
-        <TokenLabel
+        <LabelToken fillColor="#656BFE" as="a" href="http://google.com/" text="Link" />
+        <LabelToken fillColor="#656BFE" as="button" onClick={() => console.log('clicked')} text="Button" />
+        <LabelToken
           fillColor="#656BFE"
           as="span"
           tabIndex={0}
@@ -188,31 +188,31 @@ export const labelToken = () => (
       </Box>
     </SingleExampleContainer>
     <SingleExampleContainer label="Default (#656BFE fill color passed)">
-      <TokenLabel text="good first issue" fillColor="#656BFE" />
+      <LabelToken text="good first issue" fillColor="#656BFE" />
     </SingleExampleContainer>
-    <SingleExampleContainer label="handleRemove passed">
-      <TokenLabel
+    <SingleExampleContainer label="onRemove passed">
+      <LabelToken
         text="good first issue"
         fillColor="#656BFE"
-        handleRemove={() => {
+        onRemove={() => {
           console.log('remove me')
         }}
       />
     </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
-      <TokenLabel
+      <LabelToken
         text="good first issue"
         fillColor="#656BFE"
         isSelected={true}
-        handleRemove={() => {
+        onRemove={() => {
           console.log('remove me')
         }}
       />
     </SingleExampleContainer>
     <SingleExampleContainer label="Automatically picks a readable text color based on fill color">
       <Box display="flex" sx={{gap: get('space.2')}}>
-        <TokenLabel text="good first issue" fillColor="#656BFE" />
-        <TokenLabel text="bug" fillColor="#FFF06C" />
+        <LabelToken text="good first issue" fillColor="#656BFE" />
+        <LabelToken text="bug" fillColor="#FFF06C" />
       </Box>
     </SingleExampleContainer>
   </ExampleCollectionContainer>
@@ -228,10 +228,10 @@ export const sizes = () => (
           gap: get('space.2')
         }}
       >
-        <Token variant="sm" text="SM Token" />
-        <Token variant="md" text="MD Token" />
-        <Token variant="lg" text="LG Token (default)" />
-        <Token variant="xl" text="XL Token" />
+        <Token size="sm" text="SM Token" />
+        <Token size="md" text="MD Token" />
+        <Token size="lg" text="LG Token (default)" />
+        <Token size="xl" text="XL Token" />
       </Box>
     </SingleExampleContainer>
   </ExampleCollectionContainer>

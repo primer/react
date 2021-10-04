@@ -15,15 +15,15 @@ const StyledToken = styled(Token)`
 `
 
 const TokenProfile = forwardRef<HTMLElement, TokenProfileProps>(
-  ({avatarSrc, id, ref, variant, ...rest}, forwardedRef) => (
+  ({avatarSrc, id, ref, size, ...rest}, forwardedRef) => (
     <StyledToken
       leadingVisual={() => (
         <Avatar
           src={avatarSrc}
-          size={tokenSizes[variant || defaultTokenSize] - parseInt(primitives.spacing.normal.spacer[1], 10) * 2}
+          size={parseInt(tokenSizes[size || defaultTokenSize], 10) - parseInt(primitives.spacing.normal.spacer[1], 10) * 2}
         />
       )}
-      variant={variant}
+      size={size}
       id={id?.toString()}
       ref={forwardedRef}
       {...rest}
