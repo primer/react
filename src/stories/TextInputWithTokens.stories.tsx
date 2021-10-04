@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import {Meta} from '@storybook/react'
 
 import { BaseStyles, Box, ThemeProvider } from '..'
-import TextInputTokens from '../TextInputWithTokens';
+import TextInputWithTokens from '../TextInputWithTokens';
 import TokenLabel from '../Token/TokenLabel';
 
 export default {
