@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 
-export type TokenSizeKeys = 'sm' | 'md' | 'lg' | 'xl'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
 export const tokenSizes: Record<TokenSizeKeys, string> = {
-  sm: '16px',
-  md: '20px',
-  lg: '24px',
-  xl: '32px'
+  small: '16px',
+  medium: '20px',
+  large: '24px',
+  xlarge: '32px'
 }
 
-export const defaultTokenSize = 'md'
+export const defaultTokenSize: TokenSizeKeys = 'medium'
 
 export interface TokenBaseProps
   extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
@@ -34,12 +34,12 @@ const variants = variant<
 >({
   prop: 'size',
   variants: {
-    sm: {
+    small: {
       fontSize: 0,
       gap: 1,
-      height: tokenSizes.sm,
+      height: tokenSizes.small,
       // without setting lineHeight to match height, the "x" appears vertically mis-aligned
-      lineHeight: tokenSizes.sm,
+      lineHeight: tokenSizes.small,
       paddingLeft: 1,
       paddingRight: 1,
       // need to explicitly set padding top and bottom to "0" to override default `<button>` element styles
@@ -47,31 +47,31 @@ const variants = variant<
       paddingTop: 0,
       paddingBottom: 0
     },
-    md: {
+    medium: {
       fontSize: 0,
       gap: 1,
-      height: tokenSizes.md,
-      lineHeight: tokenSizes.md,
+      height: tokenSizes.medium,
+      lineHeight: tokenSizes.medium,
       paddingLeft: 2,
       paddingRight: 2,
       paddingTop: 0,
       paddingBottom: 0
     },
-    lg: {
+    large: {
       fontSize: 0,
       gap: 2,
-      height: tokenSizes.lg,
-      lineHeight: tokenSizes.lg,
+      height: tokenSizes.large,
+      lineHeight: tokenSizes.large,
       paddingLeft: 2,
       paddingRight: 2,
       paddingTop: 0,
       paddingBottom: 0
     },
-    xl: {
+    xlarge: {
       fontSize: 1,
       gap: 2,
-      height: tokenSizes.xl,
-      lineHeight: tokenSizes.xl,
+      height: tokenSizes.xlarge,
+      lineHeight: tokenSizes.xlarge,
       paddingLeft: 3,
       paddingRight: 3,
       paddingTop: 0,

@@ -12,24 +12,27 @@ interface TokenButtonProps {
   isParentInteractive?: boolean
 }
 
-const variants = variant({
+const variants = variant<
+  {height: string; width: string;},
+  TokenSizeKeys
+>({
   prop: 'size',
   variants: {
-    sm: {
-      height: tokenSizes.sm,
-      width: tokenSizes.sm
+    small: {
+      height: tokenSizes.small,
+      width: tokenSizes.small
     },
-    md: {
-      height: tokenSizes.md,
-      width: tokenSizes.md
+    medium: {
+      height: tokenSizes.medium,
+      width: tokenSizes.medium
     },
-    lg: {
-      height: tokenSizes.lg,
-      width: tokenSizes.lg
+    large: {
+      height: tokenSizes.large,
+      width: tokenSizes.large
     },
-    xl: {
-      height: tokenSizes.xl,
-      width: tokenSizes.xl
+    xlarge: {
+      height: tokenSizes.xlarge,
+      width: tokenSizes.xlarge
     }
   }
 })

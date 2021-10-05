@@ -130,11 +130,11 @@ export const defaultToken = () => (
 export const profileToken = () => (
   <ExampleCollectionContainer>
     <SingleExampleContainer label="Resting">
-      <ProfileToken size="lg" avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Mike Perrotti" />
+      <ProfileToken size="large" avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Mike Perrotti" />
     </SingleExampleContainer>
     <SingleExampleContainer label="w/ onRemove passed">
       <ProfileToken
-        size="lg"
+        size="large"
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         text="Mike Perrotti"
         onRemove={() => {
@@ -144,7 +144,7 @@ export const profileToken = () => (
     </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
       <ProfileToken
-        size="lg"
+        size="large"
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         text="Mike Perrotti"
         isSelected={true}
@@ -263,10 +263,10 @@ export const sizes = () => (
           gap: get('space.2')
         }}
       >
-        <Token size="sm" text="SM Token" />
-        <Token size="md" text="MD Token" />
-        <Token size="lg" text="LG Token (default)" />
-        <Token size="xl" text="XL Token" />
+        <Token size="small" text="'small' Token" />
+        <Token size="medium" text="'medium' Token" />
+        <Token size="large" text="'large' Token (default)" />
+        <Token size="xlarge" text="'xlarge' Token" />
       </Box>
     </SingleExampleContainer>
   </ExampleCollectionContainer>
