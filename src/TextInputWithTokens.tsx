@@ -89,7 +89,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
 
   const handleTokenKeyUp: KeyboardEventHandler = e => {
     if (e.key === 'Escape') {
-      ref?.current?.focus()
+      ref.current?.focus()
     }
   }
 
@@ -102,7 +102,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
       onKeyDown(e)
     }
 
-    if (ref?.current?.value) {
+    if (ref.current?.value) {
       return
     }
 
@@ -111,7 +111,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
     if (e.key === 'Backspace' && lastToken) {
       onTokenRemove(lastToken.id)
 
-      if (ref?.current) {
+      if (ref.current) {
         // TODO: eliminate the first hack by making changes to the Autocomplete component
         //
         // HACKS:
@@ -123,7 +123,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
 
       // HACK: for some reason we need to wait a tick for `.select()` to work
       setTimeout(() => {
-        ref?.current?.select()
+        ref.current?.select()
       }, 1)
     }
   }
@@ -141,7 +141,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
           {...inputPropsRest}
         />
       </InputWrapper>
-      {tokens?.length && TokenComponent
+      {tokens.length && TokenComponent
         ? tokens.map(({id, ...tokenRest}, i) => (
             <TokenComponent
               key={id}
@@ -198,7 +198,7 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
           return combinedInputRef.current || undefined
         }
 
-        return containerRef?.current?.children[nextIndex] as HTMLElement
+        return containerRef.current?.children[nextIndex] as HTMLElement
       }
     },
     [selectedTokenIdx]
@@ -208,7 +208,7 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
     onTokenRemove(tokenId)
 
     if (selectedTokenIdx) {
-      const nextElementToFocus = containerRef?.current?.children[selectedTokenIdx] as HTMLElement
+      const nextElementToFocus = containerRef.current?.children[selectedTokenIdx] as HTMLElement
       nextElementToFocus.focus()
     }
   }

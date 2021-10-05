@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import sx from './sx'
 
 const UnstyledTextInput = styled.input`
@@ -16,4 +16,4 @@ const UnstyledTextInput = styled.input`
   ${sx};
 `
 
-export default UnstyledTextInput;
+export default UnstyledTextInput
