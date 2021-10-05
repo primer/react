@@ -79,8 +79,8 @@ const TextInputWithTokensComponent = React.forwardRef<HTMLInputElement, TextInpu
     const ref = useProvidedRefOrCreate<HTMLInputElement>(externalRef as React.RefObject<HTMLInputElement>)
     const { onFocus, onKeyDown, ...inputPropsRest } = omit(rest)
 
-    const handleTokenFocus: (tokenIdx: number) => FocusEventHandler = (tokenIdx) => () => {
-        setSelectedTokenIdx(tokenIdx)
+    const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = (tokenIndex) => () => {
+        setSelectedTokenIdx(tokenIndex)
     }
 
     const handleTokenBlur: FocusEventHandler = () => {
