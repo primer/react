@@ -161,6 +161,9 @@ export function SelectPanel({
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
         textInputProps={extendedTextInputProps}
         inputRef={inputRef}
+        // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+        // than the Overlay (which would break scrolling the items)
+        sx={{height: 'inherit', maxHeight: 'inherit'}}
       />
     </AnchoredOverlay>
   )
