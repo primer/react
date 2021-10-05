@@ -16,8 +16,6 @@ const InputWrapper = styled.div`
   flex-grow: 1;
 `
 
-// type AnyTokenProps = Partial<TokenProps & IssueLabelTokenProps & ProfileTokenProps>
-// type TokenDatum = MandateProps<AnyTokenProps, 'id' | 'text'>
 type TextInputWithTokensInternalProps<TokenComponentType extends React.ComponentType<any>> = {
   /**
    * The array of tokens to render
@@ -51,7 +49,8 @@ type TextInputWithTokensInternalProps<TokenComponentType extends React.Component
   hideTokenRemoveButtons?: boolean
 } & TextInputProps
 
-// using forwardRef is important so that other components (ex. Autocomplete) can use the ref
+// The inner contents of `TextInputWithTokens` are separated so they may be passed to the `as`
+// prop of the `TextInput` component
 function TextInputWithTokensInnerComponent<TokenComponentType extends React.ComponentType<any>>(
   {
     icon: IconComponent,
@@ -163,6 +162,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
   )
 }
 
+// using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 const TextInputWithTokensInnerComponentWithRef = React.forwardRef(TextInputWithTokensInnerComponent)
 
 function TextInputWithTokensComponent<TokenComponentType extends React.ComponentType<any>>(
@@ -244,6 +244,7 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
   )
 }
 
+// using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 const TextInputWithTokens = React.forwardRef(TextInputWithTokensComponent)
 
 TextInputWithTokens.defaultProps = {
