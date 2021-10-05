@@ -38,6 +38,12 @@ const mockTokens = [
   { text: 'one', id: 1 },
 ];
 
+const mockLabelTokens = [
+  { text: 'enhancement', id: 1, fillColor: '#a2eeef' },
+  { text: 'bug', id: 2, fillColor: '#d73a4a' },
+  { text: 'good first issue', id: 3, fillColor: '#0cf478' }
+];
+
 export const Default = () => {
     const [tokens, setTokens] = useState(mockTokens)
     const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {
@@ -45,7 +51,7 @@ export const Default = () => {
     };
 
     return (
-      <TextInputTokens
+      <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
       />
@@ -60,22 +66,22 @@ export const TokenSizeVariants = () => {
 
   return (
     <Box display="flex" flexDirection="column" sx={{'gap': '1em'}}>
-      <TextInputTokens
+      <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
           tokenSizeVariant="sm"
       />
-      <TextInputTokens
+      <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
           tokenSizeVariant="md"
       />
-      <TextInputTokens
+      <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
           tokenSizeVariant="lg"
       />
-      <TextInputTokens
+      <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
           tokenSizeVariant="xl"
@@ -85,19 +91,15 @@ export const TokenSizeVariants = () => {
 };
 
 export const UsingIssueLabelTokens = () => {
-  const [tokens, setTokens] = useState(mockTokens)
+  const [tokens, setTokens] = useState(mockLabelTokens)
   const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {
       setTokens(tokens.filter(token => token.id !== tokenId))
   };
 
   return (
-    <TextInputTokens
+    <TextInputWithTokens
         tokenComponent={TokenLabel}
-        tokens={[
-          { text: 'enhancement', id: 1, fillColor: '#a2eeef' },
-          { text: 'bug', id: 2, fillColor: '#d73a4a' },
-          { text: 'good first issue', id: 3, fillColor: '#0cf478' }
-        ]}
+        tokens={tokens}
         onTokenRemove={onTokenRemove}
     />
   )
@@ -111,7 +113,7 @@ export const Unstyled = () => {
   };
 
   return (
-    <TextInputTokens
+    <TextInputWithTokens
         tokens={tokens}
         onTokenRemove={onTokenRemove}
         onChange={(e) => {
