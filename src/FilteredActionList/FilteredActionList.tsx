@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
-import { scrollIntoViewingArea } from '../utils/scrollIntoViewingArea'
+import {scrollIntoViewingArea} from '../utils/scrollIntoViewingArea'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -91,7 +91,14 @@ export function FilteredActionList({
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
     if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoViewingArea(activeDescendantRef.current, scrollContainerRef.current, 'vertical', undefined, undefined, 'auto')
+      scrollIntoViewingArea(
+        activeDescendantRef.current,
+        scrollContainerRef.current,
+        'vertical',
+        undefined,
+        undefined,
+        'auto'
+      )
     }
   }, [items])
 

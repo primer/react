@@ -4,7 +4,7 @@ import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useSSRSafeId} from '@react-aria/ssr'
-import { PositionSettings } from '../behaviors/anchoredPosition'
+import {PositionSettings} from '../behaviors/anchoredPosition'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -129,7 +129,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
       anchorElementRef: anchorRef,
       floatingElementRef: overlayRef,
       side,
-      align,
+      align
     },
     [overlayRef.current]
   )
@@ -187,5 +187,5 @@ AnchoredOverlay.displayName = 'AnchoredOverlay'
 
 AnchoredOverlay.defaultProps = {
   side: 'outside-bottom',
-  align: 'start',
+  align: 'start'
 }

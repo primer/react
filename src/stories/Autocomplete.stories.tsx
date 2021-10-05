@@ -1,11 +1,11 @@
-import React, { ChangeEventHandler, RefObject, useCallback, useRef, useState } from 'react'
-import { Meta } from '@storybook/react'
+import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
+import {Meta} from '@storybook/react'
 
-import { BaseStyles, Box, Text, TextInput, ThemeProvider } from '..'
+import {BaseStyles, Box, Text, TextInput, ThemeProvider} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
-import { AnchoredOverlay } from '../AnchoredOverlay'
-import { ButtonInvisible } from '../Button'
+import {AnchoredOverlay} from '../AnchoredOverlay'
+import {ButtonInvisible} from '../Button'
 
 type ItemMetadata = {
   fillColor: React.CSSProperties['backgroundColor']
@@ -36,35 +36,35 @@ function getColorCircle(color: string) {
 }
 
 const items: Datum[] = [
-    { text: 'zero', id: 0 },
-    { text: 'one', id: 1 },
-    { text: 'twe', id: 22 },
-    { text: 'two', id: 2 },
-    { text: 'twb', id: 23 },
-    { text: 'three', id: 3 },
-    { text: 'four', id: 4 },
-    { text: 'five', id: 5 },
-    { text: 'six', id: 6 },
-    { text: 'seven', id: 7 },
-    { text: 'twenty', id: 20 },
-    { text: 'twentyone', id: 21 }
+  {text: 'zero', id: 0},
+  {text: 'one', id: 1},
+  {text: 'twe', id: 22},
+  {text: 'two', id: 2},
+  {text: 'twb', id: 23},
+  {text: 'three', id: 3},
+  {text: 'four', id: 4},
+  {text: 'five', id: 5},
+  {text: 'six', id: 6},
+  {text: 'seven', id: 7},
+  {text: 'twenty', id: 20},
+  {text: 'twentyone', id: 21}
 ]
 
 const labelItems = [
-  { leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1, metadata: { fillColor: '#a2eeef' } },
-  { leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2, metadata: { fillColor: '#d73a4a' } },
-  { leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3, metadata: { fillColor: '#0cf478' } },
-  { leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4, metadata: { fillColor: '#ffd78e' } },
-  { leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5, metadata: { fillColor: '#ff0000' } },
-  { leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6, metadata: { fillColor: '#a4f287' } },
-  { leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: { fillColor: '#8dc6fc' } },
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1, metadata: {fillColor: '#a2eeef'}},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2, metadata: {fillColor: '#d73a4a'}},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3, metadata: {fillColor: '#0cf478'}},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4, metadata: {fillColor: '#ffd78e'}},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5, metadata: {fillColor: '#ff0000'}},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6, metadata: {fillColor: '#a4f287'}},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: {fillColor: '#8dc6fc'}}
 ]
 
 const mockTokens: Datum[] = [
-  { text: 'zero', id: 0 },
-  { text: 'one', id: 1 },
-  { text: 'three', id: 3 },
-  { text: 'four', id: 4 },
+  {text: 'zero', id: 0},
+  {text: 'one', id: 1},
+  {text: 'three', id: 3},
+  {text: 'four', id: 4}
 ]
 
 export default {
@@ -95,23 +95,20 @@ export default {
   ]
 } as Meta
 
-
 export const SingleSelect = () => {
   return (
-      <>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-        <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </>
-    )
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
 }
 
 export const MultiSelect = () => {
@@ -124,44 +121,46 @@ export const MultiSelect = () => {
     setSelectedItemIds(newlySelectedItems.map(item => item.id))
   }
 
-  const getItemById = (id: string | number) => items.find(item => item.id === id);
+  const getItemById = (id: string | number) => items.find(item => item.id === id)
 
   return (
-      <Box display="flex" sx={{gap: '1em'}}>
-        <div>
-          <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-          <Autocomplete>
-            <Autocomplete.Input id="autocompleteInput" />
-            <Autocomplete.Overlay>
-              <Autocomplete.Menu
-                items={items}
-                selectedItemIds={selectedItemIds}
-                aria-labelledby="autocompleteLabel"
-                onSelectedChange={onSelectedChange}
-                selectionVariant="multiple"
-              />
-            </Autocomplete.Overlay>
-          </Autocomplete>
-        </div>
-        <div>
-          <div>Selected items:</div>
-          <Box as="ul" my={0}>
-            {selectedItemIds.map(selectedItemId => (
-              <li>{getItemById(selectedItemId)?.text}</li>
-            ))}
-          </Box>
-        </div>
-      </Box>
-    )
+    <Box display="flex" sx={{gap: '1em'}}>
+      <div>
+        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+          Pick an option
+        </Box>
+        <Autocomplete>
+          <Autocomplete.Input id="autocompleteInput" />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu
+              items={items}
+              selectedItemIds={selectedItemIds}
+              aria-labelledby="autocompleteLabel"
+              onSelectedChange={onSelectedChange}
+              selectionVariant="multiple"
+            />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </div>
+      <div>
+        <div>Selected items:</div>
+        <Box as="ul" my={0}>
+          {selectedItemIds.map(selectedItemId => (
+            <li>{getItemById(selectedItemId)?.text}</li>
+          ))}
+        </Box>
+      </div>
+    </Box>
+  )
 }
 
 export const MultiSelectWithTokenInput = () => {
   const [tokens, setTokens] = useState<Datum[]>(mockTokens)
   const selectedTokenIds = tokens.map(token => token.id)
   const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>(selectedTokenIds)
-  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {
-      setTokens(tokens.filter(token => token.id !== tokenId))
-      setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+    setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
   }
   const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
     if (!Array.isArray(newlySelectedItems)) {
@@ -183,14 +182,11 @@ export const MultiSelectWithTokenInput = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick options</Box>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick options
+      </Box>
       <Autocomplete>
-        <Autocomplete.Input
-          as={TextInputTokens}
-          tokens={tokens}
-          onTokenRemove={onTokenRemove}
-          id="autocompleteInput"
-        />
+        <Autocomplete.Input as={TextInputTokens} tokens={tokens} onTokenRemove={onTokenRemove} id="autocompleteInput" />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={items}
@@ -206,14 +202,14 @@ export const MultiSelectWithTokenInput = () => {
 }
 
 export const MultiSelectAddNewItem = () => {
-  const [localItemsState, setLocalItemsState] = useState<Datum[]>(items);
-  const [filterVal, setFilterVal] = useState<string>('');
+  const [localItemsState, setLocalItemsState] = useState<Datum[]>(items)
+  const [filterVal, setFilterVal] = useState<string>('')
   const [tokens, setTokens] = useState<Datum[]>(mockTokens)
   const selectedTokenIds = tokens.map(token => token.id)
   const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>(selectedTokenIds)
-  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {
-      setTokens(tokens.filter(token => token.id !== tokenId))
-      setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+    setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
   }
   const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
     if (!Array.isArray(newlySelectedItems)) {
@@ -233,25 +229,24 @@ export const MultiSelectAddNewItem = () => {
     setTokens(newlySelectedItems.map(({id, text}) => ({id, text})))
   }
 
-  const onItemSelect: (item: Datum) => void = (item) => {
+  const onItemSelect: (item: Datum) => void = item => {
     onSelectedChange([...selectedItemIds.map(id => items.find(selectedItem => selectedItem.id === id) as Datum), item])
 
     if (!localItemsState.some((localItem, i) => localItem.id === item.id)) {
-      console.log('item', item);
-      setLocalItemsState([
-        ...localItemsState,
-        item,
-      ])
+      console.log('item', item)
+      setLocalItemsState([...localItemsState, item])
     }
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     setFilterVal(e.currentTarget.value)
-  };
+  }
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick options</Box>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick options
+      </Box>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputTokens}
@@ -263,21 +258,20 @@ export const MultiSelectAddNewItem = () => {
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             addNewItem={
-              filterVal && 
-              !localItemsState.map(localItem => localItem.text).includes(filterVal)
+              filterVal && !localItemsState.map(localItem => localItem.text).includes(filterVal)
                 ? {
-                  text: `Add '${filterVal}'`,
-                  handleAddItem: (item) => {
-                    onItemSelect({
-                      ...item,
-                      text: filterVal,
-                      selected: true,
-                      id: `newItem-${localItemsState.length}`
-                    })
-                    setFilterVal('');
+                    text: `Add '${filterVal}'`,
+                    handleAddItem: item => {
+                      onItemSelect({
+                        ...item,
+                        text: filterVal,
+                        selected: true,
+                        id: `newItem-${localItemsState.length}`
+                      })
+                      setFilterVal('')
+                    }
                   }
-                }
-              : undefined
+                : undefined
             }
             items={localItemsState}
             selectedItemIds={selectedItemIds}
@@ -293,47 +287,53 @@ export const MultiSelectAddNewItem = () => {
 
 export const CustomEmptyStateMessage = () => {
   return (
-      <>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-        <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
-              emptyStateText="Sorry, no matches"
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </>
-    )
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={items}
+            selectedItemIds={[]}
+            aria-labelledby="autocompleteLabel"
+            emptyStateText="Sorry, no matches"
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
 }
 
 export const CustomSearchFilter = () => {
-  const [filterVal, setFilterVal] = useState<string>('');
+  const [filterVal, setFilterVal] = useState<string>('')
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     setFilterVal(e.currentTarget.value)
-  };
-  const customFilterFn = (item: Datum) => item.text.includes(filterVal);
+  }
+  const customFilterFn = (item: Datum) => item.text.includes(filterVal)
 
   return (
     <>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-        <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" onChange={handleChange} />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
-              filterFn={customFilterFn}
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-        <Text fontSize={0} display="block" color="fg.subtle" mt={2}>Items in dropdown are filtered if their text has no part that matches the input value</Text>
-      </>
-    )
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" onChange={handleChange} />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={items}
+            selectedItemIds={[]}
+            aria-labelledby="autocompleteLabel"
+            filterFn={customFilterFn}
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+      <Text fontSize={0} display="block" color="fg.subtle" mt={2}>
+        Items in dropdown are filtered if their text has no part that matches the input value
+      </Text>
+    </>
+  )
 }
 
 export const CustomSortAfterMenuClose = () => {
@@ -346,15 +346,14 @@ export const CustomSortAfterMenuClose = () => {
 
     setSelectedItemIds(newlySelectedItems.map(item => item.id))
   }
-  const customSortFn = (itemIdA: string | number, itemIdB: string | number) => isItemSelected(itemIdA) === isItemSelected(itemIdB)
-      ? 0
-      : isItemSelected(itemIdA)
-          ? 1
-          : -1
+  const customSortFn = (itemIdA: string | number, itemIdB: string | number) =>
+    isItemSelected(itemIdA) === isItemSelected(itemIdB) ? 0 : isItemSelected(itemIdA) ? 1 : -1
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
         <Autocomplete.Overlay>
@@ -368,7 +367,9 @@ export const CustomSortAfterMenuClose = () => {
           />
         </Autocomplete.Overlay>
       </Autocomplete>
-      <Text fontSize={0} display="block" color="fg.subtle" mt={2}>When the dropdown closes, selected items are sorted to the end</Text>
+      <Text fontSize={0} display="block" color="fg.subtle" mt={2}>
+        When the dropdown closes, selected items are sorted to the end
+      </Text>
     </>
   )
 }
@@ -382,7 +383,9 @@ export const WithCallbackWhenOverlayOpenStateChanges = () => {
   return (
     <Box display="flex" sx={{gap: '1em'}}>
       <div>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
+        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+          Pick an option
+        </Box>
         <Autocomplete>
           <Autocomplete.Input id="autocompleteInput" />
           <Autocomplete.Overlay>
@@ -394,12 +397,12 @@ export const WithCallbackWhenOverlayOpenStateChanges = () => {
             />
           </Autocomplete.Overlay>
         </Autocomplete>
-        </div>
-        <div>
-          The menu is <strong>{isMenuOpen ? 'opened' : 'closed'}</strong>
-        </div>
-      </Box>
-    )
+      </div>
+      <div>
+        The menu is <strong>{isMenuOpen ? 'opened' : 'closed'}</strong>
+      </div>
+    </Box>
+  )
 }
 
 export const AsyncLoadingOfItems = () => {
@@ -411,117 +414,108 @@ export const AsyncLoadingOfItems = () => {
   }
 
   return (
-      <>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-        <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu
-              items={loadedItems}
-              selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
-              onOpenChange={onOpenChange}
-              loading={loadedItems.length === 0}
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </>
-    )
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={loadedItems}
+            selectedItemIds={[]}
+            aria-labelledby="autocompleteLabel"
+            onOpenChange={onOpenChange}
+            loading={loadedItems.length === 0}
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
 }
 
 export const RenderingTheMenuOutsideAnOverlay = () => {
   return (
-      <>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-        <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
-          <Autocomplete.Menu
-            items={items}
-            selectedItemIds={[]}
-            aria-labelledby="autocompleteLabel"
-          />
-        </Autocomplete>
-      </>
-    )
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+      </Autocomplete>
+    </>
+  )
 }
 
 export const CustomOverlayMenuAnchor = () => {
-  const menuAnchorRef = useRef<HTMLElement>(null);
+  const menuAnchorRef = useRef<HTMLElement>(null)
   const anchorWrapperStyles = {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     flexGrow: 1,
     flexShrink: 0,
-    flexBasis: "25%",
-    border: "1px solid black",
-    padding: "1em"
-  };
+    flexBasis: '25%',
+    border: '1px solid black',
+    padding: '1em'
+  }
 
   return (
     <>
-      <Box
-        as="label"
-        htmlFor="autocompleteInput"
-        id="autocompleteLabel"
-      >
-          Pick labels
+      <Box as="label" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick labels
       </Box>
-      <Box
-        {...anchorWrapperStyles}
-        ref={menuAnchorRef as React.RefObject<HTMLDivElement>}
-      >
+      <Box {...anchorWrapperStyles} ref={menuAnchorRef as React.RefObject<HTMLDivElement>}>
         <Autocomplete>
           <Autocomplete.Input
             as={TextInput}
             id="autocompleteInput"
             sx={{
-              'border': '0',
-              'padding': '0',
-              'boxShadow': 'none',
+              border: '0',
+              padding: '0',
+              boxShadow: 'none',
               ':focus-within': {
-                'border': '0',
-                'boxShadow': 'none',
+                border: '0',
+                boxShadow: 'none'
               }
             }}
           />
           <Autocomplete.Overlay menuAnchorRef={menuAnchorRef}>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
-            />
+            <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
           </Autocomplete.Overlay>
         </Autocomplete>
       </Box>
-      <Text fontSize={0} display="block" color="fg.subtle" mt={2}>The overlay menu's position is anchored to the div with the black border instead of to the text input</Text>
+      <Text fontSize={0} display="block" color="fg.subtle" mt={2}>
+        The overlay menu's position is anchored to the div with the black border instead of to the text input
+      </Text>
     </>
   )
-};
+}
 
 export const WithCustomOverlayProps = () => {
   return (
-      <>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">Pick an option</Box>
-        <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
-          <Autocomplete.Overlay overlayProps={{
-            width: "large",
-            height: "xsmall"
-          }}>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </>
-    )
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick an option
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Overlay
+          overlayProps={{
+            width: 'large',
+            height: 'xsmall'
+          }}
+        >
+          <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
 }
 
 export const WithCustomScrollContainerRef = () => {
-  const scrollContainerRef = useRef<HTMLElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const scrollContainerRef = useRef<HTMLElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => {
@@ -538,69 +532,64 @@ export const WithCustomScrollContainerRef = () => {
       height="xsmall"
       focusTrapSettings={{initialFocusRef: inputRef}}
       side="inside-top"
-      renderAnchor={props => (
-        <ButtonInvisible {...props}>
-          open overlay
-        </ButtonInvisible>
-      )}
-      
+      renderAnchor={props => <ButtonInvisible {...props}>open overlay</ButtonInvisible>}
     >
-        <Box
-          as="label"
-          display="block"
-          htmlFor="autocompleteInput"
-          id="autocompleteLabel"
-          sx={{
-            // visually hides this label for sighted users
-            position: 'absolute',
-            width: '1px',
-            height: '1px',
-            padding: '0',
-            margin: '-1px',
-            overflow: 'hidden',
-            clip: 'rect(0, 0, 0, 0)',
-            whiteSpace: 'nowrap',
-            borderWidth: '0',
-          }}
-        >
-          Pick options
-        </Box>
-        <Autocomplete>
-          <Box display="flex" flexDirection="column" height="100%">
-            <Box
-              paddingX="3"
-              paddingY="1"
-              borderWidth={0}
-              borderBottomWidth={1}
-              borderColor="border.default"
-              borderStyle="solid"
-            >
-              <Autocomplete.Input
-                as={TextInput}
-                ref={inputRef}
-                id="autocompleteInput"
-                sx={{
-                  'border': '0',
-                  'padding': '0',
-                  'boxShadow': 'none',
-                  ':focus-within': {
-                    'border': '0',
-                    'boxShadow': 'none',
-                  }
-                }}
-              />
-            </Box>
-            <Box overflow="auto" flexGrow={1} ref={scrollContainerRef as RefObject<HTMLDivElement>}>
-              <Autocomplete.Menu
-                items={items}
-                selectedItemIds={[]}
-                // onSelectedChange={onSelectedChange}
-                customScrollContainerRef={scrollContainerRef}
-                aria-labelledby="autocompleteLabel"
-              />
-            </Box>
+      <Box
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+        sx={{
+          // visually hides this label for sighted users
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: '0',
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          borderWidth: '0'
+        }}
+      >
+        Pick options
+      </Box>
+      <Autocomplete>
+        <Box display="flex" flexDirection="column" height="100%">
+          <Box
+            paddingX="3"
+            paddingY="1"
+            borderWidth={0}
+            borderBottomWidth={1}
+            borderColor="border.default"
+            borderStyle="solid"
+          >
+            <Autocomplete.Input
+              as={TextInput}
+              ref={inputRef}
+              id="autocompleteInput"
+              sx={{
+                border: '0',
+                padding: '0',
+                boxShadow: 'none',
+                ':focus-within': {
+                  border: '0',
+                  boxShadow: 'none'
+                }
+              }}
+            />
           </Box>
-        </Autocomplete>
+          <Box overflow="auto" flexGrow={1} ref={scrollContainerRef as RefObject<HTMLDivElement>}>
+            <Autocomplete.Menu
+              items={items}
+              selectedItemIds={[]}
+              // onSelectedChange={onSelectedChange}
+              customScrollContainerRef={scrollContainerRef}
+              aria-labelledby="autocompleteLabel"
+            />
+          </Box>
+        </Box>
+      </Autocomplete>
     </AnchoredOverlay>
   )
 }

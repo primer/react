@@ -143,7 +143,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       ignoreClickRefs,
       onClickOutside,
       initialFocusRef,
-      preventFocusOnOpen,
+      preventFocusOnOpen
     })
 
     useEffect(() => {
@@ -167,26 +167,24 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
         }
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
-    const styledOverlay = <StyledOverlay
-    height={height}
-    role={role}
-    {...rest}
-    ref={combinedRef}
-    style={
-      {
-        top: `${top || 0}px`,
-        left: `${left || 0}px`,
-        ...rest.style,
-        '--styled-overlay-visibility': visibility
-      } as React.CSSProperties
-    }
-  />;
-
-    return (
-      <Portal containerName={portalContainerName}>
-        {styledOverlay}
-      </Portal>
+    const styledOverlay = (
+      <StyledOverlay
+        height={height}
+        role={role}
+        {...rest}
+        ref={combinedRef}
+        style={
+          {
+            top: `${top || 0}px`,
+            left: `${left || 0}px`,
+            ...rest.style,
+            '--styled-overlay-visibility': visibility
+          } as React.CSSProperties
+        }
+      />
     )
+
+    return <Portal containerName={portalContainerName}>{styledOverlay}</Portal>
   }
 )
 
