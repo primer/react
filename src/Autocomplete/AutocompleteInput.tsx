@@ -88,7 +88,7 @@ const AutocompleteInput = React.forwardRef(
 
         const onInputKeyPress: KeyboardEventHandler = useCallback(
             event => {
-                if (activeDescendantRef && event.key === 'Enter' && activeDescendantRef.current) {
+                if (showMenu && activeDescendantRef && event.key === 'Enter' && activeDescendantRef.current) {
                     event.preventDefault()
                     event.nativeEvent.stopImmediatePropagation()
 
@@ -97,7 +97,7 @@ const AutocompleteInput = React.forwardRef(
                     activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
                 }
             },
-            [activeDescendantRef]
+            [activeDescendantRef, showMenu]
         )
 
         useEffect(() => {
@@ -143,6 +143,7 @@ const AutocompleteInput = React.forwardRef(
                 aria-expanded={showMenu}
                 aria-haspopup="listbox"
                 aria-owns={`${id}-listbox`}
+                autocomplete="off"
                 {...props}
             />
         )
