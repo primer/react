@@ -1,6 +1,6 @@
 import React from 'react'
-import styled, { css } from "styled-components";
-import { TokenBaseProps } from "./TokenBase";
+import styled, {css} from 'styled-components'
+import {TokenBaseProps} from './TokenBase'
 
 const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   flex-grow: 1;
@@ -21,10 +21,10 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
     if (props.as === 'button') {
       // reset button styles, make the cursor a pointer, and add line-height
       return css`
-        background: transparent;    
+        background: transparent;
         border: none;
         color: inherit;
-        font: inherit;    
+        font: inherit;
         margin: 0;
         overflow: visible;
         padding: 0;
@@ -55,4 +55,4 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   }}
 `
 
-export default TokenTextContainer;
+export default TokenTextContainer

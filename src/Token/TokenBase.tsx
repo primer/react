@@ -29,7 +29,16 @@ export const isTokenInteractive = ({as = 'span', onClick, onFocus, tabIndex = -1
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
 const variants = variant<
-  {fontSize: number; height: string; lineHeight: string; gap: number; paddingLeft: number; paddingRight: number; paddingTop: number; paddingBottom: number;},
+  {
+    fontSize: number
+    height: string
+    lineHeight: string
+    gap: number
+    paddingLeft: number
+    paddingRight: number
+    paddingTop: number
+    paddingBottom: number
+  },
   TokenSizeKeys
 >({
   prop: 'size',

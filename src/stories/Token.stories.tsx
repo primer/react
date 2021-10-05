@@ -238,11 +238,7 @@ export const labelToken = () => (
       </Box>
     </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
-      <IssueLabelToken
-        text="good first issue"
-        fillColor="#656BFE"
-        isSelected={true}
-      />
+      <IssueLabelToken text="good first issue" fillColor="#656BFE" isSelected={true} />
     </SingleExampleContainer>
     <SingleExampleContainer label="Automatically picks a readable text color based on fill color">
       <Box display="flex" sx={{gap: get('space.2')}}>

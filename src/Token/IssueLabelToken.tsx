@@ -82,8 +82,8 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
   const interactiveTokenProps = {
     as,
     href,
-    onClick,
-  };
+    onClick
+  }
   const {colorScheme} = useTheme()
   const {bgOpacity, borderOpacity, borderThreshold, lightnessThreshold} = colorModeConfigs[colorScheme || 'light']
   let bgColor = fillColor
@@ -162,10 +162,14 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
           size={size}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
           isParentInteractive={isTokenInteractive(props)}
-          sx={hasMultipleActionTargets ? {
-            position: 'relative',
-            zIndex: '1',
-          } : {}}
+          sx={
+            hasMultipleActionTargets
+              ? {
+                  position: 'relative',
+                  zIndex: '1'
+                }
+              : {}
+          }
         />
       ) : null}
     </StyledIssueLabelToken>
