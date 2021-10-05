@@ -6,8 +6,8 @@ import { useCombinedRefs } from './hooks/useCombinedRefs'
 import { useFocusZone } from './hooks/useFocusZone'
 import {ComponentProps, MandateProps} from './utils/types'
 import Token, { TokenProps } from './Token/Token'
-import TokenLabel, { TokenLabelProps } from './Token/TokenLabel'
-import TokenProfile, { TokenProfileProps } from './Token/TokenProfile'
+import IssueLabelToken, { IssueLabelTokenProps } from './Token/IssueLabelToken'
+import ProfileToken, { ProfileTokenProps } from './Token/ProfileToken'
 import { TokenSizeKeys } from './Token/TokenBase'
 import TextInput, { TextInputProps } from './TextInput'
 import { useProvidedRefOrCreate } from './hooks'
@@ -18,7 +18,7 @@ const InputWrapper = styled.div`
   flex-grow: 1;
 `
 
-type AnyTokenProps = Partial<TokenProps & TokenLabelProps & TokenProfileProps>
+type AnyTokenProps = Partial<TokenProps & IssueLabelTokenProps & ProfileTokenProps>
 type TokenDatum = MandateProps<AnyTokenProps, 'id' | 'text'>
 type TextInputWithTokensInternalProps = {
   /**
@@ -32,7 +32,7 @@ type TextInputWithTokensInternalProps = {
   /**
    * The component used to render each token
    */
-  tokenComponent?: React.ComponentType<ComponentPropsWithoutRef<typeof Token> | ComponentPropsWithoutRef<typeof TokenLabel> | ComponentPropsWithoutRef<typeof TokenProfile>>
+  tokenComponent?: React.ComponentType<ComponentPropsWithoutRef<typeof Token> | ComponentPropsWithoutRef<typeof IssueLabelToken> | ComponentPropsWithoutRef<typeof ProfileToken>>
   /**
    * The maximum height of the component. If the content in the input exceeds this height,
    * it will scroll vertically
@@ -45,7 +45,7 @@ type TextInputWithTokensInternalProps = {
   /**
    * The size of the tokens
    */
-  tokenSizeVariant?: TokenSizeKeys
+  size?: TokenSizeKeys
   /**
    * Whether the remove buttons should be rendered in the tokens
    */
@@ -70,7 +70,7 @@ const TextInputWithTokensComponent = React.forwardRef<HTMLInputElement, TextInpu
       onTokenRemove,
       tokenComponent: TokenComponent,
       preventTokenWrapping,
-      tokenSizeVariant,
+      size,
       hideTokenRemoveButtons,
       selectedTokenIdx,
       setSelectedTokenIdx,
@@ -149,9 +149,9 @@ const TextInputWithTokensComponent = React.forwardRef<HTMLInputElement, TextInpu
                   onBlur={handleTokenBlur}
                   onKeyUp={handleTokenKeyUp}
                   isSelected={selectedTokenIdx === i}
-                  handleRemove={() => { onTokenRemove(id) }}
+                  onRemove={() => { onTokenRemove(id) }}
                   hideRemoveButton={hideTokenRemoveButtons}
-                  variant={tokenSizeVariant}
+                  size={size}
                   tabIndex={0}
                   {...tokenRest}
               />
@@ -237,7 +237,7 @@ const TextInputWithTokens = React.forwardRef<HTMLInputElement, TextInputWithToke
 
 TextInputWithTokens.defaultProps = {
     tokenComponent: Token,
-    tokenSizeVariant: "xl",
+    size: "xlarge",
     hideTokenRemoveButtons: false
 }
 

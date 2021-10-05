@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import { BaseStyles, Box, ThemeProvider } from '..'
 import TextInputWithTokens from '../TextInputWithTokens';
-import TokenLabel from '../Token/TokenLabel';
+import IssueLabelToken from '../Token/IssueLabelToken';
 
 export default {
   title: 'Prototyping/Text Input with Tokens',
@@ -69,22 +69,22 @@ export const TokenSizeVariants = () => {
       <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
-          tokenSizeVariant="sm"
+          size="small"
       />
       <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
-          tokenSizeVariant="md"
+          size="medium"
       />
       <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
-          tokenSizeVariant="lg"
+          size="large"
       />
       <TextInputWithTokens
           tokens={tokens}
           onTokenRemove={onTokenRemove}
-          tokenSizeVariant="xl"
+          size="xlarge"
       />
     </Box>
   )
@@ -98,7 +98,7 @@ export const UsingIssueLabelTokens = () => {
 
   return (
     <TextInputWithTokens
-        tokenComponent={TokenLabel}
+        tokenComponent={IssueLabelToken}
         tokens={tokens}
         onTokenRemove={onTokenRemove}
     />
