@@ -7,7 +7,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 import Token from '../Token/Token'
 import TokenProfile from '../Token/TokenProfile'
-import LabelToken from '../Token/LabelToken'
+import IssueLabelToken from '../Token/IssueIssueLabelToken'
 import Text from '../Text'
 
 export default {
@@ -163,9 +163,9 @@ export const labelToken = () => (
           gap: get('space.2')
         }}
       >
-        <LabelToken as="a" href="http://google.com/" text="Link" />
-        <LabelToken as="button" onClick={() => console.log('clicked')} text="Button" />
-        <LabelToken as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
+        <IssueLabelToken as="a" href="http://google.com/" text="Link" />
+        <IssueLabelToken as="button" onClick={() => console.log('clicked')} text="Button" />
+        <IssueLabelToken as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
       </Box>
     </SingleExampleContainer>
     <SingleExampleContainer label="Interactive (#656BFE fill color passed)">
@@ -176,9 +176,9 @@ export const labelToken = () => (
           gap: get('space.2')
         }}
       >
-        <LabelToken fillColor="#656BFE" as="a" href="http://google.com/" text="Link" />
-        <LabelToken fillColor="#656BFE" as="button" onClick={() => console.log('clicked')} text="Button" />
-        <LabelToken
+        <IssueLabelToken fillColor="#656BFE" as="a" href="http://google.com/" text="Link" />
+        <IssueLabelToken fillColor="#656BFE" as="button" onClick={() => console.log('clicked')} text="Button" />
+        <IssueLabelToken
           fillColor="#656BFE"
           as="span"
           tabIndex={0}
@@ -188,10 +188,10 @@ export const labelToken = () => (
       </Box>
     </SingleExampleContainer>
     <SingleExampleContainer label="Default (#656BFE fill color passed)">
-      <LabelToken text="good first issue" fillColor="#656BFE" />
+      <IssueLabelToken text="good first issue" fillColor="#656BFE" />
     </SingleExampleContainer>
     <SingleExampleContainer label="onRemove passed">
-      <LabelToken
+      <IssueLabelToken
         text="good first issue"
         fillColor="#656BFE"
         onRemove={() => {
@@ -200,7 +200,7 @@ export const labelToken = () => (
       />
     </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
-      <LabelToken
+      <IssueLabelToken
         text="good first issue"
         fillColor="#656BFE"
         isSelected={true}
@@ -211,8 +211,8 @@ export const labelToken = () => (
     </SingleExampleContainer>
     <SingleExampleContainer label="Automatically picks a readable text color based on fill color">
       <Box display="flex" sx={{gap: get('space.2')}}>
-        <LabelToken text="good first issue" fillColor="#656BFE" />
-        <LabelToken text="bug" fillColor="#FFF06C" />
+        <IssueLabelToken text="good first issue" fillColor="#656BFE" />
+        <IssueLabelToken text="bug" fillColor="#FFF06C" />
       </Box>
     </SingleExampleContainer>
   </ExampleCollectionContainer>

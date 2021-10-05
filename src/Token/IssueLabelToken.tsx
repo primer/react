@@ -27,7 +27,7 @@ const colorModeConfigs: Record<string, ColorModeConfig> = {
   }
 }
 
-export interface LabelTokenProps extends TokenBaseProps {
+export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
    * The color that corresponds to the label
    */
@@ -46,7 +46,7 @@ interface LabelStyleProps {
 
 const tokenBorderWidthPx = 1
 
-const StyledLabelToken = styled(TokenBase)<LabelTokenProps & LabelStyleProps>`
+const StyledIssueLabelToken = styled(TokenBase)<IssueLabelTokenProps & LabelStyleProps>`
   background-color: ${props => props.bgColor};
   border-width: ${tokenBorderWidthPx}px;
   border-style: solid;
@@ -84,7 +84,7 @@ const TokenTextContainer = styled('span')`
   white-space: nowrap;
 `
 
-const LabelToken = forwardRef<HTMLElement, LabelTokenProps>((props, forwardedRef) => {
+const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
   const {as, fillColor, onRemove, id, isSelected, ref, text, size, hideRemoveButton, ...rest} = props
   const {colorScheme} = useTheme()
   const {bgOpacity, borderOpacity, borderThreshold, lightnessThreshold} = colorModeConfigs[colorScheme || 'light']
@@ -139,7 +139,7 @@ const LabelToken = forwardRef<HTMLElement, LabelTokenProps>((props, forwardedRef
   }
 
   return (
-    <StyledLabelToken
+    <StyledIssueLabelToken
       // specific to labels
       fillColor={fillColor}
       bgColor={bgColor}
@@ -166,12 +166,12 @@ const LabelToken = forwardRef<HTMLElement, LabelTokenProps>((props, forwardedRef
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
         />
       ) : null}
-    </StyledLabelToken>
+    </StyledIssueLabelToken>
   )
 })
 
-LabelToken.defaultProps = {
+IssueLabelToken.defaultProps = {
   fillColor: '#999'
 }
 
-export default LabelToken
+export default IssueLabelToken
