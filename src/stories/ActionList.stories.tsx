@@ -416,3 +416,22 @@ export function LinkItemStory(): JSX.Element {
   )
 }
 LinkItemStory.storyName = 'List with a link item'
+
+export function DOMPropsStory(): JSX.Element {
+  return (
+    <>
+      <h1>Simple List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          items={[
+            {
+              text: 'One',
+              onClick: () => alert('Hello')
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+DOMPropsStory.storyName = 'List an item input including DOM props'
