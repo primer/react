@@ -55,8 +55,8 @@ type TextInputWithTokensInternalProps = {
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 const TextInputWithTokensComponent = React.forwardRef<HTMLInputElement, TextInputWithTokensInternalProps & {
-  selectedTokenIdx: number | undefined,
-  setSelectedTokenIdx: React.Dispatch<React.SetStateAction<number | undefined>>
+  selectedTokenIndex: number | undefined,
+  setSelectedTokenIndex: React.Dispatch<React.SetStateAction<number | undefined>>
 }>(
   ({
       icon: IconComponent,
