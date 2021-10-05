@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
-import type * as Polymorphic from "@radix-ui/react-polymorphic";
+import type * as Polymorphic from '@radix-ui/react-polymorphic'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
@@ -121,25 +121,27 @@ type TextInputInternalProps = NonPassthroughProps &
   // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
   Omit<React.ComponentPropsWithoutRef<typeof UnstyledTextInput>, keyof NonPassthroughProps>
 
-
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
-  ({
-    inputComponent: InputComponent,
-    icon: IconComponent,
-    block,
-    className,
-    contrast,
-    disabled,
-    sx: sxProp,
-    theme,
-    width: widthProp,
-    minWidth: minWidthProp,
-    maxWidth: maxWidthProp,
-    variant: variantProp,
-    wrapperRef,
-    ...inputProps
-  }, ref) => {
+  (
+    {
+      inputComponent: InputComponent,
+      icon: IconComponent,
+      block,
+      className,
+      contrast,
+      disabled,
+      sx: sxProp,
+      theme,
+      width: widthProp,
+      minWidth: minWidthProp,
+      maxWidth: maxWidthProp,
+      variant: variantProp,
+      wrapperRef,
+      ...inputProps
+    },
+    ref
+  ) => {
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
 
@@ -163,7 +165,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       </Wrapper>
     )
   }
-) as Polymorphic.ForwardRefComponent<"input", TextInputInternalProps>
+) as Polymorphic.ForwardRefComponent<'input', TextInputInternalProps>
 
 TextInput.defaultProps = {
   type: 'text'

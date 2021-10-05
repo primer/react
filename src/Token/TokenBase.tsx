@@ -1,82 +1,107 @@
-import { KeyboardEvent } from 'react';
-import styled, { css } from 'styled-components'
-import { variant } from 'styled-system'
-import { get } from '../constants'
+import {KeyboardEvent} from 'react'
+import styled from 'styled-components'
+import {variant} from 'styled-system'
+import {get} from '../constants'
 
-export type TokenSizeKeys = 'sm' | 'md' | 'lg' | 'xl'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
-export const tokenSizes: Record<TokenSizeKeys, number> = {
-    sm: 16,
-    md: 20,
-    lg: 24,
-    xl: 32,
+export const tokenSizes: Record<TokenSizeKeys, string> = {
+  small: '16px',
+  medium: '20px',
+  large: '24px',
+  xlarge: '32px'
 }
 
-export const defaultTokenSize = 'md'
+export const defaultTokenSize: TokenSizeKeys = 'medium'
 
-export interface TokenBaseProps extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
-    as?: 'button' | 'a' | 'span'
-    handleRemove?: () => void
-    isSelected?: boolean
-    tabIndex?: number
-    text: string
-    id?: number | string
-    variant?: TokenSizeKeys
+export interface TokenBaseProps
+  extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
+  as?: 'button' | 'a' | 'span'
+  onRemove?: () => void
+  isSelected?: boolean
+  tabIndex?: number
+  text: string
+  id?: number | string
+  size?: TokenSizeKeys
 }
 
-export const isTokenInteractive = ({
-  as = 'span',
-  onClick,
-  onFocus,
-  tabIndex = -1
-}: TokenBaseProps) => Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
+export const isTokenInteractive = ({as = 'span', onClick, onFocus, tabIndex = -1}: TokenBaseProps) =>
+  Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
-const variants = variant<{fontSize: number, height: string, gap: number, paddingLeft: any, paddingRight: number}, TokenSizeKeys>({
-    variants: {
-      sm: {
-        fontSize: 0,
-        gap: 1,
-        height: `${tokenSizes.sm}px`,
-        paddingLeft: 1,
-        paddingRight: 1,
-      },
-      md: {
-        fontSize: 0,
-        gap: 1,
-        height: `${tokenSizes.md}px`,
-        paddingLeft: 2,
-        paddingRight: 2,
-      },
-      lg: {
-        fontSize: 0,
-        gap: 2,
-        height: `${tokenSizes.lg}px`,
-        paddingLeft: 2,
-        paddingRight: 2,
-      },
-      xl: {
-        fontSize: 1,
-        gap: 2,
-        height: `${tokenSizes.xl}px`,
-        paddingLeft: 3,
-        paddingRight: 3,
-      }
+const variants = variant<
+  {
+    fontSize: number
+    height: string
+    lineHeight: string
+    gap: number
+    paddingLeft: number
+    paddingRight: number
+    paddingTop: number
+    paddingBottom: number
+  },
+  TokenSizeKeys
+>({
+  prop: 'size',
+  variants: {
+    small: {
+      fontSize: 0,
+      gap: 1,
+      height: tokenSizes.small,
+      // without setting lineHeight to match height, the "x" appears vertically mis-aligned
+      lineHeight: tokenSizes.small,
+      paddingLeft: 1,
+      paddingRight: 1,
+      // need to explicitly set padding top and bottom to "0" to override default `<button>` element styles
+      // without setting these, the "x" appears vertically mis-aligned
+      paddingTop: 0,
+      paddingBottom: 0
+    },
+    medium: {
+      fontSize: 0,
+      gap: 1,
+      height: tokenSizes.medium,
+      lineHeight: tokenSizes.medium,
+      paddingLeft: 2,
+      paddingRight: 2,
+      paddingTop: 0,
+      paddingBottom: 0
+    },
+    large: {
+      fontSize: 0,
+      gap: 2,
+      height: tokenSizes.large,
+      lineHeight: tokenSizes.large,
+      paddingLeft: 2,
+      paddingRight: 2,
+      paddingTop: 0,
+      paddingBottom: 0
+    },
+    xlarge: {
+      fontSize: 1,
+      gap: 2,
+      height: tokenSizes.xlarge,
+      lineHeight: tokenSizes.xlarge,
+      paddingLeft: 3,
+      paddingRight: 3,
+      paddingTop: 0,
+      paddingBottom: 0
     }
-  })
+  }
+})
 
-const TokenBase = styled.span.attrs<TokenBaseProps>(({text, handleRemove, onKeyUp}) => ({
-  onKeyUp: (e: KeyboardEvent<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>) => {
-    onKeyUp && onKeyUp(e)
+const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}) => ({
+  onKeyDown: (event: KeyboardEvent<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>) => {
+    onKeyDown && onKeyDown(event)
 
-    if ((e.key === 'Backspace' || e.key === 'Delete') && handleRemove) {
-      handleRemove()
+    if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+      onRemove()
     }
   },
-  'aria-label': handleRemove ? `${text}, press backspace or delete to remove` : undefined
+  'aria-label': onRemove ? `${text}, press backspace or delete to remove` : undefined
 }))<TokenBaseProps>`
   align-items: center;
   border-radius: 999px;
-  cursor: ${props => isTokenInteractive(props) ? 'pointer' : 'auto'};
+  cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
   display: inline-flex;
   font-weight: ${get('fontWeights.bold')};
   text-decoration: none;
@@ -86,7 +111,7 @@ const TokenBase = styled.span.attrs<TokenBaseProps>(({text, handleRemove, onKeyU
 
 TokenBase.defaultProps = {
   as: 'span',
-  variant: defaultTokenSize,
+  size: defaultTokenSize
 }
 
 export default TokenBase
