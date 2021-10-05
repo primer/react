@@ -6,7 +6,7 @@ import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 import Token from '../Token/Token'
-import TokenProfile from '../Token/TokenProfile'
+import ProfileToken from '../Token/ProfileToken'
 import IssueLabelToken from '../Token/IssueIssueLabelToken'
 import Text from '../Text'
 
@@ -130,10 +130,10 @@ export const defaultToken = () => (
 export const profileToken = () => (
   <ExampleCollectionContainer>
     <SingleExampleContainer label="Resting">
-      <TokenProfile size="lg" avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Mike Perrotti" />
+      <ProfileToken size="lg" avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Mike Perrotti" />
     </SingleExampleContainer>
     <SingleExampleContainer label="w/ onRemove passed">
-      <TokenProfile
+      <ProfileToken
         size="lg"
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         text="Mike Perrotti"
@@ -143,7 +143,7 @@ export const profileToken = () => (
       />
     </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
-      <TokenProfile
+      <ProfileToken
         size="lg"
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         text="Mike Perrotti"

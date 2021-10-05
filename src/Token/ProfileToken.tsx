@@ -6,7 +6,7 @@ import {TokenBaseProps, defaultTokenSize, tokenSizes} from './TokenBase'
 import Token from './Token'
 import {Avatar} from '..'
 
-export interface TokenProfileProps extends TokenBaseProps {
+export interface ProfileTokenProps extends TokenBaseProps {
   avatarSrc: string
 }
 
@@ -14,7 +14,7 @@ const StyledToken = styled(Token)`
   padding-left: ${get('space.1')};
 `
 
-const TokenProfile = forwardRef<HTMLElement, TokenProfileProps>(
+const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(
   ({avatarSrc, id, ref, size, ...rest}, forwardedRef) => (
     <StyledToken
       leadingVisual={() => (
@@ -31,4 +31,4 @@ const TokenProfile = forwardRef<HTMLElement, TokenProfileProps>(
   )
 )
 
-export default TokenProfile
+export default ProfileToken
