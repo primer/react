@@ -120,7 +120,7 @@ export function FilteredActionList({
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden">
+    <Box display="flex" flexDirection="column" overflow="hidden" height="inherit" maxHeight="inherit">
       <StyledHeader>
         <TextInput
           ref={inputRef}

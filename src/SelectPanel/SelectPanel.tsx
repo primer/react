@@ -6,7 +6,6 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DropdownButton} from '../DropdownMenu'
 import {ItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
-import Box from '../Box'
 import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -153,18 +152,16 @@ export function SelectPanel({
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
-      <Box display="flex" flexDirection="column" width="100%" height="100%">
-        <FilteredActionList
-          filterValue={filterValue}
-          onFilterChange={onFilterChange}
-          {...listProps}
-          role="listbox"
-          items={itemsToRender}
-          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-          textInputProps={extendedTextInputProps}
-          inputRef={inputRef}
-        />
-      </Box>
+      <FilteredActionList
+        filterValue={filterValue}
+        onFilterChange={onFilterChange}
+        {...listProps}
+        role="listbox"
+        items={itemsToRender}
+        selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+        textInputProps={extendedTextInputProps}
+        inputRef={inputRef}
+      />
     </AnchoredOverlay>
   )
 }
