@@ -12,10 +12,7 @@ interface TokenButtonProps {
   isParentInteractive?: boolean
 }
 
-const variants = variant<
-  {height: string; width: string;},
-  TokenSizeKeys
->({
+const variants = variant<{height: string; width: string}, TokenSizeKeys>({
   prop: 'size',
   variants: {
     small: {
@@ -68,9 +65,15 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
 
   ${variants}
   ${sx}
-`;
+`
 
-const RemoveTokenButton: React.FC<ComponentProps<typeof StyledTokenButton>> = ({"aria-label": ariaLabel, isParentInteractive, size, children, ...rest }) => {
+const RemoveTokenButton: React.FC<ComponentProps<typeof StyledTokenButton>> = ({
+  'aria-label': ariaLabel,
+  isParentInteractive,
+  size,
+  children,
+  ...rest
+}) => {
   return (
     <StyledTokenButton
       as={isParentInteractive ? 'span' : 'button'}
@@ -82,7 +85,7 @@ const RemoveTokenButton: React.FC<ComponentProps<typeof StyledTokenButton>> = ({
       <XIcon size={getTokenButtonIconSize(size)} />
     </StyledTokenButton>
   )
-};
+}
 
 RemoveTokenButton.defaultProps = {
   size: defaultTokenSize

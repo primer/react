@@ -1,5 +1,5 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
-import styled, { css } from 'styled-components'
+import styled, {css} from 'styled-components'
 import {get} from '../constants'
 import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
@@ -18,7 +18,7 @@ export interface TokenProps extends TokenBaseProps {
 
 const tokenBorderWidthPx = 1
 
-const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: boolean;}>`
+const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: boolean}>`
   background-color: ${get('colors.neutral.subtle')};
   border-color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.border.subtle'))};
   border-style: solid;
@@ -47,7 +47,19 @@ const LeadingVisualContainer = styled('span')`
 `
 
 const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps>((props, forwardedRef) => {
-  const {as, onRemove, id, leadingVisual: LeadingVisual, ref, text, size, hideRemoveButton, href, onClick, ...rest} = props
+  const {
+    as,
+    onRemove,
+    id,
+    leadingVisual: LeadingVisual,
+    ref,
+    text,
+    size,
+    hideRemoveButton,
+    href,
+    onClick,
+    ...rest
+  } = props
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
@@ -56,8 +68,8 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
   const interactiveTokenProps = {
     as,
     href,
-    onClick,
-  };
+    onClick
+  }
 
   return (
     <DefaultTokenStyled
@@ -84,10 +96,14 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
           size={size}
           isParentInteractive={isTokenInteractive(props)}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
-          sx={hasMultipleActionTargets ? {
-            position: 'relative',
-            zIndex: '1',
-          } : {}}
+          sx={
+            hasMultipleActionTargets
+              ? {
+                  position: 'relative',
+                  zIndex: '1'
+                }
+              : {}
+          }
         />
       ) : null}
     </DefaultTokenStyled>
