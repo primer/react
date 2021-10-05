@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { ActionList, ItemProps } from '../ActionList'
 import { useFocusZone } from '../hooks/useFocusZone'
 import { ComponentProps, MandateProps } from '../utils/types'
@@ -164,7 +164,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         selectableItems.filter(
             (item, i) => filterFn(item, i)
         ).sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id]),
-        [selectableItems]
+        [selectableItems, itemSortOrderData, filterFn]
     )
 
     const allItemsToRender = useMemo(() => [
