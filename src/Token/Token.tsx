@@ -1,8 +1,9 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import {get} from '../constants'
 import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
+import TokenTextContainer from './_TokenTextContainer'
 
 export interface TokenProps extends TokenBaseProps {
   /**
@@ -17,7 +18,7 @@ export interface TokenProps extends TokenBaseProps {
 
 const tokenBorderWidthPx = 1
 
-const DefaultTokenStyled = styled(TokenBase)<TokenProps>`
+const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: boolean;}>`
   background-color: ${get('colors.neutral.subtle')};
   border-color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.border.subtle'))};
   border-style: solid;
@@ -25,20 +26,19 @@ const DefaultTokenStyled = styled(TokenBase)<TokenProps>`
   color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.fg.muted'))};
   max-width: 100%;
   padding-right: ${props => (!props.hideRemoveButton ? 0 : undefined)};
+  position: relative;
 
-  &:hover {
-    background-color: ${props => (isTokenInteractive(props) ? get('colors.neutral.muted') : undefined)};
-    box-shadow: ${props => (isTokenInteractive(props) ? get('colors.shadow.medium') : undefined)};
-    color: ${props => (isTokenInteractive(props) ? get('colors.fg.default') : undefined)};
-  }
-`
-
-const TokenTextContainer = styled('span')`
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  ${props => {
+    if (props.isTokenInteractive) {
+      return css`
+        &:hover {
+          background-color: ${get('colors.neutral.muted')};
+          box-shadow: ${get('colors.shadow.medium')};
+          color: ${get('colors.fg.default')};
+        }
+      `
+    }
+  }}
 `
 
 const LeadingVisualContainer = styled('span')`
@@ -47,22 +47,28 @@ const LeadingVisualContainer = styled('span')`
 `
 
 const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps>((props, forwardedRef) => {
-  const {as, onRemove, id, leadingVisual: LeadingVisual, ref, text, size, hideRemoveButton, ...rest} = props
+  const {as, onRemove, id, leadingVisual: LeadingVisual, ref, text, size, hideRemoveButton, href, onClick, ...rest} = props
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
     onRemove && onRemove()
   }
+  const interactiveTokenProps = {
+    as,
+    href,
+    onClick,
+  };
 
   return (
     <DefaultTokenStyled
-      as={as}
       onRemove={onRemove}
       hideRemoveButton={hideRemoveButton || !onRemove}
       id={id?.toString()}
       text={text}
       ref={forwardedRef}
       size={size}
+      isTokenInteractive={isTokenInteractive(props)}
+      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
     >
       {LeadingVisual ? (
@@ -70,7 +76,7 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
           <LeadingVisual />
         </LeadingVisualContainer>
       ) : null}
-      <TokenTextContainer>{text}</TokenTextContainer>
+      <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
       {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
@@ -78,6 +84,10 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
           size={size}
           isParentInteractive={isTokenInteractive(props)}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
+          sx={hasMultipleActionTargets ? {
+            position: 'relative',
+            zIndex: '1',
+          } : {}}
         />
       ) : null}
     </DefaultTokenStyled>

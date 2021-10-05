@@ -7,7 +7,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 import Token from '../Token/Token'
 import ProfileToken from '../Token/ProfileToken'
-import IssueLabelToken from '../Token/IssueIssueLabelToken'
+import IssueLabelToken from '../Token/IssueLabelToken'
 import Text from '../Text'
 
 export default {
@@ -190,7 +190,7 @@ export const labelToken = () => (
     <SingleExampleContainer label="Default (#656BFE fill color passed)">
       <IssueLabelToken text="good first issue" fillColor="#656BFE" />
     </SingleExampleContainer>
-    <SingleExampleContainer label="onRemove passed">
+    <SingleExampleContainer label="w/ onRemove passed">
       <IssueLabelToken
         text="good first issue"
         fillColor="#656BFE"
@@ -199,14 +199,49 @@ export const labelToken = () => (
         }}
       />
     </SingleExampleContainer>
+    <SingleExampleContainer label="w/ onRemove passed and the token is clickable">
+      <Box
+        display="flex"
+        sx={{
+          alignItems: 'start',
+          gap: get('space.2')
+        }}
+      >
+        <IssueLabelToken
+          as="a"
+          href="http://google.com/"
+          text="good first issue"
+          fillColor="#656BFE"
+          onRemove={() => {
+            console.log('remove me')
+          }}
+        />
+        <IssueLabelToken
+          as="button"
+          onClick={() => console.log('clicked')}
+          text="good first issue"
+          fillColor="#656BFE"
+          onRemove={() => {
+            console.log('remove me')
+          }}
+        />
+        <IssueLabelToken
+          as="span"
+          tabIndex={0}
+          onFocus={() => console.log('focused')}
+          text="good first issue"
+          fillColor="#656BFE"
+          onRemove={() => {
+            console.log('remove me')
+          }}
+        />
+      </Box>
+    </SingleExampleContainer>
     <SingleExampleContainer label="isSelected">
       <IssueLabelToken
         text="good first issue"
         fillColor="#656BFE"
         isSelected={true}
-        onRemove={() => {
-          console.log('remove me')
-        }}
       />
     </SingleExampleContainer>
     <SingleExampleContainer label="Automatically picks a readable text color based on fill color">

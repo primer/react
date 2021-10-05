@@ -2,6 +2,7 @@ import {XIcon} from '@primer/octicons-react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
+import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import {tokenSizes, TokenSizeKeys, defaultTokenSize} from './TokenBase'
 
@@ -35,7 +36,7 @@ const variants = variant({
 
 const getTokenButtonIconSize = (variant?: TokenSizeKeys) => parseInt(tokenSizes[variant || defaultTokenSize], 10) * 0.75
 
-const StyledTokenButton = styled.span<TokenButtonProps>`
+const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -63,6 +64,7 @@ const StyledTokenButton = styled.span<TokenButtonProps>`
   }
 
   ${variants}
+  ${sx}
 `;
 
 const RemoveTokenButton: React.FC<ComponentProps<typeof StyledTokenButton>> = ({"aria-label": ariaLabel, isParentInteractive, size, children, ...rest }) => {
@@ -72,6 +74,7 @@ const RemoveTokenButton: React.FC<ComponentProps<typeof StyledTokenButton>> = ({
       tabIndex={isParentInteractive ? -1 : undefined}
       aria-label={!isParentInteractive ? 'Remove token' : undefined}
       size={size}
+      {...rest}
     >
       <XIcon size={getTokenButtonIconSize(size)} />
     </StyledTokenButton>

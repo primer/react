@@ -4,6 +4,7 @@ import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import tinycolor from 'tinycolor2'
 import {useTheme} from '../ThemeProvider'
+import TokenTextContainer from './_TokenTextContainer'
 
 interface ColorModeConfig {
   bgOpacity: number
@@ -76,16 +77,13 @@ const StyledIssueLabelToken = styled(TokenBase)<IssueLabelTokenProps & LabelStyl
   }}
 `
 
-const TokenTextContainer = styled('span')`
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
-
 const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
-  const {as, fillColor, onRemove, id, isSelected, ref, text, size, hideRemoveButton, ...rest} = props
+  const {as, fillColor, onRemove, id, isSelected, ref, text, size, hideRemoveButton, href, onClick, ...rest} = props
+  const interactiveTokenProps = {
+    as,
+    href,
+    onClick,
+  };
   const {colorScheme} = useTheme()
   const {bgOpacity, borderOpacity, borderThreshold, lightnessThreshold} = colorModeConfigs[colorScheme || 'light']
   let bgColor = fillColor
@@ -146,7 +144,6 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
       borderColor={borderColor}
       textColor={textColor}
       // common token props
-      as={as}
       hideRemoveButton={hideRemoveButton || !onRemove}
       onRemove={onRemove}
       id={id?.toString()}
@@ -154,16 +151,21 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
       ref={forwardedRef}
       text={text}
       size={size}
+      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
     >
-      <TokenTextContainer>{text}</TokenTextContainer>
+      <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
       {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
-          tabIndex={-1}
           onClick={onRemoveClick}
           size={size}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
+          isParentInteractive={isTokenInteractive(props)}
+          sx={hasMultipleActionTargets ? {
+            position: 'relative',
+            zIndex: '1',
+          } : {}}
         />
       ) : null}
     </StyledIssueLabelToken>
