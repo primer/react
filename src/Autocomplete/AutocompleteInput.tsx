@@ -69,7 +69,7 @@ const AutocompleteInput = React.forwardRef(
             }
         }, [onChange, setInputValue, setShowMenu, showMenu])
 
-        const handleInputKeyDown: KeyboardEventHandler = useCallback((e) => () => {
+        const handleInputKeyDown: KeyboardEventHandler = useCallback((e) => {
             if (e.key === 'Backspace') {
                 setHighlightRemainingText(false)
             }
@@ -78,13 +78,13 @@ const AutocompleteInput = React.forwardRef(
                 setInputValue && setInputValue('')
                 inputRef.current.value = ''
             }
-        }, [setInputValue])
+        }, [inputRef, setInputValue, setHighlightRemainingText])
 
-        const handleInputKeyUp: KeyboardEventHandler = (e) => {
+        const handleInputKeyUp: KeyboardEventHandler = useCallback((e) => {
             if (e.key === 'Backspace') {
                 setHighlightRemainingText(true)
             }
-        }
+        }, [setHighlightRemainingText])
 
         const onInputKeyPress: KeyboardEventHandler = useCallback(
             event => {

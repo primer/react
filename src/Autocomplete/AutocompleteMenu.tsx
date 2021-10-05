@@ -243,8 +243,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         }
     }, [selectedItemIds])
 
-    console.log('AutocompleteMenu re-rendering')
-
     return (
         <Box
             sx={!showMenu ? {
