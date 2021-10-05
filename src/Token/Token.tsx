@@ -74,7 +74,6 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
       {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
-          parentTokenTag={as || 'span'}
           onClick={onRemoveClick}
           size={size}
           isParentInteractive={isTokenInteractive(props)}

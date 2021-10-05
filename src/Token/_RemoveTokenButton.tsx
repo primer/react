@@ -1,12 +1,12 @@
 import {XIcon} from '@primer/octicons-react'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
+import {ComponentProps} from '../utils/types'
 import {tokenSizes, TokenSizeKeys, defaultTokenSize} from './TokenBase'
 
 interface TokenButtonProps {
   borderOffset?: number
-  parentTokenTag: 'span' | 'button' | 'a'
   size?: TokenSizeKeys
   isParentInteractive?: boolean
 }
@@ -33,7 +33,9 @@ const variants = variant({
   }
 })
 
-const tokenButtonStyles = css`
+const getTokenButtonIconSize = (variant?: TokenSizeKeys) => parseInt(tokenSizes[variant || defaultTokenSize], 10) * 0.75
+
+const StyledTokenButton = styled.span<TokenButtonProps>`
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -45,6 +47,7 @@ const tokenButtonStyles = css`
   appearance: none;
   text-decoration: none;
   padding: 0;
+  transform: ${props => `translate(${props.borderOffset}px, -${props.borderOffset}px)`};
 
   align-self: baseline;
   border: 0;
@@ -58,27 +61,22 @@ const tokenButtonStyles = css`
   &:active {
     background-color: ${get('colors.fade.fg15')};
   }
-`
 
-const getTokenButtonIconSize = (variant?: TokenSizeKeys) => parseInt(tokenSizes[variant || defaultTokenSize], 10) * 0.75
-
-const RemoveTokenButton = styled.span.attrs<TokenButtonProps>(
-  ({borderOffset, parentTokenTag, size, isParentInteractive, ...rest}) => {
-    delete rest.children
-
-    return {
-      borderOffset,
-      as: isParentInteractive ? 'span' : 'button',
-      tabIndex: isParentInteractive ? -1 : undefined,
-      'aria-label': !isParentInteractive ? 'Remove token' : undefined,
-      children: <XIcon size={getTokenButtonIconSize(size)} />
-    }
-  }
-)<TokenButtonProps>`
-  ${tokenButtonStyles}
   ${variants}
-    transform: ${props => `translate(${props.borderOffset}px, -${props.borderOffset}px)`};
-`
+`;
+
+const RemoveTokenButton: React.FC<ComponentProps<typeof StyledTokenButton>> = ({"aria-label": ariaLabel, isParentInteractive, size, children, ...rest }) => {
+  return (
+    <StyledTokenButton
+      as={isParentInteractive ? 'span' : 'button'}
+      tabIndex={isParentInteractive ? -1 : undefined}
+      aria-label={!isParentInteractive ? 'Remove token' : undefined}
+      size={size}
+    >
+      <XIcon size={getTokenButtonIconSize(size)} />
+    </StyledTokenButton>
+  )
+};
 
 RemoveTokenButton.defaultProps = {
   size: defaultTokenSize

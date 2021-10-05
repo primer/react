@@ -160,7 +160,6 @@ const LabelToken = forwardRef<HTMLElement, LabelTokenProps>((props, forwardedRef
       {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
-          parentTokenTag={as || 'span'}
           tabIndex={-1}
           onClick={onRemoveClick}
           size={size}

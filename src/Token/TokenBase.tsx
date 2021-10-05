@@ -29,7 +29,7 @@ export const isTokenInteractive = ({as = 'span', onClick, onFocus, tabIndex = -1
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
 const variants = variant<
-  {fontSize: number; height: string; gap: number; paddingLeft: any; paddingRight: number},
+  {fontSize: number; height: string; lineHeight: string; gap: number; paddingLeft: number; paddingRight: number; paddingTop: number; paddingBottom: number;},
   TokenSizeKeys
 >({
   prop: 'size',
@@ -38,29 +38,44 @@ const variants = variant<
       fontSize: 0,
       gap: 1,
       height: tokenSizes.sm,
+      // without setting lineHeight to match height, the "x" appears vertically mis-aligned
+      lineHeight: tokenSizes.sm,
       paddingLeft: 1,
-      paddingRight: 1
+      paddingRight: 1,
+      // need to explicitly set padding top and bottom to "0" to override default `<button>` element styles
+      // without setting these, the "x" appears vertically mis-aligned
+      paddingTop: 0,
+      paddingBottom: 0
     },
     md: {
       fontSize: 0,
       gap: 1,
       height: tokenSizes.md,
+      lineHeight: tokenSizes.md,
       paddingLeft: 2,
-      paddingRight: 2
+      paddingRight: 2,
+      paddingTop: 0,
+      paddingBottom: 0
     },
     lg: {
       fontSize: 0,
       gap: 2,
       height: tokenSizes.lg,
+      lineHeight: tokenSizes.lg,
       paddingLeft: 2,
-      paddingRight: 2
+      paddingRight: 2,
+      paddingTop: 0,
+      paddingBottom: 0
     },
     xl: {
       fontSize: 1,
       gap: 2,
       height: tokenSizes.xl,
+      lineHeight: tokenSizes.xl,
       paddingLeft: 3,
-      paddingRight: 3
+      paddingRight: 3,
+      paddingTop: 0,
+      paddingBottom: 0
     }
   }
 })
