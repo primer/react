@@ -42,13 +42,13 @@ const AutocompleteInput = React.forwardRef(
         const combinedInputRef = useCombinedRefs(inputRef, forwardedRef)
         const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
 
-        const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback((e) => {
-            onFocus && onFocus(e)
+        const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback((event) => {
+            onFocus && onFocus(event)
             setShowMenu && setShowMenu(true)
         }, [onFocus, setShowMenu])
 
-        const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback((e) => {
-            onBlur && onBlur(e)
+        const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback((event) => {
+            onBlur && onBlur(event)
 
             // HACK: wait a tick and check the focused element before hiding the autocomplete menu
             // this prevents the menu from hiding when the user is clicking an option in the Autoselect.Menu,
@@ -60,28 +60,28 @@ const AutocompleteInput = React.forwardRef(
             }, 0)
         }, [onBlur, setShowMenu])
 
-        const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-            onChange && onChange(e)
-            setInputValue && setInputValue(e.currentTarget.value)
+        const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
+            onChange && onChange(event)
+            setInputValue && setInputValue(event.currentTarget.value)
 
             if (!showMenu) {
                 setShowMenu && setShowMenu(true)
             }
         }, [onChange, setInputValue, setShowMenu, showMenu])
 
-        const handleInputKeyDown: KeyboardEventHandler = useCallback((e) => {
-            if (e.key === 'Backspace') {
+        const handleInputKeyDown: KeyboardEventHandler = useCallback((event) => {
+            if (event.key === 'Backspace') {
                 setHighlightRemainingText(false)
             }
 
-            if (e.key === 'Escape' && inputRef?.current?.value) {
+            if (event.key === 'Escape' && inputRef?.current?.value) {
                 setInputValue && setInputValue('')
                 inputRef.current.value = ''
             }
         }, [inputRef, setInputValue, setHighlightRemainingText])
 
-        const handleInputKeyUp: KeyboardEventHandler = useCallback((e) => {
-            if (e.key === 'Backspace') {
+        const handleInputKeyUp: KeyboardEventHandler = useCallback((event) => {
+            if (event.key === 'Backspace') {
                 setHighlightRemainingText(true)
             }
         }, [setHighlightRemainingText])
