@@ -1,38 +1,58 @@
-import {BaseStyles, Box, ThemeProvider} from '@primer/components'
+import {BaseStyles, Box, ThemeProvider, useTheme, DropdownMenu, DropdownButton} from '@primer/components'
 import React from 'react'
 
-// This is a temporary way to allow us to preview components in dark mode.
-// We'll replace this component when @primer/components has a first-class
-// API for theme switching.
-function ThemeSwitcher({children}) {
-  const [colorMode, setColorMode] = React.useState('day')
-
-  React.useEffect(() => {
-    function handleKeyDown(event) {
-      // Use `ctrl + cmd + t` to toggle between light and dark mode
-      if (event.key === 't' && event.ctrlKey && event.metaKey) {
-        setColorMode(colorMode === 'day' ? 'night' : 'day')
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown)
-
-    return function cleanup() {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [colorMode])
-
-  return <ThemeProvider colorMode={colorMode}>{children}</ThemeProvider>
+function ThemeSwitcher({setIsDropdownOpen}) {
+  const {theme, dayScheme, setDayScheme} = useTheme()
+  const items = Object.keys(theme.colorSchemes).map(scheme => ({text: scheme.replace(/_/g, ' '), key: scheme}))
+  const selectedItem = React.useMemo(() => items.find(item => item.key === dayScheme), [items, dayScheme])
+  return (
+    <DropdownMenu
+      onOpenChange={setIsDropdownOpen}
+      renderAnchor={({children, ...anchorProps}) => (
+        <DropdownButton variant="small" {...anchorProps}>
+          {children}
+        </DropdownButton>
+      )}
+      items={items}
+      selectedItem={selectedItem}
+      onChange={item => {
+        setDayScheme(item.key)
+      }}
+    />
+  )
 }
 
 // Users can shadow this file to wrap live previews.
 // This is useful for applying global styles.
 function LivePreviewWrapper({children}) {
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [showSwitcher, setShowSwitcher] = React.useState(false)
   return (
-    <ThemeSwitcher>
-      <Box width="100%" p={3} bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
-        <BaseStyles>{children}</BaseStyles>
+    <ThemeProvider>
+      <Box
+        tabIndex="0"
+        onFocusCapture={() => {
+          setShowSwitcher(true)
+        }}
+        onMouseEnter={() => {
+          setShowSwitcher(true)
+        }}
+        onMouseLeave={() => {
+          !isDropdownOpen && setShowSwitcher(false)
+        }}
+        width="100%"
+        bg="canvas.default"
+        position="relative"
+        sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}
+      >
+        <Box p={2} display={showSwitcher ? '' : 'none'} zIndex="1" position="absolute" top="0" right="0">
+          <ThemeSwitcher setIsDropdownOpen={setIsDropdownOpen} />
+        </Box>
+        <Box p={3}>
+          <BaseStyles>{children}</BaseStyles>
+        </Box>
       </Box>
-    </ThemeSwitcher>
+    </ThemeProvider>
   )
 }
 
