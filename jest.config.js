@@ -9,5 +9,5 @@ module.exports = {
     '<rootDir>/src/utils/test-deprecations.tsx',
     '<rootDir>/src/utils/test-helpers.tsx'
   ],
-  testRegex: '/(src|codemods)/__tests__/.*\\.[jt]sx?$'
+  testRegex: '/(src|codemods)/__tests__/.*\\.test.[jt]sx?$'
 }
