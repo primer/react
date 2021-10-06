@@ -1,5 +1,11 @@
 # @primer/components
 
+## 30.2.0
+
+### Minor Changes
+
+- [#1497](https://github.com/primer/react/pull/1497) [`b9d6a662`](https://github.com/primer/react/commit/b9d6a662390a66298a4b2171319029812f5ea88d) Thanks [@jfuchs](https://github.com/jfuchs)! - Updated ActionList's ItemInput type to accept DOM props for divs when renderItem is not provided
+
 ## 30.1.0
 
 ### Minor Changes
