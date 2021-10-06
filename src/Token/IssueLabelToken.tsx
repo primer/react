@@ -1,6 +1,6 @@
 import React, {forwardRef, MouseEventHandler, useMemo} from 'react'
 import {CSSObject, CSSProperties} from 'styled-components'
-import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
+import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
@@ -148,7 +148,8 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
 })
 
 IssueLabelToken.defaultProps = {
-  fillColor: '#999'
+  fillColor: '#999',
+  size: defaultTokenSize
 }
 
 export default IssueLabelToken

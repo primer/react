@@ -2,7 +2,7 @@ import React, {forwardRef, MouseEventHandler} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
 import {SxProp, sx} from '../sx'
-import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
+import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 
@@ -113,5 +113,9 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
     )
   }
 )
+
+Token.defaultProps = {
+  size: defaultTokenSize
+}
 
 export default Token

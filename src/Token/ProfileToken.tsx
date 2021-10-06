@@ -1,7 +1,6 @@
 import React, {forwardRef} from 'react'
-import styled from 'styled-components'
-import {get} from '../constants'
 import primitives from '@primer/primitives'
+import {get} from '../constants'
 import {TokenBaseProps, defaultTokenSize, tokenSizes} from './TokenBase'
 import Token from './Token'
 import {Avatar} from '..'
@@ -32,5 +31,9 @@ const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id,
     />
   )
 })
+
+ProfileToken.defaultProps = {
+  size: defaultTokenSize
+}
 
 export default ProfileToken
