@@ -60,6 +60,7 @@ export function SelectPanel({
   items,
   textInputProps,
   overlayProps,
+  sx,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -163,7 +164,7 @@ export function SelectPanel({
         inputRef={inputRef}
         // inheriting height and maxHeight ensures that the FilteredActionList is never taller
         // than the Overlay (which would break scrolling the items)
-        sx={{height: 'inherit', maxHeight: 'inherit'}}
+        sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
       />
     </AnchoredOverlay>
   )
