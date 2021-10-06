@@ -111,7 +111,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
           }
         : {})
     }
-  }, [colorScheme, fillColor])
+  }, [colorScheme, fillColor, isSelected])
 
   return (
     <TokenBase
