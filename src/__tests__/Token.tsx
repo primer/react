@@ -9,6 +9,7 @@ import {IssueLabelToken, ProfileToken} from '../Token'
 import {ProfileTokenProps} from '../Token/ProfileToken'
 expect.extend(toHaveNoViolations)
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<any>) => {
   behavesAsComponent({Component: Token})
 
@@ -48,11 +49,13 @@ const testTokenComponent = (Component: React.ComponentType<any>) => {
 
   it('renders all sizes', () => {
     const onRemoveMock = jest.fn()
-    Object.keys(tokenSizes).forEach(tokenSizeKey => {
+    const tokenSizeKeys = Object.keys(tokenSizes)
+
+    for (const tokenSizeKey of tokenSizeKeys) {
       expect(
         render(<Component text="token" size={tokenSizeKey as TokenSizeKeys} onRemove={onRemoveMock} />)
       ).toMatchSnapshot()
-    })
+    }
   })
 
   it('calls onRemove when the user clicks the remove button', () => {

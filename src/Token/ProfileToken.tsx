@@ -9,7 +9,7 @@ export interface ProfileTokenProps extends TokenBaseProps {
   avatarSrc: string
 }
 
-const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id, ref, size, ...rest}, forwardedRef) => {
+const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id, size, ...rest}, forwardedRef) => {
   return (
     <Token
       leadingVisual={() => (
@@ -22,11 +22,11 @@ const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id,
       )}
       size={size}
       id={id?.toString()}
-      ref={forwardedRef}
       sx={{
         paddingLeft: get('space.1')
       }}
       {...rest}
+      ref={forwardedRef}
     />
   )
 })
