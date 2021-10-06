@@ -237,6 +237,20 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
               width: '100%'
             }
           : {}),
+
+        ...(props.maxHeight
+          ? {
+              maxHeight: props.maxHeight,
+              overflow: 'auto'
+            }
+          : {}),
+
+        ...(props.preventTokenWrapping
+          ? {
+              overflow: 'auto'
+            }
+          : {}),
+
         ...sxProp
       }}
       {...props}

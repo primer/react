@@ -7,7 +7,7 @@ import IssueLabelToken from '../Token/IssueLabelToken'
 
 export default {
   title: 'Prototyping/Text Input with Tokens',
-
+  component: TextInputWithTokens,
   decorators: [
     Story => {
       const [lastKey, setLastKey] = useState('none')
@@ -35,17 +35,19 @@ export default {
 
 const mockTokens = [
   {text: 'zero', id: 0},
-  {text: 'one', id: 1}
-]
-
-const mockLabelTokens = [
-  {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
-  {text: 'bug', id: 2, fillColor: '#d73a4a'},
-  {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+  {text: 'one', id: 1},
+  {text: 'two', id: 2},
+  {text: 'three', id: 3},
+  {text: 'four', id: 4},
+  {text: 'five', id: 5},
+  {text: 'six', id: 6},
+  {text: 'seven', id: 7},
+  {text: 'twenty', id: 20},
+  {text: 'twentyone', id: 21}
 ]
 
 export const Default = () => {
-  const [tokens, setTokens] = useState(mockTokens)
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
@@ -53,8 +55,21 @@ export const Default = () => {
   return <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
+export const UsingIssueLabelTokens = () => {
+  const [tokens, setTokens] = useState([
+    {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
+    {text: 'bug', id: 2, fillColor: '#d73a4a'},
+    {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+  ])
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
+}
+
 export const TokenSizeVariants = () => {
-  const [tokens, setTokens] = useState(mockTokens)
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
@@ -69,17 +84,45 @@ export const TokenSizeVariants = () => {
   )
 }
 
-export const UsingIssueLabelTokens = () => {
-  const [tokens, setTokens] = useState(mockLabelTokens)
+export const MaxHeight = () => {
+  const [tokens, setTokens] = useState(mockTokens)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
 
-  return <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
+  return (
+    <Box maxWidth="200px">
+      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="200px" />
+    </Box>
+  )
+}
+
+MaxHeight.storyName = 'maxHeight 200px'
+
+export const TokenWrappingPrevented = () => {
+  const [tokens, setTokens] = useState(mockTokens)
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box maxWidth="500px">
+      <TextInputWithTokens preventTokenWrapping block tokens={tokens} onTokenRemove={onTokenRemove} />
+    </Box>
+  )
+}
+
+export const TokenRemoveButtonsHidden = () => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens hideTokenRemoveButtons tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
 export const Unstyled = () => {
-  const [tokens, setTokens] = useState(mockTokens)
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
@@ -88,9 +131,6 @@ export const Unstyled = () => {
     <TextInputWithTokens
       tokens={tokens}
       onTokenRemove={onTokenRemove}
-      onChange={e => {
-        console.log(e)
-      }}
       // TODO: come up with a nicer way to unstyle an input component
       sx={{
         border: '0',
