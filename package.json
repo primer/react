@@ -1,6 +1,6 @@
 {
   "name": "@primer/components",
-  "version": "30.0.0",
+  "version": "30.2.0",
   "description": "Primer react components",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -79,7 +79,6 @@
     "@storybook/addon-a11y": "6.3.4",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "6.2.9",
-    "@storybook/addon-knobs": "6.3.1",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/react": "6.3.8",
     "@testing-library/dom": "7.31.2",

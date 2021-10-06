@@ -2,7 +2,7 @@ import React, {forwardRef, MouseEventHandler} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
 import {SxProp, sx} from '../sx'
-import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
+import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 
@@ -10,6 +10,7 @@ export interface TokenProps extends TokenBaseProps {
   /**
    * A function that renders a component before the token text
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   leadingVisual?: React.ComponentType<any>
   /**
    * Whether the remove button should be rendered in the token
@@ -50,19 +51,7 @@ const LeadingVisualContainer = styled('span')`
 
 const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps & SxProp>(
   (props, forwardedRef) => {
-    const {
-      as,
-      onRemove,
-      id,
-      leadingVisual: LeadingVisual,
-      ref,
-      text,
-      size,
-      hideRemoveButton,
-      href,
-      onClick,
-      ...rest
-    } = props
+    const {as, onRemove, id, leadingVisual: LeadingVisual, text, size, hideRemoveButton, href, onClick, ...rest} = props
     const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
     const onRemoveClick: MouseEventHandler = e => {
       e.stopPropagation()
@@ -80,11 +69,11 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
         hideRemoveButton={hideRemoveButton || !onRemove}
         id={id?.toString()}
         text={text}
-        ref={forwardedRef}
         size={size}
         isTokenInteractive={isTokenInteractive(props)}
         {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
         {...rest}
+        ref={forwardedRef}
       >
         {LeadingVisual ? (
           <LeadingVisualContainer>
@@ -113,5 +102,11 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
     )
   }
 )
+
+Token.displayName = 'Token'
+
+Token.defaultProps = {
+  size: defaultTokenSize
+}
 
 export default Token

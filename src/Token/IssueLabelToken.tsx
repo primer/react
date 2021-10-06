@@ -1,6 +1,6 @@
 import React, {forwardRef, MouseEventHandler, useMemo} from 'react'
-import {CSSObject, CSSProperties} from 'styled-components'
-import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
+import {CSSObject} from '@styled-system/css'
+import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
@@ -44,20 +44,7 @@ const darkModeStyles = {
 }
 
 const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
-  const {
-    as,
-    fillColor = '#999',
-    onRemove,
-    id,
-    isSelected,
-    ref,
-    text,
-    size,
-    hideRemoveButton,
-    href,
-    onClick,
-    ...rest
-  } = props
+  const {as, fillColor = '#999', onRemove, id, isSelected, text, size, hideRemoveButton, href, onClick, ...rest} = props
   const interactiveTokenProps = {
     as,
     href,
@@ -70,27 +57,33 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
     onRemove && onRemove()
   }
   const labelStyles: CSSObject = useMemo(() => {
-    const [r, g, b, _rgbA] = parseToRgba(fillColor)
-    const [h, s, l, _hslA] = parseToHsla(fillColor)
+    const [r, g, b] = parseToRgba(fillColor)
+    const [h, s, l] = parseToHsla(fillColor)
 
     // label hack taken from https://github.com/github/github/blob/master/app/assets/stylesheets/hacks/hx_primer-labels.scss#L43-L108
     // this logic should eventually live in primer/components. Also worthy of note is that the dotcom hack code will be moving to primer/css soon.
     return {
-      ['--label-r' as keyof CSSProperties]: String(r),
-      ['--label-g' as keyof CSSProperties]: String(g),
-      ['--label-b' as keyof CSSProperties]: String(b),
-      ['--label-h' as keyof CSSProperties]: String(Math.round(h)),
-      ['--label-s' as keyof CSSProperties]: String(Math.round(s * 100)),
-      ['--label-l' as keyof CSSProperties]: String(Math.round(l * 100)),
-      ['--perceived-lightness' as keyof CSSProperties]:
+      '--label-r': String(r),
+      '--label-g': String(g),
+      '--label-b': String(b),
+      '--label-h': String(Math.round(h)),
+      '--label-s': String(Math.round(s * 100)),
+      '--label-l': String(Math.round(l * 100)),
+      '--perceived-lightness':
         'calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)',
-      ['--lightness-switch' as keyof CSSProperties]:
-        'max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))',
+      '--lightness-switch': 'max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))',
       paddingRight: hideRemoveButton || !onRemove ? undefined : 0,
       position: 'relative',
       ...(colorScheme === 'light' ? lightModeStyles : darkModeStyles),
       ...(isSelected
         ? {
+            background:
+              colorScheme === 'light'
+                ? 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))'
+                : darkModeStyles.background,
+            ':focus': {
+              outline: 'none'
+            },
             ':after': {
               content: '""',
               position: 'absolute',
@@ -111,19 +104,19 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
           }
         : {})
     }
-  }, [colorScheme, fillColor])
+  }, [colorScheme, fillColor, isSelected, hideRemoveButton, onRemove])
 
   return (
     <TokenBase
       onRemove={onRemove}
       id={id?.toString()}
       isSelected={isSelected}
-      ref={forwardedRef}
       text={text}
       size={size}
       sx={labelStyles}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
+      ref={forwardedRef}
     >
       <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
       {!hideRemoveButton && onRemove ? (
@@ -148,7 +141,10 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
 })
 
 IssueLabelToken.defaultProps = {
-  fillColor: '#999'
+  fillColor: '#999',
+  size: defaultTokenSize
 }
+
+IssueLabelToken.displayName = 'IssueLabelToken'
 
 export default IssueLabelToken

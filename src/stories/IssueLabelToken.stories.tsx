@@ -5,15 +5,21 @@ import {action} from '@storybook/addon-actions'
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
-import Token, {TokenProps} from '../Token/Token'
+import IssueLabelToken, {IssueLabelTokenProps} from '../Token/IssueLabelToken'
 import Text from '../Text'
 
 export default {
-  title: 'Tokens/Default',
-  component: Token,
+  title: 'Tokens/IssueLabelToken',
+  component: IssueLabelToken,
   argTypes: {
+    fillColor: {
+      defaultValue: '#0366d6',
+      control: {
+        type: 'color'
+      }
+    },
     text: {
-      defaultValue: 'Token'
+      defaultValue: 'good first issue'
     }
   },
   decorators: [
@@ -65,17 +71,17 @@ const ExampleCollectionContainer: React.FC = ({children}) => (
   </Box>
 )
 
-export const DefaultToken = (args: Omit<TokenProps, 'ref'>) => {
+export const DefaultToken = (args: Omit<IssueLabelTokenProps, 'ref'>) => {
   return (
     <ExampleCollectionContainer>
-      <Token {...args} />
+      <IssueLabelToken {...args} />
     </ExampleCollectionContainer>
   )
 }
 DefaultToken.storyName = 'Default'
 DefaultToken.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
 
-export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
+export const Interactive = (args: Omit<IssueLabelTokenProps, 'ref' | 'text'>) => {
   return (
     <ExampleCollectionContainer>
       <Box
@@ -85,20 +91,20 @@ export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
           gap: get('space.2')
         }}
       >
-        <Token as="a" href="http://google.com/" text="Link" {...args} />
-        <Token as="button" onClick={action('clicked')} text="Button" {...args} />
-        <Token as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <IssueLabelToken as="a" href="http://google.com/" text="Link" {...args} />
+        <IssueLabelToken as="button" onClick={action('clicked')} text="Button" {...args} />
+        <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
       </Box>
     </ExampleCollectionContainer>
   )
 }
 Interactive.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}}
 
-export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
+export const WithOnRemoveFn = (args: Omit<IssueLabelTokenProps, 'ref'>) => {
   return (
     <ExampleCollectionContainer>
       <SingleExampleContainer label="w/ onRemove passed">
-        <Token onRemove={action('remove me')} {...args} />
+        <IssueLabelToken onRemove={action('remove me')} {...args} />
       </SingleExampleContainer>
       <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
         <Box
@@ -108,9 +114,15 @@ export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
             gap: get('space.2')
           }}
         >
-          <Token as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
-          <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} {...args} text="Button" />
-          <Token
+          <IssueLabelToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
+          <IssueLabelToken
+            as="button"
+            onClick={action('clicked')}
+            onRemove={action('remove me')}
+            {...args}
+            text="Button"
+          />
+          <IssueLabelToken
             as="span"
             tabIndex={0}
             onFocus={action('focused')}
