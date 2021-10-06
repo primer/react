@@ -2,6 +2,7 @@ import {KeyboardEvent} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
+import sx, {SxProp} from '../sx'
 
 export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
@@ -98,7 +99,7 @@ const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}
     }
   },
   'aria-label': onRemove ? `${text}, press backspace or delete to remove` : undefined
-}))<TokenBaseProps>`
+}))<TokenBaseProps & SxProp>`
   align-items: center;
   border-radius: 999px;
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
@@ -107,6 +108,7 @@ const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}
   text-decoration: none;
   white-space: nowrap;
   ${variants}
+  ${sx}
 `
 
 TokenBase.defaultProps = {

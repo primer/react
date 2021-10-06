@@ -1,32 +1,10 @@
-import React, {forwardRef, MouseEventHandler} from 'react'
-import styled, {css} from 'styled-components'
+import React, {forwardRef, MouseEventHandler, useMemo} from 'react'
+import {CSSObject, CSSProperties} from 'styled-components'
 import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
-import tinycolor from 'tinycolor2'
+import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
-
-interface ColorModeConfig {
-  bgOpacity: number
-  borderThreshold: number
-  borderOpacity: number
-  lightnessThreshold: number
-}
-
-const colorModeConfigs: Record<string, ColorModeConfig> = {
-  dark: {
-    bgOpacity: 0.18,
-    borderThreshold: 0,
-    borderOpacity: 0.3,
-    lightnessThreshold: 0.6
-  },
-  light: {
-    bgOpacity: 1,
-    borderThreshold: 0.96,
-    borderOpacity: 1,
-    lightnessThreshold: 0.453
-  }
-}
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
@@ -39,118 +17,111 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
   hideRemoveButton?: boolean
 }
 
-interface LabelStyleProps {
-  bgColor: React.CSSProperties['backgroundColor']
-  borderColor: React.CSSProperties['borderColor']
-  textColor: React.CSSProperties['color']
-}
-
 const tokenBorderWidthPx = 1
 
-const StyledIssueLabelToken = styled(TokenBase)<IssueLabelTokenProps & LabelStyleProps>`
-  background-color: ${props => props.bgColor};
-  border-width: ${tokenBorderWidthPx}px;
-  border-style: solid;
-  border-color: ${props => props.borderColor};
-  color: ${props => props.textColor};
-  padding-right: ${props => (!props.hideRemoveButton ? 0 : undefined)};
-  position: relative;
+const lightModeStyles = {
+  '--lightness-threshold': '0.453',
+  '--border-threshold': '0.96',
+  '--border-alpha': 'max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))',
+  background: 'rgb(var(--label-r), var(--label-g), var(--label-b))',
+  color: 'hsl(0, 0%, calc(var(--lightness-switch) * 100%))',
+  borderWidth: tokenBorderWidthPx,
+  borderStyle: 'solid',
+  borderColor: 'hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))'
+}
 
-  ${props => {
-    if (props.isSelected) {
-      return css`
-        &:after {
-          content: '';
-          position: absolute;
-          z-index: 1;
-          top: -2px;
-          right: -2px;
-          bottom: -2px;
-          left: -2px;
-          display: block;
-          pointer-events: none;
-          box-shadow: 0 0 0 2px ${props.bgColor};
-          border-radius: 999px;
-        }
-      `
-    }
-  }}
-`
+const darkModeStyles = {
+  '--lightness-threshold': '0.6',
+  '--background-alpha': '0.18',
+  '--border-alpha': '0.3',
+  '--lighten-by': 'calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch))',
+  borderWidth: tokenBorderWidthPx,
+  borderStyle: 'solid',
+  background: 'rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha))',
+  color: 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%))',
+  borderColor:
+    'hsla(var(--label-h), calc(var(--label-s) * 1%),calc((var(--label-l) + var(--lighten-by)) * 1%),var(--border-alpha))'
+}
 
 const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
-  const {as, fillColor, onRemove, id, isSelected, ref, text, size, hideRemoveButton, href, onClick, ...rest} = props
+  const {
+    as,
+    fillColor = '#999',
+    onRemove,
+    id,
+    isSelected,
+    ref,
+    text,
+    size,
+    hideRemoveButton,
+    href,
+    onClick,
+    ...rest
+  } = props
   const interactiveTokenProps = {
     as,
     href,
     onClick
   }
   const {colorScheme} = useTheme()
-  const {bgOpacity, borderOpacity, borderThreshold, lightnessThreshold} = colorModeConfigs[colorScheme || 'light']
-  let bgColor = fillColor
-  let borderColor = fillColor
-  let textColor = '#FFF'
-  const perceivedLightness = tinycolor(fillColor).getLuminance()
-  const isFillColorLight = perceivedLightness >= lightnessThreshold
-
-  if (colorScheme === 'dark') {
-    const lightenBy = (perceivedLightness - lightnessThreshold) * 100 * (isFillColorLight ? 1 : 0)
-
-    bgColor = isSelected
-      ? tinycolor(fillColor)
-          .setAlpha(bgOpacity * 1.2)
-          .toRgbString()
-      : tinycolor(fillColor).setAlpha(bgOpacity).toRgbString()
-    textColor = isSelected
-      ? tinycolor(fillColor)
-          .lighten(lightenBy + 10)
-          .toString()
-      : tinycolor(fillColor).lighten(lightenBy).toString()
-    borderColor = isSelected
-      ? tinycolor(fillColor)
-          .lighten(lightenBy + 5)
-          .toRgbString()
-      : tinycolor(fillColor).lighten(lightenBy).setAlpha(borderOpacity).toRgbString()
-  } else {
-    const isFillColorDark = perceivedLightness < 0.1
-    borderColor = perceivedLightness >= borderThreshold ? tinycolor(fillColor).darken(25).toString() : 'transparent'
-
-    if (isFillColorLight) {
-      textColor = '#000'
-    }
-
-    if (isSelected) {
-      bgColor = isFillColorDark
-        ? tinycolor(fillColor).lighten(10).toString()
-        : // TODO: darken more than 10 if the fillColor is really bright and doesn't darken well
-          //       Examples of colors that don't darken well:
-          //       - #a2eeef
-          //       - #ffd78e
-          //       - #a4f287
-          tinycolor(fillColor).darken(10).toString()
-    }
-  }
-
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
     onRemove && onRemove()
   }
+  const labelStyles: CSSObject = useMemo(() => {
+    const [r, g, b, _rgbA] = parseToRgba(fillColor)
+    const [h, s, l, _hslA] = parseToHsla(fillColor)
+
+    // label hack taken from https://github.com/github/github/blob/master/app/assets/stylesheets/hacks/hx_primer-labels.scss#L43-L108
+    // this logic should eventually live in primer/components. Also worthy of note is that the dotcom hack code will be moving to primer/css soon.
+    return {
+      ['--label-r' as keyof CSSProperties]: String(r),
+      ['--label-g' as keyof CSSProperties]: String(g),
+      ['--label-b' as keyof CSSProperties]: String(b),
+      ['--label-h' as keyof CSSProperties]: String(Math.round(h)),
+      ['--label-s' as keyof CSSProperties]: String(Math.round(s * 100)),
+      ['--label-l' as keyof CSSProperties]: String(Math.round(l * 100)),
+      ['--perceived-lightness' as keyof CSSProperties]:
+        'calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)',
+      ['--lightness-switch' as keyof CSSProperties]:
+        'max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))',
+      paddingRight: hideRemoveButton || !onRemove ? undefined : 0,
+      position: 'relative',
+      ...(colorScheme === 'light' ? lightModeStyles : darkModeStyles),
+      ...(isSelected
+        ? {
+            ':after': {
+              content: '""',
+              position: 'absolute',
+              zIndex: 1,
+              top: `-${tokenBorderWidthPx * 2}px`,
+              right: `-${tokenBorderWidthPx * 2}px`,
+              bottom: `-${tokenBorderWidthPx * 2}px`,
+              left: `-${tokenBorderWidthPx * 2}px`,
+              display: 'block',
+              pointerEvents: 'none',
+              boxShadow: `0 0 0 ${tokenBorderWidthPx * 2}px ${
+                colorScheme === 'light'
+                  ? 'rgb(var(--label-r), var(--label-g), var(--label-b))'
+                  : 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%))'
+              }`,
+              borderRadius: '999px'
+            }
+          }
+        : {})
+    }
+  }, [colorScheme, fillColor])
 
   return (
-    <StyledIssueLabelToken
-      // specific to labels
-      fillColor={fillColor}
-      bgColor={bgColor}
-      borderColor={borderColor}
-      textColor={textColor}
-      // common token props
-      hideRemoveButton={hideRemoveButton || !onRemove}
+    <TokenBase
       onRemove={onRemove}
       id={id?.toString()}
       isSelected={isSelected}
       ref={forwardedRef}
       text={text}
       size={size}
+      sx={labelStyles}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
     >
@@ -172,7 +143,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
           }
         />
       ) : null}
-    </StyledIssueLabelToken>
+    </TokenBase>
   )
 })
 
