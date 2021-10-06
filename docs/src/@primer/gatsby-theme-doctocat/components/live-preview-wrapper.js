@@ -27,7 +27,7 @@ function LivePreviewWrapper({children}) {
   return (
     <ThemeProvider>
       <Box width="100%" bg="canvas.default" sx={{borderTopLeftRadius: 2, borderTopRightRadius: 2}}>
-        <Box p={2} display="flex" justifyContent="flex-end">
+        <Box pt={2} px={2} display="flex" justifyContent="flex-end">
           <ThemeSwitcher />
         </Box>
         <Box p={3}>
