@@ -114,6 +114,8 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
   }
 )
 
+Token.displayName = 'Token'
+
 Token.defaultProps = {
   size: defaultTokenSize
 }

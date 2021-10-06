@@ -159,4 +159,6 @@ IssueLabelToken.defaultProps = {
   size: defaultTokenSize
 }
 
+IssueLabelToken.displayName = 'IssueLabelToken'
+
 export default IssueLabelToken

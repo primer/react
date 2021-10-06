@@ -10,7 +10,6 @@ export interface ProfileTokenProps extends TokenBaseProps {
 }
 
 const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id, ref, size, ...rest}, forwardedRef) => {
-  console.log('ProfileToken rest', rest)
   return (
     <Token
       leadingVisual={() => (
@@ -35,5 +34,7 @@ const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id,
 ProfileToken.defaultProps = {
   size: defaultTokenSize
 }
+
+ProfileToken.displayName = 'ProfileToken'
 
 export default ProfileToken

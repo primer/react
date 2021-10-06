@@ -82,7 +82,7 @@ export const DefaultToken = (args: Omit<IssueLabelTokenProps, 'ref'>) => {
 DefaultToken.storyName = 'Default'
 DefaultToken.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
 
-export const Interactive = (args: Omit<IssueLabelTokenProps, 'ref'>) => {
+export const Interactive = (args: Omit<IssueLabelTokenProps, 'ref' | 'text'>) => {
   return (
     <ExampleCollectionContainer>
       <Box

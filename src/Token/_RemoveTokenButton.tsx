@@ -1,3 +1,4 @@
+import React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
