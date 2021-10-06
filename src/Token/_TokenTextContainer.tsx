@@ -8,7 +8,6 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 1;
 
   ${props => {
     if (props.as === 'a') {

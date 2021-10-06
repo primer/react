@@ -91,6 +91,13 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
       ...(colorScheme === 'light' ? lightModeStyles : darkModeStyles),
       ...(isSelected
         ? {
+            background:
+              colorScheme === 'light'
+                ? 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))'
+                : darkModeStyles.background,
+            ':focus': {
+              outline: 'none'
+            },
             ':after': {
               content: '""',
               position: 'absolute',
