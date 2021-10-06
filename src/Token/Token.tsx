@@ -1,7 +1,8 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
-import TokenBase, {isTokenInteractive, TokenBaseProps} from './TokenBase'
+import {SxProp, sx} from '../sx'
+import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 
@@ -18,15 +19,16 @@ export interface TokenProps extends TokenBaseProps {
 
 const tokenBorderWidthPx = 1
 
-const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: boolean}>`
+const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: boolean} & SxProp>`
   background-color: ${get('colors.neutral.subtle')};
   border-color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.border.subtle'))};
   border-style: solid;
-  border-width: 1px;
+  border-width: ${tokenBorderWidthPx}px;
   color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.fg.muted'))};
   max-width: 100%;
   padding-right: ${props => (!props.hideRemoveButton ? 0 : undefined)};
   position: relative;
+  ${sx}
 
   ${props => {
     if (props.isTokenInteractive) {
@@ -46,68 +48,74 @@ const LeadingVisualContainer = styled('span')`
   line-height: 0;
 `
 
-const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps>((props, forwardedRef) => {
-  const {
-    as,
-    onRemove,
-    id,
-    leadingVisual: LeadingVisual,
-    ref,
-    text,
-    size,
-    hideRemoveButton,
-    href,
-    onClick,
-    ...rest
-  } = props
-  const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
-  const onRemoveClick: MouseEventHandler = e => {
-    e.stopPropagation()
-    onRemove && onRemove()
-  }
-  const interactiveTokenProps = {
-    as,
-    href,
-    onClick
-  }
+const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps & SxProp>(
+  (props, forwardedRef) => {
+    const {
+      as,
+      onRemove,
+      id,
+      leadingVisual: LeadingVisual,
+      ref,
+      text,
+      size,
+      hideRemoveButton,
+      href,
+      onClick,
+      ...rest
+    } = props
+    const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
+    const onRemoveClick: MouseEventHandler = e => {
+      e.stopPropagation()
+      onRemove && onRemove()
+    }
+    const interactiveTokenProps = {
+      as,
+      href,
+      onClick
+    }
 
-  return (
-    <DefaultTokenStyled
-      onRemove={onRemove}
-      hideRemoveButton={hideRemoveButton || !onRemove}
-      id={id?.toString()}
-      text={text}
-      ref={forwardedRef}
-      size={size}
-      isTokenInteractive={isTokenInteractive(props)}
-      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
-      {...rest}
-    >
-      {LeadingVisual ? (
-        <LeadingVisualContainer>
-          <LeadingVisual />
-        </LeadingVisualContainer>
-      ) : null}
-      <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
-      {!hideRemoveButton && onRemove ? (
-        <RemoveTokenButton
-          borderOffset={tokenBorderWidthPx}
-          onClick={onRemoveClick}
-          size={size}
-          isParentInteractive={isTokenInteractive(props)}
-          aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
-          sx={
-            hasMultipleActionTargets
-              ? {
-                  position: 'relative',
-                  zIndex: '1'
-                }
-              : {}
-          }
-        />
-      ) : null}
-    </DefaultTokenStyled>
-  )
-})
+    return (
+      <DefaultTokenStyled
+        onRemove={onRemove}
+        hideRemoveButton={hideRemoveButton || !onRemove}
+        id={id?.toString()}
+        text={text}
+        ref={forwardedRef}
+        size={size}
+        isTokenInteractive={isTokenInteractive(props)}
+        {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
+        {...rest}
+      >
+        {LeadingVisual ? (
+          <LeadingVisualContainer>
+            <LeadingVisual />
+          </LeadingVisualContainer>
+        ) : null}
+        <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
+        {!hideRemoveButton && onRemove ? (
+          <RemoveTokenButton
+            borderOffset={tokenBorderWidthPx}
+            onClick={onRemoveClick}
+            size={size}
+            isParentInteractive={isTokenInteractive(props)}
+            aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
+            sx={
+              hasMultipleActionTargets
+                ? {
+                    position: 'relative',
+                    zIndex: '1'
+                  }
+                : {}
+            }
+          />
+        ) : null}
+      </DefaultTokenStyled>
+    )
+  }
+)
+
+Token.defaultProps = {
+  size: defaultTokenSize
+}
 
 export default Token
