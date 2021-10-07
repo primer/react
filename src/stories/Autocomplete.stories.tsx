@@ -18,23 +18,6 @@ type Datum = {
   metadata?: ItemMetadata
 }
 
-function getColorCircle(color: string) {
-  return function () {
-    return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
-      />
-    )
-  }
-}
-
 const items: Datum[] = [
   {text: 'zero', id: 0},
   {text: 'one', id: 1},
@@ -50,16 +33,6 @@ const items: Datum[] = [
   {text: 'twentyone', id: 21}
 ]
 
-const labelItems = [
-  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1, metadata: {fillColor: '#a2eeef'}},
-  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2, metadata: {fillColor: '#d73a4a'}},
-  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3, metadata: {fillColor: '#0cf478'}},
-  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4, metadata: {fillColor: '#ffd78e'}},
-  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5, metadata: {fillColor: '#ff0000'}},
-  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6, metadata: {fillColor: '#a4f287'}},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: {fillColor: '#8dc6fc'}}
-]
-
 const mockTokens: Datum[] = [
   {text: 'zero', id: 0},
   {text: 'one', id: 1},
@@ -68,7 +41,7 @@ const mockTokens: Datum[] = [
 ]
 
 export default {
-  title: 'Prototyping/Autocomplete',
+  title: 'Forms/Autocomplete',
 
   decorators: [
     Story => {
@@ -146,7 +119,7 @@ export const MultiSelect = () => {
         <div>Selected items:</div>
         <Box as="ul" my={0}>
           {selectedItemIds.map(selectedItemId => (
-            <li>{getItemById(selectedItemId)?.text}</li>
+            <li key={selectedItemId}>{getItemById(selectedItemId)?.text}</li>
           ))}
         </Box>
       </div>
@@ -173,7 +146,10 @@ export const MultiSelectWithTokenInput = () => {
       const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
       const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
 
-      removedItemIds.forEach(onTokenRemove)
+      for (const removedItemId in removedItemIds) {
+        onTokenRemove(removedItemId)
+      }
+
       return
     }
 
@@ -222,7 +198,10 @@ export const MultiSelectAddNewItem = () => {
       const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
       const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
 
-      removedItemIds.forEach(onTokenRemove)
+      for (const removedItemId in removedItemIds) {
+        onTokenRemove(removedItemId)
+      }
+
       return
     }
 
@@ -232,8 +211,7 @@ export const MultiSelectAddNewItem = () => {
   const onItemSelect: (item: Datum) => void = item => {
     onSelectedChange([...selectedItemIds.map(id => items.find(selectedItem => selectedItem.id === id) as Datum), item])
 
-    if (!localItemsState.some((localItem, i) => localItem.id === item.id)) {
-      console.log('item', item)
+    if (!localItemsState.some(localItem => localItem.id === item.id)) {
       setLocalItemsState([...localItemsState, item])
     }
   }
@@ -486,7 +464,7 @@ export const CustomOverlayMenuAnchor = () => {
         </Autocomplete>
       </Box>
       <Text fontSize={0} display="block" color="fg.subtle" mt={2}>
-        The overlay menu's position is anchored to the div with the black border instead of to the text input
+        The overlay menu&apos;s position is anchored to the div with the black border instead of to the text input
       </Text>
     </>
   )
