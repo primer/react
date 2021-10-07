@@ -4,8 +4,7 @@ import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
-import {Merge} from './utils/types/Merge'
+import {ComponentProps, Merge} from './utils/types'
 
 const sizeVariants = variant({
   variants: {
