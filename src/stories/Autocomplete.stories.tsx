@@ -491,7 +491,7 @@ export const WithCustomOverlayProps = () => {
   )
 }
 
-export const WithCustomScrollContainerRef = () => {
+export const InOverlayWithCustomScrollContainerRef = () => {
   const scrollContainerRef = useRef<HTMLElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
