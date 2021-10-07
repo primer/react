@@ -2,6 +2,7 @@ import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Box} from '..'
+import {AnchorSide} from '../behaviors/anchoredPosition'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {ItemInput} from '../ActionList/List'
 
@@ -18,7 +19,26 @@ export default {
         </ThemeProvider>
       )
     }
-  ]
+  ],
+  argTypes: {
+    anchorSide: {
+      defaultValue: 'inside-top',
+      control: {
+        type: 'radio',
+        options: [
+          'inside-top',
+          'inside-bottom',
+          'inside-left',
+          'inside-right',
+          'inside-center',
+          'outside-top',
+          'outside-bottom',
+          'outside-left',
+          'outside-right'
+        ]
+      }
+    }
+  }
 } as Meta
 
 const DummyItem = styled.button`
@@ -39,8 +59,11 @@ const DummyItem = styled.button`
     background: red;
   }
 `
+interface OverlayProps {
+  anchorSide: AnchorSide
+}
 
-export const DropdownOverlay = () => {
+export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   return (
@@ -56,6 +79,7 @@ export const DropdownOverlay = () => {
           ignoreClickRefs={[buttonRef]}
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
+          anchorSide={anchorSide}
         >
           <Box display="flex" flexDirection="column" p={2}>
             <DummyItem>Copy link</DummyItem>
@@ -70,7 +94,7 @@ export const DropdownOverlay = () => {
   )
 }
 
-export const DialogOverlay = () => {
+export const DialogOverlay = ({anchorSide}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
@@ -89,6 +113,7 @@ export const DialogOverlay = () => {
           onEscape={closeOverlay}
           onClickOutside={closeOverlay}
           width="small"
+          anchorSide={anchorSide}
         >
           <Box display="flex" flexDirection="column" p={2}>
             <Text>Are you sure?</Text>
@@ -103,7 +128,7 @@ export const DialogOverlay = () => {
   )
 }
 
-export const OverlayOnTopOfOverlay = () => {
+export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -150,6 +175,7 @@ export const OverlayOnTopOfOverlay = () => {
           onEscape={closeOverlay}
           onClickOutside={closeOverlay}
           width="small"
+          anchorSide={anchorSide}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
             open overlay
@@ -162,6 +188,7 @@ export const OverlayOnTopOfOverlay = () => {
               onClickOutside={closeSecondaryOverlay}
               width="small"
               sx={{top: '40px'}}
+              anchorSide={anchorSide}
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Select an option!</Text>

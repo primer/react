@@ -1,5 +1,11 @@
 # @primer/components
 
+## 30.2.1
+
+### Patch Changes
+
+- [#1500](https://github.com/primer/react/pull/1500) [`8c3531aa`](https://github.com/primer/react/commit/8c3531aa73c37770f961cbcfd94acbf1398f29bd) Thanks [@jfuchs](https://github.com/jfuchs)! - Fixed a bug where SelectPanel would not scroll with height:'auto'; maxHeight:'medium' passed to Overlay (https://github.com/github/primer/issues/333)
+
 ## 30.2.0
 
 ### Minor Changes
