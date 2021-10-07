@@ -157,7 +157,16 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           }
         }
       }),
-    [items, selectedItemIds]
+    [
+      items,
+      selectedItemIds,
+      inputRef,
+      onSelectedChange,
+      selectionVariant,
+      setAutocompleteSuggestion,
+      setInputValue,
+      setShowMenu
+    ]
   )
 
   const itemSortOrderData = useMemo(
@@ -189,7 +198,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
             {
               ...addNewItem,
               leadingVisual: () => <PlusIcon />,
-              onAction: (item: T, e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+              onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
                 addNewItem.handleAddItem({...item, id: item.id || uniqueId(), leadingVisual: undefined})
 
@@ -202,7 +211,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ]
         : [])
     ],
-    [sortedAndFilteredItemsToRender, addNewItem]
+    [sortedAndFilteredItemsToRender, addNewItem, setAutocompleteSuggestion, selectionVariant, setInputValue]
   )
 
   useFocusZone(
@@ -244,7 +253,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     } else {
       setAutocompleteSuggestion('')
     }
-  }, [highlightedItem, inputValue])
+  }, [highlightedItem, inputValue, selectedItemIds, setAutocompleteSuggestion])
 
   useEffect(() => {
     if (showMenu === false) {
@@ -255,13 +264,13 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       )
     }
     onOpenChange && onOpenChange(Boolean(showMenu))
-  }, [showMenu])
+  }, [showMenu, onOpenChange, selectedItemIds, sortOnCloseFn, sortedItemIds])
 
   useEffect(() => {
     if (selectedItemIds.length) {
       setSelectedItemLength && setSelectedItemLength(selectedItemIds.length)
     }
-  }, [selectedItemIds])
+  }, [selectedItemIds, setSelectedItemLength])
 
   return (
     <Box
