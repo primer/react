@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentProps, Merge} from './utils/types'
 
 const sizeVariants = variant({
   variants: {
@@ -127,9 +127,8 @@ type NonPassthroughProps = {
   'block' | 'contrast' | 'disabled' | 'sx' | 'theme' | 'width' | 'maxWidth' | 'minWidth' | 'variant'
 >
 
-type TextInputInternalProps = NonPassthroughProps &
-  // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
-  Omit<React.ComponentPropsWithoutRef<typeof Input>, keyof NonPassthroughProps>
+// Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
+type TextInputInternalProps = Merge<React.ComponentPropsWithoutRef<typeof Input>, NonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
