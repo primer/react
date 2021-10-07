@@ -1,7 +1,7 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
-import {SxProp, sx} from '../sx'
+import sx, {SxProp} from '../sx'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
