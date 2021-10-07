@@ -6,7 +6,7 @@ import TextInputWithTokens from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
 
 export default {
-  title: 'Prototyping/Text Input with Tokens',
+  title: 'Forms/Text Input with Tokens',
   component: TextInputWithTokens,
   decorators: [
     Story => {
@@ -91,8 +91,8 @@ export const MaxHeight = () => {
   }
 
   return (
-    <Box maxWidth="200px">
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="200px" />
+    <Box maxWidth="300px">
+      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="100px" />
     </Box>
   )
 }

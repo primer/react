@@ -16,7 +16,10 @@ const InputWrapper = styled.div`
   flex-grow: 1;
 `
 
-type TextInputWithTokensInternalProps<TokenComponentType extends React.ComponentType<any>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyReactComponent = React.ComponentType<any>
+
+type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactComponent> = {
   /**
    * The array of tokens to render
    */
@@ -45,29 +48,20 @@ type TextInputWithTokensInternalProps<TokenComponentType extends React.Component
   /**
    * Whether the remove buttons should be rendered in the tokens
    */
-  // TODO: confirm whether or not we're comfortable with allowing people to hide that button
   hideTokenRemoveButtons?: boolean
-} & TextInputProps
+}
 
 // The inner contents of `TextInputWithTokens` are separated so they may be passed to the `as`
 // prop of the `TextInput` component
-function TextInputWithTokensInnerComponent<TokenComponentType extends React.ComponentType<any>>(
+function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactComponent>(
   {
-    icon: IconComponent,
-    contrast,
-    className,
-    block,
-    disabled,
-    theme,
-    sx: sxProp,
     tokens,
     onTokenRemove,
     tokenComponent: TokenComponent,
-    preventTokenWrapping,
     size,
     hideTokenRemoveButtons,
-    selectedTokenIdx,
-    setSelectedTokenIdx,
+    selectedTokenIndex,
+    setSelectedTokenIndex,
     ...rest
   }: TextInputWithTokensInternalProps<TokenComponentType> & {
     selectedTokenIndex: number | undefined
@@ -79,26 +73,26 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
   const {onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
 
   const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = tokenIndex => () => {
-    setSelectedTokenIdx(tokenIndex)
+    setSelectedTokenIndex(tokenIndex)
   }
 
   const handleTokenBlur: FocusEventHandler = () => {
-    setSelectedTokenIdx(undefined)
+    setSelectedTokenIndex(undefined)
   }
 
-  const handleTokenKeyUp: KeyboardEventHandler = e => {
-    if (e.key === 'Escape') {
+  const handleTokenKeyUp: KeyboardEventHandler = event => {
+    if (event.key === 'Escape') {
       ref.current?.focus()
     }
   }
 
-  const handleInputFocus: FocusEventHandler = e => {
-    onFocus && onFocus(e)
-    setSelectedTokenIdx(undefined)
+  const handleInputFocus: FocusEventHandler = event => {
+    onFocus && onFocus(event)
+    setSelectedTokenIndex(undefined)
   }
-  const handleInputKeyDown: KeyboardEventHandler = e => {
+  const handleInputKeyDown: KeyboardEventHandler = event => {
     if (onKeyDown) {
-      onKeyDown(e)
+      onKeyDown(event)
     }
 
     if (ref.current?.value) {
@@ -107,7 +101,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
 
     const lastToken = tokens[tokens.length - 1]
 
-    if (e.key === 'Backspace' && lastToken) {
+    if (event.key === 'Backspace' && lastToken) {
       onTokenRemove(lastToken.id)
 
       if (ref.current) {
@@ -123,7 +117,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
       // HACK: for some reason we need to wait a tick for `.select()` to work
       setTimeout(() => {
         ref.current?.select()
-      }, 1)
+      }, 0)
     }
   }
 
@@ -132,7 +126,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
       <InputWrapper key="inputWrapper">
         <UnstyledTextInput
           ref={ref}
-          disabled={disabled}
           onFocus={handleInputFocus}
           onKeyDown={handleInputKeyDown}
           type="text"
@@ -147,7 +140,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
               onFocus={handleTokenFocus(i)}
               onBlur={handleTokenBlur}
               onKeyUp={handleTokenKeyUp}
-              isSelected={selectedTokenIdx === i}
+              isSelected={selectedTokenIndex === i}
               onRemove={() => {
                 onTokenRemove(id)
               }}
@@ -165,13 +158,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends React.Comp
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 const TextInputWithTokensInnerComponentWithRef = React.forwardRef(TextInputWithTokensInnerComponent)
 
-function TextInputWithTokensComponent<TokenComponentType extends React.ComponentType<any>>(
-  {tokens, onTokenRemove, sx: sxProp, ...props}: TextInputWithTokensInternalProps<TokenComponentType>,
+function TextInputWithTokensComponent<TokenComponentType extends AnyReactComponent>(
+  {tokens, onTokenRemove, sx: sxProp, ...props}: TextInputWithTokensInternalProps<TokenComponentType> & TextInputProps,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
   const localInputRef = useRef<HTMLInputElement>(null)
   const combinedInputRef = useCombinedRefs(localInputRef, ref)
-  const [selectedTokenIdx, setSelectedTokenIdx] = useState<number | undefined>()
+  const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
   const {containerRef} = useFocusZone(
     {
       focusOutBehavior: 'wrap',
@@ -180,11 +173,11 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
         return !element.getAttributeNames().includes('aria-hidden')
       },
       getNextFocusable: direction => {
-        if (!selectedTokenIdx && selectedTokenIdx !== 0) {
+        if (!selectedTokenIndex && selectedTokenIndex !== 0) {
           return undefined
         }
 
-        let nextIndex = selectedTokenIdx + 1 // "+ 1" accounts for the first element: the text input
+        let nextIndex = selectedTokenIndex + 1 // "+ 1" accounts for the first element: the text input
 
         if (direction === 'next') {
           nextIndex += 1
@@ -201,14 +194,14 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
         return containerRef.current?.children[nextIndex] as HTMLElement
       }
     },
-    [selectedTokenIdx]
+    [selectedTokenIndex]
   )
 
   const handleTokenRemove = (tokenId: string | number) => {
     onTokenRemove(tokenId)
 
-    if (selectedTokenIdx) {
-      const nextElementToFocus = containerRef.current?.children[selectedTokenIdx] as HTMLElement
+    if (selectedTokenIndex) {
+      const nextElementToFocus = containerRef.current?.children[selectedTokenIndex] as HTMLElement
       nextElementToFocus.focus()
     }
   }
@@ -218,8 +211,8 @@ function TextInputWithTokensComponent<TokenComponentType extends React.Component
       ref={combinedInputRef}
       wrapperRef={containerRef}
       as={TextInputWithTokensInnerComponentWithRef}
-      selectedTokenIdx={selectedTokenIdx}
-      setSelectedTokenIdx={setSelectedTokenIdx}
+      selectedTokenIndex={selectedTokenIndex}
+      setSelectedTokenIndex={setSelectedTokenIndex}
       tokens={tokens}
       onTokenRemove={handleTokenRemove}
       sx={{

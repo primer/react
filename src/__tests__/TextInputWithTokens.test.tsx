@@ -1,16 +1,13 @@
 import React from 'react'
-import Token from '../Token/Token'
-import {render, behavesAsComponent, mount} from '../utils/testing'
+import {render} from '../utils/testing'
 import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
-import {IssueLabelToken, ProfileToken} from '../Token'
-import {ProfileTokenProps} from '../Token/ProfileToken'
+import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 expect.extend(toHaveNoViolations)
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockTokens = [
   {text: 'zero', id: 0},
   {text: 'one', id: 1},
@@ -24,7 +21,10 @@ const mockTokens = [
 
 const LabelledTextInputWithTokens: React.FC<TextInputWithTokensProps> = ({onTokenRemove, tokens, ...rest}) => (
   <>
-    <label htmlFor="tokenInput">Tokens</label>
+    {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+    <label htmlFor="tokenInput" id="tokenLabel">
+      Tokens
+    </label>
     <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="tokenInput" {...rest} />
   </>
 )
@@ -88,7 +88,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the previous token when keying ArrowLeft', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemote={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenIndex = mockTokens.length - 1
@@ -104,10 +104,23 @@ describe('TextInputWithTokens', () => {
     expect(document.activeElement?.id).toEqual(getByText(mockTokens[lastTokenIndex - 1].text).id)
   })
 
+  it('focuses the next token when keying ArrowRight', () => {
+    const onRemoveMock = jest.fn()
+    const {getByText} = HTMLRender(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const tokenNode = getByText(mockTokens[4].text)
+
+    expect(onRemoveMock).not.toHaveBeenCalled()
+
+    fireEvent.focus(tokenNode)
+    fireEvent.keyDown(tokenNode, {key: 'ArrowRight'})
+
+    expect(document.activeElement?.id).toEqual(getByText(mockTokens[5].text).id)
+  })
+
   it('focuses the input when keying ArrowLeft on the first token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemote={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
     )
     const inputNode = getByLabelText('Tokens')
     const firstTokenNode = getByText(mockTokens[0].text)
@@ -122,7 +135,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the input when keying ArrowRight on the last token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemote={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenNode = getByText(mockTokens[mockTokens.length - 1].text)
@@ -137,23 +150,39 @@ describe('TextInputWithTokens', () => {
   it('focuses the input when keying Escape when focused on a token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemote={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenNode = getByText(mockTokens[mockTokens.length - 1].text)
 
-    expect(document.activeElement).not.toEqual(lastTokenNode)
+    expect(document.activeElement?.id).not.toEqual(inputNode.id)
 
     fireEvent.focus(lastTokenNode)
-    fireEvent.keyDown(lastTokenNode, {key: 'Escape'})
+    expect(document.activeElement?.id).toEqual(lastTokenNode.id)
+    fireEvent.keyUp(lastTokenNode, {key: 'Escape'})
 
-    // wait a tick for `onBlur` to get finish
-    setTimeout(() => {
-      expect(document.activeElement?.id).toEqual(inputNode.id)
-    }, 0)
+    expect(document.activeElement?.id).not.toEqual(lastTokenNode.id)
+    expect(document.activeElement?.id).toEqual(inputNode.id)
   })
 
-  it('calls onTokenRemove on the last token when keying Backspace in an empty input ', () => {
+  it('focuses the first token when keying ArrowRight in the input', () => {
+    const onRemoveMock = jest.fn()
+    const {getByLabelText, getByText} = HTMLRender(
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+    )
+    const inputNode = getByLabelText('Tokens')
+    const firstTokenNode = getByText(mockTokens[0].text)
+
+    expect(onRemoveMock).not.toHaveBeenCalled()
+
+    fireEvent.focus(inputNode)
+    fireEvent.keyDown(inputNode, {key: 'ArrowRight'})
+
+    expect(document.activeElement?.id).not.toEqual(inputNode.id)
+    expect(document.activeElement?.id).toEqual(firstTokenNode.id)
+  })
+
+  it('calls onTokenRemove on the last token when keying Backspace in an empty input', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText} = HTMLRender(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
@@ -168,10 +197,26 @@ describe('TextInputWithTokens', () => {
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[lastTokenIndex].id)
   })
 
+  it("sets the input text to the last token's text when keying Backspace in an empty input", () => {
+    const onRemoveMock = jest.fn()
+    const {getByDisplayValue, getByLabelText} = HTMLRender(
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+    )
+    const inputNode = getByLabelText('Tokens')
+    const lastTokenIndex = mockTokens.length - 1
+
+    expect(onRemoveMock).not.toHaveBeenCalled()
+
+    fireEvent.focus(inputNode)
+    fireEvent.keyDown(inputNode, {key: 'Backspace'})
+
+    expect(getByDisplayValue(mockTokens[lastTokenIndex].text).id).toEqual(inputNode.id)
+  })
+
   it('does not call onTokenRemove on the last token when keying Backspace in an input that has a value', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} value="test" />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} defaultValue="test" />
     )
     const inputNode = getByLabelText('Tokens')
 
@@ -193,7 +238,7 @@ describe('TextInputWithTokens', () => {
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[4].id)
   })
 
-  it('calls onKeyDown ', () => {
+  it('calls onKeyDown', () => {
     const onRemoveMock = jest.fn()
     const onKeyDownMock = jest.fn()
     const {getByLabelText} = HTMLRender(
@@ -205,5 +250,13 @@ describe('TextInputWithTokens', () => {
     fireEvent.focus(inputNode)
     fireEvent.keyDown(inputNode, {key: 'a'})
     expect(onKeyDownMock).toHaveBeenCalled()
+  })
+
+  it('should have no axe violations', async () => {
+    const onRemoveMock = jest.fn()
+    const {container} = HTMLRender(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+    cleanup()
   })
 })

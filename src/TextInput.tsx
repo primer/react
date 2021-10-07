@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
-import type * as Polymorphic from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
@@ -110,7 +110,6 @@ const Wrapper = styled.span<StyledWrapperProps>`
 type NonPassthroughProps = {
   className?: string
   icon?: React.ComponentType<{className?: string}>
-  inputComponent?: React.ComponentType<HTMLInputElement>
   wrapperRef?: React.RefObject<HTMLSpanElement>
 } & Pick<
   ComponentProps<typeof Wrapper>,
@@ -125,7 +124,6 @@ type TextInputInternalProps = NonPassthroughProps &
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
   (
     {
-      inputComponent: InputComponent,
       icon: IconComponent,
       block,
       className,
@@ -165,7 +163,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       </Wrapper>
     )
   }
-) as Polymorphic.ForwardRefComponent<'input', TextInputInternalProps>
+) as PolymorphicForwardRefComponent<'input', TextInputInternalProps>
 
 TextInput.defaultProps = {
   type: 'text'
