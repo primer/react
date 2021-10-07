@@ -59,14 +59,13 @@ const ExampleCollectionContainer: React.FC = ({children}) => (
     }}
   >
     <Text fontSize={1} color="fg.subtle">
-      Hint: use the "Controls" tab in the Addons panel to change the token properties
+      Hint: use the &quot;Controls&quot; tab in the Addons panel to change the token properties
     </Text>
     {children}
   </Box>
 )
 
 export const DefaultToken = (args: Omit<TokenProps, 'ref'>) => {
-  console.log('args', args)
   return (
     <ExampleCollectionContainer>
       <Token {...args} />

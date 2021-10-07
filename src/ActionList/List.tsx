@@ -10,7 +10,9 @@ import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
-export type ItemInput = ItemProps | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
+export type ItemInput =
+  | (ItemProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof ItemProps>)
+  | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**
  * Contract for props passed to the `List` component.
