@@ -8,6 +8,19 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   text-overflow: ellipsis;
   white-space: nowrap;
 
+  // Position psuedo-element above text content, but below the
+  // remove button.
+  // This ensures the <a> or <button> receives the click no
+  // matter where on the token the user clicks.
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   ${props => {
     if (props.as === 'a') {
       return css`
@@ -33,21 +46,6 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
 
         cursor: pointer;
         line-height: 1;
-      `
-    }
-
-    // position psuedo-element above text content
-    // so it gets the click
-    if (props.as !== 'span') {
-      return css`
-        &:after {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-        }
       `
     }
   }}
