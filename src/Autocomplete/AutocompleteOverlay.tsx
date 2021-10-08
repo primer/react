@@ -40,6 +40,10 @@ const AutocompleteOverlay: React.FC<AutocompleteOverlayInternalProps> = ({menuAn
     setShowMenu && setShowMenu(false)
   }, [setShowMenu])
 
+  if (typeof window === 'undefined') {
+    return null
+  }
+
   return (
     <Overlay
       returnFocusRef={inputRef}
