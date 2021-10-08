@@ -1,20 +1,16 @@
 import React, {FocusEventHandler, KeyboardEventHandler, useRef, useState} from 'react'
 import {omit} from '@styled-system/props'
-import styled from 'styled-components'
 import {FocusKeys} from './behaviors/focusZone'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
 import {useFocusZone} from './hooks/useFocusZone'
 import {ComponentProps} from './utils/types'
 import Token from './Token/Token'
 import {TokenSizeKeys} from './Token/TokenBase'
-import TextInput, {TextInputProps} from './TextInput'
+import {TextInputProps} from './TextInput'
 import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
-
-const InputWrapper = styled.div`
-  order: 1;
-  flex-grow: 1;
-`
+import TextInputWrapper from './_TextInputWrapper'
+import Box from './Box'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
@@ -49,19 +45,29 @@ type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactCompone
    * Whether the remove buttons should be rendered in the tokens
    */
   hideTokenRemoveButtons?: boolean
-}
+} & TextInputProps
 
-// The inner contents of `TextInputWithTokens` are separated so they may be passed to the `as`
-// prop of the `TextInput` component
+// using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactComponent>(
   {
+    icon: IconComponent,
+    contrast,
+    className,
+    block,
+    disabled,
+    theme,
+    sx: sxProp,
     tokens,
     onTokenRemove,
     tokenComponent: TokenComponent,
+    preventTokenWrapping,
     size,
     hideTokenRemoveButtons,
-    selectedTokenIndex,
-    setSelectedTokenIndex,
+    maxHeight,
+    width: widthProp,
+    minWidth: minWidthProp,
+    maxWidth: maxWidthProp,
+    variant: variantProp,
     ...rest
   }: TextInputWithTokensInternalProps<TokenComponentType> & {
     selectedTokenIndex: number | undefined
@@ -69,99 +75,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   },
   externalRef: React.ForwardedRef<HTMLInputElement>
 ) {
-  const ref = useProvidedRefOrCreate<HTMLInputElement>(externalRef as React.RefObject<HTMLInputElement>)
   const {onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
-
-  const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = tokenIndex => () => {
-    setSelectedTokenIndex(tokenIndex)
-  }
-
-  const handleTokenBlur: FocusEventHandler = () => {
-    setSelectedTokenIndex(undefined)
-  }
-
-  const handleTokenKeyUp: KeyboardEventHandler = event => {
-    if (event.key === 'Escape') {
-      ref.current?.focus()
-    }
-  }
-
-  const handleInputFocus: FocusEventHandler = event => {
-    onFocus && onFocus(event)
-    setSelectedTokenIndex(undefined)
-  }
-  const handleInputKeyDown: KeyboardEventHandler = event => {
-    if (onKeyDown) {
-      onKeyDown(event)
-    }
-
-    if (ref.current?.value) {
-      return
-    }
-
-    const lastToken = tokens[tokens.length - 1]
-
-    if (event.key === 'Backspace' && lastToken) {
-      onTokenRemove(lastToken.id)
-
-      if (ref.current) {
-        // TODO: eliminate the first hack by making changes to the Autocomplete component
-        //
-        // HACKS:
-        // 1. Directly setting `ref.current.value` instead of updating state because the autocomplete
-        //    highlight behavior doesn't work correctly if we update the value with a setState action in onChange
-        // 2. Adding an extra space so that when I backspace, it doesn't delete the last letter
-        ref.current.value = `${lastToken.text} `
-      }
-
-      // HACK: for some reason we need to wait a tick for `.select()` to work
-      setTimeout(() => {
-        ref.current?.select()
-      }, 0)
-    }
-  }
-
-  return (
-    <>
-      <InputWrapper key="inputWrapper">
-        <UnstyledTextInput
-          ref={ref}
-          onFocus={handleInputFocus}
-          onKeyDown={handleInputKeyDown}
-          type="text"
-          sx={{height: '100%'}}
-          {...inputPropsRest}
-        />
-      </InputWrapper>
-      {tokens.length && TokenComponent
-        ? tokens.map(({id, ...tokenRest}, i) => (
-            <TokenComponent
-              key={id}
-              onFocus={handleTokenFocus(i)}
-              onBlur={handleTokenBlur}
-              onKeyUp={handleTokenKeyUp}
-              isSelected={selectedTokenIndex === i}
-              onRemove={() => {
-                onTokenRemove(id)
-              }}
-              hideRemoveButton={hideTokenRemoveButtons}
-              size={size}
-              tabIndex={0}
-              {...tokenRest}
-            />
-          ))
-        : null}
-    </>
-  )
-}
-
-// using forwardRef is important so that other components (ex. Autocomplete) can use the ref
-const TextInputWithTokensInnerComponentWithRef = React.forwardRef(TextInputWithTokensInnerComponent)
-
-function TextInputWithTokensComponent<TokenComponentType extends AnyReactComponent>(
-  {tokens, onTokenRemove, sx: sxProp, ...props}: TextInputWithTokensInternalProps<TokenComponentType> & TextInputProps,
-  ref: React.ForwardedRef<HTMLInputElement>
-) {
+  const ref = useProvidedRefOrCreate<HTMLInputElement>(externalRef as React.RefObject<HTMLInputElement>)
   const localInputRef = useRef<HTMLInputElement>(null)
   const combinedInputRef = useCombinedRefs(localInputRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
@@ -206,39 +121,92 @@ function TextInputWithTokensComponent<TokenComponentType extends AnyReactCompone
     }
   }
 
+  const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = tokenIndex => () => {
+    setSelectedTokenIndex(tokenIndex)
+  }
+
+  const handleTokenBlur: FocusEventHandler = () => {
+    setSelectedTokenIndex(undefined)
+  }
+
+  const handleTokenKeyUp: KeyboardEventHandler = e => {
+    if (e.key === 'Escape') {
+      ref.current?.focus()
+    }
+  }
+
+  const handleInputFocus: FocusEventHandler = e => {
+    onFocus && onFocus(e)
+    setSelectedTokenIndex(undefined)
+  }
+  const handleInputKeyDown: KeyboardEventHandler = e => {
+    if (onKeyDown) {
+      onKeyDown(e)
+    }
+
+    if (ref.current?.value) {
+      return
+    }
+
+    const lastToken = tokens[tokens.length - 1]
+
+    if (e.key === 'Backspace' && lastToken) {
+      handleTokenRemove(lastToken.id)
+
+      if (ref.current) {
+        // TODO: eliminate the first hack by making changes to the Autocomplete component
+        //
+        // HACKS:
+        // 1. Directly setting `ref.current.value` instead of updating state because the autocomplete
+        //    highlight behavior doesn't work correctly if we update the value with a setState action in onChange
+        // 2. Adding an extra space so that when I backspace, it doesn't delete the last letter
+        ref.current.value = `${lastToken.text} `
+      }
+
+      // HACK: for some reason we need to wait a tick for `.select()` to work
+      setTimeout(() => {
+        ref.current?.select()
+      }, 0)
+    }
+  }
+
   return (
-    <TextInput
-      ref={combinedInputRef}
-      wrapperRef={containerRef}
-      as={TextInputWithTokensInnerComponentWithRef}
-      selectedTokenIndex={selectedTokenIndex}
-      setSelectedTokenIndex={setSelectedTokenIndex}
-      tokens={tokens}
-      onTokenRemove={handleTokenRemove}
+    <TextInputWrapper
+      block={block}
+      className={className}
+      contrast={contrast}
+      disabled={disabled}
+      hasIcon={!!IconComponent}
+      theme={theme}
+      width={widthProp}
+      minWidth={minWidthProp}
+      maxWidth={maxWidthProp}
+      variant={variantProp}
+      ref={containerRef}
       sx={{
         alignItems: 'center',
-        flexWrap: props.preventTokenWrapping ? 'nowrap' : 'wrap',
+        flexWrap: preventTokenWrapping ? 'nowrap' : 'wrap',
         gap: '0.25rem',
 
         '> *': {
           flexShrink: 0
         },
 
-        ...(props.block
+        ...(block
           ? {
               display: 'flex',
               width: '100%'
             }
           : {}),
 
-        ...(props.maxHeight
+        ...(maxHeight
           ? {
-              maxHeight: props.maxHeight,
+              maxHeight,
               overflow: 'auto'
             }
           : {}),
 
-        ...(props.preventTokenWrapping
+        ...(preventTokenWrapping
           ? {
               overflow: 'auto'
             }
@@ -246,13 +214,47 @@ function TextInputWithTokensComponent<TokenComponentType extends AnyReactCompone
 
         ...sxProp
       }}
-      {...props}
-    />
+    >
+      <Box
+        sx={{
+          order: 1,
+          flexGrow: 1
+        }}
+      >
+        {IconComponent && <IconComponent className="TextInput-icon" />}
+        <UnstyledTextInput
+          ref={combinedInputRef}
+          disabled={disabled}
+          onFocus={handleInputFocus}
+          onKeyDown={handleInputKeyDown}
+          type="text"
+          sx={{height: '100%'}}
+          {...inputPropsRest}
+        />
+      </Box>
+      {tokens.length && TokenComponent
+        ? tokens.map(({id, ...tokenRest}, i) => (
+            <TokenComponent
+              key={id}
+              onFocus={handleTokenFocus(i)}
+              onBlur={handleTokenBlur}
+              onKeyUp={handleTokenKeyUp}
+              isSelected={selectedTokenIndex === i}
+              onRemove={() => {
+                handleTokenRemove(id)
+              }}
+              hideRemoveButton={hideTokenRemoveButtons}
+              size={size}
+              tabIndex={0}
+              {...tokenRest}
+            />
+          ))
+        : null}
+    </TextInputWrapper>
   )
 }
 
-// using forwardRef is important so that other components (ex. Autocomplete) can use the ref
-const TextInputWithTokens = React.forwardRef(TextInputWithTokensComponent)
+const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
