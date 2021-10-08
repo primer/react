@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import {TokenBaseProps} from './TokenBase'
 
 const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
@@ -7,6 +7,25 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  // reset button styles, make the cursor a pointer, and add line-height
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  cursor: pointer;
+  line-height: 1;
+
+  // reset anchor styles
+  color: currentColor;
+  text-decoration: none;
 
   // Position psuedo-element above text content, but below the
   // remove button.
@@ -20,35 +39,6 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
     right: 0;
     bottom: 0;
   }
-
-  ${props => {
-    if (props.as === 'a') {
-      return css`
-        color: currentColor;
-        text-decoration: none;
-      `
-    }
-
-    if (props.as === 'button') {
-      // reset button styles, make the cursor a pointer, and add line-height
-      return css`
-        background: transparent;
-        border: none;
-        color: inherit;
-        font: inherit;
-        margin: 0;
-        overflow: visible;
-        padding: 0;
-        width: auto;
-        -webkit-font-smoothing: inherit;
-        -moz-osx-font-smoothing: inherit;
-        -webkit-appearance: none;
-
-        cursor: pointer;
-        line-height: 1;
-      `
-    }
-  }}
 `
 
 export default TokenTextContainer
