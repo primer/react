@@ -146,7 +146,7 @@ export const MultiSelectWithTokenInput = () => {
       const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
       const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
 
-      for (const removedItemId in removedItemIds) {
+      for (const removedItemId of removedItemIds) {
         onTokenRemove(removedItemId)
       }
 
@@ -198,7 +198,7 @@ export const MultiSelectAddNewItem = () => {
       const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
       const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
 
-      for (const removedItemId in removedItemIds) {
+      for (const removedItemId of removedItemIds) {
         onTokenRemove(removedItemId)
       }
 

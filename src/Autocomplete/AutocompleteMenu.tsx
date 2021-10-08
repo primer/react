@@ -36,6 +36,7 @@ function getItemById<T extends MandateProps<ItemProps, 'id'>>(itemId: string | n
   return items.find(item => item.id === itemId)
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'id'> & {metadata?: T}
 
 type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
@@ -94,7 +95,7 @@ type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    * scrolls when the user highlights an item in the menu that is outside the scroll container
    */
   customScrollContainerRef?: React.MutableRefObject<HTMLElement | null>
-} & Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
+} & Pick<React.AriaAttributes, 'aria-labelledby'>
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const {
@@ -126,7 +127,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   } = props
   const listContainerRef = useRef<HTMLDivElement>(null)
   const [highlightedItem, setHighlightedItem] = useState<T>()
-  const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id}) => id))
+  const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id: itemId}) => itemId))
 
   const selectableItems = useMemo(
     () =>
@@ -227,7 +228,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           activeDescendantRef.current = current || null
         }
         if (current) {
-          const selectedItem = selectableItems.find(item => item.id.toString() === current.dataset.id)
+          const selectedItem = selectableItems.find(item => item.id.toString() === current.getAttribute('data-id'))
 
           setHighlightedItem(selectedItem)
           setIsMenuDirectlyActivated && setIsMenuDirectlyActivated(directlyActivated)
@@ -256,13 +257,17 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   }, [highlightedItem, inputValue, selectedItemIds, setAutocompleteSuggestion])
 
   useEffect(() => {
-    if (showMenu === false) {
-      setSortedItemIds(
-        [...sortedItemIds].sort(
-          sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds))
-        )
-      )
+    const itemIdSortResult = [...sortedItemIds].sort(
+      sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds))
+    )
+    const sortResultMatchesState =
+      itemIdSortResult.length === sortedItemIds.length &&
+      itemIdSortResult.every((element, index) => element === sortedItemIds[index])
+
+    if (showMenu === false && !sortResultMatchesState) {
+      setSortedItemIds(itemIdSortResult)
     }
+
     onOpenChange && onOpenChange(Boolean(showMenu))
   }, [showMenu, onOpenChange, selectedItemIds, sortOnCloseFn, sortedItemIds])
 
