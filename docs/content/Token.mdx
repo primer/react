@@ -1,6 +1,7 @@
 ---
 title: Token
 status: Alpha
+source: https://github.com/primer/react/tree/main/src/Token
 ---
 
 A Token represents a piece of data. They are typically used to show a collection of related attributes.
@@ -290,14 +291,14 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
   <Props of={IssueLabelToken} />
 -->
 
-## ProfileToken
+## AvatarToken
 
-Tokens that represent GitHub users should use the `ProfileToken` component.
+Tokens that represent GitHub users should use the `AvatarToken` component.
 
 <!--
-  Uncomment this once we can import ProfileToken from @primer/components
+  Uncomment this once we can import AvatarToken from @primer/components
   ### Component Props
-  <Props of={ProfileToken} />
+  <Props of={AvatarToken} />
 -->
 
 ```jsx live
@@ -313,21 +314,21 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
     <Text fontSize={0} display="block" color="fg.subtle">
       Resting
     </Text>
-    <ProfileToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" />
+    <AvatarToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" />
   </div>
 
   <div>
     <Text fontSize={0} display="block" color="fg.subtle">
       isSelected
     </Text>
-    <ProfileToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" isSelected />
+    <AvatarToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" isSelected />
   </div>
 
   <div>
     <Text fontSize={0} display="block" color="fg.subtle">
       With `onRemove` passed
     </Text>
-    <ProfileToken
+    <AvatarToken
       avatarSrc="https://avatars.githubusercontent.com/mperrotti"
       text="Default Token"
       onRemove={() => {
@@ -347,7 +348,7 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
         gap: 2
       }}
     >
-      <ProfileToken
+      <AvatarToken
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         size="small"
         text="'small' Token"
@@ -355,7 +356,7 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
           console.log('remove me')
         }}
       />
-      <ProfileToken
+      <AvatarToken
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         size="medium"
         text="'medium' Token"
@@ -363,7 +364,7 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
           console.log('remove me')
         }}
       />
-      <ProfileToken
+      <AvatarToken
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         size="large"
         text="'large' Token (default)"
@@ -371,7 +372,7 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
           console.log('remove me')
         }}
       />
-      <ProfileToken
+      <AvatarToken
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         size="extralarge"
         text="'extralarge' Token"
