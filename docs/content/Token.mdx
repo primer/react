@@ -4,6 +4,9 @@ status: Alpha
 source: https://github.com/primer/react/tree/main/src/Token
 ---
 
+import {Props} from '../src/props'
+import {AvatarToken, IssueLabelToken, Token} from '@primer/components'
+
 A Token represents a piece of data. They are typically used to show a collection of related attributes.
 
 The default `Token` can be used for most cases, but specialized token components are provided for specific use cases (see below for more info).
@@ -101,6 +104,10 @@ These rules apply to all token components mentioned in this document.
 
 The default `Token` component
 
+### Component Props
+
+<Props of={Token} />
+
 ### Example
 
 ```jsx live
@@ -189,17 +196,13 @@ The default `Token` component
 </Box>
 ```
 
-<!--
-  Uncomment this once we can import Token from @primer/components
-  ### Component Props
-  <Props of={Token} />
--->
-
 ## IssueLabelToken
 
 Tokens that represent Issue labels should use the `IssueLabelToken` component.
 
-<!-- insert row of issue labels -->
+### Component Props
+
+<Props of={IssueLabelToken} />
 
 ```jsx live
 <Box
@@ -285,21 +288,13 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
 </Box>
 ```
 
-<!--
-  Uncomment this once we can import IssueLabelToken from @primer/components
-  ### Component Props
-  <Props of={IssueLabelToken} />
--->
-
 ## AvatarToken
 
 Tokens that represent GitHub users should use the `AvatarToken` component.
 
-<!--
-  Uncomment this once we can import AvatarToken from @primer/components
-  ### Component Props
-  <Props of={AvatarToken} />
--->
+### Component Props
+
+<Props of={AvatarToken} />
 
 ```jsx live
 <Box
