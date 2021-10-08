@@ -5,11 +5,11 @@ import {TokenBaseProps, defaultTokenSize, tokenSizes} from './TokenBase'
 import Token from './Token'
 import {Avatar} from '..'
 
-export interface ProfileTokenProps extends TokenBaseProps {
+export interface AvatarTokenProps extends TokenBaseProps {
   avatarSrc: string
 }
 
-const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id, size, ...rest}, forwardedRef) => {
+const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(({avatarSrc, id, size, ...rest}, forwardedRef) => {
   return (
     <Token
       leadingVisual={() => (
@@ -31,10 +31,10 @@ const ProfileToken = forwardRef<HTMLElement, ProfileTokenProps>(({avatarSrc, id,
   )
 })
 
-ProfileToken.defaultProps = {
+AvatarToken.defaultProps = {
   size: defaultTokenSize
 }
 
-ProfileToken.displayName = 'ProfileToken'
+AvatarToken.displayName = 'AvatarToken'
 
-export default ProfileToken
+export default AvatarToken

@@ -5,8 +5,8 @@ import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
-import {IssueLabelToken, ProfileToken} from '../Token'
-import {ProfileTokenProps} from '../Token/ProfileToken'
+import {IssueLabelToken, AvatarToken} from '../Token'
+import {AvatarTokenProps} from '../Token/AvatarToken'
 expect.extend(toHaveNoViolations)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -107,12 +107,12 @@ describe('Token components', () => {
     })
   })
 
-  describe('ProfileToken', () => {
-    const ProfileTokenWithDefaultAvatar = ({
+  describe('AvatarToken', () => {
+    const AvatarTokenWithDefaultAvatar = ({
       avatarSrc = 'https://avatars.githubusercontent.com/mperrotti',
       ...rest
-    }: Omit<ProfileTokenProps, 'ref'>) => <ProfileToken avatarSrc={avatarSrc} {...rest} />
+    }: Omit<AvatarTokenProps, 'ref'>) => <AvatarToken avatarSrc={avatarSrc} {...rest} />
 
-    testTokenComponent(ProfileTokenWithDefaultAvatar)
+    testTokenComponent(AvatarTokenWithDefaultAvatar)
   })
 })

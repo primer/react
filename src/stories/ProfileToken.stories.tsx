@@ -5,12 +5,12 @@ import {action} from '@storybook/addon-actions'
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
-import ProfileToken, {ProfileTokenProps} from '../Token/ProfileToken'
+import AvatarToken, {AvatarTokenProps} from '../Token/AvatarToken'
 import Text from '../Text'
 
 export default {
-  title: 'Tokens/ProfileToken',
-  component: ProfileToken,
+  title: 'Tokens/AvatarToken',
+  component: AvatarToken,
   argTypes: {
     text: {
       defaultValue: 'Mike Perrotti'
@@ -68,17 +68,17 @@ const ExampleCollectionContainer: React.FC = ({children}) => (
   </Box>
 )
 
-export const DefaultToken = (args: Omit<ProfileTokenProps, 'ref'>) => {
+export const DefaultToken = (args: Omit<AvatarTokenProps, 'ref'>) => {
   return (
     <ExampleCollectionContainer>
-      <ProfileToken {...args} />
+      <AvatarToken {...args} />
     </ExampleCollectionContainer>
   )
 }
 DefaultToken.storyName = 'Default'
 DefaultToken.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
 
-export const Interactive = (args: Omit<ProfileTokenProps, 'ref' | 'text'>) => {
+export const Interactive = (args: Omit<AvatarTokenProps, 'ref' | 'text'>) => {
   return (
     <ExampleCollectionContainer>
       <Box
@@ -88,20 +88,20 @@ export const Interactive = (args: Omit<ProfileTokenProps, 'ref' | 'text'>) => {
           gap: get('space.2')
         }}
       >
-        <ProfileToken as="a" href="http://google.com/" text="Link" {...args} />
-        <ProfileToken as="button" onClick={action('clicked')} text="Button" {...args} />
-        <ProfileToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <AvatarToken as="a" href="http://google.com/" text="Link" {...args} />
+        <AvatarToken as="button" onClick={action('clicked')} text="Button" {...args} />
+        <AvatarToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
       </Box>
     </ExampleCollectionContainer>
   )
 }
 Interactive.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}}
 
-export const WithOnRemoveFn = (args: Omit<ProfileTokenProps, 'ref'>) => {
+export const WithOnRemoveFn = (args: Omit<AvatarTokenProps, 'ref'>) => {
   return (
     <ExampleCollectionContainer>
       <SingleExampleContainer label="w/ onRemove passed">
-        <ProfileToken onRemove={action('remove me')} {...args} />
+        <AvatarToken onRemove={action('remove me')} {...args} />
       </SingleExampleContainer>
       <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
         <Box
@@ -111,15 +111,9 @@ export const WithOnRemoveFn = (args: Omit<ProfileTokenProps, 'ref'>) => {
             gap: get('space.2')
           }}
         >
-          <ProfileToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
-          <ProfileToken
-            as="button"
-            onClick={action('clicked')}
-            onRemove={action('remove me')}
-            {...args}
-            text="Button"
-          />
-          <ProfileToken
+          <AvatarToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
+          <AvatarToken as="button" onClick={action('clicked')} onRemove={action('remove me')} {...args} text="Button" />
+          <AvatarToken
             as="span"
             tabIndex={0}
             onFocus={action('focused')}
