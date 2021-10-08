@@ -17,7 +17,7 @@ type AutocompleteOverlayInternalProps = {
   children?: React.ReactNode
 } & Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
 
-const AutocompleteOverlay: React.FC<AutocompleteOverlayInternalProps> = ({menuAnchorRef, overlayProps, children}) => {
+function AutocompleteOverlay({menuAnchorRef, overlayProps, children}: AutocompleteOverlayInternalProps) {
   const {
     inputRef,
     scrollContainerRef,
