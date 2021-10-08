@@ -7,11 +7,12 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
+import {Merge} from '../utils/types/Merge'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
 export type ItemInput =
-  | (ItemProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof ItemProps>)
+  | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
   | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**

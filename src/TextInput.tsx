@@ -5,7 +5,7 @@ import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthP
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentProps, Merge} from './utils/types'
 import UnstyledTextInput from './_UnstyledTextInput'
 
 const sizeVariants = variant({
@@ -116,9 +116,8 @@ type NonPassthroughProps = {
   'block' | 'contrast' | 'disabled' | 'sx' | 'theme' | 'width' | 'maxWidth' | 'minWidth' | 'variant'
 >
 
-type TextInputInternalProps = NonPassthroughProps &
-  // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
-  Omit<React.ComponentPropsWithoutRef<typeof UnstyledTextInput>, keyof NonPassthroughProps>
+// Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
+type TextInputInternalProps = Merge<React.ComponentPropsWithoutRef<typeof UnstyledTextInput>, NonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
