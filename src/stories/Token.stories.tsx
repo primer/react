@@ -41,7 +41,7 @@ const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) =
     }}
   >
     {label ? (
-      <Text fontSize={0} color="text.tertiary">
+      <Text fontSize={0} color="fg.subtle">
         {label}
       </Text>
     ) : null}

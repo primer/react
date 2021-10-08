@@ -13,7 +13,7 @@ All types of tokens may have the same interactive qualities as links or buttons.
 
 ```jsx live
 <>
-  <Text fontSize={0} display="block" color="text.tertiary">
+  <Text fontSize={0} display="block" color="fg.subtle">
     Token
   </Text>
   <Token text="Default Token" />
@@ -40,7 +40,7 @@ These rules apply to all token components mentioned in this document.
   }}
 >
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Interactive
     </Text>
     <Box
@@ -56,7 +56,7 @@ These rules apply to all token components mentioned in this document.
     </Box>
   </div>
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Interactive with `onRemove` passed
     </Text>
     <Box
@@ -112,28 +112,28 @@ The default `Token` component
   }}
 >
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Resting
     </Text>
     <Token text="Default Token" />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       isSelected
     </Text>
     <Token text="Default Token" isSelected />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       With `leadingVisual` passed
     </Text>
     <Token text="Default Token" leadingVisual={() => <span>✨</span>} />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       With `onRemove` passed
     </Text>
     <Token
@@ -145,7 +145,7 @@ The default `Token` component
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Size options
     </Text>
     <Box
@@ -210,21 +210,21 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
   }}
 >
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Resting
     </Text>
     <IssueLabelToken text="good first issue" fillColor="#0366d6" />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       isSelected
     </Text>
     <IssueLabelToken text="good first issue" fillColor="#0366d6" isSelected />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       With `onRemove` passed
     </Text>
     <IssueLabelToken
@@ -237,7 +237,7 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Size options
     </Text>
     <Box
@@ -310,21 +310,21 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
   }}
 >
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Resting
     </Text>
     <ProfileToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       isSelected
     </Text>
     <ProfileToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" isSelected />
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       With `onRemove` passed
     </Text>
     <ProfileToken
@@ -337,7 +337,7 @@ Tokens that represent GitHub users should use the `ProfileToken` component.
   </div>
 
   <div>
-    <Text fontSize={0} display="block" color="text.tertiary">
+    <Text fontSize={0} display="block" color="fg.subtle">
       Size options
     </Text>
     <Box
