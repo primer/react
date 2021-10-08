@@ -3,12 +3,15 @@ import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import Autocomplete, {AutocompleteInputProps, AutocompleteMenuInternalProps} from '../Autocomplete'
+import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
 import {SSRProvider} from '../index'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import userEvent from '@testing-library/user-event'
+import {AutocompleteMenuInternalProps} from '../Autocomplete/AutocompleteMenu'
+import {ItemProps} from '../ActionList'
+import {MandateProps} from '../utils/types'
 expect.extend(toHaveNoViolations)
 
 const mockItems = [
@@ -24,11 +27,17 @@ const mockItems = [
   {text: 'twentyone', id: 21}
 ]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'id'> & {metadata?: T}
+
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
-const LabelledAutocomplete: React.FC<{
+const LabelledAutocomplete = <T extends AutocompleteItemProps>({
+  inputProps = {},
+  menuProps
+}: {
   inputProps?: AutocompleteInputProps
-  menuProps: AutocompleteMenuInternalProps
-}> = ({inputProps = {}, menuProps}) => {
+  menuProps: AutocompleteMenuInternalProps<T>
+}) => {
   const {['aria-labelledby']: ariaLabelledBy = 'autocompleteLabel', ...menuPropsRest} = menuProps
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
