@@ -39,7 +39,7 @@ function getItemById<T extends MandateProps<ItemProps, 'id'>>(itemId: string | n
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'id'> & {metadata?: T}
 
-type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
+export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   /**
    * A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop.
    * This menu item gets appended to the end of the list of options.
@@ -181,10 +181,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   )
 
   const sortedAndFilteredItemsToRender = useMemo(
-    () =>
-      selectableItems
-        .filter((item, i) => filterFn(item, i))
-        .sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id]),
+    () => selectableItems.filter(filterFn).sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id]),
     [selectableItems, itemSortOrderData, filterFn]
   )
 

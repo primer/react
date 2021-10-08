@@ -65,7 +65,6 @@ const AutocompleteInput = React.forwardRef(
       event => {
         onChange && onChange(event)
         setInputValue && setInputValue(event.currentTarget.value)
-
         if (!showMenu) {
           setShowMenu && setShowMenu(true)
         }

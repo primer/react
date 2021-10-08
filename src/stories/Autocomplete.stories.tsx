@@ -21,9 +21,7 @@ type Datum = {
 const items: Datum[] = [
   {text: 'zero', id: 0},
   {text: 'one', id: 1},
-  {text: 'twe', id: 22},
   {text: 'two', id: 2},
-  {text: 'twb', id: 23},
   {text: 'three', id: 3},
   {text: 'four', id: 4},
   {text: 'five', id: 5},
