@@ -585,7 +585,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   className="c0"
   onKeyDown={[Function]}
   onRemove={[MockFunction]}
-  size="xlarge"
+  size="extralarge"
 >
   <span
     className="c1"
@@ -597,7 +597,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
     aria-label="Remove token"
     className="c2"
     onClick={[Function]}
-    size="xlarge"
+    size="extralarge"
   >
     <svg
       aria-hidden="true"
@@ -1359,6 +1359,7 @@ exports[`Token components ProfileToken renders all sizes 1`] = `
   max-width: 100%;
   padding-right: 0;
   position: relative;
+  padding-left: 4px;
 }
 
 .c1 {
@@ -1533,6 +1534,7 @@ exports[`Token components ProfileToken renders all sizes 2`] = `
   max-width: 100%;
   padding-right: 0;
   position: relative;
+  padding-left: 4px;
 }
 
 .c1 {
@@ -1707,6 +1709,7 @@ exports[`Token components ProfileToken renders all sizes 3`] = `
   max-width: 100%;
   padding-right: 0;
   position: relative;
+  padding-left: 4px;
 }
 
 .c1 {
@@ -1881,6 +1884,7 @@ exports[`Token components ProfileToken renders all sizes 4`] = `
   max-width: 100%;
   padding-right: 0;
   position: relative;
+  padding-left: 4px;
 }
 
 .c1 {
@@ -1895,7 +1899,7 @@ exports[`Token components ProfileToken renders all sizes 4`] = `
   className="c0"
   onKeyDown={[Function]}
   onRemove={[MockFunction]}
-  size="xlarge"
+  size="extralarge"
 >
   <span
     className="c1"
@@ -1919,7 +1923,7 @@ exports[`Token components ProfileToken renders all sizes 4`] = `
     aria-label="Remove token"
     className="c4"
     onClick={[Function]}
-    size="xlarge"
+    size="extralarge"
   >
     <svg
       aria-hidden="true"
@@ -2070,6 +2074,7 @@ exports[`Token components ProfileToken renders isSelected 1`] = `
   color: #24292f;
   max-width: 100%;
   position: relative;
+  padding-left: 4px;
 }
 
 .c1 {
@@ -2213,6 +2218,7 @@ exports[`Token components ProfileToken renders with a remove button 1`] = `
   max-width: 100%;
   padding-right: 0;
   position: relative;
+  padding-left: 4px;
 }
 
 .c1 {
@@ -2823,7 +2829,7 @@ exports[`Token components Token renders all sizes 4`] = `
   className="c0"
   onKeyDown={[Function]}
   onRemove={[MockFunction]}
-  size="xlarge"
+  size="extralarge"
 >
   <span
     className="c1"
@@ -2835,7 +2841,7 @@ exports[`Token components Token renders all sizes 4`] = `
     aria-label="Remove token"
     className="c2"
     onClick={[Function]}
-    size="xlarge"
+    size="extralarge"
   >
     <svg
       aria-hidden="true"

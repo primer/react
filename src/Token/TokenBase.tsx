@@ -4,13 +4,13 @@ import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'extralarge'
 
 export const tokenSizes: Record<TokenSizeKeys, string> = {
   small: '16px',
   medium: '20px',
   large: '24px',
-  xlarge: '32px'
+  extralarge: '32px'
 }
 
 export const defaultTokenSize: TokenSizeKeys = 'medium'
@@ -77,11 +77,11 @@ const variants = variant<
       paddingTop: 0,
       paddingBottom: 0
     },
-    xlarge: {
+    extralarge: {
       fontSize: 1,
       gap: 2,
-      height: tokenSizes.xlarge,
-      lineHeight: tokenSizes.xlarge,
+      height: tokenSizes.extralarge,
+      lineHeight: tokenSizes.extralarge,
       paddingLeft: 3,
       paddingRight: 3,
       paddingTop: 0,
