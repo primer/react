@@ -1,14 +1,9 @@
 import React from 'react'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
-import {IssueLabelToken} from '../Token'
-import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import Autocomplete, {AutocompleteInputProps, AutocompleteMenuInternalProps} from '../Autocomplete'
-import {ItemProps} from '../ActionList'
-import {MandateProps} from '../utils/types'
 import {SSRProvider} from '../index'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
@@ -27,17 +22,6 @@ const mockItems = [
   {text: 'seven', id: 7},
   {text: 'twenty', id: 20},
   {text: 'twentyone', id: 21}
-]
-
-const mockTokens = [
-  {text: 'zero', id: 0},
-  {text: 'one', id: 1},
-  {text: 'two', id: 2},
-  {text: 'three', id: 3},
-  {text: 'four', id: 4},
-  {text: 'five', id: 5},
-  {text: 'six', id: 6},
-  {text: 'seven', id: 7}
 ]
 
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
