@@ -28,9 +28,9 @@ const variants = variant<{height: string; width: string}, TokenSizeKeys>({
       height: tokenSizes.large,
       width: tokenSizes.large
     },
-    xlarge: {
-      height: tokenSizes.xlarge,
-      width: tokenSizes.xlarge
+    extralarge: {
+      height: tokenSizes.extralarge,
+      width: tokenSizes.extralarge
     }
   }
 })
