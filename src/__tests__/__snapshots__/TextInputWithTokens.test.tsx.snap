@@ -242,6 +242,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  height: 32px;
+  width: 32px;
   position: relative;
   z-index: 1;
 }
@@ -290,6 +292,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -342,7 +352,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -354,7 +364,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -362,11 +372,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -375,8 +385,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -388,7 +398,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -400,7 +410,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -408,11 +418,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -421,8 +431,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -434,7 +444,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -446,7 +456,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -454,11 +464,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -467,8 +477,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -480,7 +490,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -492,7 +502,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -500,11 +510,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -513,8 +523,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -526,7 +536,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -538,7 +548,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -546,11 +556,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -559,8 +569,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -572,7 +582,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -584,7 +594,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -592,11 +602,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -605,8 +615,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -618,7 +628,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -630,7 +640,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -638,11 +648,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -651,8 +661,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -664,7 +674,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -676,7 +686,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -684,11 +694,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -697,8 +707,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3188,6 +3198,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  height: 32px;
+  width: 32px;
   position: relative;
   z-index: 1;
 }
@@ -3236,6 +3248,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3288,7 +3308,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3300,7 +3320,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3308,11 +3328,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3321,8 +3341,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3334,7 +3354,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3346,7 +3366,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3354,11 +3374,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3367,8 +3387,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3380,7 +3400,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3392,7 +3412,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3400,11 +3420,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3413,8 +3433,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3426,7 +3446,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3438,7 +3458,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3446,11 +3466,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3459,8 +3479,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3472,7 +3492,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3484,7 +3504,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3492,11 +3512,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3505,8 +3525,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3518,7 +3538,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3530,7 +3550,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3538,11 +3558,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3551,8 +3571,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3564,7 +3584,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3576,7 +3596,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3584,11 +3604,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3597,8 +3617,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3610,7 +3630,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3622,7 +3642,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3630,11 +3650,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -3643,8 +3663,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -3769,6 +3789,14 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3820,7 +3848,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3837,7 +3865,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3854,7 +3882,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3871,7 +3899,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3888,7 +3916,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3905,7 +3933,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3922,7 +3950,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -3939,7 +3967,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4069,6 +4097,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  height: 32px;
+  width: 32px;
   position: relative;
   z-index: 1;
 }
@@ -4117,6 +4147,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -4169,7 +4207,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4181,7 +4219,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4189,11 +4227,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4202,8 +4240,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4215,7 +4253,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4227,7 +4265,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4235,11 +4273,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4248,8 +4286,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4261,7 +4299,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4273,7 +4311,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4281,11 +4319,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4294,8 +4332,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4307,7 +4345,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4319,7 +4357,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4327,11 +4365,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4340,8 +4378,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4353,7 +4391,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4365,7 +4403,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4373,11 +4411,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4386,8 +4424,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4399,7 +4437,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4411,7 +4449,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4419,11 +4457,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4432,8 +4470,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4445,7 +4483,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4457,7 +4495,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4465,11 +4503,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4478,8 +4516,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4491,7 +4529,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4503,7 +4541,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4511,11 +4549,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4524,8 +4562,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4630,6 +4668,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -4685,6 +4731,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  height: 32px;
+  width: 32px;
   position: relative;
   z-index: 1;
 }
@@ -4755,7 +4803,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4767,7 +4815,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4775,11 +4823,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4788,8 +4836,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4801,7 +4849,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4813,7 +4861,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4821,11 +4869,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4834,8 +4882,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4847,7 +4895,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4859,7 +4907,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4867,11 +4915,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4880,8 +4928,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4893,7 +4941,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4905,7 +4953,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4913,11 +4961,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4926,8 +4974,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4939,7 +4987,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4951,7 +4999,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4959,11 +5007,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -4972,8 +5020,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -4985,7 +5033,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -4997,7 +5045,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5005,11 +5053,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -5018,8 +5066,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -5031,7 +5079,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -5043,7 +5091,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5051,11 +5099,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -5064,8 +5112,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>
@@ -5077,7 +5125,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
@@ -5089,7 +5137,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       aria-hidden="true"
       className="c6"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5097,11 +5145,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
           }
         }
         fill="currentColor"
-        height={NaN}
+        height={24}
         role="img"
         style={
           Object {
@@ -5110,8 +5158,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
             "verticalAlign": "text-bottom",
           }
         }
-        viewBox="0 0 16 16"
-        width={NaN}
+        viewBox="0 0 24 24"
+        width={24}
       />
     </span>
   </span>

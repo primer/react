@@ -256,7 +256,7 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensComponent)
 
 TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
-  size: 'xlarge',
+  size: 'extralarge',
   hideTokenRemoveButtons: false
 }
 
