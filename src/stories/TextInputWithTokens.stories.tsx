@@ -79,7 +79,7 @@ export const TokenSizeVariants = () => {
       <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="small" />
       <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="medium" />
       <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="large" />
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="xlarge" />
+      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="extralarge" />
     </Box>
   )
 }

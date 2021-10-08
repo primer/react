@@ -1,18 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInputWithTokens renders as block layout 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -90,16 +86,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   flex-shrink: 0;
 }
 
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -107,13 +93,13 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -123,18 +109,14 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 `;
 
 exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -207,7 +189,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   flex-shrink: 0;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -248,16 +230,16 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -268,7 +250,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -277,7 +259,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -310,19 +292,9 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -332,13 +304,13 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -346,25 +318,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -392,25 +364,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -438,25 +410,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -484,25 +456,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -530,25 +502,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -576,25 +548,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -622,25 +594,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -668,25 +640,25 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -716,18 +688,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 `;
 
 exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -798,7 +766,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   flex-shrink: 0;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -839,16 +807,16 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -859,7 +827,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -868,7 +836,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -901,19 +869,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -923,13 +881,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -937,7 +895,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -947,13 +905,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -983,7 +941,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -993,13 +951,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1029,7 +987,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1039,13 +997,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1075,7 +1033,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1085,13 +1043,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1121,7 +1079,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1131,13 +1089,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1167,7 +1125,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1177,13 +1135,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1213,7 +1171,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1223,13 +1181,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1259,7 +1217,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1269,13 +1227,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="small"
       tabIndex={-1}
@@ -1307,18 +1265,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 `;
 
 exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -1389,7 +1343,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   flex-shrink: 0;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1430,16 +1384,16 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1450,7 +1404,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -1459,7 +1413,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1492,19 +1446,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -1514,13 +1458,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -1528,7 +1472,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1538,13 +1482,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1574,7 +1518,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1584,13 +1528,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1620,7 +1564,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1630,13 +1574,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1666,7 +1610,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1676,13 +1620,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1712,7 +1656,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1722,13 +1666,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1758,7 +1702,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1768,13 +1712,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1804,7 +1748,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1814,13 +1758,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1850,7 +1794,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -1860,13 +1804,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="medium"
       tabIndex={-1}
@@ -1898,18 +1842,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 `;
 
 exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -1980,7 +1920,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   flex-shrink: 0;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -2021,16 +1961,16 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2041,7 +1981,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -2050,7 +1990,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -2083,19 +2023,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -2105,13 +2035,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -2119,7 +2049,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2129,13 +2059,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2165,7 +2095,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2175,13 +2105,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2211,7 +2141,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2221,13 +2151,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2257,7 +2187,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2267,13 +2197,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2303,7 +2233,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2313,13 +2243,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2349,7 +2279,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2359,13 +2289,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2395,7 +2325,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2405,13 +2335,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2441,7 +2371,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -2451,13 +2381,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
       size="large"
       tabIndex={-1}
@@ -2489,18 +2419,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 `;
 
 exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -2571,7 +2497,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   flex-shrink: 0;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -2612,16 +2538,16 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2632,7 +2558,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -2641,7 +2567,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -2674,19 +2600,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -2696,13 +2612,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -2710,25 +2626,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -2756,25 +2672,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -2802,25 +2718,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -2848,25 +2764,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -2894,25 +2810,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -2940,25 +2856,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -2986,25 +2902,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3032,25 +2948,25 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3080,18 +2996,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 `;
 
 exports[`TextInputWithTokens renders tokens on a single line when specified 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -3163,7 +3075,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   flex-shrink: 0;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -3204,16 +3116,16 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3224,7 +3136,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -3233,7 +3145,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -3266,19 +3178,9 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -3288,13 +3190,13 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -3302,25 +3204,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3348,25 +3250,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3394,25 +3296,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3440,25 +3342,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3486,25 +3388,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3532,25 +3434,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3578,25 +3480,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3624,25 +3526,25 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -3672,7 +3574,17 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 `;
 
 exports[`TextInputWithTokens renders tokens without a remove button when specified 1`] = `
-.c3 {
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -3680,10 +3592,290 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-appearance: none;
   color: inherit;
   width: 100%;
+  height: 100%;
 }
 
-.c3:focus {
+.c2:focus {
   outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c4:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders with tokens 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -3755,314 +3947,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 }
 
 .c5 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.c5:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  gap: 8px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  className="c0 TextInput-wrapper"
->
-  <div
-    className="c1"
-  >
-    <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      type="text"
-    />
-  </div>
-  <span
-    aria-label="zero, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      zero
-    </span>
-  </span>
-  <span
-    aria-label="one, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      one
-    </span>
-  </span>
-  <span
-    aria-label="two, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      two
-    </span>
-  </span>
-  <span
-    aria-label="three, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      three
-    </span>
-  </span>
-  <span
-    aria-label="four, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      four
-    </span>
-  </span>
-  <span
-    aria-label="five, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      five
-    </span>
-  </span>
-  <span
-    aria-label="six, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      six
-    </span>
-  </span>
-  <span
-    aria-label="seven, press backspace or delete to remove"
-    className="c4"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    onRemove={[Function]}
-    size="xlarge"
-    tabIndex={0}
-  >
-    <span
-      className="c5"
-    >
-      seven
-    </span>
-  </span>
-</span>
-`;
-
-exports[`TextInputWithTokens renders with tokens 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  padding: 6px 12px;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
-.c0 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -4103,16 +3987,16 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -4123,7 +4007,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
@@ -4132,7 +4016,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   bottom: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -4165,19 +4049,9 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   position: relative;
 }
 
-.c4:hover {
+.c3:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -4187,13 +4061,13 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -4201,25 +4075,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4247,25 +4121,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4293,25 +4167,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4339,25 +4213,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4385,25 +4259,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4431,25 +4305,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4477,25 +4351,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4523,25 +4397,25 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4571,18 +4445,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 `;
 
 exports[`TextInputWithTokens renders with tokens using a custom token component 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -4653,7 +4523,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   flex-shrink: 0;
 }
 
-.c4 {
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -4696,7 +4566,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -4737,16 +4607,16 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   z-index: 1;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c6:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -4757,23 +4627,13 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   white-space: nowrap;
 }
 
-.c5:after {
+.c4:after {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 @media (min-width:768px) {
@@ -4783,13 +4643,13 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -4797,25 +4657,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </div>
   <span
     aria-label="zero, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       zero
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4843,25 +4703,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="one, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       one
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4889,25 +4749,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="two, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       two
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4935,25 +4795,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="three, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       three
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -4981,25 +4841,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="four, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       four
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5027,25 +4887,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="five, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       five
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5073,25 +4933,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="six, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       six
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5119,25 +4979,25 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   </span>
   <span
     aria-label="seven, press backspace or delete to remove"
-    className="c4"
+    className="c3"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onRemove={[Function]}
-    size="xlarge"
+    size="extralarge"
     tabIndex={0}
   >
     <span
-      className="c5"
+      className="c4"
     >
       seven
     </span>
     <span
       aria-hidden="true"
-      className="c6"
+      className="c5"
       onClick={[Function]}
-      size="xlarge"
+      size="extralarge"
       tabIndex={-1}
     >
       <svg
@@ -5167,18 +5027,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 `;
 
 exports[`TextInputWithTokens renders without tokens 1`] = `
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .c2 {
@@ -5249,16 +5105,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   flex-shrink: 0;
 }
 
-.c1 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -5266,13 +5112,13 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 }
 
 <span
-  className="c0 TextInput-wrapper"
+  className="c0"
 >
   <div
     className="c1"
   >
     <input
-      className="c2 _UnstyledTextInput__UnstyledTextInput-sc-1jgl33s-0 c3"
+      className="c2"
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
