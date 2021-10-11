@@ -200,7 +200,6 @@ interface Options {
 interface BehavesAsComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Component: React.ComponentType<any>
-  systemPropArray: unknown[]
   toRender?: () => React.ReactElement
   options?: Options
 }

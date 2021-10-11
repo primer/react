@@ -1,5 +1,45 @@
 # @primer/components
 
+## 30.2.1
+
+### Patch Changes
+
+- [#1500](https://github.com/primer/react/pull/1500) [`8c3531aa`](https://github.com/primer/react/commit/8c3531aa73c37770f961cbcfd94acbf1398f29bd) Thanks [@jfuchs](https://github.com/jfuchs)! - Fixed a bug where SelectPanel would not scroll with height:'auto'; maxHeight:'medium' passed to Overlay (https://github.com/github/primer/issues/333)
+
+## 30.2.0
+
+### Minor Changes
+
+- [#1497](https://github.com/primer/react/pull/1497) [`b9d6a662`](https://github.com/primer/react/commit/b9d6a662390a66298a4b2171319029812f5ea88d) Thanks [@jfuchs](https://github.com/jfuchs)! - Updated ActionList's ItemInput type to accept DOM props for divs when renderItem is not provided
+
+## 30.1.0
+
+### Minor Changes
+
+- [#1463](https://github.com/primer/react/pull/1463) [`bde3a034`](https://github.com/primer/react/commit/bde3a0344c713f15f5650b35195258901582bd41) Thanks [@jfuchs](https://github.com/jfuchs)! - `ActionList.item` accepts an `as` prop, allowing it to be a link, or (in combination with the renderItem prop) a Next.js or React Router link
+
+### Patch Changes
+
+- [#1471](https://github.com/primer/react/pull/1471) [`f1cebb7e`](https://github.com/primer/react/commit/f1cebb7e9af297a7c466701454aac6dc1eb7b3a4) Thanks [@smockle](https://github.com/smockle)! - Change the button which receives focus when a 'ConfirmationDialog' opens from the secondary (e.g. 'Cancel') to the primary (e.g. 'OK'). Fixes github/primer#313.
+
+## 30.0.0
+
+### Major Changes
+
+- [#1448](https://github.com/primer/react/pull/1448) [`1a39fb02`](https://github.com/primer/react/commit/1a39fb0284c5e19324d378629d09a343be4cde05) Thanks [@SferaDev](https://github.com/SferaDev)! - Remove `.Breadcrumb` classname from the root element of the `Breadcrumbs` component. This change shouldn't break anything unless you have styles, scripts, or tests that reference the `.Breadcrumb` classname.
+
+* [#1468](https://github.com/primer/react/pull/1468) [`dc15763c`](https://github.com/primer/react/commit/dc15763c733994ea9baa3475139b9bf3c2111e5b) Thanks [@jfuchs](https://github.com/jfuchs)! - AvatarStack no longer accepts styled props or DOM props
+
+### Minor Changes
+
+- [#1474](https://github.com/primer/react/pull/1474) [`c54156bc`](https://github.com/primer/react/commit/c54156bc43f87370f3e8cb23fd9ebf338b5082e4) Thanks [@colebemis](https://github.com/colebemis)! - Add `light_protanopia` and `dark_protanopia` color blind color schemes
+
+### Patch Changes
+
+- [#1448](https://github.com/primer/react/pull/1448) [`1a39fb02`](https://github.com/primer/react/commit/1a39fb0284c5e19324d378629d09a343be4cde05) Thanks [@SferaDev](https://github.com/SferaDev)! - Rename `Breadcrumb` component to `Breadcrumbs`
+
+* [#1470](https://github.com/primer/react/pull/1470) [`f2e29a08`](https://github.com/primer/react/commit/f2e29a08e2aab9e98a460eb073229933f6ae050b) Thanks [@pksjce](https://github.com/pksjce)! - Fix ActionList.Item color
+
 ## 29.1.1
 
 ### Patch Changes
