@@ -1,15 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Token components AvatarToken renders all sizes 1`] = `
-.c2 {
+.c3 {
   display: inline-block;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.c4 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -48,16 +50,16 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   width: 16px;
 }
 
-.c4:hover,
-.c4:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c4:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -77,14 +79,17 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c3:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -135,6 +140,13 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   line-height: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(16px - var(--spacing));
+  width: calc(16px - var(--spacing));
+}
+
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
@@ -145,24 +157,28 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   <span
     className="c1"
   >
-    <img
-      alt=""
+    <span
       className="c2"
-      height={8}
-      size={8}
-      src="https://avatars.githubusercontent.com/mperrotti"
-      width={8}
-    />
+    >
+      <img
+        alt=""
+        className="c3"
+        height={16}
+        size={16}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={16}
+      />
+    </span>
   </span>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c4"
+    className="c5"
     onClick={[Function]}
     size="small"
   >
@@ -192,15 +208,17 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 2`] = `
-.c2 {
+.c3 {
   display: inline-block;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.c4 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -239,16 +257,16 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   width: 20px;
 }
 
-.c4:hover,
-.c4:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c4:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -268,14 +286,17 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c3:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -326,6 +347,13 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   line-height: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(20px - var(--spacing));
+  width: calc(20px - var(--spacing));
+}
+
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
@@ -336,24 +364,28 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   <span
     className="c1"
   >
-    <img
-      alt=""
+    <span
       className="c2"
-      height={12}
-      size={12}
-      src="https://avatars.githubusercontent.com/mperrotti"
-      width={12}
-    />
+    >
+      <img
+        alt=""
+        className="c3"
+        height={20}
+        size={20}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={20}
+      />
+    </span>
   </span>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c4"
+    className="c5"
     onClick={[Function]}
     size="medium"
   >
@@ -383,15 +415,17 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 3`] = `
-.c2 {
+.c3 {
   display: inline-block;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.c4 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -430,16 +464,16 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   width: 24px;
 }
 
-.c4:hover,
-.c4:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c4:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -459,14 +493,17 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c3:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -517,6 +554,13 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   line-height: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(24px - var(--spacing));
+  width: calc(24px - var(--spacing));
+}
+
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
@@ -527,24 +571,28 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   <span
     className="c1"
   >
-    <img
-      alt=""
+    <span
       className="c2"
-      height={16}
-      size={16}
-      src="https://avatars.githubusercontent.com/mperrotti"
-      width={16}
-    />
+    >
+      <img
+        alt=""
+        className="c3"
+        height={24}
+        size={24}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={24}
+      />
+    </span>
   </span>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c4"
+    className="c5"
     onClick={[Function]}
     size="large"
   >
@@ -574,15 +622,17 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 4`] = `
-.c2 {
+.c3 {
   display: inline-block;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.c4 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -621,16 +671,16 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   width: 32px;
 }
 
-.c4:hover,
-.c4:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c4:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -650,14 +700,17 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c3:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -708,6 +761,13 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   line-height: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(32px - var(--spacing));
+  width: calc(32px - var(--spacing));
+}
+
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
@@ -718,24 +778,28 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   <span
     className="c1"
   >
-    <img
-      alt=""
+    <span
       className="c2"
-      height={24}
-      size={24}
-      src="https://avatars.githubusercontent.com/mperrotti"
-      width={24}
-    />
+    >
+      <img
+        alt=""
+        className="c3"
+        height={32}
+        size={32}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={32}
+      />
+    </span>
   </span>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c4"
+    className="c5"
     onClick={[Function]}
     size="extralarge"
   >
@@ -785,14 +849,17 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -845,15 +912,17 @@ exports[`Token components AvatarToken renders consistently 1`] = `
 `;
 
 exports[`Token components AvatarToken renders isSelected 1`] = `
-.c2 {
+.c3 {
   display: inline-block;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -873,14 +942,17 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c3:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -930,6 +1002,13 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   line-height: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(20px - var(--spacing));
+  width: calc(20px - var(--spacing));
+}
+
 <span
   className="c0"
   onKeyDown={[Function]}
@@ -938,17 +1017,21 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   <span
     className="c1"
   >
-    <img
-      alt=""
+    <span
       className="c2"
-      height={12}
-      size={12}
-      src="https://avatars.githubusercontent.com/mperrotti"
-      width={12}
-    />
+    >
+      <img
+        alt=""
+        className="c3"
+        height={20}
+        size={20}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={20}
+      />
+    </span>
   </span>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
@@ -956,15 +1039,17 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 `;
 
 exports[`Token components AvatarToken renders with a remove button 1`] = `
-.c2 {
+.c3 {
   display: inline-block;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.c4 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1003,16 +1088,16 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   width: 20px;
 }
 
-.c4:hover,
-.c4:focus {
+.c5:hover,
+.c5:focus {
   background-color: rgba(27,31,36,0.1);
 }
 
-.c4:active {
+.c5:active {
   background-color: rgba(27,31,36,0.15);
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1032,14 +1117,17 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c3:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1090,6 +1178,13 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   line-height: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(20px - var(--spacing));
+  width: calc(20px - var(--spacing));
+}
+
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
@@ -1100,24 +1195,28 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   <span
     className="c1"
   >
-    <img
-      alt=""
+    <span
       className="c2"
-      height={12}
-      size={12}
-      src="https://avatars.githubusercontent.com/mperrotti"
-      width={12}
-    />
+    >
+      <img
+        alt=""
+        className="c3"
+        height={20}
+        size={20}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={20}
+      />
+    </span>
   </span>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c4"
+    className="c5"
     onClick={[Function]}
     size="medium"
   >
@@ -1258,14 +1357,17 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1430,14 +1532,17 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1602,14 +1707,17 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1774,14 +1882,17 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1855,14 +1966,17 @@ exports[`Token components IssueLabelToken renders consistently 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2026,14 +2140,17 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2198,14 +2315,17 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2339,14 +2459,17 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2480,14 +2603,17 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2609,14 +2735,17 @@ exports[`Token components Token renders all sizes 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2771,14 +2900,17 @@ exports[`Token components Token renders all sizes 2`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2933,14 +3065,17 @@ exports[`Token components Token renders all sizes 3`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3095,14 +3230,17 @@ exports[`Token components Token renders all sizes 4`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3209,14 +3347,17 @@ exports[`Token components Token renders consistently 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3289,14 +3430,17 @@ exports[`Token components Token renders isSelected 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3371,14 +3515,17 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c2:after {
+.c2:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3519,14 +3666,17 @@ exports[`Token components Token renders with a remove button 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:after {
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;

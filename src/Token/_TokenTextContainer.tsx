@@ -20,7 +20,6 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
 
   // reset anchor styles
@@ -31,13 +30,17 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   // remove button.
   // This ensures the <a> or <button> receives the click no
   // matter where on the token the user clicks.
-  &:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+  &:is(a, button, [tabIndex='0']) {
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
   }
 `
 
