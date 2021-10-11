@@ -7,7 +7,7 @@ import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from 
 const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   color: ${get('colors.btn.outline.text')};
   border: 1px solid ${get('colors.btn.border')};
-  background-color: ${get('colors.btn.outline.bg')};
+  background-color: ${get('colors.btn.bg')};
   box-shadow: ${get('shadows.btn.shadow')};
 
   &:hover {

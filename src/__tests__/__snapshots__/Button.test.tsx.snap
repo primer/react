@@ -358,6 +358,7 @@ exports[`ButtonInvisible renders consistently 1`] = `
   font-size: 14px;
   color: #0969da;
   border: 1px solid rgba(27,31,36,0.15);
+  background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04);
 }
 
@@ -493,6 +494,7 @@ exports[`ButtonOutline renders consistently 1`] = `
   font-size: 14px;
   color: #0969da;
   border: 1px solid rgba(27,31,36,0.15);
+  background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04);
 }
 
@@ -565,6 +567,7 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   font-size: 14px;
   color: #0969da;
   border: 1px solid rgba(27,31,36,0.15);
+  background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04);
 }
 
