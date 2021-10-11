@@ -13,12 +13,8 @@ export interface DayProps extends FontSizeProps, SystemCommonProps, SxProp, Syst
   day: number
 }
 
-const DayComponent = styled(Box).attrs((props: DayProps) => ({
-  background: props.selected ? get('colors.accent.subtle') : get('colors.canvas.primary'),
-  backgroundHover: props.selected ? get('colors.accent.muted') : get('colors.neutral.muted')
-}))`
+const DayBaseComponent = styled(Box)`
   align-content: center;
-  background-color: ${props => props.background};
   border: 1px solid ${get('colors.border.default')};
   color: ${get('colors.fg.primary')};
   display: flex;
@@ -26,7 +22,13 @@ const DayComponent = styled(Box).attrs((props: DayProps) => ({
   min-width: 38px;
   min-height: 38px;
   padding: ${get('space.1')};
-  transition: 0.25s background-color ease;
+`
+
+const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
+  background: props.selected ? get('colors.accent.subtle') : get('colors.canvas.primary'),
+  backgroundHover: props.selected ? get('colors.accent.muted') : get('colors.neutral.muted')
+}))<Omit<DayProps, 'day'>>`
+  background-color: ${props => props.background};
 
   &:hover {
     background-color: ${props => props.backgroundHover};
@@ -56,7 +58,6 @@ export const Day: React.FC<DayProps> = ({day, selected}) => {
   )
 }
 
-export const BlankDay = styled(Box)`
-  background-color: ${get('colors.canvas.primary')};
-  display: flex;
+export const BlankDay = styled(DayBaseComponent)`
+  background-color: ${get('colors.canvas.subtle')};
 `
