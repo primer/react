@@ -7,10 +7,13 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
+import {Merge} from '../utils/types/Merge'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
-export type ItemInput = ItemProps | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
+export type ItemInput =
+  | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
+  | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**
  * Contract for props passed to the `List` component.

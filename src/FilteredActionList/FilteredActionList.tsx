@@ -11,8 +11,12 @@ import {get} from '../constants'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {useSSRSafeId} from '@react-aria/ssr'
+import {SxProp} from '../sx'
 
-export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+export interface FilteredActionListProps
+  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
+    ListPropsBase,
+    SxProp {
   loading?: boolean
   placeholderText: string
   filterValue?: string
@@ -57,6 +61,7 @@ export function FilteredActionList({
   items,
   textInputProps,
   inputRef: providedInputRef,
+  sx,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -120,7 +125,7 @@ export function FilteredActionList({
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden">
+    <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
       <StyledHeader>
         <TextInput
           ref={inputRef}
