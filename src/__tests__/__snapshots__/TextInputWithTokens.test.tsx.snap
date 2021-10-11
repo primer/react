@@ -259,14 +259,17 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -852,14 +855,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1445,14 +1451,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2038,14 +2047,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2631,14 +2643,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3225,14 +3240,17 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -3768,14 +3786,17 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -4128,14 +4149,17 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -4764,14 +4788,17 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  cursor: pointer;
   line-height: 1;
   color: currentColor;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:after {
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
