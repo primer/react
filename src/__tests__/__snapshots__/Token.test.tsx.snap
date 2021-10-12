@@ -110,6 +110,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -317,6 +318,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -524,6 +526,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -731,6 +734,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -880,6 +884,7 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -973,6 +978,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -1148,6 +1154,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -1258,6 +1265,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -1433,6 +1441,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -1608,6 +1617,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -1783,6 +1793,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -1997,6 +2008,7 @@ exports[`Token components IssueLabelToken renders consistently 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -2041,6 +2053,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -2216,6 +2229,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -2391,6 +2405,7 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -2504,6 +2519,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -2766,6 +2782,7 @@ exports[`Token components Token renders all sizes 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -2931,6 +2948,7 @@ exports[`Token components Token renders all sizes 2`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -3096,6 +3114,7 @@ exports[`Token components Token renders all sizes 3`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -3261,6 +3280,7 @@ exports[`Token components Token renders all sizes 4`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -3378,6 +3398,7 @@ exports[`Token components Token renders consistently 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -3461,6 +3482,7 @@ exports[`Token components Token renders isSelected 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -3546,6 +3568,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -3697,6 +3720,7 @@ exports[`Token components Token renders with a remove button 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   font-weight: 600;
+  font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
