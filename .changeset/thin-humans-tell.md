@@ -1,5 +1,5 @@
 ---
-"@primer/components": patch
+"@primer/components": minor
 ---
 
-Add `Token` components
+Add alpha `Token`, `AvatarToken`, `IssueLabelToken` components
