@@ -15,6 +15,8 @@ import Box from './Box'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
 
+// NOTE: if these props or their JSDoc comments are updated, be sure to also update
+// the prop table in docs/content/TextInputTokens.mdx
 type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactComponent> = {
   /**
    * The array of tokens to render
@@ -259,7 +261,8 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
   size: 'extralarge',
-  hideTokenRemoveButtons: false
+  hideTokenRemoveButtons: false,
+  preventTokenWrapping: false
 }
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'

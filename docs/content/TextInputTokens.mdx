@@ -39,7 +39,15 @@ render(BasicExample)
 
 ## Component Props
 
-<Props of={TextInputWithTokens} />
+| Name                   | Type                                  |   Default    | Description                                                                                                               |
+| :--------------------- | :------------------------------------ | :----------: | :------------------------------------------------------------------------------------------------------------------------ |
+| tokens                 | `TokenProps[]`                        | `undefined`  | Required. The array of tokens to render                                                                                   |
+| onTokenRemove          | `(tokenId: string \| number) => void` | `undefined`  | Required. The function that gets called when a token is removed                                                           |
+| tokenComponent         | `React.ComponentType<any>`            |   `Token`    | Optional. The component used to render each token                                                                         |
+| maxHeight              | `React.CSSProperties['maxHeight']`    | `undefined`  | Optional. The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically |
+| preventTokenWrapping   | `boolean`                             |   `false`    | Optional. Whether tokens should render inline horizontally. By default, tokens wrap to new lines.                         |
+| size                   | `TokenSizeKeys`                       | `extralarge` | Optional. The size of the tokens                                                                                          |
+| hideTokenRemoveButtons | `boolean`                             |   `false`    | Optional. Whether the remove buttons should be rendered in the tokens                                                     |
 
 ## Adding and removing tokens
 
