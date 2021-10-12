@@ -18,13 +18,11 @@ type AutocompleteOverlayInternalProps = {
 } & Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
 
 function AutocompleteOverlay({menuAnchorRef, overlayProps, children}: AutocompleteOverlayInternalProps) {
-  const {
-    inputRef,
-    scrollContainerRef,
-    selectedItemLength,
-    setShowMenu,
-    showMenu = false
-  } = useContext(AutocompleteContext)
+  const autocompleteContext = useContext(AutocompleteContext)
+  if (autocompleteContext === null) {
+    throw new Error('AutocompleteContext returned null values')
+  }
+  const {inputRef, scrollContainerRef, selectedItemLength, setShowMenu, showMenu = false} = autocompleteContext
   const {floatingElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
@@ -37,7 +35,7 @@ function AutocompleteOverlay({menuAnchorRef, overlayProps, children}: Autocomple
   const combinedOverlayRef = useCombinedRefs(scrollContainerRef, floatingElementRef)
 
   const closeOptionList = useCallback(() => {
-    setShowMenu && setShowMenu(false)
+    setShowMenu(false)
   }, [setShowMenu])
 
   if (typeof window === 'undefined') {

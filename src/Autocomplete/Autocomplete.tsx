@@ -1,21 +1,72 @@
-import React, {useRef, useState} from 'react'
+import React, {useCallback, useReducer, useRef} from 'react'
+import {useSSRSafeId} from '@react-aria/ssr'
 import {ComponentProps} from '../utils/types'
-import {uniqueId} from '../utils/uniqueId'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
 import AutocompleteOverlay from './AutocompleteOverlay'
 
+type Action =
+  | {type: 'showMenu' | 'isMenuDirectlyActivated'; payload: boolean}
+  | {type: 'autocompleteSuggestion' | 'inputValue'; payload: string}
+  | {type: 'selectedItemLength'; payload: number}
+
+interface State {
+  inputValue: string
+  showMenu: boolean
+  isMenuDirectlyActivated: boolean
+  autocompleteSuggestion: string
+  selectedItemLength: number
+}
+
+const initialState = {
+  inputValue: '',
+  showMenu: false,
+  isMenuDirectlyActivated: false,
+  autocompleteSuggestion: '',
+  selectedItemLength: 0
+}
+
+const reducer = (state: State, action: Action) => {
+  const {type, payload} = action
+  switch (type) {
+    case 'inputValue':
+      return {...state, inputValue: payload as State['inputValue']}
+    case 'showMenu':
+      return {...state, showMenu: payload as State['showMenu']}
+    case 'isMenuDirectlyActivated':
+      return {...state, isMenuDirectlyActivated: payload as State['isMenuDirectlyActivated']}
+    case 'autocompleteSuggestion':
+      return {...state, autocompleteSuggestion: payload as State['autocompleteSuggestion']}
+    case 'selectedItemLength':
+      return {...state, selectedItemLength: payload as State['selectedItemLength']}
+    default:
+      return state
+  }
+}
+
 const Autocomplete: React.FC<{id?: string}> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [inputValue, setInputValue] = useState<string>('')
-  const [showMenu, setShowMenu] = useState(false)
-  const [autocompleteSuggestion, setAutocompleteSuggestion] = useState<string>('')
-  const [isMenuDirectlyActivated, setIsMenuDirectlyActivated] = useState<boolean>(false)
-  const [selectedItemLength, setSelectedItemLength] = useState<number>()
-  const id = idProp || uniqueId()
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const {inputValue, showMenu, autocompleteSuggestion, isMenuDirectlyActivated, selectedItemLength} = state
+  const setInputValue = useCallback((value: State['inputValue']) => {
+    dispatch({type: 'inputValue', payload: value})
+  }, [])
+  const setShowMenu = useCallback((value: State['showMenu']) => {
+    dispatch({type: 'showMenu', payload: value})
+  }, [])
+  const setAutocompleteSuggestion = useCallback((value: State['autocompleteSuggestion']) => {
+    dispatch({type: 'autocompleteSuggestion', payload: value})
+  }, [])
+  const setIsMenuDirectlyActivated = useCallback((value: State['isMenuDirectlyActivated']) => {
+    dispatch({type: 'isMenuDirectlyActivated', payload: value})
+  }, [])
+  const setSelectedItemLength = useCallback((value: State['selectedItemLength']) => {
+    dispatch({type: 'selectedItemLength', payload: value})
+  }, [])
+  const id = useSSRSafeId(idProp)
 
   return (
     <AutocompleteContext.Provider
@@ -46,7 +97,6 @@ export type {AutocompleteInputProps} from './AutocompleteInput'
 export type {AutocompleteMenuProps} from './AutocompleteMenu'
 export type {AutocompleteOverlayProps} from './AutocompleteOverlay'
 export default Object.assign(Autocomplete, {
-  AutocompleteContext,
   Input: AutocompleteInput,
   Menu: AutocompleteMenu,
   Overlay: AutocompleteOverlay

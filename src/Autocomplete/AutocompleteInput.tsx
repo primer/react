@@ -2,6 +2,7 @@ import React, {
   ChangeEventHandler,
   FocusEventHandler,
   KeyboardEventHandler,
+  MutableRefObject,
   useCallback,
   useContext,
   useEffect,
@@ -23,6 +24,10 @@ const AutocompleteInput = React.forwardRef(
     {as: Component = TextInput, onFocus, onBlur, onChange, onKeyDown, onKeyUp, onKeyPress, value, ...props},
     forwardedRef
   ) => {
+    const autocompleteContext = useContext(AutocompleteContext)
+    if (autocompleteContext === null) {
+      throw new Error('AutocompleteContext returned null values')
+    }
     const {
       activeDescendantRef,
       autocompleteSuggestion = '',
@@ -33,14 +38,14 @@ const AutocompleteInput = React.forwardRef(
       setInputValue,
       setShowMenu,
       showMenu
-    } = useContext(AutocompleteContext)
+    } = autocompleteContext
     const combinedInputRef = useCombinedRefs(inputRef, forwardedRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
       event => {
         onFocus && onFocus(event)
-        setShowMenu && setShowMenu(true)
+        setShowMenu(true)
       },
       [onFocus, setShowMenu]
     )
@@ -54,7 +59,7 @@ const AutocompleteInput = React.forwardRef(
         // but still hides the menu when the user blurs the input by tabbing out or clicking somewhere else on the page
         setTimeout(() => {
           if (document.activeElement !== combinedInputRef.current) {
-            setShowMenu && setShowMenu(false)
+            setShowMenu(false)
           }
         }, 0)
       },
@@ -64,9 +69,9 @@ const AutocompleteInput = React.forwardRef(
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
       event => {
         onChange && onChange(event)
-        setInputValue && setInputValue(event.currentTarget.value)
+        setInputValue(event.currentTarget.value)
         if (!showMenu) {
-          setShowMenu && setShowMenu(true)
+          setShowMenu(true)
         }
       },
       [onChange, setInputValue, setShowMenu, showMenu]
@@ -80,8 +85,8 @@ const AutocompleteInput = React.forwardRef(
           setHighlightRemainingText(false)
         }
 
-        if (event.key === 'Escape' && inputRef?.current?.value) {
-          setInputValue && setInputValue('')
+        if (event.key === 'Escape' && inputRef.current?.value) {
+          setInputValue('')
           inputRef.current.value = ''
         }
       },
@@ -103,7 +108,7 @@ const AutocompleteInput = React.forwardRef(
       event => {
         onKeyPress && onKeyPress(event)
 
-        if (showMenu && activeDescendantRef && event.key === 'Enter' && activeDescendantRef.current) {
+        if (showMenu && event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
           event.nativeEvent.stopImmediatePropagation()
 
@@ -116,7 +121,7 @@ const AutocompleteInput = React.forwardRef(
     )
 
     useEffect(() => {
-      if (!inputRef?.current) {
+      if (!inputRef.current) {
         return
       }
 
@@ -142,7 +147,7 @@ const AutocompleteInput = React.forwardRef(
 
     useEffect(() => {
       if (value) {
-        setInputValue && setInputValue(value.toString())
+        setInputValue(value.toString())
       }
     }, [value, setInputValue])
 
@@ -154,7 +159,7 @@ const AutocompleteInput = React.forwardRef(
         onKeyDown={handleInputKeyDown}
         onKeyPress={onInputKeyPress}
         onKeyUp={handleInputKeyUp}
-        ref={combinedInputRef}
+        ref={combinedInputRef as MutableRefObject<HTMLInputElement>}
         aria-controls={`${id}-listbox`}
         aria-autocomplete="both"
         role="combobox"
@@ -166,7 +171,7 @@ const AutocompleteInput = React.forwardRef(
       />
     )
   }
-) as PolymorphicForwardRefComponent<'input', InternalAutocompleteInputProps>
+) as PolymorphicForwardRefComponent<typeof TextInput, InternalAutocompleteInputProps>
 
 AutocompleteInput.displayName = 'AutocompleteInput'
 
