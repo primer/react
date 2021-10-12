@@ -5,6 +5,7 @@ import {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DatePickerAnchor} from './DatePickerAnchor'
 import {addDays} from 'date-fns'
+import {Month} from './Month'
 
 export interface DatePickerProps {
   /**
@@ -58,8 +59,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   onClose: onCloseExternal,
   open,
   overlayProps,
-  renderAnchor,
-  value
+  renderAnchor
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -103,7 +103,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
       >
-        {value}
+        <Month month={new Date().getMonth()} year={new Date().getFullYear()} />
       </AnchoredOverlay>
     </>
   )
