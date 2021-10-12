@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
-import {scrollIntoViewingArea} from '../utils/scrollIntoViewingArea'
+import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
 import {SxProp} from '../sx'
 
 export interface FilteredActionListProps

@@ -6,7 +6,7 @@ import {Box, Spinner} from '../'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
 import {uniqueId} from '../utils/uniqueId'
-import {scrollIntoViewingArea} from '../utils/scrollIntoViewingArea'
+import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
