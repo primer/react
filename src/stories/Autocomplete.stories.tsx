@@ -541,10 +541,12 @@ export const InOverlayWithCustomScrollContainerRef = () => {
             borderStyle="solid"
           >
             <Autocomplete.Input
+              block
               as={TextInput}
               ref={inputRef}
               id="autocompleteInput"
               sx={{
+                display: 'flex',
                 border: '0',
                 padding: '0',
                 boxShadow: 'none',
