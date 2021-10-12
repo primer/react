@@ -108,7 +108,7 @@
     - title: TextInput
       url: /TextInput
     - title: TextInputWithTokens
-      url: /TextInputTokens
+      url: /TextInputWithTokens
     - title: Timeline
       url: /Timeline
     - title: Token
