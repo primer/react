@@ -1,11 +1,17 @@
-import React from 'react'
+import React, {useRef, useState} from 'react'
 import {OverlayProps} from '../Overlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {DatePickerAnchor} from './DatePickerAnchor'
+import {addDays} from 'date-fns'
 
 export interface DatePickerProps {
-  anchorVariant: 'full' | 'iconOnly'
+  /**
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
+  anchorRef?: React.RefObject<HTMLElement>
+  anchorVariant?: 'full' | 'iconOnly'
   /**
    * Settings to apply to the Focus Zone on the internal `Overlay` component.
    */
@@ -20,7 +26,7 @@ export interface DatePickerProps {
   /**
    * Determines whether the overlay portion of the component should be shown or not
    */
-  open: boolean
+  open?: boolean
 
   /**
    * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
@@ -36,32 +42,69 @@ export interface DatePickerProps {
    * Props to be spread on the internal `Overlay` component.
    */
   overlayProps?: Partial<OverlayProps>
-
+  /**
+   * A custom function component used to render the anchor element.
+   * Will receive the selected text as `children` prop when an item is activated.
+   */
+  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
   value?: Date | string | null
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
+  anchorRef: externalAnchorRef,
   focusTrapSettings,
   focusZoneSettings,
-  initialValue,
-  onOpen,
-  onClose,
+  onOpen: onOpenExternal,
+  onClose: onCloseExternal,
   open,
   overlayProps,
+  renderAnchor,
   value
 }) => {
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const onOpen = (gesture: 'anchor-click' | 'anchor-key-press') => {
+    setIsOpen(true)
+    onOpenExternal?.(gesture)
+  }
+
+  const onClose = (gesture: 'anchor-click' | 'click-outside' | 'escape') => {
+    setIsOpen(false)
+    onCloseExternal?.(gesture)
+  }
+
+  const toggleIsOpen = () => {
+    if (isOpen) {
+      setIsOpen(false)
+      onCloseExternal?.('anchor-click')
+    } else {
+      setIsOpen(true)
+      onCloseExternal?.('anchor-click')
+    }
+  }
+
   return (
-    <AnchoredOverlay
-      renderAnchor={renderMenuAnchor}
-      anchorRef={anchorRef}
-      open={open}
-      onOpen={onOpen}
-      onClose={onClose}
-      overlayProps={overlayProps}
-      focusTrapSettings={focusTrapSettings}
-      focusZoneSettings={focusZoneSettings}
-    >
-      {value}
-    </AnchoredOverlay>
+    <>
+      <DatePickerAnchor
+        ref={buttonRef}
+        fromDate={new Date()}
+        toDate={addDays(new Date(), 7)}
+        dateFormat="short"
+        onAction={toggleIsOpen}
+      />
+      <AnchoredOverlay
+        anchorRef={externalAnchorRef ?? buttonRef}
+        renderAnchor={renderAnchor}
+        open={open ?? isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        overlayProps={overlayProps}
+        focusTrapSettings={focusTrapSettings}
+        focusZoneSettings={focusZoneSettings}
+      >
+        {value}
+      </AnchoredOverlay>
+    </>
   )
 }
