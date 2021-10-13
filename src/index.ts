@@ -155,6 +155,7 @@ export type {
   TimelineBreakProps,
   TimelineItemsProps
 } from './Timeline'
+export {default as Token, IssueLabelToken, AvatarToken} from './Token'
 export {default as Tooltip} from './Tooltip'
 export type {TooltipProps} from './Tooltip'
 export {default as Truncate} from './Truncate'

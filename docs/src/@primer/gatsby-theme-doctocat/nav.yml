@@ -109,6 +109,8 @@
       url: /TextInput
     - title: Timeline
       url: /Timeline
+    - title: Token
+      url: /Token
     - title: Tooltip
       url: /Tooltip
     - title: Truncate
