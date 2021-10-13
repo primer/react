@@ -1,0 +1,3414 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c1 {
+  padding: 16px;
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        className="c1"
+      >
+        No results
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders a loading state 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c1 {
+  padding: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+}
+
+<div
+    className="c0"
+  >
+    <div
+      className="c1"
+      display="flex"
+    >
+      <svg
+        className="c2"
+        fill="none"
+        height="32px"
+        viewBox="0 0 16 16"
+        width="32px"
+      >
+        <circle
+          cx="8"
+          cy="8"
+          r="7"
+          stroke="currentColor"
+          strokeOpacity="0.25"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          d="M15 8a7.002 7.002 0 00-7-7"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders a menu that contains an item to add to the menu 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c9 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  -webkit-flex-direction: var(--main-content-flex-direction);
+  -ms-flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--main-content-flex-direction);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 {
+  padding: 6px 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 6px;
+  color: #24292f;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
+  margin-top: 0;
+}
+
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c4:hover .c7::before,
+.c4:hover + * .c7::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c4:focus .c7::before,
+.c4:focus + * .c7::before,
+.c4[data-is-active-descendant] .c7::before,
+[data-is-active-descendant] + .c4 .c7::before {
+  border-color: transparent !important;
+}
+
+.c4[data-is-active-descendant='activated-directly'] {
+  background: rgba(54,77,100,0.16);
+}
+
+.c4[data-is-active-descendant='activated-indirectly'] {
+  background: rgba(46,77,108,0.06);
+}
+
+.c4:focus {
+  background: rgba(54,77,100,0.16);
+  outline: none;
+}
+
+.c4:active {
+  background: rgba(54,77,100,0.16);
+}
+
+.c5 {
+  height: 20px;
+  width: 16px;
+  margin-right: 8px;
+}
+
+.c10 {
+  height: 20px;
+  width: 16px;
+  margin-right: 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c10 svg {
+  fill: #57606a;
+  font-size: 12px;
+}
+
+.c6 {
+  pointer-events: none;
+}
+
+.c1 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.c1[data-has-active-descendant],
+.c1:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c4:hover {
+    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    cursor: pointer;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        aria-labelledby="labelId"
+        className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
+      >
+        <div
+          className="c2"
+        >
+          <div
+            aria-labelledby="react-aria-1"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={0}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="zero"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-1"
+                >
+                  zero
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-3"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={1}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="one"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-3"
+                >
+                  one
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-5"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={2}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="two"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-5"
+                >
+                  two
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-7"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={3}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="three"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-7"
+                >
+                  three
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-9"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={4}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="four"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-9"
+                >
+                  four
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-11"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={5}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="five"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-11"
+                >
+                  five
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-13"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={6}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="six"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-13"
+                >
+                  six
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-15"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={7}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="seven"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-15"
+                >
+                  seven
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-17"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={20}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="twenty"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-17"
+                >
+                  twenty
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-19"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={21}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="twentyone"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-19"
+                >
+                  twentyone
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-21"
+            className="c3 c4"
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            tabIndex={-1}
+          >
+            <div
+              className="c10"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-plus"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<path fill-rule=\\"evenodd\\" d=\\"M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z\\"></path>",
+                  }
+                }
+                fill="currentColor"
+                height={16}
+                role="img"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-21"
+                >
+                  Add new item
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders a multiselect input 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c9 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  -webkit-flex-direction: var(--main-content-flex-direction);
+  -ms-flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--main-content-flex-direction);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 {
+  padding: 6px 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 6px;
+  color: #24292f;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
+  margin-top: 0;
+}
+
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) .c7::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c4:hover .c7::before,
+.c4:hover + * .c7::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c4:focus .c7::before,
+.c4:focus + * .c7::before,
+.c4[data-is-active-descendant] .c7::before,
+[data-is-active-descendant] + .c4 .c7::before {
+  border-color: transparent !important;
+}
+
+.c4[data-is-active-descendant='activated-directly'] {
+  background: rgba(54,77,100,0.16);
+}
+
+.c4[data-is-active-descendant='activated-indirectly'] {
+  background: rgba(46,77,108,0.06);
+}
+
+.c4:focus {
+  background: rgba(54,77,100,0.16);
+  outline: none;
+}
+
+.c4:active {
+  background: rgba(54,77,100,0.16);
+}
+
+.c5 {
+  height: 20px;
+  width: 16px;
+  margin-right: 8px;
+}
+
+.c6 {
+  pointer-events: none;
+}
+
+.c1 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.c1[data-has-active-descendant],
+.c1:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c4:hover {
+    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    cursor: pointer;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        aria-labelledby="labelId"
+        className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
+      >
+        <div
+          className="c2"
+        >
+          <div
+            aria-labelledby="react-aria-1"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={0}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="zero"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-1"
+                >
+                  zero
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-3"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={1}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="one"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-3"
+                >
+                  one
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-5"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={2}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="two"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-5"
+                >
+                  two
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-7"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={3}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="three"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-7"
+                >
+                  three
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-9"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={4}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="four"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-9"
+                >
+                  four
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-11"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={5}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="five"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-11"
+                >
+                  five
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-13"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={6}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="six"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-13"
+                >
+                  six
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-15"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={7}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="seven"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-15"
+                >
+                  seven
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-17"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={20}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="twenty"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-17"
+                >
+                  twenty
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-19"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={21}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="twentyone"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-19"
+                >
+                  twentyone
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders a multiselect input with selected menu items 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c9 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  -webkit-flex-direction: var(--main-content-flex-direction);
+  -ms-flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--main-content-flex-direction);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 {
+  padding: 6px 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 6px;
+  color: #24292f;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
+  margin-top: 0;
+}
+
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) .c7::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c4:hover .c7::before,
+.c4:hover + * .c7::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c4:focus .c7::before,
+.c4:focus + * .c7::before,
+.c4[data-is-active-descendant] .c7::before,
+[data-is-active-descendant] + .c4 .c7::before {
+  border-color: transparent !important;
+}
+
+.c4[data-is-active-descendant='activated-directly'] {
+  background: rgba(54,77,100,0.16);
+}
+
+.c4[data-is-active-descendant='activated-indirectly'] {
+  background: rgba(46,77,108,0.06);
+}
+
+.c4:focus {
+  background: rgba(54,77,100,0.16);
+  outline: none;
+}
+
+.c4:active {
+  background: rgba(54,77,100,0.16);
+}
+
+.c5 {
+  height: 20px;
+  width: 16px;
+  margin-right: 8px;
+}
+
+.c6 {
+  pointer-events: none;
+}
+
+.c1 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.c1[data-has-active-descendant],
+.c1:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c4:hover {
+    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    cursor: pointer;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        aria-labelledby="labelId"
+        className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
+      >
+        <div
+          className="c2"
+        >
+          <div
+            aria-labelledby="react-aria-1"
+            aria-selected={true}
+            className="c3 c4"
+            data-id={0}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="zero"
+                aria-readonly="false"
+                checked={true}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-1"
+                >
+                  zero
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-3"
+            aria-selected={true}
+            className="c3 c4"
+            data-id={1}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="one"
+                aria-readonly="false"
+                checked={true}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-3"
+                >
+                  one
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-5"
+            aria-selected={true}
+            className="c3 c4"
+            data-id={2}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="two"
+                aria-readonly="false"
+                checked={true}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-5"
+                >
+                  two
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-7"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={3}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="three"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-7"
+                >
+                  three
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-9"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={4}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="four"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-9"
+                >
+                  four
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-11"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={5}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="five"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-11"
+                >
+                  five
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-13"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={6}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="six"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-13"
+                >
+                  six
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-15"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={7}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="seven"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-15"
+                >
+                  seven
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-17"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={20}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="twenty"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-17"
+                >
+                  twenty
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-19"
+            aria-selected={false}
+            className="c3 c4"
+            data-id={21}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5"
+            >
+              <input
+                aria-label="twentyone"
+                aria-readonly="false"
+                checked={false}
+                className="c6"
+                readOnly={true}
+                tabIndex={-1}
+                type="checkbox"
+              />
+            </div>
+            <div
+              className="c7 c8"
+            >
+              <div
+                className="c9"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-19"
+                >
+                  twentyone
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders a single select input 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c7 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  -webkit-flex-direction: var(--main-content-flex-direction);
+  -ms-flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--main-content-flex-direction);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 {
+  padding: 6px 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 6px;
+  color: #24292f;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
+  margin-top: 0;
+}
+
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c4:hover .c5::before,
+.c4:hover + * .c5::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c4:focus .c5::before,
+.c4:focus + * .c5::before,
+.c4[data-is-active-descendant] .c5::before,
+[data-is-active-descendant] + .c4 .c5::before {
+  border-color: transparent !important;
+}
+
+.c4[data-is-active-descendant='activated-directly'] {
+  background: rgba(54,77,100,0.16);
+}
+
+.c4[data-is-active-descendant='activated-indirectly'] {
+  background: rgba(46,77,108,0.06);
+}
+
+.c4:focus {
+  background: rgba(54,77,100,0.16);
+  outline: none;
+}
+
+.c4:active {
+  background: rgba(54,77,100,0.16);
+}
+
+.c1 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.c1[data-has-active-descendant],
+.c1:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c4:hover {
+    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    cursor: pointer;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        aria-labelledby="labelId"
+        className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
+      >
+        <div
+          className="c2"
+        >
+          <div
+            aria-labelledby="react-aria-1"
+            className="c3 c4"
+            data-id={0}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-1"
+                >
+                  zero
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-3"
+            className="c3 c4"
+            data-id={1}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-3"
+                >
+                  one
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-5"
+            className="c3 c4"
+            data-id={2}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-5"
+                >
+                  two
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-7"
+            className="c3 c4"
+            data-id={3}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-7"
+                >
+                  three
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-9"
+            className="c3 c4"
+            data-id={4}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-9"
+                >
+                  four
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-11"
+            className="c3 c4"
+            data-id={5}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-11"
+                >
+                  five
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-13"
+            className="c3 c4"
+            data-id={6}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-13"
+                >
+                  six
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-15"
+            className="c3 c4"
+            data-id={7}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-15"
+                >
+                  seven
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-17"
+            className="c3 c4"
+            data-id={20}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-17"
+                >
+                  twenty
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-19"
+            className="c3 c4"
+            data-id={21}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-19"
+                >
+                  twentyone
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders with a custom text input component 1`] = `
+Array [
+  <input
+    id="customInput"
+    type="text"
+  />,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c7 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  -webkit-flex-direction: var(--main-content-flex-direction);
+  -ms-flex-direction: var(--main-content-flex-direction);
+  flex-direction: var(--main-content-flex-direction);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 {
+  padding: 6px 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 6px;
+  color: #24292f;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
+  margin-top: 0;
+}
+
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid hsla(210,18%,87%,1);
+  border-top-width: 0;
+}
+
+.c4:hover .c5::before,
+.c4:hover + * .c5::before {
+  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+}
+
+.c4:focus .c5::before,
+.c4:focus + * .c5::before,
+.c4[data-is-active-descendant] .c5::before,
+[data-is-active-descendant] + .c4 .c5::before {
+  border-color: transparent !important;
+}
+
+.c4[data-is-active-descendant='activated-directly'] {
+  background: rgba(54,77,100,0.16);
+}
+
+.c4[data-is-active-descendant='activated-indirectly'] {
+  background: rgba(46,77,108,0.06);
+}
+
+.c4:focus {
+  background: rgba(54,77,100,0.16);
+  outline: none;
+}
+
+.c4:active {
+  background: rgba(54,77,100,0.16);
+}
+
+.c1 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.c1[data-has-active-descendant],
+.c1:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c4:hover {
+    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    cursor: pointer;
+  }
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        aria-labelledby="labelId"
+        className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
+      >
+        <div
+          className="c2"
+        >
+          <div
+            aria-labelledby="react-aria-1"
+            className="c3 c4"
+            data-id={0}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-1"
+                >
+                  zero
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-3"
+            className="c3 c4"
+            data-id={1}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-3"
+                >
+                  one
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-5"
+            className="c3 c4"
+            data-id={2}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-5"
+                >
+                  two
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-7"
+            className="c3 c4"
+            data-id={3}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-7"
+                >
+                  three
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-9"
+            className="c3 c4"
+            data-id={4}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-9"
+                >
+                  four
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-11"
+            className="c3 c4"
+            data-id={5}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-11"
+                >
+                  five
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-13"
+            className="c3 c4"
+            data-id={6}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-13"
+                >
+                  six
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-15"
+            className="c3 c4"
+            data-id={7}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-15"
+                >
+                  seven
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-17"
+            className="c3 c4"
+            data-id={20}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-17"
+                >
+                  twenty
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="react-aria-19"
+            className="c3 c4"
+            data-id={21}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="option"
+            tabIndex={-1}
+          >
+            <div
+              className="c5 c6"
+            >
+              <div
+                className="c7"
+                style={
+                  Object {
+                    "--main-content-flex-direction": "row",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  id="react-aria-19"
+                >
+                  twentyone
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Autocomplete snapshots renders with an input value 1`] = `
+Array [
+  .c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0 TextInput-wrapper"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-controls="autocompleteId-listbox"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      aria-owns="autocompleteId-listbox"
+      className="c1"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      type="text"
+    />
+  </span>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c1 {
+  padding: 16px;
+}
+
+<div
+    className="c0"
+  >
+    <div>
+      <div
+        className="c1"
+      >
+        No selectable options
+      </div>
+    </div>
+  </div>,
+]
+`;

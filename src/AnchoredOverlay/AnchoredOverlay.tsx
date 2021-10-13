@@ -4,6 +4,7 @@ import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useSSRSafeId} from '@react-aria/ssr'
+import {PositionSettings} from '../behaviors/anchoredPosition'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -69,7 +70,8 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
-  (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor)
+  (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
+  Partial<Pick<PositionSettings, 'align' | 'side'>>
 
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
@@ -86,7 +88,9 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   width,
   overlayProps,
   focusTrapSettings,
-  focusZoneSettings
+  focusZoneSettings,
+  side,
+  align
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -123,7 +127,9 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,
-      floatingElementRef: overlayRef
+      floatingElementRef: overlayRef,
+      side,
+      align
     },
     [overlayRef.current]
   )
@@ -178,3 +184,8 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'
+
+AnchoredOverlay.defaultProps = {
+  side: 'outside-bottom',
+  align: 'start'
+}

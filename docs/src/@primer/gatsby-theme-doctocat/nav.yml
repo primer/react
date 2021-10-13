@@ -33,6 +33,8 @@
     #   url: /useOverlay
 - title: Components
   children:
+    - title: Autocomplete
+      url: /Autocomplete
     - title: Avatar
       url: /Avatar
     - title: AvatarStack
