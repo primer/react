@@ -241,8 +241,7 @@ export const MultiSelectAddNewItem = () => {
                       onItemSelect({
                         ...item,
                         text: filterVal,
-                        selected: true,
-                        id: `newItem-${localItemsState.length}`
+                        selected: true
                       })
                       setFilterVal('')
                     }

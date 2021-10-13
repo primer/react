@@ -222,7 +222,7 @@ const CustomRenderedItemExample = () => {
       return
     }
 
-    setTokens(newlySelectedItems.map(({id, text}) => ({id, text})))
+    setTokens(newlySelectedItems.map(({id, text, metadata}) => ({id, text, fillColor: metadata.fillColor})))
   }
 
   return (
@@ -484,6 +484,16 @@ render(<InOverlayWithCustomScrollContainerRef />)
 
 ```javascript live noinline
 const MultiSelect = () => {
+  const items = [
+    {text: 'main', id: 0},
+    {text: 'autocomplete-tests', id: 1},
+    {text: 'a11y-improvements', id: 22},
+    {text: 'button-bug-fixes', id: 3},
+    {text: 'radio-input-component', id: 4},
+    {text: 'release-1.0.0', id: 5},
+    {text: 'text-input-implementation', id: 6},
+    {text: 'visual-design-tweaks', id: 7}
+  ]
   const [selectedItemIds, setSelectedItemIds] = React.useState([])
   const onSelectedChange = newlySelectedItems => {
     if (!Array.isArray(newlySelectedItems)) {
@@ -505,16 +515,7 @@ const MultiSelect = () => {
           <Autocomplete.Input id="autocompleteInput" />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
-              items={[
-                {text: 'main', id: 0},
-                {text: 'autocomplete-tests', id: 1},
-                {text: 'a11y-improvements', id: 2},
-                {text: 'button-bug-fixes', id: 3},
-                {text: 'radio-input-component', id: 4},
-                {text: 'release-1.0.0', id: 5},
-                {text: 'text-input-implementation', id: 6},
-                {text: 'visual-design-tweaks', id: 7}
-              ]}
+              items={items}
               selectedItemIds={selectedItemIds}
               aria-labelledby="autocompleteLabel"
               onSelectedChange={onSelectedChange}
@@ -542,47 +543,30 @@ render(<MultiSelect />)
 
 ```javascript live noinline
 const MultiSelectAddNewItem = () => {
-  const [localItemsState, setLocalItemsState] = React.useState([
-    {text: 'zero', id: 0},
-    {text: 'one', id: 1},
-    {text: 'two', id: 2},
-    {text: 'three', id: 3},
-    {text: 'four', id: 4},
-    {text: 'five', id: 5},
-    {text: 'six', id: 6},
-    {text: 'seven', id: 7}
-  ])
-  const [filterVal, setFilterVal] = React.useState('')
-  const [tokens, setTokens] = React.useState([])
-  const selectedTokenIds = tokens.map(token => token.id)
-  const [selectedItemIds, setSelectedItemIds] = React.useState(selectedTokenIds)
-  const onTokenRemove = tokenId => {
-    setTokens(tokens.filter(token => token.id !== tokenId))
-    setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
-  }
+  const [selectedItemIds, setSelectedItemIds] = React.useState([])
   const onSelectedChange = newlySelectedItems => {
     if (!Array.isArray(newlySelectedItems)) {
       return
     }
 
     setSelectedItemIds(newlySelectedItems.map(item => item.id))
-
-    if (newlySelectedItems.length < selectedItemIds.length) {
-      const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
-      const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
-
-      for (const removedItemId of removedItemIds) {
-        onTokenRemove(removedItemId)
-      }
-
-      return
-    }
-
-    setTokens(newlySelectedItems.map(({id, text}) => ({id, text})))
   }
 
+  const [localItemsState, setLocalItemsState] = React.useState([
+    {text: 'main', id: 0},
+    {text: 'autocomplete-tests', id: 1},
+    {text: 'a11y-improvements', id: 22},
+    {text: 'button-bug-fixes', id: 3},
+    {text: 'radio-input-component', id: 4},
+    {text: 'release-1.0.0', id: 5},
+    {text: 'text-input-implementation', id: 6},
+    {text: 'visual-design-tweaks', id: 7}
+  ])
+  const getItemById = id => localItemsState.find(item => item.id === id)
+  const [filterVal, setFilterVal] = React.useState('')
+
   const onItemSelect = item => {
-    onSelectedChange([...selectedItemIds.map(id => items.find(selectedItem => selectedItem.id === id)), item])
+    onSelectedChange([...selectedItemIds.map(id => localItemsState.find(selectedItem => selectedItem.id === id)), item])
 
     if (!localItemsState.some(localItem => localItem.id === item.id)) {
       setLocalItemsState([...localItemsState, item])
@@ -593,16 +577,14 @@ const MultiSelectAddNewItem = () => {
     setFilterVal(event.currentTarget.value)
   }
 
-  const getItemById = id => items.find(item => item.id === id)
-
   return (
     <Box display="flex" sx={{gap: '1em'}}>
       <div>
         <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-          Pick options
+          Pick or add branches
         </Box>
         <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
+          <Autocomplete.Input onChange={handleChange} id="autocompleteInput" />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
               addNewItem={
@@ -613,8 +595,7 @@ const MultiSelectAddNewItem = () => {
                         onItemSelect({
                           ...item,
                           text: filterVal,
-                          selected: true,
-                          id: `newItem-${localItemsState.length}`
+                          selected: true
                         })
                         setFilterVal('')
                       }
