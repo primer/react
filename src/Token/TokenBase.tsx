@@ -119,6 +119,7 @@ const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
   display: inline-flex;
   font-weight: ${get('fontWeights.bold')};
+  font-family: inherit;
   text-decoration: none;
   white-space: nowrap;
   ${variants}
