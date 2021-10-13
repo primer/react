@@ -68,7 +68,7 @@ Array [
   outline: none;
   cursor: pointer;
   border-radius: 6px;
-  color: #57606a;
+  color: #8c959f;
   position: absolute;
   top: 16px;
   right: 16px;

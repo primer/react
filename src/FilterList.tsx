@@ -33,7 +33,7 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   margin: ${props => (props.small ? '0 0 2px' : '0 0 5px 0')};
   overflow: hidden;
   font-size: ${get('fontSizes.1')};
-  color: ${props => (props.selected ? get('colors.fg.onEmphasis') : get('colors.fg.muted'))};
+  color: ${props => (props.selected ? get('colors.fg.onEmphasis') : get('colors.primer.fg.disabled'))};
   background-color: ${props => (props.selected ? get('colors.accent.emphasis') : '')}!important;
   text-decoration: none;
   text-overflow: ellipsis;

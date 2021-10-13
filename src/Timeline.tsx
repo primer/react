@@ -58,7 +58,7 @@ const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
         height: 16px;
         margin-top: ${get('space.2')};
         margin-bottom: ${get('space.2')};
-        color: ${get('colors.fg.muted')};
+        color: ${get('colors.primer.fg.disabled')};
         background-color: ${get('colors.canvas.default')};
         border: 0;
       }
@@ -102,7 +102,7 @@ const TimelineBody = styled(Box)`
   min-width: 0;
   max-width: 100%;
   margin-top: ${get('space.1')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   flex: auto;
   font-size: ${get('fontSizes.1')};
   ${sx};

@@ -25,7 +25,7 @@ const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: b
   border-color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.border.subtle'))};
   border-style: solid;
   border-width: ${tokenBorderWidthPx}px;
-  color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.fg.muted'))};
+  color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.primer.fg.disabled'))};
   max-width: 100%;
   padding-right: ${props => (!props.hideRemoveButton ? 0 : undefined)};
   position: relative;

@@ -8,7 +8,7 @@ const dividerStyles = css`
   margin: 0;
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   background-color: ${get('colors.canvas.subtle')};
   border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
 `

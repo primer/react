@@ -62,7 +62,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }
@@ -134,7 +134,7 @@ exports[`Button respects the "disabled" prop 1`] = `
 }
 
 .c0:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }
@@ -796,7 +796,7 @@ exports[`ButtonTableList renders consistently 1`] = `
   display: inline-block;
   padding: 0;
   font-size: 14px;
-  color: #57606a;
+  color: #8c959f;
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
@@ -819,7 +819,7 @@ exports[`ButtonTableList renders consistently 1`] = `
 
 .c0:disabled,
 .c0:disabled:hover {
-  color: rgba(#57606a,0.5);
+  color: rgba(#8c959f,0.5);
   cursor: default;
 }
 

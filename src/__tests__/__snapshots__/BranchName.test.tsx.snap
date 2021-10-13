@@ -6,7 +6,7 @@ exports[`BranchName renders consistently 1`] = `
   padding: 2px 6px;
   font-size: 12px;
   font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
-  color: #57606a;
+  color: #8c959f;
   background-color: #ddf4ff;
   border-radius: 6px;
 }

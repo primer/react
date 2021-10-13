@@ -11,7 +11,7 @@ const tabStyles = css`
   padding: ${get('space.2')} ${get('space.3')};
   font-size: ${get('fontSizes.0')};
   font-weight: 500;
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   text-align: center;
   background-color: transparent;
   border: 0;

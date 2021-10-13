@@ -87,7 +87,7 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
     transition: 0.2s ease;
 
     .UnderlineNav-octicon {
-      color: ${get('colors.fg.muted')};
+      color: ${get('colors.primer.fg.disabled')};
     }
   }
 

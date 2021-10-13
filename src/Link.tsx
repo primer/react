@@ -20,7 +20,7 @@ const hoverColor = system({
 })
 
 const Link = styled.a<StyledLinkProps>`
-  color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
+  color: ${props => (props.muted ? get('colors.primer.fg.disabled')(props) : get('colors.accent.fg')(props))};
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};

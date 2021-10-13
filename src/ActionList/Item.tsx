@@ -146,9 +146,9 @@ export interface ItemProps extends SxProp {
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
-      color: get('colors.fg.muted'),
-      iconColor: get('colors.fg.muted'),
-      annotationColor: get('colors.fg.muted'),
+      color: get('colors.primer.fg.disabled'),
+      iconColor: get('colors.primer.fg.disabled'),
+      annotationColor: get('colors.primer.fg.disabled'),
       hoverCursor: 'default'
     }
   }
@@ -158,14 +158,14 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
       return {
         color: get('colors.danger.fg'),
         iconColor: get('colors.danger.fg'),
-        annotationColor: get('colors.fg.muted'),
+        annotationColor: get('colors.primer.fg.disabled'),
         hoverCursor: 'pointer'
       }
     default:
       return {
         color: get('colors.fg.default'),
-        iconColor: get('colors.fg.muted'),
-        annotationColor: get('colors.fg.muted'),
+        iconColor: get('colors.primer.fg.disabled'),
+        annotationColor: get('colors.primer.fg.disabled'),
         hoverCursor: 'pointer'
       }
   }
@@ -315,7 +315,7 @@ const TrailingContent = styled(ColoredVisualContainer)`
 `
 
 const DescriptionContainer = styled.span`
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   font-size: ${get('fontSizes.0')};
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '16px' with '${get('lh-12')}'.

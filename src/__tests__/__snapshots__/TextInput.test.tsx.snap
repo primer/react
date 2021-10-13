@@ -42,7 +42,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #8c959f;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -115,7 +115,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #8c959f;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -186,7 +186,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #8c959f;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -261,7 +261,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #8c959f;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -339,7 +339,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #8c959f;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -410,7 +410,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #8c959f;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;

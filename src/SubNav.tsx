@@ -104,7 +104,7 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
     transition: 0.2s ease;
 
     .SubNav-octicon {
-      color: ${get('colors.fg.muted')};
+      color: ${get('colors.primer.fg.disabled')};
     }
   }
 

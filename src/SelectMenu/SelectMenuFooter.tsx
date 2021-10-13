@@ -7,7 +7,7 @@ const footerStyles = css`
   margin-top: -1px;
   padding: ${get('space.2')} ${get('space.3')};
   font-size: ${get('fontSizes.0')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   text-align: center;
   border-top: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
 

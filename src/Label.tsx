@@ -7,7 +7,7 @@ import {ComponentProps} from './utils/types'
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border
   margin-bottom: -1px; // offsets the 1px border
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   border: ${get('borderWidths.1')} solid ${get('colors.border.default')};
   box-shadow: none;
   ${borderColor};

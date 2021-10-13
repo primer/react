@@ -37,7 +37,7 @@ export const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxPro
   padding: 6px ${get('space.3')};
   font-size: ${get('fontSizes.0')};
   font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
 
   ${({variant}) =>
     variant === 'filled' &&

@@ -17,7 +17,7 @@ export const listItemStyles = css`
   background-color: ${get('colors.canvas.overlay')};
   border: 0;
   border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.primer.fg.disabled')};
   text-decoration: none;
   font-size: ${get('fontSizes.0')};
   font-family: inherit; // needed if user uses a "button" tag
