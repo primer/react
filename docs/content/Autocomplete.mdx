@@ -1,0 +1,627 @@
+---
+title: Autocomplete
+status: Alpha
+---
+
+import {Props} from '../src/props'
+import {Autocomplete} from '@primer/components'
+
+The `Autocomplete` components are used to render a text input that allows a user to quickly filter through a list of options to pick one or more values. It is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
+
+## Basic Example
+
+```jsx live
+<>
+  <Box as="label" display="block" htmlFor="autocompleteInput-basic" id="autocompleteLabel-basic">
+    Pick a branch
+  </Box>
+  <Autocomplete>
+    <Autocomplete.Input id="autocompleteInput-basic" />
+    <Autocomplete.Overlay>
+      <Autocomplete.Menu
+        items={[
+          {text: 'main', id: 0},
+          {text: 'autocomplete-tests', id: 1},
+          {text: 'a11y-improvements', id: 2},
+          {text: 'button-bug-fixes', id: 3},
+          {text: 'radio-input-component', id: 4},
+          {text: 'release-1.0.0', id: 5},
+          {text: 'text-input-implementation', id: 6},
+          {text: 'visual-design-tweaks', id: 7}
+        ]}
+        selectedItemIds={[]}
+        aria-labelledby="autocompleteLabel-basic"
+      />
+    </Autocomplete.Overlay>
+  </Autocomplete>
+</>
+```
+
+## Autocomplete.Input
+
+The text input is used to filter the options in the dropdown menu. It is also used to show the selected value (or values).
+
+The default input rendered is the `TextInput` component. A different text input component may be rendered by passing a different component to the `as` prop.
+
+The `Autocomplete.Input` should not be rendered without a `<label>` who's `htmlFor` prop matches the `Autocomplete.Input`'s `id` prop
+
+### Component Props
+
+`Autocomplete.Input` accepts the same props as a native `<input />`. The other props of `Autocomplete.Input` depend on what component is passed to the `as` prop. The default value for `as` is [TextInput](/TextInput)
+
+### Example: Passing a custom text input
+
+In this example, we're passing a [TextInputWithTokens](/TextInputWithTokens) component
+
+```javascript live noinline
+const CustomTextInputExample = () => {
+  const [tokens, setTokens] = React.useState([{text: 'zero', id: 0}])
+  const selectedTokenIds = tokens.map(token => token.id)
+  const [selectedItemIds, setSelectedItemIds] = React.useState(selectedTokenIds)
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+    setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
+  }
+  const onSelectedChange = newlySelectedItems => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+
+    if (newlySelectedItems.length < selectedItemIds.length) {
+      const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
+      const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
+
+      for (const removedItemId of removedItemIds) {
+        onTokenRemove(removedItemId)
+      }
+
+      return
+    }
+
+    setTokens(newlySelectedItems.map(({id, text}) => ({id, text})))
+  }
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput-customInput" id="autocompleteLabel-customInput">
+        Pick options
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input
+          as={TextInputWithTokens}
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          id="autocompleteInput-customInput"
+        />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={[
+              {text: 'zero', id: 0},
+              {text: 'one', id: 1},
+              {text: 'two', id: 2},
+              {text: 'three', id: 3},
+              {text: 'four', id: 4},
+              {text: 'five', id: 5},
+              {text: 'six', id: 6},
+              {text: 'seven', id: 7}
+            ]}
+            selectedItemIds={selectedItemIds}
+            onSelectedChange={onSelectedChange}
+            selectionVariant="multiple"
+            aria-labelledby="autocompleteLabel-customInput"
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
+}
+
+render(<CustomTextInputExample />)
+```
+
+## Autocomplete.Overlay
+
+The `Autocomplete.Overlay` wraps the `Autocomplete.Menu` to display it in an [Overlay]() component.
+Most `Autocomplete` implementations will use the `Autocomplete.Overlay` component, but there could be special cases where the `Autocomplete.Menu` should be rendered directly after the `Autocomplete.Input` (for example: an `Autocomplete` that is already being rendered in an `Overlay`).
+
+### Component Props
+
+<Props of={Autocomplete.Overlay} />
+
+### Example: Without `Autocomplete.Overlay`
+
+```jsx live
+<>
+  <Box as="label" display="block" htmlFor="autocompleteInput-withoutOverlay" id="autocompleteLabel-withoutOverlay">
+    Pick a branch
+  </Box>
+  <Autocomplete>
+    <Autocomplete.Input id="autocompleteInput-withoutOverlay" />
+    <Autocomplete.Menu
+      items={[
+        {text: 'main', id: 0},
+        {text: 'autocomplete-tests', id: 1},
+        {text: 'a11y-improvements', id: 2},
+        {text: 'button-bug-fixes', id: 3},
+        {text: 'radio-input-component', id: 4},
+        {text: 'release-1.0.0', id: 5},
+        {text: 'text-input-implementation', id: 6},
+        {text: 'visual-design-tweaks', id: 7}
+      ]}
+      selectedItemIds={[]}
+      aria-labelledby="autocompleteLabel-withoutOverlay"
+    />
+  </Autocomplete>
+</>
+```
+
+## Autocomplete.Menu
+
+The `Autocomplete.Menu` component renders a list of selectable options in a non-modal dialog. The list is filtered and sorted to make it as easy as possible to find the option/s that a user is looking for.
+
+The `Autocomplete.Menu` component should be passed an `aria-labelledby` prop that matches the `id` prop of the `<label>` associated with the `Autocomplete.Input`
+
+### Component Props
+
+<Props of={Autocomplete.Menu} />
+
+### Customizing how menu items are rendered
+
+By default, menu items are just rendered as a single line of text. The list in the menu is rendered using the [Action List](/ActionList) component, so menu items can be rendered with all of the same options as Action List items.
+However, the `renderGroup`, `groupMetadata`, and `renderItem` props have not been implemented yet.
+
+#### Example: Render items using `ActionList.Item` props
+
+```javascript live noinline
+function getColorCircle(color) {
+  return function () {
+    return (
+      <Box
+        bg={color}
+        borderColor={color}
+        width={14}
+        height={14}
+        borderRadius={10}
+        margin="auto"
+        borderWidth="1px"
+        borderStyle="solid"
+      />
+    )
+  }
+}
+
+const CustomRenderedItemExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
+    {text: 'bug', id: 2, fillColor: '#d73a4a'},
+    {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+  ])
+  const selectedTokenIds = tokens.map(token => token.id)
+  const [selectedItemIds, setSelectedItemIds] = React.useState(selectedTokenIds)
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+    setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
+  }
+  const onSelectedChange = newlySelectedItems => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+
+    if (newlySelectedItems.length < selectedItemIds.length) {
+      const newlySelectedItemIds = newlySelectedItems.map(({id}) => id)
+      const removedItemIds = selectedTokenIds.filter(id => !newlySelectedItemIds.includes(id))
+
+      for (const removedItemId of removedItemIds) {
+        onTokenRemove(removedItemId)
+      }
+
+      return
+    }
+
+    setTokens(newlySelectedItems.map(({id, text, metadata}) => ({id, text, fillColor: metadata.fillColor})))
+  }
+
+  return (
+    <>
+      <Box
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput-customRenderedItem"
+        id="autocompleteLabel-customRenderedItem"
+      >
+        Issue labels
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input
+          as={TextInputWithTokens}
+          tokens={tokens}
+          tokenComponent={IssueLabelToken}
+          onTokenRemove={onTokenRemove}
+          id="autocompleteInput-customRenderedItem"
+        />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={[
+              {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1, metadata: {fillColor: '#a2eeef'}},
+              {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2, metadata: {fillColor: '#d73a4a'}},
+              {
+                leadingVisual: getColorCircle('#0cf478'),
+                text: 'good first issue',
+                id: 3,
+                metadata: {fillColor: '#0cf478'}
+              },
+              {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4, metadata: {fillColor: '#ffd78e'}},
+              {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5, metadata: {fillColor: '#ff0000'}},
+              {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6, metadata: {fillColor: '#a4f287'}},
+              {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: {fillColor: '#8dc6fc'}}
+            ]}
+            selectedItemIds={selectedItemIds}
+            onSelectedChange={onSelectedChange}
+            selectionVariant="multiple"
+            aria-labelledby="autocompleteLabel-customRenderedItem"
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
+}
+
+render(<CustomRenderedItemExample />)
+```
+
+### Sorting menu items
+
+Items can be displayed in any order that makes sense, but the `Autocomplete.Menu` component comes with a default sort behavior to make it easy to find selected items. The default behavior is to sort selected items to the top of the list after the menu has been closed.
+
+A function may be passed to the `sortOnCloseFn` prop if this default sorting logic is not helpful for your use case. The sort function will be only be called after the menu is closed so that items don't shift while users are trying to make a selection.
+
+#### Example: When the menu is re-opened, selected items get sorted to the end
+
+```javascript live noinline
+const CustomSortAfterMenuClose = () => {
+  const [selectedItemIds, setSelectedItemIds] = React.useState([])
+  const isItemSelected = itemId => selectedItemIds.includes(itemId)
+  const onSelectedChange = newlySelectedItems => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+  }
+  const customSortFn = (itemIdA, itemIdB) =>
+    isItemSelected(itemIdA) === isItemSelected(itemIdB) ? 0 : isItemSelected(itemIdA) ? 1 : -1
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick branches
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={[
+              {text: 'main', id: 0},
+              {text: 'autocomplete-tests', id: 1},
+              {text: 'a11y-improvements', id: 2},
+              {text: 'button-bug-fixes', id: 3},
+              {text: 'radio-input-component', id: 4},
+              {text: 'release-1.0.0', id: 5},
+              {text: 'text-input-implementation', id: 6},
+              {text: 'visual-design-tweaks', id: 7}
+            ]}
+            selectedItemIds={selectedItemIds}
+            aria-labelledby="autocompleteLabel"
+            onSelectedChange={onSelectedChange}
+            sortOnCloseFn={customSortFn}
+            selectionVariant="multiple"
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
+}
+
+render(<CustomSortAfterMenuClose />)
+```
+
+### Filtering items
+
+By default, menu items are filtered based on whether or not they match the value of the text input. The default filter is case-insensitive.
+
+A function may be passed to the `filterFn` prop if this default filtering behavior does not make sense for your use case.
+
+#### Example: Show any items that contain the input value
+
+```javascript live noinline
+const CustomSearchFilter = () => {
+  const [filterVal, setFilterVal] = React.useState('')
+  const handleChange = event => {
+    setFilterVal(event.currentTarget.value)
+  }
+  const customFilterFn = item => item.text.includes(filterVal)
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick a branch
+      </Box>
+      <Autocomplete>
+        <Autocomplete.Input id="autocompleteInput" onChange={handleChange} />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={[
+              {text: 'main', id: 0},
+              {text: 'autocomplete-tests', id: 1},
+              {text: 'a11y-improvements', id: 2},
+              {text: 'button-bug-fixes', id: 3},
+              {text: 'radio-input-component', id: 4},
+              {text: 'release-1.0.0', id: 5},
+              {text: 'text-input-implementation', id: 6},
+              {text: 'visual-design-tweaks', id: 7}
+            ]}
+            selectedItemIds={[]}
+            aria-labelledby="autocompleteLabel"
+            filterFn={customFilterFn}
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
+}
+
+render(<CustomSearchFilter />)
+```
+
+### Rendering the menu without an `Autocomplete.Overlay`
+
+If a `Autocomplete.Menu` is rendered without an `Autocomplete.Overlay` inside of a scrollable container, the ref of the scrollable container must be passed to the `customScrollContainerRef` to ensure that highlighted items are always scrolled into view.
+
+#### Example: Rendered without `Autocomplete.Overlay` with a `customScrollContainerRef`
+
+```javascript live noinline
+const InOverlayWithCustomScrollContainerRef = () => {
+  const scrollContainerRef = React.useRef(null)
+  const inputRef = React.useRef(null)
+
+  const [isOpen, setIsOpen] = React.useState(false)
+  const handleOpen = () => {
+    setIsOpen(true)
+    inputRef.current && inputRef.current.focus()
+  }
+
+  return (
+    <AnchoredOverlay
+      open={isOpen}
+      onOpen={handleOpen}
+      onClose={() => setIsOpen(false)}
+      width="large"
+      height="xsmall"
+      focusTrapSettings={{initialFocusRef: inputRef}}
+      side="inside-top"
+      renderAnchor={props => <ButtonInvisible {...props}>Pick branches</ButtonInvisible>}
+    >
+      <Box
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+        sx={{
+          // visually hides this label for sighted users
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: '0',
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          borderWidth: '0'
+        }}
+      >
+        Pick branches
+      </Box>
+      <Autocomplete>
+        <Box display="flex" flexDirection="column" height="100%">
+          <Box
+            paddingX="3"
+            paddingY="1"
+            borderWidth={0}
+            borderBottomWidth={1}
+            borderColor="border.default"
+            borderStyle="solid"
+          >
+            <Autocomplete.Input
+              block
+              as={TextInput}
+              ref={inputRef}
+              id="autocompleteInput"
+              sx={{
+                display: 'flex',
+                border: '0',
+                padding: '0',
+                boxShadow: 'none',
+                ':focus-within': {
+                  border: '0',
+                  boxShadow: 'none'
+                }
+              }}
+            />
+          </Box>
+          <Box overflow="auto" flexGrow={1} ref={scrollContainerRef}>
+            <Autocomplete.Menu
+              items={[
+                {text: 'main', id: 0},
+                {text: 'autocomplete-tests', id: 1},
+                {text: 'a11y-improvements', id: 2},
+                {text: 'button-bug-fixes', id: 3},
+                {text: 'radio-input-component', id: 4},
+                {text: 'release-1.0.0', id: 5},
+                {text: 'text-input-implementation', id: 6},
+                {text: 'visual-design-tweaks', id: 7}
+              ]}
+              selectedItemIds={[]}
+              customScrollContainerRef={scrollContainerRef}
+              aria-labelledby="autocompleteLabel"
+            />
+          </Box>
+        </Box>
+      </Autocomplete>
+    </AnchoredOverlay>
+  )
+}
+
+render(<InOverlayWithCustomScrollContainerRef />)
+```
+
+### More examples
+
+#### Select multiple values
+
+```javascript live noinline
+const MultiSelect = () => {
+  const items = [
+    {text: 'main', id: 0},
+    {text: 'autocomplete-tests', id: 1},
+    {text: 'a11y-improvements', id: 22},
+    {text: 'button-bug-fixes', id: 3},
+    {text: 'radio-input-component', id: 4},
+    {text: 'release-1.0.0', id: 5},
+    {text: 'text-input-implementation', id: 6},
+    {text: 'visual-design-tweaks', id: 7}
+  ]
+  const [selectedItemIds, setSelectedItemIds] = React.useState([])
+  const onSelectedChange = newlySelectedItems => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+  }
+
+  const getItemById = id => items.find(item => item.id === id)
+
+  return (
+    <Box display="flex" sx={{gap: '1em'}}>
+      <div>
+        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+          Pick branches
+        </Box>
+        <Autocomplete>
+          <Autocomplete.Input id="autocompleteInput" />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu
+              items={items}
+              selectedItemIds={selectedItemIds}
+              aria-labelledby="autocompleteLabel"
+              onSelectedChange={onSelectedChange}
+              selectionVariant="multiple"
+            />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </div>
+      <div>
+        <div>Selected items:</div>
+        <Box as="ul" my={0}>
+          {selectedItemIds.map(selectedItemId => (
+            <li key={selectedItemId}>{getItemById(selectedItemId).text}</li>
+          ))}
+        </Box>
+      </div>
+    </Box>
+  )
+}
+
+render(<MultiSelect />)
+```
+
+#### Select multiple values - new values can be added
+
+```javascript live noinline
+const MultiSelectAddNewItem = () => {
+  const [selectedItemIds, setSelectedItemIds] = React.useState([])
+  const onSelectedChange = newlySelectedItems => {
+    if (!Array.isArray(newlySelectedItems)) {
+      return
+    }
+
+    setSelectedItemIds(newlySelectedItems.map(item => item.id))
+  }
+
+  const [localItemsState, setLocalItemsState] = React.useState([
+    {text: 'main', id: 0},
+    {text: 'autocomplete-tests', id: 1},
+    {text: 'a11y-improvements', id: 22},
+    {text: 'button-bug-fixes', id: 3},
+    {text: 'radio-input-component', id: 4},
+    {text: 'release-1.0.0', id: 5},
+    {text: 'text-input-implementation', id: 6},
+    {text: 'visual-design-tweaks', id: 7}
+  ])
+  const getItemById = id => localItemsState.find(item => item.id === id)
+  const [filterVal, setFilterVal] = React.useState('')
+
+  const onItemSelect = item => {
+    onSelectedChange([...selectedItemIds.map(id => localItemsState.find(selectedItem => selectedItem.id === id)), item])
+
+    if (!localItemsState.some(localItem => localItem.id === item.id)) {
+      setLocalItemsState([...localItemsState, item])
+    }
+  }
+
+  const handleChange = event => {
+    setFilterVal(event.currentTarget.value)
+  }
+
+  return (
+    <Box display="flex" sx={{gap: '1em'}}>
+      <div>
+        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+          Pick or add branches
+        </Box>
+        <Autocomplete>
+          <Autocomplete.Input onChange={handleChange} id="autocompleteInput" />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu
+              addNewItem={
+                filterVal && !localItemsState.map(localItem => localItem.text).includes(filterVal)
+                  ? {
+                      text: `Add '${filterVal}'`,
+                      handleAddItem: item => {
+                        onItemSelect({
+                          ...item,
+                          text: filterVal,
+                          selected: true
+                        })
+                        setFilterVal('')
+                      }
+                    }
+                  : undefined
+              }
+              items={localItemsState}
+              selectedItemIds={selectedItemIds}
+              onSelectedChange={onSelectedChange}
+              selectionVariant="multiple"
+              aria-labelledby="autocompleteLabel"
+            />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </div>
+      <div>
+        <div>Selected items:</div>
+        <Box as="ul" my={0}>
+          {selectedItemIds.map(selectedItemId => (
+            <li key={selectedItemId}>{getItemById(selectedItemId).text}</li>
+          ))}
+        </Box>
+      </div>
+    </Box>
+  )
+}
+
+render(<MultiSelectAddNewItem />)
+```
