@@ -79,7 +79,7 @@ exports[`SelectPanel renders consistently 1`] = `
 
 <div
   className="c0"
-  color="text.primary"
+  color="fg.default"
   data-portal-root={true}
   fontFamily="normal"
 >

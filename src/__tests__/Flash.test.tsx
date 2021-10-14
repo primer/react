@@ -30,16 +30,16 @@ describe('Flash', () => {
   it('respects the "variant" prop', () => {
     expect(render(<Flash variant="warning" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.alert?.warn.bg
+      theme.colorSchemes.light.colors.attention?.subtle
     )
     expect(render(<Flash variant="danger" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.alert?.error.bg
+      theme.colorSchemes.light.colors.danger?.subtle
     )
     expect(render(<Flash variant="success" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.alert?.success.bg
+      theme.colorSchemes.light.colors.success?.subtle
     )
-    expect(render(<Flash />)).toHaveStyleRule('background-color', theme.colorSchemes.light.colors.alert?.info.bg)
+    expect(render(<Flash />)).toHaveStyleRule('background-color', theme.colorSchemes.light.colors.accent?.subtle)
   })
 })
