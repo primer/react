@@ -25,7 +25,7 @@ describe('Link', () => {
   })
 
   it('respects hoverColor prop', () => {
-    expect(render(<Link hoverColor="text.link" />)).toMatchSnapshot()
+    expect(render(<Link hoverColor="accent.fg" />)).toMatchSnapshot()
   })
 
   it('respects the "fontStyle" prop', () => {

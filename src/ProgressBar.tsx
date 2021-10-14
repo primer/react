@@ -45,7 +45,7 @@ function ProgressBar({progress, bg, theme, ...rest}: ProgressBarProps) {
 }
 
 ProgressBar.defaultProps = {
-  bg: 'bg.successInverse',
+  bg: 'success.emphasis',
   barSize: 'default'
 }
 

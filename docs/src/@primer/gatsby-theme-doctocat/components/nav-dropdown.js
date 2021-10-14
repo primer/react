@@ -12,7 +12,7 @@ function NavDropdown({title, children}) {
     <Details {...getDetailsProps()}>
       <summary style={{cursor: 'pointer'}}>
         <Text>{title}</Text>
-        <StyledOcticon icon={TriangleDownIcon} ml={1} />
+        <StyledOcticon icon={TriangleDownIcon} sx={{ml: 1}} />
       </summary>
       <Box position="absolute">
         <Box

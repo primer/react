@@ -45,7 +45,7 @@ function BaseStyles(props: BaseStylesProps) {
 }
 
 BaseStyles.defaultProps = {
-  color: 'text.primary',
+  color: 'fg.default',
   fontFamily: 'normal',
   lineHeight: 'default'
 }
