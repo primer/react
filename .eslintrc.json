@@ -55,7 +55,8 @@
       {
         "allow": ["dark_dimmed"]
       }
-    ]
+    ],
+    "primer-react/no-deprecated-colors": ["warn", {"checkAllStrings": true}]
   },
   "overrides": [
     // rules which apply only to JS
