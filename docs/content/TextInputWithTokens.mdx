@@ -1,0 +1,97 @@
+---
+title: TextInputWithTokens
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/TextInputWithTokens.tsx
+---
+
+import {Props} from '../src/props'
+import {TextInputWithTokens} from '@primer/components'
+
+A `TextInputWithTokens` component is used to show multiple values in one field.
+
+It supports all of the features of a [TextInput](/TextInput) component, but it can render a list of [Tokens](/Token) next to the area a user types in.
+
+## Basic Example
+
+```javascript live noinline
+const BasicExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
+        Basic example tokens
+      </Box>
+      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="inputWithTokens-basic" />
+    </>
+  )
+}
+
+render(BasicExample)
+```
+
+## Component Props
+
+| Name                   | Type                                  |   Default    | Description                                                                                                               |
+| :--------------------- | :------------------------------------ | :----------: | :------------------------------------------------------------------------------------------------------------------------ |
+| tokens                 | `TokenProps[]`                        | `undefined`  | Required. The array of tokens to render                                                                                   |
+| onTokenRemove          | `(tokenId: string \| number) => void` | `undefined`  | Required. The function that gets called when a token is removed                                                           |
+| tokenComponent         | `React.ComponentType<any>`            |   `Token`    | Optional. The component used to render each token                                                                         |
+| maxHeight              | `React.CSSProperties['maxHeight']`    | `undefined`  | Optional. The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically |
+| preventTokenWrapping   | `boolean`                             |   `false`    | Optional. Whether tokens should render inline horizontally. By default, tokens wrap to new lines.                         |
+| size                   | `TokenSizeKeys`                       | `extralarge` | Optional. The size of the tokens                                                                                          |
+| hideTokenRemoveButtons | `boolean`                             |   `false`    | Optional. Whether the remove buttons should be rendered in the tokens                                                     |
+
+## Adding and removing tokens
+
+The array passed to the `tokens` prop needs to be manually updated to add and remove tokens.
+
+The function passed to the `onRemoveToken` prop is called when:
+
+- Clicking the remove button in the token
+- Pressing the `Backspace` key when the input is empty
+- Selecting a token using the arrow keys or by clicking on a token and then pressing the `Backspace` key
+
+There is no function that gets called to "add" a token, so the user needs to be provided with a UI to select tokens.
+
+## Custom token rendering
+
+By default, the `Token` component is used to render the tokens in the input. If this component does not make sense for the kinds of tokens you're rendering, you can pass a component to the `tokenComponent` prop
+
+Example: a `TextInputWithTokens` that renders tokens as `IssueLabelToken`:
+
+```javascript live noinline
+const UsingIssueLabelTokens = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
+    {text: 'bug', id: 2, fillColor: '#d73a4a'},
+    {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="inputWithTokens-issueLabels">
+        Issue labels
+      </Box>
+      <TextInputWithTokens
+        tokenComponent={IssueLabelToken}
+        tokens={tokens}
+        onTokenRemove={onTokenRemove}
+        id="inputWithTokens-issueLabels"
+      />
+    </>
+  )
+}
+
+render(<UsingIssueLabelTokens />)
+```

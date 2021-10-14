@@ -1,0 +1,5308 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInputWithTokens renders as block layout 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  display: block;
+  width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+</span>
+`;
+
+exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  max-height: 20px;
+  overflow: auto;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 16px;
+  width: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12px;
+  gap: 4px;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="small"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="small"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={12}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={12}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12px;
+  gap: 4px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="medium"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="medium"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={15}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={15}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 24px;
+  width: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12px;
+  gap: 8px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="large"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="large"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={18}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={18}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens on a single line when specified 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+  overflow: auto;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens without a remove button when specified 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders with tokens 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders with tokens using a custom token component 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  --label-r: 153;
+  --label-g: 153;
+  --label-b: 153;
+  --label-h: 0;
+  --label-s: 0;
+  --label-l: 60;
+  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
+  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
+  padding-right: 0;
+  position: relative;
+  --lightness-threshold: 0.453;
+  --border-threshold: 0.96;
+  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
+  background: rgb(var(--label-r),var(--label-g),var(--label-b));
+  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(27,31,36,0.1);
+}
+
+.c5:active {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="two, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      two
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="three, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      three
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="four, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      four
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="five, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      five
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="six, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      six
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="seven, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+    >
+      seven
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInputWithTokens renders without tokens 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+</span>
+`;

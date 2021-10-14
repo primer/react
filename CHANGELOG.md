@@ -1,5 +1,15 @@
 # @primer/components
 
+## 30.3.0
+
+### Minor Changes
+
+- [#1490](https://github.com/primer/react/pull/1490) [`c156b07a`](https://github.com/primer/react/commit/c156b07ab6f2f5ad6d35d1c4f89d8a7f37ad1cef) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds `Autocomplete`, `AutocompleteMenu`, `AutocompleteInput`, and `AutocompleteOverlay` components
+
+* [#1489](https://github.com/primer/react/pull/1489) [`273ef29d`](https://github.com/primer/react/commit/273ef29d1d8f28bb856faba4da803e7ad0892c6e) Thanks [@mperrotti](https://github.com/mperrotti)! - Add alpha `TextInputWithTokens` component
+
+- [#1488](https://github.com/primer/react/pull/1488) [`05ac5aab`](https://github.com/primer/react/commit/05ac5aabb6bf39150557732605f9ce0fb3b9d1ec) Thanks [@mperrotti](https://github.com/mperrotti)! - Add alpha `Token`, `AvatarToken`, `IssueLabelToken` components
+
 ## 30.2.1
 
 ### Patch Changes
