@@ -26,6 +26,8 @@ The `sx` prop (of type `SystemStyleObject`) should generally set styles for the 
 
 All components that ultimately render to the DOM should accept a `ref` prop. That `ref` prop should most often be passed to the root HTMLElement rendered by the component, although occasionally a different descendent node may make more sense.
 
+See also: [Discussion on `ref` props](https://github.com/github/primer/discussions/131)
+
 ### 🟡 `as`
 
 Only components with a clear need for polymorphism should accept an `as` prop. Reasonable cases include:
@@ -35,25 +37,19 @@ Only components with a clear need for polymorphism should accept an `as` prop. R
 
 When a Primer component user passes an `as` prop to a component, it should be done in a way that is consistent with the component’s intended use. In some situations we can enforce that with a narrowed type for our `as` prop.
 
-#### Additional context:
-
-- https://github.com/github/primer/discussions/130
+See also: [Discussion on `as` props](https://github.com/github/primer/discussions/130)
 
 ### 🟡 DOM props: Limited
 
 All components that accept an `as` prop should accept props en masse for the element specified by the `as` prop (excluding props of the same name already used by the component). _Additionally_, some other elements that do _not_ accept an `as` prop should accept the props for their root HTML element when those props are fundamental to the component’s function (e.g., `<TextInput>` should accept DOM props for its underlying `<input>`).
 
-### 🔴 System props
+### 🔴 Styled System props
 
 Components should not accept Styled System props (except our utility components: `Box` and `Type`)
 
 _Reasoning:_ Utility components are meant to provide a convenient API for writing styles (including styles that reference theme and other context managed within Primer). Non-utility components implement specific design patterns where additional styling is available for exceptional cases.
 
-#### Additional context:
-
-- [Discussion on the deprecation of styled-system props](https://github.com/github/primer/discussions/132)
-- [Discussion on `as` props](https://github.com/github/primer/discussions/130)
-- [Discussion on `ref` props](https://github.com/github/primer/discussions/131)
+See also: [Discussion on the deprecation of styled-system props](https://github.com/github/primer/discussions/132)
 
 ### 🔴 `theme`
 
