@@ -1,11 +1,16 @@
 import React from 'react'
 import Box from '../Box'
 import Truncate from '../Truncate'
+import {ItemContext} from './Item'
 
 export type DescriptionProps = {
   variant?: 'inline' | 'block'
 }
 export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...props}) => {
+  const {registerSlot} = React.useContext(ItemContext)
+
+  const slotName = variant === 'block' ? 'BlockDescription' : 'InlineDescription'
+
   const styles = {
     color: 'fg.muted',
     fontSize: 0,
@@ -17,16 +22,20 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...
   }
 
   if (variant === 'block') {
-    return (
+    registerSlot(
+      slotName,
       <Box as="span" sx={styles}>
         {props.children}
       </Box>
     )
   } else {
-    return (
+    registerSlot(
+      slotName,
       <Truncate sx={styles} title={props.children as string} inline={true} maxWidth="100%">
         {props.children}
       </Truncate>
     )
   }
+
+  return null
 }

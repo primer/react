@@ -34,8 +34,6 @@ import {SxProp} from '../sx'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
-import {LeadingVisual, TrailingVisual} from './Visuals'
-import {Description} from './Description'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
@@ -71,6 +69,12 @@ export type ItemProps = {
   showDivider?: boolean
 } & SxProp
 
+type SlotNames = 'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'
+type ContextProps = {
+  registerSlot: (name: SlotNames, contents: React.ReactNode) => void
+}
+export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null})
+
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
     {
@@ -89,40 +93,16 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const {theme} = useTheme()
 
-    const slots = {
+    const [slots, setSlots] = React.useState<{[key in SlotNames]: React.ReactNode}>({
       LeadingVisual: null,
       InlineDescription: null,
       BlockDescription: null,
-      TrailingVisual: null,
-      Text: []
-    }
-
-    // eslint-disable-next-line github/array-foreach
-    React.Children.forEach(props.children, child => {
-      // ignore falsy value from a conditional
-      if (child === null || child === undefined) return
-
-      switch (child.type) {
-        case LeadingVisual: {
-          slots.LeadingVisual = child
-          break
-        }
-        case TrailingVisual: {
-          slots.TrailingVisual = child
-          break
-        }
-        case Description: {
-          if (child.props.variant === 'block') slots.BlockDescription = child
-          else slots.InlineDescription = child
-          break
-        }
-        default: {
-          slots.Text.push(child)
-        }
-      }
+      TrailingVisual: null
     })
 
-    // console.log(slots)
+    const registerSlot = (name: keyof typeof slots, contents: React.ReactNode) => {
+      if (slots[name] === null) setSlots(latestSlots => ({...latestSlots, [name]: contents}))
+    }
 
     const styles = {
       display: 'flex',
@@ -180,21 +160,23 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     return (
       <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-        <Selection selected={selected} disabled={disabled} />
-        {slots.LeadingVisual}
-        <Box
-          data-component="ActionList.Item--Main"
-          sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
-        >
-          <Box sx={{display: 'flex'}}>
-            <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
-              <span>{slots.Text}</span>
-              {slots.InlineDescription}
+        <ItemContext.Provider value={{registerSlot}}>
+          <Selection selected={selected} disabled={disabled} />
+          {slots.LeadingVisual}
+          <Box
+            data-component="ActionList.Item--Main"
+            sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+          >
+            <Box sx={{display: 'flex'}}>
+              <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
+                <span>{props.children}</span>
+                {slots.InlineDescription}
+              </Box>
+              {slots.TrailingVisual}
             </Box>
-            {slots.TrailingVisual}
+            {slots.BlockDescription}
           </Box>
-          {slots.BlockDescription}
-        </Box>
+        </ItemContext.Provider>
       </Box>
     )
   }

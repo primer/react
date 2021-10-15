@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
 import {get} from '../constants'
-import {ItemProps, getVariantStyles} from './Item'
+import {ItemContext, ItemProps, getVariantStyles} from './Item'
 
 type VisualProps = Pick<ItemProps, 'variant' | 'disabled' | 'sx'> & {
   children: React.ReactNode
@@ -29,7 +29,10 @@ export const LeadingVisualContainer: React.FC<SxProp> = ({sx = {}, ...props}) =>
 
 export type LeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}, ...props}) => {
-  return (
+  const {registerSlot} = React.useContext(ItemContext)
+
+  registerSlot(
+    'LeadingVisual',
     <LeadingVisualContainer
       sx={{
         color: getVariantStyles(variant, disabled).iconColor,
@@ -41,11 +44,16 @@ export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}
       {props.children}
     </LeadingVisualContainer>
   )
+
+  return null
 }
 
 export type TrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...props}) => {
-  return (
+  const {registerSlot} = React.useContext(ItemContext)
+
+  registerSlot(
+    'TrailingVisual',
     <Box
       as="span"
       sx={{
@@ -59,4 +67,6 @@ export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...pro
       {props.children}
     </Box>
   )
+
+  return null
 }
