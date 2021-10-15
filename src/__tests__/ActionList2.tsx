@@ -12,15 +12,13 @@ function SimpleActionList(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
-        <ActionList
-          items={[
-            {text: 'New file'},
-            ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
-          ]}
-        />
+        <ActionList>
+          <ActionList.Item>New file</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Edit file</ActionList.Item>
+          <ActionList.Item variant="danger">Delete file</ActionList.Item>
+        </ActionList>
       </BaseStyles>
     </ThemeProvider>
   )
@@ -30,7 +28,7 @@ describe('ActionList', () => {
   behavesAsComponent({
     Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList items={[]} />
+    toRender: () => <ActionList />
   })
 
   checkExports('ActionList', {
