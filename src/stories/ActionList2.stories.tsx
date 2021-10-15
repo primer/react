@@ -707,32 +707,18 @@ const ReviewerDescription = ({user}) => {
 }
 
 export function ChildWithInternalState(): JSX.Element {
-  const [assignees, setAssignees] = React.useState(users.slice(0, 2))
-
-  const toggleAssignee = assignee => {
-    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
-
-    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
-    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
-  }
-
   return (
     <>
-      <h1>Child with internal state</h1>
+      <h1>Child with internal state - broken</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple">
+        <ActionList>
           {users.map(user => (
-            <ActionList.Item
-              key={user.login}
-              showDivider
-              selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-              onAction={() => toggleAssignee(user)}
-            >
+            <ActionList.Item key={user.login} showDivider>
               <ActionList.LeadingVisual>
                 <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
               </ActionList.LeadingVisual>
               {user.login}
-              <StatefulChild user={user} />
+              <StatefulChild>{user.name}</StatefulChild>
             </ActionList.Item>
           ))}
         </ActionList>
@@ -742,16 +728,18 @@ export function ChildWithInternalState(): JSX.Element {
 }
 ChildWithInternalState.storyName = 'Child with internal state'
 
-const StatefulChild = ({user}) => {
-  const [nameVisible, setNameVisibility] = React.useState(true)
+const StatefulChild = props => {
+  const [nameVisible, setNameVisibility] = React.useState(false)
   const toggle = () => {
     setNameVisibility(!nameVisible)
   }
 
+  /** once description is registered, it cannot be unregistered, only updated. */
+
   return (
     <>
       <button onClick={toggle}>{nameVisible ? 'Hide name' : 'Show name'}</button>
-      {nameVisible && <ActionList.Description>{user.name}</ActionList.Description>}
+      {nameVisible && <ActionList.Description>{props.children}</ActionList.Description>}
     </>
   )
 }
@@ -770,7 +758,7 @@ export function ChildWithSideEffects(): JSX.Element {
               <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
             </ActionList.LeadingVisual>
             {user.login}
-            <SideEffectDescription login={user.login} />
+            <SideEffectDescription />
           </ActionList.Item>
         </ActionList>
       </ErsatzOverlay>
@@ -779,19 +767,19 @@ export function ChildWithSideEffects(): JSX.Element {
 }
 ChildWithSideEffects.storyName = 'Child with side effects'
 
-const SideEffectDescription = ({login}) => {
-  const [bio, setBio] = React.useState(null)
+const SideEffectDescription = () => {
+  const [seconds, setSeconds] = React.useState(0)
 
   React.useEffect(() => {
-    console.log('effect called')
-    async function fetchData() {
-      const response = await fetch(`https://api.github.com/users/${login}`)
-      const data = await response.json()
-      console.log('bio fetched: ' + data.bio)
-      setBio(data.bio)
-    }
-    fetchData()
-  }, [login])
+    const fn = () => setSeconds(s => s + 1)
+    const interval = window.setInterval(fn, 1000)
+    return () => window.clearInterval(interval)
+  }, [])
 
-  return <ActionList.Description variant="block">{bio}</ActionList.Description>
+  return (
+    <>
+      <span>{seconds} seconds passed</span>
+      <ActionList.Description>{seconds} seconds passed</ActionList.Description>
+    </>
+  )
 }

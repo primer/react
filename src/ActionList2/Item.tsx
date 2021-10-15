@@ -36,6 +36,7 @@ import {SxProp} from '../sx'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
+import isEqual from 'lodash.isequal'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
@@ -99,16 +100,12 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     // when the effect is run for the first time,
     // all the children have rendered = registed themself in slot.
     // we re-render the component now to re-render with filled slots.
-    // (Big?) Con: if there's state in one of the custom components,
-    // a change in state wouldn't cause a re-render. you would have to
-    // pull the state outside of item for it to work.
-    // see story: Child with internal state
-    const [mountedWithSlots, rerenderWithSlots] = React.useState(false)
-    React.useEffect(() => rerenderWithSlots(true), [])
+    const [isMounted, setIsMounted] = React.useState(false)
+    React.useEffect(() => setIsMounted(true), [])
 
     const slotsRef = React.useRef<
       {
-        [key in SlotNames]: React.ReactNode
+        [key in SlotNames]: JSX.Element | null
       }
     >({
       LeadingVisual: null,
@@ -118,9 +115,18 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     })
     const slots = slotsRef.current
 
-    const registerSlot = (name: keyof typeof slots, contents: React.ReactNode) => {
-      slotsRef.current[name] = contents
-      // if (mountedWithSlots) rerenderWithSlots(true)
+    const [, rerenderWithSlots] = React.useState(0)
+    const registerSlot = (name: keyof typeof slots, contents: JSX.Element) => {
+      const currentContents = slotsRef.current[name]
+
+      // don't render until the component mounts = all slots are registered
+      if (!isMounted) return
+
+      // only rerender if the values are different to avoid an infinite loop
+      if (!isEqual(currentContents?.props, contents.props)) {
+        slotsRef.current[name] = contents
+        rerenderWithSlots(count => count + 1)
+      }
     }
 
     const styles = {
