@@ -93,16 +93,30 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const {theme} = useTheme()
 
-    const [slots, setSlots] = React.useState<{[key in SlotNames]: React.ReactNode}>({
+    const slotsRef = React.useRef<
+      {
+        [key in SlotNames]: React.ReactNode
+      }
+    >({
       LeadingVisual: null,
       InlineDescription: null,
       BlockDescription: null,
       TrailingVisual: null
     })
+    const slots = slotsRef.current
 
     const registerSlot = (name: keyof typeof slots, contents: React.ReactNode) => {
-      if (slots[name] === null) setSlots(latestSlots => ({...latestSlots, [name]: contents}))
+      slotsRef.current[name] = contents
     }
+
+    // Double render strategy
+    // when the effect is run for the first time,
+    // all the children have rendered = registed themself in slot.
+    // we re-render the component now to re-render with filled slots.
+    // Con: if there's a side effect in one of the components,
+    // it will get run twice, which should be fine as long as it's cleaned up.
+    const [, setMounted] = React.useState(false)
+    React.useEffect(() => setMounted(true), [])
 
     const styles = {
       display: 'flex',

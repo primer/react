@@ -670,18 +670,20 @@ ConditionalChildren.storyName = 'Conditional Children'
 export function NestedChildren(): JSX.Element {
   return (
     <>
-      <h1>Nested Children (slots broken!)</h1>
+      <h1>Nested Children</h1>
       <ErsatzOverlay>
         <ActionList>
-          {users.map(user => (
-            <ActionList.Item id={user.login} key={user.login} showDivider>
-              <ActionList.LeadingVisual>
-                <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
-              </ActionList.LeadingVisual>
-              {user.login}
-              <ReviewerDescription user={user} />
-            </ActionList.Item>
-          ))}
+          <div id="i like extra divs">
+            {users.map(user => (
+              <ActionList.Item id={user.login} key={user.login} showDivider>
+                <ActionList.LeadingVisual>
+                  <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
+                </ActionList.LeadingVisual>
+                {user.login}
+                <ReviewerDescription user={user} />
+              </ActionList.Item>
+            ))}
+          </div>
         </ActionList>
       </ErsatzOverlay>
     </>
@@ -694,10 +696,10 @@ const ReviewerDescription = ({user}) => {
 
   if (usersRecentlyEditedFile.find(u => u.login === user.login)) {
     return (
-      <>
+      <span>
         <ActionList.Description>{user.name}</ActionList.Description>
         <ActionList.Description variant="block">Recently edited this file</ActionList.Description>
-      </>
+      </span>
     )
   } else {
     return <ActionList.Description>{user.name}</ActionList.Description>
