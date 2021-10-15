@@ -95,6 +95,17 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const {theme} = useTheme()
 
+    // Double render strategy
+    // when the effect is run for the first time,
+    // all the children have rendered = registed themself in slot.
+    // we re-render the component now to re-render with filled slots.
+    // (Big?) Con: if there's state in one of the custom components,
+    // a change in state wouldn't cause a re-render. you would have to
+    // pull the state outside of item for it to work.
+    // see story: Child with internal state
+    const [mountedWithSlots, rerenderWithSlots] = React.useState(false)
+    React.useEffect(() => rerenderWithSlots(true), [])
+
     const slotsRef = React.useRef<
       {
         [key in SlotNames]: React.ReactNode
@@ -109,18 +120,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const registerSlot = (name: keyof typeof slots, contents: React.ReactNode) => {
       slotsRef.current[name] = contents
+      // if (mountedWithSlots) rerenderWithSlots(true)
     }
-
-    // Double render strategy
-    // when the effect is run for the first time,
-    // all the children have rendered = registed themself in slot.
-    // we re-render the component now to re-render with filled slots.
-    // (Big?) Con: if there's state in one of the custom components,
-    // a change in state wouldn't cause a re-render. you would have to
-    // pull the state outside of item for it to work.
-    // see story: Child with internal state
-    const [, setMounted] = React.useState(false)
-    React.useEffect(() => setMounted(true), [])
 
     const styles = {
       display: 'flex',

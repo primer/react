@@ -675,7 +675,7 @@ export function NestedChildren(): JSX.Element {
         <ActionList>
           <div id="i like extra divs">
             {users.map(user => (
-              <ActionList.Item id={user.login} key={user.login} showDivider>
+              <ActionList.Item key={user.login} showDivider>
                 <ActionList.LeadingVisual>
                   <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
                 </ActionList.LeadingVisual>
@@ -707,13 +707,27 @@ const ReviewerDescription = ({user}) => {
 }
 
 export function ChildWithInternalState(): JSX.Element {
+  const [assignees, setAssignees] = React.useState(users.slice(0, 2))
+
+  const toggleAssignee = assignee => {
+    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
+
+    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
+    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
+  }
+
   return (
     <>
       <h1>Child with internal state</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList selectionVariant="multiple">
           {users.map(user => (
-            <ActionList.Item id={user.login} key={user.login} showDivider>
+            <ActionList.Item
+              key={user.login}
+              showDivider
+              selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              onAction={() => toggleAssignee(user)}
+            >
               <ActionList.LeadingVisual>
                 <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
               </ActionList.LeadingVisual>
@@ -740,4 +754,44 @@ const StatefulChild = ({user}) => {
       {nameVisible && <ActionList.Description>{user.name}</ActionList.Description>}
     </>
   )
+}
+
+export function ChildWithSideEffects(): JSX.Element {
+  const user = users[0]
+  const [selected, setSelected] = React.useState(true)
+
+  return (
+    <>
+      <h1>Child with side effects</h1>
+      <ErsatzOverlay>
+        <ActionList selectionVariant="multiple">
+          <ActionList.Item selected={selected} onAction={() => setSelected(!selected)}>
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <SideEffectDescription login={user.login} />
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+ChildWithSideEffects.storyName = 'Child with side effects'
+
+const SideEffectDescription = ({login}) => {
+  const [bio, setBio] = React.useState(null)
+
+  React.useEffect(() => {
+    console.log('effect called')
+    async function fetchData() {
+      const response = await fetch(`https://api.github.com/users/${login}`)
+      const data = await response.json()
+      console.log('bio fetched: ' + data.bio)
+      setBio(data.bio)
+    }
+    fetchData()
+  }, [login])
+
+  return <ActionList.Description variant="block">{bio}</ActionList.Description>
 }
