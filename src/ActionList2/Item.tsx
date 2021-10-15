@@ -74,9 +74,10 @@ export type ItemProps = {
 
 type SlotNames = 'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'
 type ContextProps = {
-  registerSlot: (name: SlotNames, contents: React.ReactNode) => void
+  registerSlot: (name: SlotNames, contents: JSX.Element) => void
+  deregisterSlot: (name: SlotNames) => void
 }
-export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null})
+export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null, deregisterSlot: () => null})
 
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
@@ -99,9 +100,14 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     // Double render strategy
     // when the effect is run for the first time,
     // all the children have rendered = registed themself in slot.
-    // we re-render the component now to re-render with filled slots.
+    // we re-render the Item component to re-render with filled slots.
+    const [, rerenderWithSlots] = React.useState(0)
+
     const [isMounted, setIsMounted] = React.useState(false)
-    React.useEffect(() => setIsMounted(true), [])
+    React.useEffect(() => {
+      setIsMounted(true)
+      rerenderWithSlots(count => count + 1)
+    }, [])
 
     const slotsRef = React.useRef<
       {
@@ -115,18 +121,22 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     })
     const slots = slotsRef.current
 
-    const [, rerenderWithSlots] = React.useState(0)
     const registerSlot = (name: keyof typeof slots, contents: JSX.Element) => {
       const currentContents = slotsRef.current[name]
+      slotsRef.current[name] = contents
 
       // don't render until the component mounts = all slots are registered
       if (!isMounted) return
 
       // only rerender if the values are different to avoid an infinite loop
       if (!isEqual(currentContents?.props, contents.props)) {
-        slotsRef.current[name] = contents
         rerenderWithSlots(count => count + 1)
       }
+    }
+
+    const deregisterSlot = (name: keyof typeof slots) => {
+      slotsRef.current[name] = null
+      rerenderWithSlots(count => count + 1)
     }
 
     const styles = {
@@ -185,7 +195,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     return (
       <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-        <ItemContext.Provider value={{registerSlot}}>
+        <ItemContext.Provider value={{registerSlot, deregisterSlot}}>
           <Selection selected={selected} disabled={disabled} />
           {slots.LeadingVisual}
           <Box

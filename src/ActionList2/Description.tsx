@@ -7,9 +7,7 @@ export type DescriptionProps = {
   variant?: 'inline' | 'block'
 }
 export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...props}) => {
-  const {registerSlot} = React.useContext(ItemContext)
-
-  const slotName = variant === 'block' ? 'BlockDescription' : 'InlineDescription'
+  const {registerSlot, deregisterSlot} = React.useContext(ItemContext)
 
   const styles = {
     color: 'fg.muted',
@@ -21,21 +19,22 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...
     marginLeft: variant === 'block' ? 0 : 2
   }
 
-  if (variant === 'block') {
-    registerSlot(
-      slotName,
+  const contents =
+    variant === 'block' ? (
       <Box as="span" sx={styles}>
         {props.children}
       </Box>
-    )
-  } else {
-    registerSlot(
-      slotName,
+    ) : (
       <Truncate sx={styles} title={props.children as string} inline={true} maxWidth="100%">
         {props.children}
       </Truncate>
     )
-  }
+
+  React.useEffect(() => {
+    const slotName = variant === 'block' ? 'BlockDescription' : 'InlineDescription'
+    registerSlot(slotName, contents)
+    return () => deregisterSlot(slotName)
+  }, [variant, props.children])
 
   return null
 }
