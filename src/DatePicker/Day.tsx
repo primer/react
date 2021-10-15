@@ -5,6 +5,7 @@ import Box from '../Box'
 import Text from '../Text'
 import {get, SystemCommonProps, SystemLayoutProps} from '../constants'
 import {SxProp} from '../sx'
+import {useDatePicker} from './useDatePicker'
 
 export interface DayProps extends FontSizeProps, SystemCommonProps, SxProp, SystemLayoutProps {
   blocked?: boolean
@@ -115,16 +116,18 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
 `
 
 export const Day: React.FC<DayProps> = ({blocked, disabled, date, onAction, selected}) => {
+  const {onDayFocus, onDayBlur, onSelection, selection, softSelection} = useDatePicker()
   const keyPressHandler = useCallback(
     event => {
       if (disabled) {
         return
       }
       if ([' ', 'Enter'].includes(event.key)) {
+        onSelection(date)
         onAction?.(date, event)
       }
     },
-    [disabled, onAction, date]
+    [disabled, onSelection, onAction, date]
   )
 
   const clickHandler = useCallback(

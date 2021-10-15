@@ -5,7 +5,11 @@ import {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DatePickerAnchor} from './DatePickerAnchor'
 import {addDays} from 'date-fns'
-import {Month} from './Month'
+import {DatePickerPanel} from './DatePickerPanel'
+import {DatePickerProvider} from './useDatePicker'
+
+type OpenGesture = 'anchor-click' | 'anchor-key-press'
+type CloseGesture = 'anchor-click' | 'click-outside' | 'escape'
 
 export interface DatePickerProps {
   /**
@@ -32,12 +36,12 @@ export interface DatePickerProps {
   /**
    * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
-  onOpen?: (gesture: 'anchor-click' | 'anchor-key-press') => unknown
+  onOpen?: (gesture: OpenGesture) => unknown
 
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: CloseGesture) => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -64,12 +68,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const buttonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
 
-  const onOpen = (gesture: 'anchor-click' | 'anchor-key-press') => {
+  const onOpen = (gesture: OpenGesture) => {
     setIsOpen(true)
     onOpenExternal?.(gesture)
   }
 
-  const onClose = (gesture: 'anchor-click' | 'click-outside' | 'escape') => {
+  const onClose = (gesture: CloseGesture) => {
     setIsOpen(false)
     onCloseExternal?.(gesture)
   }
@@ -85,7 +89,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   }
 
   return (
-    <>
+    <DatePickerProvider>
       <DatePickerAnchor
         ref={buttonRef}
         fromDate={new Date()}
@@ -103,8 +107,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
       >
-        <Month month={new Date().getMonth()} year={new Date().getFullYear()} />
+        <DatePickerPanel />
       </AnchoredOverlay>
-    </>
+    </DatePickerProvider>
   )
 }
