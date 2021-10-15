@@ -23,6 +23,8 @@
  * ActionList.Selection or ActionList.Item selected?
  * different size for icon and avatar, range?
  * minimize number of divs?
+ * improve double render by wrapping custom children in memo
+ * improve double render by wrapping children in memo
  */
 
 import React from 'react'
@@ -113,8 +115,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     // when the effect is run for the first time,
     // all the children have rendered = registed themself in slot.
     // we re-render the component now to re-render with filled slots.
-    // Con: if there's a side effect in one of the components,
-    // it will get run twice, which should be fine as long as it's cleaned up.
+    // (Big?) Con: if there's state in one of the custom components,
+    // a change in state wouldn't cause a re-render. you would have to
+    // pull the state outside of item for it to work.
+    // see story: Child with internal state
     const [, setMounted] = React.useState(false)
     React.useEffect(() => setMounted(true), [])
 

@@ -705,3 +705,39 @@ const ReviewerDescription = ({user}) => {
     return <ActionList.Description>{user.name}</ActionList.Description>
   }
 }
+
+export function ChildWithInternalState(): JSX.Element {
+  return (
+    <>
+      <h1>Child with internal state</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {users.map(user => (
+            <ActionList.Item id={user.login} key={user.login} showDivider>
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <StatefulChild user={user} />
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+ChildWithInternalState.storyName = 'Child with internal state'
+
+const StatefulChild = ({user}) => {
+  const [nameVisible, setNameVisibility] = React.useState(true)
+  const toggle = () => {
+    setNameVisibility(!nameVisible)
+  }
+
+  return (
+    <>
+      <button onClick={toggle}>{nameVisible ? 'Hide name' : 'Show name'}</button>
+      {nameVisible && <ActionList.Description>{user.name}</ActionList.Description>}
+    </>
+  )
+}
