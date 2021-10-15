@@ -57,8 +57,8 @@ Some [system props](/system-props) and [`sx` prop](/overriding-styles) keys are 
 ```jsx
 const theme = {
   colors: {
-    bg: {
-      primary: '#fff'
+    canvas: {
+      default: '#fff'
     }
   }
 }
@@ -67,7 +67,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box bg="canvas.default"></Box>
-      <Box sx={{bg: "canvas.default"}}></Box>
+      <Box sx={{bg: 'canvas.default'}}></Box>
     </ThemeProvider>
   )
 }
@@ -84,7 +84,7 @@ import {themeGet} from '@primer/components'
 import styled from 'styled-components'
 
 const Example = styled.div`
-  background-color: ${themeGet("colors.canvas.default")};
+  background-color: ${themeGet('colors.canvas.default')};
 `
 ```
 
@@ -97,7 +97,7 @@ import {ThemeProvider, useTheme} from '@primer/components'
 
 function Example() {
   const {theme} = useTheme()
-  // theme.colors.bg.primary
+  // theme.colors.canvas.default
 }
 
 function App() {

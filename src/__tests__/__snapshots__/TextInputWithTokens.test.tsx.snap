@@ -232,11 +232,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -829,11 +829,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -1426,11 +1426,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -2023,11 +2023,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -2620,11 +2620,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -3218,11 +3218,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -4129,11 +4129,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -4770,11 +4770,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {

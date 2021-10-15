@@ -52,11 +52,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -260,11 +260,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -468,11 +468,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -676,11 +676,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -1096,11 +1096,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 
 .c5:hover,
 .c5:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c5:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c4 {
@@ -1338,11 +1338,11 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -1514,11 +1514,11 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -1690,11 +1690,11 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -1866,11 +1866,11 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -2126,11 +2126,11 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -2302,11 +2302,11 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -2592,11 +2592,11 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -2724,11 +2724,11 @@ exports[`Token components Token renders all sizes 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -2890,11 +2890,11 @@ exports[`Token components Token renders all sizes 2`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -3056,11 +3056,11 @@ exports[`Token components Token renders all sizes 3`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -3222,11 +3222,11 @@ exports[`Token components Token renders all sizes 4`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {
@@ -3662,11 +3662,11 @@ exports[`Token components Token renders with a remove button 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(27,31,36,0.1);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active {
-  background-color: rgba(27,31,36,0.15);
+  background-color: rgba(234,238,242,0.5);
 }
 
 .c1 {

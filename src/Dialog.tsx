@@ -135,7 +135,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
 )
 
 DialogHeader.defaultProps = {
-  backgroundColor: 'bg.tertiary'
+  backgroundColor: 'canvas.subtle'
 }
 
 DialogHeader.propTypes = {

@@ -24,7 +24,7 @@ describe('BorderBox', () => {
   it('renders borders', () => {
     expect(render(<BorderBox borderColor="success.emphasis" />)).toHaveStyleRule(
       'border-color',
-      theme.colorSchemes.light.colors.border?.success
+      theme.colorSchemes.light.colors.success?.emphasis
     )
     expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')
   })

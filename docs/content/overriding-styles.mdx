@@ -25,10 +25,11 @@ This example demonstrates applying a bottom border to `Heading`, a component tha
     pb={2}
     sx={{
       borderBottomWidth: 1,
-      borderBottomColor: 'border.primary',
+      borderBottomColor: 'border.default',
       borderBottomStyle: 'solid'
-    }}>
-      Heading with bottom border
+    }}
+  >
+    Heading with bottom border
   </Heading>
 </>
 ```
@@ -45,7 +46,7 @@ Just like [values passed to system props](https://styled-system.com/responsive-s
   borderRadius={2}
   p={2}
   sx={{
-    bg: ['bg.primary', 'bg.info', 'bg.success', 'bg.warning', 'bg.danger']
+    bg: ['neutral.subtle', 'accent.subtle', 'success.subtle', 'attention.subtle', 'danger.subtle']
   }}
 >
   Responsive background color
@@ -61,7 +62,7 @@ The `sx` prop also allows for declaring styles based on media queries, psueudo-c
   sx={{
     '> *': {
       borderWidth: 1,
-      borderColor: "border.default",
+      borderColor: 'border.default',
       borderStyle: 'solid',
       borderBottomWidth: 0,
       padding: 2,
@@ -69,7 +70,7 @@ The `sx` prop also allows for declaring styles based on media queries, psueudo-c
         borderBottomWidth: 1
       },
       ':hover': {
-        bg: "neutral.muted"
+        bg: 'neutral.muted'
       }
     }
   }}

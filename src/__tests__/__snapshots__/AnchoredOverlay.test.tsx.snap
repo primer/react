@@ -75,7 +75,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 
 <div
   className="c0"
-  color="text.primary"
+  color="fg.default"
   data-portal-root={true}
   fontFamily="normal"
 >
@@ -191,7 +191,7 @@ Object {
     <div>
       <div
         class="c0"
-        color="text.primary"
+        color="fg.default"
         data-portal-root="true"
         font-family="normal"
       >
@@ -236,7 +236,7 @@ Object {
   "container": <div>
     <div
       class="BaseStyles__Base-qvuaww-0 ihFkAM"
-      color="text.primary"
+      color="fg.default"
       data-portal-root="true"
       font-family="normal"
     >
