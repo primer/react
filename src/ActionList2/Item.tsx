@@ -1,9 +1,5 @@
 /**
  * id, role
- * groups
- * item
- * trailing
- * change as= li | div based on context of menu or not?
  * text could be non-text
  * activeDescendantAttribute
  * deepmerge sx
@@ -16,14 +12,16 @@
  * disabled checkbox
  * check height with divider
  *
+ * use immediate child slot API instead of double render?
+ * change as= li | div based on context of menu or not?
  * check if everyone accepts sx prop
  * link example outside of overlay? (details)
  * if one item has selected, should we give all of them selected without the need to pass prop?
  * move custom item themes to primitives?
  * padding: 8 or 6?
  * ActionList.Selection or ActionList.Item selected?
- * different size for icon and avatar, how?
- * minimize divs?
+ * different size for icon and avatar, range?
+ * minimize number of divs?
  */
 
 import React from 'react'

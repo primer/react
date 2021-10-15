@@ -14,7 +14,7 @@ export const Selection: React.FC<SelectionProps> = ({selected, disabled}) => {
 
   if (selectionVariant === 'single') {
     return (
-      <LeadingVisualContainer> {selected && <CheckIcon fill={theme?.colors.text.primary} />}</LeadingVisualContainer>
+      <LeadingVisualContainer>{selected && <CheckIcon fill={theme?.colors.text.primary} />}</LeadingVisualContainer>
     )
   }
 
