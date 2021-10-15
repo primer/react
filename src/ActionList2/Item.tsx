@@ -104,7 +104,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const [, rerenderWithSlots] = React.useState(0)
 
     const [isMounted, setIsMounted] = React.useState(false)
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
       setIsMounted(true)
       rerenderWithSlots(count => count + 1)
     }, [])

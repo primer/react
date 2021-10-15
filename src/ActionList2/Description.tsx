@@ -30,7 +30,7 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...
       </Truncate>
     )
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const slotName = variant === 'block' ? 'BlockDescription' : 'InlineDescription'
     registerSlot(slotName, contents)
     return () => deregisterSlot(slotName)

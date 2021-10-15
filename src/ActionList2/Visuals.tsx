@@ -29,44 +29,50 @@ export const LeadingVisualContainer: React.FC<SxProp> = ({sx = {}, ...props}) =>
 
 export type LeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}, ...props}) => {
-  const {registerSlot} = React.useContext(ItemContext)
+  const {registerSlot, deregisterSlot} = React.useContext(ItemContext)
 
-  registerSlot(
-    'LeadingVisual',
-    <LeadingVisualContainer
-      sx={{
-        color: getVariantStyles(variant, disabled).iconColor,
-        svg: {fontSize: 0},
-        ...sx
-      }}
-      {...props}
-    >
-      {props.children}
-    </LeadingVisualContainer>
-  )
+  React.useLayoutEffect(() => {
+    registerSlot(
+      'LeadingVisual',
+      <LeadingVisualContainer
+        sx={{
+          color: getVariantStyles(variant, disabled).iconColor,
+          svg: {fontSize: 0},
+          ...sx
+        }}
+        {...props}
+      >
+        {props.children}
+      </LeadingVisualContainer>
+    )
+    return () => deregisterSlot('LeadingVisual')
+  }, [variant, disabled, props.children])
 
   return null
 }
 
 export type TrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...props}) => {
-  const {registerSlot} = React.useContext(ItemContext)
+  const {registerSlot, deregisterSlot} = React.useContext(ItemContext)
 
-  registerSlot(
-    'TrailingVisual',
-    <Box
-      as="span"
-      sx={{
-        height: '20px', // match height of text row
-        flexShrink: 0,
-        color: getVariantStyles(variant, disabled).annotationColor,
-        marginLeft: 2
-      }}
-      {...props}
-    >
-      {props.children}
-    </Box>
-  )
+  React.useLayoutEffect(() => {
+    registerSlot(
+      'TrailingVisual',
+      <Box
+        as="span"
+        sx={{
+          height: '20px', // match height of text row
+          flexShrink: 0,
+          color: getVariantStyles(variant, disabled).annotationColor,
+          marginLeft: 2
+        }}
+        {...props}
+      >
+        {props.children}
+      </Box>
+    )
+    return () => deregisterSlot('TrailingVisual')
+  }, [variant, disabled, props.children])
 
   return null
 }
