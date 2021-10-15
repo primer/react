@@ -73,13 +73,6 @@ export function SimpleListStory(): JSX.Element {
 }
 SimpleListStory.storyName = 'Simple List'
 
-const selectListItems = new Array(6).fill(undefined).map((_, i) => {
-  return {
-    text: `Item ${i}`,
-    id: i
-  }
-})
-
 export function WithIcon(): JSX.Element {
   return (
     <>
