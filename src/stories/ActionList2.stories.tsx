@@ -667,7 +667,29 @@ export function ConditionalChildren(): JSX.Element {
 }
 ConditionalChildren.storyName = 'Conditional Children'
 
-const ReviwerDescription = ({user}) => {
+export function NestedChildren(): JSX.Element {
+  return (
+    <>
+      <h1>Nested Children (slots broken!)</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {users.map(user => (
+            <ActionList.Item id={user.login} key={user.login} showDivider>
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <ReviewerDescription user={user} />
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+NestedChildren.storyName = 'Nested Children'
+
+const ReviewerDescription = ({user}) => {
   const usersRecentlyEditedFile = users.slice(0, 2)
 
   if (usersRecentlyEditedFile.find(u => u.login === user.login)) {
@@ -681,25 +703,3 @@ const ReviwerDescription = ({user}) => {
     return <ActionList.Description>{user.name}</ActionList.Description>
   }
 }
-
-export function NestedChildren(): JSX.Element {
-  return (
-    <>
-      <h1>Nested Children</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          {users.map(user => (
-            <ActionList.Item id={user.login} key={user.login} showDivider>
-              <ActionList.LeadingVisual>
-                <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
-              </ActionList.LeadingVisual>
-              {user.login}
-              <ReviwerDescription user={user} />
-            </ActionList.Item>
-          ))}
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-NestedChildren.storyName = 'Nested Children'
