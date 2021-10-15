@@ -101,7 +101,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     })
 
     const registerSlot = (name: keyof typeof slots, contents: React.ReactNode) => {
-      if (slots[name] === null) setSlots({...slots, [name]: contents})
+      if (slots[name] === null) setSlots(latestSlots => ({...latestSlots, [name]: contents}))
     }
 
     const styles = {

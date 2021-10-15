@@ -14,7 +14,8 @@ import {
   LawIcon,
   StarIcon,
   GitForkIcon,
-  TableIcon
+  TableIcon,
+  PeopleIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -622,3 +623,83 @@ export function SizeStressTestingStory(): JSX.Element {
   )
 }
 SizeStressTestingStory.storyName = 'Size Stress Testing'
+
+const teams = [
+  {id: '5025661', type: 'team', slug: 'github/primer-reviewers', name: 'Primer Reviewers', members: 20},
+  {id: '1929972', type: 'team', slug: 'github/design-infrastructure', name: 'Design Infrastructure', members: 20}
+]
+
+export function ConditionalChildren(): JSX.Element {
+  type reviewerType = {name: string; id?: string; type?: string; login?: string; slug?: string; members?: number}
+  const potentialReviewers: reviewerType[] = [...teams, ...users]
+  return (
+    <>
+      <h1>Conditional Children</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {potentialReviewers.map((reviewer, index) => (
+            <ActionList.Item key={index} showDivider>
+              <ActionList.LeadingVisual>
+                {reviewer.type === 'team' ? (
+                  <Avatar src={`https://avatars.githubusercontent.com/t/${reviewer.id}`} />
+                ) : (
+                  <Avatar src={`https://avatars.githubusercontent.com/${reviewer.login}`} />
+                )}
+              </ActionList.LeadingVisual>
+              {reviewer.login || reviewer.slug}
+              {reviewer.type === 'team' ? (
+                <ActionList.Description variant="block">{reviewer.name}</ActionList.Description>
+              ) : (
+                <ActionList.Description>{reviewer.name}</ActionList.Description>
+              )}
+              {reviewer.type === 'team' && (
+                <ActionList.TrailingVisual>
+                  <PeopleIcon />
+                  {reviewer.members}
+                </ActionList.TrailingVisual>
+              )}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+ConditionalChildren.storyName = 'Conditional Children'
+
+const ReviwerDescription = ({user}) => {
+  const usersRecentlyEditedFile = users.slice(0, 2)
+
+  if (usersRecentlyEditedFile.find(u => u.login === user.login)) {
+    return (
+      <>
+        <ActionList.Description>{user.name}</ActionList.Description>
+        <ActionList.Description variant="block">Recently edited this file</ActionList.Description>
+      </>
+    )
+  } else {
+    return <ActionList.Description>{user.name}</ActionList.Description>
+  }
+}
+
+export function NestedChildren(): JSX.Element {
+  return (
+    <>
+      <h1>Nested Children</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {users.map(user => (
+            <ActionList.Item id={user.login} key={user.login} showDivider>
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <ReviwerDescription user={user} />
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+NestedChildren.storyName = 'Nested Children'
