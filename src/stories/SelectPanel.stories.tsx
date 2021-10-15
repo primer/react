@@ -298,3 +298,56 @@ export function SelectPanelAboveTallBody(): JSX.Element {
   )
 }
 SelectPanelAboveTallBody.storyName = 'SelectPanel, Above a Tall Body'
+
+export function SelectPanelHeightAndScroll(): JSX.Element {
+  const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
+  const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
+  const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [openA, setOpenA] = useState(false)
+  const [openB, setOpenB] = useState(false)
+
+  return (
+    <>
+      <h2>With height:medium</h2>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={openA}
+        onOpenChange={setOpenA}
+        items={filteredItems}
+        selected={selectedA}
+        onSelectedChange={setSelectedA}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{height: 'medium'}}
+      />
+      <h2>With height:auto, maxheight:medium</h2>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </DropdownButton>
+        )}
+        placeholderText="Filter Labels"
+        open={openB}
+        onOpenChange={setOpenB}
+        items={filteredItems}
+        selected={selectedB}
+        onSelectedChange={setSelectedB}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{
+          height: 'auto',
+          maxHeight: 'medium'
+        }}
+      />
+    </>
+  )
+}
+SelectPanelHeightAndScroll.storyName = 'SelectPanel, Height and Scroll'

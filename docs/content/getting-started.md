@@ -90,7 +90,7 @@ import {BaseStyles, Box, Heading} from '@primer/components'
 export default () => (
   <BaseStyles>
     <Box m={4}>
-      <Heading mb={2}>Hello, world!</Heading>
+      <Heading sx={{mb: 2}}>Hello, world!</Heading>
       <p>This will get Primer text styles.</p>
     </Box>
   </BaseStyles>

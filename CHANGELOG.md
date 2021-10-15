@@ -1,5 +1,27 @@
 # @primer/components
 
+## 30.3.0
+
+### Minor Changes
+
+- [#1490](https://github.com/primer/react/pull/1490) [`c156b07a`](https://github.com/primer/react/commit/c156b07ab6f2f5ad6d35d1c4f89d8a7f37ad1cef) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds `Autocomplete`, `AutocompleteMenu`, `AutocompleteInput`, and `AutocompleteOverlay` components
+
+* [#1489](https://github.com/primer/react/pull/1489) [`273ef29d`](https://github.com/primer/react/commit/273ef29d1d8f28bb856faba4da803e7ad0892c6e) Thanks [@mperrotti](https://github.com/mperrotti)! - Add alpha `TextInputWithTokens` component
+
+- [#1488](https://github.com/primer/react/pull/1488) [`05ac5aab`](https://github.com/primer/react/commit/05ac5aabb6bf39150557732605f9ce0fb3b9d1ec) Thanks [@mperrotti](https://github.com/mperrotti)! - Add alpha `Token`, `AvatarToken`, `IssueLabelToken` components
+
+## 30.2.1
+
+### Patch Changes
+
+- [#1500](https://github.com/primer/react/pull/1500) [`8c3531aa`](https://github.com/primer/react/commit/8c3531aa73c37770f961cbcfd94acbf1398f29bd) Thanks [@jfuchs](https://github.com/jfuchs)! - Fixed a bug where SelectPanel would not scroll with height:'auto'; maxHeight:'medium' passed to Overlay (https://github.com/github/primer/issues/333)
+
+## 30.2.0
+
+### Minor Changes
+
+- [#1497](https://github.com/primer/react/pull/1497) [`b9d6a662`](https://github.com/primer/react/commit/b9d6a662390a66298a4b2171319029812f5ea88d) Thanks [@jfuchs](https://github.com/jfuchs)! - Updated ActionList's ItemInput type to accept DOM props for divs when renderItem is not provided
+
 ## 30.1.0
 
 ### Minor Changes

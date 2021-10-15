@@ -1,4 +1,5 @@
 import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
+import {useSSRSafeId} from '@react-aria/ssr'
 import {GroupedListProps, ListPropsBase} from '../ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
@@ -10,38 +11,19 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
+import {SxProp} from '../sx'
 
-export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+export interface FilteredActionListProps
+  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
+    ListPropsBase,
+    SxProp {
   loading?: boolean
   placeholderText: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-}
-
-function scrollIntoViewingArea(
-  child: HTMLElement,
-  container: HTMLElement,
-  margin = 8,
-  behavior: ScrollBehavior = 'smooth'
-) {
-  const {top: childTop, bottom: childBottom} = child.getBoundingClientRect()
-  const {top: containerTop, bottom: containerBottom} = container.getBoundingClientRect()
-
-  const isChildTopAboveViewingArea = childTop < containerTop + margin
-  const isChildBottomBelowViewingArea = childBottom > containerBottom - margin
-
-  if (isChildTopAboveViewingArea) {
-    const scrollHeightToChildTop = childTop - containerTop + container.scrollTop
-    container.scrollTo({behavior, top: scrollHeightToChildTop - margin})
-  } else if (isChildBottomBelowViewingArea) {
-    const scrollHeightToChildBottom = childBottom - containerBottom + container.scrollTop
-    container.scrollTo({behavior, top: scrollHeightToChildBottom + margin})
-  }
-
-  // either completely in view or outside viewing area on both ends, don't scroll
 }
 
 const StyledHeader = styled.div`
@@ -57,6 +39,7 @@ export function FilteredActionList({
   items,
   textInputProps,
   inputRef: providedInputRef,
+  sx,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -113,14 +96,21 @@ export function FilteredActionList({
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
     if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoViewingArea(activeDescendantRef.current, scrollContainerRef.current, undefined, 'auto')
+      scrollIntoViewingArea(
+        activeDescendantRef.current,
+        scrollContainerRef.current,
+        'vertical',
+        undefined,
+        undefined,
+        'auto'
+      )
     }
   }, [items])
 
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden">
+    <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
       <StyledHeader>
         <TextInput
           ref={inputRef}

@@ -432,7 +432,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
               />
             </>
           ) : (
-            selected && <CheckIcon fill={theme?.colors.text.primary} />
+            selected && <CheckIcon fill={theme?.colors.fg.default} />
           )}
         </BaseVisualContainer>
       )}

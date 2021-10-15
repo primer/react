@@ -90,6 +90,7 @@ export type OverlayProps = {
   top: number
   left: number
   portalContainerName?: string
+  preventFocusOnOpen?: boolean
 } & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
 
 /**
@@ -124,6 +125,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       left,
       anchorSide,
       portalContainerName,
+      preventFocusOnOpen,
       ...rest
     },
     forwardedRef
@@ -140,7 +142,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       onEscape,
       ignoreClickRefs,
       onClickOutside,
-      initialFocusRef
+      initialFocusRef,
+      preventFocusOnOpen
     })
 
     useEffect(() => {

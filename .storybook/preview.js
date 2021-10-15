@@ -5,8 +5,8 @@ import styled, {createGlobalStyle} from 'styled-components'
 // set global theme styles for each story
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${themeGet('colors.bg.primary')};
-    color: ${themeGet('colors.text.primary')};
+    background-color: ${themeGet('colors.canvas.default')};
+    color: ${themeGet('colors.fg.default')};
   }
 `
 
@@ -26,8 +26,8 @@ const Wrapper = styled.div`
 
 // instead of global theme, only theme wrapper for each story
 const ThemedSectionStyle = styled.div`
-  background-color: ${themeGet('colors.bg.primary')};
-  color: ${themeGet('colors.text.primary')};
+  background-color: ${themeGet('colors.canvas.default')};
+  color: ${themeGet('colors.fg.default')};
   padding: 1rem;
 `
 
