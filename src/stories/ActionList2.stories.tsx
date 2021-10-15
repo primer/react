@@ -9,7 +9,12 @@ import {
   FilterIcon,
   GearIcon,
   ArrowRightIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  LinkIcon,
+  LawIcon,
+  StarIcon,
+  GitForkIcon,
+  TableIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -18,7 +23,7 @@ import {Label, ThemeProvider} from '..'
 import {ActionList as _ActionList} from '../ActionList2'
 import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
-import sx from '../sx'
+import Avatar from '../Avatar'
 
 const ActionList = Object.assign(_ActionList, {
   Header
@@ -50,50 +55,18 @@ const ErsatzOverlay = styled.div<{maxWidth?: string}>`
   overflow: hidden;
   max-width: ${({maxWidth}) => maxWidth || 'none'};
 `
-
-export function ActionsStory(): JSX.Element {
-  return (
-    <>
-      <h1>Actions</h1>
-      <ErsatzOverlay>
-        <ActionList
-          showItemDividers
-          items={[
-            {
-              leadingVisual: ServerIcon,
-              text: 'Open current Codespace',
-              description:
-                "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
-              descriptionVariant: 'block'
-            },
-            {
-              leadingVisual: PlusCircleIcon,
-              text: 'Create new Codespace',
-              description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
-              descriptionVariant: 'block'
-            }
-          ]}
-        />
-      </ErsatzOverlay>
-    </>
-  )
-}
-ActionsStory.storyName = 'Actions'
-
 export function SimpleListStory(): JSX.Element {
   return (
     <>
       <h1>Simple List</h1>
       <ErsatzOverlay>
-        <ActionList
-          items={[
-            {text: 'New file', showDivider: true},
-            ActionList.Divider,
-            {text: 'Copy link', showDivider: true},
-            {text: 'Edit file', showDivider: true},
-            {text: 'Delete file', variant: 'danger', showDivider: true}
-          ]}
-        />
+        <ActionList>
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Quote reply</ActionList.Item>
+          <ActionList.Item>Edit comment</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item variant="danger">Delete file</ActionList.Item>
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
@@ -107,17 +80,136 @@ const selectListItems = new Array(6).fill(undefined).map((_, i) => {
   }
 })
 
+export function WithIcon(): JSX.Element {
+  return (
+    <>
+      <h1>With Icon</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <LinkIcon />
+            </ActionList.LeadingVisual>
+            github.com/primer
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <LawIcon />
+            </ActionList.LeadingVisual>
+            MIT License
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            256 stars
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <GitForkIcon />
+            </ActionList.LeadingVisual>
+            3 forks
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+WithIcon.storyName = 'With Icon'
+
+const users = [
+  {login: 'pksjce', name: 'Pavithra Kodmad'},
+  {login: 'jfuchs', name: 'Jonathan Fuchs'},
+  {login: 'colebemis', name: 'Cole Bemis'},
+  {login: 'mperrotti', name: 'Mike Perrotti'},
+  {login: 'dgreif', name: 'Dusty Greif'},
+  {login: 'smockle', name: 'Clay Miller'},
+  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'}
+]
+
+export function WithAvatar(): JSX.Element {
+  return (
+    <>
+      <h1>With Avatar</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {users.map(user => (
+            <ActionList.Item key={user.login}>
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${user.login}.png`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+WithAvatar.storyName = 'With Avatar'
+
+const projects = [
+  {name: 'Primer Backlog', scope: 'GitHub'},
+  {name: 'Accessibility', scope: 'GitHub'},
+  {name: 'Octicons', scope: 'github/primer'},
+  {name: 'Primer React', scope: 'github/primer'}
+]
+
+export function WithDescription(): JSX.Element {
+  return (
+    <>
+      <h1>With Description & Dividers</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {users.map(user => (
+            <ActionList.Item key={user.login} showDivider>
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${user.login}.png`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <ActionList.Description>{user.name}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+          <ActionList.Divider />
+          {projects.map((project, index) => (
+            <ActionList.Item key={index} showDivider>
+              <ActionList.LeadingVisual>
+                <TableIcon />
+              </ActionList.LeadingVisual>
+              {project.name}
+              <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+WithDescription.storyName = 'With Description & Dividers'
+
 export function SingleSelectListStory(): JSX.Element {
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
+
   return (
     <>
       <h1>Single Select List</h1>
       <ErsatzOverlay>
-        <ActionList
-          items={selectListItems.map((item, index) => ({
-            ...item,
-            selected: index === 1
-          }))}
-        />
+        <ActionList>
+          {projects.map((project, index) => (
+            <ActionList.Item
+              key={index}
+              showDivider
+              selected={index === selectedIndex}
+              onAction={() => setSelectedIndex(index)}
+            >
+              <ActionList.LeadingVisual>
+                <TableIcon />
+              </ActionList.LeadingVisual>
+              {project.name}
+              <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
@@ -125,93 +217,203 @@ export function SingleSelectListStory(): JSX.Element {
 SingleSelectListStory.storyName = 'Single Select'
 
 export function MultiSelectListStory(): JSX.Element {
+  const [assignees, setAssignees] = React.useState(users.slice(0, 2))
+
+  const toggleAssignee = assignee => {
+    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
+
+    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
+    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
+  }
+
   return (
     <>
       <h1>Multi Select List</h1>
       <ErsatzOverlay>
-        <ActionList
-          selectionVariant="multiple"
-          items={selectListItems.map((item, index) => ({
-            ...item,
-            selected: index === 1 || index === 3
-          }))}
-        />
+        <ActionList selectionVariant="multiple">
+          {users.map(user => (
+            <ActionList.Item
+              key={user.login}
+              showDivider
+              selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              onAction={() => toggleAssignee(user)}
+            >
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${user.login}.png`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <ActionList.Description>{user.name}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
 }
 MultiSelectListStory.storyName = 'Multi Select'
 
+export function GroupsStory(): JSX.Element {
+  const [assignees, setAssignees] = React.useState(users.slice(0, 1))
+
+  const toggleAssignee = assignee => {
+    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
+
+    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
+    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
+  }
+
+  return (
+    <>
+      <h1>Multi Select List</h1>
+      <ErsatzOverlay>
+        <ActionList selectionVariant="multiple">
+          <ActionList.Group title="Suggestions" variant="filled">
+            {users.slice(0, 2).map(user => (
+              <ActionList.Item
+                key={user.login}
+                showDivider
+                selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+                onAction={() => toggleAssignee(user)}
+              >
+                <ActionList.LeadingVisual>
+                  <Avatar src={`https://github.com/${user.login}.png`} />
+                </ActionList.LeadingVisual>
+                {user.login}
+                <ActionList.Description>{user.name}</ActionList.Description>
+                <ActionList.Description variant="block">Recently edited these files</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+          <ActionList.Group title="Everyone" variant="filled">
+            {users.slice(2).map(user => (
+              <ActionList.Item
+                key={user.login}
+                showDivider
+                selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+                onAction={() => toggleAssignee(user)}
+              >
+                <ActionList.LeadingVisual>
+                  <Avatar src={`https://github.com/${user.login}.png`} />
+                </ActionList.LeadingVisual>
+                {user.login}
+                <ActionList.Description>{user.name}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+GroupsStory.storyName = 'Groups'
+
+export function ActionsStory(): JSX.Element {
+  return (
+    <>
+      <h1>Actions</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <ServerIcon />
+            </ActionList.LeadingVisual>
+            Open current Codespace
+            <ActionList.Description variant="block">
+              Your existing Codespace will be opened to its previous state, and you&apos;ll be asked to manually switch
+              to new-branch.
+            </ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <PlusCircleIcon />
+            </ActionList.LeadingVisual>
+            Create new Codespace
+            <ActionList.Description variant="block">
+              Create a brand new Codespace with a fresh image and checkout this branch.
+            </ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+ActionsStory.storyName = 'Actions'
+
 export function ComplexListInsetVariantStory(): JSX.Element {
-  const StyledDiv = styled.div`
-    ${sx}
-  `
   return (
     <>
       <h1>Complex List</h1>
       <h2>Inset Variant</h2>
       <ErsatzOverlay>
-        <ActionList
-          groupMetadata={[
-            {groupId: '0'},
-            {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
-            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}, showItemDividers: true},
-            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
-            {
-              groupId: '4',
-              renderItem: ({leadingVisual: LeadingVisual, ...props}) => (
-                <ActionList.Item
-                  {...props}
-                  leadingVisual={() => (
-                    <StyledDiv sx={{'&>svg': {fill: 'white'}}}>
-                      {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </StyledDiv>
-                  )}
-                />
-              ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              )
-            }
-          ]}
-          items={[
-            {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
-            {
-              leadingVisual: VersionsIcon,
-              text: 'Duplicate',
-              description: 'Create a copy',
-              descriptionVariant: 'inline',
-              groupId: '0'
-            },
-            {
-              leadingVisual: SearchIcon,
-              text: 'repo:github/memex,github/github',
-              groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
-            },
-            {
-              leadingVisual: NoteIcon,
-              text: 'Table',
-              description: 'Information-dense table optimized for operations across teams',
-              descriptionVariant: 'block',
-              groupId: '2'
-            },
-            {
-              leadingVisual: ProjectIcon,
-              text: 'Board',
-              description: 'Kanban-style board focused on visual states',
-              descriptionVariant: 'block',
-              groupId: '2'
-            },
-            {
-              leadingVisual: FilterIcon,
-              text: 'Save sort and filters to current view',
-              groupId: '3'
-            },
-            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
-          ]}
-        />
+        <ActionList>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <TypographyIcon />
+            </ActionList.LeadingVisual>
+            Rename
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <VersionsIcon />
+            </ActionList.LeadingVisual>
+            Duplicate
+            <ActionList.Description>Create a copy</ActionList.Description>
+          </ActionList.Item>
+
+          <ActionList.Group title="Live query" variant="filled">
+            <ActionList.Item style={{color: 'rebeccapurple'}}>
+              <ActionList.LeadingVisual>
+                <SearchIcon />
+              </ActionList.LeadingVisual>
+              repo:github/memex,github/github
+            </ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group title="Layout" variant="subtle">
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <NoteIcon />
+              </ActionList.LeadingVisual>
+              Table
+              <ActionList.Description variant="block">
+                Information-dense table optimized for operations across teams
+              </ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item showDivider>
+              <ActionList.LeadingVisual>
+                <ProjectIcon />
+              </ActionList.LeadingVisual>
+              Board
+              <ActionList.Description variant="block">
+                Kanban-style board focused on visual states
+              </ActionList.Description>
+            </ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group>
+            <ActionList.Item style={{fontWeight: 'bold'}}>
+              <ActionList.LeadingVisual>
+                <FilterIcon />
+              </ActionList.LeadingVisual>
+              Save sort and filters to current view
+            </ActionList.Item>
+            <ActionList.Item style={{fontWeight: 'bold'}}>
+              <ActionList.LeadingVisual>
+                <FilterIcon />
+              </ActionList.LeadingVisual>
+              Save sort and filters to new view
+            </ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group sx={{backgroundColor: 'cornflowerblue'}}>
+            <ActionList.Item sx={{color: 'white'}}>
+              <ActionList.LeadingVisual sx={{color: 'white'}}>
+                <GearIcon />
+              </ActionList.LeadingVisual>
+              View settings
+            </ActionList.Item>
+          </ActionList.Group>
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
@@ -219,149 +421,85 @@ export function ComplexListInsetVariantStory(): JSX.Element {
 ComplexListInsetVariantStory.storyName = 'Complex List — Inset Variant'
 
 export function ComplexListFullVariantStory(): JSX.Element {
-  const StyledDiv = styled.div`
-    ${sx}
-  `
   return (
     <>
       <h1>Complex List</h1>
       <h2>Full Variant</h2>
       <ErsatzOverlay>
-        <ActionList
-          variant="full"
-          groupMetadata={[
-            {groupId: '0'},
-            {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
-            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
-            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
-            {
-              groupId: '4',
-              renderItem: ({leadingVisual: LeadingVisual, ...props}) => (
-                <ActionList.Item
-                  {...props}
-                  leadingVisual={() => (
-                    <StyledDiv sx={{'&>svg': {fill: 'white'}}}>
-                      {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </StyledDiv>
-                  )}
-                />
-              ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              )
-            }
-          ]}
-          items={[
-            {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
-            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
-            {
-              leadingVisual: SearchIcon,
-              text: 'repo:github/memex,github/github',
-              groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
-            },
-            {
-              leadingVisual: NoteIcon,
-              text: 'Table',
-              description: 'Information-dense table optimized for operations across teams',
-              descriptionVariant: 'block',
-              groupId: '2'
-            },
-            {
-              leadingVisual: ProjectIcon,
-              text: 'Board',
-              description: 'Kanban-style board focused on visual states',
-              descriptionVariant: 'block',
-              groupId: '2'
-            },
-            {
-              leadingVisual: FilterIcon,
-              text: 'Save sort and filters to current view',
-              groupId: '3'
-            },
-            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
-          ]}
-        />
+        <ActionList variant="full">
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <TypographyIcon />
+            </ActionList.LeadingVisual>
+            Rename
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <VersionsIcon />
+            </ActionList.LeadingVisual>
+            Duplicate
+            <ActionList.Description>Create a copy</ActionList.Description>
+          </ActionList.Item>
+
+          <ActionList.Group title="Live query" variant="filled">
+            <ActionList.Item style={{color: 'rebeccapurple'}}>
+              <ActionList.LeadingVisual>
+                <SearchIcon />
+              </ActionList.LeadingVisual>
+              repo:github/memex,github/github
+            </ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group title="Layout" variant="subtle">
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <NoteIcon />
+              </ActionList.LeadingVisual>
+              Table
+              <ActionList.Description variant="block">
+                Information-dense table optimized for operations across teams
+              </ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item showDivider>
+              <ActionList.LeadingVisual>
+                <ProjectIcon />
+              </ActionList.LeadingVisual>
+              Board
+              <ActionList.Description variant="block">
+                Kanban-style board focused on visual states
+              </ActionList.Description>
+            </ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group>
+            <ActionList.Item style={{fontWeight: 'bold'}}>
+              <ActionList.LeadingVisual>
+                <FilterIcon />
+              </ActionList.LeadingVisual>
+              Save sort and filters to current view
+            </ActionList.Item>
+            <ActionList.Item style={{fontWeight: 'bold'}}>
+              <ActionList.LeadingVisual>
+                <FilterIcon />
+              </ActionList.LeadingVisual>
+              Save sort and filters to new view
+            </ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group sx={{backgroundColor: 'cornflowerblue'}}>
+            <ActionList.Item sx={{color: 'white'}}>
+              <ActionList.LeadingVisual sx={{color: 'white'}}>
+                <GearIcon />
+              </ActionList.LeadingVisual>
+              View settings
+            </ActionList.Item>
+          </ActionList.Group>
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
 }
 ComplexListFullVariantStory.storyName = 'Complex List — Full Variant'
-
-export function HeaderStory(): JSX.Element {
-  return (
-    <>
-      <h1>Header</h1>
-      <h2>Filled Variant</h2>
-      <ActionList.Header title="Layout" variant="filled" />
-      <h2>Subtle Variant</h2>
-      <ActionList.Header title="Layout" variant="subtle" />
-    </>
-  )
-}
-HeaderStory.storyName = 'Header'
-
-export function CustomItemChildren(): JSX.Element {
-  return (
-    <>
-      <h1>Custom Item Children</h1>
-      <ErsatzOverlay>
-        <ActionList
-          items={[
-            {
-              leadingVisual: ArrowRightIcon,
-              children: (
-                <Label outline borderColor="success.emphasis">
-                  Choose this one
-                </Label>
-              ),
-              trailingIcon: ArrowLeftIcon
-            }
-          ]}
-        />
-      </ErsatzOverlay>
-    </>
-  )
-}
-CustomItemChildren.storyName = 'Custom Item Children'
-
-export function SizeStressTestingStory(): JSX.Element {
-  return (
-    <>
-      <h1>Size Stress Testing</h1>
-      <ErsatzOverlay maxWidth="300px">
-        <ActionList
-          items={[
-            {
-              leadingVisual: ArrowRightIcon,
-              text: 'Block Description.  Long text should wrap',
-              description: 'This description is long, but it is block so it wraps',
-              descriptionVariant: 'block',
-              trailingIcon: ArrowLeftIcon,
-
-              showDivider: true
-            },
-            {
-              leadingVisual: ArrowRightIcon,
-              text: 'Inline Description',
-              description: 'This description gets truncated because it is inline',
-              trailingIcon: ArrowLeftIcon,
-              showDivider: true
-            },
-            {
-              leadingVisual: ArrowRightIcon,
-              text: 'Really long text without a description should wrap',
-              trailingIcon: ArrowLeftIcon,
-              showDivider: true
-            }
-          ]}
-        />
-      </ErsatzOverlay>
-    </>
-  )
-}
-SizeStressTestingStory.storyName = 'Size Stress Testing'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
@@ -387,30 +525,21 @@ export function LinkItemStory(): JSX.Element {
     <>
       <h1>Simple List</h1>
       <ErsatzOverlay>
-        <ActionList
-          items={[
-            {
-              text: 'A. Vanilla action',
-              renderItem: props => <ActionList.Item onAction={() => alert('hi?')} {...props} />
-            },
-            {
-              text: 'B. Vanilla link',
-              renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
-            },
-            {
-              text: 'C. React Router link',
-              renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
-            },
-            {
-              text: 'D. NextJS style',
-              renderItem: props => (
-                <NextJSLikeLink href="/about">
-                  <ActionList.Item as="a" {...props} />
-                </NextJSLikeLink>
-              )
-            }
-          ]}
-        />
+        <ActionList>
+          <ActionList.Item onAction={() => alert('hi!')}>A. Vanilla action</ActionList.Item>
+          <ActionList.Item as="a" href="?path=/story/composite-components-actionlist2--simple-list-story">
+            B. Vanilla link
+          </ActionList.Item>
+          <ActionList.Item
+            as={ReactRouterLikeLink}
+            to="?path=/story/composite-components-actionlist2--simple-list-story"
+          >
+            C. React Router link
+          </ActionList.Item>
+          <NextJSLikeLink href="?path=/story/composite-components-actionlist2--simple-list-story">
+            <ActionList.Item as="a">D. NextJS style</ActionList.Item>
+          </NextJSLikeLink>
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
@@ -422,16 +551,81 @@ export function DOMPropsStory(): JSX.Element {
     <>
       <h1>Simple List</h1>
       <ErsatzOverlay>
-        <ActionList
-          items={[
-            {
-              text: 'One',
-              onClick: () => alert('Hello')
-            }
-          ]}
-        />
+        <ActionList>
+          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.currentTarget.getAttribute('id')}'`)}>
+            Has an id
+          </ActionList.Item>
+        </ActionList>
       </ErsatzOverlay>
     </>
   )
 }
 DOMPropsStory.storyName = 'List an item input including DOM props'
+
+export function CustomItemChildren(): JSX.Element {
+  return (
+    <>
+      <h1>Custom Item Children</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <ArrowRightIcon />
+            </ActionList.LeadingVisual>
+            <Label outline borderColor="success.emphasis">
+              Choose this one
+            </Label>
+            <ActionList.TrailingVisual>
+              <ArrowLeftIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+CustomItemChildren.storyName = 'Custom Item Children'
+
+export function SizeStressTestingStory(): JSX.Element {
+  return (
+    <>
+      <h1>Size Stress Testing</h1>
+      <ErsatzOverlay maxWidth="300px">
+        <ActionList>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <ArrowRightIcon />
+            </ActionList.LeadingVisual>
+            Block Description. Long text should wrap
+            <ActionList.Description variant="block">
+              This description is long, but it is block so it wraps
+            </ActionList.Description>
+            <ActionList.TrailingVisual>
+              <ArrowLeftIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <ArrowRightIcon />
+            </ActionList.LeadingVisual>
+            Inline Description
+            <ActionList.Description>This description gets truncated because it is inline</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <ArrowLeftIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <ArrowRightIcon />
+            </ActionList.LeadingVisual>
+            Really long text without a description should wrap so it wraps
+            <ActionList.TrailingVisual>
+              <ArrowLeftIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+SizeStressTestingStory.storyName = 'Size Stress Testing'

@@ -1,19 +1,25 @@
 import React from 'react'
-import styled from 'styled-components'
+import Box from '../Box'
 import {get} from '../constants'
-
-export const StyledDivider = styled.div`
-  height: 1px;
-  background: ${get('colors.border.muted')};
-  margin-top: calc(${get('space.2')} - 1px);
-  margin-bottom: ${get('space.2')};
-`
+import {Theme} from '../ThemeProvider'
 
 /**
  * Visually separates `Item`s or `Group`s in an `ActionList`.
  */
 export function Divider(): JSX.Element {
-  return <StyledDivider />
+  return (
+    <Box
+      as="hr"
+      sx={{
+        border: 'none', // override browser styles
+        height: 1,
+        backgroundColor: 'border.muted',
+        marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
+        marginBottom: 2
+      }}
+      data-component="ActionList.Divider"
+    />
+  )
 }
 
 /**
