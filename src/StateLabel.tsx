@@ -20,34 +20,28 @@ const colorVariants = variant({
   prop: 'status',
   variants: {
     issueClosed: {
-      backgroundColor: 'prState.closed.bg',
-      color: 'prState.closed.text',
-      borderColor: 'prState.closed.border'
+      backgroundColor: 'danger.emphasis',
+      color: 'fg.onEmphasis'
     },
     pullClosed: {
-      backgroundColor: 'prState.closed.bg',
-      color: 'prState.closed.text',
-      borderColor: 'prState.closed.border'
+      backgroundColor: 'danger.emphasis',
+      color: 'fg.onEmphasis'
     },
     pullMerged: {
-      backgroundColor: 'prState.merged.bg',
-      color: 'prState.merged.text',
-      borderColor: 'prState.merged.border'
+      backgroundColor: 'done.emphasis',
+      color: 'fg.onEmphasis'
     },
     issueOpened: {
-      backgroundColor: 'prState.open.bg',
-      color: 'prState.open.text',
-      borderColor: 'prState.open.border'
+      backgroundColor: 'success.emphasis',
+      color: 'fg.onEmphasis'
     },
     pullOpened: {
-      backgroundColor: 'prState.open.bg',
-      color: 'prState.open.text',
-      borderColor: 'prState.open.border'
+      backgroundColor: 'success.emphasis',
+      color: 'fg.onEmphasis'
     },
     draft: {
-      backgroundColor: 'prState.draft.bg',
-      color: 'prState.draft.text',
-      borderColor: 'prState.draft.border'
+      backgroundColor: 'neutral.emphasis',
+      color: 'fg.onEmphasis'
     }
   }
 })
@@ -82,8 +76,6 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   color: ${get('colors.canvas.default')};
   text-align: center;
   border-radius: ${get('radii.3')};
-  border-width: 1px;
-  border-style: solid;
   ${colorVariants};
   ${sizeVariants};
   ${COMMON};

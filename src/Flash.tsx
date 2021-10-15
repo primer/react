@@ -7,35 +7,35 @@ import {ComponentProps} from './utils/types'
 const variants = variant({
   variants: {
     default: {
-      color: 'alert.info.text',
-      backgroundColor: 'alert.info.bg',
-      borderColor: 'alert.info.border',
+      color: 'fg.default',
+      backgroundColor: 'accent.subtle',
+      borderColor: 'accent.muted',
       svg: {
-        color: 'alert.info.icon'
+        color: 'accent.fg'
       }
     },
     success: {
-      color: 'alert.success.text',
-      backgroundColor: 'alert.success.bg',
-      borderColor: 'alert.success.border',
+      color: 'fg.default',
+      backgroundColor: 'success.subtle',
+      borderColor: 'success.muted',
       svg: {
-        color: 'alert.success.icon'
+        color: 'success.fg'
       }
     },
     danger: {
-      color: 'alert.error.text',
-      backgroundColor: 'alert.error.bg',
-      borderColor: 'alert.error.border',
+      color: 'fg.default',
+      backgroundColor: 'danger.subtle',
+      borderColor: 'danger.muted',
       svg: {
-        color: 'alert.error.icon'
+        color: 'danger.fg'
       }
     },
     warning: {
-      color: 'alert.warn.text',
-      backgroundColor: 'alert.warn.bg',
-      borderColor: 'alert.warn.border',
+      color: 'fg.default',
+      backgroundColor: 'attention.subtle',
+      borderColor: 'attention.muted',
       svg: {
-        color: 'alert.warn.icon'
+        color: 'attention.fg'
       }
     }
   }

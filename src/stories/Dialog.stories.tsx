@@ -150,7 +150,7 @@ function CustomHeader({
   }, [onClose])
   if (typeof title === 'string' && typeof subtitle === 'string') {
     return (
-      <Box bg="auto.blue.3">
+      <Box bg="accent.subtle">
         <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
         <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
         <Dialog.CloseButton onClose={onCloseClick} />
@@ -160,11 +160,11 @@ function CustomHeader({
   return null
 }
 function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
-  return <Dialog.Body bg="auto.red.3">{children}</Dialog.Body>
+  return <Dialog.Body bg="danger.subtle">{children}</Dialog.Body>
 }
 function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   return (
-    <Dialog.Footer bg="auto.yellow.3">
+    <Dialog.Footer bg="attention.subtle">
       {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
     </Dialog.Footer>
   )

@@ -29,22 +29,22 @@ describe('CounterLabel', () => {
   it('respects the primary "scheme" prop', () => {
     expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
       'color',
-      theme.colorSchemes.light.colors.counter?.primary.text.trim()
+      theme.colorSchemes.light.colors.fg?.onEmphasis.trim()
     )
     expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.counter?.primary.bg.trim()
+      theme.colorSchemes.light.colors.neutral?.emphasis.trim()
     )
   })
 
   it('respects the secondary "scheme" prop', () => {
     expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule(
       'color',
-      theme.colorSchemes.light.colors.counter?.text.trim()
+      theme.colorSchemes.light.colors.fg?.default.trim()
     )
     expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.counter?.bg
+      theme.colorSchemes.light.colors.neutral?.muted
     )
   })
 })
