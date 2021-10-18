@@ -158,14 +158,14 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
       return {
         color: get('colors.danger.fg'),
         iconColor: get('colors.danger.fg'),
-        annotationColor: get('colors.primer.fg.disabled'),
+        annotationColor: get('colors.fg.muted'),
         hoverCursor: 'pointer'
       }
     default:
       return {
         color: get('colors.fg.default'),
-        iconColor: get('colors.primer.fg.disabled'),
-        annotationColor: get('colors.primer.fg.disabled'),
+        iconColor: get('colors.fg.muted'),
+        annotationColor: get('colors.fg.muted'),
         hoverCursor: 'pointer'
       }
   }
@@ -315,7 +315,7 @@ const TrailingContent = styled(ColoredVisualContainer)`
 `
 
 const DescriptionContainer = styled.span`
-  color: ${get('colors.primer.fg.disabled')};
+  color: ${get('colors.fg.muted')};
   font-size: ${get('fontSizes.0')};
   // TODO: When rem-based spacing on a 4px scale lands, replace
   // hardcoded '16px' with '${get('lh-12')}'.

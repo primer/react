@@ -817,9 +817,13 @@ exports[`ButtonTableList renders consistently 1`] = `
   text-decoration: underline;
 }
 
-.c0:disabled,
-.c0:disabled:hover {
+.c0:disabled {
   color: rgba(#8c959f,0.5);
+  cursor: default;
+}
+
+.c0:hover {
+  color: rgba(#57606a,0.5);
   cursor: default;
 }
 

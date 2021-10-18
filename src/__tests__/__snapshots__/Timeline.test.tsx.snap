@@ -148,7 +148,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   height: 16px;
   margin-top: 8px;
   margin-bottom: 8px;
-  color: #8c959f;
+  color: #57606a;
   background-color: #ffffff;
   border: 0;
 }

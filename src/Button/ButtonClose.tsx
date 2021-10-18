@@ -14,7 +14,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   outline: none;
   cursor: pointer;
   border-radius: ${get('radii.2')};
-  color: ${get('colors.primer.fg.disabled')};
+  color: ${get('colors.fg.muted')};
 
   &:focus {
     box-shadow: ${get('shadows.btn.focusShadow')};

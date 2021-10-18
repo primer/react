@@ -322,7 +322,7 @@ const Title = styled(Box)`
 const Subtitle = styled(Box)`
   font-size: ${get('fontSizes.0')};
   margin-top: ${get('space.1')};
-  color: ${get('colors.primer.fg.disabled')};
+  color: ${get('colors.fg.muted')};
 `
 const Body = styled(Box)`
   flex-grow: 1;
@@ -386,7 +386,7 @@ const DialogCloseButton = styled(Button)`
   background: transparent;
   border: 0;
   vertical-align: middle;
-  color: ${get('colors.primer.fg.disabled')};
+  color: ${get('colors.fg.muted')};
   padding: ${get('space.2')};
   align-self: flex-start;
   line-height: normal;

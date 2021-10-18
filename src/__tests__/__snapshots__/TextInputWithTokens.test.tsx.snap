@@ -68,7 +68,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -171,7 +171,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -306,7 +306,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -768,7 +768,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -903,7 +903,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -1365,7 +1365,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -1500,7 +1500,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -1962,7 +1962,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -2097,7 +2097,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -2559,7 +2559,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -2694,7 +2694,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -3157,7 +3157,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -3292,7 +3292,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -3754,7 +3754,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -3839,7 +3839,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   position: relative;
 }
@@ -4068,7 +4068,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -4203,7 +4203,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #8c959f;
+  color: #57606a;
   max-width: 100%;
   padding-right: 0;
   position: relative;
@@ -4665,7 +4665,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -5267,7 +5267,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #8c959f;
+  color: #57606a;
   margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;

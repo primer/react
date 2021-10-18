@@ -60,7 +60,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
 
   .TextInput-icon {
     align-self: center;
-    color: ${get('colors.primer.fg.disabled')};
+    color: ${get('colors.fg.muted')};
     margin: 0 ${get('space.2')};
     flex-shrink: 0;
   }

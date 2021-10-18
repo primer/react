@@ -17,7 +17,7 @@ const Wrapper = styled.li`
   &::after {
     padding-right: 0.5em;
     padding-left: 0.5em;
-    color: ${get('colors.primer.fg.disabled')};
+    color: ${get('colors.fg.muted')};
     font-size: ${get('fontSizes.1')};
     content: '/';
   }
