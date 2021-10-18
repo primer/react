@@ -819,7 +819,7 @@ exports[`ButtonTableList renders consistently 1`] = `
 
 .c0:disabled,
 .c0:disabled:hover {
-  color: rgba(#8c959f,0.5);
+  color: #8c959f;
   cursor: default;
 }
 
