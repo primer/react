@@ -12,11 +12,16 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps &
   box-shadow: none;
 
   &:disabled {
-    color: ${get('colors.fg.muted')};
+    color: ${get('colors.primer.fg.disabled')};
   }
-
   &:focus {
     box-shadow: ${get('shadows.btn.focusShadow')};
+  }
+  &:hover {
+    background-color: ${get('colors.btn.hoverBg')};
+  }
+  &:active {
+    background-color: ${get('colors.btn.selectedBg')};
   }
 
   ${buttonSystemProps};
