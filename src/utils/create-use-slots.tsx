@@ -11,7 +11,7 @@ export const createUseSlots = <SlotName extends string>(slotNames: SlotName[]) =
     registerSlot: (name: SlotName, contents: React.ReactNode) => void
     unregisterSlot: (name: SlotName) => void
   }
-  const SlotsProvider: ContextType = {registerSlot: () => null, unregisterSlot: () => null}
+  const SlotsContext = React.createContext<ContextType>({registerSlot: () => null, unregisterSlot: () => null})
 
   const useSlots = () => {
     // Double render strategy
@@ -33,30 +33,37 @@ export const createUseSlots = <SlotName extends string>(slotNames: SlotName[]) =
       rerenderWithSlots()
     }, [rerenderWithSlots])
 
-    SlotsProvider.registerSlot = React.useCallback(
+    const registerSlot = React.useCallback(
       (name: SlotName, contents: React.ReactNode) => {
         slotsRef.current[name] = contents
 
         // if something has changed?
 
         // don't render until the component mounts = all slots are registered
-        // if (isMounted) rerenderWithSlots()
+        if (isMounted) rerenderWithSlots()
       },
       [isMounted, rerenderWithSlots]
     )
 
     // Item.* can be removed from the DOM,
     // we need to unregister them from the slot
-    SlotsProvider.unregisterSlot = React.useCallback((name: SlotName) => {
-      slotsRef.current[name] = null
-      // rerenderWithSlots()
-    }, [])
+    const unregisterSlot = React.useCallback(
+      (name: SlotName) => {
+        slotsRef.current[name] = null
+        rerenderWithSlots()
+      },
+      [rerenderWithSlots]
+    )
 
-    return slotsRef.current
+    const SlotsProvider: React.FC = ({children}) => {
+      return <SlotsContext.Provider value={{registerSlot, unregisterSlot}}>{children}</SlotsContext.Provider>
+    }
+
+    return {slots: slotsRef.current, SlotsProvider}
   }
 
   const Slot: React.FC<{name: SlotName}> = ({name, children}) => {
-    const {registerSlot, unregisterSlot} = SlotsProvider
+    const {registerSlot, unregisterSlot} = React.useContext(SlotsContext)
 
     React.useLayoutEffect(() => {
       registerSlot(name, children)

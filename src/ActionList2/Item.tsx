@@ -91,7 +91,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const {variant: listVariant} = React.useContext(ListContext)
 
     const {theme} = useTheme()
-    const slots = useSlots()
+    const {slots, SlotsProvider} = useSlots()
 
     const styles = {
       display: 'flex',
@@ -148,23 +148,25 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     )
 
     return (
-      <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-        <Selection selected={selected} disabled={disabled} />
-        {slots.LeadingVisual}
-        <Box
-          data-component="ActionList.Item--Main"
-          sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
-        >
-          <Box sx={{display: 'flex'}}>
-            <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
-              <span>{props.children}</span>
-              {slots.InlineDescription}
+      <SlotsProvider>
+        <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
+          <Selection selected={selected} disabled={disabled} />
+          {slots.LeadingVisual}
+          <Box
+            data-component="ActionList.Item--Main"
+            sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+          >
+            <Box sx={{display: 'flex'}}>
+              <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
+                <span>{props.children}</span>
+                {slots.InlineDescription}
+              </Box>
+              {slots.TrailingVisual}
             </Box>
-            {slots.TrailingVisual}
+            {slots.BlockDescription}
           </Box>
-          {slots.BlockDescription}
         </Box>
-      </Box>
+      </SlotsProvider>
     )
   }
 ) as PolymorphicForwardRefComponent<'li', ItemProps>
