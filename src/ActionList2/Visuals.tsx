@@ -2,8 +2,7 @@ import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
 import {get} from '../constants'
-import {ItemProps, getVariantStyles} from './Item'
-import {Slot} from './use-slots'
+import {ItemProps, getVariantStyles, Slot} from './Item'
 
 type VisualProps = Pick<ItemProps, 'variant' | 'disabled' | 'sx'> & {
   children: React.ReactNode

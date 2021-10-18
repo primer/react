@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import Truncate from '../Truncate'
-import {Slot} from './use-slots'
+import {Slot} from './Item'
 
 export type DescriptionProps = {
   variant?: 'inline' | 'block'

@@ -35,7 +35,7 @@ import {SxProp} from '../sx'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
-import {useSlots} from './use-slots'
+import {createUseSlots} from '../utils/create-use-slots'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
@@ -61,6 +61,9 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
       }
   }
 }
+
+const {useSlots, Slot} = createUseSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
+export {Slot}
 
 export type ItemProps = {
   children: React.ReactNode
@@ -88,8 +91,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const {variant: listVariant} = React.useContext(ListContext)
 
     const {theme} = useTheme()
-
-    const {slots, Provider} = useSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
+    const slots = useSlots()
 
     const styles = {
       display: 'flex',
@@ -147,23 +149,21 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     return (
       <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-        <Provider>
-          <Selection selected={selected} disabled={disabled} />
-          {slots.LeadingVisual}
-          <Box
-            data-component="ActionList.Item--Main"
-            sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
-          >
-            <Box sx={{display: 'flex'}}>
-              <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
-                <span>{props.children}</span>
-                {slots.InlineDescription}
-              </Box>
-              {slots.TrailingVisual}
+        <Selection selected={selected} disabled={disabled} />
+        {slots.LeadingVisual}
+        <Box
+          data-component="ActionList.Item--Main"
+          sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+        >
+          <Box sx={{display: 'flex'}}>
+            <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
+              <span>{props.children}</span>
+              {slots.InlineDescription}
             </Box>
-            {slots.BlockDescription}
+            {slots.TrailingVisual}
           </Box>
-        </Provider>
+          {slots.BlockDescription}
+        </Box>
       </Box>
     )
   }
