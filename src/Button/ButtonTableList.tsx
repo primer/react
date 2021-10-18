@@ -17,7 +17,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   display: inline-block;
   padding: 0;
   font-size: ${get('fontSizes.1')};
-  color: ${get('colors.primer.fg.disabled')};
+  color: ${get('colors.fg.muted')};
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
