@@ -25,6 +25,7 @@ import {ActionList as _ActionList} from '../ActionList2'
 import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
 import Avatar from '../Avatar'
+import {ButtonInvisible} from '../Button'
 
 const ActionList = Object.assign(_ActionList, {
   Header
@@ -738,7 +739,9 @@ const StatefulChild = props => {
 
   return (
     <>
-      <button onClick={toggle}>{nameVisible ? 'Hide name' : 'Show name'}</button>
+      <ButtonInvisible onClick={toggle} sx={{fontSize: 0}}>
+        {nameVisible ? 'Hide name' : 'Show name'}
+      </ButtonInvisible>
       {nameVisible && <ActionList.Description>{props.children}</ActionList.Description>}
     </>
   )
