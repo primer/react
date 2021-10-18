@@ -81,14 +81,15 @@ export interface ItemProps extends SxProp {
   trailingIcon?: React.FunctionComponent<IconProps>
 
   /**
-   * Icon (or similar) positioned after `Item` text.
-   */
-  trailingVisual?: React.FunctionComponent<IconProps>
-
-  /**
+   * @deprecated Use `trailingVisual` instead
    * Text positioned after `Item` text and optional trailing icon.
    */
   trailingText?: string
+
+  /**
+   * Icon or text positioned after `Item` text.
+   */
+  trailingVisual?: React.FunctionComponent<IconProps> | string
 
   /**
    * Style variations associated with various `Item` types.
@@ -403,9 +404,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
 
   const {theme} = useTheme()
 
-  // backward compatibility: prefer TrailingVisual but fallback to TrailingIcon
-  const TrailingVisualWithFallback = TrailingVisual || TrailingIcon
-
   return (
     <StyledItem
       ref={ref}
@@ -479,10 +477,15 @@ export const Item = React.forwardRef((itemProps, ref) => {
             </DescriptionContainer>
           ) : null}
         </MainContent>
-        {TrailingVisualWithFallback || trailingText ? (
+        {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
+        {TrailingVisual ? (
+          <TrailingContent variant={variant} disabled={disabled}>
+            {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+          </TrailingContent>
+        ) : TrailingIcon || trailingText ? (
           <TrailingContent variant={variant} disabled={disabled}>
             {trailingText}
-            {TrailingVisualWithFallback && <TrailingVisualWithFallback />}
+            {TrailingIcon && <TrailingIcon />}
           </TrailingContent>
         ) : null}
       </DividedContent>
