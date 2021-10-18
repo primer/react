@@ -472,11 +472,19 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
 }
 
 .c0:disabled {
-  color: #57606a;
+  color: #8c959f;
 }
 
 .c0:focus {
   box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0:hover {
+  background-color: #f3f4f6;
+}
+
+.c0:active {
+  background-color: hsla(220,14%,94%,1);
 }
 
 <button
