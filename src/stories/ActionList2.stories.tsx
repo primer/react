@@ -739,7 +739,7 @@ const StatefulChild = props => {
 
   return (
     <>
-      <ButtonInvisible onClick={toggle} sx={{fontSize: 0}}>
+      <ButtonInvisible onClick={toggle} sx={{fontSize: 0, paddingY: 0}}>
         {nameVisible ? 'Hide name' : 'Show name'}
       </ButtonInvisible>
       {nameVisible && <ActionList.Description>{props.children}</ActionList.Description>}
