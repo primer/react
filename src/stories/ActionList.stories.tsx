@@ -338,21 +338,20 @@ export function SizeStressTestingStory(): JSX.Element {
               text: 'Block Description.  Long text should wrap',
               description: 'This description is long, but it is block so it wraps',
               descriptionVariant: 'block',
-              trailingIcon: ArrowLeftIcon,
-
+              trailingVisual: ArrowLeftIcon,
               showDivider: true
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Inline Description',
               description: 'This description gets truncated because it is inline',
-              trailingIcon: ArrowLeftIcon,
+              trailingVisual: ArrowLeftIcon,
               showDivider: true
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Really long text without a description should wrap',
-              trailingIcon: ArrowLeftIcon,
+              trailingIcon: ArrowLeftIcon, // backward compatible
               showDivider: true
             }
           ]}
