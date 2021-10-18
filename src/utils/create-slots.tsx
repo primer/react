@@ -63,10 +63,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     React.useLayoutEffect(() => {
       registerSlot(name, children)
       return () => unregisterSlot(name)
-      // registerSlot and unregisterSlot are created by the SlotContext,
-      // we can safely ignore them because they will not change between renders
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [name, children])
+    }, [name, children, registerSlot, unregisterSlot])
 
     return null
   }
