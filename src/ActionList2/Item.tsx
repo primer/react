@@ -32,10 +32,10 @@ import {useColorSchemeVar, useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
+import createSlots from '../utils/create-slots'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
-import {createUseSlots} from '../utils/create-use-slots'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
@@ -62,7 +62,8 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
   }
 }
 
-const {useSlots, Slot} = createUseSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
+const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
+
 export {Slot}
 
 export type ItemProps = {
@@ -91,7 +92,6 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const {variant: listVariant} = React.useContext(ListContext)
 
     const {theme} = useTheme()
-    const {slots, SlotsProvider} = useSlots()
 
     const styles = {
       display: 'flex',
@@ -148,25 +148,34 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     )
 
     return (
-      <SlotsProvider>
-        <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-          <Selection selected={selected} disabled={disabled} />
-          {slots.LeadingVisual}
+      <Slots>
+        {slots => (
           <Box
-            data-component="ActionList.Item--Main"
-            sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+            as="li"
+            sx={styles}
+            data-component="ActionList.Item"
+            onClick={clickHandler}
+            ref={forwardedRef}
+            {...props}
           >
-            <Box sx={{display: 'flex'}}>
-              <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
-                <span>{props.children}</span>
-                {slots.InlineDescription}
+            <Selection selected={selected} disabled={disabled} />
+            {slots.LeadingVisual}
+            <Box
+              data-component="ActionList.Item--Main"
+              sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+            >
+              <Box sx={{display: 'flex'}}>
+                <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
+                  <span>{props.children}</span>
+                  {slots.InlineDescription}
+                </Box>
+                {slots.TrailingVisual}
               </Box>
-              {slots.TrailingVisual}
+              {slots.BlockDescription}
             </Box>
-            {slots.BlockDescription}
           </Box>
-        </Box>
-      </SlotsProvider>
+        )}
+      </Slots>
     )
   }
 ) as PolymorphicForwardRefComponent<'li', ItemProps>
