@@ -32,10 +32,10 @@ import {useColorSchemeVar, useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
-import {useForceUpdate} from '../utils/use-force-update'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
+import {useSlots} from './use-slots'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
@@ -71,13 +71,6 @@ export type ItemProps = {
   showDivider?: boolean
 } & SxProp
 
-type SlotNames = 'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'
-type ContextProps = {
-  registerSlot: (name: SlotNames, contents: JSX.Element) => void
-  unregisterSlot: (name: SlotNames) => void
-}
-export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null, unregisterSlot: () => null})
-
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
     {
@@ -96,50 +89,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const {theme} = useTheme()
 
-    // Double render strategy
-    // when the effect is run for the first time,
-    // all the children have mounted = registed themself in slot.
-    // we re-render the Item component to re-render with filled slots.
-    const rerenderWithSlots = useForceUpdate()
-    const [isMounted, setIsMounted] = React.useState(false)
-
-    // fires after all the layoutEffect in children
-    React.useLayoutEffect(() => {
-      setIsMounted(true)
-      rerenderWithSlots()
-    }, [rerenderWithSlots])
-
-    const slotsRef = React.useRef<
-      {
-        [key in SlotNames]: JSX.Element | null
-      }
-    >({
-      LeadingVisual: null,
-      InlineDescription: null,
-      BlockDescription: null,
-      TrailingVisual: null
-    })
-    const slots = slotsRef.current
-
-    const registerSlot = React.useCallback(
-      (name: keyof typeof slots, contents: JSX.Element) => {
-        slotsRef.current[name] = contents
-
-        // don't render until the component mounts = all slots are registered
-        if (isMounted) rerenderWithSlots()
-      },
-      [isMounted, rerenderWithSlots]
-    )
-
-    // Item.* can be removed from the DOM,
-    // we need to unregister them from the slot
-    const unregisterSlot = React.useCallback(
-      (name: keyof typeof slots) => {
-        slotsRef.current[name] = null
-        rerenderWithSlots()
-      },
-      [rerenderWithSlots]
-    )
+    const {slots, Provider} = useSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
 
     const styles = {
       display: 'flex',
@@ -197,7 +147,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     return (
       <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-        <ItemContext.Provider value={{registerSlot, unregisterSlot}}>
+        <Provider>
           <Selection selected={selected} disabled={disabled} />
           {slots.LeadingVisual}
           <Box
@@ -213,7 +163,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             </Box>
             {slots.BlockDescription}
           </Box>
-        </ItemContext.Provider>
+        </Provider>
       </Box>
     )
   }

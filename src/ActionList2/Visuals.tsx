@@ -2,7 +2,8 @@ import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
 import {get} from '../constants'
-import {ItemContext, ItemProps, getVariantStyles} from './Item'
+import {ItemProps, getVariantStyles} from './Item'
+import {Slot} from './use-slots'
 
 type VisualProps = Pick<ItemProps, 'variant' | 'disabled' | 'sx'> & {
   children: React.ReactNode
@@ -29,11 +30,8 @@ export const LeadingVisualContainer: React.FC<SxProp> = ({sx = {}, ...props}) =>
 
 export type LeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}, ...props}) => {
-  const {registerSlot, unregisterSlot} = React.useContext(ItemContext)
-
-  React.useLayoutEffect(() => {
-    registerSlot(
-      'LeadingVisual',
+  return (
+    <Slot name="LeadingVisual">
       <LeadingVisualContainer
         sx={{
           color: getVariantStyles(variant, disabled).iconColor,
@@ -44,23 +42,14 @@ export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}
       >
         {props.children}
       </LeadingVisualContainer>
-    )
-    return () => unregisterSlot('LeadingVisual')
-    // registerSlot and unregisterSlot are created by the ItemContext,
-    // we can safely ignore them because they will not change between renders
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant, disabled, props.children])
-
-  return null
+    </Slot>
+  )
 }
 
 export type TrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...props}) => {
-  const {registerSlot, unregisterSlot} = React.useContext(ItemContext)
-
-  React.useLayoutEffect(() => {
-    registerSlot(
-      'TrailingVisual',
+  return (
+    <Slot name="TrailingVisual">
       <Box
         as="span"
         sx={{
@@ -73,12 +62,6 @@ export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...pro
       >
         {props.children}
       </Box>
-    )
-    return () => unregisterSlot('TrailingVisual')
-    // registerSlot and unregisterSlot are created by the ItemContext,
-    // we can safely ignore them because they will not change between renders
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant, disabled, props.children])
-
-  return null
+    </Slot>
+  )
 }
