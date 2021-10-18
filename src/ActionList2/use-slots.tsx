@@ -1,15 +1,15 @@
 import React from 'react'
 import {useForceUpdate} from '../utils/use-force-update'
 
+type SlotName = string
+
 type ContextProps = {
-  registerSlot: (name: string, contents: JSX.Element) => void
-  unregisterSlot: (name: string) => void
+  registerSlot: (name: SlotName, contents: React.ReactNode) => void
+  unregisterSlot: (name: SlotName) => void
 }
 export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null, unregisterSlot: () => null})
 
-type ValuesOf<T extends string[]> = T[number]
-
-export const useSlots = (slotNames: string[]) => {
+export const useSlots = (slotNames: SlotName[]) => {
   // Double render strategy
   // when the effect is run for the first time,
   // all the children have mounted = registed themself in slot.
@@ -17,14 +17,12 @@ export const useSlots = (slotNames: string[]) => {
   const rerenderWithSlots = useForceUpdate()
   const [isMounted, setIsMounted] = React.useState(false)
 
-  type SlotName = ValuesOf<typeof slotNames>
-
   const slotsDefinition: {[key in SlotName]: JSX.Element | null} = {}
 
   slotNames.map(name => {
     slotsDefinition[name] = null
   })
-  const slotsRef = React.useRef<{[key in SlotName]: JSX.Element | null}>(slotsDefinition)
+  const slotsRef = React.useRef<{[key in SlotName]: React.ReactNode}>(slotsDefinition)
 
   // fires once after all the slots are registered
   React.useLayoutEffect(() => {
@@ -33,7 +31,7 @@ export const useSlots = (slotNames: string[]) => {
   }, [rerenderWithSlots])
 
   const registerSlot = React.useCallback(
-    (name: SlotName, contents: JSX.Element) => {
+    (name: SlotName, contents: React.ReactNode) => {
       slotsRef.current[name] = contents
 
       // if something has changed?
@@ -58,7 +56,7 @@ export const useSlots = (slotNames: string[]) => {
   return {slots: slotsRef.current, Provider}
 }
 
-export const Slot: React.FC<{name: string}> = ({name, children}) => {
+export const Slot: React.FC<{name: SlotName}> = ({name, children}) => {
   const {registerSlot, unregisterSlot} = React.useContext(ItemContext)
 
   React.useLayoutEffect(() => {
