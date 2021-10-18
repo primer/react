@@ -23,8 +23,7 @@
  * ActionList.Selection or ActionList.Item selected?
  * different size for icon and avatar, range?
  * minimize number of divs?
- * improve double render by wrapping custom children in memo
- * improve double render by wrapping children in memo
+ * can use layoutEffect on server?
  */
 
 import React from 'react'
@@ -33,10 +32,10 @@ import {useColorSchemeVar, useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
+import {useForceUpdate} from '../utils/use-force-update'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
-import isEqual from 'lodash.isequal'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
@@ -75,9 +74,9 @@ export type ItemProps = {
 type SlotNames = 'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'
 type ContextProps = {
   registerSlot: (name: SlotNames, contents: JSX.Element) => void
-  deregisterSlot: (name: SlotNames) => void
+  unregisterSlot: (name: SlotNames) => void
 }
-export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null, deregisterSlot: () => null})
+export const ItemContext = React.createContext<ContextProps>({registerSlot: () => null, unregisterSlot: () => null})
 
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
@@ -99,15 +98,16 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     // Double render strategy
     // when the effect is run for the first time,
-    // all the children have rendered = registed themself in slot.
+    // all the children have mounted = registed themself in slot.
     // we re-render the Item component to re-render with filled slots.
-    const [, rerenderWithSlots] = React.useState(0)
-
+    const rerenderWithSlots = useForceUpdate()
     const [isMounted, setIsMounted] = React.useState(false)
+
+    // fires after all the layoutEffect in children
     React.useLayoutEffect(() => {
       setIsMounted(true)
-      rerenderWithSlots(count => count + 1)
-    }, [])
+      rerenderWithSlots()
+    }, [rerenderWithSlots])
 
     const slotsRef = React.useRef<
       {
@@ -121,23 +121,25 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     })
     const slots = slotsRef.current
 
-    const registerSlot = (name: keyof typeof slots, contents: JSX.Element) => {
-      const currentContents = slotsRef.current[name]
-      slotsRef.current[name] = contents
+    const registerSlot = React.useCallback(
+      (name: keyof typeof slots, contents: JSX.Element) => {
+        slotsRef.current[name] = contents
 
-      // don't render until the component mounts = all slots are registered
-      if (!isMounted) return
+        // don't render until the component mounts = all slots are registered
+        if (isMounted) rerenderWithSlots()
+      },
+      [isMounted, rerenderWithSlots]
+    )
 
-      // only rerender if the values are different to avoid an infinite loop
-      if (!isEqual(currentContents?.props, contents.props)) {
-        rerenderWithSlots(count => count + 1)
-      }
-    }
-
-    const deregisterSlot = (name: keyof typeof slots) => {
-      slotsRef.current[name] = null
-      rerenderWithSlots(count => count + 1)
-    }
+    // Item.* can be removed from the DOM,
+    // we need to unregister them from the slot
+    const unregisterSlot = React.useCallback(
+      (name: keyof typeof slots) => {
+        slotsRef.current[name] = null
+        rerenderWithSlots()
+      },
+      [rerenderWithSlots]
+    )
 
     const styles = {
       display: 'flex',
@@ -195,7 +197,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     return (
       <Box as="li" sx={styles} data-component="ActionList.Item" onClick={clickHandler} ref={forwardedRef} {...props}>
-        <ItemContext.Provider value={{registerSlot, deregisterSlot}}>
+        <ItemContext.Provider value={{registerSlot, unregisterSlot}}>
           <Selection selected={selected} disabled={disabled} />
           {slots.LeadingVisual}
           <Box

@@ -7,7 +7,7 @@ export type DescriptionProps = {
   variant?: 'inline' | 'block'
 }
 export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...props}) => {
-  const {registerSlot, deregisterSlot} = React.useContext(ItemContext)
+  const {registerSlot, unregisterSlot} = React.useContext(ItemContext)
 
   React.useLayoutEffect(() => {
     const styles = {
@@ -33,7 +33,10 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...
 
     const slotName = variant === 'block' ? 'BlockDescription' : 'InlineDescription'
     registerSlot(slotName, contents)
-    return () => deregisterSlot(slotName)
+    return () => unregisterSlot(slotName)
+    // registerSlot and unregisterSlot are created by the ItemContext,
+    // we can safely ignore them because they will not change between renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant, props.children])
 
   return null

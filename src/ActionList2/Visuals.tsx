@@ -29,7 +29,7 @@ export const LeadingVisualContainer: React.FC<SxProp> = ({sx = {}, ...props}) =>
 
 export type LeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}, ...props}) => {
-  const {registerSlot, deregisterSlot} = React.useContext(ItemContext)
+  const {registerSlot, unregisterSlot} = React.useContext(ItemContext)
 
   React.useLayoutEffect(() => {
     registerSlot(
@@ -45,7 +45,10 @@ export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}
         {props.children}
       </LeadingVisualContainer>
     )
-    return () => deregisterSlot('LeadingVisual')
+    return () => unregisterSlot('LeadingVisual')
+    // registerSlot and unregisterSlot are created by the ItemContext,
+    // we can safely ignore them because they will not change between renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant, disabled, props.children])
 
   return null
@@ -53,7 +56,7 @@ export const LeadingVisual: React.FC<VisualProps> = ({variant, disabled, sx = {}
 
 export type TrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...props}) => {
-  const {registerSlot, deregisterSlot} = React.useContext(ItemContext)
+  const {registerSlot, unregisterSlot} = React.useContext(ItemContext)
 
   React.useLayoutEffect(() => {
     registerSlot(
@@ -71,7 +74,10 @@ export const TrailingVisual: React.FC<VisualProps> = ({variant, disabled, ...pro
         {props.children}
       </Box>
     )
-    return () => deregisterSlot('TrailingVisual')
+    return () => unregisterSlot('TrailingVisual')
+    // registerSlot and unregisterSlot are created by the ItemContext,
+    // we can safely ignore them because they will not change between renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant, disabled, props.children])
 
   return null
