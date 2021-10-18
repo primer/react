@@ -27,7 +27,7 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   }
 
   &:disabled {
-    color: ${get('colors.fg.muted')};
+    color: ${get('colors.primer.fg.disabled')};
     background-color: ${get('colors.btn.bg')};
     border-color: ${get('colors.btn.border')};
   }
