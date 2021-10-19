@@ -1,2 +1,3 @@
-import Button from './button'
+import Button, {ButtonProps} from './button'
 export default Button
+export {ButtonProps}

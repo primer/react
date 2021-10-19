@@ -19,12 +19,6 @@ export default {
     }
   ],
   argTypes: {
-    variant: {
-      control: {
-        type: 'radio',
-        options: ['default', 'primary', 'outline', 'invisible', 'block', 'danger']
-      }
-    },
     size: {
       control: {
         type: 'radio',
@@ -34,8 +28,12 @@ export default {
   }
 } as Meta
 
-export const defaultButton = (args: ButtonProps) => {
-  return <Button {...args}>Default</Button>
+export const defaultButton = ({size = 'medium', ...args}: ButtonProps) => {
+  return (
+    <Button size={size} {...args}>
+      Default
+    </Button>
+  )
 }
 
 export const iconBeforeButton = (args: ButtonProps) => {

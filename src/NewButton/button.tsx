@@ -1,14 +1,36 @@
 import React from 'react'
+import {compose, fontSize, FontSizeProps, variant} from 'styled-system'
 import styled from 'styled-components'
-import {SxProp} from '../sx'
+import sx, {SxProp} from '../sx'
 import {get} from '../constants'
+import buttonBaseStyles from '../Button/ButtonStyles'
+
+const sizes = variant({
+  prop: 'size',
+  variants: {
+    small: {
+      p: '4px 12px',
+      fontSize: 0
+    },
+    medium: {
+      fontSize: 1
+    },
+    large: {
+      fontSize: 2,
+      p: '10px 20px'
+    }
+  }
+})
 
 export type ButtonProps = {
   variant: 'default' | 'primary' | 'outline' | 'invisible' | 'block' | 'danger'
   size: 'small' | 'medium' | 'large'
-} & SxProp
+} & SxProp &
+  FontSizeProps
 
 const Button = styled.button<ButtonProps>`
+  ${buttonBaseStyles}
+  ${sizes}
   color: ${get('colors.btn.text')};
   background-color: ${get('colors.btn.bg')};
   border: 1px solid ${get('colors.btn.border')};
@@ -35,6 +57,7 @@ const Button = styled.button<ButtonProps>`
     border-color: ${get('colors.btn.border')};
   }
   ${sx};
+  ${fontSize};
 `
 
 export default Button
