@@ -32,7 +32,6 @@ const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & Sx
   &:disabled {
     color: ${get('colors.btn.danger.disabledText')};
     background-color: ${get('colors.btn.danger.disabledBg')};
-    border-color: ${get('colors.btn.danger.disabledBorder')};
   }
 
   ${buttonSystemProps};
