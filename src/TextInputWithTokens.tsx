@@ -148,7 +148,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     // this prevents the tokens from hiding when the user is moving focus between tokens,
     // but still hides the tokens when the user blurs the token by tabbing out or clicking somewhere else on the page
     setTimeout(() => {
-      if (!containerRef.current?.contains(document.activeElement)) {
+      if (!containerRef.current?.contains(document.activeElement) && visibleTokenCount) {
         setTokensAreTruncated(true)
       }
     }, 0)
@@ -163,7 +163,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const handleInputFocus: FocusEventHandler = event => {
     onFocus && onFocus(event)
     setSelectedTokenIndex(undefined)
-    setTokensAreTruncated(false)
+    visibleTokenCount && setTokensAreTruncated(false)
   }
 
   const handleInputBlur: FocusEventHandler = event => {
@@ -173,7 +173,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     // this prevents the tokens from hiding when the user is moving focus from the input to a token,
     // but still hides the tokens when the user blurs the input by tabbing out or clicking somewhere else on the page
     setTimeout(() => {
-      if (!containerRef.current?.contains(document.activeElement)) {
+      if (!containerRef.current?.contains(document.activeElement) && visibleTokenCount) {
         setTokensAreTruncated(true)
       }
     }, 0)
