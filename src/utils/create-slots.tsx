@@ -2,9 +2,9 @@ import React from 'react'
 import {useForceUpdate} from './use-force-update'
 
 /** createSlots is a factory that can create a
- *  typed Slots + Slot combination to use in a component definition
- *  For example: ActionList uses createSlots to get a Slots wrapper
- *  Slot component that can be used inside each Item
+ *  typesafe Slots + Slot pair to use in a component definition
+ *  For example: ActionList.Item uses createSlots to get a Slots wrapper
+ *  + Slot component that is used by LeadingVisual, Description
  */
 
 const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
