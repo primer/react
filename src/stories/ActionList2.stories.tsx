@@ -779,10 +779,5 @@ const SideEffectDescription = () => {
     return () => window.clearInterval(interval)
   }, [])
 
-  return (
-    <>
-      <span>{seconds} seconds passed</span>
-      <ActionList.Description>{seconds} seconds passed</ActionList.Description>
-    </>
-  )
+  return <ActionList.Description>{seconds} seconds passed</ActionList.Description>
 }
