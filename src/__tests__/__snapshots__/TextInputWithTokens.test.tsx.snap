@@ -1,5 +1,344 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
+.c1 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c6 {
+  font-size: 16px;
+  color: #57606a;
+}
+
+.c5 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: rgba(175,184,193,0.2);
+}
+
+.c5:active {
+  background-color: rgba(234,238,242,0.5);
+}
+
+.c4 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c4:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  gap: 8px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c3:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+  onClick={[Function]}
+>
+  <div
+    className="c1"
+  >
+    <input
+      className="c2"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+    />
+  </div>
+  <span
+    aria-label="zero, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+      onClick={[Function]}
+    >
+      zero
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    aria-label="one, press backspace or delete to remove"
+    className="c3"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onRemove={[Function]}
+    size="extralarge"
+    tabIndex={0}
+  >
+    <span
+      className="c4"
+      onClick={[Function]}
+    >
+      one
+    </span>
+    <span
+      aria-hidden="true"
+      className="c5"
+      onClick={[Function]}
+      size="extralarge"
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={24}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 24 24"
+        width={24}
+      />
+    </span>
+  </span>
+  <span
+    className="c6"
+    color="fg.muted"
+    fontSize={2}
+  >
+    +
+    6
+  </span>
+</span>
+`;
+
 exports[`TextInputWithTokens renders as block layout 1`] = `
 .c1 {
   -webkit-order: 1;
@@ -46,6 +385,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   display: block;
   width: 100%;
@@ -94,12 +434,14 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -154,6 +496,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -325,12 +668,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -349,6 +694,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -395,6 +741,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -441,6 +788,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -487,6 +835,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -533,6 +882,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -579,6 +929,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -625,6 +976,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -671,6 +1023,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -753,6 +1106,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -922,12 +1276,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -946,6 +1302,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -992,6 +1349,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -1038,6 +1396,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -1084,6 +1443,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -1130,6 +1490,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -1176,6 +1537,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -1222,6 +1584,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -1268,6 +1631,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -1350,6 +1714,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1519,12 +1884,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -1543,6 +1910,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -1589,6 +1957,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -1635,6 +2004,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -1681,6 +2051,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -1727,6 +2098,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -1773,6 +2145,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -1819,6 +2192,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -1865,6 +2239,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -1947,6 +2322,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -2116,12 +2492,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -2140,6 +2518,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -2186,6 +2565,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -2232,6 +2612,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -2278,6 +2659,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -2324,6 +2706,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -2370,6 +2753,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -2416,6 +2800,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -2462,6 +2847,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -2544,6 +2930,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -2713,12 +3100,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -2737,6 +3126,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -2783,6 +3173,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -2829,6 +3220,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -2875,6 +3267,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -2921,6 +3314,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -2967,6 +3361,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -3013,6 +3408,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -3059,6 +3455,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -3141,6 +3538,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3311,12 +3709,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -3335,6 +3735,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -3381,6 +3782,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -3427,6 +3829,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -3473,6 +3876,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -3519,6 +3923,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -3565,6 +3970,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -3611,6 +4017,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -3657,6 +4064,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -3739,6 +4147,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3857,12 +4266,14 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -3872,6 +4283,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="zero, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3889,6 +4301,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="one, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3906,6 +4319,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="two, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3923,6 +4337,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="three, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3940,6 +4355,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="four, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3957,6 +4373,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="five, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3974,6 +4391,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="six, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -3991,6 +4409,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     aria-label="seven, press backspace or delete to remove"
     className="c3"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
@@ -4053,6 +4472,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -4222,12 +4642,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -4246,6 +4668,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -4292,6 +4715,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -4338,6 +4762,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -4384,6 +4809,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -4430,6 +4856,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -4476,6 +4903,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -4522,6 +4950,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -4568,6 +4997,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -4650,6 +5080,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -4824,12 +5255,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
@@ -4848,6 +5281,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       zero
     </span>
@@ -4894,6 +5328,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       one
     </span>
@@ -4940,6 +5375,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       two
     </span>
@@ -4986,6 +5422,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       three
     </span>
@@ -5032,6 +5469,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       four
     </span>
@@ -5078,6 +5516,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       five
     </span>
@@ -5124,6 +5563,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       six
     </span>
@@ -5170,6 +5610,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   >
     <span
       className="c4"
+      onClick={[Function]}
     >
       seven
     </span>
@@ -5252,6 +5693,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -5293,12 +5735,14 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 <span
   className="c0"
+  onClick={[Function]}
 >
   <div
     className="c1"
   >
     <input
       className="c2"
+      onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
