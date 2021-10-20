@@ -1,225 +1,127 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ActionList renders consistently 1`] = `
+exports[`DatePicker renders consistently 1`] = `
 .c1 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  color: #57606a;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .c0 {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.c0[data-has-active-descendant],
-.c0:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
-}
-
-<div
-  className="c0"
->
-  <div
-    className="c1"
-  />
-</div>
-`;
-
-exports[`ActionList.Item renders consistently 1`] = `
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
   position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c4 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
-  -webkit-flex-direction: var(--main-content-flex-direction);
-  -ms-flex-direction: var(--main-content-flex-direction);
-  flex-direction: var(--main-content-flex-direction);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c5:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
-  margin-top: 0;
-}
-
-.c5:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
-  border-top-width: 0;
-}
-
-.c5:hover .c2::before,
-.c5:hover + * .c2::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
-}
-
-.c5:focus .c2::before,
-.c5:focus + * .c2::before,
-.c5[data-is-active-descendant] .c2::before,
-[data-is-active-descendant] + .c5 .c2::before {
-  border-color: transparent !important;
-}
-
-.c6:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
-  margin-top: 0;
-}
-
-.c6:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
-  border-top-width: 0;
-}
-
-.c6:hover .c2::before,
-.c6:hover + * .c2::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
-}
-
-.c6:focus .c2::before,
-.c6:focus + * .c2::before,
-.c6[data-is-active-descendant] .c2::before,
-[data-is-active-descendant] + .c6 .c2::before {
-  border-color: transparent !important;
-}
-
-.c7:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
-  margin-top: 0;
-}
-
-.c7:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
-  border-top-width: 0;
-}
-
-.c7:hover .c2::before,
-.c7:hover + * .c2::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
-}
-
-.c7:focus .c2::before,
-.c7:focus + * .c2::before,
-.c7[data-is-active-descendant] .c2::before,
-[data-is-active-descendant] + .c7 .c2::before {
-  border-color: transparent !important;
-}
-
-.c1 {
-  padding: 6px 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
   color: #24292f;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(27,31,36,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
-  margin-top: 0;
-}
-
-.c1:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
-  border-top-width: 0;
-}
-
-.c1:hover .c2::before,
-.c1:hover + * .c2::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
-}
-
-.c1:focus .c2::before,
-.c1:focus + * .c2::before,
-.c1[data-is-active-descendant] .c2::before,
-[data-is-active-descendant] + .c1 .c2::before {
-  border-color: transparent !important;
-}
-
-.c1[data-is-active-descendant='activated-directly'] {
-  background: rgba(54,77,100,0.16);
-}
-
-.c1[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(46,77,108,0.06);
-}
-
-.c1:focus {
-  background: rgba(54,77,100,0.16);
+.c0:focus {
   outline: none;
 }
 
-.c1:active {
-  background: rgba(54,77,100,0.16);
+.c0:disabled {
+  cursor: default;
 }
 
-@media (hover:hover) and (pointer:fine) {
-  .c1:hover {
-    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
-    cursor: pointer;
-  }
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
-<div
-  className="c0 c1"
+.c0:hover {
+  background-color: #f3f4f6;
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0:active {
+  background-color: hsla(220,14%,94%,1);
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
+}
+
+.c0:disabled {
+  color: #57606a;
+  background-color: #f6f8fa;
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c0 .c2 {
+  margin-left: 8px;
+}
+
+<button
+  className="c0"
   onClick={[Function]}
   onKeyPress={[Function]}
-  tabIndex={-1}
 >
-  <div
-    className="c2 c3"
-  >
-    <div
-      className="c4"
-      style={
-        Object {
-          "--main-content-flex-direction": "row",
-        }
+  <svg
+    aria-hidden="true"
+    className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z\\"></path>",
       }
-    />
-  </div>
-</div>
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
+  <span
+    className="c2 "
+  >
+    Oct 15 - Oct 22
+  </span>
+</button>
 `;
-
-exports[`DatePicker renders consistently 1`] = `<div />`;

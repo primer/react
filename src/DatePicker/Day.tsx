@@ -115,8 +115,9 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
   }
 `
 
-export const Day: React.FC<DayProps> = ({blocked, disabled, date, onAction, selected}) => {
-  const {onDayFocus, onDayBlur, onSelection, selection, softSelection} = useDatePicker()
+export const Day: React.FC<DayProps> = ({date, onAction}) => {
+  const {onDayFocus, onDayBlur, onSelection, disabled, blocked, selected} = useDatePicker(date)
+
   const keyPressHandler = useCallback(
     event => {
       if (disabled) {
@@ -147,6 +148,8 @@ export const Day: React.FC<DayProps> = ({blocked, disabled, date, onAction, sele
       disabled={disabled}
       selected={selected}
       onClick={clickHandler}
+      onFocus={() => onDayFocus(date)}
+      onBlur={onDayBlur}
       onKeyPress={keyPressHandler}
     >
       <Text>{date.getDate()}</Text>

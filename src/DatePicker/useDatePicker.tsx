@@ -1,14 +1,17 @@
+import {isEqual} from 'date-fns'
+import {isAfter, isBefore} from 'date-fns/esm'
 import React, {createContext, useCallback, useContext, useMemo, useState} from 'react'
 
 export interface DatePickerConfiguration {
   anchorStyle?: 'input' | 'full-date' | 'icon-only'
+  blockedDates?: Array<Date>
   confirmation?: boolean
   contiguousSelection?: boolean
   dimWeekends?: boolean
   minDate?: Date
   maxDate?: Date
   rangeIncrement?: number
-  selection?: 'single' | 'range'
+  selection?: 'single' | 'multi' | 'range'
   view?: '1-month' | '2-month'
 }
 
@@ -20,35 +23,51 @@ type BaseRangeSelection = {
   from: Date
 }
 
-type RangeSelection = {
-  to: Date
-} & BaseRangeSelection
-
-type SoftRangeSelection = {
-  from: Date
-  to?: Date
-} & BaseRangeSelection
+type RangeSelection = {to: Date} & BaseRangeSelection
+type SoftRangeSelection = {to?: Date} & BaseRangeSelection
 
 export interface DatePickerContext {
   configuration: DatePickerConfiguration
-  selection?: SingleSelection | RangeSelection | null
+  selection?: SingleSelection | Array<SingleSelection> | RangeSelection | null
   softSelection?: SingleSelection | SoftRangeSelection | null
   selectionActive?: boolean
-  onSelection?: (date: Date) => void
-  onDayFocus?: (date: Date) => void
-  onDayBlur?: () => void
+  onSelection: (date: Date) => void
+  onDayFocus: (date: Date) => void
+  onDayBlur: () => void
 }
 
 const DatePickerContext = createContext<DatePickerContext | null>(null)
 
-export const useDatePicker = () => {
+export const useDatePicker = (date?: Date) => {
   const value = useContext(DatePickerContext)
 
   if (!value) {
-    throw new Error('useDatePicker must be used inside the Provider')
+    throw new Error('useDatePicker must be used inside a DatePickerProvider')
   }
 
-  return value
+  let selected,
+    blocked,
+    disabled = false
+
+  if (date) {
+    if (Array.isArray(value.selection)) {
+      selected = !!value.selection.find(d => isEqual(d.date, date))
+    }
+
+    // Determine if date is blocked out
+    if (value.configuration.blockedDates) {
+      blocked = !!value.configuration.blockedDates.find(d => isEqual(d, date))
+    }
+
+    // Determine if date is disabled
+    if (value.configuration.minDate || value.configuration.maxDate) {
+      disabled =
+        (value.configuration.minDate ? isBefore(date, value.configuration.minDate) : false) ||
+        (value.configuration.maxDate ? isAfter(date, value.configuration.maxDate) : false)
+    }
+  }
+
+  return {...value, blocked, disabled, selected}
 }
 
 export interface DatePickerProviderProps {
