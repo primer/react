@@ -11,10 +11,10 @@ export const ButtonPrimary = styled(ButtonBase)<ButtonBaseProps & ButtonSystemPr
   box-shadow: ${get('shadows.btn.primary.shadow')};
 
   &:hover {
-    color: ${get('colors.btn.outline.hoverText')};
+    /* color: ${get('colors.btn.primary.hoverText')}; */
     background-color: ${get('colors.btn.primary.hoverBg')};
-    border-color: ${get('colors.btn.outline.hoverBorder')};
-    box-shadow: ${get('shadows.btn.primary.hoverShadow')};
+    border-color: ${get('colors.btn.primary.hoverBorder')};
+    /* box-shadow: ${get('shadows.btn.primary.hoverShadow')}; */
   }
   // focus must come before :active so that the active box shadow overrides
   &:focus {
