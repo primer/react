@@ -1,4 +1,4 @@
-import React, {FocusEventHandler, KeyboardEventHandler, useRef, useState} from 'react'
+import React, {FocusEventHandler, KeyboardEventHandler, RefObject, useRef, useState} from 'react'
 import {omit} from '@styled-system/props'
 import {FocusKeys} from './behaviors/focusZone'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
@@ -184,16 +184,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
       variant={variantProp}
-      ref={containerRef}
       sx={{
-        alignItems: 'center',
-        flexWrap: preventTokenWrapping ? 'nowrap' : 'wrap',
-        gap: '0.25rem',
-
-        '> *': {
-          flexShrink: 0
-        },
-
         ...(block
           ? {
               display: 'flex',
@@ -218,40 +209,58 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       }}
     >
       <Box
+        ref={containerRef as RefObject<HTMLDivElement>}
+        display="flex"
         sx={{
-          order: 1,
-          flexGrow: 1
+          alignItems: 'center',
+          flexWrap: preventTokenWrapping ? 'nowrap' : 'wrap',
+          marginLeft: '-0.25rem',
+          marginBottom: '-0.25rem',
+          flexGrow: 1,
+
+          '> *': {
+            flexShrink: 0,
+            marginLeft: '0.25rem',
+            marginBottom: '0.25rem'
+          }
         }}
       >
-        {IconComponent && <IconComponent className="TextInput-icon" />}
-        <UnstyledTextInput
-          ref={combinedInputRef}
-          disabled={disabled}
-          onFocus={handleInputFocus}
-          onKeyDown={handleInputKeyDown}
-          type="text"
-          sx={{height: '100%'}}
-          {...inputPropsRest}
-        />
+        <Box
+          sx={{
+            order: 1,
+            flexGrow: 1
+          }}
+        >
+          {IconComponent && <IconComponent className="TextInput-icon" />}
+          <UnstyledTextInput
+            ref={combinedInputRef}
+            disabled={disabled}
+            onFocus={handleInputFocus}
+            onKeyDown={handleInputKeyDown}
+            type="text"
+            sx={{height: '100%'}}
+            {...inputPropsRest}
+          />
+        </Box>
+        {tokens.length && TokenComponent
+          ? tokens.map(({id, ...tokenRest}, i) => (
+              <TokenComponent
+                key={id}
+                onFocus={handleTokenFocus(i)}
+                onBlur={handleTokenBlur}
+                onKeyUp={handleTokenKeyUp}
+                isSelected={selectedTokenIndex === i}
+                onRemove={() => {
+                  handleTokenRemove(id)
+                }}
+                hideRemoveButton={hideTokenRemoveButtons}
+                size={size}
+                tabIndex={0}
+                {...tokenRest}
+              />
+            ))
+          : null}
       </Box>
-      {tokens.length && TokenComponent
-        ? tokens.map(({id, ...tokenRest}, i) => (
-            <TokenComponent
-              key={id}
-              onFocus={handleTokenFocus(i)}
-              onBlur={handleTokenBlur}
-              onKeyUp={handleTokenKeyUp}
-              isSelected={selectedTokenIndex === i}
-              onRemove={() => {
-                handleTokenRemove(id)
-              }}
-              hideRemoveButton={hideTokenRemoveButtons}
-              size={size}
-              tabIndex={0}
-              {...tokenRest}
-            />
-          ))
-        : null}
     </TextInputWrapper>
   )
 }

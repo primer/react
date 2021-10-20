@@ -115,7 +115,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 16px;
   line-height: 16px;
   padding-left: 4px;
@@ -139,6 +138,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 4px;
 }
 
 .c2 {
@@ -157,6 +157,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 >
   <span
     className="c1"
+    size="small"
   >
     <span
       className="c2"
@@ -323,7 +324,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -347,6 +347,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 4px;
 }
 
 .c2 {
@@ -365,6 +366,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 >
   <span
     className="c1"
+    size="medium"
   >
     <span
       className="c2"
@@ -531,7 +533,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 8px;
   height: 24px;
   line-height: 24px;
   padding-left: 8px;
@@ -555,6 +556,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 8px;
 }
 
 .c2 {
@@ -573,6 +575,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 >
   <span
     className="c1"
+    size="large"
   >
     <span
       className="c2"
@@ -739,7 +742,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 14px;
-  gap: 8px;
   height: 32px;
   line-height: 32px;
   padding-left: 16px;
@@ -763,6 +765,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 8px;
 }
 
 .c2 {
@@ -781,6 +784,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 >
   <span
     className="c1"
+    size="extralarge"
   >
     <span
       className="c2"
@@ -889,7 +893,6 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -983,7 +986,6 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -1006,6 +1008,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 4px;
 }
 
 .c2 {
@@ -1022,6 +1025,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 >
   <span
     className="c1"
+    size="medium"
   >
     <span
       className="c2"
@@ -1159,7 +1163,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -1183,6 +1186,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 4px;
 }
 
 .c2 {
@@ -1201,6 +1205,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 >
   <span
     className="c1"
+    size="medium"
   >
     <span
       className="c2"
@@ -1270,7 +1275,6 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 16px;
   line-height: 16px;
   padding-left: 4px;
@@ -1446,7 +1450,6 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -1622,7 +1625,6 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 8px;
   height: 24px;
   line-height: 24px;
   padding-left: 8px;
@@ -1798,7 +1800,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 14px;
-  gap: 8px;
   height: 32px;
   line-height: 32px;
   padding-left: 16px;
@@ -2013,7 +2014,6 @@ exports[`Token components IssueLabelToken renders consistently 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -2058,7 +2058,6 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -2234,7 +2233,6 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -2410,7 +2408,6 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -2524,7 +2521,6 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -2787,7 +2783,6 @@ exports[`Token components Token renders all sizes 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 16px;
   line-height: 16px;
   padding-left: 4px;
@@ -2953,7 +2948,6 @@ exports[`Token components Token renders all sizes 2`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -3119,7 +3113,6 @@ exports[`Token components Token renders all sizes 3`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 8px;
   height: 24px;
   line-height: 24px;
   padding-left: 8px;
@@ -3285,7 +3278,6 @@ exports[`Token components Token renders all sizes 4`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 14px;
-  gap: 8px;
   height: 32px;
   line-height: 32px;
   padding-left: 16px;
@@ -3403,7 +3395,6 @@ exports[`Token components Token renders consistently 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -3487,7 +3478,6 @@ exports[`Token components Token renders isSelected 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -3573,7 +3563,6 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
@@ -3594,6 +3583,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
+  padding-right: 4px;
 }
 
 <span
@@ -3603,6 +3593,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
 >
   <span
     className="c1"
+    size="medium"
   >
     <div
       style={
@@ -3725,7 +3716,6 @@ exports[`Token components Token renders with a remove button 1`] = `
   text-decoration: none;
   white-space: nowrap;
   font-size: 12px;
-  gap: 4px;
   height: 20px;
   line-height: 20px;
   padding-left: 8px;
