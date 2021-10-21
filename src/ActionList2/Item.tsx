@@ -29,7 +29,7 @@ import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
-import Box, {BoxProps} from '../Box'
+import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
 import createSlots from '../utils/create-slots'
@@ -164,28 +164,19 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
           >
             <Selection selected={selected} disabled={disabled} />
             {slots.LeadingVisual}
-            <ConditionalBox
-              if={Boolean(slots.BlockDescription)}
+            <Box
               data-component="ActionList.Item--Main"
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
-              <ConditionalBox
-                if={Boolean(slots.TrailingVisual)}
-                sx={{display: 'flex'}}
-                data-component={!slots.BlockDescription && 'ActionList.Item--Main'}
-              >
-                <ConditionalBox
-                  if={Boolean(slots.InlineDescription)}
-                  sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
-                  data-component={!slots.BlockDescription && !slots.TrailingVisual && 'ActionList.Item--Main'}
-                >
+              <Box sx={{display: 'flex'}}>
+                <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
                   <span id={labelId}>{props.children}</span>
                   {slots.InlineDescription}
-                </ConditionalBox>
+                </Box>
                 {slots.TrailingVisual}
-              </ConditionalBox>
+              </Box>
               {slots.BlockDescription}
-            </ConditionalBox>
+            </Box>
           </Box>
         )}
       </Slots>
@@ -194,10 +185,3 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 ) as PolymorphicForwardRefComponent<'li', ItemProps>
 
 Item.displayName = 'ActionList.Item'
-
-const ConditionalBox: React.FC<{if: boolean} & BoxProps> = props => {
-  const {if: condition, ...rest} = props
-
-  if (condition) return <Box {...rest}>{props.children}</Box>
-  else return <>{props.children}</>
-}
