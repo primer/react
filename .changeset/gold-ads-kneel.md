@@ -2,4 +2,4 @@
 "@primer/components": patch
 ---
 
-Add `trailingVisual` to ActionList/ActionMenu. Deprecate `trailingIcon` and `trailingText`.
+Add `trailingVisual` prop to ActionList/ActionMenu. Deprecate `trailingIcon` and `trailingText` props.
