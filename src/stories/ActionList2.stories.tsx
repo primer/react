@@ -82,7 +82,7 @@ export function WithIcon(): JSX.Element {
       <ErsatzOverlay>
         <ActionList>
           <ActionList.Item>
-            <ActionList.LeadingVisual id="something">
+            <ActionList.LeadingVisual>
               <LinkIcon />
             </ActionList.LeadingVisual>
             github.com/primer

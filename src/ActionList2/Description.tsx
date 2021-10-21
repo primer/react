@@ -1,12 +1,17 @@
 import React from 'react'
+import {useSSRSafeId} from '@react-aria/ssr'
 import Box from '../Box'
 import Truncate from '../Truncate'
 import {Slot} from './Item'
 
 export type DescriptionProps = {
   variant?: 'inline' | 'block'
+  id?: string
 }
+
 export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...props}) => {
+  const id = useSSRSafeId(props.id)
+
   const styles = {
     color: 'fg.muted',
     fontSize: 0,
@@ -18,13 +23,13 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...
   }
 
   return (
-    <Slot name={variant === 'block' ? 'BlockDescription' : 'InlineDescription'}>
+    <Slot name={variant === 'block' ? 'BlockDescription' : 'InlineDescription'} metadata={{id}}>
       {variant === 'block' ? (
-        <Box as="span" sx={styles}>
+        <Box as="span" sx={styles} id={id}>
           {props.children}
         </Box>
       ) : (
-        <Truncate sx={styles} title={props.children as string} inline={true} maxWidth="100%">
+        <Truncate id={id} sx={styles} title={props.children as string} inline={true} maxWidth="100%">
           {props.children}
         </Truncate>
       )}

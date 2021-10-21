@@ -1,33 +1,33 @@
 /**
  * test suite!
+ * docs
  * id, role
  * text could be non-text
  * activeDescendantAttribute
  * deepmerge sx
  * nicer name for showDivider?
- * aria-label
- * aria-describedby
  * React.FC<Props> doesn't allow id?
- * truncate description
  * icon color
  * disabled checkbox
  * check height with divider
+ * check if all components accept sx prop
+ * minimize number of divs?
+ * define/override selectionVariant on Group
+ * ref overload
  *
- * use immediate child slot API instead of double render?
+ * questions:
  * change as= li | div based on context of menu or not?
- * check if everyone accepts sx prop
- * link example outside of overlay? (details)
- * if one item has selected, should we give all of them selected without the need to pass prop?
+ * selection api - if one item has selected, should we give all of them selected without the need to pass prop?
  * move custom item themes to primitives?
  * padding: 8 or 6?
- * ActionList.Selection or ActionList.Item selected?
  * different size for icon and avatar, range?
- * minimize number of divs?
- * can use layoutEffect on server?
+ * ActionList.Selection or ActionList.Item selected?
+ * aria-describedby empty value bad? also, for 2 description, 2 values?
  */
 
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {useSSRSafeId} from '@react-aria/ssr'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {get} from '../constants'
@@ -63,7 +63,6 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
 }
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
-
 export {Slot}
 
 export type ItemProps = {
@@ -147,15 +146,20 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       [onAction, disabled]
     )
 
+    const labelId = useSSRSafeId()
+
     return (
       <Slots>
-        {slots => (
+        {(slots, metadata) => (
           <Box
             as="li"
             sx={styles}
             data-component="ActionList.Item"
             onClick={clickHandler}
             ref={forwardedRef}
+            aria-selected={selected}
+            aria-labelledby={labelId}
+            aria-describedby={[metadata.InlineDescription?.id, metadata.BlockDescription?.id].filter(Boolean).join(' ')}
             {...props}
           >
             <Selection selected={selected} disabled={disabled} />
@@ -166,7 +170,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             >
               <Box sx={{display: 'flex'}}>
                 <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
-                  <span>{props.children}</span>
+                  <span id={labelId}>{props.children}</span>
                   {slots.InlineDescription}
                 </Box>
                 {slots.TrailingVisual}
