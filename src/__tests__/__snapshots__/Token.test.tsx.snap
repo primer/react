@@ -1345,6 +1345,15 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   background-color: rgba(234,238,242,0.5);
 }
 
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
+}
+
 .c1 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -1519,6 +1528,15 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 
 .c2:active {
   background-color: rgba(234,238,242,0.5);
+}
+
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
 }
 
 .c1 {
@@ -1697,6 +1715,15 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   background-color: rgba(234,238,242,0.5);
 }
 
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
+}
+
 .c1 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -1871,6 +1898,15 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 
 .c2:active {
   background-color: rgba(234,238,242,0.5);
+}
+
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
 }
 
 .c1 {
@@ -2133,6 +2169,15 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   background-color: rgba(234,238,242,0.5);
 }
 
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
+}
+
 .c1 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -2307,6 +2352,15 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 
 .c2:active {
   background-color: rgba(234,238,242,0.5);
+}
+
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
 }
 
 .c1 {
@@ -2597,6 +2651,15 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 
 .c2:active {
   background-color: rgba(234,238,242,0.5);
+}
+
+.c2:hover,
+.c2:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c2:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
 }
 
 .c1 {

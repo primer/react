@@ -4777,6 +4777,15 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   background-color: rgba(234,238,242,0.5);
 }
 
+.c5:hover,
+.c5:focus {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.1);
+}
+
+.c5:active {
+  background-color: hsla(0,0%,calc(var(--lightness-switch) * 100%),0.2);
+}
+
 .c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
