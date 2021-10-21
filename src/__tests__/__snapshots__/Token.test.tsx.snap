@@ -46,6 +46,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 16px;
   width: 16px;
 }
@@ -138,7 +139,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 4px;
+  margin-right: 4px;
 }
 
 .c2 {
@@ -255,6 +256,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -347,7 +349,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 4px;
+  margin-right: 4px;
 }
 
 .c2 {
@@ -464,6 +466,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 24px;
   width: 24px;
 }
@@ -556,7 +559,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 8px;
+  margin-right: 8px;
 }
 
 .c2 {
@@ -673,6 +676,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
 }
@@ -765,7 +769,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 8px;
+  margin-right: 8px;
 }
 
 .c2 {
@@ -1008,7 +1012,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 4px;
+  margin-right: 4px;
 }
 
 .c2 {
@@ -1094,6 +1098,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -1186,7 +1191,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 4px;
+  margin-right: 4px;
 }
 
 .c2 {
@@ -1336,6 +1341,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 16px;
   width: 16px;
 }
@@ -1511,6 +1517,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -1686,6 +1693,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 24px;
   width: 24px;
 }
@@ -1861,6 +1869,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
 }
@@ -2119,6 +2128,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -2294,6 +2304,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -2582,6 +2593,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -2714,6 +2726,7 @@ exports[`Token components Token renders all sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 16px;
   width: 16px;
 }
@@ -2879,6 +2892,7 @@ exports[`Token components Token renders all sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }
@@ -3044,6 +3058,7 @@ exports[`Token components Token renders all sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 24px;
   width: 24px;
 }
@@ -3209,6 +3224,7 @@ exports[`Token components Token renders all sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
 }
@@ -3583,7 +3599,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  padding-right: 4px;
+  margin-right: 4px;
 }
 
 <span
@@ -3647,6 +3663,7 @@ exports[`Token components Token renders with a remove button 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
 }

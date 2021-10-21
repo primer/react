@@ -257,6 +257,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
   position: relative;
@@ -872,6 +873,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 16px;
   width: 16px;
   position: relative;
@@ -1487,6 +1489,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 4px;
   height: 20px;
   width: 20px;
   position: relative;
@@ -2102,6 +2105,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 24px;
   width: 24px;
   position: relative;
@@ -2717,6 +2721,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
   position: relative;
@@ -3333,6 +3338,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
   position: relative;
@@ -4280,6 +4286,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
   position: relative;
@@ -4938,6 +4945,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+  margin-left: 8px;
   height: 32px;
   width: 32px;
   position: relative;

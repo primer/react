@@ -53,11 +53,11 @@ const LeadingVisualContainer = styled('span')<Pick<TokenBaseProps, 'size'>>`
       case 'large':
       case 'extralarge':
         return css`
-          padding-right: ${get('space.2')};
+          margin-right: ${get('space.2')};
         `
       default:
         return css`
-          padding-right: ${get('space.1')};
+          margin-right: ${get('space.1')};
         `
     }
   }}
