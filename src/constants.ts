@@ -5,7 +5,10 @@ import theme from './theme'
 
 const {get: getKey, compose, system} = styledSystem
 
-export const get = (key: string) => themeGet(key, getKey(theme, key))
+export const get = (key: string) => {
+  debugger
+  return themeGet(key, getKey(theme, key))
+}
 
 // Common props
 

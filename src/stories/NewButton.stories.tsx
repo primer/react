@@ -39,7 +39,9 @@ export const defaultButton = ({size = 'medium', ...args}: ButtonProps) => {
 export const iconBeforeButton = (args: ButtonProps) => {
   return (
     <Button {...args}>
-      <SearchIcon />
+      <Button.Visual sx={{pr: 3}}>
+        <SearchIcon />
+      </Button.Visual>
       Before
     </Button>
   )
@@ -49,7 +51,35 @@ export const iconAfterButton = (args: ButtonProps) => {
   return (
     <Button {...args}>
       After
-      <XIcon />
+      <Button.Visual sx={{pl: 2}}>
+        <XIcon />
+      </Button.Visual>
+    </Button>
+  )
+}
+
+export const iconButton = (args: ButtonProps) => {
+  return (
+    <Button {...args}>
+      <Button.Visual>
+        <XIcon />
+      </Button.Visual>
+    </Button>
+  )
+}
+
+export const primaryButton = (args: ButtonProps) => {
+  return (
+    <Button {...args} variant="primary">
+      Primary
+    </Button>
+  )
+}
+
+export const dangerButton = (args: ButtonProps) => {
+  return (
+    <Button {...args} variant="danger">
+      Danger
     </Button>
   )
 }
