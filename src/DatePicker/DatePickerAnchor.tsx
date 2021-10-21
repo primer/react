@@ -5,15 +5,12 @@ import React, {useCallback, useMemo} from 'react'
 import Button from '../Button'
 import Text from '../Text'
 import {get} from '../constants'
-import {StyledOcticon} from '..'
+import StyledOcticon from '../StyledOcticon'
+import {useDatePicker} from './useDatePicker'
+import TextInput from '../TextInput'
 
 export interface DatePickerAnchorProps {
-  dateFormat?: 'short' | 'long' | string
-  disabled?: boolean
-  fromDate: Date
-  iconOnly?: boolean
   onAction?: (event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
-  toDate?: Date
 }
 
 const DatePickerAnchorButton = styled(Button)`
@@ -27,57 +24,57 @@ const DatePickerAnchorButton = styled(Button)`
   }
 `
 
-export const DatePickerAnchor = React.forwardRef<HTMLButtonElement, DatePickerAnchorProps>(
-  ({dateFormat = 'short', disabled, fromDate, iconOnly = false, onAction, toDate}, ref) => {
-    const formattedDate = useMemo(() => {
-      if (iconOnly) return
+export const DatePickerAnchor = React.forwardRef<HTMLButtonElement, DatePickerAnchorProps>(({onAction}, ref) => {
+  const {
+    configuration: {dateFormat, anchorStyle},
+    selection
+  } = useDatePicker()
+  const formattedDate = useMemo(() => {
+    if (anchorStyle === 'icon-only') return
+    let value = ''
+    const format = 
 
-      if (dateFormat === 'short') {
-        return (
-          <Text>{`${format(fromDate, 'MMM d')}${toDate ? ' - ' : ''}${toDate ? format(toDate, 'MMM d') : ''}`}</Text>
-        )
-      } else if (dateFormat === 'long') {
-        return (
-          <Text>
-            {`${format(fromDate, 'MMM d, yyyy')}${toDate ? ' - ' : ''}${toDate ? format(toDate, 'MMM d, yyyy') : ''}`}
-          </Text>
-        )
-      } else {
-        return (
-          <Text>
-            {`${format(fromDate, dateFormat)}${toDate ? ' - ' : ''}${toDate ? format(toDate, dateFormat) : ''}`}
-          </Text>
-        )
+    if (dateFormat === 'short') {
+      value = `${format(fromDate, 'MMM d')}${toDate ? ' - ' : ''}${toDate ? format(toDate, 'MMM d') : ''}`
+    } else if (dateFormat === 'long') {
+      value = `${format(fromDate, 'MMM d, yyyy')}${toDate ? ' - ' : ''}${toDate ? format(toDate, 'MMM d, yyyy') : ''}`
+    } else {
+      value = `${format(fromDate, dateFormat)}${toDate ? ' - ' : ''}${toDate ? format(toDate, dateFormat) : ''}`
+    }
+
+    if (anchorStyle === 'button') {
+      return <Text>{value}</Text>
+    } else {
+      return <TextInput value={value} />
+    }
+  }, [dateFormat, fromDate, iconOnly, toDate])
+
+  const keyPressHandler = useCallback(
+    event => {
+      if (disabled) {
+        return
       }
-    }, [dateFormat, fromDate, iconOnly, toDate])
-
-    const keyPressHandler = useCallback(
-      event => {
-        if (disabled) {
-          return
-        }
-        if ([' ', 'Enter'].includes(event.key)) {
-          onAction?.(event)
-        }
-      },
-      [disabled, onAction]
-    )
-
-    const clickHandler = useCallback(
-      event => {
-        if (disabled) {
-          return
-        }
+      if ([' ', 'Enter'].includes(event.key)) {
         onAction?.(event)
-      },
-      [disabled, onAction]
-    )
+      }
+    },
+    [disabled, onAction]
+  )
 
-    return (
-      <DatePickerAnchorButton ref={ref} onClick={clickHandler} onKeyPress={keyPressHandler}>
-        <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
-        {formattedDate}
-      </DatePickerAnchorButton>
-    )
-  }
-)
+  const clickHandler = useCallback(
+    event => {
+      if (disabled) {
+        return
+      }
+      onAction?.(event)
+    },
+    [disabled, onAction]
+  )
+
+  return (
+    <DatePickerAnchorButton ref={ref} onClick={clickHandler} onKeyPress={keyPressHandler}>
+      <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
+      {formattedDate}
+    </DatePickerAnchorButton>
+  )
+})

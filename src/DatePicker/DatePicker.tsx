@@ -6,12 +6,12 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DatePickerAnchor} from './DatePickerAnchor'
 import {addDays} from 'date-fns'
 import {DatePickerPanel} from './DatePickerPanel'
-import {DatePickerProvider} from './useDatePicker'
+import {DatePickerConfiguration, DatePickerProvider, Selection} from './useDatePicker'
 
 type OpenGesture = 'anchor-click' | 'anchor-key-press'
 type CloseGesture = 'anchor-click' | 'click-outside' | 'escape'
 
-export interface DatePickerProps {
+export interface DatePickerProps extends DatePickerConfiguration {
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
@@ -52,7 +52,7 @@ export interface DatePickerProps {
    * Will receive the selected text as `children` prop when an item is activated.
    */
   renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
-  value?: Date | string | null
+  value?: Selection
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -63,10 +63,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   onClose: onCloseExternal,
   open,
   overlayProps,
-  renderAnchor
+  renderAnchor,
+  value,
+  view
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
+
+  const datePickerConfiguration: DatePickerConfiguration = {
+    view
+  }
 
   const onOpen = (gesture: OpenGesture) => {
     setIsOpen(true)
@@ -89,14 +95,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   }
 
   return (
-    <DatePickerProvider>
-      <DatePickerAnchor
-        ref={buttonRef}
-        fromDate={new Date()}
-        toDate={addDays(new Date(), 7)}
-        dateFormat="short"
-        onAction={toggleIsOpen}
-      />
+    <DatePickerProvider configuration={datePickerConfiguration} value={value}>
+      <DatePickerAnchor ref={buttonRef} onAction={toggleIsOpen} />
       <AnchoredOverlay
         anchorRef={externalAnchorRef ?? buttonRef}
         renderAnchor={renderAnchor}

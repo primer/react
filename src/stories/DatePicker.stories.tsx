@@ -51,7 +51,13 @@ export default {
   }
 } as Meta
 
-export const defaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
+export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
+DefaultDatePicker.args = {
+  view: '2-month',
+  iconOnly: false,
+  dateFormat: 'short',
+  value: {from: new Date(), to: addDays(new Date(), 7)}
+}
 
 export const DatePickerAnchorControl = (args: DatePickerAnchorProps) => <DatePickerAnchor {...args} />
 DatePickerAnchorControl.args = {

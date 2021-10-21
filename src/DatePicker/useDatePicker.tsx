@@ -1,40 +1,40 @@
-import {isEqual} from 'date-fns'
-import {isAfter, isBefore} from 'date-fns/esm'
-import React, {createContext, useCallback, useContext, useMemo, useState} from 'react'
+import {format, isEqual, isAfter, isBefore} from 'date-fns'
+import deepmerge from 'deepmerge'
+import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 
+export type DateFormat = 'short' | 'long' | string
 export interface DatePickerConfiguration {
-  anchorStyle?: 'input' | 'full-date' | 'icon-only'
+  anchorStyle?: 'input' | 'button' | 'icon-only'
   blockedDates?: Array<Date>
   confirmation?: boolean
   contiguousSelection?: boolean
+  dateFormat?: DateFormat
   dimWeekends?: boolean
   minDate?: Date
   maxDate?: Date
+  placeholder?: string
   rangeIncrement?: number
   selection?: 'single' | 'multi' | 'range'
   view?: '1-month' | '2-month'
 }
 
-type SingleSelection = {
-  date: Date
-}
-
-type BaseRangeSelection = {
+export type RangeSelection = {
   from: Date
+  to: Date
 }
-
-type RangeSelection = {to: Date} & BaseRangeSelection
-type SoftRangeSelection = {to?: Date} & BaseRangeSelection
 
 export interface DatePickerContext {
   configuration: DatePickerConfiguration
-  selection?: SingleSelection | Array<SingleSelection> | RangeSelection | null
-  softSelection?: SingleSelection | SoftRangeSelection | null
+  selection?: Selection
+  softSelection?: Partial<RangeSelection> | null
   selectionActive?: boolean
+  formattedDate: string
   onSelection: (date: Date) => void
   onDayFocus: (date: Date) => void
   onDayBlur: () => void
 }
+
+export type Selection = Date | Array<Date> | RangeSelection | string | null
 
 const DatePickerContext = createContext<DatePickerContext | null>(null)
 
@@ -51,7 +51,7 @@ export const useDatePicker = (date?: Date) => {
 
   if (date) {
     if (Array.isArray(value.selection)) {
-      selected = !!value.selection.find(d => isEqual(d.date, date))
+      selected = !!value.selection.find(d => isEqual(d, date))
     }
 
     // Determine if date is blocked out
@@ -72,72 +72,146 @@ export const useDatePicker = (date?: Date) => {
 
 export interface DatePickerProviderProps {
   configuration?: DatePickerConfiguration
+  value?: Selection
 }
 
-function isRangeSelection(
-  selection: SingleSelection | RangeSelection | SoftRangeSelection
-): selection is BaseRangeSelection {
-  return !!(selection as BaseRangeSelection).from
+function isSingleSelection(selection: Selection): selection is Date {
+  return selection instanceof Date
 }
 
-export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({configuration, children}) => {
-  const [selection, setSelection] = useState<SingleSelection | RangeSelection | null>(null)
-  const [softSelection, setSoftSelection] = useState<SingleSelection | SoftRangeSelection | null>(null)
+function isMultiSelection(selection: Selection): selection is Array<Date> {
+  return Array.isArray(selection) && selection.every(d => d instanceof Date)
+}
+
+function isRangeSelection(selection: Selection): selection is RangeSelection {
+  return !!(selection as RangeSelection).from
+}
+
+const defaultConfiguration: DatePickerConfiguration = {
+  anchorStyle: 'button',
+  confirmation: false,
+  contiguousSelection: false,
+  dimWeekends: false,
+  placeholder: 'Select a Date...',
+  selection: 'single',
+  view: '2-month'
+}
+
+export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
+  configuration: externalConfig = {},
+  children,
+  value
+}) => {
+  const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
+  const [selection, setSelection] = useState<Selection | undefined>(value)
+  const [softSelection, setSoftSelection] = useState<Partial<Selection> | null>(null)
+
+  useEffect(() => {
+    setConfiguration(deepmerge(defaultConfiguration, externalConfig))
+  }, [externalConfig])
+
+  const getFormattedDate = useMemo(() => {
+    if (!selection) {
+      return configuration.placeholder
+    }
+
+    let template = 'MMM d'
+    if (configuration.dateFormat) {
+      switch (configuration.dateFormat) {
+        case 'short':
+          template = 'MMM d'
+          break
+        case 'long':
+          template = 'MMM d, yyyy'
+          break
+        default:
+          template = configuration.dateFormat
+          break
+      }
+    }
+
+    switch (configuration.selection) {
+      case 'single': {
+        if (selection instanceof Date) {
+          return format(selection, template)
+        } else {
+          return 'Invalid Selection'
+        }
+      }
+      case 'multi': {
+        if (Array.isArray(selection)) {
+          return selection.map(d => format(d, template)).join(', ')
+        } else {
+          return 'Invalid Selection'
+        }
+      }
+      case 'range': {
+        if (isRangeSelection(selection)) {
+          return Object.entries(selection)
+            .map(([_, date]) => format(date, template))
+            .join(', ')
+        } else {
+          return 'Invalid Selection'
+        }
+      }
+      default: {
+        return 'Invalid Configuration'
+      }
+    }
+  }, [configuration.dateFormat, configuration.placeholder, configuration.selection, selection])
 
   const selectionHandler = useCallback(
     (date: Date) => {
-      if (configuration?.selection === 'single') {
-        setSelection({date})
-      } else if (configuration?.selection === 'range') {
+      if (configuration.selection === 'single') {
+        setSelection(date)
+      } else if (configuration.selection === 'multi') {
+        const selections = selection as Array<Date>
+        if(selections.includes(s => isEqual(s, date)))
+      } else if (configuration.selection === 'range') {
         if (softSelection && isRangeSelection(softSelection)) {
           setSelection({from: softSelection.from, to: date})
         } else {
           setSoftSelection({from: date, to: date})
         }
       }
+
+      // Handle close if no confirmation required
     },
-    [configuration?.selection, softSelection]
+    [configuration.selection, softSelection]
   )
 
   const focusHnadler = useCallback(
     (date: Date) => {
-      if (configuration?.selection === 'single' || !softSelection) {
+      if (configuration.selection === 'single' || !softSelection) {
         setSoftSelection({date})
       }
-      if (configuration?.selection === 'range' && softSelection && isRangeSelection(softSelection)) {
+      if (configuration.selection === 'range' && softSelection && isRangeSelection(softSelection)) {
         setSoftSelection({...softSelection, to: date})
       }
     },
-    [configuration?.selection, softSelection]
+    [configuration.selection, softSelection]
   )
 
   const blurHnadler = useCallback(() => {
-    if (configuration?.selection === 'single' || !softSelection) {
+    if (configuration.selection === 'single' || !softSelection) {
       setSoftSelection(null)
     }
-    if (configuration?.selection === 'range' && softSelection && isRangeSelection(softSelection)) {
+    if (configuration.selection === 'range' && softSelection && isRangeSelection(softSelection)) {
       setSoftSelection({from: softSelection.from})
     }
-  }, [configuration?.selection, softSelection])
+  }, [configuration.selection, softSelection])
 
   const datePickerCtx: DatePickerContext = useMemo(() => {
     return {
-      configuration: {
-        anchorStyle: 'full-date',
-        confirmation: false,
-        contiguousSelection: false,
-        dimWeekends: false,
-        selection: 'single',
-        view: '2-month',
-        ...configuration
-      },
+      configuration,
       selectionActive: false,
+      formattedDate: getFormattedDate,
       selection,
       onSelection: selectionHandler,
       onDayFocus: focusHnadler,
       onDayBlur: blurHnadler
     }
-  }, [blurHnadler, configuration, focusHnadler, selection, selectionHandler])
+  }, [blurHnadler, configuration, focusHnadler, getFormattedDate, selection, selectionHandler])
 
   return <DatePickerContext.Provider value={datePickerCtx}>{children}</DatePickerContext.Provider>
 }
