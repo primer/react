@@ -126,14 +126,21 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
           size={size}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
           isParentInteractive={isTokenInteractive(props)}
-          sx={
-            hasMultipleActionTargets
+          sx={{
+            '&:hover, &:focus': {
+              backgroundColor: 'hsla(0, 0%, calc(var(--lightness-switch) * 100%), 0.1)'
+            },
+            '&:active': {
+              backgroundColor: 'hsla(0, 0%, calc(var(--lightness-switch) * 100%), 0.2)'
+            },
+
+            ...(hasMultipleActionTargets
               ? {
                   position: 'relative',
                   zIndex: '1'
                 }
-              : {}
-          }
+              : {})
+          }}
         />
       ) : null}
     </TokenBase>
