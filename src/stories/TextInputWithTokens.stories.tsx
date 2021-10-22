@@ -47,7 +47,7 @@ const mockTokens = [
 ]
 
 export const Default = () => {
-  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }

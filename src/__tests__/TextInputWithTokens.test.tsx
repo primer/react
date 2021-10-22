@@ -238,6 +238,44 @@ describe('TextInputWithTokens', () => {
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[4].id)
   })
 
+  it('moves focus to the next token when removing the first token', () => {
+    jest.useFakeTimers()
+    const onRemoveMock = jest.fn()
+    const {getByText} = HTMLRender(
+      <TextInputWithTokens tokens={[...mockTokens].slice(0, 2)} onTokenRemove={onRemoveMock} />
+    )
+    const tokenNode = getByText(mockTokens[0].text)
+
+    fireEvent.focus(tokenNode)
+    fireEvent.keyDown(tokenNode, {key: 'Backspace'})
+
+    jest.runAllTimers()
+    setTimeout(() => {
+      expect(document.activeElement?.textContent).toBe(mockTokens[1].text)
+    }, 0)
+
+    jest.useRealTimers()
+  })
+
+  it('moves focus to the input when the last token is removed', () => {
+    jest.useFakeTimers()
+    const onRemoveMock = jest.fn()
+    const {getByText, getByLabelText} = HTMLRender(
+      <LabelledTextInputWithTokens tokens={[mockTokens[0]]} onTokenRemove={onRemoveMock} />
+    )
+    const tokenNode = getByText(mockTokens[0].text)
+    const inputNode = getByLabelText('Tokens')
+
+    fireEvent.focus(tokenNode)
+    fireEvent.keyDown(tokenNode, {key: 'Backspace'})
+
+    jest.runAllTimers()
+    setTimeout(() => {
+      expect(document.activeElement?.id).toBe(inputNode.id)
+    }, 0)
+    jest.useRealTimers()
+  })
+
   it('calls onKeyDown', () => {
     const onRemoveMock = jest.fn()
     const onKeyDownMock = jest.fn()

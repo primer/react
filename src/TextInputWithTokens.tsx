@@ -11,6 +11,7 @@ import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper from './_TextInputWrapper'
 import Box from './Box'
+import {isFocusable} from './utils/iterateFocusableElements'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
@@ -117,10 +118,24 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const handleTokenRemove = (tokenId: string | number) => {
     onTokenRemove(tokenId)
 
-    if (selectedTokenIndex) {
-      const nextElementToFocus = containerRef.current?.children[selectedTokenIndex] as HTMLElement
-      nextElementToFocus.focus()
-    }
+    // HACK: wait a tick for the the token node to be removed from the DOM
+    setTimeout(() => {
+      const nextElementToFocus = containerRef.current?.children[selectedTokenIndex || 0] as HTMLElement | undefined
+
+      // when removing the first token by keying "Backspace" or "Delete",
+      // `nextFocusableElement` is the div that wraps the input
+      const firstFocusable =
+        nextElementToFocus && isFocusable(nextElementToFocus)
+          ? nextElementToFocus
+          : (Array.from(containerRef.current?.children || []) as HTMLElement[]).find(el => isFocusable(el))
+
+      if (firstFocusable) {
+        firstFocusable.focus()
+      } else {
+        // if there are no tokens left, focus the input
+        ref.current?.focus()
+      }
+    }, 0)
   }
 
   const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = tokenIndex => () => {
