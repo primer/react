@@ -98,7 +98,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   }
 
   return (
-    <DatePickerProvider configuration={datePickerConfiguration} value={value}>
+    <DatePickerProvider configuration={datePickerConfiguration} value={value} closePicker={() => setIsOpen(false)}>
       <DatePickerAnchor ref={buttonRef} onAction={toggleIsOpen} />
       <AnchoredOverlay
         anchorRef={externalAnchorRef ?? buttonRef}

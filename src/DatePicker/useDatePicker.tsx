@@ -95,6 +95,7 @@ const useDatePicker = (date?: Date) => {
 export default useDatePicker
 
 export interface DatePickerProviderProps {
+  closePicker?: () => void
   configuration?: DatePickerConfiguration
   value?: Selection | StringSelection
 }
@@ -149,6 +150,7 @@ const defaultConfiguration: DatePickerConfiguration = {
 export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   configuration: externalConfig = {},
   children,
+  closePicker,
   value
 }) => {
   const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
@@ -220,18 +222,25 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           setSelection([...selections, date])
         }
       } else if (configuration.selection === 'range') {
-        if (selection && isRangeSelection(selection)) {
-          setSelection({from: selection.from, to: date})
+        if (selection && isRangeSelection(selection) && !selection.to) {
+          setSelection(
+            isBefore(date, selection.from) ? {from: date, to: selection.from} : {from: selection.from, to: date}
+          )
+          if (!configuration.confirmation) {
+            closePicker?.()
+          }
         } else {
           setSelection({from: date, to: null})
         }
       } else {
         setSelection(date)
-      }
 
-      // TODO: Handle close if no confirmation required
+        if (!configuration.confirmation) {
+          closePicker?.()
+        }
+      }
     },
-    [configuration.selection, selection]
+    [closePicker, configuration.confirmation, configuration.selection, selection]
   )
 
   const focusHnadler = useCallback(

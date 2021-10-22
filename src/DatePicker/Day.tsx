@@ -169,9 +169,10 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       if (disabled) {
         return
       }
+      onSelection(date)
       onAction?.(date, event)
     },
-    [disabled, onAction, date]
+    [disabled, onSelection, date, onAction]
   )
 
   return (
