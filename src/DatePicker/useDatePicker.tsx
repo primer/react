@@ -131,7 +131,7 @@ function parseSelection(
       for (const d of selection) {
         parsedSelection.push(new Date(new Date(d).toDateString()))
       }
-      return parsedSelection.sort((a, b) => b.getMilliseconds() - a.getMilliseconds())
+      return parsedSelection.sort((a, b) => a.getTime() - b.getTime())
     } else if (selection instanceof Date) {
       return [new Date(new Date(selection).toDateString())]
     } else if (isRangeSelection(selection)) {
@@ -140,7 +140,7 @@ function parseSelection(
       if (selection.to) {
         parsedSelection.push(new Date(new Date(selection.to).toDateString()))
       }
-      return parsedSelection.sort((a, b) => b.getMilliseconds() - a.getMilliseconds())
+      return parsedSelection.sort((a, b) => a.getTime() - b.getTime())
     }
   } else if (variant === 'range') {
     if (isRangeSelection(selection)) {
@@ -194,8 +194,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
 
   useEffect(() => {
     setConfiguration(deepmerge(defaultConfiguration, externalConfig))
-    setSelection(parseSelection(value, configuration.selection))
-  }, [configuration.selection, externalConfig, value])
+    setSelection(parseSelection(selection, configuration.selection))
+
+    // Don't want this to run every time selection gets updated
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configuration.selection, externalConfig])
 
   const getFormattedDate = useMemo(() => {
     if (!selection) {
@@ -231,7 +234,9 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       }
       case 'multi': {
         if (Array.isArray(selection)) {
-          return selection.map(d => format(d, template)).join(', ')
+          if (selection.length > 3) return `${selection.length} Selected`
+          const formatted = selection.map(d => format(d, template)).join(', ')
+          return formatted
         } else if (selection instanceof Date) {
           return [selection].map(d => format(d, template)).join(', ')
         } else if (isRangeSelection(selection)) {
@@ -270,12 +275,13 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const selectionHandler = useCallback(
     (date: Date) => {
       if (configuration.selection === 'multi') {
-        const selections = selection as Array<Date>
+        const selections = [...(selection as Array<Date>)]
         const existingIndex = selections.findIndex((s: Date) => isEqual(s, date))
         if (existingIndex > -1) {
-          setSelection(selections.splice(existingIndex, 1))
+          selections.splice(existingIndex, 1)
+          setSelection(selections.sort((a, b) => a.getTime() - b.getTime()))
         } else {
-          setSelection([...selections, date])
+          setSelection([...selections, date].sort((a, b) => a.getTime() - b.getTime()))
         }
       } else if (configuration.selection === 'range') {
         if (selection && isRangeSelection(selection) && !selection.to) {
