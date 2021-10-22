@@ -4,6 +4,7 @@ import React, {createContext, useCallback, useContext, useMemo, useEffect, useSt
 
 export type AnchorVariant = 'input' | 'button' | 'icon-only'
 export type DateFormat = 'short' | 'long' | string
+export type SelectionVariant = 'single' | 'multi' | 'range'
 export interface DatePickerConfiguration {
   anchorVariant?: AnchorVariant
   blockedDates?: Array<Date>
@@ -15,7 +16,7 @@ export interface DatePickerConfiguration {
   maxDate?: Date
   placeholder?: string
   rangeIncrement?: number
-  selection?: 'single' | 'multi' | 'range'
+  selection?: SelectionVariant
   view?: '1-month' | '2-month'
 }
 
@@ -104,8 +105,8 @@ export function isSingleSelection(selection: Selection): selection is Date {
   return selection instanceof Date
 }
 
-export function isMultiSelection(selection: Selection): selection is Array<Date> {
-  return Array.isArray(selection) && selection.every(d => d instanceof Date)
+export function isMultiSelection(selection: Selection | StringSelection): selection is Array<Date> | Array<string> {
+  return Array.isArray(selection)
 }
 
 export function isRangeSelection(
@@ -118,22 +119,56 @@ export function isStringRangeSelection(selection: StringSelection): selection is
   return !!(selection as StringRangeSelection).from
 }
 
-function parseSelection(selection?: Selection | StringSelection): Selection | undefined {
+function parseSelection(
+  selection: Selection | StringSelection | null | undefined,
+  variant: SelectionVariant
+): Selection | undefined {
   if (!selection) return
 
-  if (Array.isArray(selection)) {
-    const parsedSelection: Array<Date> = []
-    for (const d of selection) {
-      parsedSelection.push(new Date(new Date(d).toDateString()))
+  if (variant === 'multi') {
+    if (isMultiSelection(selection)) {
+      const parsedSelection: Array<Date> = []
+      for (const d of selection) {
+        parsedSelection.push(new Date(new Date(d).toDateString()))
+      }
+      return parsedSelection.sort((a, b) => b.getMilliseconds() - a.getMilliseconds())
+    } else if (selection instanceof Date) {
+      return [new Date(new Date(selection).toDateString())]
+    } else if (isRangeSelection(selection)) {
+      const parsedSelection: Array<Date> = []
+      parsedSelection.push(new Date(new Date(selection.from).toDateString()))
+      if (selection.to) {
+        parsedSelection.push(new Date(new Date(selection.to).toDateString()))
+      }
+      return parsedSelection.sort((a, b) => b.getMilliseconds() - a.getMilliseconds())
     }
-    return parsedSelection.sort((a, b) => b.getMilliseconds() - a.getMilliseconds())
-  } else if (isRangeSelection(selection)) {
-    return {
-      from: new Date(new Date(selection.from).toDateString()),
-      to: selection.to ? new Date(new Date(selection.to).toDateString()) : null
+  } else if (variant === 'range') {
+    if (isRangeSelection(selection)) {
+      return {
+        from: new Date(new Date(selection.from).toDateString()),
+        to: selection.to ? new Date(new Date(selection.to).toDateString()) : null
+      }
+    } else if (isMultiSelection(selection)) {
+      return {
+        from: new Date(new Date(selection[0]).toDateString()),
+        to: selection[1] ? new Date(new Date(selection[1]).toDateString()) : null
+      }
+    } else if (selection instanceof Date) {
+      return {
+        from: new Date(new Date(selection).toDateString()),
+        to: null
+      }
     }
   } else {
-    return new Date(new Date(selection).toDateString())
+    if (selection instanceof Date) {
+      return new Date(new Date(selection).toDateString())
+    } else if (isMultiSelection(selection)) {
+      return new Date(new Date(selection[0]).toDateString())
+    } else if (isRangeSelection(selection)) {
+      return new Date(new Date(selection.from).toDateString())
+    } else {
+      return
+    }
   }
 }
 
@@ -154,12 +189,13 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   value
 }) => {
   const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
-  const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value))
+  const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.selection))
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
 
   useEffect(() => {
     setConfiguration(deepmerge(defaultConfiguration, externalConfig))
-  }, [externalConfig])
+    setSelection(parseSelection(value, configuration.selection))
+  }, [configuration.selection, externalConfig, value])
 
   const getFormattedDate = useMemo(() => {
     if (!selection) {
@@ -185,6 +221,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       case 'single': {
         if (selection instanceof Date) {
           return format(selection, template)
+        } else if (Array.isArray(selection)) {
+          return format(selection[0], template)
+        } else if (isRangeSelection(selection)) {
+          return format(selection.from, template)
         } else {
           return 'Invalid Selection'
         }
@@ -192,6 +232,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       case 'multi': {
         if (Array.isArray(selection)) {
           return selection.map(d => format(d, template)).join(', ')
+        } else if (selection instanceof Date) {
+          return [selection].map(d => format(d, template)).join(', ')
+        } else if (isRangeSelection(selection)) {
+          return [selection.to, selection.from].map(d => (d ? format(d, template) : '')).join(', ')
         } else {
           return 'Invalid Selection'
         }
@@ -201,6 +245,18 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           return Object.entries(selection)
             .map(([_, date]) => (date ? format(date, template) : ''))
             .join(' - ')
+        } else if (selection instanceof Date) {
+          return Object.entries({from: selection, to: null})
+            .map(([_, date]) => (date ? format(date, template) : ''))
+            .join(' - ')
+        } else if (Array.isArray(selection)) {
+          return (
+            Object.entries({from: selection[0], to: selection[1]})
+              // to date can still be null
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              .map(([_, date]) => (date ? format(date, template) : ''))
+              .join(' - ')
+          )
         } else {
           return 'Invalid Selection'
         }

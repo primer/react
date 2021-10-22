@@ -17,6 +17,8 @@ const DatePickerAnchorButton = styled(Button)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  max-width: 350px;
+  overflow: hidden;
 
   & ${Text} {
     margin-left: ${get('space.2')};
@@ -59,7 +61,9 @@ export const DatePickerAnchor = React.forwardRef<HTMLButtonElement, DatePickerAn
   return (
     <DatePickerAnchorButton ref={ref} onClick={clickHandler} onKeyPress={keyPressHandler}>
       <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
-      {anchorVariant !== 'icon-only' && <Text>{formattedDate}</Text>}
+      {anchorVariant !== 'icon-only' && (
+        <Text sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{formattedDate}</Text>
+      )}
     </DatePickerAnchorButton>
   )
 })
