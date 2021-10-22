@@ -4,7 +4,6 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DatePickerAnchor} from './DatePickerAnchor'
-import {addDays} from 'date-fns'
 import {DatePickerPanel} from './DatePickerPanel'
 import {DatePickerConfiguration, DatePickerProvider, Selection} from './useDatePicker'
 
@@ -16,7 +15,6 @@ export interface DatePickerProps extends DatePickerConfiguration {
    * An override to the internal ref that will be spread on to the renderAnchor
    */
   anchorRef?: React.RefObject<HTMLElement>
-  anchorVariant?: 'full' | 'iconOnly'
   /**
    * Settings to apply to the Focus Zone on the internal `Overlay` component.
    */
@@ -27,6 +25,7 @@ export interface DatePickerProps extends DatePickerConfiguration {
    */
   focusZoneSettings?: Partial<FocusZoneHookSettings>
   initialValue?: 'today' | Date | string | null
+  iconOnly?: boolean
   placeholder?: string
   /**
    * Determines whether the overlay portion of the component should be shown or not
@@ -52,10 +51,12 @@ export interface DatePickerProps extends DatePickerConfiguration {
    * Will receive the selected text as `children` prop when an item is activated.
    */
   renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+
   value?: Selection
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
+  anchorVariant,
   anchorRef: externalAnchorRef,
   focusTrapSettings,
   focusZoneSettings,
@@ -64,13 +65,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   open,
   overlayProps,
   renderAnchor,
+  selection,
   value,
   view
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-
   const datePickerConfiguration: DatePickerConfiguration = {
+    anchorVariant,
+    selection,
     view
   }
 

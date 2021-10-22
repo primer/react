@@ -4,7 +4,7 @@ import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {useDatePicker} from './useDatePicker'
+import useDatePicker from './useDatePicker'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: flex-start;

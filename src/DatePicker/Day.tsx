@@ -5,13 +5,13 @@ import Box from '../Box'
 import Text from '../Text'
 import {get, SystemCommonProps, SystemLayoutProps} from '../constants'
 import {SxProp} from '../sx'
-import {useDatePicker} from './useDatePicker'
+import useDatePicker, {DaySelection} from './useDatePicker'
 
 export interface DayProps extends FontSizeProps, SystemCommonProps, SxProp, SystemLayoutProps {
   blocked?: boolean
   disabled?: boolean
   onAction?: (date: Date, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
-  selected?: boolean
+  selected?: DaySelection
   date: Date
 }
 
@@ -27,35 +27,58 @@ const DayBaseComponent = styled(Box)`
 const states = {
   blocked: {
     background: get('colors.neutral.subtle'),
+    borderRadius: get('radii.2'),
     color: get('colors.fg.subtle')
   },
   disabled: {
     background: get('colors.canvas.primary'),
+    borderRadius: get('radii.2'),
     color: get('colors.fg.subtle')
   },
   selected: {
-    background: get('colors.accent.emphasis'),
-    color: get('colors.fg.onEmphasis')
+    default: {
+      background: get('colors.accent.emphasis'),
+      borderRadius: get('radii.2'),
+      color: get('colors.fg.onEmphasis')
+    },
+    start: {
+      background: get('colors.accent.emphasis'),
+      borderRadius: '4px 0 0 4px',
+      color: get('colors.fg.onEmphasis')
+    },
+    middle: {
+      background: get('colors.accent.subtle'),
+      borderRadius: '0',
+      color: get('colors.fg.default')
+    },
+    end: {
+      background: get('colors.accent.emphasis'),
+      borderRadius: '0 4px 4px 0',
+      color: get('colors.fg.onEmphasis')
+    }
   },
   default: {
     normal: {
       background: get('colors.canvas.primary'),
+      borderRadius: get('radii.2'),
       color: get('colors.fg.default')
     },
     hover: {
       background: get('colors.neutral.muted'),
+      borderRadius: get('radii.2'),
       color: get('colors.fg.default')
     },
     pressed: {
       background: get('colors.neutral.emphasis'),
+      borderRadius: get('radii.2'),
       color: get('colors.fg.onEmphasis')
     }
   }
 }
 
-const getStateColors = (
+const getStateStyles = (
   props: Omit<DayProps, 'date'>,
-  prop: 'background' | 'color',
+  prop: 'background' | 'borderRadius' | 'color',
   state: 'normal' | 'hover' | 'pressed'
 ) => {
   const {blocked, disabled, selected} = props
@@ -64,22 +87,32 @@ const getStateColors = (
   } else if (disabled) {
     return states.disabled[prop]
   } else if (selected) {
-    return states.selected[prop]
+    switch (selected) {
+      case 'start':
+        return states.selected.start[prop]
+      case 'middle':
+        return states.selected.middle[prop]
+      case 'end':
+        return states.selected.end[prop]
+      default:
+        return states.selected.default[prop]
+    }
   } else {
     return states.default[state][prop]
   }
 }
 
 const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
-  background: getStateColors(props, 'background', 'normal'),
-  textColor: getStateColors(props, 'color', 'normal'),
-  backgroundHover: getStateColors(props, 'background', 'hover'),
-  textColorHover: getStateColors(props, 'color', 'hover'),
-  backgroundPressed: getStateColors(props, 'background', 'pressed'),
-  textColorPressed: getStateColors(props, 'color', 'pressed')
+  background: getStateStyles(props, 'background', 'normal'),
+  borderRadius: getStateStyles(props, 'borderRadius', 'normal'),
+  textColor: getStateStyles(props, 'color', 'normal'),
+  backgroundHover: getStateStyles(props, 'background', 'hover'),
+  textColorHover: getStateStyles(props, 'color', 'hover'),
+  backgroundPressed: getStateStyles(props, 'background', 'pressed'),
+  textColorPressed: getStateStyles(props, 'color', 'pressed')
 }))<Omit<DayProps, 'date'>>`
   background-color: ${props => props.background};
-  border-radius: ${get('radii.2')};
+  border-radius: ${props => props.borderRadius};
   transition: 0.2s background-color ease;
 
   & ${Text} {
@@ -149,7 +182,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       selected={selected}
       onClick={clickHandler}
       onFocus={() => onDayFocus(date)}
-      onBlur={onDayBlur}
+      onBlur={() => onDayBlur(date)}
       onKeyPress={keyPressHandler}
     >
       <Text>{date.getDate()}</Text>

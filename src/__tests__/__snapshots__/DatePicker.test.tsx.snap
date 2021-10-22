@@ -121,7 +121,7 @@ exports[`DatePicker renders consistently 1`] = `
   <span
     className="c2 "
   >
-    Oct 15 - Oct 22
+    Select a Date...
   </span>
 </button>
 `;

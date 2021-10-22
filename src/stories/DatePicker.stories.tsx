@@ -42,10 +42,22 @@ export default {
         disable: true
       }
     },
+    anchorVariant: {
+      control: {
+        type: 'select',
+        options: ['button', 'icon-only', 'input']
+      }
+    },
     dateFormat: {
       control: {
         type: 'select',
         options: ['short', 'long']
+      }
+    },
+    selection: {
+      control: {
+        type: 'select',
+        options: ['single', 'multi', 'range']
       }
     }
   }
@@ -53,10 +65,11 @@ export default {
 
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {
-  view: '2-month',
-  iconOnly: false,
+  anchorVariant: 'button',
   dateFormat: 'short',
-  value: {from: new Date(), to: addDays(new Date(), 7)}
+  selection: 'range',
+  value: {from: new Date(), to: addDays(new Date(), 4)},
+  view: '2-month'
 }
 
 export const DatePickerAnchorControl = (args: DatePickerAnchorProps) => <DatePickerAnchor {...args} />
