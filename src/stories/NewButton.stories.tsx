@@ -83,3 +83,14 @@ export const dangerButton = (args: ButtonProps) => {
     </Button>
   )
 }
+
+export const invisibleButton = (args: ButtonProps) => {
+  return (
+    <Button {...args} variant="invisible">
+      <Button.Visual sx={{pr: 3}}>
+        <SearchIcon />
+      </Button.Visual>
+      Invisible
+    </Button>
+  )
+}

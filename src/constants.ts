@@ -6,7 +6,6 @@ import theme from './theme'
 const {get: getKey, compose, system} = styledSystem
 
 export const get = (key: string) => {
-  debugger
   return themeGet(key, getKey(theme, key))
 }
 
