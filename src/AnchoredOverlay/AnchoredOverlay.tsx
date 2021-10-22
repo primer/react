@@ -33,6 +33,9 @@ interface AnchoredOverlayPropsWithoutAnchor {
   anchorRef: React.RefObject<HTMLElement>
 }
 
+export type OverlayOpenGesture = 'anchor-click' | 'anchor-key-press'
+export type OverlayCloseGesture = 'anchor-click' | 'click-outside' | 'escape'
+
 export type AnchoredOverlayWrapperAnchorProps =
   | Partial<AnchoredOverlayPropsWithAnchor>
   | AnchoredOverlayPropsWithoutAnchor
@@ -46,12 +49,12 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
-  onOpen?: (gesture: 'anchor-click' | 'anchor-key-press') => unknown
+  onOpen?: (gesture: OverlayOpenGesture) => unknown
 
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: OverlayCloseGesture) => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.

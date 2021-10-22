@@ -40,6 +40,7 @@ export interface DatePickerContext {
   onSelection: (date: Date) => void
   onDayFocus: (date: Date) => void
   onDayBlur: (date: Date) => void
+  revertValue: () => void
 }
 
 export type Selection = Date | Array<Date> | RangeSelection | null
@@ -189,6 +190,9 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   value
 }) => {
   const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
+  const [previousSelection, setPreviousSelection] = useState<Selection | undefined>(
+    parseSelection(value, configuration.selection)
+  )
   const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.selection))
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
 
@@ -272,6 +276,14 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     }
   }, [configuration.dateFormat, configuration.placeholder, configuration.selection, selection])
 
+  const handleSave = useCallback(
+    (updatedSelection: Selection) => {
+      setPreviousSelection(updatedSelection)
+      closePicker?.()
+    },
+    [closePicker]
+  )
+
   const selectionHandler = useCallback(
     (date: Date) => {
       if (configuration.selection === 'multi') {
@@ -285,11 +297,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         }
       } else if (configuration.selection === 'range') {
         if (selection && isRangeSelection(selection) && !selection.to) {
-          setSelection(
-            isBefore(date, selection.from) ? {from: date, to: selection.from} : {from: selection.from, to: date}
-          )
+          const updatedSelection = isBefore(date, selection.from)
+            ? {from: date, to: selection.from}
+            : {from: selection.from, to: date}
+          setSelection(updatedSelection)
           if (!configuration.confirmation) {
-            closePicker?.()
+            handleSave(updatedSelection)
           }
         } else {
           setSelection({from: date, to: null})
@@ -298,11 +311,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         setSelection(date)
 
         if (!configuration.confirmation) {
-          closePicker?.()
+          handleSave(date)
         }
       }
     },
-    [closePicker, configuration.confirmation, configuration.selection, selection]
+    [configuration.confirmation, configuration.selection, handleSave, selection]
   )
 
   const focusHnadler = useCallback(
@@ -333,6 +346,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [configuration.selection, hoverRange, selection]
   )
 
+  const revertValue = useCallback(() => {
+    setSelection(previousSelection)
+  }, [previousSelection])
+
   const datePickerCtx: DatePickerContext = useMemo(() => {
     return {
       configuration,
@@ -341,10 +358,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       onDayBlur: blurHnadler,
       onDayFocus: focusHnadler,
       onSelection: selectionHandler,
+      revertValue,
       selectionActive: false,
       selection
     }
-  }, [blurHnadler, configuration, focusHnadler, getFormattedDate, selection, selectionHandler])
+  }, [blurHnadler, configuration, focusHnadler, getFormattedDate, revertValue, selection, selectionHandler])
 
   return <DatePickerContext.Provider value={datePickerCtx}>{children}</DatePickerContext.Provider>
 }

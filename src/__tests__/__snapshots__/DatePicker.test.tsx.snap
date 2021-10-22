@@ -7,6 +7,11 @@ exports[`DatePicker renders consistently 1`] = `
   margin-bottom: 2px;
 }
 
+.c3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .c0 {
   position: relative;
   display: inline-block;
@@ -48,6 +53,8 @@ exports[`DatePicker renders consistently 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  max-width: 350px;
+  overflow: hidden;
 }
 
 .c0:hover {
@@ -83,7 +90,7 @@ exports[`DatePicker renders consistently 1`] = `
 }
 
 .c0:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }
@@ -111,6 +118,7 @@ exports[`DatePicker renders consistently 1`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -119,7 +127,7 @@ exports[`DatePicker renders consistently 1`] = `
     width={16}
   />
   <span
-    className="c2 "
+    className="c2 c3"
   >
     Select a Date...
   </span>

@@ -1,11 +1,10 @@
 import React, {useRef, useState} from 'react'
 import {OverlayProps} from '../Overlay'
-import {AnchoredOverlay} from '../AnchoredOverlay'
 import {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DatePickerAnchor} from './DatePickerAnchor'
-import {DatePickerPanel} from './DatePickerPanel'
 import {DatePickerConfiguration, DatePickerProvider, Selection} from './useDatePicker'
+import {DatePickerOverlay} from './DatePickerOverlay'
 
 type OpenGesture = 'anchor-click' | 'anchor-key-press'
 type CloseGesture = 'anchor-click' | 'click-outside' | 'escape'
@@ -100,7 +99,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   return (
     <DatePickerProvider configuration={datePickerConfiguration} value={value} closePicker={() => setIsOpen(false)}>
       <DatePickerAnchor ref={buttonRef} onAction={toggleIsOpen} />
-      <AnchoredOverlay
+      <DatePickerOverlay
         anchorRef={externalAnchorRef ?? buttonRef}
         renderAnchor={renderAnchor}
         open={open ?? isOpen}
@@ -109,9 +108,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         overlayProps={overlayProps}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
-      >
-        <DatePickerPanel />
-      </AnchoredOverlay>
+      />
     </DatePickerProvider>
   )
 }
