@@ -33,6 +33,7 @@ export type StringRangeSelection = {
 export interface DatePickerContext {
   disabled?: boolean
   configuration: DatePickerConfiguration
+  hoverRange?: RangeSelection | null
   selection?: Selection
   softSelection?: Partial<RangeSelection> | null
   selectionActive?: boolean
@@ -51,33 +52,54 @@ const DatePickerContext = createContext<DatePickerContext | null>(null)
 
 const useDatePicker = (date?: Date) => {
   const value = useContext(DatePickerContext)
+  const [selected, setSelected] = useState<DaySelection>(false)
 
   if (!value) {
     throw new Error('useDatePicker must be used inside a DatePickerProvider')
   }
 
-  let selected: DaySelection = false
+  useEffect(() => {
+    if (date) {
+      if (value.hoverRange) {
+        if (isRangeSelection(value.hoverRange)) {
+          if (isEqual(date, value.hoverRange.from)) {
+            setSelected('start')
+          } else if (value.hoverRange.to && isEqual(date, value.hoverRange.to)) {
+            setSelected('end')
+          } else if (
+            isAfter(date, value.hoverRange.from) &&
+            value.hoverRange.to &&
+            isBefore(date, value.hoverRange.to)
+          ) {
+            setSelected('middle')
+          } else {
+            setSelected(false)
+          }
+        }
+      } else if (value.selection) {
+        if (isMultiSelection(value.selection)) {
+          setSelected(!!value.selection.find(d => isEqual(d, date)))
+        } else if (isRangeSelection(value.selection)) {
+          if (isEqual(date, value.selection.from)) {
+            setSelected('start')
+          } else if (value.selection.to && isEqual(date, value.selection.to)) {
+            setSelected('end')
+          } else if (isAfter(date, value.selection.from) && value.selection.to && isBefore(date, value.selection.to)) {
+            setSelected('middle')
+          } else {
+            setSelected(false)
+          }
+        } else {
+          setSelected(isEqual(date, value.selection))
+        }
+      }
+    }
+  }, [date, value.hoverRange, value.selection])
+
   let blocked,
     disabled = false
 
   if (date) {
-    if (value.selection) {
-      if (isMultiSelection(value.selection)) {
-        selected = !!value.selection.find(d => isEqual(d, date))
-      } else if (isRangeSelection(value.selection)) {
-        if (isEqual(date, value.selection.from)) {
-          selected = 'start'
-        } else if (value.selection.to && isEqual(date, value.selection.to)) {
-          selected = 'end'
-        } else if (isAfter(date, value.selection.from) && value.selection.to && isBefore(date, value.selection.to)) {
-          selected = 'middle'
-        } else {
-          selected = false
-        }
-      } else {
-        selected = isEqual(date, value.selection)
-      }
-    }
     // Determine if date is blocked out
     if (value.configuration.blockedDates) {
       blocked = !!value.configuration.blockedDates.find(d => isEqual(d, date))
@@ -301,10 +323,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
             ? {from: date, to: selection.from}
             : {from: selection.from, to: date}
           setSelection(updatedSelection)
+          setHoverRange(null)
           if (!configuration.confirmation) {
             handleSave(updatedSelection)
           }
         } else {
+          setHoverRange({from: date, to: date})
           setSelection({from: date, to: null})
         }
       } else {
@@ -322,13 +346,13 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     (date: Date) => {
       if (!selection) return
 
-      if (configuration.selection === 'range' && isRangeSelection(selection)) {
+      if (configuration.selection === 'range' && isRangeSelection(selection) && hoverRange) {
         setHoverRange(
           isBefore(date, selection.from) ? {from: date, to: selection.from} : {from: selection.from, to: date}
         )
       }
     },
-    [configuration.selection, selection]
+    [configuration.selection, hoverRange, selection]
   )
 
   const blurHnadler = useCallback(
@@ -340,7 +364,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         isRangeSelection(selection) &&
         (hoverRange.from === date || hoverRange.to === date)
       ) {
-        setHoverRange(null)
+        // setHoverRange({from: hoverRange.from, to: hoverRange.from})
       }
     },
     [configuration.selection, hoverRange, selection]
@@ -355,6 +379,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       configuration,
       disabled: false,
       formattedDate: getFormattedDate,
+      hoverRange,
       onDayBlur: blurHnadler,
       onDayFocus: focusHnadler,
       onSelection: selectionHandler,
@@ -362,7 +387,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       selectionActive: false,
       selection
     }
-  }, [blurHnadler, configuration, focusHnadler, getFormattedDate, revertValue, selection, selectionHandler])
+  }, [blurHnadler, configuration, focusHnadler, getFormattedDate, hoverRange, revertValue, selection, selectionHandler])
 
   return <DatePickerContext.Provider value={datePickerCtx}>{children}</DatePickerContext.Provider>
 }

@@ -182,6 +182,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       disabled={disabled}
       selected={selected}
       onClick={clickHandler}
+      onMouseEnter={() => onDayFocus(date)}
       onFocus={() => onDayFocus(date)}
       onBlur={() => onDayBlur(date)}
       onKeyPress={keyPressHandler}
