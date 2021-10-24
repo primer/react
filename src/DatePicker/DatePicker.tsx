@@ -57,6 +57,7 @@ export interface DatePickerProps extends DatePickerConfiguration {
 export const DatePicker: React.FC<DatePickerProps> = ({
   anchorVariant,
   anchorRef: externalAnchorRef,
+  confirmation,
   focusTrapSettings,
   focusZoneSettings,
   onOpen: onOpenExternal,
@@ -72,6 +73,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const [isOpen, setIsOpen] = useState(false)
   const datePickerConfiguration: DatePickerConfiguration = {
     anchorVariant,
+    confirmation,
     selection,
     view
   }

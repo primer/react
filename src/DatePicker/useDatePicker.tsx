@@ -42,6 +42,7 @@ export interface DatePickerContext {
   onDayFocus: (date: Date) => void
   onDayBlur: (date: Date) => void
   revertValue: () => void
+  saveValue: (selection?: Selection) => void
 }
 
 export type Selection = Date | Array<Date> | RangeSelection | null
@@ -298,12 +299,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     }
   }, [configuration.dateFormat, configuration.placeholder, configuration.selection, selection])
 
-  const handleSave = useCallback(
-    (updatedSelection: Selection) => {
-      setPreviousSelection(updatedSelection)
+  const saveValue = useCallback(
+    (updatedSelection?: Selection) => {
+      setPreviousSelection(updatedSelection ?? selection)
       closePicker?.()
     },
-    [closePicker]
+    [closePicker, selection]
   )
 
   const selectionHandler = useCallback(
@@ -325,7 +326,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           setSelection(updatedSelection)
           setHoverRange(null)
           if (!configuration.confirmation) {
-            handleSave(updatedSelection)
+            saveValue(updatedSelection)
           }
         } else {
           setHoverRange({from: date, to: date})
@@ -335,11 +336,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         setSelection(date)
 
         if (!configuration.confirmation) {
-          handleSave(date)
+          saveValue(date)
         }
       }
     },
-    [configuration.confirmation, configuration.selection, handleSave, selection]
+    [configuration.confirmation, configuration.selection, saveValue, selection]
   )
 
   const focusHnadler = useCallback(
@@ -384,10 +385,21 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       onDayFocus: focusHnadler,
       onSelection: selectionHandler,
       revertValue,
+      saveValue,
       selectionActive: false,
       selection
     }
-  }, [blurHnadler, configuration, focusHnadler, getFormattedDate, hoverRange, revertValue, selection, selectionHandler])
+  }, [
+    blurHnadler,
+    configuration,
+    focusHnadler,
+    getFormattedDate,
+    hoverRange,
+    revertValue,
+    saveValue,
+    selection,
+    selectionHandler
+  ])
 
   return <DatePickerContext.Provider value={datePickerCtx}>{children}</DatePickerContext.Provider>
 }
