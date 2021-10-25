@@ -61,7 +61,7 @@ exports[`Pagination renders consistently 1`] = `
 
 .c2[aria-disabled],
 .c2[aria-disabled]:hover {
-  color: #8c959f;
+  color: #57606a;
   cursor: default;
   border-color: transparent;
 }

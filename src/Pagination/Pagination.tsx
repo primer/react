@@ -55,7 +55,7 @@ const Page = styled.a`
 
   &[aria-disabled],
   &[aria-disabled]:hover {
-    color: ${get('colors.primer.fg.disabled')}; // check
+    color: ${get('colors.fg.muted')}; // check
     cursor: default;
     border-color: transparent;
   }

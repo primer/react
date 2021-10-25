@@ -68,7 +68,7 @@ exports[`ConfirmationDialog renders consistently 1`] = `
 }
 
 .c1:disabled {
-  color: #8c959f;
+  color: #57606a;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }

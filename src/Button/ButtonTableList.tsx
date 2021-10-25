@@ -33,7 +33,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   &:disabled {
     &,
     &:hover {
-      color: ${get('colors.primer.fg.disabled')};
+      color: rgba(${get('colors.fg.muted')}, 0.5);
       cursor: default;
     }
   }

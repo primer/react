@@ -153,9 +153,9 @@ export interface ItemProps extends SxProp {
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
   if (disabled) {
     return {
-      color: get('colors.primer.fg.disabled'),
-      iconColor: get('colors.primer.fg.disabled'),
-      annotationColor: get('colors.primer.fg.disabled'),
+      color: get('colors.fg.muted'),
+      iconColor: get('colors.fg.muted'),
+      annotationColor: get('colors.fg.muted'),
       hoverCursor: 'default'
     }
   }
