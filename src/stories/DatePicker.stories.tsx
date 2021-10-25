@@ -71,7 +71,7 @@ export default {
 
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {
-  anchorVariant: 'button',
+  anchorVariant: 'input',
   confirmation: true,
   dateFormat: 'short',
   maxDate: addYears(new Date(), 1),

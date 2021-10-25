@@ -58,6 +58,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   anchorVariant,
   anchorRef: externalAnchorRef,
   confirmation,
+  dateFormat,
   focusTrapSettings,
   focusZoneSettings,
   maxDate,
@@ -77,6 +78,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const datePickerConfiguration: DatePickerConfiguration = {
     anchorVariant,
     confirmation,
+    dateFormat,
     maxDate,
     minDate,
     selection,

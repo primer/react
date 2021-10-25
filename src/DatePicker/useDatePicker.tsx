@@ -12,13 +12,14 @@ export interface DatePickerConfiguration {
   contiguousSelection?: boolean
   dateFormat?: DateFormat
   dimWeekends?: boolean
+  iconPlacement?: 'start' | 'end' | 'none'
   minDate?: Date
   maxDate?: Date
   placeholder?: string
   rangeIncrement?: number
   selection?: SelectionVariant
   view?: '1-month' | '2-month'
-  weekStartsOn?: 'Sunday' | 'Monday'
+  weekStartsOn?: 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'
 }
 
 export type RangeSelection = {
@@ -206,6 +207,7 @@ const defaultConfiguration: DatePickerConfiguration = {
   confirmation: false,
   contiguousSelection: false,
   dimWeekends: false,
+  iconPlacement: 'start',
   placeholder: 'Select a Date...',
   selection: 'single',
   view: '2-month',
@@ -252,7 +254,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     }
 
     let template = 'MMM d'
-    if (configuration.dateFormat) {
+    if (configuration.anchorVariant !== 'input' && configuration.dateFormat) {
       switch (configuration.dateFormat) {
         case 'short':
           template = 'MMM d'
@@ -264,6 +266,8 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           template = configuration.dateFormat
           break
       }
+    } else {
+      template = 'MM/dd/yyyy'
     }
 
     switch (configuration.selection) {
@@ -316,7 +320,13 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         return 'Invalid Configuration'
       }
     }
-  }, [configuration.dateFormat, configuration.placeholder, configuration.selection, selection])
+  }, [
+    configuration.anchorVariant,
+    configuration.dateFormat,
+    configuration.placeholder,
+    configuration.selection,
+    selection
+  ])
 
   const saveValue = useCallback(
     (updatedSelection?: Selection) => {

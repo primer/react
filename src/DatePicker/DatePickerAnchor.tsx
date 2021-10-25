@@ -1,12 +1,13 @@
 import {CalendarIcon} from '@primer/octicons-react'
 import styled from 'styled-components'
 import React, {useCallback} from 'react'
-import Button from '../Button'
+import Button, {ButtonInvisible} from '../Button'
 import Text from '../Text'
 import {get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import useDatePicker from './useDatePicker'
 import TextInput from '../TextInput'
+import Box from '../Box'
 
 export interface DatePickerAnchorProps {
   onAction?: (event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
@@ -25,9 +26,9 @@ const DatePickerAnchorButton = styled(Button)`
   }
 `
 
-export const DatePickerAnchor = React.forwardRef<HTMLButtonElement, DatePickerAnchorProps>(({onAction}, ref) => {
+export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAnchorProps>(({onAction}, ref) => {
   const {
-    configuration: {anchorVariant},
+    configuration: {anchorVariant, iconPlacement},
     disabled,
     formattedDate
   } = useDatePicker()
@@ -54,16 +55,62 @@ export const DatePickerAnchor = React.forwardRef<HTMLButtonElement, DatePickerAn
     [disabled, onAction]
   )
 
+  const onKeyPressHandler = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.value)
+  }, [])
+
+  const onInputChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget.value)
+  }, [])
+
   if (anchorVariant === 'input') {
-    return <TextInput value={formattedDate} />
+    const calendarButton = (side: 'left' | 'right') => (
+      <ButtonInvisible
+        onClick={clickHandler}
+        sx={{width: '32px', px: '6px', position: 'absolute', [side]: '1px', top: '1px'}}
+      >
+        <StyledOcticon icon={CalendarIcon} />
+      </ButtonInvisible>
+    )
+
+    const inputSx = () => {
+      if (iconPlacement === 'start') {
+        return {
+          pl: 5,
+          pr: 2
+        }
+      } else if (iconPlacement === 'end') {
+        return {
+          pl: 2,
+          pr: 5
+        }
+      } else {
+        return {}
+      }
+    }
+
+    return (
+      <Box ref={ref} sx={{position: 'relative', display: 'flex', flex: 1}}>
+        {iconPlacement === 'start' && calendarButton('left')}
+        <TextInput
+          defaultValue={formattedDate}
+          onKeyPress={onKeyPressHandler}
+          onChange={onInputChangeHandler}
+          sx={inputSx()}
+        />
+        {iconPlacement === 'end' && calendarButton('right')}
+      </Box>
+    )
   }
 
   return (
-    <DatePickerAnchorButton ref={ref} onClick={clickHandler} onKeyPress={keyPressHandler}>
-      <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
-      {anchorVariant !== 'icon-only' && (
-        <Text sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{formattedDate}</Text>
-      )}
-    </DatePickerAnchorButton>
+    <Box ref={ref}>
+      <DatePickerAnchorButton onClick={clickHandler} onKeyPress={keyPressHandler}>
+        <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
+        {anchorVariant !== 'icon-only' && (
+          <Text sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{formattedDate}</Text>
+        )}
+      </DatePickerAnchorButton>
+    </Box>
   )
 })
