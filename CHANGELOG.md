@@ -1,5 +1,13 @@
 # @primer/components
 
+## 31.0.0
+
+### Major Changes
+
+- [`dcf693fa`](https://github.com/primer/react/commit/dcf693fa0265f577531ad333ddf646b48b3a173e) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Remove deprecated color variables by upgrading to @primer/primitives [v5](https://github.com/primer/primitives/pull/251)
+
+  **Note:** Install [`eslint-plugin-primer-react`](https://primer.style/react/linting) to ensure that you're not using any deprecated or removed color variables.
+
 ## 30.3.0
 
 ### Minor Changes
