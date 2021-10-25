@@ -150,7 +150,7 @@ export function ExternalOpenState(): JSX.Element {
             {
               text: 'Delete file',
               variant: 'danger',
-              trailingVisual: '⌘D'
+              trailingText: '⌘D'
             }
           ]}
         />

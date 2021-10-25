@@ -89,7 +89,7 @@ export interface ItemProps extends SxProp {
   /**
    * Icon or text positioned after `Item` text.
    */
-  trailingVisual?: React.ReactNode
+  trailingVisual?: React.FunctionComponent<IconProps> | string
 
   /**
    * Style variations associated with various `Item` types.
