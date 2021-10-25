@@ -1,4 +1,4 @@
-import {format, isEqual, isAfter, isBefore} from 'date-fns'
+import {format, isEqual, isAfter, isBefore, addMonths, subMonths} from 'date-fns'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 
@@ -33,14 +33,18 @@ export type StringRangeSelection = {
 export interface DatePickerContext {
   disabled?: boolean
   configuration: DatePickerConfiguration
+  currentViewingDate: Date
+  goToMonth: (date: Date) => void
   hoverRange?: RangeSelection | null
   selection?: Selection
   softSelection?: Partial<RangeSelection> | null
   selectionActive?: boolean
   formattedDate: string
+  nextMonth: () => void
   onSelection: (date: Date) => void
   onDayFocus: (date: Date) => void
   onDayBlur: (date: Date) => void
+  previousMonth: () => void
   revertValue: () => void
   saveValue: (selection?: Selection) => void
 }
@@ -218,6 +222,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   )
   const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.selection))
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
+  const [currentViewingDate, setCurrentViewingDate] = useState(new Date())
 
   useEffect(() => {
     setConfiguration(deepmerge(defaultConfiguration, externalConfig))
@@ -226,6 +231,18 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     // Don't want this to run every time selection gets updated
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configuration.selection, externalConfig])
+
+  const goToMonth = useCallback((date: Date) => {
+    setCurrentViewingDate(new Date(new Date(date).toDateString()))
+  }, [])
+
+  const nextMonth = useCallback(() => {
+    setCurrentViewingDate(addMonths(currentViewingDate, 1))
+  }, [currentViewingDate])
+
+  const previousMonth = useCallback(() => {
+    setCurrentViewingDate(subMonths(currentViewingDate, 1))
+  }, [currentViewingDate])
 
   const getFormattedDate = useMemo(() => {
     if (!selection) {
@@ -378,12 +395,16 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const datePickerCtx: DatePickerContext = useMemo(() => {
     return {
       configuration,
+      currentViewingDate,
       disabled: false,
       formattedDate: getFormattedDate,
+      goToMonth,
       hoverRange,
+      nextMonth,
       onDayBlur: blurHnadler,
       onDayFocus: focusHnadler,
       onSelection: selectionHandler,
+      previousMonth,
       revertValue,
       saveValue,
       selectionActive: false,
@@ -392,9 +413,13 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   }, [
     blurHnadler,
     configuration,
+    currentViewingDate,
     focusHnadler,
     getFormattedDate,
+    goToMonth,
     hoverRange,
+    nextMonth,
+    previousMonth,
     revertValue,
     saveValue,
     selection,

@@ -54,19 +54,28 @@ const ArrowButton = styled(Button)<ArrowButtonProps>`
 `
 
 export const DatePickerPanel = () => {
-  const {configuration, saveValue, revertValue} = useDatePicker()
+  const {configuration, saveValue, revertValue, currentViewingDate, goToMonth, nextMonth, previousMonth} =
+    useDatePicker()
   return (
     <DatePickerPanelContainer>
       <DatePickerPanelMonths>
-        <ArrowButton variant="small" side="left">
+        {/* <Month
+          month={subMonths(new Date(), 1).getMonth()}
+          year={subMonths(new Date(), 1).getFullYear()}
+          sx={{left: '100%', position: 'absolute'}}
+        /> */}
+        <ArrowButton variant="small" side="left" onClick={previousMonth}>
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>
-        <Month month={new Date().getMonth()} year={new Date().getFullYear()} />
+        <Month month={currentViewingDate.getMonth()} year={currentViewingDate.getFullYear()} />
         {configuration.view === '2-month' && (
-          <Month month={addMonths(new Date(), 1).getMonth()} year={addMonths(new Date(), 1).getFullYear()} />
+          <Month
+            month={addMonths(currentViewingDate, 1).getMonth()}
+            year={addMonths(currentViewingDate, 1).getFullYear()}
+          />
         )}
 
-        <ArrowButton variant="small" side="right">
+        <ArrowButton variant="small" side="right" onClick={nextMonth}>
           <StyledOcticon icon={ChevronRightIcon} color="fg.muted" />
         </ArrowButton>
       </DatePickerPanelMonths>
@@ -75,7 +84,9 @@ export const DatePickerPanel = () => {
           <Button variant="small" sx={{mr: 1}} onClick={() => revertValue()}>
             Reset
           </Button>
-          <Button variant="small">Today</Button>
+          <Button variant="small" onClick={() => goToMonth(new Date())}>
+            Today
+          </Button>
         </Box>
         {configuration.confirmation && (
           <ButtonPrimary variant="small" onClick={() => saveValue()}>
