@@ -1,4 +1,6 @@
-import React, {ReactNode} from 'react'
+import React, {Children, ReactNode} from 'react'
+import {IconProps} from '@primer/octicons-react'
+import Box from '../Box'
 import {fontSize, FontSizeProps, variant} from 'styled-system'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
@@ -29,12 +31,14 @@ export type ButtonProps = {
   children: ReactNode
   variant: Variant
   size: 'small' | 'medium' | 'large'
+  icon?: React.FunctionComponent<IconProps>
 } & SxProp &
   FontSizeProps
 
 const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
   const style = {
     default: `
+      padding: 5px 16px;
       color: ${get('colors.btn.text')({theme})};
       background-color: ${get('colors.btn.bg')({theme})};
       border-width: 1px;
@@ -57,6 +61,7 @@ const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
       }
     `,
     primary: `
+      padding: 5px 16px;
       color: ${get('colors.btn.primary.text')({theme})};
       background-color: ${get('colors.btn.primary.bg')({theme})};
       border-width: 1px;
@@ -83,6 +88,7 @@ const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
         background-color: ${get('colors.btn.primary.disabledBg')({theme})};
       }`,
     danger: `
+      padding: 5px 16px;
       color: ${get('colors.btn.danger.text')({theme})};
       border: 1px solid ${get('colors.btn.border')({theme})};
       background-color: ${get('colors.btn.bg')({theme})};
@@ -114,6 +120,7 @@ const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
       }
     `,
     invisible: `
+      padding: 6px 16px;
       color: ${get('colors.accent.fg')({theme})};
       background-color: transparent;
       border: 0;
@@ -138,15 +145,37 @@ const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
   return style[variant]
 }
 
-const ButtonBase = styled.button<ButtonProps>`
+type StyleSwitchers = {
+  iconOnly: Boolean
+}
+
+const ButtonBase = styled.button<ButtonProps & StyleSwitchers>`
   ${buttonBaseStyles}
-  ${sizes}
   ${props => getVariantStyles(props.theme, props.variant)}
+  ${sizes}
+  ${props => (props.iconOnly ? `padding: 4px 6px;` : '')}
   ${sx}
   ${fontSize}
 `
-const Button = ({children, ...props}: ButtonProps) => {
-  return <ButtonBase {...props}>{children}</ButtonBase>
+const Button = ({children, icon: Icon, ...props}: ButtonProps) => {
+  let iconOnly: Boolean = false
+  if (!children) {
+    iconOnly = true
+  }
+  let iconWrapStyles = {
+    display: 'inline-block',
+    ...(!iconOnly ? {pr: 3} : {})
+  }
+  return (
+    <ButtonBase {...props} iconOnly={iconOnly}>
+      {Icon && (
+        <Box sx={iconWrapStyles}>
+          <Icon />
+        </Box>
+      )}
+      {children}
+    </ButtonBase>
+  )
 }
 
 Button.Visual = Visual

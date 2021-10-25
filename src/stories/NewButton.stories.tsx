@@ -22,7 +22,7 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large']
+        options: ['small', 'medium', 'large', 'square']
       }
     }
   }
@@ -38,34 +38,14 @@ export const defaultButton = ({size = 'medium', ...args}: ButtonProps) => {
 
 export const iconBeforeButton = (args: ButtonProps) => {
   return (
-    <Button {...args}>
-      <Button.Visual sx={{pr: 3}}>
-        <SearchIcon />
-      </Button.Visual>
+    <Button icon={() => <SearchIcon />} {...args}>
       Before
     </Button>
   )
 }
 
-export const iconAfterButton = (args: ButtonProps) => {
-  return (
-    <Button {...args}>
-      After
-      <Button.Visual sx={{pl: 2}}>
-        <XIcon />
-      </Button.Visual>
-    </Button>
-  )
-}
-
-export const iconButton = (args: ButtonProps) => {
-  return (
-    <Button {...args}>
-      <Button.Visual>
-        <XIcon />
-      </Button.Visual>
-    </Button>
-  )
+export const iconButton = ({...args}: ButtonProps) => {
+  return <Button icon={() => <XIcon />} {...args}></Button>
 }
 
 export const primaryButton = (args: ButtonProps) => {
