@@ -1,5 +1,5 @@
-import {addMonths} from 'date-fns'
-import React from 'react'
+import {addMonths, subMonths} from 'date-fns'
+import React, {useMemo} from 'react'
 import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
@@ -56,6 +56,31 @@ const ArrowButton = styled(Button)<ArrowButtonProps>`
 export const DatePickerPanel = () => {
   const {configuration, saveValue, revertValue, currentViewingDate, goToMonth, nextMonth, previousMonth} =
     useDatePicker()
+
+  const previousDisabled = useMemo(() => {
+    const {minDate} = configuration
+    if (!minDate) return false
+
+    const previous = subMonths(currentViewingDate, 1)
+    if (minDate.getFullYear() >= previous.getFullYear() && minDate.getMonth() > previous.getMonth()) {
+      return true
+    }
+
+    return false
+  }, [configuration, currentViewingDate])
+
+  const nextDisabled = useMemo(() => {
+    const {maxDate, view} = configuration
+    if (!maxDate) return false
+
+    const next = addMonths(currentViewingDate, view === '2-month' ? 2 : 1)
+    if (maxDate.getFullYear() <= next.getFullYear() && maxDate.getMonth() < next.getMonth()) {
+      return true
+    }
+
+    return false
+  }, [configuration, currentViewingDate])
+
   return (
     <DatePickerPanelContainer>
       <DatePickerPanelMonths>
@@ -64,7 +89,7 @@ export const DatePickerPanel = () => {
           year={subMonths(new Date(), 1).getFullYear()}
           sx={{left: '100%', position: 'absolute'}}
         /> */}
-        <ArrowButton variant="small" side="left" onClick={previousMonth}>
+        <ArrowButton variant="small" side="left" onClick={previousMonth} disabled={previousDisabled}>
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>
         <Month month={currentViewingDate.getMonth()} year={currentViewingDate.getFullYear()} />
@@ -75,7 +100,7 @@ export const DatePickerPanel = () => {
           />
         )}
 
-        <ArrowButton variant="small" side="right" onClick={nextMonth}>
+        <ArrowButton variant="small" side="right" onClick={nextMonth} disabled={nextDisabled}>
           <StyledOcticon icon={ChevronRightIcon} color="fg.muted" />
         </ArrowButton>
       </DatePickerPanelMonths>

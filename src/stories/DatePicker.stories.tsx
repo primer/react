@@ -6,7 +6,7 @@ import {DatePicker, DatePickerProps} from '../DatePicker'
 import {Day, DayProps} from '../DatePicker/Day'
 import {Month, MonthProps} from '../DatePicker/Month'
 import {DatePickerAnchor, DatePickerAnchorProps} from '../DatePicker/DatePickerAnchor'
-import {addDays} from 'date-fns'
+import {addDays, addYears, subDays} from 'date-fns'
 
 export default {
   title: 'Composite components/DatePicker',
@@ -68,6 +68,8 @@ DefaultDatePicker.args = {
   anchorVariant: 'button',
   confirmation: true,
   dateFormat: 'short',
+  maxDate: addYears(new Date(), 1),
+  minDate: subDays(new Date(), 4),
   selection: 'range',
   value: {from: new Date(), to: addDays(new Date(), 4)},
   view: '2-month'
