@@ -16,7 +16,8 @@ import {
   GitForkIcon,
   AlertIcon,
   TableIcon,
-  PeopleIcon
+  PeopleIcon,
+  TrashIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -253,6 +254,36 @@ export function MultiSelectListStory(): JSX.Element {
   )
 }
 MultiSelectListStory.storyName = 'Multi Select'
+
+export function DisabledStory(): JSX.Element {
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+
+  return (
+    <>
+      <h1>Disabled Items</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          {projects.map((project, index) => (
+            <ActionList.Item
+              key={index}
+              showDivider
+              selected={index === selectedIndex}
+              onAction={() => setSelectedIndex(index)}
+              disabled={index === 1}
+            >
+              <ActionList.LeadingVisual>
+                <TableIcon />
+              </ActionList.LeadingVisual>
+              {project.name}
+              <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+DisabledStory.storyName = 'Disabled Items'
 
 export function GroupsStory(): JSX.Element {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))

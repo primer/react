@@ -1,24 +1,22 @@
 /**
+ * define/override selectionVariant on Group?
+ * deepmerge sx
+ * check height with divider
+ * minimize number of divs
  * test suite!
  * docs
- * text could be non-text
- * deepmerge sx
- * disabled checkbox
- * check height with divider
- * check if all components accept sx prop
- * minimize number of divs?
- * nicer name for showDivider?
- * activeDescendantAttribute (for actionMenu)
  *
  * questions:
+ * nicer name for showDivider?
  * change as= li | div based on context of menu or not?
- * define/override selectionVariant on Group?
  * selection api - if one item has selected, should we give all of them selected without the need to pass prop?
  * move custom item themes to primitives?
  * padding: 8 or 6?
  * different size for icon and avatar, range?
  * ActionList.Selection or ActionList.Item selected?
- * aria-describedby empty value bad? also, for 2 description, 2 values?
+ * aria-describedby empty value bad? also, 2 description = 2 values?
+ *
+ * activeDescendantAttribute (for actionMenu)
  */
 
 import React from 'react'
@@ -37,9 +35,9 @@ import {Selection} from './Selection'
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
     return {
-      color: get('colors.fg.muted'),
-      iconColor: get('colors.fg.muted'),
-      annotationColor: get('colors.fg.muted')
+      color: 'fg.muted',
+      iconColor: 'fg.muted',
+      annotationColor: 'fg.muted'
     }
   }
 
@@ -105,12 +103,12 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       color: getVariantStyles(variant, disabled).color,
       textDecoration: 'none', // for as="a"
 
-      ':not(disabled)': {cursor: 'pointer'},
+      ':not([aria-disabled])': {cursor: 'pointer'},
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover': {
+        ':hover:not([aria-disabled])': {
           backgroundColor: useColorSchemeVar(customItemTheme.hover, 'inherit')
         },
-        ':focus': {
+        ':focus:not([aria-disabled])': {
           backgroundColor: useColorSchemeVar(customItemTheme.focus, 'inherit')
         }
       },
@@ -134,8 +132,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       // hide divider after dividers & group header
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent'},
       // hide border on current and previous item
-      '&:hover, &:focus': {'--divider-color': 'transparent'},
-      '&:hover + &, &:focus + &': {'--divider-color': 'transparent'},
+      '&:hover:not([aria-disabled]), &:focus:not([aria-disabled])': {'--divider-color': 'transparent'},
+      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'},
 
       ...sx
     }
@@ -162,6 +160,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             data-component="ActionList.Item"
             onClick={clickHandler}
             aria-selected={selected}
+            aria-disabled={disabled ? true : undefined}
             aria-labelledby={labelId}
             aria-describedby={[
               slots.InlineDescription && inlineDescriptionId,
