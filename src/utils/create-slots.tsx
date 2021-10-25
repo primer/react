@@ -11,17 +11,15 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     [key in SlotNames]?: React.ReactNode
   }
 
-  type SlotsMetadata = {
-    [key in SlotNames]?: Record<string, unknown>
-  }
-
   type ContextProps = {
-    registerSlot: (name: SlotNames, contents: React.ReactNode, metadata?: SlotsMetadata[SlotNames]) => void
+    registerSlot: (name: SlotNames, contents: React.ReactNode) => void
     unregisterSlot: (name: SlotNames) => void
+    context: Record<string, unknown>
   }
   const SlotsContext = React.createContext<ContextProps>({
     registerSlot: () => null,
-    unregisterSlot: () => null
+    unregisterSlot: () => null,
+    context: {}
   })
 
   /** Slots uses a Double render strategy inspired by [reach-ui/descendants](https://github.com/reach/reach-ui/tree/develop/packages/descendants)
@@ -29,12 +27,14 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
    *  When all the children have mounted = registered themselves in slot,
    *  we re-render the parent component to render with slots
    */
-  const Slots: React.FC<{children: (slots: Slots, metadata: SlotsMetadata) => React.ReactNode}> = ({children}) => {
+  const Slots: React.FC<{
+    context: ContextProps['context']
+    children: (slots: Slots) => React.ReactNode
+  }> = ({context, children}) => {
     // initialise slots
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
     const slotsRef = React.useRef<Slots>(slotsDefinition)
-    const slotsMetadataRef = React.useRef<SlotsMetadata>({})
 
     const rerenderWithSlots = useForceUpdate()
     const [isMounted, setIsMounted] = React.useState(false)
@@ -46,9 +46,8 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     }, [rerenderWithSlots])
 
     const registerSlot = React.useCallback(
-      (name: SlotNames, contents: React.ReactNode, metadata?: SlotsMetadata[SlotNames]) => {
+      (name: SlotNames, contents: React.ReactNode) => {
         slotsRef.current[name] = contents
-        slotsMetadataRef.current[name] = metadata
 
         // don't render until the component mounts = all slots are registered
         if (isMounted) rerenderWithSlots()
@@ -71,19 +70,22 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
      * implementation detail of using a context provider.
      */
     const slots = slotsRef.current
-    const metadata = slotsMetadataRef.current
+
     return (
-      <SlotsContext.Provider value={{registerSlot, unregisterSlot}}>{children(slots, metadata)}</SlotsContext.Provider>
+      <SlotsContext.Provider value={{registerSlot, unregisterSlot, context}}>{children(slots)}</SlotsContext.Provider>
     )
   }
 
-  const Slot: React.FC<{name: SlotNames; metadata?: SlotsMetadata[SlotNames]}> = ({name, metadata, children}) => {
-    const {registerSlot, unregisterSlot} = React.useContext(SlotsContext)
+  const Slot: React.FC<{
+    name: SlotNames
+    children: ((context: ContextProps['context']) => React.ReactNode) | React.ReactNode
+  }> = ({name, children}) => {
+    const {registerSlot, unregisterSlot, context} = React.useContext(SlotsContext)
 
     React.useEffect(() => {
-      registerSlot(name, children, metadata)
+      registerSlot(name, typeof children === 'function' ? children(context) : children)
       return () => unregisterSlot(name)
-    }, [name, metadata, children, registerSlot, unregisterSlot])
+    }, [name, children, registerSlot, unregisterSlot, context])
 
     return null
   }

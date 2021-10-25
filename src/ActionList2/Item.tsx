@@ -62,9 +62,6 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
   }
 }
 
-const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
-export {Slot}
-
 export type ItemProps = {
   children: React.ReactNode
   onAction?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
@@ -73,6 +70,13 @@ export type ItemProps = {
   disabled?: boolean
   showDivider?: boolean
 } & SxProp
+
+const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
+export {Slot}
+export type ItemContext = Pick<ItemProps, 'variant' | 'disabled'> & {
+  inlineDescriptionId: string
+  blockDescriptionId: string
+}
 
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
@@ -147,19 +151,26 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     )
 
     const labelId = useSSRSafeId()
+    const inlineDescriptionId = useSSRSafeId()
+    const blockDescriptionId = useSSRSafeId()
 
     return (
-      <Slots>
-        {(slots, metadata) => (
+      <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
+        {slots => (
           <Box
             as="li"
+            ref={forwardedRef}
             sx={styles}
             data-component="ActionList.Item"
             onClick={clickHandler}
-            ref={forwardedRef}
             aria-selected={selected}
             aria-labelledby={labelId}
-            aria-describedby={[metadata.InlineDescription?.id, metadata.BlockDescription?.id].filter(Boolean).join(' ')}
+            aria-describedby={[
+              slots.InlineDescription && inlineDescriptionId,
+              slots.BlockDescription && blockDescriptionId
+            ]
+              .filter(Boolean)
+              .join(' ')}
             {...props}
           >
             <Selection selected={selected} disabled={disabled} />

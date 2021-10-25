@@ -14,6 +14,7 @@ import {
   LawIcon,
   StarIcon,
   GitForkIcon,
+  AlertIcon,
   TableIcon,
   PeopleIcon
 } from '@primer/octicons-react'
@@ -104,6 +105,12 @@ export function WithIcon(): JSX.Element {
               <GitForkIcon />
             </ActionList.LeadingVisual>
             3 forks
+          </ActionList.Item>
+          <ActionList.Item variant="danger">
+            <ActionList.LeadingVisual>
+              <AlertIcon />
+            </ActionList.LeadingVisual>
+            4 vulnerabilities
           </ActionList.Item>
         </ActionList>
       </ErsatzOverlay>
