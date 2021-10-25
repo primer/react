@@ -17,8 +17,7 @@ import {
   FilterIcon,
   GearIcon,
   TypographyIcon,
-  VersionsIcon,
-  ArrowRightIcon
+  VersionsIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
@@ -47,7 +46,6 @@ export default {
   GearIcon,
   TypographyIcon,
   VersionsIcon,
-  ArrowRightIcon,
   Dialog2,
   ConfirmationDialog,
   useConfirm,
