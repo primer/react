@@ -36,18 +36,6 @@ export const defaultButton = ({size = 'medium', ...args}: ButtonProps) => {
   )
 }
 
-export const iconBeforeButton = (args: ButtonProps) => {
-  return (
-    <Button icon={() => <SearchIcon />} {...args}>
-      Before
-    </Button>
-  )
-}
-
-export const iconButton = ({...args}: ButtonProps) => {
-  return <Button icon={() => <XIcon />} {...args}></Button>
-}
-
 export const primaryButton = (args: ButtonProps) => {
   return (
     <Button {...args} variant="primary">
@@ -67,10 +55,23 @@ export const dangerButton = (args: ButtonProps) => {
 export const invisibleButton = (args: ButtonProps) => {
   return (
     <Button {...args} variant="invisible">
-      <Button.Visual sx={{pr: 3}}>
-        <SearchIcon />
-      </Button.Visual>
       Invisible
     </Button>
   )
+}
+
+export const iconBeforeButton = (args: ButtonProps) => {
+  return (
+    <Button icon={() => <SearchIcon />} {...args}>
+      Before
+    </Button>
+  )
+}
+
+export const iconButton = ({...args}: ButtonProps) => {
+  return <Button icon={() => <XIcon />} {...args}></Button>
+}
+
+export const invisibleIconButton = ({...args}: ButtonProps) => {
+  return <Button icon={() => <XIcon />} {...args} variant="invisible"></Button>
 }

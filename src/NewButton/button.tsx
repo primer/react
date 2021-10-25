@@ -1,4 +1,4 @@
-import React, {Children, ReactNode} from 'react'
+import React, {forwardRef, ReactNode} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import Box from '../Box'
 import {fontSize, FontSizeProps, variant} from 'styled-system'
@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {get} from '../constants'
 import buttonBaseStyles from '../Button/ButtonStyles'
-import Visual from './visual'
 import {Theme} from '../ThemeProvider'
 
 const sizes = variant({
@@ -157,7 +156,7 @@ const ButtonBase = styled.button<ButtonProps & StyleSwitchers>`
   ${sx}
   ${fontSize}
 `
-const Button = ({children, icon: Icon, ...props}: ButtonProps) => {
+const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(({icon: Icon, children, ...props}) => {
   let iconOnly: Boolean = false
   if (!children) {
     iconOnly = true
@@ -176,8 +175,12 @@ const Button = ({children, icon: Icon, ...props}: ButtonProps) => {
       {children}
     </ButtonBase>
   )
-}
+})
 
-Button.Visual = Visual
+Button.displayName = 'Button'
+
+Button.defaultProps = {
+  size: 'medium'
+}
 
 export default Button
