@@ -68,7 +68,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 }
 
 .c1:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }
@@ -163,7 +163,7 @@ Object {
 }
 
 .c1:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }
@@ -243,7 +243,7 @@ Object {
       <button
         aria-haspopup="true"
         aria-labelledby="react-aria-1"
-        class="ButtonBase-sc-181ps9o-0 Button-xjtz72-0 jPURef"
+        class="ButtonBase-sc-181ps9o-0 Button-xjtz72-0 iRqJHc"
         id="react-aria-1"
         tabindex="0"
       >
