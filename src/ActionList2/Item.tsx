@@ -1,12 +1,12 @@
 /**
- * define/override selectionVariant on Group?
  * deepmerge sx
- * check height with divider
  * minimize number of divs
- * test suite!
  * docs
+ * type description
+ * test suite!
  *
  * questions:
+ * check height with divider
  * nicer name for showDivider?
  * change as= li | div based on context of menu or not?
  * selection api - if one item has selected, should we give all of them selected without the need to pass prop?

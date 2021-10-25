@@ -16,8 +16,7 @@ import {
   GitForkIcon,
   AlertIcon,
   TableIcon,
-  PeopleIcon,
-  TrashIcon
+  PeopleIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -297,7 +296,7 @@ export function GroupsStory(): JSX.Element {
 
   return (
     <>
-      <h1>Multi Select List</h1>
+      <h1>Groups</h1>
       <ErsatzOverlay>
         <ActionList selectionVariant="multiple">
           <ActionList.Group title="Suggestions" variant="filled">
