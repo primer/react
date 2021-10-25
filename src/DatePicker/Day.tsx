@@ -113,7 +113,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
 }))<Omit<DayProps, 'date'>>`
   background-color: ${props => props.background};
   border-radius: ${props => props.borderRadius};
-  transition: 0.2s background-color ease;
+  transition: 0.1s background-color ease;
 
   & ${Text} {
     align-self: center;
@@ -123,7 +123,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
     font-size: ${get('fontSizes.0')};
     justify-self: center;
     user-select: none;
-    transition: 0.2s color ease;
+    transition: 0.1s color ease;
   }
 
   &:hover {
