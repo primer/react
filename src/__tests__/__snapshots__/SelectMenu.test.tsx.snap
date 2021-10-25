@@ -62,7 +62,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 .c1:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }

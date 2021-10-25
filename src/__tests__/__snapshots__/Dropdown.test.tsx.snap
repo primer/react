@@ -84,7 +84,7 @@ exports[`Dropdown.Button renders consistently 1`] = `
 }
 
 .c0:disabled {
-  color: #57606a;
+  color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
 }

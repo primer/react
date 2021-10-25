@@ -79,7 +79,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   ${props =>
     props.disabled &&
     css`
-      color: ${get('colors.fg.muted')};
+      color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
       border-color: ${get('colors.border.default')};
     `}
