@@ -47,7 +47,7 @@ export const LeadingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
 }
 
 export type TrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<VisualProps> = ({...props}) => {
+export const TrailingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
   return (
     <Slot name="TrailingVisual">
       {({variant, disabled}: ItemContext) => (
@@ -57,7 +57,8 @@ export const TrailingVisual: React.FC<VisualProps> = ({...props}) => {
             height: '20px', // match height of text row
             flexShrink: 0,
             color: getVariantStyles(variant, disabled).annotationColor,
-            marginLeft: 2
+            marginLeft: 2,
+            ...sx
           }}
           {...props}
         >

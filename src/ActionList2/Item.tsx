@@ -1,22 +1,18 @@
 /**
  * test suite!
  * docs
- * id, role
  * text could be non-text
- * activeDescendantAttribute
  * deepmerge sx
- * nicer name for showDivider?
- * React.FC<Props> doesn't allow id?
- * icon color
  * disabled checkbox
  * check height with divider
  * check if all components accept sx prop
  * minimize number of divs?
- * define/override selectionVariant on Group
- * ref overload
+ * nicer name for showDivider?
+ * activeDescendantAttribute (for actionMenu)
  *
  * questions:
  * change as= li | div based on context of menu or not?
+ * define/override selectionVariant on Group?
  * selection api - if one item has selected, should we give all of them selected without the need to pass prop?
  * move custom item themes to primitives?
  * padding: 8 or 6?
@@ -33,6 +29,7 @@ import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
 import createSlots from '../utils/create-slots'
+import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
 import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
@@ -69,6 +66,7 @@ export type ItemProps = {
   variant?: 'default' | 'danger'
   disabled?: boolean
   showDivider?: boolean
+  role?: AriaRole
 } & SxProp
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])

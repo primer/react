@@ -1,13 +1,14 @@
 import React from 'react'
 import Box from '../Box'
+import {SxProp} from '../sx'
 import Truncate from '../Truncate'
 import {Slot, ItemContext} from './Item'
 
 export type DescriptionProps = {
   variant?: 'inline' | 'block'
-}
+} & SxProp
 
-export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...props}) => {
+export const Description: React.FC<DescriptionProps> = ({variant = 'inline', sx = {}, ...props}) => {
   const styles = {
     color: 'fg.muted',
     fontSize: 0,
@@ -22,7 +23,7 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', ...
     <Slot name={variant === 'block' ? 'BlockDescription' : 'InlineDescription'}>
       {({blockDescriptionId, inlineDescriptionId}: ItemContext) =>
         variant === 'block' ? (
-          <Box as="span" sx={styles} id={blockDescriptionId}>
+          <Box as="span" sx={{...styles, ...sx}} id={blockDescriptionId}>
             {props.children}
           </Box>
         ) : (
