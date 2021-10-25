@@ -69,7 +69,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   renderAnchor,
   selection,
   value,
-  view
+  view,
+  weekStartsOn
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -79,7 +80,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     maxDate,
     minDate,
     selection,
-    view
+    view,
+    weekStartsOn
   }
 
   const onOpen = (gesture: OpenGesture) => {

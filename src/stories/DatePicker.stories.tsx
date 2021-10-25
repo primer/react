@@ -59,6 +59,12 @@ export default {
         type: 'select',
         options: ['single', 'multi', 'range']
       }
+    },
+    weekStartsOn: {
+      control: {
+        type: 'select',
+        options: ['Sunday', 'Monday']
+      }
     }
   }
 } as Meta
@@ -72,7 +78,8 @@ DefaultDatePicker.args = {
   minDate: subDays(new Date(), 4),
   selection: 'range',
   value: {from: new Date(), to: addDays(new Date(), 4)},
-  view: '2-month'
+  view: '2-month',
+  weekStartsOn: 'Sunday'
 }
 
 export const DatePickerAnchorControl = (args: DatePickerAnchorProps) => <DatePickerAnchor {...args} />

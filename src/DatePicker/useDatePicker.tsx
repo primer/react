@@ -18,6 +18,7 @@ export interface DatePickerConfiguration {
   rangeIncrement?: number
   selection?: SelectionVariant
   view?: '1-month' | '2-month'
+  weekStartsOn?: 'Sunday' | 'Monday'
 }
 
 export type RangeSelection = {
@@ -207,7 +208,8 @@ const defaultConfiguration: DatePickerConfiguration = {
   dimWeekends: false,
   placeholder: 'Select a Date...',
   selection: 'single',
-  view: '2-month'
+  view: '2-month',
+  weekStartsOn: 'Sunday'
 }
 
 export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({

@@ -7,6 +7,7 @@ import Text from '../Text'
 import {SystemCommonProps, SystemLayoutProps, get} from '../constants'
 import {SxProp} from '../sx'
 import {BlankDay, Day} from './Day'
+import useDatePicker from './useDatePicker'
 
 export interface MonthProps extends FontSizeProps, SystemCommonProps, SxProp, SystemLayoutProps {
   month: number
@@ -42,15 +43,20 @@ const WeekdayHeader = styled(Text)`
 `
 
 export const Month: React.FC<MonthProps> = ({month, year}) => {
+  const {configuration} = useDatePicker()
   const [selectedDay, setSelectedDay] = useState<Date | null>(null)
   const getTitle = useMemo(() => `${format(new Date(year, month), 'MMMM yyyy')}`, [month, year])
 
   const weekdayHeaders = useMemo(() => {
     const now = new Date(year, month)
-    return eachDayOfInterval({start: startOfWeek(now), end: endOfWeek(now)}).map(d => (
+    const weekOptions = {
+      weekStartsOn: configuration.weekStartsOn === 'Sunday' ? 0 : 1
+    }
+
+    return eachDayOfInterval({start: startOfWeek(now, weekOptions), end: endOfWeek(now, weekOptions)}).map(d => (
       <WeekdayHeader key={`weekday-${d}-header`}>{format(d, 'EEEEEE')}</WeekdayHeader>
     ))
-  }, [month, year])
+  }, [configuration.weekStartsOn, month, year])
 
   const dayAction = (date: Date) => {
     setSelectedDay(date)
@@ -60,7 +66,8 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
     const components = []
     const firstDay = new Date(year, month, 1)
 
-    for (let i = 0; i < firstDay.getDay(); i++) {
+    const preBlanks = configuration.weekStartsOn === 'Sunday' ? firstDay.getDay() : (firstDay.getDay() + 6) % 7
+    for (let i = 0; i < preBlanks; i++) {
       components.push(<BlankDay key={`month-pre-blank-${i}`} />)
     }
     for (let i = 1; i <= getDaysInMonth(firstDay); i++) {
@@ -76,12 +83,13 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
     }
 
     const lastDay = lastDayOfMonth(firstDay)
-    for (let i = 6; i > lastDay.getDay(); i--) {
+    const postBlanks = configuration.weekStartsOn === 'Sunday' ? lastDay.getDay() : (lastDay.getDay() + 6) % 7
+    for (let i = 6; i > postBlanks; i--) {
       components.push(<BlankDay key={`month-post-blank-${i}`} />)
     }
 
     return components
-  }, [month, selectedDay, year])
+  }, [configuration.weekStartsOn, month, selectedDay, year])
   return (
     <MonthComponent role="grid">
       <MonthTitle>{getTitle}</MonthTitle>
