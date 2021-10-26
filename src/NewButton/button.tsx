@@ -7,6 +7,7 @@ import sx, {SxProp} from '../sx'
 import {get} from '../constants'
 import buttonBaseStyles from '../Button/ButtonStyles'
 import {Theme} from '../ThemeProvider'
+import Counter from './counter'
 
 const sizes = variant({
   prop: 'size',
@@ -168,7 +169,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(({
   return (
     <ButtonBase {...props} iconOnly={iconOnly}>
       {Icon && (
-        <Box sx={iconWrapStyles}>
+        <Box sx={iconWrapStyles} aria-hidden={!iconOnly}>
           <Icon />
         </Box>
       )}
@@ -183,4 +184,8 @@ Button.defaultProps = {
   size: 'medium'
 }
 
-export default Button
+const NewButton = Object.assign(Button, {
+  Counter
+})
+
+export default NewButton

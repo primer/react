@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Button, {ButtonProps} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
-import {XIcon, SearchIcon} from '@primer/octicons-react'
+import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Composite components/New Button',
@@ -74,4 +74,23 @@ export const iconButton = ({...args}: ButtonProps) => {
 
 export const invisibleIconButton = ({...args}: ButtonProps) => {
   return <Button icon={() => <XIcon />} {...args} variant="invisible"></Button>
+}
+
+export const watchCounterButton = ({...args}: ButtonProps) => {
+  const [count, setCount] = useState(0)
+  return (
+    <Button onClick={() => setCount(count + 1)} {...args}>
+      Watch <Button.Counter count={count} />
+    </Button>
+  )
+}
+
+export const watchIconButton = ({...args}: ButtonProps) => {
+  const [watching, setWatching] = useState(false)
+  const icon = watching ? () => <EyeClosedIcon /> : () => <EyeIcon />
+  return (
+    <Button onClick={() => setWatching(!watching)} icon={icon} {...args}>
+      Watch
+    </Button>
+  )
 }
