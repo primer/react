@@ -25,7 +25,7 @@ const sizes = variant({
     }
   }
 })
-type Variant = 'default' | 'primary' | 'invisible' | 'block' | 'danger'
+type Variant = 'default' | 'primary' | 'invisible' | 'danger'
 
 export type ButtonProps = {
   caret?: boolean
@@ -140,8 +140,7 @@ const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
       &:active {
         background-color: ${get('colors.btn.selectedBg')({theme})};
       }
-    `,
-    block: ``
+    `
   }
   return style[variant]
 }

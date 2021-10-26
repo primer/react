@@ -102,3 +102,11 @@ export const caretButton = ({...args}: ButtonProps) => {
     </Button>
   )
 }
+
+export const blockButton = ({...args}: ButtonProps) => {
+  return (
+    <Button sx={{width: '100%'}} {...args}>
+      Block
+    </Button>
+  )
+}
