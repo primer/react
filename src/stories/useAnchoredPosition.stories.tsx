@@ -89,16 +89,14 @@ const Anchor = styled(Box)`
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UseAnchoredPosition = (args: any) => {
-  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
-    {
-      side: `${args.anchorPosition ?? 'outside'}-${args.anchorSide ?? 'bottom'}` as AnchorSide,
-      align: args.anchorAlignment ?? 'start',
-      anchorOffset: args.anchorOffset && parseInt(args.anchorOffset, 10),
-      alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
-      allowOutOfBounds: args.allowOutOfBounds ?? undefined
-    },
-    [args]
-  )
+  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({
+    side: `${args.anchorPosition ?? 'outside'}-${args.anchorSide ?? 'bottom'}` as AnchorSide,
+    align: args.anchorAlignment ?? 'start',
+    anchorOffset: args.anchorOffset && parseInt(args.anchorOffset, 10),
+    alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
+    allowOutOfBounds: args.allowOutOfBounds ?? undefined
+  })
+
   return (
     <Box position="relative" m={2}>
       <Anchor
