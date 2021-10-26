@@ -662,6 +662,125 @@ export function SizeStressTestingStory(): JSX.Element {
 }
 SizeStressTestingStory.storyName = 'Size Stress Testing'
 
+export function AllCombinations(): JSX.Element {
+  return (
+    <>
+      <h1>All Possible Combinations</h1>
+      <code>
+        dynamic features: L = Leading Visual, I = Inline Description, B = Block Description, T = Trailing Visual
+      </code>
+      <br />
+      <code>16 possible combinations</code>
+      <br />
+      <br />
+      <ErsatzOverlay maxWidth="300px">
+        <ActionList>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            The everything bagel
+            <ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>none of them, only text</ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            only L
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            only I<ActionList.Description variant="inline">inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            only B<ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            only T
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + I<ActionList.Description variant="inline">inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + B<ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + T
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            I + B<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            I + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + I + B<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + I + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item showDivider>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+AllCombinations.storyName = 'All Combinations'
+
 const teams = [
   {id: '5025661', type: 'team', slug: 'github/primer-reviewers', name: 'Primer Reviewers', members: 20},
   {id: '1929972', type: 'team', slug: 'github/design-infrastructure', name: 'Design Infrastructure', members: 20}
