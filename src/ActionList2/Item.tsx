@@ -1,4 +1,5 @@
 /**
+ * selection check color
  * minimize number of divs
  * docs
  * docs for types
