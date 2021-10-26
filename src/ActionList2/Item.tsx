@@ -24,7 +24,7 @@ import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
-import Box from '../Box'
+import Box, {BoxProps} from '../Box'
 import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
@@ -115,10 +115,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       },
 
       /** Divider styles */
-      '[data-component="ActionList.Item--Main"]': {
+      '[data-component="ActionList.Item--DividerContainer"]': {
         position: 'relative'
       },
-      '[data-component="ActionList.Item--Main"]::before': {
+      '[data-component="ActionList.Item--DividerContainer"]::before': {
         content: '" "',
         display: 'block',
         position: 'absolute',
@@ -172,16 +172,21 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             <Selection selected={selected} disabled={disabled} />
             {slots.LeadingVisual}
             <Box
-              data-component="ActionList.Item--Main"
+              data-component="ActionList.Item--DividerContainer"
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
-              <Box sx={{display: 'flex'}}>
-                <Box sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}>
-                  <span id={labelId}>{props.children}</span>
+              <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+                <ConditionalBox
+                  if={Boolean(slots.InlineDescription)}
+                  sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
+                >
+                  <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
+                    {props.children}
+                  </Box>
                   {slots.InlineDescription}
-                </Box>
+                </ConditionalBox>
                 {slots.TrailingVisual}
-              </Box>
+              </ConditionalBox>
               {slots.BlockDescription}
             </Box>
           </Box>
@@ -192,3 +197,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 ) as PolymorphicForwardRefComponent<'li', ItemProps>
 
 Item.displayName = 'ActionList.Item'
+
+const ConditionalBox: React.FC<{if: boolean} & BoxProps> = props => {
+  const {if: condition, ...rest} = props
+
+  if (condition) return <Box {...rest}>{props.children}</Box>
+  else return <>{props.children}</>
+}
