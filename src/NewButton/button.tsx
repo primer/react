@@ -1,5 +1,5 @@
 import React, {forwardRef, ReactNode} from 'react'
-import {IconProps} from '@primer/octicons-react'
+import {IconProps, TriangleDownIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import {fontSize, FontSizeProps, variant} from 'styled-system'
 import styled from 'styled-components'
@@ -28,6 +28,7 @@ const sizes = variant({
 type Variant = 'default' | 'primary' | 'invisible' | 'block' | 'danger'
 
 export type ButtonProps = {
+  caret?: boolean
   children: ReactNode
   variant: Variant
   size: 'small' | 'medium' | 'large'
@@ -157,26 +158,33 @@ const ButtonBase = styled.button<ButtonProps & StyleSwitchers>`
   ${sx}
   ${fontSize}
 `
-const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(({icon: Icon, children, ...props}) => {
-  let iconOnly: Boolean = false
-  if (!children) {
-    iconOnly = true
+const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(
+  ({icon: Icon, caret, children, ...props}) => {
+    let iconOnly: Boolean = false
+    if (!children) {
+      iconOnly = true
+    }
+    let iconWrapStyles = {
+      display: 'inline-block',
+      ...(!iconOnly ? {pr: 3} : {})
+    }
+    return (
+      <ButtonBase {...props} iconOnly={iconOnly}>
+        {Icon && (
+          <Box sx={iconWrapStyles} aria-hidden={!iconOnly}>
+            <Icon />
+          </Box>
+        )}
+        {children}
+        {caret && (
+          <Box sx={{display: 'inline-block', pl: 3}} aria-hidden={true}>
+            <TriangleDownIcon />
+          </Box>
+        )}
+      </ButtonBase>
+    )
   }
-  let iconWrapStyles = {
-    display: 'inline-block',
-    ...(!iconOnly ? {pr: 3} : {})
-  }
-  return (
-    <ButtonBase {...props} iconOnly={iconOnly}>
-      {Icon && (
-        <Box sx={iconWrapStyles} aria-hidden={!iconOnly}>
-          <Icon />
-        </Box>
-      )}
-      {children}
-    </ButtonBase>
-  )
-})
+)
 
 Button.displayName = 'Button'
 

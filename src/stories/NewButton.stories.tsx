@@ -94,3 +94,11 @@ export const watchIconButton = ({...args}: ButtonProps) => {
     </Button>
   )
 }
+
+export const caretButton = ({...args}: ButtonProps) => {
+  return (
+    <Button caret {...args}>
+      Dropdown
+    </Button>
+  )
+}
