@@ -43,9 +43,10 @@ export interface DatePickerContext {
   selectionActive?: boolean
   formattedDate: string
   nextMonth: () => void
-  onSelection: (date: Date) => void
+  onDateInput: (updatedSelection: Selection) => void
   onDayFocus: (date: Date) => void
   onDayBlur: (date: Date) => void
+  onSelection: (date: Date) => void
   previousMonth: () => void
   revertValue: () => void
   saveValue: (selection?: Selection) => void
@@ -336,6 +337,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [closePicker, selection]
   )
 
+  const inputHandler = useCallback((updatedSelection: Selection) => {
+    // validate date falls within range
+
+    setSelection(updatedSelection)
+  }, [])
+
   const selectionHandler = useCallback(
     (date: Date) => {
       if (configuration.selection === 'multi') {
@@ -413,6 +420,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       goToMonth,
       hoverRange,
       nextMonth,
+      onDateInput: inputHandler,
       onDayBlur: blurHnadler,
       onDayFocus: focusHnadler,
       onSelection: selectionHandler,
@@ -430,6 +438,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     getFormattedDate,
     goToMonth,
     hoverRange,
+    inputHandler,
     nextMonth,
     previousMonth,
     revertValue,

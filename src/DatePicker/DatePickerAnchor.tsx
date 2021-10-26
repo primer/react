@@ -1,14 +1,14 @@
 import {CalendarIcon} from '@primer/octicons-react'
 import styled from 'styled-components'
-import React, {useCallback} from 'react'
+import React, {useCallback, useState} from 'react'
 import Button, {ButtonInvisible} from '../Button'
 import Text from '../Text'
 import {get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
-import useDatePicker, {RangeSelection} from './useDatePicker'
+import useDatePicker from './useDatePicker'
 import TextInput from '../TextInput'
 import Box from '../Box'
-import {configure} from '@testing-library/dom'
+import {isBefore} from 'date-fns'
 
 export interface DatePickerAnchorProps {
   onAction?: (event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
@@ -27,12 +27,16 @@ const DatePickerAnchorButton = styled(Button)`
   }
 `
 
+const INVALID_DATE = 'Invalid Date'
+
 export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAnchorProps>(({onAction}, ref) => {
   const {
     configuration: {anchorVariant, iconPlacement, selection},
     disabled,
-    formattedDate
+    formattedDate,
+    onDateInput
   } = useDatePicker()
+  const [inputValue, setInputValue] = useState(formattedDate)
 
   const keyPressHandler = useCallback(
     event => {
@@ -63,22 +67,37 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
 
       if (selection === 'range') {
         const values = value.split(' - ')
-        const dates: RangeSelection = {from: new Date(values[0]?.trim()), to: new Date(values[1]?.trim())}
-        console.log(dates)
+
+        const dates = isBefore(new Date(values[0]?.trim()), new Date(values[1]?.trim()))
+          ? {from: new Date(values[0]?.trim()), to: new Date(values[1]?.trim())}
+          : {from: new Date(values[1]?.trim()), to: new Date(values[0]?.trim())}
+
+        setInputValue(value)
+        if (dates.from.toString() !== INVALID_DATE && dates.to.toString() !== INVALID_DATE) {
+          onDateInput(dates)
+        }
       } else if (selection === 'multi') {
         const values = value.split(',')
         const dates = []
         for (const date of values) {
           dates.push(new Date(date.trim()))
         }
-        console.log(dates)
+        setInputValue(value)
+        if (dates.every(d => d.toString() !== INVALID_DATE)) {
+          onDateInput(dates)
+        }
       } else {
         const date = new Date(value)
-        console.log(date)
+        setInputValue(value)
+        if (date.toString() !== INVALID_DATE) onDateInput(date)
       }
     },
-    [selection]
+    [onDateInput, selection]
   )
+
+  const onBlurHandler = () => {
+    setInputValue(formattedDate)
+  }
 
   if (anchorVariant === 'input') {
     const calendarButton = (side: 'left' | 'right') => (
@@ -109,7 +128,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
     return (
       <Box ref={ref} sx={{position: 'relative', display: 'flex', flex: 1}}>
         {iconPlacement === 'start' && calendarButton('left')}
-        <TextInput defaultValue={formattedDate} onChange={onInputChangeHandler} sx={inputSx()} />
+        <TextInput value={inputValue} onChange={onInputChangeHandler} sx={inputSx()} onBlur={onBlurHandler} />
         {iconPlacement === 'end' && calendarButton('right')}
       </Box>
     )

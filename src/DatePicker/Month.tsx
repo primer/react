@@ -9,6 +9,17 @@ import {SxProp} from '../sx'
 import {BlankDay, Day} from './Day'
 import useDatePicker from './useDatePicker'
 
+type DayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6
+const weekdayEnum: Record<string, DayNumber> = {
+  Sunday: 0,
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6
+}
+
 export interface MonthProps extends FontSizeProps, SystemCommonProps, SxProp, SystemLayoutProps {
   month: number
   year: number
@@ -49,8 +60,8 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
 
   const weekdayHeaders = useMemo(() => {
     const now = new Date(year, month)
-    const weekOptions = {
-      weekStartsOn: configuration.weekStartsOn === 'Sunday' ? 0 : 1
+    const weekOptions: {weekStartsOn: DayNumber} = {
+      weekStartsOn: weekdayEnum[configuration.weekStartsOn ?? 'Sunday']
     }
 
     return eachDayOfInterval({start: startOfWeek(now, weekOptions), end: endOfWeek(now, weekOptions)}).map(d => (
