@@ -818,3 +818,45 @@ const SideEffectDescription = () => {
 
   return <ActionList.Description>{seconds} seconds passed</ActionList.Description>
 }
+
+export function WithSx(): JSX.Element {
+  return (
+    <>
+      <h1>With sx prop</h1>
+      <ErsatzOverlay>
+        <ActionList sx={{paddingTop: 4}}>
+          <ActionList.Item sx={{backgroundColor: 'accent.subtle'}}>
+            <ActionList.LeadingVisual sx={{color: 'accent.emphasis'}}>
+              <LinkIcon />
+            </ActionList.LeadingVisual>
+            github.com/primer
+            <ActionList.Description sx={{paddingLeft: 4, color: 'accent.emphasis'}}>
+              all items support sx prop
+            </ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <LawIcon />
+            </ActionList.LeadingVisual>
+            MIT License
+          </ActionList.Item>
+          <ActionList.Item
+            variant="danger"
+            sx={{
+              borderLeft: '2px solid',
+              borderColor: 'danger.emphasis',
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0
+            }}
+          >
+            <ActionList.LeadingVisual>
+              <AlertIcon />
+            </ActionList.LeadingVisual>
+            4 vulnerabilities
+          </ActionList.Item>
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+WithSx.storyName = 'With sx'

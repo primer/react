@@ -1,14 +1,15 @@
 /**
- * deepmerge sx
  * minimize number of divs
  * docs
- * type description
+ * docs for types
  * test suite!
+ * ref unhappy with polymorphic
  *
- * questions:
  * check height with divider
+ * questions:
  * nicer name for showDivider?
  * change as= li | div based on context of menu or not?
+ * should selectionVariant be single by default or nothing. ask for explicit choice?
  * selection api - if one item has selected, should we give all of them selected without the need to pass prop?
  * move custom item themes to primitives?
  * padding: 8 or 6?
@@ -25,7 +26,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {get} from '../constants'
-import {SxProp} from '../sx'
+import {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
@@ -133,9 +134,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent'},
       // hide border on current and previous item
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled])': {'--divider-color': 'transparent'},
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'},
-
-      ...sx
+      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'}
     }
 
     const clickHandler = React.useCallback(
@@ -156,7 +155,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
           <Box
             as="li"
             ref={forwardedRef}
-            sx={styles}
+            sx={merge(styles, sx as SxProp)}
             data-component="ActionList.Item"
             onClick={clickHandler}
             aria-selected={selected}

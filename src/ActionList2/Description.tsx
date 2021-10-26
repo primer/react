@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '../Box'
-import {SxProp} from '../sx'
+import {SxProp, merge} from '../sx'
 import Truncate from '../Truncate'
 import {Slot, ItemContext} from './Item'
 
@@ -23,11 +23,17 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', sx 
     <Slot name={variant === 'block' ? 'BlockDescription' : 'InlineDescription'}>
       {({blockDescriptionId, inlineDescriptionId}: ItemContext) =>
         variant === 'block' ? (
-          <Box as="span" sx={{...styles, ...sx}} id={blockDescriptionId}>
+          <Box as="span" sx={merge(styles, sx as SxProp)} id={blockDescriptionId}>
             {props.children}
           </Box>
         ) : (
-          <Truncate id={inlineDescriptionId} sx={styles} title={props.children as string} inline={true} maxWidth="100%">
+          <Truncate
+            id={inlineDescriptionId}
+            sx={merge(styles, sx as SxProp)}
+            title={props.children as string}
+            inline={true}
+            maxWidth="100%"
+          >
             {props.children}
           </Truncate>
         )

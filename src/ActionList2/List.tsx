@@ -1,16 +1,8 @@
-/**
- *
- * showItemDividers
- * deepmerge sx
- * change as= ul | div based on context of menu or not?
- * should selectionVariant be single by default or nothing. ask for explicit choice?
- */
-
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import Box from '../Box'
 import {get} from '../constants'
-import {SxProp} from '../sx'
+import {SxProp, merge} from '../sx'
 
 export type ListProps = {
   variant?: 'inset' | 'full'
@@ -28,12 +20,11 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
       fontSize: get('fontSizes.1'),
       lineHeight: '20px', // TODO: check if we replace this already
       paddingInlineStart: 0, // reset ul styles
-      paddingY: variant === 'inset' ? get('space.2') : 0,
-      ...sx
+      paddingY: variant === 'inset' ? get('space.2') : 0
     }
 
     return (
-      <Box as="ul" sx={styles} {...props} ref={forwardedRef}>
+      <Box as="ul" sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
         <ListContext.Provider value={{variant, selectionVariant}}>{props.children}</ListContext.Provider>
       </Box>
     )
