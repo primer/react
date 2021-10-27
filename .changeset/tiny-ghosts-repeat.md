@@ -2,4 +2,4 @@
 '@primer/components': minor
 ---
 
-adds the ability to truncate how many tokens are displayed in the TextInputWithToken component before the user focuses the input
+Add the ability to truncate tokens in the TextInputWithToken component when the input is not focused
