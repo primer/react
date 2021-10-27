@@ -1,7 +1,7 @@
 import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
 import {Item, ItemProps} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
-import Button, {ButtonProps} from './Button'
+import NewButton, {ButtonProps} from './NewButton'
 import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
 import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
@@ -44,7 +44,7 @@ ActionMenuItem.displayName = 'ActionMenu.Item'
 
 const ActionMenuBase = ({
   anchorContent,
-  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
+  renderAnchor = <T extends ButtonProps>(props: T) => <NewButton {...props} />,
   anchorRef: externalAnchorRef,
   onAction,
   open,

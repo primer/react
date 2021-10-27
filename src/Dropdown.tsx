@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Button, {ButtonProps} from './Button'
+import Button, {ButtonProps} from './NewButton'
 import {COMMON, get, SystemCommonProps} from './constants'
 import Details, {DetailsProps} from './Details'
 import getDirectionStyles from './DropdownStyles'
@@ -28,9 +28,8 @@ export type DropdownButtonProps = ButtonProps
 
 const DropdownButton = ({children, ...rest}: DropdownButtonProps) => {
   return (
-    <Button as="summary" aria-haspopup="true" {...rest}>
+    <Button as="summary" aria-haspopup="true" caret {...rest}>
       {children}
-      <DropdownCaret />
     </Button>
   )
 }
