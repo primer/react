@@ -97,8 +97,20 @@ export const UseAnchoredPosition = (args: any) => {
       alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
       allowOutOfBounds: args.allowOutOfBounds ?? undefined
     },
-    [args]
+    [
+      args.anchorY,
+      args.anchorX,
+      args.anchorPosition,
+      args.anchorSide,
+      args.anchorAlignment,
+      args.anchorOffset,
+      args.alignmentOffset,
+      args.allowOutOfBounds,
+      args.floatHeight,
+      args.floatWidth
+    ]
   )
+
   return (
     <Box position="relative" m={2}>
       <Anchor
