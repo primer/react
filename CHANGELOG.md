@@ -1,5 +1,17 @@
 # @primer/components
 
+## 31.1.0
+
+### Minor Changes
+
+- [#1523](https://github.com/primer/react/pull/1523) [`56e2f159`](https://github.com/primer/react/commit/56e2f159b9d627564a7717e6961a6bfa355189b3) Thanks [@mperrotti](https://github.com/mperrotti)! - Add the ability to truncate tokens in the TextInputWithToken component when the input is not focused
+
+### Patch Changes
+
+- [#1529](https://github.com/primer/react/pull/1529) [`da566044`](https://github.com/primer/react/commit/da566044649a114e23789e3ac90c022cdbf5eaeb) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes a bug in `TextInputWithTokens` where the next token would not receive focus after the user deleted the first token using the keyboard
+
+* [#1526](https://github.com/primer/react/pull/1526) [`1378e771`](https://github.com/primer/react/commit/1378e771323a48e6084c5ffac7d93b54960f4a0e) Thanks [@mperrotti](https://github.com/mperrotti)! - replaces flexbox gap usage with margins
+
 ## 31.0.1
 
 ### Patch Changes
