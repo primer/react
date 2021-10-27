@@ -1,5 +1,6 @@
 /**
  * selection check color
+ * nicer name for showDivider?
  * minimize number of divs
  * docs
  * docs for types
@@ -8,7 +9,6 @@
  *
  * check height with divider
  * questions:
- * nicer name for showDivider?
  * change as= li | div based on context of menu or not?
  * should selectionVariant be single by default or nothing. ask for explicit choice?
  * selection api - if one item has selected, should we give all of them selected without the need to pass prop?
@@ -61,7 +61,7 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
 
 export type ItemProps = {
   children: React.ReactNode
-  onAction?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   selected?: boolean
   variant?: 'default' | 'danger'
   disabled?: boolean
@@ -83,7 +83,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       disabled = false,
       selected = undefined,
       showDivider = false,
-      onAction = () => null,
+      onSelect = () => null,
       sx = {},
       ...props
     },
@@ -141,9 +141,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const clickHandler = React.useCallback(
       event => {
         if (disabled) return
-        if (!event.defaultPrevented) onAction(event)
+        if (!event.defaultPrevented) onSelect(event)
       },
-      [onAction, disabled]
+      [onSelect, disabled]
     )
 
     const labelId = useSSRSafeId()
