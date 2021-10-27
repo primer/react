@@ -49,7 +49,7 @@ const states = {
       background: get('colors.accent.emphasis'),
       borderRadius: '4px 0 0 4px',
       color: get('colors.fg.onEmphasis'),
-      todayColor: get('colors.onEmphasis')
+      todayColor: get('colors.fg.onEmphasis')
     },
     middle: {
       background: get('colors.accent.subtle'),
@@ -61,7 +61,7 @@ const states = {
       background: get('colors.accent.emphasis'),
       borderRadius: '0 4px 4px 0',
       color: get('colors.fg.onEmphasis'),
-      todayColor: get('colors.onEmphasis')
+      todayColor: get('colors.fg.onEmphasis')
     }
   },
   default: {
@@ -161,7 +161,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 `
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
-  const {onDayFocus, onDayBlur, onSelection, disabled, blocked, selected, today} = useDatePicker(date)
+  const {onDayFocus, onSelection, disabled, blocked, selected, today} = useDatePicker(date)
 
   const keyPressHandler = useCallback(
     event => {
@@ -210,7 +210,6 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       onClick={clickHandler}
       onMouseEnter={() => onDayFocus(date)}
       onFocus={() => onDayFocus(date)}
-      onBlur={() => onDayBlur(date)}
       onKeyPress={keyPressHandler}
     >
       <Text sx={todayStyles}>{date.getDate()}</Text>

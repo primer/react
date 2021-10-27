@@ -1,6 +1,8 @@
-import {format, isEqual, isAfter, isBefore, addMonths, subMonths, isToday} from 'date-fns'
+import {CheckIcon, TrashIcon} from '@primer/octicons-react'
+import {format, isEqual, isAfter, isBefore, addMonths, subMonths, isToday, isWeekend} from 'date-fns'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import {Text, useConfirm} from '..'
 
 export type AnchorVariant = 'input' | 'button' | 'icon-only'
 export type DateFormat = 'short' | 'long' | string
@@ -9,14 +11,14 @@ export interface DatePickerConfiguration {
   anchorVariant?: AnchorVariant
   blockedDates?: Array<Date>
   confirmation?: boolean
-  contiguousSelection?: boolean
+  confirmUnsavedClose?: boolean
   dateFormat?: DateFormat
-  dimWeekends?: boolean
+  disableWeekends?: boolean
   iconPlacement?: 'start' | 'end' | 'none'
-  maxDate?: Date
+  maxDate?: Date | null
   maxSelections?: number
   maxRange?: number
-  minDate?: Date
+  minDate?: Date | null
   placeholder?: string
   rangeIncrement?: number
   selection?: SelectionVariant
@@ -45,9 +47,9 @@ export interface DatePickerContext {
   selectionActive?: boolean
   formattedDate: string
   nextMonth: () => void
+  onClose: () => void
   onDateInput: (updatedSelection: Selection) => void
   onDayFocus: (date: Date) => void
-  onDayBlur: (date: Date) => void
   onSelection: (date: Date) => void
   previousMonth: () => void
   revertValue: () => void
@@ -117,10 +119,11 @@ const useDatePicker = (date?: Date) => {
     }
 
     // Determine if date is disabled
-    if (value.configuration.minDate || value.configuration.maxDate) {
+    if (value.configuration.minDate || value.configuration.maxDate || value.configuration.disableWeekends) {
       disabled =
         (value.configuration.minDate ? isBefore(date, value.configuration.minDate) : false) ||
-        (value.configuration.maxDate ? isAfter(date, value.configuration.maxDate) : false)
+        (value.configuration.maxDate ? isAfter(date, value.configuration.maxDate) : false) ||
+        (value.configuration.disableWeekends ? isWeekend(date) : false)
     }
   }
 
@@ -209,8 +212,8 @@ function parseSelection(
 const defaultConfiguration: DatePickerConfiguration = {
   anchorVariant: 'button',
   confirmation: false,
-  contiguousSelection: false,
-  dimWeekends: false,
+  confirmUnsavedClose: false,
+  disableWeekends: false,
   iconPlacement: 'start',
   placeholder: 'Select a Date...',
   selection: 'single',
@@ -228,9 +231,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const [previousSelection, setPreviousSelection] = useState<Selection | undefined>(
     parseSelection(value, configuration.selection)
   )
+  const [isDirty, setIsDirty] = useState(false)
   const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.selection))
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
   const [currentViewingDate, setCurrentViewingDate] = useState(new Date())
+  const confirm = useConfirm()
 
   useEffect(() => {
     setConfiguration(deepmerge(defaultConfiguration, externalConfig))
@@ -335,10 +340,44 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const saveValue = useCallback(
     (updatedSelection?: Selection) => {
       setPreviousSelection(updatedSelection ?? selection)
+      setIsDirty(false)
       closePicker?.()
     },
     [closePicker, selection]
   )
+
+  const revertValue = useCallback(() => {
+    setSelection(previousSelection)
+    setIsDirty(false)
+  }, [previousSelection])
+
+  const handleClose = useCallback(async () => {
+    if (configuration.confirmUnsavedClose) {
+      if (isDirty) {
+        const result = await confirm({
+          title: 'Save Changes?',
+          content: 'You have unsaved changes, would you like to save them?',
+          confirmButtonContent: (
+            <>
+              <CheckIcon />
+              <Text sx={{ml: 1}}>Save</Text>
+            </>
+          ),
+          cancelButtonContent: (
+            <>
+              <TrashIcon />
+              <Text sx={{ml: 1}}>Discard</Text>
+            </>
+          )
+        })
+        if (result) {
+          saveValue()
+        } else {
+          revertValue()
+        }
+      }
+    } else if (isDirty) revertValue()
+  }, [configuration.confirmUnsavedClose, confirm, isDirty, revertValue, saveValue])
 
   const inputHandler = useCallback((updatedSelection: Selection) => {
     // validate date falls within range
@@ -348,6 +387,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
 
   const selectionHandler = useCallback(
     (date: Date) => {
+      setIsDirty(true)
       if (configuration.selection === 'multi') {
         const selections = [...(selection as Array<Date>)]
         const existingIndex = selections.findIndex((s: Date) => isEqual(s, date))
@@ -386,34 +426,22 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const focusHnadler = useCallback(
     (date: Date) => {
       if (!selection) return
+      const {minDate, maxDate, selection: configSelection} = configuration
 
-      if (configuration.selection === 'range' && isRangeSelection(selection) && hoverRange) {
+      if (configSelection === 'range' && isRangeSelection(selection) && hoverRange) {
+        let hoverDate = date
+        if (minDate) hoverDate = isBefore(date, minDate) ? minDate : hoverDate
+        if (maxDate) hoverDate = isAfter(date, maxDate) ? maxDate : hoverDate
+
         setHoverRange(
-          isBefore(date, selection.from) ? {from: date, to: selection.from} : {from: selection.from, to: date}
+          isBefore(hoverDate, selection.from)
+            ? {from: hoverDate, to: selection.from}
+            : {from: selection.from, to: hoverDate}
         )
       }
     },
-    [configuration.selection, hoverRange, selection]
+    [configuration, hoverRange, selection]
   )
-
-  const blurHnadler = useCallback(
-    (date: Date) => {
-      if (!selection || !hoverRange) return
-
-      if (
-        configuration.selection === 'range' &&
-        isRangeSelection(selection) &&
-        (hoverRange.from === date || hoverRange.to === date)
-      ) {
-        // setHoverRange({from: hoverRange.from, to: hoverRange.from})
-      }
-    },
-    [configuration.selection, hoverRange, selection]
-  )
-
-  const revertValue = useCallback(() => {
-    setSelection(previousSelection)
-  }, [previousSelection])
 
   const datePickerCtx: DatePickerContext = useMemo(() => {
     return {
@@ -424,8 +452,8 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       goToMonth,
       hoverRange,
       nextMonth,
+      onClose: handleClose,
       onDateInput: inputHandler,
-      onDayBlur: blurHnadler,
       onDayFocus: focusHnadler,
       onSelection: selectionHandler,
       previousMonth,
@@ -435,12 +463,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       selection
     }
   }, [
-    blurHnadler,
     configuration,
     currentViewingDate,
     focusHnadler,
     getFormattedDate,
     goToMonth,
+    handleClose,
     hoverRange,
     inputHandler,
     nextMonth,

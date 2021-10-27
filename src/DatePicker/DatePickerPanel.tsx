@@ -84,11 +84,6 @@ export const DatePickerPanel = () => {
   return (
     <DatePickerPanelContainer>
       <DatePickerPanelMonths>
-        {/* <Month
-          month={subMonths(new Date(), 1).getMonth()}
-          year={subMonths(new Date(), 1).getFullYear()}
-          sx={{left: '100%', position: 'absolute'}}
-        /> */}
         <ArrowButton variant="small" side="left" onClick={previousMonth} disabled={previousDisabled}>
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>

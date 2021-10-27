@@ -79,7 +79,7 @@ export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args
 DefaultDatePicker.args = {
   anchorVariant: 'button',
   confirmation: true,
-  contiguousRange: true,
+  confirmUnsavedClose: true,
   dateFormat: 'short',
   disableWeekends: true,
   iconPlacement: 'start',
