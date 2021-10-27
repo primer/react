@@ -12,9 +12,9 @@ The `Autocomplete` components are used to render a text input that allows a user
 
 ```jsx live
 <>
-  <Box as="label" display="block" htmlFor="autocompleteInput-basic" id="autocompleteLabel-basic">
+  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
     Pick a branch
-  </Box>
+  </Text>
   <Autocomplete>
     <Autocomplete.Input id="autocompleteInput-basic" />
     <Autocomplete.Overlay>
@@ -85,9 +85,16 @@ const CustomTextInputExample = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput-customInput" id="autocompleteLabel-customInput">
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput-customInput"
+        id="autocompleteLabel-customInput"
+      >
         Pick options
-      </Box>
+      </Text>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputWithTokens}
@@ -134,9 +141,16 @@ Most `Autocomplete` implementations will use the `Autocomplete.Overlay` componen
 
 ```jsx live
 <>
-  <Box as="label" display="block" htmlFor="autocompleteInput-withoutOverlay" id="autocompleteLabel-withoutOverlay">
+  <Text
+    fontWeight="bold"
+    fontSize={1}
+    as="label"
+    display="block"
+    htmlFor="autocompleteInput-withoutOverlay"
+    id="autocompleteLabel-withoutOverlay"
+  >
     Pick a branch
-  </Box>
+  </Text>
   <Autocomplete>
     <Autocomplete.Input id="autocompleteInput-withoutOverlay" />
     <Autocomplete.Menu
@@ -227,21 +241,23 @@ const CustomRenderedItemExample = () => {
 
   return (
     <>
-      <Box
+      <Text
+        fontWeight="bold"
+        fontSize={1}
         as="label"
         display="block"
-        htmlFor="autocompleteInput-customRenderedItem"
-        id="autocompleteLabel-customRenderedItem"
+        htmlFor="autocompleteInput-issueLabels"
+        id="autocompleteLabel-issueLabels"
       >
-        Issue labels
-      </Box>
+        Pick labels
+      </Text>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputWithTokens}
           tokens={tokens}
           tokenComponent={IssueLabelToken}
           onTokenRemove={onTokenRemove}
-          id="autocompleteInput-customRenderedItem"
+          id="autocompleteInput-issueLabels"
         />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
@@ -262,7 +278,7 @@ const CustomRenderedItemExample = () => {
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
             selectionVariant="multiple"
-            aria-labelledby="autocompleteLabel-customRenderedItem"
+            aria-labelledby="autocompleteLabel-issueLabels"
           />
         </Autocomplete.Overlay>
       </Autocomplete>
@@ -297,11 +313,18 @@ const CustomSortAfterMenuClose = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput-sortAfterClose"
+        id="autocompleteLabel-sortAfterClose"
+      >
         Pick branches
-      </Box>
+      </Text>
       <Autocomplete>
-        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Input id="autocompleteInput-sortAfterClose" />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
@@ -315,7 +338,7 @@ const CustomSortAfterMenuClose = () => {
               {text: 'visual-design-tweaks', id: 7}
             ]}
             selectedItemIds={selectedItemIds}
-            aria-labelledby="autocompleteLabel"
+            aria-labelledby="autocompleteLabel-sortAfterClose"
             onSelectedChange={onSelectedChange}
             sortOnCloseFn={customSortFn}
             selectionVariant="multiple"
@@ -347,11 +370,18 @@ const CustomSearchFilter = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput-customFilter"
+        id="autocompleteLabel-customFilter"
+      >
         Pick a branch
-      </Box>
+      </Text>
       <Autocomplete>
-        <Autocomplete.Input id="autocompleteInput" onChange={handleChange} />
+        <Autocomplete.Input id="autocompleteInput-customFilter" onChange={handleChange} />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
@@ -365,7 +395,7 @@ const CustomSearchFilter = () => {
               {text: 'visual-design-tweaks', id: 7}
             ]}
             selectedItemIds={[]}
-            aria-labelledby="autocompleteLabel"
+            aria-labelledby="autocompleteLabel-customFilter"
             filterFn={customFilterFn}
           />
         </Autocomplete.Overlay>
