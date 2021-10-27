@@ -7,14 +7,17 @@ import {SxProp, merge} from '../sx'
 export type ListProps = {
   variant?: 'inset' | 'full'
   selectionVariant?: 'single' | 'multiple'
+  showDividers?: boolean
 } & SxProp
 
-type ContextProps = Pick<ListProps, 'selectionVariant' | 'variant'>
-
+type ContextProps = Omit<ListProps, 'sx'>
 export const ListContext = React.createContext<ContextProps>({})
 
 export const List = React.forwardRef<HTMLUListElement, ListProps>(
-  ({variant = 'inset', selectionVariant = 'single', sx = {}, ...props}, forwardedRef): JSX.Element => {
+  (
+    {variant = 'inset', selectionVariant = 'single', showDividers = false, sx = {}, ...props},
+    forwardedRef
+  ): JSX.Element => {
     const styles = {
       margin: 0,
       fontSize: get('fontSizes.1'),
@@ -25,7 +28,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
 
     return (
       <Box as="ul" sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
-        <ListContext.Provider value={{variant, selectionVariant}}>{props.children}</ListContext.Provider>
+        <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
       </Box>
     )
   }

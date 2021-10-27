@@ -162,9 +162,9 @@ export function WithDescription(): JSX.Element {
     <>
       <h1>With Description & Dividers</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           {users.map(user => (
-            <ActionList.Item key={user.login} showDivider>
+            <ActionList.Item key={user.login}>
               <ActionList.LeadingVisual>
                 <Avatar src={`https://github.com/${user.login}.png`} />
               </ActionList.LeadingVisual>
@@ -174,7 +174,7 @@ export function WithDescription(): JSX.Element {
           ))}
           <ActionList.Divider />
           {projects.map((project, index) => (
-            <ActionList.Item key={index} showDivider>
+            <ActionList.Item key={index}>
               <ActionList.LeadingVisual>
                 <TableIcon />
               </ActionList.LeadingVisual>
@@ -196,14 +196,9 @@ export function SingleSelectListStory(): JSX.Element {
     <>
       <h1>Single Select List</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           {projects.map((project, index) => (
-            <ActionList.Item
-              key={index}
-              showDivider
-              selected={index === selectedIndex}
-              onAction={() => setSelectedIndex(index)}
-            >
+            <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
               <ActionList.LeadingVisual>
                 <TableIcon />
               </ActionList.LeadingVisual>
@@ -232,13 +227,12 @@ export function MultiSelectListStory(): JSX.Element {
     <>
       <h1>Multi Select List</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple">
+        <ActionList selectionVariant="multiple" showDividers>
           {users.map(user => (
             <ActionList.Item
               key={user.login}
-              showDivider
               selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-              onAction={() => toggleAssignee(user)}
+              onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
                 <Avatar src={`https://github.com/${user.login}.png`} />
@@ -261,13 +255,12 @@ export function DisabledStory(): JSX.Element {
     <>
       <h1>Disabled Items</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           {projects.map((project, index) => (
             <ActionList.Item
               key={index}
-              showDivider
               selected={index === selectedIndex}
-              onAction={() => setSelectedIndex(index)}
+              onSelect={() => setSelectedIndex(index)}
               disabled={index === 1}
             >
               <ActionList.LeadingVisual>
@@ -298,14 +291,13 @@ export function GroupsStory(): JSX.Element {
     <>
       <h1>Groups</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple">
+        <ActionList selectionVariant="multiple" showDividers>
           <ActionList.Group title="Suggestions" variant="filled">
             {users.slice(0, 2).map(user => (
               <ActionList.Item
                 key={user.login}
-                showDivider
                 selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-                onAction={() => toggleAssignee(user)}
+                onSelect={() => toggleAssignee(user)}
               >
                 <ActionList.LeadingVisual>
                   <Avatar src={`https://github.com/${user.login}.png`} />
@@ -320,9 +312,8 @@ export function GroupsStory(): JSX.Element {
             {users.slice(2).map(user => (
               <ActionList.Item
                 key={user.login}
-                showDivider
                 selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-                onAction={() => toggleAssignee(user)}
+                onSelect={() => toggleAssignee(user)}
               >
                 <ActionList.LeadingVisual>
                   <Avatar src={`https://github.com/${user.login}.png`} />
@@ -344,8 +335,8 @@ export function ActionsStory(): JSX.Element {
     <>
       <h1>Actions</h1>
       <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item showDivider>
+        <ActionList showDividers>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <ServerIcon />
             </ActionList.LeadingVisual>
@@ -355,7 +346,7 @@ export function ActionsStory(): JSX.Element {
               to new-branch.
             </ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <PlusCircleIcon />
             </ActionList.LeadingVisual>
@@ -377,7 +368,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
       <h1>Complex List</h1>
       <h2>Inset Variant</h2>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           <ActionList.Item>
             <ActionList.LeadingVisual>
               <TypographyIcon />
@@ -411,7 +402,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                 Information-dense table optimized for operations across teams
               </ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item showDivider>
+            <ActionList.Item>
               <ActionList.LeadingVisual>
                 <ProjectIcon />
               </ActionList.LeadingVisual>
@@ -492,7 +483,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
                 Information-dense table optimized for operations across teams
               </ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item showDivider>
+            <ActionList.Item>
               <ActionList.LeadingVisual>
                 <ProjectIcon />
               </ActionList.LeadingVisual>
@@ -558,7 +549,7 @@ export function LinkItemStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Item onAction={() => alert('hi!')}>A. Vanilla action</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('hi!')}>A. Vanilla action</ActionList.Item>
           <ActionList.Item as="a" href="?path=/story/composite-components-actionlist2--simple-list-story">
             B. Vanilla link
           </ActionList.Item>
@@ -623,8 +614,8 @@ export function SizeStressTestingStory(): JSX.Element {
     <>
       <h1>Size Stress Testing</h1>
       <ErsatzOverlay maxWidth="300px">
-        <ActionList>
-          <ActionList.Item showDivider>
+        <ActionList showDividers>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <ArrowRightIcon />
             </ActionList.LeadingVisual>
@@ -636,7 +627,7 @@ export function SizeStressTestingStory(): JSX.Element {
               <ArrowLeftIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <ArrowRightIcon />
             </ActionList.LeadingVisual>
@@ -646,7 +637,7 @@ export function SizeStressTestingStory(): JSX.Element {
               <ArrowLeftIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <ArrowRightIcon />
             </ActionList.LeadingVisual>
@@ -674,8 +665,8 @@ export function AllCombinations(): JSX.Element {
       <br />
       <br />
       <ErsatzOverlay maxWidth="300px">
-        <ActionList>
-          <ActionList.Item showDivider>
+        <ActionList showDividers>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -686,38 +677,38 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>none of them, only text</ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>none of them, only text</ActionList.Item>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
             only L
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             only I<ActionList.Description variant="inline">inline description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             only B<ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             only T
             <ActionList.TrailingVisual>
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
             L + I<ActionList.Description variant="inline">inline description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
             L + B<ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -726,30 +717,30 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             I + B<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             I + T<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.TrailingVisual>
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             B + T<ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
             L + I + B<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -758,7 +749,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -767,7 +758,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item showDivider>
+          <ActionList.Item>
             I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
@@ -793,9 +784,9 @@ export function ConditionalChildren(): JSX.Element {
     <>
       <h1>Conditional Children</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           {potentialReviewers.map((reviewer, index) => (
-            <ActionList.Item key={index} showDivider>
+            <ActionList.Item key={index}>
               <ActionList.LeadingVisual>
                 {reviewer.type === 'team' ? (
                   <Avatar src={`https://avatars.githubusercontent.com/t/${reviewer.id}`} />
@@ -829,10 +820,10 @@ export function NestedChildren(): JSX.Element {
     <>
       <h1>Nested Children</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           <div id="i like extra divs">
             {users.map(user => (
-              <ActionList.Item key={user.login} showDivider>
+              <ActionList.Item key={user.login}>
                 <ActionList.LeadingVisual>
                   <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
                 </ActionList.LeadingVisual>
@@ -868,9 +859,9 @@ export function ChildWithInternalState(): JSX.Element {
     <>
       <h1>Child with internal state - broken</h1>
       <ErsatzOverlay>
-        <ActionList>
+        <ActionList showDividers>
           {users.map(user => (
-            <ActionList.Item key={user.login} showDivider>
+            <ActionList.Item key={user.login}>
               <ActionList.LeadingVisual>
                 <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
               </ActionList.LeadingVisual>
@@ -912,7 +903,7 @@ export function ChildWithSideEffects(): JSX.Element {
       <h1>Child with side effects</h1>
       <ErsatzOverlay>
         <ActionList selectionVariant="multiple">
-          <ActionList.Item selected={selected} onAction={() => setSelected(!selected)}>
+          <ActionList.Item selected={selected} onSelect={() => setSelected(!selected)}>
             <ActionList.LeadingVisual>
               <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
             </ActionList.LeadingVisual>

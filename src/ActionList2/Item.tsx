@@ -1,6 +1,5 @@
 /**
  * selection check color
- * nicer name for showDivider?
  * minimize number of divs
  * docs
  * docs for types
@@ -65,7 +64,6 @@ export type ItemProps = {
   selected?: boolean
   variant?: 'default' | 'danger'
   disabled?: boolean
-  showDivider?: boolean
   role?: AriaRole
 } & SxProp
 
@@ -78,19 +76,11 @@ export type ItemContext = Pick<ItemProps, 'variant' | 'disabled'> & {
 
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
-    {
-      variant = 'default',
-      disabled = false,
-      selected = undefined,
-      showDivider = false,
-      onSelect = () => null,
-      sx = {},
-      ...props
-    },
+    {variant = 'default', disabled = false, selected = undefined, onSelect = () => null, sx = {}, ...props},
     forwardedRef
   ): JSX.Element => {
     const customItemTheme = customItemThemes[variant]
-    const {variant: listVariant} = React.useContext(ListContext)
+    const {variant: listVariant, showDividers} = React.useContext(ListContext)
 
     const {theme} = useTheme()
 
@@ -126,7 +116,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         width: '100%',
         top: '-7px',
         border: '0 solid',
-        borderTopWidth: showDivider ? `1px` : '0',
+        borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)'
       },
       // show between 2 items
