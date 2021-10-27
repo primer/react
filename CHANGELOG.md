@@ -1,5 +1,11 @@
 # @primer/components
 
+## 31.0.1
+
+### Patch Changes
+
+- [#1521](https://github.com/primer/react/pull/1521) [`28b5980c`](https://github.com/primer/react/commit/28b5980c64dc5e05cb3ddb0c8c5f18fa5d0c490c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Add `trailingVisual` prop to ActionList/ActionMenu. Deprecate `trailingIcon` and `trailingText` props.
+
 ## 31.0.0
 
 ### Major Changes
