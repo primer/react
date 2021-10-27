@@ -1,5 +1,23 @@
 # @primer/components
 
+## 31.0.1
+
+### Patch Changes
+
+- [#1521](https://github.com/primer/react/pull/1521) [`28b5980c`](https://github.com/primer/react/commit/28b5980c64dc5e05cb3ddb0c8c5f18fa5d0c490c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Add `trailingVisual` prop to ActionList/ActionMenu. Deprecate `trailingIcon` and `trailingText` props.
+
+## 31.0.0
+
+### Major Changes
+
+- [#1514](https://github.com/primer/react/pull/1514) [`dc789025`](https://github.com/primer/react/commit/dc789025d4976e2f0863e1f377c4a834aab88e3a) Thanks [@colebemis](https://github.com/colebemis)! - Remove deprecated color variables by upgrading to @primer/primitives [v5](https://github.com/primer/primitives/pull/251)
+
+  **Note:** Install [`eslint-plugin-primer-react`](https://primer.style/react/linting) to ensure that you're not using any deprecated or removed color variables.
+
+### Patch Changes
+
+- [#1512](https://github.com/primer/react/pull/1512) [`1e5ac406`](https://github.com/primer/react/commit/1e5ac406f8558a20248157a9bfe13ee4709890c8) Thanks [@pksjce](https://github.com/pksjce)! - Change disabled color from muted to custom primer disabled color
+
 ## 30.3.0
 
 ### Minor Changes
