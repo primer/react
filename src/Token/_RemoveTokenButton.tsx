@@ -1,6 +1,6 @@
 import React from 'react'
 import {XIcon} from '@primer/octicons-react'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
@@ -50,10 +50,23 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
   text-decoration: none;
   padding: 0;
   transform: ${props => `translate(${props.borderOffset}px, -${props.borderOffset}px)`};
-
   align-self: baseline;
   border: 0;
   border-radius: 999px;
+
+  ${props => {
+    switch (props.size) {
+      case 'large':
+      case 'extralarge':
+        return css`
+          margin-left: ${get('space.2')};
+        `
+      default:
+        return css`
+          margin-left: ${get('space.1')};
+        `
+    }
+  }}
 
   &:hover,
   &:focus {
