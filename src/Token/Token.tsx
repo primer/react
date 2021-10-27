@@ -44,9 +44,23 @@ const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: b
   }}
 `
 
-const LeadingVisualContainer = styled('span')`
+const LeadingVisualContainer = styled('span')<Pick<TokenBaseProps, 'size'>>`
   flex-shrink: 0;
   line-height: 0;
+
+  ${props => {
+    switch (props.size) {
+      case 'large':
+      case 'extralarge':
+        return css`
+          margin-right: ${get('space.2')};
+        `
+      default:
+        return css`
+          margin-right: ${get('space.1')};
+        `
+    }
+  }}
 `
 
 const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps & SxProp>(
@@ -76,7 +90,7 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
         ref={forwardedRef}
       >
         {LeadingVisual ? (
-          <LeadingVisualContainer>
+          <LeadingVisualContainer size={size}>
             <LeadingVisual />
           </LeadingVisualContainer>
         ) : null}
