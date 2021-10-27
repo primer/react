@@ -1,4 +1,4 @@
-import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, useRef, useState} from 'react'
+import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
 import {omit} from '@styled-system/props'
 import {FocusKeys} from './behaviors/focusZone'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
@@ -12,6 +12,7 @@ import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
+import {isFocusable} from './utils/iterateFocusableElements'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
@@ -131,10 +132,24 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const handleTokenRemove = (tokenId: string | number) => {
     onTokenRemove(tokenId)
 
-    if (selectedTokenIndex) {
-      const nextElementToFocus = containerRef.current?.children[selectedTokenIndex] as HTMLElement
-      nextElementToFocus.focus()
-    }
+    // HACK: wait a tick for the the token node to be removed from the DOM
+    setTimeout(() => {
+      const nextElementToFocus = containerRef.current?.children[selectedTokenIndex || 0] as HTMLElement | undefined
+
+      // when removing the first token by keying "Backspace" or "Delete",
+      // `nextFocusableElement` is the div that wraps the input
+      const firstFocusable =
+        nextElementToFocus && isFocusable(nextElementToFocus)
+          ? nextElementToFocus
+          : (Array.from(containerRef.current?.children || []) as HTMLElement[]).find(el => isFocusable(el))
+
+      if (firstFocusable) {
+        firstFocusable.focus()
+      } else {
+        // if there are no tokens left, focus the input
+        ref.current?.focus()
+      }
+    }, 0)
   }
 
   const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = tokenIndex => () => {
@@ -232,17 +247,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
       variant={variantProp}
-      ref={containerRef}
       onClick={focusInput}
       sx={{
-        alignItems: 'center',
-        flexWrap: preventTokenWrapping ? 'nowrap' : 'wrap',
-        gap: '0.25rem',
-
-        '> *': {
-          flexShrink: 0
-        },
-
         ...(block
           ? {
               display: 'flex',
@@ -267,47 +273,65 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       }}
     >
       <Box
+        ref={containerRef as RefObject<HTMLDivElement>}
+        display="flex"
         sx={{
-          order: 1,
-          flexGrow: 1
+          alignItems: 'center',
+          flexWrap: preventTokenWrapping ? 'nowrap' : 'wrap',
+          marginLeft: '-0.25rem',
+          marginBottom: '-0.25rem',
+          flexGrow: 1,
+
+          '> *': {
+            flexShrink: 0,
+            marginLeft: '0.25rem',
+            marginBottom: '0.25rem'
+          }
         }}
       >
-        {IconComponent && <IconComponent className="TextInput-icon" />}
-        <UnstyledTextInput
-          ref={combinedInputRef}
-          disabled={disabled}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          onKeyDown={handleInputKeyDown}
-          type="text"
-          sx={{height: '100%'}}
-          {...inputPropsRest}
-        />
+        <Box
+          sx={{
+            order: 1,
+            flexGrow: 1
+          }}
+        >
+          {IconComponent && <IconComponent className="TextInput-icon" />}
+          <UnstyledTextInput
+            ref={combinedInputRef}
+            disabled={disabled}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            onKeyDown={handleInputKeyDown}
+            type="text"
+            sx={{height: '100%'}}
+            {...inputPropsRest}
+          />
+        </Box>
+        {TokenComponent
+          ? visibleTokens.map(({id, ...tokenRest}, i) => (
+              <TokenComponent
+                key={id}
+                onFocus={handleTokenFocus(i)}
+                onBlur={handleTokenBlur}
+                onKeyUp={handleTokenKeyUp}
+                onClick={preventTokenClickPropagation}
+                isSelected={selectedTokenIndex === i}
+                onRemove={() => {
+                  handleTokenRemove(id)
+                }}
+                hideRemoveButton={hideTokenRemoveButtons}
+                size={size}
+                tabIndex={0}
+                {...tokenRest}
+              />
+            ))
+          : null}
+        {tokensAreTruncated ? (
+          <Text color="fg.muted" fontSize={size && overflowCountFontSizeMap[size]}>
+            +{tokens.length - visibleTokens.length}
+          </Text>
+        ) : null}
       </Box>
-      {TokenComponent
-        ? visibleTokens.map(({id, ...tokenRest}, i) => (
-            <TokenComponent
-              key={id}
-              onFocus={handleTokenFocus(i)}
-              onBlur={handleTokenBlur}
-              onKeyUp={handleTokenKeyUp}
-              onClick={preventTokenClickPropagation}
-              isSelected={selectedTokenIndex === i}
-              onRemove={() => {
-                handleTokenRemove(id)
-              }}
-              hideRemoveButton={hideTokenRemoveButtons}
-              size={size}
-              tabIndex={0}
-              {...tokenRest}
-            />
-          ))
-        : null}
-      {tokensAreTruncated ? (
-        <Text color="fg.muted" fontSize={size && overflowCountFontSizeMap[size]}>
-          +{tokens.length - visibleTokens.length}
-        </Text>
-      ) : null}
     </TextInputWrapper>
   )
 }
