@@ -35,6 +35,7 @@ exports[`TextInput renders 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -106,6 +107,7 @@ exports[`TextInput renders block 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   display: block;
   width: 100%;
@@ -179,6 +181,7 @@ exports[`TextInput renders consistently 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -249,6 +252,7 @@ exports[`TextInput renders large 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   padding-left: 8px;
   padding-right: 8px;
@@ -325,6 +329,7 @@ exports[`TextInput renders small 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
   min-height: 28px;
   padding-left: 8px;
@@ -403,6 +408,7 @@ exports[`TextInput should render a password input 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
