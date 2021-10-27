@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import styled from 'styled-components'
 import {FontSizeProps} from 'styled-system'
 import Box from '../Box'
@@ -7,13 +7,16 @@ import {get, SystemCommonProps, SystemLayoutProps} from '../constants'
 import {SxProp} from '../sx'
 import useDatePicker, {DaySelection} from './useDatePicker'
 
-export interface DayProps extends FontSizeProps, SystemCommonProps, SxProp, SystemLayoutProps {
+export type DayProps = {
   blocked?: boolean
   disabled?: boolean
   onAction?: (date: Date, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
   selected?: DaySelection
   date: Date
-}
+} & FontSizeProps &
+  SystemCommonProps &
+  SxProp &
+  SystemLayoutProps
 
 const DayBaseComponent = styled(Box)`
   align-content: center;
@@ -39,49 +42,58 @@ const states = {
     default: {
       background: get('colors.accent.emphasis'),
       borderRadius: get('radii.2'),
-      color: get('colors.fg.onEmphasis')
+      color: get('colors.fg.onEmphasis'),
+      todayColor: get('colors.fg.onEmphasis')
     },
     start: {
       background: get('colors.accent.emphasis'),
       borderRadius: '4px 0 0 4px',
-      color: get('colors.fg.onEmphasis')
+      color: get('colors.fg.onEmphasis'),
+      todayColor: get('colors.onEmphasis')
     },
     middle: {
       background: get('colors.accent.subtle'),
       borderRadius: '0',
-      color: get('colors.fg.default')
+      color: get('colors.fg.default'),
+      todayColor: get('colors.accent.fg')
     },
     end: {
       background: get('colors.accent.emphasis'),
       borderRadius: '0 4px 4px 0',
-      color: get('colors.fg.onEmphasis')
+      color: get('colors.fg.onEmphasis'),
+      todayColor: get('colors.onEmphasis')
     }
   },
   default: {
     normal: {
       background: get('colors.canvas.primary'),
       borderRadius: get('radii.2'),
-      color: get('colors.fg.default')
+      color: get('colors.fg.default'),
+      todayColor: get('colors.accent.fg')
     },
     hover: {
       background: get('colors.neutral.muted'),
       borderRadius: get('radii.2'),
-      color: get('colors.fg.default')
+      color: get('colors.fg.default'),
+      todayColor: get('colors.accent.fg')
     },
     pressed: {
       background: get('colors.neutral.emphasis'),
       borderRadius: get('radii.2'),
-      color: get('colors.fg.onEmphasis')
+      color: get('colors.fg.onEmphasis'),
+      todayColor: get('colors.fg.onEmphasis')
     }
   }
 }
 
+type DayComponentProps = {today?: boolean} & Omit<DayProps, 'date'>
+
 const getStateStyles = (
-  props: Omit<DayProps, 'date'>,
+  props: DayComponentProps,
   prop: 'background' | 'borderRadius' | 'color',
   state: 'normal' | 'hover' | 'pressed'
 ) => {
-  const {blocked, disabled, selected} = props
+  const {blocked, disabled, selected, today} = props
   if (blocked) {
     return states.blocked[prop]
   } else if (disabled) {
@@ -89,20 +101,20 @@ const getStateStyles = (
   } else if (selected) {
     switch (selected) {
       case 'start':
-        return states.selected.start[prop]
+        return today && prop === 'color' ? states.selected.start['todayColor'] : states.selected.start[prop]
       case 'middle':
-        return states.selected.middle[prop]
+        return today && prop === 'color' ? states.selected.middle['todayColor'] : states.selected.middle[prop]
       case 'end':
-        return states.selected.end[prop]
+        return today && prop === 'color' ? states.selected.end['todayColor'] : states.selected.end[prop]
       default:
-        return states.selected.default[prop]
+        return today && prop === 'color' ? states.selected.default['todayColor'] : states.selected.default[prop]
     }
   } else {
-    return states.default[state][prop]
+    return today && prop === 'color' ? states.default[state]['todayColor'] : states.default[state][prop]
   }
 }
 
-const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
+const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) => ({
   background: getStateStyles(props, 'background', 'normal'),
   borderRadius: getStateStyles(props, 'borderRadius', 'normal'),
   textColor: getStateStyles(props, 'color', 'normal'),
@@ -110,7 +122,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
   textColorHover: getStateStyles(props, 'color', 'hover'),
   backgroundPressed: getStateStyles(props, 'background', 'pressed'),
   textColorPressed: getStateStyles(props, 'color', 'pressed')
-}))<Omit<DayProps, 'date'>>`
+}))<DayComponentProps>`
   background-color: ${props => props.background};
   border-radius: ${props => props.borderRadius};
   transition: 0.1s background-color ease;
@@ -149,7 +161,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayProps) => ({
 `
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
-  const {onDayFocus, onDayBlur, onSelection, disabled, blocked, selected} = useDatePicker(date)
+  const {onDayFocus, onDayBlur, onSelection, disabled, blocked, selected, today} = useDatePicker(date)
 
   const keyPressHandler = useCallback(
     event => {
@@ -175,19 +187,33 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
     [disabled, onSelection, date, onAction]
   )
 
+  const todayStyles = useMemo(
+    () =>
+      today
+        ? {
+            border: '2px solid',
+            padding: '4px 6px',
+            borderRadius: '16px',
+            fontWeight: 'bold'
+          }
+        : {},
+    [today]
+  )
+
   return (
     <DayComponent
       role="button"
       blocked={blocked}
       disabled={disabled}
       selected={selected}
+      today={today}
       onClick={clickHandler}
       onMouseEnter={() => onDayFocus(date)}
       onFocus={() => onDayFocus(date)}
       onBlur={() => onDayBlur(date)}
       onKeyPress={keyPressHandler}
     >
-      <Text>{date.getDate()}</Text>
+      <Text sx={todayStyles}>{date.getDate()}</Text>
     </DayComponent>
   )
 }

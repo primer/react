@@ -77,7 +77,7 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
     const components = []
     const firstDay = new Date(year, month, 1)
 
-    const preBlanks = configuration.weekStartsOn === 'Sunday' ? firstDay.getDay() : (firstDay.getDay() + 6) % 7
+    const preBlanks = (firstDay.getDay() + (7 - weekdayEnum[configuration.weekStartsOn ?? 'Sunday'])) % 7
     for (let i = 0; i < preBlanks; i++) {
       components.push(<BlankDay key={`month-pre-blank-${i}`} />)
     }
@@ -94,7 +94,7 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
     }
 
     const lastDay = lastDayOfMonth(firstDay)
-    const postBlanks = configuration.weekStartsOn === 'Sunday' ? lastDay.getDay() : (lastDay.getDay() + 6) % 7
+    const postBlanks = (lastDay.getDay() + (7 - weekdayEnum[configuration.weekStartsOn ?? 'Sunday'])) % 7
     for (let i = 6; i > postBlanks; i--) {
       components.push(<BlankDay key={`month-post-blank-${i}`} />)
     }

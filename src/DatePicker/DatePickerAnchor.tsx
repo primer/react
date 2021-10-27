@@ -22,7 +22,10 @@ const DatePickerAnchorButton = styled(Button)`
   max-width: 350px;
   overflow: hidden;
 
-  & ${Text} {
+  & ${Text} ~ svg {
+    margin-left: ${get('space.2')};
+  }
+  & svg ~ ${Text} {
     margin-left: ${get('space.2')};
   }
 `
@@ -134,13 +137,16 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
     )
   }
 
+  const calendarIcon = () => <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
+
   return (
     <Box ref={ref}>
       <DatePickerAnchorButton onClick={clickHandler} onKeyPress={keyPressHandler}>
-        <StyledOcticon icon={CalendarIcon} color="fg.muted" sx={{my: '2px'}} />
+        {iconPlacement === 'start' && calendarIcon()}
         {anchorVariant !== 'icon-only' && (
           <Text sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{formattedDate}</Text>
         )}
+        {iconPlacement === 'end' && calendarIcon()}
       </DatePickerAnchorButton>
     </Box>
   )

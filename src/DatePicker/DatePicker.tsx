@@ -61,26 +61,34 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   dateFormat,
   focusTrapSettings,
   focusZoneSettings,
+  iconPlacement,
   maxDate,
+  maxRange,
+  maxSelections,
   minDate,
   onOpen: onOpenExternal,
   onClose: onCloseExternal,
   open,
   overlayProps,
+  placeholder,
   renderAnchor,
   selection,
   value,
   view,
   weekStartsOn
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
   const datePickerConfiguration: DatePickerConfiguration = {
     anchorVariant,
     confirmation,
     dateFormat,
+    iconPlacement,
     maxDate,
+    maxRange,
+    maxSelections,
     minDate,
+    placeholder,
     selection,
     view,
     weekStartsOn
@@ -108,9 +116,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <DatePickerProvider configuration={datePickerConfiguration} value={value} closePicker={() => setIsOpen(false)}>
-      <DatePickerAnchor ref={buttonRef} onAction={toggleIsOpen} />
+      <DatePickerAnchor ref={anchorRef} onAction={toggleIsOpen} />
       <DatePickerOverlay
-        anchorRef={externalAnchorRef ?? buttonRef}
+        anchorRef={externalAnchorRef ?? anchorRef}
         renderAnchor={renderAnchor}
         open={open ?? isOpen}
         onOpen={onOpen}

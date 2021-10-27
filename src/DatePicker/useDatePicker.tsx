@@ -1,4 +1,4 @@
-import {format, isEqual, isAfter, isBefore, addMonths, subMonths} from 'date-fns'
+import {format, isEqual, isAfter, isBefore, addMonths, subMonths, isToday} from 'date-fns'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 
@@ -13,8 +13,10 @@ export interface DatePickerConfiguration {
   dateFormat?: DateFormat
   dimWeekends?: boolean
   iconPlacement?: 'start' | 'end' | 'none'
-  minDate?: Date
   maxDate?: Date
+  maxSelections?: number
+  maxRange?: number
+  minDate?: Date
   placeholder?: string
   rangeIncrement?: number
   selection?: SelectionVariant
@@ -61,6 +63,7 @@ const DatePickerContext = createContext<DatePickerContext | null>(null)
 const useDatePicker = (date?: Date) => {
   const value = useContext(DatePickerContext)
   const [selected, setSelected] = useState<DaySelection>(false)
+  const today = date ? isToday(date) : false
 
   if (!value) {
     throw new Error('useDatePicker must be used inside a DatePickerProvider')
@@ -102,7 +105,7 @@ const useDatePicker = (date?: Date) => {
         }
       }
     }
-  }, [date, value.hoverRange, value.selection])
+  }, [date, value.hoverRange, value.selection, today])
 
   let blocked,
     disabled = false
@@ -121,7 +124,7 @@ const useDatePicker = (date?: Date) => {
     }
   }
 
-  return {...value, blocked, disabled, selected}
+  return {...value, blocked, disabled, selected, today}
 }
 
 export default useDatePicker
@@ -352,6 +355,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           selections.splice(existingIndex, 1)
           setSelection(selections.sort((a, b) => a.getTime() - b.getTime()))
         } else {
+          if (configuration.maxSelections && selections.length + 1 > configuration.maxSelections) return
           setSelection([...selections, date].sort((a, b) => a.getTime() - b.getTime()))
         }
       } else if (configuration.selection === 'range') {
@@ -376,7 +380,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         }
       }
     },
-    [configuration.confirmation, configuration.selection, saveValue, selection]
+    [configuration.confirmation, configuration.maxSelections, configuration.selection, saveValue, selection]
   )
 
   const focusHnadler = useCallback(

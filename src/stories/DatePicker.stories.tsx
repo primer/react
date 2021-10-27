@@ -54,6 +54,12 @@ export default {
         options: ['short', 'long']
       }
     },
+    iconPlacement: {
+      control: {
+        type: 'select',
+        options: ['start', 'end', 'none']
+      }
+    },
     selection: {
       control: {
         type: 'select',
@@ -63,7 +69,7 @@ export default {
     weekStartsOn: {
       control: {
         type: 'select',
-        options: ['Sunday', 'Monday']
+        options: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
       }
     }
   }
@@ -71,12 +77,19 @@ export default {
 
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {
-  anchorVariant: 'input',
+  anchorVariant: 'button',
   confirmation: true,
+  contiguousRange: true,
   dateFormat: 'short',
+  disableWeekends: true,
+  iconPlacement: 'start',
   maxDate: addYears(new Date(), 1),
+  maxSelections: 10,
+  maxRange: 21,
   minDate: subDays(new Date(), 4),
-  selection: 'range',
+  placeholder: 'Select a date',
+  rangeIncrement: 14,
+  selection: 'single',
   value: {from: new Date(), to: addDays(new Date(), 4)},
   view: '2-month',
   weekStartsOn: 'Sunday'
