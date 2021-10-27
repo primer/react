@@ -1,4 +1,4 @@
-import React, {FocusEventHandler, KeyboardEventHandler, RefObject, useRef, useState} from 'react'
+import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
 import {omit} from '@styled-system/props'
 import {FocusKeys} from './behaviors/focusZone'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
@@ -11,6 +11,7 @@ import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper from './_TextInputWrapper'
 import Box from './Box'
+import Text from './Text'
 import {isFocusable} from './utils/iterateFocusableElements'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,7 +49,18 @@ type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactCompone
    * Whether the remove buttons should be rendered in the tokens
    */
   hideTokenRemoveButtons?: boolean
+  /**
+   * The number of tokens to display before truncating
+   */
+  visibleTokenCount?: number
 } & TextInputProps
+
+const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
+  small: 0,
+  medium: 1,
+  large: 1,
+  extralarge: 2
+}
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactComponent>(
@@ -71,6 +83,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     minWidth: minWidthProp,
     maxWidth: maxWidthProp,
     variant: variantProp,
+    visibleTokenCount,
     ...rest
   }: TextInputWithTokensInternalProps<TokenComponentType> & {
     selectedTokenIndex: number | undefined
@@ -78,11 +91,12 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   },
   externalRef: React.ForwardedRef<HTMLInputElement>
 ) {
-  const {onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
+  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
   const ref = useProvidedRefOrCreate<HTMLInputElement>(externalRef as React.RefObject<HTMLInputElement>)
   const localInputRef = useRef<HTMLInputElement>(null)
   const combinedInputRef = useCombinedRefs(localInputRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
+  const [tokensAreTruncated, setTokensAreTruncated] = useState<boolean>(Boolean(visibleTokenCount))
   const {containerRef} = useFocusZone(
     {
       focusOutBehavior: 'wrap',
@@ -144,18 +158,42 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 
   const handleTokenBlur: FocusEventHandler = () => {
     setSelectedTokenIndex(undefined)
+
+    // HACK: wait a tick and check the focused element before hiding truncated tokens
+    // this prevents the tokens from hiding when the user is moving focus between tokens,
+    // but still hides the tokens when the user blurs the token by tabbing out or clicking somewhere else on the page
+    setTimeout(() => {
+      if (!containerRef.current?.contains(document.activeElement) && visibleTokenCount) {
+        setTokensAreTruncated(true)
+      }
+    }, 0)
   }
 
-  const handleTokenKeyUp: KeyboardEventHandler = e => {
-    if (e.key === 'Escape') {
+  const handleTokenKeyUp: KeyboardEventHandler = event => {
+    if (event.key === 'Escape') {
       ref.current?.focus()
     }
   }
 
-  const handleInputFocus: FocusEventHandler = e => {
-    onFocus && onFocus(e)
+  const handleInputFocus: FocusEventHandler = event => {
+    onFocus && onFocus(event)
     setSelectedTokenIndex(undefined)
+    visibleTokenCount && setTokensAreTruncated(false)
   }
+
+  const handleInputBlur: FocusEventHandler = event => {
+    onBlur && onBlur(event)
+
+    // HACK: wait a tick and check the focused element before hiding truncated tokens
+    // this prevents the tokens from hiding when the user is moving focus from the input to a token,
+    // but still hides the tokens when the user blurs the input by tabbing out or clicking somewhere else on the page
+    setTimeout(() => {
+      if (!containerRef.current?.contains(document.activeElement) && visibleTokenCount) {
+        setTokensAreTruncated(true)
+      }
+    }, 0)
+  }
+
   const handleInputKeyDown: KeyboardEventHandler = e => {
     if (onKeyDown) {
       onKeyDown(e)
@@ -187,6 +225,16 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }
   }
 
+  const focusInput: MouseEventHandler = () => {
+    combinedInputRef.current?.focus()
+  }
+
+  const preventTokenClickPropagation: MouseEventHandler = event => {
+    event.stopPropagation()
+  }
+
+  const visibleTokens = tokensAreTruncated ? tokens.slice(0, visibleTokenCount) : tokens
+
   return (
     <TextInputWrapper
       block={block}
@@ -199,6 +247,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
       variant={variantProp}
+      onClick={focusInput}
       sx={{
         ...(block
           ? {
@@ -251,19 +300,21 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             ref={combinedInputRef}
             disabled={disabled}
             onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             onKeyDown={handleInputKeyDown}
             type="text"
             sx={{height: '100%'}}
             {...inputPropsRest}
           />
         </Box>
-        {tokens.length && TokenComponent
-          ? tokens.map(({id, ...tokenRest}, i) => (
+        {TokenComponent
+          ? visibleTokens.map(({id, ...tokenRest}, i) => (
               <TokenComponent
                 key={id}
                 onFocus={handleTokenFocus(i)}
                 onBlur={handleTokenBlur}
                 onKeyUp={handleTokenKeyUp}
+                onClick={preventTokenClickPropagation}
                 isSelected={selectedTokenIndex === i}
                 onRemove={() => {
                   handleTokenRemove(id)
@@ -275,6 +326,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
               />
             ))
           : null}
+        {tokensAreTruncated ? (
+          <Text color="fg.muted" fontSize={size && overflowCountFontSizeMap[size]}>
+            +{tokens.length - visibleTokens.length}
+          </Text>
+        ) : null}
       </Box>
     </TextInputWrapper>
   )

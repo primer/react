@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, act, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
@@ -28,6 +28,18 @@ const LabelledTextInputWithTokens: React.FC<TextInputWithTokensProps> = ({onToke
     <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="tokenInput" {...rest} />
   </>
 )
+
+// describe('axe test', () => {
+//   it('should have no axe violations', async () => {
+//     const onRemoveMock = jest.fn()
+//     const {container} = HTMLRender(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+//     const results = await axe(container)
+//     expect(results).toHaveNoViolations()
+//     cleanup()
+//   })
+// })
+
+jest.useFakeTimers()
 
 describe('TextInputWithTokens', () => {
   it('renders without tokens', () => {
@@ -82,6 +94,13 @@ describe('TextInputWithTokens', () => {
     const onRemoveMock = jest.fn()
     expect(
       render(<TextInputWithTokens hideTokenRemoveButtons tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    ).toMatchSnapshot()
+  })
+
+  it('renders a truncated set of tokens', () => {
+    const onRemoveMock = jest.fn()
+    expect(
+      render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />)
     ).toMatchSnapshot()
   })
 
@@ -163,6 +182,119 @@ describe('TextInputWithTokens', () => {
 
     expect(document.activeElement?.id).not.toEqual(lastTokenNode.id)
     expect(document.activeElement?.id).toEqual(inputNode.id)
+  })
+
+  it('does not focus the input when clicking a token', () => {
+    const onRemoveMock = jest.fn()
+    const {getByLabelText, getByText} = HTMLRender(
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />
+    )
+    const inputNode = getByLabelText('Tokens')
+    const tokenNode = getByText(mockTokens[0].text)
+
+    expect(document.activeElement).not.toEqual(inputNode.id)
+    fireEvent.click(tokenNode)
+    expect(document.activeElement?.id).not.toEqual(inputNode.id)
+  })
+
+  it('focuses the input when clicking somewhere in the component besides the tokens', () => {
+    const onRemoveMock = jest.fn()
+    const {getByLabelText, getByText} = HTMLRender(
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />
+    )
+    const inputNode = getByLabelText('Tokens')
+    const truncatedTokenCount = getByText('+6')
+
+    expect(document.activeElement).not.toEqual(inputNode.id)
+    fireEvent.click(truncatedTokenCount)
+    expect(document.activeElement?.id).toEqual(inputNode.id)
+  })
+
+  it('shows all tokens when the input is focused and hides them when it is blurred (when visibleTokenCount is set)', () => {
+    const onRemoveMock = jest.fn()
+    const visibleTokenCount = 2
+    const {getByLabelText, getByText} = HTMLRender(
+      <>
+        <LabelledTextInputWithTokens
+          tokens={mockTokens}
+          onTokenRemove={onRemoveMock}
+          visibleTokenCount={visibleTokenCount}
+        />
+        <button id="focusableOutsideComponent">Focus me</button>
+      </>
+    )
+    const inputNode = getByLabelText('Tokens')
+    const focusableOutsideComponentNode = getByText('Focus me')
+    const allTokenLabels = mockTokens.map(token => token.text)
+    const truncatedTokenCountNode = getByText('+6')
+
+    act(() => {
+      jest.runAllTimers()
+      fireEvent.focus(inputNode)
+    })
+
+    setTimeout(() => {
+      for (const tokenLabel of allTokenLabels) {
+        const tokenNode = getByText(tokenLabel)
+        expect(tokenNode).toBeDefined()
+      }
+    }, 0)
+
+    act(() => {
+      jest.runAllTimers()
+      // onBlur isn't called on input unless we specifically fire the "blur" event
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
+      fireEvent.focus(focusableOutsideComponentNode)
+    })
+
+    setTimeout(() => {
+      expect(truncatedTokenCountNode).toBeDefined()
+
+      for (const tokenLabel of allTokenLabels) {
+        const tokenNode = getByText(tokenLabel)
+        if (allTokenLabels.indexOf(tokenLabel) > visibleTokenCount) {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(tokenNode).toBeDefined()
+        } else {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(tokenNode).not.toBeDefined()
+        }
+      }
+    }, 0)
+
+    jest.useRealTimers()
+  })
+
+  it('does not hide tokens when blurring the input to focus within the component (when visibleTokenCount is set)', () => {
+    const onRemoveMock = jest.fn()
+    const visibleTokenCount = 2
+    const {getByLabelText, getByText} = HTMLRender(
+      <>
+        <LabelledTextInputWithTokens
+          tokens={mockTokens}
+          onTokenRemove={onRemoveMock}
+          visibleTokenCount={visibleTokenCount}
+        />
+        <button id="focusableOutsideComponent">Focus me</button>
+      </>
+    )
+    const inputNode = getByLabelText('Tokens')
+    const firstTokenNode = getByText(mockTokens[visibleTokenCount - 1].text)
+    const allTokenLabels = mockTokens.map(token => token.text)
+    const truncatedTokenCountNode = getByText('+6')
+
+    act(() => {
+      fireEvent.focus(inputNode)
+      fireEvent.focus(firstTokenNode)
+    })
+
+    expect(truncatedTokenCountNode).toBeDefined()
+
+    for (const tokenLabel of allTokenLabels) {
+      const tokenNode = getByText(tokenLabel)
+      expect(tokenNode).toBeDefined()
+    }
   })
 
   it('focuses the first token when keying ArrowRight in the input', () => {
