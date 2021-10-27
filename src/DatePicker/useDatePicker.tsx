@@ -1,5 +1,17 @@
 import {CheckIcon, TrashIcon} from '@primer/octicons-react'
-import {format, isEqual, isAfter, isBefore, addMonths, subMonths, isToday, isWeekend} from 'date-fns'
+import {
+  format,
+  isEqual,
+  isAfter,
+  isBefore,
+  addMonths,
+  subMonths,
+  isToday,
+  isWeekend,
+  differenceInDays,
+  addDays,
+  subDays
+} from 'date-fns'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {Text, useConfirm} from '..'
@@ -17,7 +29,7 @@ export interface DatePickerConfiguration {
   iconPlacement?: 'start' | 'end' | 'none'
   maxDate?: Date | null
   maxSelections?: number
-  maxRange?: number
+  maxRangeSize?: number
   minDate?: Date | null
   placeholder?: string
   rangeIncrement?: number
@@ -400,9 +412,19 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         }
       } else if (configuration.selection === 'range') {
         if (selection && isRangeSelection(selection) && !selection.to) {
-          const updatedSelection = isBefore(date, selection.from)
-            ? {from: date, to: selection.from}
-            : {from: selection.from, to: date}
+          let toDate = date
+          if (
+            configuration.maxRangeSize &&
+            Math.abs(differenceInDays(selection.from, date)) >= configuration.maxRangeSize
+          ) {
+            toDate = isBefore(date, selection.from)
+              ? subDays(selection.from, configuration.maxRangeSize - 1)
+              : addDays(selection.from, configuration.maxRangeSize - 1)
+          }
+
+          const updatedSelection = isBefore(toDate, selection.from)
+            ? {from: toDate, to: selection.from}
+            : {from: selection.from, to: toDate}
           setSelection(updatedSelection)
           setHoverRange(null)
           if (!configuration.confirmation) {
@@ -420,18 +442,30 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         }
       }
     },
-    [configuration.confirmation, configuration.maxSelections, configuration.selection, saveValue, selection]
+    [
+      configuration.confirmation,
+      configuration.maxRangeSize,
+      configuration.maxSelections,
+      configuration.selection,
+      saveValue,
+      selection
+    ]
   )
 
   const focusHnadler = useCallback(
     (date: Date) => {
       if (!selection) return
-      const {minDate, maxDate, selection: configSelection} = configuration
+      const {minDate, maxDate, maxRangeSize, selection: configSelection} = configuration
 
       if (configSelection === 'range' && isRangeSelection(selection) && hoverRange) {
         let hoverDate = date
         if (minDate) hoverDate = isBefore(date, minDate) ? minDate : hoverDate
         if (maxDate) hoverDate = isAfter(date, maxDate) ? maxDate : hoverDate
+        if (maxRangeSize && Math.abs(differenceInDays(selection.from, hoverDate)) >= maxRangeSize) {
+          hoverDate = isBefore(hoverDate, selection.from)
+            ? subDays(selection.from, configuration.maxRangeSize - 1)
+            : addDays(selection.from, configuration.maxRangeSize - 1)
+        }
 
         setHoverRange(
           isBefore(hoverDate, selection.from)
