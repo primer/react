@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
+import NewButton from '../NewButton'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -381,22 +382,10 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
     </>
   )
 }
-const DialogCloseButton = styled(Button)`
-  border-radius: 4px;
-  background: transparent;
-  border: 0;
-  vertical-align: middle;
-  color: ${get('colors.fg.muted')};
-  padding: ${get('space.2')};
-  align-self: flex-start;
-  line-height: normal;
-  box-shadow: none;
-`
-const CloseButton: React.FC<{onClose: () => void}> = ({onClose}) => {
+
+const CloseButton = ({onClose}) => {
   return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <StyledOcticon icon={XIcon} />
-    </DialogCloseButton>
+    <NewButton sx={{alignSelf: 'flex-start'}} variant="invisible" onClick={onClose} icon={() => <XIcon />}></NewButton>
   )
 }
 
