@@ -1,13 +1,11 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
-import NewButton from '../NewButton'
+import NewButton, {ButtonProps} from '../NewButton'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import StyledOcticon from '../StyledOcticon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
@@ -25,7 +23,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'normal' | 'primary' | 'danger'
+  buttonType?: 'default' | 'primary' | 'danger' | 'invisible'
 
   /**
    * The Button's inner text
@@ -346,11 +344,8 @@ const Footer = styled(Box).attrs({as: 'footer'})`
     }
   }
 `
-const buttonTypes = {
-  normal: Button,
-  primary: ButtonPrimary,
-  danger: ButtonDanger
-}
+const buttonTypes = ['default', 'primary', 'danger']
+
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -367,16 +362,16 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
-        const ButtonElement = buttonTypes[buttonType]
+        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
-          <ButtonElement
+          <NewButton
             key={index}
             {...buttonProps}
+            variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </ButtonElement>
+          </NewButton>
         )
       })}
     </>
