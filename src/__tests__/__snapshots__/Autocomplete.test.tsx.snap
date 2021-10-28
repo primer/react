@@ -36,6 +36,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -148,6 +149,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -295,6 +297,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -1040,6 +1043,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -1708,6 +1712,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -2376,6 +2381,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 
@@ -3337,6 +3343,7 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   padding: 6px 12px;
 }
 

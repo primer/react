@@ -1,6 +1,10 @@
 import {addons} from '@storybook/addons'
 import {ThemeProvider, themeGet, theme} from '../src'
 import styled, {createGlobalStyle} from 'styled-components'
+import {addDecorator} from '@storybook/react'
+import {withPerformance} from 'storybook-addon-performance'
+
+addDecorator(withPerformance)
 
 // set global theme styles for each story
 const GlobalStyle = createGlobalStyle`
@@ -100,7 +104,7 @@ const withThemeProvider = (Story, context) => {
     </ThemeProvider>
   )
 }
-export const decorators = [withThemeProvider]
+export const decorators = [withThemeProvider, withPerformance]
 
 addons.setConfig({
   // Some stories may set up keyboard event handlers, which can can be interfered

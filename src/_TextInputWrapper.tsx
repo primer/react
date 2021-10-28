@@ -45,6 +45,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.primer.shadow.inset')};
+  cursor: text;
 
   ${props => {
     if (props.hasIcon) {

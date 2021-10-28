@@ -47,7 +47,7 @@ const mockTokens = [
 ]
 
 export const Default = () => {
-  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
@@ -119,6 +119,15 @@ export const TokenRemoveButtonsHidden = () => {
   }
 
   return <TextInputWithTokens hideTokenRemoveButtons tokens={tokens} onTokenRemove={onTokenRemove} />
+}
+
+export const WithVisibleTokenCount = () => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 5))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} visibleTokenCount={2} />
 }
 
 export const Unstyled = () => {

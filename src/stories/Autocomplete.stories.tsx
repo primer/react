@@ -19,24 +19,16 @@ type Datum = {
 }
 
 const items: Datum[] = [
-  {text: 'zero', id: 0},
-  {text: 'one', id: 1},
-  {text: 'two', id: 2},
-  {text: 'three', id: 3},
-  {text: 'four', id: 4},
-  {text: 'five', id: 5},
-  {text: 'six', id: 6},
-  {text: 'seven', id: 7},
-  {text: 'twenty', id: 20},
-  {text: 'twentyone', id: 21}
+  {text: 'css', id: 0},
+  {text: 'css-in-js', id: 1},
+  {text: 'styled-system', id: 2},
+  {text: 'javascript', id: 3},
+  {text: 'typescript', id: 4},
+  {text: 'react', id: 5},
+  {text: 'design-systems', id: 6}
 ]
 
-const mockTokens: Datum[] = [
-  {text: 'zero', id: 0},
-  {text: 'one', id: 1},
-  {text: 'three', id: 3},
-  {text: 'four', id: 4}
-]
+const mockTokens: Datum[] = [...items].slice(0, 3)
 
 export default {
   title: 'Forms/Autocomplete',
@@ -69,11 +61,18 @@ export default {
 export const SingleSelect = () => {
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
-        <Autocomplete.Input id="autocompleteInput" />
+        <Autocomplete.Input block id="autocompleteInput" />
         <Autocomplete.Overlay>
           <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
         </Autocomplete.Overlay>
@@ -97,9 +96,16 @@ export const MultiSelect = () => {
   return (
     <Box display="flex" sx={{gap: '1em'}}>
       <div>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-          Pick an option
-        </Box>
+        <Text
+          fontWeight="bold"
+          fontSize={1}
+          as="label"
+          display="block"
+          htmlFor="autocompleteInput"
+          id="autocompleteLabel"
+        >
+          Pick a tag
+        </Text>
         <Autocomplete>
           <Autocomplete.Input id="autocompleteInput" />
           <Autocomplete.Overlay>
@@ -126,7 +132,7 @@ export const MultiSelect = () => {
 }
 
 export const MultiSelectWithTokenInput = () => {
-  const [tokens, setTokens] = useState<Datum[]>(mockTokens)
+  const [tokens, setTokens] = useState<Datum[]>([]) // [items[0], items[2]]
   const selectedTokenIds = tokens.map(token => token.id)
   const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>(selectedTokenIds)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
@@ -156,11 +162,24 @@ export const MultiSelectWithTokenInput = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick options
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick tags
+      </Text>
       <Autocomplete>
-        <Autocomplete.Input as={TextInputTokens} tokens={tokens} onTokenRemove={onTokenRemove} id="autocompleteInput" />
+        <Autocomplete.Input
+          block
+          as={TextInputTokens}
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          id="autocompleteInput"
+        />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={items}
@@ -219,14 +238,22 @@ export const MultiSelectAddNewItem = () => {
   }
 
   return (
-    <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick options
-      </Box>
+    <Box maxWidth="300px">
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick tags
+      </Text>
       <Autocomplete>
         <Autocomplete.Input
+          block
           as={TextInputTokens}
-          tokens={tokens}
+          tokens={[]}
           onTokenRemove={onTokenRemove}
           onChange={handleChange}
           id="autocompleteInput"
@@ -256,16 +283,23 @@ export const MultiSelectAddNewItem = () => {
           />
         </Autocomplete.Overlay>
       </Autocomplete>
-    </>
+    </Box>
   )
 }
 
 export const CustomEmptyStateMessage = () => {
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
         <Autocomplete.Overlay>
@@ -290,9 +324,16 @@ export const CustomSearchFilter = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" onChange={handleChange} />
         <Autocomplete.Overlay>
@@ -326,9 +367,16 @@ export const CustomSortAfterMenuClose = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
         <Autocomplete.Overlay>
@@ -358,9 +406,16 @@ export const WithCallbackWhenOverlayOpenStateChanges = () => {
   return (
     <Box display="flex" sx={{gap: '1em'}}>
       <div>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-          Pick an option
-        </Box>
+        <Text
+          fontWeight="bold"
+          fontSize={1}
+          as="label"
+          display="block"
+          htmlFor="autocompleteInput"
+          id="autocompleteLabel"
+        >
+          Pick a tag
+        </Text>
         <Autocomplete>
           <Autocomplete.Input id="autocompleteInput" />
           <Autocomplete.Overlay>
@@ -390,9 +445,16 @@ export const AsyncLoadingOfItems = () => {
 
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
         <Autocomplete.Overlay>
@@ -412,9 +474,16 @@ export const AsyncLoadingOfItems = () => {
 export const RenderingTheMenuOutsideAnOverlay = () => {
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
         <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
@@ -437,9 +506,16 @@ export const CustomOverlayMenuAnchor = () => {
 
   return (
     <>
-      <Box as="label" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick labels
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick tags
+      </Text>
       <Box {...anchorWrapperStyles} ref={menuAnchorRef as React.RefObject<HTMLDivElement>}>
         <Autocomplete>
           <Autocomplete.Input
@@ -470,9 +546,16 @@ export const CustomOverlayMenuAnchor = () => {
 export const WithCustomOverlayProps = () => {
   return (
     <>
-      <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-        Pick an option
-      </Box>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Pick a tag
+      </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
         <Autocomplete.Overlay
@@ -527,7 +610,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
           borderWidth: '0'
         }}
       >
-        Pick options
+        Pick tags
       </Box>
       <Autocomplete>
         <Box display="flex" flexDirection="column" height="100%">
