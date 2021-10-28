@@ -18,14 +18,18 @@ export const ActionList = Object.assign(List, {
   /** Collects related `Items` in an `ActionList`. */
   Group,
 
-  /** An actionable or selectable `Item` with an optional icon and description. */
+  /** An actionable or selectable `Item` */
   Item,
 
   /** Visually separates `Item`s or `Group`s in an `ActionList`. */
   Divider,
 
+  /** Secondary text which provides additional information about an `Item`. */
   Description,
 
+  /** Icon (or similar) positioned before `Item` text. */
   LeadingVisual,
+
+  /** Icon (or similar) positioned after `Item` text. */
   TrailingVisual
 })
