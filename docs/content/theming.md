@@ -54,7 +54,7 @@ You can reference theme values in your application using [system props](/system-
 
 <Note variant="warning">
 
-Only use `theme` objects accessed via Primer's theme context to ensure your application’s styling draws from the same theme as Primer Components’ internal styling. The `sx` prop, styled system props, and `themeGet` all use the theme from context.
+Only use `theme` objects accessed via Primer's theme context to ensure your application’s styling draws from the same theme as Primer components’ internal styling. The `sx` prop, styled system props, `themeGet`, and `useTheme` all use the theme from context.
 
 <DoDontContainer>
   <Do>
