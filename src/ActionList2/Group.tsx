@@ -1,7 +1,3 @@
-/**
- * show item dividers
- */
-
 import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
