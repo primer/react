@@ -1,12 +1,8 @@
 /**
- * selection check color
- * minimize number of divs
  * docs
  * docs for types
  * test suite!
  * ref unhappy with polymorphic
- * activeDescendantAttribute (for actionMenu)
- * check height with divider
  * Item.Item with anchor inside
  *
  * a11y
