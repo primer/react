@@ -28,10 +28,7 @@ type ContextProps = Omit<ListProps, 'sx'>
 export const ListContext = React.createContext<ContextProps>({})
 
 export const List = React.forwardRef<HTMLUListElement, ListProps>(
-  (
-    {variant = 'inset', selectionVariant = 'single', showDividers = false, sx = {}, ...props},
-    forwardedRef
-  ): JSX.Element => {
+  ({variant = 'inset', selectionVariant, showDividers = false, sx = {}, ...props}, forwardedRef): JSX.Element => {
     const styles = {
       margin: 0,
       fontSize: get('fontSizes.1'),

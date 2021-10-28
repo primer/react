@@ -196,7 +196,7 @@ export function SingleSelectListStory(): JSX.Element {
     <>
       <h1>Single Select List</h1>
       <ErsatzOverlay>
-        <ActionList showDividers role="listbox" aria-label="Select a project">
+        <ActionList selectionVariant="single" showDividers role="listbox" aria-label="Select a project">
           {projects.map((project, index) => (
             <ActionList.Item
               key={index}
@@ -261,7 +261,7 @@ export function DisabledStory(): JSX.Element {
     <>
       <h1>Disabled Items</h1>
       <ErsatzOverlay>
-        <ActionList showDividers role="listbox" aria-label="Select a project">
+        <ActionList selectionVariant="single" showDividers role="listbox" aria-label="Select a project">
           {projects.map((project, index) => (
             <ActionList.Item
               key={index}
