@@ -1,15 +1,16 @@
 import React, {forwardRef, ReactNode} from 'react'
 import {IconProps, TriangleDownIcon} from '@primer/octicons-react'
 import Box from '../Box'
-import {fontSize, FontSizeProps, variant} from 'styled-system'
+import {fontSize, FontSizeProps, variant as variantFn} from 'styled-system'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {get} from '../constants'
 import buttonBaseStyles from '../Button/ButtonStyles'
 import {Theme} from '../ThemeProvider'
 import Counter from './counter'
+import {ComponentProps} from '../utils/types'
 
-const sizes = variant({
+const sizes = variantFn({
   prop: 'size',
   variants: {
     small: {
@@ -25,18 +26,18 @@ const sizes = variant({
     }
   }
 })
-type Variant = 'default' | 'primary' | 'invisible' | 'danger'
+type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
-export type ButtonProps = {
+export type Props = {
   caret?: boolean
-  children: ReactNode
-  variant: Variant
+  variant: VariantType
   size: 'small' | 'medium' | 'large'
   icon?: React.FunctionComponent<IconProps>
+  as?: 'button' | 'a' | 'summary' | 'input' | string | React.ReactType
 } & SxProp &
   FontSizeProps
 
-const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
+const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
   const style = {
     default: `
       padding: 5px 16px;
@@ -140,16 +141,17 @@ const getVariantStyles = (theme: Theme, variant: Variant = 'default') => {
       &:active {
         background-color: ${get('colors.btn.selectedBg')({theme})};
       }
-    `
+    `,
+    block: ``
   }
   return style[variant]
 }
 
-type StyleSwitchers = {
-  iconOnly: Boolean
-}
+type ButtonBaseProps = {
+  iconOnly: boolean
+} & Props
 
-const ButtonBase = styled.button<ButtonProps & StyleSwitchers>`
+const ButtonBase = styled.button<ButtonBaseProps>`
   ${buttonBaseStyles}
   ${props => getVariantStyles(props.theme, props.variant)}
   ${sizes}
@@ -157,18 +159,20 @@ const ButtonBase = styled.button<ButtonProps & StyleSwitchers>`
   ${sx}
   ${fontSize}
 `
-const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>(
-  ({icon: Icon, caret, children, ...props}) => {
-    let iconOnly: Boolean = false
-    if (!children) {
+
+const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ComponentProps<typeof ButtonBase>>(
+  ({children, ...props}, forwardedRef) => {
+    const {icon: Icon, caret} = props
+    let iconOnly = false
+    if (Icon && !children) {
       iconOnly = true
     }
-    let iconWrapStyles = {
+    const iconWrapStyles = {
       display: 'inline-block',
       ...(!iconOnly ? {pr: 3} : {})
     }
     return (
-      <ButtonBase {...props} iconOnly={iconOnly}>
+      <ButtonBase ref={forwardedRef} {...props} iconOnly={iconOnly}>
         {Icon && (
           <Box sx={iconWrapStyles} aria-hidden={!iconOnly}>
             <Icon />
@@ -195,4 +199,5 @@ const NewButton = Object.assign(Button, {
   Counter
 })
 
+export type NewButtonProps = ComponentProps<typeof Button>
 export default NewButton

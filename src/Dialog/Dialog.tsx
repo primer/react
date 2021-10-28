@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import NewButton, {ButtonProps} from '../NewButton'
+import Button, {ButtonProps} from '../NewButton'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -344,7 +344,6 @@ const Footer = styled(Box).attrs({as: 'footer'})`
     }
   }
 `
-const buttonTypes = ['default', 'primary', 'danger']
 
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
@@ -364,24 +363,22 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
       {buttons.map((dialogButtonProps, index) => {
         const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
-          <NewButton
+          <Button
             key={index}
             {...buttonProps}
             variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </NewButton>
+          </Button>
         )
       })}
     </>
   )
 }
 
-const CloseButton = ({onClose}) => {
-  return (
-    <NewButton sx={{alignSelf: 'flex-start'}} variant="invisible" onClick={onClose} icon={() => <XIcon />}></NewButton>
-  )
+const CloseButton = ({onClose}: {onClose: () => void}) => {
+  return <Button onClick={onClose} sx={{alignSelf: 'flex-start'}} variant="invisible" icon={() => <XIcon />}></Button>
 }
 
 /**

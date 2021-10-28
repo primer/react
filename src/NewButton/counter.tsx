@@ -1,6 +1,5 @@
 import React from 'react'
 import Box from '../Box'
-import {get} from '../constants'
 
 type CounterProps = {
   count: number
