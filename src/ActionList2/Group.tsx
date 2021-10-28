@@ -9,7 +9,7 @@ import {Header, HeaderProps} from './Header'
 
 export type GroupProps = HeaderProps & SxProp
 
-export function Group({title, variant, auxiliaryText, sx = {}, ...props}: GroupProps): JSX.Element {
+export const Group: React.FC<GroupProps> = ({title, variant, auxiliaryText, sx = {}, ...props}) => {
   return (
     <Box
       as="li"

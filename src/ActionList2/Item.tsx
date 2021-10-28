@@ -1,6 +1,4 @@
 /**
- * docs
- * docs for types
  * test suite!
  * ref unhappy with polymorphic
  * Item.Item with anchor inside
@@ -59,11 +57,32 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
 }
 
 export type ItemProps = {
+  /**
+   * Primary content for an Item
+   */
   children: React.ReactNode
+  /**
+   * Callback that will trigger both on click selection and keyboard selection.
+   */
   onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  /**
+   * Is the `Item` is currently selected?
+   */
   selected?: boolean
+  /**
+   * Style variations associated with various `Item` types.
+   *
+   * - `"default"` - An action `Item`.
+   * - `"danger"` - A destructive action `Item`.
+   */
   variant?: 'default' | 'danger'
+  /**
+   * Items that are disabled can not be clicked, selected, or navigated through.
+   */
   disabled?: boolean
+  /**
+   * The ARIA role describing the function of `Item` component. `option` is a common value. |
+   */
   role?: AriaRole
 } & SxProp
 

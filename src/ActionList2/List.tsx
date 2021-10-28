@@ -3,11 +3,25 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/r
 import Box from '../Box'
 import {get} from '../constants'
 import {SxProp, merge} from '../sx'
+import {AriaRole} from '../utils/types'
 
 export type ListProps = {
+  /**
+   * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
+   */
   variant?: 'inset' | 'full'
+  /**
+   * Whether multiple Items or a single Item can be selected.
+   */
   selectionVariant?: 'single' | 'multiple'
+  /**
+   * Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
+   */
   showDividers?: boolean
+  /**
+   * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
+   */
+  role?: AriaRole
 } & SxProp
 
 type ContextProps = Omit<ListProps, 'sx'>
