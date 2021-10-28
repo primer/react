@@ -1,6 +1,5 @@
 import {CheckIcon, TrashIcon} from '@primer/octicons-react'
 import {
-  format,
   isEqual,
   isAfter,
   isBefore,
@@ -15,6 +14,7 @@ import {
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {Text, useConfirm} from '..'
+import {formatDate} from './dateParser'
 
 export type AnchorVariant = 'input' | 'button' | 'icon-only'
 export type DateFormat = 'short' | 'long' | string
@@ -33,6 +33,7 @@ export interface DatePickerConfiguration {
   minDate?: Date | null
   placeholder?: string
   rangeIncrement?: number
+  showInputPrompt?: boolean
   variant?: SelectionVariant
   view?: '1-month' | '2-month'
   weekStartsOn?: 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'
@@ -228,6 +229,7 @@ const defaultConfiguration: DatePickerConfiguration = {
   disableWeekends: false,
   iconPlacement: 'start',
   placeholder: 'Select a Date...',
+  showInputPrompt: false,
   variant: 'single',
   view: '2-month',
   weekStartsOn: 'Sunday'
@@ -270,78 +272,8 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   }, [currentViewingDate])
 
   const getFormattedDate = useMemo(() => {
-    if (!selection) {
-      return configuration.placeholder
-    }
-    const {anchorVariant, dateFormat, variant} = configuration
-
-    let template = 'MMM d'
-    if (anchorVariant !== 'input' && dateFormat) {
-      switch (dateFormat) {
-        case 'short':
-          template = 'MMM d'
-          break
-        case 'long':
-          template = 'MMM d, yyyy'
-          break
-        default:
-          template = dateFormat
-          break
-      }
-    } else {
-      template = 'MM/dd/yyyy'
-    }
-
-    switch (variant) {
-      case 'single': {
-        if (selection instanceof Date) {
-          return format(selection, template)
-        } else if (Array.isArray(selection)) {
-          return format(selection[0], template)
-        } else if (isRangeSelection(selection)) {
-          return format(selection.from, template)
-        } else {
-          return 'Invalid Selection'
-        }
-      }
-      case 'multi': {
-        if (Array.isArray(selection)) {
-          if (selection.length > 3) return `${selection.length} Selected`
-          const formatted = selection.map(d => format(d, template)).join(', ')
-          return formatted
-        } else if (selection instanceof Date) {
-          return [selection].map(d => format(d, template)).join(', ')
-        } else if (isRangeSelection(selection)) {
-          return [selection.to, selection.from].map(d => (d ? format(d, template) : '')).join(', ')
-        } else {
-          return 'Invalid Selection'
-        }
-      }
-      case 'range': {
-        if (isRangeSelection(selection)) {
-          return Object.entries(selection)
-            .map(([_, date]) => (date ? format(date, template) : ''))
-            .join(' - ')
-        } else if (selection instanceof Date) {
-          return Object.entries({from: selection, to: null})
-            .map(([_, date]) => (date ? format(date, template) : ''))
-            .join(' - ')
-        } else if (Array.isArray(selection)) {
-          return (
-            Object.entries({from: selection[0], to: selection[1]})
-              // to date can still be null
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              .map(([_, date]) => (date ? format(date, template) : ''))
-              .join(' - ')
-          )
-        } else {
-          return 'Invalid Selection'
-        }
-      }
-      default: {
-        return 'Invalid Configuration'
-      }
-    }
+    const {anchorVariant, dateFormat, placeholder, variant} = configuration
+    return formatDate({selection, anchorVariant, dateFormat, placeholder, variant})
   }, [configuration, selection])
 
   const saveValue = useCallback(

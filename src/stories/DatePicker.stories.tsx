@@ -60,7 +60,7 @@ export default {
         options: ['start', 'end', 'none']
       }
     },
-    selection: {
+    variant: {
       control: {
         type: 'select',
         options: ['single', 'multi', 'range']
@@ -77,7 +77,7 @@ export default {
 
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {
-  anchorVariant: 'button',
+  anchorVariant: 'input',
   // confirmation: true,
   // confirmUnsavedClose: true,
   dateFormat: 'short',
@@ -89,7 +89,8 @@ DefaultDatePicker.args = {
   minDate: subDays(new Date(), 4),
   placeholder: 'Select a date',
   rangeIncrement: 14,
-  variant: 'single',
+  showInputPrompt: true,
+  variant: 'range',
   // value: {from: new Date(), to: addDays(new Date(), 4)},
   view: '2-month',
   weekStartsOn: 'Sunday'
