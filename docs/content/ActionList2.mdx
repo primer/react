@@ -6,7 +6,8 @@ storybook: '/react/storybook?path=/story/composite-components-actionlist2'
 description: An ActionList is a list of items which can be activated or selected. ActionList is the base component for many of our menu-type components, including DropdownMenu and ActionMenu.
 ---
 
-import {ActionList2, BorderBox, Avatar} from '@primer/components'
+import {BorderBox, Avatar} from '@primer/components'
+import {ActionList} from '@primer/components/experiments'
 import {Props} from '../src/props'
 
 import {ImageContainer} from '@primer/gatsby-theme-doctocat'
@@ -15,33 +16,33 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 <br />
 
 <BorderBox sx={{padding: 6}}>
-  <ActionList2 sx={{width: 320}}>
-    <ActionList2.Item>
-      <ActionList2.LeadingVisual>
+  <ActionList sx={{width: 320}}>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
         <LinkIcon />
-      </ActionList2.LeadingVisual>
+      </ActionList.LeadingVisual>
       github.com/primer
-      <ActionList2.Description variant="block">
+      <ActionList.Description variant="block">
         A React implementation of GitHub's Primer Design System
-      </ActionList2.Description>
-    </ActionList2.Item>
-    <ActionList2.Item>
-      <ActionList2.LeadingVisual>
+      </ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
         <Avatar src="https://github.com/mona.png" />
-      </ActionList2.LeadingVisual>
+      </ActionList.LeadingVisual>
       mona
-      <ActionList2.Description>Monalisa Octocat</ActionList2.Description>
-    </ActionList2.Item>
-    <ActionList2.Item variant="danger">
-      <ActionList2.LeadingVisual>
+      <ActionList.Description>Monalisa Octocat</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual>
         <AlertIcon />
-      </ActionList2.LeadingVisual>
+      </ActionList.LeadingVisual>
       4 vulnerabilities
-      <ActionList2.TrailingVisual>
+      <ActionList.TrailingVisual>
         <ArrowRightIcon />
-      </ActionList2.TrailingVisual>
-    </ActionList2.Item>
-  </ActionList2>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
 </BorderBox>
 
 <br />
@@ -51,14 +52,18 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 
 ## Minimal example
 
-```jsx live
-<ActionList2>
-  <ActionList2.Item>New file</ActionList2.Item>
-  <ActionList2.Item>Copy link</ActionList2.Item>
-  <ActionList2.Item>Edit file</ActionList2.Item>
-  <ActionList2.Divider />
-  <ActionList2.Item variant="danger">Delete file</ActionList2.Item>
-</ActionList2>
+```javascript live noinline
+const {ActionList} = experiments
+
+render(
+  <ActionList>
+    <ActionList.Item>New file</ActionList.Item>
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Edit file</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
 ```
 
 <br />
@@ -67,22 +72,40 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 
 Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
 
+```javascript live noinline
+const {ActionList} = experiments
+
+render(
+  <ActionList>
+    <ActionList.Item>New file</ActionList.Item>
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Edit file</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
+```
+
 <!-- prettier-ignore -->
-```jsx live
-<ActionList2>
-  <ActionList2.Item>
-    <ActionList2.LeadingVisual><LinkIcon /></ActionList2.LeadingVisual>
+```javascript live noinline
+const {ActionList} = experiments
+
+render(
+  <ActionList>
+  <ActionList.Item>
+    <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
     github.com/primer
-  </ActionList2.Item>
-  <ActionList2.Item variant="danger">
-    <ActionList2.LeadingVisual><AlertIcon /></ActionList2.LeadingVisual>
+  </ActionList.Item>
+  <ActionList.Item variant="danger">
+    <ActionList.LeadingVisual><AlertIcon /></ActionList.LeadingVisual>
     4 vulnerabilities
-  </ActionList2.Item>
-  <ActionList2.Item>
-    <ActionList2.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList2.LeadingVisual>
+  </ActionList.Item>
+  <ActionList.Item>
+    <ActionList.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList.LeadingVisual>
     mona
-  </ActionList2.Item>
-</ActionList2>
+  </ActionList.Item>
+</ActionList>
+)
 ```
 
 <br />
@@ -91,25 +114,29 @@ Leading visuals are optional and appear at the start of an item. They can be oct
 
 Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
 
-```jsx live
-<ActionList2>
-  <ActionList2.Item>
-    New file
-    <ActionList2.TrailingVisual>⌘ + N</ActionList2.TrailingVisual>
-  </ActionList2.Item>
-  <ActionList2.Item>
-    Copy link
-    <ActionList2.TrailingVisual>⌘ + C</ActionList2.TrailingVisual>
-  </ActionList2.Item>
-  <ActionList2.Item>
-    Edit file
-    <ActionList2.TrailingVisual>⌘ + E</ActionList2.TrailingVisual>
-  </ActionList2.Item>
-  <ActionList2.Item variant="danger">
-    Delete file
-    <ActionList2.TrailingVisual>⌫</ActionList2.TrailingVisual>
-  </ActionList2.Item>
-</ActionList2>
+```javascript live noinline
+const {ActionList} = experiments
+
+render(
+  <ActionList>
+    <ActionList.Item>
+      New file
+      <ActionList.TrailingVisual>⌘ + N</ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Copy link
+      <ActionList.TrailingVisual>⌘ + C</ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Edit file
+      <ActionList.TrailingVisual>⌘ + E</ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      Delete file
+      <ActionList.TrailingVisual>⌫</ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
 ```
 
 <br />
@@ -118,25 +145,34 @@ Trailing visual and trailing text can display auxiliary information. They're pla
 
 Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
 
-<!-- prettier-ignore -->
-```jsx live
-<ActionList2 showDividers>
-  <ActionList2.Item >
-    <ActionList2.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList2.LeadingVisual>
-    mona
-    <ActionList2.Description>Monalisa Octocat</ActionList2.Description>
-  </ActionList2.Item>
-  <ActionList2.Item >
-    <ActionList2.LeadingVisual><Avatar src="https://github.com/hubot.png" /></ActionList2.LeadingVisual>
-    hubot
-    <ActionList2.Description>Hubot</ActionList2.Description>
-  </ActionList2.Item>
-  <ActionList2.Item>
-    <ActionList2.LeadingVisual><Avatar src="https://github.com/primer-css.png" /></ActionList2.LeadingVisual>
-    primer-css
-    <ActionList2.Description>GitHub Design Systems Bot</ActionList2.Description>
-  </ActionList2.Item>
-</ActionList2>
+```javascript live noinline
+const {ActionList} = experiments
+
+render(
+  <ActionList showDividers>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/mona.png" />
+      </ActionList.LeadingVisual>
+      mona
+      <ActionList.Description>Monalisa Octocat</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/hubot.png" />
+      </ActionList.LeadingVisual>
+      hubot
+      <ActionList.Description>Hubot</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/primer-css.png" />
+      </ActionList.LeadingVisual>
+      primer-css
+      <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
+    </ActionList.Item>
+  </ActionList>
+)
 ```
 
 <br />

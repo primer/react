@@ -1,4 +1,5 @@
 import * as primerComponents from '@primer/components'
+import * as experiments from '@primer/components/experiments'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import {
   CheckIcon,
@@ -33,6 +34,7 @@ import {SelectPanel} from '../../../../src/SelectPanel/SelectPanel'
 export default {
   ...doctocatComponents,
   ...primerComponents,
+  experiments,
   State,
   CheckIcon,
   SearchIcon,

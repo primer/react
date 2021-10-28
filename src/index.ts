@@ -28,7 +28,6 @@ export {useConfirm} from './Dialog/ConfirmationDialog'
 
 // Components
 export {ActionList} from './ActionList'
-export {ActionList as ActionList2} from './ActionList2'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
 export {default as Autocomplete} from './Autocomplete'
