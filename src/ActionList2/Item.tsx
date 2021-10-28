@@ -1,25 +1,3 @@
-/**
- * move custom item themes to primitives?
- * ref unhappy with polymorphic
- * Item.Item with anchor inside
- *
- * opinions
- *  selectionVariant is null by default
- *  showDividers is on List parent, not each Item, should it also be on Group?
- *
- * design
- *  padding: 8 or 6?
- *  different size for icon and avatar, range?
- *
- * a11y
- *  checkbox or svg?
- *  are groups actually flat lists?
- *  aria-describedby empty value bad? also, 2 description = 2 values?
- *  should section header have role="heading"?
- *  test suite - import stories to test for axe violations
- *  change as= li | div based on context of menu or not?
- */
-
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
