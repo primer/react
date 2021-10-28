@@ -196,9 +196,14 @@ export function SingleSelectListStory(): JSX.Element {
     <>
       <h1>Single Select List</h1>
       <ErsatzOverlay>
-        <ActionList showDividers>
+        <ActionList showDividers role="listbox" aria-label="Select a project">
           {projects.map((project, index) => (
-            <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+            <ActionList.Item
+              key={index}
+              role="option"
+              selected={index === selectedIndex}
+              onSelect={() => setSelectedIndex(index)}
+            >
               <ActionList.LeadingVisual>
                 <TableIcon />
               </ActionList.LeadingVisual>
@@ -227,9 +232,10 @@ export function MultiSelectListStory(): JSX.Element {
     <>
       <h1>Multi Select List</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers>
+        <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Select assignees">
           {users.map(user => (
             <ActionList.Item
+              role="option"
               key={user.login}
               selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
               onSelect={() => toggleAssignee(user)}
@@ -255,10 +261,11 @@ export function DisabledStory(): JSX.Element {
     <>
       <h1>Disabled Items</h1>
       <ErsatzOverlay>
-        <ActionList showDividers>
+        <ActionList showDividers role="listbox" aria-label="Select a project">
           {projects.map((project, index) => (
             <ActionList.Item
               key={index}
+              role="option"
               selected={index === selectedIndex}
               onSelect={() => setSelectedIndex(index)}
               disabled={index === 1}
@@ -291,11 +298,12 @@ export function GroupsStory(): JSX.Element {
     <>
       <h1>Groups</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers>
+        <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Select reviewers">
           <ActionList.Group title="Suggestions" variant="filled">
             {users.slice(0, 2).map(user => (
               <ActionList.Item
                 key={user.login}
+                role="option"
                 selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
                 onSelect={() => toggleAssignee(user)}
               >
@@ -311,6 +319,7 @@ export function GroupsStory(): JSX.Element {
           <ActionList.Group title="Everyone" variant="filled">
             {users.slice(2).map(user => (
               <ActionList.Item
+                role="option"
                 key={user.login}
                 selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
                 onSelect={() => toggleAssignee(user)}
@@ -402,7 +411,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                 Information-dense table optimized for operations across teams
               </ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item>
+            <ActionList.Item role="listitem">
               <ActionList.LeadingVisual>
                 <ProjectIcon />
               </ActionList.LeadingVisual>
@@ -428,7 +437,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
             </ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group sx={{backgroundColor: 'cornflowerblue'}}>
+          <ActionList.Group sx={{backgroundColor: 'accent.emphasis'}}>
             <ActionList.Item sx={{color: 'white'}}>
               <ActionList.LeadingVisual sx={{color: 'white'}}>
                 <GearIcon />
@@ -509,7 +518,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
             </ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group sx={{backgroundColor: 'cornflowerblue'}}>
+          <ActionList.Group sx={{backgroundColor: 'accent.emphasis'}}>
             <ActionList.Item sx={{color: 'white'}}>
               <ActionList.LeadingVisual sx={{color: 'white'}}>
                 <GearIcon />
@@ -546,7 +555,7 @@ const NextJSLikeLink = forwardRef(
 export function LinkItemStory(): JSX.Element {
   return (
     <>
-      <h1>Simple List</h1>
+      <h1>List with a link item</h1>
       <ErsatzOverlay>
         <ActionList>
           <ActionList.Item onSelect={() => alert('hi!')}>A. Vanilla action</ActionList.Item>
@@ -821,17 +830,19 @@ export function NestedChildren(): JSX.Element {
       <h1>Nested Children</h1>
       <ErsatzOverlay>
         <ActionList showDividers>
-          <div id="i like extra divs">
-            {users.map(user => (
-              <ActionList.Item key={user.login}>
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ReviewerDescription user={user} />
-              </ActionList.Item>
-            ))}
-          </div>
+          <li>
+            <ul id="i like extra lists" style={{paddingInlineStart: 0}}>
+              {users.map(user => (
+                <ActionList.Item key={user.login}>
+                  <ActionList.LeadingVisual>
+                    <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
+                  </ActionList.LeadingVisual>
+                  {user.login}
+                  <ReviewerDescription user={user} />
+                </ActionList.Item>
+              ))}
+            </ul>
+          </li>
         </ActionList>
       </ErsatzOverlay>
     </>
@@ -902,8 +913,8 @@ export function ChildWithSideEffects(): JSX.Element {
     <>
       <h1>Child with side effects</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple">
-          <ActionList.Item selected={selected} onSelect={() => setSelected(!selected)}>
+        <ActionList selectionVariant="multiple" role="listbox" aria-label="Select assignees">
+          <ActionList.Item selected={selected} onSelect={() => setSelected(!selected)} role="option">
             <ActionList.LeadingVisual>
               <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
             </ActionList.LeadingVisual>

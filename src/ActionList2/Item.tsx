@@ -5,8 +5,13 @@
  * docs for types
  * test suite!
  * ref unhappy with polymorphic
- *
+ * activeDescendantAttribute (for actionMenu)
  * check height with divider
+ * Item.Item with anchor inside
+ *
+ * a11y
+ * * checkbox a11y
+ * * are groups actually flat lists?
  * questions:
  * change as= li | div based on context of menu or not?
  * should selectionVariant be single by default or nothing. ask for explicit choice?
@@ -16,8 +21,7 @@
  * different size for icon and avatar, range?
  * ActionList.Selection or ActionList.Item selected?
  * aria-describedby empty value bad? also, 2 description = 2 values?
- *
- * activeDescendantAttribute (for actionMenu)
+ * should section header have role="heading"?
  */
 
 import React from 'react'
@@ -147,7 +151,6 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             as="li"
             ref={forwardedRef}
             sx={merge(styles, sx as SxProp)}
-            data-component="ActionList.Item"
             onClick={clickHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}

@@ -12,6 +12,7 @@ export type GroupProps = HeaderProps & SxProp
 export function Group({title, variant, auxiliaryText, sx = {}, ...props}: GroupProps): JSX.Element {
   return (
     <Box
+      as="li"
       sx={{
         '&:not(:first-child)': {marginTop: 2},
         ...sx
@@ -19,7 +20,9 @@ export function Group({title, variant, auxiliaryText, sx = {}, ...props}: GroupP
       {...props}
     >
       {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} />}
-      {props.children}
+      <Box as="ul" sx={{paddingInlineStart: 0}}>
+        {props.children}
+      </Box>
     </Box>
   )
 }

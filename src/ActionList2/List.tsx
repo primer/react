@@ -27,7 +27,13 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     }
 
     return (
-      <Box as="ul" sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
+      <Box
+        as="ul"
+        sx={merge(styles, sx as SxProp)}
+        aria-multiselectable={selectionVariant === 'multiple' ? true : undefined}
+        {...props}
+        ref={forwardedRef}
+      >
         <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
       </Box>
     )

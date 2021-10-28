@@ -9,9 +9,9 @@ import {Theme} from '../ThemeProvider'
 export function Divider(): JSX.Element {
   return (
     <Box
-      as="hr"
+      as="li"
+      role="separator"
       sx={{
-        border: 'none', // override browser styles
         height: 1,
         backgroundColor: 'border.muted',
         marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
@@ -21,11 +21,3 @@ export function Divider(): JSX.Element {
     />
   )
 }
-
-/**
- * `Divider` fulfills the `ItemPropsWithCustomRenderer` contract,
- * so it can be used inline in an `ActionList`’s `items` prop.
- * In other words, `items={[ActionList.Divider]}` is supported as a concise
- * alternative to `items={[{renderItem: () => <ActionList.Divider />}]}`.
- */
-Divider.renderItem = Divider
