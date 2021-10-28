@@ -48,7 +48,6 @@ const variants = variant<
     fontSize: number
     height: string
     lineHeight: string
-    gap: number
     paddingLeft: number
     paddingRight: number
     paddingTop: number
@@ -60,7 +59,6 @@ const variants = variant<
   variants: {
     small: {
       fontSize: 0,
-      gap: 1,
       height: tokenSizes.small,
       // without setting lineHeight to match height, the "x" appears vertically mis-aligned
       lineHeight: tokenSizes.small,
@@ -73,7 +71,6 @@ const variants = variant<
     },
     medium: {
       fontSize: 0,
-      gap: 1,
       height: tokenSizes.medium,
       lineHeight: tokenSizes.medium,
       paddingLeft: 2,
@@ -83,7 +80,6 @@ const variants = variant<
     },
     large: {
       fontSize: 0,
-      gap: 2,
       height: tokenSizes.large,
       lineHeight: tokenSizes.large,
       paddingLeft: 2,
@@ -93,7 +89,6 @@ const variants = variant<
     },
     extralarge: {
       fontSize: 1,
-      gap: 2,
       height: tokenSizes.extralarge,
       lineHeight: tokenSizes.extralarge,
       paddingLeft: 3,

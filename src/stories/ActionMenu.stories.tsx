@@ -150,7 +150,7 @@ export function ExternalOpenState(): JSX.Element {
             {
               text: 'Delete file',
               variant: 'danger',
-              trailingText: '⌘D'
+              trailingVisual: '⌘D'
             }
           ]}
         />
@@ -188,8 +188,20 @@ export function ComplexListStory(): JSX.Element {
               text: 'repo:github/github',
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
-              trailingText: '⌘S',
-              trailingIcon: ArrowRightIcon
+              trailingVisual: () => (
+                <>
+                  ⌘S
+                  <ArrowRightIcon />
+                </>
+              )
+            },
+            {
+              leadingVisual: SearchIcon,
+              text: 'repo:github/github',
+              groupId: '1',
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              trailingText: '⌘S', // backward compatible
+              trailingIcon: ArrowRightIcon // backward compatible
             },
             {
               leadingVisual: NoteIcon,

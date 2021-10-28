@@ -48,6 +48,7 @@ render(BasicExample)
 | preventTokenWrapping   | `boolean`                             |   `false`    | Optional. Whether tokens should render inline horizontally. By default, tokens wrap to new lines.                         |
 | size                   | `TokenSizeKeys`                       | `extralarge` | Optional. The size of the tokens                                                                                          |
 | hideTokenRemoveButtons | `boolean`                             |   `false`    | Optional. Whether the remove buttons should be rendered in the tokens                                                     |
+| visibleTokenCount      | `number`                              | `undefined`  | Optional. The number of tokens to display before truncating                                                               |
 
 ## Adding and removing tokens
 
@@ -94,4 +95,117 @@ const UsingIssueLabelTokens = () => {
 }
 
 render(<UsingIssueLabelTokens />)
+```
+
+## Dealing with long lists of tokens
+
+By default, all tokens will be visible when the component is rendered.
+
+If the component is being used in an area where it's height needs to be constrained, there are options to limit the height of the input.
+
+### Hide and show tokens
+
+```javascript live noinline
+const VisibleTokenCountExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2},
+    {text: 'three', id: 3}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box maxWidth="500px">
+      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
+        Tokens truncated after 2
+      </Box>
+      <TextInputWithTokens
+        visibleTokenCount={2}
+        block
+        tokens={tokens}
+        onTokenRemove={onTokenRemove}
+        id="inputWithTokens-basic"
+      />
+    </Box>
+  )
+}
+
+render(VisibleTokenCountExample)
+```
+
+### Render tokens on a single line
+
+```javascript live noinline
+const PreventTokenWrappingExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2},
+    {text: 'three', id: 3},
+    {text: 'four', id: 4},
+    {text: 'five', id: 5},
+    {text: 'six', id: 6},
+    {text: 'seven', id: 7}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box maxWidth="500px">
+      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
+        Tokens on one line
+      </Box>
+      <TextInputWithTokens
+        preventTokenWrapping
+        block
+        tokens={tokens}
+        onTokenRemove={onTokenRemove}
+        id="inputWithTokens-basic"
+      />
+    </Box>
+  )
+}
+
+render(PreventTokenWrappingExample)
+```
+
+### Set a maximum height for the input
+
+```javascript live noinline
+const MaxHeightExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2},
+    {text: 'three', id: 3},
+    {text: 'four', id: 4},
+    {text: 'five', id: 5},
+    {text: 'six', id: 6},
+    {text: 'seven', id: 7}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box maxWidth="500px">
+      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
+        Tokens restricted to a max height
+      </Box>
+      <TextInputWithTokens
+        maxHeight="50px"
+        block
+        tokens={tokens}
+        onTokenRemove={onTokenRemove}
+        id="inputWithTokens-basic"
+      />
+    </Box>
+  )
+}
+
+render(MaxHeightExample)
 ```
