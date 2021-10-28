@@ -33,7 +33,7 @@ export interface DatePickerConfiguration {
   minDate?: Date | null
   placeholder?: string
   rangeIncrement?: number
-  selection?: SelectionVariant
+  variant?: SelectionVariant
   view?: '1-month' | '2-month'
   weekStartsOn?: 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'
 }
@@ -228,7 +228,7 @@ const defaultConfiguration: DatePickerConfiguration = {
   disableWeekends: false,
   iconPlacement: 'start',
   placeholder: 'Select a Date...',
-  selection: 'single',
+  variant: 'single',
   view: '2-month',
   weekStartsOn: 'Sunday'
 }
@@ -241,21 +241,21 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
 }) => {
   const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
   const [previousSelection, setPreviousSelection] = useState<Selection | undefined>(
-    parseSelection(value, configuration.selection)
+    parseSelection(value, configuration.variant)
   )
   const [isDirty, setIsDirty] = useState(false)
-  const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.selection))
+  const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.variant))
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
   const [currentViewingDate, setCurrentViewingDate] = useState(new Date())
   const confirm = useConfirm()
 
   useEffect(() => {
     setConfiguration(deepmerge(defaultConfiguration, externalConfig))
-    setSelection(parseSelection(selection, configuration.selection))
+    setSelection(parseSelection(selection, configuration.variant))
 
     // Don't want this to run every time selection gets updated
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [configuration.selection, externalConfig])
+  }, [configuration.variant, externalConfig])
 
   const goToMonth = useCallback((date: Date) => {
     setCurrentViewingDate(new Date(new Date(date).toDateString()))
@@ -273,10 +273,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     if (!selection) {
       return configuration.placeholder
     }
+    const {anchorVariant, dateFormat, variant} = configuration
 
     let template = 'MMM d'
-    if (configuration.anchorVariant !== 'input' && configuration.dateFormat) {
-      switch (configuration.dateFormat) {
+    if (anchorVariant !== 'input' && dateFormat) {
+      switch (dateFormat) {
         case 'short':
           template = 'MMM d'
           break
@@ -284,14 +285,14 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           template = 'MMM d, yyyy'
           break
         default:
-          template = configuration.dateFormat
+          template = dateFormat
           break
       }
     } else {
       template = 'MM/dd/yyyy'
     }
 
-    switch (configuration.selection) {
+    switch (variant) {
       case 'single': {
         if (selection instanceof Date) {
           return format(selection, template)
@@ -341,13 +342,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         return 'Invalid Configuration'
       }
     }
-  }, [
-    configuration.anchorVariant,
-    configuration.dateFormat,
-    configuration.placeholder,
-    configuration.selection,
-    selection
-  ])
+  }, [configuration, selection])
 
   const saveValue = useCallback(
     (updatedSelection?: Selection) => {
@@ -400,7 +395,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const selectionHandler = useCallback(
     (date: Date) => {
       setIsDirty(true)
-      if (configuration.selection === 'multi') {
+      if (configuration.variant === 'multi') {
         const selections = [...(selection as Array<Date>)]
         const existingIndex = selections.findIndex((s: Date) => isEqual(s, date))
         if (existingIndex > -1) {
@@ -410,7 +405,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           if (configuration.maxSelections && selections.length + 1 > configuration.maxSelections) return
           setSelection([...selections, date].sort((a, b) => a.getTime() - b.getTime()))
         }
-      } else if (configuration.selection === 'range') {
+      } else if (configuration.variant === 'range') {
         if (selection && isRangeSelection(selection) && !selection.to) {
           let toDate = date
           if (
@@ -446,7 +441,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       configuration.confirmation,
       configuration.maxRangeSize,
       configuration.maxSelections,
-      configuration.selection,
+      configuration.variant,
       saveValue,
       selection
     ]
@@ -455,9 +450,9 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const focusHnadler = useCallback(
     (date: Date) => {
       if (!selection) return
-      const {minDate, maxDate, maxRangeSize, selection: configSelection} = configuration
+      const {minDate, maxDate, maxRangeSize, variant} = configuration
 
-      if (configSelection === 'range' && isRangeSelection(selection) && hoverRange) {
+      if (variant === 'range' && isRangeSelection(selection) && hoverRange) {
         let hoverDate = date
         if (minDate) hoverDate = isBefore(date, minDate) ? minDate : hoverDate
         if (maxDate) hoverDate = isAfter(date, maxDate) ? maxDate : hoverDate

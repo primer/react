@@ -34,7 +34,7 @@ const INVALID_DATE = 'Invalid Date'
 
 export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAnchorProps>(({onAction}, ref) => {
   const {
-    configuration: {anchorVariant, iconPlacement, selection},
+    configuration: {anchorVariant, iconPlacement, variant},
     disabled,
     formattedDate,
     onDateInput
@@ -68,7 +68,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
       const value = e.currentTarget.value
       if (!value) return
 
-      if (selection === 'range') {
+      if (variant === 'range') {
         const values = value.split(' - ')
 
         const dates = isBefore(new Date(values[0]?.trim()), new Date(values[1]?.trim()))
@@ -79,7 +79,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
         if (dates.from.toString() !== INVALID_DATE && dates.to.toString() !== INVALID_DATE) {
           onDateInput(dates)
         }
-      } else if (selection === 'multi') {
+      } else if (variant === 'multi') {
         const values = value.split(',')
         const dates = []
         for (const date of values) {
@@ -95,7 +95,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
         if (date.toString() !== INVALID_DATE) onDateInput(date)
       }
     },
-    [onDateInput, selection]
+    [onDateInput, variant]
   )
 
   const onBlurHandler = () => {

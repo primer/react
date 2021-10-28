@@ -89,8 +89,8 @@ DefaultDatePicker.args = {
   minDate: subDays(new Date(), 4),
   placeholder: 'Select a date',
   rangeIncrement: 14,
-  selection: 'range',
-  value: {from: new Date(), to: addDays(new Date(), 4)},
+  variant: 'single',
+  // value: {from: new Date(), to: addDays(new Date(), 4)},
   view: '2-month',
   weekStartsOn: 'Sunday'
 }

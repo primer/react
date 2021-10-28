@@ -74,8 +74,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   overlayProps,
   placeholder,
   renderAnchor,
-  selection,
   value,
+  variant,
   view,
   weekStartsOn
 }) => {
@@ -93,7 +93,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     maxSelections,
     minDate: minDate ? new Date(new Date(minDate).toDateString()) : minDate,
     placeholder,
-    selection,
+    variant,
     view,
     weekStartsOn
   }
