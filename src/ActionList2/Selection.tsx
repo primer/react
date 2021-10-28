@@ -1,6 +1,5 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
-import {useTheme} from '../ThemeProvider'
 import {ListContext} from './List'
 import {ItemProps} from './Item'
 import {LeadingVisualContainer} from './Visuals'
@@ -8,12 +7,11 @@ import {LeadingVisualContainer} from './Visuals'
 type SelectionProps = Pick<ItemProps, 'selected' | 'disabled'>
 export const Selection: React.FC<SelectionProps> = ({selected, disabled}) => {
   const {selectionVariant} = React.useContext(ListContext)
-  const {theme} = useTheme()
 
   if (typeof selected === 'undefined') return null
 
   if (selectionVariant === 'single') {
-    return <LeadingVisualContainer>{selected && <CheckIcon fill="fg.muted" />}</LeadingVisualContainer>
+    return <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>
   }
 
   if (selectionVariant === 'multiple') {
