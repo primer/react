@@ -185,7 +185,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ComponentProps<
     }
     const iconWrapStyles = {
       display: 'inline-block',
-      ...(!iconOnly ? {pr: 3} : {})
+      ...(!iconOnly ? {mr: 2} : {})
     }
     return (
       <ButtonBase ref={forwardedRef} {...props} iconOnly={iconOnly}>

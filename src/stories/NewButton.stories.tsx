@@ -83,7 +83,8 @@ export const WatchCounterButton = ({...args}: ButtonProps) => {
   const [count, setCount] = useState(0)
   return (
     <Button onClick={() => setCount(count + 1)} {...args}>
-      Watch <Button.Counter count={count} />
+      Watch
+      <Button.Counter count={count} />
     </Button>
   )
 }
