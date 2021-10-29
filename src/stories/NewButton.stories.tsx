@@ -22,7 +22,7 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large', 'square']
+        options: ['small', 'medium', 'large']
       }
     }
   }
@@ -69,11 +69,14 @@ export const iconBeforeButton = (args: ButtonProps) => {
 }
 
 export const iconButton = ({...args}: ButtonProps) => {
-  return <Button icon={() => <XIcon />} {...args}></Button>
-}
-
-export const invisibleIconButton = ({...args}: ButtonProps) => {
-  return <Button icon={() => <XIcon />} {...args} variant="invisible"></Button>
+  return (
+    <>
+      <Button icon={() => <XIcon />} {...args}></Button>
+      <Button icon={() => <XIcon />} {...args} variant="invisible"></Button>
+      <Button icon={() => <XIcon />} {...args} variant="danger"></Button>
+      <Button icon={() => <XIcon />} {...args} variant="primary"></Button>
+    </>
+  )
 }
 
 export const WatchCounterButton = ({...args}: ButtonProps) => {
@@ -108,5 +111,25 @@ export const blockButton = ({...args}: ButtonProps) => {
     <Button sx={{width: '100%'}} {...args}>
       Block
     </Button>
+  )
+}
+
+export const disabledButton = ({...args}: ButtonProps) => {
+  return (
+    <>
+      <Button disabled {...args}>
+        Disabled
+      </Button>
+      <Button disabled variant="danger" {...args}>
+        Disabled
+      </Button>
+      <Button disabled variant="invisible" {...args}>
+        Disabled
+      </Button>
+      <Button disabled variant="primary" {...args}>
+        Disabled
+      </Button>
+      <Button disabled icon={() => <XIcon />} {...args}></Button>
+    </>
   )
 }

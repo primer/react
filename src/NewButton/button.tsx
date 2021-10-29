@@ -5,7 +5,7 @@ import {fontSize, FontSizeProps, variant as variantFn} from 'styled-system'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {get} from '../constants'
-import buttonBaseStyles from '../Button/ButtonStyles'
+import buttonBaseStyles from './buttonStyles'
 import {Theme} from '../ThemeProvider'
 import Counter from './counter'
 import {ComponentProps} from '../utils/types'
@@ -14,15 +14,13 @@ const sizes = variantFn({
   prop: 'size',
   variants: {
     small: {
-      p: '4px 12px',
       fontSize: 0
     },
     medium: {
       fontSize: 1
     },
     large: {
-      fontSize: 2,
-      p: '10px 20px'
+      fontSize: 2
     }
   }
 })
@@ -40,30 +38,29 @@ export type ButtonBaseProps = {
 const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
   const style = {
     default: `
-      padding: 5px 16px;
       color: ${get('colors.btn.text')({theme})};
       background-color: ${get('colors.btn.bg')({theme})};
       border-width: 1px;
       border-style: solid;
       border-color: ${get('colors.btn.border')({theme})};
       box-shadow: ${(get('shadows.btn.shadow')({theme}), get('shadows.btn.insetShadow')({theme}))};
-      &:hover {
+      &:hover:not([disabled]) {
         background-color: ${get('colors.btn.hoverBg')({theme})};
       }
       // focus must come before :active so that the active box shadow overrides
-      &:focus {
+      &:focus:not([disabled]) {
         box-shadow: ${get('shadows.btn.focusShadow')({theme})};
       }
-      &:active {
+      &:active:not([disabled]) {
         background-color: ${get('colors.btn.selectedBg')({theme})};
         box-shadow: ${get('shadows.btn.shadowActive')({theme})};
       }
       &:disabled {
         color: ${get('colors.primer.fg.disabled')({theme})};
+        background-color: ${get('colors.btn.disabledBg')({theme})};
       }
     `,
     primary: `
-      padding: 5px 16px;
       color: ${get('colors.btn.primary.text')({theme})};
       background-color: ${get('colors.btn.primary.bg')({theme})};
       border-width: 1px;
@@ -71,16 +68,16 @@ const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
       border-color: ${get('colors.border.subtle')({theme})};
       box-shadow: ${get('shadows.btn.primary.shadow')({theme})};
 
-      &:hover {
+      &:hover:not([disabled]) {
         color: ${get('colors.btn.primary.hoverText')({theme})};
         background-color: ${get('colors.btn.primary.hoverBg')({theme})};
       }
       // focus must come before :active so that the active box shadow overrides
-      &:focus {
+      &:focus:not([disabled]) {
         box-shadow: ${get('shadows.btn.primary.focusShadow')({theme})};
       }
 
-      &:active {
+      &:active:not([disabled]) {
         background-color: ${get('colors.btn.primary.selectedBg')({theme})};
         box-shadow: ${get('shadows.btn.primary.selectedShadow')({theme})};
       }
@@ -90,25 +87,24 @@ const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
         background-color: ${get('colors.btn.primary.disabledBg')({theme})};
       }`,
     danger: `
-      padding: 5px 16px;
       color: ${get('colors.btn.danger.text')({theme})};
       border: 1px solid ${get('colors.btn.border')({theme})};
       background-color: ${get('colors.btn.bg')({theme})};
       box-shadow: ${get('shadows.btn.shadow')({theme})};
 
-      &:hover {
+      &:hover:not([disabled]) {
         color: ${get('colors.btn.danger.hoverText')({theme})};
         background-color: ${get('colors.btn.danger.hoverBg')({theme})};
         border-color: ${get('colors.btn.danger.hoverBorder')({theme})};
         box-shadow: ${get('shadows.btn.danger.hoverShadow')({theme})};
       }
       // focus must come before :active so that the active box shadow overrides
-      &:focus {
+      &:focus:not([disabled]) {
         border-color: ${get('colors.btn.danger.focusBorder')({theme})};
         box-shadow: ${get('shadows.btn.danger.focusShadow')({theme})};
       }
 
-      &:active {
+      &:active:not([disabled]) {
         color: ${get('colors.btn.danger.selectedText')({theme})};
         background-color: ${get('colors.btn.danger.selectedBg')({theme})};
         box-shadow: ${get('shadows.btn.danger.selectedShadow')({theme})};
@@ -122,7 +118,6 @@ const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
       }
     `,
     invisible: `
-      padding: 6px 16px;
       color: ${get('colors.accent.fg')({theme})};
       background-color: transparent;
       border: 0;
@@ -132,33 +127,58 @@ const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
       &:disabled {
         color: ${get('colors.primer.fg.disabled')({theme})};
       }
-      &:focus {
+      &:focus:not([disabled]) {
         box-shadow: ${get('shadows.btn.focusShadow')({theme})};
       }
-      &:hover {
+      &:hover:not([disabled]) {
         background-color: ${get('colors.btn.hoverBg')({theme})};
       }
-      &:active {
+      &:active:not([disabled]) {
         background-color: ${get('colors.btn.selectedBg')({theme})};
       }
-    `,
-    block: ``
+    `
   }
   return style[variant]
 }
 
-const ButtonBase = styled.button<ButtonBaseProps>`
+const getSizes = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
+  let paddingTop, paddingLeft
+  switch (size) {
+    case 'small':
+      paddingTop = 3
+      paddingLeft = 12
+      break
+    case 'large':
+      paddingTop = 9
+      paddingLeft = 20
+      break
+    case 'medium':
+    default:
+      paddingTop = 5
+      paddingLeft = 16
+  }
+  if (iconOnly) {
+    paddingLeft = paddingTop + 2
+  }
+  if (variant === 'invisible') {
+    paddingTop = paddingTop + 1
+  }
+  return `
+    padding:${paddingTop}px ${paddingLeft}px;
+  `
+}
+const ButtonBase = styled.button<ButtonBaseProps & {iconOnly: boolean}>`
   ${buttonBaseStyles}
   ${props => getVariantStyles(props.theme, props.variant)}
+  ${props => getSizes(props.size, props.variant, props.iconOnly)}
   ${sizes}
-  ${props => (props.icon && !props.children ? `padding: 4px 6px;` : '')}
   ${sx}
   ${fontSize}
 `
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ComponentProps<typeof ButtonBase>>(
   ({children, ...props}, forwardedRef) => {
-    const {icon: Icon, caret} = props
+    const {icon: Icon, caret, size} = props
     let iconOnly = false
     if (Icon && !children) {
       iconOnly = true
@@ -171,13 +191,13 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ComponentProps<
       <ButtonBase ref={forwardedRef} {...props} iconOnly={iconOnly}>
         {Icon && (
           <Box sx={iconWrapStyles} aria-hidden={!iconOnly}>
-            <Icon />
+            <Icon size={size} />
           </Box>
         )}
         {children}
         {caret && (
           <Box sx={{display: 'inline-block', pl: 3}} aria-hidden={true}>
-            <TriangleDownIcon />
+            <TriangleDownIcon size={size} />
           </Box>
         )}
       </ButtonBase>
