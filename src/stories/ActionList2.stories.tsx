@@ -16,7 +16,11 @@ import {
   GitForkIcon,
   AlertIcon,
   TableIcon,
-  PeopleIcon
+  PeopleIcon,
+  CalendarIcon,
+  IssueOpenedIcon,
+  NumberIcon,
+  XIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -981,3 +985,46 @@ export function WithSx(): JSX.Element {
   )
 }
 WithSx.storyName = 'With sx'
+
+export function MemexGroupBy(): JSX.Element {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+
+  const options = [
+    {text: 'Status', icon: <IssueOpenedIcon />},
+    {text: 'Stage', icon: <TableIcon />},
+    {text: 'Assignee', icon: <PeopleIcon />},
+    {text: 'Team', icon: <TypographyIcon />},
+    {text: 'Estimate', icon: <NumberIcon />},
+    {text: 'Due Date', icon: <CalendarIcon />}
+  ]
+
+  return (
+    <>
+      <h1>Memex GroupBy List</h1>
+      <ErsatzOverlay>
+        <ActionList>
+          <ActionList.Group title="Group by" selectionVariant="single">
+            {options.map((option, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
+                {option.text}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+          {typeof selectedIndex === 'number' && (
+            <>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+                <ActionList.LeadingVisual>
+                  <XIcon />
+                </ActionList.LeadingVisual>
+                Clear Group by
+              </ActionList.Item>
+            </>
+          )}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+MemexGroupBy.storyName = 'Memex GroupBy List'

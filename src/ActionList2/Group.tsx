@@ -2,10 +2,17 @@ import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
 import {Header, HeaderProps} from './Header'
+import {ListProps} from './List'
 
-export type GroupProps = HeaderProps & SxProp
+export type GroupProps = HeaderProps &
+  SxProp & {
+    selectionVariant?: ListProps['selectionVariant'] | false
+  }
 
-export const Group: React.FC<GroupProps> = ({title, variant, auxiliaryText, sx = {}, ...props}) => {
+type ContextProps = Pick<GroupProps, 'selectionVariant'>
+export const GroupContext = React.createContext<ContextProps>({})
+
+export const Group: React.FC<GroupProps> = ({title, variant, auxiliaryText, selectionVariant, sx = {}, ...props}) => {
   return (
     <Box
       as="li"
@@ -16,9 +23,11 @@ export const Group: React.FC<GroupProps> = ({title, variant, auxiliaryText, sx =
       {...props}
     >
       {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} />}
-      <Box as="ul" sx={{paddingInlineStart: 0}}>
-        {props.children}
-      </Box>
+      <GroupContext.Provider value={{selectionVariant}}>
+        <Box as="ul" sx={{paddingInlineStart: 0}}>
+          {props.children}
+        </Box>
+      </GroupContext.Provider>
     </Box>
   )
 }

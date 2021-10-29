@@ -1,12 +1,17 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
 import {ListContext} from './List'
+import {GroupContext} from './Group'
 import {ItemProps} from './Item'
 import {LeadingVisualContainer} from './Visuals'
 
 type SelectionProps = Pick<ItemProps, 'selected' | 'disabled'>
 export const Selection: React.FC<SelectionProps> = ({selected, disabled}) => {
-  const {selectionVariant} = React.useContext(ListContext)
+  const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+  const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+
+  /** selectionVariant in Group can override the selectionVariant in List root */
+  const selectionVariant = typeof groupSelectionVariant !== 'undefined' ? groupSelectionVariant : listSelectionVariant
 
   // if selectionVariant is not set on List, don't show selection
   if (!selectionVariant) {
