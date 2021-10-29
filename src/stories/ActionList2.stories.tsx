@@ -25,8 +25,10 @@ import {
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
+import {DndProvider, useDrag, useDrop} from 'react-dnd'
+import {HTML5Backend} from 'react-dnd-html5-backend'
 import {Label, ThemeProvider} from '..'
-import {ActionList as _ActionList} from '../ActionList2'
+import {ActionList as _ActionList, ItemProps} from '../ActionList2'
 import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
 import Avatar from '../Avatar'
@@ -1028,3 +1030,119 @@ export function MemexGroupBy(): JSX.Element {
   )
 }
 MemexGroupBy.storyName = 'Memex GroupBy List'
+
+type Option = {text: string; icon: React.ReactNode; selected: boolean}
+export function MemexSortable(): JSX.Element {
+  const [options, setOptions] = React.useState<Option[]>([
+    {text: 'Status', icon: <IssueOpenedIcon />, selected: true},
+    {text: 'Stage', icon: <TableIcon />, selected: true},
+    {text: 'Assignee', icon: <PeopleIcon />, selected: true},
+    {text: 'Team', icon: <TypographyIcon />, selected: true},
+    {text: 'Estimate', icon: <NumberIcon />, selected: false},
+    {text: 'Due Date', icon: <CalendarIcon />, selected: false}
+  ])
+
+  const toggle = (text: string) => {
+    setOptions(
+      options.map(option => {
+        if (option.text === text) option.selected = !option.selected
+        return option
+      })
+    )
+  }
+
+  const reorder = ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => {
+    setOptions(currentOptions => {
+      const newOptions = [...currentOptions]
+      // remove option to move
+      const currentPosition = newOptions.findIndex(o => o.text === optionToMove.text)
+      newOptions.splice(currentPosition, 1)
+      // add it after the provided element
+      const newPosition = newOptions.findIndex(o => o.text === moveAfterOption.text) + 1
+      newOptions.splice(newPosition, 0, optionToMove)
+      return newOptions
+    })
+  }
+
+  const visibleOptions = options.filter(option => option.selected)
+  const hiddenOptions = options.filter(option => !option.selected)
+
+  return (
+    <>
+      <h1>Memex Sortable List</h1>
+      <ErsatzOverlay>
+        <DndProvider backend={HTML5Backend}>
+          <ActionList selectionVariant="multiple">
+            <ActionList.Group title="Visible fields (can be reordered)">
+              {visibleOptions.map(option => (
+                <SortableItem
+                  key={option.text}
+                  option={option}
+                  onSelect={() => toggle(option.text)}
+                  reorder={reorder}
+                />
+              ))}
+            </ActionList.Group>
+            <ActionList.Group
+              title="Hidden fields"
+              selectionVariant={
+                /** selectionVariant override on Group: disable selection if there are no options */
+                hiddenOptions.length ? 'multiple' : false
+              }
+            >
+              {hiddenOptions.map((option, index) => (
+                <ActionList.Item key={index} selected={option.selected} onSelect={() => toggle(option.text)}>
+                  <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
+                  {option.text}
+                </ActionList.Item>
+              ))}
+              {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
+            </ActionList.Group>
+          </ActionList>
+        </DndProvider>
+      </ErsatzOverlay>
+    </>
+  )
+}
+MemexSortable.storyName = 'Memex Sortable List'
+
+type SortableItemProps = {
+  option: Option
+  onSelect: ItemProps['onSelect']
+  reorder: ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => void
+}
+const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) => {
+  const [{isDragging}, dragRef] = useDrag(() => ({
+    type: 'ITEM',
+    item: option,
+    collect: monitor => {
+      return {isDragging: monitor.isDragging()}
+    }
+  }))
+
+  const [{isOver}, dropRef] = useDrop(() => ({
+    accept: 'ITEM',
+    collect: monitor => {
+      return {isOver: monitor.isOver()}
+    },
+    drop: (optionDropped: Option) => {
+      reorder({optionToMove: optionDropped, moveAfterOption: option})
+    }
+  }))
+
+  return (
+    <ActionList.Item
+      ref={element => dragRef(element) && dropRef(element)} // merge refs
+      selected={option.selected}
+      onSelect={onSelect}
+      sx={{
+        opacity: isDragging ? 0.5 : 1,
+        boxShadow: isOver ? theme => `0px 2px 0 0px ${theme.colors.accent.emphasis}` : undefined,
+        borderRadius: isOver ? 0 : undefined
+      }}
+    >
+      <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
+      {option.text}
+    </ActionList.Item>
+  )
+}
