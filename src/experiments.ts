@@ -1,2 +1,2 @@
 // Components
-export {ActionList} from './ActionList2'
+export * from './ActionList2'
