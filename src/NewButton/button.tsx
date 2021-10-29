@@ -28,10 +28,10 @@ const sizes = variantFn({
 })
 type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
-export type Props = {
+export type ButtonBaseProps = {
   caret?: boolean
-  variant: VariantType
-  size: 'small' | 'medium' | 'large'
+  variant?: VariantType
+  size?: 'small' | 'medium' | 'large'
   icon?: React.FunctionComponent<IconProps>
   as?: 'button' | 'a' | 'summary' | 'input' | string | React.ReactType
 } & SxProp &
@@ -147,15 +147,11 @@ const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
   return style[variant]
 }
 
-type ButtonBaseProps = {
-  iconOnly: boolean
-} & Props
-
 const ButtonBase = styled.button<ButtonBaseProps>`
   ${buttonBaseStyles}
   ${props => getVariantStyles(props.theme, props.variant)}
   ${sizes}
-  ${props => (props.iconOnly ? `padding: 4px 6px;` : '')}
+  ${props => (props.icon && !props.children ? `padding: 4px 6px;` : '')}
   ${sx}
   ${fontSize}
 `
@@ -192,7 +188,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ComponentProps<
 Button.displayName = 'Button'
 
 Button.defaultProps = {
-  size: 'medium'
+  size: 'medium',
+  variant: 'default'
 }
 
 const NewButton = Object.assign(Button, {
