@@ -1,4 +1,4 @@
-import React, {forwardRef, ReactNode} from 'react'
+import React, {forwardRef} from 'react'
 import {IconProps, TriangleDownIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import {fontSize, FontSizeProps, variant as variantFn} from 'styled-system'

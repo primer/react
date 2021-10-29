@@ -76,7 +76,7 @@ export const invisibleIconButton = ({...args}: ButtonProps) => {
   return <Button icon={() => <XIcon />} {...args} variant="invisible"></Button>
 }
 
-export const watchCounterButton = ({...args}: ButtonProps) => {
+export const WatchCounterButton = ({...args}: ButtonProps) => {
   const [count, setCount] = useState(0)
   return (
     <Button onClick={() => setCount(count + 1)} {...args}>
@@ -85,7 +85,7 @@ export const watchCounterButton = ({...args}: ButtonProps) => {
   )
 }
 
-export const watchIconButton = ({...args}: ButtonProps) => {
+export const WatchIconButton = ({...args}: ButtonProps) => {
   const [watching, setWatching] = useState(false)
   const icon = watching ? () => <EyeClosedIcon /> : () => <EyeIcon />
   return (
