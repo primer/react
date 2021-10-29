@@ -202,7 +202,9 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
 
   return (
     <DayComponent
-      role="button"
+      role="gridcell"
+      aria-disabled={disabled}
+      aria-selected={selected !== false}
       blocked={blocked}
       disabled={disabled}
       selected={selected}

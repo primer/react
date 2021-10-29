@@ -103,7 +103,7 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
   }, [configuration.weekStartsOn, month, selectedDay, year])
   return (
     <MonthComponent role="grid">
-      <MonthTitle>{getTitle}</MonthTitle>
+      <MonthTitle aria-live="polite">{getTitle}</MonthTitle>
       {weekdayHeaders}
       {dayComponents}
     </MonthComponent>

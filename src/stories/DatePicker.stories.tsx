@@ -78,20 +78,19 @@ export default {
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {
   anchorVariant: 'input',
-  // confirmation: true,
-  // confirmUnsavedClose: true,
+  confirmation: false,
+  confirmUnsavedClose: false,
   dateFormat: 'short',
-  // disableWeekends: true,
+  disableWeekends: false,
   iconPlacement: 'start',
   maxDate: addYears(new Date(), 1),
-  maxSelections: 10,
+  maxSelections: 2,
   maxRangeSize: 21,
   minDate: subDays(new Date(), 4),
   placeholder: 'Select a date',
-  rangeIncrement: 14,
   showInputPrompt: true,
   variant: 'range',
-  // value: {from: new Date(), to: addDays(new Date(), 4)},
+  value: {from: new Date(), to: addDays(new Date(), 4)},
   view: '2-month',
   weekStartsOn: 'Sunday'
 }

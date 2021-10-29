@@ -318,11 +318,68 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     } else if (isDirty) revertValue()
   }, [configuration.confirmUnsavedClose, confirm, isDirty, revertValue, saveValue])
 
-  const inputHandler = useCallback((updatedSelection: Selection) => {
-    // validate date falls within range
+  const inputHandler = useCallback(
+    (updatedSelection: Selection) => {
+      if (!updatedSelection) return
+      const {maxDate, minDate, variant, maxSelections, maxRangeSize} = configuration
 
-    setSelection(updatedSelection)
-  }, [])
+      switch (variant) {
+        case 'single': {
+          if (updatedSelection instanceof Date) {
+            if (maxDate && isAfter(updatedSelection, maxDate)) {
+              setSelection(maxDate)
+            } else if (minDate && isBefore(minDate, updatedSelection)) {
+              setSelection(minDate)
+            } else {
+              setSelection(updatedSelection)
+            }
+          }
+          break
+        }
+        case 'multi': {
+          if (Array.isArray(updatedSelection)) {
+            let validSelections = updatedSelection.filter(
+              d => (maxDate ? isBefore(d, maxDate) : true) && (minDate ? isAfter(d, minDate) : true)
+            )
+            if (maxSelections) {
+              validSelections = validSelections.slice(0, maxSelections)
+            }
+
+            setSelection(validSelections)
+          }
+          break
+        }
+        case 'range': {
+          if (isRangeSelection(updatedSelection)) {
+            const validRange: RangeSelection = updatedSelection
+            if (minDate) {
+              validRange.from = isAfter(updatedSelection.from, minDate) ? updatedSelection.from : minDate
+              if (updatedSelection.to) {
+                validRange.to = isAfter(updatedSelection.to, minDate) ? updatedSelection.to : minDate
+              }
+            }
+            if (maxDate) {
+              validRange.from = isBefore(updatedSelection.from, maxDate) ? updatedSelection.from : maxDate
+              if (updatedSelection.to) {
+                validRange.to = isBefore(updatedSelection.to, maxDate) ? updatedSelection.to : maxDate
+              }
+            }
+
+            if (
+              maxRangeSize &&
+              validRange.to &&
+              Math.abs(differenceInDays(validRange.from, validRange.to)) >= maxRangeSize
+            ) {
+              validRange.to = addDays(validRange.from, maxRangeSize - 1)
+            }
+            setSelection(updatedSelection)
+          }
+          break
+        }
+      }
+    },
+    [configuration]
+  )
 
   const selectionHandler = useCallback(
     (date: Date) => {

@@ -2,7 +2,9 @@ import {eachDayOfInterval, format, isBefore} from 'date-fns'
 import {AnchorVariant, isRangeSelection, Selection, SelectionVariant} from './useDatePicker'
 
 const INVALID_DATE = 'Invalid Date'
-const DATE_REGEX = /(\d{1,2}[-/.]\d{1,2}[-/.]\d{2,4})(?:\s?-\s?)?(\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}){1,2})?/
+const DATE_REGEX = new RegExp(
+  /(\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}){1,2})(?:\s?-\s?)?(\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}){1,2})?/g
+)
 
 const sanitizeDate = (dateString: string) => {
   return dateString.replaceAll('.', '/').replaceAll('-', '/')
@@ -33,7 +35,7 @@ export const parseDate = (dateString: string, variant: SelectionVariant = 'singl
 
   if (parsedDateItems.length === 0) {
     // No Valid Dates
-    return []
+    return null
   }
 
   // Cast Format based on variant
@@ -42,24 +44,27 @@ export const parseDate = (dateString: string, variant: SelectionVariant = 'singl
       return parsedDateItems[0]
     }
     case 'multi': {
-      // TODO: Cast ranges as individual dates
       const expandedParsedItems: Array<Date> = []
       for (const item of parsedDateItems) {
         if (isRangeSelection(item)) {
           if (item.to) {
-            expandedParsedItems.push([...eachDayOfInterval({start: item.from, end: item.to})])
+            eachDayOfInterval({start: item.from, end: item.to}).map(d => expandedParsedItems.push(d))
           } else {
             expandedParsedItems.push(item.from)
           }
         } else {
-          if (item) expandedParsedItems.push([...item])
+          if (item) {
+            if (Array.isArray(item)) {
+              item.map(d => expandedParsedItems.push(d))
+            } else {
+              expandedParsedItems.push(item)
+            }
+          }
         }
       }
-
       return expandedParsedItems
     }
     case 'range': {
-      // TODO: Filter to only ranges
       return parsedDateItems.filter(d => isRangeSelection(d))[0]
     }
     default: {
@@ -119,7 +124,7 @@ export const formatDate = ({
     }
     case 'multi': {
       if (Array.isArray(selection)) {
-        if (selection.length > 3) return `${selection.length} Selected`
+        if (selection.length > 3 && anchorVariant !== 'input') return `${selection.length} Selected`
         const formatted = selection.map(d => format(d, template)).join(', ')
         return formatted
       } else if (selection instanceof Date) {
