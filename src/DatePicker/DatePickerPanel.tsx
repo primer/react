@@ -1,5 +1,5 @@
 import {addMonths, subMonths} from 'date-fns'
-import React, {useMemo} from 'react'
+import React, {useMemo, useRef, useState} from 'react'
 import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
@@ -9,6 +9,7 @@ import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import Button, {ButtonPrimary} from '../Button'
 import type {ButtonProps} from '../Button'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
@@ -56,6 +57,16 @@ const ArrowButton = styled(Button)<ArrowButtonProps>`
 export const DatePickerPanel = () => {
   const {configuration, saveValue, revertValue, currentViewingDate, goToMonth, nextMonth, previousMonth} =
     useDatePicker()
+  const [multiMonthSupport, setMultiMonthSupport] = useState(true)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  const onResize = (windowEntry: ResizeObserverEntry) => {
+    // Only care about the first element, we expect one element ot be watched
+    const {width} = windowEntry.contentRect
+    // 610 is the panel width with 2 months
+    setMultiMonthSupport(width > 610)
+  }
+  useResizeObserver(onResize)
 
   const previousDisabled = useMemo(() => {
     const {minDate} = configuration
@@ -82,13 +93,13 @@ export const DatePickerPanel = () => {
   }, [configuration, currentViewingDate])
 
   return (
-    <DatePickerPanelContainer>
+    <DatePickerPanelContainer ref={panelRef}>
       <DatePickerPanelMonths>
         <ArrowButton variant="small" side="left" onClick={previousMonth} disabled={previousDisabled}>
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>
         <Month month={currentViewingDate.getMonth()} year={currentViewingDate.getFullYear()} />
-        {configuration.view === '2-month' && (
+        {configuration.view === '2-month' && multiMonthSupport && (
           <Month
             month={addMonths(currentViewingDate, 1).getMonth()}
             year={addMonths(currentViewingDate, 1).getFullYear()}
