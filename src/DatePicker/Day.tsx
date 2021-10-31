@@ -10,6 +10,7 @@ import useDatePicker, {DaySelection} from './useDatePicker'
 export type DayProps = {
   blocked?: boolean
   disabled?: boolean
+  focused?: boolean
   onAction?: (date: Date, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
   selected?: DaySelection
   date: Date
@@ -93,7 +94,7 @@ const getStateStyles = (
   prop: 'background' | 'borderRadius' | 'color',
   state: 'normal' | 'hover' | 'pressed'
 ) => {
-  const {blocked, disabled, selected, today} = props
+  const {blocked, disabled, focused, selected, today} = props
   if (selected) {
     switch (selected) {
       case 'start':
@@ -109,6 +110,8 @@ const getStateStyles = (
     return states.blocked[prop]
   } else if (disabled) {
     return states.disabled[prop]
+  } else if (focused) {
+    return states.default.hover[prop]
   } else {
     return today && prop === 'color' ? states.default[state]['todayColor'] : states.default[state][prop]
   }
@@ -162,7 +165,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 `
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
-  const {onDayFocus, onSelection, disabled, blocked, selected, today} = useDatePicker(date)
+  const {onDayFocus, onSelection, disabled, blocked, focused, selected, today} = useDatePicker(date)
 
   const keyPressHandler = useCallback(
     event => {
@@ -208,6 +211,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       aria-selected={selected !== false}
       blocked={blocked}
       disabled={disabled}
+      focused={focused}
       selected={selected}
       today={today}
       onClick={clickHandler}

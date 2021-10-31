@@ -1,18 +1,17 @@
-import React, {useState} from 'react'
+import React from 'react'
 import useDatePicker from './useDatePicker'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {DatePickerPanel} from './DatePickerPanel'
 import {OverlayCloseGesture} from '../AnchoredOverlay/AnchoredOverlay'
 
 export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, ...rest}) => {
-  const {onClose: onDatePickerClose} = useDatePicker()
-  const [suspendFocusTrap, setSuspendFocusTrap] = useState(false)
+  const {dialogOpen, onClose: onDatePickerClose, setDialogOpen} = useDatePicker()
 
   const onOverlayClose = async (gesture: OverlayCloseGesture) => {
-    if (!suspendFocusTrap) {
-      setSuspendFocusTrap(true)
+    if (!dialogOpen) {
+      setDialogOpen(true)
       await onDatePickerClose()
-      setSuspendFocusTrap(false)
+      setDialogOpen(false)
       onClose?.(gesture)
     }
   }
