@@ -94,11 +94,7 @@ const getStateStyles = (
   state: 'normal' | 'hover' | 'pressed'
 ) => {
   const {blocked, disabled, selected, today} = props
-  if (blocked) {
-    return states.blocked[prop]
-  } else if (disabled) {
-    return states.disabled[prop]
-  } else if (selected) {
+  if (selected) {
     switch (selected) {
       case 'start':
         return today && prop === 'color' ? states.selected.start['todayColor'] : states.selected.start[prop]
@@ -109,6 +105,10 @@ const getStateStyles = (
       default:
         return today && prop === 'color' ? states.selected.default['todayColor'] : states.selected.default[prop]
     }
+  } else if (blocked) {
+    return states.blocked[prop]
+  } else if (disabled) {
+    return states.disabled[prop]
   } else {
     return today && prop === 'color' ? states.default[state]['todayColor'] : states.default[state][prop]
   }

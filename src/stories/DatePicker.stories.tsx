@@ -10,9 +10,6 @@ import {addDays, addYears, subDays} from 'date-fns'
 
 export default {
   title: 'Composite components/DatePicker',
-  parameters: {
-    layout: 'centered'
-  },
   decorators: [
     Story => {
       return (
