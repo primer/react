@@ -125,6 +125,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 }))<DayComponentProps>`
   background-color: ${props => props.background};
   border-radius: ${props => props.borderRadius};
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
   transition: 0.1s background-color ease;
 
   & ${Text} {
