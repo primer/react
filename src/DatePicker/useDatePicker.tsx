@@ -11,6 +11,7 @@ import {
   addDays,
   subDays
 } from 'date-fns'
+import {previousFriday} from 'date-fns/esm'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {Text, useConfirm} from '..'
@@ -439,7 +440,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const focusHnadler = useCallback(
     (date: Date) => {
       if (!selection) return
-      const {minDate, maxDate, maxRangeSize, variant} = configuration
+      const {minDate, maxDate, maxRangeSize, disableWeekends, variant} = configuration
 
       if (variant === 'range' && isRangeSelection(selection) && hoverRange) {
         let hoverDate = date
@@ -449,6 +450,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           hoverDate = isBefore(hoverDate, selection.from)
             ? subDays(selection.from, configuration.maxRangeSize - 1)
             : addDays(selection.from, configuration.maxRangeSize - 1)
+        }
+
+        if (disableWeekends && isWeekend(hoverDate)) {
+          hoverDate = previousFriday(hoverDate)
         }
 
         setHoverRange(
