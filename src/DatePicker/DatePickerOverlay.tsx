@@ -5,7 +5,7 @@ import {DatePickerPanel} from './DatePickerPanel'
 import {OverlayCloseGesture} from '../AnchoredOverlay/AnchoredOverlay'
 
 export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, ...rest}) => {
-  const {dialogOpen, onClose: onDatePickerClose, setDialogOpen} = useDatePicker()
+  const {dialogOpen, onClose: onDatePickerClose, setDialogOpen, currentViewingDate} = useDatePicker()
 
   const onOverlayClose = async (gesture: OverlayCloseGesture) => {
     if (!dialogOpen) {
@@ -17,7 +17,13 @@ export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, ...r
   }
 
   return (
-    <AnchoredOverlay onClose={onOverlayClose} {...rest}>
+    <AnchoredOverlay
+      onClose={onOverlayClose}
+      {...rest}
+      aria-modal="true"
+      aria-labelledby={`${currentViewingDate.getMonth()} ${currentViewingDate.getFullYear()}`}
+      aria-live="polite"
+    >
       <DatePickerPanel />
     </AnchoredOverlay>
   )

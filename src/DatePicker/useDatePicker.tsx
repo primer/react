@@ -269,7 +269,7 @@ const defaultConfiguration: DatePickerConfiguration = {
   confirmUnsavedClose: false,
   disableWeekends: false,
   iconPlacement: 'start',
-  placeholder: 'Select a Date...',
+  placeholder: 'Choose Date...',
   showInputPrompt: false,
   variant: 'single',
   view: '2-month',

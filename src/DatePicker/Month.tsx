@@ -21,8 +21,7 @@ const weekdayEnum: Record<string, DayNumber> = {
 }
 
 export interface MonthProps extends FontSizeProps, SystemCommonProps, SxProp, SystemLayoutProps {
-  month: number
-  year: number
+  date: Date
 }
 
 const MonthComponent = styled(Box)`
@@ -53,13 +52,13 @@ const WeekdayHeader = styled(Text)`
   padding: ${get('space.3')} 0 ${get('space.2')};
 `
 
-export const Month: React.FC<MonthProps> = ({month, year}) => {
+export const Month: React.FC<MonthProps> = ({date}) => {
   const {configuration} = useDatePicker()
   const [selectedDay, setSelectedDay] = useState<Date | null>(null)
-  const getTitle = useMemo(() => `${format(new Date(year, month), 'MMMM yyyy')}`, [month, year])
+  const getTitle = useMemo(() => `${format(new Date(date), 'MMMM yyyy')}`, [date])
 
   const weekdayHeaders = useMemo(() => {
-    const now = new Date(year, month)
+    const now = new Date(date)
     const weekOptions: {weekStartsOn: DayNumber} = {
       weekStartsOn: weekdayEnum[configuration.weekStartsOn ?? 'Sunday']
     }
@@ -67,27 +66,27 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
     return eachDayOfInterval({start: startOfWeek(now, weekOptions), end: endOfWeek(now, weekOptions)}).map(d => (
       <WeekdayHeader key={`weekday-${d}-header`}>{format(d, 'EEEEEE')}</WeekdayHeader>
     ))
-  }, [configuration.weekStartsOn, month, year])
+  }, [configuration.weekStartsOn, date])
 
-  const dayAction = (date: Date) => {
-    setSelectedDay(date)
+  const dayAction = (day: Date) => {
+    setSelectedDay(day)
   }
 
   const dayComponents = useMemo(() => {
     const components = []
-    const firstDay = new Date(year, month, 1)
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
 
     const preBlanks = (firstDay.getDay() + (7 - weekdayEnum[configuration.weekStartsOn ?? 'Sunday'])) % 7
     for (let i = 0; i < preBlanks; i++) {
       components.push(<BlankDay key={`month-pre-blank-${i}`} />)
     }
     for (let i = 1; i <= getDaysInMonth(firstDay); i++) {
-      const date = new Date(year, month, i)
+      const day = new Date(date.getFullYear(), date.getMonth(), i)
       components.push(
         <Day
-          key={`day-component-${date.toString()}`}
-          date={date}
-          selected={selectedDay ? isEqual(date, selectedDay) : false}
+          key={`day-component-${day.toString()}`}
+          date={day}
+          selected={selectedDay ? isEqual(day, selectedDay) : false}
           onAction={dayAction}
         />
       )
@@ -100,9 +99,9 @@ export const Month: React.FC<MonthProps> = ({month, year}) => {
     }
 
     return components
-  }, [configuration.weekStartsOn, month, selectedDay, year])
+  }, [configuration.weekStartsOn, date, selectedDay])
   return (
-    <MonthComponent role="grid">
+    <MonthComponent role="grid" aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`}>
       <MonthTitle aria-live="polite">{getTitle}</MonthTitle>
       {weekdayHeaders}
       {dayComponents}

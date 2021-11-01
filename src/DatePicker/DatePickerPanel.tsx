@@ -95,32 +95,47 @@ export const DatePickerPanel = () => {
   return (
     <DatePickerPanelContainer ref={panelRef}>
       <DatePickerPanelMonths>
-        <ArrowButton variant="small" side="left" onClick={previousMonth} disabled={previousDisabled}>
+        <ArrowButton
+          variant="small"
+          side="left"
+          onClick={previousMonth}
+          disabled={previousDisabled}
+          aria-label="Previous Month"
+          aria-live="polite"
+        >
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>
-        <Month month={currentViewingDate.getMonth()} year={currentViewingDate.getFullYear()} />
-        {configuration.view === '2-month' && multiMonthSupport && (
-          <Month
-            month={addMonths(currentViewingDate, 1).getMonth()}
-            year={addMonths(currentViewingDate, 1).getFullYear()}
-          />
-        )}
+        <Month date={currentViewingDate} />
+        {configuration.view === '2-month' && multiMonthSupport && <Month date={addMonths(currentViewingDate, 1)} />}
 
-        <ArrowButton variant="small" side="right" onClick={nextMonth} disabled={nextDisabled}>
+        <ArrowButton
+          variant="small"
+          side="right"
+          onClick={nextMonth}
+          disabled={nextDisabled}
+          aria-label="Next Month"
+          aria-live="polite"
+        >
           <StyledOcticon icon={ChevronRightIcon} color="fg.muted" />
         </ArrowButton>
       </DatePickerPanelMonths>
       <DatePickerPanelFooter>
         <Box>
-          <Button variant="small" sx={{mr: 1}} onClick={() => revertValue()}>
+          <Button
+            variant="small"
+            sx={{mr: 1}}
+            onClick={() => revertValue()}
+            aria-label="Reset Selection"
+            aria-live="polite"
+          >
             Reset
           </Button>
-          <Button variant="small" onClick={() => goToMonth(new Date())}>
+          <Button variant="small" onClick={() => goToMonth(new Date())} aria-label="Go to Today" aria-live="polite">
             Today
           </Button>
         </Box>
         {configuration.confirmation && (
-          <ButtonPrimary variant="small" onClick={() => saveValue()}>
+          <ButtonPrimary variant="small" onClick={() => saveValue()} aria-label="Apply Selection" aria-live="polite">
             Apply
           </ButtonPrimary>
         )}
