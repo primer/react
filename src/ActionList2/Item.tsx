@@ -100,7 +100,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
           backgroundColor: useColorSchemeVar(customItemTheme.hover, 'inherit')
         },
         ':focus:not([aria-disabled])': {
-          backgroundColor: useColorSchemeVar(customItemTheme.focus, 'inherit')
+          backgroundColor: useColorSchemeVar(customItemTheme.focus, 'inherit'),
+          outline: 'none'
         }
       },
 
@@ -149,6 +150,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             onClick={clickHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
+            tabIndex={disabled ? undefined : -1}
             aria-labelledby={labelId}
             aria-describedby={[
               slots.InlineDescription && inlineDescriptionId,

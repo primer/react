@@ -37,6 +37,7 @@ import {ButtonInvisible} from '../Button'
 import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 
 const ActionList = Object.assign(_ActionList, {
   Header
@@ -1206,3 +1207,33 @@ const filterSlowly = async query => {
   await new Promise(resolve => setTimeout(resolve, 1000))
   return await repos.filter(name => name.includes(query))
 }
+
+export function InsideOverlay(): JSX.Element {
+  return (
+    <>
+      <h1>Inside Overlay</h1>
+      <AnchoredOverlay open={true} renderAnchor={props => <button {...props}>toggle menu</button>}>
+        <ActionList>
+          <ActionList.Item>
+            Use your arrow keys
+            <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            keep going
+            <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            more more
+            <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item variant="danger">
+            now go up!
+            <ActionList.TrailingVisual>↑</ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </AnchoredOverlay>
+    </>
+  )
+}
+InsideOverlay.storyName = 'Inside Overlay'
