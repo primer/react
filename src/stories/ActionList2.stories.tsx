@@ -1209,10 +1209,17 @@ const filterSlowly = async query => {
 }
 
 export function InsideOverlay(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+  const toggle = () => setOpen(!open)
   return (
     <>
       <h1>Inside Overlay</h1>
-      <AnchoredOverlay open={true} renderAnchor={props => <button {...props}>toggle menu</button>}>
+      <AnchoredOverlay
+        open={open}
+        onOpen={toggle}
+        onClose={toggle}
+        renderAnchor={props => <button {...props}>toggle overlay</button>}
+      >
         <ActionList>
           <ActionList.Item>
             Use your arrow keys
