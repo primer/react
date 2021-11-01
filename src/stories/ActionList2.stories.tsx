@@ -20,7 +20,8 @@ import {
   CalendarIcon,
   IssueOpenedIcon,
   NumberIcon,
-  XIcon
+  XIcon,
+  RepoIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -33,6 +34,9 @@ import {Header} from '../ActionList/Header'
 import BaseStyles from '../BaseStyles'
 import Avatar from '../Avatar'
 import {ButtonInvisible} from '../Button'
+import TextInput from '../TextInput'
+import Spinner from '../Spinner'
+import Box from '../Box'
 
 const ActionList = Object.assign(_ActionList, {
   Header
@@ -1145,4 +1149,60 @@ const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) 
       {option.text}
     </ActionList.Item>
   )
+}
+
+const repos = [
+  'primer/primer-markdown',
+  'primer/octicons',
+  'primer/css',
+  'primer/primer-layout',
+  'primer/primer-alerts',
+  'primer/primer-avatars'
+]
+
+export function AsyncListStory(): JSX.Element {
+  const [results, setResults] = React.useState(repos.slice(0, 6))
+  const [loading, setLoading] = React.useState(false)
+  const filter = async event => {
+    setLoading(true)
+    const filteredResults = await filterSlowly(event.target.value)
+    setResults(filteredResults)
+    setLoading(false)
+  }
+
+  return (
+    <>
+      <h1>Async List Items</h1>
+      <ErsatzOverlay>
+        <TextInput
+          onChange={filter}
+          placeholder="Search repositories, type a single letter"
+          sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}
+        />
+        <ActionList sx={{height: 208}}>
+          {loading ? (
+            <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
+              <Spinner />
+            </Box>
+          ) : (
+            results.map(name => (
+              <ActionList.Item key={name}>
+                <ActionList.LeadingVisual>
+                  <RepoIcon />
+                </ActionList.LeadingVisual>
+                {name}
+              </ActionList.Item>
+            ))
+          )}
+        </ActionList>
+      </ErsatzOverlay>
+    </>
+  )
+}
+AsyncListStory.storyName = 'Async List Options'
+
+const filterSlowly = async query => {
+  // sleep for 1s before returning results
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  return await repos.filter(name => name.includes(query))
 }
