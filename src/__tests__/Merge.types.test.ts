@@ -37,3 +37,7 @@ export function optionalityIsPreservedInSecondParameter(x: Merge<DOptionalString
   // @ts-expect-error: d is optional
   return x
 }
+
+export function numberIsString(x: number): string {
+  return x
+}
