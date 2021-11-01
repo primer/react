@@ -59,7 +59,7 @@ export function Header({
   return (
     <Box sx={styles} role="heading" {...props}>
       {title}
-      {auxiliaryText && <span>auxiliaryText</span>}
+      {auxiliaryText && <span>{auxiliaryText}</span>}
     </Box>
   )
 }
