@@ -33,6 +33,7 @@ export interface DatePickerConfiguration {
   blockedDates?: Array<Date>
   confirmation?: boolean
   confirmUnsavedClose?: boolean
+  compressedHeader?: boolean
   dateFormat?: DateFormat
   disableWeekends?: boolean
   iconPlacement?: 'start' | 'end' | 'none'
@@ -267,6 +268,7 @@ const defaultConfiguration: DatePickerConfiguration = {
   anchorVariant: 'button',
   confirmation: false,
   confirmUnsavedClose: false,
+  compressedHeader: false,
   disableWeekends: false,
   iconPlacement: 'start',
   placeholder: 'Choose Date...',
@@ -305,16 +307,32 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configuration.variant, externalConfig])
 
-  const goToMonth = useCallback((date: Date) => {
-    setCurrentViewingDate(normalizeDate(date))
-  }, [])
+  const goToMonth = useCallback(
+    (date: Date) => {
+      let newDate = date
+      const {minDate, maxDate} = configuration
+      if (minDate && isBefore(date, minDate)) {
+        newDate = minDate
+      } else if (maxDate && isAfter(date, maxDate)) {
+        newDate = maxDate
+      }
+
+      setFocusDate(normalizeDate(newDate))
+      setCurrentViewingDate(normalizeDate(newDate))
+    },
+    [configuration]
+  )
 
   const nextMonth = useCallback(() => {
-    setCurrentViewingDate(addMonths(currentViewingDate, 1))
+    const date = addMonths(currentViewingDate, 1)
+    setFocusDate(normalizeDate(date))
+    setCurrentViewingDate(date)
   }, [currentViewingDate])
 
   const previousMonth = useCallback(() => {
-    setCurrentViewingDate(subMonths(currentViewingDate, 1))
+    const date = subMonths(currentViewingDate, 1)
+    setFocusDate(normalizeDate(date))
+    setCurrentViewingDate(date)
   }, [currentViewingDate])
 
   const getFormattedDate = useMemo(() => {

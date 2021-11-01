@@ -1,15 +1,15 @@
 import {addMonths, subMonths} from 'date-fns'
-import React, {useMemo, useRef, useState} from 'react'
+import React, {useCallback, useMemo, useRef, useState} from 'react'
 import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
-import {get} from '../constants'
+import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
 import useDatePicker from './useDatePicker'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import Button, {ButtonPrimary} from '../Button'
-import type {ButtonProps} from '../Button'
 import {useResizeObserver} from '../hooks/useResizeObserver'
+import sx, {SxProp} from '../sx'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
@@ -42,16 +42,21 @@ const DatePickerPanelFooter = styled(Box)`
   position: relative;
 `
 
-type ArrowButtonProps = {
-  side: 'left' | 'right'
-} & ButtonProps
-
-const ArrowButton = styled(Button)<ArrowButtonProps>`
+const ArrowButton = styled(Button)`
   position: absolute;
   width: 40px;
   height: 28px;
   top: 12px;
-  ${props => `${props.side}: ${get('space.3')(props)}`};
+`
+
+const Select = styled.select<SystemTypographyProps & SystemCommonProps & SxProp>`
+  background: transparent;
+  border: 0;
+  color: 'fg.default';
+  font-weight: 600;
+  ${TYPOGRAPHY};
+  ${COMMON};
+  ${sx};
 `
 
 export const DatePickerPanel = () => {
@@ -92,12 +97,69 @@ export const DatePickerPanel = () => {
     return false
   }, [configuration, currentViewingDate])
 
+  const currentMonth = useMemo(() => currentViewingDate.getMonth(), [currentViewingDate])
+  const currentYear = useMemo(() => currentViewingDate.getFullYear(), [currentViewingDate])
+
+  const headerSelectionHandler = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const selection = parseInt(e.currentTarget.value, 10)
+      if (e.currentTarget.id === 'picker-header-year') {
+        goToMonth(new Date(selection, currentMonth))
+      } else {
+        goToMonth(new Date(currentYear, selection))
+      }
+    },
+    [currentMonth, currentYear, goToMonth]
+  )
+
+  const getMonthPicker = useMemo(() => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const monthElements = []
+    for (let i = 0; i < months.length; i++) {
+      monthElements.push(
+        <option key={i} value={i}>
+          {months[i]}
+        </option>
+      )
+    }
+
+    return (
+      <Select id="picker-header-month" value={currentMonth} sx={{mr: '6px'}} onChange={headerSelectionHandler}>
+        {monthElements}
+      </Select>
+    )
+  }, [currentMonth, headerSelectionHandler])
+  const getYearPicker = useMemo(() => {
+    const years = []
+    const minYear = currentYear - 200
+    const maxYear = currentYear + 200
+    for (let i = minYear; i <= maxYear; i++) {
+      years.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      )
+    }
+
+    return (
+      <Select id="picker-header-year" value={currentYear} onChange={headerSelectionHandler}>
+        {years}
+      </Select>
+    )
+  }, [currentYear, headerSelectionHandler])
+
   return (
     <DatePickerPanelContainer ref={panelRef}>
       <DatePickerPanelMonths>
+        {configuration.compressedHeader && (
+          <Box sx={{position: 'absolute'}}>
+            {getMonthPicker}
+            {getYearPicker}
+          </Box>
+        )}
         <ArrowButton
           variant="small"
-          side="left"
+          sx={configuration.compressedHeader ? {right: 8} : {left: 3}}
           onClick={previousMonth}
           disabled={previousDisabled}
           aria-label="Previous Month"
@@ -110,7 +172,7 @@ export const DatePickerPanel = () => {
 
         <ArrowButton
           variant="small"
-          side="right"
+          sx={{right: 3}}
           onClick={nextMonth}
           disabled={nextDisabled}
           aria-label="Next Month"

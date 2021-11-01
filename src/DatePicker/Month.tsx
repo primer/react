@@ -41,6 +41,7 @@ const MonthTitle = styled(Text)`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   grid-area: month;
+  height: ${get('space.4')};
   justify-self: center;
 `
 
@@ -102,7 +103,7 @@ export const Month: React.FC<MonthProps> = ({date}) => {
   }, [configuration.weekStartsOn, date, selectedDay])
   return (
     <MonthComponent role="grid" aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`}>
-      <MonthTitle aria-live="polite">{getTitle}</MonthTitle>
+      <MonthTitle aria-live="polite">{!configuration.compressedHeader ? getTitle : ''}</MonthTitle>
       {weekdayHeaders}
       {dayComponents}
     </MonthComponent>
