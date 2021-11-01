@@ -137,9 +137,11 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
     display: flex;
     font-family: ${get('fonts.mono')};
     font-size: ${get('fontSizes.0')};
+    justify-content: center;
     justify-self: center;
     user-select: none;
     transition: 0.1s color ease;
+    width: 30px;
   }
 
   &:hover {

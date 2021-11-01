@@ -11,9 +11,15 @@ import {
   addDays,
   subDays,
   addWeeks,
-  subWeeks
+  subWeeks,
+  isSaturday,
+  isSunday,
+  nextSaturday,
+  previousFriday,
+  previousSunday,
+  subYears,
+  addYears
 } from 'date-fns'
-import {previousFriday} from 'date-fns/esm'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {Text, useConfirm} from '..'
@@ -84,6 +90,7 @@ const DatePickerContext = createContext<DatePickerContext | null>(null)
 const useDatePicker = (date?: Date) => {
   const dateCtx = useContext(DatePickerContext)
   const [selected, setSelected] = useState<DaySelection>(false)
+  const [focused, setFocused] = useState<boolean>(false)
   const today = date ? isToday(date) : false
 
   if (!dateCtx) {
@@ -132,14 +139,17 @@ const useDatePicker = (date?: Date) => {
     }
   }, [date, dateCtx.hoverRange, dateCtx.selection, today])
 
+  useEffect(() => {
+    if (date) {
+      // Determine if date is focused
+      setFocused(isEqual(dateCtx.focusDate, date))
+    }
+  }, [date, dateCtx.focusDate])
+
   let blocked,
-    disabled,
-    focused = false
+    disabled = false
 
   if (date) {
-    // Determine if date is focused
-    if (isEqual(dateCtx.focusDate, date)) focused = true
-
     // Determine if date is blocked out
     if (dateCtx.configuration.blockedDates) {
       blocked = !!dateCtx.configuration.blockedDates.find(d => isEqual(d, date))
@@ -194,43 +204,43 @@ function parseSelection(
     if (isMultiSelection(selection)) {
       const parsedSelection: Array<Date> = []
       for (const d of selection) {
-        parsedSelection.push(new Date(new Date(d).toDateString()))
+        parsedSelection.push(normalizeDate(d))
       }
       return parsedSelection.sort((a, b) => a.getTime() - b.getTime())
     } else if (selection instanceof Date) {
-      return [new Date(new Date(selection).toDateString())]
+      return [normalizeDate(selection)]
     } else if (isRangeSelection(selection)) {
       const parsedSelection: Array<Date> = []
-      parsedSelection.push(new Date(new Date(selection.from).toDateString()))
+      parsedSelection.push(normalizeDate(selection.from))
       if (selection.to) {
-        parsedSelection.push(new Date(new Date(selection.to).toDateString()))
+        parsedSelection.push(normalizeDate(selection.to))
       }
       return parsedSelection.sort((a, b) => a.getTime() - b.getTime())
     }
   } else if (variant === 'range') {
     if (isRangeSelection(selection)) {
       return {
-        from: new Date(new Date(selection.from).toDateString()),
-        to: selection.to ? new Date(new Date(selection.to).toDateString()) : null
+        from: normalizeDate(selection.from),
+        to: selection.to ? normalizeDate(selection.to) : null
       }
     } else if (isMultiSelection(selection)) {
       return {
-        from: new Date(new Date(selection[0]).toDateString()),
-        to: selection[1] ? new Date(new Date(selection[1]).toDateString()) : null
+        from: normalizeDate(selection[0]),
+        to: selection[1] ? normalizeDate(selection[1]) : null
       }
     } else if (selection instanceof Date) {
       return {
-        from: new Date(new Date(selection).toDateString()),
+        from: normalizeDate(selection),
         to: null
       }
     }
   } else {
     if (selection instanceof Date) {
-      return new Date(new Date(selection).toDateString())
+      return normalizeDate(selection)
     } else if (isMultiSelection(selection)) {
-      return new Date(new Date(selection[0]).toDateString())
+      return normalizeDate(selection[0])
     } else if (isRangeSelection(selection)) {
-      return new Date(new Date(selection.from).toDateString())
+      return normalizeDate(selection.from)
     } else {
       return
     }
@@ -238,18 +248,20 @@ function parseSelection(
 }
 
 const getInitialFocusDate = (selection?: Selection) => {
-  if (!selection) return new Date()
+  if (!selection) return normalizeDate(new Date())
 
   if (selection instanceof Date) {
-    return selection
+    return normalizeDate(selection)
   } else if (Array.isArray(selection)) {
-    return selection[0]
+    return normalizeDate(selection[0])
   } else if (isRangeSelection(selection)) {
-    return selection.from
+    return normalizeDate(selection.from)
   } else {
-    return new Date()
+    return normalizeDate(new Date())
   }
 }
+
+const normalizeDate = (date: Date | string) => new Date(new Date(date).toDateString())
 
 const defaultConfiguration: DatePickerConfiguration = {
   anchorVariant: 'button',
@@ -272,16 +284,18 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   value
 }) => {
   const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
+  const initialSelection = parseSelection(value, configuration.variant)
+
   const [previousSelection, setPreviousSelection] = useState<Selection | undefined>(
     parseSelection(value, configuration.variant)
   )
   const [isDirty, setIsDirty] = useState(false)
-  const [selection, setSelection] = useState<Selection | undefined>(parseSelection(value, configuration.variant))
+  const [selection, setSelection] = useState<Selection | undefined>(initialSelection)
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
   const [currentViewingDate, setCurrentViewingDate] = useState(new Date())
   const confirm = useConfirm()
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [focusDate, setFocusDate] = useState(getInitialFocusDate(selection))
+  const [focusDate, setFocusDate] = useState(getInitialFocusDate(initialSelection))
 
   useEffect(() => {
     setConfiguration(deepmerge(defaultConfiguration, externalConfig))
@@ -292,7 +306,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   }, [configuration.variant, externalConfig])
 
   const goToMonth = useCallback((date: Date) => {
-    setCurrentViewingDate(new Date(new Date(date).toDateString()))
+    setCurrentViewingDate(normalizeDate(date))
   }, [])
 
   const nextMonth = useCallback(() => {
@@ -413,57 +427,14 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [configuration]
   )
 
-  const handleKeyDown = useCallback(
-    async (e: KeyboardEvent) => {
-      const key = e.key
-      switch (key) {
-        case 'ArrowRight': {
-          // Increase selection by 1 day
-          setFocusDate(addDays(focusDate, 1))
-          break
-        }
-        case 'ArrowLeft': {
-          // Decrease selection by 1 day
-          setFocusDate(subDays(focusDate, 1))
-          break
-        }
-        case 'ArrowUp': {
-          // Decrease selection by 1 week
-          setFocusDate(subWeeks(focusDate, 1))
-          break
-        }
-        case 'ArrowDown': {
-          // Decrease selection by 1 week
-          setFocusDate(addWeeks(focusDate, 1))
-          break
-        }
-        case 'Enter': {
-          // Start Selection
-          break
-        }
-        case 'Esc': {
-          // Cancel Selection if started, reset if not? or close
-
-          break
-        }
-        default: {
-          break
-        }
-      }
-    },
-    [focusDate]
-  )
-
   useEffect(() => {
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown)
-    } else {
-      window.removeEventListener('keydown', handleKeyDown)
+    if (
+      currentViewingDate.getMonth() !== focusDate.getMonth() ||
+      currentViewingDate.getFullYear() !== focusDate.getFullYear()
+    ) {
+      setCurrentViewingDate(focusDate)
     }
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [handleKeyDown, isOpen])
+  }, [currentViewingDate, focusDate])
 
   const selectionHandler = useCallback(
     (date: Date) => {
@@ -520,7 +491,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     ]
   )
 
-  const focusHnadler = useCallback(
+  const focusHandler = useCallback(
     (date: Date) => {
       if (!selection) return
       const {minDate, maxDate, maxRangeSize, disableWeekends, variant} = configuration
@@ -549,6 +520,103 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [configuration, hoverRange, selection]
   )
 
+  const handleKeyDown = useCallback(
+    async (e: KeyboardEvent) => {
+      const key = e.key
+      const {minDate, maxDate} = configuration
+      switch (key) {
+        case 'ArrowRight': {
+          // Increase selection by 1 day
+          let newDate = normalizeDate(addDays(focusDate, 1))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'ArrowLeft': {
+          // Decrease selection by 1 day
+          let newDate = normalizeDate(subDays(focusDate, 1))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'ArrowUp': {
+          // Decrease selection by 1 week
+          let newDate = normalizeDate(subWeeks(focusDate, 1))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'ArrowDown': {
+          // Increase selection by 1 week
+          let newDate = normalizeDate(addWeeks(focusDate, 1))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'Home': {
+          let newDate = normalizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'End': {
+          let newDate = normalizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'PageUp': {
+          let newDate = normalizeDate(e.shiftKey ? subYears(focusDate, 1) : subMonths(focusDate, 1))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'PageDown': {
+          let newDate = normalizeDate(e.shiftKey ? addYears(focusDate, 1) : addMonths(focusDate, 1))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          focusHandler(newDate)
+          break
+        }
+        case 'Enter':
+        case ' ': {
+          // Start Selection
+          selectionHandler(focusDate)
+          break
+        }
+        case 'Esc': {
+          // Cancel Selection if started, reset if not? or close
+          if (hoverRange) {
+            setHoverRange(null)
+          }
+          break
+        }
+        default: {
+          break
+        }
+      }
+    },
+    [configuration, focusDate, focusHandler, hoverRange, selectionHandler]
+  )
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+    } else {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleKeyDown, isOpen])
+
   const datePickerCtx: DatePickerContext = useMemo(() => {
     return {
       configuration,
@@ -562,7 +630,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       nextMonth,
       onClose: handleClose,
       onDateInput: inputHandler,
-      onDayFocus: focusHnadler,
+      onDayFocus: focusHandler,
       onSelection: selectionHandler,
       previousMonth,
       revertValue,
@@ -576,7 +644,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     currentViewingDate,
     dialogOpen,
     focusDate,
-    focusHnadler,
+    focusHandler,
     getFormattedDate,
     goToMonth,
     handleClose,

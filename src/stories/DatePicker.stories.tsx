@@ -74,6 +74,23 @@ export default {
 
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {
+  anchorVariant: 'button',
+  confirmation: false,
+  confirmUnsavedClose: false,
+  dateFormat: 'short',
+  disableWeekends: false,
+  iconPlacement: 'start',
+  maxSelections: 2,
+  maxRangeSize: 21,
+  placeholder: 'Select a date',
+  showInputPrompt: false,
+  variant: 'single',
+  view: '2-month',
+  weekStartsOn: 'Sunday'
+}
+
+export const EnhancedDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
+EnhancedDatePicker.args = {
   anchorVariant: 'input',
   confirmation: false,
   confirmUnsavedClose: false,
