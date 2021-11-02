@@ -3,7 +3,6 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/r
 import {useSSRSafeId} from '@react-aria/ssr'
 import {useColorSchemeVar, useTheme} from '../ThemeProvider'
 import Box, {BoxProps} from '../Box'
-import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
@@ -85,11 +84,11 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const styles = {
       display: 'flex',
-      paddingX: get('space.2'),
-      paddingY: '6px',
-      marginX: listVariant === 'inset' ? get('space.2') : 0,
-      minHeight: get('space.5'),
-      borderRadius: get('radii.2'),
+      paddingX: 2,
+      paddingY: '6px', // custom value off the scale :)
+      marginX: listVariant === 'inset' ? 2 : 0,
+      minHeight: 5,
+      borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       textDecoration: 'none', // for as="a"

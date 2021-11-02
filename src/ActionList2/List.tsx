@@ -1,7 +1,6 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import Box from '../Box'
-import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 
@@ -31,10 +30,10 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
   ({variant = 'inset', selectionVariant, showDividers = false, sx = {}, ...props}, forwardedRef): JSX.Element => {
     const styles = {
       margin: 0,
-      fontSize: get('fontSizes.1'),
+      fontSize: 1,
       lineHeight: '20px', // TODO: check if we replace this already
       paddingInlineStart: 0, // reset ul styles
-      paddingY: variant === 'inset' ? get('space.2') : 0
+      paddingY: variant === 'inset' ? 2 : 0
     }
 
     return (
