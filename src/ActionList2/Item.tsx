@@ -39,7 +39,7 @@ export type ItemProps = {
   /**
    * Primary content for an Item
    */
-  children: React.ReactNode
+  children?: React.ReactNode
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
@@ -63,6 +63,10 @@ export type ItemProps = {
    * The ARIA role describing the function of `Item` component. `option` is a common value. |
    */
   role?: AriaRole
+  /**
+   * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
+   */
+  _PrivateItemWrapper?: React.FC
 } & SxProp
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
@@ -76,7 +80,15 @@ export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
-    {variant = 'default', disabled = false, selected = undefined, onSelect = () => null, sx = {}, ...props},
+    {
+      variant = 'default',
+      disabled = false,
+      selected = undefined,
+      onSelect = () => null,
+      sx = {},
+      _PrivateItemWrapper = ({children}) => <>{children}</>,
+      ...props
+    },
     forwardedRef
   ): JSX.Element => {
     const customItemTheme = customItemThemes[variant]
@@ -163,26 +175,28 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
               .join(' ')}
             {...props}
           >
-            <Selection selected={selected} disabled={disabled} />
-            {slots.LeadingVisual}
-            <Box
-              data-component="ActionList.Item--DividerContainer"
-              sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
-            >
-              <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
-                <ConditionalBox
-                  if={Boolean(slots.InlineDescription)}
-                  sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
-                >
-                  <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
-                    {props.children}
-                  </Box>
-                  {slots.InlineDescription}
+            <_PrivateItemWrapper>
+              <Selection selected={selected} disabled={disabled} />
+              {slots.LeadingVisual}
+              <Box
+                data-component="ActionList.Item--DividerContainer"
+                sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+              >
+                <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+                  <ConditionalBox
+                    if={Boolean(slots.InlineDescription)}
+                    sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
+                  >
+                    <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
+                      {props.children}
+                    </Box>
+                    {slots.InlineDescription}
+                  </ConditionalBox>
+                  {slots.TrailingVisual}
                 </ConditionalBox>
-                {slots.TrailingVisual}
-              </ConditionalBox>
-              {slots.BlockDescription}
-            </Box>
+                {slots.BlockDescription}
+              </Box>
+            </_PrivateItemWrapper>
           </Box>
         )}
       </Slots>

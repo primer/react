@@ -37,6 +37,7 @@ import {ButtonInvisible} from '../Button'
 import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
+import Link from '../Link'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 
 const ActionList = Object.assign(_ActionList, {
@@ -566,28 +567,59 @@ const NextJSLikeLink = forwardRef(
 export function LinkItemStory(): JSX.Element {
   return (
     <>
-      <h1>List with a link item</h1>
+      <h1>List with LinkItem</h1>
       <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item onSelect={() => alert('hi!')}>A. Vanilla action</ActionList.Item>
-          <ActionList.Item as="a" href="?path=/story/composite-components-actionlist2--simple-list-story">
-            B. Vanilla link
+        <ActionList showDividers>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <XIcon />
+            </ActionList.LeadingVisual>
+            not a link, just an Item for comparison
           </ActionList.Item>
-          <ActionList.Item
+          <ActionList.LinkItem href="https://github.com/primer">
+            <ActionList.LeadingVisual>
+              <LinkIcon />
+            </ActionList.LeadingVisual>
+            ActionList.LinkItem
+          </ActionList.LinkItem>
+          <ActionList.LinkItem href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
+            <ActionList.LeadingVisual>
+              <LinkIcon />
+            </ActionList.LeadingVisual>
+            ActionList.LinkItem with anchor attributes
+          </ActionList.LinkItem>
+          <ActionList.LinkItem
             as={ReactRouterLikeLink}
             to="?path=/story/composite-components-actionlist2--simple-list-story"
           >
-            C. React Router link
-          </ActionList.Item>
+            <ActionList.LeadingVisual>
+              <LinkIcon />
+            </ActionList.LeadingVisual>
+            as ReactRouterLink
+          </ActionList.LinkItem>
           <NextJSLikeLink href="?path=/story/composite-components-actionlist2--simple-list-story">
-            <ActionList.Item as="a">D. NextJS style</ActionList.Item>
+            <ActionList.LinkItem>
+              <ActionList.LeadingVisual>
+                <LinkIcon />
+              </ActionList.LeadingVisual>
+              NextJS style Link
+            </ActionList.LinkItem>
           </NextJSLikeLink>
+          <ActionList.LinkItem href="?path=/story/composite-components-actionlist2--simple-list-story">
+            <ActionList.LeadingVisual>
+              <LinkIcon />
+            </ActionList.LeadingVisual>
+            ActionList.LinkItem with everything
+            <ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
+          </ActionList.LinkItem>
         </ActionList>
       </ErsatzOverlay>
     </>
   )
 }
-LinkItemStory.storyName = 'List with a link item'
+LinkItemStory.storyName = 'List with LinkItem'
 
 export function DOMPropsStory(): JSX.Element {
   return (
