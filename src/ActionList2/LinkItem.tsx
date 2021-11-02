@@ -1,4 +1,5 @@
 import React from 'react'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import Link from '../Link'
 import {SxProp, merge} from '../sx'
 import {Item, ItemProps} from './Item'
@@ -19,7 +20,7 @@ type LinkProps = {
 // LinkItem does not support selected, variants, etc.
 type LinkItemProps = Pick<ItemProps, 'children' | 'sx'> & LinkProps
 
-export const LinkItem: React.FC<LinkItemProps> = ({sx = {}, ...props}) => {
+export const LinkItem = React.forwardRef(({sx = {}, as: Component, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item
     paddingX: 2,
@@ -37,7 +38,7 @@ export const LinkItem: React.FC<LinkItemProps> = ({sx = {}, ...props}) => {
     <Item
       sx={{paddingY: 0, paddingX: 0}}
       _PrivateItemWrapper={({children}) => (
-        <Link sx={merge(styles, sx as SxProp)} {...props}>
+        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
           {children}
         </Link>
       )}
@@ -45,4 +46,4 @@ export const LinkItem: React.FC<LinkItemProps> = ({sx = {}, ...props}) => {
       {props.children}
     </Item>
   )
-}
+}) as PolymorphicForwardRefComponent<'a', LinkItemProps>
