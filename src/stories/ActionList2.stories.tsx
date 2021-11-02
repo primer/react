@@ -37,7 +37,6 @@ import {ButtonInvisible} from '../Button'
 import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
-import Link from '../Link'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 
 const ActionList = Object.assign(_ActionList, {
