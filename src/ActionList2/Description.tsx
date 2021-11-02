@@ -5,6 +5,12 @@ import Truncate from '../Truncate'
 import {Slot, ItemContext} from './Item'
 
 export type DescriptionProps = {
+  /**
+   * Secondary text style variations.
+   *
+   * - `"inline"` - Secondary text is positioned beside primary text.
+   * - `"block"` - Secondary text is positioned below primary text.
+   */
   variant?: 'inline' | 'block'
 } & SxProp
 
