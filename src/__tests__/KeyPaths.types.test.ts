@@ -1,3 +1,4 @@
+import {Union} from 'ts-toolbelt'
 import {KeyPaths} from '../utils/types/KeyPaths'
 
 type NestedObject = {
@@ -8,6 +9,6 @@ type NestedObject = {
   }
 }
 
-export function generatesKeyPathsFromObject(x: KeyPaths<NestedObject>): 'a' | 'b.b1' | 'b.b2' {
+export function generatesKeyPathsFromObject(x: Union.Diff<KeyPaths<NestedObject>, 'a' | 'b.b1' | 'b.b2'>): never {
   return x
 }
