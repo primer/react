@@ -29,14 +29,14 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxPr
 /**
  * Displays the name and description of a `Group`.
  */
-export function Header({
+export const Header = ({
   variant = 'subtle',
   title,
   auxiliaryText,
   children: _children,
   sx = {},
   ...props
-}: HeaderProps): JSX.Element {
+}: HeaderProps): JSX.Element => {
   const {variant: listVariant} = React.useContext(ListContext)
 
   const styles = {
