@@ -43,6 +43,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
   const [inputValue, setInputValue] = useState(formattedDate)
   const inputRef = useRef<HTMLInputElement>(null)
   const [inputValid, setInputValid] = useState(true)
+  const [inputFocused, setInputFocused] = useState(false)
 
   const keyPressHandler = useCallback(
     event => {
@@ -90,11 +91,13 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
 
   const onFocusHandler = () => {
     setInputValue(inputDate)
+    setInputFocused(true)
   }
 
   const onBlurHandler = () => {
     setInputValue(formattedDate)
     setInputValid(true)
+    setInputFocused(false)
   }
 
   const inputSx = useMemo(() => {
@@ -141,7 +144,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
           onFocus={onFocusHandler}
         />
         <Box sx={iconSx()}>
-          {inputValid && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
+          {inputValid && inputFocused && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
           {!inputValid && (
             <Tooltip direction="s" text="Invalid entry. Please make sure you use the 'MM/DD/YYYY' format.">
               <StyledOcticon icon={AlertIcon} color="attention.emphasis" />

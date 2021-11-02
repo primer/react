@@ -19,12 +19,18 @@ import {
   previousSunday,
   subYears,
   addYears,
-  differenceInBusinessDays
+  differenceInBusinessDays,
+  nextMonday,
+  isMonday,
+  previousMonday,
+  isFriday,
+  nextFriday
 } from 'date-fns'
 import {addBusinessDays, subBusinessDays} from 'date-fns/esm'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {Text, useConfirm} from '..'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 import {formatDate} from './dateParser'
 
 export type AnchorVariant = 'input' | 'button' | 'icon-only'
@@ -80,9 +86,12 @@ export interface DatePickerContext {
   revertValue: () => void
   saveValue: (selection?: Selection) => void
   selection?: Selection
-  softSelection?: Partial<RangeSelection> | null
   selectionActive?: boolean
+  setFocusDate: React.Dispatch<React.SetStateAction<Date>>
+  setHoverRange: React.Dispatch<React.SetStateAction<RangeSelection | null>>
+  softSelection?: Partial<RangeSelection> | null
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+  viewMode: '1-month' | '2-month'
 }
 
 export type Selection = Date | Array<Date> | RangeSelection | null
@@ -265,7 +274,7 @@ const getInitialFocusDate = (selection?: Selection) => {
   }
 }
 
-const normalizeDate = (date: Date | string) => new Date(new Date(date).toDateString())
+export const normalizeDate = (date: Date | string) => new Date(new Date(date).toDateString())
 
 const defaultConfiguration: DatePickerConfiguration = {
   anchorVariant: 'button',
@@ -298,6 +307,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const [selection, setSelection] = useState<Selection | undefined>(initialSelection)
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
   const [currentViewingDate, setCurrentViewingDate] = useState(new Date())
+  const [multiMonthSupport, setMultiMonthSupport] = useState(true)
   const confirm = useConfirm()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [focusDate, setFocusDate] = useState(getInitialFocusDate(initialSelection))
@@ -560,12 +570,16 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const handleKeyDown = useCallback(
     async (e: KeyboardEvent) => {
       const key = e.key
-      const {minDate, maxDate} = configuration
+      const {disableWeekends, minDate, maxDate} = configuration
       switch (key) {
         case 'ArrowRight': {
           // Increase selection by 1 day
           let newDate = normalizeDate(addDays(focusDate, 1))
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          if (disableWeekends && isWeekend(newDate)) {
+            const monday = nextMonday(newDate)
+            newDate = maxDate && isAfter(monday, maxDate) ? maxDate : monday
+          }
           setFocusDate(newDate)
           focusHandler(newDate)
           break
@@ -574,6 +588,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           // Decrease selection by 1 day
           let newDate = normalizeDate(subDays(focusDate, 1))
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          if (disableWeekends && isWeekend(newDate)) {
+            const friday = previousFriday(newDate)
+            newDate = minDate && isBefore(friday, minDate) ? minDate : friday
+          }
           setFocusDate(newDate)
           focusHandler(newDate)
           break
@@ -595,14 +613,26 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           break
         }
         case 'Home': {
-          let newDate = normalizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
+          let newDate = focusDate
+          if (disableWeekends) {
+            newDate = normalizeDate(isMonday(focusDate) ? focusDate : previousMonday(focusDate))
+          } else {
+            newDate = normalizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
+          }
+
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           setFocusDate(newDate)
           focusHandler(newDate)
           break
         }
         case 'End': {
-          let newDate = normalizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
+          let newDate = focusDate
+          if (disableWeekends) {
+            newDate = normalizeDate(isFriday(focusDate) ? focusDate : nextFriday(focusDate))
+          } else {
+            newDate = normalizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
+          }
+
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           setFocusDate(newDate)
           focusHandler(newDate)
@@ -654,6 +684,14 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     }
   }, [handleKeyDown, isOpen])
 
+  const onResize = (windowEntry: ResizeObserverEntry) => {
+    // Only care about the first element, we expect one element ot be watched
+    const {width} = windowEntry.contentRect
+    // 610 is the panel width with 2 months
+    setMultiMonthSupport(width > 610)
+  }
+  useResizeObserver(onResize)
+
   const datePickerCtx: DatePickerContext = useMemo(() => {
     return {
       configuration,
@@ -674,8 +712,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       revertValue,
       saveValue,
       selectionActive: false,
+      setFocusDate,
+      setHoverRange,
       selection,
-      setDialogOpen
+      setDialogOpen,
+      viewMode: configuration.view === '2-month' && multiMonthSupport ? '2-month' : '1-month'
     }
   }, [
     configuration,
@@ -689,6 +730,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     hoverRange,
     inputDate,
     inputHandler,
+    multiMonthSupport,
     nextMonth,
     previousMonth,
     revertValue,

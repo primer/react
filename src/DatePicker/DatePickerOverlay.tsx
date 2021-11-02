@@ -19,6 +19,7 @@ export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, ...r
   return (
     <AnchoredOverlay
       onClose={onOverlayClose}
+      focusZoneSettings={{disabled: true}}
       {...rest}
       aria-modal="true"
       aria-labelledby={`${currentViewingDate.getMonth()} ${currentViewingDate.getFullYear()}`}

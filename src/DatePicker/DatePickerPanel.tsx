@@ -1,5 +1,5 @@
 import {addMonths, subMonths} from 'date-fns'
-import React, {useCallback, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useMemo, useRef} from 'react'
 import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
@@ -8,13 +8,26 @@ import useDatePicker from './useDatePicker'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import Button, {ButtonPrimary} from '../Button'
-import {useResizeObserver} from '../hooks/useResizeObserver'
 import sx, {SxProp} from '../sx'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {FocusKeys} from '../behaviors/focusZone'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
   display: flex;
   flex-direction: column;
+  position: relative;
+`
+
+const DatePickerTopNav = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: ${get('space.3')};
+  z-index: 10;
 `
 
 const DatePickerPanelMonths = styled(Box)`
@@ -22,6 +35,7 @@ const DatePickerPanelMonths = styled(Box)`
   display: flex;
   flex-direction: row;
   gap: ${get('space.6')};
+  margin-top: ${get('space.1')};
   padding: ${get('space.3')};
   position: relative;
 `
@@ -43,10 +57,8 @@ const DatePickerPanelFooter = styled(Box)`
 `
 
 const ArrowButton = styled(Button)`
-  position: absolute;
   width: 40px;
   height: 28px;
-  top: 12px;
 `
 
 const Select = styled.select<SystemTypographyProps & SystemCommonProps & SxProp>`
@@ -71,18 +83,24 @@ const Option = styled.option<SystemTypographyProps & SystemCommonProps & SxProp>
 `
 
 export const DatePickerPanel = () => {
-  const {configuration, saveValue, revertValue, currentViewingDate, goToMonth, nextMonth, previousMonth} =
+  const {configuration, saveValue, revertValue, currentViewingDate, goToMonth, nextMonth, previousMonth, viewMode} =
     useDatePicker()
-  const [multiMonthSupport, setMultiMonthSupport] = useState(true)
-  const panelRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef(null)
+  const headerRef = useRef(null)
+  const datePanelRef = useRef(null)
+  const footerRef = useRef(null)
 
-  const onResize = (windowEntry: ResizeObserverEntry) => {
-    // Only care about the first element, we expect one element ot be watched
-    const {width} = windowEntry.contentRect
-    // 610 is the panel width with 2 months
-    setMultiMonthSupport(width > 610)
-  }
-  useResizeObserver(onResize)
+  useFocusZone({
+    containerRef: headerRef,
+    bindKeys: FocusKeys.Tab,
+    focusInStrategy: 'closest'
+  })
+
+  useFocusZone({
+    containerRef: footerRef,
+    bindKeys: FocusKeys.Tab,
+    focusInStrategy: 'closest'
+  })
 
   const previousDisabled = useMemo(() => {
     const {minDate} = configuration
@@ -161,16 +179,16 @@ export const DatePickerPanel = () => {
 
   return (
     <DatePickerPanelContainer ref={panelRef}>
-      <DatePickerPanelMonths>
+      <DatePickerTopNav ref={headerRef}>
         {configuration.compressedHeader && (
-          <Box sx={{position: 'absolute'}}>
+          <Box sx={{flex: 1}}>
             {getMonthPicker}
             {getYearPicker}
           </Box>
         )}
         <ArrowButton
           variant="small"
-          sx={configuration.compressedHeader ? {right: 8} : {left: 3}}
+          sx={{mr: 1}}
           onClick={previousMonth}
           disabled={previousDisabled}
           aria-label="Previous Month"
@@ -178,12 +196,8 @@ export const DatePickerPanel = () => {
         >
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>
-        <Month date={currentViewingDate} />
-        {configuration.view === '2-month' && multiMonthSupport && <Month date={addMonths(currentViewingDate, 1)} />}
-
         <ArrowButton
           variant="small"
-          sx={{right: 3}}
           onClick={nextMonth}
           disabled={nextDisabled}
           aria-label="Next Month"
@@ -191,8 +205,12 @@ export const DatePickerPanel = () => {
         >
           <StyledOcticon icon={ChevronRightIcon} color="fg.muted" />
         </ArrowButton>
+      </DatePickerTopNav>
+      <DatePickerPanelMonths ref={datePanelRef} tabIndex={0}>
+        <Month date={currentViewingDate} />
+        {viewMode === '2-month' && <Month date={addMonths(currentViewingDate, 1)} />}
       </DatePickerPanelMonths>
-      <DatePickerPanelFooter>
+      <DatePickerPanelFooter ref={footerRef}>
         <Box>
           <Button
             variant="small"

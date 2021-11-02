@@ -80,7 +80,7 @@ EnhancedDatePicker.args = {
   anchorVariant: 'button',
   confirmation: false,
   confirmUnsavedClose: false,
-  compressedHeader: true,
+  compressedHeader: false,
   dateFormat: 'short',
   disableWeekends: false,
   iconPlacement: 'start',

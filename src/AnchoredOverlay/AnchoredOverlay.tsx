@@ -144,11 +144,11 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     }
   }, [open, overlayRef, updateOverlayRef])
 
-  useFocusZone({
-    containerRef: overlayRef,
-    disabled: !open || !position,
-    ...focusZoneSettings
-  })
+  // useFocusZone({
+  //   containerRef: overlayRef,
+  //   disabled: !open || !position,
+  //   ...focusZoneSettings
+  // })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
   return (
