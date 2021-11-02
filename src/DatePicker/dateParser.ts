@@ -78,23 +78,24 @@ type FormatDateOptions = {
   anchorVariant?: AnchorVariant
   dateFormat?: string
   placeholder?: string
+  rawFormat?: boolean
   variant?: SelectionVariant
 }
 
 export const formatDate = ({
   selection,
-  anchorVariant = 'button',
   dateFormat = 'short',
-  placeholder = 'Select a Date',
+  placeholder = 'Choose Date',
+  rawFormat = false,
   variant = 'single'
 }: FormatDateOptions) => {
   if (!selection) {
-    if (anchorVariant === 'input') return ''
+    if (rawFormat) return ''
     return placeholder
   }
 
   let template = 'MMM d'
-  if (anchorVariant !== 'input' && dateFormat) {
+  if (!rawFormat && dateFormat) {
     switch (dateFormat) {
       case 'short':
         template = 'MMM d'
@@ -124,7 +125,7 @@ export const formatDate = ({
     }
     case 'multi': {
       if (Array.isArray(selection)) {
-        if (selection.length > 3 && anchorVariant !== 'input') return `${selection.length} Selected`
+        if (selection.length > 3 && !rawFormat) return `${selection.length} Selected`
         const formatted = selection.map(d => format(d, template)).join(', ')
         return formatted
       } else if (selection instanceof Date) {

@@ -18,8 +18,10 @@ import {
   previousFriday,
   previousSunday,
   subYears,
-  addYears
+  addYears,
+  differenceInBusinessDays
 } from 'date-fns'
+import {addBusinessDays, subBusinessDays} from 'date-fns/esm'
 import deepmerge from 'deepmerge'
 import React, {createContext, useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {Text, useConfirm} from '..'
@@ -65,12 +67,10 @@ export interface DatePickerContext {
   currentViewingDate: Date
   dialogOpen: boolean
   focusDate: Date
-  goToMonth: (date: Date) => void
-  hoverRange?: RangeSelection | null
-  selection?: Selection
-  softSelection?: Partial<RangeSelection> | null
-  selectionActive?: boolean
   formattedDate: string
+  goToMonth: (date: Date) => void
+  inputDate: string
+  hoverRange?: RangeSelection | null
   nextMonth: () => void
   onClose: () => void
   onDateInput: (updatedSelection: Selection) => void
@@ -79,6 +79,9 @@ export interface DatePickerContext {
   previousMonth: () => void
   revertValue: () => void
   saveValue: (selection?: Selection) => void
+  selection?: Selection
+  softSelection?: Partial<RangeSelection> | null
+  selectionActive?: boolean
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -335,9 +338,14 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     setCurrentViewingDate(date)
   }, [currentViewingDate])
 
-  const getFormattedDate = useMemo(() => {
+  const formattedDate = useMemo(() => {
     const {anchorVariant, dateFormat, placeholder, variant} = configuration
-    return formatDate({selection, anchorVariant, dateFormat, placeholder, variant})
+    return formatDate({selection, anchorVariant, dateFormat, placeholder, rawFormat: false, variant})
+  }, [configuration, selection])
+
+  const inputDate = useMemo(() => {
+    const {dateFormat, placeholder, variant} = configuration
+    return formatDate({selection, dateFormat, placeholder, rawFormat: true, variant})
   }, [configuration, selection])
 
   const saveValue = useCallback(
@@ -518,10 +526,21 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         let hoverDate = date
         if (minDate) hoverDate = isBefore(date, minDate) ? minDate : hoverDate
         if (maxDate) hoverDate = isAfter(date, maxDate) ? maxDate : hoverDate
-        if (maxRangeSize && Math.abs(differenceInDays(selection.from, hoverDate)) >= maxRangeSize) {
-          hoverDate = isBefore(hoverDate, selection.from)
-            ? subDays(selection.from, configuration.maxRangeSize - 1)
-            : addDays(selection.from, configuration.maxRangeSize - 1)
+
+        const daysInRange = disableWeekends
+          ? Math.abs(differenceInBusinessDays(selection.from, hoverDate))
+          : Math.abs(differenceInDays(selection.from, hoverDate))
+
+        if (maxRangeSize && daysInRange >= maxRangeSize) {
+          if (disableWeekends) {
+            hoverDate = isBefore(hoverDate, selection.from)
+              ? subBusinessDays(selection.from, configuration.maxRangeSize - 1)
+              : addBusinessDays(selection.from, configuration.maxRangeSize - 1)
+          } else {
+            hoverDate = isBefore(hoverDate, selection.from)
+              ? subDays(selection.from, configuration.maxRangeSize - 1)
+              : addDays(selection.from, configuration.maxRangeSize - 1)
+          }
         }
 
         if (disableWeekends && isWeekend(hoverDate)) {
@@ -641,7 +660,8 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       currentViewingDate,
       disabled: false,
       focusDate,
-      formattedDate: getFormattedDate,
+      formattedDate,
+      inputDate,
       goToMonth,
       hoverRange,
       dialogOpen,
@@ -663,10 +683,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     dialogOpen,
     focusDate,
     focusHandler,
-    getFormattedDate,
+    formattedDate,
     goToMonth,
     handleClose,
     hoverRange,
+    inputDate,
     inputHandler,
     nextMonth,
     previousMonth,

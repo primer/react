@@ -37,6 +37,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
     configuration: {anchorVariant, iconPlacement, placeholder, variant},
     disabled,
     formattedDate,
+    inputDate,
     onDateInput
   } = useDatePicker()
   const [inputValue, setInputValue] = useState(formattedDate)
@@ -87,6 +88,10 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
     [onDateInput, variant]
   )
 
+  const onFocusHandler = () => {
+    setInputValue(inputDate)
+  }
+
   const onBlurHandler = () => {
     setInputValue(formattedDate)
     setInputValid(true)
@@ -133,6 +138,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
           onChange={onInputChangeHandler}
           sx={inputSx}
           onBlur={onBlurHandler}
+          onFocus={onFocusHandler}
         />
         <Box sx={iconSx()}>
           {inputValid && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
