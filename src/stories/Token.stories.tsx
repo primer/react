@@ -7,6 +7,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 import Token, {TokenProps} from '../Token/Token'
 import Text from '../Text'
+import {GitBranchIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Tokens/Default',
@@ -29,7 +30,7 @@ export default {
   ]
 } as Meta
 
-const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove']
+const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove', 'leadingVisual']
 
 const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) => (
   <Box
@@ -93,6 +94,16 @@ export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
   )
 }
 Interactive.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}}
+
+export const WithLeadingVisual = (args: Omit<TokenProps, 'ref'>) => {
+  return (
+    <ExampleCollectionContainer>
+      <Token {...args} leadingVisual={() => <GitBranchIcon />} />
+    </ExampleCollectionContainer>
+  )
+}
+WithLeadingVisual.storyName = 'with leadingVisual'
+WithLeadingVisual.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
 
 export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
   return (
