@@ -1,4 +1,4 @@
-import {CalendarIcon} from '@primer/octicons-react'
+import {AlertIcon, CalendarIcon, CheckIcon} from '@primer/octicons-react'
 import styled from 'styled-components'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import Button, {ButtonInvisible} from '../Button'
@@ -10,6 +10,7 @@ import TextInput from '../TextInput'
 import Box from '../Box'
 import {SystemStyleObject} from '@styled-system/css'
 import {parseDate} from './dateParser'
+import {Tooltip} from '..'
 
 export interface DatePickerAnchorProps {
   onAction?: (event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
@@ -33,7 +34,7 @@ const DatePickerAnchorButton = styled(Button)`
 
 export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAnchorProps>(({onAction}, ref) => {
   const {
-    configuration: {anchorVariant, iconPlacement, placeholder, showInputPrompt, variant},
+    configuration: {anchorVariant, iconPlacement, placeholder, variant},
     disabled,
     formattedDate,
     onDateInput
@@ -88,6 +89,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
 
   const onBlurHandler = () => {
     setInputValue(formattedDate)
+    setInputValid(true)
   }
 
   const inputSx = useMemo(() => {
@@ -99,33 +101,8 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
       sxObject = {...sxObject, pl: 2, pr: 5}
     }
 
-    if (showInputPrompt) {
-      sxObject = {...sxObject, pt: '20px'}
-    }
-
-    if (inputValid) {
-      sxObject = {...sxObject, color: 'success.emphasis'}
-    } else {
-      sxObject = {...sxObject, color: 'danger.emphasis'}
-    }
-
     return sxObject
-  }, [iconPlacement, inputValid, showInputPrompt])
-
-  const inputPrompt = useMemo(() => {
-    if (!showInputPrompt) return
-
-    switch (variant) {
-      case 'single':
-        return 'MM/DD/YYYY'
-      case 'multi':
-        return 'MM/DD/YYYY, MM/DD/YYYY, ...'
-      case 'range':
-        return 'MM/DD/YYYY - MM/DD/YYYY'
-      default:
-        return 'MM/DD/YYYY'
-    }
-  }, [showInputPrompt, variant])
+  }, [iconPlacement])
 
   if (anchorVariant === 'input') {
     const calendarButton = (side: 'left' | 'right') => (
@@ -137,24 +114,18 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
       </ButtonInvisible>
     )
 
-    const promptSx = () => {
-      let sxObject: SystemStyleObject = {
-        position: 'absolute',
-        top: '2px',
-        fontSize: '11px',
-        color: 'fg.subtle'
-      }
-
-      if (iconPlacement === 'start') {
-        sxObject = {...sxObject, left: '36px'}
-      }
-      return sxObject
-    }
+    const iconSx = (): SystemStyleObject => ({
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: iconPlacement === 'end' ? '36px' : '10px',
+      display: 'flex',
+      alignItems: 'center'
+    })
 
     return (
-      <Box ref={ref} sx={{position: 'relative', display: 'flex', flex: 1}}>
+      <Box ref={ref} sx={{position: 'relative', display: 'flex'}}>
         {iconPlacement === 'start' && calendarButton('left')}
-        {showInputPrompt && <Text sx={promptSx()}>{inputPrompt}</Text>}
         <TextInput
           ref={inputRef}
           placeholder={placeholder}
@@ -163,6 +134,14 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
           sx={inputSx}
           onBlur={onBlurHandler}
         />
+        <Box sx={iconSx()}>
+          {inputValid && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
+          {!inputValid && (
+            <Tooltip direction="s" text="Invalid entry. Please make sure you use the 'MM/DD/YYYY' format.">
+              <StyledOcticon icon={AlertIcon} color="attention.emphasis" />
+            </Tooltip>
+          )}
+        </Box>
         {iconPlacement === 'end' && calendarButton('right')}
       </Box>
     )
