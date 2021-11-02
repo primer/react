@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '../Box'
 import {SxProp, merge} from '../sx'
 import {get} from '../constants'
-import {getVariantStyles, Slot, ItemContext} from './Item'
+import {getVariantStyles, Slot, ItemContext, TEXT_ROW_HEIGHT} from './Item'
 
 type VisualProps = SxProp & {children: React.ReactNode}
 
@@ -12,9 +12,9 @@ export const LeadingVisualContainer: React.FC<SxProp> = ({sx = {}, ...props}) =>
       as="span"
       sx={merge(
         {
-          height: '20px', // match height of text row
+          height: TEXT_ROW_HEIGHT, // match height of text row
           minWidth: get('space.3'),
-          maxWidth: '20px', // square (same as height)
+          maxWidth: TEXT_ROW_HEIGHT, // square (same as height)
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

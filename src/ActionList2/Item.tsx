@@ -72,6 +72,8 @@ export type ItemContext = Pick<ItemProps, 'variant' | 'disabled'> & {
   blockDescriptionId: string
 }
 
+export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   (
     {variant = 'default', disabled = false, selected = undefined, onSelect = () => null, sx = {}, ...props},
@@ -85,7 +87,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const styles = {
       display: 'flex',
       paddingX: 2,
-      paddingY: '6px', // custom value off the scale :)
+      fontSize: 1,
+      paddingY: '6px', // custom value off the scale
+      lineHeight: TEXT_ROW_HEIGHT,
       marginX: listVariant === 'inset' ? 2 : 0,
       minHeight: 5,
       borderRadius: 2,

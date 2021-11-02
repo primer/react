@@ -30,8 +30,6 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
   ({variant = 'inset', selectionVariant, showDividers = false, sx = {}, ...props}, forwardedRef): JSX.Element => {
     const styles = {
       margin: 0,
-      fontSize: 1,
-      lineHeight: '20px', // TODO: check if we replace this already
       paddingInlineStart: 0, // reset ul styles
       paddingY: variant === 'inset' ? 2 : 0
     }
