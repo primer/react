@@ -50,10 +50,21 @@ const ArrowButton = styled(Button)`
 `
 
 const Select = styled.select<SystemTypographyProps & SystemCommonProps & SxProp>`
-  background: transparent;
+  background: ${get('colors.canvas.default')};
   border: 0;
-  color: 'fg.default';
+  color: ${get('colors.fg.default')};
   font-weight: 600;
+  ${TYPOGRAPHY};
+  ${COMMON};
+  ${sx};
+`
+
+const Option = styled.option<SystemTypographyProps & SystemCommonProps & SxProp>`
+  background: ${get('colors.canvas.default')};
+  border: 0;
+  color: ${get('colors.fg.default')};
+  font-weight: 400;
+  padding: ${get('space.2')} ${get('space.2')};
   ${TYPOGRAPHY};
   ${COMMON};
   ${sx};
@@ -117,9 +128,9 @@ export const DatePickerPanel = () => {
     const monthElements = []
     for (let i = 0; i < months.length; i++) {
       monthElements.push(
-        <option key={i} value={i}>
+        <Option key={i} value={i}>
           {months[i]}
-        </option>
+        </Option>
       )
     }
 
@@ -135,9 +146,9 @@ export const DatePickerPanel = () => {
     const maxYear = currentYear + 200
     for (let i = minYear; i <= maxYear; i++) {
       years.push(
-        <option key={i} value={i}>
+        <Option key={i} value={i}>
           {i}
-        </option>
+        </Option>
       )
     }
 
