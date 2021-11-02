@@ -33,7 +33,7 @@ export const Header = ({
   variant = 'subtle',
   title,
   auxiliaryText,
-  children: _children,
+  children: _children, // ignore children
   sx = {},
   ...props
 }: HeaderProps): JSX.Element => {
