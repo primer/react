@@ -139,9 +139,25 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
     font-size: ${get('fontSizes.0')};
     justify-content: center;
     justify-self: center;
-    user-select: none;
+    padding: 4px 0;
+    position: relative;
     transition: 0.1s color ease;
-    width: 30px;
+    user-select: none;
+    width: 16px;
+
+    &:after {
+      content: '';
+      display: ${props => (props.today ? 'block' : 'none')};
+      position: absolute;
+      bottom: 0;
+      background: ${props =>
+        props.selected && props.selected !== 'middle'
+          ? get('colors.fg.onEmphasis')(props)
+          : get('colors.accent.emphasis')(props)};
+      width: 100%;
+      height: 2px;
+      border-radius: 1px;
+    }
   }
 
   &:hover {
@@ -197,9 +213,6 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
     () =>
       today
         ? {
-            border: '2px solid',
-            padding: '4px 6px',
-            borderRadius: '16px',
             fontWeight: 'bold'
           }
         : {},
