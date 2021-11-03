@@ -476,7 +476,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     (date: Date) => {
       setIsDirty(true)
       if (configuration.variant === 'multi') {
-        const selections = [...(selection as Array<Date>)]
+        const selections = Array.isArray(selection) ? selection : []
         const existingIndex = selections.findIndex((s: Date) => isEqual(s, date))
         if (existingIndex > -1) {
           selections.splice(existingIndex, 1)

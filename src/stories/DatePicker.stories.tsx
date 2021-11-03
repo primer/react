@@ -3,10 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {DatePicker, DatePickerProps} from '../DatePicker'
-import {Day, DayProps} from '../DatePicker/Day'
-import {Month, MonthProps} from '../DatePicker/Month'
-import {DatePickerAnchor, DatePickerAnchorProps} from '../DatePicker/DatePickerAnchor'
-import {addDays, addYears, subDays} from 'date-fns'
+import {addDays} from 'date-fns'
 
 export default {
   title: 'Composite components/DatePicker',
@@ -88,14 +85,6 @@ export default {
       }
     },
     minDate: {
-      name: 'Min Date',
-      description: 'Minimum date to select',
-      table: {
-        type: {
-          summary: 'something short',
-          detail: 'something really really long'
-        }
-      },
       control: {
         type: 'date'
       }
@@ -146,37 +135,22 @@ export default {
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {}
 
+export const MultiDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
+MultiDatePicker.args = {
+  maxRangeSize: {control: false},
+  variant: 'multi'
+}
+
+export const DateRangePicker = (args: DatePickerProps) => <DatePicker {...args} />
+DateRangePicker.args = {
+  maxRangeSize: 21,
+  variant: 'range',
+  value: {from: new Date(), to: addDays(new Date(), 4)}
+}
+
 export const InputDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 InputDatePicker.args = {
   anchorVariant: 'input',
-  confirmation: false,
-  confirmUnsavedClose: false,
-  compressedHeader: false,
-  dateFormat: 'short',
-  disableWeekends: false,
   iconPlacement: 'start',
-  maxDate: addYears(new Date(), 1),
-  maxSelections: 2,
-  maxRangeSize: 21,
-  minDate: subDays(new Date(), 4),
-  placeholder: 'Select a date',
-  showInputPrompt: true,
-  variant: 'range',
-  value: {from: new Date(), to: addDays(new Date(), 4)},
-  view: '2-month',
-  weekStartsOn: 'Sunday'
+  variant: 'single'
 }
-
-export const DatePickerAnchorControl = (args: DatePickerAnchorProps) => <DatePickerAnchor {...args} />
-DatePickerAnchorControl.args = {
-  iconOnly: false,
-  fromDate: new Date(),
-  toDate: addDays(new Date(), 7),
-  dateFormat: 'short'
-}
-
-export const DayControl = (args: DayProps) => <Day {...args} />
-DayControl.args = {date: new Date(), disabled: false, blocked: false, selected: false}
-
-export const MonthControl = (args: MonthProps) => <Month {...args} />
-MonthControl.args = {month: new Date().getMonth(), year: new Date().getFullYear()}

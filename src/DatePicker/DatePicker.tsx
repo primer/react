@@ -52,6 +52,11 @@ export interface DatePickerProps extends DatePickerConfiguration {
   renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   value?: Selection
+
+  /**
+   * Minimum date to select
+   */
+  minDate?: Date | null
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
