@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef} from 'react'
 import styled from 'styled-components'
 import {FontSizeProps} from 'styled-system'
 import Box from '../Box'
@@ -6,6 +6,7 @@ import Text from '../Text'
 import {get, SystemCommonProps, SystemLayoutProps} from '../constants'
 import {SxProp} from '../sx'
 import useDatePicker, {DaySelection} from './useDatePicker'
+import {format} from 'date-fns'
 
 export type DayProps = {
   blocked?: boolean
@@ -94,7 +95,7 @@ const getStateStyles = (
   prop: 'background' | 'borderRadius' | 'color',
   state: 'normal' | 'hover' | 'pressed'
 ) => {
-  const {blocked, disabled, focused, selected, today} = props
+  const {blocked, disabled, selected, today} = props
   if (selected) {
     switch (selected) {
       case 'start':
@@ -110,8 +111,6 @@ const getStateStyles = (
     return states.blocked[prop]
   } else if (disabled) {
     return states.disabled[prop]
-  } else if (focused) {
-    return states.default.hover[prop]
   } else {
     return today && prop === 'color' ? states.default[state]['todayColor'] : states.default[state][prop]
   }
@@ -160,7 +159,8 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${props => props.backgroundHover};
     cursor: pointer;
     transition: 0.05s background-color ease;
@@ -184,6 +184,13 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
   const {onDayFocus, onSelection, disabled, blocked, focused, selected, today} = useDatePicker(date)
+  const dayRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (focused) {
+      setTimeout(() => dayRef.current?.focus(), 0)
+    }
+  }, [focused])
 
   const keyPressHandler = useCallback(
     event => {
@@ -221,6 +228,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
 
   return (
     <DayComponent
+      ref={dayRef}
       role="gridcell"
       aria-disabled={disabled}
       aria-selected={selected !== false}
@@ -233,6 +241,8 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       onMouseEnter={() => onDayFocus(date)}
       onFocus={() => onDayFocus(date)}
       onKeyPress={keyPressHandler}
+      tabIndex={-1}
+      data-date={format(date, 'MM/dd/yyyy')}
     >
       <Text sx={todayStyles}>{date.getDate()}</Text>
     </DayComponent>

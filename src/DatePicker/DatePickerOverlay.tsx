@@ -4,7 +4,7 @@ import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {DatePickerPanel} from './DatePickerPanel'
 import {OverlayCloseGesture} from '../AnchoredOverlay/AnchoredOverlay'
 
-export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, focusZoneSettings, ...rest}) => {
+export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, ...rest}) => {
   const {dialogOpen, onClose: onDatePickerClose, setDialogOpen, currentViewingDate} = useDatePicker()
 
   const onOverlayClose = async (gesture: OverlayCloseGesture) => {
@@ -20,7 +20,8 @@ export const DatePickerOverlay: React.FC<AnchoredOverlayProps> = ({onClose, focu
     <AnchoredOverlay
       {...rest}
       onClose={onOverlayClose}
-      focusZoneSettings={{disabled: true, ...focusZoneSettings}}
+      focusTrapSettings={{restoreFocusOnCleanUp: true}}
+      focusZoneSettings={{disabled: true}}
       aria-modal="true"
       aria-labelledby={`${currentViewingDate.getMonth()} ${currentViewingDate.getFullYear()}`}
       aria-live="polite"

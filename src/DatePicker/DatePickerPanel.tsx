@@ -1,16 +1,39 @@
-import {addMonths, subMonths} from 'date-fns'
+import {
+  isAfter,
+  isBefore,
+  addMonths,
+  subMonths,
+  isWeekend,
+  addDays,
+  subDays,
+  addWeeks,
+  subWeeks,
+  isSaturday,
+  isSunday,
+  nextSaturday,
+  previousFriday,
+  previousSunday,
+  subYears,
+  addYears,
+  nextMonday,
+  isMonday,
+  previousMonday,
+  isFriday,
+  nextFriday,
+  format
+} from 'date-fns'
 import React, {useCallback, useMemo, useRef} from 'react'
 import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
-import useDatePicker from './useDatePicker'
+import useDatePicker, {normalizeDate} from './useDatePicker'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import Button, {ButtonPrimary} from '../Button'
 import sx, {SxProp} from '../sx'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '../behaviors/focusZone'
+import {Direction, FocusKeys} from '../behaviors/focusZone'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
@@ -83,11 +106,21 @@ const Option = styled.option<SystemTypographyProps & SystemCommonProps & SxProp>
 `
 
 export const DatePickerPanel = () => {
-  const {configuration, saveValue, revertValue, currentViewingDate, goToMonth, nextMonth, previousMonth, viewMode} =
-    useDatePicker()
+  const {
+    configuration,
+    saveValue,
+    revertValue,
+    currentViewingDate,
+    goToMonth,
+    nextMonth,
+    previousMonth,
+    onDayFocus,
+    setFocusDate,
+    viewMode
+  } = useDatePicker()
   const panelRef = useRef(null)
   const headerRef = useRef(null)
-  const datePanelRef = useRef(null)
+  const datePanelRef = useRef<HTMLDivElement>(null)
   const footerRef = useRef(null)
 
   useFocusZone({
@@ -95,6 +128,115 @@ export const DatePickerPanel = () => {
     bindKeys: FocusKeys.Tab,
     focusInStrategy: 'closest'
   })
+
+  const getNextFocusable = useCallback(
+    (direction: Direction, from: Element | undefined, event: KeyboardEvent): HTMLElement | undefined => {
+      const key = event.key
+      const {disableWeekends, minDate, maxDate} = configuration
+      const fromDate = from?.getAttribute('data-date')
+      const focusDate = fromDate ? new Date(fromDate) : new Date()
+
+      let newDate = normalizeDate(focusDate)
+      switch (key) {
+        case 'ArrowRight': {
+          // Increase selection by 1 day
+          newDate = normalizeDate(addDays(focusDate, 1))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          if (disableWeekends && isWeekend(newDate)) {
+            const monday = nextMonday(newDate)
+            newDate = maxDate && isAfter(monday, maxDate) ? maxDate : monday
+          }
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'ArrowLeft': {
+          // Decrease selection by 1 day
+          newDate = normalizeDate(subDays(focusDate, 1))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          if (disableWeekends && isWeekend(newDate)) {
+            const friday = previousFriday(newDate)
+            newDate = minDate && isBefore(friday, minDate) ? minDate : friday
+          }
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'ArrowUp': {
+          // Decrease selection by 1 week
+          newDate = normalizeDate(subWeeks(focusDate, 1))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'ArrowDown': {
+          // Increase selection by 1 week
+          newDate = normalizeDate(addWeeks(focusDate, 1))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'Home': {
+          newDate = focusDate
+          if (disableWeekends) {
+            newDate = normalizeDate(isMonday(focusDate) ? focusDate : previousMonday(focusDate))
+          } else {
+            newDate = normalizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
+          }
+
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'End': {
+          newDate = focusDate
+          if (disableWeekends) {
+            newDate = normalizeDate(isFriday(focusDate) ? focusDate : nextFriday(focusDate))
+          } else {
+            newDate = normalizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
+          }
+
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'PageUp': {
+          newDate = normalizeDate(event.shiftKey ? subYears(focusDate, 1) : subMonths(focusDate, 1))
+          if (minDate && isBefore(newDate, minDate)) newDate = minDate
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        case 'PageDown': {
+          newDate = normalizeDate(event.shiftKey ? addYears(focusDate, 1) : addMonths(focusDate, 1))
+          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
+          setFocusDate(newDate)
+          onDayFocus(newDate)
+          break
+        }
+        default: {
+          break
+        }
+      }
+
+      return datePanelRef.current?.querySelector(`[data-date="${format(newDate, 'MM/dd/yyyy')}"]`) ?? undefined
+    },
+    [configuration, onDayFocus, setFocusDate]
+  )
+
+  useFocusZone(
+    {
+      containerRef: datePanelRef,
+      bindKeys: FocusKeys.ArrowAll | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusInStrategy: 'previous',
+      getNextFocusable
+    },
+    [getNextFocusable]
+  )
 
   useFocusZone({
     containerRef: footerRef,
@@ -206,7 +348,7 @@ export const DatePickerPanel = () => {
           <StyledOcticon icon={ChevronRightIcon} color="fg.muted" />
         </ArrowButton>
       </DatePickerTopNav>
-      <DatePickerPanelMonths ref={datePanelRef} tabIndex={0}>
+      <DatePickerPanelMonths ref={datePanelRef}>
         <Month date={currentViewingDate} />
         {viewMode === '2-month' && <Month date={addMonths(currentViewingDate, 1)} />}
       </DatePickerPanelMonths>

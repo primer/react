@@ -10,21 +10,10 @@ import {
   differenceInDays,
   addDays,
   subDays,
-  addWeeks,
-  subWeeks,
-  isSaturday,
-  isSunday,
-  nextSaturday,
   previousFriday,
-  previousSunday,
-  subYears,
-  addYears,
   differenceInBusinessDays,
-  nextMonday,
-  isMonday,
-  previousMonday,
-  isFriday,
-  nextFriday
+  addYears,
+  setDate
 } from 'date-fns'
 import {addBusinessDays, subBusinessDays} from 'date-fns/esm'
 import deepmerge from 'deepmerge'
@@ -294,7 +283,6 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   configuration: externalConfig = {},
   children,
   closePicker,
-  isOpen = false,
   value
 }) => {
   const [configuration, setConfiguration] = useState(deepmerge(defaultConfiguration, externalConfig))
@@ -464,13 +452,40 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   )
 
   useEffect(() => {
-    if (
-      currentViewingDate.getMonth() !== focusDate.getMonth() ||
-      currentViewingDate.getFullYear() !== focusDate.getFullYear()
-    ) {
-      setCurrentViewingDate(focusDate)
+    if (configuration.view === '1-month') {
+      if (
+        currentViewingDate.getMonth() === focusDate.getMonth() &&
+        currentViewingDate.getFullYear() === focusDate.getFullYear()
+      ) {
+        return
+      } else {
+        setCurrentViewingDate(setDate(focusDate, 1))
+        return
+      }
     }
-  }, [currentViewingDate, focusDate])
+
+    /**
+     * This logic is rough, so buckle up.
+     * We want to set the currently shown months based on what has focus. If the focus leaves what we're able to view,
+     * we want to be able to change the currently shown month. However, this gets complicated with the 2-month view.
+     * FIRST: If it's the same month/year: Easy
+     * SECOND: If it's the next month, but same year: Done
+     * THIRD: If it's the next month AND next year, but it's January (i.e. we're viewing Dec/Jan): Good to go
+     */
+    if (
+      (currentViewingDate.getMonth() === focusDate.getMonth() &&
+        currentViewingDate.getFullYear() === focusDate.getFullYear()) ||
+      (addMonths(currentViewingDate, 1).getMonth() === focusDate.getMonth() &&
+        currentViewingDate.getFullYear() === focusDate.getFullYear()) ||
+      (addMonths(currentViewingDate, 1).getMonth() === focusDate.getMonth() &&
+        focusDate.getMonth() === 0 &&
+        addYears(currentViewingDate, 1).getFullYear() === focusDate.getFullYear())
+    ) {
+      return
+    } else {
+      setCurrentViewingDate(setDate(focusDate, 1))
+    }
+  }, [configuration.view, currentViewingDate, focusDate])
 
   const selectionHandler = useCallback(
     (date: Date) => {
@@ -566,123 +581,6 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     },
     [configuration, hoverRange, selection]
   )
-
-  const handleKeyDown = useCallback(
-    async (e: KeyboardEvent) => {
-      const key = e.key
-      const {disableWeekends, minDate, maxDate} = configuration
-      switch (key) {
-        case 'ArrowRight': {
-          // Increase selection by 1 day
-          let newDate = normalizeDate(addDays(focusDate, 1))
-          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
-          if (disableWeekends && isWeekend(newDate)) {
-            const monday = nextMonday(newDate)
-            newDate = maxDate && isAfter(monday, maxDate) ? maxDate : monday
-          }
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'ArrowLeft': {
-          // Decrease selection by 1 day
-          let newDate = normalizeDate(subDays(focusDate, 1))
-          if (minDate && isBefore(newDate, minDate)) newDate = minDate
-          if (disableWeekends && isWeekend(newDate)) {
-            const friday = previousFriday(newDate)
-            newDate = minDate && isBefore(friday, minDate) ? minDate : friday
-          }
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'ArrowUp': {
-          // Decrease selection by 1 week
-          let newDate = normalizeDate(subWeeks(focusDate, 1))
-          if (minDate && isBefore(newDate, minDate)) newDate = minDate
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'ArrowDown': {
-          // Increase selection by 1 week
-          let newDate = normalizeDate(addWeeks(focusDate, 1))
-          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'Home': {
-          let newDate = focusDate
-          if (disableWeekends) {
-            newDate = normalizeDate(isMonday(focusDate) ? focusDate : previousMonday(focusDate))
-          } else {
-            newDate = normalizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
-          }
-
-          if (minDate && isBefore(newDate, minDate)) newDate = minDate
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'End': {
-          let newDate = focusDate
-          if (disableWeekends) {
-            newDate = normalizeDate(isFriday(focusDate) ? focusDate : nextFriday(focusDate))
-          } else {
-            newDate = normalizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
-          }
-
-          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'PageUp': {
-          let newDate = normalizeDate(e.shiftKey ? subYears(focusDate, 1) : subMonths(focusDate, 1))
-          if (minDate && isBefore(newDate, minDate)) newDate = minDate
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'PageDown': {
-          let newDate = normalizeDate(e.shiftKey ? addYears(focusDate, 1) : addMonths(focusDate, 1))
-          if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
-          setFocusDate(newDate)
-          focusHandler(newDate)
-          break
-        }
-        case 'Enter':
-        case ' ': {
-          // Start Selection
-          selectionHandler(focusDate)
-          break
-        }
-        case 'Esc': {
-          // Cancel Selection if started, reset if not? or close
-          if (hoverRange) {
-            setHoverRange(null)
-          }
-          break
-        }
-        default: {
-          break
-        }
-      }
-    },
-    [configuration, focusDate, focusHandler, hoverRange, selectionHandler]
-  )
-
-  useEffect(() => {
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown)
-    } else {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [handleKeyDown, isOpen])
 
   const onResize = (windowEntry: ResizeObserverEntry) => {
     // Only care about the first element, we expect one element ot be watched

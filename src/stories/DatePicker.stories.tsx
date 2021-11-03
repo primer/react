@@ -20,6 +20,9 @@ export default {
       )
     }
   ],
+  parameters: {
+    controls: {expanded: true}
+  },
   argTypes: {
     as: {
       table: {
@@ -40,6 +43,11 @@ export default {
       control: {
         type: 'select',
         options: ['button', 'icon-only', 'input']
+      }
+    },
+    compressedHeader: {
+      control: {
+        type: 'boolean'
       }
     },
     confirmation: {
@@ -85,6 +93,12 @@ export default {
       }
     },
     minDate: {
+      name: 'Min Date',
+      description: 'Minimum date that can be selected',
+      defaultValue: 'null',
+      table: {
+        defaultValue: 'null'
+      },
       control: {
         type: 'date'
       }
