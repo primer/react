@@ -13,7 +13,7 @@ export function Divider(): JSX.Element {
       role="separator"
       sx={{
         height: 1,
-        backgroundColor: 'border.muted',
+        backgroundColor: 'actionListItem.inlineDivider',
         marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
         marginBottom: 2
       }}

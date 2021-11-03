@@ -1,13 +1,12 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
-import {useColorSchemeVar, useTheme} from '../ThemeProvider'
+import {useTheme} from '../ThemeProvider'
 import Box, {BoxProps} from '../Box'
 import {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
-import {customItemThemes} from './hacks'
 import {Selection} from './Selection'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
@@ -91,7 +90,6 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     },
     forwardedRef
   ): JSX.Element => {
-    const customItemTheme = customItemThemes[variant]
     const {variant: listVariant, showDividers} = React.useContext(ListContext)
 
     const {theme} = useTheme()
@@ -112,10 +110,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       ':not([aria-disabled])': {cursor: 'pointer'},
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
-          backgroundColor: useColorSchemeVar(customItemTheme.hover, 'inherit')
+          backgroundColor: `actionListItem.${variant}.hoverBg`
         },
         ':focus:not([aria-disabled])': {
-          backgroundColor: useColorSchemeVar(customItemTheme.focus, 'inherit'),
+          backgroundColor: `actionListItem.${variant}.activeBg`,
           outline: 'none'
         }
       },
