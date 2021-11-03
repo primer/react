@@ -15,7 +15,8 @@ export function Divider(): JSX.Element {
         height: 1,
         backgroundColor: 'actionListItem.inlineDivider',
         marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
-        marginBottom: 2
+        marginBottom: 2,
+        listStyle: 'none' // hide the ::marker inserted by browser's stylesheet
       }}
       data-component="ActionList.Divider"
     />
