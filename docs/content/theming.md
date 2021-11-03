@@ -3,6 +3,8 @@ title: Theming
 description: Theming in Primer React is made possible by a theme object that defines your application's colors, spacing, fonts, and more.
 ---
 
+import Code from '@primer/gatsby-theme-doctocat/src/components/code'
+
 ## ThemeProvider
 
 To give components access to the theme object, you must add `ThemeProvider` to the root of your application:
@@ -49,6 +51,27 @@ Some components may break if your custom theme does not include all the same key
 ## Referencing theme values
 
 You can reference theme values in your application using [system props](/system-props), the [`sx` prop](/overriding-styles), the `themeGet` function, or the `useTheme` hook.
+
+<Note variant="warning">
+
+Only use `theme` objects accessed via Primer's theme context to ensure your application’s styling draws from the same theme as Primer components’ internal styling. The `sx` prop, styled system props, `themeGet`, and `useTheme` all use the theme from context.
+
+<DoDontContainer>
+  <Do>
+    <Code className="language-jsx">
+      {`<Box textShadow="shadow.medium">`}
+    </Code>
+    <Caption>Use the theme from the same context as Primer.</Caption>
+  </Do>
+  <Dont>
+    <Code className="language-jsx">
+      {`import {theme} from '@primer/components'\n\n<Box textShadow={theme.shadows.shadow.medium}>`}
+    </Code>
+    <Caption>Don't style components with any other instance of theme</Caption>
+  </Dont>
+</DoDontContainer>
+
+</Note>
 
 ### System props and the `sx` prop
 

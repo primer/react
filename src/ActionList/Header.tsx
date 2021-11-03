@@ -68,7 +68,7 @@ export function Header({
   return (
     <StyledHeader role="heading" variant={variant} {...props}>
       {title}
-      {auxiliaryText && <span>auxiliaryText</span>}
+      {auxiliaryText && <span>{auxiliaryText}</span>}
     </StyledHeader>
   )
 }
