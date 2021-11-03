@@ -1,12 +1,12 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
-import Box, {BoxProps} from './Box'
-import {COMMON, get} from './constants'
-import sx from './sx'
+import {Box} from '.'
+import {get} from './constants'
+import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const Timeline = styled(Box)<{clipSidebar?: boolean}>`
+const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
   ${props =>
@@ -24,9 +24,9 @@ const Timeline = styled(Box)<{clipSidebar?: boolean}>`
   ${sx};
 `
 
-type StyledTimelineItemProps = {condensed?: boolean}
+type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
-const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
+const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   className: classnames('Timeline-Item', props.className)
 }))<StyledTimelineItemProps>`
   display: flex;
@@ -64,18 +64,17 @@ const TimelineItem = styled(Box).attrs<StyledTimelineItemProps>(props => ({
       }
     `}
 
-  ${COMMON};
   ${sx};
 `
 
-export type TimelineBadgeProps = BoxProps
+export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
 
 const TimelineBadge = (props: TimelineBadgeProps) => {
   return (
     <Box position="relative" zIndex={1}>
       <Box
         display="flex"
-        className={classnames(props.className, 'TimelineItem-Badge')}
+        className="TimelineItem-Badge"
         flexShrink={0}
         borderRadius="50%"
         borderWidth="2px"
@@ -90,7 +89,7 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
         ml="-15px"
         alignItems="center"
         justifyContent="center"
-        {...props}
+        sx={props.sx}
       >
         {props.children}
       </Box>
@@ -98,7 +97,7 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
   )
 }
 
-const TimelineBody = styled(Box)`
+const TimelineBody = styled.div<SxProp>`
   min-width: 0;
   max-width: 100%;
   margin-top: ${get('space.1')};
@@ -108,7 +107,7 @@ const TimelineBody = styled(Box)`
   ${sx};
 `
 
-const TimelineBreak = styled(Box)`
+const TimelineBreak = styled.div<SxProp>`
   position: relative
   z-index: 1;
   height: 24px;
