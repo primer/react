@@ -45,10 +45,25 @@ export default {
         options: ['button', 'icon-only', 'input']
       }
     },
+    confirmation: {
+      control: {
+        type: 'boolean'
+      }
+    },
+    confirmUnsavedClose: {
+      control: {
+        type: 'boolean'
+      }
+    },
     dateFormat: {
       control: {
         type: 'select',
         options: ['short', 'long']
+      }
+    },
+    disableWeekends: {
+      control: {
+        type: 'boolean'
       }
     },
     iconPlacement: {
@@ -57,10 +72,66 @@ export default {
         options: ['start', 'end', 'none']
       }
     },
+    maxDate: {
+      control: {
+        type: 'date'
+      }
+    },
+    maxRangeSize: {
+      control: {
+        type: 'number'
+      }
+    },
+    maxSelections: {
+      control: {
+        type: 'number'
+      }
+    },
+    minDate: {
+      name: 'Min Date',
+      description: 'Minimum date to select',
+      table: {
+        type: {
+          summary: 'something short',
+          detail: 'something really really long'
+        }
+      },
+      control: {
+        type: 'date'
+      }
+    },
+    onOpen: {
+      control: 'none'
+    },
+    onClose: {
+      control: 'none'
+    },
+    open: {
+      control: {
+        type: 'boolean'
+      }
+    },
+    overlayProps: {
+      table: {
+        disable: true
+      }
+    },
+    placeholder: {
+      control: 'text'
+    },
+    value: {
+      control: 'date'
+    },
     variant: {
       control: {
         type: 'select',
         options: ['single', 'multi', 'range']
+      }
+    },
+    view: {
+      control: {
+        type: 'select',
+        options: ['1-month', '2-month']
       }
     },
     weekStartsOn: {
@@ -75,9 +146,9 @@ export default {
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DefaultDatePicker.args = {}
 
-export const EnhancedDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
-EnhancedDatePicker.args = {
-  anchorVariant: 'button',
+export const InputDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
+InputDatePicker.args = {
+  anchorVariant: 'input',
   confirmation: false,
   confirmUnsavedClose: false,
   compressedHeader: false,
