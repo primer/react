@@ -6,7 +6,7 @@ import {ListContext} from './List'
 /**
  * Contract for props passed to the `Header` component.
  */
-export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export type HeaderProps = {
   /**
    * Style variations. Usage is discretionary.
    *
@@ -24,19 +24,12 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxPr
    * Secondary text which provides additional information about a `Group`.
    */
   auxiliaryText?: string
-}
+} & SxProp
 
 /**
  * Displays the name and description of a `Group`.
  */
-export const Header = ({
-  variant = 'subtle',
-  title,
-  auxiliaryText,
-  children: _children, // ignore children
-  sx = {},
-  ...props
-}: HeaderProps): JSX.Element => {
+export const Header = ({variant = 'subtle', title, auxiliaryText, sx = {}, ...props}: HeaderProps): JSX.Element => {
   const {variant: listVariant} = React.useContext(ListContext)
 
   const styles = {
