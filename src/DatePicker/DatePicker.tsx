@@ -49,7 +49,7 @@ export interface DatePickerProps extends DatePickerConfiguration {
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+  renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   value?: Selection
 
@@ -79,7 +79,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   open,
   overlayProps,
   placeholder,
-  renderAnchor,
+  renderAnchor = null,
   showInputPrompt,
   value,
   variant,
