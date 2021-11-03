@@ -28,20 +28,10 @@ export const Selection: React.FC<SelectionProps> = ({selected, disabled}) => {
    * selectionVariant is multiple
    * readOnly is required because we are doing a one-way bind to `checked`
    * aria-readonly="false" tells screen that they can still interact with the checkbox
-   * TODO: not sure if disabled & aria-label be here or should we apply it on the instance as props
-   * TODO: aria-label should come from the text part of the slot
    */
   return (
     <LeadingVisualContainer sx={{input: {margin: 0, pointerEvents: 'none'}}}>
-      <input
-        type="checkbox"
-        checked={selected}
-        disabled={disabled}
-        aria-label="TODO"
-        tabIndex={-1}
-        readOnly
-        aria-readonly="false"
-      />
+      <input type="checkbox" checked={selected} disabled={disabled} tabIndex={-1} readOnly aria-readonly="false" />
     </LeadingVisualContainer>
   )
 }
