@@ -23,13 +23,15 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
       return {
         color: 'danger.fg',
         iconColor: 'danger.fg',
-        annotationColor: 'fg.muted'
+        annotationColor: 'fg.muted',
+        hoverColor: 'actionListItem.danger.hoverText'
       }
     default:
       return {
         color: 'fg.default',
         iconColor: 'fg.muted',
-        annotationColor: 'fg.muted'
+        annotationColor: 'fg.muted',
+        hoverColor: 'fg.default'
       }
   }
 }
@@ -110,10 +112,12 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       ':not([aria-disabled])': {cursor: 'pointer'},
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
-          backgroundColor: `actionListItem.${variant}.hoverBg`
+          backgroundColor: `actionListItem.${variant}.hoverBg`,
+          color: getVariantStyles(variant, disabled).hoverColor
         },
         ':focus:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
+          color: getVariantStyles(variant, disabled).hoverColor,
           outline: 'none'
         }
       },
@@ -133,7 +137,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         borderColor: 'var(--divider-color, transparent)'
       },
       // show between 2 items
-      ':not(:first-of-type)': {'--divider-color': theme?.colors.border.muted},
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent'},
       // hide border on current and previous item
