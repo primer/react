@@ -31,7 +31,8 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
         color: 'fg.default',
         iconColor: 'fg.muted',
         annotationColor: 'fg.muted',
-        hoverColor: 'fg.default'
+        hoverColor: 'fg.default',
+        selectedBg: 'actionListItem.default.selectedBg'
       }
   }
 }
@@ -108,7 +109,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       textDecoration: 'none', // for as="a"
-
+      '&[aria-selected=true]': {
+        backgroundColor: getVariantStyles(variant, disabled).selectedBg
+      },
       ':not([aria-disabled])': {cursor: 'pointer'},
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
@@ -137,12 +140,14 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         borderColor: 'var(--divider-color, transparent)'
       },
       // show between 2 items
-      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      ':not(:first-of-type):not[aria-selected]': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent'},
       // hide border on current and previous item
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled])': {'--divider-color': 'transparent'},
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'}
+      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'},
+      // hide border around selected item
+      '&[aria-selected=true] + &': {'--divider-color': 'transparent'}
     }
 
     const clickHandler = React.useCallback(
