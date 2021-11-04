@@ -126,7 +126,11 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
   textColorPressed: getStateStyles(props, 'color', 'pressed')
 }))<DayComponentProps>`
   background-color: ${props => props.background};
-  ${props => (!props.range ? `border: 1px solid ${get('colors.canvas.default')(props)}` : '')};
+  ${props =>
+    !props.range
+      ? `border: 1px solid ${get('colors.canvas.default')(props)}`
+      : `border-top: 1px solid ${get('colors.canvas.default')(props)};
+        border-bottom: 1px solid ${get('colors.canvas.default')(props)}`};
   border-radius: ${props => props.borderRadius};
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   opacity: ${props => (props.disabled ? 0.5 : 1)};
