@@ -33,7 +33,7 @@ describe('ActionList', () => {
     toRender: () => <ActionList />
   })
 
-  checkExports('ActionList', {
+  checkExports('ActionList2', {
     default: undefined,
     ActionList
   })
