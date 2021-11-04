@@ -28,9 +28,9 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
    *  we re-render the parent component to render with slots
    */
   const Slots: React.FC<{
-    context: ContextProps['context']
+    context?: ContextProps['context']
     children: (slots: Slots) => React.ReactNode
-  }> = ({context, children}) => {
+  }> = ({context = {}, children}) => {
     // initialise slots
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
