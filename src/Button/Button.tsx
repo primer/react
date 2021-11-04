@@ -8,7 +8,7 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
   color: ${get('colors.btn.text')};
   background-color: ${get('colors.btn.bg')};
   border: 1px solid ${get('colors.btn.border')};
-  box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')}};
+  box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')};
 
   &:hover {
     background-color: ${get('colors.btn.hoverBg')};
@@ -30,6 +30,7 @@ const Button = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
     color: ${get('colors.primer.fg.disabled')};
     background-color: ${get('colors.btn.bg')};
     border-color: ${get('colors.btn.border')};
+    box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')};
   }
 
   ${buttonSystemProps};
