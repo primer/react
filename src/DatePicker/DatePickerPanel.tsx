@@ -37,6 +37,7 @@ import {Direction, FocusKeys} from '../behaviors/focusZone'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
+  bg: ${get('colors.canvas.default')};
   display: flex;
   flex-direction: column;
   position: relative;

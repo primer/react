@@ -38,6 +38,7 @@ const MonthComponent = styled(Box)`
 `
 
 const MonthTitle = styled(Text)`
+  color: ${get('colors.fg.default')};
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   grid-area: month;

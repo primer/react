@@ -163,7 +163,6 @@ MultiDatePicker.args = {
 
 export const DateRangePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DateRangePicker.args = {
-  dateFormat: 'long',
   placeholder: 'Choose Range',
   view: '2-month',
   variant: 'range'
@@ -172,6 +171,7 @@ DateRangePicker.args = {
 export const InputDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 InputDatePicker.args = {
   anchorVariant: 'input',
+  dateFormat: 'long',
   iconPlacement: 'end',
   view: '1-month',
   variant: 'single'

@@ -294,7 +294,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const [isDirty, setIsDirty] = useState(false)
   const [selection, setSelection] = useState<Selection | undefined>(initialSelection)
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
-  const [currentViewingDate, setCurrentViewingDate] = useState(new Date())
+  const [currentViewingDate, setCurrentViewingDate] = useState(getInitialFocusDate(initialSelection))
   const [multiMonthSupport, setMultiMonthSupport] = useState(true)
   const confirm = useConfirm()
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -450,6 +450,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     },
     [configuration]
   )
+
+  useEffect(() => {
+    setFocusDate(getInitialFocusDate(selection))
+  }, [selection])
 
   useEffect(() => {
     if (configuration.view === '1-month' || !multiMonthSupport) {

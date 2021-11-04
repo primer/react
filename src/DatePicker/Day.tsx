@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef} from 'react'
+import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import {FontSizeProps} from 'styled-system'
 import Box from '../Box'
@@ -88,7 +88,7 @@ const states = {
   }
 }
 
-type DayComponentProps = {today?: boolean} & Omit<DayProps, 'date'>
+type DayComponentProps = {today?: boolean; range?: boolean} & Omit<DayProps, 'date'>
 
 const getStateStyles = (
   props: DayComponentProps,
@@ -126,6 +126,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
   textColorPressed: getStateStyles(props, 'color', 'pressed')
 }))<DayComponentProps>`
   background-color: ${props => props.background};
+  ${props => (!props.range ? `border: 1px solid ${get('colors.canvas.default')(props)}` : '')};
   border-radius: ${props => props.borderRadius};
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   opacity: ${props => (props.disabled ? 0.5 : 1)};
@@ -136,6 +137,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
     color: ${props => props.textColor};
     display: flex;
     font-family: ${get('fonts.mono')};
+    font-weight: ${props => (props.today ? 'bold' : 'normal')};
     font-size: ${get('fontSizes.0')};
     justify-content: center;
     justify-self: center;
@@ -183,7 +185,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 `
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
-  const {onDayFocus, onSelection, disabled, blocked, focused, selected, today} = useDatePicker(date)
+  const {configuration, onDayFocus, onSelection, disabled, blocked, focused, selected, today} = useDatePicker(date)
   const dayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -216,16 +218,6 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
     [disabled, onSelection, date, onAction]
   )
 
-  const todayStyles = useMemo(
-    () =>
-      today
-        ? {
-            fontWeight: 'bold'
-          }
-        : {},
-    [today]
-  )
-
   return (
     <DayComponent
       ref={dayRef}
@@ -236,6 +228,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       disabled={disabled}
       focused={focused}
       selected={selected}
+      range={configuration.variant === 'range'}
       today={today}
       onClick={clickHandler}
       onMouseEnter={() => onDayFocus(date)}
@@ -244,7 +237,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       tabIndex={-1}
       data-date={format(date, 'MM/dd/yyyy')}
     >
-      <Text sx={todayStyles}>{date.getDate()}</Text>
+      <Text>{date.getDate()}</Text>
     </DayComponent>
   )
 }
