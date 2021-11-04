@@ -126,6 +126,7 @@ export const formatDate = ({
     case 'multi': {
       if (Array.isArray(selection)) {
         if (selection.length > 3 && !rawFormat) return `${selection.length} Selected`
+        if (selection.length === 0 && !rawFormat) return placeholder
         const formatted = selection.map(d => format(d, template)).join(', ')
         return formatted
       } else if (selection instanceof Date) {

@@ -127,6 +127,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 }))<DayComponentProps>`
   background-color: ${props => props.background};
   border-radius: ${props => props.borderRadius};
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   opacity: ${props => (props.disabled ? 0.5 : 1)};
   transition: 0.1s background-color ease;
 
@@ -162,7 +163,6 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
   &:hover,
   &:focus {
     background-color: ${props => props.backgroundHover};
-    cursor: pointer;
     transition: 0.05s background-color ease;
     & ${Text} {
       color: ${props => props.textColorHover};

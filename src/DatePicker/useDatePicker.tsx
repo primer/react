@@ -275,7 +275,7 @@ const defaultConfiguration: DatePickerConfiguration = {
   placeholder: 'Choose Date...',
   showInputPrompt: false,
   variant: 'single',
-  view: '2-month',
+  view: '1-month',
   weekStartsOn: 'Sunday'
 }
 
@@ -452,7 +452,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   )
 
   useEffect(() => {
-    if (configuration.view === '1-month') {
+    if (configuration.view === '1-month' || !multiMonthSupport) {
       if (
         currentViewingDate.getMonth() === focusDate.getMonth() &&
         currentViewingDate.getFullYear() === focusDate.getFullYear()
@@ -485,7 +485,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     } else {
       setCurrentViewingDate(setDate(focusDate, 1))
     }
-  }, [configuration.view, currentViewingDate, focusDate])
+  }, [configuration.view, currentViewingDate, focusDate, multiMonthSupport])
 
   const selectionHandler = useCallback(
     (date: Date) => {
@@ -495,7 +495,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         const existingIndex = selections.findIndex((s: Date) => isEqual(s, date))
         if (existingIndex > -1) {
           selections.splice(existingIndex, 1)
-          setSelection(selections.sort((a, b) => a.getTime() - b.getTime()))
+          setSelection([...selections].sort((a, b) => a.getTime() - b.getTime()))
         } else {
           if (configuration.maxSelections && selections.length + 1 > configuration.maxSelections) return
           setSelection([...selections, date].sort((a, b) => a.getTime() - b.getTime()))

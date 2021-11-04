@@ -161,7 +161,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
   return (
     <Box ref={ref}>
       <DatePickerAnchorButton onClick={clickHandler} onKeyPress={keyPressHandler} aria-label={formattedDate}>
-        {iconPlacement === 'start' && calendarIcon()}
+        {(iconPlacement === 'start' || anchorVariant === 'icon-only') && calendarIcon()}
         {anchorVariant !== 'icon-only' && (
           <Text sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{formattedDate}</Text>
         )}

@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {DatePicker, DatePickerProps} from '../DatePicker'
-import {addDays} from 'date-fns'
+import {subDays, addYears} from 'date-fns'
 
 export default {
   title: 'Composite components/DatePicker',
@@ -147,24 +147,58 @@ export default {
 } as Meta
 
 export const DefaultDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
-DefaultDatePicker.args = {}
+DefaultDatePicker.args = {
+  view: '1-month'
+}
 
 export const MultiDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 MultiDatePicker.args = {
+  minDate: subDays(new Date(), 7),
+  maxDate: addYears(new Date(), 1),
   maxRangeSize: {control: false},
+  placeholder: 'Choose Dates',
+  view: '1-month',
   variant: 'multi'
 }
 
 export const DateRangePicker = (args: DatePickerProps) => <DatePicker {...args} />
 DateRangePicker.args = {
-  maxRangeSize: 21,
-  variant: 'range',
-  value: {from: new Date(), to: addDays(new Date(), 4)}
+  dateFormat: 'long',
+  placeholder: 'Choose Range',
+  view: '2-month',
+  variant: 'range'
 }
 
 export const InputDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
 InputDatePicker.args = {
   anchorVariant: 'input',
-  iconPlacement: 'start',
+  iconPlacement: 'end',
+  view: '1-month',
   variant: 'single'
+}
+
+export const ConfirmationDatePicker = (args: DatePickerProps) => <DatePicker {...args} />
+ConfirmationDatePicker.args = {
+  anchorVariant: 'icon-only',
+  compressedHeader: true,
+  confirmation: true,
+  confirmUnsavedClose: true,
+  maxSelections: 5,
+  variant: 'multi',
+  view: '1-month'
+}
+
+export const DisabledWeekendsPicker = (args: DatePickerProps) => <DatePicker {...args} />
+DisabledWeekendsPicker.args = {
+  disableWeekends: true,
+  maxRangeSize: 21,
+  placeholder: 'Choose Range',
+  view: '2-month',
+  variant: 'range'
+}
+
+export const StartDayPicker = (args: DatePickerProps) => <DatePicker {...args} />
+StartDayPicker.args = {
+  view: '1-month',
+  weekStartsOn: 'Wednesday'
 }
