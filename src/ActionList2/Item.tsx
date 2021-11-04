@@ -140,7 +140,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         borderColor: 'var(--divider-color, transparent)'
       },
       // show between 2 items
-      ':not(:first-of-type):not[aria-selected]': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      ':not(:first-of-type):not([aria-selected=true])': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent'},
       // hide border on current and previous item
