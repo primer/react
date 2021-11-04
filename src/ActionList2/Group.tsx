@@ -18,6 +18,7 @@ export const Group: React.FC<GroupProps> = ({title, variant, auxiliaryText, sele
       as="li"
       sx={{
         '&:not(:first-child)': {marginTop: 2},
+        listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
         ...sx
       }}
       {...props}

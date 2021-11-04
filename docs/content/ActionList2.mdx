@@ -83,19 +83,19 @@ const {ActionList} = experiments
 
 render(
   <ActionList>
-  <ActionList.Item>
-    <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
-    github.com/primer
-  </ActionList.Item>
-  <ActionList.Item variant="danger">
-    <ActionList.LeadingVisual><AlertIcon /></ActionList.LeadingVisual>
-    4 vulnerabilities
-  </ActionList.Item>
-  <ActionList.Item>
-    <ActionList.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList.LeadingVisual>
-    mona
-  </ActionList.Item>
-</ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
+      github.com/primer
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual><AlertIcon /></ActionList.LeadingVisual>
+      4 vulnerabilities
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList.LeadingVisual>
+      mona
+    </ActionList.Item>
+  </ActionList>
 )
 ```
 
@@ -201,6 +201,65 @@ render(
   </ActionList>
 )
 ```
+
+<br />
+
+```javascript live noinline
+const {ActionList} = experiments
+
+const SelectFields = () => {
+  const [options, setOptions] = React.useState([
+    {text: 'Status', selected: true},
+    {text: 'Stage', selected: true},
+    {text: 'Assignee', selected: true},
+    {text: 'Team', selected: true},
+    {text: 'Estimate', selected: false},
+    {text: 'Due Date', selected: false}
+  ])
+
+  const visibleOptions = options.filter(option => option.selected)
+  const hiddenOptions = options.filter(option => !option.selected)
+
+  const toggle = text => {
+    setOptions(
+      options.map(option => {
+        if (option.text === text) option.selected = !option.selected
+        return option
+      })
+    )
+  }
+
+  return (
+    <ActionList selectionVariant="multiple">
+      <ActionList.Group title="Visible fields (can be reordered)">
+        {visibleOptions.map(option => (
+          <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
+            {option.text}
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
+      <ActionList.Group
+        title="Hidden fields"
+        selectionVariant={
+          /** selectionVariant override on Group: disable selection if there are no options */
+          hiddenOptions.length ? 'multiple' : false
+        }
+      >
+        {hiddenOptions.map((option, index) => (
+          <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
+            {option.text}
+          </ActionList.Item>
+        ))}
+        {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
+      </ActionList.Group>
+    </ActionList>
+  )
+}
+
+render(<SelectFields />)
+```
+
+## With Groups
 
 <br />
 

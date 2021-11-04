@@ -141,8 +141,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       },
       // show between 2 items
       ':not(:first-of-type):not([aria-selected=true])': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
-      // hide divider after dividers & group header
-      '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent'},
+      // hide divider after dividers & group header, with higher importance!
+      '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled])': {'--divider-color': 'transparent'},
       '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'},
