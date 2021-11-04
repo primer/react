@@ -77,20 +77,6 @@ render(
 
 Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
 
-```javascript live noinline
-const {ActionList} = experiments
-
-render(
-  <ActionList>
-    <ActionList.Item>New file</ActionList.Item>
-    <ActionList.Item>Copy link</ActionList.Item>
-    <ActionList.Item>Edit file</ActionList.Item>
-    <ActionList.Divider />
-    <ActionList.Item variant="danger">Delete file</ActionList.Item>
-  </ActionList>
-)
-```
-
 <!-- prettier-ignore -->
 ```javascript live noinline
 const {ActionList} = experiments
@@ -176,6 +162,42 @@ render(
       primer-css
       <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
     </ActionList.Item>
+  </ActionList>
+)
+```
+
+## With Links
+
+When you want to add links to the List instead of actions, use `ActionList.LinkItem`
+
+<!-- prettier-ignore -->
+```javascript live noinline
+const {ActionList} = experiments
+
+render(
+  <ActionList>
+    <ActionList.LinkItem href="https://github.com/primer">
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      github/primer
+    </ActionList.LinkItem>
+    <ActionList.LinkItem as={ReactRouterLink} to="/">
+      <ActionList.LeadingVisual>
+        <LawIcon />
+      </ActionList.LeadingVisual>
+      MIT License
+    </ActionList.LinkItem>
+    <ActionList.LinkItem 
+      href="https://github.com/primer/react/stargazers"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <ActionList.LeadingVisual>
+        <StarIcon />
+      </ActionList.LeadingVisual>
+      1.4k stars
+    </ActionList.LinkItem>
   </ActionList>
 )
 ```

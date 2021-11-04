@@ -1,3 +1,4 @@
+import React from 'react'
 import * as primerComponents from '@primer/components'
 import * as experiments from '@primer/components/experiments'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
@@ -31,10 +32,16 @@ import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
 import {ConfirmationDialog, useConfirm} from '../../../../src/Dialog/ConfirmationDialog'
 import {SelectPanel} from '../../../../src/SelectPanel/SelectPanel'
 
+const ReactRouterLink = ({to, ...props}) => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  return <a href={to} {...props} />
+}
+
 export default {
   ...doctocatComponents,
   ...primerComponents,
   experiments,
+  ReactRouterLink,
   State,
   CheckIcon,
   SearchIcon,

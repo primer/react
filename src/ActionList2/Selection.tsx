@@ -16,7 +16,10 @@ export const Selection: React.FC<SelectionProps> = ({selected, disabled}) => {
   // if selectionVariant is not set on List, don't show selection
   if (!selectionVariant) {
     // to avoid confusion, fail loudly instead of silently ignoring
-    if (selected) throw new Error('For Item to be selected, List needs to have a selectionVariant defined')
+    if (selected)
+      throw new Error(
+        'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined'
+      )
     return null
   }
 
