@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# please don't fail my build, i want to run my tests 😅
-# set -e
+set -e
 
 # Clean up
 rm -rf dist
