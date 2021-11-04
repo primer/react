@@ -62,9 +62,13 @@ export type ItemProps = {
    */
   disabled?: boolean
   /**
-   * The ARIA role describing the function of `Item` component. `option` is a common value. |
+   * The ARIA role describing the function of `Item` component. `option` is a common value.
    */
   role?: AriaRole
+  /**
+   * id to attach to the root element of the Item
+   */
+  id?: string
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
@@ -88,6 +92,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       selected = undefined,
       onSelect = () => null,
       sx = {},
+      id,
       _PrivateItemWrapper = ({children}) => <>{children}</>,
       ...props
     },
@@ -158,9 +163,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       [onSelect, disabled]
     )
 
-    const labelId = useSSRSafeId()
-    const inlineDescriptionId = useSSRSafeId()
-    const blockDescriptionId = useSSRSafeId()
+    // use props.id if provided, otherwise generate one.
+    const labelId = useSSRSafeId(id)
+    const inlineDescriptionId = useSSRSafeId(id && `${id}--inline-description`)
+    const blockDescriptionId = useSSRSafeId(id && `${id}--block-description`)
 
     return (
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>

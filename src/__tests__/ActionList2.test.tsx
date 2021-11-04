@@ -5,21 +5,23 @@ import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList2'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
+import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionList>
-          <ActionList.Item>New file</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Edit file</ActionList.Item>
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        </ActionList>
-      </BaseStyles>
+      <SSRProvider>
+        <BaseStyles>
+          <ActionList>
+            <ActionList.Item>New file</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Edit file</ActionList.Item>
+            <ActionList.Item variant="danger">Delete file</ActionList.Item>
+          </ActionList>
+        </BaseStyles>
+      </SSRProvider>
     </ThemeProvider>
   )
 }
@@ -41,11 +43,5 @@ describe('ActionList', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
-  })
-})
-
-describe('ActionList.Item', () => {
-  behavesAsComponent({
-    Component: ActionList.Item
   })
 })
