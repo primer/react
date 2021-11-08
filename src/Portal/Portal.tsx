@@ -2,7 +2,6 @@ import React from 'react'
 import {createPortal} from 'react-dom'
 import {useIsomorphicEffect} from '../utils/useIsomorphicEffect'
 
-
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
 
@@ -91,7 +90,6 @@ export const Portal: React.FC<PortalProps> = ({children, onMount, containerName:
     return () => {
       parentElement.removeChild(element)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elementRef])
 
   return createPortal(children, elementRef.current)

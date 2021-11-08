@@ -1,6 +1,4 @@
-import React from 'react'
 import {useIsomorphicEffect} from '../utils/useIsomorphicEffect'
-
 
 export function useResizeObserver(callback: () => void) {
   useIsomorphicEffect(() => {

@@ -1,4 +1,4 @@
-import  {ForwardedRef, useRef} from 'react'
+import {ForwardedRef, useRef} from 'react'
 import {useIsomorphicEffect} from '../utils/useIsomorphicEffect'
 
 /**
@@ -30,11 +30,8 @@ export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)
 
     return () => {
       // ensure the refs get updated on unmount
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       setRefs(combinedRef.current)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...refs, combinedRef.current])
 
   return combinedRef
