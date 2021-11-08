@@ -19,12 +19,12 @@ import {AriaRole} from '../utils/types'
 
 const customItemThemes = {
   default: {
-    hover: get('colors.neutral.subtle'),
-    focus: get('colors.neutral.muted')
+    hover: get('colors.actionListItem.default.hoverBg'),
+    focus: get('colors.actionListItem.default.focusBg')
   },
   danger: {
-    hover: get('colors.danger.subtle'),
-    focus: get('colors.danger.muted')
+    hover: get('colors.actionListItem.danger.hoverBg'),
+    focus: get('colors.actionListItem.danger.focusBg')
   }
 } as const
 
