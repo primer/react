@@ -42,7 +42,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     return (
       <ListBox
         sx={merge(styles, propsSx as SxProp)}
-        aria-multiselectable={selectionVariant === 'multiple' ? true : undefined}
+        aria-multiselectable={props.role === 'listbox' && selectionVariant === 'multiple' ? true : undefined}
         {...props}
         ref={forwardedRef}
       >
