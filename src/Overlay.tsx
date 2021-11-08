@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, {ReactElement, useEffect, useRef} from 'react'
 import {get, COMMON, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
-import {useIsomorphicEffect} from './utils/useIsomorphicEffect'
+import {useIsomorphicLayoutEffect as useLayoutEffect} from './utils/useIsomorphicLayoutEffect'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
@@ -153,7 +153,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       }
     }, [height, combinedRef])
 
-    useIsomorphicEffect(() => {
+    useLayoutEffect(() => {
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
       if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return

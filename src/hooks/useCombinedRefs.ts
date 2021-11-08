@@ -1,5 +1,5 @@
 import {ForwardedRef, useRef} from 'react'
-import {useIsomorphicEffect} from '../utils/useIsomorphicEffect'
+import {useIsomorphicLayoutEffect as useLayoutEffect} from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Creates a ref by combining multiple constituent refs. The ref returned by this hook
@@ -12,7 +12,7 @@ import {useIsomorphicEffect} from '../utils/useIsomorphicEffect'
 export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)[]) {
   const combinedRef = useRef<T | null>(null)
 
-  useIsomorphicEffect(() => {
+  useLayoutEffect(() => {
     function setRefs(current: T | null = null) {
       for (const ref of refs) {
         if (!ref) {
