@@ -23,7 +23,7 @@ export type ListProps = {
   role?: AriaRole
 } & SxProp
 
-type ContextProps = Omit<ListProps, 'sx'>
+type ContextProps = Pick<ListProps, 'variant' | 'selectionVariant' | 'showDividers'>
 export const ListContext = React.createContext<ContextProps>({})
 
 const ListBox = styled.ul<SxProp>(sx)
