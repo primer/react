@@ -1,5 +1,7 @@
 import React from 'react'
 import {createPortal} from 'react-dom'
+import {useIsomorphicEffect} from '../utils/useIsomorphicEffect'
+
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
@@ -69,7 +71,7 @@ export const Portal: React.FC<PortalProps> = ({children, onMount, containerName:
   hostElement.style.zIndex = '1'
   const elementRef = React.useRef(hostElement)
 
-  React.useLayoutEffect(() => {
+  useIsomorphicEffect(() => {
     let containerName = _containerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
