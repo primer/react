@@ -32,8 +32,7 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
         color: 'fg.default',
         iconColor: 'fg.muted',
         annotationColor: 'fg.muted',
-        hoverColor: 'fg.default',
-        selectedBg: 'actionListItem.default.selectedBg'
+        hoverColor: 'fg.default'
       }
   }
 }
@@ -116,9 +115,6 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       textDecoration: 'none', // for as="a"
-      '&[aria-selected=true]': {
-        backgroundColor: getVariantStyles(variant, disabled).selectedBg
-      },
       ':not([aria-disabled])': {cursor: 'pointer'},
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
@@ -126,9 +122,13 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
           color: getVariantStyles(variant, disabled).hoverColor
         },
         ':focus:not([aria-disabled])': {
-          backgroundColor: `actionListItem.${variant}.activeBg`,
+          backgroundColor: `actionListItem.${variant}.selectedBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
           outline: 'none'
+        },
+        ':active:not([aria-disabled])': {
+          backgroundColor: `actionListItem.${variant}.activeBg`,
+          color: getVariantStyles(variant, disabled).hoverColor
         }
       },
 
