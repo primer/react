@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({variant, title, auxiliaryText, labelId, 
   }
 
   return (
-    <Box sx={styles} aria-hidden="true" {...props}>
+    <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
       <span id={labelId}>{title}</span>
       {auxiliaryText && <span>{auxiliaryText}</span>}
     </Box>
