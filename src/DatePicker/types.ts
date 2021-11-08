@@ -7,6 +7,7 @@ export type Selection = Date | Array<Date> | RangeSelection | null
 export type StringSelection = string | Array<string> | {to: string; from: string} | null
 export type DayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6
 export type DaySelection = boolean | 'start' | 'middle' | 'end'
+export type IconPlacement = 'start' | 'end' | 'none'
 
 export type RangeSelection = {
   from: Date
@@ -27,9 +28,8 @@ export interface BaseDatePickerConfiguration {
   compressedHeader?: boolean
   dateFormat?: DateFormat
   disableWeekends?: boolean
-  iconPlacement?: 'start' | 'end' | 'none'
+  iconPlacement?: IconPlacement
   maxDate?: Date | null
-  maxSelections?: number
   minDate?: Date | null
   placeholder?: string
   variant?: SelectionVariant
@@ -42,6 +42,7 @@ type SingleDatePickerConfiguration = {
 } & BaseDatePickerConfiguration
 
 type MultiDatePickerConfiguration = {
+  maxSelections?: number
   variant: 'multi'
 } & BaseDatePickerConfiguration
 

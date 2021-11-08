@@ -164,7 +164,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
 
   const inputHandler = useCallback(
     (updatedSelection: Selection) => {
-      const {maxDate, minDate, variant, maxSelections} = configuration
+      const {maxDate, minDate, variant} = configuration
 
       switch (variant) {
         case 'single': {
@@ -181,6 +181,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         }
         case 'multi': {
           if (Array.isArray(updatedSelection)) {
+            const {maxSelections} = configuration
             let validSelections = updatedSelection.filter(
               d => (maxDate ? isBefore(d, maxDate) : true) && (minDate ? isAfter(d, minDate) : true)
             )

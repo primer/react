@@ -36,9 +36,11 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {Direction, FocusKeys} from '../behaviors/focusZone'
 import {sanitizeDate} from './utils'
 
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
-  bg: ${get('colors.canvas.default')};
+  background-color: ${get('colors.canvas.default')};
   display: flex;
   flex-direction: column;
   position: relative;
@@ -125,12 +127,7 @@ export const DatePickerPanel = () => {
   const datePanelRef = useRef<HTMLDivElement>(null)
   const footerRef = useRef(null)
 
-  useFocusZone({
-    containerRef: headerRef,
-    bindKeys: FocusKeys.Tab,
-    focusInStrategy: 'closest'
-  })
-
+  // #region Focus Zones
   const getNextFocusable = useCallback(
     (_: Direction, from: Element | undefined, event: KeyboardEvent): HTMLElement | undefined => {
       const key = event.key
@@ -234,6 +231,13 @@ export const DatePickerPanel = () => {
     [configuration, onDayFocus, setFocusDate]
   )
 
+  // Configure FocusZones
+  useFocusZone({
+    containerRef: headerRef,
+    bindKeys: FocusKeys.Tab,
+    focusInStrategy: 'closest'
+  })
+
   useFocusZone(
     {
       containerRef: datePanelRef,
@@ -249,6 +253,7 @@ export const DatePickerPanel = () => {
     bindKeys: FocusKeys.Tab,
     focusInStrategy: 'closest'
   })
+  // #endregion
 
   const previousDisabled = useMemo(() => {
     const {minDate} = configuration
@@ -290,26 +295,35 @@ export const DatePickerPanel = () => {
   )
 
   const getMonthPicker = useMemo(() => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const {minDate, maxDate} = configuration
+    let filteredMonths = months
     const monthElements = []
-    for (let i = 0; i < months.length; i++) {
+    if (minDate && currentYear === minDate.getFullYear()) {
+      filteredMonths = filteredMonths.slice(minDate.getMonth())
+    }
+    if (maxDate && currentYear === maxDate.getFullYear()) {
+      filteredMonths = filteredMonths.slice(-(12 - maxDate.getMonth()))
+    }
+    for (let i = 0; i < filteredMonths.length; i++) {
       monthElements.push(
-        <Option key={i} value={i}>
-          {months[i]}
+        <Option key={i} value={months.indexOf(filteredMonths[i])}>
+          {filteredMonths[i]}
         </Option>
       )
     }
 
     return (
-      <Select id="picker-header-month" value={currentMonth} sx={{mr: '6px'}} onChange={headerSelectionHandler}>
+      <Select id="picker-header-month" onChange={headerSelectionHandler} sx={{mr: '6px'}} value={currentMonth}>
         {monthElements}
       </Select>
     )
-  }, [currentMonth, headerSelectionHandler])
+  }, [configuration, currentMonth, currentYear, headerSelectionHandler])
   const getYearPicker = useMemo(() => {
+    const {minDate, maxDate} = configuration
     const years = []
-    const minYear = currentYear - 200
-    const maxYear = currentYear + 200
+    const todaysYear = sanitizeDate(new Date()).getFullYear()
+    const minYear = minDate ? minDate.getFullYear() : todaysYear - 200
+    const maxYear = maxDate ? maxDate.getFullYear() : todaysYear + 200
     for (let i = minYear; i <= maxYear; i++) {
       years.push(
         <Option key={i} value={i}>
@@ -319,11 +333,11 @@ export const DatePickerPanel = () => {
     }
 
     return (
-      <Select id="picker-header-year" value={currentYear} onChange={headerSelectionHandler}>
+      <Select id="picker-header-year" onChange={headerSelectionHandler} value={currentYear}>
         {years}
       </Select>
     )
-  }, [currentYear, headerSelectionHandler])
+  }, [configuration, currentYear, headerSelectionHandler])
 
   return (
     <DatePickerPanelContainer ref={panelRef}>

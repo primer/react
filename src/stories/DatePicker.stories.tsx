@@ -95,9 +95,9 @@ export default {
     minDate: {
       name: 'Min Date',
       description: 'Minimum date that can be selected',
-      defaultValue: 'null',
+      defaultValue: null,
       table: {
-        defaultValue: 'null'
+        defaultValue: null
       },
       control: {
         type: 'date'
@@ -184,6 +184,7 @@ ConfirmationDatePicker.args = {
   confirmation: true,
   confirmUnsavedClose: true,
   maxSelections: 5,
+  minDate: subDays(new Date(), 15),
   variant: 'multi',
   view: '1-month'
 }

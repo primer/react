@@ -21,13 +21,17 @@ export const getInitialFocusDate = (selection?: Selection) => {
 export const initializeConfigurations = (externalConfig?: DatePickerConfiguration) => {
   let sanitizedConfig: Partial<DatePickerConfiguration> | null = null
   if (externalConfig) {
-    const items = Object.entries(externalConfig).filter(item => item[1] !== undefined && item[1] !== null)
-    for (const item of items) {
-      if (item instanceof Date) {
-        sanitizeDate(item)
-      }
-      sanitizedConfig = items as DatePickerConfiguration
-    }
+    sanitizedConfig = Object.fromEntries(
+      Object.entries(externalConfig)
+        .filter(([_, v]) => v !== null && v !== undefined)
+        .map(item => {
+          if (item instanceof Date) {
+            sanitizeDate(item)
+          }
+          return item
+        })
+    )
   }
+
   return sanitizedConfig ? deepmerge(defaultConfiguration, sanitizedConfig) : defaultConfiguration
 }

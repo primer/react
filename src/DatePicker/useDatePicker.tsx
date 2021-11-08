@@ -13,49 +13,46 @@ const useDatePicker = (date?: Date) => {
   const [selected, setSelected] = useState<DaySelection>(false)
   const [focused, setFocused] = useState<boolean>(false)
   const today = date ? isToday(date) : false
-  const {disableWeekends, minDate, maxDate} = dateCtx.configuration
+  const {configuration, hoverRange, selection} = dateCtx
+  const {disableWeekends, minDate, maxDate} = configuration
 
+  // Determine if the given date is inside of the hover range
   useEffect(() => {
-    if (date) {
-      if (dateCtx.hoverRange) {
-        if (isRangeSelection(dateCtx.hoverRange)) {
-          if (isEqual(date, dateCtx.hoverRange.from)) {
-            setSelected('start')
-          } else if (dateCtx.hoverRange.to && isEqual(date, dateCtx.hoverRange.to)) {
-            setSelected('end')
-          } else if (
-            isAfter(date, dateCtx.hoverRange.from) &&
-            dateCtx.hoverRange.to &&
-            isBefore(date, dateCtx.hoverRange.to)
-          ) {
-            setSelected('middle')
-          } else {
-            setSelected(false)
-          }
-        }
-      } else if (dateCtx.selection) {
-        if (isMultiSelection(dateCtx.selection)) {
-          setSelected(!!dateCtx.selection.find(d => isEqual(d, date)))
-        } else if (isRangeSelection(dateCtx.selection)) {
-          if (isEqual(date, dateCtx.selection.from)) {
-            setSelected('start')
-          } else if (dateCtx.selection.to && isEqual(date, dateCtx.selection.to)) {
-            setSelected('end')
-          } else if (
-            isAfter(date, dateCtx.selection.from) &&
-            dateCtx.selection.to &&
-            isBefore(date, dateCtx.selection.to)
-          ) {
-            setSelected('middle')
-          } else {
-            setSelected(false)
-          }
+    if (date && hoverRange) {
+      if (isRangeSelection(hoverRange)) {
+        if (isEqual(date, hoverRange.from)) {
+          setSelected('start')
+        } else if (hoverRange.to && isEqual(date, hoverRange.to)) {
+          setSelected('end')
+        } else if (isAfter(date, hoverRange.from) && hoverRange.to && isBefore(date, hoverRange.to)) {
+          setSelected('middle')
         } else {
-          setSelected(isEqual(date, dateCtx.selection))
+          setSelected(false)
         }
       }
     }
-  }, [date, dateCtx.hoverRange, dateCtx.selection, today])
+  }, [date, hoverRange, today])
+
+  // Determine if the given date is selected
+  useEffect(() => {
+    if (date && selection) {
+      if (isMultiSelection(selection)) {
+        setSelected(!!selection.find(d => isEqual(d, date)))
+      } else if (isRangeSelection(selection)) {
+        if (isEqual(date, selection.from)) {
+          setSelected('start')
+        } else if (selection.to && isEqual(date, selection.to)) {
+          setSelected('end')
+        } else if (isAfter(date, selection.from) && selection.to && isBefore(date, selection.to)) {
+          setSelected('middle')
+        } else {
+          setSelected(false)
+        }
+      } else {
+        setSelected(isEqual(date, selection))
+      }
+    }
+  }, [date, selection, today])
 
   useEffect(() => {
     if (date) {

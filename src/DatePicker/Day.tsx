@@ -187,16 +187,22 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
 
   useEffect(() => {
     if (focused) {
+      // Using a setTimeout of 0 assures that it will be executed after the initial render
       setTimeout(() => dayRef.current?.focus(), 0)
     }
   }, [focused])
 
-  const keyPressHandler = useCallback(
-    event => {
+  const actionHandler = useCallback(
+    (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }
-      if ([' ', 'Enter'].includes(event.key)) {
+      if ('key' in event) {
+        if ([' ', 'Enter'].includes(event.key)) {
+          onSelection(date)
+          onAction?.(date, event)
+        }
+      } else {
         onSelection(date)
         onAction?.(date, event)
       }
@@ -204,34 +210,23 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
     [disabled, onSelection, onAction, date]
   )
 
-  const clickHandler = useCallback(
-    event => {
-      if (disabled) {
-        return
-      }
-      onSelection(date)
-      onAction?.(date, event)
-    },
-    [disabled, onSelection, date, onAction]
-  )
-
   return (
     <DayComponent
-      ref={dayRef}
-      role="gridcell"
       aria-disabled={disabled}
       aria-selected={selected !== false}
+      data-date={format(date, 'MM/dd/yyyy')}
       disabled={disabled}
       focused={focused}
-      selected={selected}
-      range={configuration.variant === 'range'}
-      today={today}
-      onClick={clickHandler}
-      onMouseEnter={() => onDayFocus(date)}
+      onClick={actionHandler}
       onFocus={() => onDayFocus(date)}
-      onKeyPress={keyPressHandler}
+      onKeyPress={actionHandler}
+      onMouseEnter={() => onDayFocus(date)}
+      ref={dayRef}
+      range={configuration.variant === 'range'}
+      role="gridcell"
+      selected={selected}
       tabIndex={-1}
-      data-date={format(date, 'MM/dd/yyyy')}
+      today={today}
     >
       <Text>{date.getDate()}</Text>
     </DayComponent>

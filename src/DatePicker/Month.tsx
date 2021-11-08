@@ -73,16 +73,19 @@ export const Month: React.FC<MonthProps> = ({date}) => {
     const components = []
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
 
+    // Adding blank spots for previous month
     const preBlanks = (firstDay.getDay() + (7 - weekdayEnum[configuration.weekStartsOn ?? 'Sunday'])) % 7
     for (let i = 0; i < preBlanks; i++) {
       components.push(<BlankDay key={`month-pre-blank-${i}`} />)
     }
+
     for (let i = 1; i <= getDaysInMonth(firstDay); i++) {
       const day = new Date(date.getFullYear(), date.getMonth(), i)
       components.push(<Day key={`day-component-${day.toString()}`} date={day} />)
     }
 
     const lastDay = lastDayOfMonth(firstDay)
+    // Adding blank spots for next month
     const postBlanks = (lastDay.getDay() + (7 - weekdayEnum[configuration.weekStartsOn ?? 'Sunday'])) % 7
     for (let i = 6; i > postBlanks; i--) {
       components.push(<BlankDay key={`month-post-blank-${i}`} />)
@@ -90,8 +93,9 @@ export const Month: React.FC<MonthProps> = ({date}) => {
 
     return components
   }, [configuration.weekStartsOn, date])
+
   return (
-    <MonthComponent role="grid" aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`}>
+    <MonthComponent aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`} role="grid">
       <MonthTitle aria-live="polite">{!configuration.compressedHeader ? getTitle : ''}</MonthTitle>
       {weekdayHeaders}
       {dayComponents}

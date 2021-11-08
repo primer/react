@@ -8,7 +8,7 @@ import {DatePickerConfiguration, Selection} from './types'
 type OpenGesture = 'anchor-click' | 'anchor-key-press'
 type CloseGesture = 'anchor-click' | 'click-outside' | 'escape'
 
-export interface DatePickerProps extends DatePickerConfiguration {
+export type DatePickerProps = {
   /**
    * Props to be spread on the internal `AnchoredOverlay` component.
    */
@@ -58,7 +58,7 @@ export interface DatePickerProps extends DatePickerConfiguration {
    * Value for the Date Picker
    */
   value?: Selection
-}
+} & DatePickerConfiguration
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   anchoredOverlayProps,
@@ -72,19 +72,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   disableWeekends,
   iconPlacement,
   maxDate,
-  maxRangeSize,
-  maxSelections,
   minDate,
   onClose: onCloseExternal,
   onOpen: onOpenExternal,
   onChange,
   open,
   placeholder,
-  showInputPrompt,
   value,
   variant,
   view,
-  weekStartsOn
+  weekStartsOn,
+  ...rest
 }) => {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(open ?? false)
@@ -99,14 +97,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     disableWeekends,
     iconPlacement,
     maxDate,
-    maxRangeSize,
-    maxSelections,
     minDate,
     placeholder,
-    showInputPrompt,
     variant,
     view,
     weekStartsOn,
+    ...rest,
     ...externalConfiguration
   }
 
