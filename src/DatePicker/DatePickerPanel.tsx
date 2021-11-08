@@ -27,13 +27,14 @@ import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
-import useDatePicker, {normalizeDate} from './useDatePicker'
+import useDatePicker from './useDatePicker'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import Button, {ButtonPrimary} from '../Button'
 import sx, {SxProp} from '../sx'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {Direction, FocusKeys} from '../behaviors/focusZone'
+import {sanitizeDate} from './utils'
 
 const DatePickerPanelContainer = styled(Box)`
   align-items: stretch;
@@ -131,17 +132,17 @@ export const DatePickerPanel = () => {
   })
 
   const getNextFocusable = useCallback(
-    (direction: Direction, from: Element | undefined, event: KeyboardEvent): HTMLElement | undefined => {
+    (_: Direction, from: Element | undefined, event: KeyboardEvent): HTMLElement | undefined => {
       const key = event.key
       const {disableWeekends, minDate, maxDate} = configuration
       const fromDate = from?.getAttribute('data-date')
       const focusDate = fromDate ? new Date(fromDate) : new Date()
 
-      let newDate = normalizeDate(focusDate)
+      let newDate = sanitizeDate(focusDate)
       switch (key) {
         case 'ArrowRight': {
           // Increase selection by 1 day
-          newDate = normalizeDate(addDays(focusDate, 1))
+          newDate = sanitizeDate(addDays(focusDate, 1))
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           if (disableWeekends && isWeekend(newDate)) {
             const monday = nextMonday(newDate)
@@ -153,7 +154,7 @@ export const DatePickerPanel = () => {
         }
         case 'ArrowLeft': {
           // Decrease selection by 1 day
-          newDate = normalizeDate(subDays(focusDate, 1))
+          newDate = sanitizeDate(subDays(focusDate, 1))
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           if (disableWeekends && isWeekend(newDate)) {
             const friday = previousFriday(newDate)
@@ -165,7 +166,7 @@ export const DatePickerPanel = () => {
         }
         case 'ArrowUp': {
           // Decrease selection by 1 week
-          newDate = normalizeDate(subWeeks(focusDate, 1))
+          newDate = sanitizeDate(subWeeks(focusDate, 1))
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           setFocusDate(newDate)
           onDayFocus(newDate)
@@ -173,18 +174,19 @@ export const DatePickerPanel = () => {
         }
         case 'ArrowDown': {
           // Increase selection by 1 week
-          newDate = normalizeDate(addWeeks(focusDate, 1))
+          newDate = sanitizeDate(addWeeks(focusDate, 1))
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           setFocusDate(newDate)
           onDayFocus(newDate)
           break
         }
         case 'Home': {
+          // Go to beginning of the week
           newDate = focusDate
           if (disableWeekends) {
-            newDate = normalizeDate(isMonday(focusDate) ? focusDate : previousMonday(focusDate))
+            newDate = sanitizeDate(isMonday(focusDate) ? focusDate : previousMonday(focusDate))
           } else {
-            newDate = normalizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
+            newDate = sanitizeDate(isSunday(focusDate) ? focusDate : previousSunday(focusDate))
           }
 
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
@@ -193,11 +195,12 @@ export const DatePickerPanel = () => {
           break
         }
         case 'End': {
+          // Go to end of the week
           newDate = focusDate
           if (disableWeekends) {
-            newDate = normalizeDate(isFriday(focusDate) ? focusDate : nextFriday(focusDate))
+            newDate = sanitizeDate(isFriday(focusDate) ? focusDate : nextFriday(focusDate))
           } else {
-            newDate = normalizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
+            newDate = sanitizeDate(isSaturday(focusDate) ? focusDate : nextSaturday(focusDate))
           }
 
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
@@ -206,14 +209,16 @@ export const DatePickerPanel = () => {
           break
         }
         case 'PageUp': {
-          newDate = normalizeDate(event.shiftKey ? subYears(focusDate, 1) : subMonths(focusDate, 1))
+          // Decrease 1 Month, or with Shift, 1 year
+          newDate = sanitizeDate(event.shiftKey ? subYears(focusDate, 1) : subMonths(focusDate, 1))
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           setFocusDate(newDate)
           onDayFocus(newDate)
           break
         }
         case 'PageDown': {
-          newDate = normalizeDate(event.shiftKey ? addYears(focusDate, 1) : addMonths(focusDate, 1))
+          // Increase 1 Month, or with Shift, 1 year
+          newDate = sanitizeDate(event.shiftKey ? addYears(focusDate, 1) : addMonths(focusDate, 1))
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           setFocusDate(newDate)
           onDayFocus(newDate)

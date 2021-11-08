@@ -5,11 +5,11 @@ import Box from '../Box'
 import Text from '../Text'
 import {get, SystemCommonProps, SystemLayoutProps} from '../constants'
 import {SxProp} from '../sx'
-import useDatePicker, {DaySelection} from './useDatePicker'
+import useDatePicker from './useDatePicker'
 import {format} from 'date-fns'
+import {DaySelection} from './types'
 
 export type DayProps = {
-  blocked?: boolean
   disabled?: boolean
   focused?: boolean
   onAction?: (date: Date, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
@@ -30,11 +30,6 @@ const DayBaseComponent = styled(Box)`
 `
 
 const states = {
-  blocked: {
-    background: get('colors.neutral.subtle'),
-    borderRadius: get('radii.2'),
-    color: get('colors.fg.subtle')
-  },
   disabled: {
     background: get('colors.canvas.primary'),
     borderRadius: get('radii.2'),
@@ -95,7 +90,7 @@ const getStateStyles = (
   prop: 'background' | 'borderRadius' | 'color',
   state: 'normal' | 'hover' | 'pressed'
 ) => {
-  const {blocked, disabled, selected, today} = props
+  const {disabled, selected, today} = props
   if (selected) {
     switch (selected) {
       case 'start':
@@ -107,8 +102,6 @@ const getStateStyles = (
       default:
         return today && prop === 'color' ? states.selected.default['todayColor'] : states.selected.default[prop]
     }
-  } else if (blocked) {
-    return states.blocked[prop]
   } else if (disabled) {
     return states.disabled[prop]
   } else {
@@ -189,7 +182,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 `
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
-  const {configuration, onDayFocus, onSelection, disabled, blocked, focused, selected, today} = useDatePicker(date)
+  const {configuration, onDayFocus, onSelection, disabled, focused, selected, today} = useDatePicker(date)
   const dayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -228,7 +221,6 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       role="gridcell"
       aria-disabled={disabled}
       aria-selected={selected !== false}
-      blocked={blocked}
       disabled={disabled}
       focused={focused}
       selected={selected}

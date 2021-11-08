@@ -1,31 +1,28 @@
-import React, {useRef, useState} from 'react'
-import {OverlayProps} from '../Overlay'
-import {FocusTrapHookSettings} from '../hooks/useFocusTrap'
-import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import React, {useEffect, useRef, useState} from 'react'
 import {DatePickerAnchor} from './DatePickerAnchor'
-import {DatePickerConfiguration, DatePickerProvider, Selection} from './useDatePicker'
+import {DatePickerProvider} from './DatePickerProvider'
 import {DatePickerOverlay} from './DatePickerOverlay'
+import {AnchoredOverlayProps} from '../AnchoredOverlay'
+import {DatePickerConfiguration, Selection} from './types'
 
 type OpenGesture = 'anchor-click' | 'anchor-key-press'
 type CloseGesture = 'anchor-click' | 'click-outside' | 'escape'
 
 export interface DatePickerProps extends DatePickerConfiguration {
   /**
+   * Props to be spread on the internal `AnchoredOverlay` component.
+   */
+  anchoredOverlayProps?: Partial<AnchoredOverlayProps>
+  /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
   anchorRef?: React.RefObject<HTMLElement>
-  /**
-   * Settings to apply to the Focus Zone on the internal `Overlay` component.
-   */
-  focusTrapSettings?: Partial<FocusTrapHookSettings>
 
   /**
-   * Settings to apply to the Focus Zone on the internal `Overlay` component.
+   * Date Picker configuration object
    */
-  focusZoneSettings?: Partial<FocusZoneHookSettings>
-  initialValue?: 'today' | Date | string | null
-  iconOnly?: boolean
-  placeholder?: string
+  configuration?: DatePickerConfiguration
+
   /**
    * Determines whether the overlay portion of the component should be shown or not
    */
@@ -34,52 +31,55 @@ export interface DatePickerProps extends DatePickerConfiguration {
   /**
    * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
-  onOpen?: (gesture: OpenGesture) => unknown
+  onChange?: (value?: Selection) => void
 
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: CloseGesture) => unknown
+  onClose?: (gesture: CloseGesture) => void
 
   /**
-   * Props to be spread on the internal `Overlay` component.
+   * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
-  overlayProps?: Partial<OverlayProps>
+  onOpen?: (gesture: OpenGesture) => void
+
+  /**
+   * Placeholder string when there is no selection
+   */
+  placeholder?: string
+
   /**
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
   renderAnchor?: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
-  value?: Selection
-
   /**
-   * Minimum date to select
+   * Value for the Date Picker
    */
-  minDate?: Date | null
+  value?: Selection
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
+  anchoredOverlayProps,
   anchorVariant,
   anchorRef: externalAnchorRef,
+  configuration: externalConfiguration,
   confirmation,
   confirmUnsavedClose,
   compressedHeader,
   dateFormat,
   disableWeekends,
-  focusTrapSettings,
-  focusZoneSettings,
   iconPlacement,
   maxDate,
   maxRangeSize,
   maxSelections,
   minDate,
-  onOpen: onOpenExternal,
   onClose: onCloseExternal,
+  onOpen: onOpenExternal,
+  onChange,
   open,
-  overlayProps,
   placeholder,
-  renderAnchor = null,
   showInputPrompt,
   value,
   variant,
@@ -87,8 +87,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   weekStartsOn
 }) => {
   const anchorRef = useRef<HTMLDivElement>(null)
-  const [isOpen, setIsOpen] = useState(false)
-  const datePickerConfiguration: DatePickerConfiguration = {
+  const [isOpen, setIsOpen] = useState(open ?? false)
+  const suppliedAnchorRef = externalAnchorRef ?? anchoredOverlayProps?.anchorRef
+
+  const configuration: DatePickerConfiguration = {
     anchorVariant,
     confirmation,
     confirmUnsavedClose,
@@ -96,16 +98,22 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     dateFormat,
     disableWeekends,
     iconPlacement,
-    maxDate: maxDate ? new Date(new Date(maxDate).toDateString()) : maxDate,
+    maxDate,
     maxRangeSize,
     maxSelections,
-    minDate: minDate ? new Date(new Date(minDate).toDateString()) : minDate,
+    minDate,
     placeholder,
     showInputPrompt,
     variant,
     view,
-    weekStartsOn
+    weekStartsOn,
+    ...externalConfiguration
   }
+
+  // For external control
+  useEffect(() => {
+    if (open !== undefined) setIsOpen(open)
+  }, [open])
 
   const onOpen = (gesture: OpenGesture) => {
     setIsOpen(true)
@@ -129,21 +137,20 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <DatePickerProvider
-      configuration={datePickerConfiguration}
-      isOpen={isOpen}
-      value={value}
       closePicker={() => setIsOpen(false)}
+      configuration={configuration}
+      isOpen={isOpen}
+      onChange={onChange}
+      value={value}
     >
-      <DatePickerAnchor ref={anchorRef} onAction={toggleIsOpen} />
+      {!suppliedAnchorRef && <DatePickerAnchor ref={anchorRef} onAction={toggleIsOpen} />}
       <DatePickerOverlay
-        anchorRef={externalAnchorRef ?? anchorRef}
-        renderAnchor={renderAnchor}
-        open={open ?? isOpen}
+        {...anchoredOverlayProps}
+        anchorRef={suppliedAnchorRef ?? anchorRef}
+        renderAnchor={anchoredOverlayProps?.renderAnchor ?? null}
+        open={isOpen}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={overlayProps}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
       />
     </DatePickerProvider>
   )

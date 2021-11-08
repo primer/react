@@ -1,5 +1,5 @@
-import {format, isEqual, lastDayOfMonth, getDaysInMonth, eachDayOfInterval, startOfWeek, endOfWeek} from 'date-fns'
-import React, {useMemo, useState} from 'react'
+import {format, lastDayOfMonth, getDaysInMonth, eachDayOfInterval, startOfWeek, endOfWeek} from 'date-fns'
+import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {FontSizeProps} from 'styled-system'
 import Box from '../Box'
@@ -8,8 +8,8 @@ import {SystemCommonProps, SystemLayoutProps, get} from '../constants'
 import {SxProp} from '../sx'
 import {BlankDay, Day} from './Day'
 import useDatePicker from './useDatePicker'
+import {DayNumber} from './types'
 
-type DayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6
 const weekdayEnum: Record<string, DayNumber> = {
   Sunday: 0,
   Monday: 1,
@@ -56,7 +56,6 @@ const WeekdayHeader = styled(Text)`
 
 export const Month: React.FC<MonthProps> = ({date}) => {
   const {configuration} = useDatePicker()
-  const [selectedDay, setSelectedDay] = useState<Date | null>(null)
   const getTitle = useMemo(() => `${format(new Date(date), 'MMMM yyyy')}`, [date])
 
   const weekdayHeaders = useMemo(() => {
@@ -70,10 +69,6 @@ export const Month: React.FC<MonthProps> = ({date}) => {
     ))
   }, [configuration.weekStartsOn, date])
 
-  const dayAction = (day: Date) => {
-    setSelectedDay(day)
-  }
-
   const dayComponents = useMemo(() => {
     const components = []
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
@@ -84,14 +79,7 @@ export const Month: React.FC<MonthProps> = ({date}) => {
     }
     for (let i = 1; i <= getDaysInMonth(firstDay); i++) {
       const day = new Date(date.getFullYear(), date.getMonth(), i)
-      components.push(
-        <Day
-          key={`day-component-${day.toString()}`}
-          date={day}
-          selected={selectedDay ? isEqual(day, selectedDay) : false}
-          onAction={dayAction}
-        />
-      )
+      components.push(<Day key={`day-component-${day.toString()}`} date={day} />)
     }
 
     const lastDay = lastDayOfMonth(firstDay)
@@ -101,7 +89,7 @@ export const Month: React.FC<MonthProps> = ({date}) => {
     }
 
     return components
-  }, [configuration.weekStartsOn, date, selectedDay])
+  }, [configuration.weekStartsOn, date])
   return (
     <MonthComponent role="grid" aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`}>
       <MonthTitle aria-live="polite">{!configuration.compressedHeader ? getTitle : ''}</MonthTitle>

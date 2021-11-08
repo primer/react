@@ -1,22 +1,23 @@
 import {eachDayOfInterval, format, isBefore} from 'date-fns'
-import {AnchorVariant, isRangeSelection, Selection, SelectionVariant} from './useDatePicker'
+import {AnchorVariant, isMultiSelection, isRangeSelection, Selection, UnsanitizedSelection} from './types'
+import {sanitizeDate} from './utils'
 
 const INVALID_DATE = 'Invalid Date'
 const DATE_REGEX = new RegExp(
   /(\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}){1,2})(?:\s?-\s?)?(\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}){1,2})?/g
 )
 
-const sanitizeDate = (dateString: string) => {
+const sanitizeDateString = (dateString: string) => {
   return dateString.replaceAll('.', '/').replaceAll('-', '/')
 }
 
-export const parseDate = (dateString: string, variant: SelectionVariant = 'single'): Selection => {
+export const parseStringDate = (dateString: string, variant: SelectionVariant = 'single'): Selection => {
   const dateItems = dateString.matchAll(DATE_REGEX)
   const parsedDateItems: Array<Selection> = []
   // Determine Format
   for (const d of dateItems) {
-    const tempD1 = new Date(sanitizeDate(d[1]))
-    const tempD2 = d[2] ? new Date(sanitizeDate(d[2])) : null
+    const tempD1 = new Date(sanitizeDateString(d[1]))
+    const tempD2 = d[2] ? new Date(sanitizeDateString(d[2])) : null
     if (tempD2) {
       // Range
       if (tempD1.toString() !== INVALID_DATE && tempD2.toString() !== INVALID_DATE) {
@@ -69,6 +70,59 @@ export const parseDate = (dateString: string, variant: SelectionVariant = 'singl
     }
     default: {
       return parsedDateItems[0]
+    }
+  }
+}
+
+export const castToSelection = (
+  selection?: UnsanitizedSelection,
+  variant: SelectionVariant = 'single'
+): Selection | undefined => {
+  if (!selection) return
+
+  if (variant === 'multi') {
+    if (isMultiSelection(selection)) {
+      const parsedSelection: Array<Date> = []
+      for (const d of selection) {
+        parsedSelection.push(sanitizeDate(d))
+      }
+      return parsedSelection.sort((a, b) => a.getTime() - b.getTime())
+    } else if (selection instanceof Date || typeof selection === 'string') {
+      return [sanitizeDate(selection)]
+    } else if (isRangeSelection(selection)) {
+      const parsedSelection: Array<Date> = []
+      parsedSelection.push(sanitizeDate(selection.from))
+      if (selection.to) {
+        parsedSelection.push(sanitizeDate(selection.to))
+      }
+      return parsedSelection.sort((a, b) => a.getTime() - b.getTime())
+    }
+  } else if (variant === 'range') {
+    if (isRangeSelection(selection)) {
+      return {
+        from: sanitizeDate(selection.from),
+        to: selection.to ? sanitizeDate(selection.to) : null
+      }
+    } else if (isMultiSelection(selection)) {
+      return {
+        from: sanitizeDate(selection[0] || new Date()),
+        to: selection[1] ? sanitizeDate(selection[1]) : null
+      }
+    } else if (selection instanceof Date) {
+      return {
+        from: sanitizeDate(selection),
+        to: null
+      }
+    }
+  } else {
+    if (selection instanceof Date) {
+      return sanitizeDate(selection)
+    } else if (isMultiSelection(selection)) {
+      return sanitizeDate(selection[0] || new Date())
+    } else if (isRangeSelection(selection)) {
+      return sanitizeDate(selection.from)
+    } else {
+      return
     }
   }
 }

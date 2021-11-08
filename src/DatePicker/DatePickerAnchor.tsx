@@ -9,10 +9,13 @@ import useDatePicker from './useDatePicker'
 import TextInput from '../TextInput'
 import Box from '../Box'
 import {SystemStyleObject} from '@styled-system/css'
-import {parseDate} from './dateParser'
+import {parseStringDate} from './dateParser'
 import {Tooltip} from '..'
 
 export interface DatePickerAnchorProps {
+  /**
+   * Callback for when anchor is engaged
+   */
   onAction?: (event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
@@ -43,7 +46,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
   const [inputValue, setInputValue] = useState(formattedDate)
   const inputRef = useRef<HTMLInputElement>(null)
   const [inputValid, setInputValid] = useState(true)
-  const [inputFocused, setInputFocused] = useState(false)
+  const [inputHasChanged, setInputHasChanged] = useState(false)
 
   const keyPressHandler = useCallback(
     event => {
@@ -76,11 +79,12 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
   const onInputChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
+      setInputHasChanged(true)
       setInputValue(value)
       if (!value) {
         return
       }
-      const parsedDate = parseDate(value, variant)
+      const parsedDate = parseStringDate(value, variant)
       setInputValid(!!parsedDate)
       if (parsedDate) {
         onDateInput(parsedDate)
@@ -91,13 +95,12 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
 
   const onFocusHandler = () => {
     setInputValue(inputDate)
-    setInputFocused(true)
+    setInputHasChanged(true)
   }
 
   const onBlurHandler = () => {
     setInputValue(formattedDate)
-    setInputValid(true)
-    setInputFocused(false)
+    setInputHasChanged(false)
   }
 
   const inputSx = useMemo(() => {
@@ -144,7 +147,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
           onFocus={onFocusHandler}
         />
         <Box sx={iconSx()}>
-          {inputValid && inputFocused && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
+          {inputValid && inputHasChanged && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
           {!inputValid && (
             <Tooltip direction="s" text="Invalid entry. Please make sure you use the 'MM/DD/YYYY' format.">
               <StyledOcticon icon={AlertIcon} color="attention.emphasis" />
