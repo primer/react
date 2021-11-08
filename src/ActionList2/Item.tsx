@@ -180,13 +180,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
             tabIndex={disabled ? undefined : -1}
-            aria-labelledby={labelId}
-            aria-describedby={[
-              slots.InlineDescription && inlineDescriptionId,
-              slots.BlockDescription && blockDescriptionId
-            ]
-              .filter(Boolean)
-              .join(' ')}
+            aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
+            aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
             {...props}
           >
             <_PrivateItemWrapper>
