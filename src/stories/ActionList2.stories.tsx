@@ -161,12 +161,16 @@ export function WithAvatar(): JSX.Element {
 }
 WithAvatar.storyName = 'With Avatar'
 
-const projects = [
-  {name: 'Primer Backlog', scope: 'GitHub'},
-  {name: 'Accessibility', scope: 'GitHub'},
-  {name: 'Octicons', scope: 'github/primer'},
-  {name: 'Primer React', scope: 'github/primer'}
+const labels = [
+  {name: 'blocked', color: '#86181d', description: 'Someone or something is preventing this from moving forward'},
+  {name: 'dependencies', color: '#0366d6', description: 'Pull requests that update a dependency file'},
+  {name: 'duplicate', color: '#cfd3d7', description: 'This issue or pull request already exists'},
+  {name: 'good first issue', color: '#7057ff', description: 'Good for newcomers'}
 ]
+
+const LabelColor: React.FC<{color: string}> = ({color}) => (
+  <Box sx={{backgroundColor: color, width: '14px', height: '14px', borderRadius: 3}} />
+)
 
 export function WithDescription(): JSX.Element {
   return (
@@ -184,13 +188,13 @@ export function WithDescription(): JSX.Element {
             </ActionList.Item>
           ))}
           <ActionList.Divider />
-          {projects.map((project, index) => (
+          {labels.map((label, index) => (
             <ActionList.Item key={index}>
               <ActionList.LeadingVisual>
-                <TableIcon />
+                <LabelColor color={label.color} />
               </ActionList.LeadingVisual>
-              {project.name}
-              <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
         </ActionList>
@@ -199,6 +203,13 @@ export function WithDescription(): JSX.Element {
   )
 }
 WithDescription.storyName = 'With Description & Dividers'
+
+const projects = [
+  {name: 'Primer Backlog', scope: 'GitHub'},
+  {name: 'Accessibility', scope: 'GitHub'},
+  {name: 'Octicons', scope: 'github/primer'},
+  {name: 'Primer React', scope: 'github/primer'}
+]
 
 export function SingleSelectListStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(1)
