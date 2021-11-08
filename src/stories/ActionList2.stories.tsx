@@ -1189,7 +1189,9 @@ const repos = [
   'primer/css',
   'primer/primer-layout',
   'primer/primer-alerts',
-  'primer/primer-avatars'
+  'primer/primer-avatars',
+  'primer/react',
+  'primer/primitives'
 ]
 
 export function AsyncListStory(): JSX.Element {
@@ -1208,10 +1210,10 @@ export function AsyncListStory(): JSX.Element {
       <ErsatzOverlay>
         <TextInput
           onChange={filter}
-          placeholder="Search repositories, type a single letter"
+          placeholder="Search repositories, showing 6 by default"
           sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}
         />
-        <ActionList sx={{height: 208}}>
+        <ActionList sx={{height: 208, overflow: 'auto'}}>
           {loading ? (
             <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
               <Spinner />
