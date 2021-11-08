@@ -90,6 +90,7 @@ export const Portal: React.FC<PortalProps> = ({children, onMount, containerName:
     return () => {
       parentElement.removeChild(element)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elementRef])
 
   return createPortal(children, elementRef.current)
