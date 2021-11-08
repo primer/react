@@ -78,7 +78,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
 
   const Slot: React.FC<{
     name: SlotNames
-    children: ((context: ContextProps['context']) => React.ReactNode) | React.ReactNode
+    children: React.ReactNode
   }> = ({name, children}) => {
     const {registerSlot, unregisterSlot, context} = React.useContext(SlotsContext)
 

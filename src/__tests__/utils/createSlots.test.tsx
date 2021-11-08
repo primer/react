@@ -5,7 +5,9 @@ import createSlots from '../../utils/create-slots'
 
 // setup a component with slots
 const {Slots, Slot} = createSlots(['One', 'Two', 'Three'])
-const ComponentWithSlots: React.FC<{salutation?: string}> = ({salutation, children}) => {
+type ContextTypes = {salutation?: string}
+
+const ComponentWithSlots: React.FC<ContextTypes> = ({salutation, children}) => {
   return (
     <Slots context={{salutation}}>
       {slots => (
@@ -23,7 +25,7 @@ const SlotItem1: React.FC = ({children}) => <Slot name="One">{children}</Slot>
 const SlotItem2: React.FC = ({children}) => <Slot name="Two">{children}</Slot>
 const SlotItem3: React.FC = ({children}) => (
   <Slot name="Three">
-    {context => (
+    {(context: ContextTypes) => (
       <>
         {context.salutation} {children}
       </>
