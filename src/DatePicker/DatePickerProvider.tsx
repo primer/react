@@ -25,7 +25,6 @@ import {
   isRangeSelection,
   RangeSelection,
   Selection,
-  SelectionVariant,
   UnsanitizedSelection
 } from './types'
 import {getInitialFocusDate, initializeConfigurations, sanitizeDate} from './utils'
@@ -48,13 +47,13 @@ export const defaultConfiguration: DatePickerConfiguration = {
   disableWeekends: false,
   iconPlacement: 'start',
   placeholder: 'Choose Date...',
-  variant: SelectionVariant.SINGLE,
+  variant: 'single',
   view: '1-month',
   weekStartsOn: 'Sunday'
 }
 
 export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
-  configuration: externalConfig = {},
+  configuration: externalConfig,
   children,
   closePicker,
   onChange,
@@ -165,7 +164,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
 
   const inputHandler = useCallback(
     (updatedSelection: Selection) => {
-      const {maxDate, minDate, variant, maxSelections, maxRangeSize} = configuration
+      const {maxDate, minDate, variant, maxSelections} = configuration
 
       switch (variant) {
         case 'single': {
@@ -194,6 +193,7 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           break
         }
         case 'range': {
+          const {maxRangeSize} = configuration
           if (isRangeSelection(updatedSelection)) {
             const validRange: RangeSelection = updatedSelection
             if (minDate) {
@@ -280,15 +280,13 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
           setSelection([...selections, date].sort((a, b) => a.getTime() - b.getTime()))
         }
       } else if (configuration.variant === 'range') {
+        const {maxRangeSize} = configuration
         if (selection && isRangeSelection(selection) && !selection.to) {
           let toDate = date
-          if (
-            configuration.maxRangeSize &&
-            Math.abs(differenceInDays(selection.from, date)) >= configuration.maxRangeSize
-          ) {
+          if (maxRangeSize && Math.abs(differenceInDays(selection.from, date)) >= maxRangeSize) {
             toDate = isBefore(date, selection.from)
-              ? subDays(selection.from, configuration.maxRangeSize - 1)
-              : addDays(selection.from, configuration.maxRangeSize - 1)
+              ? subDays(selection.from, maxRangeSize - 1)
+              : addDays(selection.from, maxRangeSize - 1)
           }
 
           const updatedSelection = isBefore(toDate, selection.from)
@@ -311,22 +309,16 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         }
       }
     },
-    [
-      configuration.confirmation,
-      configuration.maxRangeSize,
-      configuration.maxSelections,
-      configuration.variant,
-      saveValue,
-      selection
-    ]
+    [configuration, saveValue, selection]
   )
 
   const focusHandler = useCallback(
     (date: Date) => {
       if (!selection) return
-      const {minDate, maxDate, maxRangeSize, disableWeekends, variant} = configuration
+      const {minDate, maxDate, disableWeekends, variant} = configuration
 
       if (variant === 'range' && isRangeSelection(selection) && hoverRange) {
+        const {maxRangeSize} = configuration
         let hoverDate = date
         if (minDate) hoverDate = isBefore(date, minDate) ? minDate : hoverDate
         if (maxDate) hoverDate = isAfter(date, maxDate) ? maxDate : hoverDate
@@ -338,12 +330,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
         if (maxRangeSize && daysInRange >= maxRangeSize) {
           if (disableWeekends) {
             hoverDate = isBefore(hoverDate, selection.from)
-              ? subBusinessDays(selection.from, configuration.maxRangeSize - 1)
-              : addBusinessDays(selection.from, configuration.maxRangeSize - 1)
+              ? subBusinessDays(selection.from, maxRangeSize - 1)
+              : addBusinessDays(selection.from, maxRangeSize - 1)
           } else {
             hoverDate = isBefore(hoverDate, selection.from)
-              ? subDays(selection.from, configuration.maxRangeSize - 1)
-              : addDays(selection.from, configuration.maxRangeSize - 1)
+              ? subDays(selection.from, maxRangeSize - 1)
+              : addDays(selection.from, maxRangeSize - 1)
           }
         }
 

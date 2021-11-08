@@ -2,11 +2,7 @@
 export type AnchorVariant = 'input' | 'button' | 'icon-only'
 export type DateFormat = 'short' | 'long' | string
 
-export enum SelectionVariant {
-  SINGLE = 'single',
-  MULTI = 'multi',
-  RANGE = 'range'
-}
+export type SelectionVariant = 'single' | 'multi' | 'range'
 export type Selection = Date | Array<Date> | RangeSelection | null
 export type StringSelection = string | Array<string> | {to: string; from: string} | null
 export type DayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6
@@ -24,7 +20,7 @@ export type StringRangeSelection = {
 
 export type UnsanitizedSelection = Selection | StringSelection | null | undefined
 
-interface BaseDatePickerConfiguration {
+export interface BaseDatePickerConfiguration {
   anchorVariant?: AnchorVariant
   confirmation?: boolean
   confirmUnsavedClose?: boolean
@@ -33,7 +29,6 @@ interface BaseDatePickerConfiguration {
   disableWeekends?: boolean
   iconPlacement?: 'start' | 'end' | 'none'
   maxDate?: Date | null
-  maxRangeSize?: number
   maxSelections?: number
   minDate?: Date | null
   placeholder?: string
@@ -42,22 +37,23 @@ interface BaseDatePickerConfiguration {
   weekStartsOn?: 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'
 }
 
-interface SingleDatePickerConfiguration extends BaseDatePickerConfiguration {
-  variant: SelectionVariant.SINGLE
-}
+type SingleDatePickerConfiguration = {
+  variant?: 'single'
+} & BaseDatePickerConfiguration
 
-interface MultiDatePickerConfiguration extends BaseDatePickerConfiguration {
-  maxSelections?: number
-  variant: SelectionVariant.MULTI
-}
+type MultiDatePickerConfiguration = {
+  variant: 'multi'
+} & BaseDatePickerConfiguration
 
-interface RangeDatePickerConfiguration extends BaseDatePickerConfiguration {
+type RangeDatePickerConfiguration = {
   maxRangeSize?: number
-  variant: SelectionVariant.RANGE
-}
+  variant: 'range'
+} & BaseDatePickerConfiguration
 
-export type DatePickerConfiguration = BaseDatePickerConfiguration &
-  (SingleDatePickerConfiguration | MultiDatePickerConfiguration | RangeDatePickerConfiguration)
+export type DatePickerConfiguration =
+  | SingleDatePickerConfiguration
+  | MultiDatePickerConfiguration
+  | RangeDatePickerConfiguration
 
 export interface DatePickerContext {
   disabled?: boolean
