@@ -1,7 +1,7 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
-import Box from '../Box'
-import {SxProp, merge} from '../sx'
+import styled from 'styled-components'
+import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 
 export type ListProps = {
@@ -26,8 +26,13 @@ export type ListProps = {
 type ContextProps = Omit<ListProps, 'sx'>
 export const ListContext = React.createContext<ContextProps>({})
 
+const ListBox = styled.ul<SxProp>(sx)
+
 export const List = React.forwardRef<HTMLUListElement, ListProps>(
-  ({variant = 'inset', selectionVariant, showDividers = false, sx = {}, ...props}, forwardedRef): JSX.Element => {
+  (
+    {variant = 'inset', selectionVariant, showDividers = false, sx: propsSx = {}, ...props},
+    forwardedRef
+  ): JSX.Element => {
     const styles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
@@ -35,15 +40,14 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     }
 
     return (
-      <Box
-        as="ul"
-        sx={merge(styles, sx as SxProp)}
+      <ListBox
+        sx={merge(styles, propsSx as SxProp)}
         aria-multiselectable={selectionVariant === 'multiple' ? true : undefined}
         {...props}
         ref={forwardedRef}
       >
         <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
-      </Box>
+      </ListBox>
     )
   }
 ) as PolymorphicForwardRefComponent<'ul', ListProps>

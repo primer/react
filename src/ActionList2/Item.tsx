@@ -1,9 +1,10 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
+import styled from 'styled-components'
 import {useTheme} from '../ThemeProvider'
 import Box, {BoxProps} from '../Box'
-import {SxProp, merge} from '../sx'
+import sx, {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
@@ -82,6 +83,7 @@ export type ItemContext = Pick<ItemProps, 'variant' | 'disabled'> & {
   blockDescriptionId: string
 }
 
+const LiBox = styled.li<SxProp>(sx)
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
 export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
@@ -91,7 +93,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       disabled = false,
       selected = undefined,
       onSelect = () => null,
-      sx = {},
+      sx: propsSx = {},
       id,
       _PrivateItemWrapper = ({children}) => <>{children}</>,
       ...props
@@ -171,10 +173,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     return (
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         {slots => (
-          <Box
-            as="li"
+          <LiBox
             ref={forwardedRef}
-            sx={merge(styles, sx as SxProp)}
+            sx={merge(styles, propsSx as SxProp)}
             onClick={clickHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
@@ -210,7 +211,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
                 {slots.BlockDescription}
               </Box>
             </_PrivateItemWrapper>
-          </Box>
+          </LiBox>
         )}
       </Slots>
     )
