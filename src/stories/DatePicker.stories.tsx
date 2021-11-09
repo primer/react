@@ -40,76 +40,160 @@ export default {
       }
     },
     anchorVariant: {
+      description: 'Variant of the anchor component that launches the date picker',
+      defaultValue: 'button',
+      table: {
+        defaultValue: {
+          summary: 'button'
+        }
+      },
       control: {
         type: 'select',
         options: ['button', 'icon-only', 'input']
       }
     },
     compressedHeader: {
+      description: 'Whether to show month and year picker in the top of the Date Picker',
+      defaultValue: false,
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      },
       control: {
         type: 'boolean'
       }
     },
     confirmation: {
+      description: 'If true, the Apply button needs to be clicked before selections are saved',
+      defaultValue: false,
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      },
       control: {
         type: 'boolean'
       }
     },
     confirmUnsavedClose: {
+      description: 'If true, will show a modal confirmation when user attempts to close without saving',
+      defaultValue: false,
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      },
       control: {
         type: 'boolean'
       }
     },
     dateFormat: {
+      description: 'The format of the date shown in the anchor',
+      defaultValue: 'short',
+      table: {
+        defaultValue: {
+          summary: 'short'
+        }
+      },
       control: {
         type: 'select',
         options: ['short', 'long']
       }
     },
     disableWeekends: {
+      description: 'If true, will show but disable selection on weekends',
+      defaultValue: false,
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      },
       control: {
         type: 'boolean'
       }
     },
     iconPlacement: {
+      description: 'Where to show the calendar icon',
+      defaultValue: 'start',
+      table: {
+        defaultValue: {
+          summary: 'start'
+        }
+      },
       control: {
         type: 'select',
         options: ['start', 'end', 'none']
       }
     },
     maxDate: {
+      description: 'The maximum selectable and browsable date',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'null'
+        }
+      },
       control: {
         type: 'date'
       }
     },
     maxRangeSize: {
+      description: 'In Range mode, the maximum size of a range selection',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'null'
+        }
+      },
       control: {
         type: 'number'
       }
     },
     maxSelections: {
+      description: 'In Multiselect mode, the maximum number of selections that can be made',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'null'
+        }
+      },
       control: {
         type: 'number'
       }
     },
     minDate: {
-      name: 'Min Date',
       description: 'Minimum date that can be selected',
-      defaultValue: null,
+      defaultValue: undefined,
       table: {
-        defaultValue: null
+        defaultValue: {
+          summary: 'null'
+        }
       },
       control: {
         type: 'date'
       }
     },
     onOpen: {
+      table: {
+        disable: true
+      },
       control: 'none'
     },
     onClose: {
+      table: {
+        disable: true
+      },
       control: 'none'
     },
     open: {
+      description: 'Explicit control of whether the date picker is open',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'null'
+        }
+      },
       control: {
         type: 'boolean'
       }
@@ -120,24 +204,59 @@ export default {
       }
     },
     placeholder: {
+      description: 'The placeholder shown when no selection has been made',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'Choose a date...'
+        }
+      },
       control: 'text'
     },
     value: {
+      description: 'The selected value of the date picker',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'null'
+        }
+      },
       control: 'date'
     },
     variant: {
+      description: 'The type of selection allowed',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'single'
+        }
+      },
       control: {
         type: 'select',
         options: ['single', 'multi', 'range']
       }
     },
     view: {
+      description: 'The calendar viewing mode',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: '1-month'
+        }
+      },
       control: {
         type: 'select',
         options: ['1-month', '2-month']
       }
     },
     weekStartsOn: {
+      description: 'Date of the week that the calendar should start on',
+      defaultValue: undefined,
+      table: {
+        defaultValue: {
+          summary: 'Sunday'
+        }
+      },
       control: {
         type: 'select',
         options: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
