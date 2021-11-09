@@ -5,7 +5,17 @@ import React from 'react'
 import theme from '../theme'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
-import {DatePicker} from '../DatePicker'
+import DatePicker, {
+  DatePickerAnchor,
+  DatePickerProvider,
+  useDatePicker,
+  Month,
+  Day,
+  DatePickerPanel,
+  DatePickerProps,
+  DatePickerConfiguration,
+  DatePickerContext
+} from '../DatePicker'
 expect.extend(toHaveNoViolations)
 
 function SimpleDatePicker(): JSX.Element {
@@ -26,8 +36,16 @@ describe('DatePicker', () => {
   })
 
   checkExports('DatePicker', {
-    default: undefined,
-    DatePicker
+    default: DatePicker,
+    DatePickerAnchor,
+    DatePickerProvider,
+    useDatePicker,
+    Month,
+    Day,
+    DatePickerPanel,
+    DatePickerProps,
+    DatePickerConfiguration,
+    DatePickerContext
   })
 
   it('should have no axe violations', async () => {

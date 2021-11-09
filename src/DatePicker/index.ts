@@ -7,4 +7,4 @@ export {Day} from './Day'
 export {DatePickerPanel} from './DatePickerPanel'
 
 export type {DatePickerProps} from './DatePicker'
-export * from './types'
+export type {DatePickerConfiguration, DatePickerContext} from './types'

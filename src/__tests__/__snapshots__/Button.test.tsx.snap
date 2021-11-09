@@ -65,6 +65,7 @@ exports[`Button renders consistently 1`] = `
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 <button
@@ -137,6 +138,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 <button
