@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, {ReactElement, useEffect, useRef} from 'react'
 import {get, COMMON, SystemPositionProps, SystemCommonProps} from './constants'
 import {ComponentProps} from './utils/types'
-import {useIsomorphicLayoutEffect as useLayoutEffect} from './utils/useIsomorphicLayoutEffect'
+import useLayoutEffect from './utils/useIsomorphicLayoutEffect'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
@@ -131,6 +131,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     },
     forwardedRef
   ): ReactElement => {
+    debugger
     const overlayRef = useRef<HTMLDivElement>(null)
     const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
     const {theme} = useTheme()
@@ -148,12 +149,14 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     })
 
     useEffect(() => {
+      debugger
       if (height === 'initial' && combinedRef.current?.clientHeight) {
         combinedRef.current.style.height = `${combinedRef.current.clientHeight}px`
       }
     }, [height, combinedRef])
 
     useLayoutEffect(() => {
+      debugger
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
       if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return

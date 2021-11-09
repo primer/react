@@ -1,5 +1,5 @@
 import {ForwardedRef, useRef} from 'react'
-import {useIsomorphicLayoutEffect as useLayoutEffect} from '../utils/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Creates a ref by combining multiple constituent refs. The ref returned by this hook

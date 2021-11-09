@@ -1,4 +1,4 @@
-import {useIsomorphicLayoutEffect as useLayoutEffect} from '../utils/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export function useResizeObserver(callback: () => void) {
   useLayoutEffect(() => {
