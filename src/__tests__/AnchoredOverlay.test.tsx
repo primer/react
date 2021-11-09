@@ -144,7 +144,7 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should render consistently when open', () => {
-    const anchoredOverlay = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
-    expect(anchoredOverlay).toMatchSnapshot()
+    const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
+    expect(container).toMatchSnapshot()
   })
 })
