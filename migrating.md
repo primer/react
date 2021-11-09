@@ -110,7 +110,7 @@ There are two ways to change the theme of @primer/components components:
 
    export default () => (
      <ThemeProvider theme={theme}>
-       <Block color="bodytext" p={4}>
+       <Block sx={{color: 'bodytext', p: 4}}>
          <Text fontSize={4}>Hello, world!</Text>
        </Block>
      </ThemeProvider>
