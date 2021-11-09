@@ -69,8 +69,8 @@ export interface DatePickerContext {
   nextMonth: () => void
   onClose: () => void
   onDateInput: (updatedSelection: Selection) => void
-  onDayFocus: (date: Date) => void
-  onSelection: (date: Date) => void
+  onDateHover: (date: Date) => void
+  onDateSelection: (date: Date) => void
   previousMonth: () => void
   revertValue: () => void
   saveValue: (selection?: Selection) => void

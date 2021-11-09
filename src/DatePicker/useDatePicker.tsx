@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from 'react'
 import {Context} from './DatePickerProvider'
 import {DatePickerContext, DaySelection, isMultiSelection, isRangeSelection} from './types'
 
-const useDatePicker = (date?: Date) => {
+export const useDatePicker = (date?: Date) => {
   const dateCtx = useContext<DatePickerContext | null>(Context)
 
   if (!dateCtx) {
@@ -75,5 +75,3 @@ const useDatePicker = (date?: Date) => {
 
   return {...dateCtx, disabled, focused, selected, today}
 }
-
-export default useDatePicker

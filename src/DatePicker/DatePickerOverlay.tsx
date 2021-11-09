@@ -1,5 +1,5 @@
 import React from 'react'
-import useDatePicker from './useDatePicker'
+import {useDatePicker} from './useDatePicker'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {DatePickerPanel} from './DatePickerPanel'
 import {OverlayCloseGesture} from '../AnchoredOverlay/AnchoredOverlay'

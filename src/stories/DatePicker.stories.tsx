@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
-import {DatePicker, DatePickerProps} from '../DatePicker'
+import DatePicker, {DatePickerProps} from '../DatePicker'
 import {subDays, addYears} from 'date-fns'
 
 export default {

@@ -7,7 +7,7 @@ import Text from '../Text'
 import {SystemCommonProps, SystemLayoutProps, get} from '../constants'
 import {SxProp} from '../sx'
 import {BlankDay, Day} from './Day'
-import useDatePicker from './useDatePicker'
+import {useDatePicker} from './useDatePicker'
 import {DayNumber} from './types'
 
 const weekdayEnum: Record<string, DayNumber> = {

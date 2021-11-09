@@ -4,7 +4,7 @@ import {defaultConfiguration} from './DatePickerProvider'
 
 export const sanitizeDate = (date: Date | string) => new Date(new Date(date).toDateString())
 
-export const getInitialFocusDate = (selection?: Selection) => {
+export const getFocusDate = (selection?: Selection) => {
   if (!selection) return sanitizeDate(new Date())
 
   if (selection instanceof Date) {

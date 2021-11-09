@@ -27,7 +27,7 @@ import Box from '../Box'
 import {Month} from './Month'
 import styled from 'styled-components'
 import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
-import useDatePicker from './useDatePicker'
+import {useDatePicker} from './useDatePicker'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import StyledOcticon from '../StyledOcticon'
 import Button, {ButtonPrimary} from '../Button'
@@ -118,7 +118,7 @@ export const DatePickerPanel = () => {
     goToMonth,
     nextMonth,
     previousMonth,
-    onDayFocus,
+    onDateHover,
     setFocusDate,
     viewMode
   } = useDatePicker()
@@ -146,7 +146,7 @@ export const DatePickerPanel = () => {
             newDate = maxDate && isAfter(monday, maxDate) ? maxDate : monday
           }
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'ArrowLeft': {
@@ -158,7 +158,7 @@ export const DatePickerPanel = () => {
             newDate = minDate && isBefore(friday, minDate) ? minDate : friday
           }
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'ArrowUp': {
@@ -166,7 +166,7 @@ export const DatePickerPanel = () => {
           newDate = sanitizeDate(subWeeks(focusDate, 1))
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'ArrowDown': {
@@ -174,7 +174,7 @@ export const DatePickerPanel = () => {
           newDate = sanitizeDate(addWeeks(focusDate, 1))
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'Home': {
@@ -188,7 +188,7 @@ export const DatePickerPanel = () => {
 
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'End': {
@@ -202,7 +202,7 @@ export const DatePickerPanel = () => {
 
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'PageUp': {
@@ -210,7 +210,7 @@ export const DatePickerPanel = () => {
           newDate = sanitizeDate(event.shiftKey ? subYears(focusDate, 1) : subMonths(focusDate, 1))
           if (minDate && isBefore(newDate, minDate)) newDate = minDate
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         case 'PageDown': {
@@ -218,7 +218,7 @@ export const DatePickerPanel = () => {
           newDate = sanitizeDate(event.shiftKey ? addYears(focusDate, 1) : addMonths(focusDate, 1))
           if (maxDate && isAfter(newDate, maxDate)) newDate = maxDate
           setFocusDate(newDate)
-          onDayFocus(newDate)
+          onDateHover(newDate)
           break
         }
         default: {
@@ -228,7 +228,7 @@ export const DatePickerPanel = () => {
 
       return datePanelRef.current?.querySelector(`[data-date="${format(newDate, 'MM/dd/yyyy')}"]`) ?? undefined
     },
-    [configuration, onDayFocus, setFocusDate]
+    [configuration, onDateHover, setFocusDate]
   )
 
   // Configure FocusZones

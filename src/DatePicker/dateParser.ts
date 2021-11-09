@@ -1,5 +1,13 @@
 import {eachDayOfInterval, format, isBefore} from 'date-fns'
-import {AnchorVariant, isMultiSelection, isRangeSelection, Selection, UnsanitizedSelection} from './types'
+import {
+  SelectionVariant,
+  AnchorVariant,
+  isMultiSelection,
+  isRangeSelection,
+  Selection,
+  UnsanitizedSelection
+} from './types'
+
 import {sanitizeDate} from './utils'
 
 const INVALID_DATE = 'Invalid Date'

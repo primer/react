@@ -27,7 +27,7 @@ import {
   Selection,
   UnsanitizedSelection
 } from './types'
-import {getInitialFocusDate, initializeConfigurations, sanitizeDate} from './utils'
+import {getFocusDate, initializeConfigurations, sanitizeDate} from './utils'
 
 export const Context = createContext<DatePickerContext | null>(null)
 
@@ -62,18 +62,25 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
   const [configuration, setConfiguration] = useState(initializeConfigurations(externalConfig))
   const initialSelection = castToSelection(value, configuration.variant)
 
+  // Previous Selections for reverting
   const [previousSelection, setPreviousSelection] = useState<Selection | undefined>(
     castToSelection(value, configuration.variant)
   )
-  const [isDirty, setIsDirty] = useState(false)
   const [selection, setSelection] = useState<Selection | undefined>(initialSelection)
+  const [isDirty, setIsDirty] = useState(false)
+  // Control for focus for both keyboard and mouse
+  const [focusDate, setFocusDate] = useState(getFocusDate(initialSelection))
   const [hoverRange, setHoverRange] = useState<RangeSelection | null>(null)
-  const [currentViewingDate, setCurrentViewingDate] = useState(getInitialFocusDate(initialSelection))
+  // Current viewing month(s)
+  const [currentViewingDate, setCurrentViewingDate] = useState(getFocusDate(initialSelection))
+  // Whether the device supports multi-month viewing
   const [multiMonthSupport, setMultiMonthSupport] = useState(true)
   const confirm = useConfirm()
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [focusDate, setFocusDate] = useState(getInitialFocusDate(initialSelection))
 
+  /**
+   * Fired whenever the configuration and/or variant changes
+   */
   useEffect(() => {
     setConfiguration(initializeConfigurations(externalConfig))
     setSelection(castToSelection(selection, configuration.variant))
@@ -82,6 +89,57 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configuration.variant, externalConfig])
 
+  /**
+   * When the selection changes, set the focus to that date and fire the callback
+   */
+  useEffect(() => {
+    setFocusDate(getFocusDate(selection))
+    onChange?.(selection)
+  }, [onChange, selection])
+
+  /**
+   * Fired on resize, this determines if the available width can support the 2-month view
+   */
+  useEffect(() => {
+    if (configuration.view === '1-month' || !multiMonthSupport) {
+      if (
+        currentViewingDate.getMonth() === focusDate.getMonth() &&
+        currentViewingDate.getFullYear() === focusDate.getFullYear()
+      ) {
+        return
+      } else {
+        setCurrentViewingDate(setDate(focusDate, 1))
+        return
+      }
+    }
+
+    /**
+     * This logic is rough, so buckle up.
+     * We want to set the currently shown months based on what has focus. If the focus leaves what we're able to view,
+     * we want to be able to change the currently shown month. However, this gets complicated with the 2-month view.
+     * FIRST: If it's the same month/year: Easy
+     * SECOND: If it's the next month, but same year: Done
+     * THIRD: If it's the next month AND next year, but it's January (i.e. we're viewing Dec/Jan): Good to go
+     */
+    if (
+      (currentViewingDate.getMonth() === focusDate.getMonth() &&
+        currentViewingDate.getFullYear() === focusDate.getFullYear()) ||
+      (addMonths(currentViewingDate, 1).getMonth() === focusDate.getMonth() &&
+        currentViewingDate.getFullYear() === focusDate.getFullYear()) ||
+      (addMonths(currentViewingDate, 1).getMonth() === focusDate.getMonth() &&
+        focusDate.getMonth() === 0 &&
+        addYears(currentViewingDate, 1).getFullYear() === focusDate.getFullYear())
+    ) {
+      return
+    } else {
+      setCurrentViewingDate(setDate(focusDate, 1))
+    }
+  }, [configuration.view, currentViewingDate, focusDate, multiMonthSupport])
+
+  // #region CALENDAR NAVIGATION
+  /**
+   * Jump to a specific month/year
+   */
   const goToMonth = useCallback(
     (date: Date) => {
       let newDate = date
@@ -98,17 +156,24 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [configuration]
   )
 
+  /**
+   * Navigate to the next calendar month
+   */
   const nextMonth = useCallback(() => {
     const date = addMonths(currentViewingDate, 1)
     setFocusDate(sanitizeDate(date))
     setCurrentViewingDate(date)
   }, [currentViewingDate])
 
+  /**
+   * Navigate to the previous calendar month
+   */
   const previousMonth = useCallback(() => {
     const date = subMonths(currentViewingDate, 1)
     setFocusDate(sanitizeDate(date))
     setCurrentViewingDate(date)
   }, [currentViewingDate])
+  // #endregion
 
   const formattedDate = useMemo(() => {
     const {anchorVariant, dateFormat, placeholder, variant} = configuration
@@ -134,7 +199,11 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     setIsDirty(false)
   }, [previousSelection])
 
-  const handleClose = useCallback(async () => {
+  // #region EVENT HANDLERS
+  /**
+   * When the datepicker attempts to close, if confirmUnsavedChanges is enabled, this will fire the modal
+   */
+  const closeHandler = useCallback(async () => {
     if (configuration.confirmUnsavedClose) {
       if (isDirty) {
         const result = await confirm({
@@ -162,6 +231,9 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     } else if (isDirty) revertValue()
   }, [configuration.confirmUnsavedClose, confirm, isDirty, revertValue, saveValue])
 
+  /**
+   * This handles input when using a text input
+   */
   const inputHandler = useCallback(
     (updatedSelection: Selection) => {
       const {maxDate, minDate, variant} = configuration
@@ -226,47 +298,9 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [configuration]
   )
 
-  useEffect(() => {
-    setFocusDate(getInitialFocusDate(selection))
-    onChange?.(selection)
-  }, [onChange, selection])
-
-  useEffect(() => {
-    if (configuration.view === '1-month' || !multiMonthSupport) {
-      if (
-        currentViewingDate.getMonth() === focusDate.getMonth() &&
-        currentViewingDate.getFullYear() === focusDate.getFullYear()
-      ) {
-        return
-      } else {
-        setCurrentViewingDate(setDate(focusDate, 1))
-        return
-      }
-    }
-
-    /**
-     * This logic is rough, so buckle up.
-     * We want to set the currently shown months based on what has focus. If the focus leaves what we're able to view,
-     * we want to be able to change the currently shown month. However, this gets complicated with the 2-month view.
-     * FIRST: If it's the same month/year: Easy
-     * SECOND: If it's the next month, but same year: Done
-     * THIRD: If it's the next month AND next year, but it's January (i.e. we're viewing Dec/Jan): Good to go
-     */
-    if (
-      (currentViewingDate.getMonth() === focusDate.getMonth() &&
-        currentViewingDate.getFullYear() === focusDate.getFullYear()) ||
-      (addMonths(currentViewingDate, 1).getMonth() === focusDate.getMonth() &&
-        currentViewingDate.getFullYear() === focusDate.getFullYear()) ||
-      (addMonths(currentViewingDate, 1).getMonth() === focusDate.getMonth() &&
-        focusDate.getMonth() === 0 &&
-        addYears(currentViewingDate, 1).getFullYear() === focusDate.getFullYear())
-    ) {
-      return
-    } else {
-      setCurrentViewingDate(setDate(focusDate, 1))
-    }
-  }, [configuration.view, currentViewingDate, focusDate, multiMonthSupport])
-
+  /**
+   * Handles all selection events, both keyboard and mouse related
+   */
   const selectionHandler = useCallback(
     (date: Date) => {
       setIsDirty(true)
@@ -313,7 +347,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     [configuration, saveValue, selection]
   )
 
-  const focusHandler = useCallback(
+  /**
+   * Handler for hover events
+   */
+  const hoverHandler = useCallback(
     (date: Date) => {
       if (!selection) return
       const {minDate, maxDate, disableWeekends, variant} = configuration
@@ -353,7 +390,12 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     },
     [configuration, hoverRange, selection]
   )
+  // #endregion
 
+  /**
+   * Callback for when the window resizes
+   * @param windowEntry The window observer object
+   */
   const onResize = (windowEntry: ResizeObserverEntry) => {
     // Only care about the first element, we expect one element ot be watched
     const {width} = windowEntry.contentRect
@@ -374,10 +416,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
       hoverRange,
       dialogOpen,
       nextMonth,
-      onClose: handleClose,
+      onClose: closeHandler,
       onDateInput: inputHandler,
-      onDayFocus: focusHandler,
-      onSelection: selectionHandler,
+      onDateHover: hoverHandler,
+      onDateSelection: selectionHandler,
       previousMonth,
       revertValue,
       saveValue,
@@ -393,10 +435,10 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({
     currentViewingDate,
     dialogOpen,
     focusDate,
-    focusHandler,
+    hoverHandler,
     formattedDate,
     goToMonth,
-    handleClose,
+    closeHandler,
     hoverRange,
     inputDate,
     inputHandler,

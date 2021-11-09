@@ -5,7 +5,7 @@ import Box from '../Box'
 import Text from '../Text'
 import {get, SystemCommonProps, SystemLayoutProps} from '../constants'
 import {SxProp} from '../sx'
-import useDatePicker from './useDatePicker'
+import {useDatePicker} from './useDatePicker'
 import {format} from 'date-fns'
 import {DaySelection} from './types'
 
@@ -182,7 +182,7 @@ const DayComponent = styled(DayBaseComponent).attrs((props: DayComponentProps) =
 `
 
 export const Day: React.FC<DayProps> = ({date, onAction}) => {
-  const {configuration, onDayFocus, onSelection, disabled, focused, selected, today} = useDatePicker(date)
+  const {configuration, onDateHover, onDateSelection, disabled, focused, selected, today} = useDatePicker(date)
   const dayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -199,15 +199,15 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       }
       if ('key' in event) {
         if ([' ', 'Enter'].includes(event.key)) {
-          onSelection(date)
+          onDateSelection(date)
           onAction?.(date, event)
         }
       } else {
-        onSelection(date)
+        onDateSelection(date)
         onAction?.(date, event)
       }
     },
-    [disabled, onSelection, onAction, date]
+    [disabled, onDateSelection, onAction, date]
   )
 
   return (
@@ -218,9 +218,9 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       disabled={disabled}
       focused={focused}
       onClick={actionHandler}
-      onFocus={() => onDayFocus(date)}
+      onFocus={() => onDateHover(date)}
       onKeyPress={actionHandler}
-      onMouseEnter={() => onDayFocus(date)}
+      onMouseEnter={() => onDateHover(date)}
       ref={dayRef}
       range={configuration.variant === 'range'}
       role="gridcell"
