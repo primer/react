@@ -131,7 +131,6 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     },
     forwardedRef
   ): ReactElement => {
-    debugger
     const overlayRef = useRef<HTMLDivElement>(null)
     const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
     const {theme} = useTheme()
@@ -149,14 +148,12 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
     })
 
     useEffect(() => {
-      debugger
       if (height === 'initial' && combinedRef.current?.clientHeight) {
         combinedRef.current.style.height = `${combinedRef.current.clientHeight}px`
       }
     }, [height, combinedRef])
 
     useLayoutEffect(() => {
-      debugger
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
       if ((!x && !y) || !overlayRef.current?.animate || visibility === 'hidden') {
         return
