@@ -30,7 +30,7 @@ const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, sx: propsSx = {}, ...props},
+    {variant = 'inset', selectionVariant, showDividers = false, sx: sxProp = {}, ...props},
     forwardedRef
   ): JSX.Element => {
     const styles = {
@@ -41,7 +41,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
 
     return (
       <ListBox
-        sx={merge(styles, propsSx as SxProp)}
+        sx={merge(styles, sxProp as SxProp)}
         aria-multiselectable={selectionVariant === 'multiple' ? true : undefined}
         {...props}
         ref={forwardedRef}

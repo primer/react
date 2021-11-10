@@ -92,7 +92,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       disabled = false,
       selected = undefined,
       onSelect = () => null,
-      sx: propsSx = {},
+      sx: sxProp = {},
       id,
       _PrivateItemWrapper = ({children}) => <>{children}</>,
       ...props
@@ -175,7 +175,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         {slots => (
           <LiBox
             ref={forwardedRef}
-            sx={merge(styles, propsSx as SxProp)}
+            sx={merge(styles, sxProp as SxProp)}
             onClick={clickHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
