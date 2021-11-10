@@ -94,7 +94,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       onSelect = () => null,
       sx: sxProp = {},
       id,
-      _PrivateItemWrapper = ({children}) => <>{children}</>,
+      _PrivateItemWrapper,
       ...props
     },
     forwardedRef
@@ -188,6 +188,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const inlineDescriptionId = useSSRSafeId(id && `${id}--inline-description`)
     const blockDescriptionId = useSSRSafeId(id && `${id}--block-description`)
 
+    const ItemWrapper = _PrivateItemWrapper || React.Fragment
+
     return (
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         {slots => (
@@ -198,7 +200,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             onKeyPress={keyPressHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
-            tabIndex={disabled ? undefined : 0}
+            tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
             aria-labelledby={labelId}
             aria-describedby={[
               slots.InlineDescription && inlineDescriptionId,
@@ -208,7 +210,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
               .join(' ')}
             {...props}
           >
-            <_PrivateItemWrapper>
+            <ItemWrapper>
               <Selection selected={selected} disabled={disabled} />
               {slots.LeadingVisual}
               <Box
@@ -229,7 +231,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
                 </ConditionalBox>
                 {slots.BlockDescription}
               </Box>
-            </_PrivateItemWrapper>
+            </ItemWrapper>
           </LiBox>
         )}
       </Slots>

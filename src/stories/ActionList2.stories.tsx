@@ -564,54 +564,53 @@ export function LinkItemStory(): JSX.Element {
   return (
     <>
       <h1>List with LinkItem</h1>
-      <ErsatzOverlay>
-        <ActionList showDividers>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <XIcon />
-            </ActionList.LeadingVisual>
-            not a link, just an Item for comparison
-          </ActionList.Item>
-          <ActionList.LinkItem href="https://github.com/primer">
-            <ActionList.LeadingVisual>
-              <LinkIcon />
-            </ActionList.LeadingVisual>
-            ActionList.LinkItem
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
-            <ActionList.LeadingVisual>
-              <LinkIcon />
-            </ActionList.LeadingVisual>
-            ActionList.LinkItem with anchor attributes
-          </ActionList.LinkItem>
-          <ActionList.LinkItem
-            as={ReactRouterLikeLink}
-            to="?path=/story/composite-components-actionlist2--simple-list-story"
-          >
-            <ActionList.LeadingVisual>
-              <LinkIcon />
-            </ActionList.LeadingVisual>
-            as ReactRouterLink
-          </ActionList.LinkItem>
-          <NextJSLikeLink href="?path=/story/composite-components-actionlist2--simple-list-story">
-            <ActionList.LinkItem>
-              <ActionList.LeadingVisual>
-                <LinkIcon />
-              </ActionList.LeadingVisual>
-              NextJS style Link
-            </ActionList.LinkItem>
-          </NextJSLikeLink>
-          <ActionList.LinkItem href="?path=/story/composite-components-actionlist2--simple-list-story">
+
+      <ActionList showDividers>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <XIcon />
+          </ActionList.LeadingVisual>
+          not a link, just an Item for comparison
+        </ActionList.Item>
+        <ActionList.LinkItem href="https://github.com/primer">
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          ActionList.LinkItem
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          ActionList.LinkItem with anchor attributes
+        </ActionList.LinkItem>
+        <ActionList.LinkItem
+          as={ReactRouterLikeLink}
+          to="?path=/story/composite-components-actionlist2--simple-list-story"
+        >
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          as ReactRouterLink
+        </ActionList.LinkItem>
+        <NextJSLikeLink href="?path=/story/composite-components-actionlist2--simple-list-story">
+          <ActionList.LinkItem>
             <ActionList.LeadingVisual>
               <LinkIcon />
             </ActionList.LeadingVisual>
-            ActionList.LinkItem with everything
-            <ActionList.Description variant="inline">inline description</ActionList.Description>
-            <ActionList.Description variant="block">Block description</ActionList.Description>
-            <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
+            NextJS style Link
           </ActionList.LinkItem>
-        </ActionList>
-      </ErsatzOverlay>
+        </NextJSLikeLink>
+        <ActionList.LinkItem href="?path=/story/composite-components-actionlist2--simple-list-story">
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          ActionList.LinkItem with everything
+          <ActionList.Description variant="inline">inline description</ActionList.Description>
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+          <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
+        </ActionList.LinkItem>
+      </ActionList>
     </>
   )
 }
