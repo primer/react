@@ -44,13 +44,18 @@
     "react/prop-types": 0,
     "react/display-name": 0,
     "react-hooks/exhaustive-deps": "error",
-    "jsx-a11y/label-has-for": [
-      2,
+    "jsx-a11y/label-has-associated-control": [
+      "error",
       {
-        "components": [],
         "required": {
           "some": ["nesting", "id"]
         }
+      }
+    ],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": []
       }
     ],
     "camelcase": [
