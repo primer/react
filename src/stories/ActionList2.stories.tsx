@@ -73,15 +73,14 @@ export function SimpleListStory(): JSX.Element {
   return (
     <>
       <h1>Simple List</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Quote reply</ActionList.Item>
-          <ActionList.Item>Edit comment</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Quote reply</ActionList.Item>
+        <ActionList.Item>Edit comment</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+      </ActionList>
     </>
   )
 }
@@ -91,40 +90,39 @@ export function WithIcon(): JSX.Element {
   return (
     <>
       <h1>With Icon</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <LinkIcon />
-            </ActionList.LeadingVisual>
-            github.com/primer
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <LawIcon />
-            </ActionList.LeadingVisual>
-            MIT License
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <StarIcon />
-            </ActionList.LeadingVisual>
-            256 stars
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <GitForkIcon />
-            </ActionList.LeadingVisual>
-            3 forks
-          </ActionList.Item>
-          <ActionList.Item variant="danger">
-            <ActionList.LeadingVisual>
-              <AlertIcon />
-            </ActionList.LeadingVisual>
-            4 vulnerabilities
-          </ActionList.Item>
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          github.com/primer
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <LawIcon />
+          </ActionList.LeadingVisual>
+          MIT License
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <StarIcon />
+          </ActionList.LeadingVisual>
+          256 stars
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GitForkIcon />
+          </ActionList.LeadingVisual>
+          3 forks
+        </ActionList.Item>
+        <ActionList.Item variant="danger">
+          <ActionList.LeadingVisual>
+            <AlertIcon />
+          </ActionList.LeadingVisual>
+          4 vulnerabilities
+        </ActionList.Item>
+      </ActionList>
     </>
   )
 }
@@ -144,18 +142,17 @@ export function WithAvatar(): JSX.Element {
   return (
     <>
       <h1>With Avatar</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          {users.map(user => (
-            <ActionList.Item key={user.login}>
-              <ActionList.LeadingVisual>
-                <Avatar src={`https://github.com/${user.login}.png`} />
-              </ActionList.LeadingVisual>
-              {user.login}
-            </ActionList.Item>
-          ))}
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        {users.map(user => (
+          <ActionList.Item key={user.login}>
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+          </ActionList.Item>
+        ))}
+      </ActionList>
     </>
   )
 }

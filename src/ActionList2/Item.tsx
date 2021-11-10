@@ -121,10 +121,14 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor
         },
-        ':focus:not([aria-disabled])': {
+        ':focus:not(:focus-visible):not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.selectedBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
           outline: 'none'
+        },
+        ':focus-visible:not([aria-disabled])': {
+          outline: '2px solid',
+          outlineColor: 'accent.emphasis'
         },
         ':active:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
@@ -165,6 +169,17 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       [onSelect, disabled]
     )
 
+    const keyPressHandler = React.useCallback(
+      event => {
+        if (disabled) return
+
+        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
+          onSelect(event)
+        }
+      },
+      [onSelect, disabled]
+    )
+
     // use props.id if provided, otherwise generate one.
     const labelId = useSSRSafeId(id)
     const inlineDescriptionId = useSSRSafeId(id && `${id}--inline-description`)
@@ -177,9 +192,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             ref={forwardedRef}
             sx={merge(styles, sxProp as SxProp)}
             onClick={clickHandler}
+            onKeyPress={keyPressHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
-            tabIndex={disabled ? undefined : -1}
+            tabIndex={disabled ? undefined : 0}
             aria-labelledby={labelId}
             aria-describedby={[
               slots.InlineDescription && inlineDescriptionId,
