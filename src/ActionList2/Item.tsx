@@ -109,26 +109,29 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       fontSize: 1,
       paddingY: '6px', // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
-      marginX: listVariant === 'inset' ? 2 : 0,
       minHeight: 5,
-      borderRadius: 2,
+      marginX: listVariant === 'inset' ? 2 : 0,
+      borderRadius: listVariant === 'inset' ? 2 : 0,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       textDecoration: 'none', // for as="a"
       ':not([aria-disabled])': {cursor: 'pointer'},
+
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor
         },
-        ':focus:not(:focus-visible):not([aria-disabled])': {
+        ':focus:not([data-focus-visible-added])': {
           backgroundColor: `actionListItem.${variant}.selectedBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
           outline: 'none'
         },
-        ':focus-visible:not([aria-disabled])': {
-          outline: '2px solid',
-          outlineColor: 'accent.emphasis'
+        '&[data-focus-visible-added]': {
+          // we don't use :focus-visible because not all browsers (safari) have it yet
+          outline: 'none',
+          border: `2 solid`,
+          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`
         },
         ':active:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
