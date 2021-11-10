@@ -154,14 +154,17 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         borderColor: 'var(--divider-color, transparent)'
       },
       // show between 2 items
-      ':not(:first-of-type):not([aria-selected=true])': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]), &:focus:not([aria-disabled])': {'--divider-color': 'transparent'},
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'},
-      // hide border around selected item
-      '&[aria-selected=true] + &': {'--divider-color': 'transparent'}
+      '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
+        '--divider-color': 'transparent'
+      },
+      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + &:not(:first-of-type)':
+        {
+          '--divider-color': 'transparent'
+        }
     }
 
     const clickHandler = React.useCallback(
