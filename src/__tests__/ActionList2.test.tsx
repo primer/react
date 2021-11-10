@@ -6,6 +6,10 @@ import theme from '../theme'
 import {ActionList} from '../ActionList2'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
+
+// eslint-disable-next-line import/no-namespace -- want to import all the stories
+import * as stories from '../stories/ActionList2.stories'
+
 expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
@@ -43,5 +47,16 @@ describe('ActionList', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
+  })
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- _meta
+  const {default: _meta, ...Stories} = stories
+  Object.values(Stories).map(Story => {
+    it(`story {Story.storyName} should have no axe violations`, async () => {
+      const {container} = HTMLRender(<Story />)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
+    })
   })
 })
