@@ -2,6 +2,7 @@ import React from 'react'
 import {PositionSettings, getAnchoredPosition, AnchorPosition} from '../behaviors/anchoredPosition'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>
@@ -41,7 +42,7 @@ export function useAnchoredPosition(
     [floatingElementRef, anchorElementRef, ...dependencies]
   )
 
-  React.useLayoutEffect(updatePosition, [updatePosition])
+  useLayoutEffect(updatePosition, [updatePosition])
 
   useResizeObserver(updatePosition)
 
