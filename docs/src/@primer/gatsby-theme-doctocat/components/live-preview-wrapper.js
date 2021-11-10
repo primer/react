@@ -8,7 +8,7 @@ function ThemeSwitcher() {
   return (
     <DropdownMenu
       renderAnchor={({children, ...anchorProps}) => (
-        <DropdownButton variant="small" {...anchorProps}>
+        <DropdownButton {...anchorProps} sx={{variant: 'small'}}>
           {children}
         </DropdownButton>
       )}
