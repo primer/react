@@ -623,7 +623,7 @@ export function DOMPropsStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.currentTarget.getAttribute('id')}'`)}>
+          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.target.id}'`)}>
             Has an id
           </ActionList.Item>
         </ActionList>
@@ -1171,7 +1171,7 @@ const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) 
       sx={{
         opacity: isDragging ? 0.5 : 1,
         boxShadow: isOver ? theme => `0px 2px 0 0px ${theme.colors.accent.emphasis}` : undefined,
-        borderRadius: isOver ? 0 : undefined
+        borderRadius: isOver ? 0 : 2
       }}
     >
       <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
