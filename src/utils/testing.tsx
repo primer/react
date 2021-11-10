@@ -3,6 +3,8 @@ import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
+import {cleanup, render as HTMLRender} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 
@@ -238,5 +240,24 @@ export function checkExports(path: string, exports: Record<any, any>): void {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const mod = require(`../${path}`)
     expect(mod).toSetExports(exports)
+  })
+}
+
+expect.extend(toHaveNoViolations)
+export function checkStoriesForAxeViolations(name: string) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const stories = require(`../stories/${name}.stories`)
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- _meta
+  const {default: _meta, ...Stories} = stories
+  Object.values(Stories).map(Story => {
+    if (typeof Story !== 'function') return
+
+    it(`story {Story.storyName} should have no axe violations`, async () => {
+      const {container} = HTMLRender(<Story />)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
+    })
   })
 }

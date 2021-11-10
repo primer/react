@@ -4,7 +4,7 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList2'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 
 // eslint-disable-next-line import/no-namespace -- want to import all the stories
@@ -49,14 +49,5 @@ describe('ActionList', () => {
     cleanup()
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- _meta
-  const {default: _meta, ...Stories} = stories
-  Object.values(Stories).map(Story => {
-    it(`story {Story.storyName} should have no axe violations`, async () => {
-      const {container} = HTMLRender(<Story />)
-      const results = await axe(container)
-      expect(results).toHaveNoViolations()
-      cleanup()
-    })
-  })
+  checkStoriesForAxeViolations('ActionList2')
 })
