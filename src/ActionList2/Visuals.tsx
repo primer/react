@@ -6,7 +6,7 @@ import {getVariantStyles, Slot, ItemContext, TEXT_ROW_HEIGHT} from './Item'
 
 type VisualProps = SxProp & {children: React.ReactNode}
 
-export const LeadingVisualContainer: React.FC<SxProp> = ({sx = {}, ...props}) => {
+export const LeadingVisualContainer: React.FC<VisualProps> = ({sx = {}, ...props}) => {
   return (
     <Box
       as="span"
