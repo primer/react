@@ -37,6 +37,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
 
+    // temporarily fixes an issue using icon and block in tandem
+    const customStyles = IconComponent && block && {...sxProp, ...{display: 'flex'}}
+
     return (
       <TextInputWrapper
         block={block}
@@ -44,7 +47,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         contrast={contrast}
         disabled={disabled}
         hasIcon={!!IconComponent}
-        sx={sxProp}
+        sx={customStyles || sxProp}
         theme={theme}
         width={widthProp}
         minWidth={minWidthProp}
