@@ -388,7 +388,13 @@ export const DatePickerPanel = () => {
           </Button>
         </Box>
         {configuration.confirmation && (
-          <ButtonPrimary variant="small" onClick={() => saveValue()} aria-label="Apply Selection" aria-live="polite">
+          <ButtonPrimary
+            variant="small"
+            onClick={() => saveValue()}
+            aria-label="Apply Selection"
+            aria-live="polite"
+            data-testId="datepicker-apply"
+          >
             Apply
           </ButtonPrimary>
         )}

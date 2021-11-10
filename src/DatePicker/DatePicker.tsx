@@ -4,6 +4,7 @@ import {DatePickerProvider} from './DatePickerProvider'
 import {DatePickerOverlay} from './DatePickerOverlay'
 import {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {DatePickerConfiguration, Selection} from './types'
+import {useSSRSafeId} from '..'
 
 type OpenGesture = 'anchor-click' | 'anchor-key-press'
 type CloseGesture = 'anchor-click' | 'click-outside' | 'escape'
@@ -78,6 +79,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   onChange,
   open,
   placeholder,
+  renderAnchor: externalRenderAnchor,
   value,
   variant,
   view,
@@ -86,7 +88,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 }) => {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(open ?? false)
+  const anchorId = useSSRSafeId()
   const suppliedAnchorRef = externalAnchorRef ?? anchoredOverlayProps?.anchorRef
+  const suppliedRenderAnchor = externalRenderAnchor ?? anchoredOverlayProps?.renderAnchor
 
   const configuration: DatePickerConfiguration = {
     anchorVariant,
@@ -139,7 +143,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       onChange={onChange}
       value={value}
     >
-      {!suppliedAnchorRef && <DatePickerAnchor ref={anchorRef} onAction={toggleIsOpen} />}
+      {!suppliedAnchorRef && !suppliedRenderAnchor && <DatePickerAnchor ref={anchorRef} onAction={toggleIsOpen} />}
+      {suppliedRenderAnchor?.({
+        ref: anchorRef,
+        id: anchorId,
+        'aria-labelledby': anchorId,
+        'aria-haspopup': 'true',
+        tabIndex: 0,
+        onClick: toggleIsOpen,
+        onKeyDown: toggleIsOpen
+      })}
       <DatePickerOverlay
         {...anchoredOverlayProps}
         anchorRef={suppliedAnchorRef ?? anchorRef}

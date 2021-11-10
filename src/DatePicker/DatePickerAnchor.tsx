@@ -140,6 +140,7 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
           ref={inputRef}
           sx={inputSx}
           value={inputValue}
+          data-testId="anchor-input"
         />
         <IconContainer iconPlacement={iconPlacement}>
           {inputValid && inputHasChanged && <StyledOcticon icon={CheckIcon} color="success.emphasis" />}
@@ -158,7 +159,12 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
 
   return (
     <Box ref={ref}>
-      <DatePickerAnchorButton aria-label={formattedDate} onClick={actionHandler} onKeyPress={actionHandler}>
+      <DatePickerAnchorButton
+        aria-label={formattedDate}
+        onClick={actionHandler}
+        onKeyPress={actionHandler}
+        data-testId="anchor-button"
+      >
         {(iconPlacement === 'start' || anchorVariant === 'icon-only') && calendarIcon()}
         {anchorVariant !== 'icon-only' && (
           <Text sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}>{formattedDate}</Text>

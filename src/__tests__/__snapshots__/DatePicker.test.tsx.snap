@@ -110,6 +110,7 @@ exports[`DatePicker renders consistently 1`] = `
   <button
     aria-label="Choose Date..."
     className="c0"
+    data-testId="anchor-button"
     onClick={[Function]}
     onKeyPress={[Function]}
   >
