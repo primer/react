@@ -215,6 +215,7 @@ export const Day: React.FC<DayProps> = ({date, onAction}) => {
       aria-disabled={disabled}
       aria-selected={selected !== false}
       data-date={format(date, 'MM/dd/yyyy')}
+      data-testId={`day-${format(date, 'MM/dd/yyyy')}`}
       disabled={disabled}
       focused={focused}
       onClick={actionHandler}

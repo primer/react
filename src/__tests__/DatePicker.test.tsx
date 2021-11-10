@@ -15,6 +15,7 @@ import DatePicker, {
   DatePickerPanel,
   DatePickerProps
 } from '../DatePicker'
+import {format} from 'date-fns'
 expect.extend(toHaveNoViolations)
 
 function SimpleDatePicker(props: DatePickerProps): JSX.Element {
@@ -120,16 +121,22 @@ describe('DatePicker', () => {
 
         const button = screen.getByTestId('anchor-button')
         await button.click()
-        fireEvent.keyDown(document.body, {key: 'ArrowDown'})
+        const today = format(new Date(), 'MM/dd/yyyy')
+        const todayElem = screen.getByTestId(`day-${today}`)
+        await todayElem.click()
+        await button.click()
 
         expect(screen.queryByText('Save Changes?')).toBeNull()
       })
       it('should not show modal when false', async () => {
-        render(<SimpleDatePicker confirmation={false} />)
+        render(<SimpleDatePicker confirmUnsavedClose={false} />)
 
         const button = screen.getByTestId('anchor-button')
         await button.click()
-        fireEvent.keyDown(document.body, {key: 'ArrowDown'})
+        const today = format(new Date(), 'MM/dd/yyyy')
+        const todayElem = screen.getByTestId(`day-${today}`)
+        await todayElem.click()
+        await button.click()
 
         expect(screen.queryByText('Save Changes?')).toBeNull()
       })
@@ -138,12 +145,39 @@ describe('DatePicker', () => {
 
         const button = screen.getByTestId('anchor-button')
         await button.click()
-        fireEvent.keyDown(document.body, {key: 'ArrowDown'})
+        const today = format(new Date(), 'MM/dd/yyyy')
+        const todayElem = screen.getByTestId(`day-${today}`)
+        await todayElem.click()
+        await button.click()
 
-        console.log(screen)
-        expect(getByTestId('inner')).toBeTruthy()
+        expect(screen.getByRole('alertdialog')).toBeDefined()
+      })
+    })
+    describe('Compressed Header', () => {
+      it('should not show compressed header by default', async () => {
+        render(<SimpleDatePicker />)
 
-        expect(screen.getByText('Save Changes?')).toBeNull()
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        expect(screen.queryByTestId('datepicker-compressed-header')).toBeNull()
+      })
+      it('should not show compressed header when false', async () => {
+        render(<SimpleDatePicker compressedHeader={false} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        expect(screen.queryByText('datepicker-compressed-header')).toBeNull()
+      })
+      it('should show compressed header when true', async () => {
+        render(<SimpleDatePicker compressedHeader={true} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const compressedHeader = screen.getByTestId('datepicker-compressed-header')
+        expect(compressedHeader).toBeDefined()
       })
     })
   })

@@ -340,10 +340,10 @@ export const DatePickerPanel = () => {
   }, [configuration, currentYear, headerSelectionHandler])
 
   return (
-    <DatePickerPanelContainer ref={panelRef}>
+    <DatePickerPanelContainer ref={panelRef} data-testId="datepicker-panel">
       <DatePickerTopNav ref={headerRef}>
         {configuration.compressedHeader && (
-          <Box sx={{flex: 1}}>
+          <Box data-testId="datepicker-compressed-header" sx={{flex: 1}}>
             {getMonthPicker}
             {getYearPicker}
           </Box>
@@ -387,7 +387,7 @@ export const DatePickerPanel = () => {
             Today
           </Button>
         </Box>
-        {configuration.confirmation && (
+        {(configuration.confirmation || configuration.confirmUnsavedClose) && (
           <ButtonPrimary
             variant="small"
             onClick={() => saveValue()}

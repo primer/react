@@ -94,7 +94,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const configuration: DatePickerConfiguration = {
     anchorVariant,
-    confirmation,
+    confirmation: confirmation ?? confirmUnsavedClose,
     confirmUnsavedClose,
     compressedHeader,
     dateFormat,

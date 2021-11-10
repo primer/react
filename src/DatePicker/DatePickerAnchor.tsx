@@ -48,10 +48,13 @@ const IconContainer = styled(Box)<BoxProps & {iconPlacement?: IconPlacement}>`
 export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAnchorProps>(({onAction}, ref) => {
   const {
     configuration: {anchorVariant, iconPlacement, placeholder, variant},
+    dialogOpen,
     disabled,
     formattedDate,
     inputDate,
-    onDateInput
+    onClose,
+    onDateInput,
+    setDialogOpen
   } = useDatePicker()
   const [inputValue, setInputValue] = useState(formattedDate)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -59,19 +62,29 @@ export const DatePickerAnchor = React.forwardRef<HTMLDivElement, DatePickerAncho
   const [inputHasChanged, setInputHasChanged] = useState(false)
 
   const actionHandler = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+    async (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
       if (disabled) {
         return
       }
       if ('key' in event) {
         if ([' ', 'Enter'].includes(event.key)) {
-          onAction?.(event)
+          if (!dialogOpen) {
+            setDialogOpen(true)
+            await onClose()
+            setDialogOpen(false)
+            onAction?.(event)
+          }
         }
       } else {
-        onAction?.(event)
+        if (!dialogOpen) {
+          setDialogOpen(true)
+          await onClose()
+          setDialogOpen(false)
+          onAction?.(event)
+        }
       }
     },
-    [disabled, onAction]
+    [dialogOpen, disabled, onAction, onClose, setDialogOpen]
   )
 
   useEffect(() => {
