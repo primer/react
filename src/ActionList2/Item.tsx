@@ -161,10 +161,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
         '--divider-color': 'transparent'
       },
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + &:not(:first-of-type)':
-        {
-          '--divider-color': 'transparent'
-        }
+      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
+        '--divider-color': 'transparent'
+      }
     }
 
     const clickHandler = React.useCallback(
