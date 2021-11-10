@@ -91,6 +91,13 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
       display: block;
       width: 100%;
     `}
+
+    ${props =>
+    props.block &&
+    props.hasIcon &&
+    css`
+      display: flex;
+    `}
   
     // Ensures inputs don't zoom on mobile but are body-font size on desktop
     @media (min-width: ${get('breakpoints.1')}) {
