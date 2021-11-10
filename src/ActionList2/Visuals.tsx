@@ -4,7 +4,7 @@ import {SxProp, merge} from '../sx'
 import {get} from '../constants'
 import {getVariantStyles, Slot, ItemContext, TEXT_ROW_HEIGHT} from './Item'
 
-type VisualProps = SxProp & {children: React.ReactNode}
+type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
 export const LeadingVisualContainer: React.FC<VisualProps> = ({sx = {}, ...props}) => {
   return (
