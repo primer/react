@@ -29,16 +29,6 @@ const LabelledTextInputWithTokens: React.FC<TextInputWithTokensProps> = ({onToke
   </>
 )
 
-// describe('axe test', () => {
-//   it('should have no axe violations', async () => {
-//     const onRemoveMock = jest.fn()
-//     const {container} = HTMLRender(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
-//     const results = await axe(container)
-//     expect(results).toHaveNoViolations()
-//     cleanup()
-//   })
-// })
-
 jest.useFakeTimers()
 
 describe('TextInputWithTokens', () => {
