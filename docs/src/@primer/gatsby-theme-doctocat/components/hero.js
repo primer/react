@@ -9,9 +9,7 @@ export default function Hero() {
     <ThemeProvider colorMode="night" nightScheme="dark_dimmed">
       <Box bg="canvas.default" py={6}>
         <Container>
-          <Heading color="accent.fg" fontSize={7} lineHeight="condensed" pb={3} m={0}>
-            Primer React
-          </Heading>
+          <Heading sx={{color: 'accent.fg', fontSize: 7, lineHeight: 'condensed', pb: 3, m: 0}}>Primer React</Heading>
           <Text as="p" fontFamily="mono" mt={0} mb={2} color="fg.default" fontSize={2}>
             v{version}
           </Text>

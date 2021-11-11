@@ -1,4 +1,5 @@
-import React, {ForwardedRef, useRef} from 'react'
+import {ForwardedRef, useRef} from 'react'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Creates a ref by combining multiple constituent refs. The ref returned by this hook
@@ -11,7 +12,7 @@ import React, {ForwardedRef, useRef} from 'react'
 export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)[]) {
   const combinedRef = useRef<T | null>(null)
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     function setRefs(current: T | null = null) {
       for (const ref of refs) {
         if (!ref) {
@@ -32,7 +33,6 @@ export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setRefs(combinedRef.current)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...refs, combinedRef.current])
 
