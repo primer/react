@@ -1,0 +1,354 @@
+---
+title: ActionList
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/ActionList2
+storybook: '/react/storybook?path=/story/composite-components-actionlist2'
+description: An ActionList is a list of items which can be activated or selected. ActionList is the base component for many of our menu-type components, including DropdownMenu and ActionMenu.
+---
+
+import {BorderBox, Avatar} from '@primer/components'
+import {ActionList} from '@primer/components/unreleased'
+import {Props} from '../src/props'
+
+import {ImageContainer} from '@primer/gatsby-theme-doctocat'
+import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
+
+<br />
+
+<BorderBox sx={{padding: 6}}>
+  <ActionList sx={{width: 320}}>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      github.com/primer
+      <ActionList.Description variant="block">
+        A React implementation of GitHub's Primer Design System
+      </ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/mona.png" />
+      </ActionList.LeadingVisual>
+      mona
+      <ActionList.Description>Monalisa Octocat</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual>
+        <AlertIcon />
+      </ActionList.LeadingVisual>
+      4 vulnerabilities
+      <ActionList.TrailingVisual>
+        <ArrowRightIcon />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+</BorderBox>
+
+<br />
+
+```js
+import {ActionList} from '@primer/components/unreleased'
+```
+
+<br />
+
+## Examples
+
+## Minimal example
+
+```javascript live noinline
+const {ActionList} = unreleased
+
+render(
+  <ActionList>
+    <ActionList.Item>New file</ActionList.Item>
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Edit file</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
+```
+
+<br />
+
+## With Leading Visual
+
+Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
+
+<!-- prettier-ignore -->
+```javascript live noinline
+const {ActionList} = unreleased
+
+render(
+  <ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
+      github.com/primer
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual><AlertIcon /></ActionList.LeadingVisual>
+      4 vulnerabilities
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList.LeadingVisual>
+      mona
+    </ActionList.Item>
+  </ActionList>
+)
+```
+
+<br />
+
+## With Trailing Visual
+
+Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
+
+```javascript live noinline
+const {ActionList} = unreleased
+
+render(
+  <ActionList>
+    <ActionList.Item>
+      New file
+      <ActionList.TrailingVisual>⌘ + N</ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Copy link
+      <ActionList.TrailingVisual>⌘ + C</ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Edit file
+      <ActionList.TrailingVisual>⌘ + E</ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      Delete file
+      <ActionList.TrailingVisual>⌫</ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
+```
+
+<br />
+
+## With Description and Dividers
+
+Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
+
+```javascript live noinline
+const {ActionList} = unreleased
+
+render(
+  <ActionList showDividers>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/mona.png" />
+      </ActionList.LeadingVisual>
+      mona
+      <ActionList.Description>Monalisa Octocat</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/hubot.png" />
+      </ActionList.LeadingVisual>
+      hubot
+      <ActionList.Description>Hubot</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/primer-css.png" />
+      </ActionList.LeadingVisual>
+      primer-css
+      <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
+    </ActionList.Item>
+  </ActionList>
+)
+```
+
+## With Links
+
+When you want to add links to the List instead of actions, use `ActionList.LinkItem`
+
+<!-- prettier-ignore -->
+```javascript live noinline
+const {ActionList} = unreleased
+
+render(
+  <ActionList>
+    <ActionList.LinkItem href="https://github.com/primer">
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      github/primer
+    </ActionList.LinkItem>
+    <ActionList.LinkItem as={ReactRouterLink} to="/">
+      <ActionList.LeadingVisual>
+        <LawIcon />
+      </ActionList.LeadingVisual>
+      MIT License
+    </ActionList.LinkItem>
+    <ActionList.LinkItem 
+      href="https://github.com/primer/react/stargazers"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <ActionList.LeadingVisual>
+        <StarIcon />
+      </ActionList.LeadingVisual>
+      1.4k stars
+    </ActionList.LinkItem>
+  </ActionList>
+)
+```
+
+<br />
+
+## With Groups
+
+```javascript live noinline
+const {ActionList} = unreleased
+
+const SelectFields = () => {
+  const [options, setOptions] = React.useState([
+    {text: 'Status', selected: true},
+    {text: 'Stage', selected: true},
+    {text: 'Assignee', selected: true},
+    {text: 'Team', selected: true},
+    {text: 'Estimate', selected: false},
+    {text: 'Due Date', selected: false}
+  ])
+
+  const visibleOptions = options.filter(option => option.selected)
+  const hiddenOptions = options.filter(option => !option.selected)
+
+  const toggle = text => {
+    setOptions(
+      options.map(option => {
+        if (option.text === text) option.selected = !option.selected
+        return option
+      })
+    )
+  }
+
+  return (
+    <ActionList selectionVariant="multiple">
+      <ActionList.Group title="Visible fields (can be reordered)">
+        {visibleOptions.map(option => (
+          <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
+            {option.text}
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
+      <ActionList.Group
+        title="Hidden fields"
+        selectionVariant={
+          /** selectionVariant override on Group: disable selection if there are no options */
+          hiddenOptions.length ? 'multiple' : false
+        }
+      >
+        {hiddenOptions.map((option, index) => (
+          <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
+            {option.text}
+          </ActionList.Item>
+        ))}
+        {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
+      </ActionList.Group>
+    </ActionList>
+  )
+}
+
+render(<SelectFields />)
+```
+
+<br />
+
+## Props / API reference
+
+## ActionList
+
+| Name             | Type                                                                                              | Default | Description                                                                                                                                                                                |
+| :--------------- | :------------------------------------------------------------------------------------------------ | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| children\*       | `ActionList.Item[]` or ActionList.LinkItem[] or `ActionList.Group[]`                              |    -    | Required.                                                                                                                                                                                  |
+| variant          | `'inset'` or `'full'`                                                                             | 'inset' | Optional. Usage is discretionary, `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges |
+| selectionVariant | `'single'` or `'multiple'`                                                                        |    -    | Optional. Whether multiple Items or a single Item can be selected.                                                                                                                         |
+| showDivider      | boolean                                                                                           |  false  | Optional. Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.                                                                              |
+| sx               | sxProp                                                                                            |    -    | Optional. See guide to [Overriding styles](/overriding-styles)                                                                                                                             |
+| role             | [AriaRole](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) |    -    | Optional. The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.                                                                              |
+
+<br />
+
+## ActionList.Item
+
+| Name       | Type                                                                                                          |   Default   | Description                                                                                      |
+| :--------- | :------------------------------------------------------------------------------------------------------------ | :---------: | :----------------------------------------------------------------------------------------------- |
+| children\* | one of [`React.ReactNode`, `ActionList.LeadingVisual`, `ActionList.Description`, `ActionList.TrailingVisual`] |      -      | Required.                                                                                        |
+| variant    | `'default'` or `'danger'`                                                                                     | `'default'` | Optional. variant="danger" creates a destructive action `Item`.                                  |
+| onSelect   | Function                                                                                                      |      -      | Optional. Callback that will trigger both on click selection and keyboard selection.             |
+| selected   | boolean                                                                                                       |    false    | Optional. For `Item`s which can be selected, whether the `Item` is currently selected.           |
+| disabled   | boolean                                                                                                       |    false    | Optional. Items that are disabled can not be clicked, selected, or navigated through.            |
+| role       | [AriaRole](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles)             |      -      | Optional. The ARIA role describing the function of `Item` component. `option` is a common value. |
+| sx         | sxProp                                                                                                        |      -      | Optional. See guide to [Overriding styles](/overriding-styles)                                   |
+
+<br />
+
+## ActionList.LinkItem
+
+| Name                                                | Type                                                                                                          | Default | Description                                                    |
+| :-------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ | :-----: | :------------------------------------------------------------- |
+| children\*                                          | one of [`React.ReactNode`, `ActionList.LeadingVisual`, `ActionList.Description`, `ActionList.TrailingVisual`] |    -    | Required.                                                      |
+| sx                                                  | sxProp                                                                                                        |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
+| + AnchorHTMLAttributes like href, target, rel, etc. |                                                                                                               |         |                                                                |
+
+<br />
+
+## ActionList.LeadingVisual
+
+| Name       | Type                | Default | Description                                                    |
+| :--------- | :------------------ | :-----: | :------------------------------------------------------------- |
+| children\* | `React.ReactNode` - |    -    | Required. Icon (or similar) positioned before `Item` text.     |
+| sx         | sxProp              |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
+
+## ActionList.TrailingVisual
+
+| Name       | Type                | Default | Description                                                    |
+| :--------- | :------------------ | :-----: | :------------------------------------------------------------- |
+| children\* | `React.ReactNode` - |    -    | Required. Visual positioned after `Item` text.                 |
+| sx         | sxProp              |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
+
+<br />
+
+## ActionList.Description
+
+| Name       | Type                    |  Default   | Description                                                                                                                       |
+| :--------- | :---------------------- | :--------: | :-------------------------------------------------------------------------------------------------------------------------------- |
+| children\* | `React.ReactNode` -     |     -      | Required. Visual positioned after `Item` text.                                                                                    |
+| variant    | `'inline'` or `'block'` | `'inline'` | Optional. `"inline"` secondary text is positioned beside primary text. `"block"` secondary text is positioned below primary text. |
+| sx         | sxProp                  |     -      | Optional. See guide to [Overriding styles](/overriding-styles)                                                                    |
+
+<br />
+
+## ActionList.Group
+
+| Name             | Type                                         |  Default   | Description                                                                                                                              |
+| :--------------- | :------------------------------------------- | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| children\*       | `ActionList.Item[] or ActionList.LinkItem[]` |     -      | Required.                                                                                                                                |
+| title            | string                                       |     -      | Optional. Primary text which names a `Group`                                                                                             |
+| auxiliaryText    | string                                       |     -      | Optional. Secondary text which provides additional information about a `Group`.                                                          |
+| variant          | `'filled'` or `'subtle'`                     | `'subtle'` | Optional. `"filled"` - Superimposed on a background, offset from nearby content, `"subtle"` - Relatively less offset from nearby content |
+| selectionVariant | `'single'` or `'multiple'` or `false`        |     -      | Optional. Set `selectionVariant` at the group level                                                                                      |
+
+<br />
+
+## Further reading
+
+[Interface guidelines: Action List](https://primer.style/design/components/action-list)
+
+<br />
+
+## Related components
+
+- [ActionMenu](/ActionMenu)
+- [SelectPanel](/SelectPanel)
+
+<br />
