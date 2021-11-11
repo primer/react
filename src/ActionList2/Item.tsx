@@ -190,7 +190,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             {...props}
           >
             <_PrivateItemWrapper>
-              <Selection selected={selected} disabled={disabled} />
+              <Selection selected={selected} />
               {slots.LeadingVisual}
               <Box
                 data-component="ActionList.Item--DividerContainer"

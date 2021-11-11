@@ -5,8 +5,8 @@ import {GroupContext} from './Group'
 import {ItemProps} from './Item'
 import {LeadingVisualContainer} from './Visuals'
 
-type SelectionProps = Pick<ItemProps, 'selected' | 'disabled'>
-export const Selection: React.FC<SelectionProps> = ({selected, disabled}) => {
+type SelectionProps = Pick<ItemProps, 'selected'>
+export const Selection: React.FC<SelectionProps> = ({selected}) => {
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
