@@ -13,10 +13,10 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 ```jsx live
 <>
   <Button>Button</Button>
-  <ButtonDanger>Button Danger</ButtonDanger>
-  <ButtonOutline>Button Outline</ButtonOutline>
-  <ButtonPrimary>Button Primary</ButtonPrimary>
-  <ButtonInvisible>Button Invisible</ButtonInvisible>
+  <ButtonDanger>Button danger</ButtonDanger>
+  <ButtonOutline>Button outline</ButtonOutline>
+  <ButtonPrimary>Button primary</ButtonPrimary>
+  <ButtonInvisible>Button invisible</ButtonInvisible>
   <ButtonClose onClick={() => window.alert('button clicked')}/>
 
   <ButtonGroup display='block' my={2}>
@@ -25,7 +25,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
     <Button>Button</Button>
   </ButtonGroup>
 
-  <ButtonTableList>Button Table List </ButtonTableList>
+  <ButtonTableList>Button table list </ButtonTableList>
 </>
 ```
 
@@ -48,7 +48,7 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
 | Prop name | Type             | Default  | Description                                                                                                                 |
 | :-------- | :--------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------- |
 | as        | String           | `button` | sets the HTML tag for the component                                                                                         |
-| fontSize  | Number or String |          | explicitly sets the font size for the Button text; overrides any value for the `variant` prop                               |
+| fontSize  | Number or string |          | explicitly sets the font size for the Button text; overrides any value for the `variant` prop                               |
 | variant   | String           | 'medium' | a value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set |
 
 ### ButtonGroup
