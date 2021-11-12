@@ -14,6 +14,7 @@ Use StateLabel components to show the status of an issue or pull request.
   <StateLabel status="pullClosed">Closed</StateLabel>
   <StateLabel status="pullMerged">Merged</StateLabel>
   <StateLabel status="draft">Draft</StateLabel>
+  <StateLabel status="issueDraft">Draft</StateLabel>
 </>
 ```
 
