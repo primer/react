@@ -456,12 +456,36 @@ Array [
   height: 20px;
   width: 16px;
   margin-right: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c10 {
   height: 20px;
   width: 16px;
   margin-right: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -483,8 +507,14 @@ Array [
   font-size: 12px;
 }
 
-.c6 {
-  pointer-events: none;
+.c6 rect {
+  fill: #ffffff;
+  stroke: #d0d7de;
+}
+
+.c6 path {
+  fill: #ffffff;
+  opacity: 0;
 }
 
 .c1 {
@@ -531,15 +561,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="zero"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -574,15 +617,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="one"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -617,15 +673,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="two"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -660,15 +729,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="three"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -703,15 +785,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="four"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -746,15 +841,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="five"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -789,15 +897,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="six"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -832,15 +953,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="seven"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -875,15 +1009,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="twenty"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -918,15 +1065,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="twentyone"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1202,10 +1362,28 @@ Array [
   height: 20px;
   width: 16px;
   margin-right: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
-.c6 {
-  pointer-events: none;
+.c6 rect {
+  fill: #ffffff;
+  stroke: #d0d7de;
+}
+
+.c6 path {
+  fill: #ffffff;
+  opacity: 0;
 }
 
 .c1 {
@@ -1252,15 +1430,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="zero"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1295,15 +1486,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="one"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1338,15 +1542,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="two"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1381,15 +1598,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="three"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1424,15 +1654,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="four"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1467,15 +1710,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="five"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1510,15 +1766,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="six"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1553,15 +1822,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="seven"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1596,15 +1878,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="twenty"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1639,15 +1934,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="twentyone"
-                aria-readonly="false"
-                checked={false}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1824,11 +2132,11 @@ Array [
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -1871,10 +2179,38 @@ Array [
   height: 20px;
   width: 16px;
   margin-right: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
-.c6 {
-  pointer-events: none;
+.c10 rect {
+  fill: #ffffff;
+  stroke: #d0d7de;
+}
+
+.c10 path {
+  fill: #ffffff;
+  opacity: 0;
+}
+
+.c6 rect {
+  fill: #0969da;
+  stroke: #0969da;
+}
+
+.c6 path {
+  fill: #ffffff;
+  opacity: 1;
 }
 
 .c1 {
@@ -1921,15 +2257,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="zero"
-                aria-readonly="false"
-                checked={true}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={true}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -1964,15 +2313,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="one"
-                aria-readonly="false"
-                checked={true}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={true}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2007,15 +2369,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="two"
-                aria-readonly="false"
-                checked={true}
+              <svg
+                aria-hidden="true"
                 className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+                height="16"
+                selected={true}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2050,15 +2425,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="three"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2093,15 +2481,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="four"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2136,15 +2537,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="five"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2179,15 +2593,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="six"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2222,15 +2649,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="seven"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2265,15 +2705,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="twenty"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
@@ -2308,15 +2761,28 @@ Array [
             <div
               className="c5"
             >
-              <input
-                aria-label="twentyone"
-                aria-readonly="false"
-                checked={false}
-                className="c6"
-                readOnly={true}
-                tabIndex={-1}
-                type="checkbox"
-              />
+              <svg
+                aria-hidden="true"
+                className="c10"
+                height="16"
+                selected={false}
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  height="12"
+                  rx="4"
+                  width="12"
+                  x="2"
+                  y="2"
+                />
+                <path
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                />
+              </svg>
             </div>
             <div
               className="c7 c8"
