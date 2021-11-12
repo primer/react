@@ -295,6 +295,9 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   height: 20px;
   width: ${get('space.3')};
   margin-right: ${get('space.2')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const ColoredVisualContainer = styled(BaseVisualContainer)`
