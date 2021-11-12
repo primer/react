@@ -163,6 +163,7 @@ Array [
         style={
           Object {
             "display": "inline-block",
+            "overflow": "visible",
             "userSelect": "none",
             "verticalAlign": "text-bottom",
           }
