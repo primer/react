@@ -14,7 +14,7 @@ import DatePicker, {
   DatePickerPanel,
   DatePickerProps
 } from '../DatePicker'
-import {format, nextSaturday} from 'date-fns'
+import {addDays, addWeeks, format, nextSaturday, subDays} from 'date-fns'
 import {act} from 'react-dom/test-utils'
 expect.extend(toHaveNoViolations)
 
@@ -291,22 +291,44 @@ describe('DatePicker', () => {
     })
     describe('Max Date', () => {
       it('should disable dates after max date', async () => {
-        render(<SimpleDatePicker />)
-        // TODO
+        render(<SimpleDatePicker maxDate={new Date()} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const tomorrow = format(addDays(new Date(), 1), 'MM/dd/yyyy')
+        const tomorrowElem = screen.getByTestId(`day-${tomorrow}`)
+        expect(tomorrowElem.attributes.getNamedItem('disabled')).toBeTruthy()
       })
       it('should not allow navigtion after max date', async () => {
-        render(<SimpleDatePicker />)
-        // TODO
+        render(<SimpleDatePicker maxDate={new Date()} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const nextElem = screen.getByTestId('next-button')
+        expect(nextElem.attributes.getNamedItem('disabled')).toBeTruthy()
       })
     })
     describe('Min Date', () => {
       it('should disable dates before min date', async () => {
-        render(<SimpleDatePicker />)
-        // TODO
+        render(<SimpleDatePicker minDate={new Date()} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const yesterday = format(subDays(new Date(), 1), 'MM/dd/yyyy')
+        const yesterdayElem = screen.getByTestId(`day-${yesterday}`)
+        expect(yesterdayElem.attributes.getNamedItem('disabled')).toBeTruthy()
       })
       it('should not allow navigtion before min date', async () => {
-        render(<SimpleDatePicker />)
-        // TODO
+        render(<SimpleDatePicker minDate={new Date()} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const previousElem = screen.getByTestId('previous-button')
+        expect(previousElem.attributes.getNamedItem('disabled')).toBeTruthy()
       })
     })
     describe('Placeholder', () => {
@@ -324,57 +346,139 @@ describe('DatePicker', () => {
     describe('Value', () => {
       it('should not select date when value is not provided', async () => {
         render(<SimpleDatePicker />)
-        // TODO
+
+        const button = screen.getByTestId('anchor-button')
+        expect(button.textContent).toEqual('Choose Date...')
       })
       it('should select date when value is provided', async () => {
-        render(<SimpleDatePicker />)
-        // TODO
+        const today = new Date()
+        render(<SimpleDatePicker value={today} />)
+
+        const button = screen.getByTestId('anchor-button')
+        expect(button.textContent).toEqual(format(today, 'MMM d'))
       })
     })
     describe('Variant', () => {
       it('should be a single-select by defailt', async () => {
-        render(<SimpleDatePicker />)
-        // TODO
+        // Setting confirmation to true in order to verify by multiple clicks
+        render(<SimpleDatePicker confirmation={true} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const today = new Date()
+        const tomorrow = addDays(new Date(), 1)
+
+        const todayElem = screen.getByTestId(`day-${format(today, 'MM/dd/yyyy')}`)
+        await todayElem.click()
+
+        const tomorrowElem = screen.getByTestId(`day-${format(tomorrow, 'MM/dd/yyyy')}`)
+        await tomorrowElem.click()
+
+        expect(button.textContent).toEqual(format(tomorrow, 'MMM d'))
       })
       it('should be a single-select when set to single', async () => {
-        render(<SimpleDatePicker variant="single" />)
-        // TODO
+        render(<SimpleDatePicker variant="single" confirmation={true} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const today = new Date()
+        const tomorrow = addDays(new Date(), 1)
+
+        const todayElem = screen.getByTestId(`day-${format(today, 'MM/dd/yyyy')}`)
+        await todayElem.click()
+
+        const tomorrowElem = screen.getByTestId(`day-${format(tomorrow, 'MM/dd/yyyy')}`)
+        await tomorrowElem.click()
+
+        expect(button.textContent).toEqual(format(tomorrow, 'MMM d'))
       })
       it('should be a multi-select when set to multi', async () => {
-        render(<SimpleDatePicker variant="multi" />)
-        // TODO
+        render(<SimpleDatePicker variant="multi" confirmation={true} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const today = new Date()
+        const tomorrow = addDays(new Date(), 1)
+
+        const todayElem = screen.getByTestId(`day-${format(today, 'MM/dd/yyyy')}`)
+        await todayElem.click()
+
+        const tomorrowElem = screen.getByTestId(`day-${format(tomorrow, 'MM/dd/yyyy')}`)
+        await tomorrowElem.click()
+
+        expect(button.textContent).toEqual(`${format(today, 'MMM d')}, ${format(tomorrow, 'MMM d')}`)
       })
       it('should be a range-select when set to range', async () => {
-        render(<SimpleDatePicker variant="range" />)
-        // TODO
+        render(<SimpleDatePicker variant="range" confirmation={true} />)
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const today = new Date()
+        const nextWeek = addWeeks(new Date(), 1)
+
+        const todayElem = screen.getByTestId(`day-${format(today, 'MM/dd/yyyy')}`)
+        await todayElem.click()
+
+        const nextWeekElem = screen.getByTestId(`day-${format(nextWeek, 'MM/dd/yyyy')}`)
+        await nextWeekElem.click()
+
+        expect(button.textContent).toEqual(`${format(today, 'MMM d')} - ${format(nextWeek, 'MMM d')}`)
       })
     })
     describe('View', () => {
       it('should be single-month view by default', async () => {
         render(<SimpleDatePicker />)
-        // TODO
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const months = screen.getAllByTestId('month')
+
+        expect(months.length).toEqual(1)
       })
       it('should be 1-month view when set to 1-month', async () => {
         render(<SimpleDatePicker view="1-month" />)
-        // TODO
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const months = screen.getAllByTestId('month')
+
+        expect(months.length).toEqual(1)
       })
       it('should be 2-month when set to 2-month', async () => {
         render(<SimpleDatePicker view="2-month" />)
-        // TODO
-      })
-      it("should be 1-month view when viewport can't support 2-month view", async () => {
-        render(<SimpleDatePicker view="2-month" />)
-        // TODO
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const months = screen.getAllByTestId('month')
+
+        expect(months.length).toEqual(2)
       })
     })
     describe('Week Starts On', () => {
       it('should start on Sunday by default', async () => {
         render(<SimpleDatePicker />)
-        // TODO
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const weekdayHeaders = screen.getAllByTestId('weekday-header')
+        expect(weekdayHeaders[0].textContent).toEqual('Su')
       })
       it('should start on Wednesday when specified', async () => {
         render(<SimpleDatePicker weekStartsOn="Wednesday" />)
-        // TODO
+
+        const button = screen.getByTestId('anchor-button')
+        await button.click()
+
+        const weekdayHeaders = screen.getAllByTestId('weekday-header')
+        expect(weekdayHeaders[0].textContent).toEqual('We')
       })
     })
   })

@@ -355,6 +355,7 @@ export const DatePickerPanel = () => {
           disabled={previousDisabled}
           aria-label="Previous Month"
           aria-live="polite"
+          data-testId="previous-button"
         >
           <StyledOcticon icon={ChevronLeftIcon} color="fg.muted" />
         </ArrowButton>
@@ -364,6 +365,7 @@ export const DatePickerPanel = () => {
           disabled={nextDisabled}
           aria-label="Next Month"
           aria-live="polite"
+          data-testId="next-button"
         >
           <StyledOcticon icon={ChevronRightIcon} color="fg.muted" />
         </ArrowButton>

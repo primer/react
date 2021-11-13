@@ -65,7 +65,9 @@ export const Month: React.FC<MonthProps> = ({date}) => {
     }
 
     return eachDayOfInterval({start: startOfWeek(now, weekOptions), end: endOfWeek(now, weekOptions)}).map(d => (
-      <WeekdayHeader key={`weekday-${d}-header`}>{format(d, 'EEEEEE')}</WeekdayHeader>
+      <WeekdayHeader data-testId="weekday-header" key={`weekday-${d}-header`}>
+        {format(d, 'EEEEEE')}
+      </WeekdayHeader>
     ))
   }, [configuration.weekStartsOn, date])
 
@@ -95,7 +97,7 @@ export const Month: React.FC<MonthProps> = ({date}) => {
   }, [configuration.weekStartsOn, date])
 
   return (
-    <MonthComponent aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`} role="grid">
+    <MonthComponent aria-labelledby={`${date.getMonth()} ${date.getFullYear()}`} role="grid" data-testId="month">
       <MonthTitle aria-live="polite">{!configuration.compressedHeader ? getTitle : ''}</MonthTitle>
       {weekdayHeaders}
       {dayComponents}
