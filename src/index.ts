@@ -27,6 +27,7 @@ export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './Dialog/ConfirmationDialog'
 
 // Components
+export {Checkbox} from './Checkbox'
 export {ActionList} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
