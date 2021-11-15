@@ -17,17 +17,6 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {AriaRole} from '../utils/types'
 
-const customItemThemes = {
-  default: {
-    hover: get('colors.actionListItem.default.hoverBg'),
-    focus: get('colors.actionListItem.default.focusBg')
-  },
-  danger: {
-    hover: get('colors.actionListItem.danger.hoverBg'),
-    focus: get('colors.actionListItem.danger.focusBg')
-  }
-} as const
-
 /**
  * Contract for props passed to the `Item` component.
  */
@@ -147,14 +136,18 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         color: get('colors.danger.fg'),
         iconColor: get('colors.danger.fg'),
         annotationColor: get('colors.fg.muted'),
-        hoverCursor: 'pointer'
+        hoverCursor: 'pointer',
+        hoverBg: get('colors.actionListItem.danger.hoverBg'),
+        focusBg: get('colors.actionListItem.danger.activeBg')
       }
     default:
       return {
         color: get('colors.fg.default'),
         iconColor: get('colors.fg.muted'),
         annotationColor: get('colors.fg.muted'),
-        hoverCursor: 'pointer'
+        hoverCursor: 'pointer',
+        hoverBg: get('colors.actionListItem.default.hoverBg'),
+        focusBg: get('colors.actionListItem.default.activeBg')
       }
   }
 }
@@ -181,8 +174,6 @@ const StyledItem = styled.div<
     variant: ItemProps['variant']
     showDivider: ItemProps['showDivider']
     item?: ItemInput
-    hoverBackground: string
-    focusBackground: string
   } & SxProp
 >`
   /* 6px vertical padding + 20px line height = 32px total height
@@ -201,7 +192,10 @@ const StyledItem = styled.div<
   @media (hover: hover) and (pointer: fine) {
     :hover {
       // allow override in case another item in the list is active/focused
-      background: var(--item-hover-bg-override, ${({hoverBackground}) => hoverBackground});
+      background: var(
+        --item-hover-bg-override,
+        ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg}
+      );
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
@@ -247,19 +241,19 @@ const StyledItem = styled.div<
 
   // Active Descendant
   &[${isActiveDescendantAttribute}='${activeDescendantActivatedDirectly}'] {
-    background: ${({focusBackground}) => focusBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
   }
   &[${isActiveDescendantAttribute}='${activeDescendantActivatedIndirectly}'] {
-    background: ${({hoverBackground}) => hoverBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg};
   }
 
   &:focus {
-    background: ${({focusBackground}) => focusBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
     outline: none;
   }
 
   &:active {
-    background: ${({focusBackground}) => focusBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
   }
 
   ${sx}
@@ -378,9 +372,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
     },
     [onAction, disabled, itemProps, onClick]
   )
-  const customItemTheme = customItemThemes[variant]
-  const hoverBackground = customItemTheme.hover
-  const focusBackground = customItemTheme.focus
 
   const {theme} = useTheme()
 
@@ -398,8 +389,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
-      hoverBackground={disabled ? 'inherit' : hoverBackground}
-      focusBackground={disabled ? 'inherit' : focusBackground}
     >
       {!!selected === selected && (
         <BaseVisualContainer>
