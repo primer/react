@@ -138,7 +138,8 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         annotationColor: get('colors.fg.muted'),
         hoverCursor: 'pointer',
         hoverBg: get('colors.actionListItem.danger.hoverBg'),
-        focusBg: get('colors.actionListItem.danger.activeBg')
+        focusBg: get('colors.actionListItem.danger.activeBg'),
+        hoverText: get('colors.actionListItem.danger.hoverText')
       }
     default:
       return {
@@ -196,6 +197,7 @@ const StyledItem = styled.div<
         --item-hover-bg-override,
         ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg}
       );
+      color: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverText};
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
