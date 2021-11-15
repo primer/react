@@ -8,6 +8,7 @@ import sx, {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
+import {MenuContext} from '../ActionMenu2'
 import {Selection} from './Selection'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
@@ -94,12 +95,14 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       onSelect = () => null,
       sx: sxProp = {},
       id,
+      role,
       _PrivateItemWrapper,
       ...props
     },
     forwardedRef
   ): JSX.Element => {
     const {variant: listVariant, showDividers} = React.useContext(ListContext)
+    const {itemRole, onClose: onMenuClose} = React.useContext(MenuContext)
 
     const {theme} = useTheme()
 
@@ -168,20 +171,25 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const clickHandler = React.useCallback(
       event => {
         if (disabled) return
-        if (!event.defaultPrevented) onSelect(event)
+        if (!event.defaultPrevented) {
+          onSelect(event)
+          // if this Item is inside a Menu, close the Menu
+          if (typeof onMenuClose === 'function') onMenuClose()
+        }
       },
-      [onSelect, disabled]
+      [onSelect, disabled, onMenuClose]
     )
 
     const keyPressHandler = React.useCallback(
       event => {
         if (disabled) return
-
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           onSelect(event)
+          // if this Item is inside a Menu, close the Menu
+          if (typeof onMenuClose === 'function') onMenuClose()
         }
       },
-      [onSelect, disabled]
+      [onSelect, disabled, onMenuClose]
     )
 
     // use props.id if provided, otherwise generate one.
@@ -204,6 +212,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
+            role={role || itemRole}
             {...props}
           >
             <ItemWrapper>
