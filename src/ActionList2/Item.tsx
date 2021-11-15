@@ -94,7 +94,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       onSelect = () => null,
       sx: sxProp = {},
       id,
-      _PrivateItemWrapper = ({children}) => <>{children}</>,
+      _PrivateItemWrapper,
       ...props
     },
     forwardedRef
@@ -109,9 +109,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       fontSize: 1,
       paddingY: '6px', // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
-      marginX: listVariant === 'inset' ? 2 : 0,
       minHeight: 5,
-      borderRadius: 2,
+      marginX: listVariant === 'inset' ? 2 : 0,
+      borderRadius: listVariant === 'inset' ? 2 : 0,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       textDecoration: 'none', // for as="a"
@@ -121,10 +121,16 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor
         },
-        ':focus:not([aria-disabled])': {
+        ':focus:not([data-focus-visible-added])': {
           backgroundColor: `actionListItem.${variant}.selectedBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
           outline: 'none'
+        },
+        '&[data-focus-visible-added]': {
+          // we don't use :focus-visible because not all browsers (safari) have it yet
+          outline: 'none',
+          border: `2 solid`,
+          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`
         },
         ':active:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
@@ -147,14 +153,16 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         borderColor: 'var(--divider-color, transparent)'
       },
       // show between 2 items
-      ':not(:first-of-type):not([aria-selected=true])': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]), &:focus:not([aria-disabled])': {'--divider-color': 'transparent'},
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &': {'--divider-color': 'transparent'},
-      // hide border around selected item
-      '&[aria-selected=true] + &': {'--divider-color': 'transparent'}
+      '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
+        '--divider-color': 'transparent'
+      },
+      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
+        '--divider-color': 'transparent'
+      }
     }
 
     const clickHandler = React.useCallback(
@@ -165,10 +173,23 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       [onSelect, disabled]
     )
 
+    const keyPressHandler = React.useCallback(
+      event => {
+        if (disabled) return
+
+        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
+          onSelect(event)
+        }
+      },
+      [onSelect, disabled]
+    )
+
     // use props.id if provided, otherwise generate one.
     const labelId = useSSRSafeId(id)
     const inlineDescriptionId = useSSRSafeId(id && `${id}--inline-description`)
     const blockDescriptionId = useSSRSafeId(id && `${id}--block-description`)
+
+    const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
     return (
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
@@ -177,14 +198,15 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             ref={forwardedRef}
             sx={merge(styles, sxProp as SxProp)}
             onClick={clickHandler}
+            onKeyPress={keyPressHandler}
             aria-selected={selected}
             aria-disabled={disabled ? true : undefined}
-            tabIndex={disabled ? undefined : -1}
+            tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
             {...props}
           >
-            <_PrivateItemWrapper>
+            <ItemWrapper>
               <Selection selected={selected} disabled={disabled} />
               {slots.LeadingVisual}
               <Box
@@ -205,7 +227,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
                 </ConditionalBox>
                 {slots.BlockDescription}
               </Box>
-            </_PrivateItemWrapper>
+            </ItemWrapper>
           </LiBox>
         )}
       </Slots>
