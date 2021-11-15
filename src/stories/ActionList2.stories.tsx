@@ -73,15 +73,14 @@ export function SimpleListStory(): JSX.Element {
   return (
     <>
       <h1>Simple List</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Quote reply</ActionList.Item>
-          <ActionList.Item>Edit comment</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Quote reply</ActionList.Item>
+        <ActionList.Item>Edit comment</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+      </ActionList>
     </>
   )
 }
@@ -91,40 +90,39 @@ export function WithIcon(): JSX.Element {
   return (
     <>
       <h1>With Icon</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <LinkIcon />
-            </ActionList.LeadingVisual>
-            github.com/primer
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <LawIcon />
-            </ActionList.LeadingVisual>
-            MIT License
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <StarIcon />
-            </ActionList.LeadingVisual>
-            256 stars
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <GitForkIcon />
-            </ActionList.LeadingVisual>
-            3 forks
-          </ActionList.Item>
-          <ActionList.Item variant="danger">
-            <ActionList.LeadingVisual>
-              <AlertIcon />
-            </ActionList.LeadingVisual>
-            4 vulnerabilities
-          </ActionList.Item>
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          github.com/primer
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <LawIcon />
+          </ActionList.LeadingVisual>
+          MIT License
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <StarIcon />
+          </ActionList.LeadingVisual>
+          256 stars
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GitForkIcon />
+          </ActionList.LeadingVisual>
+          3 forks
+        </ActionList.Item>
+        <ActionList.Item variant="danger">
+          <ActionList.LeadingVisual>
+            <AlertIcon />
+          </ActionList.LeadingVisual>
+          4 vulnerabilities
+        </ActionList.Item>
+      </ActionList>
     </>
   )
 }
@@ -637,7 +635,7 @@ export function DOMPropsStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.currentTarget.getAttribute('id')}'`)}>
+          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.target.id}'`)}>
             Has an id
           </ActionList.Item>
         </ActionList>
@@ -1185,7 +1183,7 @@ const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) 
       sx={{
         opacity: isDragging ? 0.5 : 1,
         boxShadow: isOver ? theme => `0px 2px 0 0px ${theme.colors.accent.emphasis}` : undefined,
-        borderRadius: isOver ? 0 : undefined
+        borderRadius: isOver ? 0 : 2
       }}
     >
       <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
