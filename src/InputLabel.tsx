@@ -1,14 +1,15 @@
 import React from 'react'
-import {Box, Text} from '.'
+import {Box} from '.'
 
-interface Props extends React.HTMLAttributes<HTMLLabelElement> {
+interface Props extends React.HTMLProps<HTMLLabelElement> {
   visuallyHidden?: boolean
   required?: boolean
 }
 
 const InputLabel: React.FC<Props> = ({children, required, visuallyHidden, ...rest}) => {
   return (
-    <Text
+    // TODO: fix typescript errors
+    <Box
       fontWeight="bold"
       fontSize={1}
       as="label"
@@ -39,7 +40,7 @@ const InputLabel: React.FC<Props> = ({children, required, visuallyHidden, ...res
       ) : (
         children
       )}
-    </Text>
+    </Box>
   )
 }
 

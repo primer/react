@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box} from '..'
-import createSlots from '../utils/create-slots'
 import {ComponentProps} from '../utils/types'
+import {Slots} from './InputField'
 import InputFieldCaption from './InputFieldCaption'
 import InputFieldInput from './InputFieldInput'
 import InputFieldLabel from './InputFieldLabel'
@@ -10,42 +10,41 @@ export interface Props {
   // TODO: limit children to specific components
   // children: any;
   id: string
-  required?: boolean
+  name?: string
   // TODO: Figure out if we're keeping the 'warning' status
   validationStatus?: 'error' | 'warning' | 'success'
 }
 
-export interface InputFieldContext extends Pick<Props, 'id' | 'required' | 'validationStatus'> {
-  captionId: string
-  validationMessageId: string
-}
-
-export const {Slots, Slot} = createSlots(['Caption', 'Validation', 'Input', 'Label'])
-
-const InputField: React.FC<Props> = ({children, id, required, validationStatus}) => {
-  const hasValidationChild = React.Children.toArray(children).some(
-    child => React.isValidElement(child) && child.type === InputFieldValidation
-  )
-
+const InputField: React.FC<Props> = ({children, id, validationStatus}) => {
   return (
     <Slots
       context={{
         captionId: `${id}-caption`,
         id,
-        required,
-        validationMessageId: hasValidationChild ? `${id}-errorMsg` : undefined,
         validationStatus
       }}
     >
       {slots => {
         return (
-          <Box display="flex" flexDirection="column" sx={{'> * + *': {marginTop: 1}}}>
+          // TODO: see if I can just make `children` a child of the `Box`
+          <>
             {children}
-            {slots.Label}
-            {slots.Input}
-            {slots.Validation}
-            {slots.Caption && <Box mt={2}>{slots.Caption}</Box>}
-          </Box>
+            <Box display="flex">
+              <div>{slots.Input}</div>
+              {/* TODO: fix typescript */}
+              {!slots.Label?.valueOf().props.visuallyHidden || slots.Caption ? (
+                <Box ml={1}>
+                  {slots.Label}
+                  {slots.Caption}
+                </Box>
+              ) : (
+                <>
+                  {slots.Label}
+                  {slots.Caption}
+                </>
+              )}
+            </Box>
+          </>
         )
       }}
     </Slots>

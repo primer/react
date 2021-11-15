@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, Text, Box, TextInput} from '..'
 import InputField from '../InputField'
 import {get} from '../constants'
+import ToggleInputField from '../InputField/ToggleInputField'
 
 const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) => (
   <Box
@@ -34,6 +35,8 @@ const ExampleCollectionContainer: React.FC = ({children}) => (
     {children}
   </Box>
 )
+
+const SimpleCheckboxInput: React.FC<React.HTMLProps<HTMLInputElement>> = props => <input type="checkbox" {...props} />
 
 export default {
   title: 'Forms/InputField',
@@ -68,6 +71,29 @@ export const Default = () => {
             Hint: your first name. <a href="http://google.com">More Info</a>
           </InputField.Caption>
         </InputField>
+      </SingleExampleContainer>
+    </ExampleCollectionContainer>
+  )
+}
+
+export const Toggle = () => {
+  return (
+    <ExampleCollectionContainer>
+      <SingleExampleContainer label="Default">
+        <ToggleInputField id="defaultInputField">
+          <InputField.Label>Name</InputField.Label>
+          <InputField.Input as={SimpleCheckboxInput} />
+          <InputField.Caption>Hint: your first name</InputField.Caption>
+        </ToggleInputField>
+      </SingleExampleContainer>
+      <SingleExampleContainer label="Required">
+        <ToggleInputField id="required-defaultInputField">
+          <InputField.Label>Name</InputField.Label>
+          <InputField.Input as={SimpleCheckboxInput} />
+          <InputField.Caption>
+            Hint: your first name. <a href="http://google.com">More Info</a>
+          </InputField.Caption>
+        </ToggleInputField>
       </SingleExampleContainer>
     </ExampleCollectionContainer>
   )

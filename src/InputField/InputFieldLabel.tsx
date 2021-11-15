@@ -10,7 +10,7 @@ const InputFieldLabel: React.FC<Props> = ({children, visuallyHidden}) => (
   <Slot name="Label">
     {({id, required}: InputFieldContext) => (
       <InputLabel
-        id={id}
+        htmlFor={id}
         visuallyHidden={visuallyHidden}
         required={required}
         title={required ? 'required field' : undefined}

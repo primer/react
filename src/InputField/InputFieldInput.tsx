@@ -4,7 +4,7 @@ import {InputFieldContext, Slot} from './InputField'
 import {TextInput} from '..'
 
 export interface Props {
-  // TODO: pass a generic to `React.ReactElement` to limit to children that accept certain props
+  // TODO: pass a generic to `React.ReactElement` to limit to children that accept certain props (e.g.: `validationStatus`)
   children?: React.ReactElement
 }
 
@@ -14,7 +14,7 @@ const InputFieldInput = React.forwardRef(({as: Component = TextInput, ...rest}, 
       {({id, required, validationStatus, validationMessageId, captionId}: InputFieldContext) => (
         <Component
           ref={ref}
-          aria-describedby={[validationMessageId, captionId].join(' ')}
+          aria-describedby={[validationMessageId, captionId].filter(Boolean).join(' ')}
           id={id}
           required={required}
           validationStatus={validationStatus}
