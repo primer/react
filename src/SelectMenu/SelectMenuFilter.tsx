@@ -1,17 +1,16 @@
 import React, {forwardRef, useContext, useEffect, useRef} from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import TextInput, {TextInputProps} from '../TextInput'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
-const StyledForm = styled.form<SystemCommonProps & SxProp>`
+const StyledForm = styled.form<SxProp>`
   padding: ${get('space.3')};
   margin: 0;
   border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
   background-color: ${get('colors.canvas.overlay')};
-  ${COMMON};
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding: ${get('space.2')};
