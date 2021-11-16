@@ -28,7 +28,7 @@ export type DropdownButtonProps = ButtonProps
 
 const DropdownButton = ({children, ...rest}: DropdownButtonProps) => {
   return (
-    <Button as="summary" aria-haspopup="true" caret {...rest}>
+    <Button as="summary" aria-haspopup="true" {...rest}>
       {children}
       <DropdownCaret />
     </Button>
