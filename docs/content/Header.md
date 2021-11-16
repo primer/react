@@ -53,27 +53,25 @@ All items directly under the Header component should be a `Header.Item` componen
 </Header>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-`Header` and `Header.Item` components get `COMMON` and `BORDER` system props. `Header.Link` component gets `COMMON`, `BORDER`, and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
+
+### Header
+
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
 
 ### Header.Item
 
-| Prop name | Type    | Description                                |
-| :-------- | :------ | :----------------------------------------- |
-| full      | Boolean | stretches item to fill the available space |
+| Name | Type              | Default | Description                                |
+| :--- | :---------------- | :-----: | :----------------------------------------- |
+| full | Boolean           |         | stretches item to fill the available space |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component       |
 
 ### Header.Link
 
-| Prop name | Type   | Description                         |
-| :-------- | :----- | :---------------------------------- |
-| as        | String | sets the HTML tag for the component |
-| href      | String | URL to be used for the Link         |
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| as   | String            |         | sets the HTML tag for the component  |
+| href | String            |         | URL to be used for the Link          |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
