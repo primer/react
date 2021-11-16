@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Button, {ButtonProps} from '../NewButton'
+import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
 import Box from '../Box'
 import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -23,7 +23,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'default' | 'primary' | 'danger' | 'invisible'
+  buttonType?: 'normal' | 'primary' | 'danger'
 
   /**
    * The Button's inner text
@@ -344,7 +344,11 @@ const Footer = styled(Box).attrs({as: 'footer'})`
     }
   }
 `
-
+const buttonTypes = {
+  normal: Button,
+  primary: ButtonPrimary,
+  danger: ButtonDanger
+}
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -361,24 +365,39 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const ButtonElement = buttonTypes[buttonType]
         return (
-          <Button
+          <ButtonElement
             key={index}
             {...buttonProps}
             variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </Button>
+          </ButtonElement>
         )
       })}
     </>
   )
 }
-
-const CloseButton = ({onClose}: {onClose: () => void}) => {
-  return <Button onClick={onClose} sx={{alignSelf: 'flex-start'}} variant="invisible" icon={() => <XIcon />}></Button>
+const DialogCloseButton = styled(Button)`
+  border-radius: 4px;
+  background: transparent;
+  border: 0;
+  vertical-align: middle;
+  color: ${get('colors.fg.muted')};
+  padding: ${get('space.2')};
+  align-self: flex-start;
+  line-height: normal;
+  box-shadow: none;
+`
+const CloseButton: React.FC<{onClose: () => void}> = ({onClose}) => {
+  return (
+    <DialogCloseButton aria-label="Close" onClick={onClose}>
+      <StyledOcticon icon={XIcon} />
+    </DialogCloseButton>
+  )
 }
 
 /**
