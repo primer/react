@@ -1,215 +1,252 @@
 import React, {forwardRef} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import Box from '../Box'
-import {fontSize, FontSizeProps, variant as variantFn} from 'styled-system'
-import styled, {css} from 'styled-components'
-import sx, {SxProp} from '../sx'
-import {get} from '../constants'
-import buttonBaseStyles from './buttonStyles'
-import {Theme} from '../ThemeProvider'
-import {ComponentProps} from '../utils/types'
+import styled from 'styled-components'
+import sx, {merge, SxProp} from '../sx'
+import {useTheme, Theme} from '../ThemeProvider'
 
-const sizes = variantFn({
-  prop: 'size',
-  variants: {
-    small: {
-      fontSize: 0
-    },
-    medium: {
-      fontSize: 1
-    },
-    large: {
-      fontSize: 2
-    }
-  }
-})
 type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
-export type ButtonBaseProps = {
+export type ButtonProps = {
+  /**
+   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
+   */
   variant?: VariantType
+  /**
+   * Size of button and fontSize of text in button
+   */
   size?: 'small' | 'medium' | 'large'
+  /**
+   * This is to be used if it is an icon-only button. Will make text visually hidden
+   */
   icon?: React.FunctionComponent<IconProps>
-  leadingIcon?:React.FunctionComponent<IconProps>
+  /**
+   * The leading icon comes before button content
+   */
+  leadingIcon?: React.FunctionComponent<IconProps>
+  /**
+   * The trailing icon comes after button content
+   */
   trailingIcon?: React.FunctionComponent<IconProps>
-} & SxProp &
-  FontSizeProps
+  /**
+   * Items that are disabled can not be clicked, selected, or navigated through.
+   */
+  disabled?: boolean
+} & SxProp
 
-const getVariantStyles = (theme: Theme, variant: VariantType = 'default') => {
+const getVariantStyles = (variant: VariantType = 'default', theme: Theme) => {
   const style = {
-    default: css`
-      color: ${get('colors.btn.text')};
-      background-color: ${get('colors.btn.bg')};
-      border-width: 1px;
-      border-style: solid;
-      border-color: ${get('colors.btn.border')};
-      box-shadow: ${(get('shadows.btn.shadow'), get('shadows.btn.insetShadow'))};
-      &:hover:not([disabled]) {
-        background-color: ${get('colors.btn.hoverBg')};
-      }
+    default: {
+      color: 'btn.text',
+      backgroundColor: 'btn.bg',
+      //boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
+      '&:hover:not([disabled])': {
+        backgroundColor: 'btn.hoverBg'
+      },
       // focus must come before :active so that the active box shadow overrides
-      &:focus:not([disabled]) {
-        box-shadow: ${get('shadows.btn.focusShadow')};
+      '&:focus:not([disabled])': {
+        boxShadow: `${theme?.shadows.btn.focusShadow}`
+      },
+      '&:active:not([disabled])': {
+        backgroundColor: 'btn.selectedBg',
+        boxShadow: `${theme?.shadows.btn.shadowActive}`
+      },
+      '&:disabled': {
+        color: 'primer.fg.disabled',
+        backgroundColor: 'btn.disabledBg'
       }
-      &:active:not([disabled]) {
-        background-color: ${get('colors.btn.selectedBg')};
-        box-shadow: ${get('shadows.btn.shadowActive')};
-      }
-      &:disabled {
-        color: ${get('colors.primer.fg.disabled')};
-        background-color: ${get('colors.btn.disabledBg')};
-      }
-    `,
-    primary: css`
-      color: ${get('colors.btn.primary.text')};
-      background-color: ${get('colors.btn.primary.bg')};
-      border-width: 1px;
-      border-style: solid;
-      border-color: ${get('colors.border.subtle')};
-      box-shadow: ${get('shadows.btn.primary.shadow')};
-
-      &:hover:not([disabled]) {
-        color: ${get('colors.btn.primary.hoverText')};
-        background-color: ${get('colors.btn.primary.hoverBg')};
-      }
+    },
+    primary: {
+      color: 'btn.primary.text',
+      backgroundColor: 'btn.primary.bg',
+      borderColor: 'border.subtle',
+      boxShadow: `${theme?.shadows.btn.primary.shadow}`,
+      '&:hover:not([disabled])': {
+        color: 'btn.primary.hoverText',
+        backgroundColor: 'btn.primary.hoverBg'
+      },
       // focus must come before :active so that the active box shadow overrides
-      &:focus:not([disabled]) {
-        box-shadow: ${get('shadows.btn.primary.focusShadow')};
+      '&:focus:not([disabled])': {
+        boxShadow: `${theme?.shadows.btn.primary.focusShadow}`
+      },
+      '&:active:not([disabled])': {
+        backgroundColor: 'btn.primary.selectedBg',
+        boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`
+      },
+      '&:disabled': {
+        color: 'btn.primary.disabledText',
+        backgroundColor: 'btn.primary.disabledBg'
       }
-
-      &:active:not([disabled]) {
-        background-color: ${get('colors.btn.primary.selectedBg')};
-        box-shadow: ${get('shadows.btn.primary.selectedShadow')};
-      }
-
-      &:disabled {
-        color: ${get('colors.btn.primary.disabledText')};
-        background-color: ${get('colors.btn.primary.disabledBg')};
-      }`,
-    danger: css`
-      color: ${get('colors.btn.danger.text')};
-      border: 1px solid ${get('colors.btn.border')};
-      background-color: ${get('colors.btn.bg')};
-      box-shadow: ${get('shadows.btn.shadow')};
-
-      &:hover:not([disabled]) {
-        color: ${get('colors.btn.danger.hoverText')};
-        background-color: ${get('colors.btn.danger.hoverBg')};
-        border-color: ${get('colors.btn.danger.hoverBorder')};
-        box-shadow: ${get('shadows.btn.danger.hoverShadow')};
-      }
+    },
+    danger: {
+      color: 'btn.danger.text',
+      backgroundColor: 'btn.bg',
+      boxShadow: `${theme?.shadows.btn.shadow}`,
+      '&:hover:not([disabled])': {
+        color: 'btn.danger.hoverText',
+        backgroundColor: 'btn.danger.hoverBg',
+        borderColor: 'btn.danger.hoverBorder',
+        boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`
+      },
       // focus must come before :active so that the active box shadow overrides
-      &:focus:not([disabled]) {
-        border-color: ${get('colors.btn.danger.focusBorder')};
-        box-shadow: ${get('shadows.btn.danger.focusShadow')};
+      '&:focus:not([disabled])': {
+        borderColor: 'btn.danger.focusBorder',
+        boxShadow: `${theme?.shadows.btn.danger.focusShadow}`
+      },
+      '&:active:not([disabled])': {
+        color: 'btn.danger.selectedText',
+        backgroundColor: 'btn.danger.selectedBg',
+        boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
+        borderColor: 'btn.danger.selectedBorder'
+      },
+      '&:disabled': {
+        color: 'btn.danger.disabledText',
+        backgroundColor: 'btn.danger.disabledBg',
+        borderColor: 'btn.danger.disabledBorder'
       }
-
-      &:active:not([disabled]) {
-        color: ${get('colors.btn.danger.selectedText')};
-        background-color: ${get('colors.btn.danger.selectedBg')};
-        box-shadow: ${get('shadows.btn.danger.selectedShadow')};
-        border-color: ${get('colors.btn.danger.selectedBorder')};
+    },
+    invisible: {
+      color: 'accent.fg',
+      backgroundColor: 'transparent',
+      border: '0',
+      boxShadow: 'none',
+      '&:hover:not([disabled])': {
+        color: 'btn.danger.hoverText',
+        backgroundColor: 'btn.danger.hoverBg',
+        borderColor: 'btn.danger.hoverBorder',
+        boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`
+      },
+      // focus must come before :active so that the active box shadow overrides
+      '&:focus:not([disabled])': {
+        boxShadow: `${theme?.shadows.btn.focusShadow}`
+      },
+      '&:active:not([disabled])': {
+        backgroundColor: 'btn.selectedBg'
+      },
+      '&:disabled': {
+        color: 'primer.fg.disabled'
       }
-
-      &:disabled {
-        color: ${get('colors.btn.danger.disabledText')};
-        background-color: ${get('colors.btn.danger.disabledBg')};
-        border-color: ${get('colors.btn.danger.disabledBorder')};
-      }
-    `,
-    invisible: css`
-      color: ${get('colors.accent.fg')};
-      background-color: transparent;
-      border: 0;
-      border-radius: ${get('radii.2')};
-      box-shadow: none;
-    
-      &:disabled {
-        color: ${get('colors.primer.fg.disabled')};
-      }
-      &:focus:not([disabled]) {
-        box-shadow: ${get('shadows.btn.focusShadow')};
-      }
-      &:hover:not([disabled]) {
-        background-color: ${get('colors.btn.hoverBg')};
-      }
-      &:active:not([disabled]) {
-        background-color: ${get('colors.btn.selectedBg')};
-      }
-    `
+    }
   }
   return style[variant]
 }
 
-const getSizes = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
-  let paddingTop, paddingLeft
+const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
+  let paddingY, paddingX, fontSize
   switch (size) {
     case 'small':
-      paddingTop = 3
-      paddingLeft = 12
+      paddingY = 3
+      paddingX = 12
+      fontSize = 0
       break
     case 'large':
-      paddingTop = 9
-      paddingLeft = 20
+      paddingY = 9
+      paddingX = 20
+      fontSize = 2
       break
     case 'medium':
     default:
-      paddingTop = 5
-      paddingLeft = 16
+      paddingY = 5
+      paddingX = 16
+      fontSize = 1
   }
   if (iconOnly) {
-    paddingLeft = paddingTop + 2
+    paddingX = paddingY + 2
   }
   if (variant === 'invisible') {
-    paddingTop = paddingTop + 1
+    paddingY = paddingY + 1
   }
-  return `
-    padding:${paddingTop}px ${paddingLeft}px;
-  `
+  return {
+    paddingY: `${paddingY}px`,
+    paddingX: `${paddingX}px`,
+    fontSize
+  }
 }
-const ButtonBase = styled.button<ButtonBaseProps & {iconOnly: boolean}>`
-  ${buttonBaseStyles}
-  ${props => getVariantStyles(props.theme, props.variant)}
-  ${props => getSizes(props.size, props.variant, props.iconOnly)}
-  ${sizes}
-  ${sx}
-  ${fontSize}
-`
 
-const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ComponentProps<typeof ButtonBase>>(
-  ({children, ...props}, forwardedRef) => {
-    const {icon: Icon, leadingIcon: LeadingIcon, trailingIcon: TrailingIcon} = props
-    let iconOnly = !!Icon;
-    const iconWrapStyles = {
-      display: 'inline-block',
+const ButtonBase = styled.button<SxProp>(sx)
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props}, forwardedRef) => {
+  const {
+    icon: Icon,
+    leadingIcon: LeadingIcon,
+    trailingIcon: TrailingIcon,
+    variant = 'default',
+    size = 'medium',
+    sx: sxProp = {}
+  } = props
+  let iconOnly = !!Icon
+  const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+  const {theme} = useTheme()
+
+  const styles = {
+    borderRadius: 2,
+    border: '1px solid',
+    borderColor: theme?.colors.btn.border,
+    display: 'grid',
+    gridTemplateAreas: '"leadingIcon text trailingIcon"',
+    fontWeight: 'bold',
+    lineHeight: TEXT_ROW_HEIGHT,
+    whiteSpace: 'nowrap',
+    verticalAlign: 'middle',
+    cursor: 'pointer',
+    appearance: 'none',
+    userSelect: 'none',
+    textDecoration: 'none',
+    textAlign: 'center',
+    '> :not(:last-child)': {
+      mr: 2
+    },
+    ':not(\'[data-component="icon-only"]\')': {
+      mr: 2
+    },
+    '&:focus': {
+      outline: 'none'
+    },
+    '&:disabled': {
+      cursor: 'default'
+    },
+    '&:disabled svg': {
+      opacity: '0.6'
+    },
+    '[data-component="leadingIcon"]': {
+      gridArea: 'leadingIcon'
+    },
+    '[data-component="text"]': {
+      gridArea: 'text'
+    },
+    '[data-component="trailingIcon"]': {
+      gridArea: 'trailingIcon'
     }
-    return (
-      <ButtonBase ref={forwardedRef} {...props} iconOnly={iconOnly}>
-        {LeadingIcon && (
-          <Box as='span' data-component='leadingIcon' sx={iconWrapStyles} aria-hidden={!iconOnly}>
-            <LeadingIcon />
-          </Box>
-        )}
-        {Icon &&  <Box as='span' sx={{display:'inline-block'}} aria-hidden={!iconOnly}>
-            <Icon />
-          </Box>}
-        <span data-component='text' hidden={Icon? true:false}>{children}</span>
-        {TrailingIcon && (
-          <Box as='span' data-component='trailingIcon' sx={iconWrapStyles} aria-hidden={!iconOnly}>
-            <TrailingIcon />
-          </Box>
-        )}
-      </ButtonBase>
-    )
   }
-)
+
+  const variableStyles = merge(styles, {...getSizeStyles(size, variant, iconOnly), ...getVariantStyles(variant, theme)})
+  const iconWrapStyles = {
+    display: 'inline-block'
+  }
+  return (
+    <ButtonBase ref={forwardedRef} {...props} sx={merge(variableStyles, sxProp as SxProp)}>
+      {LeadingIcon && (
+        <Box as="span" data-component="leadingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
+          <LeadingIcon />
+        </Box>
+      )}
+      {Icon && (
+        <Box data-component="icon-only" as="span" sx={{display: 'inline-block'}} aria-hidden={!iconOnly}>
+          <Icon />
+        </Box>
+      )}
+      <span data-component="text" hidden={Icon ? true : false}>
+        {children}
+      </span>
+      {TrailingIcon && (
+        <Box as="span" data-component="trailingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
+          <TrailingIcon />
+        </Box>
+      )}
+    </ButtonBase>
+  )
+})
 
 Button.displayName = 'Button'
 
-Button.defaultProps = {
-  size: 'medium',
-  variant: 'default'
-}
-
-
-export type ButtonProps = ComponentProps<typeof Button>
 export default Button
