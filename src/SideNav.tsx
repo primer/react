@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-namespace
 import * as History from 'history'
 
-import {COMMON, get} from './constants'
+import {get} from './constants'
 import styled, {css} from 'styled-components'
 
 import Box from './Box'
@@ -9,37 +9,36 @@ import {ComponentProps} from './utils/types'
 import Link from './Link'
 import React from 'react'
 import classnames from 'classnames'
-import sx from './sx'
+import sx, {SxProp} from './sx'
 
 type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'
   bordered?: boolean
-} & ComponentProps<typeof Box>
+  className?: string
+  children?: React.ReactNode
+  'aria-label'?: string
+}
 
-function SideNavBase({variant, className, bordered, children, ...props}: SideNavBaseProps) {
+function SideNavBase({variant, className, bordered, children, 'aria-label': ariaLabel}: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
-  if (!bordered) {
-    props = {...props, borderWidth: 0}
-  }
-
   return (
     <Box
-      borderWidth="1px"
+      borderWidth={bordered ? '1px' : 0}
       borderStyle="solid"
       borderColor="border.default"
       borderRadius={2}
       as="nav"
       className={newClassName}
-      {...props}
+      aria-label={ariaLabel}
     >
       {children}
     </Box>
   )
 }
 
-const SideNav = styled(SideNavBase)`
+const SideNav = styled(SideNavBase)<SxProp>`
   background-color: ${get('colors.canvas.subtle')};
 
   ${props =>
@@ -53,7 +52,6 @@ const SideNav = styled(SideNavBase)`
       }
     `}
 
-  ${COMMON};
   ${sx};
 `
 type StyledSideNavLinkProps = {
@@ -85,7 +83,7 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   } else {
     return {}
   }
-})<StyledSideNavLinkProps>`
+})<StyledSideNavLinkProps & SxProp>`
   position: relative;
   display: block;
   ${props =>
