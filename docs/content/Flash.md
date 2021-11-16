@@ -26,19 +26,10 @@ Flash components with icons inside of them will automatically set the correct co
 </Flash>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Flash components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-| Name    | Type    | Default | Description                                                                                                              |
-| :------ | :------ | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
-| full    | Boolean |         | Creates a full width Flash component                                                                                     |
-| variant | String  | default | Can be one of `default`, `success`, `warning`, or `danger` - sets the background color and border of the Flash component |
+| Name    | Type              | Default | Description                                                                                                              |
+| :------ | :---------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
+| full    | Boolean           |         | Creates a full width Flash component                                                                                     |
+| sx      | SystemStyleObject |   {}    | Style to be applied to the component                                                                                     |
+| variant | String            | default | Can be one of `default`, `success`, `warning`, or `danger` - sets the background color and border of the Flash component |
