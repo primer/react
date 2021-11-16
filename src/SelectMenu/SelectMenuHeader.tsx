@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -19,13 +19,11 @@ const SelectMenuTitle = styled.h3`
   }
 `
 
-const StyledHeader = styled.header<SystemTypographyProps & SystemCommonProps & SxProp>`
+const StyledHeader = styled.header<SxProp>`
   display: flex;
   flex: none; // fixes header from getting squeezed in Safari iOS
   padding: ${get('space.3')};
   border-bottom: ${get('borderWidths')} solid ${get('colors.border.muted')};
-  ${COMMON}
-  ${TYPOGRAPHY}
 
   @media (min-width: ${get('breakpoints.0')}) {
     padding-top: ${get('space.2')};

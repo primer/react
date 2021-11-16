@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
@@ -43,9 +43,8 @@ const tabStyles = css`
   }
 `
 
-const StyledTab = styled.button<SystemCommonProps & SxProp>`
+const StyledTab = styled.button<SxProp>`
   ${tabStyles}
-  ${COMMON}
   ${sx};
 `
 
