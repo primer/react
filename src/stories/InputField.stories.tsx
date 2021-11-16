@@ -60,11 +60,22 @@ export const Default = () => {
         <InputField id="defaultInputField">
           <InputField.Label>Name</InputField.Label>
           <InputField.Input as={TextInput} />
-          <InputField.Caption>Hint: your first name</InputField.Caption>
+          <InputField.Caption>
+            Hint: your first name. <a href="http://google.com">More Info</a>
+          </InputField.Caption>
         </InputField>
       </SingleExampleContainer>
       <SingleExampleContainer label="Required">
         <InputField id="required-defaultInputField" required>
+          <InputField.Label>Name</InputField.Label>
+          <InputField.Input as={TextInput} />
+          <InputField.Caption>
+            Hint: your first name. <a href="http://google.com">More Info</a>
+          </InputField.Caption>
+        </InputField>
+      </SingleExampleContainer>
+      <SingleExampleContainer label="Disabled">
+        <InputField id="required-disabledInputField" disabled>
           <InputField.Label>Name</InputField.Label>
           <InputField.Input as={TextInput} />
           <InputField.Caption>
@@ -81,17 +92,19 @@ export const Toggle = () => {
     <ExampleCollectionContainer>
       <SingleExampleContainer label="Default">
         <ToggleInputField id="defaultInputField">
-          <InputField.Label>Name</InputField.Label>
-          <InputField.Input as={SimpleCheckboxInput} />
-          <InputField.Caption>Hint: your first name</InputField.Caption>
-        </ToggleInputField>
-      </SingleExampleContainer>
-      <SingleExampleContainer label="Required">
-        <ToggleInputField id="required-defaultInputField">
-          <InputField.Label>Name</InputField.Label>
+          <InputField.Label>Choice</InputField.Label>
           <InputField.Input as={SimpleCheckboxInput} />
           <InputField.Caption>
-            Hint: your first name. <a href="http://google.com">More Info</a>
+            Hint: your first choice. <a href="http://google.com">More Info</a>
+          </InputField.Caption>
+        </ToggleInputField>
+      </SingleExampleContainer>
+      <SingleExampleContainer label="Disabled">
+        <ToggleInputField id="required-requiredInputField" disabled>
+          <InputField.Label>Choice</InputField.Label>
+          <InputField.Input as={SimpleCheckboxInput} />
+          <InputField.Caption>
+            Hint: your first choice. <a href="http://google.com">More Info</a>
           </InputField.Caption>
         </ToggleInputField>
       </SingleExampleContainer>

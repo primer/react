@@ -2,11 +2,12 @@ import React from 'react'
 import {Box} from '.'
 
 interface Props extends React.HTMLProps<HTMLLabelElement> {
-  visuallyHidden?: boolean
+  disabled?: boolean
   required?: boolean
+  visuallyHidden?: boolean
 }
 
-const InputLabel: React.FC<Props> = ({children, required, visuallyHidden, ...rest}) => {
+const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidden, ...rest}) => {
   return (
     // TODO: fix typescript errors
     <Box
@@ -14,6 +15,7 @@ const InputLabel: React.FC<Props> = ({children, required, visuallyHidden, ...res
       fontSize={1}
       as="label"
       display="block"
+      color={disabled ? 'fg.muted' : 'fg.default'}
       sx={
         // TODO: create a VisuallyHidden component if this hiding technique is used in any other components
         visuallyHidden

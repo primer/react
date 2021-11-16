@@ -9,20 +9,33 @@ import InputFieldValidation from './InputFieldValidation'
 export interface Props {
   // TODO: limit children to specific components
   // children: any;
+  /**
+   * Whether the field is ready for user input
+   */
+  disabled?: boolean
+  /**
+   * The unique identifier for this field. Used to associate the label, validation text, and caption text
+   */
   id: string
+  /**
+   * Whether this field must have a value for the user to complete their task
+   */
   required?: boolean
+  /**
+   * Styles the field to visually communicate the result of form validation
+   */
   // TODO: Figure out if we're keeping the 'warning' status
   validationStatus?: 'error' | 'warning' | 'success'
 }
 
-export interface InputFieldContext extends Pick<Props, 'id' | 'required' | 'validationStatus'> {
+export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'required' | 'validationStatus'> {
   captionId: string
   validationMessageId: string
 }
 
 export const {Slots, Slot} = createSlots(['Caption', 'Validation', 'Input', 'Label'])
 
-const InputField: React.FC<Props> = ({children, id, required, validationStatus}) => {
+const InputField: React.FC<Props> = ({children, disabled, id, required, validationStatus}) => {
   const hasValidationChild = React.Children.toArray(children).some(
     child => React.isValidElement(child) && child.type === InputFieldValidation
   )
@@ -31,6 +44,7 @@ const InputField: React.FC<Props> = ({children, id, required, validationStatus})
     <Slots
       context={{
         captionId: `${id}-caption`,
+        disabled,
         id,
         required,
         validationMessageId: hasValidationChild ? `${id}-errorMsg` : undefined,
