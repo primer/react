@@ -11,11 +11,13 @@ import InputFieldValidation from './InputFieldValidation'
 export interface Props {
   // TODO: limit children to specific components
   // children: any;
+  /**
+   * Whether the field is ready for user input
+   */
   disabled?: boolean
   /**
    * The unique identifier for this field. Used to associate the label, validation text, and caption text
    */
-
   id: string
   /**
    * The identifier used to associate this input with other inputs. For example: associating multiple radio inputs
