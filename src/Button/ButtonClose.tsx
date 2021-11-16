@@ -1,13 +1,11 @@
 import {XIcon} from '@primer/octicons-react'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
-import {COMMON, get, LAYOUT, SystemCommonProps, SystemLayoutProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
-type StyledButtonProps = SystemCommonProps & SystemLayoutProps & SxProp
-
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<SxProp>`
   border: none;
   padding: 0;
   background: transparent;
@@ -23,8 +21,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   &:hover {
     color: ${get('colors.accent.fg')};
   }
-  ${COMMON};
-  ${LAYOUT};
   ${sx};
 `
 
