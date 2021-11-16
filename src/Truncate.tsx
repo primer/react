@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
-import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -9,13 +8,9 @@ type StyledTruncateProps = {
   inline?: boolean
   expandable?: boolean
 } & MaxWidthProps &
-  SystemTypographyProps &
-  SystemCommonProps &
   SxProp
 
 const Truncate = styled.div<StyledTruncateProps>`
-  ${TYPOGRAPHY}
-  ${COMMON}
   display: ${props => (props.inline ? 'inline-block' : 'inherit')};
   overflow: hidden;
   text-overflow: ellipsis;
