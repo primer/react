@@ -16,22 +16,13 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 </Link>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Link components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-| Name       | Type    | Default | Description                                                                     |
-| :--------- | :------ | :-----: | :------------------------------------------------------------------------------ |
-| href       | String  |         | URL to be used for the Link                                                     |
-| muted      | Boolean |  false  | Uses a less prominent shade for Link color, and the default link shade on hover |
-| underline  | Boolean |  false  | Adds underline to the Link                                                      |
-| as         | String  |   'a'   | Can be 'a', 'button', 'input', or 'summary'                                     |
-| hoverColor | String  |         | Color used when hovering over link                                              |
+| Name       | Type              | Default | Description                                                                     |
+| :--------- | :---------------- | :-----: | :------------------------------------------------------------------------------ |
+| href       | String            |         | URL to be used for the Link                                                     |
+| muted      | Boolean           |  false  | Uses a less prominent shade for Link color, and the default link shade on hover |
+| underline  | Boolean           |  false  | Adds underline to the Link                                                      |
+| as         | String            |   'a'   | Can be 'a', 'button', 'input', or 'summary'                                     |
+| hoverColor | String            |         | Color used when hovering over link                                              |
+| sx         | SystemStyleObject |   {}    | Style to be applied to the component                                            |
