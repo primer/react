@@ -72,10 +72,18 @@ export const iconBeforeButton = (args: ButtonProps) => {
 export const iconButton = ({...args}: ButtonProps) => {
   return (
     <>
-      <Button icon={XIcon} {...args}>Close</Button>
-      <Button icon={XIcon} {...args} variant="invisible">Close</Button>
-      <Button icon={XIcon} {...args} variant="danger">Close</Button>
-      <Button icon={XIcon} {...args} variant="primary">Close</Button>
+      <Button icon={XIcon} {...args}>
+        Close
+      </Button>
+      <Button icon={XIcon} {...args} variant="invisible">
+        Close
+      </Button>
+      <Button icon={XIcon} {...args} variant="danger">
+        Close
+      </Button>
+      <Button icon={XIcon} {...args} variant="primary">
+        Close
+      </Button>
     </>
   )
 }
@@ -84,21 +92,21 @@ export const WatchCounterButton = ({...args}: ButtonProps) => {
   const [count, setCount] = useState(0)
   return (
     <>
-      <Button onClick={() => setCount(count + 1)} {...args} >
+      <Button onClick={() => setCount(count + 1)} {...args}>
         Watch
-        <CounterLabel sx={{ml:2}}>{count}</CounterLabel>
+        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
       </Button>
-      <Button onClick={() => setCount(count + 1)} {...args} variant='primary'>
+      <Button onClick={() => setCount(count + 1)} {...args} variant="primary">
         Watch
-        <CounterLabel sx={{ml:2}}>{count}</CounterLabel>
+        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
       </Button>
-      <Button onClick={() => setCount(count + 1)} {...args} variant='invisible'>
+      <Button onClick={() => setCount(count + 1)} {...args} variant="invisible">
         Watch
-        <CounterLabel sx={{ml:2}}>{count}</CounterLabel>
+        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
       </Button>
-      <Button onClick={() => setCount(count + 1)} {...args} variant='danger'>
+      <Button onClick={() => setCount(count + 1)} {...args} variant="danger">
         Watch
-        <CounterLabel sx={{ml:2}}>{count}</CounterLabel>
+        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
       </Button>
     </>
   )

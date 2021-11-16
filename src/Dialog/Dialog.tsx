@@ -6,7 +6,7 @@ import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import {XIcon} from '@primer/octicons-react'
+import {XIcon, StyledOcticon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '../behaviors/focusZone'
 import Portal from '../Portal'

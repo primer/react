@@ -34,7 +34,7 @@ export type ButtonProps = {
   disabled?: boolean
 } & SxProp
 
-const getVariantStyles = (variant: VariantType = 'default', theme: Theme) => {
+const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
     default: {
       color: 'btn.text',
@@ -174,7 +174,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
     size = 'medium',
     sx: sxProp = {}
   } = props
-  let iconOnly = !!Icon
+  const iconOnly = !!Icon
   const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
   const {theme} = useTheme()
 
