@@ -73,15 +73,14 @@ export function SimpleListStory(): JSX.Element {
   return (
     <>
       <h1>Simple List</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Quote reply</ActionList.Item>
-          <ActionList.Item>Edit comment</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Quote reply</ActionList.Item>
+        <ActionList.Item>Edit comment</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+      </ActionList>
     </>
   )
 }
@@ -91,40 +90,39 @@ export function WithIcon(): JSX.Element {
   return (
     <>
       <h1>With Icon</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <LinkIcon />
-            </ActionList.LeadingVisual>
-            github.com/primer
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <LawIcon />
-            </ActionList.LeadingVisual>
-            MIT License
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <StarIcon />
-            </ActionList.LeadingVisual>
-            256 stars
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <GitForkIcon />
-            </ActionList.LeadingVisual>
-            3 forks
-          </ActionList.Item>
-          <ActionList.Item variant="danger">
-            <ActionList.LeadingVisual>
-              <AlertIcon />
-            </ActionList.LeadingVisual>
-            4 vulnerabilities
-          </ActionList.Item>
-        </ActionList>
-      </ErsatzOverlay>
+
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          github.com/primer
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <LawIcon />
+          </ActionList.LeadingVisual>
+          MIT License
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <StarIcon />
+          </ActionList.LeadingVisual>
+          256 stars
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GitForkIcon />
+          </ActionList.LeadingVisual>
+          3 forks
+        </ActionList.Item>
+        <ActionList.Item variant="danger">
+          <ActionList.LeadingVisual>
+            <AlertIcon />
+          </ActionList.LeadingVisual>
+          4 vulnerabilities
+        </ActionList.Item>
+      </ActionList>
     </>
   )
 }
@@ -161,12 +159,16 @@ export function WithAvatar(): JSX.Element {
 }
 WithAvatar.storyName = 'With Avatar'
 
-const projects = [
-  {name: 'Primer Backlog', scope: 'GitHub'},
-  {name: 'Accessibility', scope: 'GitHub'},
-  {name: 'Octicons', scope: 'github/primer'},
-  {name: 'Primer React', scope: 'github/primer'}
+const labels = [
+  {name: 'blocked', color: '#86181d', description: 'Someone or something is preventing this from moving forward'},
+  {name: 'dependencies', color: '#0366d6', description: 'Pull requests that update a dependency file'},
+  {name: 'duplicate', color: '#cfd3d7', description: 'This issue or pull request already exists'},
+  {name: 'good first issue', color: '#7057ff', description: 'Good for newcomers'}
 ]
+
+const LabelColor: React.FC<{color: string}> = ({color}) => (
+  <Box sx={{backgroundColor: color, width: '14px', height: '14px', borderRadius: 3}} />
+)
 
 export function WithDescription(): JSX.Element {
   return (
@@ -184,13 +186,13 @@ export function WithDescription(): JSX.Element {
             </ActionList.Item>
           ))}
           <ActionList.Divider />
-          {projects.map((project, index) => (
+          {labels.map((label, index) => (
             <ActionList.Item key={index}>
               <ActionList.LeadingVisual>
-                <TableIcon />
+                <LabelColor color={label.color} />
               </ActionList.LeadingVisual>
-              {project.name}
-              <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
         </ActionList>
@@ -199,6 +201,13 @@ export function WithDescription(): JSX.Element {
   )
 }
 WithDescription.storyName = 'With Description & Dividers'
+
+const projects = [
+  {name: 'Primer Backlog', scope: 'GitHub'},
+  {name: 'Accessibility', scope: 'GitHub'},
+  {name: 'Octicons', scope: 'github/primer'},
+  {name: 'Primer React', scope: 'github/primer'}
+]
 
 export function SingleSelectListStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(1)
@@ -626,7 +635,7 @@ export function DOMPropsStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.currentTarget.getAttribute('id')}'`)}>
+          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.target.id}'`)}>
             Has an id
           </ActionList.Item>
         </ActionList>
@@ -1174,7 +1183,7 @@ const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) 
       sx={{
         opacity: isDragging ? 0.5 : 1,
         boxShadow: isOver ? theme => `0px 2px 0 0px ${theme.colors.accent.emphasis}` : undefined,
-        borderRadius: isOver ? 0 : undefined
+        borderRadius: isOver ? 0 : 2
       }}
     >
       <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
