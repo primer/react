@@ -13,7 +13,7 @@ import {
   LinkIcon,
   LawIcon,
   StarIcon,
-  GitForkIcon,
+  RepoForkedIcon,
   AlertIcon,
   TableIcon,
   PeopleIcon,
@@ -112,7 +112,7 @@ export function WithIcon(): JSX.Element {
         </ActionList.Item>
         <ActionList.Item>
           <ActionList.LeadingVisual>
-            <GitForkIcon />
+            <RepoForkedIcon />
           </ActionList.LeadingVisual>
           3 forks
         </ActionList.Item>
@@ -241,7 +241,7 @@ SingleSelectListStory.storyName = 'Single Select'
 export function MultiSelectListStory(): JSX.Element {
   const [assignees, setAssignees] = React.useState(users.slice(0, 2))
 
-  const toggleAssignee = assignee => {
+  const toggleAssignee = (assignee: typeof users[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])
@@ -307,7 +307,7 @@ DisabledStory.storyName = 'Disabled Items'
 export function GroupsStory(): JSX.Element {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = assignee => {
+  const toggleAssignee = (assignee: typeof users[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])
@@ -635,7 +635,8 @@ export function DOMPropsStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Item id="something" onClick={event => alert(`Id is '${event.target.id}'`)}>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          <ActionList.Item id="something" onClick={(event: any) => alert(`Id is '${event.target.id}'`)}>
             Has an id
           </ActionList.Item>
         </ActionList>
@@ -901,7 +902,7 @@ export function NestedChildren(): JSX.Element {
 }
 NestedChildren.storyName = 'Nested Children'
 
-const ReviewerDescription = ({user}) => {
+const ReviewerDescription = ({user}: {user: typeof users[number]}) => {
   const usersRecentlyEditedFile = users.slice(0, 2)
 
   if (usersRecentlyEditedFile.find(u => u.login === user.login)) {
@@ -938,7 +939,7 @@ export function ChildWithInternalState(): JSX.Element {
 }
 ChildWithInternalState.storyName = 'Child with internal state'
 
-const StatefulChild = props => {
+const StatefulChild: React.FC = props => {
   const [nameVisible, setNameVisibility] = React.useState(false)
   const toggle = () => {
     setNameVisibility(!nameVisible)
@@ -1206,7 +1207,9 @@ const repos = [
 export function AsyncListStory(): JSX.Element {
   const [results, setResults] = React.useState(repos.slice(0, 6))
   const [loading, setLoading] = React.useState(false)
-  const filter = async event => {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const filter = async (event: any) => {
     setLoading(true)
     const filteredResults = await filterSlowly(event.target.value)
     setResults(filteredResults)
@@ -1244,7 +1247,7 @@ export function AsyncListStory(): JSX.Element {
 }
 AsyncListStory.storyName = 'Async List Options'
 
-const filterSlowly = async query => {
+const filterSlowly = async (query: string) => {
   // sleep for 1s before returning results
   await new Promise(resolve => setTimeout(resolve, 1000))
   return await repos.filter(name => name.includes(query))
