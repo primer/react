@@ -199,6 +199,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -409,6 +410,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -619,6 +621,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -829,6 +832,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -1251,6 +1255,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -1427,6 +1432,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -1603,6 +1609,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -1779,6 +1786,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -1955,6 +1963,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -2214,6 +2223,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -2390,6 +2400,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -2679,6 +2690,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -2845,6 +2857,7 @@ exports[`Token components Token renders all sizes 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -3011,6 +3024,7 @@ exports[`Token components Token renders all sizes 2`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -3177,6 +3191,7 @@ exports[`Token components Token renders all sizes 3`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -3343,6 +3358,7 @@ exports[`Token components Token renders all sizes 4`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
@@ -3782,6 +3798,7 @@ exports[`Token components Token renders with a remove button 1`] = `
       style={
         Object {
           "display": "inline-block",
+          "overflow": "visible",
           "userSelect": "none",
           "verticalAlign": "text-bottom",
         }

@@ -1,7 +1,7 @@
-import React from 'react'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export function useResizeObserver(callback: () => void) {
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const observer = new window.ResizeObserver(() => callback())
     observer.observe(document.documentElement)
     return () => {

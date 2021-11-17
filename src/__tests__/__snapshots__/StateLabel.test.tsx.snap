@@ -36,7 +36,7 @@ exports[`StateLabel renders children 1`] = `
     className="c1"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
       }
     }
     fill="currentColor"
@@ -45,6 +45,7 @@ exports[`StateLabel renders children 1`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -92,7 +93,7 @@ exports[`StateLabel renders consistently 1`] = `
     className="c1"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
       }
     }
     fill="currentColor"
@@ -101,6 +102,7 @@ exports[`StateLabel renders consistently 1`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -148,7 +150,7 @@ exports[`StateLabel respects the status prop 1`] = `
     className="c1"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
       }
     }
     fill="currentColor"
@@ -157,6 +159,7 @@ exports[`StateLabel respects the status prop 1`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -203,7 +206,7 @@ exports[`StateLabel respects the status prop 2`] = `
     className="c1"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z\\"></path>",
+        "__html": "<path d=\\"M11.28 6.78a.75.75 0 00-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l3.5-3.5z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M16 8A8 8 0 110 8a8 8 0 0116 0zm-1.5 0a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z\\"></path>",
       }
     }
     fill="currentColor"
@@ -212,6 +215,7 @@ exports[`StateLabel respects the status prop 2`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -267,6 +271,7 @@ exports[`StateLabel respects the status prop 3`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -313,7 +318,7 @@ exports[`StateLabel respects the variant prop 1`] = `
     className="c1"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
       }
     }
     fill="currentColor"
@@ -322,6 +327,7 @@ exports[`StateLabel respects the variant prop 1`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }
@@ -368,7 +374,7 @@ exports[`StateLabel respects the variant prop 2`] = `
     className="c1"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z\\"></path>",
+        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
       }
     }
     fill="currentColor"
@@ -377,6 +383,7 @@ exports[`StateLabel respects the variant prop 2`] = `
     style={
       Object {
         "display": "inline-block",
+        "overflow": "visible",
         "userSelect": "none",
         "verticalAlign": "text-bottom",
       }

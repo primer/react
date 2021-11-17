@@ -15,6 +15,7 @@ exports[`StyledOcticon renders consistently 1`] = `
   style={
     Object {
       "display": "inline-block",
+      "overflow": "visible",
       "userSelect": "none",
       "verticalAlign": "text-bottom",
     }
