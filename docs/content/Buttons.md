@@ -17,9 +17,9 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
   <ButtonOutline>Button outline</ButtonOutline>
   <ButtonPrimary>Button primary</ButtonPrimary>
   <ButtonInvisible>Button invisible</ButtonInvisible>
-  <ButtonClose onClick={() => window.alert('button clicked')}/>
+  <ButtonClose onClick={() => window.alert('button clicked')} />
 
-  <ButtonGroup display='block' my={2}>
+  <ButtonGroup display="block" my={2}>
     <Button>Button</Button>
     <Button>Button</Button>
     <Button>Button</Button>
@@ -48,7 +48,7 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
 | Prop name | Type             | Default  | Description                                                                                                                 |
 | :-------- | :--------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------- |
 | as        | String           | `button` | sets the HTML tag for the component                                                                                         |
-| fontSize  | Number or string |          | explicitly sets the font size for the Button text; overrides any value for the `variant` prop                               |
+| fontSize  | Number or String |          | explicitly sets the font size for the Button text; overrides any value for the `variant` prop                               |
 | variant   | String           | 'medium' | a value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set |
 
 ### ButtonGroup
