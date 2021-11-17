@@ -58,7 +58,7 @@ export const BasicFocusZone = () => {
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
         </Box>
-        <ToggleButton mb={3} onClick={toggleFz}>
+        <ToggleButton sx={{mb: 3}} onClick={toggleFz}>
           {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
         </ToggleButton>
         <MarginButton>Apple</MarginButton>
@@ -396,7 +396,7 @@ export const SpecialSituations = () => {
     <>
       <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
           different situations. Focus treatment within your component should be evaluated for your particular UX using
           the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard">ARIA guidelines</a>.
@@ -491,7 +491,7 @@ export const ChangingSubtree = () => {
     <>
       <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
         </Flash>
         <Box position="absolute" right={5} top={2}>
