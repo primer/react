@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import {NewButton as Button, NewButtonProps as ButtonProps} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
-import CounterLabel from '../CounterLabel'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon} from '@primer/octicons-react'
+import Box from '../Box'
 
 export default {
   title: 'Composite components/New Button',
@@ -72,18 +72,31 @@ export const iconBeforeButton = (args: ButtonProps) => {
 export const iconButton = ({...args}: ButtonProps) => {
   return (
     <>
-      <Button icon={XIcon} {...args}>
-        Close
-      </Button>
-      <Button icon={XIcon} {...args} variant="invisible">
-        Close
-      </Button>
-      <Button icon={XIcon} {...args} variant="danger">
-        Close
-      </Button>
-      <Button icon={XIcon} {...args} variant="primary">
-        Close
-      </Button>
+      <Box mb={2}>
+        <Button icon={XIcon} {...args}>
+          Close
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button icon={XIcon} {...args} variant="invisible">
+          Close
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button icon={XIcon} {...args} variant="danger">
+          Close
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button icon={XIcon} {...args} variant="primary">
+          Close
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button icon={XIcon} {...args} variant="outline">
+          Close
+        </Button>
+      </Box>
     </>
   )
 }
@@ -92,22 +105,36 @@ export const WatchCounterButton = ({...args}: ButtonProps) => {
   const [count, setCount] = useState(0)
   return (
     <>
-      <Button onClick={() => setCount(count + 1)} {...args}>
-        Watch
-        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
-      </Button>
-      <Button onClick={() => setCount(count + 1)} {...args} variant="primary">
-        Watch
-        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
-      </Button>
-      <Button onClick={() => setCount(count + 1)} {...args} variant="invisible">
-        Watch
-        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
-      </Button>
-      <Button onClick={() => setCount(count + 1)} {...args} variant="danger">
-        Watch
-        <CounterLabel sx={{ml: 2}}>{count}</CounterLabel>
-      </Button>
+      <Box mb={2}>
+        <Button onClick={() => setCount(count + 1)} {...args}>
+          Watch
+          <Button.Counter>{count}</Button.Counter>
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button onClick={() => setCount(count + 1)} {...args} variant="primary">
+          Watch
+          <Button.Counter>{count}</Button.Counter>
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button onClick={() => setCount(count + 1)} {...args} variant="invisible">
+          Watch
+          <Button.Counter>{count}</Button.Counter>
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button onClick={() => setCount(count + 1)} {...args} variant="danger">
+          Watch
+          <Button.Counter>{count}</Button.Counter>
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button onClick={() => setCount(count + 1)} {...args} variant="outline">
+          Watch
+          <Button.Counter>{count}</Button.Counter>
+        </Button>
+      </Box>
     </>
   )
 }
@@ -132,7 +159,7 @@ export const caretButton = ({...args}: ButtonProps) => {
 
 export const blockButton = ({...args}: ButtonProps) => {
   return (
-    <Button sx={{width: '100%'}} {...args}>
+    <Button {...args} sx={{width: '100%'}}>
       Block
     </Button>
   )
@@ -141,19 +168,34 @@ export const blockButton = ({...args}: ButtonProps) => {
 export const disabledButton = ({...args}: ButtonProps) => {
   return (
     <>
-      <Button disabled {...args}>
-        Disabled
-      </Button>
-      <Button disabled variant="danger" {...args}>
-        Disabled
-      </Button>
-      <Button disabled variant="invisible" {...args}>
-        Disabled
-      </Button>
-      <Button disabled variant="primary" {...args}>
-        Disabled
-      </Button>
-      <Button disabled icon={() => <XIcon />} {...args}></Button>
+      <Box mb={2}>
+        <Button disabled {...args}>
+          Disabled
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button disabled variant="danger" {...args}>
+          Disabled
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button disabled variant="invisible" {...args}>
+          Disabled
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button disabled variant="primary" {...args}>
+          Disabled
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button disabled variant="outline" {...args}>
+          Disabled
+        </Button>
+      </Box>
+      <Box mb={2}>
+        <Button disabled icon={() => <XIcon />} {...args}></Button>
+      </Box>
     </>
   )
 }

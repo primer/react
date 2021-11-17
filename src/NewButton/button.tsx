@@ -1,40 +1,9 @@
-import React, {forwardRef, HTMLAttributes} from 'react'
-import {IconProps} from '@primer/octicons-react'
+import React, {forwardRef} from 'react'
 import Box from '../Box'
 import styled from 'styled-components'
 import sx, {merge, SxProp} from '../sx'
 import {useTheme, Theme} from '../ThemeProvider'
-
-type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
-
-export type ButtonProps = {
-  /**
-   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
-   */
-  variant?: VariantType
-  /**
-   * Size of button and fontSize of text in button
-   */
-  size?: 'small' | 'medium' | 'large'
-  /**
-   * This is to be used if it is an icon-only button. Will make text visually hidden
-   */
-  icon?: React.FunctionComponent<IconProps>
-  /**
-   * The leading icon comes before button content
-   */
-  leadingIcon?: React.FunctionComponent<IconProps>
-  /**
-   * The trailing icon comes after button content
-   */
-  trailingIcon?: React.FunctionComponent<IconProps>
-  /**
-   * Items that are disabled can not be clicked, selected, or navigated through.
-   */
-  disabled?: boolean
-  children: React.ReactNode
-} & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+import {VariantType, ButtonProps} from './types'
 
 const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
@@ -78,6 +47,10 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
       '&:disabled': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg'
+      },
+      '[data-component="ButtonCounter"]': {
+        backgroundColor: 'btn.primary.counterBg',
+        color: 'btn.primary.text'
       }
     },
     danger: {
@@ -88,7 +61,11 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
         color: 'btn.danger.hoverText',
         backgroundColor: 'btn.danger.hoverBg',
         borderColor: 'btn.danger.hoverBorder',
-        boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`
+        boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`,
+        '[data-component="ButtonCounter"]': {
+          backgroundColor: 'btn.danger.hoverCounterBg',
+          color: 'btn.danger.hoverText'
+        }
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
@@ -104,7 +81,14 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
       '&:disabled': {
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
-        borderColor: 'btn.danger.disabledBorder'
+        borderColor: 'btn.danger.disabledBorder',
+        '[data-component="ButtonCounter"]': {
+          backgroundColor: 'btn.danger.disabledCounterBg'
+        }
+      },
+      '[data-component="ButtonCounter"]': {
+        color: 'btn.danger.text',
+        backgroundColor: 'btn.danger.counterBg'
       }
     },
     invisible: {
@@ -113,10 +97,7 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
       border: '0',
       boxShadow: 'none',
       '&:hover:not([disabled])': {
-        color: 'btn.danger.hoverText',
-        backgroundColor: 'btn.danger.hoverBg',
-        borderColor: 'btn.danger.hoverBorder',
-        boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`
+        backgroundColor: 'btn.hoverBg'
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
@@ -127,6 +108,46 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
       },
       '&:disabled': {
         color: 'primer.fg.disabled'
+      }
+    },
+    outline: {
+      color: 'btn.outline.text',
+      boxShadow: `${theme?.shadows.btn.shadow}`,
+
+      '&:hover': {
+        color: 'btn.outline.hoverText',
+        backgroundColor: 'btn.outline.hoverBg',
+        borderColor: 'outline.hoverBorder',
+        boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
+        '[data-component="ButtonCounter"]': {
+          backgroundColor: 'btn.outline.hoverCounterBg',
+          color: 'btn.outline.hoverText'
+        }
+      },
+      // focus must come before :active so that the active box shadow overrides
+      '&:focus': {
+        borderColor: 'btn.outline.focusBorder',
+        boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
+      },
+
+      '&:active': {
+        color: 'btn.outline.selectedText',
+        backgroundColor: 'btn.outline.selectedBg',
+        boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
+        borderColor: 'btn.outline.selectedBorder'
+      },
+
+      '&:disabled': {
+        color: 'btn.outline.disabledText',
+        backgroundColor: 'btn.outline.disabledBg',
+        borderColor: 'btn.border',
+        '[data-component="ButtonCounter"]': {
+          backgroundColor: 'btn.outline.disabledCounterBg'
+        }
+      },
+      '[data-component="ButtonCounter"]': {
+        backgroundColor: 'btn.outline.counterBg',
+        color: 'btn.outline.text'
       }
     }
   }
@@ -161,7 +182,10 @@ const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOn
   return {
     paddingY: `${paddingY}px`,
     paddingX: `${paddingX}px`,
-    fontSize
+    fontSize,
+    '[data-component="ButtonCounter"]': {
+      fontSize
+    }
   }
 }
 
@@ -195,10 +219,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
     userSelect: 'none',
     textDecoration: 'none',
     textAlign: 'center',
-    '> :not(:last-child)': {
-      mr: '2'
-    },
-    ':not(\'[data-component="icon-only"]\')': {
+    '> :not(:last-child), :not(\'[data-component="icon-only"]\')': {
       mr: '2'
     },
     '&:focus': {
@@ -228,7 +249,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
   return (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore Why wont it accept the sx prop?
-    <ButtonBase sx={merge(componentStyles, sxProp)} ref={forwardedRef} {...props}>
+    <ButtonBase sx={merge(componentStyles, sxProp as SxProp)} ref={forwardedRef} {...props}>
       {LeadingIcon && (
         <Box as="span" data-component="leadingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
           <LeadingIcon />
@@ -243,7 +264,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
         {children}
       </span>
       {TrailingIcon && (
-        <Box as="span" data-component="trailingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
+        <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}} aria-hidden={!iconOnly}>
           <TrailingIcon />
         </Box>
       )}
@@ -252,5 +273,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
 })
 
 Button.displayName = 'Button'
+
+Object.assign(Button, {})
 
 export {Button}
