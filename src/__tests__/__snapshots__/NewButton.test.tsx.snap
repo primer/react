@@ -32,10 +32,7 @@ exports[`Button renders consistently 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
+.c0 > :not(:last-child),
 .c0:not('[data-component="icon-only"]') {
   margin-right: 8px;
 }
@@ -63,6 +60,10 @@ exports[`Button renders consistently 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
+}
+
+.c0 [data-component="ButtonCounter"] {
+  font-size: 14px;
 }
 
 .c0:hover:not([disabled]) {
@@ -120,10 +121,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
+.c0 > :not(:last-child),
 .c0:not('[data-component="icon-only"]') {
   margin-right: 8px;
 }
@@ -151,6 +149,10 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
+}
+
+.c0 [data-component="ButtonCounter"] {
+  font-size: 14px;
 }
 
 .c0:hover:not([disabled]) {
