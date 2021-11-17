@@ -1,6 +1,7 @@
 import React from 'react'
 import InputCaption from '../InputCaption'
-import {InputFieldContext, Slot} from './InputField'
+import {InputFieldContext} from './InputField'
+import {Slot} from './slots'
 
 const InputFieldCaption: React.FC = ({children}) => (
   <Slot name="Caption">

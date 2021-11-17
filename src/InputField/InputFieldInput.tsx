@@ -1,7 +1,8 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
-import {InputFieldContext, Slot} from './InputField'
+import {InputFieldContext} from './InputField'
 import {TextInput} from '..'
+import {Slot} from './slots'
 
 export interface Props {
   // TODO: pass a generic to `React.ReactElement` to limit to children that accept certain props (e.g.: `validationStatus`)

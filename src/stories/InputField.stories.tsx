@@ -6,6 +6,7 @@ import {get} from '../constants'
 import ToggleInputField from '../InputField/ToggleInputField'
 import ChoiceFieldset from '../ChoiceFieldset/ChoiceFieldset'
 import ChoiceField from '../ChoiceFieldset/ChoiceField'
+import {MarkGithubIcon} from '@primer/octicons-react'
 
 const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) => (
   <Box
@@ -93,7 +94,7 @@ export const Toggle = () => {
   return (
     <ExampleCollectionContainer>
       <SingleExampleContainer label="Default">
-        <ToggleInputField id="defaultInputField">
+        <ToggleInputField id="toggleInputField">
           <InputField.Label>Choice</InputField.Label>
           <InputField.Input as={SimpleCheckboxInput} />
           <InputField.Caption>
@@ -102,7 +103,28 @@ export const Toggle = () => {
         </ToggleInputField>
       </SingleExampleContainer>
       <SingleExampleContainer label="Disabled">
-        <ToggleInputField id="required-requiredInputField" disabled>
+        <ToggleInputField id="toggleInputField-disabled" disabled>
+          <InputField.Label>Choice</InputField.Label>
+          <InputField.Input as={SimpleCheckboxInput} />
+          <InputField.Caption>
+            Hint: your first choice. <a href="http://google.com">More Info</a>
+          </InputField.Caption>
+        </ToggleInputField>
+      </SingleExampleContainer>
+      <SingleExampleContainer label="With a LeadingVisual">
+        <ToggleInputField id="toggleInputField-withVisual">
+          <InputField.LeadingVisual>
+            <MarkGithubIcon />
+          </InputField.LeadingVisual>
+          <InputField.Label>Choice</InputField.Label>
+          <InputField.Input as={SimpleCheckboxInput} />
+        </ToggleInputField>
+      </SingleExampleContainer>
+      <SingleExampleContainer label="With a LeadingVisual and caption">
+        <ToggleInputField id="toggleInputField-withVisualAndCap">
+          <InputField.LeadingVisual>
+            <MarkGithubIcon />
+          </InputField.LeadingVisual>
           <InputField.Label>Choice</InputField.Label>
           <InputField.Input as={SimpleCheckboxInput} />
           <InputField.Caption>

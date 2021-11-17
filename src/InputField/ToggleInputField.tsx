@@ -1,12 +1,13 @@
 import React from 'react'
 import {Box} from '..'
+import {get} from '../constants'
 import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
-import {Slots} from './InputField'
 import InputFieldCaption from './InputFieldCaption'
 import InputFieldInput from './InputFieldInput'
 import InputFieldLabel from './InputFieldLabel'
 import InputFieldValidation from './InputFieldValidation'
+import {Slots} from './slots'
 
 //TODO: DRY out - some of this is repeated in the `InputField` Props interface
 export interface Props {
@@ -40,24 +41,36 @@ const InputField: React.FC<Props> = ({children, disabled, id, validationStatus})
     >
       {slots => {
         return (
-          // TODO: see if I can just make `children` a child of the `Box`
-          <>
+          <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
             {children}
-            <Box display="flex">
-              <div>{slots.Input}</div>
-              {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
-                <Box ml={1}>
-                  {slots.Label}
-                  {slots.Caption}
-                </Box>
-              ) : (
-                <>
-                  {slots.Label}
-                  {slots.Caption}
-                </>
-              )}
-            </Box>
-          </>
+            <div>{slots.Input}</div>
+            {slots.LeadingVisual && (
+              <Box
+                color={disabled ? 'fg.muted' : 'fg.default'}
+                sx={{
+                  '> *': {
+                    minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
+                    minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
+                    fill: 'currentColor'
+                  }
+                }}
+                ml={2}
+              >
+                {slots.LeadingVisual}
+              </Box>
+            )}
+            {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
+              <Box display="flex" flexDirection="column" ml={2}>
+                {slots.Label}
+                {slots.Caption}
+              </Box>
+            ) : (
+              <>
+                {slots.Label}
+                {slots.Caption}
+              </>
+            )}
+          </Box>
         )
       }}
     </Slots>

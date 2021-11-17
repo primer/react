@@ -1,12 +1,13 @@
 import React from 'react'
 import {Box} from '..'
-import createSlots from '../utils/create-slots'
 import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
 import InputFieldCaption from './InputFieldCaption'
 import InputFieldInput from './InputFieldInput'
 import InputFieldLabel from './InputFieldLabel'
 import InputFieldValidation from './InputFieldValidation'
+import {Slots} from './slots'
+import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
 export interface Props {
   // TODO: limit children to specific components
   // children: any;
@@ -33,8 +34,6 @@ export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'requ
   captionId: string
   validationMessageId: string
 }
-
-export const {Slots, Slot} = createSlots(['Caption', 'Validation', 'Input', 'Label'])
 
 const InputField: React.FC<Props> = ({children, disabled, id, required, validationStatus}) => {
   const fieldId = id || uniqueId()
@@ -74,5 +73,6 @@ export default Object.assign(InputField, {
   Caption: InputFieldCaption,
   Input: InputFieldInput,
   Label: InputFieldLabel,
+  LeadingVisual: ToggleInputLeadingVisual,
   Validation: InputFieldValidation
 })

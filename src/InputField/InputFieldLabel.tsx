@@ -1,6 +1,7 @@
 import React from 'react'
 import InputLabel from '../InputLabel'
-import {InputFieldContext, Slot} from './InputField'
+import {InputFieldContext} from './InputField'
+import {Slot} from './slots'
 
 export interface Props {
   /**
