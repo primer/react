@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Button, {ButtonProps} from '../NewButton'
+import {NewButton as Button, NewButtonProps as ButtonProps} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
 import CounterLabel from '../CounterLabel'

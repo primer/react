@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, HTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import Box from '../Box'
 import styled from 'styled-components'
@@ -32,14 +32,16 @@ export type ButtonProps = {
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
-} & SxProp
+  children: React.ReactNode
+} & SxProp &
+  HTMLAttributes<HTMLButtonElement>
 
 const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
     default: {
       color: 'btn.text',
       backgroundColor: 'btn.bg',
-      //boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
+      boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
       '&:hover:not([disabled])': {
         backgroundColor: 'btn.hoverBg'
       },
@@ -165,7 +167,7 @@ const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOn
 
 const ButtonBase = styled.button<SxProp>(sx)
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props}, forwardedRef) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props}, forwardedRef): JSX.Element => {
   const {
     icon: Icon,
     leadingIcon: LeadingIcon,
@@ -179,7 +181,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
   const {theme} = useTheme()
 
   const styles = {
-    borderRadius: 2,
+    borderRadius: '2',
     border: '1px solid',
     borderColor: theme?.colors.btn.border,
     display: 'grid',
@@ -194,10 +196,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
     textDecoration: 'none',
     textAlign: 'center',
     '> :not(:last-child)': {
-      mr: 2
+      mr: '2'
     },
     ':not(\'[data-component="icon-only"]\')': {
-      mr: 2
+      mr: '2'
     },
     '&:focus': {
       outline: 'none'
@@ -218,13 +220,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
       gridArea: 'trailingIcon'
     }
   }
-
-  const variableStyles = merge(styles, {...getSizeStyles(size, variant, iconOnly), ...getVariantStyles(variant, theme)})
+  const variableStyles = {...getSizeStyles(size, variant, iconOnly), ...getVariantStyles(variant, theme)}
+  const componentStyles = {...styles, ...variableStyles}
   const iconWrapStyles = {
     display: 'inline-block'
   }
   return (
-    <ButtonBase ref={forwardedRef} {...props} sx={merge(variableStyles, sxProp as SxProp)}>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore Why wont it accept the sx prop?
+    <ButtonBase sx={merge(componentStyles, sxProp)} ref={forwardedRef} {...props}>
       {LeadingIcon && (
         <Box as="span" data-component="leadingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
           <LeadingIcon />
@@ -249,4 +253,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
 
 Button.displayName = 'Button'
 
-export default Button
+export {Button}

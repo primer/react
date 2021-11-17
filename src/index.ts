@@ -52,8 +52,8 @@ export {
   ButtonClose,
   ButtonGroup
 } from './Button'
-export {default as NewButton} from './NewButton'
-export type {ButtonProps as NewButtonProps} from './NewButton'
+export {NewButton} from './NewButton'
+export type {NewButtonProps} from './NewButton'
 export type {
   ButtonProps,
   ButtonDangerProps,
