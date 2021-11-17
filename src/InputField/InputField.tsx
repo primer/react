@@ -2,6 +2,7 @@ import React from 'react'
 import {Box} from '..'
 import createSlots from '../utils/create-slots'
 import {ComponentProps} from '../utils/types'
+import {uniqueId} from '../utils/uniqueId'
 import InputFieldCaption from './InputFieldCaption'
 import InputFieldInput from './InputFieldInput'
 import InputFieldLabel from './InputFieldLabel'
@@ -16,7 +17,7 @@ export interface Props {
   /**
    * The unique identifier for this field. Used to associate the label, validation text, and caption text
    */
-  id: string
+  id?: string
   /**
    * Whether this field must have a value for the user to complete their task
    */
@@ -36,6 +37,7 @@ export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'requ
 export const {Slots, Slot} = createSlots(['Caption', 'Validation', 'Input', 'Label'])
 
 const InputField: React.FC<Props> = ({children, disabled, id, required, validationStatus}) => {
+  const fieldId = id || uniqueId()
   const hasValidationChild = React.Children.toArray(children).some(
     child => React.isValidElement(child) && child.type === InputFieldValidation
   )
@@ -43,11 +45,11 @@ const InputField: React.FC<Props> = ({children, disabled, id, required, validati
   return (
     <Slots
       context={{
-        captionId: `${id}-caption`,
+        captionId: `${fieldId}-caption`,
         disabled,
-        id,
+        id: fieldId,
         required,
-        validationMessageId: hasValidationChild ? `${id}-errorMsg` : undefined,
+        validationMessageId: hasValidationChild ? `${fieldId}-validationMsg` : undefined,
         validationStatus
       }}
     >
@@ -58,7 +60,7 @@ const InputField: React.FC<Props> = ({children, disabled, id, required, validati
             {slots.Label}
             {slots.Input}
             {slots.Validation}
-            {slots.Caption && <Box mt={2}>{slots.Caption}</Box>}
+            {slots.Caption && <Box mt={1}>{slots.Caption}</Box>}
           </Box>
         )
       }}

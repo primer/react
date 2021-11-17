@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box} from '..'
 import {ComponentProps} from '../utils/types'
+import {uniqueId} from '../utils/uniqueId'
 import {Slots} from './InputField'
 import InputFieldCaption from './InputFieldCaption'
 import InputFieldInput from './InputFieldInput'
@@ -18,11 +19,7 @@ export interface Props {
   /**
    * The unique identifier for this field. Used to associate the label, validation text, and caption text
    */
-  id: string
-  /**
-   * The identifier used to associate this input with other inputs. For example: associating multiple radio inputs
-   */
-  name?: string
+  id?: string
   /**
    * Styles the field to visually communicate the result of form validation
    */
@@ -30,12 +27,14 @@ export interface Props {
 }
 
 const InputField: React.FC<Props> = ({children, disabled, id, validationStatus}) => {
+  const fieldId = id || uniqueId()
+
   return (
     <Slots
       context={{
         captionId: `${id}-caption`,
         disabled,
-        id,
+        id: fieldId,
         validationStatus
       }}
     >
@@ -46,8 +45,7 @@ const InputField: React.FC<Props> = ({children, disabled, id, validationStatus})
             {children}
             <Box display="flex">
               <div>{slots.Input}</div>
-              {/* TODO: fix typescript */}
-              {!slots.Label?.valueOf().props.visuallyHidden || slots.Caption ? (
+              {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
                 <Box ml={1}>
                   {slots.Label}
                   {slots.Caption}

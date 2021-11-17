@@ -16,6 +16,7 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
       as="label"
       display="block"
       color={disabled ? 'fg.muted' : 'fg.default'}
+      title={required ? 'required field' : undefined}
       sx={
         // TODO: create a VisuallyHidden component if this hiding technique is used in any other components
         visuallyHidden

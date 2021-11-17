@@ -4,6 +4,8 @@ import {BaseStyles, ThemeProvider, Text, Box, TextInput} from '..'
 import InputField from '../InputField'
 import {get} from '../constants'
 import ToggleInputField from '../InputField/ToggleInputField'
+import ChoiceFieldset from '../ChoiceFieldset/ChoiceFieldset'
+import ChoiceField from '../ChoiceFieldset/ChoiceField'
 
 const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) => (
   <Box
@@ -107,6 +109,66 @@ export const Toggle = () => {
             Hint: your first choice. <a href="http://google.com">More Info</a>
           </InputField.Caption>
         </ToggleInputField>
+      </SingleExampleContainer>
+    </ExampleCollectionContainer>
+  )
+}
+
+export const CheckboxFieldset = () => {
+  return (
+    <ExampleCollectionContainer>
+      <SingleExampleContainer label="Default">
+        <ChoiceFieldset validationStatus="success">
+          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List selectionVariant="multiple">
+            <ChoiceFieldset.ChoiceField>
+              <ChoiceField.Input value="labelOne" />
+              <ChoiceField.Label>Label one</ChoiceField.Label>
+              <ChoiceField.Caption>Caption</ChoiceField.Caption>
+            </ChoiceFieldset.ChoiceField>
+            <ChoiceFieldset.ChoiceField>
+              <ChoiceField.Input value="labelTwo" />
+              <ChoiceField.Label>Label two</ChoiceField.Label>
+              <ChoiceField.Caption>Caption</ChoiceField.Caption>
+            </ChoiceFieldset.ChoiceField>
+          </ChoiceFieldset.List>
+          <ChoiceFieldset.Validation>
+            You made the right selections <a href="http://google.com">More Info</a>
+          </ChoiceFieldset.Validation>
+          <ChoiceFieldset.Caption>
+            Hint: any selection is valid <a href="http://google.com">More Info</a>
+          </ChoiceFieldset.Caption>
+        </ChoiceFieldset>
+      </SingleExampleContainer>
+    </ExampleCollectionContainer>
+  )
+}
+
+export const RadioFieldset = () => {
+  return (
+    <ExampleCollectionContainer>
+      <SingleExampleContainer label="Default">
+        <ChoiceFieldset validationStatus="success" name="radioFieldset">
+          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List>
+            <ChoiceFieldset.ChoiceField>
+              <ChoiceField.Input value="labelOne" />
+              <ChoiceField.Label>Label one</ChoiceField.Label>
+              <ChoiceField.Caption>Caption</ChoiceField.Caption>
+            </ChoiceFieldset.ChoiceField>
+            <ChoiceFieldset.ChoiceField>
+              <ChoiceField.Input value="labelTwo" />
+              <ChoiceField.Label>Label two</ChoiceField.Label>
+              <ChoiceField.Caption>Caption</ChoiceField.Caption>
+            </ChoiceFieldset.ChoiceField>
+          </ChoiceFieldset.List>
+          <ChoiceFieldset.Validation>
+            You made the right selections <a href="http://google.com">More Info</a>
+          </ChoiceFieldset.Validation>
+          <ChoiceFieldset.Caption>
+            Hint: any selection is valid <a href="http://google.com">More Info</a>
+          </ChoiceFieldset.Caption>
+        </ChoiceFieldset>
       </SingleExampleContainer>
     </ExampleCollectionContainer>
   )
