@@ -2,7 +2,7 @@
  *  api yet (not in main bundle). We don't recommend using it in production.
  *
  *  But, they are published on npm and you can import them for experimentation/feedback.
- *  example: import {ActionList} from '@primer/components/unreleased
+ *  example: import {ActionList} from '@primer/components/drafts
  */
 
 // Components

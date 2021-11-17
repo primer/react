@@ -1,6 +1,6 @@
 import React from 'react'
 import * as primerComponents from '@primer/components'
-import * as unreleased from '@primer/components/unreleased'
+import * as drafts from '@primer/components/drafts'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import {
   CheckIcon,
@@ -40,7 +40,7 @@ const ReactRouterLink = ({to, ...props}) => {
 export default {
   ...doctocatComponents,
   ...primerComponents,
-  unreleased,
+  drafts,
   ReactRouterLink,
   State,
   CheckIcon,
