@@ -8,6 +8,7 @@ import InputFieldLabel from './InputFieldLabel'
 import InputFieldValidation from './InputFieldValidation'
 import {Slots} from './slots'
 import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
+import ValidationAnimationContainer from './ValidationAnimationContainer'
 export interface Props {
   // TODO: limit children to specific components
   // children: any;
@@ -29,7 +30,6 @@ export interface Props {
   // TODO: Figure out if we're keeping the 'warning' status
   validationStatus?: 'error' | 'warning' | 'success'
 }
-
 export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'required' | 'validationStatus'> {
   captionId: string
   validationMessageId: string
@@ -54,11 +54,13 @@ const InputField: React.FC<Props> = ({children, disabled, id, required, validati
     >
       {slots => {
         return (
-          <Box display="flex" flexDirection="column" sx={{'> * + *': {marginTop: 1}}}>
+          <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 1}}}>
             {children}
             {slots.Label}
             {slots.Input}
-            {slots.Validation}
+            <ValidationAnimationContainer show={Boolean(slots.Validation)}>
+              {slots.Validation}
+            </ValidationAnimationContainer>
             {slots.Caption && <Box mt={1}>{slots.Caption}</Box>}
           </Box>
         )

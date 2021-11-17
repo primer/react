@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEventHandler, useState} from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, Text, Box, TextInput} from '..'
 import InputField from '../InputField'
@@ -12,7 +12,7 @@ const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) =
   <Box
     display="flex"
     sx={{
-      alignItems: 'start',
+      alignItems: 'stretch',
       flexDirection: 'column',
       gap: get('space.0')
     }}
@@ -30,7 +30,7 @@ const ExampleCollectionContainer: React.FC = ({children}) => (
   <Box
     display="flex"
     sx={{
-      alignItems: 'start',
+      alignItems: 'stretch',
       flexDirection: 'column',
       gap: get('space.6')
     }}
@@ -197,32 +197,47 @@ export const RadioFieldset = () => {
 }
 
 export const WithValidation = () => {
+  const [showValidation, setShowValidation] = useState(false)
+  const handleValidationToggle: ChangeEventHandler<HTMLInputElement> = e => {
+    setShowValidation(e.currentTarget.checked)
+  }
+
   return (
-    <ExampleCollectionContainer>
-      <SingleExampleContainer label="Error">
-        <InputField id="errored-defaultInputField" validationStatus="error">
-          <InputField.Label>Name</InputField.Label>
-          <InputField.Input as={TextInput} />
-          <InputField.Validation>
-            Invalid name, try a different one. <a href="http://google.com">More Info</a>
-          </InputField.Validation>
-          <InputField.Caption>
-            Hint: your first name. <a href="http://google.com">More Info</a>
-          </InputField.Caption>
-        </InputField>
-      </SingleExampleContainer>
-      <SingleExampleContainer label="Successs">
-        <InputField id="success-defaultInputField" validationStatus="success">
-          <InputField.Label>Name</InputField.Label>
-          <InputField.Input as={TextInput} />
-          <InputField.Validation>
-            Wow, such a cool name. <a href="http://google.com">More Info</a>
-          </InputField.Validation>
-          <InputField.Caption>
-            Hint: your first name. <a href="http://google.com">More Info</a>
-          </InputField.Caption>
-        </InputField>
-      </SingleExampleContainer>
-    </ExampleCollectionContainer>
+    <>
+      <div>
+        <input id="showValidationInput" type="checkbox" checked={showValidation} onChange={handleValidationToggle} />
+        <label htmlFor="showValidationInput">Show validation</label>
+      </div>
+      <ExampleCollectionContainer>
+        <SingleExampleContainer label="Error">
+          <InputField id="errored-defaultInputField" validationStatus="error">
+            <InputField.Label>Name</InputField.Label>
+            <InputField.Input as={TextInput} block />
+            {showValidation && (
+              <InputField.Validation>
+                Invalid name, try a different one. <a href="http://google.com">More Info</a>
+              </InputField.Validation>
+            )}
+            <InputField.Caption>
+              Hint: your first name. <a href="http://google.com">More Info</a>
+            </InputField.Caption>
+          </InputField>
+        </SingleExampleContainer>
+        <SingleExampleContainer label="Successs">
+          <InputField id="success-defaultInputField" validationStatus="success">
+            <InputField.Label>Name</InputField.Label>
+            <InputField.Input as={TextInput} block />
+            {showValidation && (
+              <InputField.Validation>
+                Wow, such a cool name. <a href="http://google.com">More Info</a>
+              </InputField.Validation>
+            )}
+            <InputField.Caption>
+              Hint: your first name. <a href="http://google.com">More Info</a>
+            </InputField.Caption>
+          </InputField>
+        </SingleExampleContainer>
+      </ExampleCollectionContainer>
+    </>
   )
 }
