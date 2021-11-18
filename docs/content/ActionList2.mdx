@@ -7,7 +7,7 @@ description: An ActionList is a list of items which can be activated or selected
 ---
 
 import {BorderBox, Avatar} from '@primer/components'
-import {ActionList} from '@primer/components/unreleased'
+import {ActionList} from '@primer/components/drafts'
 import {Props} from '../src/props'
 
 import {ImageContainer} from '@primer/gatsby-theme-doctocat'
@@ -48,7 +48,7 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 <br />
 
 ```js
-import {ActionList} from '@primer/components/unreleased'
+import {ActionList} from '@primer/components/drafts'
 ```
 
 <br />
@@ -58,7 +58,8 @@ import {ActionList} from '@primer/components/unreleased'
 ## Minimal example
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -79,7 +80,8 @@ Leading visuals are optional and appear at the start of an item. They can be oct
 
 <!-- prettier-ignore -->
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -106,7 +108,8 @@ render(
 Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -137,7 +140,8 @@ render(
 Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList showDividers>
@@ -172,7 +176,8 @@ When you want to add links to the List instead of actions, use `ActionList.LinkI
 
 <!-- prettier-ignore -->
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -207,7 +212,8 @@ render(
 ## With Groups
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 const SelectFields = () => {
   const [options, setOptions] = React.useState([
