@@ -1,10 +1,3 @@
-/**
- * TODO:
- * rename onClose to afterOnSelect to be more generic?
- * Menu with no internal anchor?
- * story: what is double click anchor?
- */
-
 import Button, {ButtonProps} from './Button'
 import React from 'react'
 import {AnchoredOverlay} from './AnchoredOverlay'
@@ -16,7 +9,7 @@ import {Divider} from './ActionList2/Divider'
 
 type ActionMenuBaseProps = {
   /**
-   * children - use an ActionMenu.Button + ActionList
+   * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with ActionList`
    */
   children: React.ReactElement[] | React.ReactElement
 

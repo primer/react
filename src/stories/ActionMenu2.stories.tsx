@@ -266,15 +266,15 @@ CustomAnchor.storyName = 'Custom Anchor'
 
 export function MemexTableMenu(): JSX.Element {
   const [name, setName] = React.useState('Estimate')
-  const [open, setOpen] = React.useState(false)
   const inputRef = React.createRef<HTMLInputElement>()
 
+  /** To add custom components to the Menu,
+   *  you need to switch to a controlled menu
+   */
+  const [open, setOpen] = React.useState(false)
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       setName(event.currentTarget.value)
-      /** This feels odd. To add custom components to the Menu,
-       *  you need to switch to a controlled menu
-       */
       setOpen(false)
     }
   }
