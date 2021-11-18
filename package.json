@@ -20,7 +20,8 @@
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
     "release": "npm run build && changeset publish",
-    "size": "size-limit"
+    "size": "size-limit",
+    "typecheck": "npx tsc --project tsconfig.json"
   },
   "repository": "primer/react",
   "keywords": [
@@ -43,7 +44,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@primer/octicons-react": "^13.0.0",
+    "@primer/octicons-react": "^16.1.0",
     "@primer/primitives": "6.1.0",
     "@radix-ui/react-polymorphic": "0.0.14",
     "@react-aria/ssr": "3.1.0",
