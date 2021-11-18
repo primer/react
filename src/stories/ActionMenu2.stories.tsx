@@ -4,11 +4,28 @@ import {ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu} from '../ActionMenu2'
 import {ActionList} from '../ActionList2'
-import Button, {ButtonPrimary} from '../Button'
+import Button, {ButtonInvisible} from '../Button'
 import Box from '../Box'
 import Text from '../Text'
 import TextInput from '../TextInput'
-import {ServerIcon, PlusCircleIcon, TriangleDownIcon} from '@primer/octicons-react'
+import StyledOcticon from '../StyledOcticon'
+import FormGroup from '../FormGroup'
+import {
+  ServerIcon,
+  PlusCircleIcon,
+  TriangleDownIcon,
+  KebabHorizontalIcon,
+  PencilIcon,
+  ArchiveIcon,
+  TrashIcon,
+  ProjectIcon,
+  ListUnorderedIcon,
+  ArrowDownIcon,
+  SearchIcon,
+  VersionsIcon,
+  TableIcon,
+  IconProps
+} from '@primer/octicons-react'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu2',
@@ -72,7 +89,7 @@ export function ActionsStory(): JSX.Element {
       <h1>Actions</h1>
 
       <ActionMenu overlayProps={{width: 'medium'}}>
-        <ActionMenu.Button>
+        <ActionMenu.Button aria-label="Open Actions Menu">
           <ServerIcon />
         </ActionMenu.Button>
         <ActionList>
@@ -126,7 +143,6 @@ export function ControlledMenu(): JSX.Element {
       <ActionMenu
         open={open}
         setOpen={setOpen}
-        anchorRef={triggerRef}
         overlayProps={{
           // clicking the button should not be counted as "clicking outside"
           ignoreClickRefs: [triggerRef]
@@ -134,9 +150,54 @@ export function ControlledMenu(): JSX.Element {
       >
         {/**
          * Even though the state is controlled externally,
-         * we still need an Anchor for the menu to "anchor" to.
+         * we can pass an Anchor for the menu to "anchor" to.
          */}
-        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Button>Anchor</ActionMenu.Button>
+        <ActionList>
+          <ActionList.Item onSelect={() => onSelect('Copy link')}>
+            Copy link
+            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => onSelect('Quote reply')}>
+            Quote reply
+            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => onSelect('Edit comment')}>
+            Edit comment
+            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
+            Delete file
+            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu>
+    </>
+  )
+}
+ControlledMenu.storyName = 'Controlled Menu'
+
+export function ExternalAnchor(): JSX.Element {
+  const [actionFired, fireAction] = React.useState('')
+  const onSelect = (name: string) => fireAction(name)
+
+  const [open, setOpen] = React.useState(false)
+  const triggerRef = React.createRef<HTMLButtonElement>()
+
+  return (
+    <>
+      <h1>External Anchor</h1>
+      <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
+      <h2>Last option activated: {actionFired}</h2>
+      <div>
+        <Button ref={triggerRef} onClick={() => setOpen(!open)}>
+          {open ? 'Close Menu' : 'Open Menu'}
+        </Button>
+      </div>
+      <br />
+
+      <ActionMenu open={open} setOpen={setOpen} anchorRef={triggerRef}>
         <ActionList>
           <ActionList.Item onSelect={() => onSelect('Copy link')}>
             Copy link
@@ -172,25 +233,29 @@ export function CustomAnchor(): JSX.Element {
       <h2>Last option activated: {actionFired}</h2>
       <ActionMenu>
         <ActionMenu.Anchor>
-          <ButtonPrimary sx={{cursor: 'pointer'}}>Custom Anchor</ButtonPrimary>
+          <summary style={{cursor: 'pointer'}} aria-label="Open column options">
+            <KebabHorizontalIcon />
+          </summary>
         </ActionMenu.Anchor>
+
         <ActionList>
-          <ActionList.Item onSelect={() => onSelect('Copy link')}>
-            Copy link
-            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+          <ActionList.Item onSelect={() => onSelect('Rename')}>
+            <ActionList.LeadingVisual>
+              <PencilIcon />
+            </ActionList.LeadingVisual>
+            Rename
           </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Quote reply')}>
-            Quote reply
-            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+          <ActionList.Item onSelect={() => onSelect('Archive')}>
+            <ActionList.LeadingVisual>
+              <ArchiveIcon />
+            </ActionList.LeadingVisual>
+            Archive all cards
           </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Edit comment')}>
-            Edit comment
-            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Divider />
           <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
-            Delete file
-            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            <ActionList.LeadingVisual>
+              <TrashIcon />
+            </ActionList.LeadingVisual>
+            Delete
           </ActionList.Item>
         </ActionList>
       </ActionMenu>
@@ -238,6 +303,7 @@ export function MemexTableMenu(): JSX.Element {
         <Text sx={{fontSize: 0, fontWeight: 'bold'}}>{name}</Text>
         <ActionMenu open={open} setOpen={setOpen} overlayProps={{onClickOutside: handleClickOutside}}>
           <ActionMenu.Button
+            aria-label="Open Estimate column options menu"
             sx={{
               p: 0,
               display: 'flex',
@@ -267,3 +333,197 @@ export function MemexTableMenu(): JSX.Element {
   )
 }
 MemexTableMenu.storyName = 'Memex Table Menu'
+
+/* copied from github/memex */
+const LayoutToggleItem = ({
+  selected,
+  children,
+  Icon,
+  ...props
+}: {
+  selected: boolean
+  children: React.ReactNode
+  Icon: React.ComponentType<IconProps>
+}) => {
+  return (
+    <FormGroup
+      sx={{
+        flex: 'auto',
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: selected ? 'accent.emphasis' : 'border.default',
+        textAlign: 'center',
+        cursor: 'pointer',
+        backgroundColor: selected ? 'accent.subtle' : '',
+        boxShadow: selected ? theme => `inset 0 0 0 1px ${theme.colors.accent.emphasis}` : '',
+        mb: 2,
+        mt: 1,
+        '&:hover': {
+          backgroundColor: !selected ? 'canvas.subtle' : ''
+        },
+        '&:first-of-type': {
+          borderTopRightRadius: '0px',
+          borderBottomRightRadius: '0px',
+          borderRight: selected ? undefined : '0'
+        },
+        '&:last-of-type': {
+          borderTopLeftRadius: '0px',
+          borderBottomLeftRadius: '0px',
+          borderLeft: selected ? undefined : '0'
+        }
+      }}
+    >
+      <FormGroup.Label
+        htmlFor="layout-selector"
+        sx={{fontWeight: 'normal', cursor: 'pointer', px: 3, py: 2, mb: 0}}
+        {...props}
+      >
+        <Box sx={{textAlign: 'center', flexDirection: 'column', m: 'auto', alignItems: 'center', display: 'flex'}}>
+          <Icon size="medium" />
+          <Text sx={{color: selected ? 'fg.default' : 'fg.muted', fontSize: 0}}>{children}</Text>
+        </Box>
+      </FormGroup.Label>
+    </FormGroup>
+  )
+}
+
+/* copied from github/memex */
+const ViewChangeButtons = ({setOpen}: {setOpen: (open: boolean) => void}) => (
+  <Box sx={{display: 'flex'}}>
+    <ButtonInvisible
+      onClick={() => setOpen(false)}
+      sx={{
+        flex: 'auto',
+        minWidth: '50%',
+        borderRight: '1px solid',
+        borderColor: 'border.default',
+        borderRadius: 0,
+        mt: -2,
+        mb: -2,
+        py: 3,
+        '&:hover': {
+          bg: 'canvas.inset'
+        }
+      }}
+    >
+      Save changes
+    </ButtonInvisible>
+
+    <ButtonInvisible
+      onClick={() => setOpen(false)}
+      sx={{
+        flex: 'auto',
+        color: 'fg.muted',
+        borderRadius: 0,
+        mt: -2,
+        mb: -2,
+        py: 3,
+        fontWeight: 'normal',
+        '&:hover': {
+          bg: 'canvas.inset'
+        }
+      }}
+    >
+      Discard changes
+    </ButtonInvisible>
+  </Box>
+)
+
+export function MemexViewOptionsMenu(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <>
+      <h1>Memex View Options Menu</h1>
+      <Box sx={{display: 'flex', alignItems: 'center'}}>
+        <Text sx={{fontSize: 1, mr: 3}}>
+          <StyledOcticon icon={ProjectIcon} sx={{mr: 2}} />
+          React
+        </Text>
+        <ActionMenu open={open} setOpen={setOpen} overlayProps={{width: 'medium'}}>
+          <ActionMenu.Button
+            aria-label="Open View options menu"
+            sx={{
+              p: 0,
+              width: 18,
+              height: 18,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <TriangleDownIcon />
+          </ActionMenu.Button>
+
+          <ActionList>
+            <ActionList.Group title="Layout">
+              <li style={{listStyle: 'none'}}>
+                <Box sx={{mx: 3, display: 'flex'}}>
+                  <LayoutToggleItem selected Icon={TableIcon}>
+                    Table
+                  </LayoutToggleItem>
+                  <LayoutToggleItem selected={false} Icon={ProjectIcon}>
+                    Board
+                  </LayoutToggleItem>
+                </Box>
+              </li>
+            </ActionList.Group>
+            <ActionList.Divider />
+
+            <ActionList.Group title="Configuration">
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <ListUnorderedIcon />
+                </ActionList.LeadingVisual>
+                Title, Assignees, Status, Labels, Repositories
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <ListUnorderedIcon />
+                </ActionList.LeadingVisual>
+                group: none
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <ArrowDownIcon />
+                </ActionList.LeadingVisual>
+                sort: manual
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <SearchIcon />
+                </ActionList.LeadingVisual>
+                Search or filter this view
+              </ActionList.Item>
+            </ActionList.Group>
+            <ActionList.Divider />
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <PencilIcon />
+              </ActionList.LeadingVisual>
+              Rename view
+            </ActionList.Item>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <VersionsIcon />
+              </ActionList.LeadingVisual>
+              Save changes to new view
+            </ActionList.Item>
+            <ActionList.Item disabled>
+              <ActionList.LeadingVisual>
+                <TrashIcon />
+              </ActionList.LeadingVisual>
+              Delete view
+            </ActionList.Item>
+            <ActionList.Divider />
+
+            <li style={{listStyle: 'none'}}>
+              <ViewChangeButtons setOpen={setOpen} />
+            </li>
+          </ActionList>
+        </ActionMenu>
+      </Box>
+    </>
+  )
+}
+MemexViewOptionsMenu.storyName = 'Memex View Options Menu'
