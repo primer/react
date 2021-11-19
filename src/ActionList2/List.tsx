@@ -3,7 +3,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/r
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
-import {MenuContext} from '../ActionMenu2'
+import {MenuContext} from './MenuContext'
 
 export type ListProps = {
   /**
@@ -22,6 +22,8 @@ export type ListProps = {
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+
+  // listRole, itemRole, afterSelect, selectionVariant?
 } & SxProp
 
 type ContextProps = Omit<ListProps, 'sx'>

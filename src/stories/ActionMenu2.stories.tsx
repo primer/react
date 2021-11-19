@@ -58,7 +58,7 @@ export function SimpleListStory(): JSX.Element {
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>
 
-        <ActionList>
+        <ActionList selectionVariant="multiple">
           <ActionList.Item onSelect={() => onSelect('Copy link')}>
             Copy link
             <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
@@ -527,3 +527,24 @@ export function MemexViewOptionsMenu(): JSX.Element {
   )
 }
 MemexViewOptionsMenu.storyName = 'Memex View Options Menu'
+
+export function UnexpectedSelectionVariant(): JSX.Element {
+  return (
+    <>
+      <h1>Expect error if selectionVariant is passed</h1>
+
+      <ActionMenu>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+
+        <ActionList selectionVariant="multiple">
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Quote reply</ActionList.Item>
+          <ActionList.Item>Edit comment</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item variant="danger">Delete file</ActionList.Item>
+        </ActionList>
+      </ActionMenu>
+    </>
+  )
+}
+UnexpectedSelectionVariant.storyName = 'Unexpected selectionVariant'

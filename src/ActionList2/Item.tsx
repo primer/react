@@ -8,7 +8,7 @@ import sx, {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
-import {MenuContext} from '../ActionMenu2'
+import {MenuContext} from './MenuContext'
 import {Selection} from './Selection'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
@@ -102,7 +102,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     forwardedRef
   ): JSX.Element => {
     const {variant: listVariant, showDividers} = React.useContext(ListContext)
-    const {itemRole, onClose: onMenuClose} = React.useContext(MenuContext)
+    const {itemRole, afterSelect} = React.useContext(MenuContext)
 
     const {theme} = useTheme()
 
@@ -174,10 +174,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         if (!event.defaultPrevented) {
           onSelect(event)
           // if this Item is inside a Menu, close the Menu
-          if (typeof onMenuClose === 'function') onMenuClose()
+          if (typeof afterSelect === 'function') afterSelect()
         }
       },
-      [onSelect, disabled, onMenuClose]
+      [onSelect, disabled, afterSelect]
     )
 
     const keyPressHandler = React.useCallback(
@@ -186,10 +186,10 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           onSelect(event)
           // if this Item is inside a Menu, close the Menu
-          if (typeof onMenuClose === 'function') onMenuClose()
+          if (typeof afterSelect === 'function') afterSelect()
         }
       },
-      [onSelect, disabled, onMenuClose]
+      [onSelect, disabled, afterSelect]
     )
 
     // use props.id if provided, otherwise generate one.

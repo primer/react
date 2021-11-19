@@ -6,6 +6,7 @@ import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate} from './hooks'
 import {AnchoredOverlayWrapperAnchorProps} from './AnchoredOverlay/AnchoredOverlay'
 import {Divider} from './ActionList2/Divider'
+import {MenuContext as ActionListMenuContext} from './ActionList2/MenuContext'
 
 type ActionMenuBaseProps = {
   /**
@@ -30,10 +31,6 @@ type ActionMenuBaseProps = {
 }
 
 export type ActionMenuProps = ActionMenuBaseProps & AnchoredOverlayWrapperAnchorProps
-
-/** we pass onClose down in the context for ActionList.Item */
-type ContextProps = {listRole?: string; itemRole?: string; onClose?: () => void}
-export const MenuContext = React.createContext<ContextProps>({})
 
 const ActionMenuBase: React.FC<ActionMenuProps> = ({
   anchorRef: externalAnchorRef,
@@ -67,7 +64,11 @@ const ActionMenuBase: React.FC<ActionMenuProps> = ({
       onClose={onClose}
       overlayProps={overlayProps}
     >
-      <MenuContext.Provider value={{listRole: 'menu', itemRole: 'menuitem', onClose}}>{contents}</MenuContext.Provider>
+      <ActionListMenuContext.Provider
+        value={{parent: 'ActionMenu', listRole: 'menu', itemRole: 'menuitem', afterSelect: onClose}}
+      >
+        {contents}
+      </ActionListMenuContext.Provider>
     </AnchoredOverlay>
   )
 }
