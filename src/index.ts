@@ -27,7 +27,6 @@ export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './Dialog/ConfirmationDialog'
 
 // Components
-export {Checkbox} from './Checkbox'
 export {ActionList} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
@@ -167,5 +166,8 @@ export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
 export {default as UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
+
+export {Checkbox} from './Checkbox'
+export type {CheckboxProps} from './Checkbox'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
