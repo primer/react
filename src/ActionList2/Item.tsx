@@ -13,9 +13,9 @@ import {Selection} from './Selection'
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
   if (disabled) {
     return {
-      color: 'fg.muted',
-      iconColor: 'fg.muted',
-      annotationColor: 'fg.muted'
+      color: 'primer.fg.disabled',
+      iconColor: 'primer.fg.disabled',
+      annotationColor: 'primer.fg.disabled'
     }
   }
 
@@ -114,8 +114,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       borderRadius: listVariant === 'inset' ? 2 : 0,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
-      textDecoration: 'none', // for as="a"
-      ':not([aria-disabled])': {cursor: 'pointer'},
+      cursor: 'pointer',
+      '&[aria-disabled]': {cursor: 'not-allowed'},
+
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
