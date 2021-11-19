@@ -3,7 +3,7 @@ import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import {CheckCircleFillIcon, CircleIcon, SkipIcon} from '@primer/octicons-react'
 import React from 'react'
 
-/** Render component maturity checklist in documentation pages */
+/** Render component status checklist in documentation pages */
 export function ComponentChecklist({items}) {
   return (
     <>
