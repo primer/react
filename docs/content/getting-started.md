@@ -105,7 +105,7 @@ If you're rendering React components both server- and client-side, we suggest fo
 
 ## TypeScript
 
-Primer React includes TypeScript support and ships with its own typings. You will need still need to to install type typings for the peer dependencies if you import those in your own application code.
+Primer React includes TypeScript support and ships with its own typings. You will still need to install type definitions for the peer dependencies if you import those in your own application code.
 
 Once installed, you can import components and their prop type interfaces from the `@primer/components` package:
 

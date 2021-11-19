@@ -7,7 +7,7 @@ description: An ActionList is a list of items which can be activated or selected
 ---
 
 import {BorderBox, Avatar} from '@primer/components'
-import {ActionList} from '@primer/components/unreleased'
+import {ActionList} from '@primer/components/drafts'
 import {Props} from '../src/props'
 
 import {ImageContainer} from '@primer/gatsby-theme-doctocat'
@@ -48,17 +48,18 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 <br />
 
 ```js
-import {ActionList} from '@primer/components/unreleased'
+import {ActionList} from '@primer/components/drafts'
 ```
 
 <br />
 
 ## Examples
 
-## Minimal example
+### Minimal example
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -73,13 +74,14 @@ render(
 
 <br />
 
-## With Leading Visual
+### With leading visual
 
 Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
 
 <!-- prettier-ignore -->
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -101,12 +103,13 @@ render(
 
 <br />
 
-## With Trailing Visual
+### With trailing visual
 
 Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -132,12 +135,13 @@ render(
 
 <br />
 
-## With Description and Dividers
+### With description and dividers
 
 Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList showDividers>
@@ -166,13 +170,14 @@ render(
 )
 ```
 
-## With Links
+### With links
 
 When you want to add links to the List instead of actions, use `ActionList.LinkItem`
 
 <!-- prettier-ignore -->
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionList>
@@ -204,10 +209,11 @@ render(
 
 <br />
 
-## With Groups
+### With groups
 
 ```javascript live noinline
-const {ActionList} = unreleased
+// import {ActionList} from '@primer/components/drafts'
+const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 const SelectFields = () => {
   const [options, setOptions] = React.useState([
@@ -265,7 +271,7 @@ render(<SelectFields />)
 
 ## Props / API reference
 
-## ActionList
+### ActionList
 
 | Name             | Type                                                                                              | Default | Description                                                                                                                                                                                |
 | :--------------- | :------------------------------------------------------------------------------------------------ | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -278,7 +284,7 @@ render(<SelectFields />)
 
 <br />
 
-## ActionList.Item
+### ActionList.Item
 
 | Name       | Type                                                                                                          |   Default   | Description                                                                                      |
 | :--------- | :------------------------------------------------------------------------------------------------------------ | :---------: | :----------------------------------------------------------------------------------------------- |
@@ -292,7 +298,7 @@ render(<SelectFields />)
 
 <br />
 
-## ActionList.LinkItem
+### ActionList.LinkItem
 
 | Name                                                | Type                                                                                                          | Default | Description                                                    |
 | :-------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ | :-----: | :------------------------------------------------------------- |
@@ -302,14 +308,14 @@ render(<SelectFields />)
 
 <br />
 
-## ActionList.LeadingVisual
+### ActionList.LeadingVisual
 
 | Name       | Type                | Default | Description                                                    |
 | :--------- | :------------------ | :-----: | :------------------------------------------------------------- |
 | children\* | `React.ReactNode` - |    -    | Required. Icon (or similar) positioned before `Item` text.     |
 | sx         | sxProp              |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
 
-## ActionList.TrailingVisual
+### ActionList.TrailingVisual
 
 | Name       | Type                | Default | Description                                                    |
 | :--------- | :------------------ | :-----: | :------------------------------------------------------------- |
@@ -318,7 +324,7 @@ render(<SelectFields />)
 
 <br />
 
-## ActionList.Description
+### ActionList.Description
 
 | Name       | Type                    |  Default   | Description                                                                                                                       |
 | :--------- | :---------------------- | :--------: | :-------------------------------------------------------------------------------------------------------------------------------- |
@@ -328,7 +334,7 @@ render(<SelectFields />)
 
 <br />
 
-## ActionList.Group
+### ActionList.Group
 
 | Name             | Type                                         |  Default   | Description                                                                                                                              |
 | :--------------- | :------------------------------------------- | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------- |
@@ -342,7 +348,7 @@ render(<SelectFields />)
 
 ## Further reading
 
-[Interface guidelines: Action List](https://primer.style/design/components/action-list)
+- [Interface guidelines: Action List](https://primer.style/design/components/action-list)
 
 <br />
 
@@ -350,5 +356,3 @@ render(<SelectFields />)
 
 - [ActionMenu](/ActionMenu)
 - [SelectPanel](/SelectPanel)
-
-<br />
