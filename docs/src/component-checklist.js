@@ -1,4 +1,4 @@
-import {Box, StyledOcticon, Link} from '@primer/components'
+import {Box, StyledOcticon, Link, Text} from '@primer/components'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import {CheckCircleFillIcon, CircleIcon, SkipIcon} from '@primer/octicons-react'
 import React from 'react'
@@ -67,12 +67,15 @@ Checklist.Item = ({checked, children}) => {
         {checked ? (
           <StyledOcticon aria-label="Completed" icon={CheckCircleFillIcon} sx={{color: 'success.fg'}} />
         ) : checked === null ? (
-          <StyledOcticon aria-label="Not applicable" icon={SkipIcon} sx={{color: 'neutral.emphasis'}} />
+          <StyledOcticon icon={SkipIcon} sx={{color: 'fg.subtle'}} />
         ) : (
-          <StyledOcticon aria-label="To do" icon={CircleIcon} sx={{color: 'neutral.emphasis'}} />
+          <StyledOcticon aria-label="To do" icon={CircleIcon} sx={{color: 'fg.subtle'}} />
         )}
       </Box>
-      <span>{children}</span>
+      <Text color={checked === null ? 'fg.subtle' : 'fg.default'}>
+        {checked === null ? <Text color="fg.subtle">N/A: </Text> : null}
+        {children}
+      </Text>
     </Box>
   )
 }
