@@ -1,13 +1,10 @@
-import React, {ReactNode, useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Box, Text, ThemeProvider} from '..'
-import {Checkbox, CheckboxProps} from '../Checkbox'
+import {BaseStyles, Box, Checkbox, CheckboxProps, Text, ThemeProvider} from '..'
 import {action} from '@storybook/addon-actions'
-import {useEffect, useRef} from '@storybook/addons'
 import {COMMON, get} from '../constants'
-import {check} from 'ts-toolbelt/out/Test'
 
 export default {
   title: 'Forms/Checkbox',

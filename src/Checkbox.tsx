@@ -29,7 +29,7 @@ const StyledCheckbox = styled.input`
  * @param param0 A
  * @returns
  */
-export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({checked, indeterminate, disabled, sx: sxProp, ...rest}: CheckboxProps, ref): ReactElement => {
     const checkboxRef = useRef<HTMLInputElement>(null)
 
@@ -43,12 +43,17 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <StyledCheckbox
         type="checkbox"
         disabled={disabled}
+        aria-disabled={disabled ? 'true' : 'false'}
         ref={ref || checkboxRef}
-        checked={checked}
-        aria-checked={indeterminate ? 'mixed' : checked}
+        checked={indeterminate ? false : checked}
+        aria-checked={indeterminate ? 'mixed' : checked ? 'true' : 'false'}
         sx={{...sxProp}}
         {...rest}
       />
     )
   }
 )
+
+Checkbox.displayName = 'Checkbox'
+
+export default Checkbox
