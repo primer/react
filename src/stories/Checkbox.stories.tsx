@@ -72,21 +72,21 @@ export const Default = (args: CheckboxProps) => {
         <Checkbox id="always-checked-checkbox" checked {...args} />
         <StyledLabel htmlFor="always-checked-checkbox">
           <Text sx={{display: 'block'}}>Always checked</Text>
-          <StyledSubLabel>checked="true"</StyledSubLabel>
+          <StyledSubLabel>checked=&quot;true&quot;</StyledSubLabel>
         </StyledLabel>
       </Box>
       <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox id="always-unchecked-checkbox" checked={false} {...args} />
         <StyledLabel htmlFor="always-unchecked-checkbox">
           <Text sx={{display: 'block'}}>Always unchecked</Text>
-          <StyledSubLabel>checked="false"</StyledSubLabel>
+          <StyledSubLabel>checked=&quot;false&quot;</StyledSubLabel>
         </StyledLabel>
       </Box>
       <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox id="disabled-checkbox" disabled checked={false} />
         <StyledLabel htmlFor="disabled-checkbox">
           <Text sx={{display: 'block'}}>Inactive</Text>
-          <StyledSubLabel>disabled="true"</StyledSubLabel>
+          <StyledSubLabel>disabled=&quot;true&quot;</StyledSubLabel>
         </StyledLabel>
       </Box>
     </>
@@ -116,7 +116,7 @@ export const Uncontrolled = (args: CheckboxProps) => {
 export const Indeterminate = (args: CheckboxProps) => {
   const [checkboxes, setCheckboxes] = useState<boolean[]>([false, false, false, false])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChange = (_: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newCheckboxes = [...checkboxes]
     newCheckboxes[index] = !checkboxes[index]
     setCheckboxes(newCheckboxes)
