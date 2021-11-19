@@ -1,5 +1,29 @@
 # @primer/components
 
+## 31.2.0
+
+### Minor Changes
+
+- [#1544](https://github.com/primer/react/pull/1544) [`5b55b0ab`](https://github.com/primer/react/commit/5b55b0ab8ea06b077e141c02285c81b99e246b77) Thanks [@jfuchs](https://github.com/jfuchs)! - The sx prop now has types that will inform autocomplete for color and shadow values that are key paths into the theme.
+
+* [#1517](https://github.com/primer/react/pull/1517) [`561c0bd3`](https://github.com/primer/react/commit/561c0bd371b8d2135fb1d69555abc424ab796f2d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Add experimental `ActionList` with composable API
+
+### Patch Changes
+
+- [#1599](https://github.com/primer/react/pull/1599) [`a2e195b0`](https://github.com/primer/react/commit/a2e195b0a26ce70f44aea38b009856c0089aae0e) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Better labels and description for accessible ActionList.Item
+
+* [#1603](https://github.com/primer/react/pull/1603) [`f4057b89`](https://github.com/primer/react/commit/f4057b897cc4c23012fb1b1881cefacbb57e081d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Improve keyboard accessibility with focus styles cross browser
+
+- [#1583](https://github.com/primer/react/pull/1583) [`24b1ebbc`](https://github.com/primer/react/commit/24b1ebbc21ca2eaa92bd6b5b8c15ab0e7577f5a0) Thanks [@pksjce](https://github.com/pksjce)! - Add a utility to provide useIsoMorphicEffect function and use that instead of useLayoutEffect everywhere
+
+* [#1592](https://github.com/primer/react/pull/1592) [`8d3d491f`](https://github.com/primer/react/commit/8d3d491fa3c9437b3a8f310e233b7009cae13095) Thanks [@rezrah](https://github.com/rezrah)! - Fixes a styling bug in TextInput components while using its `icon` and `block` props together
+
+- [#1549](https://github.com/primer/react/pull/1549) [`f565840f`](https://github.com/primer/react/commit/f565840f2d879b987ef9df7cd046e146214ed5f5) Thanks [@michael-lefebvre](https://github.com/michael-lefebvre)! - Fix `auxiliaryText` in ActionList Group header
+
+* [#1604](https://github.com/primer/react/pull/1604) [`d2090b5b`](https://github.com/primer/react/commit/d2090b5b0321df1a415054d9b6a4d407627a385f) Thanks [@japf](https://github.com/japf)! - Add support for draft issues to the StateLabel component
+
+- [#1609](https://github.com/primer/react/pull/1609) [`5eb7ade9`](https://github.com/primer/react/commit/5eb7ade92082fda2a94b45828a32e25b07c039db) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Rename `@primer/components/unreleased` to `@primer/components/drafts` to avoid confusion when referring to it.
+
 ## 31.1.0
 
 ### Minor Changes
