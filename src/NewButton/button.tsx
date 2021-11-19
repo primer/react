@@ -219,7 +219,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
     userSelect: 'none',
     textDecoration: 'none',
     textAlign: 'center',
-    '> :not(:last-child), :not(\'[data-component="icon-only"]\')': {
+    '& > :not(:last-child)': {
       mr: '2'
     },
     '&:focus': {
@@ -255,14 +255,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props},
           <LeadingIcon />
         </Box>
       )}
+      <span data-component="text" hidden={Icon ? true : undefined}>
+        {children}
+      </span>
       {Icon && (
         <Box data-component="icon-only" as="span" sx={{display: 'inline-block'}} aria-hidden={!iconOnly}>
           <Icon />
         </Box>
       )}
-      <span data-component="text" hidden={Icon ? true : false}>
-        {children}
-      </span>
       {TrailingIcon && (
         <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}} aria-hidden={!iconOnly}>
           <TrailingIcon />

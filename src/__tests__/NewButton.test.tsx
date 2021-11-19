@@ -4,6 +4,7 @@ import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -60,5 +61,10 @@ describe('Button', () => {
   })
   it('styles danger button appropriately', () => {
     expect(render(<Button variant="danger">Danger</Button>)).toHaveStyleRule('background-color', '#f6f8fa')
+  })
+  it('styles icon only button to make it a square', () => {
+    const IconOnlyButton = render(<Button icon={SearchIcon}>Search icon only button</Button>)
+    expect(IconOnlyButton).toHaveStyleRule('padding-right', '7px')
+    expect(IconOnlyButton).toMatchSnapshot()
   })
 })
