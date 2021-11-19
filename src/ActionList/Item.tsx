@@ -295,6 +295,9 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   height: 20px;
   width: ${get('space.3')};
   margin-right: ${get('space.2')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const ColoredVisualContainer = styled(BaseVisualContainer)`
@@ -333,8 +336,16 @@ const DescriptionContainer = styled.span`
   flex-basis: var(--description-container-flex-basis);
 `
 
-const MultiSelectInput = styled.input`
-  pointer-events: none;
+const MultiSelectIcon = styled.svg<{selected?: boolean}>`
+  rect {
+    fill: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.canvas.default'))};
+    stroke: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.border.default'))};
+  }
+  path {
+    fill: ${get('colors.fg.onEmphasis')};
+    boxshadow: ${get('shadow.small')};
+    opacity: ${({selected}) => (selected ? 1 : 0)};
+  }
 `
 
 /**
@@ -372,11 +383,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
         return
       }
       onKeyPress?.(event)
-      const isCheckbox = event.target instanceof HTMLInputElement && event.target.type === 'checkbox'
-      if (isCheckbox && event.key === ' ') {
-        // space key on a checkbox will also trigger a click event.  Ignore the space key so we don't get double events
-        return
-      }
 
       if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
         onAction?.(itemProps, event)
@@ -425,19 +431,26 @@ export const Item = React.forwardRef((itemProps, ref) => {
         <BaseVisualContainer>
           {selectionVariant === 'multiple' ? (
             <>
-              {/*
-               * readOnly is required because we are doing a one-way bind to `checked`.
-               * aria-readonly="false" tells screen that they can still interact with the checkbox
+              {/**
+               * we use a svg instead of an input because there should not
+               * be an interactive element inside an option
+               * svg copied from primer/css
                */}
-              <MultiSelectInput
-                disabled={disabled}
-                tabIndex={-1}
-                type="checkbox"
-                checked={selected}
-                aria-label={text}
-                readOnly
-                aria-readonly="false"
-              />
+              <MultiSelectIcon
+                selected={selected}
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect x="2" y="2" width="12" height="12" rx="4"></rect>
+                <path
+                  fillRule="evenodd"
+                  strokeWidth="0"
+                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                />
+              </MultiSelectIcon>
             </>
           ) : (
             selected && <CheckIcon fill={theme?.colors.fg.default} />

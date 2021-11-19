@@ -32,8 +32,7 @@ exports[`Button renders consistently 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c0 > :not(:last-child),
-.c0:not('[data-component="icon-only"]') {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -84,7 +83,6 @@ exports[`Button renders consistently 1`] = `
 >
   <span
     data-component="text"
-    hidden={false}
   />
 </button>
 `;
@@ -121,8 +119,7 @@ exports[`Button respects the "disabled" prop 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c0 > :not(:last-child),
-.c0:not('[data-component="icon-only"]') {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -174,9 +171,130 @@ exports[`Button respects the "disabled" prop 1`] = `
 >
   <span
     data-component="text"
-    hidden={false}
   >
      Disabled
+  </span>
+</button>
+`;
+
+exports[`Button styles icon only button to make it a square 1`] = `
+.c1 {
+  display: inline-block;
+}
+
+.c0 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: rgba(27,31,36,0.15);
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+  font-size: 14px;
+  color: #24292f;
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  color: #8c959f;
+  background-color: btn.disabledBg;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c0 [data-component="text"] {
+  grid-area: text;
+}
+
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c0 [data-component="ButtonCounter"] {
+  font-size: 14px;
+}
+
+.c0:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c0:focus:not([disabled]) {
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
+}
+
+<button
+  className="c0"
+>
+  <span
+    data-component="text"
+    hidden={true}
+  >
+    Search icon only button
+  </span>
+  <span
+    aria-hidden={false}
+    className="c1"
+    data-component="icon-only"
+  >
+    <svg
+      aria-hidden="true"
+      className="octicon octicon-search"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+        }
+      }
+      fill="currentColor"
+      height={16}
+      role="img"
+      style={
+        Object {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
+      }
+      viewBox="0 0 16 16"
+      width={16}
+    />
   </span>
 </button>
 `;
