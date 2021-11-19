@@ -216,7 +216,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             {...props}
           >
             <ItemWrapper>
-              <Selection selected={selected} disabled={disabled} />
+              <Selection selected={selected} />
               {slots.LeadingVisual}
               <Box
                 data-component="ActionList.Item--DividerContainer"
