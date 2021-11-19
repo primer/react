@@ -22,8 +22,6 @@ export type ListProps = {
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
-
-  // listRole, itemRole, afterSelect, selectionVariant?
 } & SxProp
 
 type ContextProps = Omit<ListProps, 'sx'>
