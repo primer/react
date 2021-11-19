@@ -5,12 +5,17 @@ import {COMMON} from './constants'
 
 export type CheckboxProps = {
   /**
-   * Apply indeterminate state for the checkbox
+   * Apply indeterminate visual appearance to the checkbox
    */
   indeterminate?: boolean
-
+  /**
+   * Apply inactive visual appearance to the checkbox
+   */
   disabled?: boolean
 
+  /**
+   * Forward a ref to the underlying input element
+   */
   ref?: React.RefObject<HTMLInputElement>
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
@@ -25,9 +30,7 @@ const StyledCheckbox = styled.input`
 `
 
 /**
- * An accessible checkbox
- * @param param0 A
- * @returns
+ * An accessible, native checkbox component
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({checked, indeterminate, disabled, sx: sxProp, ...rest}: CheckboxProps, ref): ReactElement => {
