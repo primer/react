@@ -58,7 +58,7 @@ export function SimpleListStory(): JSX.Element {
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>
 
-        <ActionList selectionVariant="multiple">
+        <ActionList>
           <ActionList.Item onSelect={() => onSelect('Copy link')}>
             Copy link
             <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
@@ -164,7 +164,7 @@ export function ExternalAnchor(): JSX.Element {
     </>
   )
 }
-ControlledMenu.storyName = 'Controlled Menu'
+ExternalAnchor.storyName = 'External Anchor'
 
 export function ControlledMenu(): JSX.Element {
   const [actionFired, fireAction] = React.useState('')
