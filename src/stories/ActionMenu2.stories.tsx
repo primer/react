@@ -121,7 +121,7 @@ export function ActionsStory(): JSX.Element {
 }
 ActionsStory.storyName = 'Actions'
 
-export function ControlledMenu(): JSX.Element {
+export function ExternalAnchor(): JSX.Element {
   const [actionFired, fireAction] = React.useState('')
   const onSelect = (name: string) => fireAction(name)
 
@@ -130,7 +130,7 @@ export function ControlledMenu(): JSX.Element {
 
   return (
     <>
-      <h1>Controlled Menu</h1>
+      <h1>External Anchor</h1>
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
       <h2>Last option activated: {actionFired}</h2>
       <div>
@@ -140,19 +140,7 @@ export function ControlledMenu(): JSX.Element {
       </div>
       <br />
 
-      <ActionMenu
-        open={open}
-        setOpen={setOpen}
-        overlayProps={{
-          // clicking the button should not be counted as "clicking outside"
-          ignoreClickRefs: [triggerRef]
-        }}
-      >
-        {/**
-         * Even though the state is controlled externally,
-         * we can pass an Anchor for the menu to "anchor" to.
-         */}
-        <ActionMenu.Button>Anchor</ActionMenu.Button>
+      <ActionMenu open={open} setOpen={setOpen} anchorRef={triggerRef}>
         <ActionList>
           <ActionList.Item onSelect={() => onSelect('Copy link')}>
             Copy link
@@ -178,7 +166,7 @@ export function ControlledMenu(): JSX.Element {
 }
 ControlledMenu.storyName = 'Controlled Menu'
 
-export function ExternalAnchor(): JSX.Element {
+export function ControlledMenu(): JSX.Element {
   const [actionFired, fireAction] = React.useState('')
   const onSelect = (name: string) => fireAction(name)
 
@@ -187,7 +175,7 @@ export function ExternalAnchor(): JSX.Element {
 
   return (
     <>
-      <h1>External Anchor</h1>
+      <h1>Controlled Menu</h1>
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
       <h2>Last option activated: {actionFired}</h2>
       <div>
@@ -197,7 +185,20 @@ export function ExternalAnchor(): JSX.Element {
       </div>
       <br />
 
-      <ActionMenu open={open} setOpen={setOpen} anchorRef={triggerRef}>
+      <ActionMenu
+        open={open}
+        setOpen={setOpen}
+        overlayProps={{
+          // Because the component is controlled from outside, but the anchor is still internal,
+          // clicking the external button should not be counted as "clicking outside"
+          ignoreClickRefs: [triggerRef]
+        }}
+      >
+        {/**
+         * Even though the state is controlled externally,
+         * we can pass an Anchor for the menu to "anchor to"
+         */}
+        <ActionMenu.Button>Anchor</ActionMenu.Button>
         <ActionList>
           <ActionList.Item onSelect={() => onSelect('Copy link')}>
             Copy link
