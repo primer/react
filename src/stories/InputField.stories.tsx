@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, useState} from 'react'
+import React, {ChangeEventHandler, useEffect, useState} from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, Text, Box, TextInput} from '..'
 import InputField from '../InputField'
@@ -197,47 +197,39 @@ export const RadioFieldset = () => {
 }
 
 export const WithValidation = () => {
-  const [showValidation, setShowValidation] = useState(false)
-  const handleValidationToggle: ChangeEventHandler<HTMLInputElement> = e => {
-    setShowValidation(e.currentTarget.checked)
+  const [value, setValue] = useState<string>('mona lisa')
+  const [validationResult, setValidationResult] = useState<'noSpaces' | 'validName' | undefined>()
+  const doesValueContainSpaces = (inputValue: string) => /\s/g.test(inputValue)
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
+    setValue(e.currentTarget.value)
   }
 
+  useEffect(() => {
+    if (doesValueContainSpaces(value)) {
+      setValidationResult('noSpaces')
+    } else if (value) {
+      setValidationResult('validName')
+    }
+  }, [value])
+
   return (
-    <>
-      <div>
-        <input id="showValidationInput" type="checkbox" checked={showValidation} onChange={handleValidationToggle} />
-        <label htmlFor="showValidationInput">Show validation</label>
-      </div>
-      <ExampleCollectionContainer>
-        <SingleExampleContainer label="Error">
-          <InputField id="errored-defaultInputField" validationStatus="error">
-            <InputField.Label>Name</InputField.Label>
-            <InputField.Input as={TextInput} block />
-            {showValidation && (
-              <InputField.Validation>
-                Invalid name, try a different one. <a href="http://google.com">More Info</a>
-              </InputField.Validation>
-            )}
-            <InputField.Caption>
-              Hint: your first name. <a href="http://google.com">More Info</a>
-            </InputField.Caption>
-          </InputField>
-        </SingleExampleContainer>
-        <SingleExampleContainer label="Successs">
-          <InputField id="success-defaultInputField" validationStatus="success">
-            <InputField.Label>Name</InputField.Label>
-            <InputField.Input as={TextInput} block />
-            {showValidation && (
-              <InputField.Validation>
-                Wow, such a cool name. <a href="http://google.com">More Info</a>
-              </InputField.Validation>
-            )}
-            <InputField.Caption>
-              Hint: your first name. <a href="http://google.com">More Info</a>
-            </InputField.Caption>
-          </InputField>
-        </SingleExampleContainer>
-      </ExampleCollectionContainer>
-    </>
+    <ExampleCollectionContainer>
+      <SingleExampleContainer label="Error">
+        <InputField
+          id="errored-defaultInputField"
+          validationMap={{
+            noSpaces: 'error',
+            validName: 'success'
+          }}
+          validationResult={validationResult}
+        >
+          <InputField.Label>GitHub handle</InputField.Label>
+          <InputField.Input as={TextInput} block value={value} onChange={handleInputChange} />
+          <InputField.Validation validationKey="noSpaces">GitHub handles cannot contain spaces</InputField.Validation>
+          <InputField.Validation validationKey="validName">Valid name</InputField.Validation>
+          <InputField.Caption>With or without "@". For example "monalisa" or "@monalisa"</InputField.Caption>
+        </InputField>
+      </SingleExampleContainer>
+    </ExampleCollectionContainer>
   )
 }

@@ -27,11 +27,6 @@ export interface ChoiceFieldsetProps {
    * Whether this field must have a value for the user to complete their task
    */
   required?: boolean
-  /**
-   * Styles the field to visually communicate the result of form validation
-   */
-  // TODO: Figure out if we're keeping the 'warning' status
-  validationStatus?: 'error' | 'warning' | 'success'
 }
 
 export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
@@ -42,7 +37,7 @@ export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
 const {Slots, Slot} = createSlots(['Caption', 'ChoiceList', 'Legend', 'Validation'])
 export {Slot}
 
-const ChoiceFieldset: React.FC<ChoiceFieldsetProps> = ({children, id, name, onChange, required, validationStatus}) => {
+const ChoiceFieldset: React.FC<ChoiceFieldsetProps> = ({children, id, name, onChange, required}) => {
   const fieldsetId = id || uniqueId()
   const hasValidationChild = React.Children.toArray(children).some(
     child => React.isValidElement(child) && child.type === ChoiceFieldsetValidation
@@ -57,8 +52,7 @@ const ChoiceFieldset: React.FC<ChoiceFieldsetProps> = ({children, id, name, onCh
         name,
         onChange,
         required,
-        validationMessageId,
-        validationStatus
+        validationMessageId
       }}
     >
       {slots => {

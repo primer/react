@@ -49,13 +49,12 @@ const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant
 
   return (
     <Slot name="ChoiceList">
-      {({name, onChange, validationStatus}: ChoiceFieldsetProps) => (
+      {({name, onChange}: ChoiceFieldsetProps) => (
         <ChoiceFieldsetListContext.Provider
           value={{
             initialSelectedChoices,
             name: getRadioGroupName(name),
             selectionVariant,
-            validationStatus,
             onChange: (e: ChangeEvent<HTMLInputElement>) => {
               onChange && onChange(getSelectedCheckboxes(e.currentTarget.value, e.currentTarget.checked))
             }

@@ -5,7 +5,6 @@ const ChoiceFieldsetListContext = createContext<{
   name?: string
   onChange?: ChangeEventHandler<HTMLInputElement>
   selectionVariant?: 'multiple' | 'single'
-  validationStatus?: 'error' | 'warning' | 'success'
 }>({})
 
 export default ChoiceFieldsetListContext

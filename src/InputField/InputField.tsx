@@ -1,5 +1,6 @@
 import React from 'react'
 import {Box} from '..'
+import InputValidation from '../InputValidation'
 import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
 import InputFieldCaption from './InputFieldCaption'
@@ -25,46 +26,61 @@ export interface Props {
    */
   required?: boolean
   /**
-   * Styles the field to visually communicate the result of form validation
+   * A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop,
+   * the associated validation message will be rendered in the correct style
    */
-  // TODO: Figure out if we're keeping the 'warning' status
-  validationStatus?: 'error' | 'warning' | 'success'
+  validationMap?: Record<string, 'error' | 'warning' | 'success'>
+  /**
+   * The key of the validation message to show
+   */
+  // TODO: figure out how to type this as a string union of `validationMap` values
+  // something like `keyof Props['validationMap']`
+  validationResult?: string
 }
-export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'required' | 'validationStatus'> {
+
+type InputFieldValidationProps = ComponentProps<typeof InputFieldValidation>
+export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'required'> {
   captionId: string
   validationMessageId: string
 }
 
-const InputField: React.FC<Props> = ({children, disabled, id, required, validationStatus}) => {
-  const fieldId = id || uniqueId()
-  const hasValidationChild = React.Children.toArray(children).some(
-    child => React.isValidElement(child) && child.type === InputFieldValidation
-  )
+const InputField: React.FC<Props> = ({children, disabled, id: idProp, required, validationMap, validationResult}) => {
+  const id = idProp || uniqueId()
+  const validationChildren: React.ReactElement<InputFieldValidationProps>[] | undefined | null = React.Children.map(
+    children,
+    child =>
+      React.isValidElement<InputFieldValidationProps>(child) && child.type === InputFieldValidation ? child : null
+  )?.filter(Boolean)
+  const validationChildToRender = validationChildren?.find(child => child.props.validationKey === validationResult)
+  const validationMessageId = validationChildToRender ? `${id}-validationMsg` : undefined
 
   return (
     <Slots
       context={{
-        captionId: `${fieldId}-caption`,
+        captionId: `${id}-caption`,
         disabled,
-        id: fieldId,
+        id,
         required,
-        validationMessageId: hasValidationChild ? `${fieldId}-validationMsg` : undefined,
-        validationStatus
+        validationMessageId
       }}
     >
-      {slots => {
-        return (
-          <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 1}}}>
-            {children}
-            {slots.Label}
-            {slots.Input}
-            <ValidationAnimationContainer show={Boolean(slots.Validation)}>
-              {slots.Validation}
+      {slots => (
+        <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 1}}}>
+          {React.Children.toArray(children).filter(
+            child => React.isValidElement<InputFieldValidationProps>(child) && child.type !== InputFieldValidation
+          )}
+          {slots.Label}
+          {slots.Input}
+          {validationChildToRender && validationMap && validationResult && validationMessageId && (
+            <ValidationAnimationContainer show>
+              <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
+                {validationChildToRender}
+              </InputValidation>
             </ValidationAnimationContainer>
-            {slots.Caption && <Box mt={1}>{slots.Caption}</Box>}
-          </Box>
-        )
-      }}
+          )}
+          {slots.Caption}
+        </Box>
+      )}
     </Slots>
   )
 }

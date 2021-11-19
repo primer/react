@@ -1,16 +1,8 @@
 import React from 'react'
-import InputValidation from '../InputValidation'
-import {InputFieldContext} from './InputField'
-import {Slot} from './slots'
+export interface InputFieldValidationProps {
+  validationKey: string
+}
 
-const InputFieldValidation: React.FC = ({children}) => (
-  <Slot name="Validation">
-    {({validationStatus, validationMessageId}: InputFieldContext) => (
-      <InputValidation validationStatus={validationStatus} id={validationMessageId}>
-        {children}
-      </InputValidation>
-    )}
-  </Slot>
-)
+const InputFieldValidation: React.FC<InputFieldValidationProps> = ({children}) => <>{children}</>
 
 export default InputFieldValidation

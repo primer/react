@@ -12,13 +12,12 @@ export interface Props {
 const InputFieldInput = React.forwardRef(({as: Component = TextInput, ...rest}, ref) => {
   return (
     <Slot name="Input">
-      {({disabled, id, required, validationStatus, validationMessageId, captionId}: InputFieldContext) => (
+      {({disabled, id, required, validationMessageId, captionId}: InputFieldContext) => (
         <Component
           ref={ref}
           aria-describedby={[validationMessageId, captionId].filter(Boolean).join(' ')}
           id={id}
           required={required}
-          validationStatus={validationStatus}
           disabled={disabled}
           {...rest}
         />
