@@ -4,19 +4,9 @@ import {get} from '../constants'
 import {uniqueId} from '../utils/uniqueId'
 import {Slots} from './slots'
 import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
+import {Props as InputFieldProps} from './InputField'
 
-//TODO: DRY out - some of this is repeated in the `InputField` Props interface
-export interface Props {
-  // TODO: limit children to specific components
-  // children: any;
-  /**
-   * Whether the field is ready for user input
-   */
-  disabled?: boolean
-  /**
-   * The unique identifier for this field. Used to associate the label, validation text, and caption text
-   */
-  id?: string
+export interface Props extends Pick<InputFieldProps, 'disabled' | 'id'> {
   /**
    * Styles the field to visually communicate the result of form validation
    */

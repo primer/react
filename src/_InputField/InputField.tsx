@@ -4,14 +4,12 @@ import InputValidation from '../InputValidation'
 import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
 import InputFieldCaption from './InputFieldCaption'
-import InputFieldInput from './InputFieldInput'
 import InputFieldLabel from './InputFieldLabel'
 import InputFieldValidation from './InputFieldValidation'
 import {Slots} from './slots'
 import ValidationAnimationContainer from './ValidationAnimationContainer'
-export interface Props {
-  // TODO: limit children to specific components
-  // children: any;
+export interface Props<T = Record<string, 'error' | 'warning' | 'success'>> {
+  children?: React.ReactNode
   /**
    * Whether the field is ready for user input
    */
@@ -28,22 +26,29 @@ export interface Props {
    * A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop,
    * the associated validation message will be rendered in the correct style
    */
-  validationMap?: Record<string, 'error' | 'warning' | 'success'>
+  validationMap?: T
   /**
    * The key of the validation message to show
    */
-  // TODO: figure out how to type this as a string union of `validationMap` values
-  // something like `keyof Props['validationMap']`
-  validationResult?: string
+  validationResult?: keyof T
 }
 
 type InputFieldValidationProps = ComponentProps<typeof InputFieldValidation>
-export interface InputFieldContext extends Pick<Props, 'disabled' | 'id' | 'required'> {
+export interface InputFieldContext
+  extends Pick<Props<Record<string, 'error' | 'warning' | 'success'>>, 'disabled' | 'id' | 'required'> {
   captionId: string
   validationMessageId: string
 }
 
-const InputField: React.FC<Props> = ({children, disabled, id: idProp, required, validationMap, validationResult}) => {
+// adding `extends unknown` beacuse `<T>` is interpretted as a JSX tag
+const InputField = <T extends Record<string, 'error' | 'warning' | 'success'>>({
+  children,
+  disabled,
+  id: idProp,
+  required,
+  validationMap,
+  validationResult
+}: Props<T>) => {
   const id = idProp || uniqueId()
   const validationChildren: React.ReactElement<InputFieldValidationProps>[] | undefined | null = React.Children.map(
     children,
@@ -85,10 +90,8 @@ const InputField: React.FC<Props> = ({children, disabled, id: idProp, required, 
 }
 
 export type InputFieldComponentProps = ComponentProps<typeof InputField>
-export type {Props as InputFieldInputProps} from './InputFieldInput'
 export default Object.assign(InputField, {
   Caption: InputFieldCaption,
-  Input: InputFieldInput,
   Label: InputFieldLabel,
   Validation: InputFieldValidation
 })
