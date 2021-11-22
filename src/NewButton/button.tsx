@@ -5,6 +5,8 @@ import sx, {merge, SxProp} from '../sx'
 import {useTheme, Theme} from '../ThemeProvider'
 import {VariantType, ButtonProps} from './types'
 
+const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+
 const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
     default: {
@@ -130,7 +132,7 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
         boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
       },
 
-      '&:active': {
+      '&:active:not([disabled])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
@@ -191,86 +193,88 @@ const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOn
 
 const ButtonBase = styled.button<SxProp>(sx)
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props}, forwardedRef): JSX.Element => {
-  const {
-    icon: Icon,
-    leadingIcon: LeadingIcon,
-    trailingIcon: TrailingIcon,
-    variant = 'default',
-    size = 'medium',
-    sx: sxProp = {}
-  } = props
-  const iconOnly = !!Icon
-  const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
-  const {theme} = useTheme()
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({children, sx: sxProp = {}, ...props}, forwardedRef): JSX.Element => {
+    const {
+      icon: Icon,
+      leadingIcon: LeadingIcon,
+      trailingIcon: TrailingIcon,
+      variant = 'default',
+      size = 'medium'
+    } = props
+    const iconOnly = !!Icon
+    const {theme} = useTheme()
 
-  const styles = {
-    borderRadius: '2',
-    border: '1px solid',
-    borderColor: theme?.colors.btn.border,
-    display: 'grid',
-    gridTemplateAreas: '"leadingIcon text trailingIcon"',
-    fontWeight: 'bold',
-    lineHeight: TEXT_ROW_HEIGHT,
-    whiteSpace: 'nowrap',
-    verticalAlign: 'middle',
-    cursor: 'pointer',
-    appearance: 'none',
-    userSelect: 'none',
-    textDecoration: 'none',
-    textAlign: 'center',
-    '& > :not(:last-child)': {
-      mr: '2'
-    },
-    '&:focus': {
-      outline: 'none'
-    },
-    '&:disabled': {
-      cursor: 'default'
-    },
-    '&:disabled svg': {
-      opacity: '0.6'
-    },
-    '[data-component="leadingIcon"]': {
-      gridArea: 'leadingIcon'
-    },
-    '[data-component="text"]': {
-      gridArea: 'text'
-    },
-    '[data-component="trailingIcon"]': {
-      gridArea: 'trailingIcon'
+    const styles = {
+      borderRadius: '2',
+      border: '1px solid',
+      borderColor: theme?.colors.btn.border,
+      display: 'grid',
+      gridTemplateAreas: '"leadingIcon text trailingIcon"',
+      fontWeight: 'bold',
+      lineHeight: TEXT_ROW_HEIGHT,
+      whiteSpace: 'nowrap',
+      verticalAlign: 'middle',
+      cursor: 'pointer',
+      appearance: 'none',
+      userSelect: 'none',
+      textDecoration: 'none',
+      textAlign: 'center',
+      '& > :not(:last-child)': {
+        mr: '2'
+      },
+      '&:focus': {
+        outline: 'none'
+      },
+      '&:disabled': {
+        cursor: 'default'
+      },
+      '&:disabled svg': {
+        opacity: '0.6'
+      },
+      '[data-component="leadingIcon"]': {
+        gridArea: 'leadingIcon'
+      },
+      '[data-component="text"]': {
+        gridArea: 'text'
+      },
+      '[data-component="trailingIcon"]': {
+        gridArea: 'trailingIcon'
+      }
     }
+    const iconWrapStyles = {
+      display: 'inline-block'
+    }
+    const sxStyles = merge.all([
+      styles,
+      getSizeStyles(size, variant, iconOnly),
+      getVariantStyles(variant, theme),
+      sxProp as SxProp
+    ])
+    return (
+      <ButtonBase sx={sxStyles} ref={forwardedRef} {...props}>
+        {LeadingIcon && (
+          <Box as="span" data-component="leadingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
+            <LeadingIcon />
+          </Box>
+        )}
+        <span data-component="text" hidden={Icon ? true : false}>
+          {children}
+        </span>
+        {Icon && (
+          <Box data-component="icon-only" as="span" sx={{display: 'inline-block'}} aria-hidden={!iconOnly}>
+            <Icon />
+          </Box>
+        )}
+        {TrailingIcon && (
+          <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}} aria-hidden={!iconOnly}>
+            <TrailingIcon />
+          </Box>
+        )}
+      </ButtonBase>
+    )
   }
-  const variableStyles = {...getSizeStyles(size, variant, iconOnly), ...getVariantStyles(variant, theme)}
-  const componentStyles = {...styles, ...variableStyles}
-  const iconWrapStyles = {
-    display: 'inline-block'
-  }
-  return (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore Why wont it accept the sx prop?
-    <ButtonBase sx={merge(componentStyles, sxProp as SxProp)} ref={forwardedRef} {...props}>
-      {LeadingIcon && (
-        <Box as="span" data-component="leadingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
-          <LeadingIcon />
-        </Box>
-      )}
-      <span data-component="text" hidden={Icon ? true : undefined}>
-        {children}
-      </span>
-      {Icon && (
-        <Box data-component="icon-only" as="span" sx={{display: 'inline-block'}} aria-hidden={!iconOnly}>
-          <Icon />
-        </Box>
-      )}
-      {TrailingIcon && (
-        <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}} aria-hidden={!iconOnly}>
-          <TrailingIcon />
-        </Box>
-      )}
-    </ButtonBase>
-  )
-})
+)
 
 Button.displayName = 'Button'
 
