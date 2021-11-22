@@ -55,7 +55,7 @@ Checkbox components should always be accompanied by a corrosponding label to imp
 
 ## Indeterminate example
 
-An `indeterminate` checkbox state can be used if the inputs value is in-between on or off. This can be useful in situations where you are required to display an incomplete state, that is dependent on other external selections to force a binary decision of the parent checkbox.
+An `indeterminate` checkbox state can be used if the inputs value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, that is dependent on other external selections to force a binary decision of the parent checkbox.
 
 ```jsx live
 <>
