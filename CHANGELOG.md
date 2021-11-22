@@ -1,5 +1,77 @@
 # @primer/components
 
+## 32.0.0-next.0
+
+### Major Changes
+
+- [`e0f2645a`](https://github.com/primer/react/commit/e0f2645aaf80ba9dce82e6a937ba05c857d59406) Thanks [@jfuchs](https://github.com/jfuchs)! - Truncate no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`15663ed2`](https://github.com/primer/react/commit/15663ed2f3451a1b04dc5e5690d023c397dadec8) Thanks [@jfuchs](https://github.com/jfuchs)! - Timeline no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`e3f33628`](https://github.com/primer/react/commit/e3f336288be476ed22c7855dc5a34a12e6f92fd5) Thanks [@jfuchs](https://github.com/jfuchs)! - Dropdown no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`23f6a3ab`](https://github.com/primer/react/commit/23f6a3ab0006a37753200027f6741527b30bb6fa) Thanks [@jfuchs](https://github.com/jfuchs)! - Pagehead no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`0dde1b3e`](https://github.com/primer/react/commit/0dde1b3e15097eb31bfc69928a2e3685dd778808) Thanks [@jfuchs](https://github.com/jfuchs)! - LabelGroup no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`16d2ef70`](https://github.com/primer/react/commit/16d2ef70804b8caf1223497fc8210f71c9d0f428) Thanks [@jfuchs](https://github.com/jfuchs)! - Link no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`6dba0da5`](https://github.com/primer/react/commit/6dba0da5c390f4fdda2a4d3994273d9bb0b7c24e) Thanks [@jfuchs](https://github.com/jfuchs)! - Popover no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`fe0e621b`](https://github.com/primer/react/commit/fe0e621b22e1b6d57b4fe39af6dcd22f7b84713f) Thanks [@jfuchs](https://github.com/jfuchs)! - StateLabel no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`a3bc921e`](https://github.com/primer/react/commit/a3bc921ee9c8e5aaafbcd5852a406bb57dfb76e5) Thanks [@jfuchs](https://github.com/jfuchs)! - CircleBadge no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`0c13c40f`](https://github.com/primer/react/commit/0c13c40fd002835c8755ea02b2c329fce884ad4f) Thanks [@jfuchs](https://github.com/jfuchs)! - SelectMenu no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`97f91193`](https://github.com/primer/react/commit/97f9119322e08ac1cc55527b7c3eab0148861ebb) Thanks [@jfuchs](https://github.com/jfuchs)! - Header no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`1820587d`](https://github.com/primer/react/commit/1820587d3420f86b705b9a3aee703ac93ade8df5) Thanks [@jfuchs](https://github.com/jfuchs)! - UnderlineNav no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`79ca8080`](https://github.com/primer/react/commit/79ca80808533e7f6dca7770f9062753538a5da5c) Thanks [@jfuchs](https://github.com/jfuchs)! - Overlay no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`7dbb1dfd`](https://github.com/primer/react/commit/7dbb1dfdb1221f79ebda863dd6cc67a94c4f994a) Thanks [@jfuchs](https://github.com/jfuchs)! - StyledOcticon no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`e041f944`](https://github.com/primer/react/commit/e041f944b232d7629a993435a6583266061fac76) Thanks [@jfuchs](https://github.com/jfuchs)! - Dialog no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`f6be5845`](https://github.com/primer/react/commit/f6be58458278d1194f4ec07700031689c457e1c9) Thanks [@jfuchs](https://github.com/jfuchs)! - TabNav no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`84d5f3ba`](https://github.com/primer/react/commit/84d5f3baae89aed6748fb824589e7844d534dead) Thanks [@jfuchs](https://github.com/jfuchs)! - SubNav no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`c503d890`](https://github.com/primer/react/commit/c503d8909d34413c801983bfb03fdab2534ea1a8) Thanks [@jfuchs](https://github.com/jfuchs)! - Dialog2 no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`5a25ecbb`](https://github.com/primer/react/commit/5a25ecbb9d35dd9fd3e6c7b39287a213ba30f5fa) Thanks [@jfuchs](https://github.com/jfuchs)! - Buttons no longer accept styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`c8e4d73d`](https://github.com/primer/react/commit/c8e4d73d68d7d24427cdc5e291133950a042eecf) Thanks [@jfuchs](https://github.com/jfuchs)! - Label no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`9137f14c`](https://github.com/primer/react/commit/9137f14c26ffa8e246851dce368142ab654d740c) Thanks [@jfuchs](https://github.com/jfuchs)! - Flash no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`79f31332`](https://github.com/primer/react/commit/79f3133286061ae03cbb00849eb376c27f825460) Thanks [@jfuchs](https://github.com/jfuchs)! - Tooltip no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`bb0146e3`](https://github.com/primer/react/commit/bb0146e31d3e46b52953598991e02f9ac13aa6f2) Thanks [@jfuchs](https://github.com/jfuchs)! - Pagination no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`74ffaa94`](https://github.com/primer/react/commit/74ffaa94bfb7744a9af90b4ac7371df387b8b50f) Thanks [@jfuchs](https://github.com/jfuchs)! - Breadcrumbs no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`b7450470`](https://github.com/primer/react/commit/b7450470cb49ee18a74394533382311e5ef6a07d) Thanks [@jfuchs](https://github.com/jfuchs)! - FilteredSearch no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`ad4eac56`](https://github.com/primer/react/commit/ad4eac566c3430128506e9f5df0f5e10f70ff151) Thanks [@jfuchs](https://github.com/jfuchs)! - SideNav no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`c0fb0f79`](https://github.com/primer/react/commit/c0fb0f79d17e021ed043aefb08c73d066b39174a) Thanks [@jfuchs](https://github.com/jfuchs)! - FilterList no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [`01ee2521`](https://github.com/primer/react/commit/01ee2521e76fb21e12f2ce0b615fc19916581acc) Thanks [@jfuchs](https://github.com/jfuchs)! - CounterLabel no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [`7344d57f`](https://github.com/primer/react/commit/7344d57f3c9b25d66d111948adc07860402435ed) Thanks [@jfuchs](https://github.com/jfuchs)! - FormGroup no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+### Patch Changes
+
+- [#1598](https://github.com/primer/react/pull/1598) [`3bb895f1`](https://github.com/primer/react/commit/3bb895f1a2cbd36d509f005524878d14218acb39) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Better semantics for accessibile ActionList.Group
+
+* [#1601](https://github.com/primer/react/pull/1601) [`250e4b00`](https://github.com/primer/react/commit/250e4b00f4d996b6125d381bae2487b57156687c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Use icon instead of input for multiple selection in ActionList
+
+- [#1629](https://github.com/primer/react/pull/1629) [`47fdbf40`](https://github.com/primer/react/commit/47fdbf40c3b3e0b0efaa7d50e4c08e283eecc5ee) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Visual update for disabled Items to make them more obvious
+
+* [#1486](https://github.com/primer/react/pull/1486) [`34cfca53`](https://github.com/primer/react/commit/34cfca53f8a85a5639b958c61a2474be7390d8a9) Thanks [@pksjce](https://github.com/pksjce)! - ActionList: Add focus and hover colors to all themes in Item using functional variables
+
 ## 31.2.0
 
 ### Minor Changes
