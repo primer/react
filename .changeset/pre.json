@@ -4,39 +4,5 @@
   "initialVersions": {
     "@primer/components": "31.1.0"
   },
-  "changesets": [
-    "action-list-groups-a11y",
-    "action-list-selection-a11y",
-    "actionlist-disabled-items",
-    "beige-dots-buy",
-    "brave-trains-give",
-    "bright-baboons-peel",
-    "chilly-socks-compare",
-    "eleven-cycles-search",
-    "fast-fireants-sell",
-    "gentle-birds-cough",
-    "gentle-tips-hear",
-    "gold-countries-kneel",
-    "large-chefs-fix",
-    "little-bats-repeat",
-    "lucky-hounds-lie",
-    "lucky-zoos-smoke",
-    "mean-bananas-explain",
-    "moody-buttons-swim",
-    "neat-masks-grab",
-    "new-tigers-yawn",
-    "old-taxis-argue",
-    "purple-buttons-look",
-    "rotten-apricots-float",
-    "serious-donkeys-clean",
-    "shaggy-pens-run",
-    "silver-worms-talk",
-    "spicy-olives-lick",
-    "spicy-seas-mate",
-    "swift-days-hammer",
-    "tender-beds-learn",
-    "twenty-coins-marry",
-    "unlucky-snails-pull",
-    "wild-olives-talk"
-  ]
+  "changesets": []
 }
