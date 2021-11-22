@@ -5,6 +5,7 @@ on:
       - 'main'
       - 'next_major'
       - 'changeset-release/main'
+      - 'changeset-release/next_major'
     # To avoid unnecessary noise, we don't create canary releases when these paths change:
     paths-ignore:
       - '.changeset/**'
