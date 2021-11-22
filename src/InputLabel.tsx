@@ -1,5 +1,6 @@
 import React from 'react'
 import {Box} from '.'
+import VisuallyHidden from './_VisuallyHidden'
 
 interface Props extends React.HTMLProps<HTMLLabelElement> {
   disabled?: boolean
@@ -9,30 +10,17 @@ interface Props extends React.HTMLProps<HTMLLabelElement> {
 
 const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidden, htmlFor}) => {
   return (
-    <Box
-      fontWeight="bold"
-      fontSize={1}
+    <VisuallyHidden
+      isVisible={!visuallyHidden}
       as="label"
-      display="block"
-      color={disabled ? 'fg.muted' : 'fg.default'}
-      title={required ? 'required field' : undefined}
       htmlFor={htmlFor}
-      sx={
-        // TODO: create a VisuallyHidden component if this hiding technique is used in any other components
-        visuallyHidden
-          ? {
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: '0',
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0, 0, 0, 0)',
-              whiteSpace: 'nowrap',
-              borderWidth: '0'
-            }
-          : undefined
-      }
+      title={required ? 'required field' : undefined}
+      sx={{
+        fontWeight: 'bold',
+        fontSize: 1,
+        display: 'block',
+        color: disabled ? 'fg.muted' : 'fg.default'
+      }}
     >
       {required ? (
         <Box display="flex" as="span">
@@ -42,7 +30,7 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
       ) : (
         children
       )}
-    </Box>
+    </VisuallyHidden>
   )
 }
 

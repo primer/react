@@ -7,6 +7,7 @@ import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
 import {uniqueId} from '../utils/uniqueId'
 import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
+import VisuallyHidden from '../_VisuallyHidden'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
@@ -287,24 +288,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   }, [selectedItemIds, setSelectedItemLength])
 
   return (
-    <Box
-      sx={
-        !showMenu
-          ? {
-              // visually hides this label for sighted users
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: '0',
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0, 0, 0, 0)',
-              whiteSpace: 'nowrap',
-              borderWidth: '0'
-            }
-          : {}
-      }
-    >
+    <VisuallyHidden isVisible={showMenu}>
       {loading ? (
         <Box p={3} display="flex" justifyContent="center">
           <Spinner />
@@ -326,7 +310,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           )}
         </div>
       )}
-    </Box>
+    </VisuallyHidden>
   )
 }
 
