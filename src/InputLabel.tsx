@@ -7,9 +7,8 @@ interface Props extends React.HTMLProps<HTMLLabelElement> {
   visuallyHidden?: boolean
 }
 
-const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidden, ...rest}) => {
+const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidden, htmlFor}) => {
   return (
-    // TODO: fix typescript errors
     <Box
       fontWeight="bold"
       fontSize={1}
@@ -17,6 +16,7 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
       display="block"
       color={disabled ? 'fg.muted' : 'fg.default'}
       title={required ? 'required field' : undefined}
+      htmlFor={htmlFor}
       sx={
         // TODO: create a VisuallyHidden component if this hiding technique is used in any other components
         visuallyHidden
@@ -33,7 +33,6 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
             }
           : undefined
       }
-      {...rest}
     >
       {required ? (
         <Box display="flex" as="span">
