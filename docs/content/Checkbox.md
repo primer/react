@@ -1,7 +1,10 @@
 ---
 title: Checkbox
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/Checklist.tsx
 ---
+
+import {ComponentChecklist} from '../src/component-checklist'
 
 `Checkbox` is a form component that applies Primer design language to a native HTML checkbox input element.
 
@@ -102,3 +105,23 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
 | defaultChecked | Boolean | undefined | Optional. Checks the input by default in uncontrolled mode                                                                                              |
 | disabled       | Boolean | undefined | Optional. Modifies the native disabled state of the native checkbox                                                                                     |
 | indeterminate  | Boolean | undefined | Optional. Applies an [indeterminate](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate) state to the checkbox |
+
+## Component Status
+
+<ComponentChecklist
+items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
