@@ -372,6 +372,7 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
           <ButtonElement
             key={index}
             {...buttonProps}
+            variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
