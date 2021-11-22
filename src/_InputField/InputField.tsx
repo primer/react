@@ -8,7 +8,6 @@ import InputFieldInput from './InputFieldInput'
 import InputFieldLabel from './InputFieldLabel'
 import InputFieldValidation from './InputFieldValidation'
 import {Slots} from './slots'
-import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
 import ValidationAnimationContainer from './ValidationAnimationContainer'
 export interface Props {
   // TODO: limit children to specific components
@@ -91,6 +90,5 @@ export default Object.assign(InputField, {
   Caption: InputFieldCaption,
   Input: InputFieldInput,
   Label: InputFieldLabel,
-  LeadingVisual: ToggleInputLeadingVisual,
   Validation: InputFieldValidation
 })

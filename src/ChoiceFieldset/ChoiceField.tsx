@@ -1,5 +1,5 @@
 import React from 'react'
-import ToggleInputField from '../InputField/ToggleInputField'
+import ToggleInputField from '../_InputField/ToggleInputField'
 import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
 import ChoiceFieldCaption from './ChoiceFieldCaption'

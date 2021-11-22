@@ -1,5 +1,5 @@
 import React, {HTMLProps, useContext} from 'react'
-import InputField from '../InputField'
+import InputField from '../_InputField'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
 
 export interface ChoiceFieldInputProps {

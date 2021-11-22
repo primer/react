@@ -1,13 +1,9 @@
 import React from 'react'
 import {Box} from '..'
 import {get} from '../constants'
-import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
-import InputFieldCaption from './InputFieldCaption'
-import InputFieldInput from './InputFieldInput'
-import InputFieldLabel from './InputFieldLabel'
-import InputFieldValidation from './InputFieldValidation'
 import {Slots} from './slots'
+import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
 
 //TODO: DRY out - some of this is repeated in the `InputField` Props interface
 export interface Props {
@@ -27,7 +23,7 @@ export interface Props {
   validationStatus?: 'error' | 'warning' | 'success'
 }
 
-const InputField: React.FC<Props> = ({children, disabled, id, validationStatus}) => {
+const ToggleInputField: React.FC<Props> = ({children, disabled, id, validationStatus}) => {
   const fieldId = id || uniqueId()
 
   return (
@@ -77,11 +73,6 @@ const InputField: React.FC<Props> = ({children, disabled, id, validationStatus})
   )
 }
 
-export type InputFieldComponentProps = ComponentProps<typeof InputField>
-export type {Props as InputFieldInputProps} from './InputFieldInput'
-export default Object.assign(InputField, {
-  Caption: InputFieldCaption,
-  Input: InputFieldInput,
-  Label: InputFieldLabel,
-  Validation: InputFieldValidation
+export default Object.assign(ToggleInputField, {
+  LeadingVisual: ToggleInputLeadingVisual
 })
