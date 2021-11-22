@@ -19,6 +19,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       getVariantStyles(variant, theme),
       sxProp as SxProp
     ])
+    debugger
     return (
       <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
         {LeadingIcon && (
@@ -39,4 +40,4 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
 
-export default ButtonBase
+export {ButtonBase}
