@@ -1,22 +1,21 @@
-import {AlertIcon, CheckCircleFillIcon, IconProps} from '@primer/octicons-react'
+import {AlertFillIcon, CheckCircleFillIcon, IconProps} from '@primer/octicons-react'
 import React from 'react'
 import {Box, Text} from './'
+import {FormValidationStatus} from './utils/types/FormValidationStatus'
 
 interface Props {
   id: string
-  validationStatus?: 'error' | 'warning' | 'success'
+  validationStatus?: FormValidationStatus
 }
 
 const validationIconMap: Record<NonNullable<Props['validationStatus']>, React.ComponentType<IconProps>> = {
   success: CheckCircleFillIcon,
-  error: AlertIcon, // TODO: replace with `AlertFillIcon` when it's available
-  warning: AlertIcon // TODO: replace with `AlertFillIcon` when it's available
+  error: AlertFillIcon
 }
 
 const validationColorMap: Record<NonNullable<Props['validationStatus']>, string> = {
   success: 'success.fg',
-  error: 'danger.fg',
-  warning: 'attention.fg'
+  error: 'danger.fg'
 }
 
 const InputValidation: React.FC<Props> = ({children, id, validationStatus}) => {

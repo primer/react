@@ -5,12 +5,13 @@ import {uniqueId} from '../utils/uniqueId'
 import {Slots} from './slots'
 import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
 import {Props as InputFieldProps} from './InputField'
+import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export interface Props extends Pick<InputFieldProps, 'disabled' | 'id'> {
   /**
    * Styles the field to visually communicate the result of form validation
    */
-  validationStatus?: 'error' | 'warning' | 'success'
+  validationStatus?: FormValidationStatus
 }
 
 const ToggleInputField: React.FC<Props> = ({children, disabled, id, validationStatus}) => {

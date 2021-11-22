@@ -2,13 +2,14 @@ import React from 'react'
 import {Box} from '..'
 import InputValidation from '../InputValidation'
 import {ComponentProps} from '../utils/types'
+import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {uniqueId} from '../utils/uniqueId'
 import InputFieldCaption from './InputFieldCaption'
 import InputFieldLabel from './InputFieldLabel'
 import InputFieldValidation from './InputFieldValidation'
 import {Slots} from './slots'
 import ValidationAnimationContainer from './ValidationAnimationContainer'
-export interface Props<T = Record<string, 'error' | 'warning' | 'success'>> {
+export interface Props<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
   /**
    * Whether the field is ready for user input
@@ -35,13 +36,13 @@ export interface Props<T = Record<string, 'error' | 'warning' | 'success'>> {
 
 type InputFieldValidationProps = ComponentProps<typeof InputFieldValidation>
 export interface InputFieldContext
-  extends Pick<Props<Record<string, 'error' | 'warning' | 'success'>>, 'disabled' | 'id' | 'required'> {
+  extends Pick<Props<Record<string, FormValidationStatus>>, 'disabled' | 'id' | 'required'> {
   captionId: string
   validationMessageId: string
 }
 
 // adding `extends unknown` beacuse `<T>` is interpretted as a JSX tag
-const InputField = <T extends Record<string, 'error' | 'warning' | 'success'>>({
+const InputField = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,
   id: idProp,
@@ -69,7 +70,7 @@ const InputField = <T extends Record<string, 'error' | 'warning' | 'success'>>({
       }}
     >
       {slots => (
-        <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 1}}}>
+        <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 2}}}>
           {React.Children.toArray(children).filter(
             child => React.isValidElement<InputFieldValidationProps>(child) && child.type !== InputFieldValidation
           )}
