@@ -16,7 +16,6 @@ export type DescriptionProps = {
 
 export const Description: React.FC<DescriptionProps> = ({variant = 'inline', sx = {}, ...props}) => {
   const styles = {
-    color: 'fg.muted',
     fontSize: 0,
     lineHeight: '16px',
     flexGrow: 1,
@@ -27,15 +26,19 @@ export const Description: React.FC<DescriptionProps> = ({variant = 'inline', sx 
 
   return (
     <Slot name={variant === 'block' ? 'BlockDescription' : 'InlineDescription'}>
-      {({blockDescriptionId, inlineDescriptionId}: ItemContext) =>
+      {({blockDescriptionId, inlineDescriptionId, disabled}: ItemContext) =>
         variant === 'block' ? (
-          <Box as="span" sx={merge(styles, sx as SxProp)} id={blockDescriptionId}>
+          <Box
+            as="span"
+            sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
+            id={blockDescriptionId}
+          >
             {props.children}
           </Box>
         ) : (
           <Truncate
             id={inlineDescriptionId}
-            sx={merge(styles, sx as SxProp)}
+            sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
             title={props.children as string}
             inline={true}
             maxWidth="100%"

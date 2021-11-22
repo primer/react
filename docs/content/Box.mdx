@@ -1,10 +1,12 @@
 ---
 title: Box
+status: Beta
 description: A low-level utility component that accepts styled system props to enable custom theme-aware styling
 source: https://github.com/primer/react/blob/main/src/Box.tsx
 ---
 
 import {Props} from '../src/props'
+import {ComponentChecklist} from '../src/component-checklist'
 import {Box} from '@primer/components'
 
 ```jsx live
@@ -72,3 +74,23 @@ Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_
   </Box>
 </Box>
 ```
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    designReviewed: null,
+    a11yReviewed: null,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: null,
+    hasFigmaComponent: null
+  }}
+/>
