@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
-import ButtonBase, {ButtonBaseProps, ButtonSystemProps, buttonSystemProps} from './ButtonBase'
+import ButtonBase, {ButtonBaseProps} from './ButtonBase'
 
-const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & SxProp>`
+const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & SxProp>`
   color: ${get('colors.btn.outline.text')};
   border: 1px solid ${get('colors.btn.border')};
   background-color: ${get('colors.btn.bg')};
@@ -35,7 +35,6 @@ const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & ButtonSystemProps & S
     border-color: ${get('colors.btn.border')};
   }
 
-  ${buttonSystemProps};
   ${sx};
 `
 

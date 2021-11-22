@@ -48,7 +48,7 @@ describe('Button', () => {
   })
 
   it('respects width props', () => {
-    expect(render(<Button width={200} />)).toHaveStyleRule('width', '200px')
+    expect(render(<Button sx={{width: 200}} />)).toHaveStyleRule('width', '200px')
   })
 
   it('respects the "disabled" prop', () => {
@@ -63,7 +63,7 @@ describe('Button', () => {
   })
 
   it('respects the "fontSize" prop over the "variant" prop', () => {
-    expect(render(<Button variant="small" fontSize={20} />)).toHaveStyleRule('font-size', '20px')
+    expect(render(<Button variant="small" sx={{fontSize: 20}} />)).toHaveStyleRule('font-size', '20px')
   })
 })
 

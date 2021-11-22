@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -13,9 +13,8 @@ const dividerStyles = css`
   border-bottom: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
 `
 
-const SelectMenuDivider = styled.div<SystemCommonProps & SxProp>`
+const SelectMenuDivider = styled.div<SxProp>`
   ${dividerStyles}
-  ${COMMON}
   ${sx};
 `
 

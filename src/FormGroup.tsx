@@ -1,22 +1,19 @@
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const FormGroup = styled.div<SystemCommonProps & SxProp>`
+const FormGroup = styled.div<SxProp>`
   margin: ${get('space.3')} 0;
   font-weight: ${get('fontWeights.normal')};
-  ${COMMON};
   ${sx};
 `
 
-const FormGroupLabel = styled.label<SystemTypographyProps & SystemCommonProps & SxProp>`
+const FormGroupLabel = styled.label<SxProp>`
   display: block;
   margin: 0 0 ${get('space.2')};
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
-  ${TYPOGRAPHY};
-  ${COMMON};
   ${sx};
 `
 
