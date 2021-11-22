@@ -122,4 +122,34 @@ describe('Checkbox', () => {
 
     expect(checkbox).toHaveAttribute('aria-checked', 'mixed')
   })
+
+  it('renders an invalid aria state when validation prop indicates an error', () => {
+    const handleChange = jest.fn()
+    const {getByRole, rerender} = render(<Checkbox onChange={handleChange} />)
+
+    const checkbox = getByRole('checkbox') as HTMLInputElement
+
+    expect(checkbox).toHaveAttribute('aria-invalid', 'false')
+
+    rerender(<Checkbox onChange={handleChange} validationStatus="success" />)
+
+    expect(checkbox).toHaveAttribute('aria-invalid', 'false')
+
+    rerender(<Checkbox onChange={handleChange} validationStatus="error" />)
+
+    expect(checkbox).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('renders an aria state indicating the field is required', () => {
+    const handleChange = jest.fn()
+    const {getByRole, rerender} = render(<Checkbox onChange={handleChange} />)
+
+    const checkbox = getByRole('checkbox') as HTMLInputElement
+
+    expect(checkbox).toHaveAttribute('aria-required', 'false')
+
+    rerender(<Checkbox onChange={handleChange} required />)
+
+    expect(checkbox).toHaveAttribute('aria-required', 'true')
+  })
 })

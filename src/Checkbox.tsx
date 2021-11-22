@@ -12,11 +12,19 @@ export type CheckboxProps = {
    * Apply inactive visual appearance to the checkbox
    */
   disabled?: boolean
-
   /**
    * Forward a ref to the underlying input element
    */
   ref?: React.RefObject<HTMLInputElement>
+  /**
+   * Indicates whether the checkbox must be checked
+   */
+  required?: boolean
+
+  /**
+   * Indicates whether the checkbox validation state
+   */
+  validationStatus?: 'error' | 'success' // TODO: hoist to Validation typings
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 
@@ -33,7 +41,10 @@ const StyledCheckbox = styled.input`
  * An accessible, native checkbox component
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({checked, indeterminate, disabled, sx: sxProp, ...rest}: CheckboxProps, ref): ReactElement => {
+  (
+    {checked, indeterminate, disabled, sx: sxProp, required, validationStatus, ...rest}: CheckboxProps,
+    ref
+  ): ReactElement => {
     const checkboxRef = useRef<HTMLInputElement>(null)
 
     useLayoutEffect(() => {
@@ -51,6 +62,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         checked={indeterminate ? false : checked}
         aria-checked={indeterminate ? 'mixed' : checked ? 'true' : 'false'}
         sx={{...sxProp}}
+        required={required}
+        aria-required={required ? 'true' : 'false'}
+        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         {...rest}
       />
     )

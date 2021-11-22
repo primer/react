@@ -7,7 +7,7 @@ import {ItemInput} from './List'
 import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
-import {useColorSchemeVar, useTheme} from '../ThemeProvider'
+import {useTheme} from '../ThemeProvider'
 import {
   activeDescendantActivatedDirectly,
   activeDescendantActivatedIndirectly,
@@ -16,36 +16,6 @@ import {
 import {useSSRSafeId} from '@react-aria/ssr'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {AriaRole} from '../utils/types'
-
-/**
- * These colors are not yet in our default theme.  Need to remove this once they are added.
- */
-const customItemThemes = {
-  default: {
-    hover: {
-      light: 'rgba(46, 77, 108, 0.06)',
-      dark: 'rgba(201, 206, 212, 0.12)',
-      dark_dimmed: 'rgba(201, 206, 212, 0.12)'
-    },
-    focus: {
-      light: 'rgba(54, 77, 100, 0.16)',
-      dark: 'rgba(201, 206, 212, 0.24)',
-      dark_dimmed: 'rgba(201, 206, 212, 0.24)'
-    }
-  },
-  danger: {
-    hover: {
-      light: 'rgba(234, 74, 90, 0.08)',
-      dark: 'rgba(248, 81, 73, 0.16)',
-      dark_dimmed: 'rgba(248, 81, 73, 0.16)'
-    },
-    focus: {
-      light: 'rgba(234, 74, 90, 0.14)',
-      dark: 'rgba(248, 81, 73, 0.24)',
-      dark_dimmed: 'rgba(248, 81, 73, 0.24)'
-    }
-  }
-} as const
 
 /**
  * Contract for props passed to the `Item` component.
@@ -166,14 +136,19 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         color: get('colors.danger.fg'),
         iconColor: get('colors.danger.fg'),
         annotationColor: get('colors.fg.muted'),
-        hoverCursor: 'pointer'
+        hoverCursor: 'pointer',
+        hoverBg: get('colors.actionListItem.danger.hoverBg'),
+        focusBg: get('colors.actionListItem.danger.activeBg'),
+        hoverText: get('colors.actionListItem.danger.hoverText')
       }
     default:
       return {
         color: get('colors.fg.default'),
         iconColor: get('colors.fg.muted'),
         annotationColor: get('colors.fg.muted'),
-        hoverCursor: 'pointer'
+        hoverCursor: 'pointer',
+        hoverBg: get('colors.actionListItem.default.hoverBg'),
+        focusBg: get('colors.actionListItem.default.activeBg')
       }
   }
 }
@@ -200,8 +175,6 @@ const StyledItem = styled.div<
     variant: ItemProps['variant']
     showDivider: ItemProps['showDivider']
     item?: ItemInput
-    hoverBackground: string
-    focusBackground: string
   } & SxProp
 >`
   /* 6px vertical padding + 20px line height = 32px total height
@@ -220,7 +193,11 @@ const StyledItem = styled.div<
   @media (hover: hover) and (pointer: fine) {
     :hover {
       // allow override in case another item in the list is active/focused
-      background: var(--item-hover-bg-override, ${({hoverBackground}) => hoverBackground});
+      background: var(
+        --item-hover-bg-override,
+        ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg}
+      );
+      color: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverText};
       cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
     }
   }
@@ -266,19 +243,19 @@ const StyledItem = styled.div<
 
   // Active Descendant
   &[${isActiveDescendantAttribute}='${activeDescendantActivatedDirectly}'] {
-    background: ${({focusBackground}) => focusBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
   }
   &[${isActiveDescendantAttribute}='${activeDescendantActivatedIndirectly}'] {
-    background: ${({hoverBackground}) => hoverBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg};
   }
 
   &:focus {
-    background: ${({focusBackground}) => focusBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
     outline: none;
   }
 
   &:active {
-    background: ${({focusBackground}) => focusBackground};
+    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
   }
 
   ${sx}
@@ -404,10 +381,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
     [onAction, disabled, itemProps, onClick]
   )
 
-  const customItemTheme = customItemThemes[variant]
-  const hoverBackground = useColorSchemeVar(customItemTheme.hover, 'inherit')
-  const focusBackground = useColorSchemeVar(customItemTheme.focus, 'inherit')
-
   const {theme} = useTheme()
 
   return (
@@ -424,8 +397,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
-      hoverBackground={disabled ? 'inherit' : hoverBackground}
-      focusBackground={disabled ? 'inherit' : focusBackground}
     >
       {!!selected === selected && (
         <BaseVisualContainer>
