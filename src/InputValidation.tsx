@@ -1,6 +1,6 @@
 import {AlertIcon, CheckCircleFillIcon, IconProps} from '@primer/octicons-react'
 import React from 'react'
-import {Box, Text} from '..'
+import {Box, Text} from './'
 
 interface Props {
   id: string
