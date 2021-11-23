@@ -80,10 +80,7 @@ Here's an example of a basic component written in the style of Primer Components
 ```jsx
 import sx, {SxProp} from './sx'
 
-const Component =
-  styled.div <
-  SxProp >
-  `
+const Component = styled.div<​SxProp>`
   // additional styles here
 
   ${sx};
@@ -106,13 +103,10 @@ Adding the `sx` prop is similar to adding system props; import the default expor
 ```jsx
 import sx, {SxProp} from './sx'
 
-const Component =
-  styled.div <
-  SxProp >
-  `
+const Component = styled.div<​SxProp>`
   // additional styles here
 
-${sx};
+   ${sx};
 `
 ```
 
