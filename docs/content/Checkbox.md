@@ -10,7 +10,7 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 ## Default example
 
-The `Checkbox` component can operate in both controlled and uncontrolled modes.
+The `Checkbox` component can be used in controlled and uncontrolled modes.
 
 ```jsx live
 <>
@@ -53,12 +53,12 @@ return (
 }
 
 <Note variant="warning">
-Checkbox components should always be accompanied by a corrosponding label to improve support for assistive technologies.
+Checkbox components should always be accompanied by a corresponding label to improve support for assistive technologies.
 </Note>
 
 ## Indeterminate example
 
-An `indeterminate` checkbox state can be used if the inputs value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, that is dependent on other external selections to force a binary decision of the parent checkbox.
+An `indeterminate` checkbox state should be used if the input value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, or one that is dependent on other input selections to determine a value.
 
 ```jsx live
 <>
