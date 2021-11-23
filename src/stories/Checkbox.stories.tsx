@@ -61,28 +61,28 @@ export const Default = (args: CheckboxProps) => {
 
   return (
     <>
-      <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
+      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox id="controlled-checkbox" onChange={handleChange} checked={isChecked} {...args} />
         <StyledLabel htmlFor="controlled-checkbox">
           <Text sx={{display: 'block'}}>Default checkbox</Text>
           <StyledSubLabel>controlled</StyledSubLabel>
         </StyledLabel>
       </Box>
-      <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
+      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox id="always-checked-checkbox" checked {...args} />
         <StyledLabel htmlFor="always-checked-checkbox">
           <Text sx={{display: 'block'}}>Always checked</Text>
           <StyledSubLabel>checked=&quot;true&quot;</StyledSubLabel>
         </StyledLabel>
       </Box>
-      <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
+      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox id="always-unchecked-checkbox" checked={false} {...args} />
         <StyledLabel htmlFor="always-unchecked-checkbox">
           <Text sx={{display: 'block'}}>Always unchecked</Text>
           <StyledSubLabel>checked=&quot;false&quot;</StyledSubLabel>
         </StyledLabel>
       </Box>
-      <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
+      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox id="disabled-checkbox" disabled checked={false} />
         <StyledLabel htmlFor="disabled-checkbox">
           <Text sx={{display: 'block'}}>Inactive</Text>
@@ -103,7 +103,7 @@ export const Uncontrolled = (args: CheckboxProps) => {
   }, [])
 
   return (
-    <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
+    <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
       <Checkbox id="uncontrolled-checkbox" ref={checkboxRef} {...args} />
       <StyledLabel htmlFor="uncontrolled-checkbox">
         <Text sx={{display: 'block'}}>Uncontrolled checkbox</Text>
@@ -133,7 +133,7 @@ export const Indeterminate = (args: CheckboxProps) => {
 
   return (
     <>
-      <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
+      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
         <Checkbox
           id="indeterminate-checkbox"
           checked={checkboxes.every(Boolean)}
@@ -147,7 +147,7 @@ export const Indeterminate = (args: CheckboxProps) => {
       </Box>
 
       {checkboxes.map((field, index) => (
-        <Box key={`sub-checkbox-${index}`} as="form" p={1} pl={7} sx={{display: 'flex', alignItems: 'flex-start'}}>
+        <Box key={`sub-checkbox-${index}`} as="form" sx={{p: 1, pl: 7, display: 'flex', alignItems: 'flex-start'}}>
           <Checkbox
             id={`sub-checkbox-${index}`}
             checked={checkboxes[index]}
