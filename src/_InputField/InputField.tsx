@@ -41,7 +41,6 @@ export interface InputFieldContext
   validationMessageId: string
 }
 
-// adding `extends unknown` beacuse `<T>` is interpretted as a JSX tag
 const InputField = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,
@@ -69,23 +68,32 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
         validationMessageId
       }}
     >
-      {slots => (
-        <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 2}}}>
-          {React.Children.toArray(children).filter(
-            child => React.isValidElement<InputFieldValidationProps>(child) && child.type !== InputFieldValidation
-          )}
-          {slots.Label}
-          {slots.Input}
-          {validationChildToRender && validationMap && validationResult && validationMessageId && (
-            <ValidationAnimationContainer show>
-              <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
-                {validationChildToRender}
-              </InputValidation>
-            </ValidationAnimationContainer>
-          )}
-          {slots.Caption}
-        </Box>
-      )}
+      {slots => {
+        if (slots.Label) {
+          // eslint-disable-next-line no-console
+          console.error(
+            `The input field with the id ${id} MUST have a Label child (e.g.: <TextInputField.Label>).\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the Label component.`
+          )
+        }
+
+        return (
+          <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 2}}}>
+            {React.Children.toArray(children).filter(
+              child => React.isValidElement<InputFieldValidationProps>(child) && child.type !== InputFieldValidation
+            )}
+            {slots.Label}
+            {slots.Input}
+            {validationChildToRender && validationMap && validationResult && validationMessageId && (
+              <ValidationAnimationContainer show>
+                <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
+                  {validationChildToRender}
+                </InputValidation>
+              </ValidationAnimationContainer>
+            )}
+            {slots.Caption}
+          </Box>
+        )
+      }}
     </Slots>
   )
 }
