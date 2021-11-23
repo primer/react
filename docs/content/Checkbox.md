@@ -1,13 +1,12 @@
 ---
 title: Checkbox
+description: Use checkboxes to toggle between checked and unchecked states in a list or as a standalone form field
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/Checklist.tsx
 storybook: '/react/storybook?path=/story/forms-checkbox--default'
 ---
 
 import {ComponentChecklist} from '../src/component-checklist'
-
-`Checkbox` is a form component that applies Primer design language to a native HTML checkbox input element.
 
 ## Default example
 
