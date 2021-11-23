@@ -33,7 +33,6 @@ const StyledCheckbox = styled.input`
 
   ${props => props.disabled && `cursor: not-allowed;`}
 
-  ${COMMON};
   ${sx}
 `
 

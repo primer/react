@@ -123,8 +123,11 @@ export const Indeterminate = (args: CheckboxProps) => {
   }
 
   const handleIndeterminateChange = () => {
-    const newCheckboxes = checkboxes.map(() => true)
+    if (checkboxes.every(checkbox => checkbox)) {
+      return setCheckboxes(checkboxes.map(() => false))
+    }
 
+    const newCheckboxes = checkboxes.map(() => true)
     setCheckboxes(newCheckboxes)
   }
 
