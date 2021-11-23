@@ -69,7 +69,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
       }}
     >
       {slots => {
-        if (slots.Label) {
+        if (!slots.Label) {
           // eslint-disable-next-line no-console
           console.error(
             `The input field with the id ${id} MUST have a Label child (e.g.: <TextInputField.Label>).\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the Label component.`
