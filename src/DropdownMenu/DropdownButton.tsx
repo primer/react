@@ -9,7 +9,7 @@ export const DropdownButton = React.forwardRef<HTMLElement, React.PropsWithChild
   ({children, ...props}: React.PropsWithChildren<DropdownButtonProps>, ref): JSX.Element => (
     <Button ref={ref} type="button" {...props}>
       {children}
-      <StyledOcticon icon={TriangleDownIcon} ml={1} />
+      <StyledOcticon icon={TriangleDownIcon} sx={{ml: 1}} />
     </Button>
   )
 )

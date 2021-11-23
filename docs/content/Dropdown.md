@@ -37,36 +37,29 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 </Dropdown>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Dropdown, Dropdown.Menu, Dropdown.Button, Dropdown.Caret, and Dropdown.Item all get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 The Dropdown component is extended from the [`Details`](/Details) component and gets all props that the [`Details`](/Details) component gets.
 
 #### Dropdown.Menu
 
-| Name      | Type   | Default | Description                                                                           |
-| :-------- | :----- | :-----: | :------------------------------------------------------------------------------------ |
-| direction | String |  'sw'   | Sets the direction of the dropdown menu. Pick from 'ne', 'e', 'se', 's', 'sw', or 'w' |
+| Name      | Type              | Default | Description                                                                           |
+| :-------- | :---------------- | :-----: | :------------------------------------------------------------------------------------ |
+| direction | String            |  'sw'   | Sets the direction of the dropdown menu. Pick from 'ne', 'e', 'se', 's', 'sw', or 'w' |
+| sx        | SystemStyleObject |   {}    | Style to be applied to the component                                                  |
 
 #### Dropdown.Button
 
-| Name    | Type     | Default | Description                                                                                                  |
-| :------ | :------- | :-----: | :----------------------------------------------------------------------------------------------------------- |
-| onClick | Function |  none   | Use the `onClick` handler to add additional functionality when the button is clicked, such as fetching data. |
+See https://primer.style/react/Buttons#component-props
 
 #### Dropdown.Caret
 
-No additional props.
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
 
 #### Dropdown.Item
 
-No additional props.
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
