@@ -104,7 +104,7 @@ export const Uncontrolled = (args: CheckboxProps) => {
 
   return (
     <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
-      <Checkbox id="uncontrolled-checkbox" ref={checkboxRef} {...args} defaultChecked />
+      <Checkbox id="uncontrolled-checkbox" ref={checkboxRef} {...args} />
       <StyledLabel htmlFor="uncontrolled-checkbox">
         <Text sx={{display: 'block'}}>Uncontrolled checkbox</Text>
         <StyledSubLabel>Checked by default</StyledSubLabel>

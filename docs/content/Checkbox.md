@@ -2,6 +2,7 @@
 title: Checkbox
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/Checklist.tsx
+storybook: '/react/storybook?path=/story/forms-checkbox--default'
 ---
 
 import {ComponentChecklist} from '../src/component-checklist'
@@ -89,12 +90,13 @@ An `indeterminate` checkbox state should be used if the input value is neither t
 
 Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
 
-| Name           | Type    |  Default  | Description                                                                                                                                             |
-| :------------- | :------ | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| checked        | Boolean | undefined | Optional. Modifies true/false value of the native checkbox                                                                                              |
-| defaultChecked | Boolean | undefined | Optional. Checks the input by default in uncontrolled mode                                                                                              |
-| disabled       | Boolean | undefined | Optional. Modifies the native disabled state of the native checkbox                                                                                     |
-| indeterminate  | Boolean | undefined | Optional. Applies an [indeterminate](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate) state to the checkbox |
+| Name           | Type        |  Default  | Description                                                                                                                                             |
+| :------------- | :---------- | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| checked        | Boolean     | undefined | Optional. Modifies true/false value of the native checkbox                                                                                              |
+| defaultChecked | Boolean     | undefined | Optional. Checks the input by default in uncontrolled mode                                                                                              |
+| onChange       | ChangeEvent | undefined | Optional. A callback function that is triggered when the checked state has been changed.                                                                |
+| disabled       | Boolean     | undefined | Optional. Modifies the native disabled state of the native checkbox                                                                                     |
+| indeterminate  | Boolean     | undefined | Optional. Applies an [indeterminate](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate) state to the checkbox |
 
 ## Component status
 

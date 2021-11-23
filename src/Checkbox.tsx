@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import React, {InputHTMLAttributes, ReactElement, useLayoutEffect, useRef} from 'react'
+import {useProvidedRefOrCreate} from './hooks'
+import React, {InputHTMLAttributes, ReactElement, useLayoutEffect} from 'react'
 import sx, {SxProp} from './sx'
 
 export type CheckboxProps = {
@@ -43,13 +44,13 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     {checked, indeterminate, disabled, sx: sxProp, required, validationStatus, ...rest}: CheckboxProps,
     ref
   ): ReactElement => {
-    const checkboxRef = useRef<HTMLInputElement>(null)
+    const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
 
     useLayoutEffect(() => {
       if (checkboxRef.current) {
         checkboxRef.current.indeterminate = indeterminate || false
       }
-    }, [indeterminate, checked])
+    }, [indeterminate, checked, checkboxRef])
 
     return (
       <StyledCheckbox
