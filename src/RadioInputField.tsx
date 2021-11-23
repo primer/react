@@ -1,4 +1,5 @@
 import React, {HTMLProps} from 'react'
+import {ComponentProps} from './utils/types'
 import InputField, {InputFieldContext} from './_InputField/InputField'
 import {Slot} from './_InputField/slots'
 import ToggleInputField from './_InputField/ToggleInputField'
@@ -18,7 +19,9 @@ const Input: React.FC<HTMLProps<HTMLInputElement>> = props => (
   </Slot>
 )
 
-export default Object.assign(ToggleInputField, {
+const RadioInputField: React.FC<ComponentProps<typeof ToggleInputField>> = props => <ToggleInputField {...props} />
+
+export default Object.assign(RadioInputField, {
   Input,
   Caption: InputField.Caption,
   Label: InputField.Label,
