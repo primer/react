@@ -20,8 +20,7 @@
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
     "release": "npm run build && changeset publish",
-    "size": "size-limit",
-    "typecheck": "npx tsc --project tsconfig.json"
+    "size": "size-limit"
   },
   "repository": "primer/react",
   "keywords": [
