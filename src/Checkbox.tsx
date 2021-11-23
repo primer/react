@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import React, {InputHTMLAttributes, ReactElement, useLayoutEffect, useRef} from 'react'
 import sx, {SxProp} from './sx'
-import {COMMON} from './constants'
 
 export type CheckboxProps = {
   /**
