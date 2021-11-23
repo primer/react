@@ -42,16 +42,6 @@ The `Checkbox` component can be used in controlled and uncontrolled modes.
 </>
 ```
 
-import { useState } from 'react'
-import { useMDXScope } from "gatsby-plugin-mdx/context";
-
-export const MyDynamicButton = () => {
-const [count, setCount] = useState(0)
-return (
-<button onClick={() => setCount(count + 1)}>Clicked {count} times!</button>
-)
-}
-
 <Note variant="warning">
 Checkbox components should always be accompanied by a corresponding label to improve support for assistive technologies.
 </Note>
