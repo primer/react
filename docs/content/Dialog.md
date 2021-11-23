@@ -84,25 +84,22 @@ You can also pass any non-text content into the header:
 </State>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-`Dialog` components get the `COMMON` and `LAYOUT` categories of system props. `Dialog.Header` components get `COMMON`, `LAYOUT`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-| Prop name       | Type      | Description                                                                                                                                               |
-| :-------------- | :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| isOpen          | Boolean   | Set whether or not the dialog is shown                                                                                                                    |
-| onDismiss       | Function  | A user-provided function that should close the dialog                                                                                                     |
-| returnFocusRef  | React ref | The element to restore focus back to after the `Dialog` is closed                                                                                         |
-| initialFocusRef | React ref | Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused. |
-| aria-labelledby | string    | Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both.                                                     |
-| aria-label      | string    | Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both.                                           |
+### Dialog
 
-`Dialog.Header` does not take any non-system props.
+| Prop name       | Type              | Default | Description                                                                                                                                               |
+| :-------------- | :---------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isOpen          | Boolean           |         | Set whether or not the dialog is shown                                                                                                                    |
+| onDismiss       | Function          |         | A user-provided function that should close the dialog                                                                                                     |
+| returnFocusRef  | React ref         |         | The element to restore focus back to after the `Dialog` is closed                                                                                         |
+| initialFocusRef | React ref         |         | Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused. |
+| aria-labelledby | string            |         | Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both.                                                     |
+| aria-label      | string            |         | Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both.                                           |
+| sx              | SystemStyleObject | {}      | Style to be applied to the component                                                                                                                      |
+
+### Dialog.Header
+
+| Prop name | Type              | Default | Description                          |
+| :-------- | :---------------- | :------ | :----------------------------------- |
+| sx        | SystemStyleObject | {}      | Style to be applied to the component |

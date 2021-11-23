@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import React, {ReactElement, useEffect, useRef} from 'react'
-import {get, COMMON, SystemPositionProps, SystemCommonProps} from './constants'
-import {ComponentProps} from './utils/types'
 import useLayoutEffect from './utils/useIsomorphicLayoutEffect'
+import {get} from './constants'
+import {AriaRole, Merge} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
@@ -16,7 +16,7 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
-}
+} & SxProp
 
 const heightMap = {
   xsmall: '192px',
@@ -52,7 +52,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
   return {x: 0, y: 0}
 }
 
-const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SxProp>`
+const StyledOverlay = styled.div<StyledOverlayProps>`
   background-color: ${get('colors.canvas.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
@@ -77,22 +77,25 @@ const StyledOverlay = styled.div<StyledOverlayProps & SystemCommonProps & SxProp
   :focus {
     outline: none;
   }
-  ${COMMON};
   ${sx};
 `
-export type OverlayProps = {
+type BaseOverlayProps = {
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   visibility?: 'visible' | 'hidden'
-  [additionalKey: string]: unknown
-  top: number
-  left: number
+  'data-test-id'?: unknown
+  top?: number
+  left?: number
   portalContainerName?: string
   preventFocusOnOpen?: boolean
-} & Omit<ComponentProps<typeof StyledOverlay>, 'visibility' | keyof SystemPositionProps>
+  role?: AriaRole
+  children?: React.ReactNode
+}
+
+export type OverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -180,7 +183,6 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
             {
               top: `${top || 0}px`,
               left: `${left || 0}px`,
-              ...rest.style,
               '--styled-overlay-visibility': visibility
             } as React.CSSProperties
           }

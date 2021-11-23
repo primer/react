@@ -28,9 +28,9 @@ describe('Link', () => {
     expect(render(<Link hoverColor="accent.fg" />)).toMatchSnapshot()
   })
 
-  it('respects the "fontStyle" prop', () => {
-    expect(render(<Link fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Link as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+  it('respects the "sx" prop', () => {
+    expect(render(<Link sx={{fontStyle: 'italic'}} />)).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Link as="i" sx={{fontStyle: 'normal'}} />)).toHaveStyleRule('font-style', 'normal')
   })
 
   it('applies button styles when rendering a button element', () => {
@@ -41,7 +41,7 @@ describe('Link', () => {
     expect(render(<Link muted />)).toMatchSnapshot()
   })
 
-  it('respectes the "color" prop when "muted" prop is also passed', () => {
-    expect(render(<Link muted color="fg.onEmphasis" />)).toMatchSnapshot()
+  it('respectes the  "sx" prop when "muted" prop is also passed', () => {
+    expect(render(<Link muted sx={{color: 'fg.onEmphasis'}} />)).toMatchSnapshot()
   })
 })

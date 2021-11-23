@@ -22,18 +22,11 @@ The FilteredSearch component helps style a Dropdown and a TextInput side-by-side
 </FilteredSearch>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-FilteredSearch gets `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 #### FilteredSearch.Children
 
-FilteredSearch is expected to contain a [`Dropdown`](/Dropdown) followed by a [`TextInput`](/TextInput).
+| Name     | Type              | Default | Description                                                                                              |
+| :------- | :---------------- | :-----: | :------------------------------------------------------------------------------------------------------- |
+| children |                   |         | FilteredSearch is expected to contain a [`Dropdown`](/Dropdown) followed by a [`TextInput`](/TextInput). |
+| sx       | SystemStyleObject |   {}    | Style to be applied to the component                                                                     |

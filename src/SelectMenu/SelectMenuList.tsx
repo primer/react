@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -30,9 +30,8 @@ const listStyles = css`
   }
 `
 
-const SelectMenuList = styled.div<SystemCommonProps & SxProp>`
+const SelectMenuList = styled.div<SxProp>`
   ${listStyles}
-  ${COMMON}
   ${sx};
 `
 

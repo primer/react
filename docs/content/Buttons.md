@@ -17,9 +17,9 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
   <ButtonOutline>Button Outline</ButtonOutline>
   <ButtonPrimary>Button Primary</ButtonPrimary>
   <ButtonInvisible>Button Invisible</ButtonInvisible>
-  <ButtonClose onClick={() => window.alert('button clicked')}/>
+  <ButtonClose onClick={() => window.alert('button clicked')} />
 
-  <ButtonGroup display='block' my={2}>
+  <ButtonGroup display="block" my={2}>
     <Button>Button</Button>
     <Button>Button</Button>
     <Button>Button</Button>
@@ -29,27 +29,17 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 </>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-`Button` and `ButtonGroup` components get `COMMON` and `LAYOUT` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
 
 ### Button
 
-| Prop name | Type             | Default  | Description                                                                                                                 |
-| :-------- | :--------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------- |
-| as        | String           | `button` | sets the HTML tag for the component                                                                                         |
-| fontSize  | Number or String |          | explicitly sets the font size for the Button text; overrides any value for the `variant` prop                               |
-| variant   | String           | 'medium' | a value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set |
+| Prop name | Type              | Default  | Description                                                                                                                 |
+| :-------- | :---------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------- |
+| as        | String            | `button` | sets the HTML tag for the component                                                                                         |
+| sx        | SystemStyleObject |    {}    | Additional styles                                                                                                           |
+| variant   | String            | 'medium' | a value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set |
 
 ### ButtonGroup
 

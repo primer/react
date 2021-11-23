@@ -44,21 +44,12 @@ You can use the `expandable` boolean prop to display the truncated text on hover
 </Truncate>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Truncate components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-| Name       | Type    | Default | Description                                                  |
-| :--------- | :------ | :-----: | :----------------------------------------------------------- |
-| as         | String  |  `div`  | Sets the HTML tag for the component                          |
-| maxWidth   | Number  |   125   | Sets the max-width of the text                               |
-| inline     | Boolean |  false  | displays text as inline block and vertical aligns to the top |
-| expandable | Boolean |  false  | allows the truncated text to be displayed on hover           |
+| Name       | Type              | Default | Description                                                  |
+| :--------- | :---------------- | :-----: | :----------------------------------------------------------- |
+| as         | String            |  `div`  | Sets the HTML tag for the component                          |
+| maxWidth   | Number            |   125   | Sets the max-width of the text                               |
+| inline     | Boolean           |  false  | displays text as inline block and vertical aligns to the top |
+| expandable | Boolean           |  false  | allows the truncated text to be displayed on hover           |
+| sx         | SystemStyleObject |   {}    | Style to be applied to the component                         |

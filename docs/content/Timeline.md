@@ -13,10 +13,10 @@ The Timeline.Item component is used to display items on a vertical timeline, con
       <StyledOcticon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>
-      <Link href="#" sx={{fontWeight: 'bold', color: "fg.default", mr: 1}} muted>
+      <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>
         Monalisa
       </Link>
-      created one <Link href="#" sx={{fontWeight: 'bold', color: "fg.default", mr: 1}} muted>
+      created one <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>
         hot potato
       </Link>
       <Link href="#" color="fg.muted" muted>
@@ -50,20 +50,20 @@ of the child `StyledOcticon` if necessary.
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: "fg.onEmphasis"}} />
+    <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
+    <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
       <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: "fg.onEmphasis"}} />
+    <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
@@ -98,41 +98,51 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 ```jsx live
 <Timeline>
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: "danger.emphasis"}}>
+    <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
       <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Break />
   <Timeline.Item>
-    <Timeline.Badge sx={{bg: "success.emphasis"}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: "fg.onEmphasis"}} />
+    <Timeline.Badge sx={{bg: 'success.emphasis'}}>
+      <StyledOcticon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
 </Timeline>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Timeline and Timeline.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### Timeline
 
-| Prop name   | Type    | Description                                                                       |
-| :---------- | :------ | :-------------------------------------------------------------------------------- |
-| clipSidebar | Boolean | Hides the sidebar above the first Timeline.Item and below the last Timeline.Item. |
+| Name        | Type              | Default | Description                                                                       |
+| :---------- | :---------------- | :-----: | :-------------------------------------------------------------------------------- |
+| clipSidebar | Boolean           |         | Hides the sidebar above the first Timeline.Item and below the last Timeline.Item. |
+| sx          | SystemStyleObject |   {}    | Style to be applied to the component                                              |
 
 ### Timeline.Item
 
-| Prop name | Type    | Description                                                           |
-| :-------- | :------ | :-------------------------------------------------------------------- |
-| condensed | Boolean | Reduces vertical padding and removes background from an item's badge. |
+| Name      | Type              | Default | Description                                                           |
+| :-------- | :---------------- | :-----: | :-------------------------------------------------------------------- |
+| condensed | Boolean           |         | Reduces vertical padding and removes background from an item's badge. |
+| sx        | SystemStyleObject |   {}    | Style to be applied to the component                                  |
+
+### Timeline.Badge
+
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
+
+### Timeline.Body
+
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
+
+### Timeline.Break
+
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |

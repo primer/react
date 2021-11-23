@@ -318,8 +318,8 @@ export function GroupsStory(): JSX.Element {
     <>
       <h1>Groups</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Select reviewers">
-          <ActionList.Group title="Suggestions" variant="filled">
+        <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers">
+          <ActionList.Group title="Suggestions" variant="filled" role="listbox">
             {users.slice(0, 2).map(user => (
               <ActionList.Item
                 key={user.login}
@@ -336,7 +336,7 @@ export function GroupsStory(): JSX.Element {
               </ActionList.Item>
             ))}
           </ActionList.Group>
-          <ActionList.Group title="Everyone" variant="filled">
+          <ActionList.Group title="Everyone" variant="filled" role="listbox">
             {users.slice(2).map(user => (
               <ActionList.Item
                 role="option"

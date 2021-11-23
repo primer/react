@@ -105,26 +105,17 @@ function CaretSelector(props) {
 render(<PopoverDemo />)
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-ProgressBar components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### Popover
 
-| Name     | Type    | Default | Description                                                                    |
-| :------- | :------ | :-----: | :----------------------------------------------------------------------------- |
-| as       | String  |  'div'  | Sets the HTML tag for the component.                                           |
-| caret    | String  |  'top'  | Controls the position of the caret. See below for the list of caret positions. |
-| open     | Boolean |  false  | Controls the visibility of the popover.                                        |
-| relative | Boolean |  false  | Set to true to render the popover using relative positioning.                  |
+| Name     | Type              | Default | Description                                                                    |
+| :------- | :---------------- | :-----: | :----------------------------------------------------------------------------- |
+| as       | String            |  'div'  | Sets the HTML tag for the component.                                           |
+| caret    | String            |  'top'  | Controls the position of the caret. See below for the list of caret positions. |
+| open     | Boolean           |  false  | Controls the visibility of the popover.                                        |
+| relative | Boolean           |  false  | Set to true to render the popover using relative positioning.                  |
+| sx       | SystemStyleObject |   {}    | Style to be applied to the component                                           |
 
 #### Caret Positions
 
@@ -132,6 +123,7 @@ The `caret` prop can be one of the following values: `top`, `bottom`, `left`, `r
 
 ### Popover.Content
 
-| Name | Type   | Default | Description                          |
-| :--- | :----- | :-----: | :----------------------------------- |
-| as   | String |  'div'  | Sets the HTML tag for the component. |
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| as   | String            |  'div'  | Sets the HTML tag for the component. |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
