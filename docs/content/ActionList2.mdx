@@ -336,13 +336,14 @@ render(<SelectFields />)
 
 ### ActionList.Group
 
-| Name             | Type                                         |  Default   | Description                                                                                                                              |
-| :--------------- | :------------------------------------------- | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| children\*       | `ActionList.Item[] or ActionList.LinkItem[]` |     -      | Required.                                                                                                                                |
-| title            | string                                       |     -      | Optional. Primary text which names a `Group`                                                                                             |
-| auxiliaryText    | string                                       |     -      | Optional. Secondary text which provides additional information about a `Group`.                                                          |
-| variant          | `'filled'` or `'subtle'`                     | `'subtle'` | Optional. `"filled"` - Superimposed on a background, offset from nearby content, `"subtle"` - Relatively less offset from nearby content |
-| selectionVariant | `'single'` or `'multiple'` or `false`        |     -      | Optional. Set `selectionVariant` at the group level                                                                                      |
+| Name             | Type                                                                                              |  Default   | Description                                                                                                                              |
+| :--------------- | :------------------------------------------------------------------------------------------------ | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| children\*       | `ActionList.Item[] or ActionList.LinkItem[]`                                                      |     -      | Required.                                                                                                                                |
+| title            | string                                                                                            |     -      | Optional. Primary text which names a `Group`                                                                                             |
+| auxiliaryText    | string                                                                                            |     -      | Optional. Secondary text which provides additional information about a `Group`.                                                          |
+| variant          | `'filled'` or `'subtle'`                                                                          | `'subtle'` | Optional. `"filled"` - Superimposed on a background, offset from nearby content, `"subtle"` - Relatively less offset from nearby content |
+| selectionVariant | `'single'` or `'multiple'` or `false`                                                             |     -      | Optional. Set `selectionVariant` at the group level                                                                                      |
+| role             | [AriaRole](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) |     -      | Optional. \* The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.        |
 
 <br />
 

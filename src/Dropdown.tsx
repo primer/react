@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button, {ButtonProps} from './Button'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import Details, {DetailsProps} from './Details'
 import getDirectionStyles from './DropdownStyles'
 import useDetails from './hooks/useDetails'
@@ -35,7 +35,7 @@ const DropdownButton = ({children, ...rest}: DropdownButtonProps) => {
   )
 }
 
-const DropdownCaret = styled.div<SystemCommonProps & SxProp>`
+const DropdownCaret = styled.div<SxProp>`
   border: 4px solid transparent;
   margin-left: 12px;
   border-top-color: currentcolor;
@@ -45,14 +45,12 @@ const DropdownCaret = styled.div<SystemCommonProps & SxProp>`
   height: 0;
   vertical-align: middle;
   width: 0;
-  ${COMMON};
   ${sx};
 `
 
 type StyledDropdownMenuProps = {
   direction?: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   background-clip: padding-box;
@@ -96,7 +94,6 @@ const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
     list-style: none;
   }
   ${props => (props.direction ? getDirectionStyles(props.theme, props.direction) : '')};
-  ${COMMON};
   ${sx};
 `
 
@@ -131,7 +128,6 @@ const DropdownItem = styled.li`
     background-color: ${get('colors.accent.emphasis')};
     outline: none;
   }
-  ${COMMON};
   ${sx};
 `
 

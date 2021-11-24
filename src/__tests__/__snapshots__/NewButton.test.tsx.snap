@@ -41,6 +41,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:disabled {
+  cursor: default;
   color: #8c959f;
   background-color: btn.disabledBg;
 }
@@ -83,6 +84,7 @@ exports[`Button renders consistently 1`] = `
 >
   <span
     data-component="text"
+    hidden={false}
   />
 </button>
 `;
@@ -128,6 +130,7 @@ exports[`Button respects the "disabled" prop 1`] = `
 }
 
 .c0:disabled {
+  cursor: default;
   color: #8c959f;
   background-color: btn.disabledBg;
 }
@@ -171,6 +174,7 @@ exports[`Button respects the "disabled" prop 1`] = `
 >
   <span
     data-component="text"
+    hidden={false}
   >
      Disabled
   </span>
@@ -222,6 +226,7 @@ exports[`Button styles icon only button to make it a square 1`] = `
 }
 
 .c0:disabled {
+  cursor: default;
   color: #8c959f;
   background-color: btn.disabledBg;
 }

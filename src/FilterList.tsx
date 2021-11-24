@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const FilterListBase = styled.ul<SystemCommonProps & SxProp>`
+const FilterListBase = styled.ul<SxProp>`
   list-style-type: none;
-  ${COMMON};
+  margin: 0;
+  padding: 0;
   ${sx};
 `
 
@@ -23,8 +24,7 @@ const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps
 type StyledFilterListItemBaseProps = {
   small?: boolean
   selected?: boolean
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
   position: relative;
@@ -52,7 +52,6 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
     float: right;
     font-weight: ${get('fontWeights.bold')};
   }
-  ${COMMON};
   ${sx};
 `
 
@@ -69,11 +68,6 @@ function FilterListItem({children, count, ...rest}: React.PropsWithChildren<Filt
       {children}
     </FilterListItemBase>
   )
-}
-
-FilterList.defaultProps = {
-  m: 0,
-  p: 0
 }
 
 FilterListItem.displayName = 'FilterList.Item'

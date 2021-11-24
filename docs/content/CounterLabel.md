@@ -15,16 +15,6 @@ Use the CounterLabel component to add a count to navigational elements and butto
 </>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-CounterLabel components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name   | Type   | Default | Description                                                                                                                                                                        |

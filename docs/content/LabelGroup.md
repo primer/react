@@ -9,23 +9,13 @@ The LabelGroup component is used to add commonly used margins and wrapping for g
 ```jsx live
 <LabelGroup>
   <Label>Default label</Label>
-  <Label sx={{color: "fg.onEmphasis", bg: "danger.emphasis"}}>
-    Label with background indicating a closed PR state
-  </Label>
+  <Label sx={{color: 'fg.onEmphasis', bg: 'danger.emphasis'}}>Label with background indicating a closed PR state</Label>
   <Label outline>Default outline label</Label>
 </LabelGroup>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-LabelGroup components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-LabelGroup does not get any additional props.
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |

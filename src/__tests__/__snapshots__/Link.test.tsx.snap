@@ -103,7 +103,7 @@ exports[`Link renders consistently 1`] = `
 />
 `;
 
-exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = `
+exports[`Link respectes the  "sx" prop when "muted" prop is also passed 1`] = `
 .c0 {
   color: #57606a;
   -webkit-text-decoration: none;
@@ -136,7 +136,6 @@ exports[`Link respectes the "color" prop when "muted" prop is also passed 1`] = 
 
 <a
   className="c0"
-  color="fg.onEmphasis"
   muted={true}
 />
 `;

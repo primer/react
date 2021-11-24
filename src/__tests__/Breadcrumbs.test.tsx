@@ -7,7 +7,7 @@ import 'babel-polyfill'
 expect.extend(toHaveNoViolations)
 
 describe('Breadcrumbs', () => {
-  behavesAsComponent({Component: Breadcrumbs})
+  behavesAsComponent({Component: Breadcrumbs, options: {skipAs: true}})
 
   checkExports('Breadcrumbs', {
     default: Breadcrumbs,
