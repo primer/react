@@ -3,8 +3,6 @@
   children:
     - title: Getting started
       url: /getting-started
-    - title: Compon ent statuses
-      url: /status
     - title: Theming
       url: /theming
     - title: Theme reference
@@ -21,6 +19,8 @@
       url: /overriding-styles
     - title: Server-side rendering
       url: /ssr
+    - title: Component statuses
+      url: /status
 - title: Hooks
   children:
     - title: useSafeTimeout

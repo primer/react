@@ -1,8 +1,9 @@
-import React from 'react'
-import {useStaticQuery, graphql, Link as GatsbyLink} from 'gatsby'
+import componentMetadata from '@primer/component-metadata'
 import {Link} from '@primer/components'
-import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
+import Table from '@primer/gatsby-theme-doctocat/src/components/table'
+import {graphql, Link as GatsbyLink, useStaticQuery} from 'gatsby'
+import React from 'react'
 
 export function ComponentStatuses() {
   const data = useStaticQuery(graphql`
@@ -15,6 +16,7 @@ export function ComponentStatuses() {
               title
               status
               description
+              componentId
             }
           }
         }
@@ -23,13 +25,10 @@ export function ComponentStatuses() {
   `)
 
   const pages = data.allSitePage.nodes
+    // Only show components that have a status
     .filter(node => node.context.frontmatter && node.context.frontmatter.status !== null)
-    .sort((a, b) => {
-      // if (a.context.frontmatter.status === 'deprecated') return -1
-      // if (b.context.frontmatter.status === 'deprecated') return 1
-      // return 0
-      return a.context.frontmatter.title.localeCompare(b.context.frontmatter.title)
-    })
+    // Sort alphabetically by title
+    .sort((a, b) => a.context.frontmatter.title.localeCompare(b.context.frontmatter.title))
 
   return (
     <div>
@@ -42,19 +41,32 @@ export function ComponentStatuses() {
           </tr>
         </thead>
         <tbody>
-          {pages.map(page => (
-            <tr key={page.path}>
-              <td valign="top">
-                <Link as={GatsbyLink} to={page.path}>
-                  {page.context.frontmatter.title}
-                </Link>
-              </td>
-              <td valign="top">
-                <StatusLabel status={page.context.frontmatter.status} />
-              </td>
-              <td>{page.context.frontmatter.description}</td>
-            </tr>
-          ))}
+          {pages.map(page => {
+            // eslint-disable-next-line prefer-const
+            let {title, status, description, componentId} = page.context.frontmatter
+
+            const component = componentMetadata.components[componentId]
+
+            // Auto-populate title and description using component metadata
+            if (component) {
+              title ||= component.displayName
+              description ||= component.description
+            }
+
+            return (
+              <tr key={page.path}>
+                <td valign="top">
+                  <Link as={GatsbyLink} to={page.path}>
+                    {title}
+                  </Link>
+                </td>
+                <td valign="top">
+                  <StatusLabel status={status} />
+                </td>
+                <td>{description}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     </div>
