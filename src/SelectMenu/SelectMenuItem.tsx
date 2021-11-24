@@ -1,7 +1,7 @@
 import {CheckIcon} from '@primer/octicons-react'
 import React, {forwardRef, useContext, useRef} from 'react'
 import styled, {css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
@@ -92,9 +92,8 @@ export const listItemStyles = css`
 
 const StyledItem = styled.a.attrs(() => ({
   role: 'menuitemcheckbox'
-}))<SystemCommonProps & SxProp>`
+}))<SxProp>`
   ${listItemStyles}
-  ${COMMON}
   ${sx};
 `
 

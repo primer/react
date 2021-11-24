@@ -27,26 +27,21 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </Breadcrumbs>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Breadcrumbs and Breadcrumbs.Item components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### Breadcrumbs
 
-The `Breadcrumbs` component does not receive any additional props besides `COMMON` system props.
+| Prop name | Type              | Default | Description                          |
+| :-------- | :---------------- | :-----: | :----------------------------------- |
+| children  | ReactNode         |         | The `Breadcrumbs.Item`s              |
+| className | string            |         |                                      |
+| sx        | SystemStyleObject |  `{}`   | Style to be applied to the component |
 
 ### Breadcrumbs.Item
 
-| Prop name | Type    | Default | Description                                      |
-| :-------- | :------ | :-----: | :----------------------------------------------- |
-| as        | String  |   `a`   | Sets the HTML tag for the component              |
-| href      | String  |         | URL to be used for the Link                      |
-| selected  | Boolean |  false  | Used to style the link as selected or unselected |
+| Prop name | Type              | Default | Description                                      |
+| :-------- | :---------------- | :-----: | :----------------------------------------------- |
+| as        | string            |   `a`   | Sets the HTML tag for the component              |
+| href      | string            |         | URL to be used for the Link                      |
+| selected  | boolean           | `false` | Used to style the link as selected or unselected |
+| sx        | SystemStyleObject |  `{}`   | Style to be applied to the component             |

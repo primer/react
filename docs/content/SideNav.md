@@ -147,33 +147,25 @@ If using React Router, you can use the `as` prop to render the element as a `Nav
 <SideNav.Link as={NavLink} to="...">...</SideNav.Link>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-`SideNav` components get `COMMON`, `BORDER`, `LAYOUT`, and `FLEX` system props. `SideNav.Link` components get `COMMON` and `TYPOGRAPHY` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### SideNav
 
-| Name     | Type    | Default  | Description                                                                    |
-| :------- | :------ | :------: | :----------------------------------------------------------------------------- |
-| as       | String  |  'nav'   | Sets the HTML tag for the component.                                           |
-| bordered | Boolean |  false   | Renders the component with a border.                                           |
-| variant  | String  | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
+| Name     | Type              | Default  | Description                                                                    |
+| :------- | :---------------- | :------: | :----------------------------------------------------------------------------- |
+| as       | String            |  'nav'   | Sets the HTML tag for the component.                                           |
+| bordered | Boolean           |  false   | Renders the component with a border.                                           |
+| variant  | String            | 'normal' | Set to `lightweight` to render [in a lightweight style](#lightweight-variant). |
+| sx       | SystemStyleObject |    {}    | Style to be applied to the component                                           |
 
 ### SideNav.Link
 
-| Name      | Type    | Default  | Description                                                                                       |
-| :-------- | :------ | :------: | :------------------------------------------------------------------------------------------------ |
-| as        | String  |   'a'    | Sets the HTML tag for the component.                                                              |
-| href      | String  |          | URL to be used for the Link                                                                       |
-| muted     | Boolean |  false   | Uses a less prominent shade for Link color, and the default link shade on hover                   |
-| selected  | Boolean |  false   | Sets the link as selected, giving it a different style and setting the `aria-current` attribute.  |
-| underline | Boolean |  false   | Adds underline to the Link                                                                        |
-| variant   | String  | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
+| Name      | Type              | Default  | Description                                                                                       |
+| :-------- | :---------------- | :------: | :------------------------------------------------------------------------------------------------ |
+| as        | String            |   'a'    | Sets the HTML tag for the component.                                                              |
+| href      | String            |          | URL to be used for the Link                                                                       |
+| muted     | Boolean           |  false   | Uses a less prominent shade for Link color, and the default link shade on hover                   |
+| selected  | Boolean           |  false   | Sets the link as selected, giving it a different style and setting the `aria-current` attribute.  |
+| underline | Boolean           |  false   | Adds underline to the Link                                                                        |
+| variant   | String            | 'normal' | Set to `full` to render [a full variant](#full-variant), suitable for including icons and labels. |
+| sx        | SystemStyleObject |    {}    | Style to be applied to the component                                                              |

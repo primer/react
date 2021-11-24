@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -45,8 +45,7 @@ const Flash = styled.div<
   {
     variant?: 'default' | 'warning' | 'success' | 'danger'
     full?: boolean
-  } & SystemCommonProps &
-    SxProp
+  } & SxProp
 >`
   position: relative;
   color: ${get('colors.fg.default')};
@@ -64,7 +63,6 @@ const Flash = styled.div<
     margin-right: ${get('space.2')};
   }
 
-  ${COMMON};
   ${variants};
   ${sx};
 `

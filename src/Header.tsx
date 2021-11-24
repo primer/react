@@ -1,16 +1,13 @@
 // eslint-disable-next-line import/no-namespace
 import * as History from 'history'
 import styled, {css} from 'styled-components'
-import {BORDER, COMMON, get, SystemBorderProps, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-type StyledHeaderItemProps = {full?: boolean} & SystemCommonProps & SxProp
-type StyledHeaderProps = SystemBorderProps & SystemCommonProps & SxProp
-type StyledHeaderLinkProps = {to?: History.LocationDescriptor} & SystemCommonProps &
-  SxProp &
-  SystemTypographyProps &
-  SystemBorderProps
+type StyledHeaderItemProps = {full?: boolean} & SxProp
+type StyledHeaderProps = SxProp
+type StyledHeaderLinkProps = {to?: History.LocationDescriptor} & SxProp
 
 const Header = styled.div<StyledHeaderProps>`
   z-index: 32;
@@ -23,8 +20,6 @@ const Header = styled.div<StyledHeaderProps>`
   align-items: center;
   flex-wrap: nowrap;
 
-  ${COMMON}
-  ${BORDER}
   ${sx};
 `
 const HeaderItem = styled.div<StyledHeaderItemProps>`
@@ -40,8 +35,6 @@ const HeaderItem = styled.div<StyledHeaderItemProps>`
       flex: auto;
     `};
 
-  ${COMMON};
-  ${BORDER};
   ${sx};
 `
 
@@ -70,9 +63,6 @@ const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
     color: ${get('colors.header.text')};
   }
 
-  ${COMMON};
-  ${BORDER};
-  ${TYPOGRAPHY};
   ${sx};
 `
 

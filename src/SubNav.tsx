@@ -3,15 +3,14 @@ import classnames from 'classnames'
 import * as History from 'history'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, FLEX, get, SystemBorderProps, SystemCommonProps, SystemFlexProps} from './constants'
-import Box, {BoxProps} from './Box'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'
 
-const SubNavBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
+const SubNavBase = styled.nav<SxProp>`
   display: flex;
   justify-content: space-between;
 
@@ -32,8 +31,6 @@ const SubNavBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
     align-self: center;
   }
 
-  ${COMMON};
-  ${FLEX};
   ${sx};
 `
 
@@ -54,18 +51,17 @@ function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   )
 }
 
-export type SubNavLinksProps = BoxProps
+export type SubNavLinksProps = SxProp
 
-function SubNavLinks(props: SubNavLinksProps) {
-  return <Box display="flex" {...props} />
-}
+const SubNavLinks = styled.div<SubNavLinksProps>`
+  display: flex;
+  ${sx};
+`
 
 type StyledSubNavLinkProps = {
   to?: History.LocationDescriptor
   selected?: boolean
-} & SystemCommonProps &
-  SxProp &
-  SystemBorderProps
+} & SxProp
 
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -117,7 +113,6 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
     }
   }
 
-  ${COMMON};
   ${sx};
 `
 

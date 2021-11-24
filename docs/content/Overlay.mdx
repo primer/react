@@ -65,16 +65,6 @@ const Demo = () => {
 render(<Demo />)
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-`Overlay` gets `COMMON` system props. Read the [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 | Name                | Type                                                           |   Default   | Description                                                                                                                                                                                                                                                                                                                   |
@@ -92,3 +82,4 @@ System props are deprecated in all components except [Box](/Box). Please use the
 | top                 | `number`                                                       |      0      | Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).                                                                                                                                                                                                                           |
 | left                | `number`                                                       |      0      | Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).                                                                                                                                                                                                                         |
 | portalContainerName | `string`                                                       | `undefined` | Optional. If defined, Overlays will be rendered in the named portal. See also `Portal`.                                                                                                                                                                                                                                       |
+| sx                  | SystemStyleObject                                              |     {}      | Style to be applied to the component                                                                                                                                                                                                                                                                                          |
