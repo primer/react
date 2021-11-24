@@ -1,5 +1,6 @@
 ---
 title: Tooltip
+status: Alpha
 ---
 
 The Tooltip component adds a tooltip to add context to elements on the page.

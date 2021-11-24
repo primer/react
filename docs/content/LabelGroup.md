@@ -1,5 +1,6 @@
 ---
 title: LabelGroup
+status: Alpha
 ---
 
 The LabelGroup component is used to add commonly used margins and wrapping for groups of Labels.

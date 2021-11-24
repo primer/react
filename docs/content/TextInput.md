@@ -1,5 +1,6 @@
 ---
 title: TextInput
+status: Alpha
 ---
 
 TextInput is a form component to add default styling to the native text input.
@@ -14,7 +15,14 @@ TextInput is a form component to add default styling to the native text input.
 
   <TextInput sx={{ml: 4}} aria-label="City" name="city" placeholder="City" contrast />
 
-  <TextInput sx={{ml: 4}} icon={SearchIcon} aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
+  <TextInput
+    sx={{ml: 4}}
+    icon={SearchIcon}
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Find user"
+    autoComplete="postal-code"
+  />
 </>
 ```
 

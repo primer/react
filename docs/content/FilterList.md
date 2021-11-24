@@ -1,5 +1,6 @@
 ---
 title: FilterList
+status: Alpha
 ---
 
 The FilterList component is a menu with filter options that filter the main content of the page.

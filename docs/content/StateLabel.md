@@ -1,5 +1,6 @@
 ---
 title: StateLabel
+status: Alpha
 ---
 
 Use StateLabel components to show the status of an issue or pull request.
