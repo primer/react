@@ -26,7 +26,6 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus}) => {
     <Text
       display="flex"
       color={fgColor}
-      id={id}
       fontSize={0}
       sx={{
         alignItems: 'baseline',
@@ -41,7 +40,7 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus}) => {
           <IconComponent size={12} fill="currentColor" />
         </Box>
       )}
-      <span>{children}</span>
+      <span id={id}>{children}</span>
     </Text>
   )
 }

@@ -55,13 +55,17 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
     child =>
       React.isValidElement<InputFieldValidationProps>(child) && child.type === InputFieldValidation ? child : null
   )?.filter(Boolean)
+  const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
+    React.isValidElement(child) && child.type === InputFieldCaption ? child : null
+  )?.filter(Boolean)
   const validationChildToRender = validationChildren?.find(child => child.props.validationKey === validationResult)
   const validationMessageId = validationChildToRender ? `${id}-validationMsg` : undefined
+  const captionId = captionChildren?.length ? `${id}-caption` : undefined
 
   return (
     <Slots
       context={{
-        captionId: `${id}-caption`,
+        captionId,
         disabled,
         id,
         required,
@@ -69,7 +73,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
       }}
     >
       {slots => {
-        if (!slots.Label) {
+        if (slots.Input && !slots.Label) {
           // eslint-disable-next-line no-console
           console.error(
             `The input field with the id ${id} MUST have a Label child (e.g.: <TextInputField.Label>).\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the Label component.`

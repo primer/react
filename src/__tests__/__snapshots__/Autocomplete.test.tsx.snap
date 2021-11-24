@@ -82,7 +82,11 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
+  .c1 {
+  padding: 16px;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -95,11 +99,7 @@ Array [
   border-width: 0;
 }
 
-.c1 {
-  padding: 16px;
-}
-
-<div
+<span
     className="c0"
   >
     <div>
@@ -109,7 +109,7 @@ Array [
         No results
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -195,7 +195,19 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
+  .c1 {
+  padding: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -208,24 +220,12 @@ Array [
   border-width: 0;
 }
 
-.c1 {
-  padding: 16px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
 }
 
-<div
+<span
     className="c0"
   >
     <div
@@ -257,7 +257,7 @@ Array [
         />
       </svg>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -343,20 +343,7 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
+  .c2 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -528,6 +515,19 @@ Array [
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
 }
 
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover {
     background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
@@ -535,7 +535,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -1164,7 +1164,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -1250,20 +1250,7 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
+  .c2 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -1398,6 +1385,19 @@ Array [
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
 }
 
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover {
     background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
@@ -1405,7 +1405,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -1981,7 +1981,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -2067,20 +2067,7 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
+  .c2 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -2225,6 +2212,19 @@ Array [
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
 }
 
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover {
     background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
@@ -2232,7 +2232,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -2808,7 +2808,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -2894,20 +2894,7 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
+  .c2 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -3014,6 +3001,19 @@ Array [
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
 }
 
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover {
     background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
@@ -3021,7 +3021,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -3327,7 +3327,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -3337,20 +3337,7 @@ Array [
     id="customInput"
     type="text"
   />,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
+  .c2 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -3457,6 +3444,19 @@ Array [
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
 }
 
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover {
     background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
@@ -3464,7 +3464,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -3770,7 +3770,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -3856,7 +3856,11 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
+  .c1 {
+  padding: 16px;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -3869,11 +3873,7 @@ Array [
   border-width: 0;
 }
 
-.c1 {
-  padding: 16px;
-}
-
-<div
+<span
     className="c0"
   >
     <div>
@@ -3883,6 +3883,6 @@ Array [
         No selectable options
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
