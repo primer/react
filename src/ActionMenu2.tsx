@@ -15,14 +15,14 @@ type ActionMenuBaseProps = {
   children: React.ReactElement[] | React.ReactElement
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `setOpen`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`.
    */
   open?: boolean
 
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
    */
-  setOpen?: (s: boolean) => void
+  onOpenChange?: (s: boolean) => void
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -35,11 +35,11 @@ export type ActionMenuProps = ActionMenuBaseProps & AnchoredOverlayWrapperAnchor
 const ActionMenuBase: React.FC<ActionMenuProps> = ({
   anchorRef: externalAnchorRef,
   open,
-  setOpen,
+  onOpenChange,
   overlayProps,
   children
 }: ActionMenuProps) => {
-  const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
+  const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])

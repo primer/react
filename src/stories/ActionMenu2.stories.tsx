@@ -140,7 +140,7 @@ export function ExternalAnchor(): JSX.Element {
       </div>
       <br />
 
-      <ActionMenu open={open} setOpen={setOpen} anchorRef={triggerRef}>
+      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
         <ActionList>
           <ActionList.Item onSelect={() => onSelect('Copy link')}>
             Copy link
@@ -187,7 +187,7 @@ export function ControlledMenu(): JSX.Element {
 
       <ActionMenu
         open={open}
-        setOpen={setOpen}
+        onOpenChange={setOpen}
         overlayProps={{
           // Because the component is controlled from outside, but the anchor is still internal,
           // clicking the external button should not be counted as "clicking outside"
@@ -302,7 +302,7 @@ export function MemexTableMenu(): JSX.Element {
         }}
       >
         <Text sx={{fontSize: 0, fontWeight: 'bold'}}>{name}</Text>
-        <ActionMenu open={open} setOpen={setOpen} overlayProps={{onClickOutside: handleClickOutside}}>
+        <ActionMenu open={open} onOpenChange={setOpen} overlayProps={{onClickOutside: handleClickOutside}}>
           <ActionMenu.Button
             aria-label="Open Estimate column options menu"
             sx={{
@@ -441,7 +441,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
           <StyledOcticon icon={ProjectIcon} sx={{mr: 2}} />
           React
         </Text>
-        <ActionMenu open={open} setOpen={setOpen} overlayProps={{width: 'medium'}}>
+        <ActionMenu open={open} onOpenChange={setOpen} overlayProps={{width: 'medium'}}>
           <ActionMenu.Button
             aria-label="Open View options menu"
             sx={{
