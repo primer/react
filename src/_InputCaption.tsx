@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from './'
+import {Text} from '.'
 
 interface Props {
   id: string

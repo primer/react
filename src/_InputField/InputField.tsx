@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '..'
-import InputValidation from '../InputValidation'
+import InputValidation from '../_InputValidation'
 import {ComponentProps} from '../utils/types'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {uniqueId} from '../utils/uniqueId'
