@@ -221,6 +221,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
 .c4 {
   font-size: 12px;
   color: #57606a;
+  display: block;
 }
 
 @media (min-width:768px) {
@@ -253,6 +254,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
   <span
     className="c4"
     color="fg.muted"
+    display="block"
     fontSize={0}
     id="__primer_id_10004-caption"
   >

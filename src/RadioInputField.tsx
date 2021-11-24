@@ -1,8 +1,7 @@
 import React, {HTMLProps} from 'react'
-import {ComponentProps} from './utils/types'
 import InputField, {InputFieldContext} from './_InputField/InputField'
 import {Slot} from './_InputField/slots'
-import ToggleInputField from './_InputField/ToggleInputField'
+import ToggleInputField, {ToggleInputFieldProps} from './_InputField/ToggleInputField'
 import ToggleInputLeadingVisual from './_InputField/ToggleInputLeadingVisual'
 
 // TODO: use Primer's checkbox input once it's available
@@ -45,7 +44,7 @@ const Input: React.FC<HTMLProps<HTMLInputElement>> = ({
   )
 }
 
-const RadioInputField: React.FC<ComponentProps<typeof ToggleInputField>> = props => <ToggleInputField {...props} />
+const RadioInputField: React.FC<ToggleInputFieldProps> = props => <ToggleInputField {...props} />
 
 export default Object.assign(RadioInputField, {
   Input,

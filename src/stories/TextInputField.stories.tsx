@@ -18,7 +18,7 @@ export default {
       defaultValue: false
     },
     validationResult: {
-      options: ['noSpaces', 'validResult'],
+      options: ['noSpaces', 'validName'],
       control: {type: 'radio'},
       defaultValue: 'noSpaces'
     },

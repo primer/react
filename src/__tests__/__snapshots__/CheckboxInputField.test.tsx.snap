@@ -248,6 +248,7 @@ exports[`CheckboxInputField snapshots renders with a caption 1`] = `
 .c5 {
   font-size: 12px;
   color: #57606a;
+  display: block;
 }
 
 .c2 {
@@ -285,6 +286,7 @@ exports[`CheckboxInputField snapshots renders with a caption 1`] = `
     <span
       className="c5"
       color="fg.muted"
+      display="block"
       fontSize={0}
       id="undefined-caption"
     >

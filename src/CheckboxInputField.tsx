@@ -1,12 +1,11 @@
 import React, {HTMLProps, Ref} from 'react'
 import {Checkbox} from '.'
-import {ComponentProps} from './utils/types'
 import InputField, {InputFieldContext} from './_InputField/InputField'
 import {Slot} from './_InputField/slots'
-import ToggleInputField from './_InputField/ToggleInputField'
+import ToggleInputField, {ToggleInputFieldProps} from './_InputField/ToggleInputField'
 import ToggleInputLeadingVisual from './_InputField/ToggleInputLeadingVisual'
 
-const Input: React.FC<Omit<HTMLProps<HTMLInputElement>, 'ref'> & {ref?: Ref<HTMLInputElement>}> = ({
+const Input: React.FC<HTMLProps<HTMLInputElement> & {ref?: Ref<HTMLInputElement>}> = ({
   id: idProp,
   required: requiredProp,
   disabled: disabledProp,
@@ -39,7 +38,7 @@ const Input: React.FC<Omit<HTMLProps<HTMLInputElement>, 'ref'> & {ref?: Ref<HTML
   )
 }
 
-const CheckboxInputField: React.FC<ComponentProps<typeof ToggleInputField>> = props => <ToggleInputField {...props} />
+const CheckboxInputField: React.FC<ToggleInputFieldProps> = props => <ToggleInputField {...props} />
 
 export default Object.assign(CheckboxInputField, {
   Input,
