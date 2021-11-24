@@ -37,6 +37,13 @@ export const Default = (args: Args) => (
   </CheckboxInputField>
 )
 
+export const WithAVisuallyHiddenLabel = (args: Args) => (
+  <CheckboxInputField {...args}>
+    <CheckboxInputField.Label visuallyHidden>Selectable choice</CheckboxInputField.Label>
+    <CheckboxInputField.Input />
+  </CheckboxInputField>
+)
+
 export const WithLeadingVisual = (args: Args) => (
   <CheckboxInputField {...args}>
     <CheckboxInputField.Label>Selectable choice</CheckboxInputField.Label>

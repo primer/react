@@ -37,6 +37,13 @@ export const Default = (args: Args) => (
   </RadioInputField>
 )
 
+export const WithAVisuallyHiddenLabel = (args: Args) => (
+  <RadioInputField {...args}>
+    <RadioInputField.Label visuallyHidden>Selectable choice</RadioInputField.Label>
+    <RadioInputField.Input />
+  </RadioInputField>
+)
+
 export const WithLeadingVisual = (args: Args) => (
   <RadioInputField {...args}>
     <RadioInputField.Label>Selectable choice</RadioInputField.Label>

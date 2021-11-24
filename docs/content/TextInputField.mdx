@@ -72,13 +72,13 @@ A `TextInputField.Label` must be passed, but it may be visually hidden.
 
 ## TextInputField.Input
 
-By default, a [TextInput]() will be rendered. You may override this and render a [TextInputWithTokens]().
+By default, a [TextInput](/TextInput) will be rendered. You may override this and render another text input such as an [Autocomplete](/Autocomplete) or a [TextInputWithTokens](/TextInputWithTokens).
 
 ### Component props
 
-| Name | Type                               |  Default  | Description                   |
-| :--- | :--------------------------------- | :-------: | :---------------------------- |
-| as   | `TextInput`, `TextInputWithTokens` | TextInput | The input component to render |
+| Name | Type                             |  Default  | Description                   |
+| :--- | :------------------------------- | :-------: | :---------------------------- |
+| as   | `string`\|`React.ReactComponent` | TextInput | The input component to render |
 
 The other props will be the same as the component that is passed to the `as` prop.
 

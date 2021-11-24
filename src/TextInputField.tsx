@@ -1,6 +1,6 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
-import {TextInput, TextInputProps, TextInputWithTokens, TextInputWithTokensProps} from '.'
+import {TextInput, TextInputProps} from '.'
 import InputField, {InputFieldContext} from './_InputField/InputField'
 import {Slot} from './_InputField/slots'
 
@@ -40,10 +40,7 @@ const Input = React.forwardRef(
       </Slot>
     )
   }
-) as PolymorphicForwardRefComponent<
-  typeof TextInput | typeof TextInputWithTokens,
-  TextInputProps | TextInputWithTokensProps
->
+) as PolymorphicForwardRefComponent<typeof TextInput, TextInputProps>
 
 export default Object.assign(InputField, {
   Input,
