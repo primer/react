@@ -8,7 +8,12 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
   display: flex;
 }
 
-.c1 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c2 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -25,7 +30,9 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
       aria-describedby="undefined-caption"
       disabled={true}
@@ -34,7 +41,7 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
     />
   </div>
   <label
-    className="c1"
+    className="c2"
     htmlFor="__primer_id_10002"
   >
     Option one
@@ -50,16 +57,28 @@ exports[`RadioInputField snapshots renders as disabled with a LeadingVisual 1`] 
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
 
 exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
-.c2 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c3 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -81,18 +100,18 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   align-items: center;
 }
 
-.c1 {
+.c2 {
   margin-left: 8px;
   color: #24292f;
 }
 
-.c1 > * {
+.c2 > * {
   min-width: 16px;
   min-height: 16px;
   fill: currentColor;
 }
 
-.c3 {
+.c4 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -103,7 +122,9 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
       aria-describedby="undefined-caption"
       id="__primer_id_10006"
@@ -111,7 +132,7 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
     />
   </div>
   <div
-    className="c1"
+    className="c2"
     color="fg.default"
   >
     <svg
@@ -138,11 +159,11 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
     />
   </div>
   <div
-    className="c2"
+    className="c3"
     display="flex"
   >
     <label
-      className="c3"
+      className="c4"
       htmlFor="__primer_id_10006"
     >
       Option one
@@ -159,11 +180,18 @@ exports[`RadioInputField snapshots renders with a LeadingVisual and caption 1`] 
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
 
@@ -175,7 +203,12 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   display: flex;
 }
 
-.c1 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c2 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -186,14 +219,14 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   flex-direction: column;
 }
 
-.c2 {
+.c3 {
   font-weight: 600;
   font-size: 14px;
   display: block;
   color: #24292f;
 }
 
-.c3 {
+.c4 {
   font-size: 12px;
   color: #57606a;
 }
@@ -202,7 +235,9 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
       aria-describedby="undefined-caption"
       id="__primer_id_10004"
@@ -210,17 +245,17 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
     />
   </div>
   <div
-    className="c1"
+    className="c2"
     display="flex"
   >
     <label
-      className="c2"
+      className="c3"
       htmlFor="__primer_id_10004"
     >
       Option one
     </label>
     <span
-      className="c3"
+      className="c4"
       color="fg.muted"
       fontSize={0}
       id="undefined-caption"
@@ -239,11 +274,18 @@ exports[`RadioInputField snapshots renders with a custom ID 1`] = `
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
 
@@ -255,7 +297,12 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
   display: flex;
 }
 
-.c1 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c2 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -272,7 +319,9 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
       aria-describedby="undefined-caption"
       id="__primer_id_10001"
@@ -280,7 +329,7 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
     />
   </div>
   <label
-    className="c1"
+    className="c2"
     htmlFor="__primer_id_10001"
   >
     Option one
@@ -296,10 +345,17 @@ exports[`RadioInputField snapshots renders with a label an input 1`] = `
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;

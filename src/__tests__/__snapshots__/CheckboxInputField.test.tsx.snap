@@ -8,7 +8,12 @@ exports[`CheckboxInputField snapshots renders as disabled 1`] = `
   display: flex;
 }
 
-.c1 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c3 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -21,20 +26,32 @@ exports[`CheckboxInputField snapshots renders as disabled 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  cursor: pointer;
+  cursor: not-allowed;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="true"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       disabled={true}
       id="__primer_id_10002"
       type="checkbox"
     />
   </div>
   <label
-    className="c1"
+    className="c3"
     htmlFor="__primer_id_10002"
   >
     Option one
@@ -50,16 +67,28 @@ exports[`CheckboxInputField snapshots renders as disabled with a LeadingVisual 1
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
 
 exports[`CheckboxInputField snapshots renders with a LeadingVisual 1`] = `
-.c2 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c4 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -81,37 +110,48 @@ exports[`CheckboxInputField snapshots renders with a LeadingVisual 1`] = `
   align-items: center;
 }
 
-.c1 {
+.c3 {
   margin-left: 8px;
   color: #24292f;
 }
 
-.c1 > * {
+.c3 > * {
   min-width: 16px;
   min-height: 16px;
   fill: currentColor;
 }
 
-.c3 {
+.c5 {
   font-weight: 600;
   font-size: 14px;
   display: block;
   color: #24292f;
 }
 
+.c2 {
+  cursor: pointer;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="false"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       id="__primer_id_10006"
       type="checkbox"
     />
   </div>
   <div
-    className="c1"
+    className="c3"
     color="fg.default"
   >
     <svg
@@ -138,11 +178,11 @@ exports[`CheckboxInputField snapshots renders with a LeadingVisual 1`] = `
     />
   </div>
   <div
-    className="c2"
+    className="c4"
     display="flex"
   >
     <label
-      className="c3"
+      className="c5"
       htmlFor="__primer_id_10006"
     >
       Option one
@@ -159,11 +199,18 @@ exports[`CheckboxInputField snapshots renders with a LeadingVisual and caption 1
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
 
@@ -175,7 +222,12 @@ exports[`CheckboxInputField snapshots renders with a caption 1`] = `
   display: flex;
 }
 
-.c1 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c3 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -186,41 +238,52 @@ exports[`CheckboxInputField snapshots renders with a caption 1`] = `
   flex-direction: column;
 }
 
-.c2 {
+.c4 {
   font-weight: 600;
   font-size: 14px;
   display: block;
   color: #24292f;
 }
 
-.c3 {
+.c5 {
   font-size: 12px;
   color: #57606a;
+}
+
+.c2 {
+  cursor: pointer;
 }
 
 <div
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="false"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       id="__primer_id_10004"
       type="checkbox"
     />
   </div>
   <div
-    className="c1"
+    className="c3"
     display="flex"
   >
     <label
-      className="c2"
+      className="c4"
       htmlFor="__primer_id_10004"
     >
       Option one
     </label>
     <span
-      className="c3"
+      className="c5"
       color="fg.muted"
       fontSize={0}
       id="undefined-caption"
@@ -239,11 +302,18 @@ exports[`CheckboxInputField snapshots renders with a custom ID 1`] = `
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
 
@@ -255,7 +325,12 @@ exports[`CheckboxInputField snapshots renders with a hidden label 1`] = `
   display: flex;
 }
 
-.c1 {
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c3 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -268,19 +343,30 @@ exports[`CheckboxInputField snapshots renders with a hidden label 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  cursor: pointer;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div>
+  <div
+    className="c1"
+  >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="false"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       id="__primer_id_10001"
       type="checkbox"
     />
   </div>
   <label
-    className="c1"
+    className="c3"
     htmlFor="__primer_id_10001"
   >
     Option one
@@ -296,10 +382,17 @@ exports[`CheckboxInputField snapshots renders with a label an input 1`] = `
   display: flex;
 }
 
+.c1 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 <div
   className="c0"
   display="flex"
 >
-  <div />
+  <div
+    className="c1"
+  />
 </div>
 `;
