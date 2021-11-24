@@ -1,17 +1,12 @@
-import React, {HTMLProps} from 'react'
+import React, {HTMLProps, Ref} from 'react'
+import {Checkbox} from '.'
 import {ComponentProps} from './utils/types'
 import InputField, {InputFieldContext} from './_InputField/InputField'
 import {Slot} from './_InputField/slots'
 import ToggleInputField from './_InputField/ToggleInputField'
 import ToggleInputLeadingVisual from './_InputField/ToggleInputLeadingVisual'
 
-// TODO: use Primer's checkbox input once it's available
-// https://github.com/github/primer/issues/467
-const CheckboxInput: React.FC<HTMLProps<HTMLInputElement>> = props => {
-  return <input type="checkbox" {...props} />
-}
-
-const Input: React.FC<HTMLProps<HTMLInputElement>> = ({
+const Input: React.FC<Omit<HTMLProps<HTMLInputElement>, 'ref'> & {ref?: Ref<HTMLInputElement>}> = ({
   id: idProp,
   required: requiredProp,
   disabled: disabledProp,
@@ -38,7 +33,7 @@ const Input: React.FC<HTMLProps<HTMLInputElement>> = ({
   return (
     <Slot name="Input">
       {({disabled, id, required, captionId}: InputFieldContext) => (
-        <CheckboxInput aria-describedby={captionId} id={id} required={required} disabled={disabled} {...rest} />
+        <Checkbox aria-describedby={captionId} id={id} required={required} disabled={disabled} {...rest} />
       )}
     </Slot>
   )

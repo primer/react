@@ -30,7 +30,7 @@ const ToggleInputField: React.FC<Props> = ({children, disabled, id, validationSt
         return (
           <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
             {children}
-            <div>{slots.Input}</div>
+            <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>{slots.Input}</Box>
             {slots.LeadingVisual && (
               <Box
                 color={disabled ? 'fg.muted' : 'fg.default'}
