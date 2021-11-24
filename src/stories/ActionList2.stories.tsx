@@ -1051,9 +1051,14 @@ export function MemexGroupBy(): JSX.Element {
       <h1>Memex GroupBy List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Group title="Group by" selectionVariant="single">
+          <ActionList.Group title="Group by" selectionVariant="single" role="listbox">
             {options.map((option, index) => (
-              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+              <ActionList.Item
+                key={index}
+                selected={index === selectedIndex}
+                onSelect={() => setSelectedIndex(index)}
+                role="option"
+              >
                 <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
                 {option.text}
               </ActionList.Item>
@@ -1119,10 +1124,11 @@ export function MemexSortable(): JSX.Element {
       <ErsatzOverlay>
         <DndProvider backend={HTML5Backend}>
           <ActionList selectionVariant="multiple">
-            <ActionList.Group title="Visible fields (can be reordered)">
+            <ActionList.Group title="Visible fields (can be reordered)" role="listbox">
               {visibleOptions.map(option => (
                 <SortableItem
                   key={option.text}
+                  role="option"
                   option={option}
                   onSelect={() => toggle(option.text)}
                   reorder={reorder}
@@ -1130,6 +1136,7 @@ export function MemexSortable(): JSX.Element {
               ))}
             </ActionList.Group>
             <ActionList.Group
+              role="listbox"
               title="Hidden fields"
               selectionVariant={
                 /** selectionVariant override on Group: disable selection if there are no options */
@@ -1137,7 +1144,12 @@ export function MemexSortable(): JSX.Element {
               }
             >
               {hiddenOptions.map((option, index) => (
-                <ActionList.Item key={index} selected={option.selected} onSelect={() => toggle(option.text)}>
+                <ActionList.Item
+                  key={index}
+                  role="option"
+                  selected={option.selected}
+                  onSelect={() => toggle(option.text)}
+                >
                   <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
                   {option.text}
                 </ActionList.Item>
@@ -1154,10 +1166,11 @@ MemexSortable.storyName = 'Memex Sortable List'
 
 type SortableItemProps = {
   option: Option
+  role: ItemProps['role']
   onSelect: ItemProps['onSelect']
   reorder: ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => void
 }
-const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) => {
+const SortableItem: React.FC<SortableItemProps> = ({option, role, onSelect, reorder}) => {
   const [{isDragging}, dragRef] = useDrag(() => ({
     type: 'ITEM',
     item: option,
@@ -1178,6 +1191,7 @@ const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) 
 
   return (
     <ActionList.Item
+      role={role}
       ref={element => dragRef(element) && dropRef(element)} // merge refs
       selected={option.selected}
       onSelect={onSelect}
