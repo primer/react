@@ -49,6 +49,8 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
+    - title: CheckboxInputField
+      url: /CheckboxInputField
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -93,6 +95,8 @@
     #   url: /Portal
     - title: ProgressBar
       url: /ProgressBar
+    - title: RadioInputField
+      url: /RadioInputField
     - title: SelectMenu
       url: /SelectMenu
     - title: SideNav
@@ -111,6 +115,8 @@
       url: /Text
     - title: TextInput
       url: /TextInput
+    - title: TextInputField
+      url: /TextInputField
     - title: TextInputWithTokens
       url: /TextInputWithTokens
     - title: Timeline

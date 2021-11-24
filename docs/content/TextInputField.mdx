@@ -1,9 +1,12 @@
 ---
 title: TextInputField
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/TextInputField.tsx
+storybook: '/react/storybook?path=/story/forms-textinputfield--default'
 ---
 
 import {TextInputField, TextInputWithTokens} from '@primer/components'
+import {ComponentChecklist} from '../src/component-checklist'
 
 The `TextInputField` component is used to render a labelled text input and, optionally, associated validation text and hint text.
 
@@ -177,3 +180,23 @@ const ValidationExample = () => {
 
 render(ValidationExample)
 ```
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: true,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

@@ -1,7 +1,11 @@
 ---
 title: CheckboxInputField
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/CheckboxInputField.tsx
+storybook: '/react/storybook?path=/story/forms-checkboxinputfield--default'
 ---
+
+import {ComponentChecklist} from '../src/component-checklist'
 
 <!--
 TODO: add `validationStatus` examples when we have the validation styling done
@@ -123,3 +127,23 @@ If the selectable option would be easier to understand with a visual, the `Check
   </CheckboxInputField>
 </>
 ```
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: true,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
