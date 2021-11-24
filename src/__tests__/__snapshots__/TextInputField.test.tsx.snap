@@ -12,7 +12,7 @@ exports[`TextInputField snapshots renders as disabled 1`] = `
   flex-direction: column;
 }
 
-.c0 > * + * {
+.c0 > *:not(label) + * {
   margin-top: 8px;
 }
 
@@ -296,7 +296,7 @@ exports[`TextInputField snapshots renders with a hidden label 1`] = `
   flex-direction: column;
 }
 
-.c0 > * + * {
+.c0 > *:not(label) + * {
   margin-top: 8px;
 }
 

@@ -73,6 +73,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
       }}
     >
       {slots => {
+        const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
         if (slots.Input && !slots.Label) {
           // eslint-disable-next-line no-console
           console.error(
@@ -81,7 +82,12 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
         }
 
         return (
-          <Box display="flex" flexDirection="column" width="100%" sx={{'> * + *': {marginTop: 2}}}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            width="100%"
+            sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
+          >
             {React.Children.toArray(children).filter(
               child => React.isValidElement<InputFieldValidationProps>(child) && child.type !== InputFieldValidation
             )}
