@@ -2,12 +2,12 @@ import React, {ChangeEvent, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Box, RadioInput, RadioInputProps, Text, ThemeProvider} from '..'
+import {BaseStyles, Box, RadioButton, RadioButtonProps, Text, ThemeProvider} from '..'
 import {COMMON, get} from '../constants'
 
 export default {
-  title: 'Forms/Radio Input',
-  component: RadioInput,
+  title: 'Forms/Radio Button',
+  component: RadioButton,
   decorators: [
     Story => {
       return (
@@ -61,7 +61,7 @@ const StyledLabel = styled.label`
   ${COMMON}
 `
 
-export const Default = ({disabled, checked}: RadioInputProps) => {
+export const Default = ({disabled, checked}: RadioButtonProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(checked || false)
   const handleChange = () => {
     setIsChecked(!isChecked)
@@ -70,56 +70,56 @@ export const Default = ({disabled, checked}: RadioInputProps) => {
   return (
     <>
       <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
-        <RadioInput
-          id="controlled-radio"
-          value="Mona"
-          name="Octocats"
+        <RadioButton
+          id="default-radio"
+          value="default"
+          name="default"
           disabled={disabled}
           checked={isChecked}
           onChange={handleChange}
         />
-        <StyledLabel htmlFor="controlled-radio" aria-disabled={disabled}>
-          <Text sx={{display: 'block'}}>Default radio</Text>
+        <StyledLabel htmlFor="default-radio" aria-disabled={disabled}>
+          Default radio button
         </StyledLabel>
       </Box>
     </>
   )
 }
 
-export const MultipleRadios = ({disabled}: RadioInputProps) => {
-  const [activeOctocat, setActiveOctocat] = useState<'Mona' | 'Ironcat' | undefined>()
+export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
+  const [activeOctocat, setActiveOctocat] = useState<'yes' | 'no' | undefined>()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target.value as 'Mona' | 'Ironcat'
+    const target = event.target.value as 'yes' | 'no'
     setActiveOctocat(target)
   }
 
   return (
     <>
       <Box as="form" p={3} sx={{display: 'inline-flex', alignItems: 'flex-start'}}>
-        <StyledLabel htmlFor="mona-radio" aria-disabled={disabled}>
-          <RadioInput
-            id="mona-radio"
+        <StyledLabel htmlFor="yes-radio" aria-disabled={disabled}>
+          <RadioButton
+            id="yes-radio"
             onChange={handleChange}
-            checked={activeOctocat === 'Mona'}
-            value="Mona"
-            name="Octocats"
+            checked={activeOctocat === 'yes'}
+            value="yes"
+            name="Choice"
             disabled={disabled}
           />
-          <Text sx={{marginLeft: 2}}>Mona</Text>
+          <Text sx={{marginLeft: 2}}>Yes</Text>
         </StyledLabel>
       </Box>
       <Box as="form" p={3} sx={{display: 'inline-flex', alignItems: 'flex-start'}}>
-        <StyledLabel htmlFor="ironcat-radio" aria-disabled={disabled}>
-          <RadioInput
-            id="ironcat-radio"
+        <StyledLabel htmlFor="no-radio" aria-disabled={disabled}>
+          <RadioButton
+            id="no-radio"
             onChange={handleChange}
-            checked={activeOctocat === 'Ironcat'}
-            value="Ironcat"
-            name="Octocats"
+            checked={activeOctocat === 'no'}
+            value="no"
+            name="Choice"
             disabled={disabled}
           />
-          <Text sx={{marginLeft: 2}}>Ironcat</Text>
+          <Text sx={{marginLeft: 2}}>No</Text>
         </StyledLabel>
       </Box>
     </>
