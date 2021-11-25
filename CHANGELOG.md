@@ -1,5 +1,23 @@
 # @primer/components
 
+## 32.1.0
+
+### Minor Changes
+
+- [#1606](https://github.com/primer/react/pull/1606) [`985120a6`](https://github.com/primer/react/commit/985120a61b62c1bbd1872d9a11e34fab407a4096) Thanks [@rezrah](https://github.com/rezrah)! - Adds a new Checkbox form component
+
+### Patch Changes
+
+- [#1648](https://github.com/primer/react/pull/1648) [`8b40a0a9`](https://github.com/primer/react/commit/8b40a0a91f6804496f78c342be62607983ee4081) Thanks [@jfuchs](https://github.com/jfuchs)! - Fixed a bug with Overlay's type where DOM props were not allowed.
+
+## 32.0.1
+
+### Patch Changes
+
+- [#1649](https://github.com/primer/react/pull/1649) [`b1315367`](https://github.com/primer/react/commit/b1315367858c6b4319ac601e5e324bb37331e4a3) Thanks [@jonrohan](https://github.com/jonrohan)! - Upgrading primer/primitives@7.1.1
+
+* [#1652](https://github.com/primer/react/pull/1652) [`47550d34`](https://github.com/primer/react/commit/47550d3400fec87a26eb74c8344dfbd71635a3f5) Thanks [@colebemis](https://github.com/colebemis)! - Fix preval of `theme-preval.js`
+
 ## 32.0.0
 
 ### Major Changes

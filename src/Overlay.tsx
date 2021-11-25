@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {ReactElement, useEffect, useRef} from 'react'
+import React, {ComponentPropsWithRef, ReactElement, useEffect, useRef} from 'react'
 import useLayoutEffect from './utils/useIsomorphicLayoutEffect'
 import {get} from './constants'
 import {AriaRole, Merge} from './utils/types'
@@ -9,6 +9,7 @@ import sx, {SxProp} from './sx'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
 import {AnchorSide} from './behaviors/anchoredPosition'
 import {useTheme} from './ThemeProvider'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -95,7 +96,7 @@ type BaseOverlayProps = {
   children?: React.ReactNode
 }
 
-export type OverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
+type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
 
 /**
  * An `Overlay` is a flexible floating surface, used to display transient content such as menus,
@@ -114,7 +115,7 @@ export type OverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param left Optional. Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  */
-const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
+const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
     {
       onClickOutside,
@@ -190,7 +191,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
       </Portal>
     )
   }
-)
+) as PolymorphicForwardRefComponent<'div', OwnOverlayProps>
+
+export type OverlayProps = ComponentPropsWithRef<typeof Overlay>
 
 Overlay.defaultProps = {
   height: 'auto',
