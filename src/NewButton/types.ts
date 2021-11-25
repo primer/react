@@ -6,7 +6,7 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
-export type ButtonProps = {
+export type ButtonBaseProps = {
   /**
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
    */
@@ -16,9 +16,13 @@ export type ButtonProps = {
    */
   size?: Size
   /**
-   * This is to be used if it is an icon-only button. Will make text visually hidden
+   * Items that are disabled can not be clicked, selected, or navigated through.
    */
-  icon?: React.FunctionComponent<IconProps>
+  disabled?: boolean
+} & SxProp &
+  HTMLAttributes<HTMLButtonElement>
+
+export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
@@ -27,10 +31,13 @@ export type ButtonProps = {
    * The trailing icon comes after button content
    */
   trailingIcon?: React.FunctionComponent<IconProps>
-  /**
-   * Items that are disabled can not be clicked, selected, or navigated through.
-   */
-  disabled?: boolean
   children: React.ReactNode
-} & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+} & ButtonBaseProps
+
+export type IconButtonProps = {
+  /**
+   * This is to be used if it is an icon-only button. Will make text visually hidden
+   */
+  icon: React.FunctionComponent<IconProps>
+  iconLabel: string
+} & ButtonBaseProps

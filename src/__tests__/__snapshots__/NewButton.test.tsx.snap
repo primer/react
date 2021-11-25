@@ -5,8 +5,6 @@ exports[`Button renders consistently 1`] = `
   border-radius: 6px;
   border: 1px solid;
   border-color: rgba(27,31,36,0.15);
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -22,6 +20,8 @@ exports[`Button renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -30,10 +30,6 @@ exports[`Button renders consistently 1`] = `
   color: #24292f;
   background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
 }
 
 .c0:focus {
@@ -48,6 +44,10 @@ exports[`Button renders consistently 1`] = `
 
 .c0:disabled svg {
   opacity: 0.6;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 [data-component="leadingIcon"] {
@@ -84,7 +84,6 @@ exports[`Button renders consistently 1`] = `
 >
   <span
     data-component="text"
-    hidden={false}
   />
 </button>
 `;
@@ -94,8 +93,6 @@ exports[`Button respects the "disabled" prop 1`] = `
   border-radius: 6px;
   border: 1px solid;
   border-color: rgba(27,31,36,0.15);
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -111,6 +108,8 @@ exports[`Button respects the "disabled" prop 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -119,10 +118,6 @@ exports[`Button respects the "disabled" prop 1`] = `
   color: #24292f;
   background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
 }
 
 .c0:focus {
@@ -137,6 +132,10 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0:disabled svg {
   opacity: 0.6;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 [data-component="leadingIcon"] {
@@ -174,7 +173,6 @@ exports[`Button respects the "disabled" prop 1`] = `
 >
   <span
     data-component="text"
-    hidden={false}
   >
      Disabled
   </span>
@@ -190,8 +188,6 @@ exports[`Button styles icon only button to make it a square 1`] = `
   border-radius: 6px;
   border: 1px solid;
   border-color: rgba(27,31,36,0.15);
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -217,10 +213,6 @@ exports[`Button styles icon only button to make it a square 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
 .c0:focus {
   outline: none;
 }
@@ -233,18 +225,6 @@ exports[`Button styles icon only button to make it a square 1`] = `
 
 .c0:disabled svg {
   opacity: 0.6;
-}
-
-.c0 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
-}
-
-.c0 [data-component="text"] {
-  grid-area: text;
-}
-
-.c0 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
 }
 
 .c0 [data-component="ButtonCounter"] {
@@ -268,15 +248,12 @@ exports[`Button styles icon only button to make it a square 1`] = `
   className="c0"
 >
   <span
-    data-component="text"
     hidden={true}
   >
     Search icon only button
   </span>
   <span
-    aria-hidden={false}
     className="c1"
-    data-component="icon-only"
   >
     <svg
       aria-hidden="true"

@@ -1,5 +1,5 @@
 import React from 'react'
-import {NewButton as Button} from '../NewButton'
+import {IconButton, NewButton as Button} from '../NewButton'
 import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -63,7 +63,7 @@ describe('Button', () => {
     expect(render(<Button variant="danger">Danger</Button>)).toHaveStyleRule('background-color', '#f6f8fa')
   })
   it('styles icon only button to make it a square', () => {
-    const IconOnlyButton = render(<Button icon={SearchIcon}>Search icon only button</Button>)
+    const IconOnlyButton = render(<IconButton icon={SearchIcon} iconLabel="Search icon only button" />)
     expect(IconOnlyButton).toHaveStyleRule('padding-right', '7px')
     expect(IconOnlyButton).toMatchSnapshot()
   })

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {NewButton as Button, NewButtonProps as ButtonProps} from '../NewButton'
+import {NewButton as Button, NewButtonProps as ButtonProps, IconButton} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon} from '@primer/octicons-react'
@@ -73,29 +73,19 @@ export const iconButton = ({...args}: ButtonProps) => {
   return (
     <>
       <Box mb={2}>
-        <Button icon={XIcon} {...args}>
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="invisible">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="invisible" />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="danger">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="danger" />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="primary">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="primary" />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="outline">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="outline" />
       </Box>
     </>
   )
@@ -194,7 +184,7 @@ export const disabledButton = ({...args}: ButtonProps) => {
         </Button>
       </Box>
       <Box mb={2}>
-        <Button disabled icon={() => <XIcon />} {...args}></Button>
+        <IconButton disabled icon={() => <XIcon />} iconLabel="Close" {...args} />
       </Box>
     </>
   )
