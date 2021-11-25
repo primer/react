@@ -9,8 +9,8 @@ StyledOcticon renders an [Octicon](https://octicons.github.com) with common syst
 
 ```jsx live
 <>
-  <StyledOcticon icon={CheckIcon} size={32} sx={{ color: "success.fg" }} mr={2} />
-  <StyledOcticon icon={XIcon} size={32} sx={{ color: "danger.fg" }} />
+  <StyledOcticon icon={CheckIcon} size={32} sx={{color: 'success.fg', mr: 2}} />
+  <StyledOcticon icon={XIcon} size={32} sx={{color: 'danger.fg'}} />
 </>
 ```
 

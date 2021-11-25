@@ -13,7 +13,7 @@ Use [Box](/Box) instead.
 
 ```jsx
 <>
-  <Position position="absolute">...</Position>
+  <Position  sx={{position: "absolute"}}>...</Position>
   <Absolute>...</Absolute>
   <Relative>...</Relative>
   <Fixed>...</Fixed>
@@ -37,37 +37,37 @@ Use [Box](/Box) instead.
 
 ```jsx live
 <Box p={2} mb={200}>
-  <Heading mb={2}>Relative + Absolute</Heading>
-  <Relative size={128} mx={128} my={6}>
+  <Heading  sx={{mb: 2}}>Relative + Absolute</Heading>
+  <Relative    sx={{size: 128, mx: 128, my: 6}}>
     <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} size="100%">
-      <Absolute left="100%" top={0} color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{left: "100%", top: 0, color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         rt
       </Absolute>
-      <Absolute right="100%" top={0} color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{right: "100%", top: 0, color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         lt
       </Absolute>
-      <Absolute left="100%" bottom={0} color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{left: "100%", bottom: 0, color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         rb
       </Absolute>
-      <Absolute right="100%" bottom={0} color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{right: "100%", bottom: 0, color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         lb
       </Absolute>
-      <Absolute left={0} top="100%" color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{left: 0, top: "100%", color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         bl
       </Absolute>
-      <Absolute right={0} top="100%" color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{right: 0, top: "100%", color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         br
       </Absolute>
-      <Absolute left={0} bottom="100%" color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{left: 0, bottom: "100%", color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         tl
       </Absolute>
-      <Absolute right={0} bottom="100%" color="fg.onEmphasis" bg="success.emphasis" p={1}>
+      <Absolute      sx={{right: 0, bottom: "100%", color: "fg.onEmphasis", bg: "success.emphasis", p: 1}}>
         tr
       </Absolute>
     </Box>
   </Relative>
 
-  <Heading my={2}>Sticky</Heading>
+  <Heading  sx={{my: 2}}>Sticky</Heading>
 
   <Box
     borderWidth="1px"
@@ -77,15 +77,15 @@ Use [Box](/Box) instead.
     border={1}
     height={500}
   >
-    <Sticky top={0} bg="success.subtle" p={6}>
+    <Sticky    sx={{top: 0, bg: "success.subtle", p: 6}}>
       I'm sticky!
     </Sticky>
   </Box>
 
-  <Heading my={2}>Fixed</Heading>
+  <Heading  sx={{my: 2}}>Fixed</Heading>
   <p>(see the bottom right of the screen)</p>
 
-  <Fixed bottom={0} right={0} color="fg.onEmphasis" bg="danger.emphasis" p={2}>
+  <Fixed      sx={{bottom: 0, right: 0, color: "fg.onEmphasis", bg: "danger.emphasis", p: 2}}>
     I'm fixed to the bottom right.
   </Fixed>
 </Box>

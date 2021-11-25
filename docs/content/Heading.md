@@ -8,7 +8,7 @@ The Heading component will render an html `h2` tag without any default styling. 
 
 ## Default example
 ```jsx live
-<Heading fontSize={1} mb={2}>H2 heading with fontSize={1}</Heading>
+<Heading   sx={{fontSize: 1, mb: 2}}>H2 heading with fontSize={1}</Heading>
 ```
 
 ## System props

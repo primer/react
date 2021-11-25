@@ -19,7 +19,7 @@ The Timeline.Item component is used to display items on a vertical timeline, con
       created one <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>
         hot potato
       </Link>
-      <Link href="#" color="fg.muted" muted>
+      <Link href="#"  muted sx={{color: "fg.muted"}}>
         Just now
       </Link>
     </Timeline.Body>
@@ -57,7 +57,7 @@ of the child `StyledOcticon` if necessary.
   </Timeline.Item>
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
+      <StyledOcticon icon={FlameIcon}  sx={{color: "fg.onEmphasis"}} />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
@@ -99,7 +99,7 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
+      <StyledOcticon icon={FlameIcon}  sx={{color: "fg.onEmphasis"}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>

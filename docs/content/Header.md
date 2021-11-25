@@ -13,13 +13,13 @@ All items directly under the Header component should be a `Header.Item` componen
 ```jsx live
 <Header>
   <Header.Item>
-    <Header.Link href="#" fontSize={2}>
-      <StyledOcticon icon={MarkGithubIcon} size={32} mr={2} />
+    <Header.Link href="#"  sx={{fontSize: 2}}>
+      <StyledOcticon icon={MarkGithubIcon} size={32}  sx={{mr: 2}} />
       <span>GitHub</span>
     </Header.Link>
   </Header.Item>
   <Header.Item full>Menu</Header.Item>
-  <Header.Item mr={0}>
+  <Header.Item  sx={{mr: 0}}>
     <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
   </Header.Item>
 </Header>
@@ -30,10 +30,10 @@ All items directly under the Header component should be a `Header.Item` componen
 ```jsx live
 <Header>
   <Header.Item>Item 1</Header.Item>
-  <Header.Item full border={1} borderStyle="solid">
+  <Header.Item full   sx={{border: 1, borderStyle: "solid"}}>
     Item 2
   </Header.Item>
-  <Header.Item mr={0}>Item 3</Header.Item>
+  <Header.Item  sx={{mr: 0}}>Item 3</Header.Item>
 </Header>
 ```
 

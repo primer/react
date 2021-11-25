@@ -12,7 +12,7 @@ Use [Box](/Box) instead.
 **Before**
 
 ```jsx
-<Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+<Grid   sx={{gridTemplateColumns: "repeat(2, auto)", gridGap: 3}}>
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
   </Box>
@@ -38,7 +38,7 @@ Use [Box](/Box) instead.
 ## Default example
 
 ```jsx live
-<Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+<Grid   sx={{gridTemplateColumns: "repeat(2, auto)", gridGap: 3}}>
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
   </Box>

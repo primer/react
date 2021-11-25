@@ -60,7 +60,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-    <TextInput type="search" icon={SearchIcon} width={320} />
+    <TextInput type="search" icon={SearchIcon}  sx={{width: 320}} />
   </FilteredSearch>
   <SubNav.Links>
     <SubNav.Link href="#home" selected>
