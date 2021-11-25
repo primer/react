@@ -91,7 +91,7 @@ const Component = styled.div`
 
 Component.defaultProps = {
   m: 0,
-  fontSize: 5,
+  fontSize: 5
 }
 
 export default Component

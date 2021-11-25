@@ -19,7 +19,7 @@ Truncate will prevent text that overflows from wrapping. The default max-width i
 You can override the maximum width of the truncated text with the `maxWidth` prop.
 
 ```jsx live
-<Truncate  title="Some text with a branch-name-that-is-really-long" sx={{maxWidth: 250}}>
+<Truncate title="Some text with a branch-name-that-is-really-long" sx={{maxWidth: 250}}>
   Some text with a branch-name-that-is-really-long
 </Truncate>
 ```

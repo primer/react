@@ -19,7 +19,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
   <ButtonInvisible>Button Invisible</ButtonInvisible>
   <ButtonClose onClick={() => window.alert('button clicked')} />
 
-  <ButtonGroup   sx={{display: "block", my: 2}}>
+  <ButtonGroup sx={{display: 'block', my: 2}}>
     <Button>Button</Button>
     <Button>Button</Button>
     <Button>Button</Button>

@@ -12,7 +12,7 @@ Use [Box](/Box) instead.
 **Before**
 
 ```jsx
-<Flex  sx={{flexWrap: "nowrap"}}>
+<Flex sx={{flexWrap: 'nowrap'}}>
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
   </Box>
@@ -33,7 +33,7 @@ Use [Box](/Box) instead.
 
 ```jsx live
 <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" width={300} height={300} borderRadius={0}>
-  <Flex  sx={{flexWrap: "nowrap"}}>
+  <Flex sx={{flexWrap: 'nowrap'}}>
     <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
       Item 1
     </Box>
