@@ -4,7 +4,6 @@ import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
 import Box from '../Box'
-import {MemoryRouter, Link, Routes, Route} from 'react-router-dom'
 
 export default {
   title: 'Composite components/New Button',
@@ -13,16 +12,9 @@ export default {
     Story => {
       return (
         <ThemeProvider>
-          <MemoryRouter initialEntries={['/users/pk']}>
-            <Routes>
-              <Route path="users" element={() => <div>Users</div>}>
-                <Route path=":id" element={({route: {id}}: {route: {id: string}}) => <div>{id}</div>} />
-              </Route>
-            </Routes>
-            <BaseStyles>
-              <Story />
-            </BaseStyles>
-          </MemoryRouter>
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
         </ThemeProvider>
       )
     }
@@ -224,11 +216,6 @@ export const linkButton = ({...args}: ButtonProps) => {
       </Box>
       <Box mb={2} display="flex">
         <ButtonLink href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
-          Link to Primer
-        </ButtonLink>
-      </Box>
-      <Box mb={2} display="flex">
-        <ButtonLink as={Link} to="/user/pk" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
           Link to Primer
         </ButtonLink>
       </Box>
