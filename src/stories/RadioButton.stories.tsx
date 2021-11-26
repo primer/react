@@ -62,9 +62,9 @@ const StyledLabel = styled.label`
 `
 
 export const Default = ({disabled, checked}: RadioButtonProps) => {
-  const [isChecked, setIsChecked] = useState<boolean>(checked || false)
+  const [isSelected, setSelected] = useState<boolean>(checked || false)
   const handleChange = () => {
-    setIsChecked(!isChecked)
+    setSelected(!isSelected)
   }
 
   return (
@@ -75,7 +75,7 @@ export const Default = ({disabled, checked}: RadioButtonProps) => {
           value="default"
           name="default"
           disabled={disabled}
-          checked={isChecked}
+          checked={isSelected}
           onChange={handleChange}
         />
         <StyledLabel htmlFor="default-radio" aria-disabled={disabled}>
@@ -87,11 +87,11 @@ export const Default = ({disabled, checked}: RadioButtonProps) => {
 }
 
 export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
-  const [activeOctocat, setActiveOctocat] = useState<'yes' | 'no' | undefined>()
+  const [activeSelection, setActiveSelection] = useState<'yes' | 'no' | undefined>()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target.value as 'yes' | 'no'
-    setActiveOctocat(target)
+    setActiveSelection(target)
   }
 
   return (
@@ -101,7 +101,7 @@ export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
           <RadioButton
             id="yes-radio"
             onChange={handleChange}
-            checked={activeOctocat === 'yes'}
+            checked={activeSelection === 'yes'}
             value="yes"
             name="Choice"
             disabled={disabled}
@@ -114,7 +114,7 @@ export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
           <RadioButton
             id="no-radio"
             onChange={handleChange}
-            checked={activeOctocat === 'no'}
+            checked={activeSelection === 'no'}
             value="no"
             name="Choice"
             disabled={disabled}

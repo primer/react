@@ -11,64 +11,49 @@ import {ComponentChecklist} from '../src/component-checklist'
 ## Default example
 
 ```jsx live
-<>
-  <form>
-    <Box sx={{p: 3, pt: 0, display: 'flex', alignItems: 'center'}}>
-      <RadioButton id="default-radio" value="active" name="group-name" />
-      <Text as="label" htmlFor="default-radio" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-        Active
-      </Text>
-    </Box>
-    <Box sx={{p: 3, display: 'flex', alignItems: 'center'}}>
-      <RadioButton id="inactive-radio" disabled value="inactive" name="group-name" />
-      <Text as="label" htmlFor="inactive-radio" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-        Inactive
-      </Text>
-    </Box>
-  </form>
-</>
+<RadioButton value="active radio button value" name="radio-group-name" />
+<RadioButton value="active radio button value" name="radio-group-name" />
+<RadioButton disabled value="inactive radio button value" name="radio-group-name" />
 ```
 
 <Note>
 Please use a <a href="/react/Checkbox">Checkbox</a> if the user needs to select more than one option in a list
 </Note>
 <Note variant="warning">
-Radio button components should always be accompanied by a corresponding label to improve support for assistive technologies.
+RadioButton components should always be accompanied by a corresponding label to improve support for assistive technologies.
 </Note>
 
 ## Grouping RadioButton components
 
-Use the provided `name` prop to group together related `RadioButton` components in a list.
+Use the `name` prop to group together related `RadioButton` components in a list.
 
 ```jsx live
-<>
-  <form>
-    <Box key={`sub-radio-0`} sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-      <RadioButton id={`sub-radio-0`} value="1" name="radio-example" />
-      <Text as="label" htmlFor={`sub-radio-0`} sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-        <Text sx={{display: 'block'}}>Radio 1</Text>
-      </Text>
-    </Box>
-    <Box key={`sub-radio-1`} sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-      <RadioButton id={`sub-radio-1`} value="2" name="radio-example" />
-      <Text as="label" htmlFor={`sub-radio-1`} sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-        <Text sx={{display: 'block'}}>Radio 2</Text>
-      </Text>
-    </Box>
-    <Box key={`sub-radio-2`} sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-      <RadioButton id={`sub-radio-2`} value="3" name="radio-example" />
-      <Text as="label" htmlFor={`sub-radio-2`} sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-        <Text sx={{display: 'block'}}>Radio 3</Text>
-      </Text>
-    </Box>
-    <Box key={`sub-radio-3`} sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-      <RadioButton id={`sub-radio-3`} value="4" name="radio-example" />
-      <Text as="label" htmlFor={`sub-radio-3`} sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-        <Text sx={{display: 'block'}}>Radio 4</Text>
-      </Text>
-    </Box>
-  </form>
-</>
+<form>
+  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
+    <RadioButton id="radio-0" value="1" name="radio-example" />
+    <Text as="label" htmlFor="radio-0" sx={{fontSize: 1, marginLeft: 1}}>
+      <Text sx={{display: 'block'}}>Radio 1</Text>
+    </Text>
+  </Box>
+  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
+    <RadioButton id="radio-1" value="2" name="radio-example" />
+    <Text as="label" htmlFor="radio-1" sx={{fontSize: 1, marginLeft: 1}}>
+      <Text sx={{display: 'block'}}>Radio 2</Text>
+    </Text>
+  </Box>
+  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
+    <RadioButton id="radio-2" value="3" name="radio-example" />
+    <Text as="label" htmlFor="radio-2" sx={{fontSize: 1, marginLeft: 1}}>
+      <Text sx={{display: 'block'}}>Radio 3</Text>
+    </Text>
+  </Box>
+  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
+    <RadioButton id="radio-3" value="4" name="radio-example" />
+    <Text as="label" htmlFor="radio-3" sx={{fontSize: 1, marginLeft: 1}}>
+      <Text sx={{display: 'block'}}>Radio 4</Text>
+    </Text>
+  </Box>
+</form>
 ```
 
 ## Component props
