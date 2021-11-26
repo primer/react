@@ -11,9 +11,11 @@ import {ComponentChecklist} from '../src/component-checklist'
 ## Default example
 
 ```jsx live
-<RadioButton value="active radio button value" name="radio-group-name" />
-<RadioButton value="active radio button value" name="radio-group-name" />
-<RadioButton disabled value="inactive radio button value" name="radio-group-name" />
+<>
+  <RadioButton value="active radio button value" name="radio-group-name" />
+  <RadioButton value="active radio button value" name="radio-group-name" />
+  <RadioButton disabled value="inactive radio button value" name="radio-group-name" />
+</>
 ```
 
 <Note>
