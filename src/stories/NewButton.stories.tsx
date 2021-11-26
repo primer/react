@@ -16,7 +16,7 @@ export default {
           <MemoryRouter initialEntries={['/users/pk']}>
             <Routes>
               <Route path="users" element={() => <div>Users</div>}>
-                <Route path=":id" element={({route: {id}}: {route: {id: String}}) => <div>{id}</div>} />
+                <Route path=":id" element={({route: {id}}: {route: {id: string}}) => <div>{id}</div>} />
               </Route>
             </Routes>
             <BaseStyles>

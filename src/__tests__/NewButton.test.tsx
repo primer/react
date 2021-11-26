@@ -11,7 +11,7 @@ expect.extend(toHaveNoViolations)
 function noop() {}
 
 describe('Button', () => {
-  behavesAsComponent({Component: Button})
+  behavesAsComponent({Component: Button, options: {skipAs: true}})
 
   it('renders a <button>', () => {
     expect(render(<Button>Default</Button>).type).toEqual('button')

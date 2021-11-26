@@ -1,4 +1,4 @@
-import React, {ComponentType, HTMLAttributes} from 'react'
+import React, {HTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import {SxProp} from '../sx'
 
