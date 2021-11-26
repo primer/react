@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
 import {BaseStyles, Box, RadioButton, RadioButtonProps, Text, ThemeProvider} from '..'
-import {COMMON, get} from '../constants'
+import {get} from '../constants'
 
 export default {
   title: 'Forms/Radio Button',
@@ -58,7 +58,6 @@ const StyledLabel = styled.label`
     cursor: not-allowed;
     color: ${get('colors.primer.fg.disabled')};
   }
-  ${COMMON}
 `
 
 export const Default = ({disabled, checked}: RadioButtonProps) => {
