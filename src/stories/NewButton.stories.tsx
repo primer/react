@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-import {NewButton as Button, NewButtonProps as ButtonProps, IconButton} from '../NewButton'
+import {NewButton as Button, NewButtonProps as ButtonProps, IconButton, ButtonLink} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
-import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
 import Box from '../Box'
+import {MemoryRouter, Link, Routes, Route} from 'react-router-dom'
 
 export default {
   title: 'Composite components/New Button',
@@ -12,9 +13,16 @@ export default {
     Story => {
       return (
         <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
+          <MemoryRouter initialEntries={['/users/pk']}>
+            <Routes>
+              <Route path="users" element={() => <div>Users</div>}>
+                <Route path=":id" element={({route: {id}}: {route: {id: String}}) => <div>{id}</div>} />
+              </Route>
+            </Routes>
+            <BaseStyles>
+              <Story />
+            </BaseStyles>
+          </MemoryRouter>
         </ThemeProvider>
       )
     }
@@ -29,12 +37,8 @@ export default {
   }
 } as Meta
 
-export const defaultButton = ({size = 'medium', ...args}: ButtonProps) => {
-  return (
-    <Button size={size} {...args}>
-      Default
-    </Button>
-  )
+export const defaultButton = (args: ButtonProps) => {
+  return <Button {...args}>Default</Button>
 }
 
 export const primaryButton = (args: ButtonProps) => {
@@ -185,6 +189,48 @@ export const disabledButton = ({...args}: ButtonProps) => {
       </Box>
       <Box mb={2}>
         <IconButton disabled icon={() => <XIcon />} iconLabel="Close" {...args} />
+      </Box>
+    </>
+  )
+}
+
+export const linkButton = ({...args}: ButtonProps) => {
+  return (
+    <>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="danger" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="primary" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="outline" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="invisible" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink as={Link} to="/user/pk" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+          Link to Primer
+        </ButtonLink>
       </Box>
     </>
   )

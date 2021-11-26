@@ -1,4 +1,4 @@
-import React, {HTMLAttributes} from 'react'
+import React, {ComponentType, HTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import {SxProp} from '../sx'
 
@@ -32,6 +32,7 @@ export type ButtonProps = {
    */
   trailingIcon?: React.FunctionComponent<IconProps>
   children: React.ReactNode
+  as?: React.ElementType
 } & ButtonBaseProps
 
 export type IconButtonProps = {
@@ -41,3 +42,17 @@ export type IconButtonProps = {
   icon: React.FunctionComponent<IconProps>
   iconLabel: string
 } & ButtonBaseProps
+
+// adopted from React.AnchorHTMLAttributes
+export type LinkButtonProps = {
+  underline?: boolean
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+} & ButtonProps

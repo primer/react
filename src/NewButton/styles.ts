@@ -210,3 +210,24 @@ export const getBaseStyles = (theme?: Theme) => ({
     opacity: '0.6'
   }
 })
+
+export const getButtonStyles = (theme?: Theme) => {
+  const styles = {
+    ...getBaseStyles(theme),
+    display: 'grid',
+    gridTemplateAreas: '"leadingIcon text trailingIcon"',
+    '& > :not(:last-child)': {
+      mr: '2'
+    },
+    '[data-component="leadingIcon"]': {
+      gridArea: 'leadingIcon'
+    },
+    '[data-component="text"]': {
+      gridArea: 'text'
+    },
+    '[data-component="trailingIcon"]': {
+      gridArea: 'trailingIcon'
+    }
+  }
+  return styles
+}

@@ -3,8 +3,8 @@ import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {IconButtonProps} from './types'
-import ButtonBase from './button-base'
 import {getBaseStyles, getSizeStyles, getVariantStyles} from './styles'
+import {Base} from './button-base'
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwardedRef): JSX.Element => {
   const {variant = 'default', size = 'medium', sx: sxProp = {}, icon: Icon, iconLabel} = props
@@ -19,12 +19,12 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
     sxProp as SxProp
   ])
   return (
-    <ButtonBase sx={sxStyles} ref={forwardedRef} {...props}>
+    <Base sx={sxStyles} ref={forwardedRef} {...props}>
       <span hidden={true}>{iconLabel}</span>
       <Box as="span" sx={{display: 'inline-block'}}>
         <Icon />
       </Box>
-    </ButtonBase>
+    </Base>
   )
 })
 
