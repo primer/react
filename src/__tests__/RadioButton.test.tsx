@@ -101,7 +101,7 @@ describe('RadioButton', () => {
 
   it('renders an inactive radio state correctly', () => {
     const handleChange = jest.fn()
-    const {getByRole, debug, rerender} = render(<RadioButton {...defaultProps} disabled onChange={handleChange} />)
+    const {getByRole, rerender} = render(<RadioButton {...defaultProps} disabled onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
