@@ -44,13 +44,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     const {listRole} = React.useContext(MenuContext)
 
     return (
-      <ListBox
-        sx={merge(styles, sxProp as SxProp)}
-        aria-multiselectable={selectionVariant === 'multiple' ? true : undefined}
-        role={role || listRole}
-        {...props}
-        ref={forwardedRef}
-      >
+      <ListBox sx={merge(styles, sxProp as SxProp)} {...props} ref={forwardedRef}>
         <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
       </ListBox>
     )
