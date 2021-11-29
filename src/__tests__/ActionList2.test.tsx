@@ -4,7 +4,7 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList2'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 expect.extend(toHaveNoViolations)
 
@@ -44,4 +44,6 @@ describe('ActionList', () => {
     expect(results).toHaveNoViolations()
     cleanup()
   })
+
+  checkStoriesForAxeViolations('ActionList2')
 })
