@@ -43,6 +43,18 @@ export default {
       name: 'Variants',
       options: ['small', 'medium', 'large'],
       control: {type: 'radio'}
+    },
+    status: {
+      name: 'Status',
+      options: ['warning', 'error'],
+      control: {type: 'radio'}
+    },
+    placeholder: {
+      name: 'Placeholder',
+      defaultValue: 'Hello!',
+      control: {
+        type: 'text'
+      }
     }
   }
 } as Meta
@@ -89,7 +101,43 @@ export const WithLeadingIcon = (args: TextInputProps) => {
     <form>
       <Label htmlFor={inputId}>Example label</Label>
       <br />
-      <TextInput icon={CheckIcon} id={inputId} value={value} onChange={handleChange} type="password" {...args} />
+      <TextInput leadingIcon={CheckIcon} id={inputId} value={value} onChange={handleChange} {...args} />
+    </form>
+  )
+}
+
+export const WithTrailingIcon = (args: TextInputProps) => {
+  const [value, setValue] = useState('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value)
+  }
+
+  const inputId = 'basic-text-input-with-trailing-icon'
+
+  return (
+    <form>
+      <Label htmlFor={inputId}>Example label</Label>
+      <br />
+      <TextInput trailingIcon={CheckIcon} id={inputId} value={value} onChange={handleChange} {...args} />
+    </form>
+  )
+}
+
+export const ContrastTextInput = (args: TextInputProps) => {
+  const [value, setValue] = useState('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value)
+  }
+
+  const inputId = 'contrast-text-input'
+
+  return (
+    <form>
+      <Label htmlFor={inputId}>Example label</Label>
+      <br />
+      <TextInput contrast id={inputId} value={value} onChange={handleChange} {...args} />
     </form>
   )
 }
@@ -108,6 +156,24 @@ export const Password = (args: TextInputProps) => {
       <Label htmlFor={inputId}>Password</Label>
       <br />
       <TextInput type="password" id={inputId} value={value} onChange={handleChange} {...args} />
+    </form>
+  )
+}
+
+export const TextInputInWarningState = (args: TextInputProps) => {
+  const [value, setValue] = useState('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value)
+  }
+
+  const inputId = 'text-input-with-warning'
+
+  return (
+    <form>
+      <Label htmlFor={inputId}>Password</Label>
+      <br />
+      <TextInput type="password" id={inputId} value={value} status="warning" {...args} />
     </form>
   )
 }
