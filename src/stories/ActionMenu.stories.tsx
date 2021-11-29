@@ -98,10 +98,7 @@ export function SimpleListStory(): JSX.Element {
           onAction={onAction}
           anchorContent="Menu"
           overlayProps={{
-            'data-test-id': 'some_test_id',
-            onMouseDown: (e: React.MouseEvent) =>
-              // eslint-disable-next-line no-console
-              console.log('onMouseDown in the internal Overlay can be useful for controlling event interactions', e)
+            'data-test-id': 'some_test_id'
           }}
           items={[
             {text: 'New file', trailingText: '⌘O', disabled: true, leadingVisual: ProjectIcon},
@@ -150,7 +147,7 @@ export function ExternalOpenState(): JSX.Element {
             {
               text: 'Delete file',
               variant: 'danger',
-              trailingText: '⌘D'
+              trailingVisual: '⌘D'
             }
           ]}
         />
@@ -188,8 +185,20 @@ export function ComplexListStory(): JSX.Element {
               text: 'repo:github/github',
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
-              trailingText: '⌘S',
-              trailingIcon: ArrowRightIcon
+              trailingVisual: () => (
+                <>
+                  ⌘S
+                  <ArrowRightIcon />
+                </>
+              )
+            },
+            {
+              leadingVisual: SearchIcon,
+              text: 'repo:github/github',
+              groupId: '1',
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              trailingText: '⌘S', // backward compatible
+              trailingIcon: ArrowRightIcon // backward compatible
             },
             {
               leadingVisual: NoteIcon,

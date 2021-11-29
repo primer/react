@@ -5,14 +5,19 @@ export type UseOpenAndCloseFocusSettings = {
   initialFocusRef?: React.RefObject<HTMLElement>
   containerRef: React.RefObject<HTMLElement>
   returnFocusRef: React.RefObject<HTMLElement>
+  preventFocusOnOpen?: boolean
 }
 
 export function useOpenAndCloseFocus({
   initialFocusRef,
   returnFocusRef,
-  containerRef
+  containerRef,
+  preventFocusOnOpen
 }: UseOpenAndCloseFocusSettings): void {
   useEffect(() => {
+    if (preventFocusOnOpen) {
+      return
+    }
     const returnRef = returnFocusRef.current
     if (initialFocusRef && initialFocusRef.current) {
       initialFocusRef.current.focus()
@@ -23,5 +28,5 @@ export function useOpenAndCloseFocus({
     return function () {
       returnRef?.focus()
     }
-  }, [initialFocusRef, returnFocusRef, containerRef])
+  }, [initialFocusRef, returnFocusRef, containerRef, preventFocusOnOpen])
 }

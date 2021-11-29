@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import {COMMON, get} from '../constants'
-import sx from '../sx'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
 import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
@@ -55,7 +55,7 @@ const Page = styled.a`
 
   &[aria-disabled],
   &[aria-disabled]:hover {
-    color: ${get('colors.fg.muted')}; // check
+    color: ${get('colors.primer.fg.disabled')}; // check
     cursor: default;
     border-color: transparent;
   }
@@ -103,8 +103,6 @@ const Page = styled.a`
       );
     }
   }
-
-  ${COMMON};
 `
 
 type UsePaginationPagesParameters = {
@@ -148,7 +146,7 @@ function usePaginationPages({
   return children
 }
 
-const PaginationContainer = styled.nav`
+const PaginationContainer = styled.nav<SxProp>`
   margin-top: 20px;
   margin-bottom: 15px;
   text-align: center;

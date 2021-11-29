@@ -19,6 +19,8 @@
       url: /overriding-styles
     - title: Server-side rendering
       url: /ssr
+    - title: Component statuses
+      url: /status
 - title: Hooks
   children:
     - title: useSafeTimeout
@@ -33,6 +35,8 @@
     #   url: /useOverlay
 - title: Components
   children:
+    - title: Autocomplete
+      url: /Autocomplete
     - title: Avatar
       url: /Avatar
     - title: AvatarStack
@@ -45,6 +49,8 @@
       url: /Breadcrumbs
     - title: Buttons
       url: /Buttons
+    - title: Checkbox
+      url: /Checkbox
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -107,8 +113,12 @@
       url: /Text
     - title: TextInput
       url: /TextInput
+    - title: TextInputWithTokens
+      url: /TextInputWithTokens
     - title: Timeline
       url: /Timeline
+    - title: Token
+      url: /Token
     - title: Tooltip
       url: /Tooltip
     - title: Truncate

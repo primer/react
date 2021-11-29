@@ -1,10 +1,9 @@
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const LabelGroup = styled.span<SystemCommonProps & SxProp>`
-  ${COMMON}
+const LabelGroup = styled.span<SxProp>`
   & * {
     margin-right: ${get('space.1')};
   }

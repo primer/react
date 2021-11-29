@@ -1,19 +1,9 @@
 import styled from 'styled-components'
-import {
-  COMMON,
-  get,
-  LAYOUT,
-  SystemCommonProps,
-  SystemLayoutProps,
-  SystemTypographyProps,
-  TYPOGRAPHY
-} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
-type StyledButtonTableListProps = SystemCommonProps & SystemTypographyProps & SystemLayoutProps & SxProp
-
-const ButtonTableList = styled.summary<StyledButtonTableListProps>`
+const ButtonTableList = styled.summary<SxProp>`
   display: inline-block;
   padding: 0;
   font-size: ${get('fontSizes.1')};
@@ -33,7 +23,7 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
   &:disabled {
     &,
     &:hover {
-      color: rgba(${get('colors.fg.muted')}, 0.5);
+      color: ${get('colors.primer.fg.disabled')};
       cursor: default;
     }
   }
@@ -48,9 +38,6 @@ const ButtonTableList = styled.summary<StyledButtonTableListProps>`
     border: 4px solid transparent;
     border-top-color: currentcolor;
   }
-  ${COMMON}
-  ${TYPOGRAPHY}
-  ${LAYOUT}
   ${sx};
 `
 

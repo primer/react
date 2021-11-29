@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -23,9 +23,8 @@ const tabWrapperStyles = css`
   }
 `
 
-const SelectMenuTabsBase = styled.div<SystemCommonProps & SxProp>`
+const SelectMenuTabsBase = styled.div<SxProp>`
   ${tabWrapperStyles}
-  ${COMMON}
   ${sx};
 `
 

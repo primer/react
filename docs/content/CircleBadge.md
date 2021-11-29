@@ -1,5 +1,6 @@
 ---
 title: CircleBadge
+status: Alpha
 ---
 
 Use CircleBadge to visually connect logos of third party services like in marketplace. Use CircleBadge.Icon to add an Octicon to the CircleBadge.
@@ -11,16 +12,6 @@ Use CircleBadge to visually connect logos of third party services like in market
   <CircleBadge.Icon icon={ZapIcon} />
 </CircleBadge>
 ```
-
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-CircleBadge and CircleBadge.Icon components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 

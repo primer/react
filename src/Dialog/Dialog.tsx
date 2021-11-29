@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
 import Box from '../Box'
-import {get, SystemCommonProps, SystemPositionProps, COMMON, POSITION} from '../constants'
-import {useOnEscapePress} from '../hooks'
+import {get} from '../constants'
+import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
 import StyledOcticon from '../StyledOcticon'
@@ -36,6 +36,12 @@ export type DialogButtonProps = ButtonProps & {
    * focus this button automatically when the dialog appears.
    */
   autoFocus?: boolean
+
+  /**
+   * A reference to the rendered Button’s DOM node, used together with
+   * `autoFocus` for `focusTrap`’s `initialFocus`.
+   */
+  ref?: React.RefObject<HTMLButtonElement>
 }
 
 /**
@@ -174,12 +180,12 @@ const widthMap = {
 export type DialogWidth = keyof typeof widthMap
 export type DialogHeight = keyof typeof heightMap
 
-interface StyledDialogProps {
+type StyledDialogProps = {
   width?: DialogWidth
   height?: DialogHeight
-}
+} & SxProp
 
-const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPositionProps & SxProp>`
+const StyledDialog = styled.div<StyledDialogProps>`
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.canvas.overlay')};
@@ -204,8 +210,6 @@ const StyledDialog = styled.div<StyledDialogProps & SystemCommonProps & SystemPo
     }
   }
 
-  ${COMMON};
-  ${POSITION};
   ${sx};
 `
 
@@ -250,16 +254,23 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     onClose,
     role = 'dialog',
     width = 'xlarge',
-    height = 'auto'
+    height = 'auto',
+    footerButtons = []
   } = props
   const dialogLabelId = useSSRSafeId()
   const dialogDescriptionId = useSSRSafeId()
+  const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
+  for (const footerButton of footerButtons) {
+    if (footerButton.autoFocus) {
+      footerButton.ref = autoFocusedFooterButtonRef
+    }
+  }
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)
   const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
   const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true})
+  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
@@ -296,27 +307,37 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 })
 _Dialog.displayName = 'Dialog'
 
-const Header = styled(Box).attrs({as: 'header'})`
+const Header = styled.div.attrs<SxProp>({as: 'header'})`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
 `
-const Title = styled(Box)`
+
+const Title = styled.div<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
+
+  ${sx};
 `
-const Subtitle = styled(Box)`
+
+const Subtitle = styled.div<SxProp>`
   font-size: ${get('fontSizes.0')};
   margin-top: ${get('space.1')};
   color: ${get('colors.fg.muted')};
+
+  ${sx};
 `
-const Body = styled(Box)`
+
+const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
+
+  ${sx};
 `
-const Footer = styled(Box).attrs({as: 'footer'})`
+
+const Footer = styled.div.attrs<SxProp>({as: 'footer'})`
   box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
   display: flex;
@@ -331,14 +352,17 @@ const Footer = styled(Box).attrs({as: 'footer'})`
       margin-left: 0;
     }
   }
+
+  ${sx};
 `
+
 const buttonTypes = {
   normal: Button,
   primary: ButtonPrimary,
   danger: ButtonDanger
 }
 const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
-  const autoFocusRef = useRef<HTMLButtonElement>(null)
+  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
@@ -348,7 +372,7 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
     } else {
       setHasRendered(hasRendered + 1)
     }
-  }, [hasRendered])
+  }, [autoFocusRef, hasRendered])
 
   return (
     <>
@@ -359,6 +383,7 @@ const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
           <ButtonElement
             key={index}
             {...buttonProps}
+            variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}

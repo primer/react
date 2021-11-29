@@ -1,0 +1,381 @@
+---
+title: Token
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/Token
+---
+
+import {Props} from '../src/props'
+import {AvatarToken, IssueLabelToken, Token} from '@primer/components'
+
+A Token represents a piece of data. They are typically used to show a collection of related attributes.
+
+The default `Token` can be used for most cases, but specialized token components are provided for specific use cases (see below for more info).
+
+All types of tokens may have the same interactive qualities as links or buttons. They also have a sense of being "selected" and ready for user interaction such as being removed from a collection.
+
+## Basic Example
+
+```jsx live
+<>
+  <Text fontSize={0} display="block" color="fg.subtle">
+    Token
+  </Text>
+  <Token text="Default Token" />
+</>
+```
+
+### Interactive tokens
+
+If any token is interactive (it is a link or a button), it will become focusable, and react to being hovered or focused on.
+
+If a token is interactive _and_ has a remove button (appears when passing `onRemove`), the remove button should not get focus. To invoke the `onRemove` callback without using the cursor, press 'Backspace' when the token is focused.
+
+These rules apply to all token components mentioned in this document.
+
+#### Example: Interactive tokens with and without an `onRemove` prop
+
+```jsx live
+<Box
+  display="flex"
+  sx={{
+    alignItems: 'start',
+    flexDirection: 'column',
+    gap: 6
+  }}
+>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Interactive
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <Token as="a" href="http://google.com/" text="Link" />
+      <Token as="button" onClick={() => console.log('clicked')} text="Button" />
+      <Token as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
+    </Box>
+  </div>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Interactive with `onRemove` passed
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <Token
+        as="a"
+        href="http://google.com/"
+        text="Link"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        as="button"
+        onClick={() => console.log('clicked')}
+        text="Button"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        as="span"
+        tabIndex={0}
+        onFocus={() => console.log('focused')}
+        text="Focusable Span"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+    </Box>
+  </div>
+</Box>
+```
+
+## Token
+
+The default `Token` component
+
+### Component Props
+
+<Props of={Token} />
+
+### Example
+
+```jsx live
+<Box
+  display="flex"
+  sx={{
+    alignItems: 'start',
+    flexDirection: 'column',
+    gap: 6
+  }}
+>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Resting
+    </Text>
+    <Token text="Default Token" />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      isSelected
+    </Text>
+    <Token text="Default Token" isSelected />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      With `leadingVisual` passed
+    </Text>
+    <Token text="Default Token" leadingVisual={() => <span>✨</span>} />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      With `onRemove` passed
+    </Text>
+    <Token
+      text="Default Token"
+      onRemove={() => {
+        console.log('remove me')
+      }}
+    />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Size options
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <Token
+        size="small"
+        text="'small' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        size="medium"
+        text="'medium' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        size="large"
+        text="'large' Token (default)"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        size="extralarge"
+        text="'extralarge' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+    </Box>
+  </div>
+</Box>
+```
+
+## IssueLabelToken
+
+Tokens that represent Issue labels should use the `IssueLabelToken` component.
+
+### Component Props
+
+<Props of={IssueLabelToken} />
+
+```jsx live
+<Box
+  display="flex"
+  sx={{
+    alignItems: 'start',
+    flexDirection: 'column',
+    gap: 6
+  }}
+>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Resting
+    </Text>
+    <IssueLabelToken text="good first issue" fillColor="#0366d6" />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      isSelected
+    </Text>
+    <IssueLabelToken text="good first issue" fillColor="#0366d6" isSelected />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      With `onRemove` passed
+    </Text>
+    <IssueLabelToken
+      text="good first issue"
+      fillColor="#0366d6"
+      onRemove={() => {
+        console.log('remove me')
+      }}
+    />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Size options
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <IssueLabelToken
+        fillColor="#0366d6"
+        size="small"
+        text="'small' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <IssueLabelToken
+        fillColor="#0366d6"
+        size="medium"
+        text="'medium' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <IssueLabelToken
+        fillColor="#0366d6"
+        size="large"
+        text="'large' Token (default)"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <IssueLabelToken
+        fillColor="#0366d6"
+        size="extralarge"
+        text="'extralarge' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+    </Box>
+  </div>
+</Box>
+```
+
+## AvatarToken
+
+Tokens that represent GitHub users should use the `AvatarToken` component.
+
+### Component Props
+
+<Props of={AvatarToken} />
+
+```jsx live
+<Box
+  display="flex"
+  sx={{
+    alignItems: 'start',
+    flexDirection: 'column',
+    gap: 6
+  }}
+>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Resting
+    </Text>
+    <AvatarToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      isSelected
+    </Text>
+    <AvatarToken avatarSrc="https://avatars.githubusercontent.com/mperrotti" text="Default Token" isSelected />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      With `onRemove` passed
+    </Text>
+    <AvatarToken
+      avatarSrc="https://avatars.githubusercontent.com/mperrotti"
+      text="Default Token"
+      onRemove={() => {
+        console.log('remove me')
+      }}
+    />
+  </div>
+
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Size options
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <AvatarToken
+        avatarSrc="https://avatars.githubusercontent.com/mperrotti"
+        size="small"
+        text="'small' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <AvatarToken
+        avatarSrc="https://avatars.githubusercontent.com/mperrotti"
+        size="medium"
+        text="'medium' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <AvatarToken
+        avatarSrc="https://avatars.githubusercontent.com/mperrotti"
+        size="large"
+        text="'large' Token (default)"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <AvatarToken
+        avatarSrc="https://avatars.githubusercontent.com/mperrotti"
+        size="extralarge"
+        text="'extralarge' Token"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+    </Box>
+  </div>
+</Box>
+```

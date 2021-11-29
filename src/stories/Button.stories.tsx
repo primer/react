@@ -77,6 +77,10 @@ export const buttonGroup = (args: StrictButtonStyleProps) => (
 export const buttonTableList = (args: ButtonStyleProps) => (
   <ButtonTableList {...args}>Button Table List</ButtonTableList>
 )
+export const disabledButton = (args: StrictButtonStyleProps) => {
+  const props = {disabled: true, ...args}
+  return <Button {...props}>Disabled</Button>
+}
 
 defaultButton.args = {variant: 'medium'}
 dangerButton.args = {variant: 'medium'}

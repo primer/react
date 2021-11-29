@@ -1,5 +1,6 @@
 ---
-title: Details & useDetails hook
+title: Details
+status: Alpha
 ---
 
 `Details` is a styled `details` element for use with the `useDetails` hook. The `useDetails` hook returns the `open` state, a `setOpen` function to manually change the open state, and **`getDetailsProps` which must be spread onto your `Details` element in order for `Details` to get receive the proper behaviors provided by the hook**. See Kent Dodd's article on this pattern [here](https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters).

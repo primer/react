@@ -11,7 +11,7 @@ const BorderBox = styled(Box)``
 BorderBox.defaultProps = {
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: 'border.primary',
+  borderColor: 'border.default',
   borderRadius: 2
 }
 

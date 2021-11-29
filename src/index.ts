@@ -30,6 +30,8 @@ export {useConfirm} from './Dialog/ConfirmationDialog'
 export {ActionList} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
+export {default as Autocomplete} from './Autocomplete'
+export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarPair} from './AvatarPair'
@@ -50,6 +52,8 @@ export {
   ButtonClose,
   ButtonGroup
 } from './Button'
+export {NewButton} from './NewButton'
+export type {NewButtonProps} from './NewButton'
 export type {
   ButtonProps,
   ButtonDangerProps,
@@ -145,6 +149,8 @@ export {default as TabNav} from './TabNav'
 export type {TabNavProps, TabNavLinkProps} from './TabNav'
 export {default as TextInput} from './TextInput'
 export type {TextInputProps} from './TextInput'
+export {default as TextInputWithTokens} from './TextInputWithTokens'
+export type {TextInputWithTokensProps} from './TextInputWithTokens'
 export {default as Text} from './Text'
 export type {TextProps} from './Text'
 export {default as Timeline} from './Timeline'
@@ -155,11 +161,15 @@ export type {
   TimelineBreakProps,
   TimelineItemsProps
 } from './Timeline'
+export {default as Token, IssueLabelToken, AvatarToken} from './Token'
 export {default as Tooltip} from './Tooltip'
 export type {TooltipProps} from './Tooltip'
 export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
 export {default as UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
+
+export {default as Checkbox} from './Checkbox'
+export type {CheckboxProps} from './Checkbox'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'

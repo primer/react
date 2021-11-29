@@ -1,7 +1,6 @@
 import classnames from 'classnames'
 import styled from 'styled-components'
-import Box from './Box'
-import {COMMON, get, LAYOUT, POSITION, SystemCommonProps, SystemLayoutProps, SystemPositionProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -23,10 +22,7 @@ type StyledPopoverProps = {
   caret?: CaretPosition
   relative?: boolean
   open?: boolean
-} & SystemCommonProps &
-  SystemLayoutProps &
-  SystemPositionProps &
-  SxProp
+} & SxProp
 
 const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
   return {
@@ -36,14 +32,10 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
   position: ${props => (props.relative ? 'relative' : 'absolute')};
   z-index: 100;
   display: ${props => (props.open ? 'block' : 'none')};
-
-  ${COMMON};
-  ${LAYOUT};
-  ${POSITION};
   ${sx};
 `
 
-const PopoverContent = styled(Box)`
+const PopoverContent = styled.div<SxProp>`
   border: 1px solid ${get('colors.border.default')};
   border-radius: ${get('radii.2')};
   position: relative;
@@ -52,9 +44,6 @@ const PopoverContent = styled(Box)`
   margin-left: auto;
   padding: ${get('space.4')};
   background-color: ${get('colors.canvas.overlay')};
-
-  ${COMMON};
-  ${LAYOUT};
 
   // Carets
   &::before,

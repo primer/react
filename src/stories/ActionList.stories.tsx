@@ -12,7 +12,7 @@ import {
   ArrowLeftIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {Label, ThemeProvider} from '..'
 import {ActionList as _ActionList} from '../ActionList'
@@ -338,21 +338,20 @@ export function SizeStressTestingStory(): JSX.Element {
               text: 'Block Description.  Long text should wrap',
               description: 'This description is long, but it is block so it wraps',
               descriptionVariant: 'block',
-              trailingIcon: ArrowLeftIcon,
-
+              trailingVisual: ArrowLeftIcon,
               showDivider: true
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Inline Description',
               description: 'This description gets truncated because it is inline',
-              trailingIcon: ArrowLeftIcon,
+              trailingVisual: ArrowLeftIcon,
               showDivider: true
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Really long text without a description should wrap',
-              trailingIcon: ArrowLeftIcon,
+              trailingIcon: ArrowLeftIcon, // backward compatible
               showDivider: true
             }
           ]}
@@ -362,3 +361,76 @@ export function SizeStressTestingStory(): JSX.Element {
   )
 }
 SizeStressTestingStory.storyName = 'Size Stress Testing'
+
+type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
+  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    return <a ref={ref} href={to} {...props} />
+  }
+)
+
+const NextJSLikeLink = forwardRef(
+  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {
+    const child = React.Children.only(children)
+    const childProps = {
+      ref,
+      href
+    }
+    return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
+  }
+)
+
+export function LinkItemStory(): JSX.Element {
+  return (
+    <>
+      <h1>Simple List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          items={[
+            {
+              text: 'A. Vanilla action',
+              renderItem: props => <ActionList.Item onAction={() => alert('hi?')} {...props} />
+            },
+            {
+              text: 'B. Vanilla link',
+              renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
+            },
+            {
+              text: 'C. React Router link',
+              renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
+            },
+            {
+              text: 'D. NextJS style',
+              renderItem: props => (
+                <NextJSLikeLink href="/about">
+                  <ActionList.Item as="a" {...props} />
+                </NextJSLikeLink>
+              )
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+LinkItemStory.storyName = 'List with a link item'
+
+export function DOMPropsStory(): JSX.Element {
+  return (
+    <>
+      <h1>Simple List</h1>
+      <ErsatzOverlay>
+        <ActionList
+          items={[
+            {
+              text: 'One',
+              onClick: () => alert('Hello')
+            }
+          ]}
+        />
+      </ErsatzOverlay>
+    </>
+  )
+}
+DOMPropsStory.storyName = 'List an item input including DOM props'
