@@ -91,7 +91,9 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       variant = 'default',
       disabled = false,
       selected = undefined,
-      onSelect = () => null,
+      onSelect = () => {
+        // do nothing
+      },
       sx: sxProp = {},
       id,
       _PrivateItemWrapper,
