@@ -253,7 +253,7 @@ export function checkStoriesForAxeViolations(name: string) {
   Object.values(Stories).map(Story => {
     if (typeof Story !== 'function') return
 
-    it(`story {Story.storyName} should have no axe violations`, async () => {
+    it(`story ${Story.storyName} should have no axe violations`, async () => {
       const {container} = HTMLRender(<Story />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
