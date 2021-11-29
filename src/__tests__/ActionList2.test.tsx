@@ -29,7 +29,8 @@ function SimpleActionList(): JSX.Element {
 
 const projects = [
   {name: 'Primer Backlog', scope: 'GitHub'},
-  {name: 'Primer React', scope: 'github/primer'}
+  {name: 'Primer React', scope: 'github/primer'},
+  {name: 'Disabled Project', scope: 'github/primer', disabled: true}
 ]
 function SingleSelectListStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -42,6 +43,7 @@ function SingleSelectListStory(): JSX.Element {
           role="option"
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
+          disabled={project.disabled}
         >
           {project.name}
         </ActionList.Item>
@@ -69,7 +71,7 @@ describe('ActionList', () => {
     cleanup()
   })
 
-  it('should fire onSelect', async () => {
+  it('should fire onSelect on click and keypress', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
     const options = await waitFor(() => component.getAllByRole('option'))
 
@@ -81,7 +83,57 @@ describe('ActionList', () => {
     expect(options[0]).toHaveAttribute('aria-selected', 'false')
     expect(options[1]).toHaveAttribute('aria-selected', 'true')
 
+    // We pass keycode here to navigate a implementation detail in react-testing-library
+    // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
+    fireEvent.keyPress(options[0], {key: 'Enter', charCode: 13})
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[1]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.keyPress(options[1], {key: ' ', charCode: 32})
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'false')
+    expect(options[1]).toHaveAttribute('aria-selected', 'true')
+
     cleanup()
+  })
+
+  it('should skip onSelect on disabled items', async () => {
+    const component = HTMLRender(<SingleSelectListStory />)
+    const options = await waitFor(() => component.getAllByRole('option'))
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[2]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.click(options[2])
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[2]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.keyPress(options[2], {key: 'Enter', charCode: 13})
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[2]).toHaveAttribute('aria-selected', 'false')
+
+    cleanup()
+  })
+
+  it('should throw when selected is provided without a selectionVariant on parent', async () => {
+    // we expect console.error to be called, so we suppress that in the test
+    const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+
+    expect(() => {
+      HTMLRender(
+        <ActionList showDividers role="listbox" aria-label="Select a project">
+          <ActionList.Item role="option" selected={true}>
+            Primer React
+          </ActionList.Item>
+        </ActionList>
+      )
+    }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
+
+    cleanup()
+    mockError.mockRestore()
   })
 
   checkStoriesForAxeViolations('ActionList2')
