@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
+import {cleanup, render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -6,6 +6,7 @@ import theme from '../theme'
 import {ActionList} from '../ActionList2'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
+import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
@@ -26,6 +27,29 @@ function SimpleActionList(): JSX.Element {
   )
 }
 
+const projects = [
+  {name: 'Primer Backlog', scope: 'GitHub'},
+  {name: 'Primer React', scope: 'github/primer'}
+]
+function SingleSelectListStory(): JSX.Element {
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+
+  return (
+    <ActionList selectionVariant="single" showDividers role="listbox" aria-label="Select a project">
+      {projects.map((project, index) => (
+        <ActionList.Item
+          key={index}
+          role="option"
+          selected={index === selectedIndex}
+          onSelect={() => setSelectedIndex(index)}
+        >
+          {project.name}
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
 describe('ActionList', () => {
   behavesAsComponent({
     Component: ActionList,
@@ -42,6 +66,21 @@ describe('ActionList', () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
+    cleanup()
+  })
+
+  it('should fire onSelect', async () => {
+    const component = HTMLRender(<SingleSelectListStory />)
+    const options = await waitFor(() => component.getAllByRole('option'))
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[1]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.click(options[1])
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'false')
+    expect(options[1]).toHaveAttribute('aria-selected', 'true')
+
     cleanup()
   })
 
