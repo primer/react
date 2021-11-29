@@ -173,7 +173,7 @@ export const TextInputInWarningState = (args: TextInputProps) => {
     <form>
       <Label htmlFor={inputId}>Password</Label>
       <br />
-      <TextInput type="password" id={inputId} value={value} status="warning" {...args} />
+      <TextInput type="password" id={inputId} value={value} status="warning" onChange={handleChange} {...args} />
     </form>
   )
 }

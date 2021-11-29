@@ -55,14 +55,9 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -76,17 +71,32 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -415,14 +425,9 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -436,7 +441,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: block;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -445,15 +451,28 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   width: 100%;
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -545,14 +564,9 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -566,19 +580,34 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
   max-height: 20px;
   overflow: auto;
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -1182,14 +1211,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -1203,17 +1227,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -1817,14 +1856,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -1838,17 +1872,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -2452,14 +2501,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -2473,17 +2517,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -3087,14 +3146,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -3108,17 +3162,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -3722,14 +3791,9 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -3743,18 +3807,33 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
   overflow: auto;
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -4358,14 +4437,9 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -4379,17 +4453,32 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -4701,14 +4790,9 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -4722,17 +4806,32 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -5336,14 +5435,9 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -5357,17 +5451,32 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -5976,14 +6085,9 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -5997,17 +6101,32 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {

@@ -58,7 +58,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   line-height: 20px;
   color: ${get('colors.fg.default')};
   vertical-align: middle;
-  background-color: ${get('colors.input.bg')};
+  background-color: ${get('colors.canvas.default')};
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
   border: 1px solid ${get('colors.border.default')};

@@ -16,14 +16,9 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -37,17 +32,32 @@ exports[`TextInput renders 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -66,6 +76,7 @@ exports[`TextInput renders 1`] = `
 >
   <input
     className="c1"
+    data-component="input"
     name="zipcode"
     type="text"
   />
@@ -88,14 +99,9 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -109,19 +115,33 @@ exports[`TextInput renders block 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: block;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
   width: 100%;
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -140,6 +160,7 @@ exports[`TextInput renders block 1`] = `
 >
   <input
     className="c1"
+    data-component="input"
     name="zipcode"
     type="text"
   />
@@ -162,14 +183,9 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -183,17 +199,32 @@ exports[`TextInput renders consistently 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -212,6 +243,179 @@ exports[`TextInput renders consistently 1`] = `
 >
   <input
     className="c1"
+    data-component="input"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders contrast 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="zipcode"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders error 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
+  border-color: #cf222e;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0:focus-within {
+  border-color: #cf222e;
+  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="zipcode"
     type="text"
   />
 </span>
@@ -233,14 +437,9 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -254,22 +453,32 @@ exports[`TextInput renders large 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 20px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -288,7 +497,198 @@ exports[`TextInput renders large 1`] = `
 >
   <input
     className="c1"
+    data-component="input"
     name="zipcode"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders leadingIcon 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <svg
+    aria-hidden="true"
+    className="TextInput-leading-icon"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    placeholder="Search"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders placeholder 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="zipcode"
+    placeholder="560076"
     type="text"
   />
 </span>
@@ -310,14 +710,9 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -331,24 +726,32 @@ exports[`TextInput renders small 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -367,6 +770,202 @@ exports[`TextInput renders small 1`] = `
 >
   <input
     className="c1"
+    data-component="input"
+    name="zipcode"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders trailingIcon 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    placeholder="Search"
+    type="text"
+  />
+  <svg
+    aria-hidden="true"
+    className="TextInput-trailing-icon"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
+</span>
+`;
+
+exports[`TextInput renders warning 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 34px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
+  border-color: #bf8700;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0:focus-within {
+  border-color: #bf8700;
+  box-shadow: 0 0 0 3px rgba(212,167,44,0.4);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+>
+  <input
+    className="c1"
+    data-component="input"
     name="zipcode"
     type="text"
   />
@@ -389,14 +988,9 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -410,17 +1004,32 @@ exports[`TextInput should render a password input 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
+  display: grid;
+  grid-template-areas: 'leadingIcon input trailingIcon';
 }
 
-.c0 .TextInput-icon {
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component='input'] {
+  grid-area: input;
+}
+
+.c0 .TextInput-leading-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  grid-area: leadingIcon;
+}
+
+.c0 .TextInput-trailing-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  grid-area: trailingIcon;
 }
 
 .c0:focus-within {
@@ -439,6 +1048,7 @@ exports[`TextInput should render a password input 1`] = `
 >
   <input
     className="c1"
+    data-component="input"
     name="password"
     type="password"
   />

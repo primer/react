@@ -56,6 +56,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         hasIcon={!!IconComponent || !!(LeadingIconComponent || TrailingIconComponent)}
         sx={sxProp}
         theme={theme}
+        size={sizeProp}
         width={widthProp}
         minWidth={minWidthProp}
         maxWidth={maxWidthProp}
