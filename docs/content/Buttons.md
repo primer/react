@@ -1,5 +1,6 @@
 ---
-title: Buttons
+title: Button
+status: Alpha
 ---
 
 `Button` is used for actions, like in forms, while `Link` is used for destinations, or moving from one page to another.

@@ -1,5 +1,5 @@
 ---
-title: Position Components
+title: Position
 status: Deprecated
 ---
 
@@ -69,14 +69,7 @@ Use [Box](/Box) instead.
 
   <Heading my={2}>Sticky</Heading>
 
-  <Box
-    borderWidth="1px"
-    borderStyle="solid"
-    borderColor="success.emphasis"
-    borderRadius={2}
-    border={1}
-    height={500}
-  >
+  <Box borderWidth="1px" borderStyle="solid" borderColor="success.emphasis" borderRadius={2} border={1} height={500}>
     <Sticky top={0} bg="success.subtle" p={6}>
       I'm sticky!
     </Sticky>
