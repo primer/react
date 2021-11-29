@@ -136,5 +136,21 @@ describe('ActionList', () => {
     mockError.mockRestore()
   })
 
+  it('should not crash when clicking an item without an onSelect', async () => {
+    const component = HTMLRender(
+      <ActionList role="listbox">
+        <ActionList.Item role="option">Primer React</ActionList.Item>
+      </ActionList>
+    )
+    const option = await waitFor(() => component.getByRole('option'))
+    expect(option).toBeInTheDocument()
+
+    fireEvent.click(option)
+    fireEvent.keyPress(option, {key: 'Enter', charCode: 13})
+    expect(option).toBeInTheDocument()
+
+    cleanup()
+  })
+
   checkStoriesForAxeViolations('ActionList2')
 })

@@ -91,9 +91,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       variant = 'default',
       disabled = false,
       selected = undefined,
-      onSelect = () => {
-        // do nothing
-      },
+      onSelect,
       sx: sxProp = {},
       id,
       _PrivateItemWrapper,
@@ -170,6 +168,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const clickHandler = React.useCallback(
       event => {
+        if (typeof onSelect !== 'function') return
         if (disabled) return
         if (!event.defaultPrevented) onSelect(event)
       },
@@ -178,8 +177,8 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const keyPressHandler = React.useCallback(
       event => {
+        if (typeof onSelect !== 'function') return
         if (disabled) return
-
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           onSelect(event)
         }
