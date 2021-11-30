@@ -27,5 +27,3 @@ jobs:
         run: npx ts-node script/build-component.status-map.ts
       - name: Make updates
         run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/update-statuses-project.rb
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
